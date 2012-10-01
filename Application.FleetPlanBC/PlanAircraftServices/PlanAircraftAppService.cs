@@ -82,6 +82,7 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
 
             //创建计划飞机
             var newPlanAircraft = PlanAircraftFactory.CreatePlanAircraft();
+            newPlanAircraft.ChangeCurrentIdentity(dto.Id);
             newPlanAircraft.SetAircraftType(aircraftType);
             newPlanAircraft.SetAirlines(airlines);
             newPlanAircraft.SetLock();

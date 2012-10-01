@@ -53,6 +53,23 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             _context = _service.Context;
             InitializeVM();
             InitializerCommand();
+            if (service != null)
+            {
+                AirProgrammings.PropertyChanged += (o, e) =>
+                {
+                    if (e.PropertyName == "HasChanges")
+                    {
+                        RefreshCommandState();
+                    }
+                };
+                ProgrammingFiles.PropertyChanged += (o, e) =>
+                {
+                    if (e.PropertyName == "HasChanges")
+                    {
+                        RefreshCommandState();
+                    }
+                };
+            }
         }
 
         /// <summary>
@@ -385,7 +402,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         }
 
         #endregion
-        
+
         #region 创建新规划
 
         /// <summary>
@@ -584,6 +601,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     if (programming != null)
                         SelProgrammingFile.ProgrammingName = programming.Name;
                 }
+                //else if (string.Equals(cell.Column.UniqueName, "BuyNum") || string.Equals(cell.Column.UniqueName, "LeaseNum") || string.Equals(cell.Column.UniqueName, "ExportNum"))
+                //{
+                //    SelAirProgrammingLine.NetIncrease=SelAirProgrammingLine.BuyNum+SelAirProgrammingLine.LeaseNum+SelAirProgrammingLine.ExportNum;
+                //}
             }
         }
 

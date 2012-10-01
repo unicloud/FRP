@@ -318,6 +318,8 @@ namespace UniCloud.Presentation.Service.FleetPlan
                             // 2、计划飞机在当前计划中已有明细项
                             else
                             {
+                                planDetail.Regional = planAircraft.Regional;
+                                planDetail.AircraftTypeName = planAircraft.AircraftTypeName;
                                 planDetail.AircraftTypeId = planAircraft.AircraftTypeId;
                                 planDetail.SeatingCapacity = -planHistory.SeatingCapacity;
                                 planDetail.CarryingCapacity = -planHistory.CarryingCapacity;

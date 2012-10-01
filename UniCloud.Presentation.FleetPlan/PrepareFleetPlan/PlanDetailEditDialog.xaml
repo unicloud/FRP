@@ -19,7 +19,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
         </ResourceDictionary>
     </telerik:RadWindow.Resources>
 
@@ -89,8 +88,9 @@
                        Grid.Column="2" />
             <telerik:RadComboBox Grid.Row="1"
                                  Grid.Column="3"
-                                 ItemsSource="{Binding EditPlanHistory.ActionCategories}"
+                                 ItemsSource="{Binding ViewActionCategories}"
                                  DisplayMemberPath="ActionCategoryOperation"
+                                 SelectedItem="{Binding SelActionCategory,Mode=TwoWay}"
                                  SelectedValuePath="Id"
                                  SelectedValue="{Binding EditPlanHistory.ActionCategoryId,Mode=TwoWay}" />
             <TextBlock Text="座级"
@@ -98,9 +98,10 @@
                      Grid.Column="0" />
             <telerik:RadComboBox Grid.Row="2"
                                  Grid.Column="1"
-                                 ItemsSource="{Binding EditPlanHistory.AircraftCategories}"
+                                 ItemsSource="{Binding AircraftCategories}"
                                  DisplayMemberPath="Regional"
                                  SelectedValuePath="Regional"
+                                 SelectedItem="{Binding SelAircraftCategory,Mode=TwoWay}"
                                  IsEnabled="{Binding IsAicraftTypeAndRegionalChangeable}"
                                  SelectedValue="{Binding EditPlanHistory.Regional, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
             <TextBlock Text="机型"
@@ -108,7 +109,8 @@
                        Grid.Row="2" />
             <telerik:RadComboBox Grid.Row="2"
                                  Grid.Column="3"
-                                 ItemsSource="{Binding EditPlanHistory.AircraftTypes}"
+                                 ItemsSource="{Binding ViewAircraftTypes}"
+                                 SelectedItem="{Binding SelAircraftType,Mode=TwoWay}"
                                  DisplayMemberPath="Name"
                                  SelectedValuePath="Id"
                                  SelectedValue="{Binding EditPlanHistory.AircraftTypeId,Mode=TwoWay}" />

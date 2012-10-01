@@ -232,11 +232,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <param name="docNumber">计划文号</param>
         public void SetDocNumber(string docNumber)
         {
-            if (string.IsNullOrWhiteSpace(docNumber))
-            {
-                throw new ArgumentException("计划文号参数为空！");
-            }
-
             DocNumber = docNumber;
         }
 
