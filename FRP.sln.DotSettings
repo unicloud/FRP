@@ -1,0 +1,225 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Categories/=Custom_0020Snippets/@EntryIndexedValue">Custom Snippets</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Categories/=Imported_00202013_002F11_002F18/@EntryIndexedValue">Imported 2013/11/18</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Description/@EntryValue">ViewModel属性</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Field/=description/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Field/=description/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Field/=field/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Field/=field/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Field/=property/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Field/=property/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Field/=type/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Field/=type/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Shortcut/@EntryValue">vmProperty</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=06D8FF872335394483D203B573A90857/Text/@EntryValue">#region $description$&#xD;
+&#xD;
+private $type$ _$field$;&#xD;
+/// &lt;summary&gt;&#xD;
+/// $description$&#xD;
+/// &lt;/summary&gt;&#xD;
+public $type$ $property$&#xD;
+{&#xD;
+	get { return this._$field$; }&#xD;
+	private set &#xD;
+	{&#xD;
+		if (this._$field$!=value)&#xD;
+		{&#xD;
+				this._$field$ = value;&#xD;
+				this.RaisePropertyChanged(()=&gt;this.$property$);&#xD;
+		}&#xD;
+	}&#xD;
+}&#xD;
+        &#xD;
+#endregion</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=15AADD66BD4335419070F43E26505D85/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=15AADD66BD4335419070F43E26505D85/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=15AADD66BD4335419070F43E26505D85/Categories/=Custom_0020Snippets/@EntryIndexedValue">Custom Snippets</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=15AADD66BD4335419070F43E26505D85/Categories/=Imported_00202013_002F11_002F18/@EntryIndexedValue">Imported 2013/11/18</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=15AADD66BD4335419070F43E26505D85/Field/=command/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=15AADD66BD4335419070F43E26505D85/Field/=command/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=15AADD66BD4335419070F43E26505D85/Field/=description/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=15AADD66BD4335419070F43E26505D85/Field/=description/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=15AADD66BD4335419070F43E26505D85/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=15AADD66BD4335419070F43E26505D85/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=15AADD66BD4335419070F43E26505D85/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=15AADD66BD4335419070F43E26505D85/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=15AADD66BD4335419070F43E26505D85/Shortcut/@EntryValue">vmCommand</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=15AADD66BD4335419070F43E26505D85/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=15AADD66BD4335419070F43E26505D85/Text/@EntryValue">#region $description$&#xD;
+&#xD;
+/// &lt;summary&gt;&#xD;
+///   $description$&#xD;
+/// &lt;/summary&gt;&#xD;
+public DelegateCommand&lt;object&gt; $command$Command { get; private set; }&#xD;
+&#xD;
+private void On$command$(object obj)&#xD;
+{&#xD;
+		&#xD;
+}&#xD;
+&#xD;
+private bool Can$command$(object obj)&#xD;
+{&#xD;
+	return true;&#xD;
+}&#xD;
+&#xD;
+#endregion&#xD;
+</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Shortcut/@EntryValue">ver</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Description/@EntryValue">版本标识</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Text/@EntryValue">#region 版本信息&#xD;
+&#xD;
+// ========================================================================&#xD;
+// 版权所有 (C) 2013 UniCloud &#xD;
+//【本类功能概述】&#xD;
+// &#xD;
+// 作者：陈春勇 时间：$Now$&#xD;
+// 文件名：$FileName$&#xD;
+// 程序集：$Assembly$&#xD;
+// 版本：V$VersionNumber$&#xD;
+//&#xD;
+// 修改者： 时间： &#xD;
+// 修改说明：&#xD;
+// ========================================================================&#xD;
+&#xD;
+#endregion&#xD;
+</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Categories/=Custom_0020Snippets/@EntryIndexedValue">Custom Snippets</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Categories/=Imported_00202013_002F11_002F17/@EntryIndexedValue">Imported 2013/11/17</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Categories/=Imported_00202013_002F11_002F18/@EntryIndexedValue">Imported 2013/11/18</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	
+	
+	
+	
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Field/=Now/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Field/=Now/Expression/@EntryValue">getCreationTime("yyyy/MM/dd，HH:MM")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Field/=Now/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Field/=Now/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Field/=FileName/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Field/=FileName/Expression/@EntryValue">getFileName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Field/=FileName/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Field/=FileName/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Field/=Assembly/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Field/=Assembly/Expression/@EntryValue">getOutputName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Field/=Assembly/InitialRange/@EntryValue">-1</s:Int64>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Field/=Assembly/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Field/=VersionNumber/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=32199651A3B583498B7125E816F89EF0/Field/=VersionNumber/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A64EAD38C34E374B84080BF8F4241C9A/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A64EAD38C34E374B84080BF8F4241C9A/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A64EAD38C34E374B84080BF8F4241C9A/Categories/=Custom_0020Snippets/@EntryIndexedValue">Custom Snippets</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A64EAD38C34E374B84080BF8F4241C9A/Categories/=Imported_00202013_002F11_002F18/@EntryIndexedValue">Imported 2013/11/18</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A64EAD38C34E374B84080BF8F4241C9A/Field/=type/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A64EAD38C34E374B84080BF8F4241C9A/Field/=type/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A64EAD38C34E374B84080BF8F4241C9A/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A64EAD38C34E374B84080BF8F4241C9A/Scope/=AD41E18405A7FF4682F040638EE2663C/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A64EAD38C34E374B84080BF8F4241C9A/Scope/=AD41E18405A7FF4682F040638EE2663C/Type/@EntryValue">InXmlFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A64EAD38C34E374B84080BF8F4241C9A/Shortcut/@EntryValue">vInitial</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A64EAD38C34E374B84080BF8F4241C9A/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A64EAD38C34E374B84080BF8F4241C9A/Text/@EntryValue">    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"&#xD;
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"&#xD;
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"&#xD;
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"&#xD;
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"&#xD;
+    xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"&#xD;
+    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"&#xD;
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"&#xD;
+    mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800"&#xD;
+	d:DataContext="{d:DesignInstance uc:$type$}"&gt;&#xD;
+&#xD;
+&lt;UserControl.Resources&gt;&#xD;
+    &lt;ResourceDictionary&gt;&#xD;
+        &lt;ResourceDictionary.MergedDictionaries&gt;&#xD;
+            &lt;ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" /&gt;&#xD;
+            &lt;ResourceDictionary Source="/Telerik.Windows.Themes.Windows8;component/Themes/System.Windows.xaml" /&gt;&#xD;
+            &lt;ResourceDictionary&#xD;
+                Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.xaml" /&gt;&#xD;
+            &lt;ResourceDictionary&#xD;
+                Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.Input.xaml" /&gt;&#xD;
+            &lt;ResourceDictionary&#xD;
+                Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.Navigation.xaml" /&gt;&#xD;
+            &lt;ResourceDictionary&#xD;
+                Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.Data.xaml" /&gt;&#xD;
+            &lt;ResourceDictionary&#xD;
+                Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.Docking.xaml" /&gt;&#xD;
+            &lt;ResourceDictionary&#xD;
+                Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.GridView.xaml" /&gt;&#xD;
+        &lt;/ResourceDictionary.MergedDictionaries&gt;&#xD;
+    &lt;/ResourceDictionary&gt;&#xD;
+&lt;/UserControl.Resources&gt;&#xD;
+&#xD;
+&lt;Grid&gt;&#xD;
+    &lt;Grid.RowDefinitions&gt;&#xD;
+        &lt;RowDefinition Height="Auto" /&gt;&#xD;
+        &lt;RowDefinition /&gt;&#xD;
+    &lt;/Grid.RowDefinitions&gt;&#xD;
+&#xD;
+    &lt;telerik:RadToolBar HorizontalAlignment="Stretch" Margin="-1 -2 -1 0"&gt;&#xD;
+        &lt;telerik:RadButton Margin="4,2,2,-2" Command="{Binding SaveCommand}"&gt;&#xD;
+            &lt;Image Source="/UniCloud.Presentation;component/Images/Save.png" Stretch="Fill"&#xD;
+                    ToolTipService.ToolTip="保存" /&gt;&#xD;
+        &lt;/telerik:RadButton&gt;&#xD;
+        &lt;telerik:RadButton Margin="2,2,2,-2" Command="{Binding AbortCommand}"&gt;&#xD;
+            &lt;Image Source="/UniCloud.Presentation;component/Images/Rotate.png" Stretch="Fill"&#xD;
+                    ToolTipService.ToolTip="放弃更改" /&gt;&#xD;
+        &lt;/telerik:RadButton&gt;&#xD;
+        &lt;telerik:RadToolBarSeparator /&gt;&#xD;
+        &lt;telerik:RadButton Margin="2,2,2,-2" Command="{Binding NewCommand}"&gt;&#xD;
+            &lt;Image Source="/UniCloud.Presentation;component/Images/New.png" Stretch="Fill"&#xD;
+                    ToolTipService.ToolTip="New Document" /&gt;&#xD;
+        &lt;/telerik:RadButton&gt;&#xD;
+    &lt;/telerik:RadToolBar&gt;&#xD;
+&#xD;
+    &lt;telerik:RadDocking Grid.Row="1" BorderThickness="0" Padding="0" HasDocumentHost="False"&gt;&#xD;
+        &lt;telerik:RadSplitContainer&gt;&#xD;
+            &lt;telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="500, 600"&gt;&#xD;
+                &lt;telerik:RadPaneGroup&gt;&#xD;
+                    &lt;telerik:RadPane /&gt;&#xD;
+                &lt;/telerik:RadPaneGroup&gt;&#xD;
+            &lt;/telerik:RadSplitContainer&gt;&#xD;
+            &lt;telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="500, 600"&gt;&#xD;
+                &lt;telerik:RadPaneGroup&gt;&#xD;
+                    &lt;telerik:RadPane /&gt;&#xD;
+                &lt;/telerik:RadPaneGroup&gt;&#xD;
+            &lt;/telerik:RadSplitContainer&gt;&#xD;
+        &lt;/telerik:RadSplitContainer&gt;&#xD;
+    &lt;/telerik:RadDocking&gt;&#xD;
+&lt;/Grid&gt;&#xD;
+</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DA8E8C750A4D6D4E8DDF2D25C88D5D01/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DA8E8C750A4D6D4E8DDF2D25C88D5D01/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DA8E8C750A4D6D4E8DDF2D25C88D5D01/Categories/=Custom_0020Snippets/@EntryIndexedValue">Custom Snippets</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DA8E8C750A4D6D4E8DDF2D25C88D5D01/Categories/=Imported_00202013_002F11_002F18/@EntryIndexedValue">Imported 2013/11/18</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DA8E8C750A4D6D4E8DDF2D25C88D5D01/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DA8E8C750A4D6D4E8DDF2D25C88D5D01/Scope/=AD41E18405A7FF4682F040638EE2663C/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DA8E8C750A4D6D4E8DDF2D25C88D5D01/Scope/=AD41E18405A7FF4682F040638EE2663C/Type/@EntryValue">InXmlFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DA8E8C750A4D6D4E8DDF2D25C88D5D01/Shortcut/@EntryValue">vGridView</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DA8E8C750A4D6D4E8DDF2D25C88D5D01/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DA8E8C750A4D6D4E8DDF2D25C88D5D01/Text/@EntryValue">&lt;telerik:RadGridView&gt;&#xD;
+    &lt;telerik:RadContextMenu.ContextMenu&gt;&#xD;
+        &lt;telerik:RadContextMenu&gt;&#xD;
+            &lt;telerik:RadMenuItem Header="导出Excel"&#xD;
+                                    Command="{Binding ExcelExportCommand}"&#xD;
+                                    CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" /&gt;&#xD;
+            &lt;telerik:RadMenuItem Header="导出Word" Command="{Binding WordExportCommand}"&#xD;
+                                    CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" /&gt;&#xD;
+        &lt;/telerik:RadContextMenu&gt;&#xD;
+    &lt;/telerik:RadContextMenu.ContextMenu&gt;&#xD;
+    &lt;telerik:RadGridView.Columns&gt;&#xD;
+        &lt;uc:DataPageSerialColumn Header="序号" /&gt;&#xD;
+    &lt;/telerik:RadGridView.Columns&gt;&#xD;
+&lt;/telerik:RadGridView&gt;&#xD;
+</s:String></wpf:ResourceDictionary>

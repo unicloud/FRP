@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E9ACA390-1996-406B-98BF-B331ACF024D0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniCloud.Domain.PurchaseBC</RootNamespace>
+    <AssemblyName>UniCloud.Domain.PurchaseBC</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Aggregates\ActionCategoryAgg\ActionCategory.cs" />
+    <Compile Include="Aggregates\ActionCategoryAgg\ActionCategorySpecifications.cs" />
+    <Compile Include="Aggregates\ActionCategoryAgg\IActionCategoryRepository.cs" />
+    <Compile Include="Aggregates\AircraftAgg\Aircraft.cs" />
+    <Compile Include="Aggregates\AircraftAgg\AircraftSpecifications.cs" />
+    <Compile Include="Aggregates\AircraftAgg\IAircraftRepository.cs" />
+    <Compile Include="Aggregates\AircraftTypeAgg\AircraftType.cs" />
+    <Compile Include="Aggregates\AircraftTypeAgg\AircraftTypeSpecifications.cs" />
+    <Compile Include="Aggregates\AircraftTypeAgg\IAircraftTypeRepository.cs" />
+    <Compile Include="Aggregates\BankAccountAgg\BankAccount.cs" />
+    <Compile Include="Aggregates\BankAccountAgg\BankAccountFactory.cs" />
+    <Compile Include="Aggregates\BankAccountAgg\BankAccountSpecifications.cs" />
+    <Compile Include="Aggregates\BankAccountAgg\IBankAccountRepository.cs" />
+    <Compile Include="Aggregates\ContentTagAgg\ContentTag.cs" />
+    <Compile Include="Aggregates\ContentTagAgg\ContentTagSpecifications.cs" />
+    <Compile Include="Aggregates\ContentTagAgg\IContentTagRepository.cs" />
+    <Compile Include="Aggregates\MaintainContractAgg\APUMaintainContract.cs" />
+    <Compile Include="Aggregates\MaintainContractAgg\MaintainContract.cs" />
+    <Compile Include="Aggregates\MaintainContractAgg\MaintainContractFactory.cs" />
+    <Compile Include="Aggregates\MaintainContractAgg\MaintainContractSpecifications.cs" />
+    <Compile Include="Aggregates\MaintainContractAgg\EngineMaintainContract.cs" />
+    <Compile Include="Aggregates\MaintainContractAgg\IMaintainContractRepository.cs" />
+    <Compile Include="Aggregates\MaintainContractAgg\UndercartMaintainContract.cs" />
+    <Compile Include="Aggregates\ContractAircraftAgg\ContractAircraft.cs" />
+    <Compile Include="Aggregates\ContractAircraftAgg\ContractAircraftFactory.cs" />
+    <Compile Include="Aggregates\ContractAircraftAgg\ContractAircraftSpecifications.cs" />
+    <Compile Include="Aggregates\ContractAircraftAgg\IContractAircraftRepository.cs" />
+    <Compile Include="Aggregates\ContractAircraftAgg\LeaseContractAircraft.cs" />
+    <Compile Include="Aggregates\ContractAircraftAgg\PurchaseContractAircraft.cs" />
+    <Compile Include="Aggregates\ContractEngineAgg\ContractEngine.cs" />
+    <Compile Include="Aggregates\ContractEngineAgg\ContractEngineFactory.cs" />
+    <Compile Include="Aggregates\ContractEngineAgg\ContractEngineSpecifications.cs" />
+    <Compile Include="Aggregates\ContractEngineAgg\IContractEngineRepository.cs" />
+    <Compile Include="Aggregates\ContractEngineAgg\LeaseContractEngine.cs" />
+    <Compile Include="Aggregates\ContractEngineAgg\PurchaseContractEngine.cs" />
+    <Compile Include="Aggregates\CurrencyAgg\Currency.cs" />
+    <Compile Include="Aggregates\CurrencyAgg\CurrencySpecifications.cs" />
+    <Compile Include="Aggregates\CurrencyAgg\ICurrencyRepository.cs" />
+    <Compile Include="Aggregates\ForwarderAgg\Forwarder.cs" />
+    <Compile Include="Aggregates\ForwarderAgg\ForwarderFactory.cs" />
+    <Compile Include="Aggregates\ForwarderAgg\ForwarderSpecifications.cs" />
+    <Compile Include="Aggregates\ForwarderAgg\IForwarderRepository.cs" />
+    <Compile Include="Aggregates\LinkmanAgg\ILinkmanRepository.cs" />
+    <Compile Include="Aggregates\LinkmanAgg\Linkman.cs" />
+    <Compile Include="Aggregates\LinkmanAgg\LinkmanFactory.cs" />
+    <Compile Include="Aggregates\LinkmanAgg\LinkmanSpecifications.cs" />
+    <Compile Include="Aggregates\ManufacturerAgg\IManufacturerRepository.cs" />
+    <Compile Include="Aggregates\ManufacturerAgg\Manufacturer.cs" />
+    <Compile Include="Aggregates\ManufacturerAgg\ManufacturerSpecifications.cs" />
+    <Compile Include="Aggregates\OrderAgg\ContractContent.cs" />
+    <Compile Include="Aggregates\OrderAgg\IOrderRepository.cs" />
+    <Compile Include="Aggregates\OrderAgg\OrderFactory.cs" />
+    <Compile Include="Aggregates\OrderAgg\OrderSpecifications.cs" />
+    <Compile Include="Aggregates\ReceptionAgg\AircraftLeaseReception.cs" />
+    <Compile Include="Aggregates\ReceptionAgg\AircraftLeaseReceptionLine.cs" />
+    <Compile Include="Aggregates\ReceptionAgg\AircraftPurchaseReception.cs" />
+    <Compile Include="Aggregates\ReceptionAgg\AircraftPurchaseReceptionLine.cs" />
+    <Compile Include="Aggregates\ReceptionAgg\EngineLeaseReception.cs" />
+    <Compile Include="Aggregates\ReceptionAgg\EngineLeaseReceptionLine.cs" />
+    <Compile Include="Aggregates\ReceptionAgg\EnginePurchaseReception.cs" />
+    <Compile Include="Aggregates\ReceptionAgg\EnginePurchaseReceptionLine.cs" />
+    <Compile Include="Aggregates\ReceptionAgg\IReceptionRepository.cs" />
+    <Compile Include="Aggregates\ReceptionAgg\Reception.cs" />
+    <Compile Include="Aggregates\ReceptionAgg\ReceptionFactory.cs" />
+    <Compile Include="Aggregates\ReceptionAgg\ReceptionLine.cs" />
+    <Compile Include="Aggregates\ReceptionAgg\ReceptionSchedule.cs" />
+    <Compile Include="Aggregates\ReceptionAgg\ReceptionSpecifications.cs" />
+    <Compile Include="Aggregates\SupplierAgg\ISupplierRepository.cs" />
+    <Compile Include="Aggregates\SupplierAgg\Supplier.cs" />
+    <Compile Include="Aggregates\SupplierCompanyAgg\ISupplierCompanyRepository.cs" />
+    <Compile Include="Aggregates\SupplierCompanyAgg\SupplierCompany.cs" />
+    <Compile Include="Aggregates\SupplierAgg\SupplierFactory.cs" />
+    <Compile Include="Aggregates\SupplierAgg\SupplierSpecifications.cs" />
+    <Compile Include="Aggregates\SupplierCompanyAgg\SupplierCompanyFactory.cs" />
+    <Compile Include="Aggregates\SupplierCompanyAgg\SupplierCompanySpecifications.cs" />
+    <Compile Include="Aggregates\SupplierRoleAgg\AircraftLeaseSupplier.cs" />
+    <Compile Include="Aggregates\SupplierRoleAgg\AircraftPurchaseSupplier.cs" />
+    <Compile Include="Aggregates\SupplierRoleAgg\BFEPurchaseSupplier.cs" />
+    <Compile Include="Aggregates\SupplierRoleAgg\EngineLeaseSupplier.cs" />
+    <Compile Include="Aggregates\SupplierRoleAgg\EnginePurchaseSupplier.cs" />
+    <Compile Include="Aggregates\SupplierRoleAgg\ISupplierRoleRepository.cs" />
+    <Compile Include="Aggregates\SupplierRoleAgg\SupplierRole.cs" />
+    <Compile Include="Aggregates\SupplierRoleAgg\SupplierRoleFactory.cs" />
+    <Compile Include="Aggregates\SupplierRoleAgg\SupplierRoleSpecifications.cs" />
+    <Compile Include="Aggregates\OrderAgg\AircraftLeaseOrder.cs" />
+    <Compile Include="Aggregates\OrderAgg\AircraftLeaseOrderLine.cs" />
+    <Compile Include="Aggregates\OrderAgg\AircraftPurchaseOrder.cs" />
+    <Compile Include="Aggregates\OrderAgg\AircraftPurchaseOrderLine.cs" />
+    <Compile Include="Aggregates\OrderAgg\BFEPurchaseOrder.cs" />
+    <Compile Include="Aggregates\OrderAgg\BFEPurchaseOrderLine.cs" />
+    <Compile Include="Aggregates\OrderAgg\EngineLeaseOrder.cs" />
+    <Compile Include="Aggregates\OrderAgg\EngineLeaseOrderLine.cs" />
+    <Compile Include="Aggregates\OrderAgg\EnginePurchaseOrder.cs" />
+    <Compile Include="Aggregates\OrderAgg\EnginePurchaseOrderLine.cs" />
+    <Compile Include="Aggregates\TradeAgg\ITradeRepository.cs" />
+    <Compile Include="Aggregates\TradeAgg\Trade.cs" />
+    <Compile Include="Aggregates\PartAgg\IPartRepository.cs" />
+    <Compile Include="Aggregates\PartAgg\Part.cs" />
+    <Compile Include="Aggregates\PartAgg\PartSpecifications.cs" />
+    <Compile Include="Aggregates\PlanAircraftAgg\IPlanAircraftRepository.cs" />
+    <Compile Include="Aggregates\PlanAircraftAgg\PlanAircraft.cs" />
+    <Compile Include="Aggregates\PlanAircraftAgg\PlanAircraftSpecifications.cs" />
+    <Compile Include="Aggregates\MaterialAgg\AircraftMaterial.cs" />
+    <Compile Include="Aggregates\MaterialAgg\BFEMaterial.cs" />
+    <Compile Include="Aggregates\MaterialAgg\EngineMaterial.cs" />
+    <Compile Include="Aggregates\MaterialAgg\IMaterialRepository.cs" />
+    <Compile Include="Aggregates\MaterialAgg\Material.cs" />
+    <Compile Include="Aggregates\MaterialAgg\MaterialFactory.cs" />
+    <Compile Include="Aggregates\MaterialAgg\MaterialSpecifications.cs" />
+    <Compile Include="Aggregates\OrderAgg\OrderLine.cs" />
+    <Compile Include="Aggregates\OrderAgg\Order.cs" />
+    <Compile Include="Aggregates\TradeAgg\TradeFactory.cs" />
+    <Compile Include="Aggregates\TradeAgg\TradeSpecifications.cs" />
+    <Compile Include="Enums\BFEStatus.cs" />
+    <Compile Include="Enums\OrderStatus.cs" />
+    <Compile Include="Enums\ReceptionStatus.cs" />
+    <Compile Include="Enums\SupplierType.cs" />
+    <Compile Include="Enums\TradeStatus.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\DisplayInfo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DisplayInfo.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ValueObjects\Address.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\DisplayInfo.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DisplayInfo.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

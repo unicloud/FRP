@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c5ff6ee6-6cee-4d49-aa17-2aa69173a7be" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:6500/DocumentService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="DocumentService.xsd" MetadataType="Schema" ID="1c51e067-d7ac-4fa1-95a5-ecf1726768be" SourceId="1" SourceUrl="http://localhost:6500/DocumentService.svc?xsd=xsd3" />
+    <MetadataFile FileName="DocumentService.wsdl" MetadataType="Wsdl" ID="fb2bf61b-e6d6-4433-acc8-19444ee17cb3" SourceId="1" SourceUrl="http://localhost:6500/DocumentService.svc?wsdl=wsdl0" />
+    <MetadataFile FileName="DocumentService1.xsd" MetadataType="Schema" ID="ca4bf84f-545c-4d73-bb8c-70db5e0f03a1" SourceId="1" SourceUrl="http://localhost:6500/DocumentService.svc?xsd=xsd0" />
+    <MetadataFile FileName="DocumentService2.xsd" MetadataType="Schema" ID="12eb3e6b-87ac-4194-8ef7-8b67436609f8" SourceId="1" SourceUrl="http://localhost:6500/DocumentService.svc?xsd=xsd1" />
+    <MetadataFile FileName="DocumentService.disco" MetadataType="Disco" ID="1995145f-43c5-42a8-bb01-89454abbac37" SourceId="1" SourceUrl="http://localhost:6500/DocumentService.svc?disco" />
+    <MetadataFile FileName="DocumentService1.wsdl" MetadataType="Wsdl" ID="8dfd9e7e-7295-4ecb-8793-715fbb217530" SourceId="1" SourceUrl="http://localhost:6500/DocumentService.svc?wsdl" />
+    <MetadataFile FileName="DocumentService3.xsd" MetadataType="Schema" ID="599bc2b3-980f-4fd3-b1cb-302ed92fdbaa" SourceId="1" SourceUrl="http://localhost:6500/DocumentService.svc?xsd=xsd2" />
+    <MetadataFile FileName="DocumentService4.xsd" MetadataType="Schema" ID="12e81bd7-072d-436f-a23a-c5c8abfd0e0e" SourceId="1" SourceUrl="http://localhost:6500/DocumentService.svc?xsd=xsd4" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

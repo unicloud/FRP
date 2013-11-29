@@ -1,0 +1,302 @@
+﻿#region 版本信息
+
+// ========================================================================
+// 版权所有 (C) 2013 UniCloud 
+//【本类功能概述】
+// 
+// 作者：陈春勇 时间：2013/11/21，16:11
+// 文件名：AcTypeData.cs
+// 程序集：UniCloud.Infrastructure.Data.UberModel
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// ========================================================================
+
+#endregion
+
+#region 命名空间
+
+using System;
+using System.Collections.Generic;
+using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
+using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
+
+#endregion
+
+namespace UniCloud.Infrastructure.Data.UberModel.InitialData
+{
+    public class AcTypeData : InitialDataBase
+    {
+
+        public AcTypeData(UberModelUnitOfWork context)
+            : base(context)
+        {
+
+        }
+
+        /// <summary>
+        ///     初始化承运人相关信息。
+        /// </summary>
+        /// <returns></returns>
+        public override void InitialData()
+        {
+            var aircraftTypes = new List<AircraftType>
+                {
+                    // 250座以上客机
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("AB65EE49-D110-40F1-B3CE-52CADB0C6B81"),
+                            Name = "A380",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("53871626-C2FE-4B15-9E78-752AA4620ED6"),
+                            Name = "A350",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("638F6F24-226B-4B58-8280-EEDDB305B951"),
+                            Name = "B747-400P",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("D1DC0C25-769B-4CBB-9EB8-6E22AFA7FD85"),
+                            Name = "B747-400C",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("EA12EB5F-C5F9-43C4-82B3-2FFEC3E598A7"),
+                            Name = "B747-8",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("63616869-C36E-4DD6-A1C2-4AD9E2B8F403"),
+                            Name = "B777-200A",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("CA7C4ECA-170D-4894-B6E9-8CB7F0AA59D9"),
+                            Name = "B777-200B",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("2D722386-5B3F-4547-B41E-F5020DE70B30"),
+                            Name = "B777-300",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("20719661-A03E-41D3-865E-C183C1B9E512"),
+                            Name = "B777-300ER",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("24BADE01-E624-4C84-B8B1-388FECC9D773"),
+                            Name = "B767-300",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("09219721-7F63-4790-AD85-75BB62D298FE"),
+                            Name = "B767-300ER",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("6FA3FF32-AF8B-4CD3-B973-275ADB536CBF"),
+                            Name = "B787-8",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("BBB22D28-A9CD-415A-BF0D-F49B68972DC7"),
+                            Name = "B787-9",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("416734C4-9720-4777-B273-E46F0AED5DEA"),
+                            Name = "A340-300",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("3632F0D9-6F47-4A80-AF54-7A37D18FC3AB"),
+                            Name = "A340-600",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("8070D8B1-FA34-4854-9D8D-9250564CEA61"),
+                            Name = "A300-600",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("5C690CB2-2D33-4006-858B-0BE610E9CB47"),
+                            Name = "A330-200",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("F8BFBD1E-F2AC-40F2-9C29-A09ECB360DA2"),
+                            Name = "A330-300",
+                        },
+
+                    // 100-200座客机
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("1826BD57-733C-4679-95C8-7DFFEFAB38F4"),
+                            Name = "B757-200",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("A0F3A212-C6C9-48B2-998D-47E052CDA3C1"),
+                            Name = "B737-300",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("95D515CD-4DDD-4AC1-AA0C-8D83AD8339F2"),
+                            Name = "B737-400",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("E8E95A6F-26BA-4EA4-A7D6-360FA6DE1CCD"),
+                            Name = "B737-700",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("8571E7E1-387A-4570-9158-A1DFB656CA9F"),
+                            Name = "B737-800",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("A8018768-C88A-4CDC-9297-4C4996E970FB"),
+                            Name = "B737-900",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("5103CE46-9301-46A8-8D6A-054B8C6025C1"),
+                            Name = "B737-8",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("967CC88E-C664-4555-A147-DE17F5A697EE"),
+                            Name = "A319",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("EF5DD798-C16D-47CD-A588-ABD257A6B6B6"),
+                            Name = "A320",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("562DCC8F-9577-4956-86E2-F3A3A0A3EEA2"),
+                            Name = "A321",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("A4552254-2AF2-43C6-9284-83D1B3D8A7E0"),
+                            Name = "A320NEO",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("799EA50A-2AAF-479D-B297-7A14271599E8"),
+                            Name = "C919",
+                        },
+                    // 100座以下客机
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("4EB297C7-DCBC-4EB1-9956-590D4E514351"),
+                            Name = "CRJ200",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("55F5D629-959A-4DC9-A653-730140832BAF"),
+                            Name = "CRJ700",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("59346863-901F-4C3B-8FD4-3DDF5C824E9D"),
+                            Name = "CRJ900",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("EA47622C-2096-4A53-8460-B54B91916459"),
+                            Name = "C-100",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("7BBE194A-15E8-4F3A-A4CA-3DADC609DF1A"),
+                            Name = "C-300",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("D33F2C06-C8EC-45B9-A6FC-9C0E0090B699"),
+                            Name = "DO328",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("3E03BCC5-0AAE-4A20-BD9B-F0FE34B2491F"),
+                            Name = "ERJ145",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("B21BF122-2B66-447C-A9FD-B68FA377A931"),
+                            Name = "EMB190",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("992AC72E-BB26-4672-A6DC-DFC667048F76"),
+                            Name = "MA60",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("C3520CBA-5429-4F5A-A824-B09ADF11E686"),
+                            Name = "MA600",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("BE6EACB6-F873-4540-9926-0C843282F567"),
+                            Name = "ARJ21",
+                        },
+                    // 大型货机
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("6D46FF0A-5282-4B47-8E48-5A04605FBDEF"),
+                            Name = "B777F",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("83A17593-BDB8-42E0-8617-D82495F807E8"),
+                            Name = "B747-200F",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("66B1397E-8A1C-4DB5-9DFE-03E99A284218"),
+                            Name = "B747-400F",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("5EDF08E9-2921-4F9E-89FE-82ADC14547E1"),
+                            Name = "A300F",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("6BCFE715-07C2-4E7E-AAFF-F77A80D21603"),
+                            Name = "A330F",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("9E686699-D573-4D58-977D-C3AB236F542A"),
+                            Name = "MD11F",
+                        },
+                    // 中型货机
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("FF0FCFA1-A88E-45BF-8B01-5427950ED36B"),
+                            Name = "B757-200F",
+                        },
+                    new AircraftType
+                        {
+                            Id = Guid.Parse("0B6163E7-2969-4E38-A5DA-42DF5200918E"),
+                            Name = "B737F",
+                        },
+                };
+            aircraftTypes.ForEach(p => Context.AircraftTypes.Add(p));
+        }
+
+    }
+}

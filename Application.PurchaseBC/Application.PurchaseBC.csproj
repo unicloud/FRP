@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D9238400-4124-4E2A-ACFF-3248E31EBA98}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniCloud.Application.PurchaseBC</RootNamespace>
+    <AssemblyName>UniCloud.Application.PurchaseBC</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AcTypeServices\IAcTypeAppService.cs" />
+    <Compile Include="AcTypeServices\AcTypeAppService.cs" />
+    <Compile Include="ContractServices\IMaintainContractAppService.cs" />
+    <Compile Include="ContractServices\MaintainContractAppService.cs" />
+    <Compile Include="ForwarderServices\ForwarderAppService.cs" />
+    <Compile Include="ForwarderServices\IForwarderAppService.cs" />
+    <Compile Include="MaterialServices\MaterialAppService.cs" />
+    <Compile Include="MaterialServices\IMaterialAppService.cs" />
+    <Compile Include="PartServices\IPartAppService.cs" />
+    <Compile Include="PartServices\PartAppService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReceptionServices\AircraftLeaseReceptionAppService.cs" />
+    <Compile Include="ReceptionServices\AircraftPurchaseReceptionAppService.cs" />
+    <Compile Include="ReceptionServices\EngineLeaseReceptionAppService.cs" />
+    <Compile Include="ReceptionServices\EnginePurchaseReceptionAppService.cs" />
+    <Compile Include="ReceptionServices\IAircraftLeaseReceptionAppService.cs" />
+    <Compile Include="ReceptionServices\IAircraftPurchaseReceptionAppService.cs" />
+    <Compile Include="ReceptionServices\IEngineLeaseReceptionAppService.cs" />
+    <Compile Include="ReceptionServices\IEnginePurchaseReceptionAppService.cs" />
+    <Compile Include="SupplierServices\ISupplierAppService.cs" />
+    <Compile Include="SupplierServices\SupplierAppService.cs" />
+    <Compile Include="TradeServices\ITradeAppService.cs" />
+    <Compile Include="TradeServices\TradeAppService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application.PurchaseBC.DTO\Application.PurchaseBC.DTO.csproj">
+      <Project>{060ccd93-bfb4-448a-8fdc-dd3d6762ec41}</Project>
+      <Name>Application.PurchaseBC.DTO</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.PurchaseBC.Query\Application.PurchaseBC.Query.csproj">
+      <Project>{930c8964-6610-4ca9-86e0-6afaf5bc8ce5}</Project>
+      <Name>Application.PurchaseBC.Query</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{c926e107-6971-4b5c-8e00-db7761eeac8e}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.PurchaseBC\Domain.PurchaseBC.csproj">
+      <Project>{e9aca390-1996-406b-98bf-b331acf024d0}</Project>
+      <Name>Domain.PurchaseBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Utilities\Infrastructure.Utilities.csproj">
+      <Project>{34a8a0e1-3d4a-48ca-9e78-71f88e2d273d}</Project>
+      <Name>Infrastructure.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

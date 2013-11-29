@@ -1,0 +1,226 @@
+﻿#region 版本信息
+
+// =====================================================
+// 版权所有 (C) 2013 UniCloud 
+// 【本类功能概述】
+// 
+// 作者：丁志浩 时间：2013/11/27，18:00
+// 方案：FRP
+// 项目：Application.PurchaseBC.Query
+// 版本：V1.0.0
+// 
+// 修改者： 时间： 
+// 修改说明：
+// =====================================================
+
+#endregion
+
+#region 命名空间
+
+using System.Linq;
+using UniCloud.Application.PurchaseBC.DTO;
+using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
+using UniCloud.Infrastructure.Data;
+
+#endregion
+
+namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
+{
+    public class OrderQuery : IOrderQuery
+    {
+        private readonly IQueryableUnitOfWork _unitOfWork;
+
+        public OrderQuery(IQueryableUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        #region IOrderQuery 成员
+
+        /// <summary>
+        ///     <see cref="IOrderQuery" />
+        /// </summary>
+        /// <param name="query">
+        ///     <see cref="IOrderQuery" />
+        /// </param>
+        /// <returns>
+        ///     <see cref="IOrderQuery" />
+        /// </returns>
+        public IQueryable<AircraftLeaseOrderDTO> AircraftLeaseOrderQuery(QueryBuilder<Order> query)
+        {
+            var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<AircraftLeaseOrder>())
+                .Select(o => new AircraftLeaseOrderDTO
+                {
+                    OrderId = o.Id,
+                    Version = o.Version,
+                    CurrencyName = o.Currency.CnName,
+                    TotalAmount = o.TotalAmount,
+                    OperatorName = o.OperatorName,
+                    Linkman = o.Linkman.Name,
+                    OrderDate = o.OrderDate,
+                    Status = (int) o.Status,
+                    Note = o.Note,
+                    AircraftLeaseOrderLines = o.OrderLines.Select(l => new AircraftLeaseOrderLineDTO
+                    {
+                        OrdrLineId = l.Id,
+                        UnitPrice = l.UnitPrice,
+                        Amount = l.Amount,
+                        Discount = l.Discount,
+                        EstimateDeliveryDate = l.EstimateDeliveryDate,
+                        Note = l.Note
+                    }).ToList()
+                });
+            return result;
+        }
+
+        /// <summary>
+        ///     <see cref="IOrderQuery" />
+        /// </summary>
+        /// <param name="query">
+        ///     <see cref="IOrderQuery" />
+        /// </param>
+        /// <returns>
+        ///     <see cref="IOrderQuery" />
+        /// </returns>
+        public IQueryable<AircraftPurchaseOrderDTO> AircraftPurchaseOrderQuery(QueryBuilder<Order> query)
+        {
+            var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<AircraftPurchaseOrder>())
+                .Select(o => new AircraftPurchaseOrderDTO
+                {
+                    OrderId = o.Id,
+                    Version = o.Version,
+                    CurrencyName = o.Currency.CnName,
+                    TotalAmount = o.TotalAmount,
+                    OperatorName = o.OperatorName,
+                    Linkman = o.Linkman.Name,
+                    OrderDate = o.OrderDate,
+                    Status = (int) o.Status,
+                    Note = o.Note,
+                    AircraftPurchaseOrderLines =
+                        o.OrderLines.OfType<AircraftPurchaseOrderLine>().Select(l => new AircraftPurchaseOrderLineDTO
+                        {
+                            OrdrLineId = l.Id,
+                            UnitPrice = l.UnitPrice,
+                            Amount = l.Amount,
+                            Discount = l.Discount,
+                            AirframePrice = l.AirframePrice,
+                            RefitCost = l.RefitCost,
+                            EnginePrice = l.EnginePrice,
+                            EstimateDeliveryDate = l.EstimateDeliveryDate,
+                            Note = l.Note
+                        }).ToList()
+                });
+            return result;
+        }
+
+        /// <summary>
+        ///     <see cref="IOrderQuery" />
+        /// </summary>
+        /// <param name="query">
+        ///     <see cref="IOrderQuery" />
+        /// </param>
+        /// <returns>
+        ///     <see cref="IOrderQuery" />
+        /// </returns>
+        public IQueryable<EngineLeaseOrderDTO> EngineLeaseOrderQuery(QueryBuilder<Order> query)
+        {
+            var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<EngineLeaseOrder>())
+                .Select(o => new EngineLeaseOrderDTO
+                {
+                    OrderId = o.Id,
+                    Version = o.Version,
+                    CurrencyName = o.Currency.CnName,
+                    TotalAmount = o.TotalAmount,
+                    OperatorName = o.OperatorName,
+                    Linkman = o.Linkman.Name,
+                    OrderDate = o.OrderDate,
+                    Status = (int) o.Status,
+                    Note = o.Note,
+                    EngineLeaseOrderLines = o.OrderLines.Select(l => new EngineLeaseOrderLineDTO
+                    {
+                        OrdrLineId = l.Id,
+                        UnitPrice = l.UnitPrice,
+                        Amount = l.Amount,
+                        Discount = l.Discount,
+                        EstimateDeliveryDate = l.EstimateDeliveryDate,
+                        Note = l.Note
+                    }).ToList()
+                });
+            return result;
+        }
+
+        /// <summary>
+        ///     <see cref="IOrderQuery" />
+        /// </summary>
+        /// <param name="query">
+        ///     <see cref="IOrderQuery" />
+        /// </param>
+        /// <returns>
+        ///     <see cref="IOrderQuery" />
+        /// </returns>
+        public IQueryable<EnginePurchaseOrderDTO> EnginePurchaseOrderQuery(QueryBuilder<Order> query)
+        {
+            var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<EnginePurchaseOrder>())
+                .Select(o => new EnginePurchaseOrderDTO
+                {
+                    OrderId = o.Id,
+                    Version = o.Version,
+                    CurrencyName = o.Currency.CnName,
+                    TotalAmount = o.TotalAmount,
+                    OperatorName = o.OperatorName,
+                    Linkman = o.Linkman.Name,
+                    OrderDate = o.OrderDate,
+                    Status = (int) o.Status,
+                    Note = o.Note,
+                    EnginePurchaseOrderLines = o.OrderLines.Select(l => new EnginePurchaseOrderLineDTO
+                    {
+                        OrdrLineId = l.Id,
+                        UnitPrice = l.UnitPrice,
+                        Amount = l.Amount,
+                        Discount = l.Discount,
+                        EstimateDeliveryDate = l.EstimateDeliveryDate,
+                        Note = l.Note
+                    }).ToList()
+                });
+            return result;
+        }
+
+        /// <summary>
+        ///     <see cref="IOrderQuery" />
+        /// </summary>
+        /// <param name="query">
+        ///     <see cref="IOrderQuery" />
+        /// </param>
+        /// <returns>
+        ///     <see cref="IOrderQuery" />
+        /// </returns>
+        public IQueryable<BFEPurchaseOrderDTO> BFEPurchaseOrderQuery(QueryBuilder<Order> query)
+        {
+            var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<BFEPurchaseOrder>())
+                .Select(o => new BFEPurchaseOrderDTO
+                {
+                    OrderId = o.Id,
+                    Version = o.Version,
+                    CurrencyName = o.Currency.CnName,
+                    TotalAmount = o.TotalAmount,
+                    OperatorName = o.OperatorName,
+                    Linkman = o.Linkman.Name,
+                    OrderDate = o.OrderDate,
+                    Status = (int) o.Status,
+                    Note = o.Note,
+                    BFEPurchaseOrderLines = o.OrderLines.Select(l => new BFEPurchaseOrderLineDTO
+                    {
+                        OrdrLineId = l.Id,
+                        UnitPrice = l.UnitPrice,
+                        Amount = l.Amount,
+                        Discount = l.Discount,
+                        EstimateDeliveryDate = l.EstimateDeliveryDate,
+                        Note = l.Note
+                    }).ToList()
+                });
+            return result;
+        }
+
+        #endregion
+    }
+}

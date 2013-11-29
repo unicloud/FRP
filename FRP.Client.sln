@@ -1,0 +1,348 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Presentation", "1-Presentation", "{9D6F0046-529A-47FC-8465-30319FBB7D35}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.0-Seedwork", "1.0-Seedwork", "{AE0486DB-6D9C-40B9-9036-A35D9D7FA6F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.1-Agent", "1.1-Agent", "{2911A9F1-7723-43AD-9FD0-1482977D9C11}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2-Modules", "1.2-Modules", "{26277827-2773-4208-BEBD-D825AE9B787E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.3-Services", "1.3-Services", "{DA91749B-E385-4BB6-AC6E-33946D0026D0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2.01-CommonService", "1.2.01-CommonService", "{15ECFB5C-18DA-49A6-A8B8-09711B549FBA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2.02-BaseManagement", "1.2.02-BaseManagement", "{49776AE6-C4FF-4F66-9B9A-D0C03E3ACA65}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2.03-AircraftConfig", "1.2.03-AircraftConfig", "{E836E66F-9869-40D5-8CCE-5583BEB499D5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2.04-FlightLog", "1.2.04-FlightLog", "{24E86FD3-6760-43DE-8345-267AE78BEF86}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2.05-FleetPlan", "1.2.05-FleetPlan", "{26A1DF61-01B0-42A4-BC1D-21B82C664431}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2.06-Purchase", "1.2.06-Purchase", "{EA9640D4-343D-4125-8C5E-79E51BF7EFE2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2.07-Payment", "1.2.07-Payment", "{1F5B8267-AA0A-4CB1-B7EE-709365169302}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2.08-Project", "1.2.08-Project", "{EC320332-20BD-4C77-8CD2-E94C210A1786}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.2.09-Portal", "1.2.09-Portal", "{DBE17A17-F344-4AE3-AC0F-8203F1581CB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "UniCloud.Presentation\Presentation.csproj", "{FAA6D644-29DA-477E-A351-5536B2A5A8EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Agent", "UniCloud.Presentation.Agent\Agent.csproj", "{8A41D3F2-E04E-4BBA-A5B0-3279E219334C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonService", "UniCloud.Presentation.CommonService\CommonService.csproj", "{4975CAF7-90E0-4A01-8AAD-925139943B1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseManagement", "UniCloud.Presentation.BaseManagement\BaseManagement.csproj", "{89B182A9-1658-4069-98AA-2EEFDF6A6E54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AircraftConfig", "UniCloud.Presentation.AircraftConfig\AircraftConfig.csproj", "{8348658B-6B29-492B-A623-75DEBABCE06A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightLog", "UniCloud.Presentation.FlightLog\FlightLog.csproj", "{B25661D6-F562-4439-8A45-DA528A36D0CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetPlan", "UniCloud.Presentation.FleetPlan\FleetPlan.csproj", "{C80A02D9-9D33-40C5-8D55-9DE66BAC3C33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Purchase", "UniCloud.Presentation.Purchase\Purchase.csproj", "{1E0EB192-EA72-46C1-88F0-34742AF3594D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payment", "UniCloud.Presentation.Payment\Payment.csproj", "{472F49BC-46C2-446A-BDDC-5CF1125C6730}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project", "UniCloud.Presentation.Project\Project.csproj", "{D0BEE36E-BF35-4A71-828E-AA47B1D8CD83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portal", "UniCloud.Presentation.Portal\Portal.csproj", "{98102B2F-9697-46F6-8B6B-445F3D386EAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shell", "UniCloud.Presentation.Shell\Shell.csproj", "{CE8C67E6-49C2-4860-B0D3-6889DEC50048}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shell.Web", "UniCloud.Presentation.Shell.Web\Shell.Web.csproj", "{91C6DDC3-AE69-48B7-91CE-F2CE20EB2542}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.3.01-CommonService", "1.3.01-CommonService", "{07D43A3F-D782-4302-9CE6-4E0A447C0670}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.3.02-BaseManagement", "1.3.02-BaseManagement", "{54A8C48D-B481-40DC-9EC6-31AB8F88C8DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.3.03-AircraftConfig", "1.3.03-AircraftConfig", "{ABAE40B9-873B-4499-A2D7-2756C35E2EEA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.3.04-FlightLog", "1.3.04-FlightLog", "{565C32C3-8C9F-49B4-B7BE-4D58858CBA44}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.3.05-FleetPlan", "1.3.05-FleetPlan", "{87827E12-F17D-49C2-A66E-8518CD801461}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.3.06-Purchase", "1.3.06-Purchase", "{8F8CE849-B448-48E0-9B4C-F8E461729B2B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.3.07-Payment", "1.3.07-Payment", "{F465367F-9D87-4415-9BA3-EAE57868F055}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.3.08-Project", "1.3.08-Project", "{C7553F70-DA95-4D9B-87F6-B64C7F1A20FA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.3.09-Portal", "1.3.09-Portal", "{A88F0506-C535-4603-AB4F-011EE9FF3139}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.3.00-Seedwork", "1.3.00-Seedwork", "{D4D9818E-194F-4C6A-A2EE-2DA4CE128A4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "UniCloud.Presentation.Service\Service.csproj", "{5F45EAE5-2F35-4AD1-BF0E-F5FD5539FD32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.CommonService", "UniCloud.Presentation.Service.CommonService\Service.CommonService.csproj", "{E182CB39-CB47-4A7A-BF2D-0094D38D24FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.BaseManagement", "UniCloud.Presentation.Service.BaseManagement\Service.BaseManagement.csproj", "{EDC31656-0F6E-4E1E-A047-A65CFF2EE2E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.AircraftConfig", "UniCloud.Presentation.Service.AircraftConfig\Service.AircraftConfig.csproj", "{45CDCA5D-F98E-4E03-ACE1-02F45C62C8F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.FlightLog", "UniCloud.Presentation.Service.FlightLog\Service.FlightLog.csproj", "{FD4DFBE9-C8EC-4195-B4A2-64B46FAA9D1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.FleetPlan", "UniCloud.Presentation.Service.FleetPlan\Service.FleetPlan.csproj", "{B2D2A463-A571-4467-B552-338D89D322F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Purchase", "UniCloud.Presentation.Service.Purchase\Service.Purchase.csproj", "{D233E363-2D75-4CA3-9FA4-020EA90EBBC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Payment", "UniCloud.Presentation.Service.Payment\Service.Payment.csproj", "{8A34EAF1-0A35-4B80-BC53-F8BF11B626DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Project", "UniCloud.Presentation.Service.Project\Service.Project.csproj", "{9BE2689D-49AB-4CEF-84A8-3E87170E9D7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service.Portal", "UniCloud.Presentation.Service.Portal\Service.Portal.csproj", "{1F136252-47F1-43DC-BF81-EC22724D9F9F}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 24
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://unicloud:8080/tfs/focollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = UniCloud.Presentation.Purchase\\Purchase.csproj
+		SccProjectTopLevelParentUniqueName1 = FRP.Client.sln
+		SccProjectName1 = UniCloud.Presentation.Purchase
+		SccLocalPath1 = UniCloud.Presentation.Purchase
+		SccProjectUniqueName2 = UniCloud.Presentation.Shell\\Shell.csproj
+		SccProjectTopLevelParentUniqueName2 = FRP.Client.sln
+		SccProjectName2 = UniCloud.Presentation.Shell
+		SccLocalPath2 = UniCloud.Presentation.Shell
+		SccProjectUniqueName3 = UniCloud.Presentation.Shell.Web\\Shell.Web.csproj
+		SccProjectTopLevelParentUniqueName3 = FRP.Client.sln
+		SccProjectName3 = UniCloud.Presentation.Shell.Web
+		SccLocalPath3 = UniCloud.Presentation.Shell.Web
+		SccProjectUniqueName4 = UniCloud.Presentation.Portal\\Portal.csproj
+		SccProjectTopLevelParentUniqueName4 = FRP.Client.sln
+		SccProjectName4 = UniCloud.Presentation.Portal
+		SccLocalPath4 = UniCloud.Presentation.Portal
+		SccProjectUniqueName5 = UniCloud.Presentation.Project\\Project.csproj
+		SccProjectTopLevelParentUniqueName5 = FRP.Client.sln
+		SccProjectName5 = UniCloud.Presentation.Project
+		SccLocalPath5 = UniCloud.Presentation.Project
+		SccProjectUniqueName6 = UniCloud.Presentation.Payment\\Payment.csproj
+		SccProjectTopLevelParentUniqueName6 = FRP.Client.sln
+		SccProjectName6 = UniCloud.Presentation.Payment
+		SccLocalPath6 = UniCloud.Presentation.Payment
+		SccProjectUniqueName7 = UniCloud.Presentation\\Presentation.csproj
+		SccProjectTopLevelParentUniqueName7 = FRP.Client.sln
+		SccProjectName7 = UniCloud.Presentation
+		SccLocalPath7 = UniCloud.Presentation
+		SccProjectUniqueName8 = UniCloud.Presentation.Agent\\Agent.csproj
+		SccProjectTopLevelParentUniqueName8 = FRP.Client.sln
+		SccProjectName8 = UniCloud.Presentation.Agent
+		SccLocalPath8 = UniCloud.Presentation.Agent
+		SccProjectUniqueName9 = UniCloud.Presentation.CommonService\\CommonService.csproj
+		SccProjectTopLevelParentUniqueName9 = FRP.Client.sln
+		SccProjectName9 = UniCloud.Presentation.CommonService
+		SccLocalPath9 = UniCloud.Presentation.CommonService
+		SccProjectUniqueName10 = UniCloud.Presentation.BaseManagement\\BaseManagement.csproj
+		SccProjectTopLevelParentUniqueName10 = FRP.Client.sln
+		SccProjectName10 = UniCloud.Presentation.BaseManagement
+		SccLocalPath10 = UniCloud.Presentation.BaseManagement
+		SccProjectUniqueName11 = UniCloud.Presentation.AircraftConfig\\AircraftConfig.csproj
+		SccProjectTopLevelParentUniqueName11 = FRP.Client.sln
+		SccProjectName11 = UniCloud.Presentation.AircraftConfig
+		SccLocalPath11 = UniCloud.Presentation.AircraftConfig
+		SccProjectUniqueName12 = UniCloud.Presentation.FlightLog\\FlightLog.csproj
+		SccProjectTopLevelParentUniqueName12 = FRP.Client.sln
+		SccProjectName12 = UniCloud.Presentation.FlightLog
+		SccLocalPath12 = UniCloud.Presentation.FlightLog
+		SccProjectUniqueName13 = UniCloud.Presentation.FleetPlan\\FleetPlan.csproj
+		SccProjectTopLevelParentUniqueName13 = FRP.Client.sln
+		SccProjectName13 = UniCloud.Presentation.FleetPlan
+		SccLocalPath13 = UniCloud.Presentation.FleetPlan
+		SccProjectUniqueName14 = UniCloud.Presentation.Service\\Service.csproj
+		SccProjectTopLevelParentUniqueName14 = FRP.Client.sln
+		SccProjectName14 = UniCloud.Presentation.Service
+		SccLocalPath14 = UniCloud.Presentation.Service
+		SccProjectUniqueName15 = UniCloud.Presentation.Service.CommonService\\Service.CommonService.csproj
+		SccProjectTopLevelParentUniqueName15 = FRP.Client.sln
+		SccProjectName15 = UniCloud.Presentation.Service.CommonService
+		SccLocalPath15 = UniCloud.Presentation.Service.CommonService
+		SccProjectUniqueName16 = UniCloud.Presentation.Service.BaseManagement\\Service.BaseManagement.csproj
+		SccProjectTopLevelParentUniqueName16 = FRP.Client.sln
+		SccProjectName16 = UniCloud.Presentation.Service.BaseManagement
+		SccLocalPath16 = UniCloud.Presentation.Service.BaseManagement
+		SccProjectUniqueName17 = UniCloud.Presentation.Service.AircraftConfig\\Service.AircraftConfig.csproj
+		SccProjectTopLevelParentUniqueName17 = FRP.Client.sln
+		SccProjectName17 = UniCloud.Presentation.Service.AircraftConfig
+		SccLocalPath17 = UniCloud.Presentation.Service.AircraftConfig
+		SccProjectUniqueName18 = UniCloud.Presentation.Service.FlightLog\\Service.FlightLog.csproj
+		SccProjectTopLevelParentUniqueName18 = FRP.Client.sln
+		SccProjectName18 = UniCloud.Presentation.Service.FlightLog
+		SccLocalPath18 = UniCloud.Presentation.Service.FlightLog
+		SccProjectUniqueName19 = UniCloud.Presentation.Service.FleetPlan\\Service.FleetPlan.csproj
+		SccProjectTopLevelParentUniqueName19 = FRP.Client.sln
+		SccProjectName19 = UniCloud.Presentation.Service.FleetPlan
+		SccLocalPath19 = UniCloud.Presentation.Service.FleetPlan
+		SccProjectUniqueName20 = UniCloud.Presentation.Service.Purchase\\Service.Purchase.csproj
+		SccProjectTopLevelParentUniqueName20 = FRP.Client.sln
+		SccProjectName20 = UniCloud.Presentation.Service.Purchase
+		SccLocalPath20 = UniCloud.Presentation.Service.Purchase
+		SccProjectUniqueName21 = UniCloud.Presentation.Service.Payment\\Service.Payment.csproj
+		SccProjectTopLevelParentUniqueName21 = FRP.Client.sln
+		SccProjectName21 = UniCloud.Presentation.Service.Payment
+		SccLocalPath21 = UniCloud.Presentation.Service.Payment
+		SccProjectUniqueName22 = UniCloud.Presentation.Service.Project\\Service.Project.csproj
+		SccProjectTopLevelParentUniqueName22 = FRP.Client.sln
+		SccProjectName22 = UniCloud.Presentation.Service.Project
+		SccLocalPath22 = UniCloud.Presentation.Service.Project
+		SccProjectUniqueName23 = UniCloud.Presentation.Service.Portal\\Service.Portal.csproj
+		SccProjectTopLevelParentUniqueName23 = FRP.Client.sln
+		SccProjectName23 = UniCloud.Presentation.Service.Portal
+		SccLocalPath23 = UniCloud.Presentation.Service.Portal
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FAA6D644-29DA-477E-A351-5536B2A5A8EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAA6D644-29DA-477E-A351-5536B2A5A8EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAA6D644-29DA-477E-A351-5536B2A5A8EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAA6D644-29DA-477E-A351-5536B2A5A8EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A41D3F2-E04E-4BBA-A5B0-3279E219334C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A41D3F2-E04E-4BBA-A5B0-3279E219334C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A41D3F2-E04E-4BBA-A5B0-3279E219334C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A41D3F2-E04E-4BBA-A5B0-3279E219334C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4975CAF7-90E0-4A01-8AAD-925139943B1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4975CAF7-90E0-4A01-8AAD-925139943B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4975CAF7-90E0-4A01-8AAD-925139943B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4975CAF7-90E0-4A01-8AAD-925139943B1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89B182A9-1658-4069-98AA-2EEFDF6A6E54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89B182A9-1658-4069-98AA-2EEFDF6A6E54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89B182A9-1658-4069-98AA-2EEFDF6A6E54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89B182A9-1658-4069-98AA-2EEFDF6A6E54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8348658B-6B29-492B-A623-75DEBABCE06A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8348658B-6B29-492B-A623-75DEBABCE06A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8348658B-6B29-492B-A623-75DEBABCE06A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8348658B-6B29-492B-A623-75DEBABCE06A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B25661D6-F562-4439-8A45-DA528A36D0CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B25661D6-F562-4439-8A45-DA528A36D0CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B25661D6-F562-4439-8A45-DA528A36D0CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B25661D6-F562-4439-8A45-DA528A36D0CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C80A02D9-9D33-40C5-8D55-9DE66BAC3C33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C80A02D9-9D33-40C5-8D55-9DE66BAC3C33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C80A02D9-9D33-40C5-8D55-9DE66BAC3C33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C80A02D9-9D33-40C5-8D55-9DE66BAC3C33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E0EB192-EA72-46C1-88F0-34742AF3594D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E0EB192-EA72-46C1-88F0-34742AF3594D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E0EB192-EA72-46C1-88F0-34742AF3594D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E0EB192-EA72-46C1-88F0-34742AF3594D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{472F49BC-46C2-446A-BDDC-5CF1125C6730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{472F49BC-46C2-446A-BDDC-5CF1125C6730}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{472F49BC-46C2-446A-BDDC-5CF1125C6730}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{472F49BC-46C2-446A-BDDC-5CF1125C6730}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0BEE36E-BF35-4A71-828E-AA47B1D8CD83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0BEE36E-BF35-4A71-828E-AA47B1D8CD83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0BEE36E-BF35-4A71-828E-AA47B1D8CD83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0BEE36E-BF35-4A71-828E-AA47B1D8CD83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98102B2F-9697-46F6-8B6B-445F3D386EAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98102B2F-9697-46F6-8B6B-445F3D386EAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98102B2F-9697-46F6-8B6B-445F3D386EAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98102B2F-9697-46F6-8B6B-445F3D386EAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE8C67E6-49C2-4860-B0D3-6889DEC50048}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE8C67E6-49C2-4860-B0D3-6889DEC50048}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE8C67E6-49C2-4860-B0D3-6889DEC50048}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE8C67E6-49C2-4860-B0D3-6889DEC50048}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91C6DDC3-AE69-48B7-91CE-F2CE20EB2542}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91C6DDC3-AE69-48B7-91CE-F2CE20EB2542}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91C6DDC3-AE69-48B7-91CE-F2CE20EB2542}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91C6DDC3-AE69-48B7-91CE-F2CE20EB2542}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F45EAE5-2F35-4AD1-BF0E-F5FD5539FD32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F45EAE5-2F35-4AD1-BF0E-F5FD5539FD32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F45EAE5-2F35-4AD1-BF0E-F5FD5539FD32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F45EAE5-2F35-4AD1-BF0E-F5FD5539FD32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E182CB39-CB47-4A7A-BF2D-0094D38D24FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E182CB39-CB47-4A7A-BF2D-0094D38D24FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E182CB39-CB47-4A7A-BF2D-0094D38D24FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E182CB39-CB47-4A7A-BF2D-0094D38D24FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDC31656-0F6E-4E1E-A047-A65CFF2EE2E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDC31656-0F6E-4E1E-A047-A65CFF2EE2E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDC31656-0F6E-4E1E-A047-A65CFF2EE2E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDC31656-0F6E-4E1E-A047-A65CFF2EE2E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45CDCA5D-F98E-4E03-ACE1-02F45C62C8F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45CDCA5D-F98E-4E03-ACE1-02F45C62C8F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45CDCA5D-F98E-4E03-ACE1-02F45C62C8F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45CDCA5D-F98E-4E03-ACE1-02F45C62C8F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD4DFBE9-C8EC-4195-B4A2-64B46FAA9D1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD4DFBE9-C8EC-4195-B4A2-64B46FAA9D1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD4DFBE9-C8EC-4195-B4A2-64B46FAA9D1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD4DFBE9-C8EC-4195-B4A2-64B46FAA9D1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2D2A463-A571-4467-B552-338D89D322F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2D2A463-A571-4467-B552-338D89D322F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2D2A463-A571-4467-B552-338D89D322F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2D2A463-A571-4467-B552-338D89D322F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D233E363-2D75-4CA3-9FA4-020EA90EBBC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D233E363-2D75-4CA3-9FA4-020EA90EBBC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D233E363-2D75-4CA3-9FA4-020EA90EBBC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D233E363-2D75-4CA3-9FA4-020EA90EBBC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A34EAF1-0A35-4B80-BC53-F8BF11B626DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A34EAF1-0A35-4B80-BC53-F8BF11B626DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A34EAF1-0A35-4B80-BC53-F8BF11B626DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A34EAF1-0A35-4B80-BC53-F8BF11B626DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BE2689D-49AB-4CEF-84A8-3E87170E9D7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BE2689D-49AB-4CEF-84A8-3E87170E9D7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BE2689D-49AB-4CEF-84A8-3E87170E9D7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BE2689D-49AB-4CEF-84A8-3E87170E9D7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F136252-47F1-43DC-BF81-EC22724D9F9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F136252-47F1-43DC-BF81-EC22724D9F9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F136252-47F1-43DC-BF81-EC22724D9F9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F136252-47F1-43DC-BF81-EC22724D9F9F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AE0486DB-6D9C-40B9-9036-A35D9D7FA6F3} = {9D6F0046-529A-47FC-8465-30319FBB7D35}
+		{2911A9F1-7723-43AD-9FD0-1482977D9C11} = {9D6F0046-529A-47FC-8465-30319FBB7D35}
+		{26277827-2773-4208-BEBD-D825AE9B787E} = {9D6F0046-529A-47FC-8465-30319FBB7D35}
+		{DA91749B-E385-4BB6-AC6E-33946D0026D0} = {9D6F0046-529A-47FC-8465-30319FBB7D35}
+		{CE8C67E6-49C2-4860-B0D3-6889DEC50048} = {9D6F0046-529A-47FC-8465-30319FBB7D35}
+		{91C6DDC3-AE69-48B7-91CE-F2CE20EB2542} = {9D6F0046-529A-47FC-8465-30319FBB7D35}
+		{FAA6D644-29DA-477E-A351-5536B2A5A8EB} = {AE0486DB-6D9C-40B9-9036-A35D9D7FA6F3}
+		{8A41D3F2-E04E-4BBA-A5B0-3279E219334C} = {2911A9F1-7723-43AD-9FD0-1482977D9C11}
+		{15ECFB5C-18DA-49A6-A8B8-09711B549FBA} = {26277827-2773-4208-BEBD-D825AE9B787E}
+		{49776AE6-C4FF-4F66-9B9A-D0C03E3ACA65} = {26277827-2773-4208-BEBD-D825AE9B787E}
+		{E836E66F-9869-40D5-8CCE-5583BEB499D5} = {26277827-2773-4208-BEBD-D825AE9B787E}
+		{24E86FD3-6760-43DE-8345-267AE78BEF86} = {26277827-2773-4208-BEBD-D825AE9B787E}
+		{26A1DF61-01B0-42A4-BC1D-21B82C664431} = {26277827-2773-4208-BEBD-D825AE9B787E}
+		{EA9640D4-343D-4125-8C5E-79E51BF7EFE2} = {26277827-2773-4208-BEBD-D825AE9B787E}
+		{1F5B8267-AA0A-4CB1-B7EE-709365169302} = {26277827-2773-4208-BEBD-D825AE9B787E}
+		{EC320332-20BD-4C77-8CD2-E94C210A1786} = {26277827-2773-4208-BEBD-D825AE9B787E}
+		{DBE17A17-F344-4AE3-AC0F-8203F1581CB1} = {26277827-2773-4208-BEBD-D825AE9B787E}
+		{07D43A3F-D782-4302-9CE6-4E0A447C0670} = {DA91749B-E385-4BB6-AC6E-33946D0026D0}
+		{54A8C48D-B481-40DC-9EC6-31AB8F88C8DA} = {DA91749B-E385-4BB6-AC6E-33946D0026D0}
+		{ABAE40B9-873B-4499-A2D7-2756C35E2EEA} = {DA91749B-E385-4BB6-AC6E-33946D0026D0}
+		{565C32C3-8C9F-49B4-B7BE-4D58858CBA44} = {DA91749B-E385-4BB6-AC6E-33946D0026D0}
+		{87827E12-F17D-49C2-A66E-8518CD801461} = {DA91749B-E385-4BB6-AC6E-33946D0026D0}
+		{8F8CE849-B448-48E0-9B4C-F8E461729B2B} = {DA91749B-E385-4BB6-AC6E-33946D0026D0}
+		{F465367F-9D87-4415-9BA3-EAE57868F055} = {DA91749B-E385-4BB6-AC6E-33946D0026D0}
+		{C7553F70-DA95-4D9B-87F6-B64C7F1A20FA} = {DA91749B-E385-4BB6-AC6E-33946D0026D0}
+		{A88F0506-C535-4603-AB4F-011EE9FF3139} = {DA91749B-E385-4BB6-AC6E-33946D0026D0}
+		{D4D9818E-194F-4C6A-A2EE-2DA4CE128A4E} = {DA91749B-E385-4BB6-AC6E-33946D0026D0}
+		{4975CAF7-90E0-4A01-8AAD-925139943B1D} = {15ECFB5C-18DA-49A6-A8B8-09711B549FBA}
+		{89B182A9-1658-4069-98AA-2EEFDF6A6E54} = {49776AE6-C4FF-4F66-9B9A-D0C03E3ACA65}
+		{8348658B-6B29-492B-A623-75DEBABCE06A} = {E836E66F-9869-40D5-8CCE-5583BEB499D5}
+		{B25661D6-F562-4439-8A45-DA528A36D0CE} = {24E86FD3-6760-43DE-8345-267AE78BEF86}
+		{C80A02D9-9D33-40C5-8D55-9DE66BAC3C33} = {26A1DF61-01B0-42A4-BC1D-21B82C664431}
+		{1E0EB192-EA72-46C1-88F0-34742AF3594D} = {EA9640D4-343D-4125-8C5E-79E51BF7EFE2}
+		{472F49BC-46C2-446A-BDDC-5CF1125C6730} = {1F5B8267-AA0A-4CB1-B7EE-709365169302}
+		{D0BEE36E-BF35-4A71-828E-AA47B1D8CD83} = {EC320332-20BD-4C77-8CD2-E94C210A1786}
+		{98102B2F-9697-46F6-8B6B-445F3D386EAA} = {DBE17A17-F344-4AE3-AC0F-8203F1581CB1}
+		{E182CB39-CB47-4A7A-BF2D-0094D38D24FE} = {07D43A3F-D782-4302-9CE6-4E0A447C0670}
+		{EDC31656-0F6E-4E1E-A047-A65CFF2EE2E6} = {54A8C48D-B481-40DC-9EC6-31AB8F88C8DA}
+		{45CDCA5D-F98E-4E03-ACE1-02F45C62C8F0} = {ABAE40B9-873B-4499-A2D7-2756C35E2EEA}
+		{FD4DFBE9-C8EC-4195-B4A2-64B46FAA9D1D} = {565C32C3-8C9F-49B4-B7BE-4D58858CBA44}
+		{B2D2A463-A571-4467-B552-338D89D322F8} = {87827E12-F17D-49C2-A66E-8518CD801461}
+		{D233E363-2D75-4CA3-9FA4-020EA90EBBC4} = {8F8CE849-B448-48E0-9B4C-F8E461729B2B}
+		{8A34EAF1-0A35-4B80-BC53-F8BF11B626DC} = {F465367F-9D87-4415-9BA3-EAE57868F055}
+		{9BE2689D-49AB-4CEF-84A8-3E87170E9D7A} = {C7553F70-DA95-4D9B-87F6-B64C7F1A20FA}
+		{1F136252-47F1-43DC-BF81-EC22724D9F9F} = {A88F0506-C535-4603-AB4F-011EE9FF3139}
+		{5F45EAE5-2F35-4AD1-BF0E-F5FD5539FD32} = {D4D9818E-194F-4C6A-A2EE-2DA4CE128A4E}
+	EndGlobalSection
+EndGlobal

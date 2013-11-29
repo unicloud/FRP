@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AADC65FC-4D22-496A-B884-464365385426}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniCloud.Infrastructure.Data.UberModel</RootNamespace>
+    <AssemblyName>UniCloud.Infrastructure.Data.UberModel</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="InitialData\ActionCategoryData.cs" />
+    <Compile Include="InitialData\AcTypeData.cs" />
+    <Compile Include="InitialData\ForwardData.cs" />
+    <Compile Include="InitialData\InitialBase\IInitialData.cs" />
+    <Compile Include="InitialData\InitialBase\InitialContainer.cs" />
+    <Compile Include="InitialData\InitialBase\InitialDataBase.cs" />
+    <Compile Include="InitialData\PartData.cs" />
+    <Compile Include="InitialData\ReceptionData.cs" />
+    <Compile Include="InitialData\SupplierData.cs" />
+    <Compile Include="InitialData\TradeData.cs" />
+    <Compile Include="Migrations\201311280806406_database.cs" />
+    <Compile Include="Migrations\201311280806406_database.Designer.cs">
+      <DependentUpon>201311280806406_database.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ActionCategoryEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AddressConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftLeaseOrderEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftLeaseOrderLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftLeaseReceptionEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftLeaseReceptionLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftLeaseSupplierEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftMaterialEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftPurchaseOrderEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftPurchaseOrderLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftPurchaseReceptionEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftPurchaseReceptionLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftPurchaseSupplierEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftTypeEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\APUMaintainContractEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\BankAccountEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\BFEMaterialEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseOrderEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseOrderLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseSupplierEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ContentTagEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ContractAircraftEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ContractContentEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ContractEngineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\MaintainContractEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\CurrencyEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineLeaseOrderEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineLeaseOrderLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineLeaseReceptionEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineLeaseReceptionLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineLeaseSupplierEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineMaintainContractEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineMaterialEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EnginePurchaseOrderEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EnginePurchaseOrderLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EnginePurchaseReceptionEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EnginePurchaseReceptionLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EnginePurchaseSupplierEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ForwarderEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\LeaseContractAircraftEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\LeaseContractEngineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\LinkmanEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ManufacturerEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\MaterialEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\OrderEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\OrderLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PartEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PlanAircraftEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PurchaseContractAircraftEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PurchaseContractEngineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ReceptionEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ReceptionLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ReceptionScheduleEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\SupplierCompanyEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\SupplierEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\SupplierRoleEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\TradeEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\UndercartMaintainContractEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\UberModelUnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UnitOfWork\Mapping\Oracle\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.UberModel\Domain.UberModel.csproj">
+      <Project>{30fedfb0-53ca-4a9d-b917-5f6b8854d7c6}</Project>
+      <Name>Domain.UberModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{cad91a38-6b90-4a18-83ca-0215ce512f4d}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201311280806406_database.resx">
+      <DependentUpon>201311280806406_database.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

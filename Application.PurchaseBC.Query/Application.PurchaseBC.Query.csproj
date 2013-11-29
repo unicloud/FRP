@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{930C8964-6610-4CA9-86E0-6AFAF5BC8CE5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UniCloud.Application.PurchaseBC.Query</RootNamespace>
+    <AssemblyName>UniCloud.Application.PurchaseBC.Query</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AcTypeQueries\IAcTypeQuery.cs" />
+    <Compile Include="AcTypeQueries\AcTypeQuery.cs" />
+    <Compile Include="ContractQueries\IMaintainContractQuery.cs" />
+    <Compile Include="ContractQueries\MaintainContractQuery.cs" />
+    <Compile Include="ForwarderQueries\ForwarderQuery.cs" />
+    <Compile Include="ForwarderQueries\IForwarderQuery.cs" />
+    <Compile Include="MaterialQueries\MaterialQuery.cs" />
+    <Compile Include="MaterialQueries\IMaterialQuery.cs" />
+    <Compile Include="PartQueries\IPartQuery.cs" />
+    <Compile Include="PartQueries\PartQuery.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SupplierQueries\ISupplierQuery.cs" />
+    <Compile Include="SupplierQueries\SupplierQuery.cs" />
+    <Compile Include="TradeQueries\IOrderQuery.cs" />
+    <Compile Include="TradeQueries\ITradeQuery.cs" />
+    <Compile Include="TradeQueries\OrderQuery.cs" />
+    <Compile Include="TradeQueries\TradeQuery.cs" />
+    <Compile Include="ReceptionQueries\AircraftPurchaseReceptionQuery.cs" />
+    <Compile Include="ReceptionQueries\EngineLeaseReceptionQuery.cs" />
+    <Compile Include="ReceptionQueries\EnginePurchaseReceptionQuery.cs" />
+    <Compile Include="ReceptionQueries\IAircraftLeaseReceptionQuery.cs" />
+    <Compile Include="ReceptionQueries\AircraftLeaseReceptionQuery.cs" />
+    <Compile Include="ReceptionQueries\IAircraftPurchaseReceptionQuery.cs" />
+    <Compile Include="ReceptionQueries\IEngineLeaseReceptionQuery.cs" />
+    <Compile Include="ReceptionQueries\IEnginePurchaseReceptionQuery.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application.PurchaseBC.DTO\Application.PurchaseBC.DTO.csproj">
+      <Project>{060ccd93-bfb4-448a-8fdc-dd3d6762ec41}</Project>
+      <Name>Application.PurchaseBC.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{c926e107-6971-4b5c-8e00-db7761eeac8e}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.PurchaseBC\Domain.PurchaseBC.csproj">
+      <Project>{e9aca390-1996-406b-98bf-b331acf024d0}</Project>
+      <Name>Domain.PurchaseBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.PurchaseBC\Infrastructure.Data.PurchaseBC.csproj">
+      <Project>{91016ba0-9a89-4ea8-94e1-27bbb66cf2ba}</Project>
+      <Name>Infrastructure.Data.PurchaseBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{cad91a38-6b90-4a18-83ca-0215ce512f4d}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
