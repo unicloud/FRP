@@ -65,8 +65,8 @@ namespace UniCloud.Presentation.Purchase.Contract
             // Service.RegisterCollectionView(Orders);
 
             ViewTradeDTO = Service.CreateCollection<TradeDTO>(_context.Trades);
-            //var fd = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
-            //ViewTradeDTO.FilterDescriptors.Add(fd);
+            var fd = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
+            ViewTradeDTO.FilterDescriptors.Add(fd);
             Service.RegisterCollectionView(ViewTradeDTO);
 
             ViewAircraftPurchaseOrderDTO =
