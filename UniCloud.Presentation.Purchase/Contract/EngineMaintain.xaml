@@ -118,6 +118,11 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="6"
+                              VerticalContentAlignment="Top"
+                             HorizontalContentAlignment="Left"
+                             Width="250"
+                             TextWrapping="Wrap"
+                             Grid.RowSpan="2"
                              Text="{Binding DocumentName,Mode=TwoWay}"
                              IsReadOnly="True">
                     </TextBox>
@@ -211,6 +216,8 @@
                              Grid.Row="4"
                              AcceptsReturn="True"
                              Width="250"
+                              VerticalContentAlignment="Top"
+                             HorizontalContentAlignment="Left"
                              TextWrapping="Wrap"
                              Grid.RowSpan="2"
                              Text="{Binding Abstract, Mode=TwoWay}">
@@ -223,6 +230,11 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="6"
+                              VerticalContentAlignment="Top"
+                             HorizontalContentAlignment="Left"
+                             Width="250"
+                             TextWrapping="Wrap"
+                             Grid.RowSpan="2"
                              Text="{Binding DocumentName,Mode=TwoWay}"
                              IsReadOnly="True">
                     </TextBox>
@@ -234,7 +246,7 @@
                                        VerticalAlignment="Stretch"
                                        Command="{Binding DataContext.AddAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                        CommandParameter="{Binding ElementName=WordButton}" />
-                    <telerik:RadRadioButton Grid.Row="7"
+                    <telerik:RadRadioButton Grid.Row="8"
                                             Grid.Column="2"
                                             Width="100"
                                             Margin="10,3,0,0"
@@ -242,7 +254,7 @@
                                             Content="Word"
                                             HorizontalAlignment="Left"
                                             IsChecked="True" />
-                    <telerik:RadRadioButton Grid.Row="7"
+                    <telerik:RadRadioButton Grid.Row="8"
                                             Grid.Column="2"
                                             Width="100"
                                             Margin="10,3,10,0"
@@ -367,12 +379,6 @@
                             </telerik:RadDataForm>
                         </Grid>
                     </telerik:RadPane>
-                    <telerik:RadPane Header="合同原文"
-                                     IsPinned="True"
-                                     CanFloat="False"
-                                     CanDockInDocumentHost="False"
-                                     CanUserClose="False"
-                                     CanUserPin="True" />
                 </telerik:RadPaneGroup>
             </telerik:RadSplitContainer>
         </telerik:RadDocking>
