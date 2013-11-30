@@ -67,7 +67,7 @@
 
         <telerik:RadDocking Grid.Row="1" BorderThickness="0" Padding="0" HasDocumentHost="False">
             <telerik:RadSplitContainer>
-                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="500, 600"
+                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="360, 600"
                                            Orientation="Vertical">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="交易【购买飞机】" CanUserPin="False" CanUserClose="False" CanFloat="False"
@@ -90,18 +90,15 @@
                                 </telerik:RadContextMenu.ContextMenu>
                                 <telerik:RadGridView.Columns>
                                     <uc:DataPageSerialColumn Header="序号" />
-                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding TradeNumber}" Header="交易编号" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding TradeNumber}" Header="交易编号"
+                                                                IsReadOnly="True" />
                                     <telerik:GridViewDataColumn DataMemberBinding="{Binding Name}" Header="交易名称" />
                                     <telerik:GridViewDataColumn DataMemberBinding="{Binding SupplierName}" Header="供应商" />
                                     <telerik:GridViewDataColumn DataMemberBinding="{Binding StartDate}" Header="开始日期"
-                                                                DataFormatString="yyyy/MM/dd" />
-                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Status}" Header="状态" />
+                                                                DataFormatString="{} {0:d}" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Status}" Header="状态"
+                                                                IsReadOnly="True" />
                                 </telerik:RadGridView.Columns>
-                                <!--<telerik:RadGridView.RowDetailsTemplate>
-                                    <DataTemplate>
-                                        <TextBox Text="{Binding Description}" />
-                                    </DataTemplate>
-                                </telerik:RadGridView.RowDetailsTemplate>-->
                             </telerik:RadGridView>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
@@ -113,6 +110,7 @@
                                                  SelectedItem="{Binding SelAircraftPurchaseOrderDTO,Mode=TwoWay}"
                                                  IsBusy="{Binding ViewAircraftPurchaseOrderDTO.IsBusy}"
                                                  ShowGroupPanel="False"
+                                                 IsFilteringAllowed="False"
                                                  EditTriggers="CellClick">
                                 <telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadContextMenu>
@@ -127,7 +125,8 @@
                                     <uc:DataPageSerialColumn Header="序号" />
                                     <telerik:GridViewDataColumn DataMemberBinding="{Binding Version}" Header="版本" />
                                     <telerik:GridViewDataColumn DataMemberBinding="{Binding CurrencyName}" Header="币种" />
-                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding TotalAmount}" Header="总金额" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding TotalAmount}" Header="总金额"
+                                                                DataFormatString="{}{0}$" />
                                     <telerik:GridViewDataColumn DataMemberBinding="{Binding OperatorName}" Header="经办人" />
                                     <telerik:GridViewDataColumn DataMemberBinding="{Binding Linkman}" Header="联系人" />
                                     <telerik:GridViewDataColumn DataMemberBinding="{Binding OrderDate}" Header="生效日期"
@@ -141,8 +140,12 @@
                 <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="500, 600">
                     <telerik:RadPaneGroup TabStripPlacement="Top">
                         <telerik:RadPane Header="交易明细" CanUserClose="False">
-                            <telerik:RadGridView x:Name="OrderLine"
-                                ItemsSource="{Binding SelectedItem.AircraftPurchaseOrderLines, ElementName=Order}">
+                            <telerik:RadGridView x:Name="OrderLine" AutoGenerateColumns="False"
+                                                 ItemsSource="{Binding SelectedItem.AircraftPurchaseOrderLines, ElementName=Order}"
+                                                 IsBusy="{Binding ViewAircraftPurchaseOrderDTO.IsBusy}"
+                                                 ShowGroupPanel="False"
+                                                 IsFilteringAllowed="False"
+                                                 EditTriggers="CellClick">
                                 <telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadContextMenu>
                                         <telerik:RadMenuItem Header="导出Excel"
@@ -154,6 +157,21 @@
                                 </telerik:RadContextMenu.ContextMenu>
                                 <telerik:RadGridView.Columns>
                                     <uc:DataPageSerialColumn Header="序号" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding UnitPrice}" Header="单价"
+                                                                DataFormatString="{}{0:C}" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Amount}" Header="数量" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Discount}" Header="折扣" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding TotalLine}" Header="行金额"
+                                                                DataFormatString="{}{0:C}" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding AirframePrice}"
+                                                                Header="机身价格" DataFormatString="{}{0:C}" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding RefitCost}" Header="机身改装费用"
+                                                                DataFormatString="{}{0:C}" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding EnginePrice}"
+                                                                Header="发动机价格" DataFormatString="{}{0:C}" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding EstimateDeliveryDate}"
+                                                                Header="预计交付日期" DataFormatString="yyyy/MM/dd" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Note}" Header="备注" />
                                 </telerik:RadGridView.Columns>
                             </telerik:RadGridView>
                         </telerik:RadPane>
