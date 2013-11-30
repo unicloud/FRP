@@ -37,6 +37,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public int OrderId { get; set; }
 
         /// <summary>
+        ///     交易ID
+        /// </summary>
+        public int TradeId { get; set; }
+
+        /// <summary>
         ///     版本号
         /// </summary>
         public int Version { get; set; }

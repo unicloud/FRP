@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initializer : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -63,7 +63,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         ID = c.Int(nullable: false, identity: true),
                         Version = c.Int(nullable: false),
                         Name = c.String(),
-                        TotalAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
                         OperatorName = c.String(),
                         CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         OrderDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
@@ -349,10 +348,14 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         Subject = c.String(),
                         Body = c.String(),
                         Importance = c.String(),
-                        Start = c.DateTime(precision: 7, storeType: "datetime2"),
-                        End = c.DateTime(precision: 7, storeType: "datetime2"),
+                        Start = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        End = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         IsAllDayEvent = c.Boolean(nullable: false),
                         Group = c.String(),
+                        Tempo = c.String(),
+                        Location = c.String(),
+                        UniqueId = c.String(),
+                        Url = c.String(),
                         ReceptionId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)

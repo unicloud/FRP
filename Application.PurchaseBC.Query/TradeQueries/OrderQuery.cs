@@ -52,9 +52,9 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                 .Select(o => new AircraftLeaseOrderDTO
                 {
                     OrderId = o.Id,
+                    TradeId = o.TradeId,
                     Version = o.Version,
                     CurrencyName = o.Currency.CnName,
-                    TotalAmount = o.TotalAmount,
                     OperatorName = o.OperatorName,
                     Linkman = o.Linkman.Name,
                     OrderDate = o.OrderDate,
@@ -88,9 +88,9 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                 .Select(o => new AircraftPurchaseOrderDTO
                 {
                     OrderId = o.Id,
+                    TradeId = o.TradeId,
                     Version = o.Version,
                     CurrencyName = o.Currency.CnName,
-                    TotalAmount = o.TotalAmount,
                     OperatorName = o.OperatorName,
                     Linkman = o.Linkman.Name,
                     OrderDate = o.OrderDate,
@@ -128,9 +128,9 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                 .Select(o => new EngineLeaseOrderDTO
                 {
                     OrderId = o.Id,
+                    TradeId = o.TradeId,
                     Version = o.Version,
                     CurrencyName = o.Currency.CnName,
-                    TotalAmount = o.TotalAmount,
                     OperatorName = o.OperatorName,
                     Linkman = o.Linkman.Name,
                     OrderDate = o.OrderDate,
@@ -164,9 +164,9 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                 .Select(o => new EnginePurchaseOrderDTO
                 {
                     OrderId = o.Id,
+                    TradeId = o.TradeId,
                     Version = o.Version,
                     CurrencyName = o.Currency.CnName,
-                    TotalAmount = o.TotalAmount,
                     OperatorName = o.OperatorName,
                     Linkman = o.Linkman.Name,
                     OrderDate = o.OrderDate,
@@ -200,9 +200,9 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                 .Select(o => new BFEPurchaseOrderDTO
                 {
                     OrderId = o.Id,
+                    TradeId = o.TradeId,
                     Version = o.Version,
                     CurrencyName = o.Currency.CnName,
-                    TotalAmount = o.TotalAmount,
                     OperatorName = o.OperatorName,
                     Linkman = o.Linkman.Name,
                     OrderDate = o.OrderDate,

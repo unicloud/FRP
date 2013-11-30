@@ -54,11 +54,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         public string Name { get; set; }
 
         /// <summary>
-        ///     总金额
-        /// </summary>
-        public decimal TotalAmount { get; set; }
-
-        /// <summary>
         ///     经办人
         /// </summary>
         public string OperatorName { get; set; }

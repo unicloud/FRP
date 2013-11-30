@@ -331,6 +331,7 @@
           <PropertyRef Name="OrderId" />
         </Key>
         <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
         <Property Name="TotalAmount" Type="Edm.Decimal" Nullable="false" />
@@ -346,7 +347,6 @@
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Int32" Nullable="false" />
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
       </ComplexType>
@@ -355,6 +355,7 @@
           <PropertyRef Name="OrderId" />
         </Key>
         <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
         <Property Name="TotalAmount" Type="Edm.Decimal" Nullable="false" />
@@ -370,7 +371,6 @@
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Int32" Nullable="false" />
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
         <Property Name="AirframePrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="RefitCost" Type="Edm.Decimal" Nullable="false" />
         <Property Name="EnginePrice" Type="Edm.Decimal" Nullable="false" />
@@ -382,6 +382,7 @@
           <PropertyRef Name="OrderId" />
         </Key>
         <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
         <Property Name="TotalAmount" Type="Edm.Decimal" Nullable="false" />
@@ -397,7 +398,6 @@
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Int32" Nullable="false" />
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
       </ComplexType>
@@ -406,6 +406,7 @@
           <PropertyRef Name="OrderId" />
         </Key>
         <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
         <Property Name="TotalAmount" Type="Edm.Decimal" Nullable="false" />
@@ -421,7 +422,6 @@
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Int32" Nullable="false" />
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
       </ComplexType>
@@ -430,6 +430,7 @@
           <PropertyRef Name="OrderId" />
         </Key>
         <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
         <Property Name="TotalAmount" Type="Edm.Decimal" Nullable="false" />
@@ -445,7 +446,6 @@
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Int32" Nullable="false" />
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
       </ComplexType>

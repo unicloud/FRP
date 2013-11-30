@@ -106,17 +106,9 @@ namespace UniCloud.Presentation.Purchase.Contract
             // Orders.AutoLoad = true;
             ViewTradeDTO.AutoLoad = true;
             ViewAircraftPurchaseOrderDTO.AutoLoad = true;
-            ViewTradeDTO.LoadedData += ViewTradeDTO_LoadedData;
-            ViewAircraftPurchaseOrderDTO.LoadedData += ViewAircraftPurchaseOrderDTO_LoadedData;
         }
 
-        private void ViewAircraftPurchaseOrderDTO_LoadedData(object sender, LoadedDataEventArgs e)
-        {
-        }
 
-        private void ViewTradeDTO_LoadedData(object sender, LoadedDataEventArgs e)
-        {
-        }
 
         #region 交易
 
@@ -234,7 +226,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         ///     删除当前版本订单
         /// </summary>
         public DelegateCommand<object> RemoveCommand { get; private set; }
-
+        
         private void OnRemove(object obj)
         {
         }

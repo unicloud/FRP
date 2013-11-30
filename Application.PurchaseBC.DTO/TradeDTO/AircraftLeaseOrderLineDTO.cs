@@ -57,14 +57,6 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public decimal Discount { get; set; }
 
         /// <summary>
-        ///     行金额
-        /// </summary>
-        public decimal TotalLine
-        {
-            get { return (UnitPrice*Amount)*(1 - (Discount/100M)); }
-        }
-
-        /// <summary>
         ///     预计交付日期
         /// </summary>
         public DateTime EstimateDeliveryDate { get; set; }

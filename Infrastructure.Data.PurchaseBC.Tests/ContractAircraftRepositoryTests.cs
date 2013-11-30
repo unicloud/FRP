@@ -83,7 +83,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
             var contractAc = ContractAircraftFactory.CreatePurchaseContractAircraft("购买飞机", "0002");
             contractAc.SetAircraftType(acType);
             contractAc.SetImportCategory(imp);
-            var order = OrderFactory.CreateBFEPurchaseOrder(3, 123M, "", DateTime.Now);
+            var order = OrderFactory.CreateBFEPurchaseOrder(3, "", DateTime.Now);
             order.SetTrade(trade);
             order.SetLinkman(linkman);
             order.SetCurrency(currency);

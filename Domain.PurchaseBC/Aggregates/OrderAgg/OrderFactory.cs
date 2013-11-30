@@ -36,13 +36,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         /// <param name="operatorName">经办人</param>
         /// <param name="orderDate">订单日期</param>
         /// <returns>飞机租赁订单</returns>
-        public static AircraftLeaseOrder CreateAircraftLeaseOrder(int version, decimal totalAmount,
+        public static AircraftLeaseOrder CreateAircraftLeaseOrder(int version,
             string operatorName, DateTime orderDate)
         {
             var aircraftLeaseOrder = new AircraftLeaseOrder
             {
                 Version = version,
-                TotalAmount = totalAmount,
                 OperatorName = operatorName,
                 CreateDate = DateTime.Now,
                 OrderDate = orderDate,
@@ -62,13 +61,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         /// <param name="operatorName">经办人</param>
         /// <param name="orderDate">订单日期</param>
         /// <returns>飞机购买订单</returns>
-        public static AircraftPurchaseOrder CreateAircraftPurchaseOrder(int version, decimal totalAmount,
+        public static AircraftPurchaseOrder CreateAircraftPurchaseOrder(int version, 
             string operatorName, DateTime orderDate)
         {
             var aircraftPurchaseOrder = new AircraftPurchaseOrder
             {
                 Version = version,
-                TotalAmount = totalAmount,
                 OperatorName = operatorName,
                 CreateDate = DateTime.Now,
                 OrderDate = orderDate,
@@ -88,13 +86,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         /// <param name="operatorName">经办人</param>
         /// <param name="orderDate">订单日期</param>
         /// <returns>BFE购买订单</returns>
-        public static BFEPurchaseOrder CreateBFEPurchaseOrder(int version, decimal totalAmount,
+        public static BFEPurchaseOrder CreateBFEPurchaseOrder(int version, 
             string operatorName, DateTime orderDate)
         {
             var bfePurchaseOrder = new BFEPurchaseOrder
             {
                 Version = version,
-                TotalAmount = totalAmount,
                 OperatorName = operatorName,
                 CreateDate = DateTime.Now,
                 OrderDate = orderDate,

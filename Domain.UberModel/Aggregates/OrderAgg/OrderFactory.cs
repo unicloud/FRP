@@ -36,14 +36,13 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrderAgg
         /// <param name="operatorName">经办人</param>
         /// <param name="orderDate">订单日期</param>
         /// <returns>飞机租赁订单</returns>
-        public static AircraftLeaseOrder CreateAircraftLeaseOrder(int version, decimal totalAmount,
+        public static AircraftLeaseOrder CreateAircraftLeaseOrder(int version, 
             string operatorName, DateTime orderDate)
         {
             var aircraftLeaseOrder = new AircraftLeaseOrder();
             aircraftLeaseOrder.GenerateNewIdentity();
 
             aircraftLeaseOrder.Version = version;
-            aircraftLeaseOrder.TotalAmount = totalAmount;
             aircraftLeaseOrder.OperatorName = operatorName;
             aircraftLeaseOrder.CreateDate = DateTime.Now;
             aircraftLeaseOrder.OrderDate = orderDate;
@@ -60,14 +59,13 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrderAgg
         /// <param name="operatorName">经办人</param>
         /// <param name="orderDate">订单日期</param>
         /// <returns>飞机购买订单</returns>
-        public static AircraftPurchaseOrder CreateAircraftPurchaseOrder(int version, decimal totalAmount,
+        public static AircraftPurchaseOrder CreateAircraftPurchaseOrder(int version, 
             string operatorName, DateTime orderDate)
         {
             var aircraftPurchaseOrder = new AircraftPurchaseOrder();
             aircraftPurchaseOrder.GenerateNewIdentity();
 
             aircraftPurchaseOrder.Version = version;
-            aircraftPurchaseOrder.TotalAmount = totalAmount;
             aircraftPurchaseOrder.OperatorName = operatorName;
             aircraftPurchaseOrder.CreateDate = DateTime.Now;
             aircraftPurchaseOrder.OrderDate = orderDate;
