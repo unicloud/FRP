@@ -57,7 +57,6 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         private void InitializerCommand()
         {
-            AddSlaveEntityCommand = new DelegateCommand<object>(OnAddSlaveEntityExecute, CanAddSlaveEntityExecute);
 
         }
 
