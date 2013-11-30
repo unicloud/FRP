@@ -334,7 +334,6 @@
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
-        <Property Name="TotalAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
         <Property Name="Linkman" Type="Edm.String" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
@@ -358,7 +357,6 @@
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
-        <Property Name="TotalAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
         <Property Name="Linkman" Type="Edm.String" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
@@ -385,7 +383,6 @@
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
-        <Property Name="TotalAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
         <Property Name="Linkman" Type="Edm.String" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
@@ -409,7 +406,6 @@
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
-        <Property Name="TotalAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
         <Property Name="Linkman" Type="Edm.String" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
@@ -433,7 +429,6 @@
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
-        <Property Name="TotalAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
         <Property Name="Linkman" Type="Edm.String" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />

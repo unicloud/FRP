@@ -127,9 +127,6 @@
                                                                 TextAlignment="Center" IsReadOnly="True" />
                                     <telerik:GridViewDataColumn DataMemberBinding="{Binding CurrencyName}" Header="币种"
                                                                 TextAlignment="Center" />
-                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding TotalAmount}" Header="总金额"
-                                                                DataFormatString="{} {0:N}" TextAlignment="Right"
-                                                                IsReadOnly="True" />
                                     <telerik:GridViewDataColumn DataMemberBinding="{Binding OperatorName}" Header="经办人" />
                                     <telerik:GridViewDataColumn DataMemberBinding="{Binding Linkman}" Header="联系人" />
                                     <telerik:GridViewDataColumn DataMemberBinding="{Binding OrderDate}" Header="生效日期"
