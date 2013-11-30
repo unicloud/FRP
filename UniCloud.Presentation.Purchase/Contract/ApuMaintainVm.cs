@@ -278,5 +278,5 @@ namespace UniCloud.Presentation.Purchase.Contract
         #endregion
 
         #endregion
-    }
+    } 
 }
