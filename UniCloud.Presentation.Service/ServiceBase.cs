@@ -107,14 +107,14 @@ namespace UniCloud.Presentation.Service
                 {
                     try
                     {
-                        var response = _context.EndSaveChanges(p);
-                        foreach (var changeResponse in response)
+                        DataServiceResponse response = _context.EndSaveChanges(p);
+                        foreach (OperationResponse changeResponse in response)
                         {
                             result.Headers = changeResponse.Headers;
                             result.Error = changeResponse.Error;
                             result.StatusCode = changeResponse.StatusCode;
                         }
-                        _dataServiceCollectionViews.ForEach(c => c.Refresh());
+                        _dataServiceCollectionViews.ForEach(c => c.RejectChanges());
                     }
                     catch (Exception ex)
                     {
@@ -123,6 +123,8 @@ namespace UniCloud.Presentation.Service
                     finally
                     {
                         callback(result);
+                        HasChanges = result.Error != null;
+                        OnPropertyChanged("HasChanges");
                     }
                 });
             }, Context);
