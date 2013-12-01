@@ -67,7 +67,7 @@
 
         <telerik:RadDocking Grid.Row="1" BorderThickness="0" Padding="0" HasDocumentHost="False">
             <telerik:RadSplitContainer>
-                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="360, 600"
+                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600"
                                            Orientation="Vertical">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="交易【购买飞机】" CanUserPin="False" CanUserClose="False" CanFloat="False"
