@@ -55,23 +55,6 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         #endregion
 
         [TestMethod]
-        public void AddSupplierWithMaterial()
-        {
-            // Arrange
-            var acTypeRep = DefaultContainer.Resolve<IAircraftTypeRepository>();
-            var supplierRep = DefaultContainer.Resolve<ISupplierCompanyRepository>();
-
-            var acType = acTypeRep.GetAll().FirstOrDefault();
-            var material = MaterialFactory.CreateAircraftMaterial("B737-800",null,acType.Id);
-            material.SetAircraftType(acType);
-            var supplierCompany = supplierRep.GetAll().FirstOrDefault();
-            supplierCompany.AddMaterial(material);
-
-            // Act
-            supplierRep.UnitOfWork.Commit();
-        }
-
-        [TestMethod]
         public void GetSupplierWithMaterial()
         {
             // Arrange
