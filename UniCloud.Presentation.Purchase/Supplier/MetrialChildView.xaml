@@ -1,0 +1,174 @@
+﻿<telerik:RadWindow x:Class="UniCloud.Presentation.Purchase.Supplier.MetrialChildView"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+                   xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                   mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800"
+                   WindowStartupLocation="CenterScreen"
+                   
+                   Height="300" Width="600"
+                   d:DataContext="{d:DesignInstance uc:SupplierMaterialManagerVM}">
+    <telerik:RadWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+                <ResourceDictionary Source="/Telerik.Windows.Themes.Windows8;component/Themes/System.Windows.xaml" />
+                <ResourceDictionary
+                    Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.xaml" />
+                <ResourceDictionary
+                    Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.Input.xaml" />
+                <ResourceDictionary
+                    Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.Navigation.xaml" />
+                <ResourceDictionary
+                    Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.Data.xaml" />
+                <ResourceDictionary
+                    Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.Docking.xaml" />
+                <ResourceDictionary
+                    Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.GridView.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </telerik:RadWindow.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Visibility="{Binding AcGridVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <telerik:RadGridView Grid.Row="0" 
+                                 Name="AircraftMaterial"
+                                 ItemsSource="{Binding AircraftMaterialsView}"
+                                 IsBusy="{Binding AircraftMaterialsView.IsBusy}"
+                                 AutoGenerateColumns="False"
+                                 ShowGroupPanel="True"
+                                 CanUserSortColumns="True"
+                                 RowIndicatorVisibility="Visible"
+                                 CanUserFreezeColumns="False" 
+                                 SelectionMode="Extended"
+                                 >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SelMaterialCommand}" CommandParameter="{Binding ElementName=AircraftMaterial}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <telerik:RadGridView.Columns>
+                    <uc:DataPageSerialColumn Header="序号"
+                                             IsReadOnly="True"
+                                             CellStyle="{StaticResource CellStyle}"
+                                             HeaderTextAlignment="Center" />
+                    <telerik:GridViewSelectColumn />
+                    <telerik:GridViewDataColumn Header="机型"
+                                                IsReadOnly="True"
+                                                HeaderTextAlignment="Center"
+                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                DataMemberBinding="{Binding  Name}" />
+                    <telerik:GridViewDataColumn Header="备注"
+                                                IsReadOnly="True"
+                                                HeaderTextAlignment="Center"
+                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                DataMemberBinding="{Binding  Description}" />
+                </telerik:RadGridView.Columns>
+            </telerik:RadGridView>
+        </Grid>
+        <Grid Visibility="{Binding EngineGridVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <telerik:RadGridView Grid.Row="0"
+                                 Name="EgineMaterial"
+                                 IsReadOnly="True"
+                                 ItemsSource="{Binding  EngineMaterialsView}"
+                                 IsBusy="{Binding EngineMaterialsView.IsBusy}"
+                                 AutoGenerateColumns="False"
+                                 ShowGroupPanel="True"
+                                 CanUserSortColumns="True"
+                                 RowIndicatorVisibility="Visible"
+                                 CanUserFreezeColumns="False"
+                                 SelectionMode="Extended"
+                                 >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SelMaterialCommand}" CommandParameter="{Binding ElementName=EgineMaterial}" />
+                    </i:EventTrigger> 
+                 </i:Interaction.Triggers>
+                    <telerik:RadGridView.Columns>
+                    <uc:DataPageSerialColumn Header="序号"
+                                             CellStyle="{StaticResource CellStyle}"
+                                             HeaderTextAlignment="Center" />
+                    <telerik:GridViewSelectColumn  />
+                    <telerik:GridViewDataColumn Header="Pn"
+                                                HeaderTextAlignment="Center"
+                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                DataMemberBinding="{Binding  Name}" />
+                    <telerik:GridViewDataColumn Header="备注"
+                                                HeaderTextAlignment="Center"
+                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                DataMemberBinding="{Binding  Description}" />
+                </telerik:RadGridView.Columns>
+            </telerik:RadGridView>
+            <telerik:RadDataPager BorderThickness="1,0,1,1"
+                                  AutoEllipsisMode="Both"
+                                  DisplayMode="All"
+                                  Source="{Binding EngineMaterialsView}"
+                                  Grid.Row="1" />
+        </Grid>
+        <Grid  Visibility="{Binding BfeGridVisibility}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <telerik:RadGridView Grid.Row="0"
+                                 Name="BfeMaterial"
+                                 IsReadOnly="True"
+                                 ItemsSource="{Binding BFEMaterialsView}"
+                                 IsBusy="{Binding BFEMaterialsView.IsBusy}"
+                                 AutoGenerateColumns="False"
+                                 ShowGroupPanel="True"
+                                 CanUserSortColumns="True"
+                                 RowIndicatorVisibility="Visible"
+                                 CanUserFreezeColumns="False"
+                                 SelectionMode="Extended">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SelMaterialCommand}" CommandParameter="{Binding ElementName=BfeMaterial}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+                <telerik:RadGridView.Columns>
+                    <uc:DataPageSerialColumn Header="序号"
+                                             CellStyle="{StaticResource CellStyle}"
+                                             HeaderTextAlignment="Center" />
+                    <telerik:GridViewSelectColumn />
+                    <telerik:GridViewDataColumn Header="Pn"
+                                                HeaderTextAlignment="Center"
+                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                DataMemberBinding="{Binding  Name}" />
+                    <telerik:GridViewDataColumn Header="备注"
+                                                HeaderTextAlignment="Center"
+                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                DataMemberBinding="{Binding  Description}" />
+                </telerik:RadGridView.Columns>
+            </telerik:RadGridView>
+            <telerik:RadDataPager BorderThickness="1,0,1,1"
+                                  AutoEllipsisMode="Both"
+                                  DisplayMode="All"
+                                  Source="{Binding BFEMaterialsView}"
+                                  Grid.Row="1" />
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <telerik:RadButton Content="确定" Height="30" Width="100" Margin="5,2" Command="{Binding CommitCommand}"></telerik:RadButton>
+            <telerik:RadButton Content="取消" Height="30" Width="100"  Margin="5,2" Command="{Binding CancelCommand}"></telerik:RadButton>
+        </StackPanel>
+    </Grid>
+</telerik:RadWindow>
