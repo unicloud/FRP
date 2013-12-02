@@ -79,7 +79,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
             var supplierRep = DefaultContainer.Resolve<ISupplierCompanyRepository>();
 
             // Act
-            var result = supplierRep.Get(3).Materials;
+            var result = supplierRep.Get(3).SupplierCompanyMaterials.Select(s => s.Material);
 
             // Assert
             Assert.IsTrue(result.Any());

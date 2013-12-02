@@ -58,18 +58,17 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         public void AddSupplierWithMaterial()
         {
             // Arrange
-            //var acTypeRep = DefaultContainer.Resolve<IAircraftTypeRepository>();
-            //var materialRep = DefaultContainer.Resolve<IMaterialRepository>();
+            var acTypeRep = DefaultContainer.Resolve<IAircraftTypeRepository>();
+            var supplierRep = DefaultContainer.Resolve<ISupplierCompanyRepository>();
 
-            //var acType = acTypeRep.GetAll().FirstOrDefault();
-            //var material = MaterialFactory.CreateAircraftMaterial();
-            //material.SetAircraftType(acType);
-            //var supplierCompany = SupplierCompanyFactory.CreateSupplieCompany("0003");
+            var acType = acTypeRep.GetAll().FirstOrDefault();
+            var material = MaterialFactory.CreateAircraftMaterial("B737-800",null,acType.Id);
+            material.SetAircraftType(acType);
+            var supplierCompany = supplierRep.GetAll().FirstOrDefault();
+            supplierCompany.AddMaterial(material);
 
-            //// Act
-            //material.SupplierCompanies.Add(supplierCompany);
-            //materialRep.Add(material);
-            //materialRep.UnitOfWork.Commit();
+            // Act
+            supplierRep.UnitOfWork.Commit();
         }
 
         [TestMethod]
@@ -79,7 +78,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
             var materialRep = DefaultContainer.Resolve<IMaterialRepository>();
 
             // Act
-            var result = materialRep.Get(2).SupplierCompanies;
+            var result = materialRep.Get(2).SupplierCompanyMaterials.Select(m => m.SupplierCompany);
 
             // Assert
             Assert.IsTrue(result.Any());

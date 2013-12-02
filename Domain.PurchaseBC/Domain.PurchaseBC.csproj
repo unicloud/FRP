@@ -119,6 +119,8 @@
     <Compile Include="Aggregates\SupplierAgg\SupplierSpecifications.cs" />
     <Compile Include="Aggregates\SupplierCompanyAgg\SupplierCompanyFactory.cs" />
     <Compile Include="Aggregates\SupplierCompanyAgg\SupplierCompanySpecifications.cs" />
+    <Compile Include="Aggregates\SupplierCompanyMaterialAgg\SupplierCompanyMaterial.cs" />
+    <Compile Include="Aggregates\SupplierCompanyMaterialAgg\SupplierCompanyMaterialSpecifications.cs" />
     <Compile Include="Aggregates\SupplierRoleAgg\AircraftLeaseSupplier.cs" />
     <Compile Include="Aggregates\SupplierRoleAgg\AircraftPurchaseSupplier.cs" />
     <Compile Include="Aggregates\SupplierRoleAgg\BFEPurchaseSupplier.cs" />

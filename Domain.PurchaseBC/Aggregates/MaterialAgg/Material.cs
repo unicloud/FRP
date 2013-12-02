@@ -21,7 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.PurchaseBC.Aggregates.ManufacturerAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
 
 #endregion
 
@@ -34,7 +34,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
     {
         #region 私有字段
 
-        private HashSet<SupplierCompany> _supplierCompanies;
+        private HashSet<SupplierCompanyMaterial> _supplierCompanyMaterials;
 
         #endregion
 
@@ -81,12 +81,15 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
         public virtual Manufacturer Manufacturer { get; set; }
 
         /// <summary>
-        ///     供应商公司集合
+        ///     供应商物料集合
         /// </summary>
-        public virtual ICollection<SupplierCompany> SupplierCompanies
+        public virtual ICollection<SupplierCompanyMaterial> SupplierCompanyMaterials
         {
-            get { return _supplierCompanies ?? (_supplierCompanies = new HashSet<SupplierCompany>()); }
-            set { _supplierCompanies = new HashSet<SupplierCompany>(value); }
+            get
+            {
+                return _supplierCompanyMaterials ?? (_supplierCompanyMaterials = new HashSet<SupplierCompanyMaterial>());
+            }
+            set { _supplierCompanyMaterials = new HashSet<SupplierCompanyMaterial>(value); }
         }
 
         #endregion

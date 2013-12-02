@@ -272,6 +272,19 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
+                "FRP.SupplierCompanyMaterial",
+                c => new
+                    {
+                        MaterialId = c.Int(nullable: false),
+                        SupplierCompanyId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.MaterialId, t.SupplierCompanyId })
+                .ForeignKey("FRP.Material", t => t.MaterialId)
+                .ForeignKey("FRP.SupplierCompany", t => t.SupplierCompanyId)
+                .Index(t => t.MaterialId)
+                .Index(t => t.SupplierCompanyId);
+            
+            CreateTable(
                 "FRP.Manufacturer",
                 c => new
                     {
@@ -415,19 +428,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .ForeignKey("FRP.ContractAircraft", t => t.ContractAircraft_Id, cascadeDelete: true)
                 .Index(t => t.BFEPurchaseOrder_Id)
                 .Index(t => t.ContractAircraft_Id);
-            
-            CreateTable(
-                "FRP.SupplierCompanyMaterial",
-                c => new
-                    {
-                        SupplierCompany_Id = c.Int(nullable: false),
-                        Material_Id = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.SupplierCompany_Id, t.Material_Id })
-                .ForeignKey("FRP.SupplierCompany", t => t.SupplierCompany_Id, cascadeDelete: true)
-                .ForeignKey("FRP.Material", t => t.Material_Id, cascadeDelete: true)
-                .Index(t => t.SupplierCompany_Id)
-                .Index(t => t.Material_Id);
             
             CreateTable(
                 "FRP.LeaseContractAircraft",
@@ -866,8 +866,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.ContractAircraft", "ImportCategoryId", "FRP.ActionCategory");
             DropForeignKey("FRP.Trade", "SupplierId", "FRP.Supplier");
             DropForeignKey("FRP.Supplier", "SupplierCompanyId", "FRP.SupplierCompany");
-            DropForeignKey("FRP.SupplierCompanyMaterial", "Material_Id", "FRP.Material");
-            DropForeignKey("FRP.SupplierCompanyMaterial", "SupplierCompany_Id", "FRP.SupplierCompany");
+            DropForeignKey("FRP.SupplierCompanyMaterial", "SupplierCompanyId", "FRP.SupplierCompany");
+            DropForeignKey("FRP.SupplierCompanyMaterial", "MaterialId", "FRP.Material");
             DropForeignKey("FRP.Material", "ManufacturerID", "FRP.Manufacturer");
             DropForeignKey("FRP.BankAccount", "SupplierId", "FRP.Supplier");
             DropForeignKey("FRP.Order", "TradeId", "FRP.Trade");
@@ -935,8 +935,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.ContractAircraft", new[] { "ImportCategoryId" });
             DropIndex("FRP.Trade", new[] { "SupplierId" });
             DropIndex("FRP.Supplier", new[] { "SupplierCompanyId" });
-            DropIndex("FRP.SupplierCompanyMaterial", new[] { "Material_Id" });
-            DropIndex("FRP.SupplierCompanyMaterial", new[] { "SupplierCompany_Id" });
+            DropIndex("FRP.SupplierCompanyMaterial", new[] { "SupplierCompanyId" });
+            DropIndex("FRP.SupplierCompanyMaterial", new[] { "MaterialId" });
             DropIndex("FRP.Material", new[] { "ManufacturerID" });
             DropIndex("FRP.BankAccount", new[] { "SupplierId" });
             DropIndex("FRP.Order", new[] { "TradeId" });
@@ -981,7 +981,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.LeaseContractEngine");
             DropTable("FRP.PurchaseContractAircraft");
             DropTable("FRP.LeaseContractAircraft");
-            DropTable("FRP.SupplierCompanyMaterial");
             DropTable("FRP.ContractAircraftBFE");
             DropTable("FRP.ContentTag");
             DropTable("FRP.SupplierRole");
@@ -992,6 +991,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.PlanAircraft");
             DropTable("FRP.Material");
             DropTable("FRP.Manufacturer");
+            DropTable("FRP.SupplierCompanyMaterial");
             DropTable("FRP.SupplierCompany");
             DropTable("FRP.Supplier");
             DropTable("FRP.Trade");

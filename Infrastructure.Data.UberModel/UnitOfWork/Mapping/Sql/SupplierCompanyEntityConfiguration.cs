@@ -39,10 +39,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 
             Property(p => p.Code).HasColumnName("Code");
             Property(p => p.LinkmanId).HasColumnName("LinkmanId");
-
-            HasMany(s => s.Materials)
-                .WithMany(m => m.SupplierCompanies)
-                .Map(m => m.ToTable("SupplierCompanyMaterial", DbConfig.Schema));
         }
     }
 }

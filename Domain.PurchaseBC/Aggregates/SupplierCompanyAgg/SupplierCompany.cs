@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
 
 #endregion
 
@@ -35,7 +36,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg
     {
         #region 私有字段
 
-        private HashSet<Material> _materials;
+        private HashSet<SupplierCompanyMaterial> _supplierCompanyMaterials;
         private HashSet<Supplier> _suppliers;
 
         #endregion
@@ -82,17 +83,42 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg
         }
 
         /// <summary>
-        ///     物料集合
+        ///     供应商物料集合
         /// </summary>
-        public virtual ICollection<Material> Materials
+        public virtual ICollection<SupplierCompanyMaterial> SupplierCompanyMaterials
         {
-            get { return _materials ?? (_materials = new HashSet<Material>()); }
-            set { _materials = new HashSet<Material>(value); }
+            get
+            {
+                return _supplierCompanyMaterials ?? (_supplierCompanyMaterials = new HashSet<SupplierCompanyMaterial>());
+            }
+            set { _supplierCompanyMaterials = new HashSet<SupplierCompanyMaterial>(value); }
         }
 
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     添加物料
+        /// </summary>
+        /// <param name="material">物料</param>
+        public void AddMaterial(Material material)
+        {
+            if (material == null || material.IsTransient())
+            {
+                throw new ArgumentException("物料参数为空！");
+            }
+
+            var supplierMaterial = new SupplierCompanyMaterial
+            {
+                SupplierCompanyId = Id,
+                SupplierCompany = this,
+                MaterialId = material.Id,
+                Material = material
+            };
+
+            SupplierCompanyMaterials.Add(supplierMaterial);
+        }
 
         #endregion
 

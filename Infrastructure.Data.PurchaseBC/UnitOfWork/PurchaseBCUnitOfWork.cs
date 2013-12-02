@@ -352,6 +352,12 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
 
                 #endregion
 
+                #region SupplierCompanyMaterialAgg
+
+                .Add(new SupplierCompanyMaterialEntityConfiguration())
+
+                #endregion
+
                 #region SupplierRoleAgg
 
                 .Add(new SupplierRoleEntityConfiguration())
