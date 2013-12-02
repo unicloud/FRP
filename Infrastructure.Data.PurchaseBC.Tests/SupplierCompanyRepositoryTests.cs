@@ -17,11 +17,13 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
@@ -44,7 +46,8 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
                 .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 .Register<IAircraftTypeRepository, AircraftTypeRepository>()
                 .Register<IMaterialRepository, MaterialRepository>()
-                .Register<ISupplierCompanyRepository, SupplierCompanyRepository>();
+                .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
+                .Register<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>();
         }
 
         [TestCleanup]
@@ -72,6 +75,36 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
 
             // Act
             supplierRep.UnitOfWork.Commit();
+        }
+
+        [TestMethod]
+        public void DeleteMaterialFromSupplier()
+        {
+            // Arrange
+            var supRep = DefaultContainer.Resolve<ISupplierCompanyRepository>();
+            var matRep = DefaultContainer.Resolve<IMaterialRepository>();
+            var scmRep = DefaultContainer.Resolve<ISupplierCompanyMaterialRepository>();
+
+            var supplier = supRep.GetAll().FirstOrDefault(s => s.SupplierCompanyMaterials.Any());
+            if (supplier == null)
+            {
+                throw new ArgumentException("供应商为空！");
+            }
+            var material =
+                matRep.GetAll()
+                    .OfType<AircraftMaterial>()
+                    .SelectMany(m => m.SupplierCompanyMaterials)
+                    .Where(s => s.SupplierCompanyId == supplier.Id)
+                    .Select(s => s.Material)
+                    .FirstOrDefault();
+
+            var scm =
+                scmRep.GetFiltered(s => s.MaterialId == material.Id && s.SupplierCompanyId == supplier.Id)
+                    .FirstOrDefault();
+
+            // Act
+            scmRep.Remove(scm);
+            scmRep.UnitOfWork.Commit();
         }
 
         [TestMethod]

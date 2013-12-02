@@ -62,6 +62,7 @@
     <Compile Include="Aggregates\ContentTagAgg\IContentTagRepository.cs" />
     <Compile Include="Aggregates\ContractAircraftBFEAgg\ContractAircraftBFE.cs" />
     <Compile Include="Aggregates\ContractAircraftBFEAgg\ContractAircraftBFESpecifications.cs" />
+    <Compile Include="Aggregates\ContractAircraftBFEAgg\IContractAircraftBFERepository.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\APUMaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContractFactory.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Aggregates\SupplierAgg\SupplierSpecifications.cs" />
     <Compile Include="Aggregates\SupplierCompanyAgg\SupplierCompanyFactory.cs" />
     <Compile Include="Aggregates\SupplierCompanyAgg\SupplierCompanySpecifications.cs" />
+    <Compile Include="Aggregates\SupplierCompanyMaterialAgg\ISupplierCompanyMaterialRepository.cs" />
     <Compile Include="Aggregates\SupplierCompanyMaterialAgg\SupplierCompanyMaterial.cs" />
     <Compile Include="Aggregates\SupplierCompanyMaterialAgg\SupplierCompanyMaterialSpecifications.cs" />
     <Compile Include="Aggregates\SupplierRoleAgg\AircraftLeaseSupplier.cs" />

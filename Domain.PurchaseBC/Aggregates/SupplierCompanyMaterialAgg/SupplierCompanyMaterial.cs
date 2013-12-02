@@ -27,7 +27,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg
     /// <summary>
     ///     供应商物料聚合根
     /// </summary>
-    public class SupplierCompanyMaterial
+    public class SupplierCompanyMaterial : EntityInt
     {
         #region 构造函数
 

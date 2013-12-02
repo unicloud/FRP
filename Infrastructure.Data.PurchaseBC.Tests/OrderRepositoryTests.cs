@@ -23,6 +23,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftBFEAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
@@ -50,6 +51,8 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
                 .Register<IOrderRepository, OrderRepository>()
                 .Register<ICurrencyRepository, CurrencyRepository>()
                 .Register<ITradeRepository, TradeRepository>()
+                .Register<IContractAircraftRepository, ContractAircraftRepository>()
+                .Register<IContractAircraftBFERepository, ContractAircraftBFERepository>()
                 .Register<IAircraftTypeRepository, AircraftTypeRepository>()
                 .Register<IActionCategoryRepository, ActionCategoryRepository>()
                 .Register<ILinkmanRepository, LinkmanRepository>();
@@ -159,17 +162,28 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         {
             // Arrange
             var orderRep = DefaultContainer.Resolve<IOrderRepository>();
+            var caRep = DefaultContainer.Resolve<IContractAircraftRepository>();
+            var cabRep = DefaultContainer.Resolve<IContractAircraftBFERepository>();
 
             var order = orderRep.GetAll().OfType<BFEPurchaseOrder>().FirstOrDefault(o => o.ContractAircraftBfes.Any());
             if (order == null)
             {
                 throw new ArgumentException("订单为空！");
             }
-            var ac = order.ContractAircraftBfes.FirstOrDefault();
-            order.ContractAircraftBfes.Remove(ac);
+            var contractAircraft =
+                caRep.GetAll()
+                    .SelectMany(c => c.ContractAircraftBfes)
+                    .Where(c => c.BFEPurchaseOrderId == order.Id)
+                    .Select(c => c.ContractAircraft)
+                    .FirstOrDefault();
+
+            var cab =
+                cabRep.GetFiltered(c => c.BFEPurchaseOrderId == order.Id && c.ContractAircraftId == contractAircraft.Id)
+                    .FirstOrDefault();
 
             // Act
-            orderRep.UnitOfWork.Commit();
+            cabRep.Remove(cab);
+            cabRep.UnitOfWork.Commit();
         }
     }
 }

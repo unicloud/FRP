@@ -56,6 +56,7 @@
     <Compile Include="Repositories\AircraftRepository.cs" />
     <Compile Include="Repositories\AircraftTypeRepository.cs" />
     <Compile Include="Repositories\BankAccountRepository.cs" />
+    <Compile Include="Repositories\ContractAircraftBFERepository.cs" />
     <Compile Include="Repositories\ContractAircraftRepository.cs" />
     <Compile Include="Repositories\ContentTagRepository.cs" />
     <Compile Include="Repositories\ContractEngineRepository.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Repositories\PartRepository.cs" />
     <Compile Include="Repositories\PlanAircraftRepository.cs" />
     <Compile Include="Repositories\ReceptionRepository.cs" />
+    <Compile Include="Repositories\SupplierCompanyMaterialRepository.cs" />
     <Compile Include="Repositories\SupplierCompanyRepository.cs" />
     <Compile Include="Repositories\SupplierRepository.cs" />
     <Compile Include="Repositories\SupplierRoleRepository.cs" />

@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
 
@@ -33,7 +34,8 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
         {
             ToTable("SupplierCompanyMaterial", DbConfig.Schema);
 
-            HasKey(p => new {p.MaterialId, p.SupplierCompanyId});
+            HasKey(p => p.Id);
+            Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(p => p.MaterialId).HasColumnName("MaterialId");
             Property(p => p.SupplierCompanyId).HasColumnName("SupplierCompanyId");

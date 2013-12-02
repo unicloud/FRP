@@ -27,7 +27,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ContractAircraftBFEAgg
     /// <summary>
     ///     合同飞机BFE
     /// </summary>
-    public class ContractAircraftBFE
+    public class ContractAircraftBFE : EntityInt
     {
         #region 构造函数
 

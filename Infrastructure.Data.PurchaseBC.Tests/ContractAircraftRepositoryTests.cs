@@ -17,8 +17,6 @@
 
 #region 命名空间
 
-using System;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg;
@@ -62,6 +60,5 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         }
 
         #endregion
-
     }
 }
