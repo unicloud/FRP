@@ -136,6 +136,7 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
             QueryBuilder<SupplierCompany> query)
         {
             var dbSupplierRole = _unitOfWork.CreateSet<SupplierRole>();
+            var dbMaterial = _unitOfWork.CreateSet<Material>();
             return _unitOfWork.CreateSet<SupplierCompany>().Select(p => new SupplierCompanyMaterialDTO
                 {
                     SupplierCompanyId = p.Id,
@@ -160,27 +161,38 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                     SupplierType =
                         p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).SupplierType == 0 ? "国内" : "国外",
                     Name = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).Name,
-                    AircraftMaterials = p.Materials.OfType<AircraftMaterial>().Select(c => new AircraftMaterialDTO
-                        {
-                            AcMaterialId = c.Id,
-                            Name = c.Name,
-                            Description = c.Description,
-                            AircraftTypeId = c.AircraftTypeId,
-                        }).ToList(),
-                    BFEMaterials = p.Materials.OfType<BFEMaterial>().Select(c => new BFEMaterialDTO
-                        {
-                            BFEMaterialId = c.Id,
-                            Name = c.Name,
-                            Description = c.Description,
-                            PartId = c.PartID,
-                        }).ToList(),
-                    EngineMaterials = p.Materials.OfType<EngineMaterial>().Select(c => new EngineMaterialDTO
-                        {
-                            EngineMaterialId = c.Id,
-                            Name = c.Name,
-                            Description = c.Description,
-                            PartId = c.PartID,
-                        }).ToList(),
+                    AircraftMaterials = (from t in dbMaterial.OfType<AircraftMaterial>()
+                                        from c in p.SupplierCompanyMaterials
+                                        where t.Id==c.MaterialId
+                                        select new AircraftMaterialDTO()
+                                        {
+                                            AcMaterialId = t.Id,
+                                            Name = t.Name,
+                                            Description = t.Description,
+                                            AircraftTypeId = t.AircraftTypeId,
+                                        }).ToList(),
+
+
+                    BFEMaterials = (from t in dbMaterial.OfType<BFEMaterial>()
+                                    from c in p.SupplierCompanyMaterials
+                                    where t.Id == c.MaterialId
+                                    select new BFEMaterialDTO()
+                                    {
+                                        BFEMaterialId = t.Id,
+                                        Name = t.Name,
+                                        Description = t.Description,
+                                        PartId = t.PartID,
+                                    }).ToList(),
+                    EngineMaterials = (from t in dbMaterial.OfType<EngineMaterial>()
+                                       from c in p.SupplierCompanyMaterials
+                                       where t.Id == c.MaterialId
+                                       select new EngineMaterialDTO()
+                                       {
+                                           EngineMaterialId = t.Id,
+                                           Name = t.Name,
+                                           Description = t.Description,
+                                           PartId = t.PartID,
+                                       }).ToList(),
                 });
         }
     }
