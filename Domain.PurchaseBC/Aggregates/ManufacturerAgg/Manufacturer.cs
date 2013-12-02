@@ -4,9 +4,9 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/11/04，21:11
-// 文件名：Manufacturer.cs
-// 程序集：UniCloud.Domain.PurchaseBC
+// 作者：丁志浩 时间：2013/11/29，13:11
+// 方案：FRP
+// 项目：Domain.PurchaseBC
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -22,6 +22,18 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ManufacturerAgg
     /// </summary>
     public class Manufacturer : EntityGuid
     {
+        #region 构造函数
+
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能通过工厂方法去创建新实例
+        /// </summary>
+        internal Manufacturer()
+        {
+        }
+
+        #endregion
+
         #region 属性
 
         /// <summary>

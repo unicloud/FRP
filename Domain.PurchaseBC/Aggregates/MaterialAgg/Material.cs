@@ -38,6 +38,18 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
 
         #endregion
 
+        #region 构造函数
+
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能通过工厂方法去创建新实例
+        /// </summary>
+        internal Material()
+        {
+        }
+
+        #endregion
+
         #region 属性
 
         /// <summary>
@@ -95,14 +107,15 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
 
             return validationResults;
         }
+
         /// <summary>
-        ///设置主键。
+        ///     设置主键。
         /// </summary>
         /// <param name="materialId"></param>
         /// <returns></returns>
         public int SetMaterialId(int materialId)
         {
-          return  Id = materialId;
+            return Id = materialId;
         }
 
         #endregion

@@ -34,8 +34,20 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
     {
         #region 私有字段
 
-        private HashSet<ReceptionSchedule> _schedules;
         private HashSet<ReceptionLine> _lines;
+        private HashSet<ReceptionSchedule> _schedules;
+
+        #endregion
+
+        #region 构造函数
+
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能通过工厂方法去创建新实例
+        /// </summary>
+        internal Reception()
+        {
+        }
 
         #endregion
 
@@ -109,13 +121,14 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         }
 
         /// <summary>
-        ///    交付日程
+        ///     交付日程
         /// </summary>
         public virtual ICollection<ReceptionSchedule> ReceptionSchedules
         {
             get { return _schedules ?? (_schedules = new HashSet<ReceptionSchedule>()); }
             set { _schedules = new HashSet<ReceptionSchedule>(value); }
         }
+
         #endregion
 
         #region 操作

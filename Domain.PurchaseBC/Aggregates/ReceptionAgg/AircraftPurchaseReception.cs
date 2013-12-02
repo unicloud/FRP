@@ -23,6 +23,18 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
     /// </summary>
     public class AircraftPurchaseReception : Reception
     {
+        #region 构造函数
+
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能通过工厂方法去创建新实例
+        /// </summary>
+        internal AircraftPurchaseReception()
+        {
+        }
+
+        #endregion
+
         #region 属性
 
         #endregion

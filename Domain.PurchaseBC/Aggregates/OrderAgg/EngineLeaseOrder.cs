@@ -15,7 +15,11 @@
 
 #endregion
 
+#region 命名空间
+
 using System;
+
+#endregion
 
 namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
 {
@@ -25,6 +29,18 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
     /// </summary>
     public class EngineLeaseOrder : Order
     {
+        #region 构造函数
+
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能通过工厂方法去创建新实例
+        /// </summary>
+        internal EngineLeaseOrder()
+        {
+        }
+
+        #endregion
+
         #region 属性
 
         #endregion

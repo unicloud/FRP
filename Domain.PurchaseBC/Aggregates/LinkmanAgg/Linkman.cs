@@ -31,6 +31,18 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg
     /// </summary>
     public class Linkman : EntityInt, IValidatableObject
     {
+        #region 构造函数
+
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能通过工厂方法去创建新实例
+        /// </summary>
+        internal Linkman()
+        {
+        }
+
+        #endregion
+
         #region 属性
 
         /// <summary>
