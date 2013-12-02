@@ -60,6 +60,8 @@
     <Compile Include="Aggregates\ContentTagAgg\ContentTag.cs" />
     <Compile Include="Aggregates\ContentTagAgg\ContentTagSpecifications.cs" />
     <Compile Include="Aggregates\ContentTagAgg\IContentTagRepository.cs" />
+    <Compile Include="Aggregates\ContractAircraftBFEAgg\ContractAircraftBFE.cs" />
+    <Compile Include="Aggregates\ContractAircraftBFEAgg\ContractAircraftBFESpecifications.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\APUMaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContractFactory.cs" />

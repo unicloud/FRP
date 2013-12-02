@@ -22,7 +22,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
-using UniCloud.Domain.UberModel.Aggregates.OrderAgg;
+using UniCloud.Domain.UberModel.Aggregates.ContractAircraftBFEAgg;
 using UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg;
 
 #endregion
@@ -36,7 +36,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg
     {
         #region 私有字段
 
-        private HashSet<BFEPurchaseOrder> _bfePurchaseOrders;
+        private HashSet<ContractAircraftBFE> _contractAircraftBfes;
 
         #endregion
 
@@ -123,10 +123,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg
         /// <summary>
         ///     合同飞机BFE
         /// </summary>
-        public virtual ICollection<BFEPurchaseOrder> BFEPurchaseOrders
+        public virtual ICollection<ContractAircraftBFE> ContractAircraftBfes
         {
-            get { return _bfePurchaseOrders ?? (_bfePurchaseOrders = new HashSet<BFEPurchaseOrder>()); }
-            set { _bfePurchaseOrders = new HashSet<BFEPurchaseOrder>(value); }
+            get { return _contractAircraftBfes ?? (_contractAircraftBfes = new HashSet<ContractAircraftBFE>()); }
+            set { _contractAircraftBfes = new HashSet<ContractAircraftBFE>(value); }
         }
 
         #endregion

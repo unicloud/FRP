@@ -160,13 +160,13 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
             // Arrange
             var orderRep = DefaultContainer.Resolve<IOrderRepository>();
 
-            var order = orderRep.GetAll().OfType<BFEPurchaseOrder>().FirstOrDefault(o => o.ContractAircrafts.Any());
+            var order = orderRep.GetAll().OfType<BFEPurchaseOrder>().FirstOrDefault(o => o.ContractAircraftBfes.Any());
             if (order == null)
             {
                 throw new ArgumentException("订单为空！");
             }
-            var ac = order.ContractAircrafts.FirstOrDefault();
-            order.ContractAircrafts.Remove(ac);
+            var ac = order.ContractAircraftBfes.FirstOrDefault();
+            order.ContractAircraftBfes.Remove(ac);
 
             // Act
             orderRep.UnitOfWork.Commit();

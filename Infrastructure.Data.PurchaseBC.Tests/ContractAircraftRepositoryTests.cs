@@ -63,35 +63,5 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
 
         #endregion
 
-        [TestMethod]
-        public void AddBFEOrderWithContractAircraft()
-        {
-            // Arrange
-            var contractAircraftRep = DefaultContainer.Resolve<IContractAircraftRepository>();
-            var acTypeRep = DefaultContainer.Resolve<IAircraftTypeRepository>();
-            var impRep = DefaultContainer.Resolve<IActionCategoryRepository>();
-            var tradeRep = DefaultContainer.Resolve<ITradeRepository>();
-            var currencyRep = DefaultContainer.Resolve<ICurrencyRepository>();
-            var linkmanRep = DefaultContainer.Resolve<ILinkmanRepository>();
-
-            var trade = tradeRep.GetAll().FirstOrDefault();
-            var currency = currencyRep.GetAll().FirstOrDefault();
-            var linkman = linkmanRep.GetAll().FirstOrDefault();
-            var acType = acTypeRep.GetAll().FirstOrDefault();
-            var imp = impRep.GetAll().FirstOrDefault();
-
-            var contractAc = ContractAircraftFactory.CreatePurchaseContractAircraft("购买飞机", "0002");
-            contractAc.SetAircraftType(acType);
-            contractAc.SetImportCategory(imp);
-            var order = OrderFactory.CreateBFEPurchaseOrder(3, "", DateTime.Now);
-            order.SetTrade(trade);
-            order.SetLinkman(linkman);
-            order.SetCurrency(currency);
-
-            // Act
-            contractAc.BFEPurchaseOrders.Add(order);
-            contractAircraftRep.Add(contractAc);
-            contractAircraftRep.UnitOfWork.Commit();
-        }
     }
 }

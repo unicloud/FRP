@@ -87,10 +87,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierCompanyAgg
         #region 操作
 
         /// <summary>
-        ///     添加物料
+        ///     添加供应商物料
         /// </summary>
         /// <param name="material">物料</param>
-        public void AddMaterial(Material material)
+        public SupplierCompanyMaterial AddMaterial(Material material)
         {
             if (material == null || material.IsTransient())
             {
@@ -106,6 +106,8 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierCompanyAgg
             };
 
             SupplierCompanyMaterials.Add(supplierMaterial);
+
+            return supplierMaterial;
         }
 
         #endregion

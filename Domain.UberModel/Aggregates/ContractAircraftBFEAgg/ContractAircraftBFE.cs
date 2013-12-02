@@ -4,7 +4,7 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/12/02，15:12
+// 作者：丁志浩 时间：2013/12/02，17:12
 // 方案：FRP
 // 项目：Domain.UberModel
 // 版本：V1.0.0
@@ -17,17 +17,17 @@
 
 #region 命名空间
 
-using UniCloud.Domain.UberModel.Aggregates.MaterialAgg;
-using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyAgg;
+using UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg;
+using UniCloud.Domain.UberModel.Aggregates.OrderAgg;
 
 #endregion
 
-namespace UniCloud.Domain.UberModel.Aggregates.SupplierCompanyMaterialAgg
+namespace UniCloud.Domain.UberModel.Aggregates.ContractAircraftBFEAgg
 {
     /// <summary>
-    ///     供应商物料聚合根
+    ///     合同飞机BFE
     /// </summary>
-    public class SupplierCompanyMaterial
+    public class ContractAircraftBFE
     {
         #region 构造函数
 
@@ -35,7 +35,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierCompanyMaterialAgg
         ///     内部构造函数
         ///     限制创建新实例
         /// </summary>
-        internal SupplierCompanyMaterial()
+        internal ContractAircraftBFE()
         {
         }
 
@@ -48,14 +48,14 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierCompanyMaterialAgg
         #region 外键属性
 
         /// <summary>
-        ///     物料ID
+        ///     合同飞机ID
         /// </summary>
-        public int MaterialId { get; internal set; }
+        public int ContractAircraftId { get; internal set; }
 
         /// <summary>
-        ///     供应商公司ID
+        ///     BFE采购订单ID
         /// </summary>
-        public int SupplierCompanyId { get; internal set; }
+        public int BFEPurchaseOrderId { get; internal set; }
 
         #endregion
 
@@ -64,12 +64,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierCompanyMaterialAgg
         /// <summary>
         ///     物料
         /// </summary>
-        public virtual Material Material { get; internal set; }
+        public virtual ContractAircraft ContractAircraft { get; internal set; }
 
         /// <summary>
         ///     供应商公司
         /// </summary>
-        public virtual SupplierCompany SupplierCompany { get; internal set; }
+        public virtual BFEPurchaseOrder BFEPurchaseOrder { get; internal set; }
 
         #endregion
 

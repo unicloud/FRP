@@ -57,6 +57,19 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .Index(t => t.SupplierId);
             
             CreateTable(
+                "FRP.ContractAircraftBFE",
+                c => new
+                    {
+                        ContractAircraftId = c.Int(nullable: false),
+                        BFEPurchaseOrderId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.ContractAircraftId, t.BFEPurchaseOrderId })
+                .ForeignKey("FRP.BFEPurchaseOrder", t => t.BFEPurchaseOrderId)
+                .ForeignKey("FRP.ContractAircraft", t => t.ContractAircraftId)
+                .Index(t => t.BFEPurchaseOrderId)
+                .Index(t => t.ContractAircraftId);
+            
+            CreateTable(
                 "FRP.Order",
                 c => new
                     {
@@ -415,19 +428,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         Description = c.String(),
                     })
                 .PrimaryKey(t => t.ID);
-            
-            CreateTable(
-                "FRP.ContractAircraftBFE",
-                c => new
-                    {
-                        BFEPurchaseOrder_Id = c.Int(nullable: false),
-                        ContractAircraft_Id = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.BFEPurchaseOrder_Id, t.ContractAircraft_Id })
-                .ForeignKey("FRP.BFEPurchaseOrder", t => t.BFEPurchaseOrder_Id, cascadeDelete: true)
-                .ForeignKey("FRP.ContractAircraft", t => t.ContractAircraft_Id, cascadeDelete: true)
-                .Index(t => t.BFEPurchaseOrder_Id)
-                .Index(t => t.ContractAircraft_Id);
             
             CreateTable(
                 "FRP.LeaseContractAircraft",
@@ -864,6 +864,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.ContractEngine", "ImportCategoryId", "FRP.ActionCategory");
             DropForeignKey("FRP.ContractAircraft", "PlanAircraftID", "FRP.PlanAircraft");
             DropForeignKey("FRP.ContractAircraft", "ImportCategoryId", "FRP.ActionCategory");
+            DropForeignKey("FRP.ContractAircraftBFE", "ContractAircraftId", "FRP.ContractAircraft");
+            DropForeignKey("FRP.ContractAircraftBFE", "BFEPurchaseOrderId", "FRP.BFEPurchaseOrder");
             DropForeignKey("FRP.Trade", "SupplierId", "FRP.Supplier");
             DropForeignKey("FRP.Supplier", "SupplierCompanyId", "FRP.SupplierCompany");
             DropForeignKey("FRP.SupplierCompanyMaterial", "SupplierCompanyId", "FRP.SupplierCompany");
@@ -875,8 +877,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.Order", "LinkmanId", "FRP.Linkman");
             DropForeignKey("FRP.Order", "CurrencyId", "FRP.Currency");
             DropForeignKey("FRP.ContractContent", "OrderId", "FRP.Order");
-            DropForeignKey("FRP.ContractAircraftBFE", "ContractAircraft_Id", "FRP.ContractAircraft");
-            DropForeignKey("FRP.ContractAircraftBFE", "BFEPurchaseOrder_Id", "FRP.BFEPurchaseOrder");
             DropForeignKey("FRP.ContractAircraft", "AircraftTypeId", "FRP.AircraftType");
             DropForeignKey("FRP.Aircraft", "AircraftTypeId", "FRP.AircraftType");
             DropIndex("FRP.EnginePurchaseSupplier", new[] { "ID" });
@@ -933,6 +933,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.ContractEngine", new[] { "ImportCategoryId" });
             DropIndex("FRP.ContractAircraft", new[] { "PlanAircraftID" });
             DropIndex("FRP.ContractAircraft", new[] { "ImportCategoryId" });
+            DropIndex("FRP.ContractAircraftBFE", new[] { "ContractAircraftId" });
+            DropIndex("FRP.ContractAircraftBFE", new[] { "BFEPurchaseOrderId" });
             DropIndex("FRP.Trade", new[] { "SupplierId" });
             DropIndex("FRP.Supplier", new[] { "SupplierCompanyId" });
             DropIndex("FRP.SupplierCompanyMaterial", new[] { "SupplierCompanyId" });
@@ -944,8 +946,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.Order", new[] { "LinkmanId" });
             DropIndex("FRP.Order", new[] { "CurrencyId" });
             DropIndex("FRP.ContractContent", new[] { "OrderId" });
-            DropIndex("FRP.ContractAircraftBFE", new[] { "ContractAircraft_Id" });
-            DropIndex("FRP.ContractAircraftBFE", new[] { "BFEPurchaseOrder_Id" });
             DropIndex("FRP.ContractAircraft", new[] { "AircraftTypeId" });
             DropIndex("FRP.Aircraft", new[] { "AircraftTypeId" });
             DropTable("FRP.EnginePurchaseSupplier");
@@ -981,7 +981,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.LeaseContractEngine");
             DropTable("FRP.PurchaseContractAircraft");
             DropTable("FRP.LeaseContractAircraft");
-            DropTable("FRP.ContractAircraftBFE");
             DropTable("FRP.ContentTag");
             DropTable("FRP.SupplierRole");
             DropTable("FRP.Reception");
@@ -1004,6 +1003,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.Currency");
             DropTable("FRP.ContractContent");
             DropTable("FRP.Order");
+            DropTable("FRP.ContractAircraftBFE");
             DropTable("FRP.BankAccount");
             DropTable("FRP.AircraftType");
             DropTable("FRP.Aircraft");

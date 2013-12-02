@@ -55,6 +55,7 @@
     <Compile Include="Aggregates\ContractAircraftAgg\ContractAircraftFactory.cs" />
     <Compile Include="Aggregates\ContractAircraftAgg\LeaseContractAircraft.cs" />
     <Compile Include="Aggregates\ContractAircraftAgg\PurchaseContractAircraft.cs" />
+    <Compile Include="Aggregates\ContractAircraftBFEAgg\ContractAircraftBFE.cs" />
     <Compile Include="Aggregates\ContractEngineAgg\ContractEngine.cs" />
     <Compile Include="Aggregates\ContractEngineAgg\LeaseContractEngine.cs" />
     <Compile Include="Aggregates\ContractEngineAgg\PurchaseContractEngine.cs" />

@@ -244,6 +244,12 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
 
                 #endregion
 
+                #region ContractAircraftBFEAgg
+
+                .Add(new ContractAircraftBFEEntityConfiguration())
+
+                #endregion
+            
                 #region ContractEngineAgg
 
                 .Add(new ContractEngineEntityConfiguration())

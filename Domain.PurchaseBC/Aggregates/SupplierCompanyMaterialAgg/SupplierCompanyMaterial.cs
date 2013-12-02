@@ -64,12 +64,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg
         /// <summary>
         ///     物料
         /// </summary>
-        public virtual Material Material { get; set; }
+        public virtual Material Material { get; internal set; }
 
         /// <summary>
         ///     供应商公司
         /// </summary>
-        public virtual SupplierCompany SupplierCompany { get; set; }
+        public virtual SupplierCompany SupplierCompany { get; internal set; }
 
         #endregion
 
