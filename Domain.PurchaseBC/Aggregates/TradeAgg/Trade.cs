@@ -199,6 +199,20 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg
             TradeNumber = string.Format("{0:yyyyMMdd}{1}", date, seq.ToString("D2"));
         }
 
+        /// <summary>
+        ///     设置交易编号
+        /// </summary>
+        /// <param name="tradeNumber">交易编号</param>
+        public void SetTradeNumber(string tradeNumber)
+        {
+            if (string.IsNullOrWhiteSpace(tradeNumber))
+            {
+                throw new ArgumentException("交易编号参数为空！");
+            }
+
+            TradeNumber = tradeNumber;
+        }
+
         #endregion
 
         #region IValidatableObject 成员
