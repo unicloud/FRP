@@ -24,6 +24,7 @@ using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.BankAccountAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg;
+using UniCloud.Domain.UberModel.Aggregates.ContractAircraftBFEAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractEngineAgg;
 using UniCloud.Domain.UberModel.Aggregates.CurrencyAgg;
 using UniCloud.Domain.UberModel.Aggregates.ForwarderAgg;
@@ -37,6 +38,7 @@ using UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.ReceptionAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyAgg;
+using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyMaterialAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierRoleAgg;
 using UniCloud.Domain.UberModel.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql;
@@ -53,6 +55,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<AircraftType> _aircraftTypes;
         private IDbSet<Aircraft> _aircrafts;
         private IDbSet<BankAccount> _bankAccounts;
+        private IDbSet<ContractAircraftBFE> _contractAircraftBfes;
         private IDbSet<ContractAircraft> _contractAircrafts;
         private IDbSet<ContractEngine> _contractEngines;
         private IDbSet<Currency> _currencies;
@@ -66,6 +69,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<PlanAircraft> _planAircrafts;
         private IDbSet<Reception> _receptions;
         private IDbSet<SupplierCompany> _supplierCompanies;
+        private IDbSet<SupplierCompanyMaterial> _supplierCompanyMaterials;
         private IDbSet<SupplierRole> _supplierRoles;
         private IDbSet<Supplier> _suppliers;
         private IDbSet<Trade> _trades;
@@ -98,6 +102,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<ContractAircraft> ContractAircrafts
         {
             get { return _contractAircrafts ?? (_contractAircrafts = base.Set<ContractAircraft>()); }
+        }
+
+        public IDbSet<ContractAircraftBFE> ContractAircraftBfes
+        {
+            get { return _contractAircraftBfes ?? (_contractAircraftBfes = base.Set<ContractAircraftBFE>()); }
         }
 
         public IDbSet<ContractEngine> ContractEngines
@@ -158,6 +167,14 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<SupplierCompany> SupplierCompanies
         {
             get { return _supplierCompanies ?? (_supplierCompanies = base.Set<SupplierCompany>()); }
+        }
+
+        public IDbSet<SupplierCompanyMaterial> SupplierCompanyMaterials
+        {
+            get
+            {
+                return _supplierCompanyMaterials ?? (_supplierCompanyMaterials = base.Set<SupplierCompanyMaterial>());
+            }
         }
 
         public IDbSet<SupplierRole> SupplierRoles

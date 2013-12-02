@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftBFEAgg;
 
@@ -33,7 +34,8 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
         {
             ToTable("ContractAircraftBFE", DbConfig.Schema);
 
-            HasKey(p => new {p.ContractAircraftId, p.BFEPurchaseOrderId});
+            HasKey(p => p.Id);
+            Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(p => p.ContractAircraftId).HasColumnName("ContractAircraftId");
             Property(p => p.BFEPurchaseOrderId).HasColumnName("BFEPurchaseOrderId");
