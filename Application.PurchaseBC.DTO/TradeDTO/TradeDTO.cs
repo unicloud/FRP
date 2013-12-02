@@ -27,13 +27,13 @@ namespace UniCloud.Application.PurchaseBC.DTO
     /// <summary>
     ///     交易DTO
     /// </summary>
-    [DataServiceKey("TradeId")]
+    [DataServiceKey("Id")]
     public class TradeDTO
     {
         /// <summary>
         ///     交易ID
         /// </summary>
-        public int TradeId { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         ///     交易编号
