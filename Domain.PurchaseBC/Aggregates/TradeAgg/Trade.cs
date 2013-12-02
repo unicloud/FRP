@@ -196,7 +196,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg
             }
 
             var date = DateTime.Now;
-            TradeNumber = string.Format("{0}{1}{2}{3}", date.Year, date.Month, date.Day, seq.ToString("D2"));
+            TradeNumber = string.Format("{0:yyyyMMdd}{1}", date, seq.ToString("D2"));
         }
 
         #endregion
