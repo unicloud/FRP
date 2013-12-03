@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Controls;
+using Telerik.Windows.Controls.DataServices;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
@@ -563,7 +564,9 @@ namespace UniCloud.Presentation.Purchase.Supplier
             {
                 CommitBfeEngineMaterial();
             }
-            Service.SubmitChanges(p =>
+            var collectionView = sender as QueryableDataServiceCollectionViewBase;
+
+            Service.SubmitChanges(collectionView, p =>
             {
                 MetrialChildView.Close();
             });
@@ -680,12 +683,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
             return new PurchaseService(_purchaseData);
         }
 
-        /// <summary>
-        ///     按钮控制。
-        /// </summary>
-        protected override void RefreshButtonState()
-        {
-        }
 
         #endregion
     }

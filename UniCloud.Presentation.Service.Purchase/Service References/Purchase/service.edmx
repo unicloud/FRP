@@ -315,9 +315,9 @@
       </ComplexType>
       <EntityType Name="TradeDTO">
         <Key>
-          <PropertyRef Name="TradeId" />
+          <PropertyRef Name="Id" />
         </Key>
-        <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeNumber" Type="Edm.String" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
@@ -328,9 +328,9 @@
       </EntityType>
       <EntityType Name="AircraftLeaseOrderDTO">
         <Key>
-          <PropertyRef Name="OrderId" />
+          <PropertyRef Name="Id" />
         </Key>
-        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
@@ -342,7 +342,7 @@
         <Property Name="AircraftLeaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.AircraftLeaseOrderLineDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="AircraftLeaseOrderLineDTO">
-        <Property Name="OrdrLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Int32" Nullable="false" />
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
@@ -351,9 +351,9 @@
       </ComplexType>
       <EntityType Name="AircraftPurchaseOrderDTO">
         <Key>
-          <PropertyRef Name="OrderId" />
+          <PropertyRef Name="Id" />
         </Key>
-        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
@@ -365,7 +365,7 @@
         <Property Name="AircraftPurchaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseOrderLineDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="AircraftPurchaseOrderLineDTO">
-        <Property Name="OrdrLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Int32" Nullable="false" />
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
@@ -377,9 +377,9 @@
       </ComplexType>
       <EntityType Name="EngineLeaseOrderDTO">
         <Key>
-          <PropertyRef Name="OrderId" />
+          <PropertyRef Name="Id" />
         </Key>
-        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
@@ -391,7 +391,7 @@
         <Property Name="EngineLeaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.EngineLeaseOrderLineDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="EngineLeaseOrderLineDTO">
-        <Property Name="OrdrLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Int32" Nullable="false" />
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
@@ -400,9 +400,9 @@
       </ComplexType>
       <EntityType Name="EnginePurchaseOrderDTO">
         <Key>
-          <PropertyRef Name="OrderId" />
+          <PropertyRef Name="Id" />
         </Key>
-        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
@@ -414,7 +414,7 @@
         <Property Name="EnginePurchaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.EnginePurchaseOrderLineDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="EnginePurchaseOrderLineDTO">
-        <Property Name="OrdrLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Int32" Nullable="false" />
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
@@ -423,9 +423,9 @@
       </ComplexType>
       <EntityType Name="BFEPurchaseOrderDTO">
         <Key>
-          <PropertyRef Name="OrderId" />
+          <PropertyRef Name="Id" />
         </Key>
-        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
@@ -437,7 +437,7 @@
         <Property Name="BFEPurchaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderLineDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="BFEPurchaseOrderLineDTO">
-        <Property Name="OrdrLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Int32" Nullable="false" />
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />

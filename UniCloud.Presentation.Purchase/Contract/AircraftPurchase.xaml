@@ -36,106 +36,149 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-
-        <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="-1 -2 -1 0">
-            <telerik:RadButton Margin="4,2,2,-2" Command="{Binding SaveCommand}">
-                <Image Source="/UniCloud.Presentation;component/Images/Save.png" Stretch="Fill"
-                       ToolTipService.ToolTip="保存" />
-            </telerik:RadButton>
-            <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AbortCommand}">
-                <Image Source="/UniCloud.Presentation;component/Images/Rotate.png" Stretch="Fill"
-                       ToolTipService.ToolTip="放弃更改" />
-            </telerik:RadButton>
-            <telerik:RadToolBarSeparator />
-            <telerik:RadButton Margin="2,2,2,-2" Command="{Binding NewCommand}">
-                <Image Source="/UniCloud.Presentation;component/Images/New.png" Stretch="Fill"
-                       ToolTipService.ToolTip="新建交易" />
-            </telerik:RadButton>
-            <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddCommand}">
-                <Image Source="/UniCloud.Presentation;component/Images/Add.png" Stretch="Fill"
-                       ToolTipService.ToolTip="创建新版本订单" />
-            </telerik:RadButton>
-            <telerik:RadButton Margin="2,2,2,-2" Command="{Binding RemoveCommand}">
-                <Image Source="/UniCloud.Presentation;component/Images/Remove.png" Stretch="Fill"
-                       ToolTipService.ToolTip="删除当前版本订单" />
-            </telerik:RadButton>
-        </telerik:RadToolBar>
-
-        <telerik:RadDocking Grid.Row="1" BorderThickness="0" Padding="0" HasDocumentHost="False">
+        <telerik:RadDocking BorderThickness="0" Padding="0" HasDocumentHost="False">
             <telerik:RadSplitContainer>
                 <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600"
                                            Orientation="Vertical">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="交易【购买飞机】" CanUserPin="False" CanUserClose="False" CanFloat="False"
                                          ContextMenuTemplate="{x:Null}">
-                            <telerik:RadGridView x:Name="Trade" AutoGenerateColumns="False"
-                                                 ItemsSource="{Binding ViewTradeDTO}"
-                                                 SelectedItem="{Binding SelTradeDTO, Mode=TwoWay}"
-                                                 IsBusy="{Binding ViewTradeDTO.IsBusy}" EditTriggers="CellClick"
-                                                 ShowGroupPanel="False"
-                                                 IsFilteringAllowed="False">
-                                <telerik:RadContextMenu.ContextMenu>
-                                    <telerik:RadContextMenu>
-                                        <telerik:RadMenuItem Header="导出Excel"
-                                                             Command="{Binding ExcelExportCommand}"
-                                                             CommandParameter="{Binding ElementName=Trade, Mode=OneWay}" />
-                                        <telerik:RadMenuItem Header="导出Word" Command="{Binding WordExportCommand}"
-                                                             CommandParameter="{Binding ElementName=Trade, Mode=OneWay}" />
-                                    </telerik:RadContextMenu>
-                                </telerik:RadContextMenu.ContextMenu>
-                                <telerik:RadGridView.Columns>
-                                    <uc:DataPageSerialColumn Header="序号" />
-                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding TradeNumber}" Header="交易编号"
-                                                                IsReadOnly="True" />
-                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Name}" Header="交易名称" />
-                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding SupplierName}" Header="供应商" />
-                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding StartDate}" Header="开始日期"
-                                                                DataFormatString="{} {0:yyyy/MM/dd}"
-                                                                TextAlignment="Center" />
-                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Status}" Header="状态"
-                                                                IsReadOnly="True" />
-                                </telerik:RadGridView.Columns>
-                            </telerik:RadGridView>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="0 0 0 -1">
+                                    <telerik:RadButton Margin="4,2,2,-2" Command="{Binding SaveCommand}"
+                                                       CommandParameter="{Binding ViewTradeDTO}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Save.png" Stretch="Fill"
+                                               ToolTipService.ToolTip="保存" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AbortCommand}"
+                                                       CommandParameter="{Binding ViewTradeDTO}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="放弃更改" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding NewCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/New.png" Stretch="Fill"
+                                               ToolTipService.ToolTip="新建交易" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Add.png" Stretch="Fill"
+                                               ToolTipService.ToolTip="创建新版本订单" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding RemoveCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="删除当前版本订单" />
+                                    </telerik:RadButton>
+                                </telerik:RadToolBar>
+                                <telerik:RadGridView Grid.Row="1" x:Name="Trade" AutoGenerateColumns="False"
+                                                     ItemsSource="{Binding ViewTradeDTO}"
+                                                     SelectedItem="{Binding SelTradeDTO, Mode=TwoWay}"
+                                                     IsBusy="{Binding ViewTradeDTO.IsBusy}" EditTriggers="CellClick"
+                                                     ShowGroupPanel="False"
+                                                     IsFilteringAllowed="False">
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadContextMenu>
+                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=Trade, Mode=OneWay}" />
+                                            <telerik:RadMenuItem Header="导出Word" Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=Trade, Mode=OneWay}" />
+                                        </telerik:RadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
+                                    <telerik:RadGridView.Columns>
+                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding TradeNumber}"
+                                                                    Header="交易编号"
+                                                                    IsReadOnly="True" />
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding Name}" Header="交易名称" />
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding SupplierName}"
+                                                                    Header="供应商" />
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding StartDate}"
+                                                                    Header="开始日期"
+                                                                    DataFormatString="{} {0:yyyy/MM/dd}"
+                                                                    TextAlignment="Center" />
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding Status}" Header="状态"
+                                                                    IsReadOnly="True" />
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+                            </Grid>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="交易历史" CanFloat="False" CanUserClose="False" CanUserPin="False"
                                          ContextMenuTemplate="{x:Null}">
-                            <telerik:RadGridView x:Name="Order" AutoGenerateColumns="False"
-                                                 ItemsSource="{Binding ViewAircraftPurchaseOrderDTO}"
-                                                 SelectedItem="{Binding SelAircraftPurchaseOrderDTO,Mode=TwoWay}"
-                                                 IsBusy="{Binding ViewAircraftPurchaseOrderDTO.IsBusy}"
-                                                 ShowGroupPanel="False"
-                                                 IsFilteringAllowed="False"
-                                                 EditTriggers="CellClick">
-                                <telerik:RadContextMenu.ContextMenu>
-                                    <telerik:RadContextMenu>
-                                        <telerik:RadMenuItem Header="导出Excel"
-                                                             Command="{Binding ExcelExportCommand}"
-                                                             CommandParameter="{Binding ElementName=Order, Mode=OneWay}" />
-                                        <telerik:RadMenuItem Header="导出Word" Command="{Binding WordExportCommand}"
-                                                             CommandParameter="{Binding ElementName=Order, Mode=OneWay}" />
-                                    </telerik:RadContextMenu>
-                                </telerik:RadContextMenu.ContextMenu>
-                                <telerik:RadGridView.Columns>
-                                    <uc:DataPageSerialColumn Header="序号" />
-                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Version}" Header="版本"
-                                                                TextAlignment="Center" IsReadOnly="True" />
-                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding CurrencyName}" Header="币种"
-                                                                TextAlignment="Center" />
-                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding OperatorName}" Header="经办人" />
-                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Linkman}" Header="联系人" />
-                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding OrderDate}" Header="生效日期"
-                                                                DataFormatString="{} {0:yyyy/MM/dd}"
-                                                                TextAlignment="Center" />
-                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Status}" Header="状态"
-                                                                TextAlignment="Center" IsReadOnly="True" />
-                                </telerik:RadGridView.Columns>
-                            </telerik:RadGridView>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="0 0 0 -1">
+                                    <telerik:RadButton Margin="4,2,2,-2" Command="{Binding SaveCommand}"
+                                                       CommandParameter="{Binding ViewAircraftPurchaseOrderDTO}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Save.png" Stretch="Fill"
+                                               ToolTipService.ToolTip="保存" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AbortCommand}"
+                                                       CommandParameter="{Binding ViewAircraftPurchaseOrderDTO}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="放弃更改" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding NewCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/New.png" Stretch="Fill"
+                                               ToolTipService.ToolTip="新建交易" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Add.png" Stretch="Fill"
+                                               ToolTipService.ToolTip="创建新版本订单" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding RemoveCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="删除当前版本订单" />
+                                    </telerik:RadButton>
+                                </telerik:RadToolBar>
+                                <telerik:RadGridView Grid.Row="1" x:Name="Order" AutoGenerateColumns="False"
+                                                     ItemsSource="{Binding ViewAircraftPurchaseOrderDTO}"
+                                                     SelectedItem="{Binding SelAircraftPurchaseOrderDTO,Mode=TwoWay}"
+                                                     IsBusy="{Binding ViewAircraftPurchaseOrderDTO.IsBusy}"
+                                                     ShowGroupPanel="False"
+                                                     IsFilteringAllowed="False"
+                                                     EditTriggers="CellClick">
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadContextMenu>
+                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=Order, Mode=OneWay}" />
+                                            <telerik:RadMenuItem Header="导出Word" Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=Order, Mode=OneWay}" />
+                                        </telerik:RadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
+                                    <telerik:RadGridView.Columns>
+                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding Version}" Header="版本"
+                                                                    TextAlignment="Center" IsReadOnly="True" />
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding CurrencyName}"
+                                                                    Header="币种"
+                                                                    TextAlignment="Center" />
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding OperatorName}"
+                                                                    Header="经办人" />
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding Linkman}" Header="联系人" />
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding OrderDate}"
+                                                                    Header="生效日期"
+                                                                    DataFormatString="{} {0:yyyy/MM/dd}"
+                                                                    TextAlignment="Center" />
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding Status}" Header="状态"
+                                                                    TextAlignment="Center" IsReadOnly="True" />
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+                            </Grid>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
                 </telerik:RadSplitContainer>

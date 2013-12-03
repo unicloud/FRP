@@ -108,9 +108,5 @@ namespace UniCloud.Presentation.Purchase.Forwarder
             _purchaseData = new PurchaseData(AgentHelper.PurchaseUri);
             return new PurchaseService(_purchaseData);
         }
-
-        protected override void RefreshButtonState()
-        {
-        }
     }
 }
