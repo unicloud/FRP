@@ -192,20 +192,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
             ReceptionNumber = string.Format("{0:yyyyMMdd}{1}", date, seq.ToString("D2"));
         }
 
-        /// <summary>
-        ///     设置接收编号
-        /// </summary>
-        /// <param name="receptionNumber">接收编号</param>
-        public void SetReceptionNumber(string receptionNumber)
-        {
-            if (string.IsNullOrWhiteSpace(receptionNumber))
-            {
-                throw new ArgumentException("接收编号参数为空！");
-            }
-
-            ReceptionNumber = receptionNumber;
-        }
-
         #endregion
 
         #region IValidatableObject 成员

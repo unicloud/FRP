@@ -134,9 +134,14 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             }
         }
 
-        private Trade MaterializeTradeFromDto(TradeDTO dto)
+        private  Trade MaterializeTradeFromDto(TradeDTO dto)
         {
-            throw new NotImplementedException();
+            var supplier = _supplierRepository.GetAll().FirstOrDefault();
+            var trade = TradeFactory.CreateTrade(dto.Name, dto.Description, dto.StartDate);
+            trade.ChangeCurrentIdentity(dto.Id);
+            trade.SetSupplier(supplier);
+
+            return trade;
         }
 
         #endregion
