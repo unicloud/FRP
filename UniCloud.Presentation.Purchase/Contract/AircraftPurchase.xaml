@@ -98,6 +98,7 @@
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding Name}" Header="交易名称" />
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding SupplierName}"
                                                                     Header="供应商" />
+                                        <telerik:GridViewComboBoxColumn />
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding StartDate}"
                                                                     Header="开始日期"
                                                                     DataFormatString="{} {0:yyyy/MM/dd}"

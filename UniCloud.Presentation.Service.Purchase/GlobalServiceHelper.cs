@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Telerik.Windows.Controls.DataServices;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
@@ -36,13 +37,24 @@ namespace UniCloud.Presentation.Service.Purchase
             {
                 Context = new PurchaseData(AgentHelper.PurchaseUri);
             }
-            SupplierQuery = new QueryableDataServiceCollectionView<SupplierDTO>(Context, Context.Suppliers);
-            SupplierQuery.LoadedData += SupplierQueryLoadedData;
-            //InitialAcType();
+
+            InitialSupplier();
+            InitialAircraftType();
+        }
+
+        #region Supplier
+
+        private static QueryableDataServiceCollectionView<SupplierDTO> _supplierQuery;
+        public static List<SupplierDTO> MaintainSupplier { get; set; }
+
+        private static void InitialSupplier()
+        {
+            _supplierQuery = new QueryableDataServiceCollectionView<SupplierDTO>(Context, Context.Suppliers);
+            _supplierQuery.LoadedData += SupplierQueryLoadedData;
         }
 
         //供应商数据加载完毕，分类处理
-        static void SupplierQueryLoadedData(object sender, Telerik.Windows.Controls.DataServices.LoadedDataEventArgs e)
+        private static void SupplierQueryLoadedData(object sender, LoadedDataEventArgs e)
         {
             MaintainSupplier = new List<SupplierDTO>();
             var result = sender as QueryableDataServiceCollectionView<SupplierDTO>;
@@ -50,14 +62,11 @@ namespace UniCloud.Presentation.Service.Purchase
         }
 
         //初始化数据
-
-        public static List<SupplierDTO> MaintainSupplier { get; set; }
-        private static readonly QueryableDataServiceCollectionView<SupplierDTO> SupplierQuery;
         public static void InitData()
         {
             if (MaintainSupplier == null)
             {
-                SupplierQuery.AutoLoad = true;
+                _supplierQuery.AutoLoad = true;
             }
             //LoadSupplier(null);
         }
@@ -72,36 +81,16 @@ namespace UniCloud.Presentation.Service.Purchase
             }
         }
 
-        //#region AcType
+        #endregion
 
-        //public static IEnumerable<AcTypeDTO> AcTypes { get; set; }
-        //private static QueryableDataServiceCollectionView<AcTypeDTO> _acTypeView;
+        #region AircraftType
 
-        //public static void  LoadAcType()
-        //{
-        //    if (AcTypes == null)
-        //    {
-        //        _acTypeView.AutoLoad = true;
-        //        return;
-        //    }
-        //    _acTypeView.AutoLoad = false;
-        //}
+        //private QueryableDataServiceCollectionView<aircraftt>
+        private static void InitialAircraftType()
+        {
 
-        ///// <summary>
-        ///// 初始化机型
-        ///// </summary>
-        //public static void InitialAcType()
-        //{
-        //    _acTypeView = new QueryableDataServiceCollectionView<AcTypeDTO>(Context, Context.AcTypes);
-        //    _acTypeView.LoadedData += (sender, e) =>
-        //        {
-        //            if (e.Error!=null)
-        //            {
-        //                e.MarkErrorAsHandled();
-        //            }
-        //            AcTypes = e.Entities.Cast<AcTypeDTO>();
-        //        };
-        //}
-        //#endregion
+        }
+
+        #endregion
     }
 }
