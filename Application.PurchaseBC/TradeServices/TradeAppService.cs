@@ -147,6 +147,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             var supplier = _supplierRepository.Get(dto.SupplierId);
             var trade = TradeFactory.CreateTrade(dto.Name, dto.Description, dto.StartDate);
             trade.ChangeCurrentIdentity(dto.Id);
+            trade.SetTradeNumber(dto.TradeNumber);
             trade.SetSupplier(supplier);
 
             return trade;
