@@ -21,6 +21,7 @@ using System;
 using UniCloud.Domain.UberModel.Aggregates.CurrencyAgg;
 using UniCloud.Domain.UberModel.Aggregates.LinkmanAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
+using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierRoleAgg;
 using UniCloud.Domain.UberModel.Aggregates.TradeAgg;
 using UniCloud.Domain.UberModel.Enums;
@@ -31,9 +32,8 @@ using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
 
 namespace UniCloud.Infrastructure.Data.UberModel.InitialData
 {
-    public class TradeData:InitialDataBase
+    public class TradeData : InitialDataBase
     {
-
         public TradeData(UberModelUnitOfWork context)
             : base(context)
         {
@@ -42,13 +42,18 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
         public override void InitialData()
         {
             var supplier = SupplierFactory.CreateSupplier(SupplierType.Foreign, "V0001", "波音", null);
+            supplier.GenerateNewIdentity();
+
+            var supplierCompany = SupplierCompanyFactory.CreateSupplieCompany(supplier.Code);
+            supplierCompany.GenerateNewIdentity();
+            supplier.SetSupplierCompany(supplierCompany);
+
             Context.Suppliers.Add(supplier);
 
-            var trade = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now, 1);
+            var trade = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now);
+            trade.SetTradeNumber(1);
             trade.SetSupplier(supplier);
             Context.Trades.Add(trade);
-
-            var supplierCompany = supplier.SupplierCompany;
 
             var acLeaseSupplier = SupplierRoleFactory.CreateAircraftLeaseSupplier(supplierCompany);
             var acPurchaseSupplier = SupplierRoleFactory.CreateAircraftPurchaseSupplier(supplierCompany);
@@ -70,7 +75,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             Context.Currencies.Add(currency);
 
             var linkman = LinkmanFactory.CreateLinkman("DDD", "12345", "3333", null, "abc@3g",
-                new Address("成都", "361000", null, null));
+                new Address("成都", "361000", null, null), Guid.NewGuid());
             linkman.SetSourceId(supplierCompany.LinkmanId);
             Context.Linkmen.Add(linkman);
         }

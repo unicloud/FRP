@@ -52,8 +52,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierAgg
                 Note = note
             };
 
-            supplier.SetSupplierCompany(SupplierCompanyFactory.CreateSupplieCompany(code));
-
             return supplier;
         }
     }

@@ -548,10 +548,10 @@ namespace UniCloud.Presentation.Purchase.Supplier
         public void OnCommitExecute(object sender)
         {
             CommitMaterial();
-            Service.SubmitChanges(p =>
-            {
-                MaterialChildView.Close();
-            });
+            //Service.SubmitChanges(p =>
+            //{
+            //    MaterialChildView.Close();
+            //});
         }
         /// <summary>
         /// 保存物料
@@ -689,13 +689,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
         {
             _purchaseData = new PurchaseData(AgentHelper.PurchaseUri);
             return new PurchaseService(_purchaseData);
-        }
-
-        /// <summary>
-        ///     按钮控制。
-        /// </summary>
-        protected override void RefreshButtonState()
-        {
         }
 
         #endregion

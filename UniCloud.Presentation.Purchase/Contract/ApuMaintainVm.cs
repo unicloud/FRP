@@ -266,13 +266,6 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 重载操作
 
-        /// <summary>
-        ///     刷新保存、撤销之外的所有命令按钮
-        /// </summary>
-        protected override void RefreshButtonState()
-        {
-
-        }
 
         #endregion
 

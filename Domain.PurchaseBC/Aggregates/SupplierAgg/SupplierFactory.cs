@@ -52,8 +52,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg
                 Note = note
             };
 
-            supplier.SetSupplierCompany(SupplierCompanyFactory.CreateSupplieCompany(code));
-
             return supplier;
         }
     }
