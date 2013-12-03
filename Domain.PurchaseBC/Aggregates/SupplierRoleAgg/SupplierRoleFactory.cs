@@ -36,7 +36,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg
         public static AircraftLeaseSupplier CreateAircraftLeaseSupplier(SupplierCompany supplierCompany)
         {
             var aircraftLeaseSupplier = new AircraftLeaseSupplier();
-            aircraftLeaseSupplier.GenerateNewIdentity();
 
             aircraftLeaseSupplier.SetSupplierCompany(supplierCompany);
 
@@ -51,7 +50,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg
         public static AircraftPurchaseSupplier CreateAircraftPurchaseSupplier(SupplierCompany supplierCompany)
         {
             var aircraftPurchaseSupplier = new AircraftPurchaseSupplier();
-            aircraftPurchaseSupplier.GenerateNewIdentity();
 
             aircraftPurchaseSupplier.SetSupplierCompany(supplierCompany);
 
@@ -66,7 +64,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg
         public static BFEPurchaseSupplier CreateBFEPurchaseSupplier(SupplierCompany supplierCompany)
         {
             var bfePurchaseSupplier = new BFEPurchaseSupplier();
-            bfePurchaseSupplier.GenerateNewIdentity();
 
             bfePurchaseSupplier.SetSupplierCompany(supplierCompany);
 
@@ -81,7 +78,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg
         public static EngineLeaseSupplier CreateEngineLeaseSupplier(SupplierCompany supplierCompany)
         {
             var engineLeaseSupplier = new EngineLeaseSupplier();
-            engineLeaseSupplier.GenerateNewIdentity();
 
             engineLeaseSupplier.SetSupplierCompany(supplierCompany);
 
@@ -96,7 +92,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg
         public static EnginePurchaseSupplier CreateEnginePurchaseSupplier(SupplierCompany supplierCompany)
         {
             var enginePurchaseSupplier = new EnginePurchaseSupplier();
-            enginePurchaseSupplier.GenerateNewIdentity();
 
             enginePurchaseSupplier.SetSupplierCompany(supplierCompany);
 

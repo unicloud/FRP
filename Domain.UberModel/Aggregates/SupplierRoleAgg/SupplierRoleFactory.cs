@@ -36,9 +36,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierRoleAgg
         public static AircraftLeaseSupplier CreateAircraftLeaseSupplier(SupplierCompany supplierCompany)
         {
             var aircraftLeaseSupplier = new AircraftLeaseSupplier();
-            aircraftLeaseSupplier.GenerateNewIdentity();
 
-            aircraftLeaseSupplier.IsValid = true;
             aircraftLeaseSupplier.SetSupplierCompany(supplierCompany);
 
             return aircraftLeaseSupplier;
@@ -52,9 +50,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierRoleAgg
         public static AircraftPurchaseSupplier CreateAircraftPurchaseSupplier(SupplierCompany supplierCompany)
         {
             var aircraftPurchaseSupplier = new AircraftPurchaseSupplier();
-            aircraftPurchaseSupplier.GenerateNewIdentity();
 
-            aircraftPurchaseSupplier.IsValid = true;
             aircraftPurchaseSupplier.SetSupplierCompany(supplierCompany);
 
             return aircraftPurchaseSupplier;
@@ -68,9 +64,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierRoleAgg
         public static BFEPurchaseSupplier CreateBFEPurchaseSupplier(SupplierCompany supplierCompany)
         {
             var bfePurchaseSupplier = new BFEPurchaseSupplier();
-            bfePurchaseSupplier.GenerateNewIdentity();
 
-            bfePurchaseSupplier.IsValid = true;
             bfePurchaseSupplier.SetSupplierCompany(supplierCompany);
 
             return bfePurchaseSupplier;
@@ -84,9 +78,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierRoleAgg
         public static EngineLeaseSupplier CreateEngineLeaseSupplier(SupplierCompany supplierCompany)
         {
             var engineLeaseSupplier = new EngineLeaseSupplier();
-            engineLeaseSupplier.GenerateNewIdentity();
 
-            engineLeaseSupplier.IsValid = true;
             engineLeaseSupplier.SetSupplierCompany(supplierCompany);
 
             return engineLeaseSupplier;
@@ -100,9 +92,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierRoleAgg
         public static EnginePurchaseSupplier CreateEnginePurchaseSupplier(SupplierCompany supplierCompany)
         {
             var enginePurchaseSupplier = new EnginePurchaseSupplier();
-            enginePurchaseSupplier.GenerateNewIdentity();
 
-            enginePurchaseSupplier.IsValid = true;
             enginePurchaseSupplier.SetSupplierCompany(supplierCompany);
 
             return enginePurchaseSupplier;

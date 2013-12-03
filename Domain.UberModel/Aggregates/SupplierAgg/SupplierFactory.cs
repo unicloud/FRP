@@ -41,16 +41,16 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierAgg
         /// <returns>创建的供应商</returns>
         public static Supplier CreateSupplier(SupplierType supplierType, string code, string name, string note)
         {
-            var supplier = new Supplier();
-            supplier.GenerateNewIdentity();
-
-            supplier.SupplierType = supplierType;
-            supplier.Code = code;
-            supplier.Name = name;
-            supplier.CreateDate = DateTime.Now;
-            supplier.UpdateDate = DateTime.Now;
-            supplier.IsValid = true;
-            supplier.Note = note;
+            var supplier = new Supplier
+            {
+                SupplierType = supplierType,
+                Code = code,
+                Name = name,
+                CreateDate = DateTime.Now,
+                UpdateDate = DateTime.Now,
+                IsValid = true,
+                Note = note
+            };
 
             supplier.SetSupplierCompany(SupplierCompanyFactory.CreateSupplieCompany(code));
 

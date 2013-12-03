@@ -32,21 +32,20 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrderAgg
         ///     创建飞机租赁订单
         /// </summary>
         /// <param name="version">版本</param>
-        /// <param name="totalAmount">总金额</param>
         /// <param name="operatorName">经办人</param>
         /// <param name="orderDate">订单日期</param>
         /// <returns>飞机租赁订单</returns>
-        public static AircraftLeaseOrder CreateAircraftLeaseOrder(int version, 
+        public static AircraftLeaseOrder CreateAircraftLeaseOrder(int version,
             string operatorName, DateTime orderDate)
         {
-            var aircraftLeaseOrder = new AircraftLeaseOrder();
-            aircraftLeaseOrder.GenerateNewIdentity();
-
-            aircraftLeaseOrder.Version = version;
-            aircraftLeaseOrder.OperatorName = operatorName;
-            aircraftLeaseOrder.CreateDate = DateTime.Now;
-            aircraftLeaseOrder.OrderDate = orderDate;
-            aircraftLeaseOrder.IsValid = true;
+            var aircraftLeaseOrder = new AircraftLeaseOrder
+            {
+                Version = version,
+                OperatorName = operatorName,
+                CreateDate = DateTime.Now,
+                OrderDate = orderDate,
+                IsValid = true
+            };
 
             return aircraftLeaseOrder;
         }
@@ -55,23 +54,44 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrderAgg
         ///     创建飞机购买订单
         /// </summary>
         /// <param name="version">版本</param>
-        /// <param name="totalAmount">总金额</param>
         /// <param name="operatorName">经办人</param>
         /// <param name="orderDate">订单日期</param>
         /// <returns>飞机购买订单</returns>
-        public static AircraftPurchaseOrder CreateAircraftPurchaseOrder(int version, 
+        public static AircraftPurchaseOrder CreateAircraftPurchaseOrder(int version,
             string operatorName, DateTime orderDate)
         {
-            var aircraftPurchaseOrder = new AircraftPurchaseOrder();
-            aircraftPurchaseOrder.GenerateNewIdentity();
-
-            aircraftPurchaseOrder.Version = version;
-            aircraftPurchaseOrder.OperatorName = operatorName;
-            aircraftPurchaseOrder.CreateDate = DateTime.Now;
-            aircraftPurchaseOrder.OrderDate = orderDate;
-            aircraftPurchaseOrder.IsValid = true;
+            var aircraftPurchaseOrder = new AircraftPurchaseOrder
+            {
+                Version = version,
+                OperatorName = operatorName,
+                CreateDate = DateTime.Now,
+                OrderDate = orderDate,
+                IsValid = true
+            };
 
             return aircraftPurchaseOrder;
+        }
+
+        /// <summary>
+        ///     创建BFE购买订单
+        /// </summary>
+        /// <param name="version">版本</param>
+        /// <param name="operatorName">经办人</param>
+        /// <param name="orderDate">订单日期</param>
+        /// <returns>BFE购买订单</returns>
+        public static BFEPurchaseOrder CreateBFEPurchaseOrder(int version,
+            string operatorName, DateTime orderDate)
+        {
+            var bfePurchaseOrder = new BFEPurchaseOrder
+            {
+                Version = version,
+                OperatorName = operatorName,
+                CreateDate = DateTime.Now,
+                OrderDate = orderDate,
+                IsValid = true
+            };
+
+            return bfePurchaseOrder;
         }
     }
 }
