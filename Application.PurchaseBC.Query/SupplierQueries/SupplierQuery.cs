@@ -164,34 +164,35 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                     AircraftMaterials = (from t in dbMaterial.OfType<AircraftMaterial>()
                                         from c in p.SupplierCompanyMaterials
                                         where t.Id==c.MaterialId
-                                        select new AircraftMaterialDTO()
+                                         select new SupplierMaterialDTO
                                         {
-                                            AcMaterialId = t.Id,
+                                            SupplierMaterialId = c.Id,
                                             Name = t.Name,
                                             Description = t.Description,
-                                            AircraftTypeId = t.AircraftTypeId,
+                                            SupplierCompanyId = c.SupplierCompanyId,
+                                            MaterialId = c.MaterialId
                                         }).ToList(),
-
-
                     BFEMaterials = (from t in dbMaterial.OfType<BFEMaterial>()
                                     from c in p.SupplierCompanyMaterials
                                     where t.Id == c.MaterialId
-                                    select new BFEMaterialDTO()
+                                    select new SupplierMaterialDTO
                                     {
-                                        BFEMaterialId = t.Id,
+                                        SupplierMaterialId = c.Id,
                                         Name = t.Name,
                                         Description = t.Description,
-                                        PartId = t.PartID,
+                                        SupplierCompanyId = c.SupplierCompanyId,
+                                        MaterialId = c.MaterialId
                                     }).ToList(),
                     EngineMaterials = (from t in dbMaterial.OfType<EngineMaterial>()
                                        from c in p.SupplierCompanyMaterials
                                        where t.Id == c.MaterialId
-                                       select new EngineMaterialDTO()
+                                       select new SupplierMaterialDTO
                                        {
-                                           EngineMaterialId = t.Id,
+                                           SupplierMaterialId = c.Id,
                                            Name = t.Name,
                                            Description = t.Description,
-                                           PartId = t.PartID,
+                                           SupplierCompanyId = c.SupplierCompanyId,
+                                           MaterialId = c.MaterialId
                                        }).ToList(),
                 });
         }

@@ -24,13 +24,13 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 #endregion
 
-namespace UniCloud.Presentation.Service.Purchase.AgentService.Purchase
+namespace UniCloud.Presentation.Service.Purchase
 {
-    public static class SupplierService
+    public static class GlobalServiceHelper
     {
         private static readonly PurchaseData Context;
 
-        static SupplierService()
+        static GlobalServiceHelper()
         {
             if (Context == null)
             {

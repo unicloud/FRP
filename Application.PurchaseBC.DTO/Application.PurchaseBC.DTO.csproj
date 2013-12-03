@@ -71,6 +71,7 @@
     <Compile Include="MaterialDTO\EngineMaterialDTO.cs" />
     <Compile Include="PartDTO\PartDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SupplierDTO\SupplierMaterialDTO.cs" />
     <Compile Include="SupplierDTO\AircraftLeaseSupplierDTO.cs" />
     <Compile Include="SupplierDTO\AircraftPurchaseSupplierDTO.cs" />
     <Compile Include="SupplierDTO\BankAccountDTO.cs" />

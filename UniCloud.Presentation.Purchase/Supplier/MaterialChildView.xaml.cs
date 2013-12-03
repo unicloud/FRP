@@ -7,11 +7,11 @@ using Telerik.Windows.Controls;
 
 namespace UniCloud.Presentation.Purchase.Supplier
 {
-    [Export(typeof(MetrialChildView))]
+    [Export(typeof(MaterialChildView))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class MetrialChildView
+    public partial class MaterialChildView
     {
-        public MetrialChildView()
+        public MaterialChildView()
         {
             InitializeComponent();
         }

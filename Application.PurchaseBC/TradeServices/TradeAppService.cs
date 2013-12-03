@@ -89,7 +89,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
         public void InsertTrade(TradeDTO trade)
         {
             var supplier = _supplierRepository.GetAll().FirstOrDefault();
-            var newTrade = TradeFactory.CreateTrade(null, null, DateTime.Now, 1);
+            var newTrade = TradeFactory.CreateTrade(null, null, DateTime.Now);
             newTrade.SetSupplier(supplier);
             _tradeRepository.Add(newTrade);
         }
