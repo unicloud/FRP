@@ -127,7 +127,9 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
                          .Register<IAircraftTypeQuery, AircraftTypeQuery>()
                          .Register<IAircraftTypeAppService, AircraftTypeAppService>()
                          .Register<IAircraftTypeRepository, AircraftTypeRepository>()
-                #endregion                #region 物料相关配置，包括查询，应用服务，仓储注册
+                #endregion                
+
+                #region 物料相关配置，包括查询，应用服务，仓储注册
 
                          .Register<IMaterialQuery, MaterialQuery>()
                          .Register<IMaterialAppService, MaterialAppService>()
@@ -147,19 +149,19 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
                          .Register<IActionCategoryRepository, ActionCategoryRepository>()
                #endregion
 
-               #region 计划飞机相关配置，包括查询，应用服务，仓储注册
+                #region 计划飞机相关配置，包括查询，应用服务，仓储注册
                          .Register<IPlanAircraftQuery, PlanAircraftQuery>()
                          .Register<IPlanAircraftAppService, PlanAircraftAppService>()
                          .Register<IPlanAircraftRepository, PlanAircraftRepository>()
-               #endregion
+                #endregion
 
-               #region 合同飞机相关配置，包括查询，应用服务，仓储注册
+                #region 合同飞机相关配置，包括查询，应用服务，仓储注册
                          .Register<ILeaseContractAircraftQuery, LeaseContractAircraftQuery>()
                          .Register<IPurchaseContractAircraftQuery, PurchaseContractAircraftQuery>()
                          .Register<ILeaseContractAircraftAppService, LeaseContractAircraftAppService>()
                          .Register<IPurchaseContractAircraftAppService, PurchaseContractAircraftAppService>()
                          .Register<IContractAircraftRepository, ContractAircraftRepository>()
-               #endregion 
+                #endregion 
 
                 ;
         }

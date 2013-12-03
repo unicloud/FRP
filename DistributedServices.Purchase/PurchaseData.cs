@@ -120,7 +120,7 @@ namespace UniCloud.DistributedServices.Purchase
 
         #endregion
 
-       #region 机型集合
+        #region 机型集合
 
         /// <summary>
         ///     机型集合
@@ -130,6 +130,7 @@ namespace UniCloud.DistributedServices.Purchase
             get { return _aircraftTypeAppService.GetAircraftTypes(); }
         }
         #endregion
+
         #region 活动类型集合
 
         /// <summary>

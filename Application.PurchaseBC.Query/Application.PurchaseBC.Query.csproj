@@ -52,8 +52,6 @@
   <ItemGroup>
     <Compile Include="ActionCategoryQueries\ActionCategoryQuery.cs" />
     <Compile Include="ActionCategoryQueries\IActionCategoryQuery.cs" />
-    <Compile Include="AcTypeQueries\IAcTypeQuery.cs" />
-    <Compile Include="AcTypeQueries\AcTypeQuery.cs" />
     <Compile Include="AircraftTypeQueries\AircraftTypeQuery.cs" />
     <Compile Include="AircraftTypeQueries\IAircraftTypeQuery.cs" />
     <Compile Include="ContractAircraftQueries\ILeaseContractAircraftQuery.cs" />
