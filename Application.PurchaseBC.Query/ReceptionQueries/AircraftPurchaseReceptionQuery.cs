@@ -15,6 +15,7 @@
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
+using UniCloud.Infrastructure.Data;
 
 namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
 {
@@ -23,10 +24,10 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
     /// </summary>
     public class AircraftPurchaseReceptionQuery : IAircraftPurchaseReceptionQuery
     {
-        private readonly IReceptionRepository _receptionRepository;
-        public AircraftPurchaseReceptionQuery(IReceptionRepository receptionRepository)
+        private readonly IQueryableUnitOfWork _unitOfWork;
+        public AircraftPurchaseReceptionQuery(IQueryableUnitOfWork unitOfWork)
         {
-            _receptionRepository = receptionRepository;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -38,7 +39,7 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
             QueryBuilder<AircraftPurchaseReception> query)
         {
             return
-                query.ApplyTo(_receptionRepository.GetAll().OfType<AircraftPurchaseReception>()).Select(p => new AircraftPurchaseReceptionDTO
+                query.ApplyTo(_unitOfWork.CreateSet<Reception>().OfType<AircraftPurchaseReception>()).Select(p => new AircraftPurchaseReceptionDTO
                 {
                     AircraftPurchaseReceptionId = p.Id,
                     CreateDate = p.CreateDate,

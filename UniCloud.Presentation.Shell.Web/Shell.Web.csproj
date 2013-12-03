@@ -70,7 +70,6 @@
     <Content Include="ClientBin\Payment.xap" />
     <Content Include="ClientBin\Portal.xap" />
     <Content Include="ClientBin\Project.xap" />
-    <Content Include="ClientBin\Purchase.xap" />
     <Content Include="ClientBin\Shell.xap" />
     <Content Include="Silverlight.js" />
     <Content Include="Default.aspx" />

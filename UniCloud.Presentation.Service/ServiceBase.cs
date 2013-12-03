@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Services.Client;
 using System.Linq;
+using System.Windows;
 using Telerik.Windows.Controls.DataServices;
 using Telerik.Windows.Data;
 
@@ -36,8 +37,8 @@ namespace UniCloud.Presentation.Service
     public abstract class ServiceBase : IService
     {
         private readonly DataServiceContext _context;
+
         private readonly List<QueryableDataServiceCollectionViewBase> _dataServiceCollectionViews;
-        private EventHandler<DataServiceSubmittedChangesEventArgs> _submitChanges;
 
         protected ServiceBase(DataServiceContext context)
         {
@@ -96,15 +97,11 @@ namespace UniCloud.Presentation.Service
         {
             var result = new SubmitChangesResult();
             collectionView.SubmitChanges();
-            if (_submitChanges == null)
+            collectionView.SubmittedChanges += (o, e) => Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                _submitChanges = (o, e) =>
-                {
-                    result.Error = e.Error;
-                    callback(result);
-                };
-                collectionView.SubmittedChanges += _submitChanges;
-            }
+                result.Error = e.Error;
+                callback(result);
+            });
         }
 
         /// <summary>

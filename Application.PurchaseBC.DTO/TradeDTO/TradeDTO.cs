@@ -51,9 +51,9 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public string Description { get; set; }
 
         /// <summary>
-        ///     供应商ID
+        ///     供应商名称
         /// </summary>
-        public int SupplierId { get; set; }
+        public string SupplierName { get; set; }
 
         /// <summary>
         ///     开始日期
