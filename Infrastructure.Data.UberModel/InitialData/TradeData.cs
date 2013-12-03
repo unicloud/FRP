@@ -52,6 +52,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             Context.Suppliers.Add(supplier);
 
             var trade = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now);
+            trade.GenerateNewIdentity();
             // 设置交易编号
             var date = DateTime.Now.Date;
             var seq = Context.Trades.Count(t => t.CreateDate > date) + 1;
