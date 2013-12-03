@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
@@ -91,6 +92,14 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 数据
 
         #region 公共属性
+
+        /// <summary>
+        ///     供应商
+        /// </summary>
+        public IEnumerable<SupplierDTO> Suppliers
+        {
+            get { return GlobalServiceHelper.Suppliers; }
+        }
 
         #endregion
 
