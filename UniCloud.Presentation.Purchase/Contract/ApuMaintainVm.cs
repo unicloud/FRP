@@ -114,7 +114,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             // 将CollectionView的AutoLoad属性设为True
             ApuMaintainContracts.AutoLoad = true;
-            Suppliers = GlobalServiceHelper.MaintainSupplier;
+            Suppliers = GlobalServiceHelper.Suppliers;
         }
 
 

@@ -115,7 +115,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             // 将CollectionView的AutoLoad属性设为True
             EngineMaintainContracts.AutoLoad = true;
-            Suppliers = GlobalServiceHelper.MaintainSupplier;
+            Suppliers = GlobalServiceHelper.Suppliers;
         }
 
         #region 发动机维修合同

@@ -28,7 +28,6 @@ namespace UniCloud.Presentation.Service.Purchase
         public PurchaseService(DataServiceContext context)
             : base(context)
         {
-          
         }
     }
 }
