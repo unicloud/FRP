@@ -176,7 +176,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ReceptionAgg
             }
 
             var date = DateTime.Now;
-            ReceptionNumber = string.Format("{0}{1}{2}{3}", date.Year, date.Month, date.Day, seq.ToString("D2"));
+            ReceptionNumber = string.Format("{0:yyyyMMdd}{1}", date, seq.ToString("D2"));
         }
 
         /// <summary>
