@@ -44,7 +44,6 @@
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
-
     <telerik:RadTileView x:Name="MyTileView"
                          ColumnWidth="Auto"
                          IsItemsSizeInPercentages="True"
@@ -70,7 +69,6 @@
                     <StackPanel x:Name="ToolBar"
                                 Orientation="Horizontal">
                         <TextBlock Text="时间的统计方式："
-                                   Foreground="Black"
                                    VerticalAlignment="Center"
                                    TextAlignment="Right"
                                    Margin="20,0,0,0" />
@@ -83,7 +81,6 @@
                             <telerik:RadComboBoxItem Content="按年份统计" />
                         </telerik:RadComboBox>
                         <TextBlock Text="开始时间："
-                                   Foreground="Black"
                                    VerticalAlignment="Center"
                                    TextAlignment="Right"
                                    Margin="20,0,0,0" />
@@ -94,7 +91,6 @@
                                                    InputMode="DatePicker"
                                                    DateSelectionMode="Month" />
                         <TextBlock Text="结束时间："
-                                   Foreground="Black"
                                    VerticalAlignment="Center"
                                    TextAlignment="Right"
                                    Margin="20,0,0,0" />
@@ -147,7 +143,9 @@
                                                          ShowLabels="False" />
                     </telerik:RadCartesianChart.HorizontalAxis>
                     <telerik:RadCartesianChart.VerticalAxis>
-                        <telerik:LinearAxis Minimum="460"
+                        <telerik:LinearAxis Title="单位(千万)"
+                                            Foreground="Black"
+                                            Minimum="460"
                                             Maximum="680"
                                             MajorStep="20" />
                     </telerik:RadCartesianChart.VerticalAxis>
@@ -169,11 +167,25 @@
                                            PanOffset="{Binding PanOffset, Mode=TwoWay}">
                     <telerik:RadCartesianChart.Behaviors>
                         <telerik:ChartPanAndZoomBehavior ZoomMode="Horizontal" />
+                        <telerik:ChartTooltipBehavior HorizontalOffset="-11"
+                                                      VerticalOffset="-50" />
                     </telerik:RadCartesianChart.Behaviors>
+                    <telerik:RadCartesianChart.TooltipTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Path Data="M-1236,-441 L-1208,-441 L-1208,-424 L-1228,-424 L-1230.5,-420 L-1233,-424 L-1236,-424 z"
+                                      Stretch="Fill"
+                                      Fill="White"
+                                      Stroke="#FF767676"
+                                      StrokeThickness="1" />
+                                <TextBlock FontSize="11"
+                                           Text="{Binding Volume}" />
+                            </Grid>
+                        </DataTemplate>
+                    </telerik:RadCartesianChart.TooltipTemplate>
                     <telerik:BarSeries ItemsSource="{Binding Data}"
                                        CategoryBinding="Date"
-                                       ValueBinding="Volume"
-                                       CombineMode="Cluster">
+                                       ValueBinding="Volume">
                         <telerik:BarSeries.PointTemplate>
                             <DataTemplate>
                                 <Border Background="#FF25A0DA" />
@@ -187,7 +199,9 @@
                                                          LabelFormat="MMM d" />
                     </telerik:RadCartesianChart.HorizontalAxis>
                     <telerik:RadCartesianChart.VerticalAxis>
-                        <telerik:LinearAxis LabelFormat="0,,"
+                        <telerik:LinearAxis Title="单位(千万)"
+                                            Foreground="Black"
+                                            LabelFormat="0,,"
                                             MajorStep="5000000"
                                             Minimum="0"
                                             Maximum="15000000" />
@@ -213,7 +227,6 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="2*" />
-                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0"
                             Orientation="Horizontal"
@@ -241,67 +254,69 @@
                             HorizontalAlignment="Right"
                             Margin="12,6,0,20">
                     <Rectangle Fill="#FF8EC441"
-                               Height="2"
-                               Width="15"
+                               Height="10"
+                               Width="10"
                                Margin="0,0,5,0" />
                     <CheckBox Content="购买"
                               Name="CbPurchase"
                               Margin="0,0,9,0" />
                     <Rectangle Fill="#FF1B9DDE"
-                               Height="2"
-                               Width="15"
+                               Height="10"
+                               Width="10"
                                Margin="0,0,5,0" />
                     <CheckBox Content="租赁"
                               Name="CbLease" />
                 </StackPanel>
 
                 <telerik:RadCartesianChart Grid.Row="1"
-                                           Margin="10,10,10,15"
-                                           Zoom="{Binding Zoom, Mode=TwoWay}"
-                                           PanOffset="{Binding PanOffset, Mode=TwoWay}"
-                                           TrackBallLineStyle="{StaticResource TrackBallLineStyle}"
-                                           TrackBallInfoStyle="{StaticResource TrackBallInfoStyle}">
+                                           Margin="10,11,10,0">
                     <telerik:RadCartesianChart.Behaviors>
-                        <telerik:ChartTrackBallBehavior ShowIntersectionPoints="True"
-                                                        TrackInfoUpdated="ImportTypeChartTrackBallBehaviorTrackInfoUpdated" />
+                        <telerik:ChartPanAndZoomBehavior ZoomMode="Horizontal" />
                     </telerik:RadCartesianChart.Behaviors>
-                    <telerik:LineSeries ItemsSource="{Binding Data}"
-                                        CategoryBinding="Date"
-                                        ValueBinding="Close"
-                                        Stroke="#FF25A0DA"
-                                        StrokeThickness="2"
-                                        TrackBallTemplate="{StaticResource TrackBallTemplate}">
-                        <telerik:LineSeries.VerticalAxis>
-                            <telerik:LinearAxis Minimum="460"
-                                                Maximum="680"
-                                                MajorStep="20"
-                                                HorizontalLocation="Right" />
-                        </telerik:LineSeries.VerticalAxis>
-
-                    </telerik:LineSeries>
+                    <telerik:BarSeries ItemsSource="{Binding Data}"
+                                       CategoryBinding="Date"
+                                       ValueBinding="Volume"
+                                       ShowLabels="True">
+                        <telerik:BarSeries.PointTemplate>
+                            <DataTemplate>
+                                <Border Background="#FF25A0DA" />
+                            </DataTemplate>
+                        </telerik:BarSeries.PointTemplate>
+                    </telerik:BarSeries>
+                    <telerik:BarSeries ItemsSource="{Binding Data1}"
+                                       CategoryBinding="Date"
+                                       ValueBinding="Volume"
+                                       ShowLabels="True">
+                        <telerik:BarSeries.PointTemplate>
+                            <DataTemplate>
+                                <Border Background="#FF8EC441" />
+                            </DataTemplate>
+                        </telerik:BarSeries.PointTemplate>
+                    </telerik:BarSeries>
                     <telerik:RadCartesianChart.HorizontalAxis>
-                        <telerik:DateTimeCategoricalAxis DateTimeComponent="Ticks"
-                                                         PlotMode="OnTicks"
+                        <telerik:DateTimeCategoricalAxis PlotMode="OnTicks"
                                                          MajorTickInterval="30"
-                                                         ShowLabels="False" />
+                                                         LabelFormat="MMM d" />
                     </telerik:RadCartesianChart.HorizontalAxis>
                     <telerik:RadCartesianChart.VerticalAxis>
-                        <telerik:LinearAxis Minimum="460"
-                                            Maximum="680"
-                                            MajorStep="20" />
+                        <telerik:LinearAxis Title="单位(千万)"
+                                            Foreground="Black"
+                                            LabelFormat="0,,"
+                                            MajorStep="5000000"
+                                            Minimum="0"
+                                            Maximum="16000000" />
                     </telerik:RadCartesianChart.VerticalAxis>
                     <telerik:RadCartesianChart.Grid>
-                        <telerik:CartesianChartGrid StripLinesVisibility="None"
-                                                    MajorLinesVisibility="XY">
+                        <telerik:CartesianChartGrid StripLinesVisibility="Y"
+                                                    MajorLinesVisibility="Y">
                             <telerik:CartesianChartGrid.YStripeBrushes>
-                                <SolidColorBrush Color="#FFD7D7D7"
+                                <SolidColorBrush Color="Black"
                                                  Opacity="0.3" />
-                                <SolidColorBrush Color="Transparent" />
+                                <!--<SolidColorBrush Color="Transparent" />-->
                             </telerik:CartesianChartGrid.YStripeBrushes>
                         </telerik:CartesianChartGrid>
                     </telerik:RadCartesianChart.Grid>
                 </telerik:RadCartesianChart>
-
             </Grid>
         </telerik:RadTileViewItem>
         <telerik:RadTileViewItem Header="座级"

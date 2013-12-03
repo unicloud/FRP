@@ -25,6 +25,7 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
     public class AnalyseAircraftPriceVm : INotifyPropertyChanged
     {
          private List<FinancialData> _data;
+         private List<FinancialData> _data1;
         private Point _panOffset;
         private Size _zoom;
 
@@ -44,6 +45,19 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
                 {
                     _data = value;
                     OnPropertyChanged("Data");
+                }
+            }
+        }
+
+        public List<FinancialData> Data1
+        {
+            get { return _data1; }
+            set
+            {
+                if (_data1 != value)
+                {
+                    _data1 = value;
+                    OnPropertyChanged("Data1");
                 }
             }
         }
@@ -86,12 +100,25 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
                                    {
                                        Date = DateTime.Now.AddDays(i),
                                        Close = ro.Next(0, 670),
-                                       Volume = ro.Next(0, 5000000)
+                                       Volume = ro.Next(0, 15000000)
                                    };
 
                 chartData.Add(dataItem);
             }
             Data = chartData;
+            chartData = new List<FinancialData>();
+            for (int i = 0; i < 500; i++)
+            {
+                var dataItem = new FinancialData
+                {
+                    Date = DateTime.Now.AddDays(i),
+                    Close = ro.Next(0, 670),
+                    Volume = ro.Next(0, 15000000)
+                };
+
+                chartData.Add(dataItem);
+            }
+            Data1 = chartData;
         }
 
         #region INotifyPropertyChanged Members
