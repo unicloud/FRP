@@ -100,7 +100,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AgentService\Purchase\SupplierService.cs">
+    <Compile Include="GlobalServiceHelper.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="IPurchaseService.cs" />

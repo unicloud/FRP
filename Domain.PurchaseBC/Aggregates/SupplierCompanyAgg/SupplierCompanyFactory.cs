@@ -41,8 +41,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg
                 LinkmanId = Guid.NewGuid()
             };
 
-            supplierCompany.GenerateNewIdentity();
-
             return supplierCompany;
         }
     }

@@ -17,11 +17,12 @@
 
 #region 命名空间
 
+using System;
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
-using Telerik.Windows.Controls.DataServices;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Purchase;
@@ -65,13 +66,15 @@ namespace UniCloud.Presentation.Purchase.Contract
             // Service.RegisterCollectionView(Orders);
 
             ViewTradeDTO = Service.CreateCollection<TradeDTO>(_context.Trades);
-            var fd = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
-            ViewTradeDTO.FilterDescriptors.Add(fd);
+            //var fd = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
+            //ViewTradeDTO.FilterDescriptors.Add(fd);
             Service.RegisterCollectionView(ViewTradeDTO);
+            ViewTradeDTO.PropertyChanged += OnViewPropertyChanged;
 
             ViewAircraftPurchaseOrderDTO =
                 Service.CreateCollection<AircraftPurchaseOrderDTO>(_context.AircraftPurchaseOrders);
             Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
+            ViewAircraftPurchaseOrderDTO.PropertyChanged += OnViewPropertyChanged;
         }
 
         /// <summary>
@@ -107,8 +110,6 @@ namespace UniCloud.Presentation.Purchase.Contract
             ViewTradeDTO.AutoLoad = true;
             ViewAircraftPurchaseOrderDTO.AutoLoad = true;
         }
-
-
 
         #region 交易
 
@@ -172,16 +173,6 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 重载操作
 
-        /// <summary>
-        ///     刷新保存、撤销之外的所有命令按钮
-        /// </summary>
-        protected override void RefreshButtonState()
-        {
-            NewCommand.RaiseCanExecuteChanged();
-            AddCommand.RaiseCanExecuteChanged();
-            RemoveCommand.RaiseCanExecuteChanged();
-        }
-
         #endregion
 
         #region 新建交易
@@ -193,6 +184,12 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnNew(object obj)
         {
+            var trade = new TradeDTO
+            {
+                Id = RandomHelper.Next(),
+                StartDate = DateTime.Now,
+            };
+            ViewTradeDTO.AddNew(trade);
         }
 
         private bool CanNew(object obj)
@@ -226,7 +223,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         ///     删除当前版本订单
         /// </summary>
         public DelegateCommand<object> RemoveCommand { get; private set; }
-        
+
         private void OnRemove(object obj)
         {
         }

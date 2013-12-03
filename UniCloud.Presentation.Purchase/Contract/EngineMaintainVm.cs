@@ -27,7 +27,6 @@ using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Purchase;
-using UniCloud.Presentation.Service.Purchase.AgentService.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
 #endregion
@@ -116,7 +115,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             // 将CollectionView的AutoLoad属性设为True
             EngineMaintainContracts.AutoLoad = true;
-            Suppliers = SupplierService.MaintainSupplier;
+            Suppliers = GlobalServiceHelper.MaintainSupplier;
         }
 
         #region 发动机维修合同
@@ -273,12 +272,6 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 重载操作
 
-        /// <summary>
-        ///     刷新保存、撤销之外的所有命令按钮
-        /// </summary>
-        protected override void RefreshButtonState()
-        {
-        }
 
         #endregion
 

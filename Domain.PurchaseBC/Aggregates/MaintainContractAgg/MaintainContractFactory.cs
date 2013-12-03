@@ -37,7 +37,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg
             {
                 CreateDate = DateTime.Now
             };
-            engineMaintainContract.GenerateNewIdentity();
+
             return engineMaintainContract;
         }
 
@@ -50,7 +50,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg
             {
                 CreateDate = DateTime.Now
             };
-            apuMaintainContract.GenerateNewIdentity();
+
             return apuMaintainContract;
         }
 
@@ -63,7 +63,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg
             {
                 CreateDate = DateTime.Now
             };
-            undercartMaintainContract.GenerateNewIdentity();
+
             return undercartMaintainContract;
         }
 

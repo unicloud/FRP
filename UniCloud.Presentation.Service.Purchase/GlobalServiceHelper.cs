@@ -24,13 +24,13 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 #endregion
 
-namespace UniCloud.Presentation.Service.Purchase.AgentService.Purchase
+namespace UniCloud.Presentation.Service.Purchase
 {
-    public static class SupplierService
+    public static class GlobalServiceHelper
     {
         private static readonly PurchaseData Context;
 
-        static SupplierService()
+        static GlobalServiceHelper()
         {
             if (Context == null)
             {
@@ -38,7 +38,7 @@ namespace UniCloud.Presentation.Service.Purchase.AgentService.Purchase
             }
             SupplierQuery = new QueryableDataServiceCollectionView<SupplierDTO>(Context, Context.Suppliers);
             SupplierQuery.LoadedData += SupplierQueryLoadedData;
-            InitialAcType();
+            //InitialAcType();
         }
 
         //供应商数据加载完毕，分类处理
@@ -72,36 +72,36 @@ namespace UniCloud.Presentation.Service.Purchase.AgentService.Purchase
             }
         }
 
-        #region AcType
+        //#region AcType
 
-        public static IEnumerable<AcTypeDTO> AcTypes { get; set; }
-        private static QueryableDataServiceCollectionView<AcTypeDTO> _acTypeView;
+        //public static IEnumerable<AcTypeDTO> AcTypes { get; set; }
+        //private static QueryableDataServiceCollectionView<AcTypeDTO> _acTypeView;
 
-        public static void  LoadAcType()
-        {
-            if (AcTypes == null)
-            {
-                _acTypeView.AutoLoad = true;
-                return;
-            }
-            _acTypeView.AutoLoad = false;
-        }
+        //public static void  LoadAcType()
+        //{
+        //    if (AcTypes == null)
+        //    {
+        //        _acTypeView.AutoLoad = true;
+        //        return;
+        //    }
+        //    _acTypeView.AutoLoad = false;
+        //}
 
-        /// <summary>
-        /// 初始化机型
-        /// </summary>
-        public static void InitialAcType()
-        {
-            _acTypeView = new QueryableDataServiceCollectionView<AcTypeDTO>(Context, Context.AcTypes);
-            _acTypeView.LoadedData += (sender, e) =>
-                {
-                    if (e.Error!=null)
-                    {
-                        e.MarkErrorAsHandled();
-                    }
-                    AcTypes = e.Entities.Cast<AcTypeDTO>();
-                };
-        }
-        #endregion
+        ///// <summary>
+        ///// 初始化机型
+        ///// </summary>
+        //public static void InitialAcType()
+        //{
+        //    _acTypeView = new QueryableDataServiceCollectionView<AcTypeDTO>(Context, Context.AcTypes);
+        //    _acTypeView.LoadedData += (sender, e) =>
+        //        {
+        //            if (e.Error!=null)
+        //            {
+        //                e.MarkErrorAsHandled();
+        //            }
+        //            AcTypes = e.Entities.Cast<AcTypeDTO>();
+        //        };
+        //}
+        //#endregion
     }
 }

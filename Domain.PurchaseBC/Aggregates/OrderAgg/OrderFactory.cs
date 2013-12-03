@@ -32,7 +32,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         ///     创建飞机租赁订单
         /// </summary>
         /// <param name="version">版本</param>
-        /// <param name="totalAmount">总金额</param>
         /// <param name="operatorName">经办人</param>
         /// <param name="orderDate">订单日期</param>
         /// <returns>飞机租赁订单</returns>
@@ -48,8 +47,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
                 IsValid = true
             };
 
-            aircraftLeaseOrder.GenerateNewIdentity();
-
             return aircraftLeaseOrder;
         }
 
@@ -57,7 +54,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         ///     创建飞机购买订单
         /// </summary>
         /// <param name="version">版本</param>
-        /// <param name="totalAmount">总金额</param>
         /// <param name="operatorName">经办人</param>
         /// <param name="orderDate">订单日期</param>
         /// <returns>飞机购买订单</returns>
@@ -73,8 +69,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
                 IsValid = true
             };
 
-            aircraftPurchaseOrder.GenerateNewIdentity();
-
             return aircraftPurchaseOrder;
         }
 
@@ -82,7 +76,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         ///     创建BFE购买订单
         /// </summary>
         /// <param name="version">版本</param>
-        /// <param name="totalAmount">总金额</param>
         /// <param name="operatorName">经办人</param>
         /// <param name="orderDate">订单日期</param>
         /// <returns>BFE购买订单</returns>
@@ -97,8 +90,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
                 OrderDate = orderDate,
                 IsValid = true
             };
-
-            bfePurchaseOrder.GenerateNewIdentity();
 
             return bfePurchaseOrder;
         }

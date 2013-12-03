@@ -19,10 +19,6 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
 {
     public partial class TradeDTO
     {
-        partial void OnNameChanged()
-        {
-            Description = "test";
-        }
 
         partial void OnNameChanging(string value)
         {

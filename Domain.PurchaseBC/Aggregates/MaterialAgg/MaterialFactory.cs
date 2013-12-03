@@ -36,7 +36,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
                     Name = name,
                 };
             aircraftMaterial.SetAircraftTypeId(aircraftTypeId);
-            aircraftMaterial.GenerateNewIdentity();
+
             return aircraftMaterial;
         }
 

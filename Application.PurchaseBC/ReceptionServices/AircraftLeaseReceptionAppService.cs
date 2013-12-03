@@ -63,7 +63,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         [Insert(typeof(AircraftLeaseReceptionDTO))]
         public void InsertAircraftLeaseReception(AircraftLeaseReceptionDTO aircraftLeaseReception)
         {
-            var newAircraftLeaseReception = ReceptionFactory.CreateAircraftLeaseReception(DateTime.Now,1);
+            var newAircraftLeaseReception = ReceptionFactory.CreateAircraftLeaseReception(DateTime.Now);
             _receptionRepository.Add(newAircraftLeaseReception);
         }
 

@@ -69,7 +69,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\AcTypeBCTests.cs" />
     <Compile Include="Services\MaintainContractBCTests.cs" />
     <Compile Include="Services\MaterialBCTest.cs" />
     <Compile Include="Services\PartBCTests.cs" />

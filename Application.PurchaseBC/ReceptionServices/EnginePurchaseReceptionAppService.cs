@@ -62,7 +62,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         [Insert(typeof (EnginePurchaseReceptionDTO))]
         public void InsertEnginePurchaseReception(EnginePurchaseReceptionDTO enginePurchaseReception)
         {
-            var newEnginePurchaseReception = ReceptionFactory.CreateEnginePurchaseReception(DateTime.Now, 1);
+            var newEnginePurchaseReception = ReceptionFactory.CreateEnginePurchaseReception(DateTime.Now);
             _receptionRepository.Add(newEnginePurchaseReception);
         }
 

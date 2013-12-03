@@ -122,6 +122,28 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg
             return supplierMaterial;
         }
 
+        /// <summary>
+        /// 添加物料
+        /// </summary>
+        /// <param name="mterialId">物料主键</param>
+        /// <returns></returns>
+        public SupplierCompanyMaterial AddMaterial(int mterialId)
+        {
+            if (mterialId==0)
+            {
+                throw new ArgumentException("物料参数为空！");
+            }
+
+            var supplierMaterial = new SupplierCompanyMaterial
+            {
+                SupplierCompanyId = Id,
+                MaterialId = mterialId,
+            };
+
+            SupplierCompanyMaterials.Add(supplierMaterial);
+            return supplierMaterial;
+        }
+
         #endregion
 
         #region IValidatableObject 成员

@@ -17,7 +17,9 @@
 
 #region 命名空间
 
+using System.ComponentModel;
 using Microsoft.Practices.Prism.Commands;
+using Telerik.Windows.Controls.DataServices;
 
 #endregion
 
@@ -29,11 +31,15 @@ namespace UniCloud.Presentation.MVVM
         {
             SaveCommand = new DelegateCommand<object>(OnSave, CanSave); //保存命令。
             AbortCommand = new DelegateCommand<object>(OnAbort, CanAbort); //取消命令。
-            Service.PropertyChanged += (o, e) =>
+        }
+
+        protected void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "HasChanges")
             {
                 SaveCommand.RaiseCanExecuteChanged();
                 AbortCommand.RaiseCanExecuteChanged();
-            };
+            }
         }
 
         #region 保存命令
@@ -42,15 +48,15 @@ namespace UniCloud.Presentation.MVVM
 
         private void OnSave(object sender)
         {
-            OnSaveExecuting(sender);
-            Service.SubmitChanges(sm =>
+            var collectionView = sender as QueryableDataServiceCollectionViewBase;
+            OnSaveExecuting(collectionView);
+            Service.SubmitChanges(collectionView, sm =>
             {
                 if (sm.Error == null)
                 {
                     MessageAlert("提示", "保存成功。");
-                    OnSaveSuccess(sender);
+                    OnSaveSuccess(collectionView);
                 }
-                RefreshButtonState();
             });
         }
 
@@ -58,7 +64,7 @@ namespace UniCloud.Presentation.MVVM
         ///     保存成功前执行的操作。
         /// </summary>
         /// <param name="sender"></param>
-        protected virtual void OnSaveExecuting(object sender)
+        protected virtual void OnSaveExecuting(QueryableDataServiceCollectionViewBase sender)
         {
         }
 
@@ -66,7 +72,7 @@ namespace UniCloud.Presentation.MVVM
         ///     保存成功后执行的操作
         /// </summary>
         /// <param name="sender"></param>
-        protected virtual void OnSaveSuccess(object sender)
+        protected virtual void OnSaveSuccess(QueryableDataServiceCollectionViewBase sender)
         {
         }
 
@@ -75,13 +81,14 @@ namespace UniCloud.Presentation.MVVM
         ///     保存失败后执行的操作
         /// </summary>
         /// <param name="sender"></param>
-        protected virtual void OnSaveFail(object sender)
+        protected virtual void OnSaveFail(QueryableDataServiceCollectionViewBase sender)
         {
         }
 
         private bool CanSave(object sender)
         {
-            return Service.HasChanges;
+            var collectionView = sender as QueryableDataServiceCollectionViewBase;
+            return collectionView != null && collectionView.HasChanges;
         }
 
         #endregion
@@ -94,36 +101,32 @@ namespace UniCloud.Presentation.MVVM
         ///     放弃更改执行的操作
         /// </summary>
         /// <param name="sender"></param>
-        protected virtual void OnAbortExecuting(object sender)
+        protected virtual void OnAbortExecuting(QueryableDataServiceCollectionViewBase sender)
         {
         }
 
         private void OnAbort(object sender)
         {
-            OnAbortExecuting(sender); //取消前。
-            Service.RejectChanges(); //取消。
-            OnAbortExecuted(sender); //取消后。
-            RefreshButtonState();
+            var collectionView = sender as QueryableDataServiceCollectionViewBase;
+            OnAbortExecuting(collectionView); //取消前。
+            Service.RejectChanges(collectionView); //取消。
+            OnAbortExecuted(collectionView); //取消后。
         }
 
         /// <summary>
         ///     放弃更改后执行的操作
         /// </summary>
         /// <param name="sender"></param>
-        protected virtual void OnAbortExecuted(object sender)
+        protected virtual void OnAbortExecuted(QueryableDataServiceCollectionViewBase sender)
         {
         }
 
         private bool CanAbort(object sender)
         {
-            return Service.HasChanges;
+            var collectionView = sender as QueryableDataServiceCollectionViewBase;
+            return collectionView != null && collectionView.HasChanges;
         }
 
         #endregion
-
-        /// <summary>
-        ///     刷新按钮状态
-        /// </summary>
-        protected abstract void RefreshButtonState();
     }
 }

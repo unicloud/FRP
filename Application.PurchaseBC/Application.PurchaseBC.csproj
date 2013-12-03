@@ -44,8 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AcTypeServices\IAcTypeAppService.cs" />
-    <Compile Include="AcTypeServices\AcTypeAppService.cs" />
     <Compile Include="ContractServices\IMaintainContractAppService.cs" />
     <Compile Include="ContractServices\MaintainContractAppService.cs" />
     <Compile Include="ForwarderServices\ForwarderAppService.cs" />
@@ -72,7 +70,6 @@
     <ProjectReference Include="..\Application.PurchaseBC.DTO\Application.PurchaseBC.DTO.csproj">
       <Project>{060ccd93-bfb4-448a-8fdc-dd3d6762ec41}</Project>
       <Name>Application.PurchaseBC.DTO</Name>
-      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\Application.PurchaseBC.Query\Application.PurchaseBC.Query.csproj">
       <Project>{930c8964-6610-4ca9-86e0-6afaf5bc8ce5}</Project>

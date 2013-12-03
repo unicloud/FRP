@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using UniCloud.Domain.UberModel.ValueObjects;
 
 #endregion
@@ -37,20 +38,22 @@ namespace UniCloud.Domain.UberModel.Aggregates.LinkmanAgg
         /// <param name="fax">传真</param>
         /// <param name="email">Email</param>
         /// <param name="address">地址</param>
+        /// <param name="sourceId">源Id</param>
         /// <returns></returns>
         public static Linkman CreateLinkman(string name, string telephone, string mobile, string fax, string email,
-            Address address)
+            Address address, Guid sourceId)
         {
-            var linkman = new Linkman();
-            linkman.GenerateNewIdentity();
+            var linkman = new Linkman
+            {
+                Name = name,
+                TelePhone = telephone,
+                Mobile = mobile,
+                Fax = fax,
+                Email = email,
+                Address = address
+            };
 
-            linkman.Name = name;
-            linkman.TelePhone = telephone;
-            linkman.Mobile = mobile;
-            linkman.Fax = fax;
-            linkman.Email = email;
-            linkman.Address = address;
-
+            linkman.SetSourceId(sourceId);
             return linkman;
         }
     }

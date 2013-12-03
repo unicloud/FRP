@@ -18,6 +18,8 @@
 #region 命名空间
 
 using System.Collections.Generic;
+using System.Linq;
+using UniCloud.Domain.UberModel.Aggregates.MaterialAgg;
 using UniCloud.Domain.UberModel.Aggregates.PartAgg;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
 
@@ -47,6 +49,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
                         }
                 };
             parts.ForEach(p => Context.Parts.Add(p));
+            parts.ForEach(p => Context.Materials.Add(new BFEMaterial
+            {
+                Description = "描述",
+                Name=p.Name,
+                Part =p
+            }));
         }
     }
 }
