@@ -44,8 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AcTypeServices\IAcTypeAppService.cs" />
-    <Compile Include="AcTypeServices\AcTypeAppService.cs" />
     <Compile Include="ContractServices\IMaintainContractAppService.cs" />
     <Compile Include="ContractServices\MaintainContractAppService.cs" />
     <Compile Include="ForwarderServices\ForwarderAppService.cs" />

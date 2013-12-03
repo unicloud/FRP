@@ -294,8 +294,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
 
         #region  加载飞机物料相关信息
 
-        private FilterDescriptor _acMaterialFilter; //查找飞机物料配置。
-
         /// <summary>
         ///     获取所有飞机物料信息。
         /// </summary>
@@ -307,8 +305,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
         {
             AircraftMaterialsView = Service.CreateCollection(_purchaseData.AircraftMaterias);
             Service.RegisterCollectionView(AircraftMaterialsView); //注册查询集合。
-            _acMaterialFilter = new FilterDescriptor("Name", FilterOperator.DoesNotContain, null);
-            AircraftMaterialsView.FilterDescriptors.Add(_acMaterialFilter);
             AircraftMaterialsView.LoadedData += (sender, e) =>
             {
                 if (e.HasError)
@@ -473,7 +469,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
             //设置飞机物料
             var acMaterialNames = new List<string>();
             SelSupplierCompanyMaterial.AircraftMaterials.ToList().ForEach(p => acMaterialNames.Add(p.Name));
-            _acMaterialFilter.Value = acMaterialNames;
             if (!AircraftMaterialsView.AutoLoad)
             {
                 AircraftMaterialsView.AutoLoad = true;

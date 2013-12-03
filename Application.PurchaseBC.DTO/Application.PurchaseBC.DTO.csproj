@@ -60,7 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AcTypeDTO\AcTypeDTO.cs" />
     <Compile Include="ContractDTO\APUMaintainContractDTO.cs" />
     <Compile Include="ContractDTO\MaintainContractDTO.cs" />
     <Compile Include="ContractDTO\EngineMaintainContractDTO.cs" />
