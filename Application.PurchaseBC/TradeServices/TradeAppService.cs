@@ -96,10 +96,16 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 throw new ArgumentException("参数为空！");
             }
 
-            var supplier = _supplierRepository.GetAll().FirstOrDefault();
-            var newTrade = TradeFactory.CreateTrade(null, null, DateTime.Now);
-            newTrade.SetTradeNumber(1);
+            var supplier = _supplierRepository.Get(dto.SupplierId);
+            var newTrade = TradeFactory.CreateTrade(dto.Name, dto.Description, dto.StartDate);
+            newTrade.GenerateNewIdentity();
+            // 设置交易编号
+            var date = DateTime.Now.Date;
+            var seq = _tradeRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+            newTrade.SetTradeNumber(seq);
+            // 设置供应商
             newTrade.SetSupplier(supplier);
+
             _tradeRepository.Add(newTrade);
         }
 
@@ -134,9 +140,9 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             }
         }
 
-        private  Trade MaterializeTradeFromDto(TradeDTO dto)
+        private Trade MaterializeTradeFromDto(TradeDTO dto)
         {
-            var supplier = _supplierRepository.GetAll().FirstOrDefault();
+            var supplier = _supplierRepository.Get(dto.SupplierId);
             var trade = TradeFactory.CreateTrade(dto.Name, dto.Description, dto.StartDate);
             trade.ChangeCurrentIdentity(dto.Id);
             trade.SetSupplier(supplier);
