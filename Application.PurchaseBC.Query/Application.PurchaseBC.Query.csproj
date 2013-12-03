@@ -50,8 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AcTypeQueries\IAcTypeQuery.cs" />
-    <Compile Include="AcTypeQueries\AcTypeQuery.cs" />
     <Compile Include="ContractQueries\IMaintainContractQuery.cs" />
     <Compile Include="ContractQueries\MaintainContractQuery.cs" />
     <Compile Include="ForwarderQueries\ForwarderQuery.cs" />

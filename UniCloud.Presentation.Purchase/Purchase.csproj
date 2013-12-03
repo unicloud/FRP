@@ -246,8 +246,8 @@
       <DependentUpon>EnginePurchaseReceptionManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Reception\EnginePurchaseReceptionManagerVM.cs" />
-    <Compile Include="Supplier\MetrialChildView.xaml.cs">
-      <DependentUpon>MetrialChildView.xaml</DependentUpon>
+    <Compile Include="Supplier\MaterialChildView.xaml.cs">
+      <DependentUpon>MaterialChildView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Supplier\SupplierMaterialManager.xaml.cs">
       <DependentUpon>SupplierMaterialManager.xaml</DependentUpon>
@@ -322,7 +322,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Supplier\MetrialChildView.xaml">
+    <Page Include="Supplier\MaterialChildView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

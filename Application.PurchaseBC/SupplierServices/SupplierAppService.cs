@@ -24,9 +24,9 @@ using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.SupplierQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg;
 using UniCloud.Domain.PurchaseBC.ValueObjects;
 
@@ -44,15 +44,13 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         private readonly ISupplierQuery _supplierQuery;
         private readonly ISupplierRoleRepository _supplierRoleRepository;
         private readonly ILinkmanRepository _linkmanRepository;
-        private readonly IMaterialRepository _materialRepository;
         public SupplierAppService(ISupplierQuery supplierQuery, ISupplierRoleRepository supplierRoleRepository,
-                                  ISupplierCompanyRepository supplierCompanyRepository, ILinkmanRepository linkmanRepository, IMaterialRepository materialRepository)
+                                  ISupplierCompanyRepository supplierCompanyRepository, ILinkmanRepository linkmanRepository)
         {
             _supplierQuery = supplierQuery;
             _supplierRoleRepository = supplierRoleRepository;
             _supplierCompanyRepository = supplierCompanyRepository;
             _linkmanRepository = linkmanRepository;
-            _materialRepository = materialRepository;
         }
 
         #region 合作公司相关操作
@@ -305,121 +303,48 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         [Update(typeof(SupplierCompanyMaterialDTO))]
         public void ModifySupplierCompanyMaterial(SupplierCompanyMaterialDTO supplierCompanyMaterial)
         {
-            //var persistSupplierCompanyMaterial =
-            //    _supplierCompanyRepository.Get(supplierCompanyMaterial.SupplierCompanyId);
-            //var persistAcMaterial = persistSupplierCompanyMaterial
-            //                                     .Materials.OfType<AircraftMaterial>().ToList();
-            //var persistBFEMaterial = persistSupplierCompanyMaterial
-            //                                                  .Materials.OfType<BFEMaterial>().ToList();
-            //var persistEngineMaterial = persistSupplierCompanyMaterial
-            //                                                  .Materials.OfType<EngineMaterial>().ToList();
-            ////更新飞机物料
-            //UpdateAcMaterial(persistSupplierCompanyMaterial, supplierCompanyMaterial.AircraftMaterials, persistAcMaterial);
-            ////更新发动机物料
-            //UpdateEngineMaterial(persistSupplierCompanyMaterial, supplierCompanyMaterial.EngineMaterials, persistEngineMaterial);
-            ////更新BFE物料
-            //UpdateBfeMaterial(persistSupplierCompanyMaterial, supplierCompanyMaterial.BFEMaterials, persistBFEMaterial);
+            var persistSupplierCompany =
+                _supplierCompanyRepository.Get(supplierCompanyMaterial.SupplierCompanyId);
+            if (persistSupplierCompany==null)
+             throw new Exception("数据库不存在更新的供应商物料");
+            //数据库持久化的物料信息
+            var persistSupplierMaterial = persistSupplierCompany
+                .SupplierCompanyMaterials.ToList();
+            //前台传过来的物料信息
+            var allSupplierMaterial = (supplierCompanyMaterial.AircraftMaterials
+                                     .Union(supplierCompanyMaterial.BFEMaterials)
+                                     .Union(supplierCompanyMaterial.EngineMaterials))
+                                     .ToList();
+            UpdateSupplierMaterial(persistSupplierCompany, allSupplierMaterial, persistSupplierMaterial);
 
         }
 
-        ///// <summary>
-        ///// 更新飞机物料信息
-        ///// </summary>
-        ///// <param name="supplierCompany">合作公司</param>
-        ///// <param name="actMaterials">飞机物料信息</param>
-        ///// <param name="persistAcMaterials">已持久化飞机物料信息</param>
-        //private void UpdateAcMaterial(SupplierCompany supplierCompany, List<AircraftMaterialDTO> actMaterials,
-        //    List<AircraftMaterial> persistAcMaterials)
-        //{
-
-        //    //遍历从前台传过来的飞机物料，如果数据库中没有存在，则此物料为新增。
-        //    actMaterials.ForEach(p =>
-        //    {
-        //        if (persistAcMaterials.All(c => c.Id != p.AcMaterialId))
-        //        {
-        //            var newAcMaterial = _materialRepository.Get(p.AcMaterialId);
-        //            if (newAcMaterial!=null)
-        //            {
-        //                supplierCompany.Materials.Add(newAcMaterial);
-        //            }
-        //        }
-        //    });
-        //    //与前台传过来的飞机物料相比，如果前台的物料没有，数据库有，则该物料为删除。
-        //    persistAcMaterials.ForEach(p =>
-        //    {
-        //        if (actMaterials.All(c=>c.AcMaterialId!=p.Id))
-        //        {
-        //            supplierCompany.Materials.Remove(p);
-        //        }
-        //    });
-
-        //}
-
-        ///// <summary>
-        ///// 更新发动机物料信息
-        ///// </summary>
-        ///// <param name="supplierCompany">合作公司</param>
-        ///// <param name="engineMaterials">发动机物料信息</param>
-        ///// <param name="persistEngineMaterials">已持久化发动机物料信息</param>
-        //private void UpdateEngineMaterial(SupplierCompany supplierCompany, List<EngineMaterialDTO> engineMaterials,
-        //    List<EngineMaterial> persistEngineMaterials)
-        //{
-
-        //    //遍历从前台传过来的发动机物料，如果数据库中没有存在，则此物料为新增。
-        //    engineMaterials.ForEach(p =>
-        //    {
-        //        if (persistEngineMaterials.All(c => c.Id != p.PartId))
-        //        {
-        //            var newAcMaterial = _materialRepository.Get(p.PartId);
-        //            if (newAcMaterial != null)
-        //            {
-        //                supplierCompany.Materials.Add(newAcMaterial);
-        //            }
-        //        }
-        //    });
-        //    //与前台传过来的发动机物料相比，如果前台的物料没有，数据库有，则该物料为删除。
-        //    persistEngineMaterials.ForEach(p =>
-        //    {
-        //        if (engineMaterials.All(c => c.PartId != p.Id))
-        //        {
-        //            supplierCompany.Materials.Remove(p);
-        //        }
-        //    });
-
-        //}
-
-        ///// <summary>
-        ///// 更新BFE物料信息
-        ///// </summary>
-        ///// <param name="supplierCompany">合作公司</param>
-        ///// <param name="bfeMaterials">BFE物料信息</param>
-        ///// <param name="persistBfeMaterials">已持久化BFE物料信息</param>
-        //private void UpdateBfeMaterial(SupplierCompany supplierCompany, List<BFEMaterialDTO> bfeMaterials,
-        //    List<BFEMaterial> persistBfeMaterials)
-        //{
-
-        //    //遍历从前台传过来的BFE物料，如果数据库中没有存在，则此物料为新增。
-        //    bfeMaterials.ForEach(p =>
-        //    {
-        //        if (persistBfeMaterials.All(c => c.Id != p.PartId))
-        //        {
-        //            var newAcMaterial = _materialRepository.Get(p.PartId);
-        //            if (newAcMaterial != null)
-        //            {
-        //                supplierCompany.Materials.Add(newAcMaterial);
-        //            }
-        //        }
-        //    });
-        //    //与前台传过来的BFE物料相比，如果前台的物料没有，数据库有，则该物料为删除。
-        //    persistBfeMaterials.ForEach(p =>
-        //    {
-        //        if (bfeMaterials.All(c => c.PartId != p.Id))
-        //        {
-        //            supplierCompany.Materials.Remove(p);
-        //        }
-        //    });
-
-        //}
+        /// <summary>
+        /// 更新合作公司物料信息
+        /// </summary>
+        /// <param name="supplierCompany">合作公司</param>
+        /// <param name="supplierMaterial">前台物料信息</param>
+        /// <param name="persistSupplierMaterial">持久化的物料信息</param>
+        private void UpdateSupplierMaterial(SupplierCompany supplierCompany, List<SupplierMaterialDTO> supplierMaterial,
+           List<SupplierCompanyMaterial> persistSupplierMaterial)
+        {
+            //遍历从前台传过来的供应商物料，如果数据库中没有存在，则此供应商物料为新增。
+            supplierMaterial.ForEach(p =>
+            {
+                if (persistSupplierMaterial.All(c => c.Id != p.SupplierMaterialId))
+                {
+                    supplierCompany.AddMaterial(p.MaterialId);
+                }
+            });
+            //与前台传过来的物料相比，如果前台的物料没有，数据库有，则该物料为删除。
+            persistSupplierMaterial.ForEach(p =>
+            {
+                if (supplierMaterial.All(c => c.MaterialId != p.Id))
+                {
+                    supplierCompany.SupplierCompanyMaterials.Remove(p);
+                }
+            });
+        }
         #endregion
     }
 }

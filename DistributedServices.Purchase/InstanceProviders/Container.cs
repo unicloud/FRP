@@ -17,12 +17,10 @@
 
 #region 命名空间
 
-using UniCloud.Application.PurchaseBC.AcTypeServices;
 using UniCloud.Application.PurchaseBC.ContractServices;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
 using UniCloud.Application.PurchaseBC.PartServices;
-using UniCloud.Application.PurchaseBC.Query.AcTypeQueries;
 using UniCloud.Application.PurchaseBC.Query.ContractQueries;
 using UniCloud.Application.PurchaseBC.Query.ForwarderQueries;
 using UniCloud.Application.PurchaseBC.Query.MaterialQueries;
@@ -113,13 +111,6 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
                          .Register<IEngineLeaseReceptionAppService, EngineLeaseReceptionAppService>()
                          .Register<IEnginePurchaseReceptionAppService, EnginePurchaseReceptionAppService>()
                          .Register<IReceptionRepository, ReceptionRepository>()
-                #endregion
-
-                #region 机型相关配置，包括查询，应用服务，仓储注册
-
-                         .Register<IAcTypeQuery, AcTypeQuery>()
-                         .Register<IAcTypeAppService, AcTypeAppService>()
-                         .Register<IAircraftTypeRepository, AircraftTypeRepository>()
                 #endregion
 
                 #region 物料相关配置，包括查询，应用服务，仓储注册

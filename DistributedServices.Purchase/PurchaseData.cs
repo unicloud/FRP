@@ -18,7 +18,6 @@
 #region 命名空间
 
 using System.Linq;
-using UniCloud.Application.PurchaseBC.AcTypeServices;
 using UniCloud.Application.PurchaseBC.ContractServices;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
@@ -38,7 +37,6 @@ namespace UniCloud.DistributedServices.Purchase
     /// </summary>
     public class PurchaseData : ExposeData.ExposeData
     {
-        private readonly IAcTypeAppService _acTypeAppService;
         private readonly IAircraftLeaseReceptionAppService _aircraftLeaseReceptionAppService;
         private readonly IAircraftPurchaseReceptionAppService _aircraftPurchaseReceptionAppService;
         private readonly IEngineLeaseReceptionAppService _engineLeaseReceptionAppService;
@@ -53,7 +51,6 @@ namespace UniCloud.DistributedServices.Purchase
         public PurchaseData()
             : base("UniCloud.Application.PurchaseBC.DTO")
         {
-            _acTypeAppService = DefaultContainer.Resolve<IAcTypeAppService>();
             _forwarderAppService = DefaultContainer.Resolve<IForwarderAppService>();
             _maintainContractAppService = DefaultContainer.Resolve<IMaintainContractAppService>();
             _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();
@@ -105,18 +102,6 @@ namespace UniCloud.DistributedServices.Purchase
         /// </summary>
         public IQueryable<SupplierCompanyMaterialDTO> SupplierCompanyMaterials {
             get { return _supplierAppService.GetSupplierCompanyMaterials(); }
-        }
-
-        #endregion
-
-        #region 机型集合
-
-        /// <summary>
-        ///     机型集合
-        /// </summary>
-        public IQueryable<AcTypeDTO> AcTypes
-        {
-            get { return _acTypeAppService.GetAcTypes(); }
         }
 
         #endregion
