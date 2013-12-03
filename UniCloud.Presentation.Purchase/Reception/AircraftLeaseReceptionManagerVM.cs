@@ -72,16 +72,16 @@ namespace UniCloud.Presentation.Purchase.Reception
             AddEntityCommand = new DelegateCommand<object>(OnAddEntity, CanAddEntity);
             AddDocCommand = new DelegateCommand<object>(OnAddDoc, CanAddDoc);
             RemoveDocCommand = new DelegateCommand<object>(OnRemoveDoc, CanRemoveDoc);
-            Service.PropertyChanged += (o, e) =>
-            {
-                NewCommand.RaiseCanExecuteChanged();
-                RemoveCommand.RaiseCanExecuteChanged();
-                SubmitCommand.RaiseCanExecuteChanged();
-                RejectCommand.RaiseCanExecuteChanged();
-                AddEntityCommand.RaiseCanExecuteChanged();
-                AddDocCommand.RaiseCanExecuteChanged();
-                RemoveDocCommand.RaiseCanExecuteChanged();
-            };
+            //Service.PropertyChanged += (o, e) =>
+            //{
+            //    NewCommand.RaiseCanExecuteChanged();
+            //    RemoveCommand.RaiseCanExecuteChanged();
+            //    SubmitCommand.RaiseCanExecuteChanged();
+            //    RejectCommand.RaiseCanExecuteChanged();
+            //    AddEntityCommand.RaiseCanExecuteChanged();
+            //    AddDocCommand.RaiseCanExecuteChanged();
+            //    RemoveDocCommand.RaiseCanExecuteChanged();
+            //};
         }
 
         /// <summary>
@@ -313,13 +313,13 @@ namespace UniCloud.Presentation.Purchase.Reception
         #endregion
 
         #region 重载操作
-        protected override void RefreshButtonState()
-        {
-            NewCommand.RaiseCanExecuteChanged();
-            RemoveCommand.RaiseCanExecuteChanged();
-            SubmitCommand.RaiseCanExecuteChanged();
-            RejectCommand.RaiseCanExecuteChanged();
-        }
+        //protected override void RefreshButtonState()
+        //{
+        //    NewCommand.RaiseCanExecuteChanged();
+        //    RemoveCommand.RaiseCanExecuteChanged();
+        //    SubmitCommand.RaiseCanExecuteChanged();
+        //    RejectCommand.RaiseCanExecuteChanged();
+        //}
 
         #region 新建接收项目
 
@@ -368,17 +368,6 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         private void OnSubmit(object sender)
         {
-            OnSaveExecuting(sender);
-            Service.SubmitChanges(sm =>
-            {
-                if (sm.Error == null)
-                {
-                    MessageAlert("提示", "保存成功。");
-                    OnSaveSuccess(sender);
-                }
-                RefreshButtonState();
-            });
-            //AircraftLeaseReceptions.SubmitChanges();
         }
 
         private bool CanSubmit(object obj)

@@ -78,20 +78,20 @@
         <Property Name="Name" Type="Edm.String" />
         <Property Name="SupplierType" Type="Edm.String" />
         <Property Name="Code" Type="Edm.String" />
+        <Property Name="AircraftMaterials" Type="Collection(UniCloud.Application.PurchaseBC.DTO.SupplierMaterialDTO)" Nullable="false" />
+        <Property Name="EngineMaterials" Type="Collection(UniCloud.Application.PurchaseBC.DTO.SupplierMaterialDTO)" Nullable="false" />
+        <Property Name="BFEMaterials" Type="Collection(UniCloud.Application.PurchaseBC.DTO.SupplierMaterialDTO)" Nullable="false" />
         <Property Name="AircraftSupplier" Type="Edm.Boolean" Nullable="false" />
         <Property Name="BFESupplier" Type="Edm.Boolean" Nullable="false" />
         <Property Name="EngineSupplier" Type="Edm.Boolean" Nullable="false" />
-        <NavigationProperty Name="AircraftMaterials" Relationship="UniCloud.Application.PurchaseBC.DTO.SupplierCompanyMaterialDTO_AircraftMaterials" ToRole="AircraftMaterials" FromRole="SupplierCompanyMaterialDTO" />
-        <NavigationProperty Name="EngineMaterials" Relationship="UniCloud.Application.PurchaseBC.DTO.SupplierCompanyMaterialDTO_EngineMaterials" ToRole="EngineMaterials" FromRole="SupplierCompanyMaterialDTO" />
-        <NavigationProperty Name="BFEMaterials" Relationship="UniCloud.Application.PurchaseBC.DTO.SupplierCompanyMaterialDTO_BFEMaterials" ToRole="BFEMaterials" FromRole="SupplierCompanyMaterialDTO" />
       </EntityType>
-      <EntityType Name="AcTypeDTO">
-        <Key>
-          <PropertyRef Name="AcTypeId" />
-        </Key>
+      <ComplexType Name="SupplierMaterialDTO">
+        <Property Name="SupplierMaterialId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Name" Type="Edm.String" />
-        <Property Name="AcTypeId" Type="Edm.Guid" Nullable="false" />
-      </EntityType>
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="MaterialId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SupplierCompanyId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
       <EntityType Name="AircraftTypeDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -377,9 +377,9 @@
       </ComplexType>
       <EntityType Name="TradeDTO">
         <Key>
-          <PropertyRef Name="TradeId" />
+          <PropertyRef Name="Id" />
         </Key>
-        <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeNumber" Type="Edm.String" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
@@ -390,12 +390,12 @@
       </EntityType>
       <EntityType Name="AircraftLeaseOrderDTO">
         <Key>
-          <PropertyRef Name="OrderId" />
+          <PropertyRef Name="Id" />
         </Key>
-        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
-        <Property Name="TotalAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
         <Property Name="Linkman" Type="Edm.String" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
@@ -404,22 +404,21 @@
         <Property Name="AircraftLeaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.AircraftLeaseOrderLineDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="AircraftLeaseOrderLineDTO">
-        <Property Name="OrdrLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Int32" Nullable="false" />
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
       </ComplexType>
       <EntityType Name="AircraftPurchaseOrderDTO">
         <Key>
-          <PropertyRef Name="OrderId" />
+          <PropertyRef Name="Id" />
         </Key>
-        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
-        <Property Name="TotalAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
         <Property Name="Linkman" Type="Edm.String" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
@@ -428,11 +427,10 @@
         <Property Name="AircraftPurchaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseOrderLineDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="AircraftPurchaseOrderLineDTO">
-        <Property Name="OrdrLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Int32" Nullable="false" />
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
         <Property Name="AirframePrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="RefitCost" Type="Edm.Decimal" Nullable="false" />
         <Property Name="EnginePrice" Type="Edm.Decimal" Nullable="false" />
@@ -441,12 +439,12 @@
       </ComplexType>
       <EntityType Name="EngineLeaseOrderDTO">
         <Key>
-          <PropertyRef Name="OrderId" />
+          <PropertyRef Name="Id" />
         </Key>
-        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
-        <Property Name="TotalAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
         <Property Name="Linkman" Type="Edm.String" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
@@ -455,22 +453,21 @@
         <Property Name="EngineLeaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.EngineLeaseOrderLineDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="EngineLeaseOrderLineDTO">
-        <Property Name="OrdrLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Int32" Nullable="false" />
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
       </ComplexType>
       <EntityType Name="EnginePurchaseOrderDTO">
         <Key>
-          <PropertyRef Name="OrderId" />
+          <PropertyRef Name="Id" />
         </Key>
-        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
-        <Property Name="TotalAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
         <Property Name="Linkman" Type="Edm.String" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
@@ -479,22 +476,21 @@
         <Property Name="EnginePurchaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.EnginePurchaseOrderLineDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="EnginePurchaseOrderLineDTO">
-        <Property Name="OrdrLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Int32" Nullable="false" />
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
       </ComplexType>
       <EntityType Name="BFEPurchaseOrderDTO">
         <Key>
-          <PropertyRef Name="OrderId" />
+          <PropertyRef Name="Id" />
         </Key>
-        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyName" Type="Edm.String" />
-        <Property Name="TotalAmount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
         <Property Name="Linkman" Type="Edm.String" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
@@ -503,26 +499,13 @@
         <Property Name="BFEPurchaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderLineDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="BFEPurchaseOrderLineDTO">
-        <Property Name="OrdrLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Int32" Nullable="false" />
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
       </ComplexType>
-      <Association Name="SupplierCompanyMaterialDTO_AircraftMaterials">
-        <End Type="UniCloud.Application.PurchaseBC.DTO.SupplierCompanyMaterialDTO" Role="SupplierCompanyMaterialDTO" Multiplicity="*" />
-        <End Type="UniCloud.Application.PurchaseBC.DTO.AircraftMaterialDTO" Role="AircraftMaterials" Multiplicity="*" />
-      </Association>
-      <Association Name="SupplierCompanyMaterialDTO_EngineMaterials">
-        <End Type="UniCloud.Application.PurchaseBC.DTO.SupplierCompanyMaterialDTO" Role="SupplierCompanyMaterialDTO" Multiplicity="*" />
-        <End Type="UniCloud.Application.PurchaseBC.DTO.EngineMaterialDTO" Role="EngineMaterials" Multiplicity="*" />
-      </Association>
-      <Association Name="SupplierCompanyMaterialDTO_BFEMaterials">
-        <End Type="UniCloud.Application.PurchaseBC.DTO.SupplierCompanyMaterialDTO" Role="SupplierCompanyMaterialDTO" Multiplicity="*" />
-        <End Type="UniCloud.Application.PurchaseBC.DTO.BFEMaterialDTO" Role="BFEMaterials" Multiplicity="*" />
-      </Association>
       <Association Name="LeaseContractAircraftDTO_BFEPurchaseOrders">
         <End Type="UniCloud.Application.PurchaseBC.DTO.LeaseContractAircraftDTO" Role="LeaseContractAircraftDTO" Multiplicity="*" />
         <End Type="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO" Role="BFEPurchaseOrders" Multiplicity="*" />
@@ -539,7 +522,6 @@
         <EntitySet Name="SupplierCompanys" EntityType="UniCloud.Application.PurchaseBC.DTO.SupplierCompanyDTO" />
         <EntitySet Name="Linkmans" EntityType="UniCloud.Application.PurchaseBC.DTO.LinkmanDTO" />
         <EntitySet Name="SupplierCompanyMaterials" EntityType="UniCloud.Application.PurchaseBC.DTO.SupplierCompanyMaterialDTO" />
-        <EntitySet Name="AcTypes" EntityType="UniCloud.Application.PurchaseBC.DTO.AcTypeDTO" />
         <EntitySet Name="AircraftTypes" EntityType="UniCloud.Application.PurchaseBC.DTO.AircraftTypeDTO" />
         <EntitySet Name="ActionCategories" EntityType="UniCloud.Application.PurchaseBC.DTO.ActionCategoryDTO" />
         <EntitySet Name="PlanAircrafts" EntityType="UniCloud.Application.PurchaseBC.DTO.PlanAircraftDTO" />
@@ -562,18 +544,6 @@
         <EntitySet Name="EngineLeaseOrders" EntityType="UniCloud.Application.PurchaseBC.DTO.EngineLeaseOrderDTO" />
         <EntitySet Name="EnginePurchaseOrders" EntityType="UniCloud.Application.PurchaseBC.DTO.EnginePurchaseOrderDTO" />
         <EntitySet Name="BFEPurchaseOrders" EntityType="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO" />
-        <AssociationSet Name="SupplierCompanyMaterialDTO_AircraftMaterials" Association="UniCloud.Application.PurchaseBC.DTO.SupplierCompanyMaterialDTO_AircraftMaterials">
-          <End Role="SupplierCompanyMaterialDTO" EntitySet="SupplierCompanyMaterials" />
-          <End Role="AircraftMaterials" EntitySet="AircraftMaterias" />
-        </AssociationSet>
-        <AssociationSet Name="SupplierCompanyMaterialDTO_EngineMaterials" Association="UniCloud.Application.PurchaseBC.DTO.SupplierCompanyMaterialDTO_EngineMaterials">
-          <End Role="SupplierCompanyMaterialDTO" EntitySet="SupplierCompanyMaterials" />
-          <End Role="EngineMaterials" EntitySet="EngineMaterials" />
-        </AssociationSet>
-        <AssociationSet Name="SupplierCompanyMaterialDTO_BFEMaterials" Association="UniCloud.Application.PurchaseBC.DTO.SupplierCompanyMaterialDTO_BFEMaterials">
-          <End Role="SupplierCompanyMaterialDTO" EntitySet="SupplierCompanyMaterials" />
-          <End Role="BFEMaterials" EntitySet="BFEMaterials" />
-        </AssociationSet>
         <AssociationSet Name="LeaseContractAircraftDTO_BFEPurchaseOrders" Association="UniCloud.Application.PurchaseBC.DTO.LeaseContractAircraftDTO_BFEPurchaseOrders">
           <End Role="LeaseContractAircraftDTO" EntitySet="LeaseContractAircrafts" />
           <End Role="BFEPurchaseOrders" EntitySet="BFEPurchaseOrders" />

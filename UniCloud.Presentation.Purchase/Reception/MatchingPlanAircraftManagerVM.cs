@@ -85,9 +85,6 @@ namespace UniCloud.Presentation.Purchase.Reception
         #region 操作
 
         #region 重载操作
-        protected override void RefreshButtonState()
-        {
-        }
 
         #region 新建
 

@@ -44,14 +44,15 @@
         <telerik:RadToolBar HorizontalAlignment="Stretch"
                             Margin="-1 -2 -1 0">
             <telerik:RadButton Margin="4,2,2,-2"
-                               Command="{Binding SaveCommand}">
+                               Command="{Binding SaveCommand}"
+                               CommandParameter="{Binding AircraftLeaseReceptions}">
                 <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                        Stretch="Fill"
                        ToolTipService.ToolTip="保存" />
             </telerik:RadButton>
-            <telerik:RadToolBarSeparator />
             <telerik:RadButton Margin="2,2,2,-2"
-                               Command="{Binding AbortCommand}">
+                               Command="{Binding AbortCommand}"
+                               CommandParameter="{Binding AircraftLeaseReceptions}">
                 <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                        Stretch="Fill"
                        ToolTipService.ToolTip="放弃更改" />
