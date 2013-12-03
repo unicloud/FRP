@@ -31,6 +31,18 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg
     /// </summary>
     public class MaintainContract : EntityInt, IValidatableObject
     {
+        #region 构造函数
+
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能通过工厂方法去创建新实例
+        /// </summary>
+        internal MaintainContract()
+        {
+        }
+
+        #endregion
+
         #region 属性
 
         /// <summary>
@@ -67,6 +79,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg
         ///     文档名称
         /// </summary>
         public string DocumentName { get; set; }
+
         #endregion
 
         #region 外键属性
@@ -80,6 +93,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg
         ///     文档ID
         /// </summary>
         public Guid DocumentId { get; set; }
+
         #endregion
 
         #region 导航属性

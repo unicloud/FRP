@@ -36,8 +36,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg
                 RankNumber = rankNumber
             };
 
-            leaseContractEngine.GenerateNewIdentity();
-
             return leaseContractEngine;
         }
 
@@ -54,8 +52,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg
                 ContractName = contractName,
                 RankNumber = rankNumber
             };
-
-            purchaseContractEngine.GenerateNewIdentity();
 
             return purchaseContractEngine;
         }

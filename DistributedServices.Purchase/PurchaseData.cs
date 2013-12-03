@@ -18,9 +18,7 @@
 #region 命名空间
 
 using System.Linq;
-using UniCloud.Application.PurchaseBC.ActionCategoryServices;
-using UniCloud.Application.PurchaseBC.AcTypeServices;
-using UniCloud.Application.PurchaseBC.AircraftTypeServices;
+using UniCloud.Application.PurchaseBC.ActionCategoryServices;using UniCloud.Application.PurchaseBC.AircraftTypeServices;
 using UniCloud.Application.PurchaseBC.ContractAircraftServices;
 using UniCloud.Application.PurchaseBC.ContractServices;
 using UniCloud.Application.PurchaseBC.DTO;
@@ -42,7 +40,6 @@ namespace UniCloud.DistributedServices.Purchase
     /// </summary>
     public class PurchaseData : ExposeData.ExposeData
     {
-        private readonly IAcTypeAppService _acTypeAppService;
         private readonly IAircraftTypeAppService _aircraftTypeAppService;
         private readonly IActionCategoryAppService _actionCategoryAppService;
         private readonly IAircraftLeaseReceptionAppService _aircraftLeaseReceptionAppService;
@@ -62,7 +59,6 @@ namespace UniCloud.DistributedServices.Purchase
         public PurchaseData()
             : base("UniCloud.Application.PurchaseBC.DTO")
         {
-            _acTypeAppService = DefaultContainer.Resolve<IAcTypeAppService>();
             _actionCategoryAppService = DefaultContainer.Resolve<IActionCategoryAppService>();
             _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
             _forwarderAppService = DefaultContainer.Resolve<IForwarderAppService>();
@@ -124,15 +120,7 @@ namespace UniCloud.DistributedServices.Purchase
 
         #endregion
 
-        #region 机型集合
-
-        /// <summary>
-        ///     机型集合
-        /// </summary>
-        public IQueryable<AcTypeDTO> AcTypes
-        {
-            get { return _acTypeAppService.GetAcTypes(); }
-        }
+       #region 机型集合
 
         /// <summary>
         ///     机型集合
@@ -142,7 +130,6 @@ namespace UniCloud.DistributedServices.Purchase
             get { return _aircraftTypeAppService.GetAircraftTypes(); }
         }
         #endregion
-
         #region 活动类型集合
 
         /// <summary>

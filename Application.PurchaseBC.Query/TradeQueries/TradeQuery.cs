@@ -52,11 +52,11 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
             var suppliers = _unitOfWork.CreateSet<Supplier>();
             var result = query.ApplyTo(_unitOfWork.CreateSet<Trade>()).Select(t => new TradeDTO
             {
-                TradeId = t.Id,
+                Id = t.Id,
                 TradeNumber = t.TradeNumber,
                 Name = t.Name,
                 Description = t.Description,
-                SupplierName = suppliers.FirstOrDefault(s => s.Id==t.SupplierId).Name,
+                SupplierName = suppliers.FirstOrDefault(s => s.Id == t.SupplierId).Name,
                 StartDate = t.StartDate,
                 IsClosed = t.IsClosed,
                 Status = (int) t.Status

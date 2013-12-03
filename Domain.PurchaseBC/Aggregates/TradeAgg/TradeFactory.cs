@@ -34,19 +34,16 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg
         /// <param name="name">名称</param>
         /// <param name="description">描述</param>
         /// <param name="startDate">开始日期</param>
-        /// <param name="seq">流水号</param>
         /// <returns>创建的交易</returns>
-        public static Trade CreateTrade(string name, string description, DateTime startDate, int seq)
+        public static Trade CreateTrade(string name, string description, DateTime startDate)
         {
-            var trade = new Trade();
-            trade.GenerateNewIdentity();
-
-            trade.Name = name;
-            trade.Description = description;
-            trade.CreateDate = DateTime.Now;
-            trade.StartDate = startDate;
-
-            trade.SetTradeNumber(seq);
+            var trade = new Trade
+            {
+                Name = name,
+                Description = description,
+                CreateDate = DateTime.Now,
+                StartDate = startDate
+            };
 
             return trade;
         }

@@ -19,7 +19,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftBFEAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ForwarderAgg;
 
 #endregion
@@ -34,7 +36,19 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
     {
         #region 私有字段
 
-        private HashSet<ContractAircraft> _contractAircrafts;
+        private HashSet<ContractAircraftBFE> _contractAircraftBfes;
+
+        #endregion
+
+        #region 构造函数
+
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能通过工厂方法去创建新实例
+        /// </summary>
+        internal BFEPurchaseOrder()
+        {
+        }
 
         #endregion
 
@@ -66,10 +80,10 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         /// <summary>
         ///     合同飞机BFE
         /// </summary>
-        public virtual ICollection<ContractAircraft> ContractAircrafts
+        public virtual ICollection<ContractAircraftBFE> ContractAircraftBfes
         {
-            get { return _contractAircrafts ?? (_contractAircrafts = new HashSet<ContractAircraft>()); }
-            set { _contractAircrafts = new HashSet<ContractAircraft>(value); }
+            get { return _contractAircraftBfes ?? (_contractAircraftBfes = new HashSet<ContractAircraftBFE>()); }
+            set { _contractAircraftBfes = new HashSet<ContractAircraftBFE>(value); }
         }
 
         #endregion
@@ -102,20 +116,28 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         }
 
         /// <summary>
-        ///     添加合同飞机
+        ///     添加合同飞机BFE
         /// </summary>
         /// <param name="contractAircraft">合同飞机</param>
         /// <returns></returns>
-        public ContractAircraft AddNewContractAircraft(ContractAircraft contractAircraft)
+        public ContractAircraftBFE AddNewContractAircraft(ContractAircraft contractAircraft)
         {
             if (contractAircraft == null || contractAircraft.IsTransient())
             {
                 throw new ArgumentException("合同飞机参数为空！");
             }
 
-            ContractAircrafts.Add(contractAircraft);
+            var contractAircraftBFE = new ContractAircraftBFE
+            {
+                BFEPurchaseOrderId = Id,
+                BFEPurchaseOrder = this,
+                ContractAircraftId = contractAircraft.Id,
+                ContractAircraft = contractAircraft
+            };
 
-            return contractAircraft;
+            ContractAircraftBfes.Add(contractAircraftBFE);
+
+            return contractAircraftBFE;
         }
 
         /// <summary>

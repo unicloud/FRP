@@ -27,13 +27,13 @@ namespace UniCloud.Application.PurchaseBC.DTO
     /// <summary>
     ///     购买飞机订单行DTO
     /// </summary>
-    [DataServiceKey("OrdrLineId")]
+    [DataServiceKey("Id")]
     public class AircraftPurchaseOrderLineDTO
     {
         /// <summary>
         ///     订单行ID
         /// </summary>
-        public int OrdrLineId { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         ///     单价
@@ -55,14 +55,6 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     </remarks>
         /// </summary>
         public decimal Discount { get; set; }
-
-        /// <summary>
-        ///     行金额
-        /// </summary>
-        public decimal TotalLine
-        {
-            get { return (UnitPrice*Amount)*(1 - (Discount/100M)); }
-        }
 
         /// <summary>
         ///     机身价格

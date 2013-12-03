@@ -35,11 +35,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierCompanyAgg
         /// <returns></returns>
         public static SupplierCompany CreateSupplieCompany(string code)
         {
-            var supplierCompany = new SupplierCompany();
-            supplierCompany.GenerateNewIdentity();
-
-            supplierCompany.Code = code;
-            supplierCompany.LinkmanId = Guid.NewGuid();
+            var supplierCompany = new SupplierCompany
+            {
+                Code = code,
+                LinkmanId = Guid.NewGuid()
+            };
 
             return supplierCompany;
         }

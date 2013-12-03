@@ -1,9 +1,31 @@
-﻿using System.ComponentModel;
+﻿#region 版本信息
+
+// ========================================================================
+// 版权所有 (C) 2013 UniCloud 
+//【本类功能概述】
+// 
+// 作者：丁志浩 时间：2013/11/29，13:11
+// 方案：FRP
+// 项目：Presentation
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// ========================================================================
+
+#endregion
+
+#region 命名空间
+
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.GridView;
+
+#endregion
 
 namespace UniCloud.Presentation.Input
 {
@@ -11,15 +33,12 @@ namespace UniCloud.Presentation.Input
     {
         public override FrameworkElement CreateCellElement(GridViewCell cell, object dataItem)
         {
-            TextBlock textBlock = cell.Content as TextBlock;
+            var textBlock = cell.Content as TextBlock ?? new TextBlock();
 
-            if (textBlock == null)
-            {
-                textBlock = new TextBlock();
-            }
-
-            textBlock.Text = string.Format("{0}", this.DataControl.Items.IndexOf(dataItem) + 1 + DataPage.PageSize * DataPage.PageIndex);
+            textBlock.Text = string.Format("{0}",
+                DataControl.Items.IndexOf(dataItem) + 1 + DataPage.pageSize*DataPage.pageIndex);
             textBlock.Foreground = new SolidColorBrush(Colors.Black);
+            textBlock.TextAlignment = TextAlignment.Center;
             return textBlock;
         }
 
@@ -29,13 +48,13 @@ namespace UniCloud.Presentation.Input
 
             if (args.PropertyName == "DataControl")
             {
-                if (this.DataControl != null && this.DataControl.Items != null)
+                if (DataControl != null && DataControl.Items != null)
                 {
-                    this.DataControl.Items.CollectionChanged += (s, e) =>
+                    DataControl.Items.CollectionChanged += (s, e) =>
                     {
-                        if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+                        if (e.Action == NotifyCollectionChangedAction.Remove)
                         {
-                            this.Refresh();
+                            Refresh();
                         }
                     };
                 }
@@ -45,7 +64,7 @@ namespace UniCloud.Presentation.Input
 
     public static class DataPage
     {
-        public static int PageIndex = 0;
-        public static int PageSize = 0;
+        public static int pageIndex = 0;
+        public static int pageSize = 0;
     }
 }

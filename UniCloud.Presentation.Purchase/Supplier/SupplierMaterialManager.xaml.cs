@@ -23,11 +23,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
             set { DataContext = value; }
         }
 
-        private void RadAutoCompleteBox_OnSearchTextChanged(object sender, System.EventArgs e)
-        {
-
-        }
-
        
     }
 }

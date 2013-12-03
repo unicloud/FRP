@@ -30,6 +30,18 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
     /// </summary>
     public class AircraftMaterial : Material
     {
+        #region 构造函数
+
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能通过工厂方法去创建新实例
+        /// </summary>
+        internal AircraftMaterial()
+        {
+        }
+
+        #endregion
+
         #region 属性
 
         #endregion
@@ -68,16 +80,15 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
             AircraftType = aircraftType;
             AircraftTypeId = aircraftType.Id;
         }
+
         /// <summary>
-        /// 设置机型外键。
+        ///     设置机型外键。
         /// </summary>
         /// <param name="aircraftTypeId">机型外键</param>
         public void SetAircraftTypeId(Guid aircraftTypeId)
         {
             AircraftTypeId = aircraftTypeId;
         }
-
-
 
         #endregion
     }

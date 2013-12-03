@@ -36,8 +36,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg
                 RankNumber = rankNumber
             };
 
-            leaseContractAircraft.GenerateNewIdentity();
-
             return leaseContractAircraft;
         }
 
@@ -54,8 +52,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg
                 ContractName = contractName,
                 RankNumber = rankNumber
             };
-
-            purchaseContractAircraft.GenerateNewIdentity();
 
             return purchaseContractAircraft;
         }

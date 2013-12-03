@@ -40,11 +40,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.ForwarderLinkman).HasColumnName("ForwarderLinkman");
 
             Property(p => p.ForwarderId).HasColumnName("ForwarderId");
-
-            HasOptional(b => b.Forwarder).WithMany().HasForeignKey(b => b.ForwarderId);
-            HasMany(b => b.ContractAircrafts)
-                .WithMany(c => c.BFEPurchaseOrders)
-                .Map(m => m.ToTable("ContractAircraftBFE", DbConfig.Schema));
         }
     }
 }

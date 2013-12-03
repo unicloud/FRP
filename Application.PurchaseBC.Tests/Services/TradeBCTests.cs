@@ -110,9 +110,12 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
             var tradeRep = DefaultContainer.Resolve<ITradeRepository>();
 
             var supplier = supplierRep.GetAll().FirstOrDefault();
-            var trade1 = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now, 1);
-            var trade2 = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now, 2);
-            var trade3 = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now, 3);
+            var trade1 = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now);
+            trade1.SetTradeNumber(1);
+            var trade2 = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now);
+            trade2.SetTradeNumber(2);
+            var trade3 = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now);
+            trade3.SetTradeNumber(3);
             trade1.SetSupplier(supplier);
             trade2.SetSupplier(supplier);
             trade3.SetSupplier(supplier);

@@ -28,13 +28,18 @@ namespace UniCloud.Application.PurchaseBC.DTO
     /// <summary>
     ///     BFE采购订单DTO
     /// </summary>
-    [DataServiceKey("OrderId")]
+    [DataServiceKey("Id")]
     public class BFEPurchaseOrderDTO
     {
         /// <summary>
         ///     订单ID
         /// </summary>
-        public int OrderId { get; set; }
+        public int Id { get; set; }
+
+        /// <summary>
+        ///     交易ID
+        /// </summary>
+        public int TradeId { get; set; }
 
         /// <summary>
         ///     版本号
@@ -45,11 +50,6 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     币种
         /// </summary>
         public string CurrencyName { get; set; }
-
-        /// <summary>
-        ///     总金额
-        /// </summary>
-        public decimal TotalAmount { get; set; }
 
         /// <summary>
         ///     经办人

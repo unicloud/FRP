@@ -55,31 +55,13 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         #endregion
 
         [TestMethod]
-        public void AddSupplierWithMaterial()
-        {
-            // Arrange
-            //var acTypeRep = DefaultContainer.Resolve<IAircraftTypeRepository>();
-            //var materialRep = DefaultContainer.Resolve<IMaterialRepository>();
-
-            //var acType = acTypeRep.GetAll().FirstOrDefault();
-            //var material = MaterialFactory.CreateAircraftMaterial();
-            //material.SetAircraftType(acType);
-            //var supplierCompany = SupplierCompanyFactory.CreateSupplieCompany("0003");
-
-            //// Act
-            //material.SupplierCompanies.Add(supplierCompany);
-            //materialRep.Add(material);
-            //materialRep.UnitOfWork.Commit();
-        }
-
-        [TestMethod]
         public void GetSupplierWithMaterial()
         {
             // Arrange
             var materialRep = DefaultContainer.Resolve<IMaterialRepository>();
 
             // Act
-            var result = materialRep.Get(2).SupplierCompanies;
+            var result = materialRep.Get(2).SupplierCompanyMaterials.Select(m => m.SupplierCompany);
 
             // Assert
             Assert.IsTrue(result.Any());

@@ -39,6 +39,18 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg
 
         #endregion
 
+        #region 构造函数
+
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能通过工厂方法去创建新实例
+        /// </summary>
+        internal Trade()
+        {
+        }
+
+        #endregion
+
         #region 属性
 
         /// <summary>
@@ -184,7 +196,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg
             }
 
             var date = DateTime.Now;
-            TradeNumber = string.Format("{0}{1}{2}{3}", date.Year, date.Month, date.Day, seq.ToString("D2"));
+            TradeNumber = string.Format("{0:yyyyMMdd}{1}", date, seq.ToString("D2"));
         }
 
         #endregion

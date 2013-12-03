@@ -24,6 +24,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.BankAccountAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftBFEAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ForwarderAgg;
@@ -37,6 +38,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql;
@@ -53,6 +55,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
         private IDbSet<AircraftType> _aircraftTypes;
         private IDbSet<Aircraft> _aircrafts;
         private IDbSet<BankAccount> _bankAccounts;
+        private IDbSet<ContractAircraftBFE> _contractAircraftBfes;
         private IDbSet<ContractAircraft> _contractAircrafts;
         private IDbSet<ContractEngine> _contractEngines;
         private IDbSet<Currency> _currencies;
@@ -66,6 +69,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
         private IDbSet<PlanAircraft> _planAircrafts;
         private IDbSet<Reception> _receptions;
         private IDbSet<SupplierCompany> _supplierCompanies;
+        private IDbSet<SupplierCompanyMaterial> _supplierCompanyMaterials;
         private IDbSet<SupplierRole> _supplierRoles;
         private IDbSet<Supplier> _suppliers;
         private IDbSet<Trade> _trades;
@@ -98,6 +102,11 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
         public IDbSet<ContractAircraft> ContractAircrafts
         {
             get { return _contractAircrafts ?? (_contractAircrafts = base.Set<ContractAircraft>()); }
+        }
+
+        public IDbSet<ContractAircraftBFE> ContractAircraftBfes
+        {
+            get { return _contractAircraftBfes ?? (_contractAircraftBfes = base.Set<ContractAircraftBFE>()); }
         }
 
         public IDbSet<ContractEngine> ContractEngines
@@ -158,6 +167,14 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
         public IDbSet<SupplierCompany> SupplierCompanies
         {
             get { return _supplierCompanies ?? (_supplierCompanies = base.Set<SupplierCompany>()); }
+        }
+
+        public IDbSet<SupplierCompanyMaterial> SupplierCompanyMaterials
+        {
+            get
+            {
+                return _supplierCompanyMaterials ?? (_supplierCompanyMaterials = base.Set<SupplierCompanyMaterial>());
+            }
         }
 
         public IDbSet<SupplierRole> SupplierRoles
@@ -244,6 +261,12 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
 
                 #endregion
 
+                #region ContractAircraftBFEAgg
+
+                .Add(new ContractAircraftBFEEntityConfiguration())
+
+                #endregion
+            
                 #region ContractEngineAgg
 
                 .Add(new ContractEngineEntityConfiguration())
@@ -349,6 +372,12 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
                 #region SupplierCompanyAgg
 
                 .Add(new SupplierCompanyEntityConfiguration())
+
+                #endregion
+
+                #region SupplierCompanyMaterialAgg
+
+                .Add(new SupplierCompanyMaterialEntityConfiguration())
 
                 #endregion
 

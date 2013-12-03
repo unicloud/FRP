@@ -37,25 +37,6 @@ namespace UniCloud.Application.PurchaseBC.MaterialServices
         /// <returns>飞机物料DTO集合</returns>
         IQueryable<AircraftMaterialDTO> GetAircraftMaterials(
            );
-
-        /// <summary>
-        /// 新增飞机物料
-        /// </summary>
-        /// <param name="aircraftMaterial">飞机物料</param>
-        void InsertAircraftMaterial(AircraftMaterialDTO aircraftMaterial);
-
-        /// <summary>
-        /// 更新飞机物料。
-        /// </summary>
-        /// <param name="aircraftMaterial">飞机物料</param>
-        void ModifyAircraftMaterial(AircraftMaterialDTO aircraftMaterial);
-
-         /// <summary>
-         /// 删除飞机物料。
-         /// </summary>
-         /// <param name="aircraftMaterial">飞机物料。</param>
-        void DeleteAircraftMaterial(AircraftMaterialDTO aircraftMaterial);
-
         #endregion
 
         #region BFE
@@ -66,25 +47,6 @@ namespace UniCloud.Application.PurchaseBC.MaterialServices
         /// <returns>BFE物料DTO集合</returns>
         IQueryable<BFEMaterialDTO> GetBFEMaterials(
             );
-
-        /// <summary>
-        /// 新增BFE物料
-        /// </summary>
-        /// <param name="bfeMaterial">BFE物料</param>
-        void InsertBFEMaterial(BFEMaterialDTO bfeMaterial);
-
-        /// <summary>
-        /// 更新BFE物料。
-        /// </summary>
-        /// <param name="bfeMaterial">BFE物料</param>
-        void ModifyBFEMaterial(BFEMaterialDTO bfeMaterial);
-
-        /// <summary>
-        /// 删除BFE物料。
-        /// </summary>
-        /// <param name="bfeMaterial">BFE物料。</param>
-        void DeleteBFEMaterial(BFEMaterialDTO bfeMaterial);
-
         #endregion
 
         #region 发动机
@@ -95,25 +57,6 @@ namespace UniCloud.Application.PurchaseBC.MaterialServices
         /// <returns>发动机DTO集合</returns>
         IQueryable<EngineMaterialDTO> GetEngineMaterials(
           );
-
-        /// <summary>
-        /// 新增发动机物料
-        /// </summary>
-        /// <param name="engineMaterial">发动机物料</param>
-        void InsertEngineMaterial(EngineMaterialDTO engineMaterial);
-
-        /// <summary>
-        /// 更新发动机物料。
-        /// </summary>
-        /// <param name="engineMaterial">发动机物料</param>
-        void ModifyEngineMaterial(EngineMaterialDTO engineMaterial);
-
-        /// <summary>
-        /// 删除发动机物料。
-        /// </summary>
-        /// <param name="engineMaterial">发动机物料。</param>
-        void DeleteEngineMaterial(EngineMaterialDTO engineMaterial);
-
         #endregion
     }
 }

@@ -51,10 +51,10 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
             var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<AircraftLeaseOrder>())
                 .Select(o => new AircraftLeaseOrderDTO
                 {
-                    OrderId = o.Id,
+                    Id = o.Id,
+                    TradeId = o.TradeId,
                     Version = o.Version,
                     CurrencyName = o.Currency.CnName,
-                    TotalAmount = o.TotalAmount,
                     OperatorName = o.OperatorName,
                     Linkman = o.Linkman.Name,
                     OrderDate = o.OrderDate,
@@ -62,7 +62,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     Note = o.Note,
                     AircraftLeaseOrderLines = o.OrderLines.Select(l => new AircraftLeaseOrderLineDTO
                     {
-                        OrdrLineId = l.Id,
+                        Id = l.Id,
                         UnitPrice = l.UnitPrice,
                         Amount = l.Amount,
                         Discount = l.Discount,
@@ -87,10 +87,10 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
             var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<AircraftPurchaseOrder>())
                 .Select(o => new AircraftPurchaseOrderDTO
                 {
-                    OrderId = o.Id,
+                    Id = o.Id,
+                    TradeId = o.TradeId,
                     Version = o.Version,
                     CurrencyName = o.Currency.CnName,
-                    TotalAmount = o.TotalAmount,
                     OperatorName = o.OperatorName,
                     Linkman = o.Linkman.Name,
                     OrderDate = o.OrderDate,
@@ -99,7 +99,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     AircraftPurchaseOrderLines =
                         o.OrderLines.OfType<AircraftPurchaseOrderLine>().Select(l => new AircraftPurchaseOrderLineDTO
                         {
-                            OrdrLineId = l.Id,
+                            Id = l.Id,
                             UnitPrice = l.UnitPrice,
                             Amount = l.Amount,
                             Discount = l.Discount,
@@ -127,10 +127,10 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
             var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<EngineLeaseOrder>())
                 .Select(o => new EngineLeaseOrderDTO
                 {
-                    OrderId = o.Id,
+                    Id = o.Id,
+                    TradeId = o.TradeId,
                     Version = o.Version,
                     CurrencyName = o.Currency.CnName,
-                    TotalAmount = o.TotalAmount,
                     OperatorName = o.OperatorName,
                     Linkman = o.Linkman.Name,
                     OrderDate = o.OrderDate,
@@ -138,7 +138,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     Note = o.Note,
                     EngineLeaseOrderLines = o.OrderLines.Select(l => new EngineLeaseOrderLineDTO
                     {
-                        OrdrLineId = l.Id,
+                        Id = l.Id,
                         UnitPrice = l.UnitPrice,
                         Amount = l.Amount,
                         Discount = l.Discount,
@@ -163,10 +163,10 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
             var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<EnginePurchaseOrder>())
                 .Select(o => new EnginePurchaseOrderDTO
                 {
-                    OrderId = o.Id,
+                    Id = o.Id,
+                    TradeId = o.TradeId,
                     Version = o.Version,
                     CurrencyName = o.Currency.CnName,
-                    TotalAmount = o.TotalAmount,
                     OperatorName = o.OperatorName,
                     Linkman = o.Linkman.Name,
                     OrderDate = o.OrderDate,
@@ -174,7 +174,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     Note = o.Note,
                     EnginePurchaseOrderLines = o.OrderLines.Select(l => new EnginePurchaseOrderLineDTO
                     {
-                        OrdrLineId = l.Id,
+                        Id = l.Id,
                         UnitPrice = l.UnitPrice,
                         Amount = l.Amount,
                         Discount = l.Discount,
@@ -199,10 +199,10 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
             var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<BFEPurchaseOrder>())
                 .Select(o => new BFEPurchaseOrderDTO
                 {
-                    OrderId = o.Id,
+                    Id = o.Id,
+                    TradeId = o.TradeId,
                     Version = o.Version,
                     CurrencyName = o.Currency.CnName,
-                    TotalAmount = o.TotalAmount,
                     OperatorName = o.OperatorName,
                     Linkman = o.Linkman.Name,
                     OrderDate = o.OrderDate,
@@ -210,7 +210,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     Note = o.Note,
                     BFEPurchaseOrderLines = o.OrderLines.Select(l => new BFEPurchaseOrderLineDTO
                     {
-                        OrdrLineId = l.Id,
+                        Id = l.Id,
                         UnitPrice = l.UnitPrice,
                         Amount = l.Amount,
                         Discount = l.Discount,

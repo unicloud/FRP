@@ -33,6 +33,18 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg
     /// </summary>
     public class Supplier : EntityInt, IValidatableObject
     {
+        #region 构造函数
+
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能通过工厂方法去创建新实例
+        /// </summary>
+        internal Supplier()
+        {
+        }
+
+        #endregion
+
         #region 属性
 
         /// <summary>
@@ -106,9 +118,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg
         /// <param name="supplierCompany">供应商公司</param>
         public void SetSupplierCompany(SupplierCompany supplierCompany)
         {
-            if (supplierCompany == null
-                ||
-                supplierCompany.IsTransient())
+            if (supplierCompany == null || supplierCompany.IsTransient())
             {
                 throw new ArgumentException("供应商公司参数为空！");
             }

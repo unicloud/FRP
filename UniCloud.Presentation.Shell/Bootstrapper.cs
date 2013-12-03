@@ -31,6 +31,7 @@ namespace UniCloud.Presentation.Shell
         protected override void ConfigureAggregateCatalog()
         {
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (Bootstrapper).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(UniCloud.Presentation.Document.PDFViewer).Assembly));
         }
 
         protected override void InitializeShell()

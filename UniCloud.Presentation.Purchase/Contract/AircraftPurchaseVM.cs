@@ -22,6 +22,7 @@ using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Purchase;
@@ -45,9 +46,9 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             _regionManager = regionManager;
 
-            NewCommand=new DelegateCommand<object>(OnNew,CanNew);
-            AddCommand=new DelegateCommand<object>(OnAdd,CanAdd);
-            RemoveCommand=new DelegateCommand<object>(OnRemove,CanRemove);
+            NewCommand = new DelegateCommand<object>(OnNew, CanNew);
+            AddCommand = new DelegateCommand<object>(OnAdd, CanAdd);
+            RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
 
             InitializeVM();
         }
@@ -65,13 +66,15 @@ namespace UniCloud.Presentation.Purchase.Contract
             // Service.RegisterCollectionView(Orders);
 
             ViewTradeDTO = Service.CreateCollection<TradeDTO>(_context.Trades);
-            var fd = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
-            ViewTradeDTO.FilterDescriptors.Add(fd);
+            //var fd = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
+            //ViewTradeDTO.FilterDescriptors.Add(fd);
             Service.RegisterCollectionView(ViewTradeDTO);
+            ViewTradeDTO.PropertyChanged += OnViewPropertyChanged;
 
             ViewAircraftPurchaseOrderDTO =
                 Service.CreateCollection<AircraftPurchaseOrderDTO>(_context.AircraftPurchaseOrders);
             Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
+            ViewAircraftPurchaseOrderDTO.PropertyChanged += OnViewPropertyChanged;
         }
 
         /// <summary>
@@ -106,16 +109,6 @@ namespace UniCloud.Presentation.Purchase.Contract
             // Orders.AutoLoad = true;
             ViewTradeDTO.AutoLoad = true;
             ViewAircraftPurchaseOrderDTO.AutoLoad = true;
-            ViewTradeDTO.LoadedData += ViewTradeDTO_LoadedData;
-            ViewAircraftPurchaseOrderDTO.LoadedData += ViewAircraftPurchaseOrderDTO_LoadedData;
-        }
-
-        void ViewAircraftPurchaseOrderDTO_LoadedData(object sender, Telerik.Windows.Controls.DataServices.LoadedDataEventArgs e)
-        {
-        }
-
-        void ViewTradeDTO_LoadedData(object sender, Telerik.Windows.Controls.DataServices.LoadedDataEventArgs e)
-        {
         }
 
         #region 交易
@@ -150,22 +143,22 @@ namespace UniCloud.Presentation.Purchase.Contract
         private AircraftPurchaseOrderDTO _selAircraftPurchaseOrderDTO;
 
         /// <summary>
-        /// 购买飞机订单集合
+        ///     购买飞机订单集合
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftPurchaseOrderDTO> ViewAircraftPurchaseOrderDTO { get; set; }
 
         /// <summary>
-        /// 选中的购买飞机订单
+        ///     选中的购买飞机订单
         /// </summary>
         public AircraftPurchaseOrderDTO SelAircraftPurchaseOrderDTO
         {
-            get { return this._selAircraftPurchaseOrderDTO; }
+            get { return _selAircraftPurchaseOrderDTO; }
             set
             {
-                if (this._selAircraftPurchaseOrderDTO != value)
+                if (_selAircraftPurchaseOrderDTO != value)
                 {
-                    this._selAircraftPurchaseOrderDTO = value;
-                    this.RaisePropertyChanged(() => this.SelAircraftPurchaseOrderDTO);
+                    _selAircraftPurchaseOrderDTO = value;
+                    RaisePropertyChanged(() => SelAircraftPurchaseOrderDTO);
                 }
             }
         }
@@ -180,28 +173,23 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 重载操作
 
-        /// <summary>
-        ///     刷新保存、撤销之外的所有命令按钮
-        /// </summary>
-        protected override void RefreshButtonState()
-        {
-            NewCommand.RaiseCanExecuteChanged();
-            AddCommand.RaiseCanExecuteChanged();
-            RemoveCommand.RaiseCanExecuteChanged();
-        }
-
         #endregion
 
         #region 新建交易
 
         /// <summary>
-        ///   新建交易
+        ///     新建交易
         /// </summary>
         public DelegateCommand<object> NewCommand { get; private set; }
 
         private void OnNew(object obj)
         {
-
+            var trade = new TradeDTO
+            {
+                Id = RandomHelper.Next(),
+                StartDate = DateTime.Now,
+            };
+            ViewTradeDTO.AddNew(trade);
         }
 
         private bool CanNew(object obj)
@@ -214,13 +202,12 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 创建新版本订单
 
         /// <summary>
-        ///   创建新版本订单
+        ///     创建新版本订单
         /// </summary>
         public DelegateCommand<object> AddCommand { get; private set; }
 
         private void OnAdd(object obj)
         {
-
         }
 
         private bool CanAdd(object obj)
@@ -233,13 +220,12 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 删除当前版本订单
 
         /// <summary>
-        ///   删除当前版本订单
+        ///     删除当前版本订单
         /// </summary>
         public DelegateCommand<object> RemoveCommand { get; private set; }
 
         private void OnRemove(object obj)
         {
-
         }
 
         private bool CanRemove(object obj)

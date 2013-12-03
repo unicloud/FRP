@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.UberModel.Aggregates.MaterialAgg;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
 
 #endregion
@@ -296,6 +297,13 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
                         },
                 };
             aircraftTypes.ForEach(p => Context.AircraftTypes.Add(p));
+
+            aircraftTypes.ForEach(p => Context.Materials.Add(new AircraftMaterial
+            {
+                AircraftTypeId= p.Id,
+                Description = "备注",
+                Name=p.Name
+            }));
         }
 
     }

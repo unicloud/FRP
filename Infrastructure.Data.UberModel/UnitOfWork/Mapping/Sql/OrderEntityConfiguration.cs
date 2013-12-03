@@ -39,7 +39,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 
             Property(p => p.Version).HasColumnName("Version");
             Property(p => p.Name).HasColumnName("Name");
-            Property(p => p.TotalAmount).HasColumnName("TotalAmount");
             Property(p => p.OperatorName).HasColumnName("OperatorName");
             Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
             Property(p => p.OrderDate).HasColumnName("OrderDate").HasColumnType("datetime2");

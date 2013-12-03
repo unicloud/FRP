@@ -32,24 +32,20 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         ///     创建飞机租赁订单
         /// </summary>
         /// <param name="version">版本</param>
-        /// <param name="totalAmount">总金额</param>
         /// <param name="operatorName">经办人</param>
         /// <param name="orderDate">订单日期</param>
         /// <returns>飞机租赁订单</returns>
-        public static AircraftLeaseOrder CreateAircraftLeaseOrder(int version, decimal totalAmount,
+        public static AircraftLeaseOrder CreateAircraftLeaseOrder(int version,
             string operatorName, DateTime orderDate)
         {
             var aircraftLeaseOrder = new AircraftLeaseOrder
             {
                 Version = version,
-                TotalAmount = totalAmount,
                 OperatorName = operatorName,
                 CreateDate = DateTime.Now,
                 OrderDate = orderDate,
                 IsValid = true
             };
-
-            aircraftLeaseOrder.GenerateNewIdentity();
 
             return aircraftLeaseOrder;
         }
@@ -58,24 +54,20 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         ///     创建飞机购买订单
         /// </summary>
         /// <param name="version">版本</param>
-        /// <param name="totalAmount">总金额</param>
         /// <param name="operatorName">经办人</param>
         /// <param name="orderDate">订单日期</param>
         /// <returns>飞机购买订单</returns>
-        public static AircraftPurchaseOrder CreateAircraftPurchaseOrder(int version, decimal totalAmount,
+        public static AircraftPurchaseOrder CreateAircraftPurchaseOrder(int version, 
             string operatorName, DateTime orderDate)
         {
             var aircraftPurchaseOrder = new AircraftPurchaseOrder
             {
                 Version = version,
-                TotalAmount = totalAmount,
                 OperatorName = operatorName,
                 CreateDate = DateTime.Now,
                 OrderDate = orderDate,
                 IsValid = true
             };
-
-            aircraftPurchaseOrder.GenerateNewIdentity();
 
             return aircraftPurchaseOrder;
         }
@@ -84,24 +76,20 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         ///     创建BFE购买订单
         /// </summary>
         /// <param name="version">版本</param>
-        /// <param name="totalAmount">总金额</param>
         /// <param name="operatorName">经办人</param>
         /// <param name="orderDate">订单日期</param>
         /// <returns>BFE购买订单</returns>
-        public static BFEPurchaseOrder CreateBFEPurchaseOrder(int version, decimal totalAmount,
+        public static BFEPurchaseOrder CreateBFEPurchaseOrder(int version, 
             string operatorName, DateTime orderDate)
         {
             var bfePurchaseOrder = new BFEPurchaseOrder
             {
                 Version = version,
-                TotalAmount = totalAmount,
                 OperatorName = operatorName,
                 CreateDate = DateTime.Now,
                 OrderDate = orderDate,
                 IsValid = true
             };
-
-            bfePurchaseOrder.GenerateNewIdentity();
 
             return bfePurchaseOrder;
         }

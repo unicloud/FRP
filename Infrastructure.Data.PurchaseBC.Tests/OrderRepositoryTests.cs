@@ -23,6 +23,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftBFEAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
@@ -50,6 +51,8 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
                 .Register<IOrderRepository, OrderRepository>()
                 .Register<ICurrencyRepository, CurrencyRepository>()
                 .Register<ITradeRepository, TradeRepository>()
+                .Register<IContractAircraftRepository, ContractAircraftRepository>()
+                .Register<IContractAircraftBFERepository, ContractAircraftBFERepository>()
                 .Register<IAircraftTypeRepository, AircraftTypeRepository>()
                 .Register<IActionCategoryRepository, ActionCategoryRepository>()
                 .Register<ILinkmanRepository, LinkmanRepository>();
@@ -82,7 +85,8 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
             // 1、创建订单
             // 须设置交易、币种
             // 可选设置联系人
-            var acPurchaseOrder = OrderFactory.CreateAircraftPurchaseOrder(2, 1500.0M, "XXX", DateTime.Now);
+            var acPurchaseOrder = OrderFactory.CreateAircraftPurchaseOrder(2, "XXX", DateTime.Now);
+            acPurchaseOrder.GenerateNewIdentity();
             acPurchaseOrder.SetTrade(trade);
             acPurchaseOrder.SetLinkman(linkman);
             acPurchaseOrder.SetCurrency(currency);
@@ -95,6 +99,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
 
             // 3、创建与订单对应的合同飞机
             var contractAircraft = ContractAircraftFactory.CreatePurchaseContractAircraft("购机合同", "0001");
+            contractAircraft.GenerateNewIdentity();
             contractAircraft.SetAircraftType(aircraftType);
             contractAircraft.SetImportCategory(impType);
 
@@ -140,10 +145,12 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
             var imp = impRep.GetFiltered(i => i.ActionName == "购买").FirstOrDefault();
 
             var contractAc = ContractAircraftFactory.CreatePurchaseContractAircraft("购买飞机", "0002");
+            contractAc.GenerateNewIdentity();
             contractAc.SetAircraftType(acType);
             contractAc.SetImportCategory(imp);
 
-            var order = OrderFactory.CreateBFEPurchaseOrder(3, 123M, "", DateTime.Now);
+            var order = OrderFactory.CreateBFEPurchaseOrder(3, "", DateTime.Now);
+            order.GenerateNewIdentity();
             order.SetTrade(trade);
             order.SetLinkman(linkman);
             order.SetCurrency(currency);
@@ -159,17 +166,28 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         {
             // Arrange
             var orderRep = DefaultContainer.Resolve<IOrderRepository>();
+            var caRep = DefaultContainer.Resolve<IContractAircraftRepository>();
+            var cabRep = DefaultContainer.Resolve<IContractAircraftBFERepository>();
 
-            var order = orderRep.GetAll().OfType<BFEPurchaseOrder>().FirstOrDefault(o => o.ContractAircrafts.Any());
+            var order = orderRep.GetAll().OfType<BFEPurchaseOrder>().FirstOrDefault(o => o.ContractAircraftBfes.Any());
             if (order == null)
             {
                 throw new ArgumentException("订单为空！");
             }
-            var ac = order.ContractAircrafts.FirstOrDefault();
-            order.ContractAircrafts.Remove(ac);
+            var contractAircraft =
+                caRep.GetAll()
+                    .SelectMany(c => c.ContractAircraftBfes)
+                    .Where(c => c.BFEPurchaseOrderId == order.Id)
+                    .Select(c => c.ContractAircraft)
+                    .FirstOrDefault();
+
+            var cab =
+                cabRep.GetFiltered(c => c.BFEPurchaseOrderId == order.Id && c.ContractAircraftId == contractAircraft.Id)
+                    .FirstOrDefault();
 
             // Act
-            orderRep.UnitOfWork.Commit();
+            cabRep.Remove(cab);
+            cabRep.UnitOfWork.Commit();
         }
     }
 }

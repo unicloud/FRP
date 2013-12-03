@@ -54,7 +54,6 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             return _tradeQuery.TradesQuery(query);
         }
 
-
         public IQueryable<AircraftLeaseOrderDTO> GetAircraftLeaseOrders()
         {
             var query = new QueryBuilder<Order>();
@@ -85,28 +84,64 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             return _orderQuery.BFEPurchaseOrderQuery(query);
         }
 
+        #endregion
+
+        #region TradeDTO
+
         [Insert(typeof (TradeDTO))]
-        public void InsertTrade(TradeDTO trade)
+        public void InsertTrade(TradeDTO dto)
         {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+
             var supplier = _supplierRepository.GetAll().FirstOrDefault();
-            var newTrade = TradeFactory.CreateTrade(null, null, DateTime.Now, 1);
+            var newTrade = TradeFactory.CreateTrade(null, null, DateTime.Now);
+            newTrade.SetTradeNumber(1);
             newTrade.SetSupplier(supplier);
             _tradeRepository.Add(newTrade);
         }
 
         [Update(typeof (TradeDTO))]
-        public void UpdateTrade(TradeDTO trade)
+        public void UpdateTrade(TradeDTO dto)
         {
-            var updateTrade = _tradeRepository.GetFiltered(t => t.TradeNumber == trade.TradeNumber).FirstOrDefault();
-            updateTrade.Name = trade.Name;
-            _tradeRepository.Modify(updateTrade);
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+
+            var persisted = _tradeRepository.Get(dto.Id);
+            if (persisted != null)
+            {
+                var current = MaterializeTradeFromDto(dto);
+                _tradeRepository.Merge(persisted, current);
+            }
         }
 
         [Delete(typeof (TradeDTO))]
-        public void DeleteTrade(TradeDTO trade)
+        public void DeleteTrade(TradeDTO dto)
         {
-            var deleteTrade = _tradeRepository.GetFiltered(t => t.TradeNumber == trade.TradeNumber).FirstOrDefault();
-            _tradeRepository.Remove(deleteTrade);
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+
+            var deleteTrade = _tradeRepository.Get(dto.Id);
+            if (deleteTrade != null)
+            {
+                _tradeRepository.Remove(deleteTrade);
+            }
+        }
+
+        private  Trade MaterializeTradeFromDto(TradeDTO dto)
+        {
+            var supplier = _supplierRepository.GetAll().FirstOrDefault();
+            var trade = TradeFactory.CreateTrade(dto.Name, dto.Description, dto.StartDate);
+            trade.ChangeCurrentIdentity(dto.Id);
+            trade.SetSupplier(supplier);
+
+            return trade;
         }
 
         #endregion

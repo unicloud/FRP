@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Services.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UniCloud.Application.PurchaseBC.DTO
 {
@@ -36,17 +32,17 @@ namespace UniCloud.Application.PurchaseBC.DTO
        /// <summary>
        /// 飞机物料
        /// </summary>
-        public List<AircraftMaterialDTO> AircraftMaterials { get; set; }
+        public List<SupplierMaterialDTO> AircraftMaterials { get; set; }
 
         /// <summary>
         /// 发动机物料
         /// </summary>
-        public List<EngineMaterialDTO> EngineMaterials { get; set; }
+        public List<SupplierMaterialDTO> EngineMaterials { get; set; }
 
         /// <summary>
         /// BFE物料
         /// </summary>
-        public List<BFEMaterialDTO> BFEMaterials { get; set; }
+        public List<SupplierMaterialDTO> BFEMaterials { get; set; }
 
         /// <summary>
         ///     飞机角色是否可编辑。

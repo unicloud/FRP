@@ -20,6 +20,7 @@
 using UniCloud.Domain.UberModel.Aggregates.BankAccountAgg;
 using UniCloud.Domain.UberModel.Aggregates.LinkmanAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
+using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierRoleAgg;
 using UniCloud.Domain.UberModel.Enums;
 using UniCloud.Domain.UberModel.ValueObjects;
@@ -43,9 +44,13 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
         public override void InitialData()
         {
             var supplier = SupplierFactory.CreateSupplier(SupplierType.Foreign, "V0001", "波音", null);
-            Context.Suppliers.Add(supplier);
+            supplier.GenerateNewIdentity();
 
-            var supplierCompany = supplier.SupplierCompany;
+            var supplierCompany = SupplierCompanyFactory.CreateSupplieCompany(supplier.Code);
+            supplierCompany.GenerateNewIdentity();
+            supplier.SetSupplierCompany(supplierCompany);
+
+            Context.Suppliers.Add(supplier);
 
             var acLeaseSupplier = SupplierRoleFactory.CreateAircraftLeaseSupplier(supplierCompany);
             var acPurchaseSupplier = SupplierRoleFactory.CreateAircraftPurchaseSupplier(supplierCompany);

@@ -27,13 +27,13 @@ namespace UniCloud.Application.PurchaseBC.DTO
     /// <summary>
     ///     BFE采购订单号DTO
     /// </summary>
-    [DataServiceKey("OrdrLineId")]
+    [DataServiceKey("Id")]
     public class BFEPurchaseOrderLineDTO
     {
         /// <summary>
         ///     订单行ID
         /// </summary>
-        public int OrdrLineId { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         ///     单价
@@ -55,14 +55,6 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     </remarks>
         /// </summary>
         public decimal Discount { get; set; }
-
-        /// <summary>
-        ///     行金额
-        /// </summary>
-        public decimal TotalLine
-        {
-            get { return (UnitPrice*Amount)*(1 - (Discount/100M)); }
-        }
 
         /// <summary>
         ///     预计交付日期

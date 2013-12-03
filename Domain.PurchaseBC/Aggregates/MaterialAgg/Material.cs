@@ -21,7 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.PurchaseBC.Aggregates.ManufacturerAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
 
 #endregion
 
@@ -34,7 +34,19 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
     {
         #region 私有字段
 
-        private HashSet<SupplierCompany> _supplierCompanies;
+        private HashSet<SupplierCompanyMaterial> _supplierCompanyMaterials;
+
+        #endregion
+
+        #region 构造函数
+
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能通过工厂方法去创建新实例
+        /// </summary>
+        internal Material()
+        {
+        }
 
         #endregion
 
@@ -69,12 +81,15 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
         public virtual Manufacturer Manufacturer { get; set; }
 
         /// <summary>
-        ///     供应商公司集合
+        ///     供应商物料集合
         /// </summary>
-        public virtual ICollection<SupplierCompany> SupplierCompanies
+        public virtual ICollection<SupplierCompanyMaterial> SupplierCompanyMaterials
         {
-            get { return _supplierCompanies ?? (_supplierCompanies = new HashSet<SupplierCompany>()); }
-            set { _supplierCompanies = new HashSet<SupplierCompany>(value); }
+            get
+            {
+                return _supplierCompanyMaterials ?? (_supplierCompanyMaterials = new HashSet<SupplierCompanyMaterial>());
+            }
+            set { _supplierCompanyMaterials = new HashSet<SupplierCompanyMaterial>(value); }
         }
 
         #endregion
@@ -95,14 +110,15 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
 
             return validationResults;
         }
+
         /// <summary>
-        ///设置主键。
+        ///     设置主键。
         /// </summary>
         /// <param name="materialId"></param>
         /// <returns></returns>
         public int SetMaterialId(int materialId)
         {
-          return  Id = materialId;
+            return Id = materialId;
         }
 
         #endregion
