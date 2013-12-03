@@ -15,6 +15,7 @@
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
+using UniCloud.Infrastructure.Data;
 
 namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
 {
@@ -23,10 +24,10 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
     /// </summary>
     public class EngineLeaseReceptionQuery : IEngineLeaseReceptionQuery
     {
-        private readonly IReceptionRepository _receptionRepository;
-        public EngineLeaseReceptionQuery(IReceptionRepository receptionRepository)
+        private readonly IQueryableUnitOfWork _unitOfWork;
+        public EngineLeaseReceptionQuery(IQueryableUnitOfWork unitOfWork)
         {
-            _receptionRepository = receptionRepository;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -38,7 +39,7 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
             QueryBuilder<EngineLeaseReception> query)
         {
             return
-                query.ApplyTo(_receptionRepository.GetAll().OfType<EngineLeaseReception>()).Select(p => new EngineLeaseReceptionDTO
+                query.ApplyTo(_unitOfWork.CreateSet<Reception>().OfType<EngineLeaseReception>()).Select(p => new EngineLeaseReceptionDTO
                 {
                     EngineLeaseReceptionId = p.Id,
                     CreateDate = p.CreateDate,

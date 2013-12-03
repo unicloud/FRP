@@ -240,6 +240,7 @@ namespace UniCloud.Presentation.Shell
             var menu331 = new MenuItem
             {
                 Text = "匹配计划飞机",
+                NavUri = "UniCloud.Presentation.Purchase.Reception.MatchingPlanAircraftManager"
             };
             var menu332 = new MenuItem
             {

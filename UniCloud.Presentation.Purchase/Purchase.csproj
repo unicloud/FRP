@@ -246,6 +246,10 @@
       <DependentUpon>EnginePurchaseReceptionManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Reception\EnginePurchaseReceptionManagerVM.cs" />
+    <Compile Include="Reception\MatchingPlanAircraftManager.xaml.cs">
+      <DependentUpon>MatchingPlanAircraftManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reception\MatchingPlanAircraftManagerVM.cs" />
     <Compile Include="Supplier\SupplierMaterialManager.xaml.cs">
       <DependentUpon>SupplierMaterialManager.xaml</DependentUpon>
     </Compile>
@@ -316,6 +320,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Reception\EnginePurchaseReceptionManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reception\MatchingPlanAircraftManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

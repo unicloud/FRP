@@ -17,28 +17,39 @@
 
 #region 命名空间
 
+using UniCloud.Application.PurchaseBC.ActionCategoryServices;
 using UniCloud.Application.PurchaseBC.AcTypeServices;
+using UniCloud.Application.PurchaseBC.AircraftTypeServices;
+using UniCloud.Application.PurchaseBC.ContractAircraftServices;
 using UniCloud.Application.PurchaseBC.ContractServices;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
 using UniCloud.Application.PurchaseBC.PartServices;
+using UniCloud.Application.PurchaseBC.PlanAircraftServices;
+using UniCloud.Application.PurchaseBC.Query.ActionCategoryQueries;
 using UniCloud.Application.PurchaseBC.Query.AcTypeQueries;
+using UniCloud.Application.PurchaseBC.Query.AircraftTypeQueries;
+using UniCloud.Application.PurchaseBC.Query.ContractAircraftQueries;
 using UniCloud.Application.PurchaseBC.Query.ContractQueries;
 using UniCloud.Application.PurchaseBC.Query.ForwarderQueries;
 using UniCloud.Application.PurchaseBC.Query.MaterialQueries;
 using UniCloud.Application.PurchaseBC.Query.PartQueries;
+using UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries;
 using UniCloud.Application.PurchaseBC.Query.ReceptionQueries;
 using UniCloud.Application.PurchaseBC.Query.SupplierQueries;
 using UniCloud.Application.PurchaseBC.Query.TradeQueries;
 using UniCloud.Application.PurchaseBC.ReceptionServices;
 using UniCloud.Application.PurchaseBC.SupplierServices;
 using UniCloud.Application.PurchaseBC.TradeServices;
+using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ForwarderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
@@ -119,6 +130,8 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
 
                          .Register<IAcTypeQuery, AcTypeQuery>()
                          .Register<IAcTypeAppService, AcTypeAppService>()
+                         .Register<IAircraftTypeQuery, AircraftTypeQuery>()
+                         .Register<IAircraftTypeAppService, AircraftTypeAppService>()
                          .Register<IAircraftTypeRepository, AircraftTypeRepository>()
                 #endregion
 
@@ -134,6 +147,27 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
                          .Register<IPartQuery, PartQuery>()
                          .Register<IPartAppService, PartAppService>()
                 #endregion
+
+                #region 活动类型相关配置，包括查询，应用服务，仓储注册
+
+                         .Register<IActionCategoryQuery, ActionCategoryQuery>()
+                         .Register<IActionCategoryAppService, ActionCategoryAppService>()
+                         .Register<IActionCategoryRepository, ActionCategoryRepository>()
+               #endregion
+
+               #region 计划飞机相关配置，包括查询，应用服务，仓储注册
+                         .Register<IPlanAircraftQuery, PlanAircraftQuery>()
+                         .Register<IPlanAircraftAppService, PlanAircraftAppService>()
+                         .Register<IPlanAircraftRepository, PlanAircraftRepository>()
+               #endregion
+
+               #region 合同飞机相关配置，包括查询，应用服务，仓储注册
+                         .Register<ILeaseContractAircraftQuery, LeaseContractAircraftQuery>()
+                         .Register<IPurchaseContractAircraftQuery, PurchaseContractAircraftQuery>()
+                         .Register<ILeaseContractAircraftAppService, LeaseContractAircraftAppService>()
+                         .Register<IPurchaseContractAircraftAppService, PurchaseContractAircraftAppService>()
+                         .Register<IContractAircraftRepository, ContractAircraftRepository>()
+               #endregion 
 
                 ;
         }
