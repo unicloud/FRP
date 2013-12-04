@@ -105,6 +105,7 @@
     </Compile>
     <Compile Include="IPurchaseService.cs" />
     <Compile Include="Purchase\AircraftMaterialDTO.cs" />
+    <Compile Include="Purchase\APUMaintainContractDTO.cs" />
     <Compile Include="Purchase\LinkmanDTO.cs" />
     <Compile Include="Purchase\TradeDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
