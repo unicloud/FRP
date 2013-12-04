@@ -63,7 +63,7 @@ namespace UniCloud.DistributedServices.Purchase
 
             HttpCachePolicy cachePolicy = HttpContext.Current.Response.Cache;
 
-            // sno-cache是会被缓存的，只不过每次在向客户端（浏览器）提供响应数据时，缓存都要向服务器评估缓存响应的有效性。 
+            // no-cache是会被缓存的，只不过每次在向客户端（浏览器）提供响应数据时，缓存都要向服务器评估缓存响应的有效性。 
             cachePolicy.SetCacheability(HttpCacheability.NoCache);
 
             // default cache expire: never 
