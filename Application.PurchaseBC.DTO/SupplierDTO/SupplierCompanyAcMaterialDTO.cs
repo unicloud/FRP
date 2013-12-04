@@ -1,37 +1,38 @@
-﻿using System;
+﻿
 using System.Data.Services.Common;
 
 namespace UniCloud.Application.PurchaseBC.DTO
 {
     /// <summary>
-    /// 合作公司物料
+    /// 合作公司发动机物料
     /// </summary>
-    [DataServiceKey("SupplierMaterialId")]
-    public class SupplierMaterialDTO
-    {
+   [DataServiceKey("SupplierCompanyMaterialId")]
+    public class SupplierCompanyAcMaterialDTO
+    {  
         /// <summary>
-        ///     主键
+        /// 主键
         /// </summary>
-        public int SupplierMaterialId { get; set; }
+        public int SupplierCompanyMaterialId { get; set; }
 
         /// <summary>
-        ///     名称
+        /// 名称
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        ///     描述
+        /// 备注
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        ///     物料Id
+        ///合作公司Id
+        /// </summary>
+        public int SupplierCompanyId { get; set; }
+
+        /// <summary>
+        /// 物料Id
         /// </summary>
         public int MaterialId { get; set; }
 
-        /// <summary>
-        /// 合作公司Id
-        /// </summary>
-        public int SupplierCompanyId { get; set; }
     }
 }

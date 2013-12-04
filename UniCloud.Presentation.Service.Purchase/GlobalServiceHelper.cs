@@ -38,7 +38,6 @@ namespace UniCloud.Presentation.Service.Purchase
             }
             SupplierQuery = new QueryableDataServiceCollectionView<SupplierDTO>(Context, Context.Suppliers);
             SupplierQuery.LoadedData += SupplierQueryLoadedData;
-            InitialAcType();
         }
 
         //供应商数据加载完毕，分类处理
@@ -71,37 +70,5 @@ namespace UniCloud.Presentation.Service.Purchase
                     null);
             }
         }
-
-        #region AcType
-
-        public static IEnumerable<AcTypeDTO> AcTypes { get; set; }
-        private static QueryableDataServiceCollectionView<AcTypeDTO> _acTypeView;
-
-        public static void  LoadAcType()
-        {
-            if (AcTypes == null)
-            {
-                _acTypeView.AutoLoad = true;
-                return;
-            }
-            _acTypeView.AutoLoad = false;
-        }
-
-        /// <summary>
-        /// 初始化机型
-        /// </summary>
-        public static void InitialAcType()
-        {
-            _acTypeView = new QueryableDataServiceCollectionView<AcTypeDTO>(Context, Context.AcTypes);
-            _acTypeView.LoadedData += (sender, e) =>
-                {
-                    if (e.Error!=null)
-                    {
-                        e.MarkErrorAsHandled();
-                    }
-                    AcTypes = e.Entities.Cast<AcTypeDTO>();
-                };
-        }
-        #endregion
     }
 }

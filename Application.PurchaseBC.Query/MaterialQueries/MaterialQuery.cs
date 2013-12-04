@@ -69,7 +69,7 @@ namespace UniCloud.Application.PurchaseBC.Query.MaterialQueries
         {
             return
                 query.ApplyTo(_unitOfWork.CreateSet<Material>())
-                    .OfType<BFEMaterial>()
+                    .OfType<EngineMaterial>()
                     .Select(p => new EngineMaterialDTO
                     {
                         EngineMaterialId = p.Id,

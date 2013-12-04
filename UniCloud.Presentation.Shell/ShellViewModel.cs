@@ -165,7 +165,8 @@ namespace UniCloud.Presentation.Shell
             };
             var menu312 = new MenuItem
             {
-                Text = "维护供应商",
+                Text = "查询供应商",
+                NavUri = "UniCloud.Presentation.Purchase.Supplier.QuerySupplier"
             };
             var menu313 = new MenuItem
             {

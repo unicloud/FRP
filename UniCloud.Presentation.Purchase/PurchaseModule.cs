@@ -49,6 +49,8 @@ namespace UniCloud.Presentation.Purchase
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(Reception.EngineLeaseReceptionManager));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(SupplierRoleManager));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(SupplierMaterialManager));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(QuerySupplier));
+
         }
     }
 }

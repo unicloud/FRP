@@ -14,7 +14,7 @@
     <RootNamespace>UniCloud.Presentation.Shell.Web</RootNamespace>
     <AssemblyName>UniCloud.Presentation.Shell.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -81,6 +81,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\FRPClient.pubxml" />
     <None Include="Properties\PublishProfiles\FRPSERVER.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -105,7 +106,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>11169</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:11169/</IISUrl>
+          <IISUrl>http://localhost/Shell.Web</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -70,34 +70,35 @@
         <Property Name="SourceId" Type="Edm.Guid" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
       </EntityType>
-      <EntityType Name="SupplierCompanyMaterialDTO">
+      <EntityType Name="SupplierCompanyAcMaterialDTO">
         <Key>
-          <PropertyRef Name="SupplierCompanyId" />
+          <PropertyRef Name="SupplierCompanyMaterialId" />
         </Key>
-        <Property Name="SupplierCompanyId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Name" Type="Edm.String" />
-        <Property Name="SupplierType" Type="Edm.String" />
-        <Property Name="Code" Type="Edm.String" />
-        <Property Name="AircraftMaterials" Type="Collection(UniCloud.Application.PurchaseBC.DTO.SupplierMaterialDTO)" Nullable="false" />
-        <Property Name="EngineMaterials" Type="Collection(UniCloud.Application.PurchaseBC.DTO.SupplierMaterialDTO)" Nullable="false" />
-        <Property Name="BFEMaterials" Type="Collection(UniCloud.Application.PurchaseBC.DTO.SupplierMaterialDTO)" Nullable="false" />
-        <Property Name="AircraftSupplier" Type="Edm.Boolean" Nullable="false" />
-        <Property Name="BFESupplier" Type="Edm.Boolean" Nullable="false" />
-        <Property Name="EngineSupplier" Type="Edm.Boolean" Nullable="false" />
-      </EntityType>
-      <ComplexType Name="SupplierMaterialDTO">
-        <Property Name="SupplierMaterialId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SupplierCompanyMaterialId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
-        <Property Name="MaterialId" Type="Edm.Int32" Nullable="false" />
         <Property Name="SupplierCompanyId" Type="Edm.Int32" Nullable="false" />
-      </ComplexType>
-      <EntityType Name="AcTypeDTO">
+        <Property Name="MaterialId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="SupplierCompanyEngineMaterialDTO">
         <Key>
-          <PropertyRef Name="AcTypeId" />
+          <PropertyRef Name="SupplierCompanyMaterialId" />
         </Key>
+        <Property Name="SupplierCompanyMaterialId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Name" Type="Edm.String" />
-        <Property Name="AcTypeId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="SupplierCompanyId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaterialId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="SupplierCompanyBFEMaterialDTO">
+        <Key>
+          <PropertyRef Name="SupplierCompanyMaterialId" />
+        </Key>
+        <Property Name="SupplierCompanyMaterialId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="SupplierCompanyId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaterialId" Type="Edm.Int32" Nullable="false" />
       </EntityType>
       <EntityType Name="AircraftMaterialDTO">
         <Key>
@@ -458,8 +459,9 @@
         <EntitySet Name="Suppliers" EntityType="UniCloud.Application.PurchaseBC.DTO.SupplierDTO" />
         <EntitySet Name="SupplierCompanys" EntityType="UniCloud.Application.PurchaseBC.DTO.SupplierCompanyDTO" />
         <EntitySet Name="Linkmans" EntityType="UniCloud.Application.PurchaseBC.DTO.LinkmanDTO" />
-        <EntitySet Name="SupplierCompanyMaterials" EntityType="UniCloud.Application.PurchaseBC.DTO.SupplierCompanyMaterialDTO" />
-        <EntitySet Name="AcTypes" EntityType="UniCloud.Application.PurchaseBC.DTO.AcTypeDTO" />
+        <EntitySet Name="SupplierCompanyAcMaterials" EntityType="UniCloud.Application.PurchaseBC.DTO.SupplierCompanyAcMaterialDTO" />
+        <EntitySet Name="SupplierCompanyEngineMaterials" EntityType="UniCloud.Application.PurchaseBC.DTO.SupplierCompanyEngineMaterialDTO" />
+        <EntitySet Name="SupplierCompanyBFEMaterials" EntityType="UniCloud.Application.PurchaseBC.DTO.SupplierCompanyBFEMaterialDTO" />
         <EntitySet Name="AircraftMaterias" EntityType="UniCloud.Application.PurchaseBC.DTO.AircraftMaterialDTO" />
         <EntitySet Name="BFEMaterials" EntityType="UniCloud.Application.PurchaseBC.DTO.BFEMaterialDTO" />
         <EntitySet Name="EngineMaterials" EntityType="UniCloud.Application.PurchaseBC.DTO.EngineMaterialDTO" />

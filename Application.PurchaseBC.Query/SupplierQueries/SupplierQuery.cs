@@ -18,11 +18,13 @@
 #region 命名空间
 
 using System.Linq;
+using System.Security.Cryptography;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg;
 using UniCloud.Domain.PurchaseBC.Enums;
 using UniCloud.Infrastructure.Data;
@@ -128,73 +130,76 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
         }
 
         /// <summary>
-        ///     合作公司相关物料。
+        ///     飞机物料。
         /// </summary>
         /// <param name="query">查询条件。</param>
-        /// <returns>合作公司相关物料。</returns>
-        public IQueryable<SupplierCompanyMaterialDTO> SupplierCompanyMaterialsQuery(
-            QueryBuilder<SupplierCompany> query)
+        /// <returns>飞机物料。</returns>
+        public IQueryable<SupplierCompanyAcMaterialDTO> SupplierCompanyAcMaterialsQuery(
+            QueryBuilder<SupplierCompanyMaterial> query)
         {
-            var dbSupplierRole = _unitOfWork.CreateSet<SupplierRole>();
-            var dbMaterial = _unitOfWork.CreateSet<Material>();
-            return _unitOfWork.CreateSet<SupplierCompany>().Select(p => new SupplierCompanyMaterialDTO
+            var dbMaterial = _unitOfWork.CreateSet<Material>().OfType<AircraftMaterial>();
+            var dbSupplierCompanyMaterial = _unitOfWork.CreateSet<SupplierCompanyMaterial>();
+            return from t in dbMaterial
+                from c in dbSupplierCompanyMaterial
+                where t.Id == c.MaterialId
+                select new SupplierCompanyAcMaterialDTO
                 {
-                    SupplierCompanyId = p.Id,
-                    AircraftSupplier =
-                        dbSupplierRole.OfType<AircraftLeaseSupplier>()
-                                      .Any(c => c.SupplierCompanyId == p.Id)
-                        || dbSupplierRole.OfType<AircraftPurchaseSupplier>()
-                                         .Any(c =>
-                                              c.SupplierCompanyId == p.Id),
-                    EngineSupplier =
-                        dbSupplierRole.OfType<EngineLeaseSupplier>()
-                                      .Any(c =>
-                                           c.SupplierCompanyId == p.Id)
-                        || dbSupplierRole.OfType<EnginePurchaseSupplier>()
-                                         .Any(c =>
-                                              c.SupplierCompanyId == p.Id),
-                    BFESupplier =
-                        dbSupplierRole.OfType<BFEPurchaseSupplier>()
-                                      .Any(c =>
-                                           c.SupplierCompanyId == p.Id),
-                    Code = p.Code,
-                    SupplierType =
-                        p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).SupplierType == 0 ? "国内" : "国外",
-                    Name = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).Name,
-                    AircraftMaterials = (from t in dbMaterial.OfType<AircraftMaterial>()
-                                        from c in p.SupplierCompanyMaterials
-                                        where t.Id==c.MaterialId
-                                         select new SupplierMaterialDTO
-                                        {
-                                            SupplierMaterialId = c.Id,
-                                            Name = t.Name,
-                                            Description = t.Description,
-                                            SupplierCompanyId = c.SupplierCompanyId,
-                                            MaterialId = c.MaterialId
-                                        }).ToList(),
-                    BFEMaterials = (from t in dbMaterial.OfType<BFEMaterial>()
-                                    from c in p.SupplierCompanyMaterials
-                                    where t.Id == c.MaterialId
-                                    select new SupplierMaterialDTO
-                                    {
-                                        SupplierMaterialId = c.Id,
-                                        Name = t.Name,
-                                        Description = t.Description,
-                                        SupplierCompanyId = c.SupplierCompanyId,
-                                        MaterialId = c.MaterialId
-                                    }).ToList(),
-                    EngineMaterials = (from t in dbMaterial.OfType<EngineMaterial>()
-                                       from c in p.SupplierCompanyMaterials
-                                       where t.Id == c.MaterialId
-                                       select new SupplierMaterialDTO
-                                       {
-                                           SupplierMaterialId = c.Id,
-                                           Name = t.Name,
-                                           Description = t.Description,
-                                           SupplierCompanyId = c.SupplierCompanyId,
-                                           MaterialId = c.MaterialId
-                                       }).ToList(),
-                });
+                    SupplierCompanyMaterialId = c.Id,
+                    Name =t.Name,
+                    Description =t.Description,
+                    SupplierCompanyId = c.SupplierCompanyId,
+                    MaterialId = c.MaterialId
+                };
         }
+
+        /// <summary>
+        ///     发动机物料。
+        /// </summary>
+        /// <param name="query">查询条件。</param>
+        /// <returns>发动机物料。</returns>
+        public IQueryable<SupplierCompanyEngineMaterialDTO> SupplierCompanyEngineMaterialsQuery(
+            QueryBuilder<SupplierCompanyMaterial> query)
+        {
+            var dbMaterial = _unitOfWork.CreateSet<Material>().OfType<EngineMaterial>();
+            var dbSupplierCompanyMaterial = _unitOfWork.CreateSet<SupplierCompanyMaterial>();
+            return from t in dbMaterial
+                   from c in dbSupplierCompanyMaterial
+                   where t.Id == c.MaterialId
+                   select new SupplierCompanyEngineMaterialDTO
+                   {
+                       SupplierCompanyMaterialId = c.Id,
+                       Name = t.Name,
+                       Description = t.Description,
+                       SupplierCompanyId = c.SupplierCompanyId,
+                       MaterialId = c.MaterialId
+                   };
+        }
+
+        /// <summary>
+        ///     BFE物料。
+        /// </summary>
+        /// <param name="query">查询条件。</param>
+        /// <returns>BFE物料。</returns>
+        public IQueryable<SupplierCompanyBFEMaterialDTO> SupplierCompanyBFEMaterialsQuery(
+            QueryBuilder<SupplierCompanyMaterial> query)
+        {
+            var dbMaterial = _unitOfWork.CreateSet<Material>().OfType<BFEMaterial>();
+            var dbSupplierCompanyMaterial = _unitOfWork.CreateSet<SupplierCompanyMaterial>();
+            return from t in dbMaterial
+                   from c in dbSupplierCompanyMaterial
+                   where t.Id == c.MaterialId
+                   select new SupplierCompanyBFEMaterialDTO
+                   {
+                       SupplierCompanyMaterialId = c.Id,
+                       Name = t.Name,
+                       Description = t.Description,
+                       SupplierCompanyId = c.SupplierCompanyId,
+                       MaterialId = c.MaterialId
+                   };
+
+        }
+
+
+
     }
 }

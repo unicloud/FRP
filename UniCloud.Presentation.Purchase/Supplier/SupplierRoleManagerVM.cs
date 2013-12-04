@@ -37,8 +37,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
     {
         private FilterDescriptor _linkManFilter; //查找联系人配置。
         private PurchaseData _purchaseData;
-        private FilterDescriptor _supplierFilter; //查找供应商配置。
-
         /// <summary>
         ///     构造函数。
         /// </summary>
@@ -46,7 +44,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
         public SupplierRoleManagerVM()
         {
             InitialSupplierCompany(); //初始化合作公司。
-            InitialSupplier(); //初始化供应商。
             InitialLinkMan(); //初始化联系人。
         }
 
@@ -66,7 +63,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
                 {
                     _selectedSupplierCompany = value;
                     LoadLinkManByCompanyId(value);
-                    LoadSupplierByCompanyId(value);
                     RaisePropertyChanged(() => SelSupplierCompany);
                 }
             }
@@ -94,70 +90,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
                     }
                     SelSupplierCompany = e.Entities.Cast<SupplierCompanyDTO>().FirstOrDefault();
                 };
-        }
-
-        #endregion
-
-        #region Supplier相关信息
-
-        private SupplierDTO _selectedSupplier;
-
-        /// <summary>
-        ///     选择供应商。
-        /// </summary>
-        public SupplierDTO SelSupplier
-        {
-            get { return _selectedSupplier; }
-            set
-            {
-                if (_selectedSupplier != value)
-                {
-                    _selectedSupplier = value;
-                    RaisePropertyChanged(() => SelSupplier);
-                }
-            }
-        }
-
-
-        /// <summary>
-        ///     获取所有供应商公司信息。
-        /// </summary>
-        public QueryableDataServiceCollectionView<SupplierDTO> SuppliersView { get; set; }
-
-        /// <summary>
-        ///     初始化供应商。
-        /// </summary>
-        private void InitialSupplier()
-        {
-            SuppliersView = Service.CreateCollection(_purchaseData.Suppliers);
-            Service.RegisterCollectionView(SuppliersView); //注册查询集合。
-            _supplierFilter = new FilterDescriptor("SuppierCompanyId", FilterOperator.IsEqualTo, -1);
-            SuppliersView.FilterDescriptors.Add(_supplierFilter);
-            SuppliersView.LoadedData += (sender, e) =>
-                {
-                    if (e.HasError)
-                    {
-                        e.MarkErrorAsHandled();
-                        return;
-                    }
-                    SelSupplier = e.Entities.Cast<SupplierDTO>().FirstOrDefault();
-                };
-        }
-
-
-        /// <summary>
-        ///     根据合作公司Id，加载联系人。
-        /// </summary>
-        /// <param name="supplierCompany">供应商</param>
-        private void LoadSupplierByCompanyId(SupplierCompanyDTO supplierCompany)
-        {
-            //加载供应商
-            if (supplierCompany == null) return;
-            _supplierFilter.Value = supplierCompany.SupplierCompanyId;
-            if (!SuppliersView.AutoLoad)
-            {
-                SuppliersView.AutoLoad = true;
-            }
         }
 
         #endregion
