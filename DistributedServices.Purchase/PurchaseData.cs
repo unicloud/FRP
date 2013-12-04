@@ -112,12 +112,28 @@ namespace UniCloud.DistributedServices.Purchase
         }
 
         /// <summary>
-        /// 合作公司相关物料
+        /// 合作公司下的飞机物料
         /// </summary>
-        public IQueryable<SupplierCompanyMaterialDTO> SupplierCompanyMaterials {
-            get { return _supplierAppService.GetSupplierCompanyMaterials(); }
+        public IQueryable<SupplierCompanyAcMaterialDTO> SupplierCompanyAcMaterials
+        {
+            get { return _supplierAppService.GetSupplierCompanyAcMaterials(); }
         }
 
+        /// <summary>
+        /// 合作公司下的发动机物料
+        /// </summary>
+        public IQueryable<SupplierCompanyEngineMaterialDTO> SupplierCompanyEngineMaterials
+        {
+            get { return _supplierAppService.GetSupplierCompanyEngineMaterials(); }
+        }
+
+        /// <summary>
+        /// 合作公司下的BFE物料
+        /// </summary>
+        public IQueryable<SupplierCompanyBFEMaterialDTO> SupplierCompanyBFEMaterials
+        {
+            get { return _supplierAppService.GetSupplierCompanyBFEMaterials(); }
+        }
         #endregion
 
         #region 机型集合

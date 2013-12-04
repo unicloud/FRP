@@ -96,7 +96,7 @@
                     </telerik:RadSplitContainer>
                 </telerik:RadSplitContainer>
             </telerik:RadDocking.DocumentHost>
-            <telerik:RadSplitContainer Width="420" InitialPosition="DockedRight" Orientation="Vertical">
+            <telerik:RadSplitContainer Width="500" InitialPosition="DockedRight" Orientation="Vertical">
                 <telerik:RadPaneGroup  >
                     <telerik:RadPane Header="供应商信息"
                                      IsPinned="True"

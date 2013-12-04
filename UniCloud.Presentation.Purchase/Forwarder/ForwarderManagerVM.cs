@@ -7,6 +7,7 @@
 using System.ComponentModel.Composition;
 using System.Linq;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Purchase;
@@ -90,6 +91,14 @@ namespace UniCloud.Presentation.Purchase.Forwarder
                 {
                     CanSelectForward = !ForwardersView.HasChanges;
                 }
+                if (e.PropertyName == "CurrentAddItem")
+                {
+                    if (ForwardersView.CurrentAddItem is ForwarderDTO)
+                    {
+                        (ForwardersView.CurrentAddItem as ForwarderDTO).ForwarderId = RandomHelper.Next();
+                    }
+                }
+
             };
         }
 

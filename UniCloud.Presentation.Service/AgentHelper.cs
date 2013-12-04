@@ -18,7 +18,7 @@ namespace UniCloud.Presentation.Service
         {
             get
             {
-                return new Uri("http://192.1.1.219:6000/PurchaseDataService.svc/",
+                return new Uri("http://localhost:20059/PurchaseDataService.svc",
                                UriKind.Absolute);
             }
         }

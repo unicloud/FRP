@@ -427,14 +427,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
             _purchaseData = new PurchaseData(AgentHelper.PurchaseUri);
             return new PurchaseService(_purchaseData);
         }
-
-        /// <summary>
-        ///     按钮控制。
-        /// </summary>
-        protected override void RefreshButtonState()
-        {
-        }
-
         #endregion
 
     }

@@ -68,6 +68,7 @@ namespace UniCloud.Presentation.Purchase
             //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(UndercartMaintain));
             //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(AnalyseAircraftPrice));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(QuerySupplier));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(LinkManManager));
 
         }
     }

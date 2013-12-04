@@ -213,10 +213,9 @@
 
     </UserControl.Resources>
     <Grid>
-        <telerik:RadDocking>
-            <telerik:RadDocking.DocumentHost>
-                <telerik:RadSplitContainer>
-                    <telerik:RadSplitContainer>
+        <telerik:RadDocking HasDocumentHost="False">
+            <telerik:RadSplitContainer>
+                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600">
                         <telerik:RadPaneGroup>
                             <telerik:RadPane Header="查询承运人"
                                              IsPinned="True"
@@ -282,15 +281,13 @@
 
                         </telerik:RadPaneGroup>
                     </telerik:RadSplitContainer>
-                </telerik:RadSplitContainer>
-            </telerik:RadDocking.DocumentHost>
-            <telerik:RadSplitContainer MinWidth="400" InitialPosition="DockedRight">
+                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="400, 600">
                 <telerik:RadPaneGroup>
                     <telerik:RadPane Header="编辑承运人"
                                      IsPinned="True"
                                      CanFloat="False"
                                      CanUserClose="False"
-                                     CanUserPin="True"
+                                     CanUserPin="False"
                                      ContextMenuTemplate="{x:Null}">
                         <Grid>
                             <telerik:RadDataForm x:Name="forwardForm"
@@ -311,6 +308,7 @@
                         </Grid>
                     </telerik:RadPane>
                 </telerik:RadPaneGroup>
+            </telerik:RadSplitContainer>
             </telerik:RadSplitContainer>
         </telerik:RadDocking>
     </Grid>

@@ -178,10 +178,16 @@ namespace UniCloud.Presentation.Shell
                 Text = "维护BFE承运人",
                 NavUri = "UniCloud.Presentation.Purchase.Forwarder.ForwarderManager"
             };
+            var menu315 = new MenuItem
+            {
+                Text = "维护联系人",
+                NavUri = "UniCloud.Presentation.Purchase.Supplier.LinkManManager"
+            };
             menu31.Items.Add(menu311);
-            menu31.Items.Add(menu312);
             menu31.Items.Add(menu313);
             menu31.Items.Add(menu314);
+            menu31.Items.Add(menu315);
+            menu31.Items.Add(menu312);
             menu3.Items.Add(menu31);
 
             var menu32 = new MenuItem

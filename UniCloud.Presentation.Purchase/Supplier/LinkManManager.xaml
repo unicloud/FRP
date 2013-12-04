@@ -1,0 +1,190 @@
+﻿<UserControl x:Class="UniCloud.Presentation.Purchase.Supplier.LinkManManager"
+   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+	  xmlns:telerikGrid="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.GridView"             xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance uc:LinkManManagerVM}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+                <ResourceDictionary Source="/Telerik.Windows.Themes.Windows8;component/Themes/System.Windows.xaml" />
+                <ResourceDictionary
+                    Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.xaml" />
+                <ResourceDictionary
+                    Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.Input.xaml" />
+                <ResourceDictionary
+                    Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.Navigation.xaml" />
+                <ResourceDictionary
+                    Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.Data.xaml" />
+                <ResourceDictionary
+                    Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.Docking.xaml" />
+                <ResourceDictionary
+                    Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.GridView.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+
+    </UserControl.Resources>
+    <Grid>
+        <telerik:RadDocking HasDocumentHost="False">
+            <telerik:RadSplitContainer>
+                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600">
+                    <telerik:RadSplitContainer>
+                        <telerik:RadPaneGroup>
+                            <telerik:RadPane Header="合作公司信息"
+                                             IsPinned="True"
+                                             CanFloat="False"
+                                             CanDockInDocumentHost="False"
+                                             CanUserClose="False"
+                                             CanUserPin="False"
+                                             ContextMenuTemplate="{x:Null}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <telerik:RadGridView
+                                        ItemsSource="{Binding SupplierCompanysView}"
+                                        IsBusy="{Binding SupplierCompanysView.IsBusy}"
+                                        AutoGenerateColumns="False"
+                                        SelectedItem="{Binding SelSupplierCompany, Mode=TwoWay}"
+                                        AutoExpandGroups="True"
+                                        ShowGroupPanel="True"
+                                        CanUserSortColumns="True"
+                                        RowIndicatorVisibility="Visible"
+                                        CanUserFreezeColumns="False">
+                                        <telerik:RadGridView.Columns>
+                                            <uc:DataPageSerialColumn Header="序号"
+                                                                     CellStyle="{StaticResource CellStyle}"
+                                                                     HeaderTextAlignment="Center" />
+                                            <telerik:GridViewDataColumn Header="名称"
+                                                                        IsReadOnly="True"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding Name}" />
+
+                                            <telerik:GridViewDataColumn Header="组织机构代码"
+                                                                        IsReadOnly="True"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding Code}" />
+                                            <telerik:GridViewDataColumn Header="供应商类型"
+                                                                        IsReadOnly="True"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding SupplierType}" />
+                                            <telerik:GridViewDataColumn Header="备注"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        MaxWidth="{StaticResource CellMaxWidth}"
+                                                                        DataMemberBinding="{Binding Note}" />
+                                        </telerik:RadGridView.Columns>
+                                    </telerik:RadGridView>
+                                    <telerik:RadDataPager BorderThickness="1,0,1,1"
+                                                          AutoEllipsisMode="Both"
+                                                          DisplayMode="All"
+                                                          Source="{Binding SupplierCompanysView}"
+                                                          Grid.Row="1" />
+                                </Grid>
+                            </telerik:RadPane>
+                        </telerik:RadPaneGroup>
+                    </telerik:RadSplitContainer>
+                </telerik:RadSplitContainer>
+                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="400, 600">
+                    <telerik:RadPaneGroup >
+                        <telerik:RadPane Header="联系人信息"
+                                     IsPinned="True"
+                                     CanFloat="False"
+                                     CanUserClose="False"
+                                     CanUserPin="False"
+                                     ContextMenuTemplate="{x:Null}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <telerik:RadToolBar HorizontalAlignment="Stretch"
+                            Margin="-1 -2 -1 0">
+                                    <telerik:RadButton Margin="4,2,2,-2"
+                               Command="{Binding SaveCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Save.png"
+                       Stretch="Fill"
+                       ToolTipService.ToolTip="保存" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                               Command="{Binding AbortCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                       Stretch="Fill"
+                       ToolTipService.ToolTip="放弃更改" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                    <telerik:RadButton Margin="4,2,2,-2"
+                               Command="telerikGrid:RadGridViewCommands.BeginInsert"
+                               CommandTarget="{Binding ElementName=LinkMan}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Add.png"
+                       Stretch="Fill"
+                       ToolTipService.ToolTip="新增" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                                Command="telerikGrid:RadGridViewCommands.Delete"
+                                CommandTarget="{Binding ElementName=LinkMan}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
+                       Stretch="Fill"
+                       ToolTipService.ToolTip="删除" />
+                                    </telerik:RadButton>
+                                </telerik:RadToolBar>
+                                <telerik:RadGridView Grid.Row="1"
+                                                 Name="LinkMan"
+                                ItemsSource="{Binding LinkmansView}"
+                                IsBusy="{Binding LinkmansView.IsBusy}"
+                                AutoGenerateColumns="False"
+                                SelectedItem="{Binding SelLinkMan, Mode=TwoWay}"
+                                ShowGroupPanel="True"
+                                CanUserSortColumns="True"
+                                RowIndicatorVisibility="Visible"
+                                CanUserFreezeColumns="False">
+                                    <telerik:RadGridView.Columns>
+                                        <uc:DataPageSerialColumn Header="序号"
+                                                             CellStyle="{StaticResource CellStyle}"
+                                                             HeaderTextAlignment="Center" />
+                                        <telerik:GridViewDataColumn Header="名称*" 
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding Name}" />
+                                        <telerik:GridViewDataColumn Header="邮件"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding  Email}" />
+                                        <telerik:GridViewDataColumn Header="电话号码"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding TelePhone}" />
+                                        <telerik:GridViewDataColumn Header="手机号码"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding  Mobile}" />
+                                        <telerik:GridViewDataColumn Header="传真"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding  Fax}" />
+                                        <telerik:GridViewDataColumn Header="通讯地址"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding  Address}" />
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+                            </Grid>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                </telerik:RadSplitContainer>
+                </telerik:RadSplitContainer>
+        </telerik:RadDocking>
+    </Grid>
+</UserControl>
