@@ -33,16 +33,18 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
     public class TradeAppService : ITradeAppService
     {
         private readonly IOrderQuery _orderQuery;
+        private readonly IOrderRepository _orderRepository;
         private readonly ISupplierRepository _supplierRepository;
         private readonly ITradeQuery _tradeQuery;
         private readonly ITradeRepository _tradeRepository;
 
         public TradeAppService(ITradeQuery queryTrade, IOrderQuery orderQuery, ITradeRepository tradeRepository,
-            ISupplierRepository supplierRepository)
+            IOrderRepository orderRepository, ISupplierRepository supplierRepository)
         {
             _tradeQuery = queryTrade;
             _orderQuery = orderQuery;
             _tradeRepository = tradeRepository;
+            _orderRepository = orderRepository;
             _supplierRepository = supplierRepository;
         }
 
@@ -96,10 +98,16 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 throw new ArgumentException("参数为空！");
             }
 
-            var supplier = _supplierRepository.GetAll().FirstOrDefault();
-            var newTrade = TradeFactory.CreateTrade(null, null, DateTime.Now);
-            newTrade.SetTradeNumber(1);
+            var supplier = _supplierRepository.Get(dto.SupplierId);
+            var newTrade = TradeFactory.CreateTrade(dto.Name, dto.Description, dto.StartDate);
+            newTrade.GenerateNewIdentity();
+            // 设置交易编号
+            var date = DateTime.Now.Date;
+            var seq = _tradeRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+            newTrade.SetTradeNumber(seq);
+            // 设置供应商
             newTrade.SetSupplier(supplier);
+
             _tradeRepository.Add(newTrade);
         }
 
@@ -134,14 +142,260 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             }
         }
 
-        private  Trade MaterializeTradeFromDto(TradeDTO dto)
+        private Trade MaterializeTradeFromDto(TradeDTO dto)
         {
-            var supplier = _supplierRepository.GetAll().FirstOrDefault();
+            var supplier = _supplierRepository.Get(dto.SupplierId);
             var trade = TradeFactory.CreateTrade(dto.Name, dto.Description, dto.StartDate);
             trade.ChangeCurrentIdentity(dto.Id);
+            trade.SetTradeNumber(dto.TradeNumber);
             trade.SetSupplier(supplier);
 
             return trade;
+        }
+
+        #endregion
+
+        #region AircraftLeaseOrderDTO
+
+        [Insert(typeof (AircraftLeaseOrderDTO))]
+        public void InsertAircraftLeaseOrder(AircraftLeaseOrderDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+        }
+
+        [Update(typeof (AircraftLeaseOrderDTO))]
+        public void UpdateAircraftLeaseOrder(AircraftLeaseOrderDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+
+            var persisted = _orderRepository.Get(dto.Id);
+            if (persisted != null)
+            {
+                var current = MaterializeAircraftLeaseOrderFromDto(dto);
+                _orderRepository.Merge(persisted, current);
+            }
+        }
+
+        [Delete(typeof (AircraftLeaseOrderDTO))]
+        public void DeleteAircraftLeaseOrder(AircraftLeaseOrderDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+
+            var deleteAircraftLeaseOrder = _orderRepository.Get(dto.Id);
+            if (deleteAircraftLeaseOrder != null)
+            {
+                _orderRepository.Remove(deleteAircraftLeaseOrder);
+            }
+        }
+
+        private AircraftLeaseOrder MaterializeAircraftLeaseOrderFromDto(AircraftLeaseOrderDTO dto)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region AircraftPurchaseOrderDTO
+
+        [Insert(typeof (AircraftPurchaseOrderDTO))]
+        public void InsertAircraftPurchaseOrder(AircraftPurchaseOrderDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+        }
+
+        [Update(typeof (AircraftPurchaseOrderDTO))]
+        public void UpdateAircraftPurchaseOrder(AircraftPurchaseOrderDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+
+            var persisted = _orderRepository.Get(dto.Id);
+            if (persisted != null)
+            {
+                var current = MaterializeAircraftPurchaseOrderFromDto(dto);
+                _orderRepository.Merge(persisted, current);
+            }
+        }
+
+        [Delete(typeof (AircraftPurchaseOrderDTO))]
+        public void DeleteAircraftPurchaseOrder(AircraftPurchaseOrderDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+
+            var deleteAircraftPurchaseOrder = _orderRepository.Get(dto.Id);
+            if (deleteAircraftPurchaseOrder != null)
+            {
+                _orderRepository.Remove(deleteAircraftPurchaseOrder);
+            }
+        }
+
+        private AircraftPurchaseOrder MaterializeAircraftPurchaseOrderFromDto(AircraftPurchaseOrderDTO dto)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region BFEPurchaseOrderDTO
+
+        [Insert(typeof (BFEPurchaseOrderDTO))]
+        public void InsertBFEPurchaseOrder(BFEPurchaseOrderDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+        }
+
+        [Update(typeof (BFEPurchaseOrderDTO))]
+        public void UpdateBFEPurchaseOrder(BFEPurchaseOrderDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+
+            var persisted = _orderRepository.Get(dto.Id);
+            if (persisted != null)
+            {
+                var current = MaterializeBFEPurchaseOrderFromDto(dto);
+                _orderRepository.Merge(persisted, current);
+            }
+        }
+
+        [Delete(typeof (BFEPurchaseOrderDTO))]
+        public void DeleteBFEPurchaseOrder(BFEPurchaseOrderDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+
+            var deleteBFEPurchaseOrder = _orderRepository.Get(dto.Id);
+            if (deleteBFEPurchaseOrder != null)
+            {
+                _orderRepository.Remove(deleteBFEPurchaseOrder);
+            }
+        }
+
+        private BFEPurchaseOrder MaterializeBFEPurchaseOrderFromDto(BFEPurchaseOrderDTO dto)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region EngineLeaseOrderDTO
+
+        [Insert(typeof (EngineLeaseOrderDTO))]
+        public void InsertEngineLeaseOrder(EngineLeaseOrderDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+        }
+
+        [Update(typeof (EngineLeaseOrderDTO))]
+        public void UpdateEngineLeaseOrder(EngineLeaseOrderDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+
+            var persisted = _orderRepository.Get(dto.Id);
+            if (persisted != null)
+            {
+                var current = MaterializeEngineLeaseOrderFromDto(dto);
+                _orderRepository.Merge(persisted, current);
+            }
+        }
+
+        [Delete(typeof (EngineLeaseOrderDTO))]
+        public void DeleteEngineLeaseOrder(EngineLeaseOrderDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+
+            var deleteEngineLeaseOrder = _orderRepository.Get(dto.Id);
+            if (deleteEngineLeaseOrder != null)
+            {
+                _orderRepository.Remove(deleteEngineLeaseOrder);
+            }
+        }
+
+        private EngineLeaseOrder MaterializeEngineLeaseOrderFromDto(EngineLeaseOrderDTO dto)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region EnginePurchaseOrderDTO
+
+        [Insert(typeof (EnginePurchaseOrderDTO))]
+        public void InsertEnginePurchaseOrder(EnginePurchaseOrderDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+        }
+
+        [Update(typeof (EnginePurchaseOrderDTO))]
+        public void UpdateEnginePurchaseOrder(EnginePurchaseOrderDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+
+            var persisted = _orderRepository.Get(dto.Id);
+            if (persisted != null)
+            {
+                var current = MaterializeEnginePurchaseOrderFromDto(dto);
+                _orderRepository.Merge(persisted, current);
+            }
+        }
+
+        [Delete(typeof (EnginePurchaseOrderDTO))]
+        public void DeleteEnginePurchaseOrder(EnginePurchaseOrderDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+
+            var deleteEnginePurchaseOrder = _orderRepository.Get(dto.Id);
+            if (deleteEnginePurchaseOrder != null)
+            {
+                _orderRepository.Remove(deleteEnginePurchaseOrder);
+            }
+        }
+
+        private EnginePurchaseOrder MaterializeEnginePurchaseOrderFromDto(EnginePurchaseOrderDTO dto)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

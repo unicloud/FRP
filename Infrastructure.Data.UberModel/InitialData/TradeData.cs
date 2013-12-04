@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.Linq;
 using UniCloud.Domain.UberModel.Aggregates.CurrencyAgg;
 using UniCloud.Domain.UberModel.Aggregates.LinkmanAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
@@ -51,7 +52,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             Context.Suppliers.Add(supplier);
 
             var trade = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now);
-            trade.SetTradeNumber(1);
+            trade.GenerateNewIdentity();
+            // 设置交易编号
+            var date = DateTime.Now.Date;
+            var seq = Context.Trades.Count(t => t.CreateDate > date) + 1;
+            trade.SetTradeNumber(seq);
+            // 设置供应商
             trade.SetSupplier(supplier);
             Context.Trades.Add(trade);
 

@@ -19,7 +19,6 @@
 
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
-using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data;
 
@@ -49,14 +48,13 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
         /// </returns>
         public IQueryable<TradeDTO> TradesQuery(QueryBuilder<Trade> query)
         {
-            var suppliers = _unitOfWork.CreateSet<Supplier>();
             var result = query.ApplyTo(_unitOfWork.CreateSet<Trade>()).Select(t => new TradeDTO
             {
                 Id = t.Id,
                 TradeNumber = t.TradeNumber,
                 Name = t.Name,
                 Description = t.Description,
-                SupplierName = suppliers.FirstOrDefault(s => s.Id == t.SupplierId).Name,
+                SupplierId = t.SupplierId,
                 StartDate = t.StartDate,
                 IsClosed = t.IsClosed,
                 Status = (int) t.Status

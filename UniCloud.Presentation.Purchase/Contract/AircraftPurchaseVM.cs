@@ -18,7 +18,9 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
@@ -61,13 +63,9 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         private void InitializeVM()
         {
-            // 创建并注册CollectionView，例如：
-            // Orders = Service.CreateCollection<Order>(context.Orders);
-            // Service.RegisterCollectionView(Orders);
-
             ViewTradeDTO = Service.CreateCollection<TradeDTO>(_context.Trades);
-            //var fd = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
-            //ViewTradeDTO.FilterDescriptors.Add(fd);
+            var fd = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
+            ViewTradeDTO.FilterDescriptors.Add(fd);
             Service.RegisterCollectionView(ViewTradeDTO);
             ViewTradeDTO.PropertyChanged += OnViewPropertyChanged;
 
@@ -92,6 +90,14 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 公共属性
 
+        /// <summary>
+        ///     供应商
+        /// </summary>
+        public IEnumerable<SupplierDTO> Suppliers
+        {
+            get { return GlobalServiceHelper.Suppliers; }
+        }
+
         #endregion
 
         #region 加载数据
@@ -105,10 +111,10 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         public override void LoadData()
         {
-            // 将CollectionView的AutoLoad属性设为True，例如：
-            // Orders.AutoLoad = true;
-            ViewTradeDTO.AutoLoad = true;
-            ViewAircraftPurchaseOrderDTO.AutoLoad = true;
+            if (!ViewTradeDTO.Any())
+            {
+                ViewTradeDTO.AutoLoad = true;
+            }
         }
 
         #region 交易
@@ -131,6 +137,15 @@ namespace UniCloud.Presentation.Purchase.Contract
                 if (_selTradeDTO != value)
                 {
                     _selTradeDTO = value;
+                    if (_selTradeDTO != null)
+                    {
+                        var fd = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, _selTradeDTO.Id);
+                        ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(fd);
+                        if (!ViewAircraftPurchaseOrderDTO.Any())
+                        {
+                            ViewAircraftPurchaseOrderDTO.AutoLoad = true;
+                        }
+                    }
                     RaisePropertyChanged(() => SelTradeDTO);
                 }
             }
