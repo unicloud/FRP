@@ -35,6 +35,20 @@ namespace UniCloud.Domain
 
         #endregion
 
+        #region 公共方法
+
+        /// <summary>
+        ///     改变当前实体对象的ID
+        /// </summary>
+        /// <param name="identity">新的ID</param>
+        public void ChangeCurrentIdentity(int identity)
+        {
+            if (identity != 0)
+                Id = identity;
+        }
+
+        #endregion
+
         #region 重载方法
 
         /// <summary>

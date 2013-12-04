@@ -27,16 +27,33 @@ namespace UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg
         /// </summary>
         /// <param name="contractName">合同名称</param>
         /// <param name="rankNumber">RANK号</param>
-        /// <returns></returns>
+        /// <returns>租赁合同飞机</returns>
         public static LeaseContractAircraft CreateLeaseContractAircraft(string contractName, string rankNumber)
         {
-            var leaseContractAircraft = new LeaseContractAircraft();
-            leaseContractAircraft.GenerateNewIdentity();
-
-            leaseContractAircraft.ContractName = contractName;
-            leaseContractAircraft.RankNumber = rankNumber;
+            var leaseContractAircraft = new LeaseContractAircraft
+            {
+                ContractName = contractName,
+                RankNumber = rankNumber
+            };
 
             return leaseContractAircraft;
+        }
+
+        /// <summary>
+        ///     创建购买合同飞机
+        /// </summary>
+        /// <param name="contractName">合同名称</param>
+        /// <param name="rankNumber">RANK号</param>
+        /// <returns>购买合同飞机</returns>
+        public static PurchaseContractAircraft CreatePurchaseContractAircraft(string contractName, string rankNumber)
+        {
+            var purchaseContractAircraft = new PurchaseContractAircraft
+            {
+                ContractName = contractName,
+                RankNumber = rankNumber
+            };
+
+            return purchaseContractAircraft;
         }
     }
 }

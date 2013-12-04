@@ -121,6 +121,7 @@
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\PurchaseDataService.pubxml" />
     <None Include="Properties\PublishProfiles\PurchaseService.pubxml" />
+    <None Include="Properties\PublishProfiles\WCFDataService.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

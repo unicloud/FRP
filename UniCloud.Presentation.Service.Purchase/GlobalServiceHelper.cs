@@ -16,7 +16,6 @@
 
 #region 命名空间
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Telerik.Windows.Data;
@@ -36,39 +35,71 @@ namespace UniCloud.Presentation.Service.Purchase
             {
                 Context = new PurchaseData(AgentHelper.PurchaseUri);
             }
-            SupplierQuery = new QueryableDataServiceCollectionView<SupplierDTO>(Context, Context.Suppliers);
-            SupplierQuery.LoadedData += SupplierQueryLoadedData;
+
+            InitialSupplier();
+            InitialAircraftType();
         }
 
-        //供应商数据加载完毕，分类处理
-        static void SupplierQueryLoadedData(object sender, Telerik.Windows.Controls.DataServices.LoadedDataEventArgs e)
-        {
-            MaintainSupplier = new List<SupplierDTO>();
-            var result = sender as QueryableDataServiceCollectionView<SupplierDTO>;
-            result.AsEnumerable().ToList().ForEach(MaintainSupplier.Add);
-        }
+        #region Supplier
 
-        //初始化数据
+        private static QueryableDataServiceCollectionView<SupplierDTO> _supplierQuery;
+        public static List<SupplierDTO> Suppliers { get; set; }
 
-        public static List<SupplierDTO> MaintainSupplier { get; set; }
-        private static readonly QueryableDataServiceCollectionView<SupplierDTO> SupplierQuery;
-        public static void InitData()
+        /// <summary>
+        ///     初始化
+        /// </summary>
+        private static void InitialSupplier()
         {
-            if (MaintainSupplier == null)
+            _supplierQuery = new QueryableDataServiceCollectionView<SupplierDTO>(Context, Context.Suppliers);
+            _supplierQuery.LoadedData += (o, e) =>
             {
-                SupplierQuery.AutoLoad = true;
-            }
-            //LoadSupplier(null);
+                var result = o as QueryableDataServiceCollectionView<SupplierDTO>;
+                Suppliers = result.ToList();
+            };
         }
 
-        //加载供应商数据
-        private static void LoadSupplier(Type type)
+        /// <summary>
+        ///     加载数据
+        /// </summary>
+        public static void LoadSupplier()
         {
-            if (MaintainSupplier == null)
+            if (Suppliers == null)
             {
-                Context.Suppliers.BeginExecute(p => { MaintainSupplier = Context.Suppliers.EndExecute(p).ToList(); },
-                    null);
+                _supplierQuery.AutoLoad = true;
             }
         }
+
+        #endregion
+
+        #region AircraftType
+
+        private static QueryableDataServiceCollectionView<AircraftTypeDTO> _aircraftTypeQuery;
+        public static List<AircraftTypeDTO> AircraftTypes { get; set; }
+
+        /// <summary>
+        ///     初始化
+        /// </summary>
+        private static void InitialAircraftType()
+        {
+            _aircraftTypeQuery = new QueryableDataServiceCollectionView<AircraftTypeDTO>(Context, Context.AircraftTypes);
+            _aircraftTypeQuery.LoadedData += (o, e) =>
+            {
+                var result = o as QueryableDataServiceCollectionView<AircraftTypeDTO>;
+                AircraftTypes = result.ToList();
+            };
+        }
+
+        /// <summary>
+        ///     加载数据
+        /// </summary>
+        public static void LoadAircraftType()
+        {
+            if (AircraftTypes == null)
+            {
+                _aircraftTypeQuery.AutoLoad = true;
+            }
+        }
+
+        #endregion
     }
 }

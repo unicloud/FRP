@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ChartView;
 
 namespace UniCloud.Presentation.Purchase.QueryAnalyse

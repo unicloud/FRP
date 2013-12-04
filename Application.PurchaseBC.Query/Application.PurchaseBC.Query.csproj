@@ -50,6 +50,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionCategoryQueries\ActionCategoryQuery.cs" />
+    <Compile Include="ActionCategoryQueries\IActionCategoryQuery.cs" />
+    <Compile Include="AircraftTypeQueries\AircraftTypeQuery.cs" />
+    <Compile Include="AircraftTypeQueries\IAircraftTypeQuery.cs" />
+    <Compile Include="ContractAircraftQueries\ILeaseContractAircraftQuery.cs" />
+    <Compile Include="ContractAircraftQueries\IPurchaseContractAircraftQuery.cs" />
+    <Compile Include="ContractAircraftQueries\LeaseContractAircraftQuery.cs" />
+    <Compile Include="ContractAircraftQueries\PurchaseContractAircraftQuery.cs" />
     <Compile Include="ContractQueries\IMaintainContractQuery.cs" />
     <Compile Include="ContractQueries\MaintainContractQuery.cs" />
     <Compile Include="ForwarderQueries\ForwarderQuery.cs" />
@@ -58,6 +66,8 @@
     <Compile Include="MaterialQueries\IMaterialQuery.cs" />
     <Compile Include="PartQueries\IPartQuery.cs" />
     <Compile Include="PartQueries\PartQuery.cs" />
+    <Compile Include="PlanAircraftQueries\IPlanAircraftQuery.cs" />
+    <Compile Include="PlanAircraftQueries\PlanAircraftQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SupplierQueries\ISupplierQuery.cs" />
     <Compile Include="SupplierQueries\SupplierQuery.cs" />

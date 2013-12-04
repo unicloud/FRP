@@ -15,6 +15,8 @@
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
+using UniCloud.Infrastructure.Data;
 
 namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
 {
@@ -23,10 +25,10 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
     /// </summary>
     public class AircraftLeaseReceptionQuery : IAircraftLeaseReceptionQuery
     {
-        private readonly IReceptionRepository _receptionRepository;
-        public AircraftLeaseReceptionQuery(IReceptionRepository receptionRepository)
+        private readonly IQueryableUnitOfWork _unitOfWork;
+        public AircraftLeaseReceptionQuery(IQueryableUnitOfWork unitOfWork)
         {
-            _receptionRepository = receptionRepository;
+            _unitOfWork = unitOfWork;
         }
 
         /// <summary>
@@ -38,25 +40,34 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
             QueryBuilder<AircraftLeaseReception> query)
         {
             return
-            query.ApplyTo(_receptionRepository.GetAll().OfType<AircraftLeaseReception>())
+            query.ApplyTo(_unitOfWork.CreateSet<Reception>().OfType<AircraftLeaseReception>())
                      .Select(p => new AircraftLeaseReceptionDTO
                      {
                          AircraftLeaseReceptionId = p.Id,
+                         ReceptionNumber = p.ReceptionNumber,
                          CreateDate = p.CreateDate,
                          StartDate = p.StartDate,
                          EndDate = p.EndDate,
                          CloseDate = p.CloseDate,
                          IsClosed = p.IsClosed,
-                         ReceptionLines = p.ReceptionLines.OfType<AircraftLeaseReceptionLine>().Select(q => new AircraftLeaseReceptionLineDTO
+                         SupplierId = p.SupplierId,
+                         SupplierName = p.Supplier.Name,
+                         ReceptionLines = p.ReceptionLines.OfType<AircraftLeaseReceptionLine>()
+                         .Select(q => new AircraftLeaseReceptionLineDTO
                          {
                              ReceptionId = q.ReceptionId,
                              ReceivedAmount = q.ReceivedAmount,
                              AcceptedAmount = q.AcceptedAmount,
                              IsCompleted = q.IsCompleted,
                              Note = q.Note,
+                             MSN = q.LeaseContractAircraft.SerialNumber,
+                             ContractNumber = q.LeaseContractAircraft.ContractNumber,
+                             AircraftType = q.LeaseContractAircraft.AircraftType.Name,
+                             ImportCategoryId = q.LeaseContractAircraft.ImportCategory.ActionName,
                          }).ToList(),
                          ReceptionSchedules = p.ReceptionSchedules.Select(q => new ReceptionScheduleDTO
                          {
+                             ReceptionScheduleId = q.Id,
                              ReceptionId = q.ReceptionId,
                              Subject = q.Subject,
                              Body = q.Body,
@@ -65,6 +76,10 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
                              End = q.End,
                              IsAllDayEvent = q.IsAllDayEvent,
                              Group = q.Group,
+                             Tempo = q.Tempo,
+                             Location = q.Location,
+                             UniqueId = q.UniqueId,
+                             Url=q.Url,
                          }).ToList(),
                      });
         }

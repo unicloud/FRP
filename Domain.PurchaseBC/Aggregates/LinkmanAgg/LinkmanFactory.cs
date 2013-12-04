@@ -43,15 +43,16 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg
         public static Linkman CreateLinkman(string name, string telephone, string mobile, string fax, string email,
             Address address,Guid sourceId)
         {
-            var linkman = new Linkman();
-            linkman.GenerateNewIdentity();
+            var linkman = new Linkman
+            {
+                Name = name,
+                TelePhone = telephone,
+                Mobile = mobile,
+                Fax = fax,
+                Email = email,
+                Address = address
+            };
 
-            linkman.Name = name;
-            linkman.TelePhone = telephone;
-            linkman.Mobile = mobile;
-            linkman.Fax = fax;
-            linkman.Email = email;
-            linkman.Address = address;
             linkman.SetSourceId(sourceId);
             return linkman;
         }

@@ -62,7 +62,8 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         [Insert(typeof (EngineLeaseReceptionDTO))]
         public void InsertEngineLeaseReception(EngineLeaseReceptionDTO engineLeaseReception)
         {
-            var newEngineLeaseReception = ReceptionFactory.CreateEngineLeaseReception(DateTime.Now, 1);
+            var newEngineLeaseReception = ReceptionFactory.CreateEngineLeaseReception(DateTime.Now);
+
             _receptionRepository.Add(newEngineLeaseReception);
         }
 

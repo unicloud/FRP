@@ -32,18 +32,18 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// 租赁飞机接收行主键
         /// </summary>
         public int AircraftLeaseReceptionLineId { get; set; }
-        //飞机注册号
-        public string AcReg { get; set; }
+        ////飞机注册号
+        //public string AcReg { get; set; }
         //飞机生产序列号
         public string MSN { get; set; }
         //合同号
         public string ContractNumber { get; set; }
         //机型
         public string AircraftType { get; set; }
-        //制造商
-        public string Manufacturer { get; set; }
-        //发动机型号
-        public string EngineType { get; set; }
+        ////制造商
+        //public string Manufacturer { get; set; }
+        ////发动机型号
+        //public string EngineType { get; set; }
         //选呼号
         public string DailNumber { get; set; }
         //计划交付时间
@@ -52,8 +52,8 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public string DeliverPlace { get; set; }
         //调机航班号
         public string FlightNumber { get; set; }
-        //供应商名称
-        public string SuppplierName { get; set; }
+        ////供应商名称
+        //public string SuppplierName { get; set; }
         //引进方式
         public string ImportCategoryId { get; set; }
         //引进批文号

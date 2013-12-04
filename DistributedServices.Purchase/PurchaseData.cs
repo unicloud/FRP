@@ -18,11 +18,14 @@
 #region 命名空间
 
 using System.Linq;
+using UniCloud.Application.PurchaseBC.ActionCategoryServices;using UniCloud.Application.PurchaseBC.AircraftTypeServices;
+using UniCloud.Application.PurchaseBC.ContractAircraftServices;
 using UniCloud.Application.PurchaseBC.ContractServices;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
 using UniCloud.Application.PurchaseBC.PartServices;
+using UniCloud.Application.PurchaseBC.PlanAircraftServices;
 using UniCloud.Application.PurchaseBC.ReceptionServices;
 using UniCloud.Application.PurchaseBC.SupplierServices;
 using UniCloud.Application.PurchaseBC.TradeServices;
@@ -37,20 +40,27 @@ namespace UniCloud.DistributedServices.Purchase
     /// </summary>
     public class PurchaseData : ExposeData.ExposeData
     {
+        private readonly IAircraftTypeAppService _aircraftTypeAppService;
+        private readonly IActionCategoryAppService _actionCategoryAppService;
         private readonly IAircraftLeaseReceptionAppService _aircraftLeaseReceptionAppService;
         private readonly IAircraftPurchaseReceptionAppService _aircraftPurchaseReceptionAppService;
         private readonly IEngineLeaseReceptionAppService _engineLeaseReceptionAppService;
         private readonly IEnginePurchaseReceptionAppService _enginePurchaseReceptionAppService;
         private readonly IForwarderAppService _forwarderAppService;
+        private readonly ILeaseContractAircraftAppService _leaseContractAircraftAppService;
         private readonly IMaintainContractAppService _maintainContractAppService;
         private readonly IMaterialAppService _materialAppService;
         private readonly IPartAppService _partAppService;
+        private readonly IPlanAircraftAppService _planAircraftAppService;
+        private readonly IPurchaseContractAircraftAppService _purchaseContractAircraftAppService;
         private readonly ISupplierAppService _supplierAppService;
         private readonly ITradeAppService _tradeAppService;
 
         public PurchaseData()
             : base("UniCloud.Application.PurchaseBC.DTO")
         {
+            _actionCategoryAppService = DefaultContainer.Resolve<IActionCategoryAppService>();
+            _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
             _forwarderAppService = DefaultContainer.Resolve<IForwarderAppService>();
             _maintainContractAppService = DefaultContainer.Resolve<IMaintainContractAppService>();
             _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();
@@ -60,7 +70,11 @@ namespace UniCloud.DistributedServices.Purchase
             _engineLeaseReceptionAppService = DefaultContainer.Resolve<IEngineLeaseReceptionAppService>();
             _enginePurchaseReceptionAppService = DefaultContainer.Resolve<IEnginePurchaseReceptionAppService>();
             _materialAppService = DefaultContainer.Resolve<IMaterialAppService>();
+            _leaseContractAircraftAppService = DefaultContainer.Resolve<ILeaseContractAircraftAppService>();
             _partAppService = DefaultContainer.Resolve<IPartAppService>();
+            _planAircraftAppService = DefaultContainer.Resolve<IPlanAircraftAppService>();
+            _purchaseContractAircraftAppService = DefaultContainer.Resolve<IPurchaseContractAircraftAppService>();
+
         }
 
         #region 合作公司相关集合
@@ -98,28 +112,66 @@ namespace UniCloud.DistributedServices.Purchase
         }
 
         /// <summary>
-        /// 合作公司飞机物料
+        /// 合作公司相关物料
         /// </summary>
-        public IQueryable<SupplierCompanyAcMaterialDTO> SupplierCompanyAcMaterials {
-            get { return _supplierAppService.GetSupplierCompanyAcMaterials(); }
+        public IQueryable<SupplierCompanyMaterialDTO> SupplierCompanyMaterials {
+            get { return _supplierAppService.GetSupplierCompanyMaterials(); }
+        }
+
+        #endregion
+
+        #region 机型集合
+
+        /// <summary>
+        ///     机型集合
+        /// </summary>
+        public IQueryable<AircraftTypeDTO> AircraftTypes
+        {
+            get { return _aircraftTypeAppService.GetAircraftTypes(); }
+        }
+        #endregion
+
+        #region 活动类型集合
+
+        /// <summary>
+        ///     活动类型集合
+        /// </summary>
+        public IQueryable<ActionCategoryDTO> ActionCategories
+        {
+            get { return _actionCategoryAppService.GetActionCategories(); }
+        }
+
+        #endregion
+
+        #region 计划飞机集合
+
+        /// <summary>
+        ///     计划飞机集合
+        /// </summary>
+        public IQueryable<PlanAircraftDTO> PlanAircrafts
+        {
+            get { return _planAircraftAppService.GetPlanAircrafts(); }
+        }
+
+        #endregion
+
+        #region 合同飞机集合
+
+        /// <summary>
+        ///     租赁合同飞机集合
+        /// </summary>
+        public IQueryable<LeaseContractAircraftDTO> LeaseContractAircrafts
+        {
+            get { return _leaseContractAircraftAppService.GetLeaseContractAircrafts(); }
         }
 
         /// <summary>
-        /// 合作公司发动机物料
+        ///     采购合同飞机集合
         /// </summary>
-        public IQueryable<SupplierCompanyEngineMaterialDTO> SupplierCompanyEngineMaterials
+        public IQueryable<PurchaseContractAircraftDTO> PurchaseContractAircrafts
         {
-            get { return _supplierAppService.GetSupplierCompanyEngineMaterials(); }
+            get { return _purchaseContractAircraftAppService.GetPurchaseContractAircrafts(); }
         }
-
-        /// <summary>
-        /// 合作公司BFE物料
-        /// </summary>
-        public IQueryable<SupplierCompanyBFEMaterialDTO> SupplierCompanyBFEMaterials
-        {
-            get { return _supplierAppService.GetSupplierCompanyBFEMaterials(); }
-        }
-
         #endregion
 
         #region 物料相关集合

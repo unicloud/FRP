@@ -1,0 +1,10 @@
+<OutOfBrowserSettings ShortName="Shell 应用程序" EnableGPUAcceleration="False" ShowInstallMenuItem="True">
+  <OutOfBrowserSettings.Blurb>您的桌面上的 Shell 应用程序；在家、工作或旅途中均可使用。</OutOfBrowserSettings.Blurb>
+  <OutOfBrowserSettings.WindowSettings>
+    <WindowSettings Title="Shell 应用程序" Height="600" Width="1300" WindowStyle="BorderlessRoundCornersWindow" />
+  </OutOfBrowserSettings.WindowSettings>
+  <OutOfBrowserSettings.SecuritySettings>
+    <SecuritySettings ElevatedPermissions="Required" />
+  </OutOfBrowserSettings.SecuritySettings>
+  <OutOfBrowserSettings.Icons />
+</OutOfBrowserSettings>

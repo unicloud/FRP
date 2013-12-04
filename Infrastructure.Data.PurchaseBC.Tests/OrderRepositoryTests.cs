@@ -86,6 +86,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
             // 须设置交易、币种
             // 可选设置联系人
             var acPurchaseOrder = OrderFactory.CreateAircraftPurchaseOrder(2, "XXX", DateTime.Now);
+            acPurchaseOrder.GenerateNewIdentity();
             acPurchaseOrder.SetTrade(trade);
             acPurchaseOrder.SetLinkman(linkman);
             acPurchaseOrder.SetCurrency(currency);
@@ -98,6 +99,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
 
             // 3、创建与订单对应的合同飞机
             var contractAircraft = ContractAircraftFactory.CreatePurchaseContractAircraft("购机合同", "0001");
+            contractAircraft.GenerateNewIdentity();
             contractAircraft.SetAircraftType(aircraftType);
             contractAircraft.SetImportCategory(impType);
 
@@ -143,10 +145,12 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
             var imp = impRep.GetFiltered(i => i.ActionName == "购买").FirstOrDefault();
 
             var contractAc = ContractAircraftFactory.CreatePurchaseContractAircraft("购买飞机", "0002");
+            contractAc.GenerateNewIdentity();
             contractAc.SetAircraftType(acType);
             contractAc.SetImportCategory(imp);
 
             var order = OrderFactory.CreateBFEPurchaseOrder(3, "", DateTime.Now);
+            order.GenerateNewIdentity();
             order.SetTrade(trade);
             order.SetLinkman(linkman);
             order.SetCurrency(currency);

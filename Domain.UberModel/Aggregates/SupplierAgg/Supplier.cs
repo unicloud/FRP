@@ -106,9 +106,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierAgg
         /// <param name="supplierCompany">供应商公司</param>
         public void SetSupplierCompany(SupplierCompany supplierCompany)
         {
-            if (supplierCompany == null
-                ||
-                supplierCompany.IsTransient())
+            if (supplierCompany == null || supplierCompany.IsTransient())
             {
                 throw new ArgumentException("供应商公司参数为空！");
             }

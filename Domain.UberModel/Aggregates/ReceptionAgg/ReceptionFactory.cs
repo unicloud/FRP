@@ -32,17 +32,14 @@ namespace UniCloud.Domain.UberModel.Aggregates.ReceptionAgg
         ///     创建租赁飞机接收
         /// </summary>
         /// <param name="startDate">开始日期</param>
-        /// <param name="seq">流水号</param>
         /// <returns>租赁飞机接收</returns>
-        public static AircraftLeaseReception CreateAircraftLeaseReception(DateTime startDate, int seq)
+        public static AircraftLeaseReception CreateAircraftLeaseReception(DateTime startDate)
         {
-            var aircraftLeaseReception = new AircraftLeaseReception();
-            aircraftLeaseReception.GenerateNewIdentity();
-
-            aircraftLeaseReception.CreateDate = DateTime.Now;
-            aircraftLeaseReception.StartDate = startDate;
-
-            aircraftLeaseReception.SetReceptionNumber(seq);
+            var aircraftLeaseReception = new AircraftLeaseReception
+            {
+                CreateDate = DateTime.Now,
+                StartDate = startDate
+            };
 
             return aircraftLeaseReception;
         }
@@ -51,19 +48,48 @@ namespace UniCloud.Domain.UberModel.Aggregates.ReceptionAgg
         ///     创建购买飞机接收
         /// </summary>
         /// <param name="startDate">开始日期</param>
-        /// <param name="seq">流水号</param>
         /// <returns>购买飞机接收</returns>
-        public static AircraftPurchaseReception CreateAircraftPurchaseReception(DateTime startDate, int seq)
+        public static AircraftPurchaseReception CreateAircraftPurchaseReception(DateTime startDate)
         {
-            var aircraftPurchaseReception = new AircraftPurchaseReception();
-            aircraftPurchaseReception.GenerateNewIdentity();
-
-            aircraftPurchaseReception.CreateDate = DateTime.Now;
-            aircraftPurchaseReception.StartDate = startDate;
-
-            aircraftPurchaseReception.SetReceptionNumber(seq);
+            var aircraftPurchaseReception = new AircraftPurchaseReception
+            {
+                CreateDate = DateTime.Now,
+                StartDate = startDate
+            };
 
             return aircraftPurchaseReception;
+        }
+
+        /// <summary>
+        ///     创建租赁发动机接收
+        /// </summary>
+        /// <param name="startDate">开始日期</param>
+        /// <returns>租赁发动机接收</returns>
+        public static EngineLeaseReception CreateEngineLeaseReception(DateTime startDate)
+        {
+            var engineLeaseReception = new EngineLeaseReception
+            {
+                CreateDate = DateTime.Now,
+                StartDate = startDate
+            };
+
+            return engineLeaseReception;
+        }
+
+        /// <summary>
+        ///     创建购买发动机接收
+        /// </summary>
+        /// <param name="startDate">开始日期</param>
+        /// <returns>购买发动机接收</returns>
+        public static EnginePurchaseReception CreateEnginePurchaseReception(DateTime startDate)
+        {
+            var enginePurchaseReception = new EnginePurchaseReception
+            {
+                CreateDate = DateTime.Now,
+                StartDate = startDate
+            };
+
+            return enginePurchaseReception;
         }
     }
 }

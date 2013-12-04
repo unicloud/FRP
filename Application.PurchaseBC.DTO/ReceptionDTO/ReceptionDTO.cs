@@ -53,7 +53,7 @@ namespace UniCloud.Application.PurchaseBC.DTO
         #region 外键属性
 
         //供应商外键
-        public string SupplierId { get; set; }
+        public int SupplierId { get; set; }
 
         #endregion
 

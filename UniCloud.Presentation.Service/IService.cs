@@ -40,45 +40,41 @@ namespace UniCloud.Presentation.Service
         DataServiceContext Context { get; }
 
         /// <summary>
-        ///     是否有变化
-        /// </summary>
-        bool HasChanges { get; }
-
-        /// <summary>
         ///     DataServiceCollectionView集合
         /// </summary>
         List<QueryableDataServiceCollectionViewBase> DataServiceCollectionViews { get; }
 
         /// <summary>
-        ///     属性变更事件
+        ///     保存实体变化
         /// </summary>
-        event EventHandler<PropertyChangedEventArgs> PropertyChanged;
+        /// <param name="collectionView">数据集合</param>
+        void SubmitChanges(QueryableDataServiceCollectionViewBase collectionView);
 
         /// <summary>
         ///     保存实体变化
         /// </summary>
-        void SubmitChanges();
-
-        /// <summary>
-        ///     保存实体变化
-        /// </summary>
+        /// <param name="collectionView">数据集合</param>
         /// <param name="callback">回调</param>
         /// <param name="state">状态</param>
-        void SubmitChanges(Action<SubmitChangesResult> callback, object state = null);
+        void SubmitChanges(QueryableDataServiceCollectionViewBase collectionView, Action<SubmitChangesResult> callback,
+            object state = null);
 
         /// <summary>
         ///     保存实体变化
         /// </summary>
+        /// <param name="collectionView">数据集合</param>
         /// <param name="saveChangesOptions">保存方式</param>
         /// <param name="callback">回调</param>
         /// <param name="state">状态</param>
-        void SubmitChanges(SaveChangesOptions saveChangesOptions, Action<SubmitChangesResult> callback,
+        void SubmitChanges(QueryableDataServiceCollectionViewBase collectionView, SaveChangesOptions saveChangesOptions,
+            Action<SubmitChangesResult> callback,
             object state = null);
 
         /// <summary>
         ///     撤销改变
         /// </summary>
-        void RejectChanges();
+        /// <param name="collectionView">数据集合</param>
+        void RejectChanges(QueryableDataServiceCollectionViewBase collectionView);
 
         /// <summary>
         ///     创建数据集合

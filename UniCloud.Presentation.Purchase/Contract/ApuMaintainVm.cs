@@ -15,10 +15,8 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
@@ -114,7 +112,6 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             // 将CollectionView的AutoLoad属性设为True
             ApuMaintainContracts.AutoLoad = true;
-            Suppliers = GlobalServiceHelper.MaintainSupplier;
         }
 
 
@@ -140,9 +137,9 @@ namespace UniCloud.Presentation.Purchase.Contract
                     {
                         _document.Id = _apuMaintainContract.DocumentId;
                         _document.Name = _apuMaintainContract.DocumentName;
-                        if (Suppliers != null)
+                        if (value.Suppliers != null)
                         {
-                            _supplier = Suppliers.FirstOrDefault(p => p.SupplierId == _apuMaintainContract.SignatoryId);
+                            _supplier = value.Suppliers.FirstOrDefault(p => p.SupplierId == _apuMaintainContract.SignatoryId);
                         }
                     }
                     RaisePropertyChanged(() => ApuMaintainContract);
@@ -167,17 +164,6 @@ namespace UniCloud.Presentation.Purchase.Contract
         #endregion
 
         #region 签约对象
-        private List<SupplierDTO> _suppliers;
-        public List<SupplierDTO> Suppliers
-        {
-            get { return _suppliers; }
-            set
-            {
-                _suppliers = value;
-                RaisePropertyChanged(() => Suppliers);
-            }
-        }
-
         private SupplierDTO _supplier;
         /// <summary>
         /// 选中的签约对象
@@ -266,13 +252,6 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 重载操作
 
-        /// <summary>
-        ///     刷新保存、撤销之外的所有命令按钮
-        /// </summary>
-        protected override void RefreshButtonState()
-        {
-
-        }
 
         #endregion
 

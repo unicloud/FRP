@@ -176,7 +176,21 @@ namespace UniCloud.Domain.UberModel.Aggregates.ReceptionAgg
             }
 
             var date = DateTime.Now;
-            ReceptionNumber = string.Format("{0}{1}{2}{3}", date.Year, date.Month, date.Day, seq.ToString("D2"));
+            ReceptionNumber = string.Format("{0:yyyyMMdd}{1}", date, seq.ToString("D2"));
+        }
+
+        /// <summary>
+        ///     设置接收编号
+        /// </summary>
+        /// <param name="receptionNumber">接收编号</param>
+        public void SetReceptionNumber(string receptionNumber)
+        {
+            if (string.IsNullOrWhiteSpace(receptionNumber))
+            {
+                throw new ArgumentException("接收编号参数为空！");
+            }
+
+            ReceptionNumber = receptionNumber;
         }
 
         #endregion

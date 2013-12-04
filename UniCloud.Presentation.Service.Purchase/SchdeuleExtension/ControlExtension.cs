@@ -43,6 +43,8 @@ namespace UniCloud.Presentation.Service.Purchase.SchdeuleExtension
             appointment.End = schedule.End;
             appointment.Start = schedule.Start;
             appointment.IsAllDayEvent = schedule.IsAllDayEvent;
+            appointment.UniqueId = schedule.UniqueId;
+            appointment.Url = schedule.Url;
             appointment.TimeMarker = GetTimeMarker(schedule.Importance);
             appointment.Category = GetCategory(schedule.Tempo);
             appointment.Resources.Add(GetResource(schedule.Group));
@@ -147,17 +149,17 @@ namespace UniCloud.Presentation.Service.Purchase.SchdeuleExtension
         {
             switch (groupName)
             {
-                case "高级别":
+                case "机队管理组":
                     {
                         var resource = new Resource("机队管理组", "WorkGroup");
                         return resource;
                     }
-                case "中级别":
+                case "机务组":
                     {
                         var resource = new Resource("机务组", "WorkGroup");
                         return resource;
                     }
-                case "低级别":
+                case "后勤组":
                     {
                         var resource = new Resource("后勤组", "WorkGroup");
                         return resource;
