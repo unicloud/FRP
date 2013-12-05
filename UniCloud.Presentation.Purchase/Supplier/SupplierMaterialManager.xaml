@@ -96,7 +96,7 @@
                                      CanUserPin="False"
                                      ContextMenuTemplate="{x:Null}">
                             <telerik:RadTabControl TabStripPlacement="Bottom">
-                                <telerik:RadTabItem Header="飞机物料">
+                                <telerik:RadTabItem Header="飞机物料" Visibility="{Binding AcMaterialVisibility}">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"></RowDefinition>
@@ -123,6 +123,7 @@
                                                  IsReadOnly="True"
                                                  ItemsSource="{Binding SupplierCompanyAcMaterialsView}"
                                                  IsBusy="{Binding SupplierCompanyAcMaterialsView.IsBusy}"
+                                                 SelectedItem="{Binding SelSupplierCompanyAcMaterial, Mode=TwoWay}"
                                                  AutoGenerateColumns="False"
                                                  ShowGroupPanel="True"
                                                  CanUserSortColumns="True"
@@ -144,7 +145,7 @@
                                         </telerik:RadGridView>
                                     </Grid>
                                 </telerik:RadTabItem>
-                                <telerik:RadTabItem Header="发动机物料">
+                                <telerik:RadTabItem Header="发动机物料" Visibility="{Binding EngineMaterialVisibility}">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"></RowDefinition>
@@ -171,6 +172,7 @@
                                                  IsReadOnly="True"
                                                  ItemsSource="{Binding SupplierCompanyEngineMaterialsView}"
                                                  IsBusy="{Binding SupplierCompanyEngineMaterialsView.IsBusy}"
+                                                 SelectedItem="{Binding SelSupplierCompanyEngineMaterial, Mode=TwoWay}"
                                                  AutoGenerateColumns="False"
                                                  ShowGroupPanel="True"
                                                  CanUserSortColumns="True"
@@ -191,9 +193,8 @@
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                     </Grid>
-
                                 </telerik:RadTabItem>
-                                <telerik:RadTabItem Header="BFE物料">
+                                <telerik:RadTabItem Header="BFE物料" Visibility="{Binding BfeMaterialVisibility}">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"></RowDefinition>
@@ -219,6 +220,7 @@
                                                  Name="BFEMaterial"
                                                  ItemsSource="{Binding SupplierCompanyBFEMaterialsView}"
                                                  IsBusy="{Binding SupplierCompanyBFEMaterialsView.IsBusy}"
+                                                  SelectedItem="{Binding SelSupplierCompanyBFEMaterial, Mode=TwoWay}"
                                                  AutoGenerateColumns="False"
                                                  IsReadOnly="True"
                                                  ShowGroupPanel="True"

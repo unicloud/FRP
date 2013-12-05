@@ -83,7 +83,10 @@ namespace UniCloud.Presentation.Purchase.Forwarder
                     e.MarkErrorAsHandled();
                     return;
                 }
-                SelForwarder = e.Entities.Cast<ForwarderDTO>().FirstOrDefault();
+                if (SelForwarder==null)
+                {
+                    SelForwarder = e.Entities.Cast<ForwarderDTO>().FirstOrDefault();
+                }
             };
             ForwardersView.PropertyChanged += (sender, e) =>
             {
@@ -98,7 +101,6 @@ namespace UniCloud.Presentation.Purchase.Forwarder
                         (ForwardersView.CurrentAddItem as ForwarderDTO).ForwarderId = RandomHelper.Next();
                     }
                 }
-
             };
         }
 

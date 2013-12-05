@@ -1,4 +1,23 @@
-﻿using System;
+﻿#region 版本信息
+
+// ========================================================================
+// 版权所有 (C) 2013 UniCloud 
+//【本类功能概述】
+// 
+// 作者：陈春勇 时间：2013/12/03，14:12
+// 文件名：QuerySupplierVM.cs
+// 程序集：UniCloud.Presentation.Purchase
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// ========================================================================
+
+#endregion
+
+#region 命名空间
+
+using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Telerik.Windows.Data;
@@ -8,15 +27,16 @@ using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
+#endregion
+
 namespace UniCloud.Presentation.Purchase.Supplier
 {
     /// <summary>
-    /// 查询供应商信息
+    ///     查询供应商信息
     /// </summary>
-    [Export(typeof(QuerySupplierVM))]
+    [Export(typeof (QuerySupplierVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-
-    public class QuerySupplierVM:EditViewModelBase
+    public class QuerySupplierVM : EditViewModelBase
     {
         private FilterDescriptor _linkManFilter; //查找联系人配置。
         private PurchaseData _purchaseData;
@@ -29,11 +49,11 @@ namespace UniCloud.Presentation.Purchase.Supplier
         public QuerySupplierVM()
         {
             InitialSupplierCompany(); //初始化合作公司。
-            InitialSupplier();//初始化联系人。
+            InitialSupplier(); //初始化联系人。
             InitialLinkMan(); //初始化联系人。
-            InitialSupplierCompanyAcMaterial();//初始化合作公司飞机物料
-            InitialSupplierCompanyBFEMaterial();//初始化合作公司BFE物料
-            InitialSupplierCompanyEngineMaterial();//初始化合作公司发动机物料
+            InitialSupplierCompanyAcMaterial(); //初始化合作公司飞机物料
+            InitialSupplierCompanyBFEMaterial(); //初始化合作公司BFE物料
+            InitialSupplierCompanyEngineMaterial(); //初始化合作公司发动机物料
         }
 
         #region SupplierCompany相关信息
@@ -74,14 +94,14 @@ namespace UniCloud.Presentation.Purchase.Supplier
             SupplierCompanysView = Service.CreateCollection(_purchaseData.SupplierCompanys);
             Service.RegisterCollectionView(SupplierCompanysView); //注册查询集合。
             SupplierCompanysView.LoadedData += (sender, e) =>
-            {
-                if (e.HasError)
                 {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
-                SelSupplierCompany = e.Entities.Cast<SupplierCompanyDTO>().FirstOrDefault();
-            };
+                    if (e.HasError)
+                    {
+                        e.MarkErrorAsHandled();
+                        return;
+                    }
+                    SelSupplierCompany = e.Entities.Cast<SupplierCompanyDTO>().FirstOrDefault();
+                };
         }
 
         #endregion
@@ -118,25 +138,25 @@ namespace UniCloud.Presentation.Purchase.Supplier
             _linkManFilter = new FilterDescriptor("SourceId", FilterOperator.IsEqualTo, Guid.Empty);
             LinkmansView.FilterDescriptors.Add(_linkManFilter);
             LinkmansView.LoadedData += (sender, e) =>
-            {
-                if (e.HasError)
                 {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
-                SelLinkMan = e.Entities.Cast<LinkmanDTO>().FirstOrDefault();
-            };
-            LinkmansView.PropertyChanged += (sender, e) =>
-            {
-                if (e.PropertyName == "CurrentAddItem")
-                {
-                    if (LinkmansView.CurrentAddItem is LinkmanDTO)
+                    if (e.HasError)
                     {
-                        (LinkmansView.CurrentAddItem as LinkmanDTO).SourceId = SelSupplierCompany.LinkManId;
-                        (LinkmansView.CurrentAddItem as LinkmanDTO).LinkmanId = RandomHelper.Next();
+                        e.MarkErrorAsHandled();
+                        return;
                     }
-                }
-            };
+                    SelLinkMan = e.Entities.Cast<LinkmanDTO>().FirstOrDefault();
+                };
+            LinkmansView.PropertyChanged += (sender, e) =>
+                {
+                    if (e.PropertyName == "CurrentAddItem")
+                    {
+                        if (LinkmansView.CurrentAddItem is LinkmanDTO)
+                        {
+                            (LinkmansView.CurrentAddItem as LinkmanDTO).SourceId = SelSupplierCompany.LinkManId;
+                            (LinkmansView.CurrentAddItem as LinkmanDTO).LinkmanId = RandomHelper.Next();
+                        }
+                    }
+                };
         }
 
 
@@ -193,14 +213,14 @@ namespace UniCloud.Presentation.Purchase.Supplier
             _supplierFilter = new FilterDescriptor("SuppierCompanyId", FilterOperator.IsEqualTo, -1);
             SuppliersView.FilterDescriptors.Add(_supplierFilter);
             SuppliersView.LoadedData += (sender, e) =>
-            {
-                if (e.HasError)
                 {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
-                SelSupplier = e.Entities.Cast<SupplierDTO>().FirstOrDefault();
-            };
+                    if (e.HasError)
+                    {
+                        e.MarkErrorAsHandled();
+                        return;
+                    }
+                    SelSupplier = e.Entities.Cast<SupplierDTO>().FirstOrDefault();
+                };
         }
 
 
@@ -223,8 +243,9 @@ namespace UniCloud.Presentation.Purchase.Supplier
 
         #region SupplierCompanyAcMaterial相关信息
 
-        private SupplierCompanyAcMaterialDTO _selectedSupplierCompanyAcMaterial;
         private FilterDescriptor _acMeterialFilter; //查找合作公司飞机物料。
+        private SupplierCompanyAcMaterialDTO _selectedSupplierCompanyAcMaterial;
+
         /// <summary>
         ///     选择合作公司飞机物料。
         /// </summary>
@@ -258,15 +279,16 @@ namespace UniCloud.Presentation.Purchase.Supplier
             _acMeterialFilter = new FilterDescriptor("SupplierCompanyId", FilterOperator.IsEqualTo, 0);
             SupplierCompanyAcMaterialsView.FilterDescriptors.Add(_acMeterialFilter);
             SupplierCompanyAcMaterialsView.LoadedData += (sender, e) =>
-            {
-                if (e.HasError)
                 {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
-                SelSupplierCompanyAcMaterial = e.Entities.Cast<SupplierCompanyAcMaterialDTO>().FirstOrDefault();
-            };
+                    if (e.HasError)
+                    {
+                        e.MarkErrorAsHandled();
+                        return;
+                    }
+                    SelSupplierCompanyAcMaterial = e.Entities.Cast<SupplierCompanyAcMaterialDTO>().FirstOrDefault();
+                };
         }
+
         /// <summary>
         ///     根据合作公司Id，加载合作公司飞机物料。
         /// </summary>
@@ -285,8 +307,9 @@ namespace UniCloud.Presentation.Purchase.Supplier
 
         #region SupplierCompanyEngineMaterial相关信息
 
-        private SupplierCompanyEngineMaterialDTO _selectedSupplierCompanyEngineMaterial;
         private FilterDescriptor _engienMeterialFilter; //查找合作公司发动机物料。
+        private SupplierCompanyEngineMaterialDTO _selectedSupplierCompanyEngineMaterial;
+
         /// <summary>
         ///     选择合作公司发动机物料。
         /// </summary>
@@ -320,14 +343,15 @@ namespace UniCloud.Presentation.Purchase.Supplier
             _engienMeterialFilter = new FilterDescriptor("SupplierCompanyId", FilterOperator.IsEqualTo, 0);
             SupplierCompanyEngineMaterialsView.FilterDescriptors.Add(_engienMeterialFilter);
             SupplierCompanyEngineMaterialsView.LoadedData += (sender, e) =>
-            {
-                if (e.HasError)
                 {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
-                SelSupplierCompanyEngineMaterial = e.Entities.Cast<SupplierCompanyEngineMaterialDTO>().FirstOrDefault();
-            };
+                    if (e.HasError)
+                    {
+                        e.MarkErrorAsHandled();
+                        return;
+                    }
+                    SelSupplierCompanyEngineMaterial =
+                        e.Entities.Cast<SupplierCompanyEngineMaterialDTO>().FirstOrDefault();
+                };
         }
 
         /// <summary>
@@ -348,8 +372,9 @@ namespace UniCloud.Presentation.Purchase.Supplier
 
         #region SupplierCompanyBFEMaterial相关信息
 
-        private SupplierCompanyBFEMaterialDTO _selectedSupplierCompanyBFEMaterial;
         private FilterDescriptor _bfeMeterialFilter; //查找合作公司Bfe物料。
+        private SupplierCompanyBFEMaterialDTO _selectedSupplierCompanyBFEMaterial;
+
         /// <summary>
         ///     选择合作公司BFE物料。
         /// </summary>
@@ -382,14 +407,14 @@ namespace UniCloud.Presentation.Purchase.Supplier
             _bfeMeterialFilter = new FilterDescriptor("SupplierCompanyId", FilterOperator.IsEqualTo, 0);
             SupplierCompanyBFEMaterialsView.FilterDescriptors.Add(_bfeMeterialFilter);
             SupplierCompanyBFEMaterialsView.LoadedData += (sender, e) =>
-            {
-                if (e.HasError)
                 {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
-                SelSupplierCompanyBFEMaterial = e.Entities.Cast<SupplierCompanyBFEMaterialDTO>().FirstOrDefault();
-            };
+                    if (e.HasError)
+                    {
+                        e.MarkErrorAsHandled();
+                        return;
+                    }
+                    SelSupplierCompanyBFEMaterial = e.Entities.Cast<SupplierCompanyBFEMaterialDTO>().FirstOrDefault();
+                };
         }
 
         /// <summary>
@@ -427,7 +452,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
             _purchaseData = new PurchaseData(AgentHelper.PurchaseUri);
             return new PurchaseService(_purchaseData);
         }
-        #endregion
 
+        #endregion
     }
 }

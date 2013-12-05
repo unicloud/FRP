@@ -327,6 +327,15 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         [Insert(typeof(SupplierCompanyAcMaterialDTO))]
         public void InsertSupplierCompanyAcMaterial(SupplierCompanyAcMaterialDTO supplierCompanyAcMaterial)
         {
+            //判断增加的物料是否存在
+            var supplierCompanyMaterial = _supplierCompanyMaterialRepository.GetAll()
+                                                      .FirstOrDefault(
+                                                          p => p.MaterialId == supplierCompanyAcMaterial.MaterialId
+                                                               &&
+                                                               p.SupplierCompanyId ==
+                                                               supplierCompanyAcMaterial.SupplierCompanyId);
+            if (supplierCompanyMaterial != null)
+                throw new Exception("飞机物料已存在");
             var supplier = _supplierCompanyRepository.Get(supplierCompanyAcMaterial.SupplierCompanyId);
             if (supplier != null)
             {
@@ -353,6 +362,16 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         [Insert(typeof(SupplierCompanyEngineMaterialDTO))]
         public void InsertSupplierCompanyEngineMaterial(SupplierCompanyEngineMaterialDTO supplierCompanyEngineMaterial)
         {
+            //判断增加的物料是否存在
+            var supplierCompanyMaterial = _supplierCompanyMaterialRepository.GetAll()
+                                                      .FirstOrDefault(
+                                                          p => p.MaterialId == supplierCompanyEngineMaterial.MaterialId
+                                                               &&
+                                                               p.SupplierCompanyId ==
+                                                               supplierCompanyEngineMaterial.SupplierCompanyId);
+            if (supplierCompanyMaterial != null)
+                throw new Exception("发动机物料已存在");
+
             var supplier = _supplierCompanyRepository.Get(supplierCompanyEngineMaterial.SupplierCompanyId);
             if (supplier!=null)
             {
@@ -377,10 +396,20 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         /// <param name="supplierCompanyBFEMaterial">合作公司BFE物料DTO。</param>
         [Insert(typeof(SupplierCompanyBFEMaterialDTO))]
         public void InsertSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBFEMaterial)
-        {
+        { 
+            //判断增加的物料是否存在
+            var supplierCompanyMaterial = _supplierCompanyMaterialRepository.GetAll()
+                                                      .FirstOrDefault(
+                                                          p => p.MaterialId == supplierCompanyBFEMaterial.MaterialId
+                                                               &&
+                                                               p.SupplierCompanyId ==
+                                                               supplierCompanyBFEMaterial.SupplierCompanyId);
+            if(supplierCompanyMaterial!=null)
+                throw new Exception("BFE物料已存在");
+
             var supplier = _supplierCompanyRepository.Get(supplierCompanyBFEMaterial.SupplierCompanyId);
             if (supplier != null)
-            {
+            {    
                 supplier.AddMaterial(supplierCompanyBFEMaterial.MaterialId); //添加物料
             }
         }
