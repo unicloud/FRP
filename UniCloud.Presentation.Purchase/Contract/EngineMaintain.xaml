@@ -188,7 +188,7 @@
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
                                          Height="{StaticResource ControlHeight}"
-                                         ItemsSource="{Binding DataContext.Suppliers, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                         ItemsSource="{Binding Suppliers}"
                                          SelectedItem="{Binding DataContext.Supplier, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                          SelectedValue="{Binding SignatoryId, Mode=TwoWay}"
                                          SelectedValuePath="SupplierId"

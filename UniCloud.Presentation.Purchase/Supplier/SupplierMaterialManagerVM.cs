@@ -1,4 +1,21 @@
-﻿#region 命名空间
+﻿#region 版本信息
+
+// ========================================================================
+// 版权所有 (C) 2013 UniCloud 
+//【本类功能概述】
+// 
+// 作者：陈春勇 时间：2013/12/02，18:12
+// 文件名：SupplierMaterialManagerVM.cs
+// 程序集：UniCloud.Presentation.Purchase
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// ========================================================================
+
+#endregion
+
+#region 命名空间
 
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -7,6 +24,7 @@ using System.Windows;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Purchase;
@@ -21,65 +39,404 @@ namespace UniCloud.Presentation.Purchase.Supplier
     public class SupplierMaterialManagerVM : EditViewModelBase
     {
         private PurchaseData _purchaseData;
+
         /// <summary>
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
         public SupplierMaterialManagerVM()
         {
-            InitialSupplierCompanyMaterial(); //初始化供应商物料
-            InitialOperatorCommad();//初始化操作按钮
+            InitialSupplierCompany(); //初始化合作公司
+            InitialSupplierCompanyAcMaterial(); //初始化合作公司飞机物料
+            InitialSupplierCompanyBFEMaterial(); //初始化合作公司BFE物料
+            InitialSupplierCompanyEngineMaterial(); //初始化合作公司发动机物料
+            InitialOperatorCommad(); //初始化操作按钮
             InitialAircraftMaterial(); //飞机物料信息初始化
             InitialEngineMaterial(); //发动机物料按钮初始化
             InitialBFEMaterial(); //初始化BFE
             InitialMaterialChild(); //初始化维护物料按钮
-
         }
 
+        #region SupplierCompany相关信息
 
-        #region SupplierCompanyMaterial相关信息
-
-        private SupplierCompanyMaterialDTO _selectedSupplierCompanyMaterial;
+        private SupplierCompanyDTO _selectedSupplierCompany;
 
         /// <summary>
-        ///     选择供应商物料。
+        ///     选择合作公司。
         /// </summary>
-        public SupplierCompanyMaterialDTO SelSupplierCompanyMaterial
+        public SupplierCompanyDTO SelSupplierCompany
         {
-            get { return _selectedSupplierCompanyMaterial; }
+            get { return _selectedSupplierCompany; }
             set
             {
-                if (_selectedSupplierCompanyMaterial != value)
+                if (_selectedSupplierCompany != value)
                 {
-                    _selectedSupplierCompanyMaterial = value;
-                    //根据选择的供应商获取相关信息
-                    RaisePropertyChanged(() => SelSupplierCompanyMaterial);
+                    _selectedSupplierCompany = value;
+                    SetAcMaterialFilterState();//重新设置飞机物料
+                    SetEngineMaterialFilterState();//重新设置发动机物料
+                    SetBfeMaterialFilterState(); //重新设置Bfe物料
+                    LoadAcMaterialByCompany(value);
+                    LoadBFEMaterialByCompany(value);
+                    LoadEngineMaterialByCompany(value);
+                    RefreshMaterialTabState();//处理物料Tab是否可用
+                    RaisePropertyChanged(() => SelSupplierCompany);
                 }
             }
         }
 
         /// <summary>
-        ///     获取所有供应商物料信息。
+        ///     获取所有供应商公司信息。
         /// </summary>
-        public QueryableDataServiceCollectionView<SupplierCompanyMaterialDTO> SupplierCompanyMaterialsView { get; set; }
+        public QueryableDataServiceCollectionView<SupplierCompanyDTO> SupplierCompanysView { get; set; }
 
         /// <summary>
         ///     初始化合作公司信息。
         /// </summary>
-        private void InitialSupplierCompanyMaterial()
+        private void InitialSupplierCompany()
         {
-            SupplierCompanyMaterialsView = Service.CreateCollection(_purchaseData.SupplierCompanyMaterials.Expand(p=>p.AircraftMaterials));
-            SupplierCompanyMaterialsView.PageSize = 20;
-            Service.RegisterCollectionView(SupplierCompanyMaterialsView); //注册查询集合。
-            SupplierCompanyMaterialsView.LoadedData += (sender, e) =>
+            SupplierCompanysView = Service.CreateCollection(_purchaseData.SupplierCompanys);
+            SupplierCompanysView.LoadedData += (sender, e) =>
+                {
+                    if (e.HasError)
+                    {
+                        e.MarkErrorAsHandled();
+                        return;
+                    }
+                    if (SelSupplierCompany==null)
+                    SelSupplierCompany = e.Entities.Cast<SupplierCompanyDTO>().FirstOrDefault();
+                };
+        }
+
+        #endregion
+
+        #region SupplierCompanyAcMaterial相关信息
+
+        private FilterDescriptor _acMeterialFilter; //查找合作公司飞机物料。
+        private SupplierCompanyAcMaterialDTO _selectedSupplierCompanyAcMaterial;
+        private string _acMaterialNotFilter = string.Empty;    //设置飞机物料过滤信息
+        /// <summary>
+        ///    飞机物料Tab 是否可见。
+        /// </summary>
+        public Visibility AcMaterialVisibility
+        {
+            get
+            {
+                return SelSupplierCompany != null
+                       && (SelSupplierCompany.AircraftLeaseSupplier
+                           || SelSupplierCompany.AircraftPurchaseSupplier)
+                           ? Visibility.Visible
+                           : Visibility.Collapsed;
+            }
+        }
+
+        /// <summary>
+        ///     选择合作公司飞机物料。
+        /// </summary>
+        public SupplierCompanyAcMaterialDTO SelSupplierCompanyAcMaterial
+        {
+            get { return _selectedSupplierCompanyAcMaterial; }
+            set
+            {
+                if (_selectedSupplierCompanyAcMaterial != value)
+                {
+                    _selectedSupplierCompanyAcMaterial = value;
+                    DelAcMaterialCommand.RaiseCanExecuteChanged();
+                    RaisePropertyChanged(() => SelSupplierCompanyAcMaterial);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     获取所有供应商公司飞机物料信息。
+        /// </summary>
+        public QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO> SupplierCompanyAcMaterialsView { get; set; }
+
+        /// <summary>
+        ///     初始化合作公司飞机物料信息。
+        /// </summary>
+        private void InitialSupplierCompanyAcMaterial()
+        {
+            SupplierCompanyAcMaterialsView = Service.CreateCollection(_purchaseData.SupplierCompanyAcMaterials);
+            //根据合作公司Id，查询飞机物料
+            _acMeterialFilter = new FilterDescriptor("SupplierCompanyId", FilterOperator.IsEqualTo, 0);
+            SupplierCompanyAcMaterialsView.FilterDescriptors.Add(_acMeterialFilter);
+            SupplierCompanyAcMaterialsView.LoadedData += (sender, e) =>
+                {
+                    if (e.HasError)
+                    {
+                        e.MarkErrorAsHandled();
+                        return;
+                    }
+                    if (SelSupplierCompanyAcMaterial == null)
+                        SelSupplierCompanyAcMaterial = e.Entities.Cast<SupplierCompanyAcMaterialDTO>().FirstOrDefault();
+
+                    if (string.IsNullOrEmpty(_acMaterialNotFilter))
+                    SetAcMaterialFilter(); //设置过滤信息
+                };
+
+            SupplierCompanyAcMaterialsView.SubmittedChanges += (sender, e) =>
+                {
+                    if (e.HasError)
+                    {
+                      e.MarkErrorAsHandled();
+                        return;
+                    }
+                    SetAcMaterialFilterState();
+                    MaterialChildView.Close();
+                    MessageAlert("提示", "保存成功");
+                };
+        }
+
+        /// <summary>
+        /// 设置飞机过滤条件
+        /// </summary>
+        private void SetAcMaterialFilter()
+        {
+            _acMaterialNotFilter = string.Empty;
+            SupplierCompanyAcMaterialsView.ToList().ForEach(p => { _acMaterialNotFilter += (p.Name) + ","; });
+        }
+
+        /// <summary>
+        /// 重新设置飞机物料过滤信息
+        /// </summary>
+        private void SetAcMaterialFilterState()
+        {
+            _acMaterialNotFilter = string.Empty;
+        }
+
+        /// <summary>
+        ///     根据合作公司Id，加载合作公司飞机物料。
+        /// </summary>
+        /// <param name="supplierCompany">供应商公司</param>
+        private void LoadAcMaterialByCompany(SupplierCompanyDTO supplierCompany)
+        {
+            if (supplierCompany == null) return;
+            _acMeterialFilter.Value = supplierCompany.SupplierCompanyId;
+            if (!SupplierCompanyAcMaterialsView.AutoLoad)
+            {
+                SupplierCompanyAcMaterialsView.AutoLoad = true;
+            }
+        }
+
+        #endregion
+
+        #region SupplierCompanyEngineMaterial相关信息
+
+        private FilterDescriptor _engienMeterialFilter; //查找合作公司发动机物料。
+        private SupplierCompanyEngineMaterialDTO _selectedSupplierCompanyEngineMaterial;
+        private string _engineMaterialNotFilter = string.Empty;    //设置发动机物料过滤信息
+        /// <summary>
+        ///    发动机物料Tab 是否可见。
+        /// </summary>
+        public Visibility EngineMaterialVisibility
+        {
+            get
+            {
+                return SelSupplierCompany != null
+                       && (SelSupplierCompany.EngineLeaseSupplier
+                           || SelSupplierCompany.EnginePurchaseSupplier)
+                           ? Visibility.Visible
+                           : Visibility.Collapsed;
+            }
+        }
+
+        /// <summary>
+        ///     选择合作公司发动机物料。
+        /// </summary>
+        public SupplierCompanyEngineMaterialDTO SelSupplierCompanyEngineMaterial
+        {
+            get { return _selectedSupplierCompanyEngineMaterial; }
+            set
+            {
+                if (_selectedSupplierCompanyEngineMaterial != value)
+                {
+                    _selectedSupplierCompanyEngineMaterial = value;
+                    DelEngineMaterialCommand.RaiseCanExecuteChanged();
+                    RaisePropertyChanged(() => SelSupplierCompanyEngineMaterial);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     获取所有供应商公司发动机物料信息。
+        /// </summary>
+        public QueryableDataServiceCollectionView<SupplierCompanyEngineMaterialDTO> SupplierCompanyEngineMaterialsView { get; set; }
+
+        /// <summary>
+        ///     初始化合作公司发动机物料信息。
+        /// </summary>
+        private void InitialSupplierCompanyEngineMaterial()
+        {
+            SupplierCompanyEngineMaterialsView = Service.CreateCollection(_purchaseData.SupplierCompanyEngineMaterials);
+            //根据合作公司Id，查询发动机物料
+            _engienMeterialFilter = new FilterDescriptor("SupplierCompanyId", FilterOperator.IsEqualTo, 0);
+            SupplierCompanyEngineMaterialsView.FilterDescriptors.Add(_engienMeterialFilter);
+            SupplierCompanyEngineMaterialsView.LoadedData += (sender, e) =>
+                {
+                    if (e.HasError)
+                    {
+                        e.MarkErrorAsHandled();
+                        return;
+                    }
+                    if (SelSupplierCompanyEngineMaterial==null)
+                    SelSupplierCompanyEngineMaterial =
+                        e.Entities.Cast<SupplierCompanyEngineMaterialDTO>().FirstOrDefault();
+                    if (string.IsNullOrEmpty(_engineMaterialNotFilter))
+                        SetEngineMaterialFilter();
+                };
+
+            SupplierCompanyEngineMaterialsView.SubmittedChanges += (sender, e) =>
             {
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
                     return;
                 }
-                SelSupplierCompanyMaterial = e.Entities.Cast<SupplierCompanyMaterialDTO>().FirstOrDefault();
+                SetEngineMaterialFilterState();
+                MaterialChildView.Close();
+                MessageAlert("提示", "保存成功");
             };
+
+        }
+
+        /// <summary>
+        /// 设置发动机过滤条件
+        /// </summary>
+        private void SetEngineMaterialFilter()
+        {
+            _engineMaterialNotFilter = string.Empty;
+            SupplierCompanyEngineMaterialsView.ToList().ForEach(p => { _engineMaterialNotFilter += (p.Name) + ","; });
+        }
+
+        /// <summary>
+        /// 重新设置发动机物料过滤信息
+        /// </summary>
+        private void SetEngineMaterialFilterState()
+        {
+            _engineMaterialNotFilter = string.Empty;
+        }
+
+        /// <summary>
+        ///     根据合作公司Id，加载合作公司发动机物料。
+        /// </summary>
+        /// <param name="supplierCompany">供应商公司</param>
+        private void LoadEngineMaterialByCompany(SupplierCompanyDTO supplierCompany)
+        {
+            if (supplierCompany == null) return;
+            _engienMeterialFilter.Value = supplierCompany.SupplierCompanyId;
+            if (!SupplierCompanyEngineMaterialsView.AutoLoad)
+            {
+                SupplierCompanyEngineMaterialsView.AutoLoad = true;
+            }
+        }
+
+        #endregion
+
+        #region SupplierCompanyBFEMaterial相关信息
+
+        private FilterDescriptor _bfeMeterialFilter; //查找合作公司BFE物料。
+        private SupplierCompanyBFEMaterialDTO _selectedSupplierCompanyBFEMaterial;
+        private string _bfeMaterialNotFilter = string.Empty;    //设置BFE物料过滤信息
+        /// <summary>
+        ///    Bfe Tab 是否可见。
+        /// </summary>
+        public Visibility BfeMaterialVisibility
+        {
+            get
+            {
+                return SelSupplierCompany != null
+                       && SelSupplierCompany.BFEPurchaseSupplier
+                           ? Visibility.Visible
+                           : Visibility.Collapsed;
+            }
+        }
+        /// <summary>
+        ///     选择合作公司BFE物料。
+        /// </summary>
+        public SupplierCompanyBFEMaterialDTO SelSupplierCompanyBFEMaterial
+        {
+            get { return _selectedSupplierCompanyBFEMaterial; }
+            set
+            {
+                if (_selectedSupplierCompanyBFEMaterial != value)
+                {
+                    _selectedSupplierCompanyBFEMaterial = value;
+                    DelBFEMaterialCommand.RaiseCanExecuteChanged();
+                    RaisePropertyChanged(() => SelSupplierCompanyBFEMaterial);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     获取所有供应商公司BFE物料信息。
+        /// </summary>
+        public QueryableDataServiceCollectionView<SupplierCompanyBFEMaterialDTO> SupplierCompanyBFEMaterialsView { get; set; }
+
+        /// <summary>
+        ///     初始化合作公司BFE物料信息。
+        /// </summary>
+        private void InitialSupplierCompanyBFEMaterial()
+        {
+            SupplierCompanyBFEMaterialsView = Service.CreateCollection(_purchaseData.SupplierCompanyBFEMaterials);
+            //根据合作公司Id，查询BFE物料
+            _bfeMeterialFilter = new FilterDescriptor("SupplierCompanyId", FilterOperator.IsEqualTo, 0);
+            SupplierCompanyBFEMaterialsView.FilterDescriptors.Add(_bfeMeterialFilter);
+            SupplierCompanyBFEMaterialsView.LoadedData += (sender, e) =>
+                {
+                    if (e.HasError)
+                    {
+                        e.MarkErrorAsHandled();
+                        return;
+                    }
+                    if (SelSupplierCompanyBFEMaterial==null)
+                    SelSupplierCompanyBFEMaterial = e.Entities.Cast<SupplierCompanyBFEMaterialDTO>().FirstOrDefault();
+                    if (string.IsNullOrEmpty(_bfeMaterialNotFilter))
+                        SetBfeMaterialFilter();//设置发BFE过滤条件
+                };
+
+            SupplierCompanyBFEMaterialsView.SubmittedChanges += (sender, e) =>
+            {
+                if (e.HasError)
+                {
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                SetBfeMaterialFilterState();
+                MaterialChildView.Close();
+                MessageAlert("提示", "保存成功");
+            };
+
+        }
+
+        /// <summary>
+        /// 设置发BFE过滤条件
+        /// </summary>
+        private void SetBfeMaterialFilter()
+        {
+            _bfeMaterialNotFilter = string.Empty;
+            SupplierCompanyBFEMaterialsView.ToList().ForEach(p => { _bfeMaterialNotFilter += (p.Name) + ","; });
+        }
+
+        /// <summary>
+        /// 重新设置Bfe物料过滤信息
+        /// </summary>
+        private void SetBfeMaterialFilterState()
+        {
+            _bfeMaterialNotFilter = string.Empty;
+        }
+
+        /// <summary>
+        ///     根据合作公司Id，加载合作公司发动机物料。
+        /// </summary>
+        /// <param name="supplierCompany">供应商公司</param>
+        private void LoadBFEMaterialByCompany(SupplierCompanyDTO supplierCompany)
+        {
+            if (supplierCompany == null) return;
+            _bfeMeterialFilter.Value = supplierCompany.SupplierCompanyId;
+            if (!SupplierCompanyBFEMaterialsView.AutoLoad)
+            {
+                SupplierCompanyBFEMaterialsView.AutoLoad = true;
+            }
         }
 
         #endregion
@@ -96,7 +453,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <param name="sender"></param>
         public void OnAddAcMaterialExecute(object sender)
         {
-            if (SelSupplierCompanyMaterial == null)
+            if (SelSupplierCompany == null)
             {
                 MessageAlert("提示", "合作公司不能为空");
                 return;
@@ -128,6 +485,18 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <param name="sender"></param>
         public void OnDelAcMaterialExecute(object sender)
         {
+            if (SelSupplierCompanyAcMaterial == null)
+            {
+                MessageAlert("提示","请选择需要删除的飞机物料");
+                return;
+            }
+            MessageDialogs.Confirm("提示", "确定是否删除该记录？", (o, e) =>
+            {
+                if (e.DialogResult != true)
+                    return;
+                SupplierCompanyAcMaterialsView.Remove(SelSupplierCompanyAcMaterial);
+                SupplierCompanyAcMaterialsView.SubmitChanges();
+            });
         }
 
         /// <summary>
@@ -137,7 +506,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <returns>删除命令是否可用。</returns>
         public bool CanDelAcMaterialExecute(object sender)
         {
-            return true;
+            return SelSupplierCompanyAcMaterial != null;
         }
 
         #endregion
@@ -152,7 +521,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <param name="sender"></param>
         public void OnAddEngineMaterialExecute(object sender)
         {
-            if (SelSupplierCompanyMaterial == null)
+            if (SelSupplierCompany == null)
             {
                 MessageAlert("提示", "合作公司不能为空");
             }
@@ -182,10 +551,18 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <param name="sender"></param>
         public void OnDelEngineMaterialExecute(object sender)
         {
-            if (SelSupplierCompanyMaterial == null)
+            if (SelSupplierCompanyEngineMaterial == null)
             {
-                MessageAlert("提示", "合作公司不能为空");
+                MessageAlert("提示", "请选择需要删除的发动机物料");
+                return;
             }
+            MessageDialogs.Confirm("提示", "确定是否删除该记录？", (o, e) =>
+            {
+                if (e.DialogResult != true)
+                    return;
+                SupplierCompanyEngineMaterialsView.Remove(SelSupplierCompanyEngineMaterial);
+                SupplierCompanyEngineMaterialsView.SubmitChanges();
+            });
         }
 
         /// <summary>
@@ -195,11 +572,11 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <returns>删除命令是否可用。</returns>
         public bool CanDelEngineMaterialExecute(object sender)
         {
-            return true;
+            return SelSupplierCompanyEngineMaterial != null;
         }
 
-        #endregion        
-        
+        #endregion
+
         #region 新增BFE物料命令
 
         public DelegateCommand<object> AddBFEMaterialCommand { get; private set; }
@@ -210,7 +587,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <param name="sender"></param>
         public void OnAddBFEMaterialExecute(object sender)
         {
-            if (SelSupplierCompanyMaterial == null)
+            if (SelSupplierCompany == null)
             {
                 MessageAlert("提示", "合作公司不能为空");
             }
@@ -241,10 +618,18 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <param name="sender"></param>
         public void OnDelBFEMaterialExecute(object sender)
         {
-            if (SelSupplierCompanyMaterial == null)
+            if (SelSupplierCompanyBFEMaterial == null)
             {
-                MessageAlert("提示", "合作公司不能为空");
+                MessageAlert("提示", "请选择需要删除的发动机物料");
+                return;
             }
+            MessageDialogs.Confirm("提示", "确定是否删除该记录？", (o, e) =>
+            {
+                if (e.DialogResult != true)
+                    return;
+                SupplierCompanyBFEMaterialsView.Remove(SelSupplierCompanyBFEMaterial);
+                SupplierCompanyBFEMaterialsView.SubmitChanges();
+            });
         }
 
         /// <summary>
@@ -254,50 +639,53 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <returns>删除命令是否可用。</returns>
         public bool CanDelBFEMaterialExecute(object sender)
         {
-            return true;
+            return SelSupplierCompanyBFEMaterial != null;
         }
 
         #endregion
 
         /// <summary>
-        /// 初始化操作按钮
+        ///     初始化操作按钮
         /// </summary>
         private void InitialOperatorCommad()
-        {  
+        {
             //飞机物料按钮
             AddAcMaterialCommand = new DelegateCommand<object>(OnAddAcMaterialExecute, CanAddAcMaterialExecute);
             DelAcMaterialCommand = new DelegateCommand<object>(OnDelAcMaterialExecute, CanDelAcMaterialExecute);
             //发动机按钮
-            AddEngineMaterialCommand = new DelegateCommand<object>(OnAddEngineMaterialExecute,CanAddEngineMaterialExecute);
-            DelEngineMaterialCommand = new DelegateCommand<object>(OnDelEngineMaterialExecute,CanDelEngineMaterialExecute);
+            AddEngineMaterialCommand = new DelegateCommand<object>(OnAddEngineMaterialExecute,
+                                                                   CanAddEngineMaterialExecute);
+            DelEngineMaterialCommand = new DelegateCommand<object>(OnDelEngineMaterialExecute,
+                                                                   CanDelEngineMaterialExecute);
             //BFE按钮
             AddBFEMaterialCommand = new DelegateCommand<object>(OnAddBFEMaterialExecute, CanAddBFEMaterialExecute);
             DelBFEMaterialCommand = new DelegateCommand<object>(OnDelBFEMaterialExecute, CanDelBFEMaterialExecute);
-
         }
 
         #endregion
 
         #region 子窗体相关
 
-        [Import]
-        public MaterialChildView MaterialChildView; //初始化子窗体
+        [Import] public MaterialChildView MaterialChildView; //初始化子窗体
         private Visibility _acGridVisibility = Visibility.Collapsed;
+        private List<AircraftMaterialDTO> _addingAcMaterial; //需要添加的飞机物料
+        private List<BFEMaterialDTO> _addingBfeMaterial; //需要添加的BFe物料
+        private List<EngineMaterialDTO> _addingEngineMaterial; //需要添加的发动机物料
 
         private Visibility _bfeGridVisibility = Visibility.Collapsed;
 
         private Visibility _engineGridVisibility = Visibility.Collapsed;
         private string _type = "飞机物料"; //操作类型
-        private List<AircraftMaterialDTO> _addingAcMaterial; //需要添加的飞机物料
-        private List<EngineMaterialDTO> _addingEngineMaterial;//需要添加的发动机物料
-        private List<BFEMaterialDTO> _addingBfeMaterial;//需要添加的BFe物料
 
         #region  加载飞机物料相关信息
+
+        private FilterDescriptor _acMaterialFilter; //查找飞机物料配置。
 
         /// <summary>
         ///     获取所有飞机物料信息。
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftMaterialDTO> AircraftMaterialsView { get; set; }
+
         /// <summary>
         ///     初始化飞机物料信息。
         /// </summary>
@@ -305,18 +693,20 @@ namespace UniCloud.Presentation.Purchase.Supplier
         {
             AircraftMaterialsView = Service.CreateCollection(_purchaseData.AircraftMaterias);
             Service.RegisterCollectionView(AircraftMaterialsView); //注册查询集合。
+            _acMaterialFilter = new FilterDescriptor("Name", FilterOperator.IsNotContainedIn, string.Empty);
+            AircraftMaterialsView.FilterDescriptors.Add(_acMaterialFilter);
             AircraftMaterialsView.LoadedData += (sender, e) =>
-            {
-                if (e.HasError)
                 {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
-                if ( e.Entities.Cast<AircraftMaterialDTO>().FirstOrDefault()!=null)
-                {
-                    _addingAcMaterial.Add(e.Entities.Cast<AircraftMaterialDTO>().FirstOrDefault());
-                }
-            };
+                    if (e.HasError)
+                    {
+                        e.MarkErrorAsHandled();
+                        return;
+                    }
+                    if (e.Entities.Cast<AircraftMaterialDTO>().FirstOrDefault() != null)
+                    {
+                        _addingAcMaterial.Add(e.Entities.Cast<AircraftMaterialDTO>().FirstOrDefault());
+                    }
+                };
         }
 
         #endregion
@@ -337,16 +727,16 @@ namespace UniCloud.Presentation.Purchase.Supplier
         {
             EngineMaterialsView = Service.CreateCollection(_purchaseData.EngineMaterials);
             EngineMaterialsView.PageSize = 20;
-            _engineMaterialFilter = new FilterDescriptor("Name", FilterOperator.IsNotContainedIn, null);
+            _engineMaterialFilter = new FilterDescriptor("Name", FilterOperator.IsNotContainedIn, string.Empty);
+            EngineMaterialsView.FilterDescriptors.Add(_engineMaterialFilter);
             EngineMaterialsView.LoadedData += (sender, e) =>
-            {
-                if (e.HasError)
                 {
-                    e.MarkErrorAsHandled();
-                }
-            };
+                    if (e.HasError)
+                    {
+                        e.MarkErrorAsHandled();
+                    }
+                };
         }
-
 
         #endregion
 
@@ -366,16 +756,16 @@ namespace UniCloud.Presentation.Purchase.Supplier
         {
             BFEMaterialsView = Service.CreateCollection(_purchaseData.BFEMaterials);
             BFEMaterialsView.PageSize = 20;
-            _bfeMaterialFilter = new FilterDescriptor("Name", FilterOperator.IsNotContainedIn, null);
+            _bfeMaterialFilter = new FilterDescriptor("Name", FilterOperator.IsNotContainedIn, string.Empty);
+            BFEMaterialsView.FilterDescriptors.Add(_bfeMaterialFilter);
             BFEMaterialsView.LoadedData += (sender, e) =>
-            {
-                if (e.HasError)
                 {
-                    e.MarkErrorAsHandled();
-                }
-            };
+                    if (e.HasError)
+                    {
+                        e.MarkErrorAsHandled();
+                    }
+                };
         }
-
 
         #endregion
 
@@ -460,53 +850,46 @@ namespace UniCloud.Presentation.Purchase.Supplier
         }
 
         /// <summary>
-        /// 处理飞机物料
+        ///     处理飞机物料
         /// </summary>
         private void SetAcMaterial()
         {
             MaterialChildView.Header = "添加飞机物料";
             AcGridVisibility = Visibility.Visible;
-            //设置飞机物料
-            var acMaterialNames = new List<string>();
-            SelSupplierCompanyMaterial.AircraftMaterials.ToList().ForEach(p => acMaterialNames.Add(p.Name));
+            _acMaterialFilter.Value = _acMaterialNotFilter;
             if (!AircraftMaterialsView.AutoLoad)
             {
                 AircraftMaterialsView.AutoLoad = true;
             }
         }
+
         /// <summary>
-        /// 处理发动机物料
+        ///     处理发动机物料
         /// </summary>
         private void SetEngineMaterial()
         {
             MaterialChildView.Header = "添加发动机物料";
             EngineGridVisibility = Visibility.Visible;
-            //设置发动机物料
-            var engineMaterialNames = new List<string>();
-            SelSupplierCompanyMaterial.EngineMaterials.ToList().ForEach(p => engineMaterialNames.Add(p.Name));
-            _engineMaterialFilter.Value = engineMaterialNames;
+            _engineMaterialFilter.Value = _engineMaterialNotFilter;
             if (!EngineMaterialsView.AutoLoad)
             {
                 EngineMaterialsView.AutoLoad = true;
             }
         }
+
         /// <summary>
-        /// 处理Bfe物料
+        ///     处理Bfe物料
         /// </summary>
         private void SetBfeMaterial()
         {
             MaterialChildView.Header = "添加BFE物料";
             BfeGridVisibility = Visibility.Visible;
-            //设置BFE物料
-            var bfeMaterialNames = new List<string>();
-            SelSupplierCompanyMaterial.BFEMaterials.ToList().ForEach(p => bfeMaterialNames.Add(p.Name));
-            _bfeMaterialFilter.Value = bfeMaterialNames;
+            _bfeMaterialFilter.Value = _bfeMaterialNotFilter;
             if (!BFEMaterialsView.AutoLoad)
             {
                 BFEMaterialsView.AutoLoad = true;
             }
         }
-
 
         #endregion
 
@@ -548,61 +931,61 @@ namespace UniCloud.Presentation.Purchase.Supplier
         public void OnCommitExecute(object sender)
         {
             CommitMaterial();
-            //Service.SubmitChanges(p =>
-            //{
-            //    MaterialChildView.Close();
-            //});
         }
+
         /// <summary>
-        /// 保存物料
+        ///     保存物料
         /// </summary>
         private void CommitMaterial()
         {
             if (_type.Equals("飞机物料"))
             {
-               _addingAcMaterial.ForEach(
-                p =>
-                {
-                    var acMaterial = new SupplierMaterialDTO
-                    {
-                        MaterialId = p.AcMaterialId,
-                        SupplierCompanyId = SelSupplierCompanyMaterial.SupplierCompanyId,
-                        Name = p.Name
-                    };
-                    SelSupplierCompanyMaterial.AircraftMaterials.Add(acMaterial);
-                });
+                _addingAcMaterial.ForEach(
+                    p =>
+                        {
+                            var acMaterial = new SupplierCompanyAcMaterialDTO
+                                {
+                                    MaterialId = p.AcMaterialId,
+                                    SupplierCompanyId = SelSupplierCompany.SupplierCompanyId,
+                                    Name = p.Name,
+                                    SupplierCompanyMaterialId = RandomHelper.Next()
+                                };
+                            SupplierCompanyAcMaterialsView.AddNew(acMaterial);
+                        });
+                SupplierCompanyAcMaterialsView.SubmitChanges();
             }
             else if (_type.Equals("发动机物料"))
             {
-              _addingEngineMaterial.ForEach(
-                p =>
-                {
-                    var acMaterial = new SupplierMaterialDTO
-                    {
-                        MaterialId = p.PartId,
-                        SupplierCompanyId = SelSupplierCompanyMaterial.SupplierCompanyId,
-                        Name = p.Name
-                    };
-                    SelSupplierCompanyMaterial.EngineMaterials.Add(acMaterial);
-                });
-
+                _addingEngineMaterial.ForEach(
+                    p =>
+                        {
+                            var engineMaterial = new SupplierCompanyEngineMaterialDTO
+                                {
+                                    MaterialId = p.EngineMaterialId,
+                                    SupplierCompanyId = SelSupplierCompany.SupplierCompanyId,
+                                    Name = p.Name,
+                                    SupplierCompanyMaterialId = RandomHelper.Next()
+                                };
+                            SupplierCompanyEngineMaterialsView.AddNew(engineMaterial);
+                        });
+                SupplierCompanyEngineMaterialsView.SubmitChanges();
             }
             else
             {
                 _addingBfeMaterial.ForEach(
-                  p =>
-                  {
-                      var acMaterial = new SupplierMaterialDTO
-                      {
-                          MaterialId = p.PartId,
-                          SupplierCompanyId = SelSupplierCompanyMaterial.SupplierCompanyId,
-                          Name = p.Name
-                      };
-                      SelSupplierCompanyMaterial.BFEMaterials.Add(acMaterial);
-                  });
+                    p =>
+                        {
+                            var bfeMaterial = new SupplierCompanyBFEMaterialDTO
+                                {
+                                    MaterialId = p.BFEMaterialId,
+                                    SupplierCompanyId = SelSupplierCompany.SupplierCompanyId,
+                                    Name = p.Name,
+                                    SupplierCompanyMaterialId = RandomHelper.Next()
+                                };
+                            SupplierCompanyBFEMaterialsView.AddNew(bfeMaterial);
+                        });
+                SupplierCompanyBFEMaterialsView.SubmitChanges();
             }
-         
-
         }
 
         /// <summary>
@@ -651,25 +1034,34 @@ namespace UniCloud.Presentation.Purchase.Supplier
             return true;
         }
 
-   
         #endregion
-        
+
         #endregion
 
         /// <summary>
-        /// 初始化维护物料命令
+        ///     初始化维护物料命令
         /// </summary>
         private void InitialMaterialChild()
         {
-            CancelCommand=new DelegateCommand<object>(OnCancelExecute,CanCancelExecute);
-            CommitCommand=new DelegateCommand<object>(OnCommitExecute,CanCommitExecute);
+            CancelCommand = new DelegateCommand<object>(OnCancelExecute, CanCancelExecute);
+            CommitCommand = new DelegateCommand<object>(OnCommitExecute, CanCommitExecute);
             SelMaterialCommand = new DelegateCommand<object>(OnSelMaterialExecute, CanSelMaterialExecute);
             _addingAcMaterial = new List<AircraftMaterialDTO>();
-            _addingBfeMaterial=new List<BFEMaterialDTO>();
+            _addingBfeMaterial = new List<BFEMaterialDTO>();
             _addingEngineMaterial = new List<EngineMaterialDTO>();
         }
 
         #endregion
+
+        /// <summary>
+        ///刷新采购物料状态 
+        /// </summary>
+        private void RefreshMaterialTabState()
+        {
+            RaisePropertyChanged(() => AcMaterialVisibility);
+            RaisePropertyChanged(() => BfeMaterialVisibility);
+            RaisePropertyChanged(() => EngineMaterialVisibility);
+        }
 
         #region 重载基类服务
 
@@ -678,7 +1070,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// </summary>
         public override void LoadData()
         {
-            SupplierCompanyMaterialsView.AutoLoad = true; //加载数据。
+            SupplierCompanysView.AutoLoad = true; //加载数据。
         }
 
         /// <summary>

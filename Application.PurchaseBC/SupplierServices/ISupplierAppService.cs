@@ -79,17 +79,60 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         #region 供应商物料相关操作
 
         /// <summary>
-        ///     获取供应商物料。
+        ///     获取合作公司的飞机物料。
         /// </summary>
-        /// <returns>供应商物料。</returns>
-        IQueryable<SupplierCompanyMaterialDTO> GetSupplierCompanyMaterials();
-
+        /// <returns>合作公司的飞机物料。</returns>
+        IQueryable<SupplierCompanyAcMaterialDTO> GetSupplierCompanyAcMaterials();
 
         /// <summary>
-        ///     更新合作公司物料。
+        ///     获取合作公司的发动机物料。
         /// </summary>
-        /// <param name="supplierCompanyMaterial">合作公司物料DTO。</param>
-        void ModifySupplierCompanyMaterial(SupplierCompanyMaterialDTO supplierCompanyMaterial);
-        #endregion
+        /// <returns>合作公司的发动机物料。</returns>
+        IQueryable<SupplierCompanyEngineMaterialDTO> GetSupplierCompanyEngineMaterials();
+
+        /// <summary>
+        ///     获取合作公司的BFE物料。
+        /// </summary>
+        /// <returns>合作公司的BFE物料。</returns>
+        IQueryable<SupplierCompanyBFEMaterialDTO> GetSupplierCompanyBFEMaterials();
+
+        /// <summary>
+        ///     新增合作公司飞机物料。
+        /// </summary>
+        /// <param name="supplierCompanyAcMaterial">合作公司飞机物料DTO。</param>
+        void InsertSupplierCompanyAcMaterial(SupplierCompanyAcMaterialDTO supplierCompanyAcMaterial);
+
+        /// <summary>
+        ///     删除合作公司飞机物料。
+        /// </summary>
+        /// <param name="supplierCompanyAcMaterial">合作公司飞机物料DTO。</param>
+        void DeleteSupplierCompanyAcMaterial(SupplierCompanyAcMaterialDTO supplierCompanyAcMaterial);
+
+        /// <summary>
+        ///     新增合作公司发动机物料。
+        /// </summary>
+        /// <param name="supplierCompanyEngineMaterial">合作公司发动机物料DTO。</param>
+        void InsertSupplierCompanyEngineMaterial(SupplierCompanyEngineMaterialDTO supplierCompanyEngineMaterial);
+
+        /// <summary>
+        ///     删除合作公司发动机物料。
+        /// </summary>
+        /// <param name="supplierCompanyEngineMaterial">合作公司发动机物料DTO。</param>
+        void DeleteSupplierCompanyEngineMaterial(SupplierCompanyEngineMaterialDTO supplierCompanyEngineMaterial);
+
+        /// <summary>
+        ///     新增合作公司BFE物料。
+        /// </summary>
+        /// <param name="supplierCompanyBFEMaterial">合作公司BFE物料DTO。</param>
+        void InsertSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBFEMaterial);
+
+        /// <summary>
+        ///     删除合作公司BFE物料。
+        /// </summary>
+        /// <param name="supplierCompanyBFEMaterial">合作公司BFE物料DTO。</param>
+        void DeleteSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBFEMaterial);
+
+
+#endregion
     }
 }

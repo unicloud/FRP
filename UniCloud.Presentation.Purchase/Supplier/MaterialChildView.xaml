@@ -86,7 +86,7 @@
                 <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
             <telerik:RadGridView Grid.Row="0"
-                                 Name="EgineMaterial"
+                                 Name="EngineMaterial"
                                  IsReadOnly="True"
                                  ItemsSource="{Binding  EngineMaterialsView}"
                                  IsBusy="{Binding EngineMaterialsView.IsBusy}"
@@ -99,7 +99,7 @@
                                  >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding SelMaterialCommand}" CommandParameter="{Binding ElementName=EgineMaterial}" />
+                        <i:InvokeCommandAction Command="{Binding SelMaterialCommand}" CommandParameter="{Binding ElementName=EngineMaterial}" />
                     </i:EventTrigger> 
                  </i:Interaction.Triggers>
                     <telerik:RadGridView.Columns>

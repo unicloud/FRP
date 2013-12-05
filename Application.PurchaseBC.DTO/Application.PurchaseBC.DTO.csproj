@@ -76,7 +76,6 @@
     <Compile Include="PartDTO\PartDTO.cs" />
     <Compile Include="PlanAircraftDTO\PlanAircraftDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SupplierDTO\SupplierMaterialDTO.cs" />
     <Compile Include="SupplierDTO\AircraftLeaseSupplierDTO.cs" />
     <Compile Include="SupplierDTO\AircraftPurchaseSupplierDTO.cs" />
     <Compile Include="SupplierDTO\BankAccountDTO.cs" />
@@ -85,7 +84,9 @@
     <Compile Include="SupplierDTO\EnginePurchaseSupplierDTO.cs" />
     <Compile Include="SupplierDTO\LinkmanDTO.cs" />
     <Compile Include="SupplierDTO\SupplierCompanyDTO.cs" />
-    <Compile Include="SupplierDTO\SupplierCompanyMaterialDTO.cs" />
+    <Compile Include="SupplierDTO\SupplierCompanyBFEMaterialDTO.cs" />
+    <Compile Include="SupplierDTO\SupplierCompanyAcMaterialDTO.cs" />
+    <Compile Include="SupplierDTO\SupplierCompanyEngineMaterialDTO.cs" />
     <Compile Include="SupplierDTO\SupplierDTO.cs" />
     <Compile Include="SupplierDTO\SupplierRoleDTO.cs" />
     <Compile Include="TradeDTO\AircraftLeaseOrderDTO.cs" />

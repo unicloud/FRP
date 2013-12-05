@@ -50,6 +50,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data;
@@ -98,6 +99,7 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
                          .Register<ISupplierRepository, SupplierRepository>()
                          .Register<ILinkmanRepository, LinkmanRepository>()
                          .Register<ISupplierRoleRepository, SupplierRoleRepository>()
+                         .Register<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>()
                 #endregion
 
                 #region 交易相关配置，包括查询，应用服务，仓储注册

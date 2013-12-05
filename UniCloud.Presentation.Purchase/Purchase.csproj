@@ -250,9 +250,17 @@
       <DependentUpon>MatchingPlanAircraftManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Reception\MatchingPlanAircraftManagerVM.cs" />
+    <Compile Include="Supplier\LinkManManager.xaml.cs">
+      <DependentUpon>LinkManManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Supplier\MaterialChildView.xaml.cs">
       <DependentUpon>MaterialChildView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Supplier\QuerySupplierVM.cs" />
+    <Compile Include="Supplier\QuerySupplier.xaml.cs">
+      <DependentUpon>QuerySupplier.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Supplier\LinkManManagerVM.cs" />
     <Compile Include="Supplier\SupplierMaterialManager.xaml.cs">
       <DependentUpon>SupplierMaterialManager.xaml</DependentUpon>
     </Compile>
@@ -330,9 +338,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Supplier\LinkManManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Supplier\MaterialChildView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Supplier\QuerySupplier.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Supplier\SupplierMaterialManager.xaml">
       <SubType>Designer</SubType>
