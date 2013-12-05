@@ -66,6 +66,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="System.ComponentModel.DataAnnotations, Version=5.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217, processorArchitecture=MSIL" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Spatial.SL, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -105,6 +106,11 @@
     </Compile>
     <Compile Include="IPurchaseService.cs" />
     <Compile Include="Purchase\AircraftMaterialDTO.cs" />
+    <Compile Include="Purchase\Enums\BFEStatus.cs" />
+    <Compile Include="Purchase\Enums\OrderStatus.cs" />
+    <Compile Include="Purchase\Enums\ReceptionStatus.cs" />
+    <Compile Include="Purchase\Enums\SupplierType.cs" />
+    <Compile Include="Purchase\Enums\TradeStatus.cs" />
     <Compile Include="Purchase\LinkmanDTO.cs" />
     <Compile Include="Purchase\TradeDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -142,6 +148,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

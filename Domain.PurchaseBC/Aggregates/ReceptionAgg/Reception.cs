@@ -141,19 +141,19 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         {
             switch (status)
             {
-                case ReceptionStatus.Start:
-                    Status = ReceptionStatus.Start;
+                case ReceptionStatus.开始:
+                    Status = ReceptionStatus.开始;
                     break;
-                case ReceptionStatus.InProgress:
-                    Status = ReceptionStatus.InProgress;
+                case ReceptionStatus.进行中:
+                    Status = ReceptionStatus.进行中;
                     break;
-                case ReceptionStatus.Repeal:
-                    Status = ReceptionStatus.Repeal;
+                case ReceptionStatus.撤销:
+                    Status = ReceptionStatus.撤销;
                     IsClosed = true;
                     CloseDate = DateTime.Now;
                     break;
-                case ReceptionStatus.Complete:
-                    Status = ReceptionStatus.Complete;
+                case ReceptionStatus.完成:
+                    Status = ReceptionStatus.完成;
                     IsClosed = true;
                     CloseDate = DateTime.Now;
                     break;

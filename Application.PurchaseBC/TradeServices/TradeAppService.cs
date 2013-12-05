@@ -25,6 +25,7 @@ using UniCloud.Application.PurchaseBC.Query.TradeQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
+using UniCloud.Domain.PurchaseBC.Enums;
 
 #endregion
 
@@ -107,6 +108,8 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             newTrade.SetTradeNumber(seq);
             // 设置供应商
             newTrade.SetSupplier(supplier);
+            // 修改状态
+            newTrade.SetStatus(TradeStatus.进行中);
 
             _tradeRepository.Add(newTrade);
         }
@@ -213,6 +216,8 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             {
                 throw new ArgumentException("参数为空！");
             }
+
+
         }
 
         [Update(typeof (AircraftPurchaseOrderDTO))]

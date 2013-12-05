@@ -206,14 +206,14 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         {
             switch (status)
             {
-                case OrderStatus.Draft:
-                    Status = OrderStatus.Draft;
+                case OrderStatus.草稿:
+                    Status = OrderStatus.草稿;
                     break;
-                case OrderStatus.Checking:
-                    Status = OrderStatus.Checking;
+                case OrderStatus.待审核:
+                    Status = OrderStatus.待审核;
                     break;
-                case OrderStatus.Checked:
-                    Status = OrderStatus.Checked;
+                case OrderStatus.已审核:
+                    Status = OrderStatus.已审核;
                     IsValid = true;
                     break;
                 default:

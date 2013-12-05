@@ -17,8 +17,7 @@
 
 #region 命名空间
 
-using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.UberModel.Resources;
+
 
 #endregion
 
@@ -29,8 +28,8 @@ namespace UniCloud.Domain.UberModel.Enums
     /// </summary>
     public enum BFEStatus
     {
-        [Display(ResourceType = typeof (DisplayInfo), Name = "BFEStatus_Contract")] Contract = 0,
-        [Display(ResourceType = typeof (DisplayInfo), Name = "BFEStatus_Manufacture")] Manufacture = 1,
-        [Display(ResourceType = typeof (DisplayInfo), Name = "BFEStatus_Delivery")] Delivery = 2,
+        签约 = 0,
+        制造 = 1,
+        交付制造商 = 2,
     }
 }

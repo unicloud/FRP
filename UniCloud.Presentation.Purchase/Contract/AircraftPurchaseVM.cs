@@ -48,9 +48,12 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             _regionManager = regionManager;
 
-            NewCommand = new DelegateCommand<object>(OnNew, CanNew);
-            AddCommand = new DelegateCommand<object>(OnAdd, CanAdd);
-            RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
+            AddTradeCommand = new DelegateCommand<object>(OnAddTrade, CanAddTrade);
+            RemoveTradeCommand = new DelegateCommand<object>(OnRemoveTrade, CanRemoveTrade);
+            AddOrderCommand = new DelegateCommand<object>(OnAddOrder, CanAddOrder);
+            RemoveOrderCommand = new DelegateCommand<object>(OnRemoveOrder, CanRemoveOrder);
+            AddOrderLineCommand = new DelegateCommand<object>(OnAddOrderLine, CanAddOrderLine);
+            RemoveOrderLineCommand = new DelegateCommand<object>(OnRemoveOrderLine, CanRemoveOrderLine);
 
             InitializeVM();
         }
@@ -64,13 +67,15 @@ namespace UniCloud.Presentation.Purchase.Contract
         private void InitializeVM()
         {
             ViewTradeDTO = Service.CreateCollection<TradeDTO>(_context.Trades);
-            var fd = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
-            ViewTradeDTO.FilterDescriptors.Add(fd);
+            var fd1 = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
+            ViewTradeDTO.FilterDescriptors.Add(fd1);
             Service.RegisterCollectionView(ViewTradeDTO);
             ViewTradeDTO.PropertyChanged += OnViewPropertyChanged;
 
             ViewAircraftPurchaseOrderDTO =
                 Service.CreateCollection<AircraftPurchaseOrderDTO>(_context.AircraftPurchaseOrders);
+            //var fd2 = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, null);
+            //ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(fd2);
             Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
             ViewAircraftPurchaseOrderDTO.PropertyChanged += OnViewPropertyChanged;
         }
@@ -115,6 +120,10 @@ namespace UniCloud.Presentation.Purchase.Contract
             {
                 ViewTradeDTO.AutoLoad = true;
             }
+            if (!ViewAircraftPurchaseOrderDTO.Any())
+            {
+                ViewAircraftPurchaseOrderDTO.AutoLoad = true;
+            }
         }
 
         #region 交易
@@ -137,15 +146,6 @@ namespace UniCloud.Presentation.Purchase.Contract
                 if (_selTradeDTO != value)
                 {
                     _selTradeDTO = value;
-                    if (_selTradeDTO != null)
-                    {
-                        var fd = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, _selTradeDTO.Id);
-                        ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(fd);
-                        if (!ViewAircraftPurchaseOrderDTO.Any())
-                        {
-                            ViewAircraftPurchaseOrderDTO.AutoLoad = true;
-                        }
-                    }
                     RaisePropertyChanged(() => SelTradeDTO);
                 }
             }
@@ -190,14 +190,14 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #endregion
 
-        #region 新建交易
+        #region 创建新交易
 
         /// <summary>
-        ///     新建交易
+        ///     创建新交易
         /// </summary>
-        public DelegateCommand<object> NewCommand { get; private set; }
+        public DelegateCommand<object> AddTradeCommand { get; private set; }
 
-        private void OnNew(object obj)
+        private void OnAddTrade(object obj)
         {
             var trade = new TradeDTO
             {
@@ -207,43 +207,101 @@ namespace UniCloud.Presentation.Purchase.Contract
             ViewTradeDTO.AddNew(trade);
         }
 
-        private bool CanNew(object obj)
+        private bool CanAddTrade(object obj)
         {
             return true;
         }
 
         #endregion
 
-        #region 创建新版本订单
+        #region 删除交易
 
         /// <summary>
-        ///     创建新版本订单
+        ///     删除交易
         /// </summary>
-        public DelegateCommand<object> AddCommand { get; private set; }
+        public DelegateCommand<object> RemoveTradeCommand { get; private set; }
 
-        private void OnAdd(object obj)
+        private void OnRemoveTrade(object obj)
         {
+            if (_selTradeDTO != null)
+            {
+                ViewTradeDTO.Remove(_selTradeDTO);
+            }
         }
 
-        private bool CanAdd(object obj)
+        private bool CanRemoveTrade(object obj)
         {
             return true;
         }
 
         #endregion
 
-        #region 删除当前版本订单
+        #region 创建新订单
 
         /// <summary>
-        ///     删除当前版本订单
+        ///     创建新订单
         /// </summary>
-        public DelegateCommand<object> RemoveCommand { get; private set; }
+        public DelegateCommand<object> AddOrderCommand { get; private set; }
 
-        private void OnRemove(object obj)
+        private void OnAddOrder(object obj)
         {
         }
 
-        private bool CanRemove(object obj)
+        private bool CanAddOrder(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 删除订单
+
+        /// <summary>
+        ///     删除订单
+        /// </summary>
+        public DelegateCommand<object> RemoveOrderCommand { get; private set; }
+
+        private void OnRemoveOrder(object obj)
+        {
+        }
+
+        private bool CanRemoveOrder(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 增加订单行
+
+        /// <summary>
+        ///     增加订单行
+        /// </summary>
+        public DelegateCommand<object> AddOrderLineCommand { get; private set; }
+
+        private void OnAddOrderLine(object obj)
+        {
+        }
+
+        private bool CanAddOrderLine(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 移除订单行
+
+        /// <summary>
+        ///     移除订单行
+        /// </summary>
+        public DelegateCommand<object> RemoveOrderLineCommand { get; private set; }
+
+        private void OnRemoveOrderLine(object obj)
+        {
+        }
+
+        private bool CanRemoveOrderLine(object obj)
         {
             return true;
         }
