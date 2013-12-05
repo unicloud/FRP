@@ -34,19 +34,5 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
             }
         }
 
-        private void ImportTypeChartTrackBallBehaviorTrackInfoUpdated(object sender, TrackBallInfoEventArgs e)
-        {
-            DataPointInfo closestDataPoint = e.Context.ClosestDataPoint;
-            if (closestDataPoint != null)
-            {
-                var data = closestDataPoint.DataPoint.DataItem as FinancialData;
-                if (data != null)
-                {
-                    ImportDate.Text = data.Date.ToString("MMM dd, yyyy");
-                    PurchasePrice.Text = data.Close.ToString("0,0.00");
-                    LeasePrice.Text = data.Close.ToString("0,0.00");
-                }
-            }
-        }
     }
 }
