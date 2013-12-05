@@ -131,7 +131,7 @@
                     </telerik:RadCartesianChart.Behaviors>
                     <telerik:LineSeries ItemsSource="{Binding Data}"
                                         CategoryBinding="Date"
-                                        ValueBinding="Close"
+                                        ValueBinding="Volume"
                                         Stroke="#FF25A0DA"
                                         StrokeThickness="2"
                                         TrackBallTemplate="{StaticResource TrackBallTemplate}">
@@ -140,14 +140,15 @@
                         <telerik:DateTimeCategoricalAxis DateTimeComponent="Ticks"
                                                          PlotMode="OnTicks"
                                                          MajorTickInterval="30"
-                                                         ShowLabels="False" />
+                                                         LabelFormat="MMM d" />
                     </telerik:RadCartesianChart.HorizontalAxis>
                     <telerik:RadCartesianChart.VerticalAxis>
                         <telerik:LinearAxis Title="单位(千万)"
                                             Foreground="Black"
-                                            Minimum="460"
-                                            Maximum="680"
-                                            MajorStep="20" />
+                                            LabelFormat="0,,"
+                                            MajorStep="1000000"
+                                            Minimum="0"
+                                            Maximum="15000000" />
                     </telerik:RadCartesianChart.VerticalAxis>
                     <telerik:RadCartesianChart.Grid>
                         <telerik:CartesianChartGrid StripLinesVisibility="Y"
@@ -179,7 +180,7 @@
                                       Stroke="#FF767676"
                                       StrokeThickness="1" />
                                 <TextBlock FontSize="11"
-                                           Text="{Binding Volume}" />
+                                           Text="{Binding DataItem.Volume, StringFormat=\{0:N2\}}" />
                             </Grid>
                         </DataTemplate>
                     </telerik:RadCartesianChart.TooltipTemplate>

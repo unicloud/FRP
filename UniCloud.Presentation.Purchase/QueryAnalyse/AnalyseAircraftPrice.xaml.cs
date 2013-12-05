@@ -29,7 +29,7 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
                 if (data != null)
                 {
                     Date.Text = data.Date.ToString("MMM dd, yyyy");
-                    Price.Text = data.Close.ToString("0,0.00");
+                    Price.Text = data.Volume.ToString("0,0.00");
                 }
             }
         }
