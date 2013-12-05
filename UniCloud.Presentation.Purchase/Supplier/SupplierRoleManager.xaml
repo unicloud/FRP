@@ -38,17 +38,20 @@
         <telerik:RadToolBar HorizontalAlignment="Stretch"
                             Margin="-1 -2 -1 0">
             <telerik:RadButton Margin="4,2,2,-2"
-                               Command="{Binding SaveCommand}">
+                               Command="{Binding SaveCommand}"
+                               CommandParameter="{Binding SupplierCompanysView}">
                 <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                        Stretch="Fill"
                        ToolTipService.ToolTip="保存" />
             </telerik:RadButton>
             <telerik:RadToolBarSeparator />
             <telerik:RadButton Margin="2,2,2,-2"
-                               Command="{Binding AbortCommand}">
+                               Command="{Binding AbortCommand}"
+                               CommandParameter="{Binding SupplierCompanysView}">
                 <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                        Stretch="Fill"
-                       ToolTipService.ToolTip="放弃更改" />
+                       ToolTipService.ToolTip="放弃更改" 
+                       />
             </telerik:RadButton>
         </telerik:RadToolBar>
         <telerik:RadDocking Grid.Row="1" HasDocumentHost="False">
@@ -124,7 +127,7 @@
                                                                     IsThreeState="False"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding EngineLeaseSupplier}" />
+                                                                    DataMemberBinding="{Binding EnginePurchaseSupplier}" />
                                             <telerik:GridViewCheckBoxColumn Header="BFE供应商角色"
                                                                     IsReadOnly="False"
                                                                     EditTriggers="CellClick"

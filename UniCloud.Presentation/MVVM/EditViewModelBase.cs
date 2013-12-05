@@ -88,6 +88,11 @@ namespace UniCloud.Presentation.MVVM
         private bool CanSave(object sender)
         {
             var collectionView = sender as QueryableDataServiceCollectionViewBase;
+            //提交时，保存按钮不可用
+            if (collectionView != null &&collectionView.IsSubmittingChanges)
+            {
+                return false;
+            }
             return collectionView != null && collectionView.HasChanges;
         }
 
@@ -124,6 +129,11 @@ namespace UniCloud.Presentation.MVVM
         private bool CanAbort(object sender)
         {
             var collectionView = sender as QueryableDataServiceCollectionViewBase;
+            //提交时，取消按钮不可用
+            if (collectionView != null && collectionView.IsSubmittingChanges)
+            {
+                return false;
+            }
             return collectionView != null && collectionView.HasChanges;
         }
 

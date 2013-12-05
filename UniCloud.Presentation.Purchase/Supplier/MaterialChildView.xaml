@@ -99,7 +99,7 @@
                                  >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding SelMaterialCommand}" CommandParameter="{Binding ElementName=EgineMaterial}" />
+                        <i:InvokeCommandAction Command="{Binding SelMaterialCommand}" CommandParameter="{Binding ElementName=EngineMaterial}" />
                     </i:EventTrigger> 
                  </i:Interaction.Triggers>
                     <telerik:RadGridView.Columns>

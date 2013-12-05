@@ -147,9 +147,10 @@
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="2"
                              Margin="0,3"
-                             Text="{Binding Name, Mode=TwoWay}">
+                             Text="{Binding Name, Mode=TwoWay,
+                             NotifyOnValidationError=True, 
+                             ValidatesOnExceptions=True}">
                     </TextBox>
-
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
                                Text="收件人"
@@ -192,7 +193,8 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="4"
-                             Text="{Binding Email, Mode=TwoWay}">
+                             Text="{Binding Email, Mode=TwoWay, 
+                        NotifyOnValidationError=True, ValidatesOnExceptions=True}">
                     </TextBox>
 
                     <TextBlock Grid.Row="5"
@@ -205,7 +207,6 @@
                              Grid.Row="5"
                              Text="{Binding Addr, Mode=TwoWay}">
                     </TextBox>
-
                 </Grid>
             </DataTemplate>
 
@@ -216,99 +217,99 @@
         <telerik:RadDocking HasDocumentHost="False">
             <telerik:RadSplitContainer>
                 <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600">
-                        <telerik:RadPaneGroup>
-                            <telerik:RadPane Header="查询承运人"
-                                             IsPinned="True"
-                                             CanFloat="False"
-                                             CanDockInDocumentHost="False"
-                                             CanUserClose="False"
-                                             CanUserPin="False"
-                                             ContextMenuTemplate="{x:Null}">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <telerik:RadGridView IsReadOnly="True"
-                                                         ItemsSource="{Binding ForwardersView}"
-                                                         IsBusy="{Binding ForwardersView.IsBusy}"
-                                                         AutoGenerateColumns="False"
-                                                         SelectedItem="{Binding SelForwarder, Mode=TwoWay}"
-                                                         CanUserSelect="{Binding CanSelectForward}"
-                                                         AutoExpandGroups="True"
-                                                         ShowGroupPanel="True"
-                                                         CanUserSortColumns="True"
-                                                         RowIndicatorVisibility="Visible"
-                                                         CanUserFreezeColumns="False">
-                                        <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号"
-                                                                     CellStyle="{StaticResource CellStyle}"
-                                                                     HeaderTextAlignment="Center" />
-                                            <telerik:GridViewDataColumn Header="名称"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding Name}" />
+                    <telerik:RadPaneGroup>
+                        <telerik:RadPane Header="查询承运人"
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanDockInDocumentHost="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         ContextMenuTemplate="{x:Null}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <telerik:RadGridView IsReadOnly="True"
+                                                     ItemsSource="{Binding ForwardersView}"
+                                                     IsBusy="{Binding ForwardersView.IsBusy}"
+                                                     AutoGenerateColumns="False"
+                                                     SelectedItem="{Binding SelForwarder, Mode=TwoWay}"
+                                                     CanUserSelect="{Binding CanSelectForward}"
+                                                     AutoExpandGroups="True"
+                                                     ShowGroupPanel="True"
+                                                     CanUserSortColumns="True"
+                                                     RowIndicatorVisibility="Visible"
+                                                     CanUserFreezeColumns="False">
+                                    <telerik:RadGridView.Columns>
+                                        <uc:DataPageSerialColumn Header="序号"
+                                                                 CellStyle="{StaticResource CellStyle}"
+                                                                 HeaderTextAlignment="Center" />
+                                        <telerik:GridViewDataColumn Header="名称"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Name}" />
 
-                                            <telerik:GridViewDataColumn Header="收件人"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding Attn}" />
-                                            <telerik:GridViewDataColumn Header="电话"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding Tel}" />
-                                            <telerik:GridViewDataColumn Header="传真"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding Fax}" />
-                                            <telerik:GridViewDataColumn Header="邮件"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding Email}" />
-                                            <telerik:GridViewDataColumn Header="地址"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding Addr}" />
-                                        </telerik:RadGridView.Columns>
-                                    </telerik:RadGridView>
-                                    <telerik:RadDataPager BorderThickness="1,0,1,1"
-                                                          AutoEllipsisMode="Both"
-                                                          DisplayMode="All"
-                                                          Source="{Binding ForwardersView}"
-                                                          Grid.Row="1" />
-                                </Grid>
-                            </telerik:RadPane>
+                                        <telerik:GridViewDataColumn Header="收件人"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Attn}" />
+                                        <telerik:GridViewDataColumn Header="电话"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Tel}" />
+                                        <telerik:GridViewDataColumn Header="传真"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Fax}" />
+                                        <telerik:GridViewDataColumn Header="邮件"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Email}" />
+                                        <telerik:GridViewDataColumn Header="地址"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Addr}" />
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+                                <telerik:RadDataPager BorderThickness="1,0,1,1"
+                                                      AutoEllipsisMode="Both"
+                                                      DisplayMode="All"
+                                                      Source="{Binding ForwardersView}"
+                                                      Grid.Row="1" />
+                            </Grid>
+                        </telerik:RadPane>
 
-                        </telerik:RadPaneGroup>
-                    </telerik:RadSplitContainer>
+                    </telerik:RadPaneGroup>
+                </telerik:RadSplitContainer>
                 <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="400, 600">
-                <telerik:RadPaneGroup>
-                    <telerik:RadPane Header="编辑承运人"
-                                     IsPinned="True"
-                                     CanFloat="False"
-                                     CanUserClose="False"
-                                     CanUserPin="False"
-                                     ContextMenuTemplate="{x:Null}">
-                        <Grid>
-                            <telerik:RadDataForm x:Name="forwardForm"
-                                                 CancelButtonContent="取消"
-                                                 CommitButtonContent="确定"
-                                                 ItemsSource="{Binding ForwardersView}"
-                                                 AutoGenerateFields="False"
-                                                 AutoCommit="True"
-                                                 ReadOnlyTemplate="{StaticResource ReadTemplate}"
-                                                 EditTemplate="{StaticResource EditNewTemplate}"
-                                                 NewItemTemplate="{StaticResource EditNewTemplate}">
-                                <telerik:RadDataForm.CommandProvider>
-                                    <uc:MasterCommandProvider DataForm="{Binding ElementName=forwardForm}"
-                                                              QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=forwardForm}">
-                                    </uc:MasterCommandProvider>
-                                </telerik:RadDataForm.CommandProvider>
-                            </telerik:RadDataForm>
-                        </Grid>
-                    </telerik:RadPane>
-                </telerik:RadPaneGroup>
-            </telerik:RadSplitContainer>
+                    <telerik:RadPaneGroup>
+                        <telerik:RadPane Header="编辑承运人"
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         ContextMenuTemplate="{x:Null}">
+                            <Grid>
+                                <telerik:RadDataForm x:Name="forwardForm"
+                                                     CancelButtonContent="取消"
+                                                     CommitButtonContent="确定"
+                                                     ItemsSource="{Binding ForwardersView}"
+                                                     AutoGenerateFields="False"
+                                                     AutoCommit="True"
+                                                     ReadOnlyTemplate="{StaticResource ReadTemplate}"
+                                                     EditTemplate="{StaticResource EditNewTemplate}"
+                                                     NewItemTemplate="{StaticResource EditNewTemplate}">
+                                    <telerik:RadDataForm.CommandProvider>
+                                        <uc:MasterCommandProvider DataForm="{Binding ElementName=forwardForm}"
+                                                                  QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=forwardForm}">
+                                        </uc:MasterCommandProvider>
+                                    </telerik:RadDataForm.CommandProvider>
+                                </telerik:RadDataForm>
+                            </Grid>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                </telerik:RadSplitContainer>
             </telerik:RadSplitContainer>
         </telerik:RadDocking>
     </Grid>

@@ -56,7 +56,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Repositories
             else if (type == typeof (AircraftPurchaseSupplier))
             {
                 role =
-                    GetAll().OfType<AircraftLeaseSupplier>().FirstOrDefault(p => p.SupplierCompanyId == supplierCmpyId);
+                    GetAll().OfType<AircraftPurchaseSupplier>().FirstOrDefault(p => p.SupplierCompanyId == supplierCmpyId);
             }
             else if (type == typeof (EngineLeaseSupplier))
             {

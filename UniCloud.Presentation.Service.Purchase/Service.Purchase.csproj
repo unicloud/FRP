@@ -104,9 +104,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="IPurchaseService.cs" />
-    <Compile Include="Purchase\AircraftMaterialDTO.cs" />
     <Compile Include="Purchase\APUMaintainContractDTO.cs" />
     <Compile Include="Purchase\EngineMaintainContractDTO.cs" />
+    <Compile Include="Purchase\ForwarderDTO.cs" />
     <Compile Include="Purchase\LinkmanDTO.cs" />
     <Compile Include="Purchase\TradeDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
