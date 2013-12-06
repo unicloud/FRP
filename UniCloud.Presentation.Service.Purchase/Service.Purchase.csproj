@@ -106,6 +106,11 @@
     <Compile Include="IPurchaseService.cs" />
     <Compile Include="Purchase\APUMaintainContractDTO.cs" />
     <Compile Include="Purchase\EngineMaintainContractDTO.cs" />
+    <Compile Include="Purchase\Enums\BFEStatus.cs" />
+    <Compile Include="Purchase\Enums\OrderStatus.cs" />
+    <Compile Include="Purchase\Enums\ReceptionStatus.cs" />
+    <Compile Include="Purchase\Enums\SupplierType.cs" />
+    <Compile Include="Purchase\Enums\TradeStatus.cs" />
     <Compile Include="Purchase\ForwarderDTO.cs" />
     <Compile Include="Purchase\LinkmanDTO.cs" />
     <Compile Include="Purchase\TradeDTO.cs" />
