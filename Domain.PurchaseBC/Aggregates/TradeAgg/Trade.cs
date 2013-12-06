@@ -213,6 +213,20 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg
             TradeNumber = tradeNumber;
         }
 
+        /// <summary>
+        ///     更新交易
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="description">描述</param>
+        /// <param name="startDate">开始日期</param>
+        /// <returns>创建的交易</returns>
+        public void UpdateTrade(string name, string description, DateTime startDate)
+        {
+            Name = name;
+            Description = description;
+            StartDate = startDate;
+        }
+
         #endregion
 
         #region IValidatableObject 成员

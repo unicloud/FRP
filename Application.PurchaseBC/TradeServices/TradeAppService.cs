@@ -122,11 +122,15 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 throw new ArgumentException("参数为空！");
             }
 
-            var persisted = _tradeRepository.Get(dto.Id);
-            if (persisted != null)
+            var current = _tradeRepository.Get(dto.Id);
+            if (current != null)
             {
-                var current = MaterializeTradeFromDto(dto);
-                _tradeRepository.Merge(persisted, current);
+                // 更新当前记录
+                var supplier = _supplierRepository.Get(dto.SupplierId);
+                current.UpdateTrade(dto.Name, dto.Description, dto.StartDate);
+                current.SetSupplier(supplier);
+
+                _tradeRepository.Modify(current);
             }
         }
 
@@ -143,17 +147,6 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             {
                 _tradeRepository.Remove(deleteTrade);
             }
-        }
-
-        private Trade MaterializeTradeFromDto(TradeDTO dto)
-        {
-            var supplier = _supplierRepository.Get(dto.SupplierId);
-            var trade = TradeFactory.CreateTrade(dto.Name, dto.Description, dto.StartDate);
-            trade.ChangeCurrentIdentity(dto.Id);
-            trade.SetTradeNumber(dto.TradeNumber);
-            trade.SetSupplier(supplier);
-
-            return trade;
         }
 
         #endregion
@@ -177,11 +170,13 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 throw new ArgumentException("参数为空！");
             }
 
-            var persisted = _orderRepository.Get(dto.Id);
-            if (persisted != null)
+            var current = _orderRepository.Get(dto.Id);
+            if (current != null)
             {
-                var current = MaterializeAircraftLeaseOrderFromDto(dto);
-                _orderRepository.Merge(persisted, current);
+                // 更新当前记录
+
+
+                _orderRepository.Modify(current);
             }
         }
 
@@ -200,11 +195,6 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             }
         }
 
-        private AircraftLeaseOrder MaterializeAircraftLeaseOrderFromDto(AircraftLeaseOrderDTO dto)
-        {
-            throw new NotImplementedException();
-        }
-
         #endregion
 
         #region AircraftPurchaseOrderDTO
@@ -216,8 +206,6 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             {
                 throw new ArgumentException("参数为空！");
             }
-
-
         }
 
         [Update(typeof (AircraftPurchaseOrderDTO))]
@@ -228,11 +216,13 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 throw new ArgumentException("参数为空！");
             }
 
-            var persisted = _orderRepository.Get(dto.Id);
-            if (persisted != null)
+            var current = _orderRepository.Get(dto.Id);
+            if (current != null)
             {
-                var current = MaterializeAircraftPurchaseOrderFromDto(dto);
-                _orderRepository.Merge(persisted, current);
+                // 更新当前记录
+
+
+                _orderRepository.Modify(current);
             }
         }
 
@@ -249,11 +239,6 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             {
                 _orderRepository.Remove(deleteAircraftPurchaseOrder);
             }
-        }
-
-        private AircraftPurchaseOrder MaterializeAircraftPurchaseOrderFromDto(AircraftPurchaseOrderDTO dto)
-        {
-            throw new NotImplementedException();
         }
 
         #endregion
@@ -277,11 +262,13 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 throw new ArgumentException("参数为空！");
             }
 
-            var persisted = _orderRepository.Get(dto.Id);
-            if (persisted != null)
+            var current = _orderRepository.Get(dto.Id);
+            if (current != null)
             {
-                var current = MaterializeBFEPurchaseOrderFromDto(dto);
-                _orderRepository.Merge(persisted, current);
+                // 更新当前记录
+
+
+                _orderRepository.Modify(current);
             }
         }
 
@@ -298,11 +285,6 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             {
                 _orderRepository.Remove(deleteBFEPurchaseOrder);
             }
-        }
-
-        private BFEPurchaseOrder MaterializeBFEPurchaseOrderFromDto(BFEPurchaseOrderDTO dto)
-        {
-            throw new NotImplementedException();
         }
 
         #endregion
@@ -326,11 +308,13 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 throw new ArgumentException("参数为空！");
             }
 
-            var persisted = _orderRepository.Get(dto.Id);
-            if (persisted != null)
+            var current = _orderRepository.Get(dto.Id);
+            if (current != null)
             {
-                var current = MaterializeEngineLeaseOrderFromDto(dto);
-                _orderRepository.Merge(persisted, current);
+                // 更新当前记录
+
+
+                _orderRepository.Modify(current);
             }
         }
 
@@ -347,11 +331,6 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             {
                 _orderRepository.Remove(deleteEngineLeaseOrder);
             }
-        }
-
-        private EngineLeaseOrder MaterializeEngineLeaseOrderFromDto(EngineLeaseOrderDTO dto)
-        {
-            throw new NotImplementedException();
         }
 
         #endregion
@@ -375,11 +354,13 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 throw new ArgumentException("参数为空！");
             }
 
-            var persisted = _orderRepository.Get(dto.Id);
-            if (persisted != null)
+            var current = _orderRepository.Get(dto.Id);
+            if (current != null)
             {
-                var current = MaterializeEnginePurchaseOrderFromDto(dto);
-                _orderRepository.Merge(persisted, current);
+                // 更新当前记录
+
+
+                _orderRepository.Modify(current);
             }
         }
 
@@ -396,11 +377,6 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             {
                 _orderRepository.Remove(deleteEnginePurchaseOrder);
             }
-        }
-
-        private EnginePurchaseOrder MaterializeEnginePurchaseOrderFromDto(EnginePurchaseOrderDTO dto)
-        {
-            throw new NotImplementedException();
         }
 
         #endregion
