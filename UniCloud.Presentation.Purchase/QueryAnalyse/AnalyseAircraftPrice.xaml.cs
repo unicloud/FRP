@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.Composition;
+﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using Telerik.Charting;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ChartView;
 
@@ -34,5 +36,30 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
             }
         }
 
+        private void PieChartSelectionBehaviorSelectionChanged(object sender, ChartSelectionChangedEventArgs e)
+        {
+            foreach (var dataPoint in this.PieChart.Series[0].DataPoints)
+            {
+                //string countryName = ((CountryData)dataPoint.DataItem).Name;
+                //if (!this.SelectableCountries.Contains(countryName))
+                //{
+                //    dataPoint.IsSelected = false;
+                //}
+            }
+
+            this.UpdateAll(this.PieChart.Series[0].DataPoints);
+        }
+
+        private void UpdateAll(IEnumerable<DataPoint> dataPoints)
+        {
+            //foreach (var dataPoint in dataPoints)
+            //{
+            //    string countryName = ((CountryData)dataPoint.DataItem).Name;
+            //    this.UpdatePieSlice(countryName, dataPoint.IsSelected);
+            //    this.UpdateBar(countryName, dataPoint.IsSelected);
+            //    this.UpdateMapShape(countryName, dataPoint.IsSelected);
+            //    this.UpdateLine(countryName, dataPoint.IsSelected);
+            //}
+        }
     }
 }
