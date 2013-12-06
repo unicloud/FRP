@@ -12,11 +12,16 @@
 // ========================================================================*/
 #endregion
 
+#region 命名空间
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Windows;
+
+#endregion
 
 namespace UniCloud.Presentation.Purchase.QueryAnalyse
 {
@@ -24,8 +29,9 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AnalyseAircraftPriceVm : INotifyPropertyChanged
     {
-         private List<FinancialData> _data;
-         private List<FinancialData> _data1;
+        private List<FinancialData> _data;
+        private List<FinancialData> _data1;
+        private List<Data> _pieData;
         private Point _panOffset;
         private Size _zoom;
 
@@ -62,6 +68,19 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
             }
         }
 
+        public List<Data> PieData
+        {
+            get { return _pieData; }
+            set
+            {
+                if (_pieData != value)
+                {
+                    _pieData = value;
+                    OnPropertyChanged("PieData");
+                }
+            }
+        }
+
         public Point PanOffset
         {
             get { return _panOffset; }
@@ -94,11 +113,11 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
             var chartData = new List<FinancialData>();
             var ro = new Random((int)DateTime.Now.Ticks);
 
-            for (int i = 0; i < 500; i++)
+            for (int i = 0; i < 20; i++)
             {
                 var dataItem = new FinancialData
                                    {
-                                       Date = DateTime.Now.AddDays(i),
+                                       Date = DateTime.Now.AddMonths(i),
                                        Close = ro.Next(0, 670),
                                        Volume = ro.Next(0, 15000000)
                                    };
@@ -107,11 +126,11 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
             }
             Data = chartData;
             chartData = new List<FinancialData>();
-            for (int i = 0; i < 500; i++)
+            for (int i = 0; i < 20; i++)
             {
                 var dataItem = new FinancialData
                 {
-                    Date = DateTime.Now.AddDays(i),
+                    Date = DateTime.Now.AddMonths(i),
                     Close = ro.Next(0, 670),
                     Volume = ro.Next(0, 15000000)
                 };
@@ -119,6 +138,20 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
                 chartData.Add(dataItem);
             }
             Data1 = chartData;
+            PieData = CreatePieData().ToList();
+        }
+
+        private IEnumerable<Data> CreatePieData()
+        {
+            var pieData = new List<Data>(4)
+                          {
+                              new Data("Google", 82.35),
+                              new Data("Yahoo!", 6.69),
+                              new Data("Baidu", 5.12),
+                              new Data("Others", 4.71)
+                          };
+
+            return pieData;
         }
 
         #region INotifyPropertyChanged Members
@@ -145,5 +178,60 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
 
         public long Volume { get; set; }
     }
-    
+
+    public class Data
+    {
+        private DateTime _timeStamp;
+        private double _value;
+        private string _category;
+
+        public Data(DateTime timeStamp, double value)
+        {
+            _timeStamp = timeStamp;
+            _value = value;
+        }
+
+        public Data(string category, double value)
+        {
+            _category = category;
+            _value = value;
+        }
+
+        public DateTime TimeStamp
+        {
+            get
+            {
+                return _timeStamp;
+            }
+            set
+            {
+                _timeStamp = value;
+            }
+        }
+
+        public string Category
+        {
+            get
+            {
+                return _category;
+            }
+            set
+            {
+                _category = value;
+            }
+        }
+
+        public double Value
+        {
+            get
+            {
+                return _value;
+            }
+            set
+            {
+                _value = value;
+            }
+        }
+    }
+
 }
