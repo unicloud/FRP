@@ -17,8 +17,7 @@
 
 #region 命名空间
 
-using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.PurchaseBC.Resources;
+
 
 #endregion
 
@@ -29,7 +28,7 @@ namespace UniCloud.Domain.PurchaseBC.Enums
     /// </summary>
     public enum SupplierType
     {
-        [Display(ResourceType = typeof (DisplayInfo), Name = "SupplierType_Foreign")] Foreign = 0,
-        [Display(ResourceType = typeof (DisplayInfo), Name = "SupplierType_Inland")] Inland = 1,
+        国外 = 0,
+        国内 = 1,
     }
 }

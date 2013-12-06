@@ -135,19 +135,19 @@ namespace UniCloud.Domain.UberModel.Aggregates.TradeAgg
         {
             switch (status)
             {
-                case TradeStatus.Start:
-                    Status = TradeStatus.Start;
+                case TradeStatus.开始:
+                    Status = TradeStatus.开始;
                     break;
-                case TradeStatus.InProgress:
-                    Status = TradeStatus.InProgress;
+                case TradeStatus.进行中:
+                    Status = TradeStatus.进行中;
                     break;
-                case TradeStatus.Repeal:
-                    Status = TradeStatus.Repeal;
+                case TradeStatus.撤销:
+                    Status = TradeStatus.撤销;
                     IsClosed = true;
                     CloseDate = DateTime.Now;
                     break;
-                case TradeStatus.Complete:
-                    Status = TradeStatus.Complete;
+                case TradeStatus.完成:
+                    Status = TradeStatus.完成;
                     IsClosed = true;
                     CloseDate = DateTime.Now;
                     break;

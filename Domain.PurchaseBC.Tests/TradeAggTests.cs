@@ -35,7 +35,7 @@ namespace UniCloud.Domain.PurchaseBC.Tests
         public void CreateNewTrade()
         {
             // Arrange
-            var supplier = SupplierFactory.CreateSupplier(SupplierType.Foreign, "V0001", "波音", null);
+            var supplier = SupplierFactory.CreateSupplier(SupplierType.国外, "V0001", "波音", null);
 
             var trade = TradeFactory.CreateTrade(null, null, DateTime.Now);
             trade.SetTradeNumber(1);

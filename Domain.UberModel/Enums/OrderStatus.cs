@@ -17,8 +17,7 @@
 
 #region 命名空间
 
-using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.UberModel.Resources;
+
 
 #endregion
 
@@ -29,8 +28,8 @@ namespace UniCloud.Domain.UberModel.Enums
     /// </summary>
     public enum OrderStatus
     {
-        [Display(ResourceType = typeof (DisplayInfo), Name = "OrderStatus_Draft")] Draft = 0,
-        [Display(ResourceType = typeof (DisplayInfo), Name = "OrderStatus_Checking")] Checking = 1,
-        [Display(ResourceType = typeof (DisplayInfo), Name = "OrderStatus_Checked")] Checked = 2,
+        草稿 = 0,
+        待审核 = 1,
+        已审核 = 2,
     }
 }
