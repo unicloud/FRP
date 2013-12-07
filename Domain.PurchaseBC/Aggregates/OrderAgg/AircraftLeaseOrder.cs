@@ -29,7 +29,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
     /// </summary>
     public class AircraftLeaseOrder : Order
     {
-                #region 构造函数
+        #region 构造函数
 
         /// <summary>
         ///     内部构造函数
