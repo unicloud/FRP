@@ -33,7 +33,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.AircraftAgg
 
         /// <summary>
         ///     内部构造函数
-        ///     限制只能通过工厂方法去创建新实例
+        ///     限制只能从内部创建新实例
         /// </summary>
         internal Aircraft()
         {
@@ -46,7 +46,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.AircraftAgg
         /// <summary>
         ///     机号
         /// </summary>
-        public string AircraftReg { get; set; }
+        public string AircraftReg { get; protected set; }
 
         #endregion
 
@@ -55,7 +55,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.AircraftAgg
         /// <summary>
         ///     机型ID
         /// </summary>
-        public Guid AircraftTypeId { get; set; }
+        public Guid AircraftTypeId { get; protected set; }
 
         #endregion
 
@@ -64,7 +64,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.AircraftAgg
         /// <summary>
         ///     机型
         /// </summary>
-        public virtual AircraftType AircraftType { get; set; }
+        public virtual AircraftType AircraftType { get; protected set; }
 
         #endregion
 

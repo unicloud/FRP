@@ -26,7 +26,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ManufacturerAgg
 
         /// <summary>
         ///     内部构造函数
-        ///     限制只能通过工厂方法去创建新实例
+        ///     限制只能从内部创建新实例
         /// </summary>
         internal Manufacturer()
         {
@@ -39,27 +39,27 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ManufacturerAgg
         /// <summary>
         ///     中文名称
         /// </summary>
-        public string CnName { get; set; }
+        public string CnName { get; protected set; }
 
         /// <summary>
         ///     公司英文名称
         /// </summary>
-        public string EnName { get; set; }
+        public string EnName { get; protected set; }
 
         /// <summary>
         ///     公司中文简称
         /// </summary>
-        public string CnShortName { get; set; }
+        public string CnShortName { get; protected set; }
 
         /// <summary>
         ///     公司英文简称
         /// </summary>
-        public string EnShortName { get; set; }
+        public string EnShortName { get; protected set; }
 
         /// <summary>
         ///     备注
         /// </summary>
-        public string Note { get; set; }
+        public string Note { get; protected set; }
 
         #endregion
 
