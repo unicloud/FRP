@@ -22,6 +22,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
+using UniCloud.Domain.PurchaseBC.Enums;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
@@ -74,20 +75,18 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
             var tradeRep = DefaultContainer.Resolve<ITradeRepository>();
 
             var supplier = supplierRep.GetAll().FirstOrDefault();
-            var trade1 = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now);
-            trade1.SetTradeNumber(1);
-            var trade2 = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now);
-            trade2.SetTradeNumber(2);
-            var trade3 = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now);
-            trade3.SetTradeNumber(3);
-            trade1.SetSupplier(supplier);
-            trade2.SetSupplier(supplier);
-            trade3.SetSupplier(supplier);
+            var trade = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now);
+            // 设置交易编号
+            var date = DateTime.Now.Date;
+            var seq = tradeRep.GetFiltered(t => t.CreateDate > date).Count() + 1;
+            trade.SetTradeNumber(seq);
+            // 设置供应商
+            trade.SetSupplier(supplier);
+            // 修改状态
+            trade.SetStatus(TradeStatus.进行中);
 
             // Act
-            tradeRep.Add(trade1);
-            tradeRep.Add(trade2);
-            tradeRep.Add(trade3);
+            tradeRep.Add(trade);
             tradeRep.UnitOfWork.Commit();
         }
     }
