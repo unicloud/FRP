@@ -53,6 +53,17 @@
                 <Setter Property="FontFamily"
                         Value="Segoe UI" />
             </Style>
+            <Style x:Key="LabelStyle"
+                   TargetType="TextBlock">
+                <Setter Property="FontFamily"
+                        Value="Segoe UI" />
+                <Setter Property="FontSize"
+                        Value="11" />
+                <Setter Property="TextAlignment"
+                        Value="Center" />
+                <Setter Property="Foreground"
+                        Value="Black"/>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <telerik:RadTileView x:Name="MyTileView"
@@ -334,7 +345,8 @@
                                                   Label="Lease" />
                         </telerik:PieSeries.DataPoints>
                         <telerik:PieSeries.LabelDefinitions>
-                            <telerik:ChartSeriesLabelDefinition Margin="-5,0,0,0" />
+                            <telerik:ChartSeriesLabelDefinition Margin="-5,0,0,0"
+                                                                DefaultVisualStyle="{StaticResource LabelStyle}" />
                         </telerik:PieSeries.LabelDefinitions>
                         <telerik:PieSeries.AngleRange>
                             <telerik:AngleRange StartAngle="270"

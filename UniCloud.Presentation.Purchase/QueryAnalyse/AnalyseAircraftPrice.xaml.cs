@@ -49,13 +49,18 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
                 var data = closestDataPoint.DataPoint.DataItem as FinancialData;
                 if (data != null)
                 {
-                    Price.Text = data.Volume.ToString("0,0.00");
-                    var purchase = purchases.FirstOrDefault(p => p.Date.ToString(CultureInfo.InvariantCulture) == data.Date.ToString(CultureInfo.InvariantCulture));
-                    var lease = leases.FirstOrDefault(p => p.Date.ToString(CultureInfo.InvariantCulture) == data.Date.ToString(CultureInfo.InvariantCulture));
-                    ImportTypePieChart.Series[0].DataPoints[0].Value = purchase.Volume;
-                    ImportTypePieChart.Series[0].DataPoints[1].Value = lease.Volume;
+                    YearTextBlock.Text = " " + data.Date.ToShortDateString();
+                    var purchase = purchases.FirstOrDefault(p => p.Date.ToShortDateString() == data.Date.ToShortDateString());
+                    var lease = leases.FirstOrDefault(p => p.Date.ToShortDateString() == data.Date.ToShortDateString());
+                    if (purchase != null && lease != null)
+                    {
+                        var tempPercent = purchase.Volume * 100 / (purchase.Volume + lease.Volume);
+                        ImportTypePieChart.Series[0].DataPoints[0].Value = purchase.Volume;
+                        ImportTypePieChart.Series[0].DataPoints[0].Label = "Purchase " + tempPercent + "%";
+                        ImportTypePieChart.Series[0].DataPoints[1].Value = lease.Volume;
+                        ImportTypePieChart.Series[0].DataPoints[1].Label = "Lease " + (100 - tempPercent) + "%";
+                    }
                 }
-
             }
         }
         private void PieChartSelectionBehaviorSelectionChanged(object sender, ChartSelectionChangedEventArgs e)
