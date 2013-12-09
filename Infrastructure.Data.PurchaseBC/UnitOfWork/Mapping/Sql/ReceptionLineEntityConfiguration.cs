@@ -41,6 +41,8 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
             Property(p => p.AcceptedAmount).HasColumnName("AcceptedAmount");
             Property(p => p.IsCompleted).HasColumnName("IsCompleted");
             Property(p => p.Note).HasColumnName("Note");
+            Property(p => p.DeliverDate).HasColumnName("DeliverDate").HasColumnType("datetime2");
+            Property(p => p.DeliverPlace).HasColumnName("DeliverPlace");
 
             Property(p => p.ReceptionId).HasColumnName("ReceptionId");
         }

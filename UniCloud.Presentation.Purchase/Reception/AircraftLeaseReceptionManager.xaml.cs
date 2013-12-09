@@ -35,18 +35,5 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #endregion
 
-
-        private void RadScheduleView_OnAppointmentDeleted(object sender, AppointmentDeletedEventArgs e)
-        {
-
-        }
-
-        private void RadScheduleView_OnAppointmentEdited(object sender, AppointmentEditedEventArgs e)
-        {
-        }
-
-        private void RadScheduleView_OnAppointmentCreated(object sender, AppointmentCreatedEventArgs e)
-        {
-        }
     }
 }

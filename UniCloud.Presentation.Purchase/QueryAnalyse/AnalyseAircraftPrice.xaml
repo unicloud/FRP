@@ -14,10 +14,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
-                <ResourceDictionary Source="/Telerik.Windows.Themes.Windows8;component/Themes/System.Windows.xaml" />
-                <ResourceDictionary Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.xaml" />
-                <ResourceDictionary Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.Chart.xaml" />
-                <ResourceDictionary Source="/Telerik.Windows.Themes.Windows8;component/Themes/Telerik.Windows.Controls.Navigation.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="TrackBallLineStyle"
                    TargetType="Polyline">
@@ -288,8 +284,7 @@
                     </telerik:BarSeries>
                     <telerik:BarSeries ItemsSource="{Binding Data1}"
                                        CategoryBinding="Date"
-                                       ValueBinding="Volume"
-                                       MouseLeftButtonDown="BarSeries_MouseLeftButtonDown">
+                                       ValueBinding="Volume">
                         <telerik:BarSeries.PointTemplate>
                             <DataTemplate>
                                 <Border Background="#FF1B9DDE" />

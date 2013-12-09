@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Globalization;
 using System.Linq;
 using Telerik.Charting;
-using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ChartView;
 
 namespace UniCloud.Presentation.Purchase.QueryAnalyse
@@ -12,6 +10,8 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
     [PartCreationPolicy(CreationPolicy.Shared)]
     public partial class AnalyseAircraftPrice
     {
+        private List<FinancialData> _purchaseImportType;
+        private List<FinancialData> _leaseImportType;
         public AnalyseAircraftPrice()
         {
             InitializeComponent();
@@ -20,7 +20,10 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
         [Import]
         public AnalyseAircraftPriceVm ViewModel
         {
-            get { return DataContext as AnalyseAircraftPriceVm; }
+            get
+            {
+                return DataContext as AnalyseAircraftPriceVm;
+            }
             set { DataContext = value; }
         }
 
@@ -40,27 +43,31 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
 
         private void ImportTypeChartTrackBallBehaviorTrackInfoUpdated(object sender, TrackBallInfoEventArgs e)
         {
+            _purchaseImportType = ImportTypeBarSeries.Series[0].ItemsSource as List<FinancialData>;
+            _leaseImportType = ImportTypeBarSeries.Series[1].ItemsSource as List<FinancialData>;
             DataPointInfo closestDataPoint = e.Context.ClosestDataPoint;
             if (closestDataPoint != null)
             {
-                var purchases = ImportTypeBarSeries.Series[0].ItemsSource as List<FinancialData>;
-                var leases = ImportTypeBarSeries.Series[1].ItemsSource as List<FinancialData>;
-
                 var data = closestDataPoint.DataPoint.DataItem as FinancialData;
                 if (data != null)
                 {
-                    YearTextBlock.Text = " " + data.Date.ToShortDateString();
-                    var purchase = purchases.FirstOrDefault(p => p.Date.ToShortDateString() == data.Date.ToShortDateString());
-                    var lease = leases.FirstOrDefault(p => p.Date.ToShortDateString() == data.Date.ToShortDateString());
-                    if (purchase != null && lease != null)
-                    {
-                        var tempPercent = purchase.Volume * 100 / (purchase.Volume + lease.Volume);
-                        ImportTypePieChart.Series[0].DataPoints[0].Value = purchase.Volume;
-                        ImportTypePieChart.Series[0].DataPoints[0].Label = "Purchase " + tempPercent + "%";
-                        ImportTypePieChart.Series[0].DataPoints[1].Value = lease.Volume;
-                        ImportTypePieChart.Series[0].DataPoints[1].Label = "Lease " + (100 - tempPercent) + "%";
-                    }
+                    UpdateImportTypeData(data);
                 }
+            }
+        }
+
+        private void UpdateImportTypeData(FinancialData data)
+        {
+            YearTextBlock.Text = " " + data.Date.ToShortDateString();
+            var purchase = _purchaseImportType.FirstOrDefault(p => p.Date.ToShortDateString() == data.Date.ToShortDateString());
+            var lease = _leaseImportType.FirstOrDefault(p => p.Date.ToShortDateString() == data.Date.ToShortDateString());
+            if (purchase != null && lease != null)
+            {
+                var tempPercent = purchase.Volume * 100 / (purchase.Volume + lease.Volume);
+                ImportTypePieChart.Series[0].DataPoints[0].Value = purchase.Volume;
+                ImportTypePieChart.Series[0].DataPoints[0].Label = "购买 " + tempPercent + "%";
+                ImportTypePieChart.Series[0].DataPoints[1].Value = lease.Volume;
+                ImportTypePieChart.Series[0].DataPoints[1].Label = "租赁 " + (100 - tempPercent) + "%";
             }
         }
         private void PieChartSelectionBehaviorSelectionChanged(object sender, ChartSelectionChangedEventArgs e)
@@ -89,9 +96,5 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
             //}
         }
 
-        private void BarSeries_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-
-        }
     }
 }

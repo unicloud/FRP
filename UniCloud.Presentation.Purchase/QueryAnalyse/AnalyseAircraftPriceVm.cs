@@ -29,8 +29,8 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AnalyseAircraftPriceVm : INotifyPropertyChanged
     {
-        private List<FinancialData> _data;
-        private List<FinancialData> _data1;
+         private List<FinancialData> _data;
+         private List<FinancialData> _data1;
         private List<Data> _pieData;
         private Point _panOffset;
         private Size _zoom;
@@ -177,7 +177,6 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
         public DateTime Date { get; set; }
         public string Name { get; set; }
         public double Close { get; set; }
-
         public long Volume { get; set; }
     }
 
@@ -235,5 +234,5 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
             }
         }
     }
-
+    
 }

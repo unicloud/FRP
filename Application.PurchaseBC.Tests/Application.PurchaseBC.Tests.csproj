@@ -69,9 +69,13 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ActionCategoryBCTest.cs" />
+    <Compile Include="Services\AircraftTypeBCTest.cs" />
+    <Compile Include="Services\ContractAircraftBCTest.cs" />
     <Compile Include="Services\MaintainContractBCTests.cs" />
     <Compile Include="Services\MaterialBCTest.cs" />
     <Compile Include="Services\PartBCTests.cs" />
+    <Compile Include="Services\PlanAircraftBCTest.cs" />
     <Compile Include="Services\ReceptionBCTests.cs" />
     <Compile Include="Services\TradeBCTests.cs" />
     <Compile Include="Services\SupplierBCTests.cs" />

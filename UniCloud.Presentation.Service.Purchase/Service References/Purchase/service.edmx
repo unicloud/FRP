@@ -122,6 +122,28 @@
         <Property Name="Id" Type="Edm.Guid" Nullable="false" />
         <Property Name="RegNumber" Type="Edm.String" />
       </EntityType>
+      <EntityType Name="ContractAircraftDTO">
+        <Key>
+          <PropertyRef Name="ContractNumber" />
+          <PropertyRef Name="RankNumber" />
+        </Key>
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" Nullable="false" />
+        <Property Name="RankNumber" Type="Edm.String" Nullable="false" />
+        <Property Name="CSCNumber" Type="Edm.String" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="ReceivedAmount" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AcceptedAmount" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AircraftTypeName" Type="Edm.String" />
+        <Property Name="PlanAircraft" Type="Edm.String" />
+        <Property Name="ImportType" Type="Edm.String" />
+        <Property Name="ImportActionName" Type="Edm.String" />
+        <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="PlanAircraftID" Type="Edm.Guid" />
+        <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
+        <NavigationProperty Name="BFEPurchaseOrders" Relationship="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO_BFEPurchaseOrders" ToRole="BFEPurchaseOrders" FromRole="ContractAircraftDTO" />
+      </EntityType>
       <EntityType Name="LeaseContractAircraftDTO">
         <Key>
           <PropertyRef Name="LeaseContractAircraftId" />
@@ -276,6 +298,7 @@
         <Property Name="AircraftLeaseReceptionLineId" Type="Edm.Int32" Nullable="false" />
         <Property Name="MSN" Type="Edm.String" />
         <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="RankNumber" Type="Edm.String" />
         <Property Name="AircraftType" Type="Edm.String" />
         <Property Name="DailNumber" Type="Edm.String" />
         <Property Name="DeliverDate" Type="Edm.DateTime" Nullable="false" />
@@ -283,7 +306,7 @@
         <Property Name="FlightNumber" Type="Edm.String" />
         <Property Name="ImportCategoryId" Type="Edm.String" />
         <Property Name="ApprovalDocNumber" Type="Edm.String" />
-        <Property Name="OrderLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractAircraftId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ReceivedAmount" Type="Edm.Int32" Nullable="false" />
         <Property Name="AcceptedAmount" Type="Edm.Int32" Nullable="false" />
         <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
@@ -514,6 +537,10 @@
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
       </ComplexType>
+      <Association Name="ContractAircraftDTO_BFEPurchaseOrders">
+        <End Type="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO" Role="ContractAircraftDTO" Multiplicity="*" />
+        <End Type="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO" Role="BFEPurchaseOrders" Multiplicity="*" />
+      </Association>
       <Association Name="LeaseContractAircraftDTO_BFEPurchaseOrders">
         <End Type="UniCloud.Application.PurchaseBC.DTO.LeaseContractAircraftDTO" Role="LeaseContractAircraftDTO" Multiplicity="*" />
         <End Type="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO" Role="BFEPurchaseOrders" Multiplicity="*" />
@@ -535,6 +562,7 @@
         <EntitySet Name="AircraftTypes" EntityType="UniCloud.Application.PurchaseBC.DTO.AircraftTypeDTO" />
         <EntitySet Name="ActionCategories" EntityType="UniCloud.Application.PurchaseBC.DTO.ActionCategoryDTO" />
         <EntitySet Name="PlanAircrafts" EntityType="UniCloud.Application.PurchaseBC.DTO.PlanAircraftDTO" />
+        <EntitySet Name="ContractAircrafts" EntityType="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO" />
         <EntitySet Name="LeaseContractAircrafts" EntityType="UniCloud.Application.PurchaseBC.DTO.LeaseContractAircraftDTO" />
         <EntitySet Name="PurchaseContractAircrafts" EntityType="UniCloud.Application.PurchaseBC.DTO.PurchaseContractAircraftDTO" />
         <EntitySet Name="AircraftMaterias" EntityType="UniCloud.Application.PurchaseBC.DTO.AircraftMaterialDTO" />
@@ -554,6 +582,10 @@
         <EntitySet Name="EngineLeaseOrders" EntityType="UniCloud.Application.PurchaseBC.DTO.EngineLeaseOrderDTO" />
         <EntitySet Name="EnginePurchaseOrders" EntityType="UniCloud.Application.PurchaseBC.DTO.EnginePurchaseOrderDTO" />
         <EntitySet Name="BFEPurchaseOrders" EntityType="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO" />
+        <AssociationSet Name="ContractAircraftDTO_BFEPurchaseOrders" Association="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO_BFEPurchaseOrders">
+          <End Role="ContractAircraftDTO" EntitySet="ContractAircrafts" />
+          <End Role="BFEPurchaseOrders" EntitySet="BFEPurchaseOrders" />
+        </AssociationSet>
         <AssociationSet Name="LeaseContractAircraftDTO_BFEPurchaseOrders" Association="UniCloud.Application.PurchaseBC.DTO.LeaseContractAircraftDTO_BFEPurchaseOrders">
           <End Role="LeaseContractAircraftDTO" EntitySet="LeaseContractAircrafts" />
           <End Role="BFEPurchaseOrders" EntitySet="BFEPurchaseOrders" />

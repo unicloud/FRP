@@ -35,9 +35,9 @@ namespace UniCloud.Presentation.Service.Purchase
             {
                 Context = new PurchaseData(AgentHelper.PurchaseUri);
             }
-
             InitialSupplier();
             InitialAircraftType();
+            InitialContractAircraft();
         }
 
         #region Supplier
@@ -70,6 +70,35 @@ namespace UniCloud.Presentation.Service.Purchase
         }
 
         #endregion
+
+        #region  ContractAircraft
+        private static QueryableDataServiceCollectionView<ContractAircraftDTO> _contractAircraftQuery;
+        public static List<ContractAircraftDTO> ContractAircrafts { get; set; }
+
+        /// <summary>
+        ///     初始化
+        /// </summary>
+        private static void InitialContractAircraft()
+        {
+            _contractAircraftQuery = new QueryableDataServiceCollectionView<ContractAircraftDTO>(Context, Context.ContractAircrafts);
+            _contractAircraftQuery.LoadedData += (o, e) =>
+            {
+                var result = o as QueryableDataServiceCollectionView<ContractAircraftDTO>;
+                ContractAircrafts = result.ToList();
+            };
+        }
+
+
+        public static void LoadContractAircrafts()
+        {
+            if (ContractAircrafts == null)
+            {
+                Context.ContractAircrafts.BeginExecute(p => { ContractAircrafts = Context.ContractAircrafts.EndExecute(p).ToList(); },
+                    null);
+            }
+        }
+        #endregion
+
 
         #region AircraftType
 

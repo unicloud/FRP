@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -64,6 +65,11 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         /// </summary>
         public string Note { get; set; }
 
+        //计划交付时间
+        public DateTime DeliverDate { get; set; }
+
+        //计划交付地点
+        public string DeliverPlace { get; set; }
         #endregion
 
         #region 外键属性
@@ -87,7 +93,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         public void SetCompleted()
         {
             // TODO：待完善
-            IsCompleted = true;
+            IsCompleted = false;
         }
 
         #endregion

@@ -158,6 +158,8 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
                 #endregion
 
                 #region 合同飞机相关配置，包括查询，应用服务，仓储注册
+                         .Register<IContractAircraftQuery, ContractAircraftQuery>()
+                         .Register<IContractAircraftAppService, ContractAircraftAppService>()
                          .Register<ILeaseContractAircraftQuery, LeaseContractAircraftQuery>()
                          .Register<IPurchaseContractAircraftQuery, PurchaseContractAircraftQuery>()
                          .Register<ILeaseContractAircraftAppService, LeaseContractAircraftAppService>()

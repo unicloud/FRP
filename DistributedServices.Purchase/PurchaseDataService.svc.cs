@@ -39,6 +39,7 @@ namespace UniCloud.DistributedServices.Purchase
 
             #endregion
 
+
             #region 服务操作访问控制
 
             // config.SetServiceOperationAccessRule("MyServiceOperation", ServiceOperationRights.All);
@@ -49,9 +50,8 @@ namespace UniCloud.DistributedServices.Purchase
             config.UseVerboseErrors = true;
         }
 
-        #region 服务操作
 
-        #endregion
+        #region 服务操作
 
         /// <summary>
         /// 控制生成的服务是否需要缓存
@@ -77,5 +77,8 @@ namespace UniCloud.DistributedServices.Purchase
 
             cachePolicy.SetValidUntilExpires(true);
         }
+
+
+        #endregion
     }
 }

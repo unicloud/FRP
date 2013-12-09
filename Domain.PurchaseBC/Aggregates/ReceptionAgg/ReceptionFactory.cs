@@ -31,30 +31,38 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         /// <summary>
         ///     创建租赁飞机接收
         /// </summary>
-        /// <param name="startDate">开始日期</param>
         /// <returns>租赁飞机接收</returns>
-        public static AircraftLeaseReception CreateAircraftLeaseReception(DateTime startDate)
+        public static AircraftLeaseReception CreateAircraftLeaseReception()
         {
             var aircraftLeaseReception = new AircraftLeaseReception
             {
                 CreateDate = DateTime.Now, 
-                StartDate = startDate
             };
 
             return aircraftLeaseReception;
         }
 
         /// <summary>
+        ///     创建租赁飞机接收
+        /// </summary>
+        /// <returns>租赁飞机接收</returns>
+        public static AircraftLeaseReceptionLine CreateAircraftLeaseReceptionLine()
+        {
+            var aircraftLeaseReceptionLine = new AircraftLeaseReceptionLine
+            {
+            };
+            return aircraftLeaseReceptionLine;
+        }
+
+        /// <summary>
         ///     创建购买飞机接收
         /// </summary>
-        /// <param name="startDate">开始日期</param>
         /// <returns>购买飞机接收</returns>
-        public static AircraftPurchaseReception CreateAircraftPurchaseReception(DateTime startDate)
+        public static AircraftPurchaseReception CreateAircraftPurchaseReception()
         {
             var aircraftPurchaseReception = new AircraftPurchaseReception
             {
                 CreateDate = DateTime.Now,
-                StartDate = startDate
             };
 
             return aircraftPurchaseReception;
@@ -63,14 +71,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         /// <summary>
         ///     创建租赁发动机接收
         /// </summary>
-        /// <param name="startDate">开始日期</param>
         /// <returns>租赁发动机接收</returns>
-        public static EngineLeaseReception CreateEngineLeaseReception(DateTime startDate)
+        public static EngineLeaseReception CreateEngineLeaseReception()
         {
             var engineLeaseReception = new EngineLeaseReception
             {
                 CreateDate = DateTime.Now, 
-                StartDate = startDate
             };
 
             return engineLeaseReception;
@@ -79,14 +85,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         /// <summary>
         ///     创建购买发动机接收
         /// </summary>
-        /// <param name="startDate">开始日期</param>
         /// <returns>购买发动机接收</returns>
-        public static EnginePurchaseReception CreateEnginePurchaseReception(DateTime startDate)
+        public static EnginePurchaseReception CreateEnginePurchaseReception()
         {
             var enginePurchaseReception = new EnginePurchaseReception
             {
                 CreateDate = DateTime.Now, 
-                StartDate = startDate
             };
 
             return enginePurchaseReception;
