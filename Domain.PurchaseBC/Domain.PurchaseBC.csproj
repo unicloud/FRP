@@ -63,6 +63,15 @@
     <Compile Include="Aggregates\ContractAircraftBFEAgg\ContractAircraftBFE.cs" />
     <Compile Include="Aggregates\ContractAircraftBFEAgg\ContractAircraftBFESpecifications.cs" />
     <Compile Include="Aggregates\ContractAircraftBFEAgg\IContractAircraftBFERepository.cs" />
+    <Compile Include="Aggregates\DocumentAgg\Document.cs" />
+    <Compile Include="Aggregates\DocumentAgg\DocumentSpecifications.cs" />
+    <Compile Include="Aggregates\DocumentAgg\IDocumentRepository.cs" />
+    <Compile Include="Aggregates\DocumentAgg\OfficialDocument.cs" />
+    <Compile Include="Aggregates\DocumentAgg\StandardDocument.cs" />
+    <Compile Include="Aggregates\DocumentPathAgg\DocumentPath.cs" />
+    <Compile Include="Aggregates\DocumentPathAgg\DocumentPathFactory.cs" />
+    <Compile Include="Aggregates\DocumentPathAgg\DocumentPathSpecifications.cs" />
+    <Compile Include="Aggregates\DocumentPathAgg\IDocumentPathRepository.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\APUMaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContractFactory.cs" />
@@ -165,7 +174,9 @@
     <Compile Include="Aggregates\TradeAgg\TradeFactory.cs" />
     <Compile Include="Aggregates\TradeAgg\TradeSpecifications.cs" />
     <Compile Include="Enums\BFEStatus.cs" />
+    <Compile Include="Enums\IndexStatus.cs" />
     <Compile Include="Enums\OrderStatus.cs" />
+    <Compile Include="Enums\PathSource.cs" />
     <Compile Include="Enums\ReceptionStatus.cs" />
     <Compile Include="Enums\SupplierType.cs" />
     <Compile Include="Enums\TradeStatus.cs" />

@@ -44,11 +44,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\DocumentAgg\Document.cs" />
+    <Compile Include="Aggregates\DocumentAgg\DocumentFactory.cs" />
+    <Compile Include="Aggregates\DocumentAgg\DocumentSpecifications.cs" />
+    <Compile Include="Aggregates\DocumentAgg\IDocumentRepository.cs" />
+    <Compile Include="Aggregates\DocumentAgg\OfficialDocument.cs" />
+    <Compile Include="Aggregates\DocumentAgg\StandardDocument.cs" />
+    <Compile Include="Aggregates\DocumentPathAgg\DocumentPath.cs" />
+    <Compile Include="Aggregates\DocumentPathAgg\DocumentPathFactory.cs" />
+    <Compile Include="Aggregates\DocumentPathAgg\DocumentPathSpecifications.cs" />
+    <Compile Include="Aggregates\DocumentPathAgg\IDocumentPathRepository.cs" />
+    <Compile Include="Enums\IndexStatus.cs" />
+    <Compile Include="Enums\PathSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Aggregates\" />
-    <Folder Include="Enums\" />
     <Folder Include="Resources\" />
     <Folder Include="Services\" />
     <Folder Include="ValueObjects\" />

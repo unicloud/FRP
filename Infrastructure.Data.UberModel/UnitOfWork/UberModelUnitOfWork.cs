@@ -27,6 +27,8 @@ using UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractAircraftBFEAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractEngineAgg;
 using UniCloud.Domain.UberModel.Aggregates.CurrencyAgg;
+using UniCloud.Domain.UberModel.Aggregates.DocumentAgg;
+using UniCloud.Domain.UberModel.Aggregates.DocumentPathAgg;
 using UniCloud.Domain.UberModel.Aggregates.ForwarderAgg;
 using UniCloud.Domain.UberModel.Aggregates.LinkmanAgg;
 using UniCloud.Domain.UberModel.Aggregates.MaintainContractAgg;
@@ -59,6 +61,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<ContractAircraft> _contractAircrafts;
         private IDbSet<ContractEngine> _contractEngines;
         private IDbSet<Currency> _currencies;
+        private IDbSet<DocumentPath> _documentPaths;
+        private IDbSet<Document> _documents;
         private IDbSet<Forwarder> _forwarders;
         private IDbSet<Linkman> _linkmen;
         private IDbSet<MaintainContract> _maintainContracts;
@@ -117,6 +121,16 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<Currency> Currencies
         {
             get { return _currencies ?? (_currencies = base.Set<Currency>()); }
+        }
+
+        public IDbSet<Document> Documents
+        {
+            get { return _documents ?? (_documents = base.Set<Document>()); }
+        }
+
+        public IDbSet<DocumentPath> DocumentPaths
+        {
+            get { return _documentPaths ?? (_documentPaths = base.Set<DocumentPath>()); }
         }
 
         public IDbSet<Forwarder> Forwarders
@@ -278,6 +292,20 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 #region CurrencyAgg
 
                 .Add(new CurrencyEntityConfiguration())
+
+                #endregion
+
+                #region DocumentAgg
+
+                .Add(new DocumentEntityConfiguration())
+                .Add(new OfficialDocumentEntityConfiguration())
+                .Add(new StandardDocumentEntityConfiguration())
+
+                #endregion
+
+                #region DocumentPathAgg
+
+                .Add(new DocumentPathEntityConfiguration())
 
                 #endregion
 
