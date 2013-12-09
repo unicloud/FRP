@@ -45,7 +45,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
 
         /// <summary>
         ///     内部构造函数
-        ///     限制只能通过工厂方法去创建新实例
+        ///     限制只能从内部创建新实例
         /// </summary>
         internal Order()
         {
@@ -59,6 +59,11 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         ///     版本号
         /// </summary>
         public int Version { get; internal set; }
+
+        /// <summary>
+        ///     合同编号
+        /// </summary>
+        public string ContractNumber { get; private set; }
 
         /// <summary>
         ///     合同名称
@@ -169,6 +174,35 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置合同编号
+        /// </summary>
+        /// <param name="seq">流水号</param>
+        public void SetContractNumber(int seq)
+        {
+            if (seq < 1)
+            {
+                throw new ArgumentException("流水号参数为空！");
+            }
+
+            var date = DateTime.Now;
+            ContractNumber = string.Format("{0:yyyyMMdd}{1}", date, seq.ToString("D2"));
+        }
+
+        /// <summary>
+        ///     设置合同编号
+        /// </summary>
+        /// <param name="contractNumber">合同编号</param>
+        public void SetTradeNumber(string contractNumber)
+        {
+            if (string.IsNullOrWhiteSpace(contractNumber))
+            {
+                throw new ArgumentException("合同编号参数为空！");
+            }
+
+            ContractNumber = contractNumber;
+        }
 
         /// <summary>
         ///     添加合同分解内容

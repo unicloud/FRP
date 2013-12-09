@@ -119,6 +119,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\LeaseContractAircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\LeaseContractEngineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\LinkmanEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\MaintainSupplierEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ManufacturerEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaterialEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OrderEntityConfiguration.cs" />

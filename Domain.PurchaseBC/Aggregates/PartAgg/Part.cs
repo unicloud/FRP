@@ -26,7 +26,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.PartAgg
 
         /// <summary>
         ///     内部构造函数
-        ///     限制只能通过工厂方法去创建新实例
+        ///     限制只能从内部创建新实例
         /// </summary>
         internal Part()
         {
@@ -39,12 +39,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.PartAgg
         /// <summary>
         ///     件号
         /// </summary>
-        public string Pn { get; set; }
+        public string Pn { get; protected set; }
 
         /// <summary>
         ///     名称
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; protected set; }
 
         #endregion
 

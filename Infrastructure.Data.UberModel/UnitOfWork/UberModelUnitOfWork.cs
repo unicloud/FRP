@@ -389,6 +389,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new BFEPurchaseSupplierEntityConfiguration())
                 .Add(new EngineLeaseSupplierEntityConfiguration())
                 .Add(new EnginePurchaseSupplierEntityConfiguration())
+                .Add(new MaintainSupplierEntityConfiguration())
 
                 #endregion
 

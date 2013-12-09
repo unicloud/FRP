@@ -108,6 +108,7 @@
     <Compile Include="Aggregates\SupplierRoleAgg\BFEPurchaseSupplier.cs" />
     <Compile Include="Aggregates\SupplierRoleAgg\EngineLeaseSupplier.cs" />
     <Compile Include="Aggregates\SupplierRoleAgg\EnginePurchaseSupplier.cs" />
+    <Compile Include="Aggregates\SupplierRoleAgg\MaintainSupplier.cs" />
     <Compile Include="Aggregates\SupplierRoleAgg\SupplierRole.cs" />
     <Compile Include="Aggregates\ReceptionAgg\EnginePurchaseReception.cs" />
     <Compile Include="Aggregates\ReceptionAgg\EnginePurchaseReceptionLine.cs" />
