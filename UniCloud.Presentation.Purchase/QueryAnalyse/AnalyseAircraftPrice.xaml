@@ -288,8 +288,7 @@
                     </telerik:BarSeries>
                     <telerik:BarSeries ItemsSource="{Binding Data1}"
                                        CategoryBinding="Date"
-                                       ValueBinding="Volume"
-                                       MouseLeftButtonDown="BarSeries_MouseLeftButtonDown">
+                                       ValueBinding="Volume">
                         <telerik:BarSeries.PointTemplate>
                             <DataTemplate>
                                 <Border Background="#FF1B9DDE" />
