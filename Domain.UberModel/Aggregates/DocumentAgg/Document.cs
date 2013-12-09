@@ -30,7 +30,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.DocumentAgg
     /// <summary>
     ///     文档聚合根
     /// </summary>
-    public class Document : EntityGuid, IValidatableObject
+    public abstract class Document : EntityGuid, IValidatableObject
     {
         #region 构造函数
 

@@ -299,6 +299,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 .Add(new DocumentEntityConfiguration())
                 .Add(new OfficialDocumentEntityConfiguration())
+                .Add(new StandardDocumentEntityConfiguration())
 
                 #endregion
 

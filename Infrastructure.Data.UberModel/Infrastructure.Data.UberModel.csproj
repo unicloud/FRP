@@ -63,9 +63,9 @@
     <Compile Include="InitialData\ReceptionData.cs" />
     <Compile Include="InitialData\SupplierData.cs" />
     <Compile Include="InitialData\TradeData.cs" />
-    <Compile Include="Migrations\201312091320348_Initial.cs" />
-    <Compile Include="Migrations\201312091320348_Initial.Designer.cs">
-      <DependentUpon>201312091320348_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201312091433279_Initial.cs" />
+    <Compile Include="Migrations\201312091433279_Initial.Designer.cs">
+      <DependentUpon>201312091433279_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -128,6 +128,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionScheduleEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\StandardDocumentEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierCompanyEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierCompanyMaterialEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierEntityConfiguration.cs" />
@@ -158,8 +159,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201312091320348_Initial.resx">
-      <DependentUpon>201312091320348_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201312091433279_Initial.resx">
+      <DependentUpon>201312091433279_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

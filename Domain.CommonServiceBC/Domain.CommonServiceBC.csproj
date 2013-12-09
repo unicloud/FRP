@@ -49,6 +49,7 @@
     <Compile Include="Aggregates\DocumentAgg\DocumentSpecifications.cs" />
     <Compile Include="Aggregates\DocumentAgg\IDocumentRepository.cs" />
     <Compile Include="Aggregates\DocumentAgg\OfficialDocument.cs" />
+    <Compile Include="Aggregates\DocumentAgg\StandardDocument.cs" />
     <Compile Include="Aggregates\DocumentPathAgg\DocumentPath.cs" />
     <Compile Include="Aggregates\DocumentPathAgg\DocumentPathFactory.cs" />
     <Compile Include="Aggregates\DocumentPathAgg\DocumentPathSpecifications.cs" />

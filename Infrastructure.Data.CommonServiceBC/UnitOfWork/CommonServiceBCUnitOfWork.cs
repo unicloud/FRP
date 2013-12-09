@@ -84,6 +84,7 @@ namespace UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork
 
                 .Add(new DocumentEntityConfiguration())
                 .Add(new OfficialDocumentEntityConfiguration())
+                .Add(new StandardDocumentEntityConfiguration())
 
                 #endregion
 

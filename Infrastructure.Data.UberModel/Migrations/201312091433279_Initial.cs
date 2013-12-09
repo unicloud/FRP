@@ -525,6 +525,16 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .Index(t => t.ID);
             
             CreateTable(
+                "FRP.StandardDocument",
+                c => new
+                    {
+                        ID = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.Document", t => t.ID)
+                .Index(t => t.ID);
+            
+            CreateTable(
                 "FRP.APUMaintainContract",
                 c => new
                     {
@@ -911,6 +921,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.UndercartMaintainContract", "ID", "FRP.MaintainContract");
             DropForeignKey("FRP.EngineMaintainContract", "ID", "FRP.MaintainContract");
             DropForeignKey("FRP.APUMaintainContract", "ID", "FRP.MaintainContract");
+            DropForeignKey("FRP.StandardDocument", "ID", "FRP.Document");
             DropForeignKey("FRP.OfficialDocument", "ID", "FRP.Document");
             DropForeignKey("FRP.PurchaseContractEngine", "ID", "FRP.ContractEngine");
             DropForeignKey("FRP.LeaseContractEngine", "ID", "FRP.ContractEngine");
@@ -983,6 +994,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.UndercartMaintainContract", new[] { "ID" });
             DropIndex("FRP.EngineMaintainContract", new[] { "ID" });
             DropIndex("FRP.APUMaintainContract", new[] { "ID" });
+            DropIndex("FRP.StandardDocument", new[] { "ID" });
             DropIndex("FRP.OfficialDocument", new[] { "ID" });
             DropIndex("FRP.PurchaseContractEngine", new[] { "ID" });
             DropIndex("FRP.LeaseContractEngine", new[] { "ID" });
@@ -1043,6 +1055,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.UndercartMaintainContract");
             DropTable("FRP.EngineMaintainContract");
             DropTable("FRP.APUMaintainContract");
+            DropTable("FRP.StandardDocument");
             DropTable("FRP.OfficialDocument");
             DropTable("FRP.PurchaseContractEngine");
             DropTable("FRP.LeaseContractEngine");

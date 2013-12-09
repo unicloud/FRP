@@ -63,6 +63,7 @@
     <Compile Include="Aggregates\DocumentAgg\Document.cs" />
     <Compile Include="Aggregates\DocumentAgg\DocumentFactory.cs" />
     <Compile Include="Aggregates\DocumentAgg\OfficialDocument.cs" />
+    <Compile Include="Aggregates\DocumentAgg\StandardDocument.cs" />
     <Compile Include="Aggregates\DocumentPathAgg\DocumentPath.cs" />
     <Compile Include="Aggregates\DocumentPathAgg\DocumentPathFactory.cs" />
     <Compile Include="Aggregates\ForwarderAgg\Forwarder.cs" />
