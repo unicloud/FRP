@@ -1,4 +1,8 @@
-﻿using System.ComponentModel.Composition;
+﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.Globalization;
+using System.Linq;
+using Telerik.Charting;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ChartView;
 
@@ -34,5 +38,60 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
             }
         }
 
+        private void ImportTypeChartTrackBallBehaviorTrackInfoUpdated(object sender, TrackBallInfoEventArgs e)
+        {
+            DataPointInfo closestDataPoint = e.Context.ClosestDataPoint;
+            if (closestDataPoint != null)
+            {
+                var purchases = ImportTypeBarSeries.Series[0].ItemsSource as List<FinancialData>;
+                var leases = ImportTypeBarSeries.Series[1].ItemsSource as List<FinancialData>;
+
+                var data = closestDataPoint.DataPoint.DataItem as FinancialData;
+                if (data != null)
+                {
+                    YearTextBlock.Text = " " + data.Date.ToShortDateString();
+                    var purchase = purchases.FirstOrDefault(p => p.Date.ToShortDateString() == data.Date.ToShortDateString());
+                    var lease = leases.FirstOrDefault(p => p.Date.ToShortDateString() == data.Date.ToShortDateString());
+                    if (purchase != null && lease != null)
+                    {
+                        var tempPercent = purchase.Volume * 100 / (purchase.Volume + lease.Volume);
+                        ImportTypePieChart.Series[0].DataPoints[0].Value = purchase.Volume;
+                        ImportTypePieChart.Series[0].DataPoints[0].Label = "Purchase " + tempPercent + "%";
+                        ImportTypePieChart.Series[0].DataPoints[1].Value = lease.Volume;
+                        ImportTypePieChart.Series[0].DataPoints[1].Label = "Lease " + (100 - tempPercent) + "%";
+                    }
+                }
+            }
+        }
+        private void PieChartSelectionBehaviorSelectionChanged(object sender, ChartSelectionChangedEventArgs e)
+        {
+            foreach (var dataPoint in this.ImportTypePieChart.Series[0].DataPoints)
+            {
+                //string countryName = ((CountryData)dataPoint.DataItem).Name;
+                //if (!this.SelectableCountries.Contains(countryName))
+                //{
+                //    dataPoint.IsSelected = false;
+                //}
+            }
+
+            this.UpdateAll(this.PieChart.Series[0].DataPoints);
+        }
+
+        private void UpdateAll(IEnumerable<DataPoint> dataPoints)
+        {
+            //foreach (var dataPoint in dataPoints)
+            //{
+            //    string countryName = ((CountryData)dataPoint.DataItem).Name;
+            //    this.UpdatePieSlice(countryName, dataPoint.IsSelected);
+            //    this.UpdateBar(countryName, dataPoint.IsSelected);
+            //    this.UpdateMapShape(countryName, dataPoint.IsSelected);
+            //    this.UpdateLine(countryName, dataPoint.IsSelected);
+            //}
+        }
+
+        private void BarSeries_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
