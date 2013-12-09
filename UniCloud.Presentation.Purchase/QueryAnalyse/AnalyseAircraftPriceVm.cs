@@ -118,6 +118,7 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
                 var dataItem = new FinancialData
                                    {
                                        Date = DateTime.Now.AddMonths(i),
+                                       Name = "Purchase",
                                        Close = ro.Next(0, 670),
                                        Volume = ro.Next(0, 15000000)
                                    };
@@ -131,6 +132,7 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
                 var dataItem = new FinancialData
                 {
                     Date = DateTime.Now.AddMonths(i),
+                    Name = "Lease",
                     Close = ro.Next(0, 670),
                     Volume = ro.Next(0, 15000000)
                 };
@@ -173,7 +175,7 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
     public class FinancialData
     {
         public DateTime Date { get; set; }
-
+        public string Name { get; set; }
         public double Close { get; set; }
 
         public long Volume { get; set; }
