@@ -78,7 +78,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             newAircraftLeaseReception.SetReceptionNumber(1);
             newAircraftLeaseReception.Description = aircraftLeaseReception.Description;
             newAircraftLeaseReception.StartDate = aircraftLeaseReception.StartDate;
-            newAircraftLeaseReception.SetStatus(ReceptionStatus.Start);
+            newAircraftLeaseReception.SetStatus(0);
             newAircraftLeaseReception.EndDate = aircraftLeaseReception.EndDate;
             newAircraftLeaseReception.SetSupplier(supplier);
             if (aircraftLeaseReception.ReceptionLines != null)

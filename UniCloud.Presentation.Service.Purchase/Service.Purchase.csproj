@@ -85,17 +85,18 @@
     <Reference Include="System.Xml.Linq, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Telerik.Windows.Controls">
       <HintPath>..\packages\Telerik.Windows.Controls.2.0.0\lib\Telerik.Windows.Controls.dll</HintPath>
-    </Reference>
-    <Reference Include="Telerik.Windows.Controls.DataServices50, Version=2013.3.1016.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.Windows.Controls.DataServices50.2.0.1\lib\Telerik.Windows.Controls.DataServices50.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Telerik.Windows.Controls.ScheduleView">
-      <HintPath>..\packages\Telerik.Windows.Controls.ScheduleView.2.0.1\lib\Telerik.Windows.Controls.ScheduleView.dll</HintPath>
+    <Reference Include="Telerik.Windows.Controls.DataServices50, Version=2013.3.1016.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Windows.Controls.DataServices50.2.0.0\lib\Telerik.Windows.Controls.DataServices50.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.ScheduleView, Version=2013.3.1016.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Telerik.Windows.Controls.ScheduleView.2.0.0\lib\Telerik.Windows.Controls.ScheduleView.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Data, Version=2013.3.1016.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Telerik.Windows.Data.2.0.1\lib\Telerik.Windows.Data.dll</HintPath>
+      <HintPath>..\packages\Telerik.Windows.Data.2.0.0\lib\Telerik.Windows.Data.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -105,7 +106,6 @@
     </Compile>
     <Compile Include="IPurchaseService.cs" />
     <Compile Include="Purchase\AircraftLeaseReceptionLineDTO.cs" />
-    <Compile Include="Purchase\AircraftMaterialDTO.cs" />
     <Compile Include="Purchase\APUMaintainContractDTO.cs" />
     <Compile Include="Purchase\EngineMaintainContractDTO.cs" />
     <Compile Include="Purchase\Enums\BFEStatus.cs" />
