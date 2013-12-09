@@ -19,11 +19,10 @@
 
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
-using UniCloud.Domain.PurchaseBC.Aggregates.BankAccountAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
 
 #endregion
 
@@ -59,11 +58,28 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
             QueryBuilder<Linkman> query);
 
         /// <summary>
-        ///     合作公司相关物料。
+        ///     飞机物料。
         /// </summary>
         /// <param name="query">查询条件。</param>
-        /// <returns>合作公司相关物料。</returns>
-        IQueryable<SupplierCompanyMaterialDTO> SupplierCompanyMaterialsQuery(
-            QueryBuilder<SupplierCompany> query);
+        /// <returns>飞机物料。</returns>
+        IQueryable<SupplierCompanyAcMaterialDTO> SupplierCompanyAcMaterialsQuery(
+            QueryBuilder<SupplierCompanyMaterial> query);
+
+        /// <summary>
+        ///     发动机物料。
+        /// </summary>
+        /// <param name="query">查询条件。</param>
+        /// <returns>发动机物料。</returns>
+        IQueryable<SupplierCompanyEngineMaterialDTO> SupplierCompanyEngineMaterialsQuery(
+            QueryBuilder<SupplierCompanyMaterial> query);
+
+        /// <summary>
+        ///     BFE物料。
+        /// </summary>
+        /// <param name="query">查询条件。</param>
+        /// <returns>BFE物料。</returns>
+        IQueryable<SupplierCompanyBFEMaterialDTO> SupplierCompanyBFEMaterialsQuery(
+            QueryBuilder<SupplierCompanyMaterial> query);
+
     }
 }

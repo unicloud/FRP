@@ -614,7 +614,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             var scheduleView = sender as RadScheduleView;
             if (scheduleView != null)
-            {
+        {
                 var appointment = scheduleView.EditedAppointment as Appointment;
                 var schedule = scheduleExtension.ConvertToReceptionSchedule(appointment);
                 schedule.ReceptionId = SelAircraftLeaseReception.AircraftLeaseReceptionId;
@@ -636,7 +636,7 @@ namespace UniCloud.Presentation.Purchase.Reception
             {
                 var appointment = scheduleView.EditedAppointment as Appointment;
                 if (appointment != null)
-                {
+        {
                     var schedule =
                         SelAircraftLeaseReception.ReceptionSchedules.FirstOrDefault(
                             p => p.UniqueId == appointment.UniqueId);
@@ -663,7 +663,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                             p => p.UniqueId == appointment.UniqueId);
                     SelAircraftLeaseReception.ReceptionSchedules.Remove(schedule);
                     if (schedule != null)
-                    {
+        {
                         schedule = scheduleExtension.ConvertToReceptionSchedule(appointment);
                         SelAircraftLeaseReception.ReceptionSchedules.Add(schedule);
                     }

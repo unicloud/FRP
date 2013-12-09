@@ -43,7 +43,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg
 
         /// <summary>
         ///     内部构造函数
-        ///     限制只能通过工厂方法去创建新实例
+        ///     限制只能从内部创建新实例
         /// </summary>
         internal Trade()
         {
@@ -147,19 +147,19 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg
         {
             switch (status)
             {
-                case TradeStatus.Start:
-                    Status = TradeStatus.Start;
+                case TradeStatus.开始:
+                    Status = TradeStatus.开始;
                     break;
-                case TradeStatus.InProgress:
-                    Status = TradeStatus.InProgress;
+                case TradeStatus.进行中:
+                    Status = TradeStatus.进行中;
                     break;
-                case TradeStatus.Repeal:
-                    Status = TradeStatus.Repeal;
+                case TradeStatus.撤销:
+                    Status = TradeStatus.撤销;
                     IsClosed = true;
                     CloseDate = DateTime.Now;
                     break;
-                case TradeStatus.Complete:
-                    Status = TradeStatus.Complete;
+                case TradeStatus.完成:
+                    Status = TradeStatus.完成;
                     IsClosed = true;
                     CloseDate = DateTime.Now;
                     break;
@@ -197,6 +197,34 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg
 
             var date = DateTime.Now;
             TradeNumber = string.Format("{0:yyyyMMdd}{1}", date, seq.ToString("D2"));
+        }
+
+        /// <summary>
+        ///     设置交易编号
+        /// </summary>
+        /// <param name="tradeNumber">交易编号</param>
+        public void SetTradeNumber(string tradeNumber)
+        {
+            if (string.IsNullOrWhiteSpace(tradeNumber))
+            {
+                throw new ArgumentException("交易编号参数为空！");
+            }
+
+            TradeNumber = tradeNumber;
+        }
+
+        /// <summary>
+        ///     更新交易
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="description">描述</param>
+        /// <param name="startDate">开始日期</param>
+        /// <returns>创建的交易</returns>
+        public void UpdateTrade(string name, string description, DateTime startDate)
+        {
+            Name = name;
+            Description = description;
+            StartDate = startDate;
         }
 
         #endregion

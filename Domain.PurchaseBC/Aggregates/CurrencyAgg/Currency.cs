@@ -26,7 +26,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg
 
         /// <summary>
         ///     内部构造函数
-        ///     限制只能通过工厂方法去创建新实例
+        ///     限制只能从内部创建新实例
         /// </summary>
         internal Currency()
         {
@@ -39,17 +39,17 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg
         /// <summary>
         ///     币种中文名称
         /// </summary>
-        public string CnName { get; set; }
+        public string CnName { get; protected set; }
 
         /// <summary>
         ///     币种英文名称
         /// </summary>
-        public string EnName { get; set; }
+        public string EnName { get; protected set; }
 
         /// <summary>
         ///     货币符号
         /// </summary>
-        public string Symbol { get; set; }
+        public string Symbol { get; protected set; }
 
         /// <summary>
         ///     对RMB的汇率
@@ -57,7 +57,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg
         ///         记录当前值
         ///     </remarks>
         /// </summary>
-        public decimal ExchangeRate { get; set; }
+        public decimal ExchangeRate { get; protected set; }
 
         #endregion
 

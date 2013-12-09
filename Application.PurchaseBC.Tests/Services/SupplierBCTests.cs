@@ -24,6 +24,7 @@ using UniCloud.Application.PurchaseBC.SupplierServices;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
@@ -44,17 +45,17 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
                 .UseAutofac()
                 .CreateLog()
                 .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-            
-                #region 供应商相关配置，包括查询，应用服务，仓储注册
 
-                .Register<ISupplierQuery, SupplierQuery>()
-                .Register<ISupplierAppService, SupplierAppService>()
-                .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
-                .Register<ISupplierRepository, SupplierRepository>()
-                .Register<ILinkmanRepository, LinkmanRepository>()
-                .Register<ISupplierRoleRepository, SupplierRoleRepository>()
+            #region 供应商相关配置，包括查询，应用服务，仓储注册
 
-                #endregion
+                         .Register<ISupplierQuery, SupplierQuery>()
+                         .Register<ISupplierAppService, SupplierAppService>()
+                         .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
+                         .Register<ISupplierRepository, SupplierRepository>()
+                         .Register<ILinkmanRepository, LinkmanRepository>()
+                         .Register<ISupplierRoleRepository, SupplierRoleRepository>()
+                         .Register<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>()
+            #endregion
 
                 ;
         }
@@ -114,5 +115,48 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
             // Assert
             Assert.IsTrue(result.Any());
         }
+
+        /// <summary>
+        ///     获取合作公司飞机物料
+        /// </summary>
+        [TestMethod]
+        public void GetSupplierCompanyMaterials()
+        {
+            // Arrange
+            var service = DefaultContainer.Resolve<ISupplierAppService>();
+            // Act
+            var result = service.GetSupplierCompanyAcMaterials().ToList();
+            // Assert
+            Assert.IsTrue(result.Any());
+        }
+
+        /// <summary>
+        ///     获取合作公司发动机物料
+        /// </summary>
+        [TestMethod]
+        public void GetSupplierCompanyEngineMaterials()
+        {
+            // Arrange
+            var service = DefaultContainer.Resolve<ISupplierAppService>();
+            // Act
+            var result = service.GetSupplierCompanyEngineMaterials().ToList();
+            // Assert
+            Assert.IsTrue(result.Any());
+        }
+
+        /// <summary>
+        ///     获取合作公司发动机物料
+        /// </summary>
+        [TestMethod]
+        public void GetSupplierCompanyBFEMaterials()
+        {
+            // Arrange
+            var service = DefaultContainer.Resolve<ISupplierAppService>();
+            // Act
+            var result = service.GetSupplierCompanyBFEMaterials().ToList();
+            // Assert
+            Assert.IsTrue(result.Any());
+        }
+
     }
 }

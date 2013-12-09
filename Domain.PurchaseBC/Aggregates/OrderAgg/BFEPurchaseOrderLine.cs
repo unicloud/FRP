@@ -34,7 +34,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
 
         /// <summary>
         ///     内部构造函数
-        ///     限制只能通过工厂方法去创建新实例
+        ///     限制只能从内部创建新实例
         /// </summary>
         internal BFEPurchaseOrderLine()
         {
@@ -69,14 +69,14 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         {
             switch (status)
             {
-                case BFEStatus.Contract:
-                    Status = BFEStatus.Contract;
+                case BFEStatus.签约:
+                    Status = BFEStatus.签约;
                     break;
-                case BFEStatus.Manufacture:
-                    Status = BFEStatus.Manufacture;
+                case BFEStatus.制造:
+                    Status = BFEStatus.制造;
                     break;
-                case BFEStatus.Delivery:
-                    Status = BFEStatus.Delivery;
+                case BFEStatus.交付制造商:
+                    Status = BFEStatus.交付制造商;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("status");

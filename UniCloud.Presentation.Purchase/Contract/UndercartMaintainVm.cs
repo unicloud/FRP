@@ -18,7 +18,6 @@
 
 using System;
 using System.Linq;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
@@ -115,7 +114,6 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             // 将CollectionView的AutoLoad属性设为True
             UndercartMaintainContracts.AutoLoad = true;
-            Suppliers = GlobalServiceHelper.MaintainSupplier;
         }
 
         #region 起落架维修合同
@@ -142,10 +140,10 @@ namespace UniCloud.Presentation.Purchase.Contract
                     {
                         _document.Id = _undercartMaintainContract.DocumentId;
                         _document.Name = _undercartMaintainContract.DocumentName;
-                        if (Suppliers != null)
+                        if (value.Suppliers != null)
                         {
                             _supplier =
-                                Suppliers.FirstOrDefault(p => p.SupplierId == _undercartMaintainContract.SignatoryId);
+                                value.Suppliers.FirstOrDefault(p => p.SupplierId == _undercartMaintainContract.SignatoryId);
                         }
                     }
                     RaisePropertyChanged(() => UndercartMaintainContract);
@@ -170,20 +168,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         #endregion
 
         #region 签约对象
-
         private SupplierDTO _supplier;
-        private List<SupplierDTO> _suppliers;
-
-        public List<SupplierDTO> Suppliers
-        {
-            get { return _suppliers; }
-            set
-            {
-                _suppliers = value;
-                RaisePropertyChanged(() => Suppliers);
-            }
-        }
-
         /// <summary>
         ///     选中的签约对象
         /// </summary>

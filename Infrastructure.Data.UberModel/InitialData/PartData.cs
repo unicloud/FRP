@@ -55,6 +55,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
                 Name=p.Name,
                 Part =p
             }));
+            parts.ForEach(p => Context.Materials.Add(new EngineMaterial()
+            {
+                Description = "描述",
+                Name = p.Name,
+                Part = p
+            }));
         }
     }
 }

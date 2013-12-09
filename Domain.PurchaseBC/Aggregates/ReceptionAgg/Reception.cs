@@ -43,7 +43,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
 
         /// <summary>
         ///     内部构造函数
-        ///     限制只能通过工厂方法去创建新实例
+        ///     限制只能从内部创建新实例
         /// </summary>
         internal Reception()
         {
@@ -141,19 +141,19 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         {
             switch (status)
             {
-                case ReceptionStatus.Start:
-                    Status = ReceptionStatus.Start;
+                case ReceptionStatus.开始:
+                    Status = ReceptionStatus.开始;
                     break;
-                case ReceptionStatus.InProgress:
-                    Status = ReceptionStatus.InProgress;
+                case ReceptionStatus.进行中:
+                    Status = ReceptionStatus.进行中;
                     break;
-                case ReceptionStatus.Repeal:
-                    Status = ReceptionStatus.Repeal;
+                case ReceptionStatus.撤销:
+                    Status = ReceptionStatus.撤销;
                     IsClosed = true;
                     CloseDate = DateTime.Now;
                     break;
-                case ReceptionStatus.Complete:
-                    Status = ReceptionStatus.Complete;
+                case ReceptionStatus.完成:
+                    Status = ReceptionStatus.完成;
                     IsClosed = true;
                     CloseDate = DateTime.Now;
                     break;
@@ -190,6 +190,20 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
 
             var date = DateTime.Now;
             ReceptionNumber = string.Format("{0:yyyyMMdd}{1}", date, seq.ToString("D2"));
+        }
+
+        /// <summary>
+        ///     设置接收编号
+        /// </summary>
+        /// <param name="receptionNumber">接收编号</param>
+        public void SetReceptionNumber(string receptionNumber)
+        {
+            if (string.IsNullOrWhiteSpace(receptionNumber))
+            {
+                throw new ArgumentException("接收编号参数为空！");
+            }
+
+            ReceptionNumber = receptionNumber;
         }
 
         #endregion

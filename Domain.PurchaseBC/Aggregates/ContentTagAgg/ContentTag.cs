@@ -26,7 +26,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContentTagAgg
 
         /// <summary>
         ///     内部构造函数
-        ///     限制只能通过工厂方法去创建新实例
+        ///     限制只能从内部创建新实例
         /// </summary>
         internal ContentTag()
         {
@@ -39,12 +39,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContentTagAgg
         /// <summary>
         ///     名称
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; protected set; }
 
         /// <summary>
         ///     描述
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; protected set; }
 
         #endregion
 

@@ -49,6 +49,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrderAgg
         public int Version { get; internal set; }
 
         /// <summary>
+        ///     合同编号
+        /// </summary>
+        public string ContractNumber { get; private set; }
+
+        /// <summary>
         ///     合同名称
         /// </summary>
         public string Name { get; set; }
@@ -159,6 +164,35 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrderAgg
         #region 操作
 
         /// <summary>
+        ///     设置合同编号
+        /// </summary>
+        /// <param name="seq">流水号</param>
+        public void SetContractNumber(int seq)
+        {
+            if (seq < 1)
+            {
+                throw new ArgumentException("流水号参数为空！");
+            }
+
+            var date = DateTime.Now;
+            ContractNumber = string.Format("{0:yyyyMMdd}{1}", date, seq.ToString("D2"));
+        }
+
+        /// <summary>
+        ///     设置合同编号
+        /// </summary>
+        /// <param name="contractNumber">合同编号</param>
+        public void SetTradeNumber(string contractNumber)
+        {
+            if (string.IsNullOrWhiteSpace(contractNumber))
+            {
+                throw new ArgumentException("合同编号参数为空！");
+            }
+
+            ContractNumber = contractNumber;
+        }
+
+        /// <summary>
         ///     添加合同分解内容
         /// </summary>
         /// <param name="doc">合同分解内容</param>
@@ -194,14 +228,14 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrderAgg
         {
             switch (status)
             {
-                case OrderStatus.Draft:
-                    Status = OrderStatus.Draft;
+                case OrderStatus.草稿:
+                    Status = OrderStatus.草稿;
                     break;
-                case OrderStatus.Checking:
-                    Status = OrderStatus.Checking;
+                case OrderStatus.待审核:
+                    Status = OrderStatus.待审核;
                     break;
-                case OrderStatus.Checked:
-                    Status = OrderStatus.Checked;
+                case OrderStatus.已审核:
+                    Status = OrderStatus.已审核;
                     IsValid = true;
                     break;
                 default:

@@ -128,19 +128,19 @@ namespace UniCloud.Domain.UberModel.Aggregates.ReceptionAgg
         {
             switch (status)
             {
-                case ReceptionStatus.Start:
-                    Status = ReceptionStatus.Start;
+                case ReceptionStatus.开始:
+                    Status = ReceptionStatus.开始;
                     break;
-                case ReceptionStatus.InProgress:
-                    Status = ReceptionStatus.InProgress;
+                case ReceptionStatus.进行中:
+                    Status = ReceptionStatus.进行中;
                     break;
-                case ReceptionStatus.Repeal:
-                    Status = ReceptionStatus.Repeal;
+                case ReceptionStatus.撤销:
+                    Status = ReceptionStatus.撤销;
                     IsClosed = true;
                     CloseDate = DateTime.Now;
                     break;
-                case ReceptionStatus.Complete:
-                    Status = ReceptionStatus.Complete;
+                case ReceptionStatus.完成:
+                    Status = ReceptionStatus.完成;
                     IsClosed = true;
                     CloseDate = DateTime.Now;
                     break;
@@ -176,7 +176,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ReceptionAgg
             }
 
             var date = DateTime.Now;
-            ReceptionNumber = string.Format("{0}{1}{2}{3}", date.Year, date.Month, date.Day, seq.ToString("D2"));
+            ReceptionNumber = string.Format("{0:yyyyMMdd}{1}", date, seq.ToString("D2"));
         }
 
         /// <summary>

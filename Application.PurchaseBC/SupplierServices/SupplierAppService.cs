@@ -44,13 +44,15 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         private readonly ISupplierQuery _supplierQuery;
         private readonly ISupplierRoleRepository _supplierRoleRepository;
         private readonly ILinkmanRepository _linkmanRepository;
+        private readonly ISupplierCompanyMaterialRepository _supplierCompanyMaterialRepository;
         public SupplierAppService(ISupplierQuery supplierQuery, ISupplierRoleRepository supplierRoleRepository,
-                                  ISupplierCompanyRepository supplierCompanyRepository, ILinkmanRepository linkmanRepository)
+                                  ISupplierCompanyRepository supplierCompanyRepository, ILinkmanRepository linkmanRepository, ISupplierCompanyMaterialRepository supplierCompanyMaterialRepository)
         {
             _supplierQuery = supplierQuery;
             _supplierRoleRepository = supplierRoleRepository;
             _supplierCompanyRepository = supplierCompanyRepository;
             _linkmanRepository = linkmanRepository;
+            _supplierCompanyMaterialRepository = supplierCompanyMaterialRepository;
         }
 
         #region 合作公司相关操作
@@ -285,66 +287,153 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         #region 供应商物料相关操作
 
         /// <summary>
-        ///     获取供应商物料。
+        ///     获取合作公司的飞机物料。
         /// </summary>
-        /// <returns>供应商物料。</returns>
-        public IQueryable<SupplierCompanyMaterialDTO> GetSupplierCompanyMaterials()
+        /// <returns>合作公司的飞机物料。</returns>
+        public IQueryable<SupplierCompanyAcMaterialDTO> GetSupplierCompanyAcMaterials()
         {
-                        var queryBuilder =
-                new QueryBuilder<SupplierCompany>();
-            return _supplierQuery.SupplierCompanyMaterialsQuery(queryBuilder);
+            var queryBuilder =
+                     new QueryBuilder<SupplierCompanyMaterial>();
+            return _supplierQuery.SupplierCompanyAcMaterialsQuery(queryBuilder);
         }
 
-
         /// <summary>
-        ///     更新合作公司物料。
+        ///     获取合作公司的发动机物料。
         /// </summary>
-        /// <param name="supplierCompanyMaterial">合作公司物料DTO。</param>
-        [Update(typeof(SupplierCompanyMaterialDTO))]
-        public void ModifySupplierCompanyMaterial(SupplierCompanyMaterialDTO supplierCompanyMaterial)
+        /// <returns>合作公司的发动机物料。</returns>
+        public IQueryable<SupplierCompanyEngineMaterialDTO> GetSupplierCompanyEngineMaterials()
         {
-            var persistSupplierCompany =
-                _supplierCompanyRepository.Get(supplierCompanyMaterial.SupplierCompanyId);
-            if (persistSupplierCompany==null)
-             throw new Exception("数据库不存在更新的供应商物料");
-            //数据库持久化的物料信息
-            var persistSupplierMaterial = persistSupplierCompany
-                .SupplierCompanyMaterials.ToList();
-            //前台传过来的物料信息
-            var allSupplierMaterial = (supplierCompanyMaterial.AircraftMaterials
-                                     .Union(supplierCompanyMaterial.BFEMaterials)
-                                     .Union(supplierCompanyMaterial.EngineMaterials))
-                                     .ToList();
-            UpdateSupplierMaterial(persistSupplierCompany, allSupplierMaterial, persistSupplierMaterial);
+            var queryBuilder =
+                     new QueryBuilder<SupplierCompanyMaterial>();
+            return _supplierQuery.SupplierCompanyEngineMaterialsQuery(queryBuilder);
 
         }
 
         /// <summary>
-        /// 更新合作公司物料信息
+        ///     获取合作公司的BFE物料。
         /// </summary>
-        /// <param name="supplierCompany">合作公司</param>
-        /// <param name="supplierMaterial">前台物料信息</param>
-        /// <param name="persistSupplierMaterial">持久化的物料信息</param>
-        private void UpdateSupplierMaterial(SupplierCompany supplierCompany, List<SupplierMaterialDTO> supplierMaterial,
-           List<SupplierCompanyMaterial> persistSupplierMaterial)
+        /// <returns>合作公司的BFE物料。</returns>
+        public IQueryable<SupplierCompanyBFEMaterialDTO> GetSupplierCompanyBFEMaterials()
         {
-            //遍历从前台传过来的供应商物料，如果数据库中没有存在，则此供应商物料为新增。
-            supplierMaterial.ForEach(p =>
-            {
-                if (persistSupplierMaterial.All(c => c.Id != p.SupplierMaterialId))
-                {
-                    supplierCompany.AddMaterial(p.MaterialId);
-                }
-            });
-            //与前台传过来的物料相比，如果前台的物料没有，数据库有，则该物料为删除。
-            persistSupplierMaterial.ForEach(p =>
-            {
-                if (supplierMaterial.All(c => c.MaterialId != p.Id))
-                {
-                    supplierCompany.SupplierCompanyMaterials.Remove(p);
-                }
-            });
+            var queryBuilder =
+                      new QueryBuilder<SupplierCompanyMaterial>();
+            return _supplierQuery.SupplierCompanyBFEMaterialsQuery(queryBuilder);
         }
+
+        /// <summary>
+        ///     新增合作公司飞机物料。
+        /// </summary>
+        /// <param name="supplierCompanyAcMaterial">合作公司飞机物料DTO。</param>
+        [Insert(typeof(SupplierCompanyAcMaterialDTO))]
+        public void InsertSupplierCompanyAcMaterial(SupplierCompanyAcMaterialDTO supplierCompanyAcMaterial)
+        {
+            //判断增加的物料是否存在
+            var supplierCompanyMaterial = _supplierCompanyMaterialRepository.GetAll()
+                                                      .FirstOrDefault(
+                                                          p => p.MaterialId == supplierCompanyAcMaterial.MaterialId
+                                                               &&
+                                                               p.SupplierCompanyId ==
+                                                               supplierCompanyAcMaterial.SupplierCompanyId);
+            if (supplierCompanyMaterial != null)
+                throw new Exception("飞机物料已存在");
+            var supplier = _supplierCompanyRepository.Get(supplierCompanyAcMaterial.SupplierCompanyId);
+            if (supplier != null)
+            {
+                supplier.AddMaterial(supplierCompanyAcMaterial.MaterialId); //添加物料
+            }
+
+        }
+
+        /// <summary>
+        ///     删除合作公司飞机物料。
+        /// </summary>
+        /// <param name="supplierCompanyAcMaterial">合作公司飞机物料DTO。</param>
+        [Delete(typeof(SupplierCompanyAcMaterialDTO))]
+        public void DeleteSupplierCompanyAcMaterial(SupplierCompanyAcMaterialDTO supplierCompanyAcMaterial)
+        {
+            var supplierMaterial = _supplierCompanyMaterialRepository.Get(supplierCompanyAcMaterial.SupplierCompanyMaterialId);
+            DelSupplierCompanyMaterial(supplierMaterial);
+        }
+
+        /// <summary>
+        ///     新增合作公司发动机物料。
+        /// </summary>
+        /// <param name="supplierCompanyEngineMaterial">合作公司发动机物料DTO。</param>
+        [Insert(typeof(SupplierCompanyEngineMaterialDTO))]
+        public void InsertSupplierCompanyEngineMaterial(SupplierCompanyEngineMaterialDTO supplierCompanyEngineMaterial)
+        {
+            //判断增加的物料是否存在
+            var supplierCompanyMaterial = _supplierCompanyMaterialRepository.GetAll()
+                                                      .FirstOrDefault(
+                                                          p => p.MaterialId == supplierCompanyEngineMaterial.MaterialId
+                                                               &&
+                                                               p.SupplierCompanyId ==
+                                                               supplierCompanyEngineMaterial.SupplierCompanyId);
+            if (supplierCompanyMaterial != null)
+                throw new Exception("发动机物料已存在");
+
+            var supplier = _supplierCompanyRepository.Get(supplierCompanyEngineMaterial.SupplierCompanyId);
+            if (supplier!=null)
+            {
+                supplier.AddMaterial(supplierCompanyEngineMaterial.MaterialId); //添加物料
+            }
+        }
+
+        /// <summary>
+        ///     删除合作公司发动机物料。
+        /// </summary>
+        /// <param name="supplierCompanyEngineMaterial">合作公司发动机物料DTO。</param>
+        [Delete(typeof(SupplierCompanyEngineMaterialDTO))]
+        public void DeleteSupplierCompanyEngineMaterial(SupplierCompanyEngineMaterialDTO supplierCompanyEngineMaterial)
+        {
+            var supplierMaterial = _supplierCompanyMaterialRepository.Get(supplierCompanyEngineMaterial.SupplierCompanyMaterialId);
+            DelSupplierCompanyMaterial(supplierMaterial);
+        }
+
+        /// <summary>
+        ///     新增合作公司BFE物料。
+        /// </summary>
+        /// <param name="supplierCompanyBFEMaterial">合作公司BFE物料DTO。</param>
+        [Insert(typeof(SupplierCompanyBFEMaterialDTO))]
+        public void InsertSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBFEMaterial)
+        { 
+            //判断增加的物料是否存在
+            var supplierCompanyMaterial = _supplierCompanyMaterialRepository.GetAll()
+                                                      .FirstOrDefault(
+                                                          p => p.MaterialId == supplierCompanyBFEMaterial.MaterialId
+                                                               &&
+                                                               p.SupplierCompanyId ==
+                                                               supplierCompanyBFEMaterial.SupplierCompanyId);
+            if(supplierCompanyMaterial!=null)
+                throw new Exception("BFE物料已存在");
+
+            var supplier = _supplierCompanyRepository.Get(supplierCompanyBFEMaterial.SupplierCompanyId);
+            if (supplier != null)
+            {    
+                supplier.AddMaterial(supplierCompanyBFEMaterial.MaterialId); //添加物料
+            }
+        }
+
+        /// <summary>
+        ///     删除合作公司BFE物料。
+        /// </summary>
+        /// <param name="supplierCompanyBFEMaterial">合作公司BFE物料DTO。</param>
+        [Delete(typeof(SupplierCompanyBFEMaterialDTO))]
+        public void DeleteSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBFEMaterial)
+        {
+          var supplierMaterial= _supplierCompanyMaterialRepository.Get(supplierCompanyBFEMaterial.SupplierCompanyMaterialId);
+            DelSupplierCompanyMaterial(supplierMaterial);
+        }
+
+        /// <summary>
+        /// 删除合作公司物料
+        /// </summary>
+        /// <param name="supplierCompanyBFEMaterial"></param>
+        private void DelSupplierCompanyMaterial(SupplierCompanyMaterial supplierCompanyBFEMaterial)
+        {
+            _supplierCompanyMaterialRepository.Remove(supplierCompanyBFEMaterial);
+        }
+
         #endregion
     }
 }

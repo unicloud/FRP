@@ -389,6 +389,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
                 .Add(new BFEPurchaseSupplierEntityConfiguration())
                 .Add(new EngineLeaseSupplierEntityConfiguration())
                 .Add(new EnginePurchaseSupplierEntityConfiguration())
+                .Add(new MaintainSupplierEntityConfiguration())
 
                 #endregion
 

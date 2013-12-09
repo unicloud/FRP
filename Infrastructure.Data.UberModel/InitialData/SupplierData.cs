@@ -43,7 +43,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
         /// <returns></returns>
         public override void InitialData()
         {
-            var supplier = SupplierFactory.CreateSupplier(SupplierType.Foreign, "V0001", "波音", null);
+            var supplier = SupplierFactory.CreateSupplier(SupplierType.国外, "V0001", "波音", null);
             supplier.GenerateNewIdentity();
 
             var supplierCompany = SupplierCompanyFactory.CreateSupplieCompany(supplier.Code);

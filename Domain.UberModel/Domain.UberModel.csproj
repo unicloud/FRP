@@ -108,6 +108,7 @@
     <Compile Include="Aggregates\SupplierRoleAgg\BFEPurchaseSupplier.cs" />
     <Compile Include="Aggregates\SupplierRoleAgg\EngineLeaseSupplier.cs" />
     <Compile Include="Aggregates\SupplierRoleAgg\EnginePurchaseSupplier.cs" />
+    <Compile Include="Aggregates\SupplierRoleAgg\MaintainSupplier.cs" />
     <Compile Include="Aggregates\SupplierRoleAgg\SupplierRole.cs" />
     <Compile Include="Aggregates\ReceptionAgg\EnginePurchaseReception.cs" />
     <Compile Include="Aggregates\ReceptionAgg\EnginePurchaseReceptionLine.cs" />
@@ -121,11 +122,6 @@
     <Compile Include="Enums\SupplierType.cs" />
     <Compile Include="Enums\TradeStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\DisplayInfo.Designer.cs">
-      <DependentUpon>DisplayInfo.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="ValueObjects\Address.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -136,12 +132,6 @@
       <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\DisplayInfo.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>DisplayInfo.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

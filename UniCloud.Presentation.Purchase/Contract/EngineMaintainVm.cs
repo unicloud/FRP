@@ -17,7 +17,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Regions;
@@ -115,7 +114,6 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             // 将CollectionView的AutoLoad属性设为True
             EngineMaintainContracts.AutoLoad = true;
-            Suppliers = GlobalServiceHelper.MaintainSupplier;
         }
 
         #region 发动机维修合同
@@ -142,10 +140,10 @@ namespace UniCloud.Presentation.Purchase.Contract
                     {
                         _document.Id = _engineMaintainContract.DocumentId;
                         _document.Name = _engineMaintainContract.DocumentName;
-                        if (Suppliers != null)
+                        if (value.Suppliers != null)
                         {
                             _supplier =
-                                Suppliers.FirstOrDefault(p => p.SupplierId == _engineMaintainContract.SignatoryId);
+                                value.Suppliers.FirstOrDefault(p => p.SupplierId == _engineMaintainContract.SignatoryId);
                         }
                     }
                     RaisePropertyChanged(() => EngineMaintainContract);
@@ -170,20 +168,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         #endregion
 
         #region 签约对象
-
         private SupplierDTO _supplier;
-        private List<SupplierDTO> _suppliers;
-
-        public List<SupplierDTO> Suppliers
-        {
-            get { return _suppliers; }
-            set
-            {
-                _suppliers = value;
-                RaisePropertyChanged(() => Suppliers);
-            }
-        }
-
         /// <summary>
         ///     选中的签约对象
         /// </summary>

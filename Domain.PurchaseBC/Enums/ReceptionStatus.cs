@@ -15,13 +15,6 @@
 
 #endregion
 
-#region 命名空间
-
-using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.PurchaseBC.Resources;
-
-#endregion
-
 namespace UniCloud.Domain.PurchaseBC.Enums
 {
     /// <summary>
@@ -29,9 +22,9 @@ namespace UniCloud.Domain.PurchaseBC.Enums
     /// </summary>
     public enum ReceptionStatus
     {
-        [Display(ResourceType = typeof (DisplayInfo), Name = "ReceptionStatus_Start")] Start = 0,
-        [Display(ResourceType = typeof (DisplayInfo), Name = "ReceptionStatus_InProgress")] InProgress = 1,
-        [Display(ResourceType = typeof (DisplayInfo), Name = "ReceptionStatus_Repeal")] Repeal = 2,
-        [Display(ResourceType = typeof (DisplayInfo), Name = "ReceptionStatus_Complete")] Complete = 3,
+        开始 = 0,
+        进行中 = 1,
+        撤销 = 2,
+        完成 = 3,
     }
 }
