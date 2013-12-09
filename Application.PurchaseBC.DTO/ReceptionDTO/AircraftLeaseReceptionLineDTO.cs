@@ -38,6 +38,8 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public string MSN { get; set; }
         //合同号
         public string ContractNumber { get; set; }
+        //Rank号
+        public string RankNumber { get; set; }
         //机型
         public string AircraftType { get; set; }
         ////制造商
@@ -52,8 +54,6 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public string DeliverPlace { get; set; }
         //调机航班号
         public string FlightNumber { get; set; }
-        ////供应商名称
-        //public string SuppplierName { get; set; }
         //引进方式
         public string ImportCategoryId { get; set; }
         //引进批文号
@@ -62,10 +62,13 @@ namespace UniCloud.Application.PurchaseBC.DTO
         #region 外键属性
 
         /// <summary>
-        ///     租赁飞机订单行ID
+        ///     租赁合同飞机ID
         /// </summary>
-        public int OrderLineId { get; set; }
+        public int ContractAircraftId { get; set; }
 
+        #endregion
+
+        #region 导航属性
         #endregion
 
     }

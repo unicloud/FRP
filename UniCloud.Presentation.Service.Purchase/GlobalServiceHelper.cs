@@ -39,6 +39,7 @@ namespace UniCloud.Presentation.Service.Purchase
             SupplierQuery = new QueryableDataServiceCollectionView<SupplierDTO>(Context, Context.Suppliers);
             SupplierQuery.LoadedData += SupplierQueryLoadedData;
             //InitialAcType();
+            LoadContractAircrafts();
         }
 
         //供应商数据加载完毕，分类处理
@@ -52,7 +53,9 @@ namespace UniCloud.Presentation.Service.Purchase
         //初始化数据
 
         public static List<SupplierDTO> MaintainSupplier { get; set; }
+        public static List<ContractAircraftDTO> ContractAircrafts { get; set; }
         private static readonly QueryableDataServiceCollectionView<SupplierDTO> SupplierQuery;
+        
         public static void InitData()
         {
             if (MaintainSupplier == null)
@@ -68,6 +71,17 @@ namespace UniCloud.Presentation.Service.Purchase
             if (MaintainSupplier == null)
             {
                 Context.Suppliers.BeginExecute(p => { MaintainSupplier = Context.Suppliers.EndExecute(p).ToList(); },
+                    null);
+            }
+        }
+
+
+        //加载合同飞机
+        private static void LoadContractAircrafts()
+        {
+            if (ContractAircrafts == null)
+            {
+                Context.ContractAircrafts.BeginExecute(p => { ContractAircrafts = Context.ContractAircrafts.EndExecute(p).ToList(); },
                     null);
             }
         }

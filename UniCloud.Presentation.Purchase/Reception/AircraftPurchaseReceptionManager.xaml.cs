@@ -1,11 +1,8 @@
 ﻿
 using System.ComponentModel.Composition;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Animation;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.FixedDocumentViewersUI.Dialogs;
-using Telerik.Windows.Documents.Fixed.Model;
 using Telerik.Windows.Documents.Fixed.UI.Extensibility;
 
 namespace UniCloud.Presentation.Purchase.Reception
@@ -28,49 +25,19 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #region Methods
 
-        private void UncheckButton(RadToggleButton btn)
-        {
-            if (btn.IsChecked == true)
-            {
-                btn.IsChecked = false;
-            }
-        }
-
         #endregion
 
-        #region EventHandlers
-        private RadFixedDocument _pdfDocument;
-
-        private void TbCurrentPage_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void RadScheduleView_OnAppointmentDeleted(object sender, AppointmentDeletedEventArgs e)
         {
 
-            TextBox textBox = sender as TextBox;
-            if (textBox != null)
-            {
-                if (e.Key == System.Windows.Input.Key.Enter)
-                {
-                    textBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
-                }
-            }
         }
 
-        private void ChangePageNavigationPanelVisibility(object sender, RoutedEventArgs e)
+        private void RadScheduleView_OnAppointmentEdited(object sender, AppointmentEditedEventArgs e)
         {
-            _pdfDocument = this.pdfViewer.Document;
-            Storyboard expand = this.Resources["Expand"] as Storyboard;
-            Storyboard collapse = this.Resources["Collapse"] as Storyboard;
-
-            if (this.PageButton.IsChecked == true && expand != null)
-            {
-                expand.Begin();
-            }
-            if (this.PageButton.IsChecked == false && collapse != null)
-            {
-                collapse.Begin();
-                UncheckButton(this.PageButton);
-            }
         }
 
-        #endregion
+        private void RadScheduleView_OnAppointmentCreated(object sender, AppointmentCreatedEventArgs e)
+        {
+        }
     }
 }

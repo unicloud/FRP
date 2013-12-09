@@ -30,7 +30,7 @@ namespace UniCloud.Application.PurchaseBC.DTO
 
         public AircraftLeaseReceptionDTO()
         {
-            ReceptionLines=new List<AircraftLeaseReceptionLineDTO>();
+            ReceptionLines = new List<AircraftLeaseReceptionLineDTO>();
         }
 
         #region 属性

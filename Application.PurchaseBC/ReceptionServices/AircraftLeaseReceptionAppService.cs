@@ -22,7 +22,10 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.ReceptionQueries;
+using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
+using UniCloud.Domain.PurchaseBC.Enums;
 
 #endregion
 
@@ -35,12 +38,18 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
     {
         private readonly IAircraftLeaseReceptionQuery _aircraftLeaseReceptionQuery;
         private readonly IReceptionRepository _receptionRepository;
+        private readonly ISupplierRepository _supplierRepository;
+        private readonly IContractAircraftRepository _contractAircraftRepository;
 
         public AircraftLeaseReceptionAppService(IAircraftLeaseReceptionQuery aircraftLeaseReceptionQuery,
-            IReceptionRepository receptionRepository)
+            IReceptionRepository receptionRepository,
+            ISupplierRepository supplierRepository,
+            IContractAircraftRepository contractAircraftRepository)
         {
             _aircraftLeaseReceptionQuery = aircraftLeaseReceptionQuery;
             _receptionRepository = receptionRepository;
+            _supplierRepository = supplierRepository;
+            _contractAircraftRepository = contractAircraftRepository;
         }
 
         #region AircraftLeaseReceptionDTO
@@ -63,7 +72,54 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         [Insert(typeof(AircraftLeaseReceptionDTO))]
         public void InsertAircraftLeaseReception(AircraftLeaseReceptionDTO aircraftLeaseReception)
         {
-            var newAircraftLeaseReception = ReceptionFactory.CreateAircraftLeaseReception(DateTime.Now);
+            var supplier = _supplierRepository.GetFiltered(p => p.SupplierCompanyId == aircraftLeaseReception.SupplierId).FirstOrDefault();
+
+            var newAircraftLeaseReception = ReceptionFactory.CreateAircraftLeaseReception();
+            newAircraftLeaseReception.SetReceptionNumber(1);
+            newAircraftLeaseReception.Description = aircraftLeaseReception.Description;
+            newAircraftLeaseReception.StartDate = aircraftLeaseReception.StartDate;
+            newAircraftLeaseReception.SetStatus(ReceptionStatus.Start);
+            newAircraftLeaseReception.EndDate = aircraftLeaseReception.EndDate;
+            newAircraftLeaseReception.SetSupplier(supplier);
+            if (aircraftLeaseReception.ReceptionLines != null)
+            {
+                foreach (var receptionLine in aircraftLeaseReception.ReceptionLines)
+                {
+                    var leaseConAc =
+                        _contractAircraftRepository.GetFiltered(p => p.Id == receptionLine.ContractAircraftId)
+                            .OfType<LeaseContractAircraft>()
+                            .FirstOrDefault();
+                    var newRecepitonLine = ReceptionFactory.CreateAircraftLeaseReceptionLine();
+                    newRecepitonLine.ReceivedAmount = receptionLine.ReceivedAmount;
+                    newRecepitonLine.AcceptedAmount = receptionLine.AcceptedAmount;
+                    newRecepitonLine.SetCompleted();
+                    newRecepitonLine.Note = receptionLine.Note;
+                    newRecepitonLine.DeliverDate = receptionLine.DeliverDate;
+                    newRecepitonLine.DeliverPlace = receptionLine.DeliverPlace;
+                    newRecepitonLine.DailNumber = receptionLine.DailNumber;
+                    newRecepitonLine.FlightNumber = receptionLine.FlightNumber;
+                    newRecepitonLine.SetContractAircraft(leaseConAc);
+                    newAircraftLeaseReception.ReceptionLines.Add(newRecepitonLine);
+                }
+            }
+            if (aircraftLeaseReception.ReceptionSchedules != null)
+                foreach (var schdeule in aircraftLeaseReception.ReceptionSchedules)
+                {
+                    var newSchedule = new ReceptionSchedule();
+                    newSchedule.Body = schdeule.Body;
+                    newSchedule.Subject = schdeule.Subject;
+                    newSchedule.Importance = schdeule.Importance;
+                    newSchedule.Start = schdeule.Start;
+                    newSchedule.End = schdeule.End;
+                    newSchedule.IsAllDayEvent = schdeule.IsAllDayEvent;
+                    newSchedule.Group = schdeule.Group;
+                    newSchedule.Tempo = schdeule.Tempo;
+                    newSchedule.Location = schdeule.Location;
+                    newSchedule.UniqueId = schdeule.UniqueId;
+                    newSchedule.Url = schdeule.Url;
+                    newAircraftLeaseReception.ReceptionSchedules.Add(newSchedule);
+                }
+
             _receptionRepository.Add(newAircraftLeaseReception);
         }
 

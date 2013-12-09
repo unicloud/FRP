@@ -43,6 +43,10 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         #endregion
 
         #region 属性
+        //选呼号
+        public string DailNumber { get; set; }
+        //调机航班号
+        public string FlightNumber { get; set; }
 
         #endregion
 

@@ -48,6 +48,7 @@ namespace UniCloud.Presentation.Service.Purchase.SchdeuleExtension
             appointment.TimeMarker = GetTimeMarker(schedule.Importance);
             appointment.Category = GetCategory(schedule.Tempo);
             appointment.Resources.Add(GetResource(schedule.Group));
+            appointment.Location = schedule.Location;
             return appointment;
         }
 
@@ -58,10 +59,16 @@ namespace UniCloud.Presentation.Service.Purchase.SchdeuleExtension
             schedule.Subject = appointment.Subject;
             schedule.Start = appointment.Start;
             schedule.End = appointment.End;
+            if(appointment.TimeMarker!=null)
             schedule.Importance = appointment.TimeMarker.TimeMarkerName;
             schedule.IsAllDayEvent = appointment.IsAllDayEvent;
+            if(appointment.Category!=null)
             schedule.Tempo = appointment.Category.CategoryName;
-            schedule.Group = appointment.Resources.ToString();//将对应的取过来
+            schedule.UniqueId = appointment.UniqueId;
+            schedule.Url = appointment.Url;
+            schedule.Location = appointment.Location;
+            ResourceCollection ar = appointment.Resources;
+            schedule.Group = GetScheduleGroup(ar);//将对应的取过来
             return schedule;
         }
 
@@ -151,22 +158,45 @@ namespace UniCloud.Presentation.Service.Purchase.SchdeuleExtension
             {
                 case "机队管理组":
                     {
-                        var resource = new Resource("机队管理组", "WorkGroup");
+                        var resource = new Resource("机队管理组", "工作组");
                         return resource;
                     }
                 case "机务组":
                     {
-                        var resource = new Resource("机务组", "WorkGroup");
+                        var resource = new Resource("机务组", "工作组");
                         return resource;
                     }
                 case "后勤组":
                     {
-                        var resource = new Resource("后勤组", "WorkGroup");
+                        var resource = new Resource("后勤组", "工作组");
+                        return resource;
+                    }
+                case "其他":
+                    {
+                        var resource = new Resource("其他", "工作组");
                         return resource;
                     }
                 default:
                     return null;
             }
         }
+
+        private string GetScheduleGroup(ResourceCollection ar)
+        {
+            var r1 = new Resource("机队管理组", "工作组");
+            var r2 = new Resource("机务组", "工作组");
+            var r3 = new Resource("后勤组", "工作组");
+            var r4 = new Resource("其他", "工作组");
+            if (ar.Contains(r1))
+                return r1.DisplayName;
+            else if (ar.Contains(r2))
+                return r2.DisplayName;
+            else if (ar.Contains(r3))
+                return r3.DisplayName;
+            else if (ar.Contains(r4))
+                return r4.DisplayName;
+            else return "其他";
+        }
+
     }
 }

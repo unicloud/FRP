@@ -18,7 +18,8 @@
 #region 命名空间
 
 using System.Linq;
-using UniCloud.Application.PurchaseBC.ActionCategoryServices;using UniCloud.Application.PurchaseBC.AircraftTypeServices;
+using UniCloud.Application.PurchaseBC.ActionCategoryServices;
+using UniCloud.Application.PurchaseBC.AircraftTypeServices;
 using UniCloud.Application.PurchaseBC.ContractAircraftServices;
 using UniCloud.Application.PurchaseBC.ContractServices;
 using UniCloud.Application.PurchaseBC.DTO;
@@ -44,6 +45,7 @@ namespace UniCloud.DistributedServices.Purchase
         private readonly IActionCategoryAppService _actionCategoryAppService;
         private readonly IAircraftLeaseReceptionAppService _aircraftLeaseReceptionAppService;
         private readonly IAircraftPurchaseReceptionAppService _aircraftPurchaseReceptionAppService;
+        private readonly IContractAircraftAppService _contractAircraftAppService;
         private readonly IEngineLeaseReceptionAppService _engineLeaseReceptionAppService;
         private readonly IEnginePurchaseReceptionAppService _enginePurchaseReceptionAppService;
         private readonly IForwarderAppService _forwarderAppService;
@@ -61,6 +63,7 @@ namespace UniCloud.DistributedServices.Purchase
         {
             _actionCategoryAppService = DefaultContainer.Resolve<IActionCategoryAppService>();
             _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
+            _contractAircraftAppService = DefaultContainer.Resolve<IContractAircraftAppService>();
             _forwarderAppService = DefaultContainer.Resolve<IForwarderAppService>();
             _maintainContractAppService = DefaultContainer.Resolve<IMaintainContractAppService>();
             _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();
@@ -114,7 +117,8 @@ namespace UniCloud.DistributedServices.Purchase
         /// <summary>
         /// 合作公司相关物料
         /// </summary>
-        public IQueryable<SupplierCompanyMaterialDTO> SupplierCompanyMaterials {
+        public IQueryable<SupplierCompanyMaterialDTO> SupplierCompanyMaterials
+        {
             get { return _supplierAppService.GetSupplierCompanyMaterials(); }
         }
 
@@ -156,6 +160,18 @@ namespace UniCloud.DistributedServices.Purchase
         #endregion
 
         #region 合同飞机集合
+
+
+        /// <summary>
+        ///     合同飞机集合
+        /// </summary>
+        public IQueryable<ContractAircraftDTO> ContractAircrafts
+        {
+            get
+            {
+                return _contractAircraftAppService.GetContractAircrafts();
+            }
+        }
 
         /// <summary>
         ///     租赁合同飞机集合

@@ -38,6 +38,8 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(p => p.ContractAircraftId).HasColumnName("ContractAircraftId");
+            Property(p => p.DailNumber).HasColumnName("DailNumber");
+            Property(p => p.FlightNumber).HasColumnName("FlightNumber");
 
             HasRequired(a => a.LeaseContractAircraft).WithMany().HasForeignKey(a => a.ContractAircraftId);
         }

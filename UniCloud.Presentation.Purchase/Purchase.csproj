@@ -220,6 +220,7 @@
       <DependentUpon>ForwarderManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forwarder\ForwarderManagerVM.cs" />
+    <Compile Include="Input\PlanAircraftInput.cs" />
     <Compile Include="PurchaseModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryAnalyse\AnalyseAircraftPrice.xaml.cs">
