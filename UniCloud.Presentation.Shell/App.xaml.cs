@@ -40,6 +40,7 @@ namespace UniCloud.Presentation.Shell
             {
                 ResourceManager = LocalizationResource.ResourceManager
             };
+            StyleManager.ApplicationTheme=new Windows8Theme();
             SetWindows8Palette();
 
             InitializeComponent();
