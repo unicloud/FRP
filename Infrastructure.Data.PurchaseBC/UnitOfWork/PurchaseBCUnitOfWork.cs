@@ -281,6 +281,12 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
 
                 #endregion
 
+                #region DocumentPathAgg
+
+                .Add(new DocumentPathEntityConfiguration())
+
+                #endregion
+
                 #region ForwarderAgg
 
                 .Add(new ForwarderEntityConfiguration())

@@ -60,6 +60,7 @@
     <Compile Include="Repositories\ContractAircraftRepository.cs" />
     <Compile Include="Repositories\ContentTagRepository.cs" />
     <Compile Include="Repositories\ContractEngineRepository.cs" />
+    <Compile Include="Repositories\DocumentPathRepository.cs" />
     <Compile Include="Repositories\MaintainContractRepository.cs" />
     <Compile Include="Repositories\CurrencyRepository.cs" />
     <Compile Include="Repositories\ForwarderRepository.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ContractAircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ContractContentEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ContractEngineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\DocumentPathEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainContractEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\CurrencyEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineLeaseOrderEntityConfiguration.cs" />
