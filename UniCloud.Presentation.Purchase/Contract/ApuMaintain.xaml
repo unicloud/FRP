@@ -358,7 +358,6 @@
                                      ContextMenuTemplate="{x:Null}">
                         <Grid>
                             <telerik:RadDataForm x:Name="ApuMaintainForm"
-                                                 telerik:StyleManager.Theme="Windows8"
                                                  CancelButtonContent="取消"
                                                  CommitButtonContent="确定"
                                                  telerik:StyleManager.Theme="Windows8"
