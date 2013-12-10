@@ -22,5 +22,14 @@ namespace UniCloud.Presentation.Service
                                UriKind.Absolute);
             }
         }
+
+        public static Uri CommonServiceUri 
+        {
+            get
+            {
+                return new Uri("http://localhost:20074/CommonServiceDataService.svc",
+                               UriKind.Absolute);
+            }
+        }
     }
 }

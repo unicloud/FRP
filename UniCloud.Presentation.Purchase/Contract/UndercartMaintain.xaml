@@ -260,7 +260,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <telerik:RadDocking>
+        <telerik:RadDocking telerik:StyleManager.Theme="Windows8">
             <telerik:RadDocking.DocumentHost>
                 <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
                     <telerik:RadPaneGroup>
@@ -284,6 +284,7 @@
                                                          CanUserFreezeColumns="False"
                                                          IsReadOnly="True"
                                                          IsFilteringAllowed="True"
+                                                         telerik:StyleManager.Theme="Windows8"
                                                          ItemsSource="{Binding UndercartMaintainContracts}"
                                                          IsBusy="{Binding UndercartMaintainContracts.IsBusy}"
                                                          SelectedItem="{Binding UndercartMaintainContract,Mode=TwoWay}"
@@ -338,6 +339,7 @@
                                                           BorderThickness="1,0,1,1"
                                                           AutoEllipsisMode="Both"
                                                           DisplayMode="All"
+                                                          telerik:StyleManager.Theme="Windows8"
                                                           Source="{Binding UndercartMaintainContracts}" />
                                 </Grid>
                             </Grid>
@@ -362,6 +364,7 @@
                                                  ItemsSource="{Binding UndercartMaintainContracts}" 
                                                  AutoGenerateFields="False"
                                                  AutoCommit="True"
+                                                 telerik:StyleManager.Theme="Windows8"
                                                  ReadOnlyTemplate="{StaticResource ReadTemplate}"
                                                  EditTemplate="{StaticResource EditNewTemplate}"
                                                  NewItemTemplate="{StaticResource EditNewTemplate}">

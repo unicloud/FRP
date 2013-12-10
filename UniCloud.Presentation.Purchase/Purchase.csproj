@@ -121,6 +121,10 @@
       <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Navigation, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Toolkit, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Toolkit.Internals, Version=4.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
@@ -138,6 +142,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Chart, Version=2013.3.1016.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+    <Reference Include="Telerik.Windows.Controls.Chart">
       <HintPath>..\packages\Telerik.Windows.Controls.Chart.2.0.0\lib\Telerik.Windows.Controls.Chart.dll</HintPath>
       <Private>False</Private>
     </Reference>
@@ -215,6 +220,11 @@
       <DependentUpon>EngineMaintain.xaml</DependentUpon>
     </Compile>
     <Compile Include="Contract\EngineMaintainVm.cs" />
+    <Compile Include="Contract\QueryContract\QueryContractDbClickHelper.cs" />
+    <Compile Include="Contract\QueryContract\QueryContract.xaml.cs">
+      <DependentUpon>QueryContract.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Contract\QueryContract\QueryContractVM.cs" />
     <Compile Include="Contract\UndercartMaintain.xaml.cs">
       <DependentUpon>UndercartMaintain.xaml</DependentUpon>
     </Compile>
@@ -281,6 +291,10 @@
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.CommonService\Service.CommonService.csproj">
+      <Project>{e182cb39-cb47-4a7a-bf2d-0094d38d24fe}</Project>
+      <Name>Service.CommonService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service.Purchase\Service.Purchase.csproj">
       <Project>{d233e363-2d75-4ca3-9fa4-020ea90ebbc4}</Project>
       <Name>Service.Purchase</Name>
@@ -309,6 +323,10 @@
     <Page Include="Contract\EngineMaintain.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Contract\QueryContract\QueryContract.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Contract\UndercartMaintain.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -283,6 +283,7 @@ namespace UniCloud.Presentation.Shell
             var menu341 = new MenuItem
             {
                 Text = "查询合同",
+                NavUri = "UniCloud.Presentation.Purchase.Contract.QueryContract"
             };
             var menu342 = new MenuItem
             {
