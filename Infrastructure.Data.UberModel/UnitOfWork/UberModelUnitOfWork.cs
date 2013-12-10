@@ -315,6 +315,27 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 #endregion
 
+                #region GuaranteeAgg
+
+                .Add(new GuaranteeEntityConfiguration())
+                .Add(new LeaseGuaranteeEntityConfiguration())
+                .Add(new MaintainGuaranteeEntityConfiguration())
+
+                #endregion
+
+                #region InvoiceAgg
+
+                .Add(new InvoiceEntityConfiguration())
+                .Add(new InvoiceLineEntityConfiguration())
+                .Add(new LeaseInvoiceEntityConfiguration())
+                .Add(new LeaseInvoiceLineEntityConfiguration())
+                .Add(new PurchaseInvoiceEntityConfiguration())
+                .Add(new PurchaseInvoiceLineEntityConfiguration())
+                .Add(new PrepaymentInvoiceEntityConfiguration())
+                .Add(new PrepaymentInvoiceLineEntityConfiguration())
+
+                #endregion
+
                 #region LinkmanAgg
 
                 .Add(new LinkmanEntityConfiguration())
@@ -366,6 +387,23 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 #region PartAgg
 
                 .Add(new PartEntityConfiguration())
+
+                #endregion
+
+                #region PaymentNoticeAgg
+
+                .Add(new PaymentNoticeEntityConfiguration())
+                .Add(new PaymentNoticeLineEntityConfiguration())
+
+                #endregion
+
+                #region PaymentScheduleAgg
+
+                .Add(new PaymentScheduleEntityConfiguration())
+                .Add(new PaymentScheduleLineEntityConfiguration())
+                .Add(new AircraftPaymentScheduleEntityConfiguration())
+                .Add(new EnginePaymentScheduleEntityConfiguration())
+                .Add(new StandardPaymentScheduleEntityConfiguration())
 
                 #endregion
 

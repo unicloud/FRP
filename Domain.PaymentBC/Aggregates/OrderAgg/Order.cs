@@ -58,6 +58,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.OrderAgg
         public int Version { get; protected set; }
 
         /// <summary>
+        ///     合同编号
+        /// </summary>
+        public string ContractNumber { get; protected set; }
+
+        /// <summary>
         ///     合同名称
         /// </summary>
         public string Name { get; protected set; }

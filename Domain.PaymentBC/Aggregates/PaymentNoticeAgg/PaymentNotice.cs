@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.PaymentBC.Aggregates.BankAccountAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
@@ -108,6 +109,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
         /// </summary>
         public int SupplierId { get; private set; }
 
+        /// <summary>
+        ///     银行账户ID
+        /// </summary>
+        public int BankAccountId { get; private set; }
+
         #endregion
 
         #region 导航属性
@@ -121,6 +127,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
         ///     供应商
         /// </summary>
         public virtual Supplier Supplier { get; private set; }
+
+        /// <summary>
+        ///     银行账户
+        /// </summary>
+        public virtual BankAccount BankAccount { get; private set; }
 
         /// <summary>
         ///     付款通知行
@@ -214,6 +225,21 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
             Supplier = supplier;
             SupplierId = supplier.Id;
             SupplierName = supplier.Name;
+        }
+
+        /// <summary>
+        ///     设置银行账户
+        /// </summary>
+        /// <param name="account">银行账户</param>
+        public void SetBankAccount(BankAccount account)
+        {
+            if (account == null || account.IsTransient())
+            {
+                throw new ArgumentException("银行账户参数为空！");
+            }
+
+            BankAccount = account;
+            BankAccountId = account.Id;
         }
 
         /// <summary>

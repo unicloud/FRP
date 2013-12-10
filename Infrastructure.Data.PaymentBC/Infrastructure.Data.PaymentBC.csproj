@@ -51,15 +51,88 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ActionCategoryRepository.cs" />
+    <Compile Include="Repositories\AircraftTypeRepository.cs" />
+    <Compile Include="Repositories\BankAccountRepository.cs" />
+    <Compile Include="Repositories\ContractAircraftRepository.cs" />
+    <Compile Include="Repositories\ContractEngineRepository.cs" />
+    <Compile Include="Repositories\CurrencyRepository.cs" />
+    <Compile Include="Repositories\GuaranteeRepository.cs" />
+    <Compile Include="Repositories\InvoiceRepository.cs" />
+    <Compile Include="Repositories\LinkmanRepository.cs" />
+    <Compile Include="Repositories\MaintainContractRepository.cs" />
+    <Compile Include="Repositories\OrderRepository.cs" />
+    <Compile Include="Repositories\PaymentNoticeRepository.cs" />
+    <Compile Include="Repositories\PaymentScheduleRepository.cs" />
+    <Compile Include="Repositories\SupplierRepository.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ActionCategoryEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftLeaseOrderEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftLeaseOrderLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftPaymentScheduleEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftPurchaseOrderEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftPurchaseOrderLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftTypeEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\APUMaintainContractEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\BankAccountEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseOrderEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseOrderLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ContractAircraftEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ContractEngineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\CurrencyEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineLeaseOrderEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineLeaseOrderLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineMaintainContractEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EnginePaymentScheduleEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EnginePurchaseOrderEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EnginePurchaseOrderLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\GuaranteeEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\InvoiceEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\InvoiceLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\LeaseContractAircraftEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\LeaseContractEngineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\LeaseGuaranteeEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\LeaseInvoiceEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\LeaseInvoiceLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\LinkmanEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\MaintainContractEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\MaintainGuaranteeEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\OrderEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\OrderLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PaymentNoticeEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PaymentNoticeLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PaymentScheduleEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PaymentScheduleLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PrepaymentInvoiceEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PrepaymentInvoiceLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PurchaseContractAircraftEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PurchaseContractEngineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PurchaseInvoiceEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\PurchaseInvoiceLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\StandardPaymentScheduleEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\SupplierEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\UndercartMaintainContractEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\PaymentBCUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Repositories\" />
     <Folder Include="UnitOfWork\Mapping\Oracle\" />
-    <Folder Include="UnitOfWork\Mapping\Sql\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.PaymentBC\Domain.PaymentBC.csproj">
+      <Project>{d9aa0a25-5ee4-4ca0-ad0a-4cafed1e17a1}</Project>
+      <Name>Domain.PaymentBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{cad91a38-6b90-4a18-83ca-0215ce512f4d}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
