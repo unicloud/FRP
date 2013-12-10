@@ -6,7 +6,6 @@
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
              xmlns:input="clr-namespace:UniCloud.Presentation.Input;assembly=UniCloud.Presentation"
-             xmlns:Document="clr-namespace:UniCloud.Presentation.Document;assembly=UniCloud.Presentation"
              d:DataContext="{d:DesignInstance uc:ApuMaintainVm}"
              mc:Ignorable="d"
              d:DesignHeight="600"
@@ -44,7 +43,7 @@
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="2"
-                             Margin="0,3"
+                             Margin="0,3" 
                              Text="{Binding Number, Mode=TwoWay}"
                              IsReadOnly="True">
                     </TextBox>
@@ -260,7 +259,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <telerik:RadDocking>
+        <telerik:RadDocking telerik:StyleManager.Theme="Windows8">
             <telerik:RadDocking.DocumentHost>
                 <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
                     <telerik:RadPaneGroup>
@@ -284,6 +283,7 @@
                                                          CanUserFreezeColumns="False"
                                                          IsFilteringAllowed="True"
                                                          IsReadOnly="True"
+                                                         telerik:StyleManager.Theme="Windows8"
                                                          ItemsSource="{Binding ApuMaintainContracts}"
                                                          IsBusy="{Binding ApuMaintainContracts.IsBusy}"
                                                          SelectedItem="{Binding ApuMaintainContract,Mode=TwoWay}"
@@ -338,6 +338,7 @@
                                                           BorderThickness="1,0,1,1"
                                                           AutoEllipsisMode="Both"
                                                           DisplayMode="All"
+                                                          telerik:StyleManager.Theme="Windows8"
                                                           Source="{Binding ApuMaintainContracts}" />
                                 </Grid>
                             </Grid>
@@ -357,8 +358,10 @@
                                      ContextMenuTemplate="{x:Null}">
                         <Grid>
                             <telerik:RadDataForm x:Name="ApuMaintainForm"
+                                                 telerik:StyleManager.Theme="Windows8"
                                                  CancelButtonContent="取消"
                                                  CommitButtonContent="确定"
+                                                 telerik:StyleManager.Theme="Windows8"
                                                  ItemsSource="{Binding ApuMaintainContracts}"
                                                  AutoGenerateFields="False"
                                                  AutoCommit="True"

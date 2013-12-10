@@ -256,11 +256,14 @@
     <Compile Include="Export\ExportSettings.cs" />
     <Compile Include="Export\PrintAndExportExtensions.cs" />
     <Compile Include="Export\PrintSettings.cs" />
+    <Compile Include="Input\BaseListBoxDoubleClick.cs" />
     <Compile Include="Input\DataPageSerialColumn.cs" />
     <Compile Include="Input\DateTimePickerColumn.cs" />
     <Compile Include="Input\DoubleClick.cs" />
     <Compile Include="Input\GridViewDoubleClick.cs" />
     <Compile Include="Input\GridViewDoubleClickHelper.cs" />
+    <Compile Include="Input\ListBoxDoubleClickHelper.cs" />
+    <Compile Include="Input\RadListBoxDoubleClick.cs" />
     <Compile Include="Localization\LocalizationResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -336,6 +339,18 @@
       <Project>{5F45EAE5-2F35-4AD1-BF0E-F5FD5539FD32}</Project>
       <Name>Service</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AddFolder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\doc.png" />
+    <Resource Include="Images\pdf.png" />
+    <Resource Include="Images\rar.png" />
+    <Resource Include="Images\xls.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\bigFolder.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>

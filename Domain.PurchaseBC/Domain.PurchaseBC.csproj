@@ -123,6 +123,10 @@
     <Compile Include="Aggregates\ReceptionAgg\ReceptionLine.cs" />
     <Compile Include="Aggregates\ReceptionAgg\ReceptionSchedule.cs" />
     <Compile Include="Aggregates\ReceptionAgg\ReceptionSpecifications.cs" />
+    <Compile Include="Aggregates\RelatedDocAgg\IRelatedDocRepository.cs" />
+    <Compile Include="Aggregates\RelatedDocAgg\RelatedDoc.cs" />
+    <Compile Include="Aggregates\RelatedDocAgg\RelatedDocFactory.cs" />
+    <Compile Include="Aggregates\RelatedDocAgg\RelatedDocSpecifications.cs" />
     <Compile Include="Aggregates\SupplierAgg\ISupplierRepository.cs" />
     <Compile Include="Aggregates\SupplierAgg\Supplier.cs" />
     <Compile Include="Aggregates\SupplierCompanyAgg\ISupplierCompanyRepository.cs" />

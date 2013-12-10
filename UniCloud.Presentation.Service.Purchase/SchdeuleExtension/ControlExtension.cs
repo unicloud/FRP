@@ -25,6 +25,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Telerik.Windows.Controls;
+using Telerik.Windows.Controls.ColorEditor;
 using Telerik.Windows.Controls.ScheduleView;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
@@ -59,11 +60,11 @@ namespace UniCloud.Presentation.Service.Purchase.SchdeuleExtension
             schedule.Subject = appointment.Subject;
             schedule.Start = appointment.Start;
             schedule.End = appointment.End;
-            if(appointment.TimeMarker!=null)
-            schedule.Importance = appointment.TimeMarker.TimeMarkerName;
+            if (appointment.TimeMarker != null)
+                schedule.Importance = appointment.TimeMarker.TimeMarkerName;
             schedule.IsAllDayEvent = appointment.IsAllDayEvent;
-            if(appointment.Category!=null)
-            schedule.Tempo = appointment.Category.CategoryName;
+            if (appointment.Category != null)
+                schedule.Tempo = appointment.Category.CategoryName;
             schedule.UniqueId = appointment.UniqueId;
             schedule.Url = appointment.Url;
             schedule.Location = appointment.Location;
@@ -91,7 +92,7 @@ namespace UniCloud.Presentation.Service.Purchase.SchdeuleExtension
                         var category = new Category("正在进行中…", new SolidColorBrush(Colors.Brown));
                         return category;
                     }
-                case "Pink Category":
+                case "未启动":
                     {
                         var category = new Category("未启动", new SolidColorBrush(Colors.Gray));
                         return category;
@@ -132,19 +133,28 @@ namespace UniCloud.Presentation.Service.Purchase.SchdeuleExtension
         {
             switch (timeMarkerName)
             {
-                case "高级别":
+                case "Free":
                     {
-                        var timeMarker = new TimeMarker("高级别", new SolidColorBrush(Colors.Red));
+                        var timeMarker = new TimeMarker("Free",
+                            new SolidColorBrush(ColorConverter.ColorFromString("#FF309B46")));
                         return timeMarker;
                     }
-                case "中级别":
+                case "Tentative":
                     {
-                        var timeMarker = new TimeMarker("中级别", new SolidColorBrush(Colors.Green));
+                        var timeMarker = new TimeMarker("Tentative",
+                            new SolidColorBrush(ColorConverter.ColorFromString("#FF41229B")));
                         return timeMarker;
                     }
-                case "低级别":
+                case "Busy":
                     {
-                        var timeMarker = new TimeMarker("低级别", new SolidColorBrush(Colors.Gray));
+                        var timeMarker = new TimeMarker("Busy",
+                            new SolidColorBrush(ColorConverter.ColorFromString("#FFE61E26")));
+                        return timeMarker;
+                    }
+                case "OutOfOffice":
+                    {
+                        var timeMarker = new TimeMarker("OutOfOffice",
+                            new SolidColorBrush(ColorConverter.ColorFromString("#FFF1C700")));
                         return timeMarker;
                     }
                 default:

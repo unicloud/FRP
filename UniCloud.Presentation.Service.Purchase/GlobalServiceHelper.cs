@@ -37,7 +37,7 @@ namespace UniCloud.Presentation.Service.Purchase
             }
             InitialSupplier();
             InitialAircraftType();
-            InitialContractAircraft();
+            InitialLeaseContractAircraft();
         }
 
         #region Supplier
@@ -72,28 +72,28 @@ namespace UniCloud.Presentation.Service.Purchase
         #endregion
 
         #region  ContractAircraft
-        private static QueryableDataServiceCollectionView<ContractAircraftDTO> _contractAircraftQuery;
-        public static List<ContractAircraftDTO> ContractAircrafts { get; set; }
+        private static QueryableDataServiceCollectionView<LeaseContractAircraftDTO> _leaseContractAircraftQuery;
+        public static List<LeaseContractAircraftDTO> LeaseContractAircrafts { get; set; }
 
         /// <summary>
         ///     初始化
         /// </summary>
-        private static void InitialContractAircraft()
+        private static void InitialLeaseContractAircraft()
         {
-            _contractAircraftQuery = new QueryableDataServiceCollectionView<ContractAircraftDTO>(Context, Context.ContractAircrafts);
-            _contractAircraftQuery.LoadedData += (o, e) =>
+            _leaseContractAircraftQuery = new QueryableDataServiceCollectionView<LeaseContractAircraftDTO>(Context, Context.LeaseContractAircrafts);
+            _leaseContractAircraftQuery.LoadedData += (o, e) =>
             {
-                var result = o as QueryableDataServiceCollectionView<ContractAircraftDTO>;
-                ContractAircrafts = result.ToList();
+                var result = o as QueryableDataServiceCollectionView<LeaseContractAircraftDTO>;
+                LeaseContractAircrafts = result.ToList();
             };
         }
 
 
-        public static void LoadContractAircrafts()
+        public static void LoadLeaseContractAircrafts()
         {
-            if (ContractAircrafts == null)
+            if (LeaseContractAircrafts == null)
             {
-                Context.ContractAircrafts.BeginExecute(p => { ContractAircrafts = Context.ContractAircrafts.EndExecute(p).ToList(); },
+                Context.LeaseContractAircrafts.BeginExecute(p => { LeaseContractAircrafts = Context.LeaseContractAircrafts.EndExecute(p).ToList(); },
                     null);
             }
         }

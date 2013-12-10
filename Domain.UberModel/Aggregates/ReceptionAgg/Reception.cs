@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.UberModel.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
 using UniCloud.Domain.UberModel.Enums;
 
@@ -36,7 +37,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ReceptionAgg
 
         private HashSet<ReceptionSchedule> _schedules;
         private HashSet<ReceptionLine> _lines;
-
+        private HashSet<RelatedDoc> _documents;
         #endregion
 
         #region 属性
@@ -81,6 +82,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.ReceptionAgg
         /// </summary>
         public ReceptionStatus Status { get; private set; }
 
+        /// <summary>
+        ///     源Id
+        /// </summary>
+        public Guid SourceId { get; set; }
         #endregion
 
         #region 外键属性
@@ -115,6 +120,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.ReceptionAgg
         {
             get { return _schedules ?? (_schedules = new HashSet<ReceptionSchedule>()); }
             set { _schedules = new HashSet<ReceptionSchedule>(value); }
+        }
+
+        /// <summary>
+        ///     交付文件
+        /// </summary>
+        public virtual ICollection<RelatedDoc> Dcouments
+        {
+            get { return _documents ?? (_documents = new HashSet<RelatedDoc>()); }
+            set { _documents = new HashSet<RelatedDoc>(value); }
         }
         #endregion
 
