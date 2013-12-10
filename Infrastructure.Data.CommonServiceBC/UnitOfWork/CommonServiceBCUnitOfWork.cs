@@ -21,6 +21,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg;
+using UniCloud.Domain.CommonServiceBC.Aggregates.RelatedDocAgg;
 using UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork.Mapping.Sql;
 
 #endregion
@@ -33,7 +34,7 @@ namespace UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork
 
         private IDbSet<DocumentPath> _documentPaths;
         private IDbSet<Document> _documents;
-
+        private IDbSet<RelatedDoc> _relatedDocs;
         public IDbSet<Document> Documents
         {
             get { return _documents ?? (_documents = base.Set<Document>()); }
@@ -42,6 +43,11 @@ namespace UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork
         public IDbSet<DocumentPath> DocumentPaths
         {
             get { return _documentPaths ?? (_documentPaths = base.Set<DocumentPath>()); }
+        }
+
+        public IDbSet<RelatedDoc> RelatedDocs
+        {
+            get { return _relatedDocs ?? (_relatedDocs = base.Set<RelatedDoc>()); }
         }
 
         #endregion
@@ -90,7 +96,13 @@ namespace UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork
 
                 #region DocumentPathAgg
 
-                .Add(new DocumentPathEntityConfiguration());
+                .Add(new DocumentPathEntityConfiguration())
+
+                #endregion
+
+                #region RelatedDocAgg
+
+                .Add(new RelatedDocEntityConfiguration());
 
                 #endregion
         }

@@ -50,6 +50,7 @@ namespace UniCloud.Presentation.Purchase
         {
             GlobalServiceHelper.LoadSupplier();
             GlobalServiceHelper.LoadAircraftType();
+            GlobalServiceHelper.LoadLeaseContractAircrafts();
         }
 
         private void RegisterView()

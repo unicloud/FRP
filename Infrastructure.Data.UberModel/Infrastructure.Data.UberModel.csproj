@@ -128,6 +128,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionScheduleEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\RelatedDocEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\StandardDocumentEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierCompanyEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierCompanyMaterialEntityConfiguration.cs" />

@@ -52,6 +52,7 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
                          IsClosed = p.IsClosed,
                          SupplierId = p.SupplierId,
                          SupplierName = p.Supplier.Name,
+                         SourceId = p.SourceId,
                          ReceptionLines = p.ReceptionLines.OfType<AircraftLeaseReceptionLine>()
                          .Select(q => new AircraftLeaseReceptionLineDTO
                          {
@@ -82,6 +83,12 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
                              Location = q.Location,
                              UniqueId = q.UniqueId,
                              Url=q.Url,
+                         }).ToList(),
+                         Doucments = p.Dcouments.Select(q=>new RelatedDocDTO
+                         {
+                             DocumentId = q.DocumentId,
+                             DocumentName = q.DocumentName,
+                             SourceId = q.SourceId,
                          }).ToList(),
                      });
         }

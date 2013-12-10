@@ -104,6 +104,10 @@
     <Compile Include="Aggregates\ReceptionAgg\Reception.cs" />
     <Compile Include="Aggregates\ReceptionAgg\ReceptionSchedule.cs" />
     <Compile Include="Aggregates\ReceptionAgg\ReceptionFactory.cs" />
+    <Compile Include="Aggregates\RelatedDocAgg\IRelatedDocRepository.cs" />
+    <Compile Include="Aggregates\RelatedDocAgg\RelatedDoc.cs" />
+    <Compile Include="Aggregates\RelatedDocAgg\RelatedDocFactory.cs" />
+    <Compile Include="Aggregates\RelatedDocAgg\RelatedDocSpecifications.cs" />
     <Compile Include="Aggregates\SupplierAgg\Supplier.cs" />
     <Compile Include="Aggregates\SupplierAgg\SupplierFactory.cs" />
     <Compile Include="Aggregates\SupplierCompanyAgg\SupplierCompany.cs" />

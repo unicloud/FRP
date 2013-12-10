@@ -136,13 +136,13 @@
     <value>主要内容</value>
   </data>
   <data name="Busy" xml:space="preserve">
-    <value>忙碌</value>
+    <value>高级</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
   <data name="Categorize" xml:space="preserve">
-    <value>类型</value>
+    <value>进度</value>
   </data>
   <data name="CreateAppointment" xml:space="preserve">
     <value>创建日程</value>
@@ -262,7 +262,7 @@
     <value>第四周</value>
   </data>
   <data name="Free" xml:space="preserve">
-    <value>空闲</value>
+    <value>低级</value>
   </data>
   <data name="GridViewAlwaysVisibleNewRow" xml:space="preserve">
     <value>点击添加新项</value>
@@ -388,7 +388,7 @@
     <value>打开日程序列</value>
   </data>
   <data name="OutOfOffice" xml:space="preserve">
-    <value>字符串16</value>
+    <value>加急</value>
   </data>
   <data name="RadDataPagerOf" xml:space="preserve">
     <value>页，共</value>
@@ -448,7 +448,7 @@
     <value>以选项卡式文档停靠</value>
   </data>
   <data name="Tentative" xml:space="preserve">
-    <value>字符串26</value>
+    <value>中级</value>
   </data>
   <data name="The" xml:space="preserve">
     <value />

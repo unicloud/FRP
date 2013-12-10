@@ -220,7 +220,8 @@
                                                      ItemsSource="{Binding SelAircraftLeaseReception.ReceptionLines}"
                                                      SelectedItem="{Binding SelAircraftLeaseReceptionLine,Mode=TwoWay}"
                                                      AutoGenerateColumns="False"
-                                                     ShowColumnFooters="True">
+                                                     ShowColumnFooters="True"
+                                                     IsBusy="{Binding AircraftLeaseReceptions.IsBusy}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="CellEditEnded">
                                             <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"
@@ -327,7 +328,13 @@
                                                Source="/UniCloud.Presentation;component/Images/Add.png" />
                                     </Button>
                                     <Button Style="{StaticResource CafmToolButtonStyle}"
-                                            ToolTipService.ToolTip="移除文档"
+                                            ToolTipService.ToolTip="查看文档"
+                                            Command="{Binding RemoveAttachCommand}">
+                                        <Image Stretch="Fill"
+                                               Source="/UniCloud.Presentation;component/Images/Remove.png" />
+                                    </Button>
+                                    <Button Style="{StaticResource CafmToolButtonStyle}"
+                                            ToolTipService.ToolTip="查看文档"
                                             Command="{Binding ViewAttachCommand}">
                                         <Image Stretch="Fill"
                                                Source="/UniCloud.Presentation;component/Images/Remove.png" />
@@ -345,7 +352,8 @@
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
-                                                     IsReadOnly="True">
+                                                     IsReadOnly="True"
+                                                     IsBusy="{Binding AircraftLeaseReceptions.IsBusy}">
                                     <telerik:RadGridView.Columns>
                                         <input:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
@@ -388,13 +396,11 @@
                                          FontSize="{StaticResource TextFontSize}">
                             <Grid>
                                 <telerik:RadScheduleView  Name="RadScheduleView"
-                                                          telerik:StyleManager.Theme="Windows8"
-                                                          BorderThickness="3"
                                                           SnapAppointments="True"
                                                           AppointmentsSource="{Binding Appointments,Mode=TwoWay}"
-                                                          ActiveViewDefinitionIndex="1"
-                                                          TimeMarkersSource="{Binding TimeMarkers}"
-                                                          CategoriesSource="{Binding Categories}">
+                                                          CategoriesSource="{Binding Categories}"
+                                                          telerik:StyleManager.Theme="Windows8">
+    
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="AppointmentCreated">
                                             <i:InvokeCommandAction Command="{Binding CreateCommand}"

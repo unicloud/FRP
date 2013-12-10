@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Enums;
 
@@ -36,7 +37,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
 
         private HashSet<ReceptionLine> _lines;
         private HashSet<ReceptionSchedule> _schedules;
-
+        private HashSet<RelatedDoc> _documents;
         #endregion
 
         #region 构造函数
@@ -93,6 +94,10 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         /// </summary>
         public ReceptionStatus Status { get; private set; }
 
+        /// <summary>
+        ///     源Id
+        /// </summary>
+        public Guid SourceId { get; set; }
         #endregion
 
         #region 外键属性
@@ -127,6 +132,15 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         {
             get { return _schedules ?? (_schedules = new HashSet<ReceptionSchedule>()); }
             set { _schedules = new HashSet<ReceptionSchedule>(value); }
+        }
+
+        /// <summary>
+        ///     交付文件
+        /// </summary>
+        public virtual ICollection<RelatedDoc> Dcouments
+        {
+            get { return _documents ?? (_documents = new HashSet<RelatedDoc>()); }
+            set { _documents = new HashSet<RelatedDoc>(value); }
         }
 
         #endregion

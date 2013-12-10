@@ -36,6 +36,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.PartAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
@@ -68,6 +69,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
         private IDbSet<Part> _parts;
         private IDbSet<PlanAircraft> _planAircrafts;
         private IDbSet<Reception> _receptions;
+        private IDbSet<RelatedDoc> _relatedDocs;
         private IDbSet<SupplierCompany> _supplierCompanies;
         private IDbSet<SupplierCompanyMaterial> _supplierCompanyMaterials;
         private IDbSet<SupplierRole> _supplierRoles;
@@ -157,6 +159,11 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
         public IDbSet<Reception> Receptions
         {
             get { return _receptions ?? (_receptions = base.Set<Reception>()); }
+        }
+
+        public IDbSet<RelatedDoc> RelatedDocs
+        {
+            get { return _relatedDocs ?? (_relatedDocs = base.Set<RelatedDoc>()); }
         }
 
         public IDbSet<Supplier> Suppliers
@@ -374,6 +381,12 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
                 .Add(new EngineLeaseReceptionLineEntityConfiguration())
                 .Add(new EnginePurchaseReceptionEntityConfiguration())
                 .Add(new EnginePurchaseReceptionLineEntityConfiguration())
+
+                #endregion
+
+                #region RelatedDocAgg
+
+                .Add(new RelatedDocEntityConfiguration())
 
                 #endregion
 
