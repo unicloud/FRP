@@ -37,7 +37,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.ReceptionAgg
 
         private HashSet<ReceptionSchedule> _schedules;
         private HashSet<ReceptionLine> _lines;
-        private HashSet<RelatedDoc> _documents;
         #endregion
 
         #region 属性
@@ -120,15 +119,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.ReceptionAgg
         {
             get { return _schedules ?? (_schedules = new HashSet<ReceptionSchedule>()); }
             set { _schedules = new HashSet<ReceptionSchedule>(value); }
-        }
-
-        /// <summary>
-        ///     交付文件
-        /// </summary>
-        public virtual ICollection<RelatedDoc> Dcouments
-        {
-            get { return _documents ?? (_documents = new HashSet<RelatedDoc>()); }
-            set { _documents = new HashSet<RelatedDoc>(value); }
         }
         #endregion
 
