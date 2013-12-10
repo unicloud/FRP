@@ -1,0 +1,59 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="UniCloud.Application.CommonServiceBC.DTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityType Name="FolderDocumentDTO">
+        <Key>
+          <PropertyRef Name="FolderId" />
+        </Key>
+        <Property Name="FolderId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="UpdteDateTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Creator" Type="Edm.String" />
+        <Property Name="ParentFolderId" Type="Edm.Guid" />
+        <Property Name="Documents" Type="Collection(UniCloud.Application.CommonServiceBC.DTO.DocumentDTO)" Nullable="false" />
+        <NavigationProperty Name="SubFolders" Relationship="UniCloud.Application.CommonServiceBC.DTO.FolderDocumentDTO_SubFolders" ToRole="SubFolders" FromRole="FolderDocumentDTO" />
+      </EntityType>
+      <ComplexType Name="DocumentDTO">
+        <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Creator" Type="Edm.String" />
+        <Property Name="ExtendType" Type="Edm.String" />
+        <Property Name="UpdateDateTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="FolderId" Type="Edm.Guid" Nullable="false" />
+      </ComplexType>
+      <EntityType Name="FolderDTO">
+        <Key>
+          <PropertyRef Name="FolderId" />
+        </Key>
+        <Property Name="FolderId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="UpdteDateTime" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Creator" Type="Edm.String" />
+        <Property Name="ParentFolderId" Type="Edm.Guid" />
+        <NavigationProperty Name="SubFolders" Relationship="UniCloud.Application.CommonServiceBC.DTO.FolderDTO_SubFolders" ToRole="SubFolders" FromRole="FolderDTO" />
+      </EntityType>
+      <Association Name="FolderDocumentDTO_SubFolders">
+        <End Type="UniCloud.Application.CommonServiceBC.DTO.FolderDocumentDTO" Role="SubFolders" Multiplicity="*" />
+        <End Type="UniCloud.Application.CommonServiceBC.DTO.FolderDocumentDTO" Role="FolderDocumentDTO" Multiplicity="*" />
+      </Association>
+      <Association Name="FolderDTO_SubFolders">
+        <End Type="UniCloud.Application.CommonServiceBC.DTO.FolderDTO" Role="SubFolders" Multiplicity="*" />
+        <End Type="UniCloud.Application.CommonServiceBC.DTO.FolderDTO" Role="FolderDTO" Multiplicity="*" />
+      </Association>
+    </Schema>
+    <Schema Namespace="UniCloud.DistributedServices.CommonService" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityContainer Name="CommonServiceData" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="FolderDocuments" EntityType="UniCloud.Application.CommonServiceBC.DTO.FolderDocumentDTO" />
+        <EntitySet Name="Folders" EntityType="UniCloud.Application.CommonServiceBC.DTO.FolderDTO" />
+        <AssociationSet Name="FolderDocumentDTO_SubFolders" Association="UniCloud.Application.CommonServiceBC.DTO.FolderDocumentDTO_SubFolders">
+          <End Role="FolderDocumentDTO" EntitySet="FolderDocuments" />
+          <End Role="SubFolders" EntitySet="FolderDocuments" />
+        </AssociationSet>
+        <AssociationSet Name="FolderDTO_SubFolders" Association="UniCloud.Application.CommonServiceBC.DTO.FolderDTO_SubFolders">
+          <End Role="FolderDTO" EntitySet="Folders" />
+          <End Role="SubFolders" EntitySet="Folders" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

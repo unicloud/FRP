@@ -18,7 +18,7 @@
 #region 命名空间
 
 using System;
-using UniCloud.Presentation.Service.Purchase.Purchase.Enums;
+//using UniCloud.Presentation.Service.Purchase.Purchase.Enums;
 
 #endregion
 
@@ -26,20 +26,20 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
 {
     public partial class TradeDTO
     {
-        /// <summary>
-        ///     交易状态
-        /// </summary>
-        public TradeStatus TradeStatus
-        {
-            get { return (TradeStatus) Status; }
-        }
+        ///// <summary>
+        /////     交易状态
+        ///// </summary>
+        //public TradeStatus TradeStatus
+        //{
+        //    get { return (TradeStatus) Status; }
+        //}
 
-        partial void OnNameChanging(string value)
-        {
-            if (value.Length < 3)
-            {
-                throw new Exception("长度不足");
-            }
-        }
+        //partial void OnNameChanging(string value)
+        //{
+        //    if (value.Length < 3)
+        //    {
+        //        throw new Exception("长度不足");
+        //    }
+        //}
     }
 }
