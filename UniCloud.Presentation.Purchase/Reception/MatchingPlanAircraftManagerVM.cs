@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Net;
 using System.Windows;
@@ -10,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Purchase;
@@ -40,6 +42,12 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         private void InitializeVM()
         {
+            ContractAircrafts = Service.CreateCollection<ContractAircraftDTO>(_purchaseData.ContractAircrafts);
+            Service.RegisterCollectionView(ContractAircrafts); //注册查询集合。
+            ContractAircrafts.PropertyChanged += OnViewPropertyChanged;
+            PlanAircrafts = Service.CreateCollection<PlanAircraftDTO>(_purchaseData.PlanAircrafts);
+            Service.RegisterCollectionView(PlanAircrafts); //注册查询集合。
+            PlanAircrafts.PropertyChanged += OnViewPropertyChanged;
         }
 
         /// <summary>
@@ -49,7 +57,6 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             _purchaseData = new PurchaseData(AgentHelper.PurchaseUri);
             return new PurchaseService(_purchaseData);
-            return null;
         }
 
         #endregion
@@ -71,10 +78,73 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         public override void LoadData()
         {
-            
+            ContractAircrafts.AutoLoad = true;
+            PlanAircrafts.AutoLoad = true;
         }
 
         #region 业务
+
+        #region 合同飞机集合
+
+        /// <summary>
+        ///     合同飞机集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ContractAircraftDTO> ContractAircrafts { get; set; }
+
+        #endregion
+
+        #region 计划飞机集合
+
+        /// <summary>
+        ///     计划飞机集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PlanAircraftDTO> PlanAircrafts { get; set; }
+
+        #endregion
+
+        #region 选择的合同飞机
+
+        private ContractAircraftDTO _selContractAircraft;
+
+        /// <summary>
+        /// 合同飞机
+        /// </summary>
+        public ContractAircraftDTO SelContractAircraft
+        {
+            get { return this._selContractAircraft; }
+            private set
+            {
+                if (this._selContractAircraft != value)
+                {
+                    _selContractAircraft = value;
+                    this.RaisePropertyChanged(() => this.SelContractAircraft);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 选择的合同飞机
+
+        private PlanAircraftDTO _selPlanAircraft;
+
+        /// <summary>
+        /// 合同飞机
+        /// </summary>
+        public PlanAircraftDTO SelPlanAircraft
+        {
+            get { return this._selPlanAircraft; }
+            private set
+            {
+                if (this._selPlanAircraft != value)
+                {
+                    _selPlanAircraft = value;
+                    this.RaisePropertyChanged(() => this.SelPlanAircraft);
+                }
+            }
+        }
+
+        #endregion
 
         #endregion
 
@@ -93,7 +163,5 @@ namespace UniCloud.Presentation.Purchase.Reception
         #endregion
 
         #endregion
-
-
     }
 }

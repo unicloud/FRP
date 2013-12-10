@@ -26,7 +26,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg
 
         /// <summary>
         ///     内部构造函数
-        ///     限制只能通过工厂方法去创建新实例
+        ///     限制只能从内部创建新实例
         /// </summary>
         internal ActionCategory()
         {
@@ -39,12 +39,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg
         /// <summary>
         ///     活动类型
         /// </summary>
-        public string ActionType { get; set; }
+        public string ActionType { get; protected set; }
 
         /// <summary>
         ///     活动类型名称
         /// </summary>
-        public string ActionName { get; set; }
+        public string ActionName { get; protected set; }
 
         #endregion
 

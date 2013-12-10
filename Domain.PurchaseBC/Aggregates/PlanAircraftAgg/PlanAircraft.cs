@@ -26,7 +26,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg
 
         /// <summary>
         ///     内部构造函数
-        ///     限制只能通过工厂方法去创建新实例
+        ///     限制只能从内部创建新实例
         /// </summary>
         internal PlanAircraft()
         {
@@ -39,7 +39,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg
         /// <summary>
         ///     注册号
         /// </summary>
-        public string RegNumber { get; set; }
+        public string RegNumber { get; protected set; }
 
         #endregion
 

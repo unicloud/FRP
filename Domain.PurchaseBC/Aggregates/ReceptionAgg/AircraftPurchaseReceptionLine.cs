@@ -34,7 +34,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
 
         /// <summary>
         ///     内部构造函数
-        ///     限制只能通过工厂方法去创建新实例
+        ///     限制只能从内部创建新实例
         /// </summary>
         internal AircraftPurchaseReceptionLine()
         {
@@ -43,7 +43,10 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         #endregion
 
         #region 属性
-
+        //选呼号
+        public string DailNumber { get; set; }
+        //调机航班号
+        public string FlightNumber { get; set; }
         #endregion
 
         #region 外键属性

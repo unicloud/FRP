@@ -281,6 +281,20 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
 
                 #endregion
 
+                #region DocumentAgg
+
+                .Add(new DocumentEntityConfiguration())
+                .Add(new OfficialDocumentEntityConfiguration())
+                .Add(new StandardDocumentEntityConfiguration())
+
+                #endregion
+
+                #region DocumentPathAgg
+
+                .Add(new DocumentPathEntityConfiguration())
+
+                #endregion
+
                 #region ForwarderAgg
 
                 .Add(new ForwarderEntityConfiguration())
@@ -389,6 +403,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
                 .Add(new BFEPurchaseSupplierEntityConfiguration())
                 .Add(new EngineLeaseSupplierEntityConfiguration())
                 .Add(new EnginePurchaseSupplierEntityConfiguration())
+                .Add(new MaintainSupplierEntityConfiguration())
 
                 #endregion
 

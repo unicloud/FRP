@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Services.Common;
 
 namespace UniCloud.Application.PurchaseBC.DTO
 {
     /// <summary>
     ///  合同飞机基类
     /// </summary>
+    [DataServiceKey("ContractNumber", "RankNumber")]
     public partial class ContractAircraftDTO
     {
 

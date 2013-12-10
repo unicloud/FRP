@@ -99,9 +99,9 @@ namespace UniCloud.Presentation.Service
             if (_submitChanges == null)
             {
                 _submitChanges += (o, e) =>
-                {
-                    result.Error = e.Error;
-                    callback(result);
+            {
+                result.Error = e.Error;
+                callback(result);
                 };
                 collectionView.SubmittedChanges += _submitChanges;
             }
