@@ -260,7 +260,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <telerik:RadDocking>
+        <telerik:RadDocking telerik:StyleManager.Theme="Windows8">
             <telerik:RadDocking.DocumentHost>
                 <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
                     <telerik:RadPaneGroup>
@@ -284,6 +284,7 @@
                                                          CanUserFreezeColumns="False"
                                                          IsReadOnly="True"
                                                          IsFilteringAllowed="True"
+                                                         telerik:StyleManager.Theme="Windows8"
                                                          ItemsSource="{Binding EngineMaintainContracts}"
                                                          IsBusy="{Binding EngineMaintainContracts.IsBusy}"
                                                          SelectedItem="{Binding EngineMaintainContract,Mode=TwoWay}"
@@ -338,6 +339,7 @@
                                                           BorderThickness="1,0,1,1"
                                                           AutoEllipsisMode="Both"
                                                           DisplayMode="All"
+                                                          telerik:StyleManager.Theme="Windows8"
                                                           Source="{Binding EngineMaintainContracts}" />
                                 </Grid>
                             </Grid>
@@ -359,6 +361,7 @@
                             <telerik:RadDataForm x:Name="EngineMaintainForm"
                                                  CancelButtonContent="取消"
                                                  CommitButtonContent="确定"
+                                                 telerik:StyleManager.Theme="Windows8"
                                                  ItemsSource="{Binding EngineMaintainContracts}"
                                                  AutoGenerateFields="False"
                                                  AutoCommit="True"
