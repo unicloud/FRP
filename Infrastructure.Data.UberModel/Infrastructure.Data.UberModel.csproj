@@ -67,6 +67,7 @@
     <Compile Include="Migrations\201312110843174_database.cs" />
     <Compile Include="Migrations\201312110843174_database.Designer.cs">
       <DependentUpon>201312110843174_database.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\201312110907581_Initial.cs" />
     <Compile Include="Migrations\201312110907581_Initial.Designer.cs">
       <DependentUpon>201312110907581_Initial.cs</DependentUpon>
@@ -184,6 +185,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201312110843174_database.resx">
       <DependentUpon>201312110843174_database.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201312110907581_Initial.resx">
       <DependentUpon>201312110907581_Initial.cs</DependentUpon>
     </EmbeddedResource>
