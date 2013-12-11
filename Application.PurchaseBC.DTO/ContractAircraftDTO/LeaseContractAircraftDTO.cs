@@ -86,6 +86,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         #region 外键属性
 
         /// <summary>
+        ///    供应商ID
+        /// </summary>
+        public int? SupplierId { get; set; }
+
+        /// <summary>
         ///     机型ID
         /// </summary>
         public Guid AircraftTypeId { get; set; }

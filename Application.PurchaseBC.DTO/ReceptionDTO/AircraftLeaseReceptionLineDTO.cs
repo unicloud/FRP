@@ -32,8 +32,6 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// 租赁飞机接收行主键
         /// </summary>
         public int AircraftLeaseReceptionLineId { get; set; }
-        ////飞机注册号
-        //public string AcReg { get; set; }
         //飞机生产序列号
         public string MSN { get; set; }
         //合同号

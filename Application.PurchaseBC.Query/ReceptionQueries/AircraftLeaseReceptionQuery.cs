@@ -26,11 +26,9 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
     public class AircraftLeaseReceptionQuery : IAircraftLeaseReceptionQuery
     {
         private readonly IQueryableUnitOfWork _unitOfWork;
-        //private readonly IRelatedDocQuery _relatedDocQuery;
         public AircraftLeaseReceptionQuery(IQueryableUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            //_relatedDocQuery = relatedDocQuery;
         }
 
         /// <summary>
@@ -41,7 +39,6 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
         public IQueryable<AircraftLeaseReceptionDTO> AircraftLeaseReceptionDTOQuery(
             QueryBuilder<AircraftLeaseReception> query)
         {
-            //var doucments = _unitOfWork.CreateSet<RelatedDoc>();
             return
             query.ApplyTo(_unitOfWork.CreateSet<Reception>().OfType<AircraftLeaseReception>())
                      .Select(p => new AircraftLeaseReceptionDTO
@@ -87,12 +84,6 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
                              UniqueId = q.UniqueId,
                              Url = q.Url,
                          }).ToList(),
-                         //Doucments = doucments.Where(l => l.SourceId == p.SourceId).Select(q => new RelatedDocDTO
-                         //{
-                         //    SourceId = q.SourceId,
-                         //    DocumentId = q.DocumentId,
-                         //    DocumentName = q.DocumentName,
-                         //}).ToList(),
                      });
         }
     }

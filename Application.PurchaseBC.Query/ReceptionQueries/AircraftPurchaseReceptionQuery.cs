@@ -42,21 +42,33 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
                 query.ApplyTo(_unitOfWork.CreateSet<Reception>().OfType<AircraftPurchaseReception>()).Select(p => new AircraftPurchaseReceptionDTO
                 {
                     AircraftPurchaseReceptionId = p.Id,
+                    ReceptionNumber = p.ReceptionNumber,
                     CreateDate = p.CreateDate,
                     StartDate = p.StartDate,
                     EndDate = p.EndDate,
                     CloseDate = p.CloseDate,
                     IsClosed = p.IsClosed,
-                    ReceptionLines = p.ReceptionLines.OfType<AircraftPurchaseReceptionLine>().Select(q => new AircraftPurchaseReceptionLineDTO
+                    SupplierId = p.SupplierId,
+                    SupplierName = p.Supplier.Name,
+                    SourceId = p.SourceId,
+                    ReceptionLines = p.ReceptionLines.OfType<AircraftPurchaseReceptionLine>()
+                    .Select(q => new AircraftPurchaseReceptionLineDTO
                     {
                         ReceptionId = q.ReceptionId,
                         ReceivedAmount = q.ReceivedAmount,
                         AcceptedAmount = q.AcceptedAmount,
                         IsCompleted = q.IsCompleted,
                         Note = q.Note,
+                        MSN = q.PurchaseContractAircraft.SerialNumber,
+                        ContractNumber = q.PurchaseContractAircraft.ContractNumber,
+                        AircraftType = q.PurchaseContractAircraft.AircraftType.Name,
+                        ImportCategoryId = q.PurchaseContractAircraft.ImportCategory.ActionName,
+                        ContractAircraftId = q.ContractAircraftId,
+                        RankNumber = q.PurchaseContractAircraft.RankNumber,
                     }).ToList(),
                     ReceptionSchedules = p.ReceptionSchedules.Select(q => new ReceptionScheduleDTO
                     {
+                        ReceptionScheduleId = q.Id,
                         ReceptionId = q.ReceptionId,
                         Subject = q.Subject,
                         Body = q.Body,
@@ -65,6 +77,10 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
                         End = q.End,
                         IsAllDayEvent = q.IsAllDayEvent,
                         Group = q.Group,
+                        Tempo = q.Tempo,
+                        Location = q.Location,
+                        UniqueId = q.UniqueId,
+                        Url = q.Url,
                     }).ToList(),
                 });
         }
