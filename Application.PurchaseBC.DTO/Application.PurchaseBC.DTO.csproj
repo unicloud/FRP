@@ -84,12 +84,12 @@
     <Compile Include="SupplierDTO\EngineLeaseSupplierDTO.cs" />
     <Compile Include="SupplierDTO\EnginePurchaseSupplierDTO.cs" />
     <Compile Include="SupplierDTO\LinkmanDTO.cs" />
+    <Compile Include="SupplierDTO\MaintainSupplierDTO.cs" />
     <Compile Include="SupplierDTO\SupplierCompanyDTO.cs" />
     <Compile Include="SupplierDTO\SupplierCompanyBFEMaterialDTO.cs" />
     <Compile Include="SupplierDTO\SupplierCompanyAcMaterialDTO.cs" />
     <Compile Include="SupplierDTO\SupplierCompanyEngineMaterialDTO.cs" />
     <Compile Include="SupplierDTO\SupplierDTO.cs" />
-    <Compile Include="SupplierDTO\SupplierRoleDTO.cs" />
     <Compile Include="TradeDTO\AircraftLeaseOrderDTO.cs" />
     <Compile Include="TradeDTO\AircraftLeaseOrderLineDTO.cs" />
     <Compile Include="TradeDTO\AircraftPurchaseOrderDTO.cs" />

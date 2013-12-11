@@ -122,8 +122,14 @@
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding BFEPurchaseSupplier}" />
-
-                                            <telerik:GridViewDataColumn Header="备注"
+                                        <telerik:GridViewCheckBoxColumn Header="维修供应商角色"
+                                                                    IsReadOnly="False"
+                                                                    EditTriggers="CellClick"
+                                                                    IsThreeState="False"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding MaintainSupplier}" />
+                                        <telerik:GridViewDataColumn Header="备注"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         MaxWidth="{StaticResource CellMaxWidth}"

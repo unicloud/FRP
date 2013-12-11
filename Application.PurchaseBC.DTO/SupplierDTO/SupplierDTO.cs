@@ -74,6 +74,36 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public int SuppierCompanyId { get; set; }
 
         /// <summary>
+        /// 是否有飞机租赁供应商角色
+        /// </summary>
+        public bool AircraftLeaseSupplier { get; set; }
+
+        /// <summary>
+        /// 是否有飞机购买供应商角色
+        /// </summary>
+        public bool AircraftPurchaseSupplier { get; set;}
+
+        /// <summary>
+        /// 是否有发动机租赁供应商角色
+        /// </summary>
+        public bool EngineLeaseSupplier { get; set; }
+
+        /// <summary>
+        /// 是否有发动机购买供应商角色
+        /// </summary>
+        public bool EnginePurchaseSupplier { get; set; }
+
+        /// <summary>
+        /// 是否有BFE角色
+        /// </summary>
+        public bool BFEPurchaseSupplier { get; set; }
+
+        /// <summary>
+        /// 维修供应商角色
+        /// </summary>
+        public bool MaintainSupplier { get; set; }
+
+        /// <summary>
         /// 供应商账户信息。
         /// </summary>
         public List<BankAccountDTO> BankAccounts { get; set; }

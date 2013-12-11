@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -55,6 +56,18 @@
     <ProjectReference Include="..\Application.CommonServiceBC.Query\Application.CommonServiceBC.Query.csproj">
       <Project>{36f56238-ed3d-4d98-b48a-0a19c6242a00}</Project>
       <Name>Application.CommonServiceBC.Query</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{c926e107-6971-4b5c-8e00-db7761eeac8e}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.CommonServiceBC\Domain.CommonServiceBC.csproj">
+      <Project>{951a0799-0e74-4eff-af8a-d6a94fc8586f}</Project>
+      <Name>Domain.CommonServiceBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

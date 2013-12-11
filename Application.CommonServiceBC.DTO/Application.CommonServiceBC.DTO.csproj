@@ -56,8 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Document\DocumentDTO.cs" />
-    <Compile Include="Document\FolderDocumentDTO.cs" />
-    <Compile Include="Document\FolderDTO.cs" />
+    <Compile Include="Document\DocumentPathDTO.cs" />
+    <Compile Include="Document\SubDocumentPathDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

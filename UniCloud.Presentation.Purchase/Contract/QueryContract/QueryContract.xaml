@@ -18,10 +18,10 @@
         </Grid.RowDefinitions>
         <telerik:RadBreadcrumb Grid.Row="0"
                                VerticalAlignment="Stretch"
-                       Header="{Binding RootListBoxDocumentItem}"
+                       Header="{Binding RootPath}"
                             ImagePath="SmallIconPath"
                             IsIconVisible="True"
-                            ItemsSource="{Binding RootListBoxDocumentItem.SubPathItems}"
+                            ItemsSource="{Binding RootPath.SubFolderPaths}"
                             TextModePath="Path"
                             CurrentItem="{Binding CurrentPathItem, Mode=TwoWay}">
             <telerik:RadBreadcrumb.HeaderTemplate>
@@ -31,7 +31,7 @@
                 </DataTemplate>
             </telerik:RadBreadcrumb.HeaderTemplate>
             <telerik:RadBreadcrumb.ItemTemplate>
-                <telerik:HierarchicalDataTemplate ItemsSource="{Binding SubPathItems}">
+                <telerik:HierarchicalDataTemplate ItemsSource="{Binding SubFolderPaths}">
                     <telerik:HierarchicalDataTemplate.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}" />
@@ -45,8 +45,8 @@
                  Name="DocumentListBox"
                  HorizontalAlignment="Stretch"
                  VerticalAlignment="Stretch"
-                 ItemsSource="{Binding CurrentPathItem.SubListBoxDocumentItems}"
-                 SelectedItem="{Binding SelListBoxDocumentItem, Mode=TwoWay}"
+                 ItemsSource="{Binding CurrentPathItem.SubDocumentPaths}"
+                 SelectedItem="{Binding SelDocumentPath, Mode=TwoWay}"
                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
                          >
             <uc:RadListBoxDoubleClick.Helper>

@@ -1,22 +1,7 @@
-﻿#region 版本信息
+﻿#region 命名空间
 
-// ========================================================================
-// 版权所有 (C) 2013 UniCloud 
-//【本类功能概述】
-// 
-// 作者：陈春勇 时间：2013/12/02，18:12
-// 文件名：Container.cs
-// 程序集：UniCloud.DistributedServices.CommonService
-// 版本：V1.0.0
-//
-// 修改者： 时间： 
-// 修改说明：
-// ========================================================================
-
-#endregion
-
-#region 命名空间
-
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.CommonServiceBC.DocumentServices;
 using UniCloud.Application.CommonServiceBC.Query.DocumentQueries;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
@@ -28,31 +13,49 @@ using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
 
-namespace UniCloud.DistributedServices.CommonService.InstanceProviders
+namespace UniCloud.Application.CommonServiceBC.Tests
 {
-    /// <summary>
-    ///     DI 容器
-    /// </summary>
-    public static class Container
+    [TestClass]
+    public class DocumentBCTest
     {
-        #region 方法
+        #region 基础配置
 
-        public static void ConfigureContainer()
+        [TestInitialize]
+        public void TestInitialize()
         {
             Configuration.Create()
                          .UseAutofac()
                          .CreateLog()
-                .Register<IQueryableUnitOfWork, CommonServiceBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-            #region 文档相关配置，包括查询，应用服务，仓储注册
+                         .Register<IQueryableUnitOfWork, CommonServiceBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                #region 文档相关配置，包括查询，应用服务，仓储注册
+
                          .Register<IDocumentAppService, DocumentAppService>()
                          .Register<IDocumentQuery, DocumentQuery>()
                          .Register<IDocumentPathRepository, DocumentPathRepository>()
                          .Register<IDocumentRepository, DocumentRepository>()
-            #endregion
+                #endregion
 
                 ;
         }
 
+        [TestCleanup]
+        public void TestCleanup()
+        {
+        }
+
         #endregion
+
+        [TestMethod]
+        public void GetDocumentPaths()
+        {
+            // Arrange
+            var service = DefaultContainer.Resolve<IDocumentAppService>();
+
+            // Act
+            var result = service.GetDocumentPaths().ToList();
+
+            // Assert
+            Assert.IsTrue(result.Any());
+        }
     }
 }
