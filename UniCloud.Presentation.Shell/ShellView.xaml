@@ -13,7 +13,7 @@
     d:DataContext="{d:DesignInstance uc:ShellViewModel}">
 
     <UserControl.Resources>
-        <Style x:Key="MenuItemStyle" TargetType="telerik:RadMenuItem" BasedOn="{StaticResource RadMenuItemStyle}">
+        <Style x:Key="MenuItemStyle" TargetType="telerik:RadMenuItem">
             <Setter Property="IsSeparator" Value="{Binding IsSeparator}" />
             <Setter Property="IsChecked" Value="{Binding IsChecked}" />
             <Setter Property="IsCheckable" Value="{Binding IsCheckable}" />

@@ -18,15 +18,19 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.IO;
+using System.Linq;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Controls;
+using Telerik.Windows.Data;
 using Telerik.Windows.Documents.Fixed.FormatProviders;
 using Telerik.Windows.Documents.Fixed.FormatProviders.Pdf;
 using UniCloud.Presentation.Service;
+using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Document;
 using UniCloud.Presentation.Service.DocumentService;
 using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
+using System.Data.Services.Client;
 
 #endregion
 
@@ -38,19 +42,26 @@ namespace UniCloud.Presentation.Document
     {
         #region 声明、初始化
         private readonly DocumentClient _documentService;
+        //private CommonServiceData _commonServiceData;
         [Import]
         public PDFViewer CurrentPdfView;
         private Document _currentDoc;
         private bool _onlyView;
         private byte[] _byteContent;
-        #endregion
 
         public PDFViewerVm()
         {
             SaveCommand = new DelegateCommand<object>(Save, CanSave);
             OpenDocumentCommand = new DelegateCommand<object>(OpenDocument);
-            _documentService = DocumentClient.Instance;
+            //_commonServiceData = new CommonServiceData(AgentHelper.CommonServiceUri);
+            //_documents = new QueryableDataServiceCollectionView<FolderDTO>(_commonServiceData, _commonServiceData.Folders);
         }
+        #endregion
+
+        #region 数据
+
+        private QueryableDataServiceCollectionView<FolderDTO> _documents;
+        #endregion
 
         #region 操作
         #region 初始化文档信息
@@ -81,6 +92,9 @@ namespace UniCloud.Presentation.Document
         #region 加载文档
         private void LoadDocumentByDocId(Guid docId)
         {
+            //var query = (from doc in _commonServiceData.Folders where doc.FolderId == docId select doc) as DataServiceQuery<FolderDTO>;
+            //query.BeginExecute(OnQueryCompleted, query);
+
             _documentService.GetDocumentFileStream(docId, (s, arg) =>
             {
                 try
@@ -96,6 +110,20 @@ namespace UniCloud.Presentation.Document
                 }
                 IsBusy = false;
             });
+        }
+
+        private void OnQueryCompleted(IAsyncResult result)
+        {
+            try
+            {
+                var query = result.AsyncState as DataServiceQuery<FolderDTO>;
+                var response = query.EndExecute(result).FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                MessageAlert(e.Message);
+            }
+            IsBusy = false;
         }
         #endregion
 
