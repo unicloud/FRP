@@ -58,25 +58,21 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         private void InitializeVM()
         {
-            AircraftContracts = Service.CreateCollection<APUMaintainContractDTO>(_purchaseData.APUMaintainContracts);
-            Service.RegisterCollectionView(AircraftContracts); //注册查询集合。
-            AircraftContracts.PropertyChanged += OnViewPropertyChanged;
+            RelatedDocs = Service.CreateCollection<RelatedDocDTO>(_purchaseData.RelatedDocs);
+            Service.RegisterCollectionView(RelatedDocs); //注册查询集合。
+            RelatedDocs.PropertyChanged += OnViewPropertyChanged;
 
             LeaseContractAircrafts = Service.CreateCollection<LeaseContractAircraftDTO>(_purchaseData.LeaseContractAircrafts);
             Service.RegisterCollectionView(LeaseContractAircrafts); //注册查询集合。
             LeaseContractAircrafts.PropertyChanged += OnViewPropertyChanged;
 
-            AircraftLeaseReceptions = Service.CreateCollection<AircraftLeaseReceptionDTO>(_purchaseData.AircraftLeaseReceptions);
-            Service.RegisterCollectionView(AircraftLeaseReceptions); //注册查询集合。
-            AircraftLeaseReceptions.PropertyChanged += OnViewPropertyChanged;
-
             Suppliers = Service.CreateCollection<SupplierDTO>(_purchaseData.Suppliers);
             Service.RegisterCollectionView(Suppliers); //注册查询集合。
             Suppliers.PropertyChanged += OnViewPropertyChanged;
 
-            RelatedDocs = Service.CreateCollection<RelatedDocDTO>(_purchaseData.RelatedDocs);
-            Service.RegisterCollectionView(RelatedDocs); //注册查询集合。
-            RelatedDocs.PropertyChanged += OnViewPropertyChanged;
+            AircraftLeaseReceptions = Service.CreateCollection<AircraftLeaseReceptionDTO>(_purchaseData.AircraftLeaseReceptions);
+            Service.RegisterCollectionView(AircraftLeaseReceptions); //注册查询集合。
+            AircraftLeaseReceptions.PropertyChanged += OnViewPropertyChanged;
         }
 
         /// <summary>
@@ -184,10 +180,9 @@ namespace UniCloud.Presentation.Purchase.Reception
         public override void LoadData()
         {
             RelatedDocs.AutoLoad = true;
-            AircraftContracts.AutoLoad = true;
             LeaseContractAircrafts.AutoLoad = true;
-            AircraftLeaseReceptions.AutoLoad = true;
             Suppliers.AutoLoad = true;
+            AircraftLeaseReceptions.AutoLoad = true;
         }
 
         #region 业务
@@ -216,68 +211,30 @@ namespace UniCloud.Presentation.Purchase.Reception
         public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
         #endregion
 
-        #region 飞机租赁交易集合
-        /// <summary>
-        ///     飞机租赁合同集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<APUMaintainContractDTO> AircraftContracts { get; set; }
-
-        private List<APUMaintainContractDTO> _viewAircraftContracts;
-        public List<APUMaintainContractDTO> ViewAircraftContracts
-        {
-            get { return _viewAircraftContracts; }
-            set
-            {
-                if (_viewAircraftContracts != value)
-                {
-                    _viewAircraftContracts = value;
-                    RaisePropertyChanged(() => ViewAircraftContracts);
-                }
-            }
-        }
-
-        /// <summary>
-        ///     飞机租赁交易集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<TradeDTO> Trades { get; set; }
-
-        private List<TradeDTO> _viewTrades;
-        public List<TradeDTO> ViewTrades
-        {
-            get { return _viewTrades; }
-            set
-            {
-                if (_viewTrades != value)
-                {
-                    _viewTrades = value;
-                    RaisePropertyChanged(() => ViewTrades);
-                }
-            }
-        }
-
-        public QueryableDataServiceCollectionView<AircraftLeaseOrderDTO> AircraftLeaseOrders { get; set; }
-
-        private List<AircraftLeaseOrderDTO> _viewAircraftLeaseOrders;
-        public List<AircraftLeaseOrderDTO> ViewAircraftLeaseOrders
-        {
-            get { return _viewAircraftLeaseOrders; }
-            set
-            {
-                if (_viewAircraftLeaseOrders != value)
-                {
-                    _viewAircraftLeaseOrders = value;
-                    RaisePropertyChanged(() => ViewAircraftLeaseOrders);
-                }
-            }
-        }
-        #endregion
-
         #region 租赁合同飞机集合
         /// <summary>
-        ///     飞机租赁合同集合
+        ///     所有租赁合同飞机集合
         /// </summary>
         public QueryableDataServiceCollectionView<LeaseContractAircraftDTO> LeaseContractAircrafts { get; set; }
 
+
+        private ObservableCollection<LeaseContractAircraftDTO> _viewContractAircrafts = new ObservableCollection<LeaseContractAircraftDTO>();
+
+        /// <summary>
+        /// 租赁合同飞机集合,用于界面绑定
+        /// </summary>
+        public ObservableCollection<LeaseContractAircraftDTO> ViewLeaseContractAircrafts
+        {
+            get { return this._viewContractAircrafts; }
+            set
+            {
+                if (this._viewContractAircrafts != value)
+                {
+                    _viewContractAircrafts = value;
+                    this.RaisePropertyChanged(() => this.ViewLeaseContractAircrafts);
+                }
+            }
+        }
         #endregion
 
         #region 选择的接收项目
@@ -295,14 +252,25 @@ namespace UniCloud.Presentation.Purchase.Reception
                 if (_selAircraftLeaseReception != value)
                 {
                     _selAircraftLeaseReception = value;
-                    ViewAircraftContracts = AircraftContracts.Where(p => p.SignatoryId == SelAircraftLeaseReception.SupplierId).ToList();
+
+                    var viewLeaseContractAircrafts = LeaseContractAircrafts.Where(p => p.SupplierId == SelAircraftLeaseReception.SupplierId && p.SerialNumber != null).ToList();
+                    ViewLeaseContractAircrafts.Clear();
+                    foreach (var lca in viewLeaseContractAircrafts)
+                    { 
+                        ViewLeaseContractAircrafts.Add(lca);
+                    }
                     _appointments.Clear();
                     foreach (var schedule in value.ReceptionSchedules)
                     {
                         Appointment appointment = scheduleExtension.ConvertToAppointment(schedule);
                         _appointments.Add(appointment);
                     }
-                    ViewDocuments = RelatedDocs.Where(l => l.SourceId == SelAircraftLeaseReception.SourceId).ToList();
+                    var viewDocuments = RelatedDocs.Where(l => l.SourceId == SelAircraftLeaseReception.SourceId).ToList();
+                    ViewDocuments.Clear();
+                    foreach (var doc in viewDocuments)
+                    {
+                        ViewDocuments.Add(doc);
+                    }
                     RaisePropertyChanged(()=>Appointments);
                     RaisePropertyChanged(() => SelAircraftLeaseReception);
                 }
@@ -379,12 +347,12 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #region 交机文件
 
-        private List<RelatedDocDTO> _viewDocuments;
+        private ObservableCollection<RelatedDocDTO> _viewDocuments=new ObservableCollection<RelatedDocDTO>();
 
         /// <summary>
         /// 交机文件
         /// </summary>
-        public List<RelatedDocDTO> ViewDocuments
+        public ObservableCollection<RelatedDocDTO> ViewDocuments
         {
             get { return this._viewDocuments; }
             private set
@@ -628,27 +596,25 @@ namespace UniCloud.Presentation.Purchase.Reception
                 var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "Supplier"))
                 {
-                    ViewAircraftContracts = AircraftContracts.Where(p => p.SignatoryId == SelAircraftLeaseReception.SupplierId).ToList();
-                }
-                else if (string.Equals(cell.Column.UniqueName, "ContractNumber"))
-                {
-                    if (SelAircraftLeaseReceptionLine.ContractNumber != null)
+                    var viewLeaseContractAircrafts = LeaseContractAircrafts.Where(p => p.SupplierId == SelAircraftLeaseReception.SupplierId && p.SerialNumber!=null).ToList();
+                    ViewLeaseContractAircrafts.Clear();
+                    foreach (var lca in viewLeaseContractAircrafts)
                     {
-                        CanEdit = false;
+                        ViewLeaseContractAircrafts.Add(lca);
                     }
-                  
                 }
                 else if (string.Equals(cell.Column.UniqueName, "ContractAircraft"))
                 {
                     var value = SelAircraftLeaseReceptionLine.ContractAircraftId;
-                    //var contractAircraft =
-                    //    SelAircraftLeaseReceptionLine.ViewLeaseContractAircrafts.FirstOrDefault(p => p.LeaseContractAircraftId == value);
-                    //if (contractAircraft != null)
-                    //{
-                    //    SelAircraftLeaseReceptionLine.ContractNumber = contractAircraft.ContractNumber;
-                    //    SelAircraftLeaseReceptionLine.MSN = contractAircraft.SerialNumber;
-                    //    SelAircraftLeaseReceptionLine.AircraftType = contractAircraft.AircraftTypeName;
-                    //}
+                    var contractAircraft =
+                        ViewLeaseContractAircrafts.FirstOrDefault(p => p.LeaseContractAircraftId == value);
+                    if (contractAircraft != null)
+                    {
+                        SelAircraftLeaseReceptionLine.ContractNumber = contractAircraft.ContractNumber;
+                        SelAircraftLeaseReceptionLine.RankNumber = contractAircraft.RankNumber;
+                        SelAircraftLeaseReceptionLine.MSN = contractAircraft.SerialNumber;
+                        SelAircraftLeaseReceptionLine.AircraftType = contractAircraft.AircraftTypeName;
+                    }
                 }
             }
         }

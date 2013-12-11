@@ -64,6 +64,9 @@
     <Compile Include="InitialData\ReceptionData.cs" />
     <Compile Include="InitialData\SupplierData.cs" />
     <Compile Include="InitialData\TradeData.cs" />
+    <Compile Include="Migrations\201312101050215_database.cs" />
+    <Compile Include="Migrations\201312101050215_database.Designer.cs">
+      <DependentUpon>201312101050215_database.cs</DependentUpon>
     <Compile Include="Migrations\201312101304386_Initial.cs" />
     <Compile Include="Migrations\201312101304386_Initial.Designer.cs">
       <DependentUpon>201312101304386_Initial.cs</DependentUpon>
@@ -179,6 +182,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201312101050215_database.resx">
+      <DependentUpon>201312101050215_database.cs</DependentUpon>
     <EmbeddedResource Include="Migrations\201312101304386_Initial.resx">
       <DependentUpon>201312101304386_Initial.cs</DependentUpon>
     </EmbeddedResource>

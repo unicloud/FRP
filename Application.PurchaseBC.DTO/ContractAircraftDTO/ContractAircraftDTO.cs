@@ -97,6 +97,10 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// </summary>
         public Guid ImportCategoryId { get;  set; }
 
+        /// <summary>
+        ///    供应商ID
+        /// </summary>
+        public int SupplierId { get; set; }
         #endregion
 
         #region 导航属性
