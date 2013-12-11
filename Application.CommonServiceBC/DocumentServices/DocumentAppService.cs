@@ -56,12 +56,12 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
         [Insert(typeof(DocumentDTO))]
         public void InsertLinkman(DocumentDTO document)
         {
-            if (document==null)
+            if (document == null)
             {
                 throw new Exception("文档不能为空");
             }
             //新建文档
-            var newDocument = DocumentFactory.CreateStandardDocument(document.Name, document.Extension,
+            var newDocument = DocumentFactory.CreateStandardDocument(document.DocumentId, document.Name, document.Extension,
                                                                      document.Abstract, document.Note, document.Uploader,
                                                                      true, document.FileStorage);
             _documentRepository.Add(newDocument);
@@ -77,14 +77,14 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
         [Insert(typeof(DocumentPathDTO))]
         public void InsertDocumentPath(DocumentPathDTO documentPath)
         {
-            if (documentPath==null)
+            if (documentPath == null)
             {
                 throw new Exception("文档路径不能为空");
             }
-          var newDocumentPath=  DocumentPathFactory.CreateDocumentPath(documentPath.Name, documentPath.IsLeaf, documentPath.Extension,
-                                                   documentPath.DocumentGuid, documentPath.ParentId,
-                                                   (PathSource)documentPath.PathSource);
-          _documentPathRepository.Add(newDocumentPath);
+            var newDocumentPath = DocumentPathFactory.CreateDocumentPath(documentPath.Name, documentPath.IsLeaf, documentPath.Extension,
+                                                     documentPath.DocumentGuid, documentPath.ParentId,
+                                                     (PathSource)documentPath.PathSource);
+            _documentPathRepository.Add(newDocumentPath);
         }
         [Update(typeof(DocumentPathDTO))]
         public void ModifyLinkman(DocumentPathDTO documentPath)
@@ -94,11 +94,11 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
                 throw new Exception("文档路径不能为空");
             }
             var pesistDocumentPath = _documentPathRepository.Get(documentPath.DocumentPathId);
-            if (pesistDocumentPath==null)
+            if (pesistDocumentPath == null)
             {
                 throw new Exception("未找到文档路径");
             }
-            pesistDocumentPath.Update(documentPath.Name,documentPath.IsLeaf,documentPath.Extension,documentPath.DocumentGuid,documentPath.ParentId,(PathSource)documentPath.PathSource);
+            pesistDocumentPath.Update(documentPath.Name, documentPath.IsLeaf, documentPath.Extension, documentPath.DocumentGuid, documentPath.ParentId, (PathSource)documentPath.PathSource);
             _documentPathRepository.Modify(pesistDocumentPath);
         }
         [Delete(typeof(DocumentPathDTO))]

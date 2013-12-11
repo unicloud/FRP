@@ -35,7 +35,7 @@ namespace UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork.Mapping.Sql
             ToTable("StandardDocument", DbConfig.Schema);
 
             HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
         }
     }
 }

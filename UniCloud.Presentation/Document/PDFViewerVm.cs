@@ -15,22 +15,19 @@
 #region 命名空间
 
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Controls;
+using Telerik.Windows.Controls.DataServices;
 using Telerik.Windows.Data;
 using Telerik.Windows.Documents.Fixed.FormatProviders;
 using Telerik.Windows.Documents.Fixed.FormatProviders.Pdf;
 using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
-using UniCloud.Presentation.Service.Document;
-using UniCloud.Presentation.Service.DocumentService;
 using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
-using System.Data.Services.Client;
 
 #endregion
 
@@ -41,18 +38,40 @@ namespace UniCloud.Presentation.Document
     public class PDFViewerVm : ViewModelBase
     {
         #region 声明、初始化
-        private CommonServiceData _commonServiceData;
+
         [Import]
         public PDFViewer CurrentPdfView;
         private Document _currentDoc;
         private bool _onlyView;
         private byte[] _byteContent;
-
+        private readonly QueryableDataServiceCollectionView<DocumentDTO> _documents;
+        private EventHandler<DataServiceSubmittedChangesEventArgs> _submitChanges;
+        private readonly FilterDescriptor _filter;
         public PDFViewerVm()
         {
             SaveCommand = new DelegateCommand<object>(Save, CanSave);
             OpenDocumentCommand = new DelegateCommand<object>(OpenDocument);
-            _commonServiceData = new CommonServiceData(AgentHelper.CommonServiceUri);
+            var commonServiceData = new CommonServiceData(AgentHelper.CommonServiceUri);
+            _documents = new QueryableDataServiceCollectionView<DocumentDTO>(commonServiceData, commonServiceData.Documents);
+            _filter = new FilterDescriptor("DocumentId", FilterOperator.IsEqualTo, Guid.Empty);
+            _documents.FilterDescriptors.Add(_filter);
+            _documents.LoadedData += (o, e) =>
+            {
+                try
+                {
+                    var result = (o as QueryableDataServiceCollectionView<DocumentDTO>).FirstOrDefault();
+                    if (result != null)
+                    {
+                        Stream currentContent = new MemoryStream(result.FileStorage);
+                        CurrentPdfView.pdfViewer.Document = new PdfFormatProvider(currentContent, FormatProviderSettings.ReadOnDemand).Import();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageAlert(ex.Message);
+                }
+                IsBusy = false;
+            };
         }
         #endregion
 
@@ -89,44 +108,8 @@ namespace UniCloud.Presentation.Document
         #region 加载文档
         private void LoadDocumentByDocId(Guid docId)
         {
-            var query = (from doc in _commonServiceData.Documents where doc.DocumentId == docId select doc) as DataServiceQuery<DocumentDTO>;
-            if (query != null)
-            {
-                query.BeginExecute(result =>
-                                   {
-                                       try
-                                       {
-                                           var resultQuery = result.AsyncState as DataServiceQuery<DocumentDTO>;
-                                           if (resultQuery != null)
-                                           {
-                                               var docResult = resultQuery.EndExecute(result).FirstOrDefault();
-                                               Stream currentContent = new MemoryStream(docResult.FileStorage);
-                                               CurrentPdfView.pdfViewer.Document = new PdfFormatProvider(currentContent, FormatProviderSettings.ReadOnDemand).Import();
-                                           }
-                                       }
-                                       catch (Exception e)
-                                       {
-                                           MessageAlert(e.Message);
-                                       }
-                                       IsBusy = false;
-                                   }, query);
-            }
-
-            //_documentService.GetDocumentFileStream(docId, (s, arg) =>
-            //{
-            //    try
-            //    {
-            //        if (arg.Error != null) { MessageAlert(arg.Error.Message); return; }
-            //        var document = arg.Result;
-            //        Stream currentContent = new MemoryStream(document);
-            //        CurrentPdfView.pdfViewer.Document = new PdfFormatProvider(currentContent, FormatProviderSettings.ReadOnDemand).Import();
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        MessageAlert(e.Message);
-            //    }
-            //    IsBusy = false;
-            //});
+            _filter.Value = docId;
+            _documents.AutoLoad = true;
         }
 
         #endregion
@@ -171,72 +154,49 @@ namespace UniCloud.Presentation.Document
         private void Save(object sender)
         {
             bool isNew = false;
-            var document = new DocumentDTO();
             if (_currentDoc.Id.Equals(Guid.Empty))
             {
                 isNew = true;
                 _currentDoc.Id = Guid.NewGuid();
             }
-            document.DocumentId = _currentDoc.Id;
-            document.Name = _currentDoc.Name;
-            document.FileStorage = _byteContent;
-            _commonServiceData.AddToDocuments(document);
-            _commonServiceData.BeginSaveChanges(SaveChangesOptions.ReplaceOnUpdate, result =>
-                                                                                    {
-                                                                                        try
-                                                                                        {
-                                                                                            _commonServiceData
-                                                                                                .EndSaveChanges(result);
-                                                                                        }
-                                                                                        catch (Exception)
-                                                                                        {
-                                                                                             
-                                                                                        }
-                                                                                    }, null);
-            //bool isNew = false;
-            //var commitDocuments = new ResultDataStandardDocumentDataObject();
-            //var addDocuments = new ObservableCollection<StandardDocumentDataObject>();
-            //var modifyDocuments = new ObservableCollection<StandardDocumentDataObject>();
-            //if (_currentDoc.Id.Equals(Guid.Empty))
-            //{
-            //    isNew = true;
-            //    _currentDoc.Id = Guid.NewGuid();
-            //    var newDocument = new StandardDocumentDataObject
-            //                          {
-            //                              ID = _currentDoc.Id,
-            //                              FileName = _currentDoc.Name,
-            //                              DocumentFileStream = _byteContent
-            //                          };
-            //    addDocuments.Add(newDocument);
-            //}
-            //else
-            //{
-            //    var modifyDocument = new StandardDocumentDataObject
-            //                             {
-            //                                 ID = _currentDoc.Id,
-            //                                 FileName = _currentDoc.Name,
-            //                                 DocumentFileStream = _byteContent
-            //                             };
-            //    modifyDocuments.Add(modifyDocument);
-            //}
-            //commitDocuments.AddedCollection = addDocuments;
-            //commitDocuments.ModefiedCollection = modifyDocuments;
-            //_documentService.CommitDocument(commitDocuments, (s, arg) =>
-            //                               {
-            //                                   if (arg.Error != null)
-            //                                   {
-            //                                       MessageAlert("保存失败，请检查！");
-            //                                       return;
-            //                                   }
-            //                                   MessageAlert("保存成功！");
-            //                                   if (isNew)
-            //                                   {
-            //                                       _currentDoc.Id = arg.Result.AddedCollection[0].ID;
-            //                                   }
-            //                                   CurrentPdfView.Tag = _currentDoc;
-            //                                   _byteContent = null;
-            //                                   CurrentPdfView.Close();
-            //                               });
+            var document = new DocumentDTO
+                           {
+                               DocumentId = _currentDoc.Id,
+                               Name = _currentDoc.Name,
+                               FileStorage = _byteContent
+                           };
+            if (isNew)
+            {
+                _documents.AddNew(document);
+            }
+            else
+            {
+                _documents.EditItem(document);
+            }
+            _documents.SubmitChanges();
+            if (_submitChanges == null)
+            {
+                _submitChanges += (o, e) =>
+                {
+                    try
+                    {
+                        if (e.Error != null)
+                        {
+                            MessageAlert("保存失败: " + e.Error.Message);
+                            return;
+                        }
+                        CurrentPdfView.Tag = _currentDoc;
+                        _byteContent = null;
+                        CurrentPdfView.Close();
+                        MessageAlert("保存成功！");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageAlert("保存失败: " + ex.Message);
+                    }
+                };
+                _documents.SubmittedChanges += _submitChanges;
+            }
         }
         #endregion
 
