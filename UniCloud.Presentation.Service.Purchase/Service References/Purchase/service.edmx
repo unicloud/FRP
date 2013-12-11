@@ -460,9 +460,9 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
-        <Property Name="CurrencyName" Type="Edm.String" />
+        <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
-        <Property Name="Linkman" Type="Edm.String" />
+        <Property Name="LinkmanId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
@@ -483,9 +483,9 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
-        <Property Name="CurrencyName" Type="Edm.String" />
+        <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
-        <Property Name="Linkman" Type="Edm.String" />
+        <Property Name="LinkmanId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
@@ -509,9 +509,9 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
-        <Property Name="CurrencyName" Type="Edm.String" />
+        <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
-        <Property Name="Linkman" Type="Edm.String" />
+        <Property Name="LinkmanId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
@@ -532,9 +532,9 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
-        <Property Name="CurrencyName" Type="Edm.String" />
+        <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
-        <Property Name="Linkman" Type="Edm.String" />
+        <Property Name="LinkmanId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
@@ -555,9 +555,9 @@
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
-        <Property Name="CurrencyName" Type="Edm.String" />
+        <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
-        <Property Name="Linkman" Type="Edm.String" />
+        <Property Name="LinkmanId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
@@ -571,6 +571,13 @@
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
       </ComplexType>
+      <EntityType Name="CurrencyDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+      </EntityType>
       <Association Name="ContractAircraftDTO_BFEPurchaseOrders">
         <End Type="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO" Role="ContractAircraftDTO" Multiplicity="*" />
         <End Type="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO" Role="BFEPurchaseOrders" Multiplicity="*" />
@@ -633,6 +640,7 @@
         <EntitySet Name="EngineLeaseOrders" EntityType="UniCloud.Application.PurchaseBC.DTO.EngineLeaseOrderDTO" />
         <EntitySet Name="EnginePurchaseOrders" EntityType="UniCloud.Application.PurchaseBC.DTO.EnginePurchaseOrderDTO" />
         <EntitySet Name="BFEPurchaseOrders" EntityType="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO" />
+        <EntitySet Name="Currencies" EntityType="UniCloud.Application.PurchaseBC.DTO.CurrencyDTO" />
         <AssociationSet Name="ContractAircraftDTO_BFEPurchaseOrders" Association="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO_BFEPurchaseOrders">
           <End Role="ContractAircraftDTO" EntitySet="ContractAircrafts" />
           <End Role="BFEPurchaseOrders" EntitySet="BFEPurchaseOrders" />

@@ -22,6 +22,7 @@ using UniCloud.Application.PurchaseBC.ActionCategoryServices;
 using UniCloud.Application.PurchaseBC.AircraftTypeServices;
 using UniCloud.Application.PurchaseBC.ContractAircraftServices;
 using UniCloud.Application.PurchaseBC.ContractServices;
+using UniCloud.Application.PurchaseBC.CurrencyServices;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
@@ -42,11 +43,12 @@ namespace UniCloud.DistributedServices.Purchase
     /// </summary>
     public class PurchaseData : ExposeData.ExposeData
     {
-        private readonly IAircraftTypeAppService _aircraftTypeAppService;
         private readonly IActionCategoryAppService _actionCategoryAppService;
         private readonly IAircraftLeaseReceptionAppService _aircraftLeaseReceptionAppService;
         private readonly IAircraftPurchaseReceptionAppService _aircraftPurchaseReceptionAppService;
+        private readonly IAircraftTypeAppService _aircraftTypeAppService;
         private readonly IContractAircraftAppService _contractAircraftAppService;
+        private readonly ICurrencyAppService _currencyAppService;
         private readonly IEngineLeaseReceptionAppService _engineLeaseReceptionAppService;
         private readonly IEnginePurchaseReceptionAppService _enginePurchaseReceptionAppService;
         private readonly IForwarderAppService _forwarderAppService;
@@ -80,7 +82,7 @@ namespace UniCloud.DistributedServices.Purchase
             _planAircraftAppService = DefaultContainer.Resolve<IPlanAircraftAppService>();
             _purchaseContractAircraftAppService = DefaultContainer.Resolve<IPurchaseContractAircraftAppService>();
             _relatedDocAppService = DefaultContainer.Resolve<IRelatedDocAppService>();
-
+            _currencyAppService = DefaultContainer.Resolve<ICurrencyAppService>();
         }
 
         #region 合作公司相关集合
@@ -118,7 +120,7 @@ namespace UniCloud.DistributedServices.Purchase
         }
 
         /// <summary>
-        /// 合作公司下的飞机物料
+        ///     合作公司下的飞机物料
         /// </summary>
         public IQueryable<SupplierCompanyAcMaterialDTO> SupplierCompanyAcMaterials
         {
@@ -126,7 +128,7 @@ namespace UniCloud.DistributedServices.Purchase
         }
 
         /// <summary>
-        /// 合作公司下的发动机物料
+        ///     合作公司下的发动机物料
         /// </summary>
         public IQueryable<SupplierCompanyEngineMaterialDTO> SupplierCompanyEngineMaterials
         {
@@ -134,12 +136,13 @@ namespace UniCloud.DistributedServices.Purchase
         }
 
         /// <summary>
-        /// 合作公司下的BFE物料
+        ///     合作公司下的BFE物料
         /// </summary>
         public IQueryable<SupplierCompanyBFEMaterialDTO> SupplierCompanyBFEMaterials
         {
             get { return _supplierAppService.GetSupplierCompanyBFEMaterials(); }
         }
+
         #endregion
 
         #region 机型集合
@@ -151,6 +154,7 @@ namespace UniCloud.DistributedServices.Purchase
         {
             get { return _aircraftTypeAppService.GetAircraftTypes(); }
         }
+
         #endregion
 
         #region 活动类型集合
@@ -179,16 +183,12 @@ namespace UniCloud.DistributedServices.Purchase
 
         #region 合同飞机集合
 
-
         /// <summary>
         ///     合同飞机集合
         /// </summary>
         public IQueryable<ContractAircraftDTO> ContractAircrafts
         {
-            get
-            {
-                return _contractAircraftAppService.GetContractAircrafts();
-            }
+            get { return _contractAircraftAppService.GetContractAircrafts(); }
         }
 
         /// <summary>
@@ -206,6 +206,7 @@ namespace UniCloud.DistributedServices.Purchase
         {
             get { return _purchaseContractAircraftAppService.GetPurchaseContractAircrafts(); }
         }
+
         #endregion
 
         #region 物料相关集合
@@ -307,7 +308,7 @@ namespace UniCloud.DistributedServices.Purchase
         }
 
         #endregion
-        
+
         #region RelatedDoc
 
         /// <summary>
@@ -368,6 +369,18 @@ namespace UniCloud.DistributedServices.Purchase
         public IQueryable<BFEPurchaseOrderDTO> BFEPurchaseOrders
         {
             get { return _tradeAppService.GetBFEPurchaseOrders(); }
+        }
+
+        #endregion
+
+        #region 币种
+
+        /// <summary>
+        ///     币种集合
+        /// </summary>
+        public IQueryable<CurrencyDTO> Currencies
+        {
+            get { return _currencyAppService.GetCurrencies(); }
         }
 
         #endregion
