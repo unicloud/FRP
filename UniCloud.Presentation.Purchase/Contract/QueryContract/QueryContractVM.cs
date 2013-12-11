@@ -114,7 +114,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                         //叶子节点
                         if (value.IsLeaf)
                         {
-                            OpenDocument(value.DocumentGuid);
+                            OpenDocument(value.DocumentGuid,value.Extension);
                         }
                         else
                         {
@@ -216,13 +216,13 @@ namespace UniCloud.Presentation.Purchase.Contract
                 LoadSubFolderDocuemnt(SelDocumentPath);
                 return;
             }
-            OpenDocument(SelDocumentPath.DocumentGuid);
+            OpenDocument(SelDocumentPath.DocumentGuid,SelDocumentPath.Extension);
         }
 
         /// <summary>
         ///     打开文件
         /// </summary>
-        private void OpenDocument(Guid? documentId)
+        private void OpenDocument(Guid? documentId,string extension)
         {
             if (_loadType.Equals("DoubleClick"))
             {
@@ -232,7 +232,21 @@ namespace UniCloud.Presentation.Purchase.Contract
                 RaisePropertyChanged(() => CurrentPathItem);
                 return;
             }
-          
+         
+           var document = new Document.Document {Id = documentId.Value};
+
+            if (extension.Contains("pdf"))
+            {
+                PdfViewer.Tag = null;
+                PdfViewer.ViewModel.InitData(true, document, null);
+                PdfViewer.ShowDialog();
+            }
+            else if (extension.Contains("doc"))
+            {
+                WordViewer.Tag = null;
+                WordViewer.ViewModel.InitData(true, document, null);
+                WordViewer.ShowDialog();
+            }
         }
 
         /// <summary>
@@ -270,7 +284,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 LoadSubFolderDocuemnt(SelDocumentPath);
                 return;
             }
-            OpenDocument(SelDocumentPath.DocumentGuid);
+            OpenDocument(SelDocumentPath.DocumentGuid,SelDocumentPath.Extension);
         }
 
         private bool CanOpen(object sender)
