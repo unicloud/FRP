@@ -18,12 +18,16 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.IO;
+using System.Linq;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Controls;
+using Telerik.Windows.Controls.DataServices;
+using Telerik.Windows.Data;
 using Telerik.Windows.Documents.FormatProviders.OpenXml.Docx;
 using Telerik.Windows.Documents.Model;
 using UniCloud.Presentation.Service;
+using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Document;
 using UniCloud.Presentation.Service.DocumentService;
 using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
@@ -37,18 +41,39 @@ namespace UniCloud.Presentation.Document
     public class WordViewerVm : ViewModelBase
     {
         #region 声明、初始化
-        private readonly DocumentClient _documentService;
         [Import]
         public WordViewer CurrentWordView;
         private Document _currentDoc;
         private bool _onlyView;
+        private readonly QueryableDataServiceCollectionView<DocumentDTO> _documents;
+        private EventHandler<DataServiceSubmittedChangesEventArgs> _submitChanges;
+        private readonly FilterDescriptor _filter;
         #endregion
 
         public WordViewerVm()
         {
             SaveCommand = new DelegateCommand<object>(Save, CanSave);
             OpenDocumentCommand = new DelegateCommand<object>(OpenDocument);
-            _documentService = DocumentClient.Instance;
+            var commonServiceData = new CommonServiceData(AgentHelper.CommonServiceUri);
+            _documents = new QueryableDataServiceCollectionView<DocumentDTO>(commonServiceData, commonServiceData.Documents);
+            _filter = new FilterDescriptor("DocumentId", FilterOperator.IsEqualTo, Guid.Empty);
+            _documents.FilterDescriptors.Add(_filter);
+            _documents.LoadedData += (o, e) =>
+            {
+                try
+                {
+                    var result = (o as QueryableDataServiceCollectionView<DocumentDTO>).FirstOrDefault();
+                    if (result != null)
+                    {
+                        CurrentWordView.editor.Document = new DocxFormatProvider().Import(result.FileStorage);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageAlert(ex.Message);
+                }
+                IsBusy = false;
+            };
         }
 
         #region 操作
@@ -80,13 +105,8 @@ namespace UniCloud.Presentation.Document
         #region 加载文档
         private void LoadDocumentByDocId(Guid docId)
         {
-            _documentService.GetDocumentFileStream(docId, (s, arg) =>
-            {
-                if (arg.Error != null) { MessageAlert(arg.Error.Message); return; }
-                var document = arg.Result;
-                CurrentWordView.editor.Document = new DocxFormatProvider().Import(document);
-                IsBusy = false;
-            });
+            _filter.Value = docId;
+            _documents.AutoLoad = true;
         }
         #endregion
 
@@ -128,48 +148,48 @@ namespace UniCloud.Presentation.Document
         private void Save(object sender)
         {
             bool isNew = false;
-            var commitDocuments = new ResultDataStandardDocumentDataObject();
-            var addDocuments = new ObservableCollection<StandardDocumentDataObject>();
-            var modifyDocuments = new ObservableCollection<StandardDocumentDataObject>();
             if (_currentDoc.Id.Equals(Guid.Empty))
             {
                 isNew = true;
                 _currentDoc.Id = Guid.NewGuid();
-                var newDocument = new StandardDocumentDataObject
-                                      {
-                                          ID = _currentDoc.Id,
-                                          FileName = _currentDoc.Name,
-                                          DocumentFileStream = new DocxFormatProvider().Export(CurrentWordView.editor.Document)
-                                      };
-                addDocuments.Add(newDocument);
+            }
+            var document = new DocumentDTO
+            {
+                DocumentId = _currentDoc.Id,
+                Name = _currentDoc.Name,
+                FileStorage = new DocxFormatProvider().Export(CurrentWordView.editor.Document)
+            };
+            if (isNew)
+            {
+                _documents.AddNew(document);
             }
             else
             {
-                var modifyDocument = new StandardDocumentDataObject
-                                         {
-                                             ID = _currentDoc.Id,
-                                             FileName = _currentDoc.Name,
-                                             DocumentFileStream = new DocxFormatProvider().Export(CurrentWordView.editor.Document)
-                                         };
-                modifyDocuments.Add(modifyDocument);
+                _documents.EditItem(document);
             }
-            commitDocuments.AddedCollection = addDocuments;
-            commitDocuments.ModefiedCollection = modifyDocuments;
-            _documentService.CommitDocument(commitDocuments, (s, arg) =>
-                                           {
-                                               if (arg.Error != null)
-                                               {
-                                                   MessageAlert("保存失败，请检查！");
-                                                   return;
-                                               }
-                                               MessageAlert("保存成功！");
-                                               if (isNew)
-                                               {
-                                                   _currentDoc.Id = arg.Result.AddedCollection[0].ID;
-                                               }
-                                               CurrentWordView.Tag = _currentDoc;
-                                               CurrentWordView.Close();
-                                           });
+            _documents.SubmitChanges();
+            if (_submitChanges == null)
+            {
+                _submitChanges += (o, e) =>
+                {
+                    try
+                    {
+                        if (e.Error != null)
+                        {
+                            MessageAlert("保存失败: " + e.Error.Message);
+                            return;
+                        }
+                        CurrentWordView.Tag = _currentDoc;
+                        CurrentWordView.Close();
+                        MessageAlert("保存成功！");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageAlert("保存失败: " + ex.Message);
+                    }
+                };
+                _documents.SubmittedChanges += _submitChanges;
+            }
         }
         #endregion
 
