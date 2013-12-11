@@ -54,7 +54,6 @@
     <Compile Include="UnitOfWork\CommonServiceBCUnitOfWork.cs" />
     <Compile Include="Repositories\DocumentPathRepository.cs" />
     <Compile Include="Repositories\DocumentRepository.cs" />
-    <Compile Include="UnitOfWork\CommonServiceBCUnitOfWork.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\DocumentEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\DocumentPathEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OfficialDocumentEntityConfiguration.cs" />

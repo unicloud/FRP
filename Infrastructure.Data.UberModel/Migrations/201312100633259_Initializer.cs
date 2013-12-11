@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class database : DbMigration
+    public partial class Initializer : DbMigration
     {
         public override void Up()
         {
@@ -343,7 +343,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         Name = c.String(),
                         IsLeaf = c.Boolean(nullable: false),
                         Extension = c.String(),
-                        DocumentGuid = c.Guid(nullable: false),
+                        DocumentGuid = c.Guid(),
                         PathSource = c.Int(nullable: false),
                         ParentId = c.Int(),
                     })

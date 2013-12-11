@@ -26,7 +26,27 @@ namespace UniCloud.Application.PurchaseBC.DTO
     /// <summary>
     ///     购买供应商。
     /// </summary>
-    public class AircraftPurchaseSupplierDTO:SupplierRoleDTO
+        [DataServiceKey("SupplierRoleId")]
+    public class AircraftPurchaseSupplierDTO
     {
+        /// <summary>
+        ///     主键。
+        /// </summary>
+        public int SupplierRoleId { get; set; }
+
+        /// <summary>
+        ///     是否有效。
+        /// </summary>
+        public bool IsValid { get; set; }
+
+        /// <summary>
+        /// 名称。
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        ///     供应商公司外键。
+        /// </summary>
+        public int SupplierCompanyId { get; set; }
     }
 }

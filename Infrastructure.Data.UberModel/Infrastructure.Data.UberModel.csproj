@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="InitialData\ActionCategoryData.cs" />
     <Compile Include="InitialData\AcTypeData.cs" />
+    <Compile Include="InitialData\DocumentData.cs" />
     <Compile Include="InitialData\ForwardData.cs" />
     <Compile Include="InitialData\InitialBase\IInitialData.cs" />
     <Compile Include="InitialData\InitialBase\InitialContainer.cs" />
@@ -63,9 +64,9 @@
     <Compile Include="InitialData\ReceptionData.cs" />
     <Compile Include="InitialData\SupplierData.cs" />
     <Compile Include="InitialData\TradeData.cs" />
-    <Compile Include="Migrations\201312091433279_Initial.cs" />
-    <Compile Include="Migrations\201312091433279_Initial.Designer.cs">
-      <DependentUpon>201312091433279_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201312100633259_Initializer.cs" />
+    <Compile Include="Migrations\201312100633259_Initializer.Designer.cs">
+      <DependentUpon>201312100633259_Initializer.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -159,8 +160,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201312091433279_Initial.resx">
-      <DependentUpon>201312091433279_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201312100633259_Initializer.resx">
+      <DependentUpon>201312100633259_Initializer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

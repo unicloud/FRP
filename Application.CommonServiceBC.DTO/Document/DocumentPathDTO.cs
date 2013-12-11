@@ -26,21 +26,19 @@ using System.Data.Services.Common;
 namespace UniCloud.Application.CommonServiceBC.DTO
 {
     /// <summary>
-    ///     文件下的文档
+    ///    文档路径
     /// </summary>
-    [DataServiceKey("FolderId")]
-    public class FolderDocumentDTO
+    [DataServiceKey("DocumentPathId")]
+    public class DocumentPathDTO
     {
-        public FolderDocumentDTO()
+        public DocumentPathDTO()
         {
-            SubFolders=new List<FolderDocumentDTO>();
-            Documents=new List<DocumentDTO>();
+            SubDocumentPaths=new List<SubDocumentPathDTO>();
         }
-
         /// <summary>
-        ///     文件夹主键
+        /// 主键
         /// </summary>
-        public Guid FolderId { get; set; }
+        public int DocumentPathId { get; set; }
 
         /// <summary>
         ///     名称
@@ -48,28 +46,34 @@ namespace UniCloud.Application.CommonServiceBC.DTO
         public string Name { get; set; }
 
         /// <summary>
-        ///     修改日期
+        ///     是否叶子节点
         /// </summary>
-        public DateTime UpdteDateTime { get; set; }
+        public bool IsLeaf { get;  set; }
 
         /// <summary>
-        ///     创建者
+        ///     扩展名
         /// </summary>
-        public string Creator { get; set; }
+        public string Extension { get;  set; }
 
         /// <summary>
-        ///     主项文件夹
+        ///     文档ID
         /// </summary>
-        public Guid? ParentFolderId { get; set; }
+        public Guid? DocumentGuid { get; set; }
 
         /// <summary>
-        ///     子项文件夹
+        ///     路径源
         /// </summary>
-        public List<FolderDocumentDTO> SubFolders { get; set; }
+        public int PathSource { get;  set; }
 
         /// <summary>
-        ///     某文件夹下文档
+        ///     父节点ID
         /// </summary>
-        public List<DocumentDTO> Documents { get; set; }
+        public int? ParentId { get;  set; }
+
+        /// <summary>
+        /// 子项文档集合
+        /// </summary>
+        public  List<SubDocumentPathDTO> SubDocumentPaths { get; set; }
+
     }
 }

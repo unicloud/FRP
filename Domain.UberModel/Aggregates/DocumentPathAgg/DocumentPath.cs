@@ -69,7 +69,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.DocumentPathAgg
         /// <summary>
         ///     文档ID
         /// </summary>
-        public Guid DocumentGuid { get; set; }
+        public Guid? DocumentGuid { get; set; }
 
         /// <summary>
         ///     路径源

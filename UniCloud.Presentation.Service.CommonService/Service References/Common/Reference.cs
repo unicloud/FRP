@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2013/12/9 11:05:36
+// 生成日期: 2013/12/11 11:42:46
 namespace UniCloud.Presentation.Service.CommonService.Common
 {
     
@@ -61,54 +61,54 @@ namespace UniCloud.Presentation.Service.CommonService.Common
             return null;
         }
         /// <summary>
-        /// 架构中不存在 FolderDocuments 的注释。
+        /// 架构中不存在 Documents 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Data.Services.Client.DataServiceQuery<FolderDocumentDTO> FolderDocuments
+        public global::System.Data.Services.Client.DataServiceQuery<DocumentDTO> Documents
         {
             get
             {
-                if ((this._FolderDocuments == null))
+                if ((this._Documents == null))
                 {
-                    this._FolderDocuments = base.CreateQuery<FolderDocumentDTO>("FolderDocuments");
+                    this._Documents = base.CreateQuery<DocumentDTO>("Documents");
                 }
-                return this._FolderDocuments;
+                return this._Documents;
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Data.Services.Client.DataServiceQuery<FolderDocumentDTO> _FolderDocuments;
+        private global::System.Data.Services.Client.DataServiceQuery<DocumentDTO> _Documents;
         /// <summary>
-        /// 架构中不存在 Folders 的注释。
+        /// 架构中不存在 DocumentPaths 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Data.Services.Client.DataServiceQuery<FolderDTO> Folders
+        public global::System.Data.Services.Client.DataServiceQuery<DocumentPathDTO> DocumentPaths
         {
             get
             {
-                if ((this._Folders == null))
+                if ((this._DocumentPaths == null))
                 {
-                    this._Folders = base.CreateQuery<FolderDTO>("Folders");
+                    this._DocumentPaths = base.CreateQuery<DocumentPathDTO>("DocumentPaths");
                 }
-                return this._Folders;
+                return this._DocumentPaths;
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Data.Services.Client.DataServiceQuery<FolderDTO> _Folders;
+        private global::System.Data.Services.Client.DataServiceQuery<DocumentPathDTO> _DocumentPaths;
         /// <summary>
-        /// 架构中不存在 FolderDocuments 的注释。
+        /// 架构中不存在 Documents 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public void AddToFolderDocuments(FolderDocumentDTO folderDocumentDTO)
+        public void AddToDocuments(DocumentDTO documentDTO)
         {
-            base.AddObject("FolderDocuments", folderDocumentDTO);
+            base.AddObject("Documents", documentDTO);
         }
         /// <summary>
-        /// 架构中不存在 Folders 的注释。
+        /// 架构中不存在 DocumentPaths 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public void AddToFolders(FolderDTO folderDTO)
+        public void AddToDocumentPaths(DocumentPathDTO documentPathDTO)
         {
-            base.AddObject("Folders", folderDTO);
+            base.AddObject("DocumentPaths", documentPathDTO);
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private abstract class GeneratedEdmModel
@@ -120,45 +120,32 @@ namespace UniCloud.Presentation.Service.CommonService.Common
                 "x\"><edmx:DataServices m:DataServiceVersion=\"3.0\" m:MaxDataServiceVersion=\"3.0\" x" +
                 "mlns:m=\"http://schemas.microsoft.com/ado/2007/08/dataservices/metadata\"><Schema " +
                 "Namespace=\"UniCloud.Application.CommonServiceBC.DTO\" xmlns=\"http://schemas.micro" +
-                "soft.com/ado/2009/11/edm\"><EntityType Name=\"FolderDocumentDTO\"><Key><PropertyRef" +
-                " Name=\"FolderId\" /></Key><Property Name=\"FolderId\" Type=\"Edm.Guid\" Nullable=\"fal" +
-                "se\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"UpdteDateTime\" T" +
-                "ype=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Creator\" Type=\"Edm.String\"" +
-                " /><Property Name=\"ParentFolderId\" Type=\"Edm.Guid\" /><Property Name=\"Documents\" " +
-                "Type=\"Collection(UniCloud.Application.CommonServiceBC.DTO.DocumentDTO)\" Nullable" +
-                "=\"false\" /><NavigationProperty Name=\"SubFolders\" Relationship=\"UniCloud.Applicat" +
-                "ion.CommonServiceBC.DTO.FolderDocumentDTO_SubFolders\" ToRole=\"SubFolders\" FromRo" +
-                "le=\"FolderDocumentDTO\" /></EntityType><ComplexType Name=\"DocumentDTO\"><Property " +
-                "Name=\"DocumentId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Name\" Type=" +
-                "\"Edm.String\" /><Property Name=\"Creator\" Type=\"Edm.String\" /><Property Name=\"Exte" +
-                "ndType\" Type=\"Edm.String\" /><Property Name=\"UpdateDateTime\" Type=\"Edm.DateTime\" " +
-                "Nullable=\"false\" /><Property Name=\"FolderId\" Type=\"Edm.Guid\" Nullable=\"false\" />" +
-                "</ComplexType><EntityType Name=\"FolderDTO\"><Key><PropertyRef Name=\"FolderId\" /><" +
-                "/Key><Property Name=\"FolderId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name" +
-                "=\"Name\" Type=\"Edm.String\" /><Property Name=\"UpdteDateTime\" Type=\"Edm.DateTime\" N" +
-                "ullable=\"false\" /><Property Name=\"Creator\" Type=\"Edm.String\" /><Property Name=\"P" +
-                "arentFolderId\" Type=\"Edm.Guid\" /><NavigationProperty Name=\"SubFolders\" Relations" +
-                "hip=\"UniCloud.Application.CommonServiceBC.DTO.FolderDTO_SubFolders\" ToRole=\"SubF" +
-                "olders\" FromRole=\"FolderDTO\" /></EntityType><Association Name=\"FolderDocumentDTO" +
-                "_SubFolders\"><End Type=\"UniCloud.Application.CommonServiceBC.DTO.FolderDocumentD" +
-                "TO\" Role=\"SubFolders\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.CommonS" +
-                "erviceBC.DTO.FolderDocumentDTO\" Role=\"FolderDocumentDTO\" Multiplicity=\"*\" /></As" +
-                "sociation><Association Name=\"FolderDTO_SubFolders\"><End Type=\"UniCloud.Applicati" +
-                "on.CommonServiceBC.DTO.FolderDTO\" Role=\"SubFolders\" Multiplicity=\"*\" /><End Type" +
-                "=\"UniCloud.Application.CommonServiceBC.DTO.FolderDTO\" Role=\"FolderDTO\" Multiplic" +
-                "ity=\"*\" /></Association></Schema><Schema Namespace=\"UniCloud.DistributedServices" +
-                ".CommonService\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityCont" +
-                "ainer Name=\"CommonServiceData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name" +
-                "=\"FolderDocuments\" EntityType=\"UniCloud.Application.CommonServiceBC.DTO.FolderDo" +
-                "cumentDTO\" /><EntitySet Name=\"Folders\" EntityType=\"UniCloud.Application.CommonSe" +
-                "rviceBC.DTO.FolderDTO\" /><AssociationSet Name=\"FolderDocumentDTO_SubFolders\" Ass" +
-                "ociation=\"UniCloud.Application.CommonServiceBC.DTO.FolderDocumentDTO_SubFolders\"" +
-                "><End Role=\"FolderDocumentDTO\" EntitySet=\"FolderDocuments\" /><End Role=\"SubFolde" +
-                "rs\" EntitySet=\"FolderDocuments\" /></AssociationSet><AssociationSet Name=\"FolderD" +
-                "TO_SubFolders\" Association=\"UniCloud.Application.CommonServiceBC.DTO.FolderDTO_S" +
-                "ubFolders\"><End Role=\"FolderDTO\" EntitySet=\"Folders\" /><End Role=\"SubFolders\" En" +
-                "titySet=\"Folders\" /></AssociationSet></EntityContainer></Schema></edmx:DataServi" +
-                "ces></edmx:Edmx>";
+                "soft.com/ado/2009/11/edm\"><EntityType Name=\"DocumentDTO\"><Key><PropertyRef Name=" +
+                "\"DocumentId\" /></Key><Property Name=\"DocumentId\" Type=\"Edm.Guid\" Nullable=\"false" +
+                "\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Extension\" Type=\"E" +
+                "dm.String\" /><Property Name=\"FileStorage\" Type=\"Edm.Binary\" /><Property Name=\"Ab" +
+                "stract\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property " +
+                "Name=\"Uploader\" Type=\"Edm.String\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" " +
+                "Nullable=\"false\" /><Property Name=\"CreateTime\" Type=\"Edm.DateTime\" Nullable=\"fal" +
+                "se\" /></EntityType><EntityType Name=\"DocumentPathDTO\"><Key><PropertyRef Name=\"Do" +
+                "cumentPathId\" /></Key><Property Name=\"DocumentPathId\" Type=\"Edm.Int32\" Nullable=" +
+                "\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"IsLeaf\" Type" +
+                "=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Extension\" Type=\"Edm.String\" /" +
+                "><Property Name=\"DocumentGuid\" Type=\"Edm.Guid\" /><Property Name=\"PathSource\" Typ" +
+                "e=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ParentId\" Type=\"Edm.Int32\" /><P" +
+                "roperty Name=\"SubDocumentPaths\" Type=\"Collection(UniCloud.Application.CommonServ" +
+                "iceBC.DTO.SubDocumentPathDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name" +
+                "=\"SubDocumentPathDTO\"><Property Name=\"SubDocumentPathId\" Type=\"Edm.Int32\" Nullab" +
+                "le=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"IsLeaf\" T" +
+                "ype=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Extension\" Type=\"Edm.String" +
+                "\" /><Property Name=\"DocumentGuid\" Type=\"Edm.Guid\" /><Property Name=\"PathSource\" " +
+                "Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ParentId\" Type=\"Edm.Int32\" /" +
+                "></ComplexType></Schema><Schema Namespace=\"UniCloud.DistributedServices.CommonSe" +
+                "rvice\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityContainer Nam" +
+                "e=\"CommonServiceData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"Documen" +
+                "ts\" EntityType=\"UniCloud.Application.CommonServiceBC.DTO.DocumentDTO\" /><EntityS" +
+                "et Name=\"DocumentPaths\" EntityType=\"UniCloud.Application.CommonServiceBC.DTO.Doc" +
+                "umentPathDTO\" /></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -191,23 +178,28 @@ namespace UniCloud.Presentation.Service.CommonService.Common
         }
     }
     /// <summary>
-    /// 架构中不存在 ComplexType UniCloud.Application.CommonServiceBC.DTO.DocumentDTO 的注释。
+    /// 架构中不存在 UniCloud.Application.CommonServiceBC.DTO.DocumentDTO 的注释。
     /// </summary>
+    /// <KeyProperties>
+    /// DocumentId
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("Documents")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("DocumentId")]
     public partial class DocumentDTO : global::System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
         /// 创建新的 DocumentDTO 对象。
         /// </summary>
         /// <param name="documentId">DocumentId 的初始值。</param>
-        /// <param name="updateDateTime">UpdateDateTime 的初始值。</param>
-        /// <param name="folderId">FolderId 的初始值。</param>
+        /// <param name="isValid">IsValid 的初始值。</param>
+        /// <param name="createTime">CreateTime 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static DocumentDTO CreateDocumentDTO(global::System.Guid documentId, global::System.DateTime updateDateTime, global::System.Guid folderId)
+        public static DocumentDTO CreateDocumentDTO(global::System.Guid documentId, bool isValid, global::System.DateTime createTime)
         {
             DocumentDTO documentDTO = new DocumentDTO();
             documentDTO.DocumentId = documentId;
-            documentDTO.UpdateDateTime = updateDateTime;
-            documentDTO.FolderId = folderId;
+            documentDTO.IsValid = isValid;
+            documentDTO.CreateTime = createTime;
             return documentDTO;
         }
         /// <summary>
@@ -255,93 +247,166 @@ namespace UniCloud.Presentation.Service.CommonService.Common
         partial void OnNameChanging(string value);
         partial void OnNameChanged();
         /// <summary>
-        /// 架构中不存在属性 Creator 的注释。
+        /// 架构中不存在属性 Extension 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string Creator
+        public string Extension
         {
             get
             {
-                return this._Creator;
+                return this._Extension;
             }
             set
             {
-                this.OnCreatorChanging(value);
-                this._Creator = value;
-                this.OnCreatorChanged();
-                this.OnPropertyChanged("Creator");
+                this.OnExtensionChanging(value);
+                this._Extension = value;
+                this.OnExtensionChanged();
+                this.OnPropertyChanged("Extension");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _Creator;
-        partial void OnCreatorChanging(string value);
-        partial void OnCreatorChanged();
+        private string _Extension;
+        partial void OnExtensionChanging(string value);
+        partial void OnExtensionChanged();
         /// <summary>
-        /// 架构中不存在属性 ExtendType 的注释。
+        /// 架构中不存在属性 FileStorage 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string ExtendType
+        public byte[] FileStorage
         {
             get
             {
-                return this._ExtendType;
+                if ((this._FileStorage != null))
+                {
+                    return ((byte[])(this._FileStorage.Clone()));
+                }
+                else
+                {
+                    return null;
+                }
             }
             set
             {
-                this.OnExtendTypeChanging(value);
-                this._ExtendType = value;
-                this.OnExtendTypeChanged();
-                this.OnPropertyChanged("ExtendType");
+                this.OnFileStorageChanging(value);
+                this._FileStorage = value;
+                this.OnFileStorageChanged();
+                this.OnPropertyChanged("FileStorage");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _ExtendType;
-        partial void OnExtendTypeChanging(string value);
-        partial void OnExtendTypeChanged();
+        private byte[] _FileStorage;
+        partial void OnFileStorageChanging(byte[] value);
+        partial void OnFileStorageChanged();
         /// <summary>
-        /// 架构中不存在属性 UpdateDateTime 的注释。
+        /// 架构中不存在属性 Abstract 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.DateTime UpdateDateTime
+        public string Abstract
         {
             get
             {
-                return this._UpdateDateTime;
+                return this._Abstract;
             }
             set
             {
-                this.OnUpdateDateTimeChanging(value);
-                this._UpdateDateTime = value;
-                this.OnUpdateDateTimeChanged();
-                this.OnPropertyChanged("UpdateDateTime");
+                this.OnAbstractChanging(value);
+                this._Abstract = value;
+                this.OnAbstractChanged();
+                this.OnPropertyChanged("Abstract");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.DateTime _UpdateDateTime;
-        partial void OnUpdateDateTimeChanging(global::System.DateTime value);
-        partial void OnUpdateDateTimeChanged();
+        private string _Abstract;
+        partial void OnAbstractChanging(string value);
+        partial void OnAbstractChanged();
         /// <summary>
-        /// 架构中不存在属性 FolderId 的注释。
+        /// 架构中不存在属性 Note 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid FolderId
+        public string Note
         {
             get
             {
-                return this._FolderId;
+                return this._Note;
             }
             set
             {
-                this.OnFolderIdChanging(value);
-                this._FolderId = value;
-                this.OnFolderIdChanged();
-                this.OnPropertyChanged("FolderId");
+                this.OnNoteChanging(value);
+                this._Note = value;
+                this.OnNoteChanged();
+                this.OnPropertyChanged("Note");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _FolderId;
-        partial void OnFolderIdChanging(global::System.Guid value);
-        partial void OnFolderIdChanged();
+        private string _Note;
+        partial void OnNoteChanging(string value);
+        partial void OnNoteChanged();
+        /// <summary>
+        /// 架构中不存在属性 Uploader 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Uploader
+        {
+            get
+            {
+                return this._Uploader;
+            }
+            set
+            {
+                this.OnUploaderChanging(value);
+                this._Uploader = value;
+                this.OnUploaderChanged();
+                this.OnPropertyChanged("Uploader");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Uploader;
+        partial void OnUploaderChanging(string value);
+        partial void OnUploaderChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsValid 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsValid
+        {
+            get
+            {
+                return this._IsValid;
+            }
+            set
+            {
+                this.OnIsValidChanging(value);
+                this._IsValid = value;
+                this.OnIsValidChanged();
+                this.OnPropertyChanged("IsValid");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsValid;
+        partial void OnIsValidChanging(bool value);
+        partial void OnIsValidChanged();
+        /// <summary>
+        /// 架构中不存在属性 CreateTime 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime CreateTime
+        {
+            get
+            {
+                return this._CreateTime;
+            }
+            set
+            {
+                this.OnCreateTimeChanging(value);
+                this._CreateTime = value;
+                this.OnCreateTimeChanged();
+                this.OnPropertyChanged("CreateTime");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _CreateTime;
+        partial void OnCreateTimeChanging(global::System.DateTime value);
+        partial void OnCreateTimeChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -354,56 +419,47 @@ namespace UniCloud.Presentation.Service.CommonService.Common
         }
     }
     /// <summary>
-    /// 架构中不存在 UniCloud.Application.CommonServiceBC.DTO.FolderDocumentDTO 的注释。
+    /// 架构中不存在 ComplexType UniCloud.Application.CommonServiceBC.DTO.SubDocumentPathDTO 的注释。
     /// </summary>
-    /// <KeyProperties>
-    /// FolderId
-    /// </KeyProperties>
-    [global::System.Data.Services.Common.EntitySetAttribute("FolderDocuments")]
-    [global::System.Data.Services.Common.DataServiceKeyAttribute("FolderId")]
-    public partial class FolderDocumentDTO : global::System.ComponentModel.INotifyPropertyChanged
+    public partial class SubDocumentPathDTO : global::System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
-        /// 创建新的 FolderDocumentDTO 对象。
+        /// 创建新的 SubDocumentPathDTO 对象。
         /// </summary>
-        /// <param name="folderId">FolderId 的初始值。</param>
-        /// <param name="updteDateTime">UpdteDateTime 的初始值。</param>
-        /// <param name="documents">Documents 的初始值。</param>
+        /// <param name="subDocumentPathId">SubDocumentPathId 的初始值。</param>
+        /// <param name="isLeaf">IsLeaf 的初始值。</param>
+        /// <param name="pathSource">PathSource 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static FolderDocumentDTO CreateFolderDocumentDTO(global::System.Guid folderId, global::System.DateTime updteDateTime, global::System.Collections.ObjectModel.ObservableCollection<DocumentDTO> documents)
+        public static SubDocumentPathDTO CreateSubDocumentPathDTO(int subDocumentPathId, bool isLeaf, int pathSource)
         {
-            FolderDocumentDTO folderDocumentDTO = new FolderDocumentDTO();
-            folderDocumentDTO.FolderId = folderId;
-            folderDocumentDTO.UpdteDateTime = updteDateTime;
-            if ((documents == null))
-            {
-                throw new global::System.ArgumentNullException("documents");
-            }
-            folderDocumentDTO.Documents = documents;
-            return folderDocumentDTO;
+            SubDocumentPathDTO subDocumentPathDTO = new SubDocumentPathDTO();
+            subDocumentPathDTO.SubDocumentPathId = subDocumentPathId;
+            subDocumentPathDTO.IsLeaf = isLeaf;
+            subDocumentPathDTO.PathSource = pathSource;
+            return subDocumentPathDTO;
         }
         /// <summary>
-        /// 架构中不存在属性 FolderId 的注释。
+        /// 架构中不存在属性 SubDocumentPathId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid FolderId
+        public int SubDocumentPathId
         {
             get
             {
-                return this._FolderId;
+                return this._SubDocumentPathId;
             }
             set
             {
-                this.OnFolderIdChanging(value);
-                this._FolderId = value;
-                this.OnFolderIdChanged();
-                this.OnPropertyChanged("FolderId");
+                this.OnSubDocumentPathIdChanging(value);
+                this._SubDocumentPathId = value;
+                this.OnSubDocumentPathIdChanged();
+                this.OnPropertyChanged("SubDocumentPathId");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _FolderId;
-        partial void OnFolderIdChanging(global::System.Guid value);
-        partial void OnFolderIdChanged();
+        private int _SubDocumentPathId;
+        partial void OnSubDocumentPathIdChanging(int value);
+        partial void OnSubDocumentPathIdChanged();
         /// <summary>
         /// 架构中不存在属性 Name 的注释。
         /// </summary>
@@ -427,111 +483,115 @@ namespace UniCloud.Presentation.Service.CommonService.Common
         partial void OnNameChanging(string value);
         partial void OnNameChanged();
         /// <summary>
-        /// 架构中不存在属性 UpdteDateTime 的注释。
+        /// 架构中不存在属性 IsLeaf 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.DateTime UpdteDateTime
+        public bool IsLeaf
         {
             get
             {
-                return this._UpdteDateTime;
+                return this._IsLeaf;
             }
             set
             {
-                this.OnUpdteDateTimeChanging(value);
-                this._UpdteDateTime = value;
-                this.OnUpdteDateTimeChanged();
-                this.OnPropertyChanged("UpdteDateTime");
+                this.OnIsLeafChanging(value);
+                this._IsLeaf = value;
+                this.OnIsLeafChanged();
+                this.OnPropertyChanged("IsLeaf");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.DateTime _UpdteDateTime;
-        partial void OnUpdteDateTimeChanging(global::System.DateTime value);
-        partial void OnUpdteDateTimeChanged();
+        private bool _IsLeaf;
+        partial void OnIsLeafChanging(bool value);
+        partial void OnIsLeafChanged();
         /// <summary>
-        /// 架构中不存在属性 Creator 的注释。
+        /// 架构中不存在属性 Extension 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string Creator
+        public string Extension
         {
             get
             {
-                return this._Creator;
+                return this._Extension;
             }
             set
             {
-                this.OnCreatorChanging(value);
-                this._Creator = value;
-                this.OnCreatorChanged();
-                this.OnPropertyChanged("Creator");
+                this.OnExtensionChanging(value);
+                this._Extension = value;
+                this.OnExtensionChanged();
+                this.OnPropertyChanged("Extension");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _Creator;
-        partial void OnCreatorChanging(string value);
-        partial void OnCreatorChanged();
+        private string _Extension;
+        partial void OnExtensionChanging(string value);
+        partial void OnExtensionChanged();
         /// <summary>
-        /// 架构中不存在属性 ParentFolderId 的注释。
+        /// 架构中不存在属性 DocumentGuid 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Nullable<global::System.Guid> ParentFolderId
+        public global::System.Nullable<global::System.Guid> DocumentGuid
         {
             get
             {
-                return this._ParentFolderId;
+                return this._DocumentGuid;
             }
             set
             {
-                this.OnParentFolderIdChanging(value);
-                this._ParentFolderId = value;
-                this.OnParentFolderIdChanged();
-                this.OnPropertyChanged("ParentFolderId");
+                this.OnDocumentGuidChanging(value);
+                this._DocumentGuid = value;
+                this.OnDocumentGuidChanged();
+                this.OnPropertyChanged("DocumentGuid");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Nullable<global::System.Guid> _ParentFolderId;
-        partial void OnParentFolderIdChanging(global::System.Nullable<global::System.Guid> value);
-        partial void OnParentFolderIdChanged();
+        private global::System.Nullable<global::System.Guid> _DocumentGuid;
+        partial void OnDocumentGuidChanging(global::System.Nullable<global::System.Guid> value);
+        partial void OnDocumentGuidChanged();
         /// <summary>
-        /// 架构中不存在属性 Documents 的注释。
+        /// 架构中不存在属性 PathSource 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Collections.ObjectModel.ObservableCollection<DocumentDTO> Documents
+        public int PathSource
         {
             get
             {
-                return this._Documents;
+                return this._PathSource;
             }
             set
             {
-                this.OnDocumentsChanging(value);
-                this._Documents = value;
-                this.OnDocumentsChanged();
-                this.OnPropertyChanged("Documents");
+                this.OnPathSourceChanging(value);
+                this._PathSource = value;
+                this.OnPathSourceChanged();
+                this.OnPropertyChanged("PathSource");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Collections.ObjectModel.ObservableCollection<DocumentDTO> _Documents = new global::System.Collections.ObjectModel.ObservableCollection<DocumentDTO>();
-        partial void OnDocumentsChanging(global::System.Collections.ObjectModel.ObservableCollection<DocumentDTO> value);
-        partial void OnDocumentsChanged();
+        private int _PathSource;
+        partial void OnPathSourceChanging(int value);
+        partial void OnPathSourceChanged();
         /// <summary>
-        /// 架构中不存在 SubFolders 的注释。
+        /// 架构中不存在属性 ParentId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Data.Services.Client.DataServiceCollection<FolderDocumentDTO> SubFolders
+        public global::System.Nullable<int> ParentId
         {
             get
             {
-                return this._SubFolders;
+                return this._ParentId;
             }
             set
             {
-                this._SubFolders = value;
-                this.OnPropertyChanged("SubFolders");
+                this.OnParentIdChanging(value);
+                this._ParentId = value;
+                this.OnParentIdChanged();
+                this.OnPropertyChanged("ParentId");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Data.Services.Client.DataServiceCollection<FolderDocumentDTO> _SubFolders = new global::System.Data.Services.Client.DataServiceCollection<FolderDocumentDTO>(null, global::System.Data.Services.Client.TrackingMode.None);
+        private global::System.Nullable<int> _ParentId;
+        partial void OnParentIdChanging(global::System.Nullable<int> value);
+        partial void OnParentIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -544,50 +604,58 @@ namespace UniCloud.Presentation.Service.CommonService.Common
         }
     }
     /// <summary>
-    /// 架构中不存在 UniCloud.Application.CommonServiceBC.DTO.FolderDTO 的注释。
+    /// 架构中不存在 UniCloud.Application.CommonServiceBC.DTO.DocumentPathDTO 的注释。
     /// </summary>
     /// <KeyProperties>
-    /// FolderId
+    /// DocumentPathId
     /// </KeyProperties>
-    [global::System.Data.Services.Common.EntitySetAttribute("Folders")]
-    [global::System.Data.Services.Common.DataServiceKeyAttribute("FolderId")]
-    public partial class FolderDTO : global::System.ComponentModel.INotifyPropertyChanged
+    [global::System.Data.Services.Common.EntitySetAttribute("DocumentPaths")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("DocumentPathId")]
+    public partial class DocumentPathDTO : global::System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
-        /// 创建新的 FolderDTO 对象。
+        /// 创建新的 DocumentPathDTO 对象。
         /// </summary>
-        /// <param name="folderId">FolderId 的初始值。</param>
-        /// <param name="updteDateTime">UpdteDateTime 的初始值。</param>
+        /// <param name="documentPathId">DocumentPathId 的初始值。</param>
+        /// <param name="isLeaf">IsLeaf 的初始值。</param>
+        /// <param name="pathSource">PathSource 的初始值。</param>
+        /// <param name="subDocumentPaths">SubDocumentPaths 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static FolderDTO CreateFolderDTO(global::System.Guid folderId, global::System.DateTime updteDateTime)
+        public static DocumentPathDTO CreateDocumentPathDTO(int documentPathId, bool isLeaf, int pathSource, global::System.Collections.ObjectModel.ObservableCollection<SubDocumentPathDTO> subDocumentPaths)
         {
-            FolderDTO folderDTO = new FolderDTO();
-            folderDTO.FolderId = folderId;
-            folderDTO.UpdteDateTime = updteDateTime;
-            return folderDTO;
+            DocumentPathDTO documentPathDTO = new DocumentPathDTO();
+            documentPathDTO.DocumentPathId = documentPathId;
+            documentPathDTO.IsLeaf = isLeaf;
+            documentPathDTO.PathSource = pathSource;
+            if ((subDocumentPaths == null))
+            {
+                throw new global::System.ArgumentNullException("subDocumentPaths");
+            }
+            documentPathDTO.SubDocumentPaths = subDocumentPaths;
+            return documentPathDTO;
         }
         /// <summary>
-        /// 架构中不存在属性 FolderId 的注释。
+        /// 架构中不存在属性 DocumentPathId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid FolderId
+        public int DocumentPathId
         {
             get
             {
-                return this._FolderId;
+                return this._DocumentPathId;
             }
             set
             {
-                this.OnFolderIdChanging(value);
-                this._FolderId = value;
-                this.OnFolderIdChanged();
-                this.OnPropertyChanged("FolderId");
+                this.OnDocumentPathIdChanging(value);
+                this._DocumentPathId = value;
+                this.OnDocumentPathIdChanged();
+                this.OnPropertyChanged("DocumentPathId");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _FolderId;
-        partial void OnFolderIdChanging(global::System.Guid value);
-        partial void OnFolderIdChanged();
+        private int _DocumentPathId;
+        partial void OnDocumentPathIdChanging(int value);
+        partial void OnDocumentPathIdChanged();
         /// <summary>
         /// 架构中不存在属性 Name 的注释。
         /// </summary>
@@ -611,89 +679,137 @@ namespace UniCloud.Presentation.Service.CommonService.Common
         partial void OnNameChanging(string value);
         partial void OnNameChanged();
         /// <summary>
-        /// 架构中不存在属性 UpdteDateTime 的注释。
+        /// 架构中不存在属性 IsLeaf 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.DateTime UpdteDateTime
+        public bool IsLeaf
         {
             get
             {
-                return this._UpdteDateTime;
+                return this._IsLeaf;
             }
             set
             {
-                this.OnUpdteDateTimeChanging(value);
-                this._UpdteDateTime = value;
-                this.OnUpdteDateTimeChanged();
-                this.OnPropertyChanged("UpdteDateTime");
+                this.OnIsLeafChanging(value);
+                this._IsLeaf = value;
+                this.OnIsLeafChanged();
+                this.OnPropertyChanged("IsLeaf");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.DateTime _UpdteDateTime;
-        partial void OnUpdteDateTimeChanging(global::System.DateTime value);
-        partial void OnUpdteDateTimeChanged();
+        private bool _IsLeaf;
+        partial void OnIsLeafChanging(bool value);
+        partial void OnIsLeafChanged();
         /// <summary>
-        /// 架构中不存在属性 Creator 的注释。
+        /// 架构中不存在属性 Extension 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string Creator
+        public string Extension
         {
             get
             {
-                return this._Creator;
+                return this._Extension;
             }
             set
             {
-                this.OnCreatorChanging(value);
-                this._Creator = value;
-                this.OnCreatorChanged();
-                this.OnPropertyChanged("Creator");
+                this.OnExtensionChanging(value);
+                this._Extension = value;
+                this.OnExtensionChanged();
+                this.OnPropertyChanged("Extension");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _Creator;
-        partial void OnCreatorChanging(string value);
-        partial void OnCreatorChanged();
+        private string _Extension;
+        partial void OnExtensionChanging(string value);
+        partial void OnExtensionChanged();
         /// <summary>
-        /// 架构中不存在属性 ParentFolderId 的注释。
+        /// 架构中不存在属性 DocumentGuid 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Nullable<global::System.Guid> ParentFolderId
+        public global::System.Nullable<global::System.Guid> DocumentGuid
         {
             get
             {
-                return this._ParentFolderId;
+                return this._DocumentGuid;
             }
             set
             {
-                this.OnParentFolderIdChanging(value);
-                this._ParentFolderId = value;
-                this.OnParentFolderIdChanged();
-                this.OnPropertyChanged("ParentFolderId");
+                this.OnDocumentGuidChanging(value);
+                this._DocumentGuid = value;
+                this.OnDocumentGuidChanged();
+                this.OnPropertyChanged("DocumentGuid");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Nullable<global::System.Guid> _ParentFolderId;
-        partial void OnParentFolderIdChanging(global::System.Nullable<global::System.Guid> value);
-        partial void OnParentFolderIdChanged();
+        private global::System.Nullable<global::System.Guid> _DocumentGuid;
+        partial void OnDocumentGuidChanging(global::System.Nullable<global::System.Guid> value);
+        partial void OnDocumentGuidChanged();
         /// <summary>
-        /// 架构中不存在 SubFolders 的注释。
+        /// 架构中不存在属性 PathSource 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Data.Services.Client.DataServiceCollection<FolderDTO> SubFolders
+        public int PathSource
         {
             get
             {
-                return this._SubFolders;
+                return this._PathSource;
             }
             set
             {
-                this._SubFolders = value;
-                this.OnPropertyChanged("SubFolders");
+                this.OnPathSourceChanging(value);
+                this._PathSource = value;
+                this.OnPathSourceChanged();
+                this.OnPropertyChanged("PathSource");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Data.Services.Client.DataServiceCollection<FolderDTO> _SubFolders = new global::System.Data.Services.Client.DataServiceCollection<FolderDTO>(null, global::System.Data.Services.Client.TrackingMode.None);
+        private int _PathSource;
+        partial void OnPathSourceChanging(int value);
+        partial void OnPathSourceChanged();
+        /// <summary>
+        /// 架构中不存在属性 ParentId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<int> ParentId
+        {
+            get
+            {
+                return this._ParentId;
+            }
+            set
+            {
+                this.OnParentIdChanging(value);
+                this._ParentId = value;
+                this.OnParentIdChanged();
+                this.OnPropertyChanged("ParentId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<int> _ParentId;
+        partial void OnParentIdChanging(global::System.Nullable<int> value);
+        partial void OnParentIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 SubDocumentPaths 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<SubDocumentPathDTO> SubDocumentPaths
+        {
+            get
+            {
+                return this._SubDocumentPaths;
+            }
+            set
+            {
+                this.OnSubDocumentPathsChanging(value);
+                this._SubDocumentPaths = value;
+                this.OnSubDocumentPathsChanged();
+                this.OnPropertyChanged("SubDocumentPaths");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<SubDocumentPathDTO> _SubDocumentPaths = new global::System.Collections.ObjectModel.ObservableCollection<SubDocumentPathDTO>();
+        partial void OnSubDocumentPathsChanging(global::System.Collections.ObjectModel.ObservableCollection<SubDocumentPathDTO> value);
+        partial void OnSubDocumentPathsChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

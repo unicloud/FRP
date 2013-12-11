@@ -57,11 +57,13 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             var bfePurchaseSupplier = SupplierRoleFactory.CreateBFEPurchaseSupplier(supplierCompany);
             var engLeaseSupplier = SupplierRoleFactory.CreateEngineLeaseSupplier(supplierCompany);
             var engPurchaseSupplier = SupplierRoleFactory.CreateEnginePurchaseSupplier(supplierCompany);
+            var maintainSupplier = SupplierRoleFactory.CreateMaintainSupplier(supplierCompany);
             Context.SupplierRoles.Add(acLeaseSupplier);
             Context.SupplierRoles.Add(acPurchaseSupplier);
             Context.SupplierRoles.Add(bfePurchaseSupplier);
             Context.SupplierRoles.Add(engLeaseSupplier);
             Context.SupplierRoles.Add(engPurchaseSupplier);
+            Context.SupplierRoles.Add(maintainSupplier);
             var banck = new BankAccount
                 {
                     Account = "432222283746262",

@@ -142,7 +142,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Chart">
-      <HintPath>..\packages\Telerik.Windows.Controls.Chart.2.0.1\lib\Telerik.Windows.Controls.Chart.dll</HintPath>
+      <HintPath>..\packages\Telerik.Windows.Controls.Chart.2.0.0\lib\Telerik.Windows.Controls.Chart.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Data, Version=2013.3.1016.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">

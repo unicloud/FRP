@@ -30,17 +30,43 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
     /// </summary>
     public interface IDocumentAppService
     {
-       
         /// <summary>
-        ///   获取文件夹
+        ///   获取文档
         /// </summary>
-        /// <returns>文件夹DTO集合</returns>
-        IQueryable<FolderDTO> GetFolders();
+        /// <returns>文档DTO集合</returns>
+        IQueryable<DocumentDTO> GetDocuments();
 
         /// <summary>
-        /// 获取文件夹下的子文件夹与文档
+        ///     新增文档。
         /// </summary>
-        /// <returns></returns>
-        IQueryable<FolderDocumentDTO> GetFolderDocuments();
+        /// <param name="document">文档DTO</param>
+        void InsertLinkman(DocumentDTO document);
+
+
+        /// <summary>
+        /// 获取文档路径
+        /// </summary>
+        /// <returns>文档路径</returns>
+        IQueryable<DocumentPathDTO> GetDocumentPaths();
+
+        /// <summary>
+        ///     新增路径DTO。
+        /// </summary>
+        /// <param name="documentPath">文档路径DTO</param>
+        void InsertDocumentPath(DocumentPathDTO documentPath);
+
+        /// <summary>
+        ///     修改文档路径。
+        /// </summary>
+        /// <param name="documentPath">文档路径DTO</param>
+        void ModifyLinkman(DocumentPathDTO documentPath);
+
+
+        /// <summary>
+        ///     删除联系人。
+        /// </summary>
+        /// <param name="documentPath">文档路径DTO</param>
+        void DeleteLinkman(DocumentPathDTO documentPath);
+
     }
 }

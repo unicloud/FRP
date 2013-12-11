@@ -25,6 +25,12 @@
         <Property Name="Code" Type="Edm.String" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="SuppierCompanyId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AircraftLeaseSupplier" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="AircraftPurchaseSupplier" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="EngineLeaseSupplier" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="EnginePurchaseSupplier" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="BFEPurchaseSupplier" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="MaintainSupplier" Type="Edm.Boolean" Nullable="false" />
         <Property Name="BankAccounts" Type="Collection(UniCloud.Application.PurchaseBC.DTO.BankAccountDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="BankAccountDTO">
@@ -54,6 +60,7 @@
         <Property Name="BFEPurchaseSupplier" Type="Edm.Boolean" Nullable="false" />
         <Property Name="EngineLeaseSupplier" Type="Edm.Boolean" Nullable="false" />
         <Property Name="EnginePurchaseSupplier" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="MaintainSupplier" Type="Edm.Boolean" Nullable="false" />
       </EntityType>
       <EntityType Name="LinkmanDTO">
         <Key>

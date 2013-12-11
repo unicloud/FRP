@@ -44,17 +44,17 @@ namespace UniCloud.DistributedServices.CommonService
         /// <summary>
         ///     文件夹下文档及子文档信息。
         /// </summary>
-        public IQueryable<FolderDocumentDTO> FolderDocuments
+        public IQueryable<DocumentDTO> Documents
         {
-            get { return _documentAppService.GetFolderDocuments(); }
+            get { return _documentAppService.GetDocuments(); }
         }
 
         /// <summary>
         ///     文件夹信息。
         /// </summary>
-        public IQueryable<FolderDTO> Folders
+        public IQueryable<DocumentPathDTO> DocumentPaths
         {
-            get { return _documentAppService.GetFolders(); }
+            get { return _documentAppService.GetDocumentPaths(); }
         }
 
         #endregion
