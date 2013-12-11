@@ -43,9 +43,9 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         }
 
         /// <summary>
-        ///     创建租赁飞机接收
+        ///     创建租赁飞机接收行
         /// </summary>
-        /// <returns>租赁飞机接收</returns>
+        /// <returns>租赁飞机接收行</returns>
         public static AircraftLeaseReceptionLine CreateAircraftLeaseReceptionLine()
         {
             var aircraftLeaseReceptionLine = new AircraftLeaseReceptionLine
@@ -69,6 +69,18 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         }
 
         /// <summary>
+        ///     创建采购飞机接收行
+        /// </summary>
+        /// <returns>采购飞机接收行</returns>
+        public static AircraftPurchaseReceptionLine CreateAircraftPurchaseReceptionLine()
+        {
+            var aircraftPurchaseReceptionLine = new AircraftPurchaseReceptionLine
+            {
+            };
+            return aircraftPurchaseReceptionLine;
+        }
+
+        /// <summary>
         ///     创建租赁发动机接收
         /// </summary>
         /// <returns>租赁发动机接收</returns>
@@ -80,6 +92,18 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
             };
 
             return engineLeaseReception;
+        }
+
+        /// <summary>
+        ///     创建租赁发动机接收行
+        /// </summary>
+        /// <returns>租赁发动机接收行</returns>
+        public static EngineLeaseReceptionLine CreateEngineLeaseReceptionLine()
+        {
+            var engineLeaseReceptionLine = new EngineLeaseReceptionLine
+            {
+            };
+            return engineLeaseReceptionLine;
         }
 
         /// <summary>
@@ -95,5 +119,19 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
 
             return enginePurchaseReception;
         }
+
+
+        /// <summary>
+        ///     创建采购发动机接收行
+        /// </summary>
+        /// <returns>采购发动机接收行</returns>
+        public static EnginePurchaseReceptionLine CreateEnginePurchaseReceptionLine()
+        {
+            var enginePurchaseReceptionLine = new EnginePurchaseReceptionLine
+            {
+            };
+            return enginePurchaseReceptionLine;
+        }
+
     }
 }

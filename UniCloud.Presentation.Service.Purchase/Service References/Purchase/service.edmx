@@ -142,6 +142,7 @@
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
         <Property Name="PlanAircraftID" Type="Edm.Guid" />
         <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <NavigationProperty Name="BFEPurchaseOrders" Relationship="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO_BFEPurchaseOrders" ToRole="BFEPurchaseOrders" FromRole="ContractAircraftDTO" />
       </EntityType>
       <EntityType Name="LeaseContractAircraftDTO">
@@ -161,6 +162,7 @@
         <Property Name="PlanAircraft" Type="Edm.String" />
         <Property Name="ImportType" Type="Edm.String" />
         <Property Name="ImportActionName" Type="Edm.String" />
+        <Property Name="SupplierId" Type="Edm.Int32" />
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
         <Property Name="PlanAircraftID" Type="Edm.Guid" />
         <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
@@ -183,6 +185,7 @@
         <Property Name="PlanAircraft" Type="Edm.String" />
         <Property Name="ImportType" Type="Edm.String" />
         <Property Name="ImportActionName" Type="Edm.String" />
+        <Property Name="SupplierId" Type="Edm.Int32" />
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
         <Property Name="PlanAircraftID" Type="Edm.Guid" />
         <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
@@ -350,6 +353,17 @@
       </EntityType>
       <ComplexType Name="AircraftPurchaseReceptionLineDTO">
         <Property Name="AircraftPurchaseReceptionLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MSN" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="RankNumber" Type="Edm.String" />
+        <Property Name="AircraftType" Type="Edm.String" />
+        <Property Name="DailNumber" Type="Edm.String" />
+        <Property Name="DeliverDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="DeliverPlace" Type="Edm.String" />
+        <Property Name="FlightNumber" Type="Edm.String" />
+        <Property Name="ImportCategoryId" Type="Edm.String" />
+        <Property Name="ApprovalDocNumber" Type="Edm.String" />
+        <Property Name="ContractAircraftId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ReceivedAmount" Type="Edm.Int32" Nullable="false" />
         <Property Name="AcceptedAmount" Type="Edm.Int32" Nullable="false" />
         <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />

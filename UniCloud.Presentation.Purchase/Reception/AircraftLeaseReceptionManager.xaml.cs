@@ -31,9 +31,5 @@ namespace UniCloud.Presentation.Purchase.Reception
             set { DataContext = value; }
         }
 
-        #region Methods
-
-        #endregion
-
     }
 }
