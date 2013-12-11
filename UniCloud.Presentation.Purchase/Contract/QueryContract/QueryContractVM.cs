@@ -63,7 +63,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         private void InitialDocumentPath()
         {
-            DocumentPathsView = Service.CreateCollection(_context.DocumentPaths);
+            DocumentPathsView = Service.CreateCollection(_context.DocumentPaths.Expand(p=>p.SubDocumentPaths));
             _pathFilterDes = new FilterDescriptor("ParentId", FilterOperator.IsEqualTo, null);
             DocumentPathsView.FilterDescriptors.Add(_pathFilterDes);
             DocumentPathsView.LoadedData += (sender, e) =>
@@ -165,7 +165,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 if (SelDocumentPath != null)
                 {
                    var selPathItem = DocumentPathsView
-                        .FirstOrDefault(p => p.ParentId == SelDocumentPath.DocumentPathId);
+                        .FirstOrDefault(p => p.DocumentPathId == SelDocumentPath.DocumentPathId);
                     _currentPathItem = SelDocumentPath;
                     ListBoxItemHelper.TransformToListBoxItem(_currentPathItem, selPathItem);
                    RaisePropertyChanged(() => CurrentPathItem);
