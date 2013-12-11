@@ -19,7 +19,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using UniCloud.Presentation.Service.CommonService.Common;
 
@@ -57,53 +56,48 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
             currentListBox.SubDocumentPaths.Clear();
             //子项路劲遍历
             folderDocument.SubDocumentPaths.ToList().ForEach(p =>
-            {
-                var newListBoxItem = new ListBoxDocumentItem
                 {
-                    DocumentPathId = p.SubDocumentPathId,
-                    Extension = p.Extension,
-                    Name = p.Name,
-                    IsLeaf = p.IsLeaf,
-                    ParentId = p.ParentId,
-                    DocumentGuid = p.DocumentGuid,
-                    SmallIconPath =
-                        ImagePathHelper.GetSmallImageSource(p.Extension),
-                    BigIconPath =
-                        ImagePathHelper.GetBigImageSource(p.Extension),
-                };
-               currentListBox.SubDocumentPaths.Add(newListBoxItem);
-               if (!newListBoxItem.IsLeaf)
-                {
+                    var newListBoxItem = new ListBoxDocumentItem
+                        {
+                            DocumentPathId = p.SubDocumentPathId,
+                            Extension = p.Extension,
+                            Name = p.Name,
+                            IsLeaf = p.IsLeaf,
+                            ParentId = p.ParentId,
+                            DocumentGuid = p.DocumentGuid,
+                            SmallIconPath =
+                                ImagePathHelper.GetSmallImageSource(p.Extension),
+                            BigIconPath =
+                                ImagePathHelper.GetBigImageSource(p.Extension),
+                        };
                     currentListBox.SubDocumentPaths.Add(newListBoxItem);
-                }
-            });
+                });
             return currentListBox;
-         
         }
 
         public static ListBoxDocumentItem TransformToSubListBoxItem(ListBoxDocumentItem currentListBox,
                                                                     IEnumerable<DocumentPathDTO> subDocumentPaths)
         {
             currentListBox.SubDocumentPaths.Clear();
-            currentListBox.SubFolderPaths.Clear();
             //子项路劲遍历
             subDocumentPaths.ToList().ForEach(p =>
-            {
-                var newListBoxItem = new ListBoxDocumentItem
                 {
-                    DocumentPathId = p.DocumentPathId,
-                    Extension = p.Extension,
-                    Name = p.Name,
-                    IsLeaf = p.IsLeaf,
-                    ParentId = p.ParentId,
-                    DocumentGuid = p.DocumentGuid,
-                    SmallIconPath =
-                        ImagePathHelper.GetSmallImageSource(p.Extension),
-                    BigIconPath =
-                        ImagePathHelper.GetBigImageSource(p.Extension),
-                };
-            });
-        
+                    var newListBoxItem = new ListBoxDocumentItem
+                        {
+                            DocumentPathId = p.DocumentPathId,
+                            Extension = p.Extension,
+                            Name = p.Name,
+                            IsLeaf = p.IsLeaf,
+                            ParentId = p.ParentId,
+                            DocumentGuid = p.DocumentGuid,
+                            SmallIconPath =
+                                ImagePathHelper.GetSmallImageSource(p.Extension),
+                            BigIconPath =
+                                ImagePathHelper.GetBigImageSource(p.Extension),
+                        };
+                    currentListBox.SubDocumentPaths.Add(newListBoxItem);
+                });
+
             //currentListBox.SubDocumentPaths = new ObservableCollection<ListBoxDocumentItem>(subListBoxItems);
             //currentListBox.SubFolderPaths = new ObservableCollection<ListBoxDocumentItem>(subListBoxItems.Where(p => !p.IsLeaf));
             return currentListBox;
