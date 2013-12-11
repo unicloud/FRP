@@ -38,6 +38,8 @@ namespace UniCloud.Presentation.Service.Purchase
             InitialSupplier();
             InitialAircraftType();
             InitialLeaseContractAircraft();
+            InitialCurrency();
+            InitialLinkman();
         }
 
         #region Supplier
