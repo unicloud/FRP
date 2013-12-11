@@ -56,6 +56,8 @@
     <Compile Include="ContractAircraftServices\PurchaseContractAircraftAppService.cs" />
     <Compile Include="ContractServices\IMaintainContractAppService.cs" />
     <Compile Include="ContractServices\MaintainContractAppService.cs" />
+    <Compile Include="CurrencyServices\CurrencyAppService.cs" />
+    <Compile Include="CurrencyServices\ICurrencyAppService.cs" />
     <Compile Include="ForwarderServices\ForwarderAppService.cs" />
     <Compile Include="ForwarderServices\IForwarderAppService.cs" />
     <Compile Include="MaterialServices\MaterialAppService.cs" />
