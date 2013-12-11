@@ -134,6 +134,66 @@ namespace UniCloud.Presentation.Service.Purchase
 
         #endregion
 
+        #region Currency
 
+        private static QueryableDataServiceCollectionView<CurrencyDTO> _currencyQuery;
+        public static List<CurrencyDTO> Currencies { get; set; }
+
+        /// <summary>
+        ///     初始化
+        /// </summary>
+        private static void InitialCurrency()
+        {
+            _currencyQuery = new QueryableDataServiceCollectionView<CurrencyDTO>(Context, Context.Currencies);
+            _currencyQuery.LoadedData += (o, e) =>
+            {
+                var result = o as QueryableDataServiceCollectionView<CurrencyDTO>;
+                Currencies = result.ToList();
+            };
+        }
+
+        /// <summary>
+        ///     加载数据
+        /// </summary>
+        public static void LoadCurrency()
+        {
+            if (Currencies == null)
+            {
+                _currencyQuery.AutoLoad = true;
+            }
+        }
+
+        #endregion
+
+        #region Linkman
+
+        private static QueryableDataServiceCollectionView<LinkmanDTO> _linkmanQuery;
+        public static List<LinkmanDTO> Linkmen { get; set; }
+
+        /// <summary>
+        ///     初始化
+        /// </summary>
+        private static void InitialLinkman()
+        {
+            _linkmanQuery = new QueryableDataServiceCollectionView<LinkmanDTO>(Context, Context.Linkmans);
+            _linkmanQuery.LoadedData += (o, e) =>
+            {
+                var result = o as QueryableDataServiceCollectionView<LinkmanDTO>;
+                Linkmen = result.ToList();
+            };
+        }
+
+        /// <summary>
+        ///     加载数据
+        /// </summary>
+        public static void LoadLinkman()
+        {
+            if (Currencies == null)
+            {
+                _linkmanQuery.AutoLoad = true;
+            }
+        }
+
+        #endregion
     }
 }
