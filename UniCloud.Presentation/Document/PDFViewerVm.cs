@@ -60,7 +60,7 @@ namespace UniCloud.Presentation.Document
 
         #region 数据
 
-        private QueryableDataServiceCollectionView<FolderDTO> _documents;
+        //private QueryableDataServiceCollectionView<FolderDTO> _documents;
         #endregion
 
         #region 操作
