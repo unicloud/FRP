@@ -17,7 +17,6 @@
 
 #region 命名空间
 
-using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
@@ -45,28 +44,29 @@ namespace UniCloud.Presentation.Purchase.Contract
         public QueryContractVM(IRegionManager regionManager)
         {
             _regionManager = regionManager;
-            InitialFolderDocument();//初始化文件夹文档
+            InitialDocumentPath(); //初始化文档路径
+
             InitialCommad(); //初始化命令
         }
 
         #region 加载FolderDocument相关信息
 
-        private FilterDescriptor _folderFilterDes;
+        private FilterDescriptor _pathFilterDes;
 
         /// <summary>
-        ///     文件夹下文件及文档View
+        ///     文档路劲View
         /// </summary>
-        public QueryableDataServiceCollectionView<FolderDocumentDTO> FolderDocumentsView { get; set; }
+        public QueryableDataServiceCollectionView<DocumentPathDTO> DocumentPathsView { get; set; }
 
         /// <summary>
-        ///     初始化文件夹下文件及文档
+        ///     初始化文档路径
         /// </summary>
-        private void InitialFolderDocument()
+        private void InitialDocumentPath()
         {
-            FolderDocumentsView = Service.CreateCollection(_context.FolderDocuments.Expand(p => p.SubFolders));
-            _folderFilterDes = new FilterDescriptor("ParentFolderId", FilterOperator.IsEqualTo, null);
-            FolderDocumentsView.FilterDescriptors.Add(_folderFilterDes);
-            FolderDocumentsView.LoadedData += (sender, e) =>
+            DocumentPathsView = Service.CreateCollection(_context.DocumentPaths);
+            _pathFilterDes = new FilterDescriptor("ParentId", FilterOperator.IsEqualTo, null);
+            DocumentPathsView.FilterDescriptors.Add(_pathFilterDes);
+            DocumentPathsView.LoadedData += (sender, e) =>
                 {
                     if (e.HasError)
                     {
@@ -83,9 +83,9 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private ListBoxDocumentItem _currentPathItem;
 
-        private ListBoxDocumentItem _rootListBoxDocumentItem;
+        private ListBoxDocumentItem _rootPath;
 
-        private ListBoxDocumentItem _selListBoxDocumentItem;
+        private ListBoxDocumentItem _selDocumentPath;
 
         /// <summary>
         ///     RadBreadcrumb控件中当前选中ListBox中的当前路径
@@ -110,17 +110,17 @@ namespace UniCloud.Presentation.Purchase.Contract
         }
 
         /// <summary>
-        ///     根选中项
+        ///     根路径
         /// </summary>
-        public ListBoxDocumentItem RootListBoxDocumentItem
+        public ListBoxDocumentItem RootPath
         {
-            get { return _rootListBoxDocumentItem; }
+            get { return _rootPath; }
             set
             {
-                if (_rootListBoxDocumentItem != value)
+                if (_rootPath != value)
                 {
-                    _rootListBoxDocumentItem = value;
-                    RaisePropertyChanged(() => RootListBoxDocumentItem);
+                    _rootPath = value;
+                    RaisePropertyChanged(() => RootPath);
                 }
             }
         }
@@ -128,15 +128,15 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// <summary>
         ///     Lisbox控件中，选择的当前项
         /// </summary>
-        public ListBoxDocumentItem SelListBoxDocumentItem
+        public ListBoxDocumentItem SelDocumentPath
         {
-            get { return _selListBoxDocumentItem; }
+            get { return _selDocumentPath; }
             set
             {
-                if (_selListBoxDocumentItem != value)
+                if (_selDocumentPath != value)
                 {
-                    _selListBoxDocumentItem = value;
-                    RaisePropertyChanged(() => RootListBoxDocumentItem);
+                    _selDocumentPath = value;
+                    RaisePropertyChanged(() => SelDocumentPath);
                 }
             }
         }
@@ -150,34 +150,31 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         private void GetListBoxDocumentItem()
         {
-            if (FolderDocumentsView.Any(p => p.ParentFolderId == null))
+            if (DocumentPathsView.Any(p => p.ParentId == null))
             {
                 //获取顶层文件夹文档
-                var rootFolderDocument = FolderDocumentsView
-                    .FirstOrDefault(p => p.ParentFolderId == null);
-                RootListBoxDocumentItem = ListBoxItemHelper.TransformToListBoxItem(null, rootFolderDocument);
+                var rootPath = DocumentPathsView
+                    .FirstOrDefault(p => p.ParentId == null);
+                _rootPath = ListBoxItemHelper.TransformToListBoxItem(null, rootPath);
+                RaisePropertyChanged(()=>RootPath);
                 return;
             }
-            //双击打开文件夹
+            //双击打开文件夹 
             if (_loadType == "DoubleClick")
             {
-                if (SelListBoxDocumentItem != null)
+                if (SelDocumentPath != null)
                 {
-                    var currentFolderDocument = FolderDocumentsView
-                        .FirstOrDefault(p => p.ParentFolderId == SelListBoxDocumentItem.ListBoxItemId);
-                    _currentPathItem = ListBoxItemHelper.TransformToListBoxItem(SelListBoxDocumentItem,
-                                                                                currentFolderDocument);
-                    RaisePropertyChanged(() => CurrentPathItem);
+                   var selPathItem = DocumentPathsView
+                        .FirstOrDefault(p => p.ParentId == SelDocumentPath.DocumentPathId);
+                    _currentPathItem = SelDocumentPath;
+                    ListBoxItemHelper.TransformToListBoxItem(_currentPathItem, selPathItem);
+                   RaisePropertyChanged(() => CurrentPathItem);
                 }
             }
             else //通过搜索框打开文件夹
-            {   
+            {
                 if (CurrentPathItem != null)
                 {
-                    var currentFolderDocument = FolderDocumentsView
-                        .FirstOrDefault(p => p.ParentFolderId == CurrentPathItem.ListBoxItemId);
-                    ListBoxItemHelper.TransformToListBoxItem(CurrentPathItem,
-                                                             currentFolderDocument);
                     RaisePropertyChanged(() => CurrentPathItem);
                 }
             }
@@ -188,12 +185,12 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         public void ListBoxDoubleClick()
         {
-            if (SelListBoxDocumentItem == null)
+            if (SelDocumentPath == null)
                 return;
-            if (SelListBoxDocumentItem.IsFolder)
+            if (!SelDocumentPath.IsLeaf)
             {
                 _loadType = "DoubleClick"; //双击打开文件夹形式
-                LoadSubFolderDocuemnt(SelListBoxDocumentItem);
+                LoadSubFolderDocuemnt(SelDocumentPath);
                 return;
             }
             OpenDocument();
@@ -209,17 +206,17 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// <summary>
         ///     加载子项文件与文件夹
         /// </summary>
-        private void LoadSubFolderDocuemnt(ListBoxDocumentItem listBoxDocument)
+        private void LoadSubFolderDocuemnt(ListBoxDocumentItem currentDocumentPath)
         {
-            if (_folderFilterDes.Value != null && listBoxDocument != null &&
-                Guid.Parse(_folderFilterDes.Value.ToString()) == listBoxDocument.ListBoxItemId)
+            if (_pathFilterDes.Value != null && currentDocumentPath != null &&
+                int.Parse(_pathFilterDes.Value.ToString()) == currentDocumentPath.DocumentPathId)
             {
                 GetListBoxDocumentItem(); //加载子项
                 return;
             }
-            if (listBoxDocument != null && listBoxDocument.ParentFolderId != null)
+            if (currentDocumentPath != null && currentDocumentPath.ParentId != null)
             {
-                _folderFilterDes.Value = listBoxDocument.ListBoxItemId;
+                _pathFilterDes.Value = currentDocumentPath.DocumentPathId;
             }
         }
 
@@ -234,11 +231,11 @@ namespace UniCloud.Presentation.Purchase.Contract
             var selItem = sender as ListBoxDocumentItem;
             if (selItem == null)
                 return;
-            SelListBoxDocumentItem = selItem;
-            if (SelListBoxDocumentItem.IsFolder)
+            SelDocumentPath = selItem;
+            if (!SelDocumentPath.IsLeaf)
             {
                 _loadType = "DoubleClick"; //双击打开文件夹形式
-                LoadSubFolderDocuemnt(SelListBoxDocumentItem);
+                LoadSubFolderDocuemnt(SelDocumentPath);
                 return;
             }
             OpenDocument();
@@ -251,9 +248,9 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void InitialCommad()
         {
-            OpenCommand=new DelegateCommand<object>(OnOPen,CanOpen);
+            OpenCommand = new DelegateCommand<object>(OnOPen, CanOpen);
         }
-        
+
         #endregion
 
         #region 重载基类服务
@@ -263,7 +260,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         public override void LoadData()
         {
-            FolderDocumentsView.AutoLoad = true; //加载数据。
+            DocumentPathsView.AutoLoad = true; //加载数据。
         }
 
         /// <summary>

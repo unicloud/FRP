@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Services.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,9 +26,16 @@ using System.Threading.Tasks;
 
 namespace UniCloud.Application.PurchaseBC.DTO
 {
+    /// <summary>
+    /// 关联文档
+    /// </summary>
+    [DataServiceKey("Id")]
     public partial class RelatedDocDTO
     {
         #region 属性
+
+        //主键
+        public int Id { get; set; }
         // 业务外键
         public Guid SourceId { get; set; }
         // 文档外键

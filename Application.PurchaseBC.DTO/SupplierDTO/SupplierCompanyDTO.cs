@@ -68,26 +68,31 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     飞机租赁角色。
         /// </summary>
-        public virtual bool AircraftLeaseSupplier { get; set; }
+        public bool AircraftLeaseSupplier { get; set; }
 
         /// <summary>
         ///     飞机购买角色。
         /// </summary>
-        public virtual bool AircraftPurchaseSupplier { get; set; }
+        public bool AircraftPurchaseSupplier { get; set; }
 
         /// <summary>
         ///     BFE角色。
         /// </summary>
-        public virtual bool BFEPurchaseSupplier { get; set; }
+        public bool BFEPurchaseSupplier { get; set; }
 
         /// <summary>
         ///     发动机租赁角色。
         /// </summary>
-        public virtual bool EngineLeaseSupplier { get; set; }
+        public  bool EngineLeaseSupplier { get; set; }
 
         /// <summary>
         ///     发动机购买角色。
         /// </summary>
-        public virtual bool EnginePurchaseSupplier { get; set; }
+        public bool EnginePurchaseSupplier { get; set; }
+
+        /// <summary>
+        /// 维修供应商角色
+        /// </summary>
+        public bool MaintainSupplier { get; set; }
     }
 }

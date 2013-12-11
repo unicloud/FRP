@@ -18,7 +18,11 @@
 #region 命名空间
 
 using UniCloud.Application.CommonServiceBC.DocumentServices;
+using UniCloud.Application.CommonServiceBC.Query.DocumentQueries;
+using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
+using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg;
 using UniCloud.Infrastructure.Data;
+using UniCloud.Infrastructure.Data.CommonServiceBC.Repositories;
 using UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
 
@@ -41,8 +45,10 @@ namespace UniCloud.DistributedServices.CommonService.InstanceProviders
                 .Register<IQueryableUnitOfWork, CommonServiceBCUnitOfWork>(new WcfPerRequestLifetimeManager())
             #region 文档相关配置，包括查询，应用服务，仓储注册
                          .Register<IDocumentAppService, DocumentAppService>()
-                  
-                #endregion
+                         .Register<IDocumentQuery, DocumentQuery>()
+                         .Register<IDocumentPathRepository, DocumentPathRepository>()
+                         .Register<IDocumentRepository, DocumentRepository>()
+            #endregion
 
                 ;
         }

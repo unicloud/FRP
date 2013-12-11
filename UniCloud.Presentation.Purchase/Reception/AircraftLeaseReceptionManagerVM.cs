@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
@@ -72,6 +73,10 @@ namespace UniCloud.Presentation.Purchase.Reception
             Suppliers = Service.CreateCollection<SupplierDTO>(_purchaseData.Suppliers);
             Service.RegisterCollectionView(Suppliers); //注册查询集合。
             Suppliers.PropertyChanged += OnViewPropertyChanged;
+
+            RelatedDocs = Service.CreateCollection<RelatedDocDTO>(_purchaseData.RelatedDocs);
+            Service.RegisterCollectionView(RelatedDocs); //注册查询集合。
+            RelatedDocs.PropertyChanged += OnViewPropertyChanged;
         }
 
         /// <summary>
@@ -178,7 +183,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         public override void LoadData()
         {
-            //Trades.AutoLoad = true;
+            RelatedDocs.AutoLoad = true;
             AircraftContracts.AutoLoad = true;
             LeaseContractAircrafts.AutoLoad = true;
             AircraftLeaseReceptions.AutoLoad = true;
@@ -192,6 +197,14 @@ namespace UniCloud.Presentation.Purchase.Reception
         ///     租赁飞机接收项目集合
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftLeaseReceptionDTO> AircraftLeaseReceptions { get; set; }
+
+        #endregion
+
+        #region 关联文档集合
+        /// <summary>
+        ///     关联文档集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<RelatedDocDTO> RelatedDocs { get; set; }
 
         #endregion
 
@@ -289,6 +302,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                         Appointment appointment = scheduleExtension.ConvertToAppointment(schedule);
                         _appointments.Add(appointment);
                     }
+                    ViewDocuments = RelatedDocs.Where(l => l.SourceId == SelAircraftLeaseReception.SourceId).ToList();
                     RaisePropertyChanged(()=>Appointments);
                     RaisePropertyChanged(() => SelAircraftLeaseReception);
                 }
@@ -334,10 +348,6 @@ namespace UniCloud.Presentation.Purchase.Reception
                 if (_selAircraftLeaseReceptionLine != value)
                 {
                     _selAircraftLeaseReceptionLine = value;
-                    if (SelAircraftLeaseReceptionLine.ContractNumber != null)
-                    {
-                    }
-
                     RaisePropertyChanged(() => SelAircraftLeaseReceptionLine);
                 }
             }
@@ -369,20 +379,20 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #region 交机文件
 
-        private List<string> _documents;
+        private List<RelatedDocDTO> _viewDocuments;
 
         /// <summary>
         /// 交机文件
         /// </summary>
-        public List<string> Documents
+        public List<RelatedDocDTO> ViewDocuments
         {
-            get { return this._documents; }
+            get { return this._viewDocuments; }
             private set
             {
-                if (this._documents != value)
+                if (this._viewDocuments != value)
                 {
-                    this._documents = value;
-                    this.RaisePropertyChanged(() => this.Documents);
+                    _viewDocuments = value;
+                    this.RaisePropertyChanged(() => this.ViewDocuments);
                 }
             }
         }
@@ -391,12 +401,12 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #region 选择的交机文件
 
-        private List<string> _selDocument;
+        private RelatedDocDTO _selDocument;
 
         /// <summary>
         /// 选择的交机文件
         /// </summary>
-        public List<string> SelDocument
+        public RelatedDocDTO SelDocument
         {
             get { return this._selDocument; }
             private set
@@ -430,6 +440,7 @@ namespace UniCloud.Presentation.Purchase.Reception
             var recepiton = new AircraftLeaseReceptionDTO
             {
                 AircraftLeaseReceptionId = RandomHelper.Next(),
+                SourceId = Guid.NewGuid(),
                 CreateDate = DateTime.Now
             };
             AircraftLeaseReceptions.AddNew(recepiton);
@@ -513,19 +524,27 @@ namespace UniCloud.Presentation.Purchase.Reception
         #region 添加附件
         protected override void OnAddAttach(object sender)
         {
-            var radRadioButton = sender as RadRadioButton;
-            if (true)
+            var relatedDoc = new RelatedDocDTO()
             {
-                WordView.Tag = null;
-                WordView.ViewModel.InitData(false, _document, WordViewerClosed);
-                WordView.ShowDialog();
-            }
-            else
-            {
-                PdfView.Tag = null;
-                PdfView.ViewModel.InitData(false, _document, PdfViewerClosed);
-                PdfView.ShowDialog();
-            }
+                SourceId = SelAircraftLeaseReception.SourceId,
+                DocumentId = Guid.NewGuid(),
+                DocumentName = "测试文档名称",
+            };
+            RelatedDocs.AddNew(relatedDoc);
+            ViewDocuments.Add(relatedDoc);
+            //var radRadioButton = sender as RadRadioButton;
+            //if (true)
+            //{
+            //    WordView.Tag = null;
+            //    WordView.ViewModel.InitData(false, _document, WordViewerClosed);
+            //    WordView.ShowDialog();
+            //}
+            //else
+            //{
+            //    PdfView.Tag = null;
+            //    PdfView.ViewModel.InitData(false, _document, PdfViewerClosed);
+            //    PdfView.ShowDialog();
+            //}
         }
 
         private void WordViewerClosed(object sender, WindowClosedEventArgs e)
@@ -559,6 +578,15 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// <param name="sender"></param>
         protected virtual void OnRemoveAttach(object sender)
         {
+            if (SelDocument == null)
+            {
+                MessageBox.Show("没有选中的文档!");
+            }
+            else
+            {
+                RelatedDocs.Remove(SelDocument);
+                ViewDocuments.Remove(SelDocument);
+            }
         }
 
         #endregion

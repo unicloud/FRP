@@ -73,6 +73,8 @@
     <Compile Include="ReceptionServices\IAircraftPurchaseReceptionAppService.cs" />
     <Compile Include="ReceptionServices\IEngineLeaseReceptionAppService.cs" />
     <Compile Include="ReceptionServices\IEnginePurchaseReceptionAppService.cs" />
+    <Compile Include="RelatedDocServices\IRelatedDocAppService.cs" />
+    <Compile Include="RelatedDocServices\RelatedDocAppService.cs" />
     <Compile Include="SupplierServices\ISupplierAppService.cs" />
     <Compile Include="SupplierServices\SupplierAppService.cs" />
     <Compile Include="TradeServices\ITradeAppService.cs" />

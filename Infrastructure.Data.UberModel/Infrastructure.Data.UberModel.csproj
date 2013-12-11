@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="InitialData\ActionCategoryData.cs" />
     <Compile Include="InitialData\AcTypeData.cs" />
+    <Compile Include="InitialData\DocumentData.cs" />
     <Compile Include="InitialData\ForwardData.cs" />
     <Compile Include="InitialData\InitialBase\IInitialData.cs" />
     <Compile Include="InitialData\InitialBase\InitialContainer.cs" />

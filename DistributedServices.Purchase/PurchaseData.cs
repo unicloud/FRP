@@ -28,6 +28,7 @@ using UniCloud.Application.PurchaseBC.MaterialServices;
 using UniCloud.Application.PurchaseBC.PartServices;
 using UniCloud.Application.PurchaseBC.PlanAircraftServices;
 using UniCloud.Application.PurchaseBC.ReceptionServices;
+using UniCloud.Application.PurchaseBC.RelatedDocServices;
 using UniCloud.Application.PurchaseBC.SupplierServices;
 using UniCloud.Application.PurchaseBC.TradeServices;
 using UniCloud.Infrastructure.Utilities.Container;
@@ -55,6 +56,7 @@ namespace UniCloud.DistributedServices.Purchase
         private readonly IPartAppService _partAppService;
         private readonly IPlanAircraftAppService _planAircraftAppService;
         private readonly IPurchaseContractAircraftAppService _purchaseContractAircraftAppService;
+        private readonly IRelatedDocAppService _relatedDocAppService;
         private readonly ISupplierAppService _supplierAppService;
         private readonly ITradeAppService _tradeAppService;
 
@@ -77,6 +79,7 @@ namespace UniCloud.DistributedServices.Purchase
             _partAppService = DefaultContainer.Resolve<IPartAppService>();
             _planAircraftAppService = DefaultContainer.Resolve<IPlanAircraftAppService>();
             _purchaseContractAircraftAppService = DefaultContainer.Resolve<IPurchaseContractAircraftAppService>();
+            _relatedDocAppService = DefaultContainer.Resolve<IRelatedDocAppService>();
 
         }
 
@@ -301,6 +304,18 @@ namespace UniCloud.DistributedServices.Purchase
         public IQueryable<EnginePurchaseReceptionDTO> EnginePurchaseReceptions
         {
             get { return _enginePurchaseReceptionAppService.GetEnginePurchaseReceptions(); }
+        }
+
+        #endregion
+        
+        #region RelatedDoc
+
+        /// <summary>
+        ///     关联文档集合
+        /// </summary>
+        public IQueryable<RelatedDocDTO> RelatedDocs
+        {
+            get { return _relatedDocAppService.GetRelatedDocs(); }
         }
 
         #endregion

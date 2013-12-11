@@ -4,8 +4,8 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：陈春勇 时间：2013/12/06，09:12
-// 文件名：FolderDTO.cs
+// 作者：陈春勇 时间：2013/12/11，10:12
+// 文件名：SubDocumentPathDTO.cs
 // 程序集：UniCloud.Application.CommonServiceBC.DTO
 // 版本：V1.0.0
 //
@@ -18,7 +18,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.Data.Services.Common;
 
 #endregion
@@ -26,15 +25,15 @@ using System.Data.Services.Common;
 namespace UniCloud.Application.CommonServiceBC.DTO
 {
     /// <summary>
-    ///     文件夹管理
+    ///     子项文档路径
     /// </summary>
-    [DataServiceKey("FolderId")]
-    public class FolderDTO
+    [DataServiceKey("SubDocumentPathId")]
+    public class SubDocumentPathDTO
     {
         /// <summary>
-        ///     文件夹主键
+        /// 主键
         /// </summary>
-        public Guid FolderId { get; set; }
+        public int SubDocumentPathId { get; set; }
 
         /// <summary>
         ///     名称
@@ -42,23 +41,28 @@ namespace UniCloud.Application.CommonServiceBC.DTO
         public string Name { get; set; }
 
         /// <summary>
-        ///     修改日期
+        ///     是否叶子节点
         /// </summary>
-        public DateTime UpdteDateTime { get; set; }
+        public bool IsLeaf { get; set; }
 
         /// <summary>
-        ///     创建者
+        ///     扩展名
         /// </summary>
-        public string Creator { get; set; }
+        public string Extension { get; set; }
 
         /// <summary>
-        ///     主项文件夹
+        ///     文档ID
         /// </summary>
-        public Guid? ParentFolderId { get; set; }
+        public Guid? DocumentGuid { get; set; }
 
         /// <summary>
-        ///     子项文件夹
+        ///     路径源
         /// </summary>
-        public List<FolderDTO> SubFolders { get; set; }
+        public int PathSource { get; set; }
+
+        /// <summary>
+        ///     父节点ID
+        /// </summary>
+        public int? ParentId { get; set; }
     }
 }

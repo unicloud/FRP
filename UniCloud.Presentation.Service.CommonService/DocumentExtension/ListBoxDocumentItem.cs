@@ -1,7 +1,25 @@
-﻿#region 命名空间
+﻿#region 版本信息
+
+// ========================================================================
+// 版权所有 (C) 2013 UniCloud 
+//【本类功能概述】
+// 
+// 作者：陈春勇 时间：2013/12/11，10:12
+// 文件名：ListBoxDocumentItem.cs
+// 程序集：UniCloud.Presentation.Service.CommonService
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// ========================================================================
+
+#endregion
+
+#region 命名空间
 
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Media;
 
 #endregion
@@ -15,13 +33,13 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
     {
         public ListBoxDocumentItem()
         {
-            SubListBoxDocumentItems=new ObservableCollection<ListBoxDocumentItem>();
+            SubDocumentPaths=new List<ListBoxDocumentItem>();
+            SubFolderPaths=new List<ListBoxDocumentItem>();
         }
-
         /// <summary>
         ///     主键
         /// </summary>
-        public Guid ListBoxItemId { get; set; }
+        public int DocumentPathId { get; set; }
 
         /// <summary>
         ///     名称
@@ -29,9 +47,9 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
         public string Name { get; set; }
 
         /// <summary>
-        /// 父亲节点
+        ///     是否叶子节点
         /// </summary>
-        public Guid? ParentFolderId { get; set; }
+        public bool IsLeaf { get; set; }
 
         /// <summary>
         ///     扩展名
@@ -39,36 +57,36 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
         public string Extension { get; set; }
 
         /// <summary>
-        ///     是否是文件夹
+        ///     文档ID
         /// </summary>
-        public bool IsFolder { get; set; }
+        public Guid? DocumentGuid { get; set; }
 
         /// <summary>
-        ///     是否是自定可以增加的按钮
+        ///     路径源
         /// </summary>
-        public bool IsAddButton { get; set; }
+        public int PathSource { get; set; }
 
         /// <summary>
-        /// 更新时间
+        ///     父节点ID
         /// </summary>
-        public DateTime UpdateDateTime { get; set; }
+        public int? ParentId { get; set; }
 
         /// <summary>
-        /// 图片缩略图路径
+        ///     子项文档集合
+        /// </summary>
+        public List<ListBoxDocumentItem> SubDocumentPaths { get; set; }
+
+        /// <summary>
+        ///     文件夹路径
+        /// </summary>
+        public List<ListBoxDocumentItem> SubFolderPaths { get; set; }
+
+        /// <summary>
+        ///     图片缩略图路径
         /// </summary>
         public ImageSource SmallIconPath { get; set; }
 
         //图片大图途径
         public ImageSource BigIconPath { get; set; }
-
-        /// <summary>
-        /// 子项文档的文件夹
-        /// </summary>
-        public ObservableCollection<ListBoxDocumentItem> SubPathItems { get; set; }
-
-        /// <summary>
-        /// 子项文件夹文档
-        /// </summary>
-        public ObservableCollection<ListBoxDocumentItem> SubListBoxDocumentItems { get; set; }
     }
 }

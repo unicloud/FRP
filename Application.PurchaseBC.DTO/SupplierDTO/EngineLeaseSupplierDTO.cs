@@ -27,8 +27,26 @@ namespace UniCloud.Application.PurchaseBC.DTO
     ///     发动机租赁供应商。
     /// </summary>
     [DataServiceKey("SupplierRoleId")]
-    public class EngineLeaseSupplierDTO : SupplierRoleDTO
+    public class EngineLeaseSupplierDTO
     {
-   
+        /// <summary>
+        ///     主键。
+        /// </summary>
+        public int SupplierRoleId { get; set; }
+
+        /// <summary>
+        ///     是否有效。
+        /// </summary>
+        public bool IsValid { get; set; }
+
+        /// <summary>
+        /// 名称。
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        ///     供应商公司外键。
+        /// </summary>
+        public int SupplierCompanyId { get; set; }
     }
 }

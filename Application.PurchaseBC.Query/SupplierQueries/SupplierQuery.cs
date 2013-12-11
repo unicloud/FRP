@@ -18,7 +18,6 @@
 #region 命名空间
 
 using System.Linq;
-using System.Security.Cryptography;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
@@ -72,6 +71,10 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                                       .Any(
                                           c =>
                                           c.SupplierCompanyId == p.Id),
+                    MaintainSupplier = dbSupplierRole.OfType<MaintainSupplier>()
+                                                     .Any(
+                                                         c =>
+                                                         c.SupplierCompanyId == p.Id),
                     Code = p.Code,
                     CreateDate = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).CreateDate,
                     SupplierType =
@@ -87,6 +90,8 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
         public IQueryable<SupplierDTO> SuppliersQuery(
             QueryBuilder<Supplier> query)
         {
+            var dbSupplierRole = _unitOfWork.CreateSet<SupplierRole>();
+
             return query.ApplyTo(_unitOfWork.CreateSet<Supplier>()).Select(p => new SupplierDTO
                 {
                     SupplierId = p.Id,
@@ -96,8 +101,35 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                     UpdateDate = p.UpdateDate,
                     Code = p.Code,
                     Note = p.Note,
-                SuppierCompanyId = p.SupplierCompanyId,
-                BankAccounts = p.BankAccounts.Select(c => new BankAccountDTO
+                    SuppierCompanyId = p.SupplierCompanyId,
+                    AircraftLeaseSupplier =
+                        dbSupplierRole.OfType<AircraftLeaseSupplier>()
+                                      .Any(c => c.SupplierCompanyId == p.Id),
+                    AircraftPurchaseSupplier =
+                        dbSupplierRole.OfType<AircraftPurchaseSupplier>()
+                                      .Any(
+                                          c =>
+                                          c.SupplierCompanyId == p.Id),
+                    EngineLeaseSupplier =
+                        dbSupplierRole.OfType<EngineLeaseSupplier>()
+                                      .Any(
+                                          c =>
+                                          c.SupplierCompanyId == p.Id),
+                    EnginePurchaseSupplier =
+                        dbSupplierRole.OfType<EnginePurchaseSupplier>()
+                                      .Any(
+                                          c =>
+                                          c.SupplierCompanyId == p.Id),
+                    BFEPurchaseSupplier =
+                        dbSupplierRole.OfType<BFEPurchaseSupplier>()
+                                      .Any(
+                                          c =>
+                                          c.SupplierCompanyId == p.Id),
+                    MaintainSupplier = dbSupplierRole.OfType<MaintainSupplier>()
+                                                     .Any(
+                                                         c =>
+                                                         c.SupplierCompanyId == p.Id),
+                    BankAccounts = p.BankAccounts.Select(c => new BankAccountDTO
                         {
                             Account = c.Account,
                             Address = c.Address,
@@ -140,16 +172,16 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
             var dbMaterial = _unitOfWork.CreateSet<Material>().OfType<AircraftMaterial>();
             var dbSupplierCompanyMaterial = _unitOfWork.CreateSet<SupplierCompanyMaterial>();
             return from t in dbMaterial
-                from c in dbSupplierCompanyMaterial
-                where t.Id == c.MaterialId
-                select new SupplierCompanyAcMaterialDTO
-                {
-                    SupplierCompanyMaterialId = c.Id,
-                    Name =t.Name,
-                    Description =t.Description,
-                    SupplierCompanyId = c.SupplierCompanyId,
-                    MaterialId = c.MaterialId
-                };
+                   from c in dbSupplierCompanyMaterial
+                   where t.Id == c.MaterialId
+                   select new SupplierCompanyAcMaterialDTO
+                       {
+                           SupplierCompanyMaterialId = c.Id,
+                           Name = t.Name,
+                           Description = t.Description,
+                           SupplierCompanyId = c.SupplierCompanyId,
+                           MaterialId = c.MaterialId
+                       };
         }
 
         /// <summary>
@@ -166,13 +198,13 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                    from c in dbSupplierCompanyMaterial
                    where t.Id == c.MaterialId
                    select new SupplierCompanyEngineMaterialDTO
-                   {
-                       SupplierCompanyMaterialId = c.Id,
-                       Name = t.Name,
-                       Description = t.Description,
-                       SupplierCompanyId = c.SupplierCompanyId,
-                       MaterialId = c.MaterialId
-                   };
+                       {
+                           SupplierCompanyMaterialId = c.Id,
+                           Name = t.Name,
+                           Description = t.Description,
+                           SupplierCompanyId = c.SupplierCompanyId,
+                           MaterialId = c.MaterialId
+                       };
         }
 
         /// <summary>
@@ -189,17 +221,13 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                    from c in dbSupplierCompanyMaterial
                    where t.Id == c.MaterialId
                    select new SupplierCompanyBFEMaterialDTO
-                   {
-                       SupplierCompanyMaterialId = c.Id,
-                       Name = t.Name,
-                       Description = t.Description,
-                       SupplierCompanyId = c.SupplierCompanyId,
-                       MaterialId = c.MaterialId
-                   };
-
+                       {
+                           SupplierCompanyMaterialId = c.Id,
+                           Name = t.Name,
+                           Description = t.Description,
+                           SupplierCompanyId = c.SupplierCompanyId,
+                           MaterialId = c.MaterialId
+                       };
         }
-
-
-
     }
 }

@@ -30,34 +30,46 @@ namespace UniCloud.Application.CommonServiceBC.DTO
     [DataServiceKey("DocumentId")]
     public class DocumentDTO
     {
-        /// <summary>
-        ///     主键
-        /// </summary>
         public Guid DocumentId { get; set; }
 
         /// <summary>
-        ///     名称
+        ///     文件名
         /// </summary>
-        public string Name { get; set; }
-
-        /// <summary>
-        ///     文档创建者
-        /// </summary>
-        public string Creator { get; set; }
+        public string Name { get;  set; }
 
         /// <summary>
         ///     扩展名
         /// </summary>
-        public string ExtendType { get; set; }
+        public string Extension { get; set; }
 
         /// <summary>
-        /// 修改时间
+        ///     文档
         /// </summary>
-        public DateTime UpdateDateTime { get; set; }
+        public byte[] FileStorage { get;  set; }
 
         /// <summary>
-        ///     文档外键
+        ///     摘要
         /// </summary>
-        public Guid FolderId { get; set; }
+        public string Abstract { get; set; }
+
+        /// <summary>
+        ///     备注
+        /// </summary>
+        public string Note { get; set; }
+
+        /// <summary>
+        ///     上传者
+        /// </summary>
+        public string Uploader { get; set; }
+
+        /// <summary>
+        ///     是否有效
+        /// </summary>
+        public bool IsValid { get; set; }
+
+        /// <summary>
+        ///     创建时间
+        /// </summary>
+        public DateTime CreateTime { get; set; }
     }
 }
