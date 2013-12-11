@@ -6,8 +6,7 @@ using Telerik.Windows.Documents.Fixed.UI.Extensibility;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export(typeof(EnginePurchaseReceptionManager))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class EnginePurchaseReceptionManager : UserControl
     {
         public EnginePurchaseReceptionManager()
@@ -16,28 +15,11 @@ namespace UniCloud.Presentation.Purchase.Reception
             InitializeComponent();
         }
 
-        [Import]
+        [Import(typeof(EnginePurchaseReceptionManagerVM))]
         public EnginePurchaseReceptionManagerVM ViewModel
         {
             get { return DataContext as EnginePurchaseReceptionManagerVM; }
             set { DataContext = value; }
-        }
-
-        #region Methods
-
-        #endregion
-
-        private void RadScheduleView_OnAppointmentDeleted(object sender, AppointmentDeletedEventArgs e)
-        {
-
-        }
-
-        private void RadScheduleView_OnAppointmentEdited(object sender, AppointmentEditedEventArgs e)
-        {
-        }
-
-        private void RadScheduleView_OnAppointmentCreated(object sender, AppointmentCreatedEventArgs e)
-        {
         }
     }
 }

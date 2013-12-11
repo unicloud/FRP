@@ -309,6 +309,7 @@
         <Property Name="AircraftLeaseReceptionLineId" Type="Edm.Int32" Nullable="false" />
         <Property Name="MSN" Type="Edm.String" />
         <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="ContractName" Type="Edm.String" />
         <Property Name="RankNumber" Type="Edm.String" />
         <Property Name="AircraftType" Type="Edm.String" />
         <Property Name="DailNumber" Type="Edm.String" />
@@ -362,6 +363,7 @@
         <Property Name="AircraftPurchaseReceptionLineId" Type="Edm.Int32" Nullable="false" />
         <Property Name="MSN" Type="Edm.String" />
         <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="ContractName" Type="Edm.String" />
         <Property Name="RankNumber" Type="Edm.String" />
         <Property Name="AircraftType" Type="Edm.String" />
         <Property Name="DailNumber" Type="Edm.String" />
@@ -398,6 +400,14 @@
       </EntityType>
       <ComplexType Name="EngineLeaseReceptionLineDTO">
         <Property Name="EngineLeaseReceptionLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="RankNumber" Type="Edm.String" />
+        <Property Name="ImportCategoryId" Type="Edm.String" />
+        <Property Name="DeliverDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="DeliverPlace" Type="Edm.String" />
+        <Property Name="ContractEngineId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ReceivedAmount" Type="Edm.Int32" Nullable="false" />
         <Property Name="AcceptedAmount" Type="Edm.Int32" Nullable="false" />
         <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
@@ -425,6 +435,14 @@
       </EntityType>
       <ComplexType Name="EnginePurchaseReceptionLineDTO">
         <Property Name="EnginePurchaseReceptionLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="RankNumber" Type="Edm.String" />
+        <Property Name="ImportCategoryId" Type="Edm.String" />
+        <Property Name="DeliverDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="DeliverPlace" Type="Edm.String" />
+        <Property Name="ContractEngineId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ReceivedAmount" Type="Edm.Int32" Nullable="false" />
         <Property Name="AcceptedAmount" Type="Edm.Int32" Nullable="false" />
         <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
@@ -600,6 +618,59 @@
         <End Type="UniCloud.Application.PurchaseBC.DTO.EnginePurchaseReceptionDTO" Role="EnginePurchaseReceptionDTO" Multiplicity="*" />
       </Association>
     </Schema>
+    <Schema Namespace="UniCloud.Application.PurchaseBC.DTO.ContractEngineDTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityType Name="ContractEngineDTO">
+        <Key>
+          <PropertyRef Name="ContractNumber" />
+          <PropertyRef Name="RankNumber" />
+        </Key>
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" Nullable="false" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="RankNumber" Type="Edm.String" Nullable="false" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="ReceivedAmount" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AcceptedAmount" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ImportType" Type="Edm.String" />
+        <Property Name="ImportActionName" Type="Edm.String" />
+        <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="LeaseContractEngineDTO">
+        <Key>
+          <PropertyRef Name="LeaseContractEngineId" />
+        </Key>
+        <Property Name="LeaseContractEngineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="RankNumber" Type="Edm.String" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="ReceivedAmount" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AcceptedAmount" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ImportType" Type="Edm.String" />
+        <Property Name="ImportActionName" Type="Edm.String" />
+        <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" />
+      </EntityType>
+      <EntityType Name="PurchaseContractEngineDTO">
+        <Key>
+          <PropertyRef Name="PurchaseContractEngineId" />
+        </Key>
+        <Property Name="PurchaseContractEngineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="RankNumber" Type="Edm.String" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="ReceivedAmount" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AcceptedAmount" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ImportType" Type="Edm.String" />
+        <Property Name="ImportActionName" Type="Edm.String" />
+        <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" />
+      </EntityType>
+    </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Purchase" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="PurchaseData" m:IsDefaultEntityContainer="true">
         <EntitySet Name="Forwarders" EntityType="UniCloud.Application.PurchaseBC.DTO.ForwarderDTO" />
@@ -615,6 +686,9 @@
         <EntitySet Name="ContractAircrafts" EntityType="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO" />
         <EntitySet Name="LeaseContractAircrafts" EntityType="UniCloud.Application.PurchaseBC.DTO.LeaseContractAircraftDTO" />
         <EntitySet Name="PurchaseContractAircrafts" EntityType="UniCloud.Application.PurchaseBC.DTO.PurchaseContractAircraftDTO" />
+        <EntitySet Name="ContractEngines" EntityType="UniCloud.Application.PurchaseBC.DTO.ContractEngineDTO.ContractEngineDTO" />
+        <EntitySet Name="LeaseContractEngines" EntityType="UniCloud.Application.PurchaseBC.DTO.ContractEngineDTO.LeaseContractEngineDTO" />
+        <EntitySet Name="PurchaseContractEngines" EntityType="UniCloud.Application.PurchaseBC.DTO.ContractEngineDTO.PurchaseContractEngineDTO" />
         <EntitySet Name="AircraftMaterias" EntityType="UniCloud.Application.PurchaseBC.DTO.AircraftMaterialDTO" />
         <EntitySet Name="BFEMaterials" EntityType="UniCloud.Application.PurchaseBC.DTO.BFEMaterialDTO" />
         <EntitySet Name="EngineMaterials" EntityType="UniCloud.Application.PurchaseBC.DTO.EngineMaterialDTO" />

@@ -21,8 +21,10 @@ using System.Linq;
 using UniCloud.Application.PurchaseBC.ActionCategoryServices;
 using UniCloud.Application.PurchaseBC.AircraftTypeServices;
 using UniCloud.Application.PurchaseBC.ContractAircraftServices;
+using UniCloud.Application.PurchaseBC.ContractEngineServices;
 using UniCloud.Application.PurchaseBC.ContractServices;
 using UniCloud.Application.PurchaseBC.DTO;
+using UniCloud.Application.PurchaseBC.DTO.ContractEngineDTO;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
 using UniCloud.Application.PurchaseBC.PartServices;
@@ -47,15 +49,18 @@ namespace UniCloud.DistributedServices.Purchase
         private readonly IAircraftLeaseReceptionAppService _aircraftLeaseReceptionAppService;
         private readonly IAircraftPurchaseReceptionAppService _aircraftPurchaseReceptionAppService;
         private readonly IContractAircraftAppService _contractAircraftAppService;
+        private readonly IContractEngineAppService _contractEngineAppService;
         private readonly IEngineLeaseReceptionAppService _engineLeaseReceptionAppService;
         private readonly IEnginePurchaseReceptionAppService _enginePurchaseReceptionAppService;
         private readonly IForwarderAppService _forwarderAppService;
         private readonly ILeaseContractAircraftAppService _leaseContractAircraftAppService;
+        private readonly ILeaseContractEngineAppService _leaseContractEngineAppService;
         private readonly IMaintainContractAppService _maintainContractAppService;
         private readonly IMaterialAppService _materialAppService;
         private readonly IPartAppService _partAppService;
         private readonly IPlanAircraftAppService _planAircraftAppService;
         private readonly IPurchaseContractAircraftAppService _purchaseContractAircraftAppService;
+        private readonly IPurchaseContractEngineAppService _purchaseContractEngineAppService;
         private readonly IRelatedDocAppService _relatedDocAppService;
         private readonly ISupplierAppService _supplierAppService;
         private readonly ITradeAppService _tradeAppService;
@@ -66,6 +71,7 @@ namespace UniCloud.DistributedServices.Purchase
             _actionCategoryAppService = DefaultContainer.Resolve<IActionCategoryAppService>();
             _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
             _contractAircraftAppService = DefaultContainer.Resolve<IContractAircraftAppService>();
+            _contractEngineAppService = DefaultContainer.Resolve<IContractEngineAppService>();
             _forwarderAppService = DefaultContainer.Resolve<IForwarderAppService>();
             _maintainContractAppService = DefaultContainer.Resolve<IMaintainContractAppService>();
             _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();
@@ -76,9 +82,11 @@ namespace UniCloud.DistributedServices.Purchase
             _enginePurchaseReceptionAppService = DefaultContainer.Resolve<IEnginePurchaseReceptionAppService>();
             _materialAppService = DefaultContainer.Resolve<IMaterialAppService>();
             _leaseContractAircraftAppService = DefaultContainer.Resolve<ILeaseContractAircraftAppService>();
+            _leaseContractEngineAppService = DefaultContainer.Resolve<ILeaseContractEngineAppService>();
             _partAppService = DefaultContainer.Resolve<IPartAppService>();
             _planAircraftAppService = DefaultContainer.Resolve<IPlanAircraftAppService>();
             _purchaseContractAircraftAppService = DefaultContainer.Resolve<IPurchaseContractAircraftAppService>();
+            _purchaseContractEngineAppService = DefaultContainer.Resolve<IPurchaseContractEngineAppService>();
             _relatedDocAppService = DefaultContainer.Resolve<IRelatedDocAppService>();
 
         }
@@ -205,6 +213,37 @@ namespace UniCloud.DistributedServices.Purchase
         public IQueryable<PurchaseContractAircraftDTO> PurchaseContractAircrafts
         {
             get { return _purchaseContractAircraftAppService.GetPurchaseContractAircrafts(); }
+        }
+        #endregion
+
+        #region 合同发动机集合
+
+
+        /// <summary>
+        ///     合同发动机集合
+        /// </summary>
+        public IQueryable<ContractEngineDTO> ContractEngines
+        {
+            get
+            {
+                return _contractEngineAppService.GetContractEngines();
+            }
+        }
+
+        /// <summary>
+        ///     租赁合同发动机集合
+        /// </summary>
+        public IQueryable<LeaseContractEngineDTO> LeaseContractEngines
+        {
+            get { return _leaseContractEngineAppService.GetLeaseContractEngines(); }
+        }
+
+        /// <summary>
+        ///     采购合同发动机集合
+        /// </summary>
+        public IQueryable<PurchaseContractEngineDTO> PurchaseContractEngines
+        {
+            get { return _purchaseContractEngineAppService.GetPurchaseContractEngines(); }
         }
         #endregion
 

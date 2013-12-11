@@ -60,6 +60,12 @@
     <Compile Include="ContractAircraftQueries\IPurchaseContractAircraftQuery.cs" />
     <Compile Include="ContractAircraftQueries\LeaseContractAircraftQuery.cs" />
     <Compile Include="ContractAircraftQueries\PurchaseContractAircraftQuery.cs" />
+    <Compile Include="ContractEngineQueries\ContractEngineQuery.cs" />
+    <Compile Include="ContractEngineQueries\IContractEngineQuery.cs" />
+    <Compile Include="ContractEngineQueries\ILeaseContractEngineQuery.cs" />
+    <Compile Include="ContractEngineQueries\IPurchaseContractEngineQuery.cs" />
+    <Compile Include="ContractEngineQueries\LeaseContractEngineQuery.cs" />
+    <Compile Include="ContractEngineQueries\PurchaseContractEngineQuery.cs" />
     <Compile Include="ContractQueries\IMaintainContractQuery.cs" />
     <Compile Include="ContractQueries\MaintainContractQuery.cs" />
     <Compile Include="ForwarderQueries\ForwarderQuery.cs" />

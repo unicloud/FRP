@@ -69,6 +69,9 @@
     <Compile Include="ContractDTO\MaintainContractDTO.cs" />
     <Compile Include="ContractDTO\EngineMaintainContractDTO.cs" />
     <Compile Include="ContractDTO\UndercartMaintainContractDTO.cs" />
+    <Compile Include="ContractEngineDTO\ContractEngineDTO.cs" />
+    <Compile Include="ContractEngineDTO\LeaseContractEngineDTO.cs" />
+    <Compile Include="ContractEngineDTO\PurchaseContractEngineDTO.cs" />
     <Compile Include="ForwarderDTO\ForwarderDTO.cs" />
     <Compile Include="MaterialDTO\AircraftMaterialDTO.cs" />
     <Compile Include="MaterialDTO\BFEMaterialDTO.cs" />
@@ -76,6 +79,14 @@
     <Compile Include="PartDTO\PartDTO.cs" />
     <Compile Include="PlanAircraftDTO\PlanAircraftDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReceptionDTO\AircraftLeaseReceptionDTO.cs" />
+    <Compile Include="ReceptionDTO\AircraftPurchaseReceptionDTO.cs" />
+    <Compile Include="ReceptionDTO\AircraftPurchaseReceptionLineDTO.cs" />
+    <Compile Include="ReceptionDTO\EngineLeaseReceptionDTO.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ReceptionDTO\EnginePurchaseReceptionDTO.cs" />
+    <Compile Include="ReceptionDTO\EnginePurchaseReceptionLineDTO.cs" />
     <Compile Include="RelatedDocDTO\RelatedDocDTO.cs" />
     <Compile Include="SupplierDTO\AircraftLeaseSupplierDTO.cs" />
     <Compile Include="SupplierDTO\AircraftPurchaseSupplierDTO.cs" />
@@ -102,14 +113,8 @@
     <Compile Include="TradeDTO\EnginePurchaseOrderLineDTO.cs" />
     <Compile Include="TradeDTO\TradeDTO.cs" />
     <Compile Include="ReceptionDTO\ReceptionLineDTO.cs" />
-    <Compile Include="ReceptionDTO\AircraftLeaseReceptionDTO.cs" />
     <Compile Include="ReceptionDTO\AircraftLeaseReceptionLineDTO.cs" />
-    <Compile Include="ReceptionDTO\AircraftPurchaseReceptionDTO.cs" />
-    <Compile Include="ReceptionDTO\AircraftPurchaseReceptionLineDTO.cs" />
-    <Compile Include="ReceptionDTO\EngineLeaseReceptionDTO.cs" />
     <Compile Include="ReceptionDTO\EngineLeaseReceptionLineDTO.cs" />
-    <Compile Include="ReceptionDTO\EnginePurchaseReceptionDTO.cs" />
-    <Compile Include="ReceptionDTO\EnginePurchaseReceptionLineDTO.cs" />
     <Compile Include="ReceptionDTO\ReceptionDTO.cs" />
     <Compile Include="ReceptionDTO\ReceptionScheduleDTO.cs" />
   </ItemGroup>

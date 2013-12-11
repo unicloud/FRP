@@ -36,6 +36,8 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public string MSN { get; set; }
         //合同号
         public string ContractNumber { get; set; }
+        //合同名称
+        public string ContractName { get; set; }
         //Rank号
         public string RankNumber { get; set; }
         //机型

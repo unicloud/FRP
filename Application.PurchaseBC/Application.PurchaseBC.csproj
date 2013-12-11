@@ -54,6 +54,12 @@
     <Compile Include="ContractAircraftServices\IPurchaseContractAircraftAppService.cs" />
     <Compile Include="ContractAircraftServices\LeaseContractAircraftAppService.cs" />
     <Compile Include="ContractAircraftServices\PurchaseContractAircraftAppService.cs" />
+    <Compile Include="ContractEngineServices\ContractEngineAppService.cs" />
+    <Compile Include="ContractEngineServices\IContractEngineAppService.cs" />
+    <Compile Include="ContractEngineServices\ILeaseContractEngineAppService.cs" />
+    <Compile Include="ContractEngineServices\IPurchaseContractEngineAppService.cs" />
+    <Compile Include="ContractEngineServices\LeaseContractEngineAppService.cs" />
+    <Compile Include="ContractEngineServices\PurchaseContractEngineAppService.cs" />
     <Compile Include="ContractServices\IMaintainContractAppService.cs" />
     <Compile Include="ContractServices\MaintainContractAppService.cs" />
     <Compile Include="ForwarderServices\ForwarderAppService.cs" />

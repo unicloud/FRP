@@ -61,6 +61,7 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
                         Note = q.Note,
                         MSN = q.PurchaseContractAircraft.SerialNumber,
                         ContractNumber = q.PurchaseContractAircraft.ContractNumber,
+                        ContractName = q.PurchaseContractAircraft.ContractName,
                         AircraftType = q.PurchaseContractAircraft.AircraftType.Name,
                         ImportCategoryId = q.PurchaseContractAircraft.ImportCategory.ActionName,
                         ContractAircraftId = q.ContractAircraftId,
