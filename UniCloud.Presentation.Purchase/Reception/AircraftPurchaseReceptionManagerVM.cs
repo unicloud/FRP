@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Windows;
 using System.Windows.Media;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
@@ -29,8 +30,8 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         private readonly IRegionManager _regionManager;
         private PurchaseData _purchaseData;
-        private CategoryCollection categories;
-        private TimeMarkerCollection timeMarkers;
+        private CategoryCollection _categories;
+        private TimeMarkerCollection _timeMarkers;
         private ResourceTypeCollection workGroups;
         private Service.Purchase.SchdeuleExtension.ControlExtension scheduleExtension;
         private Document.Document _document = new Document.Document();
@@ -55,6 +56,18 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         private void InitializeVM()
         {
+            RelatedDocs = Service.CreateCollection<RelatedDocDTO>(_purchaseData.RelatedDocs);
+            Service.RegisterCollectionView(RelatedDocs); //注册查询集合。
+            RelatedDocs.PropertyChanged += OnViewPropertyChanged;
+
+            PurchaseContractAircrafts = Service.CreateCollection<PurchaseContractAircraftDTO>(_purchaseData.PurchaseContractAircrafts);
+            Service.RegisterCollectionView(PurchaseContractAircrafts); //注册查询集合。
+            PurchaseContractAircrafts.PropertyChanged += OnViewPropertyChanged;
+
+            Suppliers = Service.CreateCollection<SupplierDTO>(_purchaseData.Suppliers);
+            Service.RegisterCollectionView(Suppliers); //注册查询集合。
+            Suppliers.PropertyChanged += OnViewPropertyChanged;
+
             AircraftPurchaseReceptions = Service.CreateCollection<AircraftPurchaseReceptionDTO>(_purchaseData.AircraftPurchaseReceptions);
             Service.RegisterCollectionView(AircraftPurchaseReceptions); //注册查询集合。
             AircraftPurchaseReceptions.PropertyChanged += OnViewPropertyChanged;
@@ -67,12 +80,16 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             NewCommand = new DelegateCommand<object>(OnNew, CanNew);
             RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
-            SubmitCommand = new DelegateCommand<object>(OnSubmit, CanSubmit);
-            RejectCommand = new DelegateCommand<object>(OnReject, CanRejecte);
             AddEntityCommand = new DelegateCommand<object>(OnAddEntity, CanAddEntity);
             RemoveEntityCommand = new DelegateCommand<object>(OnRemoveEntity, CanRemoveEntity);
-            AddDocCommand = new DelegateCommand<object>(OnAddDoc, CanAddDoc);
-            RemoveDocCommand = new DelegateCommand<object>(OnRemoveDoc, CanRemoveDoc);
+            //GridView单元格值变更
+            CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
+            //移除文档
+            RemoveAttachCommand = new DelegateCommand<object>(OnRemoveAttach);
+            //ScheduleView
+            CreateCommand = new DelegateCommand<object>(OnCreated);
+            EditCommand = new DelegateCommand<object>(OnEdited);
+            DelCommand = new DelegateCommand<object>(OnDeleted);
         }
 
         /// <summary>
@@ -94,29 +111,16 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             get
             {
-                if (this.categories == null)
+                if (this._categories == null)
                 {
-                    this.categories = new CategoryCollection();
-                    this.categories.Add(new Category("已完成", new SolidColorBrush(Colors.Green)));
-                    this.categories.Add(new Category("正在进行中…", new SolidColorBrush(Colors.Brown)));
-                    this.categories.Add(new Category("未启动", new SolidColorBrush(Colors.Gray)));
+                    this._categories = new CategoryCollection
+                    {
+                        new Category("已完成", new SolidColorBrush(Colors.Green)),
+                        new Category("正在进行中…", new SolidColorBrush(Colors.Brown)),
+                        new Category("未启动", new SolidColorBrush(Colors.Gray))
+                    };
                 }
-                return this.categories;
-            }
-        }
-
-        public TimeMarkerCollection TimeMarkers
-        {
-            get
-            {
-                if (this.timeMarkers == null)
-                {
-                    this.timeMarkers = new TimeMarkerCollection();
-                    this.timeMarkers.Add(new TimeMarker("高级别", new SolidColorBrush(Colors.Red)));
-                    this.timeMarkers.Add(new TimeMarker("中级别", new SolidColorBrush(Colors.Green)));
-                    this.timeMarkers.Add(new TimeMarker("低级别", new SolidColorBrush(Colors.Gray)));
-                }
-                return this.timeMarkers;
+                return this._categories;
             }
         }
 
@@ -131,11 +135,35 @@ namespace UniCloud.Presentation.Purchase.Reception
                     reType.Resources.Add(new Resource("机务组", "工作组"));
                     reType.Resources.Add(new Resource("机队管理组", "工作组"));
                     reType.Resources.Add(new Resource("后勤组", "工作组"));
+                    reType.Resources.Add(new Resource("其他", "工作组"));
                     resourceType.Add(reType);
                 }
                 return resourceType;
             }
         }
+
+        #region Rank号是否可编辑
+
+        private bool _canEdit = true;
+
+        /// <summary>
+        /// Rank号是否可编辑
+        /// </summary>
+        public bool CanEdit
+        {
+            get { return this._canEdit; }
+            private set
+            {
+                if (this._canEdit != value)
+                {
+                    _canEdit = value;
+                    this.RaisePropertyChanged(() => this.CanEdit);
+                }
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region 加载数据
@@ -149,16 +177,62 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         public override void LoadData()
         {
+            RelatedDocs.AutoLoad = true;
+            PurchaseContractAircrafts.AutoLoad = true;
+            Suppliers.AutoLoad = true;
             AircraftPurchaseReceptions.AutoLoad = true;
         }
 
         #region 业务
 
-        #region 采购飞机接收项目集合
+        #region 购买飞机接收项目集合
         /// <summary>
-        ///     采购飞机接收项目集合
+        ///     购买飞机接收项目集合
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftPurchaseReceptionDTO> AircraftPurchaseReceptions { get; set; }
+
+        #endregion
+
+        #region 关联文档集合
+        /// <summary>
+        ///     关联文档集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<RelatedDocDTO> RelatedDocs { get; set; }
+
+        #endregion
+
+        #region 供应商
+
+        /// <summary>
+        ///     供应商
+        /// </summary>
+        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
+        #endregion
+
+        #region 购买合同飞机集合
+        /// <summary>
+        ///     所有购买合同飞机集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PurchaseContractAircraftDTO> PurchaseContractAircrafts { get; set; }
+
+
+        private ObservableCollection<PurchaseContractAircraftDTO> _viewContractAircrafts = new ObservableCollection<PurchaseContractAircraftDTO>();
+
+        /// <summary>
+        /// 购买合同飞机集合,用于界面绑定
+        /// </summary>
+        public ObservableCollection<PurchaseContractAircraftDTO> ViewPurchaseContractAircrafts
+        {
+            get { return this._viewContractAircrafts; }
+            set
+            {
+                if (this._viewContractAircrafts != value)
+                {
+                    _viewContractAircrafts = value;
+                    this.RaisePropertyChanged(() => this.ViewPurchaseContractAircrafts);
+                }
+            }
+        }
         #endregion
 
         #region 选择的接收项目
@@ -176,12 +250,26 @@ namespace UniCloud.Presentation.Purchase.Reception
                 if (_selAircraftPurchaseReception != value)
                 {
                     _selAircraftPurchaseReception = value;
-                    Appointments.Clear();
+
+                    var viewPurchaseContractAircrafts = PurchaseContractAircrafts.Where(p => p.SupplierId == SelAircraftPurchaseReception.SupplierId && p.SerialNumber != null).ToList();
+                    ViewPurchaseContractAircrafts.Clear();
+                    foreach (var lca in viewPurchaseContractAircrafts)
+                    { 
+                        ViewPurchaseContractAircrafts.Add(lca);
+                    }
+                    _appointments.Clear();
                     foreach (var schedule in value.ReceptionSchedules)
                     {
-                        var appointment = scheduleExtension.ConvertToAppointment(schedule);
-                        Appointments.ToList().Add(appointment);
+                        Appointment appointment = scheduleExtension.ConvertToAppointment(schedule);
+                        _appointments.Add(appointment);
                     }
+                    var viewDocuments = RelatedDocs.Where(l => l.SourceId == SelAircraftPurchaseReception.SourceId).ToList();
+                    ViewDocuments.Clear();
+                    foreach (var doc in viewDocuments)
+                    {
+                        ViewDocuments.Add(doc);
+                    }
+                    RaisePropertyChanged(()=>Appointments);
                     RaisePropertyChanged(() => SelAircraftPurchaseReception);
                 }
             }
@@ -189,12 +277,12 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #endregion
 
-        #region 采购飞机接收行
+        #region 购买飞机接收行
 
         private ObservableCollection<AircraftPurchaseReceptionLineDTO> _aircraftPurchaseReceptionLines;
 
         /// <summary>
-        ///     采购飞机接收行
+        ///     购买飞机接收行
         /// </summary>
         public ObservableCollection<AircraftPurchaseReceptionLineDTO> AircraftReceptionLines
         {
@@ -211,14 +299,36 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #endregion
 
+        #region 选择的接收行
+
+        private AircraftPurchaseReceptionLineDTO _selAircraftPurchaseReceptionLine;
+
+        /// <summary>
+        ///     选择的接收行
+        /// </summary>
+        public AircraftPurchaseReceptionLineDTO SelAircraftPurchaseReceptionLine
+        {
+            get { return _selAircraftPurchaseReceptionLine; }
+            set
+            {
+                if (_selAircraftPurchaseReceptionLine != value)
+                {
+                    _selAircraftPurchaseReceptionLine = value;
+                    RaisePropertyChanged(() => SelAircraftPurchaseReceptionLine);
+                }
+            }
+        }
+
+        #endregion
+
         #region 交付日程
 
-        private List<Appointment> _appointments = new List<Appointment>();
+        private ObservableCollection<Appointment> _appointments = new ObservableCollection<Appointment>();
 
         /// <summary>
         ///     交付日程
         /// </summary>
-        public List<Appointment> Appointments
+        public ObservableCollection<Appointment> Appointments
         {
             get { return _appointments; }
             set
@@ -235,20 +345,20 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #region 交机文件
 
-        private List<string> _documents;
+        private ObservableCollection<RelatedDocDTO> _viewDocuments=new ObservableCollection<RelatedDocDTO>();
 
         /// <summary>
         /// 交机文件
         /// </summary>
-        public List<string> Documents
+        public ObservableCollection<RelatedDocDTO> ViewDocuments
         {
-            get { return this._documents; }
+            get { return this._viewDocuments; }
             private set
             {
-                if (this._documents != value)
+                if (this._viewDocuments != value)
                 {
-                    this._documents = value;
-                    this.RaisePropertyChanged(() => this.Documents);
+                    _viewDocuments = value;
+                    this.RaisePropertyChanged(() => this.ViewDocuments);
                 }
             }
         }
@@ -257,12 +367,12 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #region 选择的交机文件
 
-        private List<string> _selDocument;
+        private RelatedDocDTO _selDocument;
 
         /// <summary>
         /// 选择的交机文件
         /// </summary>
-        public List<string> SelDocument
+        public RelatedDocDTO SelDocument
         {
             get { return this._selDocument; }
             private set
@@ -296,6 +406,7 @@ namespace UniCloud.Presentation.Purchase.Reception
             var recepiton = new AircraftPurchaseReceptionDTO
             {
                 AircraftPurchaseReceptionId = RandomHelper.Next(),
+                SourceId = Guid.NewGuid(),
                 CreateDate = DateTime.Now
             };
             AircraftPurchaseReceptions.AddNew(recepiton);
@@ -332,41 +443,6 @@ namespace UniCloud.Presentation.Purchase.Reception
         }
         #endregion
 
-        #region 保存接收项目
-
-        /// <summary>
-        ///     保存接收项目
-        /// </summary>
-        public DelegateCommand<object> SubmitCommand { get; private set; }
-
-        private void OnSubmit(object sender)
-        {
-        }
-
-        private bool CanSubmit(object obj)
-        {
-            return true;
-        }
-        #endregion
-
-        #region 撤销更改
-
-        /// <summary>
-        ///     撤销更改
-        /// </summary>
-        public DelegateCommand<object> RejectCommand { get; private set; }
-
-        private void OnReject(object obj)
-        {
-            AircraftPurchaseReceptions.RejectChanges();
-        }
-
-        private bool CanRejecte(object obj)
-        {
-            return true;
-        }
-        #endregion
-
         #region 新增接收行
         /// <summary>
         ///     新增接收行
@@ -377,6 +453,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             var receptionLine = new AircraftPurchaseReceptionLineDTO()
             {
+                AircraftPurchaseReceptionLineId = RandomHelper.Next(),
                 ReceptionId = SelAircraftPurchaseReception.AircraftPurchaseReceptionId
             };
             SelAircraftPurchaseReception.ReceptionLines.Add(receptionLine);
@@ -397,35 +474,43 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         private void OnRemoveEntity(object obj)
         {
-            var receptionLine = new AircraftPurchaseReceptionLineDTO()
-            {
-                ReceptionId = SelAircraftPurchaseReception.AircraftPurchaseReceptionId
-            };
-            SelAircraftPurchaseReception.ReceptionLines.Add(receptionLine);
+            SelAircraftPurchaseReception.ReceptionLines.Remove(SelAircraftPurchaseReceptionLine);
         }
 
         private bool CanRemoveEntity(object obj)
         {
-            return true;
+            bool canRemove;
+            if (SelAircraftPurchaseReception != null && SelAircraftPurchaseReceptionLine != null)
+                canRemove = true;
+            else canRemove = false;
+            return canRemove;
         }
         #endregion
 
         #region 添加附件
         protected override void OnAddAttach(object sender)
         {
-            var radRadioButton = sender as RadRadioButton;
-            if (true)
+            var relatedDoc = new RelatedDocDTO()
             {
-                WordView.Tag = null;
-                WordView.ViewModel.InitData(false, _document, WordViewerClosed);
-                WordView.ShowDialog();
-            }
-            else
-            {
-                PdfView.Tag = null;
-                PdfView.ViewModel.InitData(false, _document, PdfViewerClosed);
-                PdfView.ShowDialog();
-            }
+                SourceId = SelAircraftPurchaseReception.SourceId,
+                DocumentId = Guid.NewGuid(),
+                DocumentName = "测试文档名称",
+            };
+            RelatedDocs.AddNew(relatedDoc);
+            ViewDocuments.Add(relatedDoc);
+            //var radRadioButton = sender as RadRadioButton;
+            //if (true)
+            //{
+            //    WordView.Tag = null;
+            //    WordView.ViewModel.InitData(false, _document, WordViewerClosed);
+            //    WordView.ShowDialog();
+            //}
+            //else
+            //{
+            //    PdfView.Tag = null;
+            //    PdfView.ViewModel.InitData(false, _document, PdfViewerClosed);
+            //    PdfView.ShowDialog();
+            //}
         }
 
         private void WordViewerClosed(object sender, WindowClosedEventArgs e)
@@ -447,6 +532,29 @@ namespace UniCloud.Presentation.Purchase.Reception
                 //ApuMaintainContract.DocumentName = document.Name;
             }
         }
+        #endregion
+
+        #region 移除附件
+
+        public DelegateCommand<object> RemoveAttachCommand { get; set; }
+
+        /// <summary>
+        ///     移除附件
+        /// </summary>
+        /// <param name="sender"></param>
+        protected virtual void OnRemoveAttach(object sender)
+        {
+            if (SelDocument == null)
+            {
+                MessageBox.Show("没有选中的文档!");
+            }
+            else
+            {
+                RelatedDocs.Remove(SelDocument);
+                ViewDocuments.Remove(SelDocument);
+            }
+        }
+
         #endregion
 
         #region 查看附件
@@ -471,40 +579,113 @@ namespace UniCloud.Presentation.Purchase.Reception
         }
         #endregion
 
-        #region  新增交机文件
+        #region GridView单元格变更处理
+        public DelegateCommand<object> CellEditEndCommand { set; get; }
+
         /// <summary>
-        ///     新增交机文件
+        /// GridView单元格变更处理
         /// </summary>
-        public DelegateCommand<object> AddDocCommand { get; private set; }
-
-        private void OnAddDoc(object obj)
+        /// <param name="sender"></param>
+        public void OnCellEditEnd(object sender)
         {
-
+            var gridView = sender as RadGridView;
+            if (gridView != null)
+            {
+                var cell = gridView.CurrentCell;
+                if (string.Equals(cell.Column.UniqueName, "Supplier"))
+                {
+                    var viewPurchaseContractAircrafts = PurchaseContractAircrafts.Where(p => p.SupplierId == SelAircraftPurchaseReception.SupplierId && p.SerialNumber!=null).ToList();
+                    ViewPurchaseContractAircrafts.Clear();
+                    foreach (var lca in viewPurchaseContractAircrafts)
+                    {
+                        ViewPurchaseContractAircrafts.Add(lca);
+                    }
+                }
+                else if (string.Equals(cell.Column.UniqueName, "ContractAircraft"))
+                {
+                    var value = SelAircraftPurchaseReceptionLine.ContractAircraftId;
+                    var contractAircraft =
+                        ViewPurchaseContractAircrafts.FirstOrDefault(p => p.PurchaseContractAircraftId == value);
+                    if (contractAircraft != null)
+                    {
+                        SelAircraftPurchaseReceptionLine.ContractNumber = contractAircraft.ContractNumber;
+                        SelAircraftPurchaseReceptionLine.RankNumber = contractAircraft.RankNumber;
+                        SelAircraftPurchaseReceptionLine.MSN = contractAircraft.SerialNumber;
+                        SelAircraftPurchaseReceptionLine.AircraftType = contractAircraft.AircraftTypeName;
+                    }
+                }
+            }
         }
 
-        private bool CanAddDoc(object obj)
-        {
-            return true;
-        }
+
         #endregion
 
-        #region 删除交机文件
-        /// <summary>
-        ///     删除交机文件
-        /// </summary>
-        public DelegateCommand<object> RemoveDocCommand { get; private set; }
+        #region ScheduleView新增处理
+        public DelegateCommand<object> CreateCommand { set; get; }
 
-        private void OnRemoveDoc(object obj)
+        public void OnCreated(object sender)
         {
+            var scheduleView = sender as RadScheduleView;
+            if (scheduleView != null)
+        {
+                var appointment = scheduleView.EditedAppointment as Appointment;
+                var schedule = scheduleExtension.ConvertToReceptionSchedule(appointment);
+                schedule.ReceptionId = SelAircraftPurchaseReception.AircraftPurchaseReceptionId;
+                SelAircraftPurchaseReception.ReceptionSchedules.Add(schedule);
+            }
+
 
         }
 
-        private bool CanRemoveDoc(object obj)
-        {
-            return true;
-        }
         #endregion
 
+        #region ScheduleView删除处理
+        public DelegateCommand<object> DelCommand { set; get; }
+
+        public void OnDeleted(object sender)
+        {
+            var scheduleView = sender as RadScheduleView;
+            if (scheduleView != null)
+            {
+                var appointment = scheduleView.EditedAppointment as Appointment;
+                if (appointment != null)
+        {
+                    var schedule =
+                        SelAircraftPurchaseReception.ReceptionSchedules.FirstOrDefault(
+                            p => p.UniqueId == appointment.UniqueId);
+                    SelAircraftPurchaseReception.ReceptionSchedules.Remove(schedule);
+                }
+            }
+        }
+
+        #endregion
+
+        #region ScheduleView编辑处理
+        public DelegateCommand<object> EditCommand { set; get; }
+
+        public void OnEdited(object sender)
+        {
+            var scheduleView = sender as RadScheduleView;
+            if (scheduleView != null)
+            {
+                var appointment = scheduleView.EditedAppointment as Appointment;
+                if (appointment != null)
+                {
+                    var schedule =
+                        SelAircraftPurchaseReception.ReceptionSchedules.FirstOrDefault(
+                            p => p.UniqueId == appointment.UniqueId);
+                    SelAircraftPurchaseReception.ReceptionSchedules.Remove(schedule);
+                    if (schedule != null)
+        {
+                        schedule = scheduleExtension.ConvertToReceptionSchedule(appointment);
+                        SelAircraftPurchaseReception.ReceptionSchedules.Add(schedule);
+                    }
+                }
+            }
+
+        }
+
+        #endregion
         #endregion
     }
 }

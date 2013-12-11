@@ -32,6 +32,35 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// 购买飞机接收行主键
         /// </summary>
         public int AircraftPurchaseReceptionLineId { get; set; }
+        //飞机生产序列号
+        public string MSN { get; set; }
+        //合同号
+        public string ContractNumber { get; set; }
+        //Rank号
+        public string RankNumber { get; set; }
+        //机型
+        public string AircraftType { get; set; }
+        //选呼号
+        public string DailNumber { get; set; }
+        //计划交付时间
+        public DateTime DeliverDate { get; set; }
+        //计划交付地点
+        public string DeliverPlace { get; set; }
+        //调机航班号
+        public string FlightNumber { get; set; }
+        //引进方式
+        public string ImportCategoryId { get; set; }
+        //引进批文号
+        public string ApprovalDocNumber { get; set; }
+
+        #region 外键属性
+
+        /// <summary>
+        ///     租赁合同飞机ID
+        /// </summary>
+        public int ContractAircraftId { get; set; }
+
+        #endregion
 
     }
 }

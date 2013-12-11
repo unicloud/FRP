@@ -82,6 +82,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             newAircraftLeaseReception.SetStatus(0);
             newAircraftLeaseReception.EndDate = aircraftLeaseReception.EndDate;
             newAircraftLeaseReception.SetSupplier(supplier);
+            newAircraftLeaseReception.SourceId = aircraftLeaseReception.SourceId;
             if (aircraftLeaseReception.ReceptionLines != null)
             {
                 foreach (var receptionLine in aircraftLeaseReception.ReceptionLines)
@@ -140,6 +141,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
                 updateAircraftLeaseReception.StartDate = aircraftLeaseReception.StartDate;
                 updateAircraftLeaseReception.EndDate = aircraftLeaseReception.EndDate;
                 updateAircraftLeaseReception.SetSupplier(supplier);
+                updateAircraftLeaseReception.SourceId = aircraftLeaseReception.SourceId;
                 //更新主表。 
 
                     var updateReceptionLines = aircraftLeaseReception.ReceptionLines;
