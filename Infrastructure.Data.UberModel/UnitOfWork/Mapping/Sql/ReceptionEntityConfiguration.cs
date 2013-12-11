@@ -45,6 +45,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.CloseDate).HasColumnName("CloseDate").HasColumnType("datetime2");
             Property(p => p.EndDate).HasColumnName("EndDate").HasColumnType("datetime2");
             Property(p => p.Status).HasColumnName("Status");
+            Property(p => p.SourceId).HasColumnName("SourceId");
 
             Property(p => p.SupplierId).HasColumnName("SupplierId");
 

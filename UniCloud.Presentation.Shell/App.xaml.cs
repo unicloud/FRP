@@ -36,11 +36,11 @@ namespace UniCloud.Presentation.Shell
             Startup += Application_Startup;
             Exit += Application_Exit;
             UnhandledException += Application_UnhandledException;
+            StyleManager.ApplicationTheme = new Windows8Theme();
             LocalizationManager.Manager = new LocalizationManager
             {
                 ResourceManager = LocalizationResource.ResourceManager
             };
-            StyleManager.ApplicationTheme=new Windows8Theme();
             SetWindows8Palette();
 
             InitializeComponent();

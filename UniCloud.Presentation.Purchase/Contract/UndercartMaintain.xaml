@@ -111,7 +111,7 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="6"
-                              VerticalContentAlignment="Top"
+                             VerticalContentAlignment="Top"
                              HorizontalContentAlignment="Left"
                              Width="250"
                              TextWrapping="Wrap"
@@ -123,6 +123,7 @@
                                        Grid.Column="3"
                                        Height="{StaticResource ControlHeight}"
                                        Grid.Row="6"
+                                       Width="100"
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Stretch"
                                        Command="{Binding DataContext.ViewAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}" />
@@ -197,7 +198,7 @@
                                 VerticalAlignment="Center">
                         <telerik:RadTimePicker  Height="{StaticResource ControlHeight}"
                                                 SelectedValue="{Binding SignDate, Mode=TwoWay}"
-                                                InputMode="DatePicker"/>
+                                                InputMode="DatePicker" />
                     </StackPanel>
                     <TextBlock Grid.Row="4"
                                Grid.Column="1"
@@ -208,7 +209,7 @@
                              Margin="0,3"
                              Grid.Row="4"
                              AcceptsReturn="True"
-                              VerticalContentAlignment="Top"
+                             VerticalContentAlignment="Top"
                              HorizontalContentAlignment="Left"
                              Width="250"
                              TextWrapping="Wrap"
@@ -223,7 +224,7 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="6"
-                              VerticalContentAlignment="Top"
+                             VerticalContentAlignment="Top"
                              HorizontalContentAlignment="Left"
                              Width="250"
                              TextWrapping="Wrap"
@@ -235,6 +236,7 @@
                                        Grid.Column="3"
                                        Height="{StaticResource ControlHeight}"
                                        Grid.Row="6"
+                                       Width="100"
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Stretch"
                                        Command="{Binding DataContext.AddAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
@@ -260,11 +262,11 @@
     </UserControl.Resources>
 
     <Grid>
-        <telerik:RadDocking>
-            <telerik:RadDocking.DocumentHost>
+        <telerik:RadDocking HasDocumentHost="False">
+            <telerik:RadSplitContainer>
                 <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="起落架维修合同"
+                        <telerik:RadPane Header="查询起落架维修合同"
                                          FontSize="{StaticResource HeaderFontSize}"
                                          IsPinned="True"
                                          CanFloat="False"
@@ -334,7 +336,7 @@
                                     </telerik:RadGridView>
                                 </Grid>
                                 <Grid Grid.Row="1">
-                                    <telerik:RadDataPager Name="radPage"
+                                    <telerik:RadDataPager Name="RadPage"
                                                           BorderThickness="1,0,1,1"
                                                           AutoEllipsisMode="Both"
                                                           DisplayMode="All"
@@ -344,35 +346,34 @@
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
                 </telerik:RadSplitContainer>
-            </telerik:RadDocking.DocumentHost>
-            <telerik:RadSplitContainer MinWidth="400"
-                                       InitialPosition="DockedRight">
-                <telerik:RadPaneGroup TabStripPlacement="Top">
-                    <telerik:RadPane Header="编辑起落架维修合同"
-                                     IsPinned="True"
-                                     CanFloat="False"
-                                     CanDockInDocumentHost="False"
-                                     CanUserClose="False"
-                                     CanUserPin="True"
-                                     ContextMenuTemplate="{x:Null}">
-                        <Grid>
-                            <telerik:RadDataForm x:Name="UndercartMaintainForm"
-                                                 CancelButtonContent="取消"
-                                                 CommitButtonContent="确定"
-                                                 ItemsSource="{Binding UndercartMaintainContracts}" 
-                                                 AutoGenerateFields="False"
-                                                 AutoCommit="True"
-                                                 ReadOnlyTemplate="{StaticResource ReadTemplate}"
-                                                 EditTemplate="{StaticResource EditNewTemplate}"
-                                                 NewItemTemplate="{StaticResource EditNewTemplate}">
-                                <telerik:RadDataForm.CommandProvider>
-                                    <uc:MasterCommandProvider  DataForm="{Binding ElementName=UndercartMaintainForm}"
-                                                               QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=UndercartMaintainForm}"></uc:MasterCommandProvider>
-                                </telerik:RadDataForm.CommandProvider>
-                            </telerik:RadDataForm>
-                        </Grid>
-                    </telerik:RadPane>
-                </telerik:RadPaneGroup>
+                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="400, 600">
+                    <telerik:RadPaneGroup>
+                        <telerik:RadPane Header="编辑起落架维修合同"
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanDockInDocumentHost="False"
+                                         CanUserClose="False"
+                                         CanUserPin="True"
+                                         ContextMenuTemplate="{x:Null}">
+                            <Grid>
+                                <telerik:RadDataForm x:Name="UndercartMaintainForm"
+                                                     CancelButtonContent="取消"
+                                                     CommitButtonContent="确定"
+                                                     ItemsSource="{Binding UndercartMaintainContracts}"
+                                                     AutoGenerateFields="False"
+                                                     AutoCommit="True"
+                                                     ReadOnlyTemplate="{StaticResource ReadTemplate}"
+                                                     EditTemplate="{StaticResource EditNewTemplate}"
+                                                     NewItemTemplate="{StaticResource EditNewTemplate}">
+                                    <telerik:RadDataForm.CommandProvider>
+                                        <uc:MasterCommandProvider  DataForm="{Binding ElementName=UndercartMaintainForm}"
+                                                                   QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=UndercartMaintainForm}"></uc:MasterCommandProvider>
+                                    </telerik:RadDataForm.CommandProvider>
+                                </telerik:RadDataForm>
+                            </Grid>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                </telerik:RadSplitContainer>
             </telerik:RadSplitContainer>
         </telerik:RadDocking>
     </Grid>

@@ -76,6 +76,7 @@
     <Compile Include="PartDTO\PartDTO.cs" />
     <Compile Include="PlanAircraftDTO\PlanAircraftDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelatedDocDTO\RelatedDocDTO.cs" />
     <Compile Include="SupplierDTO\AircraftLeaseSupplierDTO.cs" />
     <Compile Include="SupplierDTO\AircraftPurchaseSupplierDTO.cs" />
     <Compile Include="SupplierDTO\BankAccountDTO.cs" />

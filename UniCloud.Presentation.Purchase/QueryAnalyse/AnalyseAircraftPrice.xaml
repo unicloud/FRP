@@ -87,6 +87,7 @@
                     <StackPanel x:Name="ToolBar"
                                 Orientation="Horizontal">
                         <TextBlock Text="时间的统计方式："
+                                   Foreground="Black"
                                    VerticalAlignment="Center"
                                    TextAlignment="Right"
                                    Margin="20,0,0,0" />
@@ -99,6 +100,7 @@
                             <telerik:RadComboBoxItem Content="按年份统计" />
                         </telerik:RadComboBox>
                         <TextBlock Text="开始时间："
+                                   Foreground="Black"
                                    VerticalAlignment="Center"
                                    TextAlignment="Right"
                                    Margin="20,0,0,0" />
@@ -109,6 +111,7 @@
                                                    InputMode="DatePicker"
                                                    DateSelectionMode="Month" />
                         <TextBlock Text="结束时间："
+                                   Foreground="Black"
                                    VerticalAlignment="Center"
                                    TextAlignment="Right"
                                    Margin="20,0,0,0" />

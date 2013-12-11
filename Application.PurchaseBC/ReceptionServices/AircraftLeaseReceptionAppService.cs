@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
@@ -130,14 +131,36 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         [Update(typeof(AircraftLeaseReceptionDTO))]
         public void ModifyAircraftLeaseReception(AircraftLeaseReceptionDTO aircraftLeaseReception)
         {
-
-            var updateAircraftLeaseReception = _receptionRepository.GetFiltered(t => t.ReceptionNumber == aircraftLeaseReception.ReceptionNumber).FirstOrDefault();
+            var supplier = _supplierRepository.GetFiltered(p => p.SupplierCompanyId == aircraftLeaseReception.SupplierId).FirstOrDefault();
+            var updateAircraftLeaseReception = _receptionRepository.GetFiltered(t => t.Id == aircraftLeaseReception.AircraftLeaseReceptionId).FirstOrDefault();
             //获取需要更新的对象。
             if (updateAircraftLeaseReception != null)
             {
+                updateAircraftLeaseReception.Description = aircraftLeaseReception.Description;
                 updateAircraftLeaseReception.StartDate = aircraftLeaseReception.StartDate;
                 updateAircraftLeaseReception.EndDate = aircraftLeaseReception.EndDate;
+                updateAircraftLeaseReception.SetSupplier(supplier);
                 //更新主表。 
+
+                    var updateReceptionLines = aircraftLeaseReception.ReceptionLines;
+                    var formerReceptionLines = updateAircraftLeaseReception.ReceptionLines;
+                if (aircraftLeaseReception.ReceptionLines != null)//更新从表需要双向比对变更
+                {
+
+                    foreach (var receptionLine in updateReceptionLines)
+                    {
+                        AddOrUpdateReceptionLine(receptionLine,formerReceptionLines);
+                        //更新或删除此接收行
+                    }
+                }
+                if (updateAircraftLeaseReception.ReceptionLines != null)
+                {
+                    foreach (var formerReceptionLine in formerReceptionLines)
+                    {
+                        DeleteReceptionLine(formerReceptionLine, updateReceptionLines);
+                    }
+                }
+
 
                 //更新从表。
             }
@@ -151,9 +174,32 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         [Delete(typeof(AircraftLeaseReceptionDTO))]
         public void DeleteAircraftLeaseReception(AircraftLeaseReceptionDTO aircraftLeaseReception)
         {
-            var newAircraftLeaseReception = _receptionRepository.GetFiltered(t => t.ReceptionNumber == aircraftLeaseReception.ReceptionNumber).FirstOrDefault();
+            if (aircraftLeaseReception == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+            var delAircraftLeaseReception = _receptionRepository.Get(aircraftLeaseReception.AircraftLeaseReceptionId);
             //获取需要删除的对象。
-            _receptionRepository.Remove(newAircraftLeaseReception); //删除租赁飞机接收项目。
+            if (delAircraftLeaseReception != null)
+            {
+                _receptionRepository.Remove(delAircraftLeaseReception); //删除租赁飞机接收项目。
+            }
+        }
+
+        #endregion
+        #region 更新从表方法
+
+        private void AddOrUpdateReceptionLine(AircraftLeaseReceptionLineDTO receptionLine,
+            IEnumerable<ReceptionLine> formerReceptionLines)
+        {
+            //获取源接收行
+            var existReceptionLine = formerReceptionLines.FirstOrDefault(p => p.Id == receptionLine.AircraftLeaseReceptionLineId);
+            //if (existReceptionLine == null) 
+
+        }
+
+        private void DeleteReceptionLine(ReceptionLine formerReceptionLine, IEnumerable<AircraftLeaseReceptionLineDTO> updateReceptionLines)
+        {
         }
 
         #endregion

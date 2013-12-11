@@ -14,8 +14,8 @@
 
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
+using UniCloud.Application.PurchaseBC.Query.RelatedDocQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Infrastructure.Data;
 
 namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
@@ -26,9 +26,11 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
     public class AircraftLeaseReceptionQuery : IAircraftLeaseReceptionQuery
     {
         private readonly IQueryableUnitOfWork _unitOfWork;
+        //private readonly IRelatedDocQuery _relatedDocQuery;
         public AircraftLeaseReceptionQuery(IQueryableUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
+            //_relatedDocQuery = relatedDocQuery;
         }
 
         /// <summary>
@@ -39,6 +41,7 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
         public IQueryable<AircraftLeaseReceptionDTO> AircraftLeaseReceptionDTOQuery(
             QueryBuilder<AircraftLeaseReception> query)
         {
+            //var doucments = _unitOfWork.CreateSet<RelatedDoc>();
             return
             query.ApplyTo(_unitOfWork.CreateSet<Reception>().OfType<AircraftLeaseReception>())
                      .Select(p => new AircraftLeaseReceptionDTO
@@ -52,6 +55,7 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
                          IsClosed = p.IsClosed,
                          SupplierId = p.SupplierId,
                          SupplierName = p.Supplier.Name,
+                         SourceId = p.SourceId,
                          ReceptionLines = p.ReceptionLines.OfType<AircraftLeaseReceptionLine>()
                          .Select(q => new AircraftLeaseReceptionLineDTO
                          {
@@ -81,8 +85,14 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
                              Tempo = q.Tempo,
                              Location = q.Location,
                              UniqueId = q.UniqueId,
-                             Url=q.Url,
+                             Url = q.Url,
                          }).ToList(),
+                         //Doucments = doucments.Where(l => l.SourceId == p.SourceId).Select(q => new RelatedDocDTO
+                         //{
+                         //    SourceId = q.SourceId,
+                         //    DocumentId = q.DocumentId,
+                         //    DocumentName = q.DocumentName,
+                         //}).ToList(),
                      });
         }
     }
