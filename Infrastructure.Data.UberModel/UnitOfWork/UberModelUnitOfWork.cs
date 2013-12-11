@@ -38,6 +38,7 @@ using UniCloud.Domain.UberModel.Aggregates.OrderAgg;
 using UniCloud.Domain.UberModel.Aggregates.PartAgg;
 using UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.ReceptionAgg;
+using UniCloud.Domain.UberModel.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyMaterialAgg;
@@ -72,6 +73,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Part> _parts;
         private IDbSet<PlanAircraft> _planAircrafts;
         private IDbSet<Reception> _receptions;
+        private IDbSet<RelatedDoc> _relatedDocs;
         private IDbSet<SupplierCompany> _supplierCompanies;
         private IDbSet<SupplierCompanyMaterial> _supplierCompanyMaterials;
         private IDbSet<SupplierRole> _supplierRoles;
@@ -171,6 +173,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<Reception> Receptions
         {
             get { return _receptions ?? (_receptions = base.Set<Reception>()); }
+        }
+
+        public IDbSet<RelatedDoc> RelatedDocs
+        {
+            get { return _relatedDocs ?? (_relatedDocs = base.Set<RelatedDoc>()); }
         }
 
         public IDbSet<Supplier> Suppliers
@@ -315,6 +322,27 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 #endregion
 
+                #region GuaranteeAgg
+
+                .Add(new GuaranteeEntityConfiguration())
+                .Add(new LeaseGuaranteeEntityConfiguration())
+                .Add(new MaintainGuaranteeEntityConfiguration())
+
+                #endregion
+
+                #region InvoiceAgg
+
+                .Add(new InvoiceEntityConfiguration())
+                .Add(new InvoiceLineEntityConfiguration())
+                .Add(new LeaseInvoiceEntityConfiguration())
+                .Add(new LeaseInvoiceLineEntityConfiguration())
+                .Add(new PurchaseInvoiceEntityConfiguration())
+                .Add(new PurchaseInvoiceLineEntityConfiguration())
+                .Add(new PrepaymentInvoiceEntityConfiguration())
+                .Add(new PrepaymentInvoiceLineEntityConfiguration())
+
+                #endregion
+
                 #region LinkmanAgg
 
                 .Add(new LinkmanEntityConfiguration())
@@ -369,6 +397,23 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 #endregion
 
+                #region PaymentNoticeAgg
+
+                .Add(new PaymentNoticeEntityConfiguration())
+                .Add(new PaymentNoticeLineEntityConfiguration())
+
+                #endregion
+
+                #region PaymentScheduleAgg
+
+                .Add(new PaymentScheduleEntityConfiguration())
+                .Add(new PaymentScheduleLineEntityConfiguration())
+                .Add(new AircraftPaymentScheduleEntityConfiguration())
+                .Add(new EnginePaymentScheduleEntityConfiguration())
+                .Add(new StandardPaymentScheduleEntityConfiguration())
+
+                #endregion
+
                 #region PlanAircraftAgg
 
                 .Add(new PlanAircraftEntityConfiguration())
@@ -388,6 +433,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new EngineLeaseReceptionLineEntityConfiguration())
                 .Add(new EnginePurchaseReceptionEntityConfiguration())
                 .Add(new EnginePurchaseReceptionLineEntityConfiguration())
+
+                #endregion
+
+                #region RelatedDocAgg
+
+                .Add(new RelatedDocEntityConfiguration())
 
                 #endregion
 

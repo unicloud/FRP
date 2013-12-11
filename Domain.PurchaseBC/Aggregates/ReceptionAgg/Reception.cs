@@ -36,7 +36,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
 
         private HashSet<ReceptionLine> _lines;
         private HashSet<ReceptionSchedule> _schedules;
-
         #endregion
 
         #region 构造函数
@@ -93,6 +92,10 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         /// </summary>
         public ReceptionStatus Status { get; private set; }
 
+        /// <summary>
+        ///     源Id
+        /// </summary>
+        public Guid SourceId { get; set; }
         #endregion
 
         #region 外键属性

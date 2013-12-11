@@ -26,7 +26,7 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public ReceptionDTO()
         {
             ReceptionSchedules = new List<ReceptionScheduleDTO>();
-            Doucments=new List<string>();
+            Doucments = new List<RelatedDocDTO>();
         }
 
         #region 属性
@@ -48,6 +48,8 @@ namespace UniCloud.Application.PurchaseBC.DTO
         //供应商
         public string SupplierName { get; set; }
 
+        //源ID
+        public Guid SourceId { get; set; }
         #endregion
 
         #region 外键属性
@@ -68,7 +70,7 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///  交付相关文档
         /// </summary>
-        public List<string> Doucments { get; set; }
+        public List<RelatedDocDTO> Doucments { get; set; }
 
         #endregion
     }

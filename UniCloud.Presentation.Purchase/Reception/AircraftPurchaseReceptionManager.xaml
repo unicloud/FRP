@@ -380,8 +380,6 @@
                                                           SnapAppointments="True"
                                                           AppointmentsSource="{Binding Appointments}"
                                                           ActiveViewDefinitionIndex="1"
-                                                          TimeMarkersSource="{Binding TimeMarkers}"
-                                                          CategoriesSource="{Binding Categories}"
                                                           AppointmentCreated="RadScheduleView_OnAppointmentCreated"
                                                           AppointmentDeleted="RadScheduleView_OnAppointmentDeleted"
                                                           AppointmentEdited="RadScheduleView_OnAppointmentEdited">

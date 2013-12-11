@@ -71,6 +71,7 @@
     <Compile Include="Repositories\PartRepository.cs" />
     <Compile Include="Repositories\PlanAircraftRepository.cs" />
     <Compile Include="Repositories\ReceptionRepository.cs" />
+    <Compile Include="Repositories\RelatedDocRepository.cs" />
     <Compile Include="Repositories\SupplierCompanyMaterialRepository.cs" />
     <Compile Include="Repositories\SupplierCompanyRepository.cs" />
     <Compile Include="Repositories\SupplierRepository.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionScheduleEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\RelatedDocEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\StandardDocumentEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierCompanyEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierCompanyMaterialEntityConfiguration.cs" />

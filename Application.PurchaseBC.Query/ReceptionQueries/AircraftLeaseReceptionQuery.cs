@@ -52,6 +52,7 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
                          IsClosed = p.IsClosed,
                          SupplierId = p.SupplierId,
                          SupplierName = p.Supplier.Name,
+                         SourceId = p.SourceId,
                          ReceptionLines = p.ReceptionLines.OfType<AircraftLeaseReceptionLine>()
                          .Select(q => new AircraftLeaseReceptionLineDTO
                          {

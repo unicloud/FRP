@@ -34,9 +34,20 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
 {
     public partial class AircraftLeaseReceptionLineDTO
     {
+
         /// <summary>
         /// 租赁合同飞机集合，用于属性绑定
         /// </summary>
-        public IEnumerable<LeaseContractAircraftDTO> ViewLeaseContractAircrafts { get;  set; }
+        //public IEnumerable<LeaseContractAircraftDTO> ViewLeaseContractAircrafts
+        //{
+        //    get
+        //    {
+        //        if (this.ContractNumber != null)
+        //            return GlobalServiceHelper.LeaseContractAircrafts.Where(p => p.ContractNumber == this.ContractNumber);
+        //        else
+        //            return GlobalServiceHelper.LeaseContractAircrafts;
+        //    }
+
+        //}
     }
 }
