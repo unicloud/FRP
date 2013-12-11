@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\DocumentPathDTO.cs" />
+    <Compile Include="Common\SubDocumentPathDTO.cs" />
     <Compile Include="DocumentExtension\ImagePathHelper.cs" />
     <Compile Include="DocumentExtension\ListBoxDocumentItem.cs" />
     <Compile Include="DocumentExtension\ListBoxItemHelper.cs" />

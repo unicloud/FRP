@@ -35,7 +35,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             ToTable("Document", DbConfig.Schema);
 
             HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             Property(p => p.FileName).HasColumnName("FileName");
             Property(p => p.Extension).HasColumnName("Extension");

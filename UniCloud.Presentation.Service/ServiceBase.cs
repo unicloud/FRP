@@ -102,7 +102,7 @@ namespace UniCloud.Presentation.Service
             {
                 result.Error = e.Error;
                 callback(result);
-                };
+            };
                 collectionView.SubmittedChanges += _submitChanges;
             }
         }

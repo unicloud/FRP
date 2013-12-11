@@ -21,7 +21,7 @@
                        Header="{Binding RootPath}"
                             ImagePath="SmallIconPath"
                             IsIconVisible="True"
-                            ItemsSource="{Binding RootPath.SubFolderPaths}"
+                            ItemsSource="{Binding RootPath.SubDocumentPaths}"
                             TextModePath="Path"
                             CurrentItem="{Binding CurrentPathItem, Mode=TwoWay}">
             <telerik:RadBreadcrumb.HeaderTemplate>
@@ -31,7 +31,7 @@
                 </DataTemplate>
             </telerik:RadBreadcrumb.HeaderTemplate>
             <telerik:RadBreadcrumb.ItemTemplate>
-                <telerik:HierarchicalDataTemplate ItemsSource="{Binding SubFolderPaths}">
+                <telerik:HierarchicalDataTemplate ItemsSource="{Binding SubDocumentPaths}">
                     <telerik:HierarchicalDataTemplate.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}" />
@@ -41,7 +41,35 @@
                 </telerik:HierarchicalDataTemplate>
             </telerik:RadBreadcrumb.ItemTemplate>
         </telerik:RadBreadcrumb>
-        <telerik:RadListBox Grid.Row="1"
+        <Grid Grid.Row="1">
+            <telerik:RadDocking HasDocumentHost="False">
+                <telerik:RadSplitContainer>
+                    <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="200, 600">
+                        <telerik:RadSplitContainer>
+                            <telerik:RadPaneGroup>
+                                <telerik:RadPane 
+                                             IsPinned="True"
+                                             CanFloat="False"
+                                             CanDockInDocumentHost="False"
+                                             CanUserClose="False"
+                                             CanUserPin="False"
+                                             ContextMenuTemplate="{x:Null}">
+                                    <telerik:RadTreeView>
+                                        <telerik:RadTreeViewItem Header="{Binding RootPath.Name}"></telerik:RadTreeViewItem>
+                                    </telerik:RadTreeView>
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
+                    </telerik:RadSplitContainer>
+                    <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="700, 600">
+                        <telerik:RadPaneGroup>
+                            <telerik:RadPane
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         ContextMenuTemplate="{x:Null}">
+                                <telerik:RadListBox Grid.Column="1"
                  Name="DocumentListBox"
                  HorizontalAlignment="Stretch"
                  VerticalAlignment="Stretch"
@@ -49,40 +77,46 @@
                  SelectedItem="{Binding SelDocumentPath, Mode=TwoWay}"
                  ScrollViewer.HorizontalScrollBarVisibility="Auto"
                          >
-            <uc:RadListBoxDoubleClick.Helper>
-                <uc:QueryContractDbClickHelper />
-            </uc:RadListBoxDoubleClick.Helper>
-            <telerik:RadListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <toolkit:WrapPanel />
-                </ItemsPanelTemplate>
-            </telerik:RadListBox.ItemsPanel>
-            <telerik:RadListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel >
-                        <telerik:RadContextMenu.ContextMenu>
-                            <telerik:RadContextMenu >
-                                <telerik:RadMenuItem Header="打开"
+                                    <uc:RadListBoxDoubleClick.Helper>
+                                        <uc:QueryContractDbClickHelper />
+                                    </uc:RadListBoxDoubleClick.Helper>
+                                    <telerik:RadListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <toolkit:WrapPanel />
+                                        </ItemsPanelTemplate>
+                                    </telerik:RadListBox.ItemsPanel>
+                                    <telerik:RadListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel >
+                                                <telerik:RadContextMenu.ContextMenu>
+                                                    <telerik:RadContextMenu >
+                                                        <telerik:RadMenuItem Header="打开"
                                          Command="{Binding DataContext.OpenCommand,ElementName=QueryContractView}"
                                          CommandParameter="{Binding}" />
-                            </telerik:RadContextMenu>
-                        </telerik:RadContextMenu.ContextMenu>
-                        <Image Source="{Binding BigIconPath}"
+                                                    </telerik:RadContextMenu>
+                                                </telerik:RadContextMenu.ContextMenu>
+                                                <Image Source="{Binding BigIconPath}"
                                Margin="3"
                                Width="65"
                                Height="65" 
                                Stretch="Fill"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"/>
-                        <TextBlock Text="{Binding Path=Name}"
+                                                <TextBlock Text="{Binding Path=Name}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
                                    TextWrapping="Wrap"
                                    Width="65"
                                    />
-                    </StackPanel>
-                </DataTemplate>
-            </telerik:RadListBox.ItemTemplate>
-        </telerik:RadListBox>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </telerik:RadListBox.ItemTemplate>
+                                </telerik:RadListBox>
+                            </telerik:RadPane>
+                        </telerik:RadPaneGroup>
+                    </telerik:RadSplitContainer>
+                </telerik:RadSplitContainer>
+            </telerik:RadDocking>
+        </Grid>
     </Grid>
 </UserControl>

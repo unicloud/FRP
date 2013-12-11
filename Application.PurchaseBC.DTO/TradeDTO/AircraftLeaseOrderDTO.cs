@@ -47,9 +47,9 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public int Version { get; set; }
 
         /// <summary>
-        ///     币种
+        ///     币种ID
         /// </summary>
-        public string CurrencyName { get; set; }
+        public int CurrencyId { get; set; }
 
         /// <summary>
         ///     经办人
@@ -57,9 +57,9 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public string OperatorName { get; set; }
 
         /// <summary>
-        ///     联系人
+        ///     联系人ID
         /// </summary>
-        public string Linkman { get; set; }
+        public int LinkmanId { get; set; }
 
         /// <summary>
         ///     生效日期

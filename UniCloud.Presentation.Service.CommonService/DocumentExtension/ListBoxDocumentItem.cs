@@ -18,8 +18,7 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections.ObjectModel;
 using System.Windows.Media;
 
 #endregion
@@ -33,9 +32,9 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
     {
         public ListBoxDocumentItem()
         {
-            SubDocumentPaths=new List<ListBoxDocumentItem>();
-            SubFolderPaths=new List<ListBoxDocumentItem>();
+            SubDocumentPaths = new ObservableCollection<ListBoxDocumentItem>();
         }
+
         /// <summary>
         ///     主键
         /// </summary>
@@ -74,12 +73,7 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
         /// <summary>
         ///     子项文档集合
         /// </summary>
-        public List<ListBoxDocumentItem> SubDocumentPaths { get; set; }
-
-        /// <summary>
-        ///     文件夹路径
-        /// </summary>
-        public List<ListBoxDocumentItem> SubFolderPaths { get; set; }
+        public ObservableCollection<ListBoxDocumentItem> SubDocumentPaths { get; set; }
 
         /// <summary>
         ///     图片缩略图路径

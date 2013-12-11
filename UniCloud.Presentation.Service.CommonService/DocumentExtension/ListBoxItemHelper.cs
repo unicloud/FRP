@@ -19,7 +19,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using UniCloud.Presentation.Service.CommonService.Common;
 
@@ -35,37 +34,27 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
         /// <summary>
         ///     把文档路径转为ListBoxItem
         /// </summary>
-        /// <param name="parentListBoxItem">父亲节点ListBox</param>
-        /// <param name="folderDocument">需要转化的FolderDocumentDTO</param>
+        /// <param name="folderDocument">需要转化的DocumentPathDTO</param>
         /// <returns></returns>
-        public static ListBoxDocumentItem TransformToListBoxItem(ListBoxDocumentItem parentListBoxItem,
-                                                                 DocumentPathDTO folderDocument)
+        public static ListBoxDocumentItem TransformToRootListBoxItem(DocumentPathDTO folderDocument)
         {
             if (folderDocument == null)
                 throw new Exception("文件夹文档不能为空");
-            ListBoxDocumentItem currentListBox;
-            if (parentListBoxItem == null)
-            {
-                currentListBox = new ListBoxDocumentItem
-                    {
-                        DocumentPathId = folderDocument.DocumentPathId,
-                        Extension = folderDocument.Extension,
-                        Name = folderDocument.Name,
-                        IsLeaf = folderDocument.IsLeaf,
-                        ParentId = folderDocument.ParentId,
-                        DocumentGuid = folderDocument.DocumentGuid,
-                        SmallIconPath =
-                            ImagePathHelper.GetSmallImageSource(folderDocument.Extension),
-                        BigIconPath =
-                            ImagePathHelper.GetBigImageSource(folderDocument.Extension),
-                    };
-            }
-            else
-            {
-                currentListBox = parentListBoxItem;
-            }
-            var subListBoxItems = new List<ListBoxDocumentItem>(); //子项文件夹与文档
-            //文件夹类型遍历
+            var currentListBox = new ListBoxDocumentItem
+                {
+                    DocumentPathId = folderDocument.DocumentPathId,
+                    Extension = folderDocument.Extension,
+                    Name = folderDocument.Name,
+                    IsLeaf = folderDocument.IsLeaf,
+                    ParentId = folderDocument.ParentId,
+                    DocumentGuid = folderDocument.DocumentGuid,
+                    SmallIconPath =
+                        ImagePathHelper.GetSmallImageSource(folderDocument.Extension),
+                    BigIconPath =
+                        ImagePathHelper.GetBigImageSource(folderDocument.Extension),
+                };
+            currentListBox.SubDocumentPaths.Clear();
+            //子项路劲遍历
             folderDocument.SubDocumentPaths.ToList().ForEach(p =>
                 {
                     var newListBoxItem = new ListBoxDocumentItem
@@ -81,10 +70,36 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
                             BigIconPath =
                                 ImagePathHelper.GetBigImageSource(p.Extension),
                         };
-                    subListBoxItems.Add(newListBoxItem);
+                    currentListBox.SubDocumentPaths.Add(newListBoxItem);
                 });
-            currentListBox.SubDocumentPaths = subListBoxItems;
-            currentListBox.SubFolderPaths = subListBoxItems.Where(p => !p.IsLeaf).ToList();
+            return currentListBox;
+        }
+
+        public static ListBoxDocumentItem TransformToSubListBoxItem(ListBoxDocumentItem currentListBox,
+                                                                    IEnumerable<DocumentPathDTO> subDocumentPaths)
+        {
+            currentListBox.SubDocumentPaths.Clear();
+            //子项路劲遍历
+            subDocumentPaths.ToList().ForEach(p =>
+                {
+                    var newListBoxItem = new ListBoxDocumentItem
+                        {
+                            DocumentPathId = p.DocumentPathId,
+                            Extension = p.Extension,
+                            Name = p.Name,
+                            IsLeaf = p.IsLeaf,
+                            ParentId = p.ParentId,
+                            DocumentGuid = p.DocumentGuid,
+                            SmallIconPath =
+                                ImagePathHelper.GetSmallImageSource(p.Extension),
+                            BigIconPath =
+                                ImagePathHelper.GetBigImageSource(p.Extension),
+                        };
+                    currentListBox.SubDocumentPaths.Add(newListBoxItem);
+                });
+
+            //currentListBox.SubDocumentPaths = new ObservableCollection<ListBoxDocumentItem>(subListBoxItems);
+            //currentListBox.SubFolderPaths = new ObservableCollection<ListBoxDocumentItem>(subListBoxItems.Where(p => !p.IsLeaf));
             return currentListBox;
         }
     }

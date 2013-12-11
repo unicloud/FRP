@@ -51,6 +51,8 @@ namespace UniCloud.Presentation.Purchase
             GlobalServiceHelper.LoadSupplier();
             GlobalServiceHelper.LoadAircraftType();
             GlobalServiceHelper.LoadLeaseContractAircrafts();
+            GlobalServiceHelper.LoadCurrency();
+            GlobalServiceHelper.LoadLinkman();
         }
 
         private void RegisterView()
@@ -68,9 +70,8 @@ namespace UniCloud.Presentation.Purchase
             //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(EngineMaintain));
             //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(UndercartMaintain));
             //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(AnalyseAircraftPrice));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(QuerySupplier));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(LinkManManager));
-
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (QuerySupplier));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (LinkManManager));
         }
     }
 }

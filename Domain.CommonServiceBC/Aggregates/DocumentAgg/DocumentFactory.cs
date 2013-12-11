@@ -28,6 +28,7 @@ namespace UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg
         /// <summary>
         /// 新增标准文档
         /// </summary>
+        /// <param name="docId">文档主键</param>
         /// <param name="fileName">名称</param>
         /// <param name="extension">扩展名</param>
         /// <param name="abstractInfo">摘要</param>
@@ -36,12 +37,13 @@ namespace UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg
         /// <param name="isValid">是否有效</param>
         /// <param name="stream">字节数组</param>
         /// <returns>标准文档</returns>
-        public static StandardDocument CreateStandardDocument(string fileName,string extension,
-                                        string abstractInfo,string note,string uploader,bool isValid,
+        public static StandardDocument CreateStandardDocument(Guid docId, string fileName, string extension,
+                                        string abstractInfo, string note, string uploader, bool isValid,
                                         byte[] stream)
         {
             var doc = new StandardDocument
                 {
+                    Id = docId,
                     FileName = fileName,
                     Extension = extension,
                     Abstract = abstractInfo,

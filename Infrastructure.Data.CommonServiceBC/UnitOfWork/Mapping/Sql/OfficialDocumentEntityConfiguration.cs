@@ -35,7 +35,7 @@ namespace UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork.Mapping.Sql
             ToTable("OfficialDocument", DbConfig.Schema);
 
             HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             Property(p => p.ReferenceNumber).HasColumnName("ReferenceNumber");
             Property(p => p.DispatchUnit).HasColumnName("DispatchUnit");

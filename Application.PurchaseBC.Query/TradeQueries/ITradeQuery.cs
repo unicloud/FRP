@@ -19,7 +19,6 @@
 
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
-using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 
 #endregion
@@ -37,6 +36,5 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
         /// <param name="query">查询表达式</param>
         /// <returns>交易DTO的集合</returns>
         IQueryable<TradeDTO> TradesQuery(QueryBuilder<Trade> query);
-
     }
 }

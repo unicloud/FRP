@@ -103,6 +103,22 @@ namespace UniCloud.Presentation.Purchase.Contract
             get { return GlobalServiceHelper.Suppliers; }
         }
 
+        /// <summary>
+        ///     币种
+        /// </summary>
+        public IEnumerable<CurrencyDTO> Currencies
+        {
+            get { return GlobalServiceHelper.Currencies; }
+        }
+
+        /// <summary>
+        ///     联系人
+        /// </summary>
+        public IEnumerable<LinkmanDTO> Linkmen
+        {
+            get { return GlobalServiceHelper.Linkmen; }
+        }
+
         #endregion
 
         #region 加载数据
