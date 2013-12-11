@@ -72,6 +72,7 @@ namespace UniCloud.Presentation.Service.Purchase
         #endregion
 
         #region  ContractAircraft
+
         private static QueryableDataServiceCollectionView<LeaseContractAircraftDTO> _leaseContractAircraftQuery;
         public static List<LeaseContractAircraftDTO> LeaseContractAircrafts { get; set; }
 
@@ -80,7 +81,8 @@ namespace UniCloud.Presentation.Service.Purchase
         /// </summary>
         private static void InitialLeaseContractAircraft()
         {
-            _leaseContractAircraftQuery = new QueryableDataServiceCollectionView<LeaseContractAircraftDTO>(Context, Context.LeaseContractAircrafts);
+            _leaseContractAircraftQuery = new QueryableDataServiceCollectionView<LeaseContractAircraftDTO>(Context,
+                Context.LeaseContractAircrafts);
             _leaseContractAircraftQuery.LoadedData += (o, e) =>
             {
                 var result = o as QueryableDataServiceCollectionView<LeaseContractAircraftDTO>;
@@ -93,12 +95,13 @@ namespace UniCloud.Presentation.Service.Purchase
         {
             if (LeaseContractAircrafts == null)
             {
-                Context.LeaseContractAircrafts.BeginExecute(p => { LeaseContractAircrafts = Context.LeaseContractAircrafts.EndExecute(p).ToList(); },
+                Context.LeaseContractAircrafts.BeginExecute(
+                    p => { LeaseContractAircrafts = Context.LeaseContractAircrafts.EndExecute(p).ToList(); },
                     null);
             }
         }
-        #endregion
 
+        #endregion
 
         #region AircraftType
 
@@ -130,5 +133,7 @@ namespace UniCloud.Presentation.Service.Purchase
         }
 
         #endregion
+
+
     }
 }

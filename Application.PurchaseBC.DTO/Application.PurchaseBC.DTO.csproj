@@ -69,6 +69,7 @@
     <Compile Include="ContractDTO\MaintainContractDTO.cs" />
     <Compile Include="ContractDTO\EngineMaintainContractDTO.cs" />
     <Compile Include="ContractDTO\UndercartMaintainContractDTO.cs" />
+    <Compile Include="CurrencyDTO\CurrencyDTO.cs" />
     <Compile Include="ForwarderDTO\ForwarderDTO.cs" />
     <Compile Include="MaterialDTO\AircraftMaterialDTO.cs" />
     <Compile Include="MaterialDTO\BFEMaterialDTO.cs" />

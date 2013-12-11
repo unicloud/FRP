@@ -4,8 +4,8 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：陈春勇 时间：2013/12/10，11:12
-// 文件名：DocumentPathDTO.cs
+// 作者：陈春勇 时间：2013/12/11，16:12
+// 文件名：SubDocumentPathDTO.cs
 // 程序集：UniCloud.Presentation.Service.CommonService
 // 版本：V1.0.0
 //
@@ -24,7 +24,7 @@ using UniCloud.Presentation.Service.CommonService.DocumentExtension;
 
 namespace UniCloud.Presentation.Service.CommonService.Common
 {
-    public partial class DocumentPathDTO
+    public partial class SubDocumentPathDTO
     {
         /// <summary>
         ///     图片路径
