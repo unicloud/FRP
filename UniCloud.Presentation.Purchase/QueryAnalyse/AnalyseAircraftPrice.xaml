@@ -63,7 +63,6 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <telerik:RadTileView x:Name="MyTileView"
-                         telerik:StyleManager.Theme="Windows8"
                          ColumnWidth="Auto"
                          IsItemsSizeInPercentages="True"
                          MinimizedColumnWidth="250"
@@ -88,6 +87,7 @@
                     <StackPanel x:Name="ToolBar"
                                 Orientation="Horizontal">
                         <TextBlock Text="时间的统计方式："
+                                   Foreground="Black"
                                    VerticalAlignment="Center"
                                    TextAlignment="Right"
                                    Margin="20,0,0,0" />
@@ -100,6 +100,7 @@
                             <telerik:RadComboBoxItem Content="按年份统计" />
                         </telerik:RadComboBox>
                         <TextBlock Text="开始时间："
+                                   Foreground="Black"
                                    VerticalAlignment="Center"
                                    TextAlignment="Right"
                                    Margin="20,0,0,0" />
@@ -110,6 +111,7 @@
                                                    InputMode="DatePicker"
                                                    DateSelectionMode="Month" />
                         <TextBlock Text="结束时间："
+                                   Foreground="Black"
                                    VerticalAlignment="Center"
                                    TextAlignment="Right"
                                    Margin="20,0,0,0" />
@@ -256,7 +258,6 @@
                                Width="10"
                                Margin="0,0,5,0" />
                     <CheckBox Content="购买"
-                              telerik:StyleManager.Theme="Windows8"
                               Name="CbPurchase"
                               Margin="0,0,9,0" />
                     <Rectangle Fill="#FF1B9DDE"
@@ -264,7 +265,6 @@
                                Width="10"
                                Margin="0,0,5,0" />
                     <CheckBox Content="租赁"
-                              telerik:StyleManager.Theme="Windows8"
                               Name="CbLease" />
                 </StackPanel>
 
