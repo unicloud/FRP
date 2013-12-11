@@ -93,7 +93,25 @@ namespace UniCloud.Presentation.Document
         private void LoadDocumentByDocId(Guid docId)
         {
             //var query = (from doc in _commonServiceData.Folders where doc.FolderId == docId select doc) as DataServiceQuery<FolderDTO>;
-            //query.BeginExecute(OnQueryCompleted, query);
+            //if (query != null)
+            //{
+            //    query.BeginExecute(result =>
+            //                       {
+            //                           try
+            //                           {
+            //                               var resultQuery = result.AsyncState as DataServiceQuery<FolderDTO>;
+            //                               if (resultQuery != null)
+            //                               {
+            //                                   var response = resultQuery.EndExecute(result).FirstOrDefault();
+            //                               }
+            //                           }
+            //                           catch (Exception e)
+            //                           {
+            //                               MessageAlert(e.Message);
+            //                           }
+            //                           IsBusy = false;
+            //                       }, query);
+            //}
 
             _documentService.GetDocumentFileStream(docId, (s, arg) =>
             {
@@ -112,19 +130,6 @@ namespace UniCloud.Presentation.Document
             });
         }
 
-        private void OnQueryCompleted(IAsyncResult result)
-        {
-            try
-            {
-                var query = result.AsyncState as DataServiceQuery<FolderDTO>;
-                var response = query.EndExecute(result).FirstOrDefault();
-            }
-            catch (Exception e)
-            {
-                MessageAlert(e.Message);
-            }
-            IsBusy = false;
-        }
         #endregion
 
         #region 打开文档

@@ -122,6 +122,7 @@
                                        Grid.Column="3"
                                        Height="{StaticResource ControlHeight}"
                                        Grid.Row="6"
+                                       Width="100"
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Stretch"
                                        Command="{Binding DataContext.ViewAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}" />
@@ -234,6 +235,7 @@
                                        Grid.Column="3"
                                        Height="{StaticResource ControlHeight}"
                                        Grid.Row="6"
+                                       Width="100"
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Stretch"
                                        Command="{Binding DataContext.AddAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
