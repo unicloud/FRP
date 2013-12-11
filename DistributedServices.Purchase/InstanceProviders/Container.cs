@@ -33,9 +33,11 @@ using UniCloud.Application.PurchaseBC.Query.MaterialQueries;
 using UniCloud.Application.PurchaseBC.Query.PartQueries;
 using UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries;
 using UniCloud.Application.PurchaseBC.Query.ReceptionQueries;
+using UniCloud.Application.PurchaseBC.Query.RelatedDocQueries;
 using UniCloud.Application.PurchaseBC.Query.SupplierQueries;
 using UniCloud.Application.PurchaseBC.Query.TradeQueries;
 using UniCloud.Application.PurchaseBC.ReceptionServices;
+using UniCloud.Application.PurchaseBC.RelatedDocServices;
 using UniCloud.Application.PurchaseBC.SupplierServices;
 using UniCloud.Application.PurchaseBC.TradeServices;
 using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
@@ -48,6 +50,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
@@ -167,6 +170,11 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
                          .Register<IContractAircraftRepository, ContractAircraftRepository>()
                 #endregion 
 
+                #region   关联文档相关配置，包括查询，应用服务，仓储注册
+                         .Register<IRelatedDocQuery, RelatedDocQuery>()
+                         .Register<IRelatedDocAppService, RelatedDocAppService>()
+                         .Register<IRelatedDocRepository, RelatedDocRepository>()
+                #endregion 
                 ;
         }
 

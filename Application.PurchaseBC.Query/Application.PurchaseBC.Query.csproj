@@ -71,6 +71,8 @@
     <Compile Include="PlanAircraftQueries\IPlanAircraftQuery.cs" />
     <Compile Include="PlanAircraftQueries\PlanAircraftQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelatedDocQueries\IRelatedDocQuery.cs" />
+    <Compile Include="RelatedDocQueries\RelatedDocQuery.cs" />
     <Compile Include="SupplierQueries\ISupplierQuery.cs" />
     <Compile Include="SupplierQueries\SupplierQuery.cs" />
     <Compile Include="TradeQueries\IOrderQuery.cs" />
