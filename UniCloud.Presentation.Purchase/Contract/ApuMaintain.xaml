@@ -17,7 +17,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate x:Key="ReadTemplate">
+            <DataTemplate x:Key="ReadTemplate" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="15"></ColumnDefinition>
@@ -44,6 +44,7 @@
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="2"
                              Margin="0,3"
+                             telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Number, Mode=TwoWay}"
                              IsReadOnly="True">
                     </TextBox>
@@ -55,6 +56,7 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="1"
+                             telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Name, Mode=TwoWay}"
                              IsReadOnly="True">
                     </TextBox>
@@ -66,6 +68,7 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="2"
+                             telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Signatory, Mode=TwoWay}"
                              IsReadOnly="True">
                     </TextBox>
@@ -80,6 +83,7 @@
                                 VerticalAlignment="Center">
                         <telerik:RadTimePicker  Height="{StaticResource ControlHeight}"
                                                 SelectedValue="{Binding SignDate, Mode=TwoWay}"
+                                                telerik:StyleManager.Theme="Windows8"
                                                 InputMode="DatePicker"
                                                 IsReadOnly="True"
                                                 IsEnabled="False"
@@ -93,6 +97,7 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="4"
+                             telerik:StyleManager.Theme="Windows8"
                              AcceptsReturn="True"
                              VerticalContentAlignment="Top"
                              HorizontalContentAlignment="Left"
@@ -110,6 +115,7 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="6"
+                             telerik:StyleManager.Theme="Windows8"
                              VerticalContentAlignment="Top"
                              HorizontalContentAlignment="Left"
                              Width="250"
@@ -223,6 +229,7 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="6"
+                             telerik:StyleManager.Theme="Windows8"
                              VerticalContentAlignment="Top"
                              HorizontalContentAlignment="Left"
                              Width="250"
