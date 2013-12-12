@@ -30,14 +30,16 @@ using Telerik.Windows.Controls;
 
 namespace UniCloud.Presentation.Shell
 {
-    [Export(typeof (ShellViewModel))]
+    [Export(typeof(ShellViewModel))]
     public class ShellViewModel : NotificationObject, IPartImportsSatisfiedNotification
     {
         #region 声明
 
         private bool _firstLoad = true;
-        [Import] public IModuleManager moduleManager;
-        [Import] public IRegionManager regionManager;
+        [Import]
+        public IModuleManager moduleManager;
+        [Import]
+        public IRegionManager regionManager;
 
         #region IPartImportsSatisfiedNotification 成员
 
@@ -165,29 +167,32 @@ namespace UniCloud.Presentation.Shell
             };
             var menu312 = new MenuItem
             {
-                Text = "查询供应商",
-                NavUri = "UniCloud.Presentation.Purchase.Supplier.QuerySupplier"
-            };
-            var menu313 = new MenuItem
-            {
                 Text = "维护供应商可供物料",
                 NavUri = "UniCloud.Presentation.Purchase.Supplier.SupplierMaterialManager"
             };
-            var menu314 = new MenuItem
-            {
-                Text = "维护BFE承运人",
-                NavUri = "UniCloud.Presentation.Purchase.Forwarder.ForwarderManager"
-            };
-            var menu315 = new MenuItem
+            var menu313 = new MenuItem
             {
                 Text = "维护联系人",
                 NavUri = "UniCloud.Presentation.Purchase.Supplier.LinkManManager"
+
+            };
+            var menu314 = new MenuItem
+            {
+                Text = "查询供应商",
+                NavUri = "UniCloud.Presentation.Purchase.Supplier.QuerySupplier"
+
+            };
+            var menu315 = new MenuItem
+            {
+                Text = "维护BFE承运人",
+                NavUri = "UniCloud.Presentation.Purchase.Forwarder.ForwarderManager"
+
             };
             menu31.Items.Add(menu311);
+            menu31.Items.Add(menu312);
             menu31.Items.Add(menu313);
             menu31.Items.Add(menu314);
             menu31.Items.Add(menu315);
-            menu31.Items.Add(menu312);
             menu3.Items.Add(menu31);
 
             var menu32 = new MenuItem
@@ -215,89 +220,96 @@ namespace UniCloud.Presentation.Shell
             {
                 Text = "管理BFE合同",
             };
-            var menu326 = new MenuItem
-            {
-                Text = "管理发动机维修合同",
-                NavUri = "UniCloud.Presentation.Purchase.Contract.EngineMaintain"
-            };
-            var menu327 = new MenuItem
-            {
-                Text = "管理APU维修合同",
-                NavUri = "UniCloud.Presentation.Purchase.Contract.ApuMaintain"
-            };
-            var menu328 = new MenuItem
-            {
-                Text = "管理起落架维修合同",
-                NavUri = "UniCloud.Presentation.Purchase.Contract.UndercartMaintain"
-            };
+
             menu32.Items.Add(menu321);
             menu32.Items.Add(menu322);
             menu32.Items.Add(menu323);
             menu32.Items.Add(menu324);
             menu32.Items.Add(menu325);
-            menu32.Items.Add(menu326);
-            menu32.Items.Add(menu327);
-            menu32.Items.Add(menu328);
             menu3.Items.Add(menu32);
 
             var menu33 = new MenuItem
             {
-                Text = "管理接机",
+                Text = "管理维修合同",
             };
             var menu331 = new MenuItem
             {
-                Text = "匹配计划飞机",
-                NavUri = "UniCloud.Presentation.Purchase.Reception.MatchingPlanAircraftManager"
+                Text = "管理发动机维修合同",
+                NavUri = "UniCloud.Presentation.Purchase.Contract.EngineMaintain"
             };
             var menu332 = new MenuItem
             {
-                Text = "维护租赁飞机交付项目",
-                NavUri = "UniCloud.Presentation.Purchase.Reception.AircraftLeaseReceptionManager",
+                Text = "管理APU维修合同",
+                NavUri = "UniCloud.Presentation.Purchase.Contract.ApuMaintain"
             };
             var menu333 = new MenuItem
             {
-                Text = "维护采购飞机交付项目",
-                NavUri = "UniCloud.Presentation.Purchase.Reception.AircraftPurchaseReceptionManager",
-            };
-            var menu334 = new MenuItem
-            {
-                Text = "维护租赁发动机交付项目",
-                NavUri = "UniCloud.Presentation.Purchase.Reception.EngineLeaseReceptionManager",
-            };
-            var menu335 = new MenuItem
-            {
-                Text = "维护采购发动机交付项目",
-                NavUri = "UniCloud.Presentation.Purchase.Reception.EnginePurchaseReceptionManager",
+                Text = "管理起落架维修合同",
+                NavUri = "UniCloud.Presentation.Purchase.Contract.UndercartMaintain"
             };
             menu33.Items.Add(menu331);
             menu33.Items.Add(menu332);
             menu33.Items.Add(menu333);
-            menu33.Items.Add(menu334);
-            menu33.Items.Add(menu335);
             menu3.Items.Add(menu33);
 
             var menu34 = new MenuItem
             {
-                Text = "查询分析",
+                Text = "管理接机",
             };
             var menu341 = new MenuItem
             {
-                Text = "查询合同",
-                NavUri = "UniCloud.Presentation.Purchase.Contract.QueryContract"
+                Text = "匹配计划飞机",
+                NavUri = "UniCloud.Presentation.Purchase.Reception.MatchingPlanAircraftManager"
             };
             var menu342 = new MenuItem
             {
-                Text = "分析飞机价格",
-                NavUri = "UniCloud.Presentation.Purchase.QueryAnalyse.AnalyseAircraftPrice"
+                Text = "维护租赁飞机交付项目",
+                NavUri = "UniCloud.Presentation.Purchase.Reception.AircraftLeaseReceptionManager",
             };
             var menu343 = new MenuItem
             {
-                Text = "分析发动机价格",
+                Text = "维护采购飞机交付项目",
+                NavUri = "UniCloud.Presentation.Purchase.Reception.AircraftPurchaseReceptionManager",
+            };
+            var menu344 = new MenuItem
+            {
+                Text = "维护租赁发动机交付项目",
+                NavUri = "UniCloud.Presentation.Purchase.Reception.EngineLeaseReceptionManager",
+            };
+            var menu345 = new MenuItem
+            {
+                Text = "维护采购发动机交付项目",
+                NavUri = "UniCloud.Presentation.Purchase.Reception.EnginePurchaseReceptionManager",
             };
             menu34.Items.Add(menu341);
             menu34.Items.Add(menu342);
             menu34.Items.Add(menu343);
+            menu34.Items.Add(menu344);
+            menu34.Items.Add(menu345);
             menu3.Items.Add(menu34);
+
+            var menu35 = new MenuItem
+            {
+                Text = "查询分析",
+            };
+            var menu351 = new MenuItem
+            {
+                Text = "查询合同",
+                NavUri = "UniCloud.Presentation.Purchase.Contract.QueryContract"
+            };
+            var menu352 = new MenuItem
+            {
+                Text = "分析飞机价格",
+                NavUri = "UniCloud.Presentation.Purchase.QueryAnalyse.AnalyseAircraftPrice"
+            };
+            var menu353 = new MenuItem
+            {
+                Text = "分析发动机价格",
+            };
+            menu35.Items.Add(menu351);
+            menu35.Items.Add(menu352);
+            menu35.Items.Add(menu353);
+            menu3.Items.Add(menu35);
 
             _items.Add(menu3);
 
@@ -308,9 +320,119 @@ namespace UniCloud.Presentation.Shell
             var menu4 = new MenuItem
             {
                 Text = "应付款",
-                IsEnabled = false,
             };
+            var menu41 = new MenuItem
+            {
+                Text = "管理付款计划",
+            };
+            var menu411 = new MenuItem
+            {
+                Text = "管理飞机付款计划",
+            };
+            var menu412 = new MenuItem
+            {
+                Text = "管理发动机付款计划",
+            };
+            var menu413 = new MenuItem
+            {
+                Text = "管理一般付款计划",
+            };
+            menu41.Items.Add(menu411);
+            menu41.Items.Add(menu412);
+            menu41.Items.Add(menu413);
+            menu4.Items.Add(menu41);
+
+            var menu42 = new MenuItem
+            {
+                Text = "管理发票",
+            };
+            var menu421 = new MenuItem
+            {
+                Text = "维护采购发票",
+            };
+            var menu422 = new MenuItem
+            {
+                Text = "维护预付款发票",
+            };
+            var menu423 = new MenuItem
+            {
+                Text = "维护租赁发票",
+            };
+            var menu424 = new MenuItem
+            {
+                Text = "维护贷项单",
+            };
+            var menu425 = new MenuItem
+            {
+                Text = "维护发动机维修发票",
+            };
+            var menu426 = new MenuItem
+            {
+                Text = "维护APU维修发票",
+            };
+            var menu427 = new MenuItem
+            {
+                Text = "维护起落架维修发票",
+            };
+            var menu428 = new MenuItem
+            {
+                Text = "维护机身维修发票",
+            };
+            var menu429 = new MenuItem
+            {
+                Text = "维护付款通知",
+            };
+            menu42.Items.Add(menu421);
+            menu42.Items.Add(menu422);
+            menu42.Items.Add(menu423);
+            menu42.Items.Add(menu424);
+            menu42.Items.Add(menu425);
+            menu42.Items.Add(menu426);
+            menu42.Items.Add(menu427);
+            menu42.Items.Add(menu428);
+            menu42.Items.Add(menu429);
+            menu4.Items.Add(menu42);
+
+            var menu43 = new MenuItem
+            {
+                Text = "管理保函",
+            };
+            var menu431 = new MenuItem
+            {
+                Text = "维护租赁保证金",
+            };
+            var menu432 = new MenuItem
+            {
+                Text = "维护大修保证金",
+            };
+            menu43.Items.Add(menu431);
+            menu43.Items.Add(menu432);
+            menu4.Items.Add(menu43);
+
+            var menu44 = new MenuItem
+            {
+                Text = "管理飞机价格",
+            };
+            var menu441 = new MenuItem
+            {
+                Text = "设置飞机价格公式",
+            };
+            var menu442 = new MenuItem
+            {
+                Text = "设置发动机价格公式",
+            };
+            var menu443 = new MenuItem
+            {
+                Text = "计算飞机价格",
+            };
+            menu44.Items.Add(menu441);
+            menu44.Items.Add(menu442);
+            menu44.Items.Add(menu443);
+            menu4.Items.Add(menu44);
+
             _items.Add(menu4);
+
+
 
             #endregion
 

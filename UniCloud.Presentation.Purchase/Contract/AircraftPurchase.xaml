@@ -152,7 +152,7 @@
                                         <telerik:GridViewComboBoxColumn DataMemberBinding="{Binding LinkmanId}"
                                                                         Header="联系人" EditTriggers="CellClick"
                                                                         ItemsSource="{Binding DataContext.Linkmen, ElementName=LayoutRoot}"
-                                                                        SelectedValueMemberPath="Id"
+                                                                        SelectedValueMemberPath="LinkmanId"
                                                                         DisplayMemberPath="Name" TextAlignment="Center"/>
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding OrderDate}"
                                                                     Header="生效日期"
