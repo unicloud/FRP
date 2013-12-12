@@ -20,6 +20,7 @@
 using UniCloud.Application.PurchaseBC.ActionCategoryServices;
 using UniCloud.Application.PurchaseBC.AircraftTypeServices;
 using UniCloud.Application.PurchaseBC.ContractAircraftServices;
+using UniCloud.Application.PurchaseBC.ContractEngineServices;
 using UniCloud.Application.PurchaseBC.ContractServices;
 using UniCloud.Application.PurchaseBC.CurrencyServices;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
@@ -29,6 +30,7 @@ using UniCloud.Application.PurchaseBC.PlanAircraftServices;
 using UniCloud.Application.PurchaseBC.Query.ActionCategoryQueries;
 using UniCloud.Application.PurchaseBC.Query.AircraftTypeQueries;
 using UniCloud.Application.PurchaseBC.Query.ContractAircraftQueries;
+using UniCloud.Application.PurchaseBC.Query.ContractEngineQueries;
 using UniCloud.Application.PurchaseBC.Query.ContractQueries;
 using UniCloud.Application.PurchaseBC.Query.CurrencyQueries;
 using UniCloud.Application.PurchaseBC.Query.ForwarderQueries;
@@ -46,8 +48,7 @@ using UniCloud.Application.PurchaseBC.TradeServices;
 using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.ForwarderAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg;using UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg;using UniCloud.Domain.PurchaseBC.Aggregates.ForwarderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
@@ -175,6 +176,16 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
                 .Register<ILeaseContractAircraftAppService, LeaseContractAircraftAppService>()
                 .Register<IPurchaseContractAircraftAppService, PurchaseContractAircraftAppService>()
                 .Register<IContractAircraftRepository, ContractAircraftRepository>()
+                #endregion 
+
+                #region 合同发动机相关配置，包括查询，应用服务，仓储注册
+                         .Register<IContractEngineQuery, ContractEngineQuery>()
+                         .Register<IContractEngineAppService, ContractEngineAppService>()
+                         .Register<ILeaseContractEngineQuery, LeaseContractEngineQuery>()
+                         .Register<IPurchaseContractEngineQuery, PurchaseContractEngineQuery>()
+                         .Register<ILeaseContractEngineAppService, LeaseContractEngineAppService>()
+                         .Register<IPurchaseContractEngineAppService, PurchaseContractEngineAppService>()
+                         .Register<IContractEngineRepository, ContractEngineRepository>()
                 #endregion 
 
                 #region   关联文档相关配置，包括查询，应用服务，仓储注册

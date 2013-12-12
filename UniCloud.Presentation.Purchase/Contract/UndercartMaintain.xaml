@@ -22,7 +22,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="15"></ColumnDefinition>
                         <ColumnDefinition Width="65"></ColumnDefinition>
-                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
                         <ColumnDefinition Width="0.1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -44,6 +44,7 @@
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="2"
                              Margin="0,3"
+                             telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Number, Mode=TwoWay}"
                              IsReadOnly="True">
                     </TextBox>
@@ -55,6 +56,7 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="1"
+                             telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Name, Mode=TwoWay}"
                              IsReadOnly="True">
                     </TextBox>
@@ -67,6 +69,7 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="2"
+                             telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Signatory, Mode=TwoWay}"
                              IsReadOnly="True">
                     </TextBox>
@@ -81,6 +84,7 @@
                                 VerticalAlignment="Center">
                         <telerik:RadTimePicker  Height="{StaticResource ControlHeight}"
                                                 SelectedValue="{Binding SignDate, Mode=TwoWay}"
+                                                telerik:StyleManager.Theme="Windows8"
                                                 InputMode="DatePicker"
                                                 IsReadOnly="True"
                                                 IsEnabled="False"
@@ -94,39 +98,26 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="4"
-                             AcceptsReturn="True"
+                             telerik:StyleManager.Theme="Windows8"
                              VerticalContentAlignment="Top"
                              HorizontalContentAlignment="Left"
-                             Width="250"
-                             TextWrapping="Wrap"
-                             Grid.RowSpan="2"
                              Text="{Binding Abstract, Mode=TwoWay}"
                              IsReadOnly="True">
                     </TextBox>
-                    <TextBlock Grid.Row="6"
+                    <TextBlock Grid.Row="5"
                                Grid.Column="1"
                                Text="附件"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
-                    <TextBox Grid.Column="2"
-                             Margin="0,3"
-                             Grid.Row="6"
-                             VerticalContentAlignment="Top"
-                             HorizontalContentAlignment="Left"
-                             Width="250"
-                             TextWrapping="Wrap"
-                             Grid.RowSpan="2"
-                             Text="{Binding DocumentName,Mode=TwoWay}"
-                             IsReadOnly="True">
-                    </TextBox>
-                    <telerik:RadButton Content="查看"
-                                       Grid.Column="3"
-                                       Height="{StaticResource ControlHeight}"
-                                       Grid.Row="6"
-                                       Width="100"
-                                       HorizontalAlignment="Stretch"
-                                       VerticalAlignment="Stretch"
-                                       Command="{Binding DataContext.ViewAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}" />
+                    <HyperlinkButton  Grid.Column="2"
+                                      Grid.Row="5"
+                                      Margin="0,3"
+                                      Command="{Binding DataContext.ViewAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                      VerticalContentAlignment="Top"
+                                      HorizontalContentAlignment="Left">
+                        <TextBlock Text="{Binding DocumentName,Mode=TwoWay}"
+                                   TextDecorations="Underline" />
+                    </HyperlinkButton>
                 </Grid>
             </DataTemplate>
 
@@ -135,7 +126,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="15"></ColumnDefinition>
                         <ColumnDefinition Width="65"></ColumnDefinition>
-                        <ColumnDefinition Width="250"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
                         <ColumnDefinition Width="0.1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -208,39 +199,25 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="4"
-                             AcceptsReturn="True"
                              VerticalContentAlignment="Top"
                              HorizontalContentAlignment="Left"
-                             Width="250"
-                             TextWrapping="Wrap"
-                             Grid.RowSpan="2"
                              Text="{Binding Abstract, Mode=TwoWay}">
                     </TextBox>
-                    <TextBlock Grid.Row="6"
+                    <TextBlock Grid.Row="5"
                                Grid.Column="1"
                                Text="附件"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
-                    <TextBox Grid.Column="2"
-                             Margin="0,3"
-                             Grid.Row="6"
-                             VerticalContentAlignment="Top"
-                             HorizontalContentAlignment="Left"
-                             Width="250"
-                             TextWrapping="Wrap"
-                             Grid.RowSpan="2"
-                             Text="{Binding DocumentName,Mode=TwoWay}"
-                             IsReadOnly="True">
-                    </TextBox>
-                    <telerik:RadButton Content="编辑"
-                                       Grid.Column="3"
-                                       Height="{StaticResource ControlHeight}"
-                                       Grid.Row="6"
-                                       Width="100"
-                                       HorizontalAlignment="Stretch"
-                                       VerticalAlignment="Stretch"
-                                       Command="{Binding DataContext.AddAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                       CommandParameter="{Binding ElementName=WordButton}" />
+                    <HyperlinkButton  Grid.Column="2"
+                                      Grid.Row="5"
+                                      Margin="0,3"
+                                      Command="{Binding DataContext.AddAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                      CommandParameter="{Binding ElementName=WordButton}"
+                                      VerticalContentAlignment="Top"
+                                      HorizontalContentAlignment="Left">
+                        <TextBlock Text="{Binding DocumentName,Mode=TwoWay}"
+                                   TextDecorations="Underline" />
+                    </HyperlinkButton>
                     <telerik:RadRadioButton Grid.Row="8"
                                             Grid.Column="2"
                                             Width="100"
@@ -324,6 +301,7 @@
                                                                         DataMemberBinding="{Binding Abstract}" />
                                             <telerik:GridViewDataColumn Header="附件"
                                                                         IsSortable="True"
+                                                                        MaxWidth="250"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding DocumentName}" />

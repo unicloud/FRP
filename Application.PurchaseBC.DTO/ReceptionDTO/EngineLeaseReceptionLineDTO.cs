@@ -33,5 +33,28 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// </summary>
         public int EngineLeaseReceptionLineId { get; set; }
 
+        //发动机生产序列号
+        public string SerialNumber { get; set; }
+        //合同号
+        public string ContractNumber { get; set; }
+        //合同名称
+        public string ContractName { get; set; }
+        //Rank号
+        public string RankNumber { get; set; }
+        //引进方式
+        public string ImportCategoryId { get; set; }
+        //计划交付时间
+        public DateTime DeliverDate { get; set; }
+        //计划交付地点
+        public string DeliverPlace { get; set; }
+
+        #region 外键属性
+
+        /// <summary>
+        ///     租赁合同发动机ID
+        /// </summary>
+        public int ContractEngineId { get; set; }
+
+        #endregion
     }
 }

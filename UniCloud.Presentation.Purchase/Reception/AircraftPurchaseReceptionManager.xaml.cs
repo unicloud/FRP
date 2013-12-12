@@ -7,8 +7,7 @@ using Telerik.Windows.Documents.Fixed.UI.Extensibility;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export(typeof(AircraftPurchaseReceptionManager))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class AircraftPurchaseReceptionManager : UserControl
     {
         public AircraftPurchaseReceptionManager()
@@ -16,7 +15,7 @@ namespace UniCloud.Presentation.Purchase.Reception
             ExtensibilityManager.RegisterFindDialog(new FindDialog());
             InitializeComponent();
         }
-        [Import]
+        [Import(typeof(AircraftPurchaseReceptionManagerVM))]
         public AircraftPurchaseReceptionManagerVM ViewModel
         {
             get { return DataContext as AircraftPurchaseReceptionManagerVM; }
