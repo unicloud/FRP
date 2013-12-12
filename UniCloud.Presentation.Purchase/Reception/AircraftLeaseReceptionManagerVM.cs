@@ -25,7 +25,8 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export]
+    [Export(typeof(AircraftLeaseReceptionManagerVM))]
+    [PartCreationPolicy(CreationPolicy.Shared)]
     public class AircraftLeaseReceptionManagerVM : EditViewModelBase
     {
         #region 声明、初始化
@@ -38,7 +39,9 @@ namespace UniCloud.Presentation.Purchase.Reception
         private Service.Purchase.SchdeuleExtension.ControlExtension scheduleExtension;
         private Document.Document _document = new Document.Document();
 
+        [Import]
         public WordViewer WordView;
+        [Import]
         public PDFViewer PdfView;
 
         [ImportingConstructor]
@@ -86,7 +89,8 @@ namespace UniCloud.Presentation.Purchase.Reception
             RemoveEntityCommand = new DelegateCommand<object>(OnRemoveEntity, CanRemoveEntity);
             //GridView单元格值变更
             CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
-            //移除文档
+            //文档
+            AddWordAttachCommand=new DelegateCommand<object>(OnAddWordAttach);
             RemoveAttachCommand = new DelegateCommand<object>(OnRemoveAttach);
             //ScheduleView
             CreateCommand = new DelegateCommand<object>(OnCreated);
@@ -256,7 +260,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                     var viewLeaseContractAircrafts = LeaseContractAircrafts.Where(p => p.SupplierId == SelAircraftLeaseReception.SupplierId && p.SerialNumber != null).ToList();
                     ViewLeaseContractAircrafts.Clear();
                     foreach (var lca in viewLeaseContractAircrafts)
-                    { 
+                    {
                         ViewLeaseContractAircrafts.Add(lca);
                     }
                     _appointments.Clear();
@@ -271,7 +275,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                     {
                         ViewDocuments.Add(doc);
                     }
-                    RaisePropertyChanged(()=>Appointments);
+                    RaisePropertyChanged(() => Appointments);
                     RaisePropertyChanged(() => SelAircraftLeaseReception);
                 }
             }
@@ -347,7 +351,7 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #region 交机文件
 
-        private ObservableCollection<RelatedDocDTO> _viewDocuments=new ObservableCollection<RelatedDocDTO>();
+        private ObservableCollection<RelatedDocDTO> _viewDocuments = new ObservableCollection<RelatedDocDTO>();
 
         /// <summary>
         /// 交机文件
@@ -490,38 +494,41 @@ namespace UniCloud.Presentation.Purchase.Reception
         #endregion
 
         #region 添加附件
+        /// <summary>
+        ///     添加Pdf附件
+        /// </summary>
         protected override void OnAddAttach(object sender)
         {
-            var relatedDoc = new RelatedDocDTO()
-            {
-                SourceId = SelAircraftLeaseReception.SourceId,
-                DocumentId = Guid.NewGuid(),
-                DocumentName = "测试文档名称",
-            };
-            RelatedDocs.AddNew(relatedDoc);
-            ViewDocuments.Add(relatedDoc);
-            //var radRadioButton = sender as RadRadioButton;
-            //if (true)
-            //{
-            //    WordView.Tag = null;
-            //    WordView.ViewModel.InitData(false, _document, WordViewerClosed);
-            //    WordView.ShowDialog();
-            //}
-            //else
-            //{
-            //    PdfView.Tag = null;
-            //    PdfView.ViewModel.InitData(false, _document, PdfViewerClosed);
-            //    PdfView.ShowDialog();
-            //}
+            PdfView.Tag = null;
+            PdfView.ViewModel.InitData(false, _document, PdfViewerClosed);
+            PdfView.ShowDialog();
+        }
+
+        /// <summary>
+        ///     添加Word附件
+        /// </summary>
+        public DelegateCommand<object> AddWordAttachCommand { get; private set; }
+
+        private void OnAddWordAttach(object sender)
+        {
+            WordView.Tag = null;
+            WordView.ViewModel.InitData(false, _document, PdfViewerClosed);
+            WordView.ShowDialog();
         }
 
         private void WordViewerClosed(object sender, WindowClosedEventArgs e)
         {
             if (WordView.Tag != null && WordView.Tag is Document.Document)
             {
+                var relatedDoc = new RelatedDocDTO()
+                {
+                    SourceId = SelAircraftLeaseReception.SourceId,
+                };
                 var document = WordView.Tag as Document.Document;
-                //ApuMaintainContract.DocumentId = document.Id;
-                //ApuMaintainContract.DocumentName = document.Name;
+                relatedDoc.DocumentId = document.Id;
+                relatedDoc.DocumentName = document.Name;
+                RelatedDocs.AddNew(relatedDoc);
+                ViewDocuments.Add(relatedDoc);
             }
         }
 
@@ -529,9 +536,15 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             if (PdfView.Tag != null && PdfView.Tag is Document.Document)
             {
+                var relatedDoc = new RelatedDocDTO()
+                {
+                    SourceId = SelAircraftLeaseReception.SourceId,
+                };
                 var document = PdfView.Tag as Document.Document;
-                //ApuMaintainContract.DocumentId = document.Id;
-                //ApuMaintainContract.DocumentName = document.Name;
+                relatedDoc.DocumentId = document.Id;
+                relatedDoc.DocumentName = document.Name;
+                RelatedDocs.AddNew(relatedDoc);
+                ViewDocuments.Add(relatedDoc);
             }
         }
         #endregion
@@ -596,7 +609,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                 var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "Supplier"))
                 {
-                    var viewLeaseContractAircrafts = LeaseContractAircrafts.Where(p => p.SupplierId == SelAircraftLeaseReception.SupplierId && p.SerialNumber!=null).ToList();
+                    var viewLeaseContractAircrafts = LeaseContractAircrafts.Where(p => p.SupplierId == SelAircraftLeaseReception.SupplierId && p.SerialNumber != null).ToList();
                     ViewLeaseContractAircrafts.Clear();
                     foreach (var lca in viewLeaseContractAircrafts)
                     {
@@ -610,6 +623,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                         ViewLeaseContractAircrafts.FirstOrDefault(p => p.LeaseContractAircraftId == value);
                     if (contractAircraft != null)
                     {
+                        SelAircraftLeaseReceptionLine.ContractName = contractAircraft.ContractName;
                         SelAircraftLeaseReceptionLine.ContractNumber = contractAircraft.ContractNumber;
                         SelAircraftLeaseReceptionLine.RankNumber = contractAircraft.RankNumber;
                         SelAircraftLeaseReceptionLine.MSN = contractAircraft.SerialNumber;
@@ -629,7 +643,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             var scheduleView = sender as RadScheduleView;
             if (scheduleView != null)
-        {
+            {
                 var appointment = scheduleView.EditedAppointment as Appointment;
                 var schedule = scheduleExtension.ConvertToReceptionSchedule(appointment);
                 schedule.ReceptionId = SelAircraftLeaseReception.AircraftLeaseReceptionId;
@@ -651,7 +665,7 @@ namespace UniCloud.Presentation.Purchase.Reception
             {
                 var appointment = scheduleView.EditedAppointment as Appointment;
                 if (appointment != null)
-        {
+                {
                     var schedule =
                         SelAircraftLeaseReception.ReceptionSchedules.FirstOrDefault(
                             p => p.UniqueId == appointment.UniqueId);
@@ -678,7 +692,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                             p => p.UniqueId == appointment.UniqueId);
                     SelAircraftLeaseReception.ReceptionSchedules.Remove(schedule);
                     if (schedule != null)
-        {
+                    {
                         schedule = scheduleExtension.ConvertToReceptionSchedule(appointment);
                         SelAircraftLeaseReception.ReceptionSchedules.Add(schedule);
                     }

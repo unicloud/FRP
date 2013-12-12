@@ -36,14 +36,12 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public string MSN { get; set; }
         //合同号
         public string ContractNumber { get; set; }
+        //合同名称
+        public string ContractName { get; set; }
         //Rank号
         public string RankNumber { get; set; }
         //机型
         public string AircraftType { get; set; }
-        ////制造商
-        //public string Manufacturer { get; set; }
-        ////发动机型号
-        //public string EngineType { get; set; }
         //选呼号
         public string DailNumber { get; set; }
         //计划交付时间

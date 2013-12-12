@@ -62,6 +62,7 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
                              IsCompleted = q.IsCompleted,
                              Note = q.Note,
                              MSN = q.LeaseContractAircraft.SerialNumber,
+                             ContractName = q.LeaseContractAircraft.ContractName,
                              ContractNumber = q.LeaseContractAircraft.ContractNumber,
                              AircraftType = q.LeaseContractAircraft.AircraftType.Name,
                              ImportCategoryId = q.LeaseContractAircraft.ImportCategory.ActionName,

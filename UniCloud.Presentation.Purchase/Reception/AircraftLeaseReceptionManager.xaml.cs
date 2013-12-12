@@ -16,15 +16,14 @@ using Telerik.Windows.Documents.Fixed.Model;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export(typeof(AircraftLeaseReceptionManager))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class AircraftLeaseReceptionManager : UserControl
     {
         public AircraftLeaseReceptionManager()
         {
             InitializeComponent();
         }
-        [Import]
+        [Import(typeof(AircraftLeaseReceptionManagerVM))]
         public AircraftLeaseReceptionManagerVM ViewModel
         {
             get { return DataContext as AircraftLeaseReceptionManagerVM; }

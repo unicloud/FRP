@@ -23,7 +23,8 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export]
+    [Export(typeof(AircraftPurchaseReceptionManagerVM))]
+    [PartCreationPolicy(CreationPolicy.Shared)]
     public class AircraftPurchaseReceptionManagerVM : EditViewModelBase
     {
         #region 声明、初始化
@@ -36,7 +37,9 @@ namespace UniCloud.Presentation.Purchase.Reception
         private Service.Purchase.SchdeuleExtension.ControlExtension scheduleExtension;
         private Document.Document _document = new Document.Document();
 
+        [Import]
         public WordViewer WordView;
+        [Import]
         public PDFViewer PdfView;
 
         [ImportingConstructor]
@@ -84,7 +87,8 @@ namespace UniCloud.Presentation.Purchase.Reception
             RemoveEntityCommand = new DelegateCommand<object>(OnRemoveEntity, CanRemoveEntity);
             //GridView单元格值变更
             CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
-            //移除文档
+            //文档
+            AddWordAttachCommand = new DelegateCommand<object>(OnAddWordAttach);
             RemoveAttachCommand = new DelegateCommand<object>(OnRemoveAttach);
             //ScheduleView
             CreateCommand = new DelegateCommand<object>(OnCreated);
@@ -488,38 +492,40 @@ namespace UniCloud.Presentation.Purchase.Reception
         #endregion
 
         #region 添加附件
+        /// <summary>
+        ///     添加Pdf附件
+        /// </summary>
         protected override void OnAddAttach(object sender)
         {
-            var relatedDoc = new RelatedDocDTO()
-            {
-                SourceId = SelAircraftPurchaseReception.SourceId,
-                DocumentId = Guid.NewGuid(),
-                DocumentName = "测试文档名称",
-            };
-            RelatedDocs.AddNew(relatedDoc);
-            ViewDocuments.Add(relatedDoc);
-            //var radRadioButton = sender as RadRadioButton;
-            //if (true)
-            //{
-            //    WordView.Tag = null;
-            //    WordView.ViewModel.InitData(false, _document, WordViewerClosed);
-            //    WordView.ShowDialog();
-            //}
-            //else
-            //{
-            //    PdfView.Tag = null;
-            //    PdfView.ViewModel.InitData(false, _document, PdfViewerClosed);
-            //    PdfView.ShowDialog();
-            //}
+            PdfView.Tag = null;
+            PdfView.ViewModel.InitData(false, _document, PdfViewerClosed);
+            PdfView.ShowDialog();
         }
 
+        /// <summary>
+        ///     添加Word附件
+        /// </summary>
+        public DelegateCommand<object> AddWordAttachCommand { get; private set; }
+
+        private void OnAddWordAttach(object sender)
+        {
+            WordView.Tag = null;
+            WordView.ViewModel.InitData(false, _document, PdfViewerClosed);
+            WordView.ShowDialog();
+        }
         private void WordViewerClosed(object sender, WindowClosedEventArgs e)
         {
             if (WordView.Tag != null && WordView.Tag is Document.Document)
             {
+                var relatedDoc = new RelatedDocDTO()
+                {
+                    SourceId = SelAircraftPurchaseReception.SourceId,
+                };
                 var document = WordView.Tag as Document.Document;
-                //ApuMaintainContract.DocumentId = document.Id;
-                //ApuMaintainContract.DocumentName = document.Name;
+                relatedDoc.DocumentId = document.Id;
+                relatedDoc.DocumentName = document.Name;
+                RelatedDocs.AddNew(relatedDoc);
+                ViewDocuments.Add(relatedDoc);
             }
         }
 
@@ -527,9 +533,15 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             if (PdfView.Tag != null && PdfView.Tag is Document.Document)
             {
+                var relatedDoc = new RelatedDocDTO()
+                {
+                    SourceId = SelAircraftPurchaseReception.SourceId,
+                };
                 var document = PdfView.Tag as Document.Document;
-                //ApuMaintainContract.DocumentId = document.Id;
-                //ApuMaintainContract.DocumentName = document.Name;
+                relatedDoc.DocumentId = document.Id;
+                relatedDoc.DocumentName = document.Name;
+                RelatedDocs.AddNew(relatedDoc);
+                ViewDocuments.Add(relatedDoc);
             }
         }
         #endregion
@@ -608,6 +620,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                         ViewPurchaseContractAircrafts.FirstOrDefault(p => p.PurchaseContractAircraftId == value);
                     if (contractAircraft != null)
                     {
+                        SelAircraftPurchaseReceptionLine.ContractName = contractAircraft.ContractName;
                         SelAircraftPurchaseReceptionLine.ContractNumber = contractAircraft.ContractNumber;
                         SelAircraftPurchaseReceptionLine.RankNumber = contractAircraft.RankNumber;
                         SelAircraftPurchaseReceptionLine.MSN = contractAircraft.SerialNumber;

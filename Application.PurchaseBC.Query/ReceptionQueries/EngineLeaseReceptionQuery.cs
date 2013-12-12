@@ -39,34 +39,51 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
             QueryBuilder<EngineLeaseReception> query)
         {
             return
-                query.ApplyTo(_unitOfWork.CreateSet<Reception>().OfType<EngineLeaseReception>()).Select(p => new EngineLeaseReceptionDTO
-                {
-                    EngineLeaseReceptionId = p.Id,
-                    CreateDate = p.CreateDate,
-                    StartDate = p.StartDate,
-                    EndDate = p.EndDate,
-                    CloseDate = p.CloseDate,
-                    IsClosed = p.IsClosed,
-                    ReceptionLines = p.ReceptionLines.OfType<EngineLeaseReceptionLine>().Select(q => new EngineLeaseReceptionLineDTO()
-                    {
-                        ReceptionId = q.ReceptionId,
-                        ReceivedAmount = q.ReceivedAmount,
-                        AcceptedAmount = q.AcceptedAmount,
-                        IsCompleted = q.IsCompleted,
-                        Note = q.Note,
-                    }).ToList(),
-                    ReceptionSchedules = p.ReceptionSchedules.Select(q => new ReceptionScheduleDTO
-                    {
-                        ReceptionId = q.ReceptionId,
-                        Subject = q.Subject,
-                        Body = q.Body,
-                        Importance = q.Importance,
-                        Start = q.Start,
-                        End = q.End,
-                        IsAllDayEvent = q.IsAllDayEvent,
-                        Group = q.Group,
-                    }).ToList(),
-                });
+            query.ApplyTo(_unitOfWork.CreateSet<Reception>().OfType<EngineLeaseReception>())
+                     .Select(p => new EngineLeaseReceptionDTO
+                     {
+                         EngineLeaseReceptionId = p.Id,
+                         ReceptionNumber = p.ReceptionNumber,
+                         CreateDate = p.CreateDate,
+                         StartDate = p.StartDate,
+                         EndDate = p.EndDate,
+                         CloseDate = p.CloseDate,
+                         IsClosed = p.IsClosed,
+                         SupplierId = p.SupplierId,
+                         SupplierName = p.Supplier.Name,
+                         SourceId = p.SourceId,
+                         ReceptionLines = p.ReceptionLines.OfType<EngineLeaseReceptionLine>()
+                         .Select(q => new EngineLeaseReceptionLineDTO
+                         {
+                             ReceptionId = q.ReceptionId,
+                             ReceivedAmount = q.ReceivedAmount,
+                             AcceptedAmount = q.AcceptedAmount,
+                             IsCompleted = q.IsCompleted,
+                             Note = q.Note,
+                             SerialNumber = q.LeaseContractEngine.SerialNumber,
+                             ContractName = q.LeaseContractEngine.ContractName,
+                             ContractNumber = q.LeaseContractEngine.ContractNumber,
+                             ImportCategoryId = q.LeaseContractEngine.ImportCategory.ActionName,
+                             ContractEngineId = q.ContractEngineId,
+                             RankNumber = q.LeaseContractEngine.RankNumber,
+                         }).ToList(),
+                         ReceptionSchedules = p.ReceptionSchedules.Select(q => new ReceptionScheduleDTO
+                         {
+                             ReceptionScheduleId = q.Id,
+                             ReceptionId = q.ReceptionId,
+                             Subject = q.Subject,
+                             Body = q.Body,
+                             Importance = q.Importance,
+                             Start = q.Start,
+                             End = q.End,
+                             IsAllDayEvent = q.IsAllDayEvent,
+                             Group = q.Group,
+                             Tempo = q.Tempo,
+                             Location = q.Location,
+                             UniqueId = q.UniqueId,
+                             Url = q.Url,
+                         }).ToList(),
+                     });
         }
 
     }
