@@ -47,6 +47,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
 
             Property(p => p.PartId).HasColumnName("PartID");
             Property(p => p.ImportCategoryId).HasColumnName("ImportCategoryId");
+            Property(p => p.SupplierId).HasColumnName("SupplierId");
 
             HasRequired(c => c.Part).WithMany().HasForeignKey(c => c.PartId);
             HasRequired(c => c.ImportCategory).WithMany().HasForeignKey(c => c.ImportCategoryId);

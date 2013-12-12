@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.DocumentAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Domain.PurchaseBC.Enums;
@@ -106,9 +107,14 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         public OrderStatus Status { get; private set; }
 
         /// <summary>
+        ///     合同文件名
+        /// </summary>
+        public string ContractName { get; private set; }
+
+        /// <summary>
         ///     合同文档检索ID
         /// </summary>
-        public Guid ContractDocGuid { get; set; }
+        public Guid? ContractDocGuid { get; private set; }
 
         /// <summary>
         ///     备注
@@ -271,6 +277,20 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         }
 
         /// <summary>
+        ///     设置交易
+        /// </summary>
+        /// <param name="id">交易ID</param>
+        public void SetTrade(int id)
+        {
+            if (id == 0)
+            {
+                throw new ArgumentException("交易ID参数为空！");
+            }
+
+            TradeId = id;
+        }
+
+        /// <summary>
         ///     设置币种
         /// </summary>
         /// <param name="currency">币种</param>
@@ -286,6 +306,20 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         }
 
         /// <summary>
+        ///     设置币种
+        /// </summary>
+        /// <param name="id">币种ID</param>
+        public void SetCurrency(int id)
+        {
+            if (id == 0)
+            {
+                throw new ArgumentException("币种ID参数为空！");
+            }
+
+            CurrencyId = id;
+        }
+
+        /// <summary>
         ///     设置联系人
         /// </summary>
         /// <param name="linkman">联系人</param>
@@ -298,6 +332,35 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
 
             Linkman = linkman;
             LinkmanId = linkman.Id;
+        }
+
+        /// <summary>
+        ///     设置联系人
+        /// </summary>
+        /// <param name="id">联系人ID</param>
+        public void SetLinkman(int id)
+        {
+            if (id == 0)
+            {
+                throw new ArgumentException("联系人ID参数为空！");
+            }
+
+            LinkmanId = id;
+        }
+
+        /// <summary>
+        ///     设置合同文档
+        /// </summary>
+        /// <param name="doc">合同文档</param>
+        public void SetContractDoc(Document doc)
+        {
+            if (doc == null || doc.IsTransient())
+            {
+                throw new ArgumentException("合同文档参数为空！");
+            }
+
+            ContractDocGuid = doc.Id;
+            ContractName = doc.FileName;
         }
 
         #endregion

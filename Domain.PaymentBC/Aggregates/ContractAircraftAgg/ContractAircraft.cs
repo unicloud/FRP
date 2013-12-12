@@ -98,6 +98,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.ContractAircraftAgg
         /// </summary>
         public Guid ImportCategoryId { get; protected set; }
 
+        /// <summary>
+        ///     供应商ID
+        /// </summary>
+        public int? SupplierId { get; protected set; }
+
         #endregion
 
         #region 导航属性
