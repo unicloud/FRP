@@ -31,7 +31,7 @@
             </telerik:HierarchicalDataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
-
+  <telerik:RadBusyIndicator BusyContent="正在加载，请稍后..." IsBusy="{Binding DocumentPathsView.IsBusy}">
     <Grid x:Name="LayoutRoot" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="38" />
@@ -154,4 +154,5 @@
             </telerik:RadDocking>
         </Grid>
     </Grid>
+    </telerik:RadBusyIndicator>
 </UserControl>

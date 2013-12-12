@@ -197,6 +197,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
                     }
                     SetAcMaterialFilterState();
                     MaterialChildView.Close();
+                    RefreshMaterialChildButton();
                     MessageAlert("提示", "保存成功");
                 };
         }
@@ -313,6 +314,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
                     }
                     SetEngineMaterialFilterState();
                     MaterialChildView.Close();
+                    RefreshMaterialChildButton();
                     MessageAlert("提示", "保存成功");
                 };
         }
@@ -428,6 +430,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
                     }
                     SetBfeMaterialFilterState();
                     MaterialChildView.Close();
+                    RefreshMaterialChildButton();
                     MessageAlert("提示", "保存成功");
                 };
         }
@@ -928,6 +931,15 @@ namespace UniCloud.Presentation.Purchase.Supplier
             }
         }
 
+        /// <summary>
+        ///     刷新物料子窗体保存与取消按钮
+        /// </summary>
+        private void RefreshMaterialChildButton()
+        {
+            CancelCommand.RaiseCanExecuteChanged();
+            CommitCommand.RaiseCanExecuteChanged();
+        }
+
         #endregion
 
         #region 命令
@@ -952,6 +964,11 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <returns>取消命令是否可用。</returns>
         public bool CanCancelExecute(object sender)
         {
+            if (SupplierCompanyAcMaterialsView.IsSubmittingChanges || SupplierCompanyAcMaterialsView.IsSubmittingChanges
+                || SupplierCompanyAcMaterialsView.IsSubmittingChanges)
+            {
+                return false;
+            }
             return true;
         }
 
@@ -1023,6 +1040,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
                         });
                 SupplierCompanyBFEMaterialsView.SubmitChanges();
             }
+            RefreshMaterialChildButton(); //刷新按钮状态
         }
 
         /// <summary>
@@ -1032,6 +1050,11 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <returns>确定命令是否可用。</returns>
         public bool CanCommitExecute(object sender)
         {
+            if (SupplierCompanyAcMaterialsView.IsSubmittingChanges || SupplierCompanyAcMaterialsView.IsSubmittingChanges
+                || SupplierCompanyAcMaterialsView.IsSubmittingChanges)
+            {
+                return false;
+            }
             return true;
         }
 
