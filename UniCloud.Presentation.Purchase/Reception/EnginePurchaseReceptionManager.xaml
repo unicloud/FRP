@@ -44,11 +44,11 @@
                                            telerik:ProportionalStackPanel.RelativeSize="500, 600">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="购买发动机接机项目"
-                                         HorizontalAlignment="Left"
-                                         CanDockInDocumentHost="True"
+                                         IsPinned="True"
                                          CanFloat="False"
                                          CanUserClose="False"
-                                         CanUserPin="False">
+                                         CanUserPin="False"
+                                         FontSize="{StaticResource TextFontSize}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -176,11 +176,10 @@
                     </telerik:RadPaneGroup>
                     <telerik:RadPaneGroup VerticalAlignment="Stretch">
                         <telerik:RadPane Header="交付项"
-                                         CanDockInDocumentHost="True"
-                                         IsPinned="true"
+                                         IsPinned="True"
                                          CanFloat="False"
                                          CanUserClose="False"
-                                         CanUserPin="True"
+                                         CanUserPin="False"
                                          FontSize="{StaticResource TextFontSize}">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -298,11 +297,11 @@
                             </Grid>
                         </telerik:RadPane>
                         <telerik:RadPane Header="交机文件"
-                                         HorizontalAlignment="Left"
-                                         CanDockInDocumentHost="True"
+                                         IsPinned="True"
                                          CanFloat="False"
                                          CanUserClose="False"
-                                         CanUserPin="False">
+                                         CanUserPin="False"
+                                         FontSize="{StaticResource TextFontSize}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -391,11 +390,10 @@
                                            telerik:ProportionalStackPanel.RelativeSize="500, 600">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="交付日程安排"
-                                         CanDockInDocumentHost="True"
-                                         IsPinned="true"
+                                         IsPinned="True"
                                          CanFloat="False"
                                          CanUserClose="False"
-                                         CanUserPin="True"
+                                         CanUserPin="False"
                                          FontSize="{StaticResource TextFontSize}">
                             <Grid>
                                 <telerik:RadScheduleView  Name="RadScheduleView"

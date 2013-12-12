@@ -328,6 +328,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Purchase", "UniCloud.Presentation.Purchase\Purchase.csproj", "{1E0EB192-EA72-46C1-88F0-34742AF3594D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payment", "UniCloud.Presentation.Payment\Payment.csproj", "{472F49BC-46C2-446A-BDDC-5CF1125C6730}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E6242ED1-4E56-43EE-8F60-71E99077D064} = {E6242ED1-4E56-43EE-8F60-71E99077D064}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project", "UniCloud.Presentation.Project\Project.csproj", "{D0BEE36E-BF35-4A71-828E-AA47B1D8CD83}"
 EndProject

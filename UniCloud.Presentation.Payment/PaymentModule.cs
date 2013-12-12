@@ -7,6 +7,8 @@ using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.MefExtensions.Modularity;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
+using UniCloud.Presentation.Payment.Invoice;
+using UniCloud.Presentation.Payment.QueryAnalyse;
 
 namespace UniCloud.Presentation.Payment
 {
@@ -19,13 +21,24 @@ namespace UniCloud.Presentation.Payment
 
         public void Initialize()
         {
-            throw new NotImplementedException();
+            LoadStaticData();
+            RegisterView();
         }
 
         #endregion
 
+        private static void LoadStaticData()
+        {
+        }
+
         private void RegisterView()
         {
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(CreditMemoManager));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(LeaseInvoiceManager));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(PrePayInvoiceManager));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(PurchaseInvoiceManager));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(AnalyseMaintenanceCosts));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FinancingDemandForecast));
         }
     }
 }

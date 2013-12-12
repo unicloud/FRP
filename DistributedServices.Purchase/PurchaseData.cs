@@ -25,7 +25,6 @@ using UniCloud.Application.PurchaseBC.ContractEngineServices;
 using UniCloud.Application.PurchaseBC.ContractServices;
 using UniCloud.Application.PurchaseBC.CurrencyServices;
 using UniCloud.Application.PurchaseBC.DTO;
-using UniCloud.Application.PurchaseBC.DTO.ContractEngineDTO;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
 using UniCloud.Application.PurchaseBC.PartServices;
@@ -50,7 +49,9 @@ namespace UniCloud.DistributedServices.Purchase
         private readonly IAircraftPurchaseReceptionAppService _aircraftPurchaseReceptionAppService;
         private readonly IAircraftTypeAppService _aircraftTypeAppService;
         private readonly IContractAircraftAppService _contractAircraftAppService;
-        private readonly IContractEngineAppService _contractEngineAppService;        private readonly ICurrencyAppService _currencyAppService;        private readonly IEngineLeaseReceptionAppService _engineLeaseReceptionAppService;
+        private readonly IContractEngineAppService _contractEngineAppService;        
+        private readonly ICurrencyAppService _currencyAppService;        
+        private readonly IEngineLeaseReceptionAppService _engineLeaseReceptionAppService;
         private readonly IEnginePurchaseReceptionAppService _enginePurchaseReceptionAppService;
         private readonly IForwarderAppService _forwarderAppService;
         private readonly ILeaseContractAircraftAppService _leaseContractAircraftAppService;

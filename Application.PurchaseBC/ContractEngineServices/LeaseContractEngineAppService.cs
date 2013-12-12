@@ -16,7 +16,7 @@
 
 using System.Linq;
 using UniCloud.Application.ApplicationExtension;
-using UniCloud.Application.PurchaseBC.DTO.ContractEngineDTO;
+using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.ContractEngineQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg;
 
