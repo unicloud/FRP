@@ -13,6 +13,7 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UniCloud.Presentation.Service.Purchase.Purchase
 {
@@ -20,7 +21,7 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
     {
         public List<SupplierDTO> Suppliers
         {
-            get { return GlobalServiceHelper.Suppliers; }
+            get { return GlobalServiceHelper.Suppliers.Where(p => p.MaintainSupplier).ToList(); }
         }
     }
 }
