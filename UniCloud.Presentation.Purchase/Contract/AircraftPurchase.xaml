@@ -158,8 +158,8 @@
                                                                     Header="生效日期"
                                                                     DataFormatString="{} {0:yyyy/MM/dd}"
                                                                     TextAlignment="Center" />
-                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding Status}" Header="状态"
-                                                                    TextAlignment="Center" IsReadOnly="True" />
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding OrderStatus}" Header="状态"
+                                                                    IsReadOnly="True" IsSortable="False" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
                             </Grid>
@@ -189,7 +189,7 @@
                                                  ItemsSource="{Binding SelectedItem.AircraftPurchaseOrderLines, ElementName=Order}"
                                                  IsBusy="{Binding ViewAircraftPurchaseOrderDTO.IsBusy}"
                                                  ShowGroupPanel="False" IsFilteringAllowed="False"
-                                                 EditTriggers="CellClick">
+                                                 EditTriggers="CellClick" >
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
