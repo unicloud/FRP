@@ -15,7 +15,7 @@
 #region 命名空间
 
 using System.Linq;
-using UniCloud.Application.PurchaseBC.DTO.ContractEngineDTO;
+using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg;
 
 #endregion

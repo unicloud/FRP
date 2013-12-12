@@ -59,6 +59,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
 
         #region SupplierCompany相关信息
 
+        private int _selMaterialTab;
         private SupplierCompanyDTO _selectedSupplierCompany;
 
         /// <summary>
@@ -69,17 +70,30 @@ namespace UniCloud.Presentation.Purchase.Supplier
             get { return _selectedSupplierCompany; }
             set
             {
-                if (_selectedSupplierCompany != value)
+                _selectedSupplierCompany = value;
+                SetAcMaterialFilterState(); //重新设置飞机物料
+                SetEngineMaterialFilterState(); //重新设置发动机物料
+                SetBfeMaterialFilterState(); //重新设置Bfe物料
+                LoadAcMaterialByCompany(value);
+                LoadBFEMaterialByCompany(value);
+                LoadEngineMaterialByCompany(value);
+                RefreshMaterialTabState(); //处理物料Tab是否可用
+                RaisePropertyChanged(() => SelSupplierCompany);
+            }
+        }
+
+        /// <summary>
+        ///     选择的Tab页
+        /// </summary>
+        public int SelMaterialTab
+        {
+            get { return _selMaterialTab; }
+            set
+            {
+                if (_selMaterialTab != value)
                 {
-                    _selectedSupplierCompany = value;
-                    SetAcMaterialFilterState();//重新设置飞机物料
-                    SetEngineMaterialFilterState();//重新设置发动机物料
-                    SetBfeMaterialFilterState(); //重新设置Bfe物料
-                    LoadAcMaterialByCompany(value);
-                    LoadBFEMaterialByCompany(value);
-                    LoadEngineMaterialByCompany(value);
-                    RefreshMaterialTabState();//处理物料Tab是否可用
-                    RaisePropertyChanged(() => SelSupplierCompany);
+                    _selMaterialTab = value;
+                    RaisePropertyChanged(() => SelMaterialTab);
                 }
             }
         }
@@ -102,7 +116,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
                         e.MarkErrorAsHandled();
                         return;
                     }
-                    if (SelSupplierCompany==null)
                     SelSupplierCompany = e.Entities.Cast<SupplierCompanyDTO>().FirstOrDefault();
                 };
         }
@@ -111,11 +124,12 @@ namespace UniCloud.Presentation.Purchase.Supplier
 
         #region SupplierCompanyAcMaterial相关信息
 
+        private string _acMaterialNotFilter = string.Empty; //设置飞机物料过滤信息
         private FilterDescriptor _acMeterialFilter; //查找合作公司飞机物料。
         private SupplierCompanyAcMaterialDTO _selectedSupplierCompanyAcMaterial;
-        private string _acMaterialNotFilter = string.Empty;    //设置飞机物料过滤信息
+
         /// <summary>
-        ///    飞机物料Tab 是否可见。
+        ///     飞机物料Tab 是否可见。
         /// </summary>
         public Visibility AcMaterialVisibility
         {
@@ -171,14 +185,14 @@ namespace UniCloud.Presentation.Purchase.Supplier
                         SelSupplierCompanyAcMaterial = e.Entities.Cast<SupplierCompanyAcMaterialDTO>().FirstOrDefault();
 
                     if (string.IsNullOrEmpty(_acMaterialNotFilter))
-                    SetAcMaterialFilter(); //设置过滤信息
+                        SetAcMaterialFilter(); //设置过滤信息
                 };
 
             SupplierCompanyAcMaterialsView.SubmittedChanges += (sender, e) =>
                 {
                     if (e.HasError)
                     {
-                      e.MarkErrorAsHandled();
+                        e.MarkErrorAsHandled();
                         return;
                     }
                     SetAcMaterialFilterState();
@@ -188,7 +202,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         }
 
         /// <summary>
-        /// 设置飞机过滤条件
+        ///     设置飞机过滤条件
         /// </summary>
         private void SetAcMaterialFilter()
         {
@@ -197,7 +211,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         }
 
         /// <summary>
-        /// 重新设置飞机物料过滤信息
+        ///     重新设置飞机物料过滤信息
         /// </summary>
         private void SetAcMaterialFilterState()
         {
@@ -216,6 +230,10 @@ namespace UniCloud.Presentation.Purchase.Supplier
             {
                 SupplierCompanyAcMaterialsView.AutoLoad = true;
             }
+            else
+            {
+                SupplierCompanyAcMaterialsView.Load(true);
+            }
         }
 
         #endregion
@@ -223,10 +241,11 @@ namespace UniCloud.Presentation.Purchase.Supplier
         #region SupplierCompanyEngineMaterial相关信息
 
         private FilterDescriptor _engienMeterialFilter; //查找合作公司发动机物料。
+        private string _engineMaterialNotFilter = string.Empty; //设置发动机物料过滤信息
         private SupplierCompanyEngineMaterialDTO _selectedSupplierCompanyEngineMaterial;
-        private string _engineMaterialNotFilter = string.Empty;    //设置发动机物料过滤信息
+
         /// <summary>
-        ///    发动机物料Tab 是否可见。
+        ///     发动机物料Tab 是否可见。
         /// </summary>
         public Visibility EngineMaterialVisibility
         {
@@ -278,29 +297,28 @@ namespace UniCloud.Presentation.Purchase.Supplier
                         e.MarkErrorAsHandled();
                         return;
                     }
-                    if (SelSupplierCompanyEngineMaterial==null)
-                    SelSupplierCompanyEngineMaterial =
-                        e.Entities.Cast<SupplierCompanyEngineMaterialDTO>().FirstOrDefault();
+                    if (SelSupplierCompanyEngineMaterial == null)
+                        SelSupplierCompanyEngineMaterial =
+                            e.Entities.Cast<SupplierCompanyEngineMaterialDTO>().FirstOrDefault();
                     if (string.IsNullOrEmpty(_engineMaterialNotFilter))
                         SetEngineMaterialFilter();
                 };
 
             SupplierCompanyEngineMaterialsView.SubmittedChanges += (sender, e) =>
-            {
-                if (e.HasError)
                 {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
-                SetEngineMaterialFilterState();
-                MaterialChildView.Close();
-                MessageAlert("提示", "保存成功");
-            };
-
+                    if (e.HasError)
+                    {
+                        e.MarkErrorAsHandled();
+                        return;
+                    }
+                    SetEngineMaterialFilterState();
+                    MaterialChildView.Close();
+                    MessageAlert("提示", "保存成功");
+                };
         }
 
         /// <summary>
-        /// 设置发动机过滤条件
+        ///     设置发动机过滤条件
         /// </summary>
         private void SetEngineMaterialFilter()
         {
@@ -309,7 +327,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         }
 
         /// <summary>
-        /// 重新设置发动机物料过滤信息
+        ///     重新设置发动机物料过滤信息
         /// </summary>
         private void SetEngineMaterialFilterState()
         {
@@ -328,17 +346,22 @@ namespace UniCloud.Presentation.Purchase.Supplier
             {
                 SupplierCompanyEngineMaterialsView.AutoLoad = true;
             }
+            else
+            {
+                SupplierCompanyEngineMaterialsView.Load(true);
+            }
         }
 
         #endregion
 
         #region SupplierCompanyBFEMaterial相关信息
 
+        private string _bfeMaterialNotFilter = string.Empty; //设置BFE物料过滤信息
         private FilterDescriptor _bfeMeterialFilter; //查找合作公司BFE物料。
         private SupplierCompanyBFEMaterialDTO _selectedSupplierCompanyBFEMaterial;
-        private string _bfeMaterialNotFilter = string.Empty;    //设置BFE物料过滤信息
+
         /// <summary>
-        ///    Bfe Tab 是否可见。
+        ///     Bfe Tab 是否可见。
         /// </summary>
         public Visibility BfeMaterialVisibility
         {
@@ -350,6 +373,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
                            : Visibility.Collapsed;
             }
         }
+
         /// <summary>
         ///     选择合作公司BFE物料。
         /// </summary>
@@ -388,28 +412,28 @@ namespace UniCloud.Presentation.Purchase.Supplier
                         e.MarkErrorAsHandled();
                         return;
                     }
-                    if (SelSupplierCompanyBFEMaterial==null)
-                    SelSupplierCompanyBFEMaterial = e.Entities.Cast<SupplierCompanyBFEMaterialDTO>().FirstOrDefault();
+                    if (SelSupplierCompanyBFEMaterial == null)
+                        SelSupplierCompanyBFEMaterial =
+                            e.Entities.Cast<SupplierCompanyBFEMaterialDTO>().FirstOrDefault();
                     if (string.IsNullOrEmpty(_bfeMaterialNotFilter))
-                        SetBfeMaterialFilter();//设置发BFE过滤条件
+                        SetBfeMaterialFilter(); //设置发BFE过滤条件
                 };
 
             SupplierCompanyBFEMaterialsView.SubmittedChanges += (sender, e) =>
-            {
-                if (e.HasError)
                 {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
-                SetBfeMaterialFilterState();
-                MaterialChildView.Close();
-                MessageAlert("提示", "保存成功");
-            };
-
+                    if (e.HasError)
+                    {
+                        e.MarkErrorAsHandled();
+                        return;
+                    }
+                    SetBfeMaterialFilterState();
+                    MaterialChildView.Close();
+                    MessageAlert("提示", "保存成功");
+                };
         }
 
         /// <summary>
-        /// 设置发BFE过滤条件
+        ///     设置发BFE过滤条件
         /// </summary>
         private void SetBfeMaterialFilter()
         {
@@ -418,7 +442,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         }
 
         /// <summary>
-        /// 重新设置Bfe物料过滤信息
+        ///     重新设置Bfe物料过滤信息
         /// </summary>
         private void SetBfeMaterialFilterState()
         {
@@ -436,6 +460,10 @@ namespace UniCloud.Presentation.Purchase.Supplier
             if (!SupplierCompanyBFEMaterialsView.AutoLoad)
             {
                 SupplierCompanyBFEMaterialsView.AutoLoad = true;
+            }
+            else
+            {
+                SupplierCompanyBFEMaterialsView.Load(true);
             }
         }
 
@@ -487,16 +515,16 @@ namespace UniCloud.Presentation.Purchase.Supplier
         {
             if (SelSupplierCompanyAcMaterial == null)
             {
-                MessageAlert("提示","请选择需要删除的飞机物料");
+                MessageAlert("提示", "请选择需要删除的飞机物料");
                 return;
             }
             MessageDialogs.Confirm("提示", "确定是否删除该记录？", (o, e) =>
-            {
-                if (e.DialogResult != true)
-                    return;
-                SupplierCompanyAcMaterialsView.Remove(SelSupplierCompanyAcMaterial);
-                SupplierCompanyAcMaterialsView.SubmitChanges();
-            });
+                {
+                    if (e.DialogResult != true)
+                        return;
+                    SupplierCompanyAcMaterialsView.Remove(SelSupplierCompanyAcMaterial);
+                    SupplierCompanyAcMaterialsView.SubmitChanges();
+                });
         }
 
         /// <summary>
@@ -557,12 +585,12 @@ namespace UniCloud.Presentation.Purchase.Supplier
                 return;
             }
             MessageDialogs.Confirm("提示", "确定是否删除该记录？", (o, e) =>
-            {
-                if (e.DialogResult != true)
-                    return;
-                SupplierCompanyEngineMaterialsView.Remove(SelSupplierCompanyEngineMaterial);
-                SupplierCompanyEngineMaterialsView.SubmitChanges();
-            });
+                {
+                    if (e.DialogResult != true)
+                        return;
+                    SupplierCompanyEngineMaterialsView.Remove(SelSupplierCompanyEngineMaterial);
+                    SupplierCompanyEngineMaterialsView.SubmitChanges();
+                });
         }
 
         /// <summary>
@@ -624,12 +652,12 @@ namespace UniCloud.Presentation.Purchase.Supplier
                 return;
             }
             MessageDialogs.Confirm("提示", "确定是否删除该记录？", (o, e) =>
-            {
-                if (e.DialogResult != true)
-                    return;
-                SupplierCompanyBFEMaterialsView.Remove(SelSupplierCompanyBFEMaterial);
-                SupplierCompanyBFEMaterialsView.SubmitChanges();
-            });
+                {
+                    if (e.DialogResult != true)
+                        return;
+                    SupplierCompanyBFEMaterialsView.Remove(SelSupplierCompanyBFEMaterial);
+                    SupplierCompanyBFEMaterialsView.SubmitChanges();
+                });
         }
 
         /// <summary>
@@ -692,7 +720,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
         private void InitialAircraftMaterial()
         {
             AircraftMaterialsView = Service.CreateCollection(_purchaseData.AircraftMaterias);
-            Service.RegisterCollectionView(AircraftMaterialsView); //注册查询集合。
             _acMaterialFilter = new FilterDescriptor("Name", FilterOperator.IsNotContainedIn, string.Empty);
             AircraftMaterialsView.FilterDescriptors.Add(_acMaterialFilter);
             AircraftMaterialsView.LoadedData += (sender, e) =>
@@ -734,6 +761,11 @@ namespace UniCloud.Presentation.Purchase.Supplier
                     if (e.HasError)
                     {
                         e.MarkErrorAsHandled();
+                        return;
+                    }
+                    if (e.Entities.Cast<EngineMaterialDTO>().FirstOrDefault() != null)
+                    {
+                        _addingEngineMaterial.Add(e.Entities.Cast<EngineMaterialDTO>().FirstOrDefault());
                     }
                 };
         }
@@ -763,6 +795,11 @@ namespace UniCloud.Presentation.Purchase.Supplier
                     if (e.HasError)
                     {
                         e.MarkErrorAsHandled();
+                        return;
+                    }
+                    if (e.Entities.Cast<BFEMaterialDTO>().FirstOrDefault() != null)
+                    {
+                        _addingBfeMaterial.Add(e.Entities.Cast<BFEMaterialDTO>().FirstOrDefault());
                     }
                 };
         }
@@ -1054,13 +1091,28 @@ namespace UniCloud.Presentation.Purchase.Supplier
         #endregion
 
         /// <summary>
-        ///刷新采购物料状态 
+        ///     刷新采购物料状态
         /// </summary>
         private void RefreshMaterialTabState()
         {
             RaisePropertyChanged(() => AcMaterialVisibility);
             RaisePropertyChanged(() => BfeMaterialVisibility);
             RaisePropertyChanged(() => EngineMaterialVisibility);
+            //默认选中的物料Tab页
+            if (AcMaterialVisibility == Visibility.Visible)
+            {
+                SelMaterialTab = 0;
+                return;
+            }
+            if (EngineMaterialVisibility == Visibility.Visible)
+            {
+                SelMaterialTab = 1;
+                return;
+            }
+            if (BfeMaterialVisibility == Visibility.Visible)
+            {
+                SelMaterialTab = 2;
+            }
         }
 
         #region 重载基类服务
@@ -1070,7 +1122,14 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// </summary>
         public override void LoadData()
         {
-            SupplierCompanysView.AutoLoad = true; //加载数据。
+            if (!SupplierCompanysView.AutoLoad)
+            {
+                SupplierCompanysView.AutoLoad = true; //加载数据。
+            }
+            else
+            {
+                SupplierCompanysView.Load(true);
+            }
         }
 
         /// <summary>

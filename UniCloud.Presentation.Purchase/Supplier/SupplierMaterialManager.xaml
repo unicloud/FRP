@@ -82,7 +82,7 @@
                                      CanUserClose="False"
                                      CanUserPin="False"
                                      ContextMenuTemplate="{x:Null}">
-                            <telerik:RadTabControl TabStripPlacement="Bottom">
+                            <telerik:RadTabControl TabStripPlacement="Bottom" SelectedIndex="{Binding SelMaterialTab, Mode=TwoWay}">
                                 <telerik:RadTabItem Header="飞机物料" Visibility="{Binding AcMaterialVisibility}">
                                     <Grid>
                                         <Grid.RowDefinitions>

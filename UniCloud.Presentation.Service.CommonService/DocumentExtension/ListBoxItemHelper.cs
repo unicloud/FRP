@@ -48,6 +48,7 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
                     IsLeaf = folderDocument.IsLeaf,
                     ParentId = folderDocument.ParentId,
                     DocumentGuid = folderDocument.DocumentGuid,
+                    FullPath =folderDocument.Name,
                     SmallIconPath =
                         ImagePathHelper.GetSmallImageSource(folderDocument.Extension),
                     BigIconPath =
@@ -69,6 +70,7 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
                                 ImagePathHelper.GetSmallImageSource(p.Extension),
                             BigIconPath =
                                 ImagePathHelper.GetBigImageSource(p.Extension),
+                            FullPath = currentListBox.FullPath+@"\"+p.Name
                         };
                     currentListBox.SubDocumentPaths.Add(newListBoxItem);
                 });
@@ -94,6 +96,7 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
                                 ImagePathHelper.GetSmallImageSource(p.Extension),
                             BigIconPath =
                                 ImagePathHelper.GetBigImageSource(p.Extension),
+                            FullPath = currentListBox.FullPath + @"\" + p.Name
                         };
                     currentListBox.SubDocumentPaths.Add(newListBoxItem);
                 });

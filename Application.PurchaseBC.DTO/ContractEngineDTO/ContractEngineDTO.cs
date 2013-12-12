@@ -20,7 +20,7 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.PurchaseBC.DTO.ContractEngineDTO
+namespace UniCloud.Application.PurchaseBC.DTO
 {
     /// <summary>
     ///  合同发动机基类

@@ -10,6 +10,27 @@
     d:DataContext="{d:DesignInstance uc:QueryContractVM}"
     d:DesignHeight="300" d:DesignWidth="400"
     Name="QueryContractView">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <telerik:HierarchicalDataTemplate x:Key="SubDocumentItemTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}" />
+                </StackPanel>
+            </telerik:HierarchicalDataTemplate>
+
+            <telerik:HierarchicalDataTemplate x:Key="DocumentPathTemplate"
+                                              ItemsSource="{Binding SubItems}"
+                                              ItemTemplate="{StaticResource SubDocumentItemTemplate}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}" />
+                </StackPanel>
+            </telerik:HierarchicalDataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot" Background="White">
         <Grid.RowDefinitions>
@@ -54,8 +75,23 @@
                                              CanUserClose="False"
                                              CanUserPin="False"
                                              ContextMenuTemplate="{x:Null}">
-                                    <telerik:RadTreeView>
-                                        <telerik:RadTreeViewItem Header="{Binding RootPath.Name}"></telerik:RadTreeViewItem>
+                                    <telerik:RadTreeView 
+				                     Margin="0 10 0 0"
+				                     ItemsSource="{Binding ListBoxDocumentItems}"
+                                     SelectedItem="{Binding CurrentPathItem, Mode=TwoWay}"
+				                     SelectionMode="Single"
+				                     telerik:TextSearch.TextPath="Name">
+                                        <telerik:RadTreeView.ItemContainerStyle>
+                                            <Style TargetType="telerik:RadTreeViewItem">
+                                                <Setter Property="DefaultImageSrc" Value="{Binding SmallIconPath}"/>
+                                                <Setter Property="IsExpanded" Value="True" />
+                                            </Style>
+                                        </telerik:RadTreeView.ItemContainerStyle>
+                                        <telerik:RadTreeView.ItemTemplate>
+                                            <telerik:HierarchicalDataTemplate ItemsSource="{Binding SubDocumentPaths}">
+                                                <TextBlock Text="{Binding Name}" />
+                                            </telerik:HierarchicalDataTemplate>
+                                        </telerik:RadTreeView.ItemTemplate>
                                     </telerik:RadTreeView>
                                 </telerik:RadPane>
                             </telerik:RadPaneGroup>
@@ -75,8 +111,7 @@
                  VerticalAlignment="Stretch"
                  ItemsSource="{Binding CurrentPathItem.SubDocumentPaths}"
                  SelectedItem="{Binding SelDocumentPath, Mode=TwoWay}"
-                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                         >
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto">
                                     <uc:RadListBoxDoubleClick.Helper>
                                         <uc:QueryContractDbClickHelper />
                                     </uc:RadListBoxDoubleClick.Helper>

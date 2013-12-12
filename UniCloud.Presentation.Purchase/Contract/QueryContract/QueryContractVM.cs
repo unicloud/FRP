@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
@@ -54,8 +55,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             InitialCommad(); //初始化命令
         }
 
-
-        #region 加载FolderDocument相关信息
+        #region 加载DocumentPathDTO相关信息
 
         private FilterDescriptor _pathFilterDes;
 
@@ -87,6 +87,9 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 属性
 
+        private readonly ObservableCollection<ListBoxDocumentItem> _listBoxDocumentItems =
+            new ObservableCollection<ListBoxDocumentItem>();
+
         private ListBoxDocumentItem _currentPathItem;
 
         private ListBoxDocumentItem _rootPath;
@@ -111,16 +114,14 @@ namespace UniCloud.Presentation.Purchase.Contract
                         //叶子节点
                         if (value.IsLeaf)
                         {
-                            OpenDocument(value.DocumentGuid,value.Extension);
+                            OpenDocument(value.DocumentGuid, value.Extension);
                         }
                         else
                         {
                             //加载子项文件夹文档，即模仿打开文件夹，加载文件夹里的子文件夹与文件
                             LoadSubFolderDocuemnt(value);
                         }
-                      
                     }
-                   
                 }
             }
         }
@@ -157,6 +158,14 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
         }
 
+        /// <summary>
+        ///     TreeView绑定集合
+        /// </summary>
+        public ObservableCollection<ListBoxDocumentItem> ListBoxDocumentItems
+        {
+            get { return _listBoxDocumentItems; }
+        }
+
         #endregion
 
         #region 方法
@@ -171,9 +180,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                 //获取顶层文件夹文档          
                 RootPath = ListBoxItemHelper.TransformToRootListBoxItem(DocumentPathsView
                                                                             .FirstOrDefault(p => p.ParentId == null));
-                return;
             }
-            //双击打开文件夹 
+            else //双击打开文件夹 
             if (_loadType == "DoubleClick")
             {
                 if (SelDocumentPath != null)
@@ -198,6 +206,12 @@ namespace UniCloud.Presentation.Purchase.Contract
                     RaisePropertyChanged(() => CurrentPathItem);
                 }
             }
+            //Treeview集合
+            if (_listBoxDocumentItems.Count<=0)
+            {
+                _listBoxDocumentItems.Add(RootPath);
+                RaisePropertyChanged(() => ListBoxDocumentItems);
+        }
         }
 
         /// <summary>
@@ -213,13 +227,13 @@ namespace UniCloud.Presentation.Purchase.Contract
                 LoadSubFolderDocuemnt(SelDocumentPath);
                 return;
             }
-            OpenDocument(SelDocumentPath.DocumentGuid,SelDocumentPath.Extension);
+            OpenDocument(SelDocumentPath.DocumentGuid, SelDocumentPath.Extension);
         }
 
         /// <summary>
         ///     打开文件
         /// </summary>
-        private void OpenDocument(Guid? documentId,string extension)
+        private void OpenDocument(Guid? documentId, string extension)
         {
             if (_loadType.Equals("DoubleClick"))
             {
@@ -269,7 +283,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 LoadSubFolderDocuemnt(SelDocumentPath);
                 return;
             }
-            OpenDocument(SelDocumentPath.DocumentGuid,SelDocumentPath.Extension);
+            OpenDocument(SelDocumentPath.DocumentGuid, SelDocumentPath.Extension);
         }
 
         private bool CanOpen(object sender)
@@ -291,7 +305,14 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         public override void LoadData()
         {
+            if (!DocumentPathsView.AutoLoad)
+            {
             DocumentPathsView.AutoLoad = true; //加载数据。
+        }
+            else
+            {
+                DocumentPathsView.Load(true);
+            }
         }
 
         /// <summary>

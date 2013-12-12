@@ -98,7 +98,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 数据
 
         #region 公共属性
-
+       
         #endregion
 
         #region 加载数据
@@ -199,7 +199,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
-        }
+            }
 
         private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {

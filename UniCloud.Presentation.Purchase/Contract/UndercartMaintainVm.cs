@@ -199,7 +199,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
-        }
+            }
 
         private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {
