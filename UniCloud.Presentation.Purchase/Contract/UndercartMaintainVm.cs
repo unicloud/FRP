@@ -42,7 +42,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private readonly IRegionManager _regionManager;
         private PurchaseData _purchaseData;
-        private readonly DocumentDTO _document = new DocumentDTO();
+        private DocumentDTO _document = new DocumentDTO();
         [Import]
         public DocumentViewer DocumentView;
 
@@ -207,9 +207,9 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             if (DocumentView.Tag is DocumentDTO)
             {
-                var document = DocumentView.Tag as DocumentDTO;
-                UndercartMaintainContract.DocumentId = document.DocumentId;
-                UndercartMaintainContract.DocumentName = document.Name;
+                _document = DocumentView.Tag as DocumentDTO;
+                UndercartMaintainContract.DocumentId = _document.DocumentId;
+                UndercartMaintainContract.DocumentName = _document.Name;
             }
         }
         #endregion

@@ -61,12 +61,14 @@ namespace UniCloud.Presentation.Document
                     {
                         if (result.Name.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
                         {
+                            CurrentDocumentView.WordPane.IsHidden = true;
                             Stream currentContent = new MemoryStream(result.FileStorage);
                             CurrentDocumentView.PdfReader.Document = new PdfFormatProvider(currentContent, FormatProviderSettings.ReadOnDemand).Import();
                             CurrentDocumentView.WordReader.Document = new RadDocument();
                         }
                         else if (result.Name.EndsWith(".docx", StringComparison.OrdinalIgnoreCase))
                         {
+                            CurrentDocumentView.PdfPane.IsHidden = true;
                             CurrentDocumentView.WordReader.Document = new DocxFormatProvider().Import(result.FileStorage);
                             CurrentDocumentView.PdfReader.Document = null;
                         }
@@ -89,6 +91,8 @@ namespace UniCloud.Presentation.Document
         #region 初始化文档信息
         public void InitData(bool onlyView, Guid docId, EventHandler<WindowClosedEventArgs> closed)
         {
+            CurrentDocumentView.WordPane.IsHidden = false;
+            CurrentDocumentView.PdfPane.IsHidden = false;
             IsBusy = true;
             _currentDoc = new DocumentDTO {DocumentId = docId};
             _onlyView = onlyView;
@@ -177,6 +181,7 @@ namespace UniCloud.Presentation.Document
 
         private void Save(object sender)
         {
+            IsBusy = true;
             bool isNew = false;
             if (_currentDoc.DocumentId.Equals(Guid.Empty))
             {
@@ -225,6 +230,7 @@ namespace UniCloud.Presentation.Document
                     {
                         MessageAlert("保存失败: " + ex.Message);
                     }
+                    IsBusy = false;
                 };
                 _documents.SubmittedChanges += _submitChanges;
             }
