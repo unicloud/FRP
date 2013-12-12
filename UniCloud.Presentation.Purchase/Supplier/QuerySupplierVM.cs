@@ -173,6 +173,10 @@ namespace UniCloud.Presentation.Purchase.Supplier
             {
                 LinkmansView.AutoLoad = true;
             }
+            else
+            {
+                LinkmansView.Load(true);
+            }
         }
 
         #endregion
@@ -223,7 +227,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
                 };
         }
 
-
         /// <summary>
         ///     根据合作公司Id，加载联系人。
         /// </summary>
@@ -236,6 +239,10 @@ namespace UniCloud.Presentation.Purchase.Supplier
             if (!SuppliersView.AutoLoad)
             {
                 SuppliersView.AutoLoad = true;
+            }
+            else
+            {
+                SuppliersView.Load(true);
             }
         }
 
@@ -300,6 +307,10 @@ namespace UniCloud.Presentation.Purchase.Supplier
             if (!SupplierCompanyAcMaterialsView.AutoLoad)
             {
                 SupplierCompanyAcMaterialsView.AutoLoad = true;
+            }
+            else
+            {
+                SupplierCompanyAcMaterialsView.Load(true);
             }
         }
 
@@ -366,6 +377,10 @@ namespace UniCloud.Presentation.Purchase.Supplier
             {
                 SupplierCompanyEngineMaterialsView.AutoLoad = true;
             }
+            else
+            {
+                SupplierCompanyEngineMaterialsView.Load(true);
+            }
         }
 
         #endregion
@@ -429,6 +444,10 @@ namespace UniCloud.Presentation.Purchase.Supplier
             {
                 SupplierCompanyBFEMaterialsView.AutoLoad = true;
             }
+            else
+            {
+                SupplierCompanyBFEMaterialsView.Load(true);
+            }
         }
 
         #endregion
@@ -440,7 +459,14 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// </summary>
         public override void LoadData()
         {
-            SupplierCompanysView.AutoLoad = true; //加载数据。
+            if (!SupplierCompanysView.AutoLoad)
+            {
+                SupplierCompanysView.AutoLoad = true; //加载数据。
+            }
+            else
+            {
+                SupplierCompanysView.Load(true);
+            }
         }
 
         /// <summary>

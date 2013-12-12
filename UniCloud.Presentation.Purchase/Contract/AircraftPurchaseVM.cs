@@ -261,6 +261,12 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddOrder(object obj)
         {
+            var order = new AircraftPurchaseOrderDTO
+            {
+                OrderDate = DateTime.Now,
+                TradeId=_selTradeDTO.Id,
+            };
+            ViewAircraftPurchaseOrderDTO.AddNew(order);
         }
 
         private bool CanAddOrder(object obj)

@@ -86,90 +86,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgentHelper.cs" />
-    <Compile Include="DocumentService\DocumentService.cs" />
-    <Compile Include="DocumentService\IDocumentService.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\Document\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="ServiceBase.cs" />
     <Compile Include="SubmitChangesResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="Service References\Document\DocumentService.wsdl" />
-    <None Include="Service References\Document\DocumentService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\Document\DocumentService1.wsdl" />
-    <None Include="Service References\Document\DocumentService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\Document\DocumentService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\Document\DocumentService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\Document\DocumentService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\Document\UniCloud.Presentation.Service.Document.DocumentDataObject.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Document\UniCloud.Presentation.Service.Document.DocumentDataObjectList.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Document\UniCloud.Presentation.Service.Document.DocumentTypeDataObjectList.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Document\UniCloud.Presentation.Service.Document.OfficialDocumentDataObjectList.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Document\UniCloud.Presentation.Service.Document.OfficialDocumentDataObjectWithPagination.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Document\UniCloud.Presentation.Service.Document.ResultDataDocumentTypeDataObject.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Document\UniCloud.Presentation.Service.Document.ResultDataOfficialDocumentDataObject.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Document\UniCloud.Presentation.Service.Document.ResultDataStandardDocumentDataObject.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Document\UniCloud.Presentation.Service.Document.StandardDocumentDataObjectList.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\Document\UniCloud.Presentation.Service.Document.StandardDocumentDataObjectWithPagination.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <Content Include="ServiceReferences.ClientConfig" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\Document\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Document\DocumentService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Document\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Document\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\Document\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>

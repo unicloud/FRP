@@ -15,7 +15,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
@@ -28,8 +27,6 @@ using Telerik.Windows.Documents.FormatProviders.OpenXml.Docx;
 using Telerik.Windows.Documents.Model;
 using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
-using UniCloud.Presentation.Service.Document;
-using UniCloud.Presentation.Service.DocumentService;
 using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 
 #endregion
