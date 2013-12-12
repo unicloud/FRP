@@ -37,10 +37,11 @@
                     <TextBlock Grid.Column="1"
                                Text="名称"
                                TextAlignment="Left"
-                               VerticalAlignment="Center" />
+                               VerticalAlignment="Center"/>
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Text="{Binding Name, Mode=TwoWay}"
+                              telerik:StyleManager.Theme="Windows8"
                              IsReadOnly="True">
                     </TextBox>
 
@@ -53,6 +54,7 @@
                              Margin="0,3"
                              Grid.Row="1"
                              Text="{Binding Attn, Mode=TwoWay}"
+                              telerik:StyleManager.Theme="Windows8"
                              IsReadOnly="True">
                     </TextBox>
 
@@ -65,6 +67,7 @@
                              Margin="0,3"
                              Grid.Row="2"
                              Text="{Binding Tel, Mode=TwoWay}"
+                              telerik:StyleManager.Theme="Windows8"
                              IsReadOnly="True">
                     </TextBox>
 
@@ -77,10 +80,9 @@
                              Margin="0,3"
                              Grid.Row="3"
                              Text="{Binding Fax, Mode=TwoWay}"
+                              telerik:StyleManager.Theme="Windows8"
                              IsReadOnly="True">
                     </TextBox>
-
-
                     <TextBlock Grid.Row="4"
                                Grid.Column="1"
                                Text="邮件"
@@ -90,6 +92,7 @@
                              Margin="0,3"
                              Grid.Row="4"
                              Text="{Binding Email, Mode=TwoWay}"
+                              telerik:StyleManager.Theme="Windows8"
                              IsReadOnly="True">
                     </TextBox>
 
@@ -104,6 +107,7 @@
                              AcceptsReturn="True"
                              TextWrapping="Wrap"
                              Text="{Binding Addr, Mode=TwoWay}"
+                              telerik:StyleManager.Theme="Windows8"
                              IsReadOnly="True">
                     </TextBox>
 
@@ -136,7 +140,8 @@
                              Margin="0,3"
                              Text="{Binding Name, Mode=TwoWay,
                              NotifyOnValidationError=True, 
-                             ValidatesOnExceptions=True}">
+                             ValidatesOnExceptions=True}"
+                             MaxWidth="500">
                     </TextBox>
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
@@ -146,7 +151,8 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="1"
-                             Text="{Binding Attn, Mode=TwoWay}">
+                             Text="{Binding Attn, Mode=TwoWay}"
+                             MaxWidth="500">
                     </TextBox>
 
                     <TextBlock Grid.Row="2"
@@ -157,7 +163,8 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="2"
-                             Text="{Binding Tel, Mode=TwoWay}">
+                             Text="{Binding Tel, Mode=TwoWay}"
+                             MaxWidth="500">
                     </TextBox>
 
                     <TextBlock Grid.Row="3"
@@ -168,7 +175,9 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="3"
-                             Text="{Binding Fax, Mode=TwoWay}">
+                             Text="{Binding Fax, Mode=TwoWay}"
+                                                          MaxWidth="500"
+>
                     </TextBox>
 
 
@@ -181,7 +190,8 @@
                              Margin="0,3"
                              Grid.Row="4"
                              Text="{Binding Email, Mode=TwoWay, 
-                        NotifyOnValidationError=True, ValidatesOnExceptions=True}">
+                        NotifyOnValidationError=True, ValidatesOnExceptions=True}"
+                                                          MaxWidth="500">
                     </TextBox>
 
                     <TextBlock Grid.Row="5"
@@ -192,7 +202,9 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="5"
-                             Text="{Binding Addr, Mode=TwoWay}">
+                             Text="{Binding Addr, Mode=TwoWay}"
+                                                          MaxWidth="500"
+>
                     </TextBox>
                 </Grid>
             </DataTemplate>

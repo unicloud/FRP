@@ -82,5 +82,10 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
 
         //图片大图途径
         public ImageSource BigIconPath { get; set; }
+
+        /// <summary>
+        /// 全局路径
+        /// </summary>
+        public string FullPath { get; set; }
     }
 }

@@ -276,7 +276,14 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// </summary>
         public override void LoadData()
         {
-            SupplierCompanysView.AutoLoad = true; //加载数据。
+            if (!SupplierCompanysView.AutoLoad)
+            {
+                SupplierCompanysView.AutoLoad = true; //加载数据。
+            }
+            else
+            {
+                SupplierCompanysView.Load(true);
+            }
         }
 
         /// <summary>
