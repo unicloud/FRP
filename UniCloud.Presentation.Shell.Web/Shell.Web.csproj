@@ -62,16 +62,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ClientBin\AircraftConfig.xap" />
-    <Content Include="ClientBin\BaseManagement.xap" />
-    <Content Include="ClientBin\CommonService.xap" />
-    <Content Include="ClientBin\FleetPlan.xap" />
-    <Content Include="ClientBin\FlightLog.xap" />
-    <Content Include="ClientBin\Payment.xap" />
-    <Content Include="ClientBin\Portal.xap" />
-    <Content Include="ClientBin\Project.xap" />
-    <Content Include="ClientBin\Purchase.xap" />
-    <Content Include="ClientBin\Shell.xap" />
     <Content Include="Silverlight.js" />
     <Content Include="Default.aspx" />
     <Content Include="Default.html" />
@@ -90,7 +80,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="ClientBin\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

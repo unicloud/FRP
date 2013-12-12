@@ -8,7 +8,7 @@
                    xmlns:converters="clr-namespace:Telerik.Windows.Documents.Converters;assembly=Telerik.Windows.Controls.FixedDocumentViewers"
                    xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
                    mc:Ignorable="d"
-                   d:DataContext="{d:DesignInstance uc:PDFViewerVm }"
+                   d:DataContext="{d:DesignInstance uc:DocumentViewerVm }"
                    x:Name="RadDocumentViewer"
                    Height="600"
                    Width="800"
@@ -21,92 +21,95 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </telerik:RadWindow.Resources>
-    <Grid x:Name="LayoutRoot"
-          Background="White">
-        <telerik:RadDocking HasDocumentHost="False">
-            <telerik:RadSplitContainer>
-                <telerik:RadPaneGroup Name="PaneGroups" TabStripPlacement="Top">
-                    <telerik:RadPane Name="WordPane"
-                        Header="Word文档"
-                                     FontSize="{StaticResource HeaderFontSize}"
-                                     IsPinned="True"
-                                     CanFloat="False"
-                                     CanUserClose="False"
-                                     CanUserPin="False"
-                                     TabIndex="1"
-                                     ContextMenuTemplate="{x:Null}">
-                        <Grid x:Name="WordLayoutRoot">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+    <telerik:RadBusyIndicator BusyContent=""
+                              IsBusy="{Binding IsBusy}">
+        <Grid x:Name="LayoutRoot"
+              Background="White">
+            <telerik:RadDocking HasDocumentHost="False">
+                <telerik:RadSplitContainer>
+                    <telerik:RadPaneGroup Name="PaneGroups"
+                                          TabStripPlacement="Top">
+                        <telerik:RadPane Name="WordPane"
+                                         Header="Word文档"
+                                         FontSize="{StaticResource HeaderFontSize}"
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         TabIndex="1"
+                                         ContextMenuTemplate="{x:Null}">
+                            <Grid x:Name="WordLayoutRoot">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                            <telerik:RadRichTextBoxRibbonUI  BackstageClippingElement="{Binding ElementName=LayoutRoot}"
-                                                             ApplicationButtonImageSource="/RichTextBox;component/Images/RichTextBox/MSOffice/AppIcon-telerik.png"
-                                                             DataContext="{Binding Commands, ElementName=editor}"
-                                                             ApplicationName=""
-                                                             x:Name="RadRichTextBoxRibbonUI"
-                                                             VerticalAlignment="Stretch">
-                                <telerik:RadRichTextBoxRibbonUI.Resources>
-                                    <telerik:FontFamiliesProvider x:Key="FontFamiliesProvider" />
-                                </telerik:RadRichTextBoxRibbonUI.Resources>
-                                <telerik:RadRichTextBoxRibbonUI.Backstage>
-                                    <telerik:RadRibbonBackstage>
-                                        <telerik:RadRibbonBackstageItem Header="新建"
-                                                                        Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/new.png"
-                                                                        IsSelectable="false"
-                                                                        telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding NewDocumentCommand}" />
-                                        <telerik:RadRibbonBackstageItem Header="打开"
-                                                                        Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/open.png"
-                                                                        IsSelectable="false"
-                                                                        Command="{Binding DataContext.OpenDocumentCommand, ElementName=RadDocumentViewer}" />
-                                        <!--<telerik:RadRibbonBackstageItem Header="保存"
+                                <telerik:RadRichTextBoxRibbonUI  BackstageClippingElement="{Binding ElementName=LayoutRoot}"
+                                                                 DataContext="{Binding Commands, ElementName=WordReader}"
+                                                                 ApplicationName=" "
+                                                                 ApplicationButtonContent="文件"
+                                                                 x:Name="RadRichTextBoxRibbonUI"
+                                                                 VerticalAlignment="Stretch">
+                                    <telerik:RadRichTextBoxRibbonUI.Resources>
+                                        <telerik:FontFamiliesProvider x:Key="FontFamiliesProvider" />
+                                    </telerik:RadRichTextBoxRibbonUI.Resources>
+                                    <telerik:RadRichTextBoxRibbonUI.Backstage>
+                                        <telerik:RadRibbonBackstage>
+                                            <telerik:RadRibbonBackstageItem Header="新建"
+                                                                            Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/new.png"
+                                                                            IsSelectable="false"
+                                                                            telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding NewDocumentCommand}" />
+                                            <telerik:RadRibbonBackstageItem Header="打开"
+                                                                            Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/open.png"
+                                                                            IsSelectable="false"
+                                                                            Command="{Binding DataContext.OpenDocumentCommand, ElementName=RadDocumentViewer}" />
+                                            <!--<telerik:RadRibbonBackstageItem Header="保存"
                                                         Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/save.png"
                                                         IsSelectable="false"
                                                         telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SaveCommand}" />-->
-                                        <telerik:RadRibbonBackstageItem Header="保存"
-                                                                        Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/save.png"
-                                                                        IsDefault="false">
-                                            <StackPanel HorizontalAlignment="Stretch"
-                                                        Margin="20,20,0,0"
-                                                        UseLayoutRounding="True">
-                                                <TextBlock FontFamily="Verdana"
-                                                           FontSize="18"
-                                                           FontWeight="ExtraBold"
-                                                           Foreground="#FF5E5E7C"
-                                                           Text="保存为" />
-                                                <Rectangle Fill="Gray"
-                                                           Height="1"
-                                                           HorizontalAlignment="Left"
-                                                           Width="410" />
-                                                <StackPanel Margin="0,30,0,0"
-                                                            Orientation="Horizontal">
-                                                    <telerik:RadRibbonButton BorderBrush="Gray"
-                                                                             VerticalContentAlignment="Center"
-                                                                             CommandParameter="docx"
-                                                                             CornerRadius="3"
-                                                                             Height="80"
-                                                                             telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SaveCommand}"
-                                                                             telerik:RadRichTextBoxRibbonUI.ShouldCloseBackstage="True"
-                                                                             Width="90">
-                                                        <Image HorizontalAlignment="Center"
-                                                               Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/ApplicationMenu/worddoc.png"
-                                                               Stretch="None" />
-                                                    </telerik:RadRibbonButton>
-                                                    <StackPanel Margin="20,0,0,0">
-                                                        <TextBlock FontSize="18"
-                                                                   FontWeight="ExtraBold"
-                                                                   Foreground="#FF5E5E7C"
-                                                                   Text="Word 文档" />
-                                                        <TextBlock FontFamily="Verdana"
-                                                                   FontSize="13"
-                                                                   Text="文件保存为word文档."
-                                                                   TextWrapping="Wrap"
-                                                                   Width="300" />
+                                            <telerik:RadRibbonBackstageItem Header="保存"
+                                                                            Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/save.png"
+                                                                            IsDefault="false">
+                                                <StackPanel HorizontalAlignment="Stretch"
+                                                            Margin="20,20,0,0"
+                                                            UseLayoutRounding="True">
+                                                    <TextBlock FontFamily="Verdana"
+                                                               FontSize="18"
+                                                               FontWeight="ExtraBold"
+                                                               Foreground="#FF5E5E7C"
+                                                               Text="保存为" />
+                                                    <Rectangle Fill="Gray"
+                                                               Height="1"
+                                                               HorizontalAlignment="Left"
+                                                               Width="410" />
+                                                    <StackPanel Margin="0,30,0,0"
+                                                                Orientation="Horizontal">
+                                                        <telerik:RadRibbonButton BorderBrush="Gray"
+                                                                                 VerticalContentAlignment="Center"
+                                                                                 CommandParameter="docx"
+                                                                                 CornerRadius="3"
+                                                                                 Height="80"
+                                                                                 telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SaveCommand}"
+                                                                                 telerik:RadRichTextBoxRibbonUI.ShouldCloseBackstage="True"
+                                                                                 Width="90">
+                                                            <Image HorizontalAlignment="Center"
+                                                                   Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/ApplicationMenu/worddoc.png"
+                                                                   Stretch="None" />
+                                                        </telerik:RadRibbonButton>
+                                                        <StackPanel Margin="20,0,0,0">
+                                                            <TextBlock FontSize="18"
+                                                                       FontWeight="ExtraBold"
+                                                                       Foreground="#FF5E5E7C"
+                                                                       Text="Word 文档" />
+                                                            <TextBlock FontFamily="Verdana"
+                                                                       FontSize="13"
+                                                                       Text="文件保存为word文档."
+                                                                       TextWrapping="Wrap"
+                                                                       Width="300" />
+                                                        </StackPanel>
                                                     </StackPanel>
-                                                </StackPanel>
-                                                <!--<StackPanel Margin="0,30,0,0"
+                                                    <!--<StackPanel Margin="0,30,0,0"
                                             Orientation="Horizontal">
                                     <telerik:RadRibbonButton BorderBrush="Gray"
                                                              VerticalContentAlignment="Center"
@@ -132,619 +135,620 @@
                                                    Width="300" />
                                     </StackPanel>
                                 </StackPanel>-->
-                                            </StackPanel>
-                                        </telerik:RadRibbonBackstageItem>
-                                        <telerik:RadRibbonBackstageItem Header="打印"
-                                                                        Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/print.png"
-                                                                        IsDefault="true">
-                                            <StackPanel HorizontalAlignment="Stretch"
-                                                        Margin="20,20,0,0"
-                                                        UseLayoutRounding="True">
-                                                <TextBlock FontFamily="Verdana"
-                                                           FontSize="18"
-                                                           FontWeight="ExtraBold"
-                                                           Foreground="#FF5E5E7C"
-                                                           Text="打印" />
-                                                <Rectangle Fill="Gray"
-                                                           Height="1"
-                                                           HorizontalAlignment="Left"
-                                                           Width="410" />
-                                                <StackPanel Margin="0,30,0,0"
-                                                            Orientation="Horizontal">
-                                                    <telerik:RadRibbonButton BorderBrush="Gray"
-                                                                             VerticalContentAlignment="Center"
-                                                                             CommandParameter="Native"
-                                                                             CornerRadius="3"
-                                                                             Height="80"
-                                                                             telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding PrintCommand}"
-                                                                             telerik:RadRichTextBoxRibbonUI.ShouldCloseBackstage="True"
-                                                                             Width="90">
-                                                        <Image HorizontalAlignment="Center"
-                                                               Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/ApplicationMenu/pagesetup.png"
-                                                               Stretch="None" />
-                                                    </telerik:RadRibbonButton>
-                                                    <StackPanel Margin="20,0,0,0">
-                                                        <TextBlock FontSize="18"
-                                                                   FontWeight="ExtraBold"
-                                                                   Foreground="#FF5E5E7C"
-                                                                   Text="本地打印机" />
-                                                        <TextBlock FontFamily="Verdana"
-                                                                   FontSize="13"
-                                                                   Text="Send the document directly to the default printer without making changes."
-                                                                   TextWrapping="Wrap"
-                                                                   Width="300" />
+                                                </StackPanel>
+                                            </telerik:RadRibbonBackstageItem>
+                                            <telerik:RadRibbonBackstageItem Header="打印"
+                                                                            Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/print.png"
+                                                                            IsDefault="true">
+                                                <StackPanel HorizontalAlignment="Stretch"
+                                                            Margin="20,20,0,0"
+                                                            UseLayoutRounding="True">
+                                                    <TextBlock FontFamily="Verdana"
+                                                               FontSize="18"
+                                                               FontWeight="ExtraBold"
+                                                               Foreground="#FF5E5E7C"
+                                                               Text="打印" />
+                                                    <Rectangle Fill="Gray"
+                                                               Height="1"
+                                                               HorizontalAlignment="Left"
+                                                               Width="410" />
+                                                    <StackPanel Margin="0,30,0,0"
+                                                                Orientation="Horizontal">
+                                                        <telerik:RadRibbonButton BorderBrush="Gray"
+                                                                                 VerticalContentAlignment="Center"
+                                                                                 CommandParameter="Native"
+                                                                                 CornerRadius="3"
+                                                                                 Height="80"
+                                                                                 telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding PrintCommand}"
+                                                                                 telerik:RadRichTextBoxRibbonUI.ShouldCloseBackstage="True"
+                                                                                 Width="90">
+                                                            <Image HorizontalAlignment="Center"
+                                                                   Source="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/ApplicationMenu/pagesetup.png"
+                                                                   Stretch="None" />
+                                                        </telerik:RadRibbonButton>
+                                                        <StackPanel Margin="20,0,0,0">
+                                                            <TextBlock FontSize="18"
+                                                                       FontWeight="ExtraBold"
+                                                                       Foreground="#FF5E5E7C"
+                                                                       Text="本地打印机" />
+                                                            <TextBlock FontFamily="Verdana"
+                                                                       FontSize="13"
+                                                                       Text="Send the document directly to the default printer without making changes."
+                                                                       TextWrapping="Wrap"
+                                                                       Width="300" />
+                                                        </StackPanel>
                                                     </StackPanel>
                                                 </StackPanel>
-                                            </StackPanel>
-                                        </telerik:RadRibbonBackstageItem>
-                                    </telerik:RadRibbonBackstage>
-                                </telerik:RadRichTextBoxRibbonUI.Backstage>
-                                <telerik:RadRichTextBoxRibbonUI.QuickAccessToolBar>
-                                    <telerik:QuickAccessToolBar CustomizationMenuVisibility="Collapsed">
-                                        <!--<telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SaveCommand}"
+                                            </telerik:RadRibbonBackstageItem>
+                                        </telerik:RadRibbonBackstage>
+                                    </telerik:RadRichTextBoxRibbonUI.Backstage>
+                                    <telerik:RadRichTextBoxRibbonUI.QuickAccessToolBar>
+                                        <telerik:QuickAccessToolBar CustomizationMenuVisibility="Collapsed">
+                                            <!--<telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding SaveCommand}"
                                                  Size="Small"
                                                  SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/save.png"
                                                  Text="保存"
                                                  ToolTipService.ToolTip="保存到本地" />-->
-                                        <telerik:RadRibbonButton Command="{Binding DataContext.SaveCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=telerik:RadWindow}}"
-                                                                 Size="Small"
-                                                                 SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/save.png"
-                                                                 Text="保存"
-                                                                 ToolTipService.ToolTip="保存到服务器" />
-                                        <telerik:RadRibbonSplitButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding UndoCommand}"
-                                                                      Size="Small"
-                                                                      SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/undo.png"
-                                                                      Text="撤销键入">
-                                            <telerik:RadRibbonSplitButton.DropDownContent>
-                                                <telerik:MultipleUndoControl telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding MultipleUndoCommand}" />
-                                            </telerik:RadRibbonSplitButton.DropDownContent>
-                                        </telerik:RadRibbonSplitButton>
-                                        <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding RedoCommand}"
-                                                                 Size="Small"
-                                                                 SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/redo.png"
-                                                                 Text="重复键入" />
-                                    </telerik:QuickAccessToolBar>
-                                </telerik:RadRichTextBoxRibbonUI.QuickAccessToolBar>
-                                <telerik:RadRibbonTab Header="开始">
-                                    <telerik:RadRibbonGroup Header="剪贴板">
-                                        <telerik:RadCollapsiblePanel>
-                                            <telerik:RadRibbonButton CollapseToSmall="WhenGroupIsMedium"
-                                                                     telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding CutCommand}"
-                                                                     telerik:ScreenTip.Description="Cut the selection and put it on the Clipboard."
-                                                                     telerik:ScreenTip.Title="Cut"
-                                                                     Size="Medium"
-                                                                     SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/cut.png"
-                                                                     Text="剪切" />
-                                            <telerik:RadRibbonButton CollapseToSmall="WhenGroupIsMedium"
-                                                                     telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding CopyCommand}"
-                                                                     telerik:ScreenTip.Description="Copy the selection and put it on the Clipboard."
-                                                                     telerik:ScreenTip.Title="Copy"
-                                                                     Size="Medium"
-                                                                     SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/copy.png"
-                                                                     Text="复制" />
-                                            <telerik:RadRibbonButton CollapseToSmall="WhenGroupIsMedium"
-                                                                     telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding PasteCommand}"
-                                                                     telerik:ScreenTip.Description="Paste the contents of the Clipboard."
-                                                                     telerik:ScreenTip.Title="Paste"
-                                                                     Size="Medium"
-                                                                     SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/paste.png"
-                                                                     Text="粘贴" />
-                                        </telerik:RadCollapsiblePanel>
-                                    </telerik:RadRibbonGroup>
-                                    <telerik:RadRibbonGroup DialogLauncherVisibility="Visible"
-                                                            Header="字体"
-                                                            telerik:ScreenTip.Title="字体"
-                                                            telerik:ScreenTip.Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/FontDialog.png">
-                                        <telerik:RadOrderedWrapPanel>
-                                            <StackPanel Orientation="Horizontal">
-                                                <telerik:RadRibbonComboBox CanAutocompleteSelectItems="False"
-                                                                           CanKeyboardNavigationSelectItems="False"
-                                                                           CommandParameter="{Binding SelectedValue, RelativeSource={RelativeSource Self}}"
-                                                                           IsReadOnly="True"
-                                                                           ItemsSource="{Binding RegisteredFonts, Source={StaticResource FontFamiliesProvider}}"
-                                                                           OpenDropDownOnFocus="True"
-                                                                           telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeFontFamilyCommand}"
-                                                                           telerik:ScreenTip.Description="更改字体。"
-                                                                           MaxDropDownHeight="400"
-                                                                           telerik:ScreenTip.Title="字体"
-                                                                           ToolTipService.ToolTip="字体"
-                                                                           Width="132" />
-                                                <telerik:RadRibbonComboBox CanAutocompleteSelectItems="False"
-                                                                           CanKeyboardNavigationSelectItems="False"
-                                                                           CommandParameter="{Binding SelectedItem.Tag, RelativeSource={RelativeSource Self}}"
-                                                                           IsEditable="True"
-                                                                           IsReadOnly="True"
-                                                                           IsTextSearchEnabled="False"
-                                                                           OpenDropDownOnFocus="True"
-                                                                           telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeFontSizeCommand}"
-                                                                           telerik:ScreenTip.Description="更改字号。"
-                                                                           telerik:ScreenTip.Title="字号"
-                                                                           ToolTipService.ToolTip="字号"
-                                                                           MaxDropDownHeight="400"
-                                                                           Width="65">
-                                                    <telerik:RadRibbonComboBoxItem Content="8"
-                                                                                   Tag="10.67" />
-                                                    <telerik:RadRibbonComboBoxItem Content="9"
-                                                                                   Tag="12" />
-                                                    <telerik:RadRibbonComboBoxItem Content="10"
-                                                                                   Tag="13.34" />
-                                                    <telerik:RadRibbonComboBoxItem Content="11"
-                                                                                   Tag="14.67" />
-                                                    <telerik:RadRibbonComboBoxItem Content="12"
-                                                                                   Tag="16" />
-                                                    <telerik:RadRibbonComboBoxItem Content="14"
-                                                                                   Tag="18.67" />
-                                                    <telerik:RadRibbonComboBoxItem Content="16"
-                                                                                   Tag="21.33" />
-                                                    <telerik:RadRibbonComboBoxItem Content="18"
-                                                                                   Tag="24" />
-                                                    <telerik:RadRibbonComboBoxItem Content="20"
-                                                                                   Tag="26.67" />
-                                                    <telerik:RadRibbonComboBoxItem Content="22"
-                                                                                   Tag="29.33" />
-                                                    <telerik:RadRibbonComboBoxItem Content="24"
-                                                                                   Tag="32" />
-                                                    <telerik:RadRibbonComboBoxItem Content="26"
-                                                                                   Tag="34.67" />
-                                                    <telerik:RadRibbonComboBoxItem Content="28"
-                                                                                   Tag="37.33" />
-                                                    <telerik:RadRibbonComboBoxItem Content="36"
-                                                                                   Tag="48" />
-                                                    <telerik:RadRibbonComboBoxItem Content="48"
-                                                                                   Tag="64" />
-                                                    <telerik:RadRibbonComboBoxItem Content="72"
-                                                                                   Tag="96" />
-                                                </telerik:RadRibbonComboBox>
-                                            </StackPanel>
-                                            <telerik:RadButtonGroup>
-                                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding IncrementFontSizeCommand}"
-                                                                         telerik:ScreenTip.Description="增大字号。"
-                                                                         telerik:ScreenTip.Title="增大字体"
-                                                                         ToolTipService.ToolTip="增大字体"
-                                                                         Size="Small"
-                                                                         SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/font-increasesize.png" />
-                                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding DecrementFontSizeCommand}"
-                                                                         telerik:ScreenTip.Description="缩小字号。"
-                                                                         telerik:ScreenTip.Title="缩小字体"
-                                                                         ToolTipService.ToolTip="缩小字体"
-                                                                         Size="Small"
-                                                                         SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/font-decreasesize.png" />
-                                            </telerik:RadButtonGroup>
-                                            <telerik:RadButtonGroup>
-                                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ClearAllFormattingCommand}"
-                                                                         telerik:ScreenTip.Description="清除所选内容的所有格式，只留下纯文本。"
-                                                                         telerik:ScreenTip.Title="清除格式"
-                                                                         ToolTipService.ToolTip="清除格式"
-                                                                         Size="Small"
-                                                                         SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/ClearFormatting16.png" />
-                                            </telerik:RadButtonGroup>
-                                            <telerik:RadButtonGroup>
-                                                <telerik:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleBoldCommand}"
-                                                                               telerik:ScreenTip.Description="将所选文字加粗。"
-                                                                               telerik:ScreenTip.Title="加粗"
-                                                                               ToolTipService.ToolTip="加粗"
-                                                                               Size="Small"
-                                                                               SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/bold.png" />
-                                                <telerik:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleItalicCommand}"
-                                                                               telerik:ScreenTip.Description="将所选文字设置为倾斜。"
-                                                                               telerik:ScreenTip.Title="倾斜"
-                                                                               ToolTipService.ToolTip="倾斜"
-                                                                               Size="Small"
-                                                                               SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/italic.png" />
-                                                <telerik:RadRibbonSplitButton IsToggle="True"
-                                                                              telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleUnderlineCommand}"
-                                                                              telerik:ScreenTip.Description="给所选文字加下划线。"
-                                                                              telerik:ScreenTip.Title="下划线"
-                                                                              ToolTipService.ToolTip="下划线"
-                                                                              SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/underline.png">
-                                                    <telerik:RadRibbonSplitButton.DropDownContent>
-                                                        <telerik:RadGallery ItemHeight="26"
-                                                                            ItemWidth="156"
-                                                                            telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeUnderlineDecorationCommand}"
-                                                                            ViewportHeight="210"
-                                                                            ViewportWidth="157">
-                                                            <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline1.png"
-                                                                                    Tag="Line"
-                                                                                    ToolTipService.ToolTip="下划线" />
-                                                            <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline2.png"
-                                                                                    Tag="DoubleLine"
-                                                                                    ToolTipService.ToolTip="双下划线" />
-                                                            <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline3.png"
-                                                                                    Tag="ThickLine"
-                                                                                    ToolTipService.ToolTip="粗线" />
-                                                            <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline4.png"
-                                                                                    Tag="DottedLine"
-                                                                                    ToolTipService.ToolTip="点式下划线" />
-                                                            <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline5.png"
-                                                                                    Tag="DashedLine"
-                                                                                    ToolTipService.ToolTip="虚下划线" />
-                                                            <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline6.png"
-                                                                                    Tag="DotDashedLine"
-                                                                                    ToolTipService.ToolTip="点-短线下划线" />
-                                                            <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline7.png"
-                                                                                    Tag="DotDotDashedLine"
-                                                                                    ToolTipService.ToolTip="点-点-短线下划线" />
-                                                            <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline8.png"
-                                                                                    Tag="Wave"
-                                                                                    ToolTipService.ToolTip="波浪线" />
-                                                        </telerik:RadGallery>
-                                                    </telerik:RadRibbonSplitButton.DropDownContent>
-                                                </telerik:RadRibbonSplitButton>
-                                                <telerik:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleStrikethroughCommand}"
-                                                                               telerik:ScreenTip.Description="在所选的文字中间划一条线。"
-                                                                               telerik:ScreenTip.Title="删除线"
-                                                                               ToolTipService.ToolTip="删除线"
-                                                                               Size="Small"
-                                                                               SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/Strikethrough16.png" />
-                                                <telerik:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleSubscriptCommand}"
-                                                                               telerik:ScreenTip.Description="在文字基线下方创建小字符。"
-                                                                               telerik:ScreenTip.Title="下标"
-                                                                               ToolTipService.ToolTip="下标"
-                                                                               Size="Small"
-                                                                               SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/subscript.png" />
-                                                <telerik:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleSuperscriptCommand}"
-                                                                               telerik:ScreenTip.Description="在文本行上方创建小字符。"
-                                                                               telerik:ScreenTip.Title="上标"
-                                                                               ToolTipService.ToolTip="上标"
-                                                                               Size="Small"
-                                                                               SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/superscript.png" />
-                                            </telerik:RadButtonGroup>
-                                            <telerik:RadButtonGroup>
-                                                <telerik:HighlightColorPicker AutomaticColor="Transparent"
-                                                                              BorderThickness="0"
-                                                                              Height="Auto"
-                                                                              Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/highlight.png"
-                                                                              NoColorText="No color"
-                                                                              telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeFontHighlightColorCommand}"
-                                                                              telerik:ScreenTip.Description="使文字看上去像是用荧光笔做了标记一样。"
-                                                                              telerik:ScreenTip.Title="文本高亮"
-                                                                              ToolTipService.ToolTip="文本高亮"
-                                                                              SelectedColor="Yellow" />
-                                                <telerik:HighlightColorPicker BorderThickness="0"
-                                                                              Height="Auto"
-                                                                              Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/FontForeColor.png"
-                                                                              telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeFontForeColorCommand}"
-                                                                              telerik:ScreenTip.Description="更改文字颜色。"
-                                                                              telerik:ScreenTip.Title="字体颜色"
-                                                                              ToolTipService.ToolTip="字体颜色"
-                                                                              SelectedColor="Red" />
-                                            </telerik:RadButtonGroup>
-                                        </telerik:RadOrderedWrapPanel>
-                                    </telerik:RadRibbonGroup>
-                                    <telerik:RadRibbonGroup DialogLauncherVisibility="Visible"
-                                                            Header="段落"
-                                                            telerik:ScreenTip.Title="段落"
-                                                            telerik:ScreenTip.Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/PropertiesDialog.png">
-                                        <telerik:RadOrderedWrapPanel>
-                                            <telerik:RadButtonGroup>
-                                                <telerik:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleBulletsCommand}"
-                                                                               telerik:ScreenTip.Description="Start a bulleted list."
-                                                                               telerik:ScreenTip.Title="Bullets"
-                                                                               Size="Small"
-                                                                               SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/list-bullets.png" />
-                                                <telerik:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleNumberedCommand}"
-                                                                               telerik:ScreenTip.Description="Start a numbered list."
-                                                                               telerik:ScreenTip.Title="Numbering"
-                                                                               Size="Small"
-                                                                               SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/list-numbered.png" />
-                                                <telerik:RadRibbonDropDownButton telerik:ScreenTip.Description="Start a multilevel list. Click the arrow to choose different multilevel list styles."
-                                                                                 telerik:ScreenTip.Title="Multilevel List"
-                                                                                 Size="Small"
-                                                                                 SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/MultilevelList.png">
-                                                    <telerik:RadRibbonDropDownButton.DropDownContent>
-                                                        <StackPanel>
-                                                            <ScrollViewer MaxHeight="565">
-                                                                <StackPanel>
-                                                                    <telerik:RadGroupHeader Content="List Library" />
-                                                                    <telerik:RadGallery ItemHeight="88"
-                                                                                        ItemWidth="88"
-                                                                                        telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeListStyleCommand}"
-                                                                                        ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                                                                        ViewportHeight="176"
-                                                                                        ViewportWidth="266">
-                                                                        <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/MultilevelListNone.png"
-                                                                                                Tag="None" />
-                                                                        <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/MultilevelListBulleted.png"
-                                                                                                Tag="Bulleted" />
-                                                                        <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/MultilevelListNumbered.png"
-                                                                                                Tag="Numbered" />
-                                                                        <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/MultilevelListNumberedParenthesis.png"
-                                                                                                Tag="NumberedParenthesis" />
-                                                                        <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/MultilevelListNumberedHierarchical.png"
-                                                                                                Tag="NumberedHierarchical" />
-                                                                    </telerik:RadGallery>
-                                                                    <telerik:ListStylesGallery AssociatedRichTextBox="{Binding AssociatedRichTextBox, Mode=OneWay}" />
-                                                                </StackPanel>
-                                                            </ScrollViewer>
-                                                            <telerik:RadRibbonButton HorizontalAlignment="Stretch"
-                                                                                     telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowDefineNewListStyleDialogCommand}"
-                                                                                     Size="Medium"
-                                                                                     Text="Define New List Style ..." />
-                                                        </StackPanel>
-                                                    </telerik:RadRibbonDropDownButton.DropDownContent>
-                                                </telerik:RadRibbonDropDownButton>
-                                            </telerik:RadButtonGroup>
-                                            <telerik:RadButtonGroup>
-                                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding DecrementParagraphLeftIndentCommand}"
-                                                                         telerik:ScreenTip.Description="Decrease the indent level of the paragraph."
-                                                                         telerik:ScreenTip.Title="Decrease Indent"
-                                                                         Size="Small"
-                                                                         SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/outdent.png" />
-                                                <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding IncrementParagraphLeftIndentCommand}"
-                                                                         telerik:ScreenTip.Description="Increase the indent level of the paragraph."
-                                                                         telerik:ScreenTip.Title="Increase Indent"
-                                                                         Size="Small"
-                                                                         SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/indent.png" />
-                                            </telerik:RadButtonGroup>
-                                            <telerik:RadButtonGroup>
-                                                <telerik:RadRibbonToggleButton CommandParameter="LeftToRight"
-                                                                               telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeParagraphFlowDirectionCommand}"
-                                                                               telerik:ScreenTip.Description="Set the direction of text to be displayed from left to right."
-                                                                               telerik:ScreenTip.Title="Left-To-Right Text Direction"
-                                                                               Size="Small"
-                                                                               SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/LeftToRightFlowDirection.png"
-                                                                               Text="Left-to-Right Text Direction" />
-                                                <telerik:RadRibbonToggleButton CommandParameter="RightToLeft"
-                                                                               telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeParagraphFlowDirectionCommand}"
-                                                                               telerik:ScreenTip.Description="Set the direction of text to be displayed from right to left."
-                                                                               telerik:ScreenTip.Title="Right-To-Left Text Direction"
-                                                                               Size="Small"
-                                                                               SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/RightToLeftFlowDirection.png"
-                                                                               Text="Right-to-Left Text Direction" />
-                                            </telerik:RadButtonGroup>
-                                            <telerik:RadButtonGroup>
-                                                <telerik:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleFormattingSymbolsCommand}"
-                                                                               telerik:ScreenTip.Description="Show paragraph marks and other hidden formatting symbols."
-                                                                               telerik:ScreenTip.Title="Show/Hide Formatting Symbols"
-                                                                               Size="Small"
-                                                                               SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/formatting-symbols.png" />
-                                            </telerik:RadButtonGroup>
-                                            <telerik:RadButtonGroup>
-                                                <telerik:RadRibbonToggleButton CommandParameter="Left"
-                                                                               telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeTextAlignmentCommand}"
-                                                                               telerik:ScreenTip.Description="Align text to the left."
-                                                                               telerik:ScreenTip.Title="Align Text Left"
-                                                                               Size="Small"
-                                                                               SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/alignleft.png"
-                                                                               Text="Align Left" />
-                                                <telerik:RadRibbonToggleButton CommandParameter="Center"
-                                                                               telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeTextAlignmentCommand}"
-                                                                               telerik:ScreenTip.Description="Center text."
-                                                                               telerik:ScreenTip.Title="Center"
-                                                                               Size="Small"
-                                                                               SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/aligncenter.png"
-                                                                               Text="Center" />
-                                                <telerik:RadRibbonToggleButton CommandParameter="Right"
-                                                                               telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeTextAlignmentCommand}"
-                                                                               telerik:ScreenTip.Description="Align text to the right."
-                                                                               telerik:ScreenTip.Title="Align Text Right"
-                                                                               Size="Small"
-                                                                               SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/alignright.png"
-                                                                               Text="Align Right" />
-                                                <telerik:RadRibbonToggleButton CommandParameter="Justify"
-                                                                               telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeTextAlignmentCommand}"
-                                                                               telerik:ScreenTip.Description="Align text to both left and right margins, adding extra space between words as necessary."
-                                                                               telerik:ScreenTip.Title="Justify"
-                                                                               Size="Small"
-                                                                               SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/alignjustify.png"
-                                                                               Text="Justify" />
-                                            </telerik:RadButtonGroup>
-                                            <telerik:RadButtonGroup>
-                                                <telerik:HighlightColorPicker AutomaticColor="Transparent"
-                                                                              BorderThickness="0"
-                                                                              Height="Auto"
-                                                                              Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/ParagraphBackgroundColor.png"
-                                                                              NoColorText="No color"
-                                                                              telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeParagraphBackgroundColorCommand}"
-                                                                              telerik:ScreenTip.Description="Color the background behind the selected text or paragraph."
-                                                                              telerik:ScreenTip.Title="Shading"
-                                                                              SelectedColor="Transparent" />
-                                            </telerik:RadButtonGroup>
-                                        </telerik:RadOrderedWrapPanel>
-                                    </telerik:RadRibbonGroup>
-                                </telerik:RadRibbonTab>
-                            </telerik:RadRichTextBoxRibbonUI>
-                            <telerik:RadRichTextBox Grid.Row="1"
-                                                    x:Name="WordReader"
-                                                    Margin="10 10 0 0"
-                                                    IsSpellCheckingEnabled="False"
-                                                    LayoutMode="Paged" />
-                            <telerik:RadRichTextBoxStatusBar Grid.Row="2"
-                                                             UseLayoutRounding="True"
-                                                             AssociatedRichTextBox="{Binding ElementName=editor, Mode=OneTime}" />
-                        </Grid>
-                    </telerik:RadPane>
-                    <telerik:RadPane Name="PdfPane"
-                        Header="PDF文档"
-                                     FontSize="{StaticResource HeaderFontSize}"
-                                     IsPinned="True"
-                                     CanFloat="False"
-                                     CanUserClose="False"
-                                     CanUserPin="False"
-                                     TabIndex="2"
-                                     ContextMenuTemplate="{x:Null}">
-                        <Grid x:Name="PdfLayoutRoot"
-                              Background="White">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
+                                            <telerik:RadRibbonButton Command="{Binding DataContext.SaveCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=telerik:RadWindow}}"
+                                                                     Size="Small"
+                                                                     SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/save.png"
+                                                                     Text="保存"
+                                                                     ToolTipService.ToolTip="保存到服务器" />
+                                            <telerik:RadRibbonSplitButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding UndoCommand}"
+                                                                          Size="Small"
+                                                                          SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/undo.png"
+                                                                          Text="撤销键入">
+                                                <telerik:RadRibbonSplitButton.DropDownContent>
+                                                    <telerik:MultipleUndoControl telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding MultipleUndoCommand}" />
+                                                </telerik:RadRibbonSplitButton.DropDownContent>
+                                            </telerik:RadRibbonSplitButton>
+                                            <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding RedoCommand}"
+                                                                     Size="Small"
+                                                                     SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/redo.png"
+                                                                     Text="重复键入" />
+                                        </telerik:QuickAccessToolBar>
+                                    </telerik:RadRichTextBoxRibbonUI.QuickAccessToolBar>
+                                    <telerik:RadRibbonTab Header="开始">
+                                        <telerik:RadRibbonGroup Header="剪贴板">
+                                            <telerik:RadCollapsiblePanel>
+                                                <telerik:RadRibbonButton CollapseToSmall="WhenGroupIsMedium"
+                                                                         telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding CutCommand}"
+                                                                         telerik:ScreenTip.Description="Cut the selection and put it on the Clipboard."
+                                                                         telerik:ScreenTip.Title="Cut"
+                                                                         Size="Medium"
+                                                                         SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/cut.png"
+                                                                         Text="剪切" />
+                                                <telerik:RadRibbonButton CollapseToSmall="WhenGroupIsMedium"
+                                                                         telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding CopyCommand}"
+                                                                         telerik:ScreenTip.Description="Copy the selection and put it on the Clipboard."
+                                                                         telerik:ScreenTip.Title="Copy"
+                                                                         Size="Medium"
+                                                                         SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/copy.png"
+                                                                         Text="复制" />
+                                                <telerik:RadRibbonButton CollapseToSmall="WhenGroupIsMedium"
+                                                                         telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding PasteCommand}"
+                                                                         telerik:ScreenTip.Description="Paste the contents of the Clipboard."
+                                                                         telerik:ScreenTip.Title="Paste"
+                                                                         Size="Medium"
+                                                                         SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/paste.png"
+                                                                         Text="粘贴" />
+                                            </telerik:RadCollapsiblePanel>
+                                        </telerik:RadRibbonGroup>
+                                        <telerik:RadRibbonGroup DialogLauncherVisibility="Visible"
+                                                                Header="字体"
+                                                                telerik:ScreenTip.Title="字体"
+                                                                telerik:ScreenTip.Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/FontDialog.png">
+                                            <telerik:RadOrderedWrapPanel>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <telerik:RadRibbonComboBox CanAutocompleteSelectItems="False"
+                                                                               CanKeyboardNavigationSelectItems="False"
+                                                                               CommandParameter="{Binding SelectedValue, RelativeSource={RelativeSource Self}}"
+                                                                               IsReadOnly="True"
+                                                                               ItemsSource="{Binding RegisteredFonts, Source={StaticResource FontFamiliesProvider}}"
+                                                                               OpenDropDownOnFocus="True"
+                                                                               telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeFontFamilyCommand}"
+                                                                               telerik:ScreenTip.Description="更改字体。"
+                                                                               MaxDropDownHeight="400"
+                                                                               telerik:ScreenTip.Title="字体"
+                                                                               ToolTipService.ToolTip="字体"
+                                                                               Width="132" />
+                                                    <telerik:RadRibbonComboBox CanAutocompleteSelectItems="False"
+                                                                               CanKeyboardNavigationSelectItems="False"
+                                                                               CommandParameter="{Binding SelectedItem.Tag, RelativeSource={RelativeSource Self}}"
+                                                                               IsEditable="True"
+                                                                               IsReadOnly="True"
+                                                                               IsTextSearchEnabled="False"
+                                                                               OpenDropDownOnFocus="True"
+                                                                               telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeFontSizeCommand}"
+                                                                               telerik:ScreenTip.Description="更改字号。"
+                                                                               telerik:ScreenTip.Title="字号"
+                                                                               ToolTipService.ToolTip="字号"
+                                                                               MaxDropDownHeight="400"
+                                                                               Width="65">
+                                                        <telerik:RadRibbonComboBoxItem Content="8"
+                                                                                       Tag="10.67" />
+                                                        <telerik:RadRibbonComboBoxItem Content="9"
+                                                                                       Tag="12" />
+                                                        <telerik:RadRibbonComboBoxItem Content="10"
+                                                                                       Tag="13.34" />
+                                                        <telerik:RadRibbonComboBoxItem Content="11"
+                                                                                       Tag="14.67" />
+                                                        <telerik:RadRibbonComboBoxItem Content="12"
+                                                                                       Tag="16" />
+                                                        <telerik:RadRibbonComboBoxItem Content="14"
+                                                                                       Tag="18.67" />
+                                                        <telerik:RadRibbonComboBoxItem Content="16"
+                                                                                       Tag="21.33" />
+                                                        <telerik:RadRibbonComboBoxItem Content="18"
+                                                                                       Tag="24" />
+                                                        <telerik:RadRibbonComboBoxItem Content="20"
+                                                                                       Tag="26.67" />
+                                                        <telerik:RadRibbonComboBoxItem Content="22"
+                                                                                       Tag="29.33" />
+                                                        <telerik:RadRibbonComboBoxItem Content="24"
+                                                                                       Tag="32" />
+                                                        <telerik:RadRibbonComboBoxItem Content="26"
+                                                                                       Tag="34.67" />
+                                                        <telerik:RadRibbonComboBoxItem Content="28"
+                                                                                       Tag="37.33" />
+                                                        <telerik:RadRibbonComboBoxItem Content="36"
+                                                                                       Tag="48" />
+                                                        <telerik:RadRibbonComboBoxItem Content="48"
+                                                                                       Tag="64" />
+                                                        <telerik:RadRibbonComboBoxItem Content="72"
+                                                                                       Tag="96" />
+                                                    </telerik:RadRibbonComboBox>
+                                                </StackPanel>
+                                                <telerik:RadButtonGroup>
+                                                    <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding IncrementFontSizeCommand}"
+                                                                             telerik:ScreenTip.Description="增大字号。"
+                                                                             telerik:ScreenTip.Title="增大字体"
+                                                                             ToolTipService.ToolTip="增大字体"
+                                                                             Size="Small"
+                                                                             SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/font-increasesize.png" />
+                                                    <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding DecrementFontSizeCommand}"
+                                                                             telerik:ScreenTip.Description="缩小字号。"
+                                                                             telerik:ScreenTip.Title="缩小字体"
+                                                                             ToolTipService.ToolTip="缩小字体"
+                                                                             Size="Small"
+                                                                             SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/font-decreasesize.png" />
+                                                </telerik:RadButtonGroup>
+                                                <telerik:RadButtonGroup>
+                                                    <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ClearAllFormattingCommand}"
+                                                                             telerik:ScreenTip.Description="清除所选内容的所有格式，只留下纯文本。"
+                                                                             telerik:ScreenTip.Title="清除格式"
+                                                                             ToolTipService.ToolTip="清除格式"
+                                                                             Size="Small"
+                                                                             SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/ClearFormatting16.png" />
+                                                </telerik:RadButtonGroup>
+                                                <telerik:RadButtonGroup>
+                                                    <telerik:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleBoldCommand}"
+                                                                                   telerik:ScreenTip.Description="将所选文字加粗。"
+                                                                                   telerik:ScreenTip.Title="加粗"
+                                                                                   ToolTipService.ToolTip="加粗"
+                                                                                   Size="Small"
+                                                                                   SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/bold.png" />
+                                                    <telerik:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleItalicCommand}"
+                                                                                   telerik:ScreenTip.Description="将所选文字设置为倾斜。"
+                                                                                   telerik:ScreenTip.Title="倾斜"
+                                                                                   ToolTipService.ToolTip="倾斜"
+                                                                                   Size="Small"
+                                                                                   SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/italic.png" />
+                                                    <telerik:RadRibbonSplitButton IsToggle="True"
+                                                                                  telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleUnderlineCommand}"
+                                                                                  telerik:ScreenTip.Description="给所选文字加下划线。"
+                                                                                  telerik:ScreenTip.Title="下划线"
+                                                                                  ToolTipService.ToolTip="下划线"
+                                                                                  SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/underline.png">
+                                                        <telerik:RadRibbonSplitButton.DropDownContent>
+                                                            <telerik:RadGallery ItemHeight="26"
+                                                                                ItemWidth="156"
+                                                                                telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeUnderlineDecorationCommand}"
+                                                                                ViewportHeight="210"
+                                                                                ViewportWidth="157">
+                                                                <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline1.png"
+                                                                                        Tag="Line"
+                                                                                        ToolTipService.ToolTip="下划线" />
+                                                                <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline2.png"
+                                                                                        Tag="DoubleLine"
+                                                                                        ToolTipService.ToolTip="双下划线" />
+                                                                <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline3.png"
+                                                                                        Tag="ThickLine"
+                                                                                        ToolTipService.ToolTip="粗线" />
+                                                                <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline4.png"
+                                                                                        Tag="DottedLine"
+                                                                                        ToolTipService.ToolTip="点式下划线" />
+                                                                <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline5.png"
+                                                                                        Tag="DashedLine"
+                                                                                        ToolTipService.ToolTip="虚下划线" />
+                                                                <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline6.png"
+                                                                                        Tag="DotDashedLine"
+                                                                                        ToolTipService.ToolTip="点-短线下划线" />
+                                                                <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline7.png"
+                                                                                        Tag="DotDotDashedLine"
+                                                                                        ToolTipService.ToolTip="点-点-短线下划线" />
+                                                                <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/underline8.png"
+                                                                                        Tag="Wave"
+                                                                                        ToolTipService.ToolTip="波浪线" />
+                                                            </telerik:RadGallery>
+                                                        </telerik:RadRibbonSplitButton.DropDownContent>
+                                                    </telerik:RadRibbonSplitButton>
+                                                    <telerik:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleStrikethroughCommand}"
+                                                                                   telerik:ScreenTip.Description="在所选的文字中间划一条线。"
+                                                                                   telerik:ScreenTip.Title="删除线"
+                                                                                   ToolTipService.ToolTip="删除线"
+                                                                                   Size="Small"
+                                                                                   SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/Strikethrough16.png" />
+                                                    <telerik:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleSubscriptCommand}"
+                                                                                   telerik:ScreenTip.Description="在文字基线下方创建小字符。"
+                                                                                   telerik:ScreenTip.Title="下标"
+                                                                                   ToolTipService.ToolTip="下标"
+                                                                                   Size="Small"
+                                                                                   SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/subscript.png" />
+                                                    <telerik:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleSuperscriptCommand}"
+                                                                                   telerik:ScreenTip.Description="在文本行上方创建小字符。"
+                                                                                   telerik:ScreenTip.Title="上标"
+                                                                                   ToolTipService.ToolTip="上标"
+                                                                                   Size="Small"
+                                                                                   SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/superscript.png" />
+                                                </telerik:RadButtonGroup>
+                                                <telerik:RadButtonGroup>
+                                                    <telerik:HighlightColorPicker AutomaticColor="Transparent"
+                                                                                  BorderThickness="0"
+                                                                                  Height="Auto"
+                                                                                  Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/highlight.png"
+                                                                                  NoColorText="No color"
+                                                                                  telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeFontHighlightColorCommand}"
+                                                                                  telerik:ScreenTip.Description="使文字看上去像是用荧光笔做了标记一样。"
+                                                                                  telerik:ScreenTip.Title="文本高亮"
+                                                                                  ToolTipService.ToolTip="文本高亮"
+                                                                                  SelectedColor="Yellow" />
+                                                    <telerik:HighlightColorPicker BorderThickness="0"
+                                                                                  Height="Auto"
+                                                                                  Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/FontForeColor.png"
+                                                                                  telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeFontForeColorCommand}"
+                                                                                  telerik:ScreenTip.Description="更改文字颜色。"
+                                                                                  telerik:ScreenTip.Title="字体颜色"
+                                                                                  ToolTipService.ToolTip="字体颜色"
+                                                                                  SelectedColor="Red" />
+                                                </telerik:RadButtonGroup>
+                                            </telerik:RadOrderedWrapPanel>
+                                        </telerik:RadRibbonGroup>
+                                        <telerik:RadRibbonGroup DialogLauncherVisibility="Visible"
+                                                                Header="段落"
+                                                                telerik:ScreenTip.Title="段落"
+                                                                telerik:ScreenTip.Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/PropertiesDialog.png">
+                                            <telerik:RadOrderedWrapPanel>
+                                                <telerik:RadButtonGroup>
+                                                    <telerik:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleBulletsCommand}"
+                                                                                   telerik:ScreenTip.Description="Start a bulleted list."
+                                                                                   telerik:ScreenTip.Title="Bullets"
+                                                                                   Size="Small"
+                                                                                   SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/list-bullets.png" />
+                                                    <telerik:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleNumberedCommand}"
+                                                                                   telerik:ScreenTip.Description="Start a numbered list."
+                                                                                   telerik:ScreenTip.Title="Numbering"
+                                                                                   Size="Small"
+                                                                                   SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/list-numbered.png" />
+                                                    <telerik:RadRibbonDropDownButton telerik:ScreenTip.Description="Start a multilevel list. Click the arrow to choose different multilevel list styles."
+                                                                                     telerik:ScreenTip.Title="Multilevel List"
+                                                                                     Size="Small"
+                                                                                     SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/MultilevelList.png">
+                                                        <telerik:RadRibbonDropDownButton.DropDownContent>
+                                                            <StackPanel>
+                                                                <ScrollViewer MaxHeight="565">
+                                                                    <StackPanel>
+                                                                        <telerik:RadGroupHeader Content="List Library" />
+                                                                        <telerik:RadGallery ItemHeight="88"
+                                                                                            ItemWidth="88"
+                                                                                            telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeListStyleCommand}"
+                                                                                            ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                                                                            ViewportHeight="176"
+                                                                                            ViewportWidth="266">
+                                                                            <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/MultilevelListNone.png"
+                                                                                                    Tag="None" />
+                                                                            <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/MultilevelListBulleted.png"
+                                                                                                    Tag="Bulleted" />
+                                                                            <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/MultilevelListNumbered.png"
+                                                                                                    Tag="Numbered" />
+                                                                            <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/MultilevelListNumberedParenthesis.png"
+                                                                                                    Tag="NumberedParenthesis" />
+                                                                            <telerik:RadGalleryItem Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/MultilevelListNumberedHierarchical.png"
+                                                                                                    Tag="NumberedHierarchical" />
+                                                                        </telerik:RadGallery>
+                                                                        <telerik:ListStylesGallery AssociatedRichTextBox="{Binding AssociatedRichTextBox, Mode=OneWay}" />
+                                                                    </StackPanel>
+                                                                </ScrollViewer>
+                                                                <telerik:RadRibbonButton HorizontalAlignment="Stretch"
+                                                                                         telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ShowDefineNewListStyleDialogCommand}"
+                                                                                         Size="Medium"
+                                                                                         Text="Define New List Style ..." />
+                                                            </StackPanel>
+                                                        </telerik:RadRibbonDropDownButton.DropDownContent>
+                                                    </telerik:RadRibbonDropDownButton>
+                                                </telerik:RadButtonGroup>
+                                                <telerik:RadButtonGroup>
+                                                    <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding DecrementParagraphLeftIndentCommand}"
+                                                                             telerik:ScreenTip.Description="Decrease the indent level of the paragraph."
+                                                                             telerik:ScreenTip.Title="Decrease Indent"
+                                                                             Size="Small"
+                                                                             SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/outdent.png" />
+                                                    <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding IncrementParagraphLeftIndentCommand}"
+                                                                             telerik:ScreenTip.Description="Increase the indent level of the paragraph."
+                                                                             telerik:ScreenTip.Title="Increase Indent"
+                                                                             Size="Small"
+                                                                             SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/indent.png" />
+                                                </telerik:RadButtonGroup>
+                                                <telerik:RadButtonGroup>
+                                                    <telerik:RadRibbonToggleButton CommandParameter="LeftToRight"
+                                                                                   telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeParagraphFlowDirectionCommand}"
+                                                                                   telerik:ScreenTip.Description="Set the direction of text to be displayed from left to right."
+                                                                                   telerik:ScreenTip.Title="Left-To-Right Text Direction"
+                                                                                   Size="Small"
+                                                                                   SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/LeftToRightFlowDirection.png"
+                                                                                   Text="Left-to-Right Text Direction" />
+                                                    <telerik:RadRibbonToggleButton CommandParameter="RightToLeft"
+                                                                                   telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeParagraphFlowDirectionCommand}"
+                                                                                   telerik:ScreenTip.Description="Set the direction of text to be displayed from right to left."
+                                                                                   telerik:ScreenTip.Title="Right-To-Left Text Direction"
+                                                                                   Size="Small"
+                                                                                   SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/RightToLeftFlowDirection.png"
+                                                                                   Text="Right-to-Left Text Direction" />
+                                                </telerik:RadButtonGroup>
+                                                <telerik:RadButtonGroup>
+                                                    <telerik:RadRibbonToggleButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ToggleFormattingSymbolsCommand}"
+                                                                                   telerik:ScreenTip.Description="Show paragraph marks and other hidden formatting symbols."
+                                                                                   telerik:ScreenTip.Title="Show/Hide Formatting Symbols"
+                                                                                   Size="Small"
+                                                                                   SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/formatting-symbols.png" />
+                                                </telerik:RadButtonGroup>
+                                                <telerik:RadButtonGroup>
+                                                    <telerik:RadRibbonToggleButton CommandParameter="Left"
+                                                                                   telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeTextAlignmentCommand}"
+                                                                                   telerik:ScreenTip.Description="Align text to the left."
+                                                                                   telerik:ScreenTip.Title="Align Text Left"
+                                                                                   Size="Small"
+                                                                                   SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/alignleft.png"
+                                                                                   Text="Align Left" />
+                                                    <telerik:RadRibbonToggleButton CommandParameter="Center"
+                                                                                   telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeTextAlignmentCommand}"
+                                                                                   telerik:ScreenTip.Description="Center text."
+                                                                                   telerik:ScreenTip.Title="Center"
+                                                                                   Size="Small"
+                                                                                   SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/aligncenter.png"
+                                                                                   Text="Center" />
+                                                    <telerik:RadRibbonToggleButton CommandParameter="Right"
+                                                                                   telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeTextAlignmentCommand}"
+                                                                                   telerik:ScreenTip.Description="Align text to the right."
+                                                                                   telerik:ScreenTip.Title="Align Text Right"
+                                                                                   Size="Small"
+                                                                                   SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/alignright.png"
+                                                                                   Text="Align Right" />
+                                                    <telerik:RadRibbonToggleButton CommandParameter="Justify"
+                                                                                   telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeTextAlignmentCommand}"
+                                                                                   telerik:ScreenTip.Description="Align text to both left and right margins, adding extra space between words as necessary."
+                                                                                   telerik:ScreenTip.Title="Justify"
+                                                                                   Size="Small"
+                                                                                   SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/alignjustify.png"
+                                                                                   Text="Justify" />
+                                                </telerik:RadButtonGroup>
+                                                <telerik:RadButtonGroup>
+                                                    <telerik:HighlightColorPicker AutomaticColor="Transparent"
+                                                                                  BorderThickness="0"
+                                                                                  Height="Auto"
+                                                                                  Image="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/ParagraphBackgroundColor.png"
+                                                                                  NoColorText="No color"
+                                                                                  telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding ChangeParagraphBackgroundColorCommand}"
+                                                                                  telerik:ScreenTip.Description="Color the background behind the selected text or paragraph."
+                                                                                  telerik:ScreenTip.Title="Shading"
+                                                                                  SelectedColor="Transparent" />
+                                                </telerik:RadButtonGroup>
+                                            </telerik:RadOrderedWrapPanel>
+                                        </telerik:RadRibbonGroup>
+                                    </telerik:RadRibbonTab>
+                                </telerik:RadRichTextBoxRibbonUI>
+                                <telerik:RadRichTextBox Grid.Row="1"
+                                                        x:Name="WordReader"
+                                                        Margin="10 10 0 0"
+                                                        IsSpellCheckingEnabled="False"
+                                                        LayoutMode="Paged" />
+                                <telerik:RadRichTextBoxStatusBar Grid.Row="2"
+                                                                 UseLayoutRounding="True"
+                                                                 AssociatedRichTextBox="{Binding ElementName=WordReader, Mode=OneTime}" />
+                            </Grid>
+                        </telerik:RadPane>
+                        <telerik:RadPane Name="PdfPane"
+                                         Header="PDF文档"
+                                         FontSize="{StaticResource HeaderFontSize}"
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         TabIndex="2"
+                                         ContextMenuTemplate="{x:Null}">
+                            <Grid x:Name="PdfLayoutRoot"
+                                  Background="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
 
-                            <telerik:RadToolBar x:Name="Toolbar"
-                                                Grid.Row="0"
-                                                DataContext="{Binding ElementName=pdfViewer, Path=Commands}"
-                                                Grid.ColumnSpan="3">
-                                <telerik:RadToolBar.Resources>
-                                    <converters:FixedDocumentViewerModeConverter x:Key="ModeConverter" />
-                                </telerik:RadToolBar.Resources>
+                                <telerik:RadToolBar x:Name="Toolbar"
+                                                    Grid.Row="0"
+                                                    DataContext="{Binding ElementName=PdfReader, Path=Commands}"
+                                                    Grid.ColumnSpan="3">
+                                    <telerik:RadToolBar.Resources>
+                                        <converters:FixedDocumentViewerModeConverter x:Key="ModeConverter" />
+                                    </telerik:RadToolBar.Resources>
 
-                                <telerik:RadButton  Command="{Binding DataContext.OpenDocumentCommand, ElementName=RadDocumentViewer}"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Stretch"
-                                                    Margin="2"
-                                                    Padding="0"
-                                                    HorizontalContentAlignment="Center"
-                                                    VerticalContentAlignment="Center"
-                                                    IsBackgroundVisible="False">
-                                    <ToolTipService.ToolTip>
-                                        <TextBlock Text="打开" />
-                                    </ToolTipService.ToolTip>
-                                    <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/open.png"
-                                           Stretch="None" />
-                                </telerik:RadButton>
-                                <telerik:RadButton Command="{Binding DataContext.SaveCommand, RelativeSource={RelativeSource  AncestorLevel=1, AncestorType=telerik:RadWindow}}">
-                                    <ToolTipService.ToolTip>
-                                        <TextBlock Text="保存到服务器" />
-                                    </ToolTipService.ToolTip>
-                                    <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/save.png"
-                                           Stretch="None" />
-                                </telerik:RadButton>
-                                <telerik:RadButton Command="{Binding PrintPdfDocumentCommand}"
-                                                   HorizontalAlignment="Left"
-                                                   VerticalAlignment="Stretch"
-                                                   Margin="2"
-                                                   Padding="0"
-                                                   HorizontalContentAlignment="Center"
-                                                   VerticalContentAlignment="Center"
-                                                   IsBackgroundVisible="False">
-                                    <ToolTipService.ToolTip>
-                                        <TextBlock Text="打印" />
-                                    </ToolTipService.ToolTip>
-                                    <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/printer.png"
-                                           Stretch="None" />
-                                </telerik:RadButton>
+                                    <telerik:RadButton  Command="{Binding DataContext.OpenDocumentCommand, ElementName=RadDocumentViewer}"
+                                                        HorizontalAlignment="Left"
+                                                        VerticalAlignment="Stretch"
+                                                        Margin="2"
+                                                        Padding="0"
+                                                        HorizontalContentAlignment="Center"
+                                                        VerticalContentAlignment="Center"
+                                                        IsBackgroundVisible="False">
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock Text="打开" />
+                                        </ToolTipService.ToolTip>
+                                        <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/open.png"
+                                               Stretch="None" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Command="{Binding DataContext.SaveCommand, RelativeSource={RelativeSource  AncestorLevel=1, AncestorType=telerik:RadWindow}}">
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock Text="保存到服务器" />
+                                        </ToolTipService.ToolTip>
+                                        <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/save.png"
+                                               Stretch="None" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Command="{Binding PrintPdfDocumentCommand}"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Stretch"
+                                                       Margin="2"
+                                                       Padding="0"
+                                                       HorizontalContentAlignment="Center"
+                                                       VerticalContentAlignment="Center"
+                                                       IsBackgroundVisible="False">
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock Text="打印" />
+                                        </ToolTipService.ToolTip>
+                                        <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/printer.png"
+                                               Stretch="None" />
+                                    </telerik:RadButton>
 
-                                <telerik:RadToolBarSeparator />
+                                    <telerik:RadToolBarSeparator />
 
-                                <telerik:RadButton Command="{Binding PageUpCommand}"
-                                                   HorizontalAlignment="Left"
-                                                   VerticalAlignment="Stretch"
-                                                   Margin="2"
-                                                   Padding="0"
-                                                   HorizontalContentAlignment="Center"
-                                                   VerticalContentAlignment="Center"
-                                                   IsBackgroundVisible="False">
-                                    <ToolTipService.ToolTip>
-                                        <TextBlock Text="上一页" />
-                                    </ToolTipService.ToolTip>
-                                    <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/previous.png"
-                                           Stretch="None" />
-                                </telerik:RadButton>
+                                    <telerik:RadButton Command="{Binding PageUpCommand}"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Stretch"
+                                                       Margin="2"
+                                                       Padding="0"
+                                                       HorizontalContentAlignment="Center"
+                                                       VerticalContentAlignment="Center"
+                                                       IsBackgroundVisible="False">
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock Text="上一页" />
+                                        </ToolTipService.ToolTip>
+                                        <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/previous.png"
+                                               Stretch="None" />
+                                    </telerik:RadButton>
 
-                                <telerik:RadButton Command="{Binding PageDownCommand}"
-                                                   HorizontalAlignment="Left"
-                                                   VerticalAlignment="Stretch"
-                                                   Margin="2"
-                                                   Padding="0"
-                                                   HorizontalContentAlignment="Center"
-                                                   VerticalContentAlignment="Center"
-                                                   IsBackgroundVisible="False">
-                                    <ToolTipService.ToolTip>
-                                        <TextBlock Text="下一页" />
-                                    </ToolTipService.ToolTip>
-                                    <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/next.png"
-                                           Stretch="None" />
-                                </telerik:RadButton>
+                                    <telerik:RadButton Command="{Binding PageDownCommand}"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Stretch"
+                                                       Margin="2"
+                                                       Padding="0"
+                                                       HorizontalContentAlignment="Center"
+                                                       VerticalContentAlignment="Center"
+                                                       IsBackgroundVisible="False">
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock Text="下一页" />
+                                        </ToolTipService.ToolTip>
+                                        <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/next.png"
+                                               Stretch="None" />
+                                    </telerik:RadButton>
 
-                                <TextBox Width="30"
-                                         Margin="2"
-                                         Text="{Binding FixedDocumentViewer.CurrentPageNumber, Mode=TwoWay}"
-                                         HorizontalContentAlignment="Center"
-                                         x:Name="TbCurrentPage"
-                                         KeyDown="TbCurrentPage_KeyDown" />
-                                <TextBlock VerticalAlignment="Center"
-                                           Margin="2"
-                                           Text="/" />
-                                <TextBlock VerticalAlignment="Center"
-                                           Margin="2"
-                                           Text="{Binding ElementName=pdfViewer, Path=Document.Pages.Count}" />
-                                <telerik:RadToolBarSeparator />
+                                    <TextBox Width="30"
+                                             Margin="2"
+                                             Text="{Binding FixedDocumentViewer.CurrentPageNumber, Mode=TwoWay}"
+                                             HorizontalContentAlignment="Center"
+                                             x:Name="TbCurrentPage"
+                                             KeyDown="TbCurrentPage_KeyDown" />
+                                    <TextBlock VerticalAlignment="Center"
+                                               Margin="2"
+                                               Text="/" />
+                                    <TextBlock VerticalAlignment="Center"
+                                               Margin="2"
+                                               Text="{Binding ElementName=PdfReader, Path=Document.Pages.Count}" />
+                                    <telerik:RadToolBarSeparator />
 
-                                <telerik:RadButton Command="{Binding ZoomInCommand}"
-                                                   HorizontalAlignment="Left"
-                                                   VerticalAlignment="Stretch"
-                                                   Margin="2"
-                                                   Padding="0"
-                                                   HorizontalContentAlignment="Center"
-                                                   VerticalContentAlignment="Center"
-                                                   IsBackgroundVisible="False">
-                                    <ToolTipService.ToolTip>
-                                        <TextBlock Text="放大" />
-                                    </ToolTipService.ToolTip>
-                                    <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/zoom-in.png"
-                                           Stretch="None" />
-                                </telerik:RadButton>
+                                    <telerik:RadButton Command="{Binding ZoomInCommand}"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Stretch"
+                                                       Margin="2"
+                                                       Padding="0"
+                                                       HorizontalContentAlignment="Center"
+                                                       VerticalContentAlignment="Center"
+                                                       IsBackgroundVisible="False">
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock Text="放大" />
+                                        </ToolTipService.ToolTip>
+                                        <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/zoom-in.png"
+                                               Stretch="None" />
+                                    </telerik:RadButton>
 
-                                <telerik:RadButton x:Name="RadZoomOut"
-                                                   Command="{Binding ZoomOutCommand}"
-                                                   HorizontalAlignment="Left"
-                                                   VerticalAlignment="Stretch"
-                                                   Margin="2"
-                                                   Padding="0"
-                                                   HorizontalContentAlignment="Center"
-                                                   VerticalContentAlignment="Center"
-                                                   IsBackgroundVisible="False">
-                                    <ToolTipService.ToolTip>
-                                        <TextBlock Text="缩小" />
-                                    </ToolTipService.ToolTip>
-                                    <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/zoom-out.png"
-                                           Stretch="None" />
-                                </telerik:RadButton>
+                                    <telerik:RadButton x:Name="RadZoomOut"
+                                                       Command="{Binding ZoomOutCommand}"
+                                                       HorizontalAlignment="Left"
+                                                       VerticalAlignment="Stretch"
+                                                       Margin="2"
+                                                       Padding="0"
+                                                       HorizontalContentAlignment="Center"
+                                                       VerticalContentAlignment="Center"
+                                                       IsBackgroundVisible="False">
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock Text="缩小" />
+                                        </ToolTipService.ToolTip>
+                                        <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/zoom-out.png"
+                                               Stretch="None" />
+                                    </telerik:RadButton>
 
-                                <fixedViewersUI:PercentComboBox Margin="2"
-                                                                Value="{Binding ElementName=pdfViewer, Path=ScaleFactor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                                RadPdfViewer="{Binding ElementName=pdfViewer}">
-                                    <fixedViewersUI:PercentComboBox.PercentValues>
-                                        <fixedViewersUI:Percent Value="10" />
-                                        <fixedViewersUI:Percent Value="25" />
-                                        <fixedViewersUI:Percent Value="50" />
-                                        <fixedViewersUI:Percent Value="75" />
-                                        <fixedViewersUI:Percent Value="100" />
-                                        <fixedViewersUI:Percent Value="150" />
-                                        <fixedViewersUI:Percent Value="200" />
-                                        <fixedViewersUI:Percent Value="500" />
-                                        <fixedViewersUI:Percent Value="1000" />
-                                        <fixedViewersUI:Percent Value="2000" />
-                                    </fixedViewersUI:PercentComboBox.PercentValues>
-                                </fixedViewersUI:PercentComboBox>
+                                    <fixedViewersUI:PercentComboBox Margin="2"
+                                                                    Value="{Binding ElementName=PdfReader, Path=ScaleFactor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                    RadPdfViewer="{Binding ElementName=PdfReader}">
+                                        <fixedViewersUI:PercentComboBox.PercentValues>
+                                            <fixedViewersUI:Percent Value="10" />
+                                            <fixedViewersUI:Percent Value="25" />
+                                            <fixedViewersUI:Percent Value="50" />
+                                            <fixedViewersUI:Percent Value="75" />
+                                            <fixedViewersUI:Percent Value="100" />
+                                            <fixedViewersUI:Percent Value="150" />
+                                            <fixedViewersUI:Percent Value="200" />
+                                            <fixedViewersUI:Percent Value="500" />
+                                            <fixedViewersUI:Percent Value="1000" />
+                                            <fixedViewersUI:Percent Value="2000" />
+                                        </fixedViewersUI:PercentComboBox.PercentValues>
+                                    </fixedViewersUI:PercentComboBox>
 
-                                <telerik:RadToolBarSeparator />
+                                    <telerik:RadToolBarSeparator />
 
-                                <telerik:RadToggleButton IsChecked="{Binding FixedDocumentViewer.Mode, Mode=TwoWay, Converter={StaticResource ModeConverter}, ConverterParameter=Pan}"
-                                                         Margin="2"
-                                                         Padding="0"
-                                                         IsBackgroundVisible="False"
-                                                         HorizontalAlignment="Left"
-                                                         VerticalAlignment="Stretch">
-                                    <ToolTipService.ToolTip>
-                                        <TextBlock Text="平滑" />
-                                    </ToolTipService.ToolTip>
-                                    <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/hand-free.png"
-                                           Stretch="None" />
-                                </telerik:RadToggleButton>
+                                    <telerik:RadToggleButton IsChecked="{Binding FixedDocumentViewer.Mode, Mode=TwoWay, Converter={StaticResource ModeConverter}, ConverterParameter=Pan}"
+                                                             Margin="2"
+                                                             Padding="0"
+                                                             IsBackgroundVisible="False"
+                                                             HorizontalAlignment="Left"
+                                                             VerticalAlignment="Stretch">
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock Text="平滑" />
+                                        </ToolTipService.ToolTip>
+                                        <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/hand-free.png"
+                                               Stretch="None" />
+                                    </telerik:RadToggleButton>
 
-                                <telerik:RadToggleButton IsChecked="{Binding FixedDocumentViewer.Mode, Mode=TwoWay, Converter={StaticResource ModeConverter}, ConverterParameter=TextSelection}"
-                                                         Margin="2"
-                                                         Padding="0"
-                                                         IsBackgroundVisible="False"
-                                                         HorizontalAlignment="Left"
-                                                         VerticalAlignment="Stretch">
-                                    <ToolTipService.ToolTip>
-                                        <TextBlock Text="文本选择" />
-                                    </ToolTipService.ToolTip>
-                                    <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/text-selection.png"
-                                           Stretch="None" />
-                                </telerik:RadToggleButton>
-                            </telerik:RadToolBar>
+                                    <telerik:RadToggleButton IsChecked="{Binding FixedDocumentViewer.Mode, Mode=TwoWay, Converter={StaticResource ModeConverter}, ConverterParameter=TextSelection}"
+                                                             Margin="2"
+                                                             Padding="0"
+                                                             IsBackgroundVisible="False"
+                                                             HorizontalAlignment="Left"
+                                                             VerticalAlignment="Stretch">
+                                        <ToolTipService.ToolTip>
+                                            <TextBlock Text="文本选择" />
+                                        </ToolTipService.ToolTip>
+                                        <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/text-selection.png"
+                                               Stretch="None" />
+                                    </telerik:RadToggleButton>
+                                </telerik:RadToolBar>
 
-                            <telerik:RadPdfViewer Grid.Row="1"
-                                                  Grid.RowSpan="2"
-                                                  x:Name="PdfReader" />
-                        </Grid>
-                    </telerik:RadPane>
-                </telerik:RadPaneGroup>
-            </telerik:RadSplitContainer>
-        </telerik:RadDocking>
-    </Grid>
+                                <telerik:RadPdfViewer Grid.Row="1"
+                                                      Grid.RowSpan="2"
+                                                      x:Name="PdfReader" />
+                            </Grid>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                </telerik:RadSplitContainer>
+            </telerik:RadDocking>
+        </Grid>
+    </telerik:RadBusyIndicator>
 </telerik:RadWindow>

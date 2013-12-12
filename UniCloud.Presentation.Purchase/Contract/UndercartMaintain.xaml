@@ -212,27 +212,11 @@
                                       Grid.Row="5"
                                       Margin="0,3"
                                       Command="{Binding DataContext.AddAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                      CommandParameter="{Binding ElementName=WordButton}"
                                       VerticalContentAlignment="Top"
                                       HorizontalContentAlignment="Left">
                         <TextBlock Text="{Binding DocumentName,Mode=TwoWay}"
                                    TextDecorations="Underline" />
                     </HyperlinkButton>
-                    <telerik:RadRadioButton Grid.Row="8"
-                                            Grid.Column="2"
-                                            Width="100"
-                                            Margin="10,3,0,0"
-                                            Name="WordButton"
-                                            Content="Word"
-                                            HorizontalAlignment="Left"
-                                            IsChecked="True" />
-                    <telerik:RadRadioButton Grid.Row="8"
-                                            Grid.Column="2"
-                                            Width="100"
-                                            Margin="10,3,10,0"
-                                            Content="PDF"
-                                            HorizontalAlignment="Right"
-                                            Name="PdfButton" />
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
