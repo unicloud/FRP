@@ -63,10 +63,12 @@ namespace UniCloud.Presentation.Document
                         {
                             Stream currentContent = new MemoryStream(result.FileStorage);
                             CurrentDocumentView.PdfReader.Document = new PdfFormatProvider(currentContent, FormatProviderSettings.ReadOnDemand).Import();
+                            CurrentDocumentView.WordReader.Document = new RadDocument();
                         }
                         else if (result.Name.EndsWith(".docx", StringComparison.OrdinalIgnoreCase))
                         {
                             CurrentDocumentView.WordReader.Document = new DocxFormatProvider().Import(result.FileStorage);
+                            CurrentDocumentView.PdfReader.Document = null;
                         }
                     }
                 }
@@ -104,7 +106,7 @@ namespace UniCloud.Presentation.Document
             else
             {
                 CurrentDocumentView.WordReader.Document = new RadDocument();
-                CurrentDocumentView.PdfReader.DocumentSource = null;
+                CurrentDocumentView.PdfReader.Document = null ;
                 IsBusy = false;
             }
         }

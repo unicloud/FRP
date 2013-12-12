@@ -8,7 +8,7 @@
                    xmlns:converters="clr-namespace:Telerik.Windows.Documents.Converters;assembly=Telerik.Windows.Controls.FixedDocumentViewers"
                    xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
                    mc:Ignorable="d"
-                   d:DataContext="{d:DesignInstance uc:PDFViewerVm }"
+                   d:DataContext="{d:DesignInstance uc:DocumentViewerVm }"
                    x:Name="RadDocumentViewer"
                    Height="600"
                    Width="800"
@@ -43,9 +43,9 @@
                             </Grid.RowDefinitions>
 
                             <telerik:RadRichTextBoxRibbonUI  BackstageClippingElement="{Binding ElementName=LayoutRoot}"
-                                                             ApplicationButtonImageSource="/RichTextBox;component/Images/RichTextBox/MSOffice/AppIcon-telerik.png"
-                                                             DataContext="{Binding Commands, ElementName=editor}"
-                                                             ApplicationName=""
+                                                             DataContext="{Binding Commands, ElementName=WordReader}"
+                                                             ApplicationName=" "
+                                                             ApplicationButtonContent="文件"
                                                              x:Name="RadRichTextBoxRibbonUI"
                                                              VerticalAlignment="Stretch">
                                 <telerik:RadRichTextBoxRibbonUI.Resources>
@@ -551,7 +551,7 @@
                                                     LayoutMode="Paged" />
                             <telerik:RadRichTextBoxStatusBar Grid.Row="2"
                                                              UseLayoutRounding="True"
-                                                             AssociatedRichTextBox="{Binding ElementName=editor, Mode=OneTime}" />
+                                                             AssociatedRichTextBox="{Binding ElementName=WordReader, Mode=OneTime}" />
                         </Grid>
                     </telerik:RadPane>
                     <telerik:RadPane Name="PdfPane"
@@ -573,7 +573,7 @@
 
                             <telerik:RadToolBar x:Name="Toolbar"
                                                 Grid.Row="0"
-                                                DataContext="{Binding ElementName=pdfViewer, Path=Commands}"
+                                                DataContext="{Binding ElementName=PdfReader, Path=Commands}"
                                                 Grid.ColumnSpan="3">
                                 <telerik:RadToolBar.Resources>
                                     <converters:FixedDocumentViewerModeConverter x:Key="ModeConverter" />
@@ -658,7 +658,7 @@
                                            Text="/" />
                                 <TextBlock VerticalAlignment="Center"
                                            Margin="2"
-                                           Text="{Binding ElementName=pdfViewer, Path=Document.Pages.Count}" />
+                                           Text="{Binding ElementName=PdfReader, Path=Document.Pages.Count}" />
                                 <telerik:RadToolBarSeparator />
 
                                 <telerik:RadButton Command="{Binding ZoomInCommand}"
@@ -693,8 +693,8 @@
                                 </telerik:RadButton>
 
                                 <fixedViewersUI:PercentComboBox Margin="2"
-                                                                Value="{Binding ElementName=pdfViewer, Path=ScaleFactor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                                RadPdfViewer="{Binding ElementName=pdfViewer}">
+                                                                Value="{Binding ElementName=PdfReader, Path=ScaleFactor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                RadPdfViewer="{Binding ElementName=PdfReader}">
                                     <fixedViewersUI:PercentComboBox.PercentValues>
                                         <fixedViewersUI:Percent Value="10" />
                                         <fixedViewersUI:Percent Value="25" />

@@ -22,6 +22,7 @@ using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
@@ -70,6 +71,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     var newItem = UndercartMaintainContracts.CurrentAddItem as UndercartMaintainContractDTO;
                     if (newItem != null)
                     {
+                        newItem.UndercartMaintainContractId = RandomHelper.Next();
                         newItem.SignDate = DateTime.Now;
                         newItem.CreateDate = DateTime.Now;
                         newItem.DocumentName = "添加附件";

@@ -20,6 +20,7 @@ using System.Linq;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
@@ -68,6 +69,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     var newItem = ApuMaintainContracts.CurrentAddItem as APUMaintainContractDTO;
                     if (newItem != null)
                     {
+                        newItem.APUMaintainContractId = RandomHelper.Next();
                         newItem.SignDate = DateTime.Now;
                         newItem.CreateDate = DateTime.Now;
                         newItem.DocumentName = "添加附件";
