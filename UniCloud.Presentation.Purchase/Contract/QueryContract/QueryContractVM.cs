@@ -212,12 +212,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             {
                 _listBoxDocumentItems.Add(RootPath);
                 RaisePropertyChanged(() => ListBoxDocumentItems);
-<<<<<<< .mine
             }
-=======
-
->>>>>>> .theirs
-        }
         }
 
         /// <summary>
