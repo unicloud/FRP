@@ -43,10 +43,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         private string _loadType; //加载子项文件夹方式方式，1、DoubleClick 双击,2、SearchText 搜索框
 
         [Import]
-        public PDFViewer PdfViewer;
-
-        [Import]
-        public PDFViewer WordViewer;
+        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
         public QueryContractVM(IRegionManager regionManager)
@@ -232,21 +229,9 @@ namespace UniCloud.Presentation.Purchase.Contract
                 RaisePropertyChanged(() => CurrentPathItem);
                 return;
             }
-         
-           var document = new Document.Document {Id = documentId.Value};
-
-            if (extension.Contains("pdf"))
-            {
-                PdfViewer.Tag = null;
-                PdfViewer.ViewModel.InitData(true, document, null);
-                PdfViewer.ShowDialog();
-            }
-            else if (extension.Contains("doc"))
-            {
-                WordViewer.Tag = null;
-                WordViewer.ViewModel.InitData(true, document, null);
-                WordViewer.ShowDialog();
-            }
+            DocumentView.Tag = null;
+            DocumentView.ViewModel.InitData(true, documentId.Value, null);
+            DocumentView.ShowDialog();
         }
 
         /// <summary>

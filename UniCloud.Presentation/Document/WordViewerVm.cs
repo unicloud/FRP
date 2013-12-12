@@ -40,7 +40,7 @@ namespace UniCloud.Presentation.Document
         #region 声明、初始化
         [Import]
         public WordViewer CurrentWordView;
-        private Document _currentDoc;
+        private DocumentDTO _currentDoc;
         private bool _onlyView;
         private readonly QueryableDataServiceCollectionView<DocumentDTO> _documents;
         private EventHandler<DataServiceSubmittedChangesEventArgs> _submitChanges;
@@ -75,7 +75,7 @@ namespace UniCloud.Presentation.Document
 
         #region 操作
         #region 初始化文档信息
-        public void InitData(bool onlyView, Document doc, EventHandler<WindowClosedEventArgs> closed)
+        public void InitData(bool onlyView, DocumentDTO doc, EventHandler<WindowClosedEventArgs> closed)
         {
             IsBusy = true;
             _currentDoc = doc;
@@ -87,9 +87,9 @@ namespace UniCloud.Presentation.Document
             CurrentWordView.Closed -= closed;
             CurrentWordView.Closed += closed;
             CurrentWordView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            if (doc != null && !doc.Id.Equals(Guid.Empty) && doc.Name.EndsWith(".docx", StringComparison.OrdinalIgnoreCase))
+            if (doc != null && !doc.DocumentId.Equals(Guid.Empty) && doc.Name.EndsWith(".docx", StringComparison.OrdinalIgnoreCase))
             {
-                LoadDocumentByDocId(doc.Id);
+                LoadDocumentByDocId(doc.DocumentId);
             }
             else
             {
@@ -145,14 +145,14 @@ namespace UniCloud.Presentation.Document
         private void Save(object sender)
         {
             bool isNew = false;
-            if (_currentDoc.Id.Equals(Guid.Empty))
+            if (_currentDoc.DocumentId.Equals(Guid.Empty))
             {
                 isNew = true;
-                _currentDoc.Id = Guid.NewGuid();
+                _currentDoc.DocumentId = Guid.NewGuid();
             }
             var document = new DocumentDTO
             {
-                DocumentId = _currentDoc.Id,
+                DocumentId = _currentDoc.DocumentId,
                 Name = _currentDoc.Name,
                 FileStorage = new DocxFormatProvider().Export(CurrentWordView.editor.Document)
             };
@@ -199,11 +199,5 @@ namespace UniCloud.Presentation.Document
         {
         }
         #endregion
-    }
-
-    public class Document
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
     }
 }
