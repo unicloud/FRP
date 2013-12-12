@@ -40,12 +40,11 @@ namespace UniCloud.Presentation.Purchase.Contract
     public class QueryContractVM : ViewModelBase
     {
         private readonly IRegionManager _regionManager;
-
-        [Import] public PDFViewer PdfViewer;
-
-        [Import] public PDFViewer WordViewer;
         private CommonServiceData _context;
         private string _loadType; //加载子项文件夹方式方式，1、DoubleClick 双击,2、SearchText 搜索框
+
+        [Import]
+        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
         public QueryContractVM(IRegionManager regionManager)
@@ -184,36 +183,41 @@ namespace UniCloud.Presentation.Purchase.Contract
                                                                             .FirstOrDefault(p => p.ParentId == null));
             }
             else //双击打开文件夹 
-                if (_loadType == "DoubleClick")
+            if (_loadType == "DoubleClick")
+            {
+                if (SelDocumentPath != null)
                 {
-                    if (SelDocumentPath != null)
-                    {
-                        var childDocuments = DocumentPathsView
-                            .Where(p => p.ParentId == SelDocumentPath.DocumentPathId);
-
-                        _currentPathItem =
-                            CurrentPathItem.SubDocumentPaths.FirstOrDefault(
-                                p => p.DocumentPathId == SelDocumentPath.DocumentPathId);
-                        ListBoxItemHelper.TransformToSubListBoxItem(_currentPathItem, childDocuments);
-                        RaisePropertyChanged(() => CurrentPathItem);
-                    }
+                    var childDocuments = DocumentPathsView
+                        .Where(p => p.ParentId == SelDocumentPath.DocumentPathId);
+                    
+                    _currentPathItem =
+                        CurrentPathItem.SubDocumentPaths.FirstOrDefault(
+                            p => p.DocumentPathId == SelDocumentPath.DocumentPathId);
+                    ListBoxItemHelper.TransformToSubListBoxItem(_currentPathItem, childDocuments);
+                    RaisePropertyChanged(() => CurrentPathItem);
                 }
-                else //通过搜索框打开文件夹
+            }
+            else //通过搜索框打开文件夹
+            {
+                if (CurrentPathItem != null)
                 {
-                    if (CurrentPathItem != null)
-                    {
-                        var childDocuments = DocumentPathsView
-                            .Where(p => p.ParentId == _currentPathItem.DocumentPathId);
-                        ListBoxItemHelper.TransformToSubListBoxItem(_currentPathItem, childDocuments);
-                        RaisePropertyChanged(() => CurrentPathItem);
-                    }
+                    var childDocuments = DocumentPathsView
+                        .Where(p => p.ParentId == _currentPathItem.DocumentPathId);
+                    ListBoxItemHelper.TransformToSubListBoxItem(_currentPathItem, childDocuments);
+                    RaisePropertyChanged(() => CurrentPathItem);
                 }
+            }
             //Treeview集合
             if (_listBoxDocumentItems.Count <= 0)
             {
                 _listBoxDocumentItems.Add(RootPath);
                 RaisePropertyChanged(() => ListBoxDocumentItems);
+<<<<<<< .mine
             }
+=======
+
+>>>>>>> .theirs
+        }
         }
 
         /// <summary>
@@ -240,26 +244,14 @@ namespace UniCloud.Presentation.Purchase.Contract
             if (_loadType.Equals("DoubleClick"))
             {
                 _currentPathItem =
-                    CurrentPathItem.SubDocumentPaths.FirstOrDefault(
-                        p => p.DocumentPathId == SelDocumentPath.DocumentPathId);
+                  CurrentPathItem.SubDocumentPaths.FirstOrDefault(
+                      p => p.DocumentPathId == SelDocumentPath.DocumentPathId);
                 RaisePropertyChanged(() => CurrentPathItem);
                 return;
             }
-
-            var document = new Document.Document {Id = documentId.Value};
-
-            if (extension.Contains("pdf"))
-            {
-                PdfViewer.Tag = null;
-                PdfViewer.ViewModel.InitData(true, document, null);
-                PdfViewer.ShowDialog();
-            }
-            else if (extension.Contains("doc"))
-            {
-                WordViewer.Tag = null;
-                WordViewer.ViewModel.InitData(true, document, null);
-                WordViewer.ShowDialog();
-            }
+            DocumentView.Tag = null;
+            DocumentView.ViewModel.InitData(true, documentId.Value, null);
+            DocumentView.ShowDialog();
         }
 
         /// <summary>
@@ -321,8 +313,8 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             if (!DocumentPathsView.AutoLoad)
             {
-                DocumentPathsView.AutoLoad = true; //加载数据。
-            }
+            DocumentPathsView.AutoLoad = true; //加载数据。
+        }
             else
             {
                 DocumentPathsView.Load(true);

@@ -16,6 +16,7 @@ using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
+using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
@@ -35,12 +36,10 @@ namespace UniCloud.Presentation.Purchase.Reception
         private TimeMarkerCollection _timeMarkers;
         private ResourceTypeCollection workGroups;
         private Service.Purchase.SchdeuleExtension.ControlExtension scheduleExtension;
-        private Document.Document _document = new Document.Document();
+        private DocumentDTO _document = new DocumentDTO();
 
         [Import]
-        public WordViewer WordView;
-        [Import]
-        public PDFViewer PdfView;
+        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
         public AircraftPurchaseReceptionManagerVM(IRegionManager regionManager)
@@ -497,9 +496,8 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         protected override void OnAddAttach(object sender)
         {
-            PdfView.Tag = null;
-            PdfView.ViewModel.InitData(false, _document, PdfViewerClosed);
-            PdfView.ShowDialog();
+            DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
+            DocumentView.ShowDialog();
         }
 
         /// <summary>
@@ -509,36 +507,18 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         private void OnAddWordAttach(object sender)
         {
-            WordView.Tag = null;
-            WordView.ViewModel.InitData(false, _document, PdfViewerClosed);
-            WordView.ShowDialog();
+           
         }
-        private void WordViewerClosed(object sender, WindowClosedEventArgs e)
+        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {
-            if (WordView.Tag != null && WordView.Tag is Document.Document)
+            if (DocumentView.Tag is DocumentDTO)
             {
                 var relatedDoc = new RelatedDocDTO()
                 {
                     SourceId = SelAircraftPurchaseReception.SourceId,
                 };
-                var document = WordView.Tag as Document.Document;
-                relatedDoc.DocumentId = document.Id;
-                relatedDoc.DocumentName = document.Name;
-                RelatedDocs.AddNew(relatedDoc);
-                ViewDocuments.Add(relatedDoc);
-            }
-        }
-
-        private void PdfViewerClosed(object sender, WindowClosedEventArgs e)
-        {
-            if (PdfView.Tag != null && PdfView.Tag is Document.Document)
-            {
-                var relatedDoc = new RelatedDocDTO()
-                {
-                    SourceId = SelAircraftPurchaseReception.SourceId,
-                };
-                var document = PdfView.Tag as Document.Document;
-                relatedDoc.DocumentId = document.Id;
+                var document = DocumentView.Tag as DocumentDTO;
+                relatedDoc.DocumentId = document.DocumentId;
                 relatedDoc.DocumentName = document.Name;
                 RelatedDocs.AddNew(relatedDoc);
                 ViewDocuments.Add(relatedDoc);
@@ -572,22 +552,8 @@ namespace UniCloud.Presentation.Purchase.Reception
         #region 查看附件
         protected override void OnViewAttach(object sender)
         {
-            if (string.IsNullOrEmpty(_document.Name))
-            {
-                return;
-            }
-            if (_document.Name.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
-            {
-                PdfView.Tag = null;
-                PdfView.ViewModel.InitData(true, _document, PdfViewerClosed);
-                PdfView.ShowDialog();
-            }
-            else
-            {
-                WordView.Tag = null;
-                WordView.ViewModel.InitData(true, _document, WordViewerClosed);
-                WordView.ShowDialog();
-            }
+            DocumentView.ViewModel.InitData(true, _document.DocumentId, null);
+            DocumentView.ShowDialog();
         }
         #endregion
 

@@ -246,6 +246,10 @@
     <Compile Include="CommonExtension\CommonExtension.cs" />
     <Compile Include="CommonExtension\RandomHelper.cs" />
     <Compile Include="ControlExtension\DataForm\MasterCommandProvider.cs" />
+    <Compile Include="Document\DocumentViewer.xaml.cs">
+      <DependentUpon>DocumentViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Document\DocumentViewerVm.cs" />
     <Compile Include="Document\PDFViewer.xaml.cs">
       <DependentUpon>PDFViewer.xaml</DependentUpon>
     </Compile>
@@ -282,6 +286,10 @@
     <Compile Include="RegionNames.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Document\DocumentViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Document\PDFViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
