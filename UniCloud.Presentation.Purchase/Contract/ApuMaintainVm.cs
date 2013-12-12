@@ -71,6 +71,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     {
                         newItem.SignDate = DateTime.Now;
                         newItem.CreateDate = DateTime.Now;
+                        newItem.DocumentName = "添加附件";
                         _document.Id = new Guid();
                         _document.Name = string.Empty;
                     }
