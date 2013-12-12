@@ -51,7 +51,6 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             _regionManager = regionManager;
             InitialDocumentPath(); //初始化文档路径
-
             InitialCommad(); //初始化命令
         }
 
@@ -71,7 +70,9 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             DocumentPathsView = Service.CreateCollection(_context.DocumentPaths.Expand(p => p.SubDocumentPaths));
             _pathFilterDes = new FilterDescriptor("ParentId", FilterOperator.IsEqualTo, null);
+            var pathType = new FilterDescriptor("PathSource", FilterOperator.IsEqualTo, 0);//路径类型
             DocumentPathsView.FilterDescriptors.Add(_pathFilterDes);
+            DocumentPathsView.FilterDescriptors.Add(pathType);
             DocumentPathsView.LoadedData += (sender, e) =>
                 {
                     if (e.HasError)
@@ -207,11 +208,11 @@ namespace UniCloud.Presentation.Purchase.Contract
                 }
             }
             //Treeview集合
-            if (_listBoxDocumentItems.Count<=0)
+            if (_listBoxDocumentItems.Count <= 0)
             {
                 _listBoxDocumentItems.Add(RootPath);
                 RaisePropertyChanged(() => ListBoxDocumentItems);
-        }
+            }
         }
 
         /// <summary>

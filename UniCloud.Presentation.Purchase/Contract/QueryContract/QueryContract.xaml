@@ -31,7 +31,7 @@
             </telerik:HierarchicalDataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
-
+  <telerik:RadBusyIndicator BusyContent="正在加载，请稍后..." IsBusy="{Binding DocumentPathsView.IsBusy}">
     <Grid x:Name="LayoutRoot" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="38" />
@@ -42,7 +42,7 @@
                        Header="{Binding RootPath}"
                             ImagePath="SmallIconPath"
                             IsIconVisible="True"
-                            ItemsSource="{Binding RootPath.SubDocumentPaths}"
+                            ItemsSource="{Binding RootPath.SubFolders}"
                             TextModePath="Path"
                             CurrentItem="{Binding CurrentPathItem, Mode=TwoWay}">
             <telerik:RadBreadcrumb.HeaderTemplate>
@@ -52,7 +52,7 @@
                 </DataTemplate>
             </telerik:RadBreadcrumb.HeaderTemplate>
             <telerik:RadBreadcrumb.ItemTemplate>
-                <telerik:HierarchicalDataTemplate ItemsSource="{Binding SubDocumentPaths}">
+                    <telerik:HierarchicalDataTemplate ItemsSource="{Binding SubFolders}">
                     <telerik:HierarchicalDataTemplate.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}" />
@@ -88,7 +88,7 @@
                                             </Style>
                                         </telerik:RadTreeView.ItemContainerStyle>
                                         <telerik:RadTreeView.ItemTemplate>
-                                            <telerik:HierarchicalDataTemplate ItemsSource="{Binding SubDocumentPaths}">
+                                                <telerik:HierarchicalDataTemplate ItemsSource="{Binding SubFolders}">
                                                 <TextBlock Text="{Binding Name}" />
                                             </telerik:HierarchicalDataTemplate>
                                         </telerik:RadTreeView.ItemTemplate>
@@ -154,4 +154,5 @@
             </telerik:RadDocking>
         </Grid>
     </Grid>
+    </telerik:RadBusyIndicator>
 </UserControl>

@@ -33,6 +33,7 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
         public ListBoxDocumentItem()
         {
             SubDocumentPaths = new ObservableCollection<ListBoxDocumentItem>();
+            SubFolders=new ObservableCollection<ListBoxDocumentItem>();
         }
 
         /// <summary>
@@ -74,6 +75,11 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
         ///     子项文档集合
         /// </summary>
         public ObservableCollection<ListBoxDocumentItem> SubDocumentPaths { get; set; }
+
+        /// <summary>
+        /// 子项文件夹
+        /// </summary>
+        public ObservableCollection<ListBoxDocumentItem> SubFolders { get; set; }
 
         /// <summary>
         ///     图片缩略图路径
