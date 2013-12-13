@@ -62,6 +62,7 @@ namespace UniCloud.Application.PurchaseBC.Query.ContractAircraftQueries
                          ImportCategoryId = p.ImportCategoryId,
                          ImportType = p.ImportCategory.ActionType,
                          ImportActionName = p.ImportCategory.ActionName,
+                         SupplierId = p.SupplierId,
                      });
         }
 

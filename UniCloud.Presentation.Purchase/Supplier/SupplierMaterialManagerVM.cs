@@ -34,7 +34,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Supplier
 {
-    [Export(typeof (SupplierMaterialManagerVM))]
+    [Export(typeof(SupplierMaterialManagerVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class SupplierMaterialManagerVM : EditViewModelBase
     {
@@ -197,7 +197,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
                     }
                     SetAcMaterialFilterState();
                     MaterialChildView.Close();
-                    RefreshMaterialChildButton();
                     MessageAlert("提示", "保存成功");
                 };
         }
@@ -314,7 +313,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
                     }
                     SetEngineMaterialFilterState();
                     MaterialChildView.Close();
-                    RefreshMaterialChildButton();
                     MessageAlert("提示", "保存成功");
                 };
         }
@@ -430,7 +428,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
                     }
                     SetBfeMaterialFilterState();
                     MaterialChildView.Close();
-                    RefreshMaterialChildButton();
                     MessageAlert("提示", "保存成功");
                 };
         }
@@ -697,7 +694,8 @@ namespace UniCloud.Presentation.Purchase.Supplier
 
         #region 子窗体相关
 
-        [Import] public MaterialChildView MaterialChildView; //初始化子窗体
+        [Import]
+        public MaterialChildView MaterialChildView; //初始化子窗体
         private Visibility _acGridVisibility = Visibility.Collapsed;
         private List<AircraftMaterialDTO> _addingAcMaterial; //需要添加的飞机物料
         private List<BFEMaterialDTO> _addingBfeMaterial; //需要添加的BFe物料
@@ -931,15 +929,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
             }
         }
 
-        /// <summary>
-        ///     刷新物料子窗体保存与取消按钮
-        /// </summary>
-        private void RefreshMaterialChildButton()
-        {
-            CancelCommand.RaiseCanExecuteChanged();
-            CommitCommand.RaiseCanExecuteChanged();
-        }
-
         #endregion
 
         #region 命令
@@ -964,11 +953,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <returns>取消命令是否可用。</returns>
         public bool CanCancelExecute(object sender)
         {
-            if (SupplierCompanyAcMaterialsView.IsSubmittingChanges || SupplierCompanyAcMaterialsView.IsSubmittingChanges
-                || SupplierCompanyAcMaterialsView.IsSubmittingChanges)
-            {
-                return false;
-            }
             return true;
         }
 
@@ -996,51 +980,50 @@ namespace UniCloud.Presentation.Purchase.Supplier
             {
                 _addingAcMaterial.ForEach(
                     p =>
-                        {
-                            var acMaterial = new SupplierCompanyAcMaterialDTO
-                                {
-                                    MaterialId = p.AcMaterialId,
-                                    SupplierCompanyId = SelSupplierCompany.SupplierCompanyId,
-                                    Name = p.Name,
-                                    SupplierCompanyMaterialId = RandomHelper.Next()
-                                };
-                            SupplierCompanyAcMaterialsView.AddNew(acMaterial);
-                        });
+                    {
+                        var acMaterial = new SupplierCompanyAcMaterialDTO
+                            {
+                                MaterialId = p.AcMaterialId,
+                                SupplierCompanyId = SelSupplierCompany.SupplierCompanyId,
+                                Name = p.Name,
+                                SupplierCompanyMaterialId = RandomHelper.Next()
+                            };
+                        SupplierCompanyAcMaterialsView.AddNew(acMaterial);
+                    });
                 SupplierCompanyAcMaterialsView.SubmitChanges();
             }
             else if (_type.Equals("发动机物料"))
             {
                 _addingEngineMaterial.ForEach(
                     p =>
-                        {
-                            var engineMaterial = new SupplierCompanyEngineMaterialDTO
-                                {
-                                    MaterialId = p.EngineMaterialId,
-                                    SupplierCompanyId = SelSupplierCompany.SupplierCompanyId,
-                                    Name = p.Name,
-                                    SupplierCompanyMaterialId = RandomHelper.Next()
-                                };
-                            SupplierCompanyEngineMaterialsView.AddNew(engineMaterial);
-                        });
+                    {
+                        var engineMaterial = new SupplierCompanyEngineMaterialDTO
+                            {
+                                MaterialId = p.EngineMaterialId,
+                                SupplierCompanyId = SelSupplierCompany.SupplierCompanyId,
+                                Name = p.Name,
+                                SupplierCompanyMaterialId = RandomHelper.Next()
+                            };
+                        SupplierCompanyEngineMaterialsView.AddNew(engineMaterial);
+                    });
                 SupplierCompanyEngineMaterialsView.SubmitChanges();
             }
             else
             {
                 _addingBfeMaterial.ForEach(
                     p =>
-                        {
-                            var bfeMaterial = new SupplierCompanyBFEMaterialDTO
-                                {
-                                    MaterialId = p.BFEMaterialId,
-                                    SupplierCompanyId = SelSupplierCompany.SupplierCompanyId,
-                                    Name = p.Name,
-                                    SupplierCompanyMaterialId = RandomHelper.Next()
-                                };
-                            SupplierCompanyBFEMaterialsView.AddNew(bfeMaterial);
-                        });
+                    {
+                        var bfeMaterial = new SupplierCompanyBFEMaterialDTO
+                            {
+                                MaterialId = p.BFEMaterialId,
+                                SupplierCompanyId = SelSupplierCompany.SupplierCompanyId,
+                                Name = p.Name,
+                                SupplierCompanyMaterialId = RandomHelper.Next()
+                            };
+                        SupplierCompanyBFEMaterialsView.AddNew(bfeMaterial);
+                    });
                 SupplierCompanyBFEMaterialsView.SubmitChanges();
             }
-            RefreshMaterialChildButton(); //刷新按钮状态
         }
 
         /// <summary>
@@ -1050,11 +1033,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <returns>确定命令是否可用。</returns>
         public bool CanCommitExecute(object sender)
         {
-            if (SupplierCompanyAcMaterialsView.IsSubmittingChanges || SupplierCompanyAcMaterialsView.IsSubmittingChanges
-                || SupplierCompanyAcMaterialsView.IsSubmittingChanges)
-            {
-                return false;
-            }
             return true;
         }
 

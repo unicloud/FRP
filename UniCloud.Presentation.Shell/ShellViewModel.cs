@@ -369,18 +369,22 @@ namespace UniCloud.Presentation.Shell
             var menu425 = new MenuItem
             {
                 Text = "维护发动机维修发票",
+                NavUri = "UniCloud.Presentation.Payment.Invoice.EngineMaintain"
             };
             var menu426 = new MenuItem
             {
                 Text = "维护APU维修发票",
+                NavUri = "UniCloud.Presentation.Payment.Invoice.APUMaintain"
             };
             var menu427 = new MenuItem
             {
                 Text = "维护起落架维修发票",
+                NavUri = "UniCloud.Presentation.Payment.Invoice.UnderCartMaintain"
             };
             var menu428 = new MenuItem
             {
                 Text = "维护机身维修发票",
+                NavUri = "UniCloud.Presentation.Payment.Invoice.FuselageMaintain"
             };
             var menu429 = new MenuItem
             {

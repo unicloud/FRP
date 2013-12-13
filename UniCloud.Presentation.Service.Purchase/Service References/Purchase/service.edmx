@@ -149,7 +149,7 @@
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
         <Property Name="PlanAircraftID" Type="Edm.Guid" />
         <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" />
         <NavigationProperty Name="BFEPurchaseOrders" Relationship="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO_BFEPurchaseOrders" ToRole="BFEPurchaseOrders" FromRole="ContractAircraftDTO" />
       </EntityType>
       <EntityType Name="LeaseContractAircraftDTO">
