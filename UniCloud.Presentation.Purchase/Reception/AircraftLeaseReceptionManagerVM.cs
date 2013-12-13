@@ -433,7 +433,13 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         private void OnRemove(object obj)
         {
+            var delDocs = RelatedDocs.Where(p => p.SourceId == SelAircraftLeaseReception.SourceId).ToList();
+            foreach (var reltedDoc in delDocs)
+            {
+                RelatedDocs.Remove(delDocs);
+            }
             AircraftLeaseReceptions.Remove(SelAircraftLeaseReception);
+
         }
 
         private bool CanRemove(object obj)

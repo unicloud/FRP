@@ -38,6 +38,7 @@
                                      CanFloat="False"
                                      CanUserClose="False"
                                      CanUserPin="False"
+                                     FontSize="{StaticResource TextFontSize}"
                                      ContextMenuTemplate="{x:Null}">
                         <Grid>
                             <telerik:RadGridView IsReadOnly="True"

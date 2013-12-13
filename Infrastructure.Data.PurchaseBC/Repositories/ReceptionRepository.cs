@@ -17,7 +17,12 @@
 
 #region 命名空间
 
+using System.Linq;
+using System.Data.Entity;
+using UniCloud.Domain;
+using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
+using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 
 #endregion
 
@@ -31,10 +36,41 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Repositories
         public ReceptionRepository(IQueryableUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
+
         }
 
         #region 方法重载
 
+        public override Reception Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as PurchaseBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<Reception>();
+
+            return set.Include(p => p.ReceptionLines).Include(q => q.ReceptionSchedules).SingleOrDefault(l => l.Id == (int)id);
+        }
+
+        public override IQueryable<Reception> GetAll()
+        {
+            var currentUnitOfWork = UnitOfWork as PurchaseBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<Reception>();
+
+            return set.Include(p => p.ReceptionLines);
+        }
+
+        public void DeleteReception(Reception reception)
+        {
+            var currentUnitOfWork = UnitOfWork as PurchaseBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            var dbReceptionLines = currentUnitOfWork.CreateSet<ReceptionLine>();
+            var dbReceptionSchedules = currentUnitOfWork.CreateSet<ReceptionSchedule>();
+            var dbReceptions = currentUnitOfWork.CreateSet<Reception>();
+            dbReceptionLines.RemoveRange(reception.ReceptionLines);
+            dbReceptionSchedules.RemoveRange(reception.ReceptionSchedules);
+            dbReceptions.Remove(reception);
+        }
         #endregion
+
     }
 }

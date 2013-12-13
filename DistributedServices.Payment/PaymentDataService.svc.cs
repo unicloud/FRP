@@ -16,7 +16,7 @@ namespace UniCloud.DistributedServices.Payment
 
     public class PaymentDataService : DataService<PaymentData>
     {
-        private readonly IPaymentAppService _flightLogAppService = Container.Current.Resolve<IPaymentAppService>();
+        //private readonly IPaymentAppService _flightLogAppService = Container.Current.Resolve<IPaymentAppService>();
 
         /// <summary>
         /// 初始化服务端策略

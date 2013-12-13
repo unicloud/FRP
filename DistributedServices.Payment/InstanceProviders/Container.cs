@@ -1,6 +1,11 @@
 ﻿//------------------------------------------------------------------------------
 // 
 //------------------------------------------------------------------------------
+
+using UniCloud.Infrastructure.Data;
+using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
+using UniCloud.Infrastructure.Utilities.Container;
+
 namespace UniCloud.DistributedServices.Payment.InstanceProviders
 {
     using Application.PaymentBC.Services;
@@ -13,52 +18,20 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
     /// </summary>
     public static class Container
     {
-        #region 属性
-
-        /// <summary>
-        /// 当前 DI 容器
-        /// </summary>
-        public static IUnityContainer Current { get; private set; }
-
-        #endregion
-
-        #region 构造函数
-
-        static Container()
-        {
-            ConfigureContainer();
-            ConfigureFactories();
-        }
-
-        #endregion
-
         #region 方法
 
         public static void ConfigureContainer()
         {
 
-            Current = new UnityContainer();
+            Configuration.Create()
+                .UseAutofac()
+                .CreateLog()
+                .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager());
 
+          
 
-            //-> Unit of Work与仓储
-
-            //-> 领域服务
-
-
-            //-> 应用服务
-            Current.RegisterType<IPaymentAppService, PaymentAppService>();
-
-            //-> 分布式服务
-
-        }
-
-
-        static void ConfigureFactories()
-        {
-            LoggerFactory.SetCurrent(new UniCloudLogFactory());
         }
 
         #endregion
-
     }
 }

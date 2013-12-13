@@ -445,6 +445,11 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         private void OnRemove(object obj)
         {
+            var delDocs = RelatedDocs.Where(p => p.SourceId == SelEnginePurchaseReception.SourceId).ToList();
+            foreach (var reltedDoc in delDocs)
+            {
+                RelatedDocs.Remove(delDocs);
+            }
             EnginePurchaseReceptions.Remove(SelEnginePurchaseReception);
         }
 
