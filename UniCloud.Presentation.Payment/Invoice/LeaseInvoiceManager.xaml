@@ -12,6 +12,17 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
+            <Style x:Key="EditComboBox"
+                   TargetType="telerik:RadComboBox">
+                <Setter Property="FontFamily"
+                        Value="Microsoft YaHei UI" />
+                <Setter Property="FontSize"
+                        Value="13" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="OpenDropDownOnFocus"
+                        Value="True" />
+            </Style>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -23,7 +34,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-
         <telerik:RadToolBar HorizontalAlignment="Stretch"
                             Margin="-1 -2 -1 0">
             <telerik:RadButton Margin="4,2,2,-2"
@@ -42,8 +52,14 @@
             </telerik:RadButton>
             <telerik:RadToolBarSeparator />
             <telerik:RadButton Margin="2,2,2,-2"
-                               Command="{Binding NewCommand}">
-                <Image Source="/UniCloud.Presentation;component/Images/New.png"
+                               Command="{Binding AddCommand}">
+                <Image Source="/UniCloud.Presentation;component/Images/Add.png"
+                       Stretch="Fill"
+                       ToolTipService.ToolTip="New Document" />
+            </telerik:RadButton>
+            <telerik:RadButton Margin="2,2,2,-2"
+                               Command="{Binding RemoveCommand}">
+                <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
                        Stretch="Fill"
                        ToolTipService.ToolTip="New Document" />
             </telerik:RadButton>
@@ -53,17 +69,79 @@
                             BorderThickness="0"
                             Padding="0"
                             HasDocumentHost="False">
-            <telerik:RadSplitContainer>
-                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="500, 600">
+            <telerik:RadSplitContainer  Orientation="Vertical">
+                <telerik:RadPaneGroup>
+                    <telerik:RadPane Header="租赁发票"
+                                     CanFloat="False"
+                                     CanUserClose="False"
+                                     CanUserPin="False"
+                                     FontSize="{StaticResource TextFontSize}"
+                                     ContextMenuTemplate="{x:Null}">
+                        <Grid>
+                            <telerik:RadGridView IsReadOnly="True"
+                                                 ItemsSource="{Binding }"
+                                                 IsBusy="{Binding }"
+                                                 AutoGenerateColumns="False"
+                                                 SelectedItem="{Binding }"
+                                                 AutoExpandGroups="True"
+                                                 ShowGroupPanel="False"
+                                                 CanUserSortColumns="True"
+                                                 RowIndicatorVisibility="Visible"
+                                                 CanUserFreezeColumns="False">
+                                <telerik:RadGridView.Columns>
+                                    <uc:DataPageSerialColumn Header="序号"
+                                                             CellStyle="{StaticResource CellStyle}"
+                                                             HeaderTextAlignment="Center" />
+                                    <telerik:GridViewDataColumn Header="合同名称"
+                                                                IsReadOnly="True"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding }" />
+                                    <telerik:GridViewComboBoxColumn Header="计划飞机"
+                                                                    IsReadOnly="True"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsFilterable="True"
+                                                                    ItemsSource="{Binding DataContext.PlanAircrafts, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                    DisplayMemberPath="RegNumber"
+                                                                    DataMemberBinding="{Binding PlanAircraftID,Mode=TwoWay}"
+                                                                    SelectedValueMemberPath="Id"
+                                                                    EditorStyle="{StaticResource EditComboBox}">
+                                    </telerik:GridViewComboBoxColumn>
+                                </telerik:RadGridView.Columns>
+                            </telerik:RadGridView>
+                        </Grid>
+                    </telerik:RadPane>
+                </telerik:RadPaneGroup>
+                <telerik:RadPaneGroup>
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane />
+                        <telerik:RadPane Header="发票行"
+                                         CanFloat="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         FontSize="{StaticResource TextFontSize}"
+                                         ContextMenuTemplate="{x:Null}">
+                            <Grid>
+                                <telerik:RadGridView IsReadOnly="True"
+                                                     ItemsSource="{Binding }"
+                                                     IsBusy="{Binding }"
+                                                     AutoGenerateColumns="False"
+                                                     SelectedItem="{Binding }"
+                                                     AutoExpandGroups="True"
+                                                     ShowGroupPanel="False"
+                                                     CanUserSortColumns="True"
+                                                     RowIndicatorVisibility="Visible"
+                                                     CanUserFreezeColumns="False">
+                                    <telerik:RadGridView.Columns>
+                                        <uc:DataPageSerialColumn Header="序号"
+                                                                 CellStyle="{StaticResource CellStyle}"
+                                                                 HeaderTextAlignment="Center" />
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+                            </Grid>
+                        </telerik:RadPane>
                     </telerik:RadPaneGroup>
-                </telerik:RadSplitContainer>
-                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="500, 600">
-                    <telerik:RadPaneGroup>
-                        <telerik:RadPane />
-                    </telerik:RadPaneGroup>
-                </telerik:RadSplitContainer>
+                </telerik:RadPaneGroup>
             </telerik:RadSplitContainer>
         </telerik:RadDocking>
     </Grid>

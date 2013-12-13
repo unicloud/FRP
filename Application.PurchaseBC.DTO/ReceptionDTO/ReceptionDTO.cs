@@ -23,8 +23,10 @@ namespace UniCloud.Application.PurchaseBC.DTO
 
     public partial class ReceptionDTO
     {
-        private HashSet<RelatedDocDTO> _documents;
-        private HashSet<ReceptionScheduleDTO> _schedules;
+        public ReceptionDTO()
+        { 
+            ReceptionSchedules=new List<ReceptionScheduleDTO>();
+        }
 
         #region 属性
         //接机编号
@@ -60,22 +62,9 @@ namespace UniCloud.Application.PurchaseBC.DTO
         #region 导航属性
 
         /// <summary>
-        ///    接机文档
-        /// </summary>
-        public virtual ICollection<RelatedDocDTO> Documents
-        {
-            get { return _documents ?? (_documents = new HashSet<RelatedDocDTO>()); }
-            set { _documents = new HashSet<RelatedDocDTO>(value); }
-        }
-
-        /// <summary>
         ///     交付日程
         /// </summary>
-        public virtual ICollection<ReceptionScheduleDTO> ReceptionSchedules
-        {
-            get { return _schedules ?? (_schedules = new HashSet<ReceptionScheduleDTO>()); }
-            set { _schedules = new HashSet<ReceptionScheduleDTO>(value); }
-        }
+        public List<ReceptionScheduleDTO> ReceptionSchedules { get; set; }
 
         #endregion
     }
