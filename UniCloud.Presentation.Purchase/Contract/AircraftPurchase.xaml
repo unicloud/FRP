@@ -178,6 +178,11 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="0 0 0 -1">
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddAttachCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="添加合同文档" />
+                                    </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddOrderLineCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Add.png" Stretch="Fill"
                                                ToolTipService.ToolTip="增加订单行" />
@@ -198,18 +203,18 @@
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <telerik:GroupBox Header="合同说明" Grid.RowSpan="2">
-                                        <TextBox Text="{Binding SelectedItem.Note, ElementName=Order }"
+                                        <TextBox Text="{Binding SelAircraftPurchaseOrderDTO.Note }"
                                                  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
                                     </telerik:GroupBox>
-                                    <HyperlinkButton Grid.Row="0" Grid.Column="1"
-                                                     Content="{Binding SelectedItem.ContractName, ElementName=Order }"
-                                                     Margin="10,10,0,0" />
+                                    <HyperlinkButton Grid.Row="0" Grid.Column="1" FontSize="14"
+                                                     Content="{Binding SelAircraftPurchaseOrderDTO.ContractName}"
+                                                     Margin="10,10,0,0" Command="{Binding ViewAttachCommand}" />
                                     <telerik:GroupBox Grid.Row="1" Grid.Column="1" Header="关联文档">
                                         <telerik:RadListBox />
                                     </telerik:GroupBox>
                                 </Grid>
                                 <telerik:RadGridView Grid.Row="2" x:Name="OrderLine" AutoGenerateColumns="False"
-                                                     ItemsSource="{Binding SelectedItem.AircraftPurchaseOrderLines, ElementName=Order}"
+                                                     ItemsSource="{Binding SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines}"
                                                      IsBusy="{Binding ViewAircraftPurchaseOrderDTO.IsBusy}"
                                                      ShowGroupPanel="False" IsFilteringAllowed="False"
                                                      EditTriggers="CellClick">
