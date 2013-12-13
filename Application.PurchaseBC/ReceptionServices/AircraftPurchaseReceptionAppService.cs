@@ -182,9 +182,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             //获取需要删除的对象。
             if (delAircraftPurchaseReception != null)
             {
-                delAircraftPurchaseReception.ReceptionLines.RemoveAll(p => p.ReceptionId == delAircraftPurchaseReception.Id);
-                delAircraftPurchaseReception.ReceptionSchedules.RemoveAll(p => p.ReceptionId == delAircraftPurchaseReception.Id);
-                _receptionRepository.Remove(delAircraftPurchaseReception); //删除购买飞机接收项目。
+                _receptionRepository.DeleteReception(delAircraftPurchaseReception);//删除租赁飞机接收项目。
             }
         }
 
