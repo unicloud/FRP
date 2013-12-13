@@ -98,11 +98,16 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="clientaccesspolicy.xml" />
     <Content Include="crossdomain.xml" />
+    <Content Include="Global.asax" />
     <Content Include="PaymentDataService.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="InstanceProviders\Container.cs" />
     <Compile Include="PaymentData.cs" />
     <Compile Include="PaymentDataService.svc.cs">
