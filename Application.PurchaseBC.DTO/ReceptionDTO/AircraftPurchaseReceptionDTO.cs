@@ -27,6 +27,8 @@ namespace UniCloud.Application.PurchaseBC.DTO
     [DataServiceKey("AircraftPurchaseReceptionId")]
     public partial class AircraftPurchaseReceptionDTO : ReceptionDTO
     {
+        private HashSet<AircraftPurchaseReceptionLineDTO> _receptionLines;
+
         #region 属性
         /// <summary>
         /// 购买飞机接收项目主键
@@ -40,8 +42,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     接收行
         /// </summary>
-        public List<AircraftPurchaseReceptionLineDTO> ReceptionLines { get; set; }
-
+        public virtual ICollection<AircraftPurchaseReceptionLineDTO> ReceptionLines
+        {
+            get { return _receptionLines ?? (_receptionLines = new HashSet<AircraftPurchaseReceptionLineDTO>()); }
+            set { _receptionLines = new HashSet<AircraftPurchaseReceptionLineDTO>(value); }
+        }
         #endregion
     }
 }

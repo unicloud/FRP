@@ -28,10 +28,7 @@ namespace UniCloud.Application.PurchaseBC.DTO
     public partial class AircraftLeaseReceptionDTO : ReceptionDTO
     {
 
-        public AircraftLeaseReceptionDTO()
-        {
-            ReceptionLines = new List<AircraftLeaseReceptionLineDTO>();
-        }
+        private HashSet<AircraftLeaseReceptionLineDTO> _receptionLines;
 
         #region 属性
         /// <summary>
@@ -46,8 +43,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     接收行
         /// </summary>
-        public List<AircraftLeaseReceptionLineDTO> ReceptionLines { get; set; }
-
+        public virtual ICollection<AircraftLeaseReceptionLineDTO> ReceptionLines
+        {
+            get { return _receptionLines ?? (_receptionLines = new HashSet<AircraftLeaseReceptionLineDTO>()); }
+            set { _receptionLines = new HashSet<AircraftLeaseReceptionLineDTO>(value); }
+        }
         #endregion
     }
 }

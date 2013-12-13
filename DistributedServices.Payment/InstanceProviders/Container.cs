@@ -34,7 +34,7 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
 
         #region 方法
 
-        static void ConfigureContainer()
+        public static void ConfigureContainer()
         {
 
             Current = new UnityContainer();

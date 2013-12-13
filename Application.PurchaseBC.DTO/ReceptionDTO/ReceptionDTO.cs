@@ -23,11 +23,8 @@ namespace UniCloud.Application.PurchaseBC.DTO
 
     public partial class ReceptionDTO
     {
-        public ReceptionDTO()
-        {
-            ReceptionSchedules = new List<ReceptionScheduleDTO>();
-            Doucments = new List<RelatedDocDTO>();
-        }
+        private HashSet<RelatedDocDTO> _documents;
+        private HashSet<ReceptionScheduleDTO> _schedules;
 
         #region 属性
         //接机编号
@@ -37,13 +34,13 @@ namespace UniCloud.Application.PurchaseBC.DTO
         //交付起始时间 
         public DateTime StartDate { get; set; }
         //交付截止时间
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         //创建日期
         public DateTime CreateDate { get; set; }
         //是否关闭
         public bool IsClosed { get; set; }
         //关闭日期
-        public DateTime CloseDate { get; set; }
+        public DateTime? CloseDate { get; set; }
 
         //供应商
         public string SupplierName { get; set; }
@@ -63,14 +60,22 @@ namespace UniCloud.Application.PurchaseBC.DTO
         #region 导航属性
 
         /// <summary>
-        ///     交付日程
+        ///    接机文档
         /// </summary>
-        public List<ReceptionScheduleDTO> ReceptionSchedules { get; set; }
+        public virtual ICollection<RelatedDocDTO> Documents
+        {
+            get { return _documents ?? (_documents = new HashSet<RelatedDocDTO>()); }
+            set { _documents = new HashSet<RelatedDocDTO>(value); }
+        }
 
         /// <summary>
-        ///  交付相关文档
+        ///     交付日程
         /// </summary>
-        public List<RelatedDocDTO> Doucments { get; set; }
+        public virtual ICollection<ReceptionScheduleDTO> ReceptionSchedules
+        {
+            get { return _schedules ?? (_schedules = new HashSet<ReceptionScheduleDTO>()); }
+            set { _schedules = new HashSet<ReceptionScheduleDTO>(value); }
+        }
 
         #endregion
     }
