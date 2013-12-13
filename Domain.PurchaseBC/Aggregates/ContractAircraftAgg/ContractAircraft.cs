@@ -181,6 +181,15 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg
         }
 
         /// <summary>
+        ///     移除计划飞机
+        /// </summary>
+        public void RemovePlanAircraft()
+        {
+            PlanAircraft = null;
+            PlanAircraftID = null;
+        }
+
+        /// <summary>
         ///     设置引进方式
         /// </summary>
         /// <param name="importCategory">引进方式</param>

@@ -44,16 +44,15 @@
                                            telerik:ProportionalStackPanel.RelativeSize="500, 600">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="租赁飞机接机项目"
-                                         HorizontalAlignment="Left"
-                                         CanDockInDocumentHost="True"
+                                         IsPinned="True"
                                          CanFloat="False"
                                          CanUserClose="False"
-                                         CanUserPin="False">
+                                         CanUserPin="False"
+                                         FontSize="{StaticResource TextFontSize}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition />
-                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                     Margin="-1 -2 -1 0">
@@ -88,14 +87,13 @@
                                 <telerik:RadGridView x:Name="Reception"
                                                      Grid.Row="1"
                                                      AutoExpandGroups="True"
-                                                     ShowGroupPanel="True"
+                                                     ShowGroupPanel="False"
                                                      AutoGenerateColumns="False"
                                                      CanUserSortColumns="True"
                                                      ItemsSource="{Binding AircraftLeaseReceptions,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelAircraftLeaseReception,Mode=TwoWay}"
                                                      CanUserFreezeColumns="False"
                                                      RowIndicatorVisibility="Collapsed"
-                                                     RowDetailsVisibilityMode="VisibleWhenSelected"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="False"
@@ -166,27 +164,20 @@
                                                                     DataMemberBinding="{Binding Description}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
-                                <telerik:RadDataPager BorderThickness="1,0,1,1"
-                                                      AutoEllipsisMode="Both"
-                                                      DisplayMode="All"
-                                                      Source="{Binding AircraftLeaseReceptions}"
-                                                      Grid.Row="2" />
                             </Grid>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
                     <telerik:RadPaneGroup VerticalAlignment="Stretch">
                         <telerik:RadPane Header="交付项"
-                                         CanDockInDocumentHost="True"
-                                         IsPinned="true"
                                          CanFloat="False"
                                          CanUserClose="False"
-                                         CanUserPin="True"
-                                         FontSize="{StaticResource TextFontSize}">
+                                         CanUserPin="False"
+                                         FontSize="{StaticResource TextFontSize}"
+                                         ContextMenuTemplate="{x:Null}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition />
-                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <StackPanel Grid.Row="0"
                                             Orientation="Horizontal"
@@ -295,24 +286,18 @@
                                                                     DataMemberBinding="{Binding Note}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
-                                <telerik:RadDataPager BorderThickness="1,0,1,1"
-                                                      AutoEllipsisMode="Both"
-                                                      DisplayMode="All"
-                                                      Source="{Binding SelAircraftLeaseReception.ReceptionLines}"
-                                                      Grid.Row="2" />
                             </Grid>
                         </telerik:RadPane>
                         <telerik:RadPane Header="交机文件"
-                                         HorizontalAlignment="Left"
-                                         CanDockInDocumentHost="True"
                                          CanFloat="False"
                                          CanUserClose="False"
-                                         CanUserPin="False">
+                                         CanUserPin="False"
+                                         FontSize="{StaticResource TextFontSize}"
+                                         ContextMenuTemplate="{x:Null}">                            
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition />
-                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                     Margin="-1 -2 -1 0">
@@ -333,19 +318,9 @@
                                     <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding AddAttachCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/pdf.png"
+                                        <Image Source="/UniCloud.Presentation;component/Images/Add.png"
                                                Stretch="Fill" 
-                                               ToolTipService.ToolTip="添加Pdf文档"
-                                               MaxHeight="25"
-                                               MaxWidth="25" />
-                                    </telerik:RadButton>
-                                    <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AddWordAttachCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/doc.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="添加Word文档"
-                                               MaxHeight="25"
-                                               MaxWidth="25" />
+                                               ToolTipService.ToolTip="添加文档" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding RemoveAttachCommand}">
@@ -382,11 +357,6 @@
                                                                     IsFilterable="False" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
-                                <telerik:RadDataPager BorderThickness="1,0,1,1"
-                                                      AutoEllipsisMode="Both"
-                                                      DisplayMode="All"
-                                                      Source="{Binding SelAircraftLeaseReception.Doucments}"
-                                                      Grid.Row="2" />
                             </Grid>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
@@ -396,19 +366,17 @@
                                            telerik:ProportionalStackPanel.RelativeSize="500, 600">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="交付日程安排"
-                                         CanDockInDocumentHost="True"
-                                         IsPinned="true"
                                          CanFloat="False"
                                          CanUserClose="False"
-                                         CanUserPin="True"
-                                         FontSize="{StaticResource TextFontSize}">
+                                         CanUserPin="False"
+                                         FontSize="{StaticResource TextFontSize}"
+                                         ContextMenuTemplate="{x:Null}">
                             <Grid>
                                 <telerik:RadScheduleView  Name="RadScheduleView"
                                                           SnapAppointments="True"
                                                           AppointmentsSource="{Binding Appointments,Mode=TwoWay}"
                                                           CategoriesSource="{Binding Categories}"
                                                           telerik:StyleManager.Theme="Windows8">
-    
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="AppointmentCreated">
                                             <i:InvokeCommandAction Command="{Binding CreateCommand}"

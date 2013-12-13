@@ -61,11 +61,14 @@ namespace UniCloud.Application.PurchaseBC.ContractAircraftServices
         {
             var planAircraft = _planAircraftRepository.GetFiltered(p => p.Id == contractAircraft.PlanAircraftID).FirstOrDefault();
             var updateContractAircraft = _contractAircraftRepository
-                .GetFiltered(t => t.ContractNumber == contractAircraft.ContractNumber && t.RankNumber==contractAircraft.RankNumber).FirstOrDefault();
+                .GetFiltered(t => t.ContractNumber == contractAircraft.ContractNumber && t.RankNumber == contractAircraft.RankNumber).FirstOrDefault();
             //获取需要更新的对象。
-            if (updateContractAircraft != null&& planAircraft!=null)
+            if (updateContractAircraft != null)
             {
-                updateContractAircraft.SetPlanAircraft(planAircraft);
+                if (planAircraft != null)
+                    updateContractAircraft.SetPlanAircraft(planAircraft);
+                else 
+                    updateContractAircraft.RemovePlanAircraft();
             }
             _contractAircraftRepository.Modify(updateContractAircraft);
         }
