@@ -13,22 +13,177 @@
 #endregion
 using System;
 using System.ComponentModel.Composition;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls;
+using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
+using UniCloud.Presentation.Document;
+using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Service;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
     [Export(typeof(APUMaintainVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class APUMaintainVm
+    public class APUMaintainVm: EditViewModelBase
     {
+        #region 声明、初始化
 
-    }
+        private readonly IRegionManager _regionManager;
+        //private PurchaseData _purchaseData;
+        [Import]
+        public DocumentViewer DocumentView;
+
+        [ImportingConstructor]
+        public APUMaintainVm(IRegionManager regionManager)
+        {
+            _regionManager = regionManager;
+            InitializeVm();
+        }
+
+        /// <summary>
+        ///     初始化ViewModel
+        ///     <remarks>
+        ///         统一在此处创建并注册CollectionView集合。
+        ///     </remarks>
+        /// </summary>
+        private void InitializeVm()
+        {
+            // 创建并注册CollectionView
+            //ApuMaintainContracts = Service.CreateCollection(_purchaseData.APUMaintainContracts);
+            //Service.RegisterCollectionView(ApuMaintainContracts);
+            //ApuMaintainContracts.PropertyChanged += (sender, e) =>
+            //{
+            //    if (e.PropertyName == "IsAddingNew")
+            //    {
+            //        var newItem = ApuMaintainContracts.CurrentAddItem as APUMaintainContractDTO;
+            //        if (newItem != null)
+            //        {
+            //            newItem.APUMaintainContractId = RandomHelper.Next();
+            //            newItem.SignDate = DateTime.Now;
+            //            newItem.CreateDate = DateTime.Now;
+            //        }
+            //    }
+            //    else if (e.PropertyName == "HasChanges")
+            //    {
+            //        CanSelectApuMaintain = !ApuMaintainContracts.HasChanges;
+            //    }
+            //};
+        }
+
+        /// <summary>
+        ///     创建服务实例
+        /// </summary>
+        protected override IService CreateService()
+        {
+            //_purchaseData = new PurchaseData(AgentHelper.PurchaseUri);
+            //return new PurchaseService(_purchaseData);
+            return null;
+        }
+
+        #endregion
+
+        #region 数据
+
+        #region 公共属性
+
+        #endregion
+
+        #region 加载数据
+
+        /// <summary>
+        ///     加载数据方法
+        ///     <remarks>
+        ///         导航到此页面时调用。
+        ///         可在此处将CollectionView的AutoLoad属性设为True，以实现数据的自动加载。
+        ///     </remarks>
+        /// </summary>
+        public override void LoadData()
+        {
+            // 将CollectionView的AutoLoad属性设为True
+            //ApuMaintainContracts.AutoLoad = true;
+        }
+
+
+        //#region APU维修合同
+        ///// <summary>
+        ///// APU维修合同集合
+        ///// </summary>
+        //public QueryableDataServiceCollectionView<APUMaintainContractDTO> ApuMaintainContracts { get; set; }
+
+        //private APUMaintainContractDTO _apuMaintainContract;
+        ///// <summary>
+        ///// 选中的APU维修合同
+        ///// </summary>
+        //public APUMaintainContractDTO ApuMaintainContract
+        //{
+        //    get { return _apuMaintainContract; }
+        //    set
+        //    {
+        //        if (_apuMaintainContract != value)
+        //        {
+        //            _apuMaintainContract = value;
+        //            if (_apuMaintainContract != null)
+        //            {
+        //                _document.DocumentId = _apuMaintainContract.DocumentId;
+        //                _document.Name = _apuMaintainContract.DocumentName;
+        //                if (value.Suppliers != null)
+        //                {
+        //                    _supplier = value.Suppliers.FirstOrDefault(p => p.SupplierId == _apuMaintainContract.SignatoryId);
+        //                }
+        //            }
+        //            RaisePropertyChanged(() => ApuMaintainContract);
+        //        }
+        //    }
+        //}
+
+        //private bool _canSelectApuMaintain = true;
+        ////用户能否选择
+        //public bool CanSelectApuMaintain
+        //{
+        //    get { return _canSelectApuMaintain; }
+        //    set
+        //    {
+        //        if (_canSelectApuMaintain != value)
+        //        {
+        //            _canSelectApuMaintain = value;
+        //            RaisePropertyChanged(() => CanSelectApuMaintain);
+        //        }
+        //    }
+        //}
+        //#endregion
+
+        //#region 签约对象
+        //private SupplierDTO _supplier;
+        ///// <summary>
+        ///// 选中的签约对象
+        ///// </summary>
+        //public SupplierDTO Supplier
+        //{
+        //    get { return _supplier; }
+        //    set
+        //    {
+        //        if (value != null && _supplier != value)
+        //        {
+        //            _supplier = value;
+        //            ApuMaintainContract.Signatory = _supplier.Name;
+        //            RaisePropertyChanged(() => Supplier);
+        //        }
+        //    }
+        //}
+        //#endregion
+
+        #endregion
+
+        #endregion
+
+        #region 操作
+
+        #region 重载操作
+
+
+        #endregion
+
+        #endregion
+    } 
 }

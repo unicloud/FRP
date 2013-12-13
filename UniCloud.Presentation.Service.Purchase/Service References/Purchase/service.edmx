@@ -530,6 +530,8 @@
         <Property Name="LinkmanId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="ContractDocGuid" Type="Edm.Guid" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="AircraftLeaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.AircraftLeaseOrderLineDTO)" Nullable="false" />
       </EntityType>
@@ -553,6 +555,8 @@
         <Property Name="LinkmanId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="ContractDocGuid" Type="Edm.Guid" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="AircraftPurchaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseOrderLineDTO)" Nullable="false" />
       </EntityType>
@@ -579,6 +583,8 @@
         <Property Name="LinkmanId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="ContractDocGuid" Type="Edm.Guid" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="EngineLeaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.EngineLeaseOrderLineDTO)" Nullable="false" />
       </EntityType>
@@ -602,6 +608,8 @@
         <Property Name="LinkmanId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="ContractDocGuid" Type="Edm.Guid" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="EnginePurchaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.EnginePurchaseOrderLineDTO)" Nullable="false" />
       </EntityType>
@@ -625,6 +633,8 @@
         <Property Name="LinkmanId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="ContractDocGuid" Type="Edm.Guid" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="BFEPurchaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderLineDTO)" Nullable="false" />
       </EntityType>

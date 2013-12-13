@@ -25,6 +25,7 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
+using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Purchase;
@@ -42,6 +43,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private readonly IRegionManager _regionManager;
         private PurchaseData _context;
+        [Import] public DocumentViewer documentView;
 
         [ImportingConstructor]
         public AircraftPurchaseVM(IRegionManager regionManager)
@@ -264,7 +266,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             var order = new AircraftPurchaseOrderDTO
             {
                 OrderDate = DateTime.Now,
-                TradeId=_selTradeDTO.Id,
+                TradeId = _selTradeDTO.Id,
             };
             ViewAircraftPurchaseOrderDTO.AddNew(order);
         }
@@ -285,6 +287,10 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveOrder(object obj)
         {
+            if (_selAircraftPurchaseOrderDTO != null)
+            {
+                ViewAircraftPurchaseOrderDTO.Remove(_selAircraftPurchaseOrderDTO);
+            }
         }
 
         private bool CanRemoveOrder(object obj)

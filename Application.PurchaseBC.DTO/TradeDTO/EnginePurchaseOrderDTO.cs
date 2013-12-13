@@ -78,6 +78,16 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public int Status { get; set; }
 
         /// <summary>
+        ///     合同文件名
+        /// </summary>
+        public string ContractName { get; set; }
+
+        /// <summary>
+        ///     合同文档检索ID
+        /// </summary>
+        public Guid? ContractDocGuid { get; set; }
+
+        /// <summary>
         ///     备注
         /// </summary>
         public string Note { get; set; }

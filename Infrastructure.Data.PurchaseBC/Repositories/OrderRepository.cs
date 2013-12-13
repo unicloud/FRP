@@ -47,6 +47,15 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Repositories
             return set.Include(t => t.OrderLines);
         }
 
+        public override Order Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as PurchaseBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<Order>();
+
+            return set.Include(o => o.OrderLines).SingleOrDefault(o => o.Id == (int)id);
+        }
+
         #endregion
     }
 }
