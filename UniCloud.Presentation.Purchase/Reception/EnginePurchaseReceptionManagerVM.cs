@@ -133,9 +133,9 @@ namespace UniCloud.Presentation.Purchase.Reception
                 {
                     this._categories = new CategoryCollection
                     {
-                        new Category("已完成", new SolidColorBrush(Colors.Green)),
+                        new Category("未启动", new SolidColorBrush(Colors.Gray)),
                         new Category("正在进行中…", new SolidColorBrush(Colors.Brown)),
-                        new Category("未启动", new SolidColorBrush(Colors.Gray))
+                        new Category("已完成", new SolidColorBrush(Colors.Green)),
                     };
                 }
                 return this._categories;
@@ -550,6 +550,7 @@ namespace UniCloud.Presentation.Purchase.Reception
             {
                 var relatedDoc = new RelatedDocDTO()
                 {
+                    Id = RandomHelper.Next(),
                     SourceId = SelEnginePurchaseReception.SourceId,
                 };
                 var document = PdfView.Tag as Document.Document;
@@ -657,6 +658,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
                 var appointment = scheduleView.EditedAppointment as Appointment;
                 var schedule = scheduleExtension.ConvertToReceptionSchedule(appointment);
+                schedule.ReceptionScheduleId = RandomHelper.Next();
                 schedule.ReceptionId = SelEnginePurchaseReception.EnginePurchaseReceptionId;
                 SelEnginePurchaseReception.ReceptionSchedules.Add(schedule);
             }

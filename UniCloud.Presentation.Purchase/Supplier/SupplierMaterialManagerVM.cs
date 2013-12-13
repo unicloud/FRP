@@ -34,7 +34,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Supplier
 {
-    [Export(typeof (SupplierMaterialManagerVM))]
+    [Export(typeof(SupplierMaterialManagerVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class SupplierMaterialManagerVM : EditViewModelBase
     {
@@ -694,7 +694,8 @@ namespace UniCloud.Presentation.Purchase.Supplier
 
         #region 子窗体相关
 
-        [Import] public MaterialChildView MaterialChildView; //初始化子窗体
+        [Import]
+        public MaterialChildView MaterialChildView; //初始化子窗体
         private Visibility _acGridVisibility = Visibility.Collapsed;
         private List<AircraftMaterialDTO> _addingAcMaterial; //需要添加的飞机物料
         private List<BFEMaterialDTO> _addingBfeMaterial; //需要添加的BFe物料
@@ -979,48 +980,48 @@ namespace UniCloud.Presentation.Purchase.Supplier
             {
                 _addingAcMaterial.ForEach(
                     p =>
-                        {
-                            var acMaterial = new SupplierCompanyAcMaterialDTO
-                                {
-                                    MaterialId = p.AcMaterialId,
-                                    SupplierCompanyId = SelSupplierCompany.SupplierCompanyId,
-                                    Name = p.Name,
-                                    SupplierCompanyMaterialId = RandomHelper.Next()
-                                };
-                            SupplierCompanyAcMaterialsView.AddNew(acMaterial);
-                        });
+                    {
+                        var acMaterial = new SupplierCompanyAcMaterialDTO
+                            {
+                                MaterialId = p.AcMaterialId,
+                                SupplierCompanyId = SelSupplierCompany.SupplierCompanyId,
+                                Name = p.Name,
+                                SupplierCompanyMaterialId = RandomHelper.Next()
+                            };
+                        SupplierCompanyAcMaterialsView.AddNew(acMaterial);
+                    });
                 SupplierCompanyAcMaterialsView.SubmitChanges();
             }
             else if (_type.Equals("发动机物料"))
             {
                 _addingEngineMaterial.ForEach(
                     p =>
-                        {
-                            var engineMaterial = new SupplierCompanyEngineMaterialDTO
-                                {
-                                    MaterialId = p.EngineMaterialId,
-                                    SupplierCompanyId = SelSupplierCompany.SupplierCompanyId,
-                                    Name = p.Name,
-                                    SupplierCompanyMaterialId = RandomHelper.Next()
-                                };
-                            SupplierCompanyEngineMaterialsView.AddNew(engineMaterial);
-                        });
+                    {
+                        var engineMaterial = new SupplierCompanyEngineMaterialDTO
+                            {
+                                MaterialId = p.EngineMaterialId,
+                                SupplierCompanyId = SelSupplierCompany.SupplierCompanyId,
+                                Name = p.Name,
+                                SupplierCompanyMaterialId = RandomHelper.Next()
+                            };
+                        SupplierCompanyEngineMaterialsView.AddNew(engineMaterial);
+                    });
                 SupplierCompanyEngineMaterialsView.SubmitChanges();
             }
             else
             {
                 _addingBfeMaterial.ForEach(
                     p =>
-                        {
-                            var bfeMaterial = new SupplierCompanyBFEMaterialDTO
-                                {
-                                    MaterialId = p.BFEMaterialId,
-                                    SupplierCompanyId = SelSupplierCompany.SupplierCompanyId,
-                                    Name = p.Name,
-                                    SupplierCompanyMaterialId = RandomHelper.Next()
-                                };
-                            SupplierCompanyBFEMaterialsView.AddNew(bfeMaterial);
-                        });
+                    {
+                        var bfeMaterial = new SupplierCompanyBFEMaterialDTO
+                            {
+                                MaterialId = p.BFEMaterialId,
+                                SupplierCompanyId = SelSupplierCompany.SupplierCompanyId,
+                                Name = p.Name,
+                                SupplierCompanyMaterialId = RandomHelper.Next()
+                            };
+                        SupplierCompanyBFEMaterialsView.AddNew(bfeMaterial);
+                    });
                 SupplierCompanyBFEMaterialsView.SubmitChanges();
             }
         }

@@ -100,32 +100,35 @@ namespace UniCloud.Presentation.Input
     /// <summary>
     /// 鼠标双击逻辑
     /// </summary>
-    public class PlanAircraftClickHelper : GridViewDoubleClickHelper
+    public class ContractAircraftClickHelper : GridViewDoubleClickHelper
     {
         protected override void GridViewDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
         {
             var viewModel = ServiceLocator.Current.GetInstance<MatchingPlanAircraftManagerVM>();
-            var planAircraft = cell.DataContext as PlanAircraftDTO;
-            if (planAircraft == null)
-                RadWindow.Alert(this.SetAlter("提醒", "确认", "请选中计划飞机！", 13, 250, () => { }));
-            else if (viewModel.SelContractAircraft == null)
-                RadWindow.Alert(this.SetAlter("提醒", "确认", "请选中的合同飞机！", 13, 250, () => { }));
+            var contractAircraft = cell.DataContext as ContractAircraftDTO;
+            if (viewModel.SelContractAircraft == null)
+                RadWindow.Alert(this.SetAlter("提醒", "确认", "请选中未匹配的合同飞机！", 13, 250, () => { }));
             else if (viewModel.SelContractAircraft != null && viewModel.SelContractAircraft.PlanAircraftID == null)
             {
-                viewModel.SelContractAircraft.PlanAircraftID = planAircraft.Id;
-                viewModel.SelContractAircraft.PlanAircraft = planAircraft.RegNumber;
+                viewModel.PlanAircraftChildView.ShowDialog();
+                //RadWindow.Confirm(this.SetConfirm("匹配计划飞机", "确认", "取消", "为选中的合同飞机匹配计划！", 13, 250, (o, e) =>
+                //        {
+                //            if (e.DialogResult == true)
+                //            {
+                //                viewModel.PlanAircraftChildView.ShowDialog();
+                //            }
+                //        }));
             }
-            else if (viewModel.SelContractAircraft != null && viewModel.SelContractAircraft.PlanAircraftID != null)
+            else if (viewModel.SelContractAircraft != null &&
+                     viewModel.SelContractAircraft.PlanAircraftID != null)
             {
-                string content = "此合同飞机已匹配计划飞机，是否重新匹配";
-                RadWindow.Confirm(this.SetConfirm("确认重新匹配", "确认", "取消", content, 13, 250, (o, e) =>
-                        {
-                            if (e.DialogResult == true)
-                            {
-                                viewModel.SelContractAircraft.PlanAircraftID = planAircraft.Id;
-                                viewModel.SelContractAircraft.PlanAircraft = planAircraft.RegNumber;
-                            }
-                        }));
+                RadWindow.Confirm(this.SetConfirm("重新匹配", "确认", "取消", "此合同飞机已匹配计划飞机，是否重新匹配！", 13, 250, (o, e) =>
+                {
+                    if (e.DialogResult == true)
+                    {
+                        viewModel.PlanAircraftChildView.ShowDialog();
+                    }
+                }));
             }
         }
 
