@@ -215,6 +215,11 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             order.SetTrade(dto.TradeId);
             order.SetCurrency(dto.CurrencyId);
             order.SetLinkman(dto.LinkmanId);
+            order.SetNote(dto.Note);
+            if (dto.ContractDocGuid != null)
+            {
+                order.SetContractDoc(dto.ContractDocGuid.Value, dto.ContractName);
+            }
 
             _orderRepository.Add(order);
         }
@@ -227,13 +232,20 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 throw new ArgumentException("参数为空！");
             }
 
-            var current = _orderRepository.Get(dto.Id);
-            if (current != null)
+            var order = _orderRepository.Get(dto.Id);
+            if (order != null)
             {
                 // 更新当前记录
+                order.SetTrade(dto.TradeId);
+                order.SetCurrency(dto.CurrencyId);
+                order.SetLinkman(dto.LinkmanId);
+                order.SetNote(dto.Note);
+                if (dto.ContractDocGuid != null)
+                {
+                    order.SetContractDoc(dto.ContractDocGuid.Value, dto.ContractName);
+                }
 
-
-                _orderRepository.Modify(current);
+                _orderRepository.Modify(order);
             }
         }
 

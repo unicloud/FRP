@@ -119,7 +119,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         /// <summary>
         ///     备注
         /// </summary>
-        public string Note { get; set; }
+        public string Note { get; private set; }
 
         #endregion
 
@@ -361,6 +361,40 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
 
             ContractDocGuid = doc.Id;
             ContractName = doc.FileName;
+        }
+
+        /// <summary>
+        ///     设置合同文档
+        /// </summary>
+        /// <param name="docId">文档ID</param>
+        /// <param name="fileName">文档名称</param>
+        public void SetContractDoc(Guid docId, string fileName)
+        {
+            if (docId == null || docId == Guid.Empty)
+            {
+                throw new ArgumentException("合同文档ID参数为空！");
+            }
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                throw new ArgumentException("合同文档名称参数为空！");
+            }
+
+            ContractDocGuid = docId;
+            ContractName = fileName;
+        }
+
+        /// <summary>
+        ///     设置备注
+        /// </summary>
+        /// <param name="note">备注</param>
+        public void SetNote(string note)
+        {
+            if (string.IsNullOrWhiteSpace(note))
+            {
+                throw new ArgumentException("合同说明参数为空！");
+            }
+
+            Note = note;
         }
 
         #endregion
