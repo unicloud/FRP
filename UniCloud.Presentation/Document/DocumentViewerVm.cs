@@ -38,7 +38,7 @@ namespace UniCloud.Presentation.Document
 
         [Import]
         public DocumentViewer CurrentDocumentView;
-        private DocumentDTO _currentDoc;
+        private DocumentDTO _currentDoc = new DocumentDTO();
         private bool _onlyView;
         private byte[] _byteContent;
         private readonly QueryableDataServiceCollectionView<DocumentDTO> _documents;
@@ -94,7 +94,7 @@ namespace UniCloud.Presentation.Document
             CurrentDocumentView.WordPane.IsHidden = false;
             CurrentDocumentView.PdfPane.IsHidden = false;
             IsBusy = true;
-            _currentDoc = new DocumentDTO {DocumentId = docId};
+            _currentDoc.DocumentId = docId;
             _onlyView = onlyView;
             if (_onlyView)
             {
@@ -110,7 +110,7 @@ namespace UniCloud.Presentation.Document
             else
             {
                 CurrentDocumentView.WordReader.Document = new RadDocument();
-                CurrentDocumentView.PdfReader.Document = null ;
+                CurrentDocumentView.PdfReader.Document = null;
                 IsBusy = false;
             }
         }
@@ -120,7 +120,7 @@ namespace UniCloud.Presentation.Document
         private void LoadDocumentByDocId(Guid docId)
         {
             _filter.Value = docId;
-            _documents.AutoLoad = true;
+            _documents.Load(true);
         }
 
         #endregion
