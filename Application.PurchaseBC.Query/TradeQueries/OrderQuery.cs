@@ -59,6 +59,8 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     LinkmanId = o.Linkman.Id,
                     OrderDate = o.OrderDate,
                     Status = (int) o.Status,
+                    ContractName = o.ContractName,
+                    ContractDocGuid = o.ContractDocGuid,
                     Note = o.Note,
                     AircraftLeaseOrderLines = o.OrderLines.Select(l => new AircraftLeaseOrderLineDTO
                     {
@@ -95,6 +97,8 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     LinkmanId = o.Linkman.Id,
                     OrderDate = o.OrderDate,
                     Status = (int) o.Status,
+                    ContractName = o.ContractName,
+                    ContractDocGuid = o.ContractDocGuid,
                     Note = o.Note,
                     AircraftPurchaseOrderLines =
                         o.OrderLines.OfType<AircraftPurchaseOrderLine>().Select(l => new AircraftPurchaseOrderLineDTO
@@ -135,6 +139,8 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     LinkmanId = o.Linkman.Id,
                     OrderDate = o.OrderDate,
                     Status = (int) o.Status,
+                    ContractName = o.ContractName,
+                    ContractDocGuid = o.ContractDocGuid,
                     Note = o.Note,
                     EngineLeaseOrderLines = o.OrderLines.Select(l => new EngineLeaseOrderLineDTO
                     {
@@ -171,6 +177,8 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     LinkmanId = o.Linkman.Id,
                     OrderDate = o.OrderDate,
                     Status = (int) o.Status,
+                    ContractName = o.ContractName,
+                    ContractDocGuid = o.ContractDocGuid,
                     Note = o.Note,
                     EnginePurchaseOrderLines = o.OrderLines.Select(l => new EnginePurchaseOrderLineDTO
                     {
@@ -207,6 +215,8 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     LinkmanId = o.Linkman.Id,
                     OrderDate = o.OrderDate,
                     Status = (int) o.Status,
+                    ContractName = o.ContractName,
+                    ContractDocGuid = o.ContractDocGuid,
                     Note = o.Note,
                     BFEPurchaseOrderLines = o.OrderLines.Select(l => new BFEPurchaseOrderLineDTO
                     {
