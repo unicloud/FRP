@@ -32,46 +32,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-
-        <telerik:RadToolBar HorizontalAlignment="Stretch"
-                            Margin="-1 -2 -1 0">
-            <telerik:RadButton Margin="4,2,2,-2"
-                               Command="{Binding SaveCommand}"
-                               CommandParameter="{Binding }">
-                <Image Source="/UniCloud.Presentation;component/Images/Save.png"
-                       Stretch="Fill"
-                       ToolTipService.ToolTip="保存" />
-            </telerik:RadButton>
-            <telerik:RadButton Margin="2,2,2,-2"
-                               Command="{Binding AbortCommand}"
-                               CommandParameter="{Binding }">
-                <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
-                       Stretch="Fill"
-                       ToolTipService.ToolTip="放弃更改" />
-            </telerik:RadButton>
-            <telerik:RadToolBarSeparator />
-            <telerik:RadButton Margin="2,2,2,-2"
-                               Command="{Binding AddCommand}">
-                <Image Source="/UniCloud.Presentation;component/Images/Add.png"
-                       Stretch="Fill"
-                       ToolTipService.ToolTip="New Document" />
-            </telerik:RadButton>
-            <telerik:RadButton Margin="2,2,2,-2"
-                               Command="{Binding RemoveCommand}">
-                <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
-                       Stretch="Fill"
-                       ToolTipService.ToolTip="New Document" />
-            </telerik:RadButton>
-        </telerik:RadToolBar>
-
-        <telerik:RadDocking Grid.Row="1"
-                            BorderThickness="0"
-                            Padding="0"
-                            HasDocumentHost="False">
+        <telerik:RadDocking HasDocumentHost="False">
             <telerik:RadSplitContainer  Orientation="Vertical">
                 <telerik:RadPaneGroup>
                     <telerik:RadPane Header="贷项单发票"
@@ -81,7 +42,42 @@
                                      FontSize="{StaticResource TextFontSize}"
                                      ContextMenuTemplate="{x:Null}">
                         <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                Margin="-1 -2 -1 0">
+                                <telerik:RadButton Margin="4,2,2,-2"
+                                                   Command="{Binding SaveCommand}"
+                                                   CommandParameter="{Binding EnginePurchaseReceptions}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Save.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="保存" />
+                                </telerik:RadButton>
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding AbortCommand}"
+                                                   CommandParameter="{Binding EnginePurchaseReceptions}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="放弃更改" />
+                                </telerik:RadButton>
+                                <telerik:RadToolBarSeparator />
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding NewCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/New.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="新增采购发动机接收项目" />
+                                </telerik:RadButton>
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding DeleteCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="删除采购发动机接收项目" />
+                                </telerik:RadButton>
+                            </telerik:RadToolBar>
                             <telerik:RadGridView IsReadOnly="True"
+                                                 Grid.Row="1"
                                                  ItemsSource="{Binding }"
                                                  IsBusy="{Binding }"
                                                  AutoGenerateColumns="False"

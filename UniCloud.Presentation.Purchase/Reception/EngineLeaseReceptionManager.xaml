@@ -71,13 +71,13 @@
                                     <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding NewCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Add.png"
+                                        <Image Source="/UniCloud.Presentation;component/Images/New.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="新增采购发动机接收项目" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding RemoveCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
+                                        <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="删除采购发动机接收项目" />
                                     </telerik:RadButton>
