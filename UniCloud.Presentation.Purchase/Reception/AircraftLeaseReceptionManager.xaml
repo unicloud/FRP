@@ -232,11 +232,11 @@
                                                                     IsReadOnly="True"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding ReceivedAmount}"/>
+                                                                    DataMemberBinding="{Binding AcceptedAmount}"/>
                                         <telerik:GridViewDataColumn Header="实际接收数量"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding AcceptedAmount}" />
+                                                                    DataMemberBinding="{Binding ReceivedAmount}" />
                                         <telerik:GridViewDataColumn Header="交付时间"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"

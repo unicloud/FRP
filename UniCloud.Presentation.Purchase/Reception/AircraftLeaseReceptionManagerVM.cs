@@ -411,7 +411,8 @@ namespace UniCloud.Presentation.Purchase.Reception
             {
                 AircraftLeaseReceptionId = RandomHelper.Next(),
                 SourceId = Guid.NewGuid(),
-                CreateDate = DateTime.Now
+                CreateDate = DateTime.Now,
+                StartDate = DateTime.Now,
             };
             AircraftLeaseReceptions.AddNew(recepiton);
         }
@@ -458,6 +459,8 @@ namespace UniCloud.Presentation.Purchase.Reception
             var receptionLine = new AircraftLeaseReceptionLineDTO()
             {
                 AircraftLeaseReceptionLineId = RandomHelper.Next(),
+                ReceivedAmount = 1,
+                AcceptedAmount = 1,
                 ReceptionId = SelAircraftLeaseReception.AircraftLeaseReceptionId
             };
             SelAircraftLeaseReception.ReceptionLines.Add(receptionLine);

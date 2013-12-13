@@ -423,7 +423,8 @@ namespace UniCloud.Presentation.Purchase.Reception
             {
                 EngineLeaseReceptionId = RandomHelper.Next(),
                 SourceId = Guid.NewGuid(),
-                CreateDate = DateTime.Now
+                CreateDate = DateTime.Now,
+                StartDate = DateTime.Now,
             };
             EngineLeaseReceptions.AddNew(recepiton);
         }
@@ -470,6 +471,8 @@ namespace UniCloud.Presentation.Purchase.Reception
             var receptionLine = new EngineLeaseReceptionLineDTO()
             {
                 EngineLeaseReceptionLineId = RandomHelper.Next(),
+                ReceivedAmount = 1,
+                AcceptedAmount = 1,
                 ReceptionId = SelEngineLeaseReception.EngineLeaseReceptionId
             };
             SelEngineLeaseReception.ReceptionLines.Add(receptionLine);
@@ -557,22 +560,8 @@ namespace UniCloud.Presentation.Purchase.Reception
         #region 查看附件
         protected override void OnViewAttach(object sender)
         {
-            if (string.IsNullOrEmpty(_document.Name))
-            {
-                return;
-            }
-            if (_document.Name.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
-            {
-                PdfView.Tag = null;
-                PdfView.ViewModel.InitData(true, _document, PdfViewerClosed);
-                PdfView.ShowDialog();
-            }
-            else
-            {
-                WordView.Tag = null;
-                WordView.ViewModel.InitData(true, _document, WordViewerClosed);
-                WordView.ShowDialog();
-            }
+            DocumentView.ViewModel.InitData(true, _document.DocumentId, null);
+            DocumentView.ShowDialog();
         }
         #endregion
 

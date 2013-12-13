@@ -16,9 +16,6 @@
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data;
 #endregion
 
@@ -43,9 +40,6 @@ namespace UniCloud.Application.PurchaseBC.Query.ContractAircraftQueries
         public IQueryable<PurchaseContractAircraftDTO> PurchaseContractAircraftDTOQuery(
             QueryBuilder<PurchaseContractAircraft> query)
         {
-            var suppliers = _unitOfWork.CreateSet<Supplier>();
-            var orders = _unitOfWork.CreateSet<Order>().OfType<AircraftPurchaseOrder>();
-            var trades = _unitOfWork.CreateSet<Trade>();
             return
             query.ApplyTo(_unitOfWork.CreateSet<ContractAircraft>().OfType<PurchaseContractAircraft>())
                      .Select(p => new PurchaseContractAircraftDTO
@@ -66,7 +60,7 @@ namespace UniCloud.Application.PurchaseBC.Query.ContractAircraftQueries
                          ImportCategoryId = p.ImportCategoryId,
                          ImportType = p.ImportCategory.ActionType,
                          ImportActionName = p.ImportCategory.ActionName,
-                         SupplierId = suppliers.FirstOrDefault(q => q.Id == trades.FirstOrDefault(l => l.Id == orders.FirstOrDefault(r => r.ContractNumber == p.ContractNumber).TradeId).SupplierId).Id,
+                         SupplierId = p.SupplierId,
                      });
         }
     }
