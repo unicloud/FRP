@@ -33,6 +33,140 @@
                                      CanUserPin="False"
                                      FontSize="{StaticResource TextFontSize}"
                                      ContextMenuTemplate="{x:Null}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                Margin="0 0 0 -1">
+                                <telerik:RadButton Margin="4,2,2,-2"
+                                                   Command="{Binding SaveCommand}"
+                                                   CommandParameter="{Binding ViewTradeDTO}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Save.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="保存" />
+                                </telerik:RadButton>
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding AbortCommand}"
+                                                   CommandParameter="{Binding ViewTradeDTO}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="放弃更改" />
+                                </telerik:RadButton>
+                                <telerik:RadToolBarSeparator />
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding AddTradeCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/New.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="创建新维修发票" />
+                                </telerik:RadButton>
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding RemoveTradeCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="删除维修发票" />
+                                </telerik:RadButton>
+                            </telerik:RadToolBar>
+                            <Grid Row="1">
+                                <telerik:RadGridView Name="ApuMaintainContractList"
+                                                     AutoExpandGroups="True"
+                                                     AutoGenerateColumns="False"
+                                                     CanUserSortColumns="True"
+                                                     CanUserFreezeColumns="False"
+                                                     IsFilteringAllowed="True"
+                                                     FontSize="{StaticResource TextFontSize}"
+                                                     ValidatesOnDataErrors="InEditMode"
+                                                     RowIndicatorVisibility="Visible">
+                                    <telerik:RadGridView.Columns>
+                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <telerik:GridViewDataColumn Header="发票编号"
+                                                                    IsSortable="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding InvoiceNumber}" />
+                                        <telerik:GridViewDataColumn Header="发票号码"
+                                                                    IsSortable="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding InvoideCode}" />
+                                        <uc:DateTimePickerColumn Header="发票时间"
+                                                                 IsSortable="True"
+                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                 HeaderTextAlignment="Center"
+                                                                 DataMemberBinding="{Binding InvoiceDate, StringFormat={StaticResource DateStringFormat}}" />
+                                        <telerik:GridViewDataColumn Header="供应商"
+                                                                    IsSortable="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding SupplierName}" />
+                                        <telerik:GridViewDataColumn Header="发票金额"
+                                                                    IsSortable="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MaxWidth="250"
+                                                                    TextWrapping="Wrap"
+                                                                    DataMemberBinding="{Binding InvoiceValue}" />
+                                        <telerik:GridViewDataColumn Header="已付金额"
+                                                                    IsSortable="True"
+                                                                    MaxWidth="250"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding PaidAmount}" />
+                                        <telerik:GridViewDataColumn Header="经办人"
+                                                                    IsSortable="True"
+                                                                    MaxWidth="250"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding OperatorName}" />
+                                        <telerik:GridViewDataColumn Header="审核人"
+                                                                    IsSortable="True"
+                                                                    MaxWidth="250"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding Reviewer}" />
+                                        <uc:DateTimePickerColumn Header="审核日期"
+                                                                 IsSortable="True"
+                                                                 MaxWidth="250"
+                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                 HeaderTextAlignment="Center"
+                                                                 DataMemberBinding="{Binding ReviewDate, StringFormat={StaticResource DateStringFormat}}" />
+                                        <telerik:GridViewCheckBoxColumn Header="有效"
+                                                                        IsSortable="True"
+                                                                        MaxWidth="250"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding IsValid}" />
+                                        <telerik:GridViewCheckBoxColumn Header="完成"
+                                                                        IsSortable="True"
+                                                                        MaxWidth="250"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding IsCompleted}" />
+                                        <telerik:GridViewDataColumn Header="状态"
+                                                                    IsSortable="True"
+                                                                    MaxWidth="250"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding Status}" />
+                                        <telerik:GridViewDataColumn Header="创建日期"
+                                                                    IsSortable="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding CreateDate, StringFormat={StaticResource DateStringFormat}}" />
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+                            </Grid>
+                            <Grid Grid.Row="2">
+                                <telerik:RadDataPager Name="RadPage"
+                                                      BorderThickness="1,0,1,1"
+                                                      AutoEllipsisMode="Both"
+                                                      DisplayMode="All"
+                                                      Source="{Binding ApuMaintainContracts}" />
+                            </Grid>
+                        </Grid>
                     </telerik:RadPane>
                 </telerik:RadPaneGroup>
                 <telerik:RadPaneGroup VerticalAlignment="Stretch">
@@ -42,6 +176,81 @@
                                      CanUserPin="False"
                                      FontSize="{StaticResource TextFontSize}"
                                      ContextMenuTemplate="{x:Null}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                Margin="0 0 0 -1">
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding AddOrderLineCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Add.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="增加发票明细" />
+                                </telerik:RadButton>
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding RemoveOrderLineCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="移除发票明细" />
+                                </telerik:RadButton>
+                            </telerik:RadToolBar>
+                            <telerik:RadGridView Grid.Row="1"
+                                                 x:Name="OrderLine"
+                                                 AutoGenerateColumns="False"
+                                                 ItemsSource="{Binding SelectedItem.AircraftPurchaseOrderLines, ElementName=Order}"
+                                                 IsBusy="{Binding ViewAircraftPurchaseOrderDTO.IsBusy}"
+                                                 ShowGroupPanel="False"
+                                                 IsFilteringAllowed="False"
+                                                 EditTriggers="CellClick">
+                                <telerik:RadContextMenu.ContextMenu>
+                                    <telerik:RadContextMenu>
+                                        <telerik:RadMenuItem Header="导出Excel"
+                                                             Command="{Binding ExcelExportCommand}"
+                                                             CommandParameter="{Binding ElementName=OrderLine, Mode=OneWay}" />
+                                        <telerik:RadMenuItem Header="导出Word"
+                                                             Command="{Binding WordExportCommand}"
+                                                             CommandParameter="{Binding ElementName=OrderLine, Mode=OneWay}" />
+                                    </telerik:RadContextMenu>
+                                </telerik:RadContextMenu.ContextMenu>
+                                <telerik:RadGridView.Columns>
+                                    <uc:DataPageSerialColumn Header="序号" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding UnitPrice}"
+                                                                Header="单价"
+                                                                DataFormatString="{} {0:N}"
+                                                                TextAlignment="Right" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Amount}"
+                                                                Header="数量"
+                                                                TextAlignment="Center" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Discount}"
+                                                                Header="折扣"
+                                                                TextAlignment="Center" />
+                                    <telerik:GridViewExpressionColumn Header="行金额"
+                                                                      Expression="(UnitPrice*Amount)*(1 - (Discount/100))"
+                                                                      DataFormatString="{} {0:N}"
+                                                                      TextAlignment="Right" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding AirframePrice}"
+                                                                Header="机身价格"
+                                                                DataFormatString="{} {0:N}"
+                                                                TextAlignment="Right" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding RefitCost}"
+                                                                Header="机身改装费用"
+                                                                DataFormatString="{} {0:N}"
+                                                                TextAlignment="Right" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding EnginePrice}"
+                                                                Header="发动机价格"
+                                                                DataFormatString="{} {0:N}"
+                                                                TextAlignment="Right" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding EstimateDeliveryDate}"
+                                                                Header="预计交付日期"
+                                                                DataFormatString="{} {0:yyyy/MM/dd}"
+                                                                TextAlignment="Center" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Note}"
+                                                                Header="备注" />
+                                </telerik:RadGridView.Columns>
+                            </telerik:RadGridView>
+                        </Grid>
                     </telerik:RadPane>
                 </telerik:RadPaneGroup>
             </telerik:RadSplitContainer>
