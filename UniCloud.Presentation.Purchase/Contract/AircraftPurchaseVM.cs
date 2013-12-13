@@ -303,6 +303,13 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddOrderLine(object obj)
         {
+            var orderLine = new AircraftPurchaseOrderLineDTO
+            {
+                Amount = 1,
+                EstimateDeliveryDate = DateTime.Now
+            };
+
+            SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Add(orderLine);
         }
 
         private bool CanAddOrderLine(object obj)

@@ -101,6 +101,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg
         /// </summary>
         public Guid ImportCategoryId { get; private set; }
 
+        /// <summary>
+        ///     供应商ID
+        /// </summary>
+        public int? SupplierId { get; private set; }
+
         #endregion
 
         #region 导航属性
@@ -190,6 +195,20 @@ namespace UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg
             }
 
             ContractNumber = contractNumber;
+        }
+
+        /// <summary>
+        ///     设置供应商ID
+        /// </summary>
+        /// <param name="id">供应商ID</param>
+        public void SetSupplier(int id)
+        {
+            if (id == 0)
+            {
+                throw new ArgumentException("供应商ID参数为空！");
+            }
+
+            SupplierId = id;
         }
 
         #endregion

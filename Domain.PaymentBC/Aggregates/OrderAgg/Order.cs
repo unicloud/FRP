@@ -103,9 +103,14 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.OrderAgg
         public OrderStatus Status { get; protected set; }
 
         /// <summary>
+        ///     合同文件名
+        /// </summary>
+        public string ContractName { get; protected set; }
+
+        /// <summary>
         ///     合同文档检索ID
         /// </summary>
-        public Guid ContractDocGuid { get; protected set; }
+        public Guid? ContractDocGuid { get; protected set; }
 
         /// <summary>
         ///     备注

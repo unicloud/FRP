@@ -64,9 +64,9 @@
     <Compile Include="InitialData\ReceptionData.cs" />
     <Compile Include="InitialData\SupplierData.cs" />
     <Compile Include="InitialData\TradeData.cs" />
-    <Compile Include="Migrations\201312111322345_database.cs" />
-    <Compile Include="Migrations\201312111322345_database.Designer.cs">
-      <DependentUpon>201312111322345_database.cs</DependentUpon>
+    <Compile Include="Migrations\201312121445274_Initial.cs" />
+    <Compile Include="Migrations\201312121445274_Initial.Designer.cs">
+      <DependentUpon>201312121445274_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -179,8 +179,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201312111322345_database.resx">
-      <DependentUpon>201312111322345_database.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201312121445274_Initial.resx">
+      <DependentUpon>201312121445274_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
