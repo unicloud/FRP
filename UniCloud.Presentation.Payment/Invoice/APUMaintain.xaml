@@ -20,7 +20,31 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid x:Name="ApuMaintainLayoutRoot" Background="White">
-
+    <Grid x:Name="ApuMaintainLayoutRoot"
+          Background="White">
+        <telerik:RadDocking  BorderThickness="0"
+                             Padding="0"
+                             HasDocumentHost="False">
+            <telerik:RadSplitContainer Orientation="Vertical">
+                <telerik:RadPaneGroup>
+                    <telerik:RadPane Header="APU维修发票"
+                                     CanFloat="False"
+                                     CanUserClose="False"
+                                     CanUserPin="False"
+                                     FontSize="{StaticResource TextFontSize}"
+                                     ContextMenuTemplate="{x:Null}">
+                    </telerik:RadPane>
+                </telerik:RadPaneGroup>
+                <telerik:RadPaneGroup VerticalAlignment="Stretch">
+                    <telerik:RadPane Header="发票明细"
+                                     CanFloat="False"
+                                     CanUserClose="False"
+                                     CanUserPin="False"
+                                     FontSize="{StaticResource TextFontSize}"
+                                     ContextMenuTemplate="{x:Null}">
+                    </telerik:RadPane>
+                </telerik:RadPaneGroup>
+            </telerik:RadSplitContainer>
+        </telerik:RadDocking>
     </Grid>
 </UserControl>
