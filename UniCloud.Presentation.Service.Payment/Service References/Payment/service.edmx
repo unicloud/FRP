@@ -1,7 +1,17 @@
 ﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
   <edmx:DataServices m:DataServiceVersion="1.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="UniCloud.Application.PaymentBC.DTO" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+      <EntityType Name="MaintainInvoiceDTO">
+        <Key>
+          <PropertyRef Name="MaintainInvoiceId" />
+        </Key>
+        <Property Name="MaintainInvoiceId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+    </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Payment" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
-      <EntityContainer Name="PaymentData" m:IsDefaultEntityContainer="true" />
+      <EntityContainer Name="PaymentData" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="MaintainInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.MaintainInvoiceDTO" />
+      </EntityContainer>
     </Schema>
   </edmx:DataServices>
 </edmx:Edmx>

@@ -24,8 +24,6 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
                 .CreateLog()
                 .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager());
 
-          
-
         }
 
         #endregion

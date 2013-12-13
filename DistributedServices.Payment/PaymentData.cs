@@ -7,10 +7,6 @@ using UniCloud.Application.PaymentBC.DTO;
 
 namespace UniCloud.DistributedServices.Payment
 {
-    using Application.PaymentBC.Services;
-    using InstanceProviders;
-    using Microsoft.Practices.Unity;
-
     /// <summary>
     /// 应付款模块数据类
     /// </summary>
@@ -23,9 +19,9 @@ namespace UniCloud.DistributedServices.Payment
         {
         }
 
-        //public IQueryable<MaintainInvoiceDTO> MaintainInvoices
-        //{
-        //    get { return null; }
-        //}
+        public IQueryable<MaintainInvoiceDTO> MaintainInvoices
+        {
+            get { return null; }
+        }
     }
 }

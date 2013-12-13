@@ -26,7 +26,7 @@ namespace UniCloud.DistributedServices.Payment
         {
             #region 实体集访问控制
 
-            config.SetEntitySetAccessRule("*", EntitySetRights.AllRead);
+            config.SetEntitySetAccessRule("*", EntitySetRights.All);
 
             #endregion
 
