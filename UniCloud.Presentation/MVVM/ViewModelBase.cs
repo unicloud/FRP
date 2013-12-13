@@ -81,7 +81,7 @@ namespace UniCloud.Presentation.MVVM
         /// <summary>
         ///     界面是否在加载
         /// </summary>
-        protected bool IsBusy
+        public bool IsBusy
         {
             get { return _isBusy; }
             set

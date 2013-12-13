@@ -30,6 +30,7 @@ using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
+using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
@@ -49,12 +50,10 @@ namespace UniCloud.Presentation.Purchase.Reception
         private TimeMarkerCollection _timeMarkers;
         private ResourceTypeCollection workGroups;
         private Service.Purchase.SchdeuleExtension.ControlExtension scheduleExtension;
-        private Document.Document _document = new Document.Document();
+        private DocumentDTO _document = new DocumentDTO();
 
         [Import]
-        public WordViewer WordView;
-        [Import]
-        public PDFViewer PdfView;
+        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
         public EngineLeaseReceptionManagerVM(IRegionManager regionManager)
@@ -102,7 +101,6 @@ namespace UniCloud.Presentation.Purchase.Reception
             //GridView单元格值变更
             CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
             //文档
-            AddWordAttachCommand = new DelegateCommand<object>(OnAddWordAttach);
             RemoveAttachCommand = new DelegateCommand<object>(OnRemoveAttach);
             //ScheduleView
             CreateCommand = new DelegateCommand<object>(OnCreated);
@@ -507,54 +505,25 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #region 添加附件
         /// <summary>
-        ///     添加Pdf附件
+        ///     添加附件
         /// </summary>
         protected override void OnAddAttach(object sender)
         {
-            PdfView.Tag = null;
-            PdfView.ViewModel.InitData(false, _document, PdfViewerClosed);
-            PdfView.ShowDialog();
+            DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
+            DocumentView.ShowDialog();
         }
 
-        /// <summary>
-        ///     添加Word附件
-        /// </summary>
-        public DelegateCommand<object> AddWordAttachCommand { get; private set; }
-
-        private void OnAddWordAttach(object sender)
+        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {
-            WordView.Tag = null;
-            WordView.ViewModel.InitData(false, _document, PdfViewerClosed);
-            WordView.ShowDialog();
-        }
-
-        private void WordViewerClosed(object sender, WindowClosedEventArgs e)
-        {
-            if (WordView.Tag != null && WordView.Tag is Document.Document)
-            {
-                var relatedDoc = new RelatedDocDTO()
-                {
-                    SourceId = SelEngineLeaseReception.SourceId,
-                };
-                var document = WordView.Tag as Document.Document;
-                relatedDoc.DocumentId = document.Id;
-                relatedDoc.DocumentName = document.Name;
-                RelatedDocs.AddNew(relatedDoc);
-                ViewDocuments.Add(relatedDoc);
-            }
-        }
-
-        private void PdfViewerClosed(object sender, WindowClosedEventArgs e)
-        {
-            if (PdfView.Tag != null && PdfView.Tag is Document.Document)
+            if (DocumentView.Tag is DocumentDTO)
             {
                 var relatedDoc = new RelatedDocDTO()
                 {
                     Id = RandomHelper.Next(),
                     SourceId = SelEngineLeaseReception.SourceId,
                 };
-                var document = PdfView.Tag as Document.Document;
-                relatedDoc.DocumentId = document.Id;
+                var document = DocumentView.Tag as DocumentDTO;
+                relatedDoc.DocumentId = document.DocumentId;
                 relatedDoc.DocumentName = document.Name;
                 RelatedDocs.AddNew(relatedDoc);
                 ViewDocuments.Add(relatedDoc);

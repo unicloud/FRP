@@ -313,19 +313,9 @@
                                     <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding AddAttachCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/pdf.png"
+                                        <Image Source="/UniCloud.Presentation;component/Images/Add.png"
                                                Stretch="Fill"
-                                               ToolTipService.ToolTip="添加Pdf文档"
-                                               MaxHeight="25"
-                                               MaxWidth="25" />
-                                    </telerik:RadButton>
-                                    <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AddWordAttachCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/doc.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="添加Word文档"
-                                               MaxHeight="25"
-                                               MaxWidth="25" />
+                                               ToolTipService.ToolTip="添加文档"/>
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding RemoveAttachCommand}">

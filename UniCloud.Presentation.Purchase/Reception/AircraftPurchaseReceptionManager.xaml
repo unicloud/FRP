@@ -43,7 +43,6 @@
                                            telerik:ProportionalStackPanel.RelativeSize="500, 600">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="购买飞机接机项目"
-                                         IsPinned="True"
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
@@ -169,7 +168,6 @@
                     </telerik:RadPaneGroup>
                     <telerik:RadPaneGroup VerticalAlignment="Stretch">
                         <telerik:RadPane Header="交付项"
-                                         IsPinned="True"
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
@@ -290,7 +288,6 @@
                             </Grid>
                         </telerik:RadPane>
                         <telerik:RadPane Header="交机文件"
-                                         IsPinned="True"
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
@@ -320,19 +317,9 @@
                                     <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding AddAttachCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/pdf.png"
+                                        <Image Source="/UniCloud.Presentation;component/Images/Add.png"
                                                Stretch="Fill"
-                                               ToolTipService.ToolTip="添加Pdf文档"
-                                               MaxHeight="25"
-                                               MaxWidth="25" />
-                                    </telerik:RadButton>
-                                    <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AddWordAttachCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/doc.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="添加Word文档"
-                                               MaxHeight="25"
-                                               MaxWidth="25" />
+                                               ToolTipService.ToolTip="添加文档"/>
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding RemoveAttachCommand}">
@@ -378,7 +365,6 @@
                                            telerik:ProportionalStackPanel.RelativeSize="500, 600">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="交付日程安排"
-                                         IsPinned="True"
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"

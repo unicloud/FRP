@@ -30,6 +30,7 @@ using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
+using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
@@ -49,12 +50,10 @@ namespace UniCloud.Presentation.Purchase.Reception
         private TimeMarkerCollection _timeMarkers;
         private ResourceTypeCollection workGroups;
         private Service.Purchase.SchdeuleExtension.ControlExtension scheduleExtension;
-        private Document.Document _document = new Document.Document();
+        private DocumentDTO _document = new DocumentDTO();
 
         [Import]
-        public WordViewer WordView;
-        [Import]
-        public PDFViewer PdfView;
+        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
         public EnginePurchaseReceptionManagerVM(IRegionManager regionManager)
@@ -102,7 +101,6 @@ namespace UniCloud.Presentation.Purchase.Reception
             //GridView单元格值变更
             CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
             //文档
-            AddWordAttachCommand = new DelegateCommand<object>(OnAddWordAttach);
             RemoveAttachCommand = new DelegateCommand<object>(OnRemoveAttach);
             //ScheduleView
             CreateCommand = new DelegateCommand<object>(OnCreated);
@@ -272,7 +270,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                     var viewPurchaseContractEngines = PurchaseContractEngines.Where(p => p.SupplierId == SelEnginePurchaseReception.SupplierId && p.SerialNumber != null).ToList();
                     ViewPurchaseContractEngines.Clear();
                     foreach (var lca in viewPurchaseContractEngines)
-                    { 
+                    {
                         ViewPurchaseContractEngines.Add(lca);
                     }
                     _appointments.Clear();
@@ -287,7 +285,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                     {
                         ViewDocuments.Add(doc);
                     }
-                    RaisePropertyChanged(()=>Appointments);
+                    RaisePropertyChanged(() => Appointments);
                     RaisePropertyChanged(() => SelEnginePurchaseReception);
                 }
             }
@@ -363,7 +361,7 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #region 交机文件
 
-        private ObservableCollection<RelatedDocDTO> _viewDocuments=new ObservableCollection<RelatedDocDTO>();
+        private ObservableCollection<RelatedDocDTO> _viewDocuments = new ObservableCollection<RelatedDocDTO>();
 
         /// <summary>
         /// 交机文件
@@ -507,54 +505,25 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #region 添加附件
         /// <summary>
-        ///     添加Pdf附件
+        ///     添加附件
         /// </summary>
         protected override void OnAddAttach(object sender)
         {
-            PdfView.Tag = null;
-            PdfView.ViewModel.InitData(false, _document, PdfViewerClosed);
-            PdfView.ShowDialog();
+            DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
+            DocumentView.ShowDialog();
         }
 
-        /// <summary>
-        ///     添加Word附件
-        /// </summary>
-        public DelegateCommand<object> AddWordAttachCommand { get; private set; }
-
-        private void OnAddWordAttach(object sender)
+        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {
-            WordView.Tag = null;
-            WordView.ViewModel.InitData(false, _document, PdfViewerClosed);
-            WordView.ShowDialog();
-        }
-
-        private void WordViewerClosed(object sender, WindowClosedEventArgs e)
-        {
-            if (WordView.Tag != null && WordView.Tag is Document.Document)
-            {
-                var relatedDoc = new RelatedDocDTO()
-                {
-                    SourceId = SelEnginePurchaseReception.SourceId,
-                };
-                var document = WordView.Tag as Document.Document;
-                relatedDoc.DocumentId = document.Id;
-                relatedDoc.DocumentName = document.Name;
-                RelatedDocs.AddNew(relatedDoc);
-                ViewDocuments.Add(relatedDoc);
-            }
-        }
-
-        private void PdfViewerClosed(object sender, WindowClosedEventArgs e)
-        {
-            if (PdfView.Tag != null && PdfView.Tag is Document.Document)
+            if (DocumentView.Tag is DocumentDTO)
             {
                 var relatedDoc = new RelatedDocDTO()
                 {
                     Id = RandomHelper.Next(),
                     SourceId = SelEnginePurchaseReception.SourceId,
                 };
-                var document = PdfView.Tag as Document.Document;
-                relatedDoc.DocumentId = document.Id;
+                var document = DocumentView.Tag as DocumentDTO;
+                relatedDoc.DocumentId = document.DocumentId;
                 relatedDoc.DocumentName = document.Name;
                 RelatedDocs.AddNew(relatedDoc);
                 ViewDocuments.Add(relatedDoc);
@@ -622,7 +591,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                 var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "Supplier"))
                 {
-                    var viewPurchaseContractEngines = PurchaseContractEngines.Where(p => p.SupplierId == SelEnginePurchaseReception.SupplierId && p.SerialNumber!=null).ToList();
+                    var viewPurchaseContractEngines = PurchaseContractEngines.Where(p => p.SupplierId == SelEnginePurchaseReception.SupplierId && p.SerialNumber != null).ToList();
                     ViewPurchaseContractEngines.Clear();
                     foreach (var lca in viewPurchaseContractEngines)
                     {
@@ -655,7 +624,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             var scheduleView = sender as RadScheduleView;
             if (scheduleView != null)
-        {
+            {
                 var appointment = scheduleView.EditedAppointment as Appointment;
                 var schedule = scheduleExtension.ConvertToReceptionSchedule(appointment);
                 schedule.ReceptionScheduleId = RandomHelper.Next();
@@ -678,7 +647,7 @@ namespace UniCloud.Presentation.Purchase.Reception
             {
                 var appointment = scheduleView.EditedAppointment as Appointment;
                 if (appointment != null)
-        {
+                {
                     var schedule =
                         SelEnginePurchaseReception.ReceptionSchedules.FirstOrDefault(
                             p => p.UniqueId == appointment.UniqueId);
@@ -705,7 +674,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                             p => p.UniqueId == appointment.UniqueId);
                     SelEnginePurchaseReception.ReceptionSchedules.Remove(schedule);
                     if (schedule != null)
-        {
+                    {
                         schedule = scheduleExtension.ConvertToReceptionSchedule(appointment);
                         SelEnginePurchaseReception.ReceptionSchedules.Add(schedule);
                     }

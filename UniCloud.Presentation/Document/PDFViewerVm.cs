@@ -41,7 +41,7 @@ namespace UniCloud.Presentation.Document
 
         [Import]
         public PDFViewer CurrentPdfView;
-        private Document _currentDoc;
+        private DocumentDTO _currentDoc;
         private bool _onlyView;
         private byte[] _byteContent;
         private readonly QueryableDataServiceCollectionView<DocumentDTO> _documents;
@@ -81,7 +81,7 @@ namespace UniCloud.Presentation.Document
 
         #region 操作
         #region 初始化文档信息
-        public void InitData(bool onlyView, Document doc, EventHandler<WindowClosedEventArgs> closed)
+        public void InitData(bool onlyView, DocumentDTO doc, EventHandler<WindowClosedEventArgs> closed)
         {
             IsBusy = true;
             _currentDoc = doc;
@@ -93,13 +93,13 @@ namespace UniCloud.Presentation.Document
             CurrentPdfView.Closed -= closed;
             CurrentPdfView.Closed += closed;
             CurrentPdfView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            if (doc != null && !doc.Id.Equals(Guid.Empty) && doc.Name.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+            if (doc != null && !doc.DocumentId.Equals(Guid.Empty) && doc.Name.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
             {
-                LoadDocumentByDocId(doc.Id);
+                LoadDocumentByDocId(doc.DocumentId);
             }
             else
             {
-                //CurrentPdfView.pdfViewer.DocumentSource = new RadFixedDocument();
+                CurrentPdfView.pdfViewer.DocumentSource = null;
                 IsBusy = false;
             }
         }
@@ -154,14 +154,14 @@ namespace UniCloud.Presentation.Document
         private void Save(object sender)
         {
             bool isNew = false;
-            if (_currentDoc.Id.Equals(Guid.Empty))
+            if (_currentDoc.DocumentId.Equals(Guid.Empty))
             {
                 isNew = true;
-                _currentDoc.Id = Guid.NewGuid();
+                _currentDoc.DocumentId = Guid.NewGuid();
             }
             var document = new DocumentDTO
                            {
-                               DocumentId = _currentDoc.Id,
+                               DocumentId = _currentDoc.DocumentId,
                                Name = _currentDoc.Name,
                                FileStorage = _byteContent
                            };

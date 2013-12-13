@@ -48,13 +48,14 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
                     IsLeaf = folderDocument.IsLeaf,
                     ParentId = folderDocument.ParentId,
                     DocumentGuid = folderDocument.DocumentGuid,
-                    FullPath =folderDocument.Name,
+                    FullPath = folderDocument.Name,
                     SmallIconPath =
                         ImagePathHelper.GetSmallImageSource(folderDocument.Extension),
                     BigIconPath =
                         ImagePathHelper.GetBigImageSource(folderDocument.Extension),
                 };
             currentListBox.SubDocumentPaths.Clear();
+            currentListBox.SubFolders.Clear();
             //子项路劲遍历
             folderDocument.SubDocumentPaths.ToList().ForEach(p =>
                 {
@@ -70,8 +71,12 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
                                 ImagePathHelper.GetSmallImageSource(p.Extension),
                             BigIconPath =
                                 ImagePathHelper.GetBigImageSource(p.Extension),
-                            FullPath = currentListBox.FullPath+@"\"+p.Name
+                            FullPath = currentListBox.FullPath + @"\" + p.Name
                         };
+                    if (!p.IsLeaf)
+                    {
+                        currentListBox.SubFolders.Add(newListBoxItem);
+                    }
                     currentListBox.SubDocumentPaths.Add(newListBoxItem);
                 });
             return currentListBox;
@@ -81,6 +86,7 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
                                                                     IEnumerable<DocumentPathDTO> subDocumentPaths)
         {
             currentListBox.SubDocumentPaths.Clear();
+            currentListBox.SubFolders.Clear();
             //子项路劲遍历
             subDocumentPaths.ToList().ForEach(p =>
                 {
@@ -98,11 +104,13 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
                                 ImagePathHelper.GetBigImageSource(p.Extension),
                             FullPath = currentListBox.FullPath + @"\" + p.Name
                         };
+
+                    if (!p.IsLeaf)
+                    {
+                        currentListBox.SubFolders.Add(newListBoxItem);
+                    }
                     currentListBox.SubDocumentPaths.Add(newListBoxItem);
                 });
-
-            //currentListBox.SubDocumentPaths = new ObservableCollection<ListBoxDocumentItem>(subListBoxItems);
-            //currentListBox.SubFolderPaths = new ObservableCollection<ListBoxDocumentItem>(subListBoxItems.Where(p => !p.IsLeaf));
             return currentListBox;
         }
     }

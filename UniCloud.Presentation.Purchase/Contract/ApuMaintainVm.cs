@@ -20,9 +20,11 @@ using System.Linq;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
+using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
@@ -38,11 +40,9 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private readonly IRegionManager _regionManager;
         private PurchaseData _purchaseData;
-        private Document.Document _document = new Document.Document();
+        private DocumentDTO _document = new DocumentDTO();
         [Import]
-        public WordViewer WordView;
-        [Import]
-        public PDFViewer PdfView;
+        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
         public ApuMaintainVm(IRegionManager regionManager)
@@ -69,10 +69,11 @@ namespace UniCloud.Presentation.Purchase.Contract
                     var newItem = ApuMaintainContracts.CurrentAddItem as APUMaintainContractDTO;
                     if (newItem != null)
                     {
+                        newItem.APUMaintainContractId = RandomHelper.Next();
                         newItem.SignDate = DateTime.Now;
                         newItem.CreateDate = DateTime.Now;
                         newItem.DocumentName = "添加附件";
-                        _document.Id = new Guid();
+                        _document.DocumentId = new Guid();
                         _document.Name = string.Empty;
                     }
                 }
@@ -136,7 +137,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     _apuMaintainContract = value;
                     if (_apuMaintainContract != null)
                     {
-                        _document.Id = _apuMaintainContract.DocumentId;
+                        _document.DocumentId = _apuMaintainContract.DocumentId;
                         _document.Name = _apuMaintainContract.DocumentName;
                         if (value.Suppliers != null)
                         {
@@ -193,38 +194,17 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 添加附件
         protected override void OnAddAttach(object sender)
         {
-            var radRadioButton = sender as RadRadioButton;
-            if ((bool)radRadioButton.IsChecked)
-            {
-                WordView.Tag = null;
-                WordView.ViewModel.InitData(false, _document, WordViewerClosed);
-                WordView.ShowDialog();
+            DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
+            DocumentView.ShowDialog();
             }
-            else
-            {
-                PdfView.Tag = null;
-                PdfView.ViewModel.InitData(false, _document, PdfViewerClosed);
-                PdfView.ShowDialog();
-            }
-        }
 
-        private void WordViewerClosed(object sender, WindowClosedEventArgs e)
+        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {
-            if (WordView.Tag != null && WordView.Tag is Document.Document)
+            if (DocumentView.Tag is DocumentDTO)
             {
-                var document = WordView.Tag as Document.Document;
-                ApuMaintainContract.DocumentId = document.Id;
-                ApuMaintainContract.DocumentName = document.Name;
-            }
-        }
-
-        private void PdfViewerClosed(object sender, WindowClosedEventArgs e)
-        {
-            if (PdfView.Tag != null && PdfView.Tag is Document.Document)
-            {
-                var document = PdfView.Tag as Document.Document;
-                ApuMaintainContract.DocumentId = document.Id;
-                ApuMaintainContract.DocumentName = document.Name;
+                _document = DocumentView.Tag as DocumentDTO;
+                ApuMaintainContract.DocumentId = _document.DocumentId;
+                ApuMaintainContract.DocumentName = _document.Name;
             }
         }
         #endregion
@@ -232,22 +212,8 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 查看附件
         protected override void OnViewAttach(object sender)
         {
-            if (string.IsNullOrEmpty(_document.Name))
-            {
-                return;
-            }
-            if (_document.Name.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
-            {
-                PdfView.Tag = null;
-                PdfView.ViewModel.InitData(true, _document, PdfViewerClosed);
-                PdfView.ShowDialog();
-            }
-            else
-            {
-                WordView.Tag = null;
-                WordView.ViewModel.InitData(true, _document, WordViewerClosed);
-                WordView.ShowDialog();
-            }
+            DocumentView.ViewModel.InitData(true, _document.DocumentId, null);
+            DocumentView.ShowDialog();
         }
         #endregion
 

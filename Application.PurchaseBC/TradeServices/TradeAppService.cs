@@ -39,12 +39,12 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
         private readonly ITradeQuery _tradeQuery;
         private readonly ITradeRepository _tradeRepository;
 
-        public TradeAppService(ITradeQuery queryTrade, IOrderQuery orderQuery, ITradeRepository tradeRepository,
-            IOrderRepository orderRepository, ISupplierRepository supplierRepository)
+        public TradeAppService(ITradeQuery queryTrade, ITradeRepository tradeRepository,
+            IOrderQuery orderQuery, IOrderRepository orderRepository, ISupplierRepository supplierRepository)
         {
             _tradeQuery = queryTrade;
-            _orderQuery = orderQuery;
             _tradeRepository = tradeRepository;
+            _orderQuery = orderQuery;
             _orderRepository = orderRepository;
             _supplierRepository = supplierRepository;
         }
@@ -206,6 +206,17 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             {
                 throw new ArgumentException("参数为空！");
             }
+
+            // 获取版本号
+            var version = _orderRepository.GetFiltered(o => o.TradeId == dto.TradeId).Count() + 1;
+
+            // 创建订单
+            var order = OrderFactory.CreateAircraftPurchaseOrder(version, dto.OperatorName, dto.OrderDate);
+            order.SetTrade(dto.TradeId);
+            order.SetCurrency(dto.CurrencyId);
+            order.SetLinkman(dto.LinkmanId);
+
+            _orderRepository.Add(order);
         }
 
         [Update(typeof (AircraftPurchaseOrderDTO))]

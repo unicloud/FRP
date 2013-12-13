@@ -49,6 +49,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
             Property(p => p.AircraftTypeId).HasColumnName("AircraftTypeId");
             Property(p => p.PlanAircraftID).HasColumnName("PlanAircraftID");
             Property(p => p.ImportCategoryId).HasColumnName("ImportCategoryId");
+            Property(p => p.SupplierId).HasColumnName("SupplierId");
 
             HasRequired(c => c.AircraftType).WithMany().HasForeignKey(c => c.AircraftTypeId);
             HasOptional(c => c.PlanAircraft).WithMany().HasForeignKey(c => c.PlanAircraftID);

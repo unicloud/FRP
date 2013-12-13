@@ -31,7 +31,7 @@
             </Grid.RowDefinitions>
 
             <telerik:RadRichTextBoxRibbonUI  BackstageClippingElement="{Binding ElementName=LayoutRoot}"
-                                             ApplicationButtonImageSource="/RichTextBox;component/Images/RichTextBox/MSOffice/AppIcon-telerik.png"
+                                             ApplicationButtonContent="文件"
                                              DataContext="{Binding Commands, ElementName=editor}"
                                              ApplicationName=""
                                              x:Name="radRichTextBoxRibbonUI"

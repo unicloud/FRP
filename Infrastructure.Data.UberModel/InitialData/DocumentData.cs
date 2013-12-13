@@ -42,7 +42,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
         {
             //根目录
             var rootDocumentPath = DocumentPathFactory
-                .CreateDocumentPath("文档管理", false, null, null, null, PathSource.采购合同);
+                .CreateDocumentPath("合同管理", false, null, null, null, PathSource.采购合同);
             rootDocumentPath.GenerateNewIdentity();
             Context.DocumentPaths.Add(rootDocumentPath);
             var importPath = DocumentPathFactory
