@@ -31,12 +31,6 @@ namespace UniCloud.Application.PurchaseBC.DTO
     [DataServiceKey("Id")]
     public class AircraftLeaseOrderDTO
     {
-        #region 私有字段
-
-        private HashSet<AircraftLeaseOrderLineDTO> _lines;
-
-        #endregion
-
         /// <summary>
         ///     订单ID
         /// </summary>
@@ -46,6 +40,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     交易ID
         /// </summary>
         public int TradeId { get; set; }
+
+        /// <summary>
+        ///     合同名称
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         ///     版本号
@@ -88,6 +87,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public Guid ContractDocGuid { get; set; }
 
         /// <summary>
+        ///     源GUID
+        /// </summary>
+        public Guid SourceGuid { get; set; }
+
+        /// <summary>
         ///     日志记录
         /// </summary>
         public string LogWriter { get; set; }
@@ -100,10 +104,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     租赁飞机订单行集合
         /// </summary>
-        public virtual ICollection<AircraftLeaseOrderLineDTO> AircraftLeaseOrderLines
-        {
-            get { return _lines ?? (_lines = new HashSet<AircraftLeaseOrderLineDTO>()); }
-            set { _lines = new HashSet<AircraftLeaseOrderLineDTO>(value); }
-        }
+        public virtual List<AircraftLeaseOrderLineDTO> AircraftLeaseOrderLines { get; set; }
+
+        /// <summary>
+        ///     关联文档集合
+        /// </summary>
+        public virtual List<RelatedDocDTO> RelatedDocs { get; set; }
     }
 }

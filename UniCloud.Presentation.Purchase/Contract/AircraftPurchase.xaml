@@ -143,6 +143,7 @@
                                         <uc:DataPageSerialColumn Header="序号" />
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding Version}" Header="版本"
                                                                     TextAlignment="Center" IsReadOnly="True" />
+                                        <telerik:GridViewDataColumn DataMemberBinding="{Binding Name}" Header="合同名称" />
                                         <telerik:GridViewComboBoxColumn DataMemberBinding="{Binding CurrencyId}"
                                                                         Header="币种" EditTriggers="CellClick"
                                                                         ItemsSource="{Binding DataContext.Currencies, ElementName=LayoutRoot}"
@@ -178,7 +179,8 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="0 0 0 -1">
-                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddAttachCommand}">
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddAttachCommand}"
+                                                       CommandParameter="{Binding SelAircraftPurchaseOrderDTO.ContractDocGuid}">
                                         <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="添加合同文档" />
@@ -207,10 +209,18 @@
                                         <TextBlock Text="合同文档：" FontSize="14" VerticalAlignment="Center" Margin="7,0" />
                                         <HyperlinkButton FontSize="14" VerticalAlignment="Center"
                                                          Content="{Binding SelAircraftPurchaseOrderDTO.ContractName}"
-                                                         Command="{Binding ViewAttachCommand}" />
+                                                         Command="{Binding ViewAttachCommand}"
+                                                         CommandParameter="{Binding SelAircraftPurchaseOrderDTO.ContractDocGuid}" />
                                     </StackPanel>
                                     <telerik:GroupBox Grid.Row="1" Grid.Column="0" Header="关联文档">
-                                        <telerik:RadListBox BorderThickness="0" />
+                                        <telerik:RadListBox BorderThickness="0"
+                                                            ItemsSource="{Binding SelAircraftPurchaseOrderDTO.RelatedDocs}">
+                                            <telerik:RadListBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <HyperlinkButton Content="{Binding DocumentName}" />
+                                                </DataTemplate>
+                                            </telerik:RadListBox.ItemTemplate>
+                                        </telerik:RadListBox>
                                     </telerik:GroupBox>
                                     <telerik:GroupBox Grid.Row="2" Grid.Column="0" Header="合同说明">
                                         <TextBox Text="{Binding SelAircraftPurchaseOrderDTO.LogWriter, Mode=TwoWay}"
@@ -231,7 +241,7 @@
                                                      ItemsSource="{Binding SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines}"
                                                      IsBusy="{Binding ViewAircraftPurchaseOrderDTO.IsBusy}"
                                                      ShowGroupPanel="False" IsFilteringAllowed="False"
-                                                     EditTriggers="CellClick">
+                                                     EditTriggers="CellClick" Margin="1,1,1,0">
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"

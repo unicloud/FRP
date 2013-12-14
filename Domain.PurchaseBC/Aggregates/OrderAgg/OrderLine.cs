@@ -51,12 +51,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         ///         单价不能小于0
         ///     </remarks>
         /// </summary>
-        public decimal UnitPrice { get; set; }
+        public decimal UnitPrice { get; internal set; }
 
         /// <summary>
         ///     数量
         /// </summary>
-        public int Amount { get; set; }
+        public int Amount { get; internal set; }
 
         /// <summary>
         ///     折扣
@@ -64,12 +64,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         ///         取值范围为 [0-100]
         ///     </remarks>
         /// </summary>
-        public decimal Discount { get; set; }
+        public decimal Discount { get; internal set; }
 
         /// <summary>
         ///     预计交付日期
         /// </summary>
-        public DateTime EstimateDeliveryDate { get; set; }
+        public DateTime EstimateDeliveryDate { get; internal set; }
 
         /// <summary>
         ///     是否完成

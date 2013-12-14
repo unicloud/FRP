@@ -524,6 +524,7 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
@@ -532,9 +533,11 @@
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="ContractName" Type="Edm.String" />
         <Property Name="ContractDocGuid" Type="Edm.Guid" Nullable="false" />
+        <Property Name="SourceGuid" Type="Edm.Guid" Nullable="false" />
         <Property Name="LogWriter" Type="Edm.String" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="AircraftLeaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.AircraftLeaseOrderLineDTO)" Nullable="false" />
+        <NavigationProperty Name="RelatedDocs" Relationship="UniCloud.Application.PurchaseBC.DTO.AircraftLeaseOrderDTO_RelatedDocs" ToRole="RelatedDocs" FromRole="AircraftLeaseOrderDTO" />
       </EntityType>
       <ComplexType Name="AircraftLeaseOrderLineDTO">
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
@@ -550,6 +553,7 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
@@ -558,9 +562,11 @@
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="ContractName" Type="Edm.String" />
         <Property Name="ContractDocGuid" Type="Edm.Guid" Nullable="false" />
+        <Property Name="SourceGuid" Type="Edm.Guid" Nullable="false" />
         <Property Name="LogWriter" Type="Edm.String" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="AircraftPurchaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseOrderLineDTO)" Nullable="false" />
+        <NavigationProperty Name="RelatedDocs" Relationship="UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseOrderDTO_RelatedDocs" ToRole="RelatedDocs" FromRole="AircraftPurchaseOrderDTO" />
       </EntityType>
       <ComplexType Name="AircraftPurchaseOrderLineDTO">
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
@@ -572,6 +578,8 @@
         <Property Name="EnginePrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
+        <Property Name="ContractAircraftId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
       </ComplexType>
       <EntityType Name="EngineLeaseOrderDTO">
         <Key>
@@ -579,6 +587,7 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
@@ -587,9 +596,11 @@
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="ContractName" Type="Edm.String" />
         <Property Name="ContractDocGuid" Type="Edm.Guid" Nullable="false" />
+        <Property Name="SourceGuid" Type="Edm.Guid" Nullable="false" />
         <Property Name="LogWriter" Type="Edm.String" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="EngineLeaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.EngineLeaseOrderLineDTO)" Nullable="false" />
+        <NavigationProperty Name="RelatedDocs" Relationship="UniCloud.Application.PurchaseBC.DTO.EngineLeaseOrderDTO_RelatedDocs" ToRole="RelatedDocs" FromRole="EngineLeaseOrderDTO" />
       </EntityType>
       <ComplexType Name="EngineLeaseOrderLineDTO">
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
@@ -605,6 +616,7 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
@@ -613,9 +625,11 @@
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="ContractName" Type="Edm.String" />
         <Property Name="ContractDocGuid" Type="Edm.Guid" Nullable="false" />
+        <Property Name="SourceGuid" Type="Edm.Guid" Nullable="false" />
         <Property Name="LogWriter" Type="Edm.String" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="EnginePurchaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.EnginePurchaseOrderLineDTO)" Nullable="false" />
+        <NavigationProperty Name="RelatedDocs" Relationship="UniCloud.Application.PurchaseBC.DTO.EnginePurchaseOrderDTO_RelatedDocs" ToRole="RelatedDocs" FromRole="EnginePurchaseOrderDTO" />
       </EntityType>
       <ComplexType Name="EnginePurchaseOrderLineDTO">
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
@@ -631,6 +645,7 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="TradeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
         <Property Name="Version" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
@@ -639,9 +654,11 @@
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="ContractName" Type="Edm.String" />
         <Property Name="ContractDocGuid" Type="Edm.Guid" Nullable="false" />
+        <Property Name="SourceGuid" Type="Edm.Guid" Nullable="false" />
         <Property Name="LogWriter" Type="Edm.String" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="BFEPurchaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderLineDTO)" Nullable="false" />
+        <NavigationProperty Name="RelatedDocs" Relationship="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO_RelatedDocs" ToRole="RelatedDocs" FromRole="BFEPurchaseOrderDTO" />
       </EntityType>
       <ComplexType Name="BFEPurchaseOrderLineDTO">
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
@@ -669,6 +686,26 @@
       <Association Name="PurchaseContractAircraftDTO_BFEPurchaseOrders">
         <End Type="UniCloud.Application.PurchaseBC.DTO.PurchaseContractAircraftDTO" Role="PurchaseContractAircraftDTO" Multiplicity="*" />
         <End Type="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO" Role="BFEPurchaseOrders" Multiplicity="*" />
+      </Association>
+      <Association Name="AircraftLeaseOrderDTO_RelatedDocs">
+        <End Type="UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO" Role="RelatedDocs" Multiplicity="*" />
+        <End Type="UniCloud.Application.PurchaseBC.DTO.AircraftLeaseOrderDTO" Role="AircraftLeaseOrderDTO" Multiplicity="*" />
+      </Association>
+      <Association Name="AircraftPurchaseOrderDTO_RelatedDocs">
+        <End Type="UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO" Role="RelatedDocs" Multiplicity="*" />
+        <End Type="UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseOrderDTO" Role="AircraftPurchaseOrderDTO" Multiplicity="*" />
+      </Association>
+      <Association Name="EngineLeaseOrderDTO_RelatedDocs">
+        <End Type="UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO" Role="RelatedDocs" Multiplicity="*" />
+        <End Type="UniCloud.Application.PurchaseBC.DTO.EngineLeaseOrderDTO" Role="EngineLeaseOrderDTO" Multiplicity="*" />
+      </Association>
+      <Association Name="EnginePurchaseOrderDTO_RelatedDocs">
+        <End Type="UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO" Role="RelatedDocs" Multiplicity="*" />
+        <End Type="UniCloud.Application.PurchaseBC.DTO.EnginePurchaseOrderDTO" Role="EnginePurchaseOrderDTO" Multiplicity="*" />
+      </Association>
+      <Association Name="BFEPurchaseOrderDTO_RelatedDocs">
+        <End Type="UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO" Role="RelatedDocs" Multiplicity="*" />
+        <End Type="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO" Role="BFEPurchaseOrderDTO" Multiplicity="*" />
       </Association>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Purchase" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -719,6 +756,26 @@
         <AssociationSet Name="PurchaseContractAircraftDTO_BFEPurchaseOrders" Association="UniCloud.Application.PurchaseBC.DTO.PurchaseContractAircraftDTO_BFEPurchaseOrders">
           <End Role="PurchaseContractAircraftDTO" EntitySet="PurchaseContractAircrafts" />
           <End Role="BFEPurchaseOrders" EntitySet="BFEPurchaseOrders" />
+        </AssociationSet>
+        <AssociationSet Name="AircraftLeaseOrderDTO_RelatedDocs" Association="UniCloud.Application.PurchaseBC.DTO.AircraftLeaseOrderDTO_RelatedDocs">
+          <End Role="AircraftLeaseOrderDTO" EntitySet="AircraftLeaseOrders" />
+          <End Role="RelatedDocs" EntitySet="RelatedDocs" />
+        </AssociationSet>
+        <AssociationSet Name="AircraftPurchaseOrderDTO_RelatedDocs" Association="UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseOrderDTO_RelatedDocs">
+          <End Role="AircraftPurchaseOrderDTO" EntitySet="AircraftPurchaseOrders" />
+          <End Role="RelatedDocs" EntitySet="RelatedDocs" />
+        </AssociationSet>
+        <AssociationSet Name="EngineLeaseOrderDTO_RelatedDocs" Association="UniCloud.Application.PurchaseBC.DTO.EngineLeaseOrderDTO_RelatedDocs">
+          <End Role="EngineLeaseOrderDTO" EntitySet="EngineLeaseOrders" />
+          <End Role="RelatedDocs" EntitySet="RelatedDocs" />
+        </AssociationSet>
+        <AssociationSet Name="EnginePurchaseOrderDTO_RelatedDocs" Association="UniCloud.Application.PurchaseBC.DTO.EnginePurchaseOrderDTO_RelatedDocs">
+          <End Role="EnginePurchaseOrderDTO" EntitySet="EnginePurchaseOrders" />
+          <End Role="RelatedDocs" EntitySet="RelatedDocs" />
+        </AssociationSet>
+        <AssociationSet Name="BFEPurchaseOrderDTO_RelatedDocs" Association="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO_RelatedDocs">
+          <End Role="BFEPurchaseOrderDTO" EntitySet="BFEPurchaseOrders" />
+          <End Role="RelatedDocs" EntitySet="RelatedDocs" />
         </AssociationSet>
       </EntityContainer>
     </Schema>

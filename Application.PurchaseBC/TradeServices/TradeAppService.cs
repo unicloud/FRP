@@ -22,7 +22,9 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.TradeQueries;
+using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Domain.PurchaseBC.Enums;
@@ -35,18 +37,21 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
     {
         private readonly IOrderQuery _orderQuery;
         private readonly IOrderRepository _orderRepository;
+        private readonly IRelatedDocRepository _relatedDocRepository;
         private readonly ISupplierRepository _supplierRepository;
         private readonly ITradeQuery _tradeQuery;
         private readonly ITradeRepository _tradeRepository;
 
         public TradeAppService(ITradeQuery queryTrade, ITradeRepository tradeRepository,
-            IOrderQuery orderQuery, IOrderRepository orderRepository, ISupplierRepository supplierRepository)
+            IOrderQuery orderQuery, IOrderRepository orderRepository, ISupplierRepository supplierRepository,
+            IRelatedDocRepository relatedDocRepository)
         {
             _tradeQuery = queryTrade;
             _tradeRepository = tradeRepository;
             _orderQuery = orderQuery;
             _orderRepository = orderRepository;
             _supplierRepository = supplierRepository;
+            _relatedDocRepository = relatedDocRepository;
         }
 
         #region ITradeAppService 成员
@@ -215,6 +220,8 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             order.SetTrade(dto.TradeId);
             order.SetCurrency(dto.CurrencyId);
             order.SetLinkman(dto.LinkmanId);
+            order.SetSourceGuid(dto.SourceGuid);
+            order.SetName(dto.Name);
             if (!string.IsNullOrWhiteSpace(dto.LogWriter))
             {
                 order.SetNote(dto.LogWriter);
@@ -224,6 +231,36 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 order.SetContractDoc(dto.ContractDocGuid, dto.ContractName);
             }
 
+            // TODO : 获取机型ID和引进方式ID，需要移除
+            var aircraftTypeId = Guid.Parse("EF5DD798-C16D-47CD-A588-ABD257A6B6B6");
+            var imortTypeId = Guid.Parse("8C58622E-01E3-4F61-B34D-619D3FB432AF");
+
+            // 处理订单行
+            if (dto.AircraftPurchaseOrderLines != null)
+            {
+                dto.AircraftPurchaseOrderLines.ToList().ForEach(line =>
+                {
+                    var orderLine = order.AddNewAircraftPurchaseOrderLine(line.UnitPrice, line.Amount, line.Discount,
+                        line.EstimateDeliveryDate);
+                    orderLine.SetCost(line.AirframePrice, line.RefitCost, line.EnginePrice);
+                    // 创建合同飞机
+                    var contractAircraft = ContractAircraftFactory.CreatePurchaseContractAircraft(dto.Name, "0001");
+                    contractAircraft.GenerateNewIdentity();
+                    contractAircraft.SetAircraftType(aircraftTypeId);
+                    contractAircraft.SetImportCategory(imortTypeId);
+                    orderLine.SetContractAircraft(contractAircraft);
+                });
+            }
+
+            // 处理关联文档
+            if (dto.RelatedDocs != null)
+            {
+                dto.RelatedDocs.ToList().ForEach(doc =>
+                {
+                    var relatedDoc = RelatedDocFactory.CreateRelatedDoc(doc.SourceId, doc.DocumentId, doc.DocumentName);
+                    _relatedDocRepository.Add(relatedDoc);
+                });
+            }
             _orderRepository.Add(order);
         }
 
@@ -239,9 +276,10 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             if (order != null)
             {
                 // 更新当前记录
-                order.SetTrade(dto.TradeId);
                 order.SetCurrency(dto.CurrencyId);
                 order.SetLinkman(dto.LinkmanId);
+                order.SetName(dto.Name);
+                order.SetOperatorName(dto.OperatorName);
                 if (!string.IsNullOrWhiteSpace(dto.LogWriter))
                 {
                     order.SetNote(dto.LogWriter);

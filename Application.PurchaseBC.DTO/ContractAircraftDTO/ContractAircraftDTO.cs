@@ -1,19 +1,22 @@
-﻿using System;
+﻿#region 命名空间
+
+using System;
 using System.Collections.Generic;
 using System.Data.Services.Common;
+
+#endregion
 
 namespace UniCloud.Application.PurchaseBC.DTO
 {
     /// <summary>
-    ///  合同飞机基类
+    ///     合同飞机基类
     /// </summary>
     [DataServiceKey("ContractNumber", "RankNumber")]
-    public partial class ContractAircraftDTO
+    public class ContractAircraftDTO
     {
-
         public ContractAircraftDTO()
         {
-            BFEPurchaseOrders =new List<BFEPurchaseOrderDTO>();
+            BFEPurchaseOrders = new List<BFEPurchaseOrderDTO>();
         }
 
         #region 属性
@@ -61,22 +64,22 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     机型
         /// </summary>
-        public virtual string AircraftTypeName { get; set; }
+        public string AircraftTypeName { get; set; }
 
         /// <summary>
         ///     计划飞机
         /// </summary>
-        public virtual string PlanAircraft { get; set; }
+        public string PlanAircraft { get; set; }
 
         /// <summary>
         ///     引进方式
         /// </summary>
-        public virtual string ImportType { get; set; }
+        public string ImportType { get; set; }
 
         /// <summary>
         ///     引进方式
         /// </summary>
-        public virtual string ImportActionName { get; set; }
+        public string ImportActionName { get; set; }
 
         #endregion
 
@@ -85,22 +88,23 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     机型ID
         /// </summary>
-        public Guid AircraftTypeId { get;  set; }
+        public Guid AircraftTypeId { get; set; }
 
         /// <summary>
         ///     计划飞机
         /// </summary>
-        public Guid? PlanAircraftID { get;  set; }
+        public Guid? PlanAircraftID { get; set; }
 
         /// <summary>
         ///     引进方式ID
         /// </summary>
-        public Guid ImportCategoryId { get;  set; }
+        public Guid ImportCategoryId { get; set; }
 
         /// <summary>
-        ///    供应商ID
+        ///     供应商ID
         /// </summary>
         public int? SupplierId { get; set; }
+
         #endregion
 
         #region 导航属性

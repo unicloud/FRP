@@ -66,6 +66,19 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         #endregion
 
         [TestMethod]
+        public void GetAllOrders()
+        {
+            // Arrange
+            var orderRep = DefaultContainer.Resolve<IOrderRepository>();
+
+            // Act
+            var result = orderRep.GetAll().OfType<AircraftPurchaseOrder>().ToList();
+
+            // Assert
+            Assert.IsTrue(result.Any());
+        }
+
+        [TestMethod]
         public void CreateOrder()
         {
             // Arrange
@@ -93,9 +106,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
 
             // 2、添加订单行
             var acPurchaseOrderLine1 = acPurchaseOrder.AddNewAircraftPurchaseOrderLine(200M, 1, 0, DateTime.Now);
-            acPurchaseOrderLine1.AirframePrice = 100M;
-            acPurchaseOrderLine1.RefitCost = 50M;
-            acPurchaseOrderLine1.EnginePrice = 50M;
+            acPurchaseOrderLine1.SetCost(100M,50M,50M);
 
             // 3、创建与订单对应的合同飞机
             var contractAircraft = ContractAircraftFactory.CreatePurchaseContractAircraft("购机合同", "0001");

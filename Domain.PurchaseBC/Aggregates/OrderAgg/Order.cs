@@ -70,12 +70,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         /// <summary>
         ///     合同名称
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         /// <summary>
         ///     经办人
         /// </summary>
-        public string OperatorName { get; set; }
+        public string OperatorName { get; internal set; }
 
         /// <summary>
         ///     创建日期
@@ -85,12 +85,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         /// <summary>
         ///     生效日期
         /// </summary>
-        public DateTime OrderDate { get; set; }
+        public DateTime OrderDate { get; internal set; }
 
         /// <summary>
         ///     撤销日期
         /// </summary>
-        public DateTime? RepealDate { get; set; }
+        public DateTime? RepealDate { get; private set; }
 
         /// <summary>
         ///     是否有效
@@ -203,6 +203,34 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         }
 
         /// <summary>
+        ///     设置合同名称
+        /// </summary>
+        /// <param name="name">合同名称</param>
+        public void SetName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("合同名称参数为空！");
+            }
+
+            Name = name;
+        }
+
+        /// <summary>
+        ///     设置经办人
+        /// </summary>
+        /// <param name="operatorName">经办人</param>
+        public void SetOperatorName(string operatorName)
+        {
+            if (string.IsNullOrWhiteSpace(operatorName))
+            {
+                throw new ArgumentException("经办人参数为空！");
+            }
+
+            OperatorName = operatorName;
+        }
+
+        /// <summary>
         ///     设置合同编号
         /// </summary>
         /// <param name="contractNumber">合同编号</param>
@@ -242,6 +270,15 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         {
             // TODO：待完善
             IsCompleted = true;
+        }
+
+        /// <summary>
+        ///     设置撤销日期
+        /// </summary>
+        /// <param name="date">撤销日期</param>
+        public void SetRepealDate(DateTime date)
+        {
+            RepealDate = date;
         }
 
         /// <summary>

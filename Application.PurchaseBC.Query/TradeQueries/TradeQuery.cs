@@ -20,7 +20,6 @@
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
-using UniCloud.Infrastructure.Data;
 
 #endregion
 
@@ -28,11 +27,11 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
 {
     public class TradeQuery : ITradeQuery
     {
-        private readonly IQueryableUnitOfWork _unitOfWork;
+        private readonly ITradeRepository _tradeRepository;
 
-        public TradeQuery(IQueryableUnitOfWork unitOfWork)
+        public TradeQuery(ITradeRepository tradeRepository)
         {
-            _unitOfWork = unitOfWork;
+            _tradeRepository = tradeRepository;
         }
 
         #region ITradeQuery 成员
@@ -48,7 +47,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
         /// </returns>
         public IQueryable<TradeDTO> TradesQuery(QueryBuilder<Trade> query)
         {
-            var result = query.ApplyTo(_unitOfWork.CreateSet<Trade>()).Select(t => new TradeDTO
+            var result = query.ApplyTo(_tradeRepository.GetAll()).Select(t => new TradeDTO
             {
                 Id = t.Id,
                 TradeNumber = t.TradeNumber,

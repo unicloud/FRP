@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,15 +11,12 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.RelatedDocQueries;
@@ -60,14 +58,11 @@ namespace UniCloud.Application.PurchaseBC.RelatedDocServices
         ///     新增RelatedDocDTO。
         /// </summary>
         /// <param name="relatedDoc">RelatedDocDTO。</param>
-        [Insert(typeof(RelatedDocDTO))]
+        [Insert(typeof (RelatedDocDTO))]
         public void InsertRelatedDoc(RelatedDocDTO relatedDoc)
         {
-            var newRelatedDoc = new RelatedDoc();
-
-            newRelatedDoc.SourceId = relatedDoc.SourceId;
-            newRelatedDoc.DocumentId = relatedDoc.DocumentId;
-            newRelatedDoc.DocumentName = relatedDoc.DocumentName;
+            var newRelatedDoc = RelatedDocFactory.CreateRelatedDoc(relatedDoc.SourceId, relatedDoc.DocumentId,
+                relatedDoc.DocumentName);
 
             _relatedDocRepository.Add(newRelatedDoc);
         }
@@ -76,28 +71,24 @@ namespace UniCloud.Application.PurchaseBC.RelatedDocServices
         ///     更新RelatedDocDTO。
         /// </summary>
         /// <param name="relatedDoc">RelatedDocDTO。</param>
-        [Update(typeof(RelatedDocDTO))]
+        [Update(typeof (RelatedDocDTO))]
         public void ModifyRelatedDoc(RelatedDocDTO relatedDoc)
         {
-
             var updateRelatedDoc =
                 _relatedDocRepository.GetFiltered(t => t.Id == relatedDoc.Id)
                     .FirstOrDefault();
             //获取需要更新的对象。
-            if (updateRelatedDoc != null)
-            {
-                updateRelatedDoc.SourceId = relatedDoc.SourceId;
-                updateRelatedDoc.DocumentId = relatedDoc.DocumentId;
-                updateRelatedDoc.DocumentName = relatedDoc.DocumentName;
-            }
-            _relatedDocRepository.Modify(updateRelatedDoc);
+            var current = RelatedDocFactory.CreateRelatedDoc(relatedDoc.SourceId, relatedDoc.DocumentId,
+                relatedDoc.DocumentName);
+
+            _relatedDocRepository.Merge(updateRelatedDoc, current);
         }
 
         /// <summary>
         ///     删除RelatedDocDTO。
         /// </summary>
         /// <param name="relatedDoc">RelatedDocDTO。</param>
-        [Delete(typeof(RelatedDocDTO))]
+        [Delete(typeof (RelatedDocDTO))]
         public void DeleteRelatedDoc(RelatedDocDTO relatedDoc)
         {
             var delRelatedDoc =

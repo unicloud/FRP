@@ -20,6 +20,7 @@
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
@@ -28,11 +29,13 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
 {
     public class OrderQuery : IOrderQuery
     {
+        private readonly IOrderRepository _orderRepository;
         private readonly IQueryableUnitOfWork _unitOfWork;
 
-        public OrderQuery(IQueryableUnitOfWork unitOfWork)
+        public OrderQuery(IQueryableUnitOfWork unitOfWork, IOrderRepository orderRepository)
         {
             _unitOfWork = unitOfWork;
+            _orderRepository = orderRepository;
         }
 
         #region IOrderQuery 成员
@@ -48,11 +51,13 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
         /// </returns>
         public IQueryable<AircraftLeaseOrderDTO> AircraftLeaseOrderQuery(QueryBuilder<Order> query)
         {
-            var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<AircraftLeaseOrder>())
+            var relatedDocs = _unitOfWork.CreateSet<RelatedDoc>();
+            var result = query.ApplyTo(_orderRepository.GetAll().OfType<AircraftLeaseOrder>())
                 .Select(o => new AircraftLeaseOrderDTO
                 {
                     Id = o.Id,
                     TradeId = o.TradeId,
+                    Name = o.Name,
                     Version = o.Version,
                     CurrencyId = o.Currency.Id,
                     OperatorName = o.OperatorName,
@@ -61,6 +66,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     Status = (int) o.Status,
                     ContractName = o.ContractName,
                     ContractDocGuid = o.ContractDocGuid,
+                    SourceGuid = o.SourceGuid,
                     Note = o.Note,
                     AircraftLeaseOrderLines = o.OrderLines.Select(l => new AircraftLeaseOrderLineDTO
                     {
@@ -70,6 +76,13 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                         Discount = l.Discount,
                         EstimateDeliveryDate = l.EstimateDeliveryDate,
                         Note = l.Note
+                    }).ToList(),
+                    RelatedDocs = relatedDocs.Where(r => r.SourceId == o.SourceGuid).Select(r => new RelatedDocDTO
+                    {
+                        Id = r.Id,
+                        SourceId = r.SourceId,
+                        DocumentId = r.DocumentId,
+                        DocumentName = r.DocumentName
                     }).ToList()
                 });
             return result;
@@ -86,11 +99,13 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
         /// </returns>
         public IQueryable<AircraftPurchaseOrderDTO> AircraftPurchaseOrderQuery(QueryBuilder<Order> query)
         {
-            var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<AircraftPurchaseOrder>())
+            var relatedDocs = _unitOfWork.CreateSet<RelatedDoc>();
+            var result = query.ApplyTo(_orderRepository.GetAll().OfType<AircraftPurchaseOrder>())
                 .Select(o => new AircraftPurchaseOrderDTO
                 {
                     Id = o.Id,
                     TradeId = o.TradeId,
+                    Name = o.Name,
                     Version = o.Version,
                     CurrencyId = o.Currency.Id,
                     OperatorName = o.OperatorName,
@@ -99,6 +114,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     Status = (int) o.Status,
                     ContractName = o.ContractName,
                     ContractDocGuid = o.ContractDocGuid,
+                    SourceGuid = o.SourceGuid,
                     Note = o.Note,
                     AircraftPurchaseOrderLines =
                         o.OrderLines.OfType<AircraftPurchaseOrderLine>().Select(l => new AircraftPurchaseOrderLineDTO
@@ -112,7 +128,14 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                             EnginePrice = l.EnginePrice,
                             EstimateDeliveryDate = l.EstimateDeliveryDate,
                             Note = l.Note
-                        }).ToList()
+                        }).ToList(),
+                    RelatedDocs = relatedDocs.Where(r => r.SourceId == o.SourceGuid).Select(r => new RelatedDocDTO
+                    {
+                        Id = r.Id,
+                        SourceId = r.SourceId,
+                        DocumentId = r.DocumentId,
+                        DocumentName = r.DocumentName
+                    }).ToList()
                 });
             return result;
         }
@@ -128,11 +151,13 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
         /// </returns>
         public IQueryable<EngineLeaseOrderDTO> EngineLeaseOrderQuery(QueryBuilder<Order> query)
         {
-            var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<EngineLeaseOrder>())
+            var relatedDocs = _unitOfWork.CreateSet<RelatedDoc>();
+            var result = query.ApplyTo(_orderRepository.GetAll().OfType<EngineLeaseOrder>())
                 .Select(o => new EngineLeaseOrderDTO
                 {
                     Id = o.Id,
                     TradeId = o.TradeId,
+                    Name = o.Name,
                     Version = o.Version,
                     CurrencyId = o.Currency.Id,
                     OperatorName = o.OperatorName,
@@ -141,6 +166,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     Status = (int) o.Status,
                     ContractName = o.ContractName,
                     ContractDocGuid = o.ContractDocGuid,
+                    SourceGuid = o.SourceGuid,
                     Note = o.Note,
                     EngineLeaseOrderLines = o.OrderLines.Select(l => new EngineLeaseOrderLineDTO
                     {
@@ -150,6 +176,13 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                         Discount = l.Discount,
                         EstimateDeliveryDate = l.EstimateDeliveryDate,
                         Note = l.Note
+                    }).ToList(),
+                    RelatedDocs = relatedDocs.Where(r => r.SourceId == o.SourceGuid).Select(r => new RelatedDocDTO
+                    {
+                        Id = r.Id,
+                        SourceId = r.SourceId,
+                        DocumentId = r.DocumentId,
+                        DocumentName = r.DocumentName
                     }).ToList()
                 });
             return result;
@@ -166,11 +199,13 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
         /// </returns>
         public IQueryable<EnginePurchaseOrderDTO> EnginePurchaseOrderQuery(QueryBuilder<Order> query)
         {
-            var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<EnginePurchaseOrder>())
+            var relatedDocs = _unitOfWork.CreateSet<RelatedDoc>();
+            var result = query.ApplyTo(_orderRepository.GetAll().OfType<EnginePurchaseOrder>())
                 .Select(o => new EnginePurchaseOrderDTO
                 {
                     Id = o.Id,
                     TradeId = o.TradeId,
+                    Name = o.Name,
                     Version = o.Version,
                     CurrencyId = o.Currency.Id,
                     OperatorName = o.OperatorName,
@@ -179,6 +214,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     Status = (int) o.Status,
                     ContractName = o.ContractName,
                     ContractDocGuid = o.ContractDocGuid,
+                    SourceGuid = o.SourceGuid,
                     Note = o.Note,
                     EnginePurchaseOrderLines = o.OrderLines.Select(l => new EnginePurchaseOrderLineDTO
                     {
@@ -188,6 +224,13 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                         Discount = l.Discount,
                         EstimateDeliveryDate = l.EstimateDeliveryDate,
                         Note = l.Note
+                    }).ToList(),
+                    RelatedDocs = relatedDocs.Where(r => r.SourceId == o.SourceGuid).Select(r => new RelatedDocDTO
+                    {
+                        Id = r.Id,
+                        SourceId = r.SourceId,
+                        DocumentId = r.DocumentId,
+                        DocumentName = r.DocumentName
                     }).ToList()
                 });
             return result;
@@ -204,11 +247,13 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
         /// </returns>
         public IQueryable<BFEPurchaseOrderDTO> BFEPurchaseOrderQuery(QueryBuilder<Order> query)
         {
-            var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<BFEPurchaseOrder>())
+            var relatedDocs = _unitOfWork.CreateSet<RelatedDoc>();
+            var result = query.ApplyTo(_orderRepository.GetAll().OfType<BFEPurchaseOrder>())
                 .Select(o => new BFEPurchaseOrderDTO
                 {
                     Id = o.Id,
                     TradeId = o.TradeId,
+                    Name = o.Name,
                     Version = o.Version,
                     CurrencyId = o.Currency.Id,
                     OperatorName = o.OperatorName,
@@ -217,6 +262,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     Status = (int) o.Status,
                     ContractName = o.ContractName,
                     ContractDocGuid = o.ContractDocGuid,
+                    SourceGuid = o.SourceGuid,
                     Note = o.Note,
                     BFEPurchaseOrderLines = o.OrderLines.Select(l => new BFEPurchaseOrderLineDTO
                     {
@@ -226,6 +272,13 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                         Discount = l.Discount,
                         EstimateDeliveryDate = l.EstimateDeliveryDate,
                         Note = l.Note
+                    }).ToList(),
+                    RelatedDocs = relatedDocs.Where(r => r.SourceId == o.SourceGuid).Select(r => new RelatedDocDTO
+                    {
+                        Id = r.Id,
+                        SourceId = r.SourceId,
+                        DocumentId = r.DocumentId,
+                        DocumentName = r.DocumentName
                     }).ToList()
                 });
             return result;

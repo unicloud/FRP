@@ -47,17 +47,17 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         /// <summary>
         ///     机身价格
         /// </summary>
-        public decimal AirframePrice { get; set; }
+        public decimal AirframePrice { get; private set; }
 
         /// <summary>
         ///     机身改装费用
         /// </summary>
-        public decimal RefitCost { get; set; }
+        public decimal RefitCost { get; private set; }
 
         /// <summary>
         ///     发动机价格
         /// </summary>
-        public decimal EnginePrice { get; set; }
+        public decimal EnginePrice { get; private set; }
 
         #endregion
 
@@ -80,6 +80,19 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置价格成本
+        /// </summary>
+        /// <param name="airframe">机身价格</param>
+        /// <param name="refit">机身改装费用</param>
+        /// <param name="engine">发动机价格</param>
+        public void SetCost(decimal airframe, decimal refit, decimal engine)
+        {
+            AirframePrice = airframe;
+            RefitCost = refit;
+            EnginePrice = engine;
+        }
 
         /// <summary>
         ///     设置购买合同飞机
