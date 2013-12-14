@@ -4,9 +4,9 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：陈春勇 时间：2013/12/02，18:12
+// 作者：陈春勇 时间：2013/12/12，16:12
 // 文件名：Global.asax.cs
-// 程序集：UniCloud.DistributedServices.Purchase
+// 程序集：UniCloud.DistributedServices.Payment
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -19,11 +19,11 @@
 
 using System;
 using System.Web;
-using UniCloud.DistributedServices.Purchase.InstanceProviders;
+using UniCloud.DistributedServices.Payment.InstanceProviders;
 
 #endregion
 
-namespace UniCloud.DistributedServices.Purchase
+namespace UniCloud.DistributedServices.Payment
 {
     public class Global : HttpApplication
     {

@@ -219,6 +219,9 @@
       <DependentUpon>EngineMaintain.xaml</DependentUpon>
     </Compile>
     <Compile Include="Contract\EngineMaintainVm.cs" />
+    <Compile Include="Contract\QueryContract\AddDocumentPathChild.xaml.cs">
+      <DependentUpon>AddDocumentPathChild.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Contract\QueryContract\QueryContractDbClickHelper.cs" />
     <Compile Include="Contract\QueryContract\QueryContract.xaml.cs">
       <DependentUpon>QueryContract.xaml</DependentUpon>
@@ -322,6 +325,10 @@
     <Page Include="Contract\EngineMaintain.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Contract\QueryContract\AddDocumentPathChild.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Contract\QueryContract\QueryContract.xaml">
       <SubType>Designer</SubType>

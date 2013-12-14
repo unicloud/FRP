@@ -18,30 +18,7 @@
 
     </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <telerik:RadToolBar HorizontalAlignment="Stretch"
-                            Margin="-1 -2 -1 0">
-            <telerik:RadButton Margin="4,2,2,-2"
-                               Command="{Binding SaveCommand}"
-                               CommandParameter="{Binding SupplierCompanysView}">
-                <Image Source="/UniCloud.Presentation;component/Images/Save.png"
-                       Stretch="Fill"
-                       ToolTipService.ToolTip="保存" />
-            </telerik:RadButton>
-            <telerik:RadToolBarSeparator />
-            <telerik:RadButton Margin="2,2,2,-2"
-                               Command="{Binding AbortCommand}"
-                               CommandParameter="{Binding SupplierCompanysView}">
-                <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
-                       Stretch="Fill"
-                       ToolTipService.ToolTip="放弃更改" 
-                       />
-            </telerik:RadButton>
-        </telerik:RadToolBar>
-        <telerik:RadDocking Grid.Row="1" HasDocumentHost="False">
+        <telerik:RadDocking HasDocumentHost="False">
                 <telerik:RadSplitContainer>
                     <telerik:RadSplitContainer>
                         <telerik:RadPaneGroup>
@@ -54,10 +31,31 @@
                                              ContextMenuTemplate="{x:Null}">
                                 <Grid>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
-                                    <telerik:RadGridView
+                                <telerik:RadToolBar HorizontalAlignment="Stretch"
+                            Margin="-1 -2 -1 0">
+                                    <telerik:RadButton Margin="4,2,2,-2"
+                               Command="{Binding SaveCommand}"
+                               CommandParameter="{Binding SupplierCompanysView}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Save.png"
+                       Stretch="Fill"
+                       ToolTipService.ToolTip="保存" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                               Command="{Binding AbortCommand}"
+                               CommandParameter="{Binding SupplierCompanysView}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                       Stretch="Fill"
+                       ToolTipService.ToolTip="放弃更改" 
+                       />
+                                    </telerik:RadButton>
+                                </telerik:RadToolBar>
+                                <telerik:RadGridView
+                                        Grid.Row="1"
                                         ItemsSource="{Binding SupplierCompanysView}"
                                         IsBusy="{Binding SupplierCompanysView.IsBusy}"
                                         AutoGenerateColumns="False"
@@ -135,7 +133,7 @@
                                                           AutoEllipsisMode="Both"
                                                           DisplayMode="All"
                                                           Source="{Binding SupplierCompanysView}"
-                                                          Grid.Row="1" />
+                                                          Grid.Row="2" />
                                 </Grid>
                             </telerik:RadPane>
                         </telerik:RadPaneGroup>
