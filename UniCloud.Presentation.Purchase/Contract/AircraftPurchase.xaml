@@ -193,24 +193,32 @@
                                                ToolTipService.ToolTip="移除订单行" />
                                     </telerik:RadButton>
                                 </telerik:RadToolBar>
-                                <Grid Grid.Row="1">
+                                <Grid Grid.Row="1" Margin="0,3,0,0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="40" />
+                                        <RowDefinition />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition />
                                         <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
-                                    <telerik:GroupBox Header="合同说明" Grid.RowSpan="2">
-                                        <TextBox Text="{Binding SelAircraftPurchaseOrderDTO.Note }"
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="合同文档：" FontSize="14" VerticalAlignment="Center" Margin="7,0" />
+                                        <HyperlinkButton FontSize="14" VerticalAlignment="Center"
+                                                         Content="{Binding SelAircraftPurchaseOrderDTO.ContractName}"
+                                                         Command="{Binding ViewAttachCommand}" />
+                                    </StackPanel>
+                                    <telerik:GroupBox Grid.Row="1" Grid.Column="0" Header="关联文档">
+                                        <telerik:RadListBox />
+                                    </telerik:GroupBox>
+                                    <telerik:GroupBox Grid.Row="2" Grid.Column="0" Header="合同说明">
+                                        <TextBox Text="{Binding SelAircraftPurchaseOrderDTO.LogWriter, Mode=TwoWay}"
                                                  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
                                     </telerik:GroupBox>
-                                    <HyperlinkButton Grid.Row="0" Grid.Column="1" FontSize="14"
-                                                     Content="{Binding SelAircraftPurchaseOrderDTO.ContractName}"
-                                                     Margin="10,10,0,0" Command="{Binding ViewAttachCommand}" />
-                                    <telerik:GroupBox Grid.Row="1" Grid.Column="1" Header="关联文档">
-                                        <telerik:RadListBox />
+                                    <telerik:GroupBox Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Header="合同跟踪备忘录">
+                                        <TextBlock Text="{Binding SelAircraftPurchaseOrderDTO.Note }"
+                                                   TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" />
                                     </telerik:GroupBox>
                                 </Grid>
                                 <telerik:RadGridView Grid.Row="2" x:Name="OrderLine" AutoGenerateColumns="False"
