@@ -355,9 +355,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\AddFolder.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\doc.png" />
     <Resource Include="Images\pdf.png" />
     <Resource Include="Images\rar.png" />
@@ -368,6 +365,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AddFolder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AddDocument.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\OpenDocument.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>

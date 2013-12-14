@@ -40,7 +40,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
         ///     新增文档。
         /// </summary>
         /// <param name="document">文档DTO</param>
-        void InsertLinkman(DocumentDTO document);
+        void InsertDocument(DocumentDTO document);
 
 
         /// <summary>
@@ -59,14 +59,14 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
         ///     修改文档路径。
         /// </summary>
         /// <param name="documentPath">文档路径DTO</param>
-        void ModifyLinkman(DocumentPathDTO documentPath);
+        void ModifyDocumentPath(DocumentPathDTO documentPath);
 
 
         /// <summary>
         ///     删除联系人。
         /// </summary>
         /// <param name="documentPath">文档路径DTO</param>
-        void DeleteLinkman(DocumentPathDTO documentPath);
+        void DeleteDocumentPath(DocumentPathDTO documentPath);
 
     }
 }

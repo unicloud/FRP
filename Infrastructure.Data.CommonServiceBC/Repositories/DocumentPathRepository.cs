@@ -18,7 +18,8 @@
 #region 命名空间
 
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg;
-
+using UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork;
+using System.Linq;
 #endregion
 
 namespace UniCloud.Infrastructure.Data.CommonServiceBC.Repositories
@@ -35,6 +36,13 @@ namespace UniCloud.Infrastructure.Data.CommonServiceBC.Repositories
 
         #region 方法重载
 
+        public override DocumentPath Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as CommonServiceBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<DocumentPath>();
+            return set.Include("DocumentPaths").FirstOrDefault(p=>p.Id==(int)id);
+        }
         #endregion
     }
 }

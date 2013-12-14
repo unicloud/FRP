@@ -36,6 +36,7 @@ namespace UniCloud.DistributedServices.CommonService
             #region 实体集访问控制
 
             config.SetEntitySetAccessRule("*", EntitySetRights.All);
+            config.UseVerboseErrors = true;
 
             #endregion
 

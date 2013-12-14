@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.CommonServiceBC.DTO;
@@ -54,7 +55,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
         }
 
         [Insert(typeof(DocumentDTO))]
-        public void InsertLinkman(DocumentDTO document)
+        public void InsertDocument(DocumentDTO document)
         {
             if (document == null)
             {
@@ -87,7 +88,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
             _documentPathRepository.Add(newDocumentPath);
         }
         [Update(typeof(DocumentPathDTO))]
-        public void ModifyLinkman(DocumentPathDTO documentPath)
+        public void ModifyDocumentPath(DocumentPathDTO documentPath)
         {
             if (documentPath == null)
             {
@@ -98,11 +99,30 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
             {
                 throw new Exception("未找到文档路径");
             }
-            pesistDocumentPath.Update(documentPath.Name, documentPath.IsLeaf, documentPath.Extension, documentPath.DocumentGuid, documentPath.ParentId, (PathSource)documentPath.PathSource);
-            _documentPathRepository.Modify(pesistDocumentPath);
+            var addedDocPath = false;//已经添加的文件
+            documentPath.SubDocumentPaths.ForEach(p =>
+                {
+                    if (pesistDocumentPath.DocumentPaths.All(c => c.Id != p.SubDocumentPathId))
+                    {
+                        var newDocumentPath = DocumentPathFactory.CreateDocumentPath(p.Name, p.IsLeaf, p.Extension,
+                                         p.DocumentGuid, p.ParentId,
+                                         (PathSource)p.PathSource);
+                        _documentPathRepository.Add(newDocumentPath);
+                        addedDocPath = true;
+                    }
+                });
+            if (addedDocPath) return; //文档增加，就不处理删除
+            pesistDocumentPath.DocumentPaths.ToList().ForEach(p =>
+                {
+                    if (documentPath.SubDocumentPaths.All(c => c.SubDocumentPathId != p.Id))
+                    {
+                        DelSubDocumentPath(p);
+                    }
+                });
         }
+
         [Delete(typeof(DocumentPathDTO))]
-        public void DeleteLinkman(DocumentPathDTO documentPath)
+        public void DeleteDocumentPath(DocumentPathDTO documentPath)
         {
             if (documentPath == null)
             {
@@ -114,6 +134,21 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
                 throw new Exception("未找到文档路径");
             }
             _documentPathRepository.Remove(pesistDocumentPath);
+        }
+
+        /// <summary>
+        /// 删除子项文档
+        /// </summary>
+        private void DelSubDocumentPath(DocumentPath documentPath)
+        {
+          var allParentDocument=_documentPathRepository.GetAll().Where(p => p.ParentId == documentPath.Id);
+            allParentDocument.ToList().ForEach(p =>
+                {
+                     DelSubDocumentPath(p);
+                    _documentPathRepository.Remove(p);
+                });
+
+            _documentPathRepository.Remove(documentPath);
         }
     }
 }
