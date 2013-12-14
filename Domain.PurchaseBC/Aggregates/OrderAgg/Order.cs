@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 using UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.DocumentAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
@@ -114,7 +115,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         /// <summary>
         ///     合同文档检索ID
         /// </summary>
-        public Guid? ContractDocGuid { get; private set; }
+        public Guid ContractDocGuid { get; private set; }
 
         /// <summary>
         ///     备注
@@ -394,7 +395,13 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
                 throw new ArgumentException("合同说明参数为空！");
             }
 
-            Note = note;
+            var sb = new StringBuilder();
+            sb.AppendLine(DateTime.Now.Date.ToShortDateString());
+            sb.AppendLine(note);
+            sb.AppendLine();
+            sb.Append(Note);
+
+            Note = sb.ToString();
         }
 
         #endregion

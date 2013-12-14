@@ -85,7 +85,7 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     合同文档检索ID
         /// </summary>
-        public Guid? ContractDocGuid { get; set; }
+        public Guid ContractDocGuid { get; set; }
 
         /// <summary>
         ///     日志记录

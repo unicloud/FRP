@@ -102,7 +102,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrderAgg
         /// <summary>
         ///     合同文档检索ID
         /// </summary>
-        public Guid? ContractDocGuid { get; private set; }
+        public Guid ContractDocGuid { get; private set; }
 
         /// <summary>
         ///     备注
