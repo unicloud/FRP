@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -17,37 +19,45 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 #endregion
 
-namespace UniCloud.Domain.CommonServiceBC.Aggregates.RelatedDocAgg 
+namespace UniCloud.Domain.CommonServiceBC.Aggregates.RelatedDocAgg
 {
     /// <summary>
     ///     关联文档聚合根
     /// </summary>
     public class RelatedDoc : EntityInt, IValidatableObject
     {
+        #region 构造函数
+
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能从内部创建新实例
+        /// </summary>
+        internal RelatedDoc()
+        {
+        }
+
+        #endregion
 
         #region 属性
 
         /// <summary>
-        ///    业务外键
+        ///     业务外键
         /// </summary>
-        public Guid SourceId { get; set; }
+        public Guid SourceId { get; internal set; }
 
         /// <summary>
         ///     文档外键
         /// </summary>
-        public Guid DocumentId { get; set; }
+        public Guid DocumentId { get; internal set; }
 
         /// <summary>
-        ///  文档名称
+        ///     文档名称
         /// </summary>
-        public string DocumentName { get; set; }
+        public string DocumentName { get; internal set; }
+
         #endregion
 
         #region IValidatableObject 成员

@@ -87,6 +87,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         Status = c.Int(nullable: false),
                         ContractName = c.String(),
                         ContractDocGuid = c.Guid(nullable: false),
+                        SourceGuid = c.Guid(nullable: false),
                         Note = c.String(),
                         TradeId = c.Int(nullable: false),
                         CurrencyId = c.Int(nullable: false),

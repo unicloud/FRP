@@ -215,7 +215,10 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             order.SetTrade(dto.TradeId);
             order.SetCurrency(dto.CurrencyId);
             order.SetLinkman(dto.LinkmanId);
-            order.SetNote(dto.LogWriter);
+            if (!string.IsNullOrWhiteSpace(dto.LogWriter))
+            {
+                order.SetNote(dto.LogWriter);
+            }
             if (dto.ContractDocGuid != Guid.Empty)
             {
                 order.SetContractDoc(dto.ContractDocGuid, dto.ContractName);
@@ -239,7 +242,10 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 order.SetTrade(dto.TradeId);
                 order.SetCurrency(dto.CurrencyId);
                 order.SetLinkman(dto.LinkmanId);
-                order.SetNote(dto.LogWriter);
+                if (!string.IsNullOrWhiteSpace(dto.LogWriter))
+                {
+                    order.SetNote(dto.LogWriter);
+                }
                 if (dto.ContractDocGuid != Guid.Empty)
                 {
                     order.SetContractDoc(dto.ContractDocGuid, dto.ContractName);

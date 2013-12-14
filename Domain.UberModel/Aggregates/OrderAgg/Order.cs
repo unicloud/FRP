@@ -105,6 +105,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrderAgg
         public Guid ContractDocGuid { get; private set; }
 
         /// <summary>
+        ///     源GUID
+        /// </summary>
+        public Guid SourceGuid { get; private set; }
+
+        /// <summary>
         ///     备注
         /// </summary>
         public string Note { get; set; }
@@ -307,6 +312,20 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrderAgg
 
             ContractDocGuid = doc.Id;
             ContractName = doc.FileName;
+        }
+
+        /// <summary>
+        ///     设置源GUID
+        /// </summary>
+        /// <param name="id">源GUID</param>
+        public void SetSourceGuid(Guid id)
+        {
+            if (id == null || id == Guid.Empty)
+            {
+                throw new ArgumentException("源GUID参数为空！");
+            }
+
+            SourceGuid = id;
         }
 
         #endregion
