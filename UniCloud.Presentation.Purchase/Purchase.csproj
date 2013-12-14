@@ -266,6 +266,9 @@
       <DependentUpon>MatchingPlanAircraftManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Reception\MatchingPlanAircraftManagerVM.cs" />
+    <Compile Include="Reception\PlanAircraftChildView.xaml.cs">
+      <DependentUpon>PlanAircraftChildView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Supplier\LinkManManager.xaml.cs">
       <DependentUpon>LinkManManager.xaml</DependentUpon>
     </Compile>
@@ -363,6 +366,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Reception\MatchingPlanAircraftManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reception\PlanAircraftChildView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

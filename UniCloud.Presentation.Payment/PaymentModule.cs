@@ -37,6 +37,10 @@ namespace UniCloud.Presentation.Payment
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(LeaseInvoiceManager));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(PrePayInvoiceManager));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(PurchaseInvoiceManager));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(EngineMaintain));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(APUMaintain));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(UnderCartMaintain));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FuselageMaintain));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(AnalyseMaintenanceCosts));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FinancingDemandForecast));
         }

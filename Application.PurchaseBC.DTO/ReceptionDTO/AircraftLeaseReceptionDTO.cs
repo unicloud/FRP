@@ -27,10 +27,9 @@ namespace UniCloud.Application.PurchaseBC.DTO
     [DataServiceKey("AircraftLeaseReceptionId")]
     public partial class AircraftLeaseReceptionDTO : ReceptionDTO
     {
-
         public AircraftLeaseReceptionDTO()
         {
-            ReceptionLines = new List<AircraftLeaseReceptionLineDTO>();
+            ReceptionLines=new List<AircraftLeaseReceptionLineDTO>();
         }
 
         #region 属性

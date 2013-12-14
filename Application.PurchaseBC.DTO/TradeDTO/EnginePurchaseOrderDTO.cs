@@ -31,6 +31,12 @@ namespace UniCloud.Application.PurchaseBC.DTO
     [DataServiceKey("Id")]
     public class EnginePurchaseOrderDTO
     {
+        #region 私有字段
+
+        private HashSet<EnginePurchaseOrderLineDTO> _lines;
+
+        #endregion
+
         /// <summary>
         ///     订单ID
         /// </summary>
@@ -72,6 +78,21 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public int Status { get; set; }
 
         /// <summary>
+        ///     合同文件名
+        /// </summary>
+        public string ContractName { get; set; }
+
+        /// <summary>
+        ///     合同文档检索ID
+        /// </summary>
+        public Guid? ContractDocGuid { get; set; }
+
+        /// <summary>
+        ///     日志记录
+        /// </summary>
+        public string LogWriter { get; set; }
+
+        /// <summary>
         ///     备注
         /// </summary>
         public string Note { get; set; }
@@ -79,6 +100,10 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     购买发动机订单行集合
         /// </summary>
-        public List<EnginePurchaseOrderLineDTO> EnginePurchaseOrderLines { get; set; }
+        public virtual ICollection<EnginePurchaseOrderLineDTO> EnginePurchaseOrderLines
+        {
+            get { return _lines ?? (_lines = new HashSet<EnginePurchaseOrderLineDTO>()); }
+            set { _lines = new HashSet<EnginePurchaseOrderLineDTO>(value); }
+        }
     }
 }

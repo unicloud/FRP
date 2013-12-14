@@ -39,12 +39,12 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
         private readonly ITradeQuery _tradeQuery;
         private readonly ITradeRepository _tradeRepository;
 
-        public TradeAppService(ITradeQuery queryTrade, IOrderQuery orderQuery, ITradeRepository tradeRepository,
-            IOrderRepository orderRepository, ISupplierRepository supplierRepository)
+        public TradeAppService(ITradeQuery queryTrade, ITradeRepository tradeRepository,
+            IOrderQuery orderQuery, IOrderRepository orderRepository, ISupplierRepository supplierRepository)
         {
             _tradeQuery = queryTrade;
-            _orderQuery = orderQuery;
             _tradeRepository = tradeRepository;
+            _orderQuery = orderQuery;
             _orderRepository = orderRepository;
             _supplierRepository = supplierRepository;
         }
@@ -206,6 +206,22 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             {
                 throw new ArgumentException("参数为空！");
             }
+
+            // 获取版本号
+            var version = _orderRepository.GetFiltered(o => o.TradeId == dto.TradeId).Count() + 1;
+
+            // 创建订单
+            var order = OrderFactory.CreateAircraftPurchaseOrder(version, dto.OperatorName, dto.OrderDate);
+            order.SetTrade(dto.TradeId);
+            order.SetCurrency(dto.CurrencyId);
+            order.SetLinkman(dto.LinkmanId);
+            order.SetNote(dto.Note);
+            if (dto.ContractDocGuid != null)
+            {
+                order.SetContractDoc(dto.ContractDocGuid.Value, dto.ContractName);
+            }
+
+            _orderRepository.Add(order);
         }
 
         [Update(typeof (AircraftPurchaseOrderDTO))]
@@ -216,13 +232,20 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 throw new ArgumentException("参数为空！");
             }
 
-            var current = _orderRepository.Get(dto.Id);
-            if (current != null)
+            var order = _orderRepository.Get(dto.Id);
+            if (order != null)
             {
                 // 更新当前记录
+                order.SetTrade(dto.TradeId);
+                order.SetCurrency(dto.CurrencyId);
+                order.SetLinkman(dto.LinkmanId);
+                order.SetNote(dto.Note);
+                if (dto.ContractDocGuid != null)
+                {
+                    order.SetContractDoc(dto.ContractDocGuid.Value, dto.ContractName);
+                }
 
-
-                _orderRepository.Modify(current);
+                _orderRepository.Modify(order);
             }
         }
 

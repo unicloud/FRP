@@ -100,7 +100,7 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///    供应商ID
         /// </summary>
-        public int SupplierId { get; set; }
+        public int? SupplierId { get; set; }
         #endregion
 
         #region 导航属性

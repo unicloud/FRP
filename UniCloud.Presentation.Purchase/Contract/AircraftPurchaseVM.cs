@@ -23,10 +23,13 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
+using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
+using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
@@ -42,6 +45,8 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private readonly IRegionManager _regionManager;
         private PurchaseData _context;
+        private DocumentDTO _document = new DocumentDTO();
+        [Import] public DocumentViewer documentView;
 
         [ImportingConstructor]
         public AircraftPurchaseVM(IRegionManager regionManager)
@@ -204,6 +209,39 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 重载操作
 
+        #region 添加合同文档
+
+        protected override void OnAddAttach(object sender)
+        {
+            documentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
+            documentView.ShowDialog();
+        }
+
+        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
+        {
+            if (documentView.Tag is DocumentDTO)
+            {
+                _document = documentView.Tag as DocumentDTO;
+                SelAircraftPurchaseOrderDTO.ContractName = _document.Name;
+                SelAircraftPurchaseOrderDTO.ContractDocGuid = _document.DocumentId;
+            }
+        }
+
+        #endregion
+
+        #region 查看合同文档
+
+        protected override void OnViewAttach(object sender)
+        {
+            if (_selAircraftPurchaseOrderDTO.ContractDocGuid != null)
+            {
+                documentView.ViewModel.InitData(true, _selAircraftPurchaseOrderDTO.ContractDocGuid.Value, null);
+                documentView.ShowDialog();
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region 创建新交易
@@ -264,7 +302,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             var order = new AircraftPurchaseOrderDTO
             {
                 OrderDate = DateTime.Now,
-                TradeId=_selTradeDTO.Id,
+                TradeId = _selTradeDTO.Id,
             };
             ViewAircraftPurchaseOrderDTO.AddNew(order);
         }
@@ -285,6 +323,10 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveOrder(object obj)
         {
+            if (_selAircraftPurchaseOrderDTO != null)
+            {
+                ViewAircraftPurchaseOrderDTO.Remove(_selAircraftPurchaseOrderDTO);
+            }
         }
 
         private bool CanRemoveOrder(object obj)
@@ -303,6 +345,13 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddOrderLine(object obj)
         {
+            var orderLine = new AircraftPurchaseOrderLineDTO
+            {
+                Amount = 1,
+                EstimateDeliveryDate = DateTime.Now
+            };
+
+            SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Add(orderLine);
         }
 
         private bool CanAddOrderLine(object obj)

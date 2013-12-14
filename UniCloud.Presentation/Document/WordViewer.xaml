@@ -31,7 +31,7 @@
             </Grid.RowDefinitions>
 
             <telerik:RadRichTextBoxRibbonUI  BackstageClippingElement="{Binding ElementName=LayoutRoot}"
-                                             ApplicationButtonImageSource="/RichTextBox;component/Images/RichTextBox/MSOffice/AppIcon-telerik.png"
+                                             ApplicationButtonContent="文件"
                                              DataContext="{Binding Commands, ElementName=editor}"
                                              ApplicationName=""
                                              x:Name="radRichTextBoxRibbonUI"
@@ -59,7 +59,7 @@
                             <StackPanel HorizontalAlignment="Stretch"
                                         Margin="20,20,0,0"
                                         UseLayoutRounding="True">
-                                <TextBlock FontFamily="Verdana"
+                                <TextBlock FontFamily="Microsoft YaHei UI"
                                            FontSize="18"
                                            FontWeight="ExtraBold"
                                            Foreground="#FF5E5E7C"
@@ -87,7 +87,7 @@
                                                    FontWeight="ExtraBold"
                                                    Foreground="#FF5E5E7C"
                                                    Text="Word 文档" />
-                                        <TextBlock FontFamily="Verdana"
+                                        <TextBlock FontFamily="Microsoft YaHei UI"
                                                    FontSize="13"
                                                    Text="文件保存为word文档."
                                                    TextWrapping="Wrap"
@@ -123,12 +123,11 @@
                             </StackPanel>
                         </telerik:RadRibbonBackstageItem>
                         <telerik:RadRibbonBackstageItem Header="打印"
-                                                        Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/print.png"
-                                                        IsDefault="true">
+                                                        Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/print.png">
                             <StackPanel HorizontalAlignment="Stretch"
                                         Margin="20,20,0,0"
                                         UseLayoutRounding="True">
-                                <TextBlock FontFamily="Verdana"
+                                <TextBlock FontFamily="Microsoft YaHei UI"
                                            FontSize="18"
                                            FontWeight="ExtraBold"
                                            Foreground="#FF5E5E7C"
@@ -156,9 +155,9 @@
                                                    FontWeight="ExtraBold"
                                                    Foreground="#FF5E5E7C"
                                                    Text="本地打印机" />
-                                        <TextBlock FontFamily="Verdana"
+                                        <TextBlock FontFamily="Microsoft YaHei UI"
                                                    FontSize="13"
-                                                   Text="Send the document directly to the default printer without making changes."
+                                                   Text="直接将文档发送至默认打印机."
                                                    TextWrapping="Wrap"
                                                    Width="300" />
                                     </StackPanel>

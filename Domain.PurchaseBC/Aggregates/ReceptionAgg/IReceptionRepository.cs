@@ -23,5 +23,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
     /// </summary>
     public interface IReceptionRepository : IRepository<Reception>
     {
+        void DeleteReception(Reception reception);
     }
 }

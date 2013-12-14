@@ -106,6 +106,7 @@
     </Compile>
     <Compile Include="IPurchaseService.cs" />
     <Compile Include="Purchase\AircraftLeaseReceptionLineDTO.cs" />
+    <Compile Include="Purchase\AircraftPurchaseOrderDTO.cs" />
     <Compile Include="Purchase\APUMaintainContractDTO.cs" />
     <Compile Include="Purchase\EngineMaintainContractDTO.cs" />
     <Compile Include="Purchase\Enums\BFEStatus.cs" />

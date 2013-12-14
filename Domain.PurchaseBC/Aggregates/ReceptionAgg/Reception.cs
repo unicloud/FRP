@@ -80,12 +80,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         /// <summary>
         ///     关闭日期
         /// </summary>
-        public DateTime CloseDate { get; private set; }
+        public DateTime? CloseDate { get; private set; }
 
         /// <summary>
         ///     结束日期
         /// </summary>
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         /// <summary>
         ///     接收状态

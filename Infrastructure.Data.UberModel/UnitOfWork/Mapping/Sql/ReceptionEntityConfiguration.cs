@@ -42,8 +42,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
             Property(p => p.StartDate).HasColumnName("StartDate").HasColumnType("datetime2");
             Property(p => p.IsClosed).HasColumnName("IsClosed");
-            Property(p => p.CloseDate).HasColumnName("CloseDate").HasColumnType("datetime2");
-            Property(p => p.EndDate).HasColumnName("EndDate").HasColumnType("datetime2");
+            Property(p => p.CloseDate).HasColumnName("CloseDate").HasColumnType("datetime2").IsOptional();
+            Property(p => p.EndDate).HasColumnName("EndDate").HasColumnType("datetime2").IsOptional();
             Property(p => p.Status).HasColumnName("Status");
             Property(p => p.SourceId).HasColumnName("SourceId");
 

@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.UberModel.Aggregates.CurrencyAgg;
+using UniCloud.Domain.UberModel.Aggregates.DocumentAgg;
 using UniCloud.Domain.UberModel.Aggregates.LinkmanAgg;
 using UniCloud.Domain.UberModel.Aggregates.TradeAgg;
 using UniCloud.Domain.UberModel.Enums;
@@ -94,9 +95,14 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrderAgg
         public OrderStatus Status { get; private set; }
 
         /// <summary>
+        ///     合同文件名
+        /// </summary>
+        public string ContractName { get; private set; }
+
+        /// <summary>
         ///     合同文档检索ID
         /// </summary>
-        public Guid ContractDocGuid { get; set; }
+        public Guid? ContractDocGuid { get; private set; }
 
         /// <summary>
         ///     备注
@@ -286,6 +292,21 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrderAgg
 
             Linkman = linkman;
             LinkmanId = linkman.Id;
+        }
+
+        /// <summary>
+        ///     设置合同文档
+        /// </summary>
+        /// <param name="doc">合同文档</param>
+        public void SetContractDoc(Document doc)
+        {
+            if (doc == null || doc.IsTransient())
+            {
+                throw new ArgumentException("合同文档参数为空！");
+            }
+
+            ContractDocGuid = doc.Id;
+            ContractName = doc.FileName;
         }
 
         #endregion

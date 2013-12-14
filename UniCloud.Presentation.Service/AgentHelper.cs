@@ -23,7 +23,16 @@ namespace UniCloud.Presentation.Service
             }
         }
 
-        public static Uri CommonServiceUri 
+        public static Uri PaymentUri
+        {
+            get
+            {
+                return new Uri("http://localhost:20109/PaymentDataService.svc",
+                    UriKind.Absolute);
+            }
+        }
+
+        public static Uri CommonServiceUri
         {
             get
             {

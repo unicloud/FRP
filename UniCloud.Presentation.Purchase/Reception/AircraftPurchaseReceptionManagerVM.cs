@@ -87,7 +87,6 @@ namespace UniCloud.Presentation.Purchase.Reception
             //GridView单元格值变更
             CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
             //文档
-            AddWordAttachCommand = new DelegateCommand<object>(OnAddWordAttach);
             RemoveAttachCommand = new DelegateCommand<object>(OnRemoveAttach);
             //ScheduleView
             CreateCommand = new DelegateCommand<object>(OnCreated);
@@ -118,9 +117,9 @@ namespace UniCloud.Presentation.Purchase.Reception
                 {
                     this._categories = new CategoryCollection
                     {
-                        new Category("已完成", new SolidColorBrush(Colors.Green)),
+                        new Category("未启动", new SolidColorBrush(Colors.Gray)),
                         new Category("正在进行中…", new SolidColorBrush(Colors.Brown)),
-                        new Category("未启动", new SolidColorBrush(Colors.Gray))
+                        new Category("已完成", new SolidColorBrush(Colors.Green)),
                     };
                 }
                 return this._categories;
@@ -410,7 +409,8 @@ namespace UniCloud.Presentation.Purchase.Reception
             {
                 AircraftPurchaseReceptionId = RandomHelper.Next(),
                 SourceId = Guid.NewGuid(),
-                CreateDate = DateTime.Now
+                CreateDate = DateTime.Now,
+                StartDate = DateTime.Now,
             };
             AircraftPurchaseReceptions.AddNew(recepiton);
         }
@@ -431,6 +431,11 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         private void OnRemove(object obj)
         {
+            var delDocs = RelatedDocs.Where(p => p.SourceId == SelAircraftPurchaseReception.SourceId).ToList();
+            foreach (var reltedDoc in delDocs)
+            {
+                RelatedDocs.Remove(delDocs);
+            }
             AircraftPurchaseReceptions.Remove(SelAircraftPurchaseReception);
         }
 
@@ -457,6 +462,8 @@ namespace UniCloud.Presentation.Purchase.Reception
             var receptionLine = new AircraftPurchaseReceptionLineDTO()
             {
                 AircraftPurchaseReceptionLineId = RandomHelper.Next(),
+                ReceivedAmount = 1,
+                AcceptedAmount = 1,
                 ReceptionId = SelAircraftPurchaseReception.AircraftPurchaseReceptionId
             };
             SelAircraftPurchaseReception.ReceptionLines.Add(receptionLine);
@@ -492,7 +499,7 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #region 添加附件
         /// <summary>
-        ///     添加Pdf附件
+        ///     添加附件
         /// </summary>
         protected override void OnAddAttach(object sender)
         {
@@ -500,21 +507,13 @@ namespace UniCloud.Presentation.Purchase.Reception
             DocumentView.ShowDialog();
         }
 
-        /// <summary>
-        ///     添加Word附件
-        /// </summary>
-        public DelegateCommand<object> AddWordAttachCommand { get; private set; }
-
-        private void OnAddWordAttach(object sender)
-        {
-           
-        }
         private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {
             if (DocumentView.Tag is DocumentDTO)
             {
                 var relatedDoc = new RelatedDocDTO()
                 {
+                    Id = RandomHelper.Next(),
                     SourceId = SelAircraftPurchaseReception.SourceId,
                 };
                 var document = DocumentView.Tag as DocumentDTO;
@@ -609,6 +608,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
                 var appointment = scheduleView.EditedAppointment as Appointment;
                 var schedule = scheduleExtension.ConvertToReceptionSchedule(appointment);
+                schedule.ReceptionScheduleId = RandomHelper.Next();
                 schedule.ReceptionId = SelAircraftPurchaseReception.AircraftPurchaseReceptionId;
                 SelAircraftPurchaseReception.ReceptionSchedules.Add(schedule);
             }

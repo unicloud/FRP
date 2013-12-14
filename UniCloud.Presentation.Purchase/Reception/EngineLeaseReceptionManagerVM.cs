@@ -101,7 +101,6 @@ namespace UniCloud.Presentation.Purchase.Reception
             //GridView单元格值变更
             CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
             //文档
-            AddWordAttachCommand = new DelegateCommand<object>(OnAddWordAttach);
             RemoveAttachCommand = new DelegateCommand<object>(OnRemoveAttach);
             //ScheduleView
             CreateCommand = new DelegateCommand<object>(OnCreated);
@@ -132,9 +131,9 @@ namespace UniCloud.Presentation.Purchase.Reception
                 {
                     this._categories = new CategoryCollection
                     {
-                        new Category("已完成", new SolidColorBrush(Colors.Green)),
+                        new Category("未启动", new SolidColorBrush(Colors.Gray)),
                         new Category("正在进行中…", new SolidColorBrush(Colors.Brown)),
-                        new Category("未启动", new SolidColorBrush(Colors.Gray))
+                        new Category("已完成", new SolidColorBrush(Colors.Green)),
                     };
                 }
                 return this._categories;
@@ -271,7 +270,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                     var viewLeaseContractEngines = LeaseContractEngines.Where(p => p.SupplierId == SelEngineLeaseReception.SupplierId && p.SerialNumber != null).ToList();
                     ViewLeaseContractEngines.Clear();
                     foreach (var lca in viewLeaseContractEngines)
-                    { 
+                    {
                         ViewLeaseContractEngines.Add(lca);
                     }
                     _appointments.Clear();
@@ -286,7 +285,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                     {
                         ViewDocuments.Add(doc);
                     }
-                    RaisePropertyChanged(()=>Appointments);
+                    RaisePropertyChanged(() => Appointments);
                     RaisePropertyChanged(() => SelEngineLeaseReception);
                 }
             }
@@ -362,7 +361,7 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #region 交机文件
 
-        private ObservableCollection<RelatedDocDTO> _viewDocuments=new ObservableCollection<RelatedDocDTO>();
+        private ObservableCollection<RelatedDocDTO> _viewDocuments = new ObservableCollection<RelatedDocDTO>();
 
         /// <summary>
         /// 交机文件
@@ -424,7 +423,8 @@ namespace UniCloud.Presentation.Purchase.Reception
             {
                 EngineLeaseReceptionId = RandomHelper.Next(),
                 SourceId = Guid.NewGuid(),
-                CreateDate = DateTime.Now
+                CreateDate = DateTime.Now,
+                StartDate = DateTime.Now,
             };
             EngineLeaseReceptions.AddNew(recepiton);
         }
@@ -445,6 +445,11 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         private void OnRemove(object obj)
         {
+            var delDocs = RelatedDocs.Where(p => p.SourceId == SelEngineLeaseReception.SourceId).ToList();
+            foreach (var reltedDoc in delDocs)
+            {
+                RelatedDocs.Remove(delDocs);
+            }
             EngineLeaseReceptions.Remove(SelEngineLeaseReception);
         }
 
@@ -471,6 +476,8 @@ namespace UniCloud.Presentation.Purchase.Reception
             var receptionLine = new EngineLeaseReceptionLineDTO()
             {
                 EngineLeaseReceptionLineId = RandomHelper.Next(),
+                ReceivedAmount = 1,
+                AcceptedAmount = 1,
                 ReceptionId = SelEngineLeaseReception.EngineLeaseReceptionId
             };
             SelEngineLeaseReception.ReceptionLines.Add(receptionLine);
@@ -506,22 +513,12 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #region 添加附件
         /// <summary>
-        ///     添加Pdf附件
+        ///     添加附件
         /// </summary>
         protected override void OnAddAttach(object sender)
         {
             DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
-        }
-
-        /// <summary>
-        ///     添加Word附件
-        /// </summary>
-        public DelegateCommand<object> AddWordAttachCommand { get; private set; }
-
-        private void OnAddWordAttach(object sender)
-        {
-            
         }
 
         private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
@@ -530,6 +527,7 @@ namespace UniCloud.Presentation.Purchase.Reception
             {
                 var relatedDoc = new RelatedDocDTO()
                 {
+                    Id = RandomHelper.Next(),
                     SourceId = SelEngineLeaseReception.SourceId,
                 };
                 var document = DocumentView.Tag as DocumentDTO;
@@ -539,7 +537,6 @@ namespace UniCloud.Presentation.Purchase.Reception
                 ViewDocuments.Add(relatedDoc);
             }
         }
-
         #endregion
 
         #region 移除附件
@@ -588,7 +585,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                 var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "Supplier"))
                 {
-                    var viewLeaseContractEngines = LeaseContractEngines.Where(p => p.SupplierId == SelEngineLeaseReception.SupplierId && p.SerialNumber!=null).ToList();
+                    var viewLeaseContractEngines = LeaseContractEngines.Where(p => p.SupplierId == SelEngineLeaseReception.SupplierId && p.SerialNumber != null).ToList();
                     ViewLeaseContractEngines.Clear();
                     foreach (var lca in viewLeaseContractEngines)
                     {
@@ -621,9 +618,10 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             var scheduleView = sender as RadScheduleView;
             if (scheduleView != null)
-        {
+            {
                 var appointment = scheduleView.EditedAppointment as Appointment;
                 var schedule = scheduleExtension.ConvertToReceptionSchedule(appointment);
+                schedule.ReceptionScheduleId = RandomHelper.Next();
                 schedule.ReceptionId = SelEngineLeaseReception.EngineLeaseReceptionId;
                 SelEngineLeaseReception.ReceptionSchedules.Add(schedule);
             }
@@ -643,7 +641,7 @@ namespace UniCloud.Presentation.Purchase.Reception
             {
                 var appointment = scheduleView.EditedAppointment as Appointment;
                 if (appointment != null)
-        {
+                {
                     var schedule =
                         SelEngineLeaseReception.ReceptionSchedules.FirstOrDefault(
                             p => p.UniqueId == appointment.UniqueId);
@@ -670,7 +668,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                             p => p.UniqueId == appointment.UniqueId);
                     SelEngineLeaseReception.ReceptionSchedules.Remove(schedule);
                     if (schedule != null)
-        {
+                    {
                         schedule = scheduleExtension.ConvertToReceptionSchedule(appointment);
                         SelEngineLeaseReception.ReceptionSchedules.Add(schedule);
                     }

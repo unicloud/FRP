@@ -27,6 +27,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
     [DataServiceKey("EngineLeaseReceptionId")]
     public partial class EngineLeaseReceptionDTO : ReceptionDTO
     {
+        public EngineLeaseReceptionDTO()
+        {
+            ReceptionLines = new List<EngineLeaseReceptionLineDTO>();
+        }
+
         #region 属性
         /// <summary>
         /// 租赁发动机接收项目主键
@@ -41,7 +46,6 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     接收行
         /// </summary>
         public List<EngineLeaseReceptionLineDTO> ReceptionLines { get; set; }
-
         #endregion
     }
 }

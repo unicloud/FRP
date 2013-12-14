@@ -142,14 +142,14 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
                 updateAircraftPurchaseReception.SourceId = aircraftPurchaseReception.SourceId;
                 //更新主表。 
 
-                    var updateReceptionLines = aircraftPurchaseReception.ReceptionLines;
-                    var formerReceptionLines = updateAircraftPurchaseReception.ReceptionLines;
+                var updateReceptionLines = aircraftPurchaseReception.ReceptionLines;
+                var formerReceptionLines = updateAircraftPurchaseReception.ReceptionLines;
                 if (aircraftPurchaseReception.ReceptionLines != null)//更新从表需要双向比对变更
                 {
 
                     foreach (var receptionLine in updateReceptionLines)
                     {
-                        AddOrUpdateReceptionLine(receptionLine,formerReceptionLines);
+                        AddOrUpdateReceptionLine(receptionLine, formerReceptionLines);
                         //更新或删除此接收行
                     }
                 }
@@ -182,7 +182,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             //获取需要删除的对象。
             if (delAircraftPurchaseReception != null)
             {
-                _receptionRepository.Remove(delAircraftPurchaseReception); //删除购买飞机接收项目。
+                _receptionRepository.DeleteReception(delAircraftPurchaseReception);//删除租赁飞机接收项目。
             }
         }
 

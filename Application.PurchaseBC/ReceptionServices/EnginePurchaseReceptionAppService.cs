@@ -180,7 +180,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             //获取需要删除的对象。
             if (delEnginePurchaseReception != null)
             {
-                _receptionRepository.Remove(delEnginePurchaseReception); //删除购买发动机接收项目。
+                _receptionRepository.DeleteReception(delEnginePurchaseReception);//删除租赁飞机接收项目。
             }
         }
 

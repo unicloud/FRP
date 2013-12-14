@@ -24,9 +24,8 @@ namespace UniCloud.Application.PurchaseBC.DTO
     public partial class ReceptionDTO
     {
         public ReceptionDTO()
-        {
-            ReceptionSchedules = new List<ReceptionScheduleDTO>();
-            Doucments = new List<RelatedDocDTO>();
+        { 
+            ReceptionSchedules=new List<ReceptionScheduleDTO>();
         }
 
         #region 属性
@@ -37,13 +36,13 @@ namespace UniCloud.Application.PurchaseBC.DTO
         //交付起始时间 
         public DateTime StartDate { get; set; }
         //交付截止时间
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         //创建日期
         public DateTime CreateDate { get; set; }
         //是否关闭
         public bool IsClosed { get; set; }
         //关闭日期
-        public DateTime CloseDate { get; set; }
+        public DateTime? CloseDate { get; set; }
 
         //供应商
         public string SupplierName { get; set; }
@@ -66,11 +65,6 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     交付日程
         /// </summary>
         public List<ReceptionScheduleDTO> ReceptionSchedules { get; set; }
-
-        /// <summary>
-        ///  交付相关文档
-        /// </summary>
-        public List<RelatedDocDTO> Doucments { get; set; }
 
         #endregion
     }

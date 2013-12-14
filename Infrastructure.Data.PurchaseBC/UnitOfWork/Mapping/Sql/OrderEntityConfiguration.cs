@@ -47,6 +47,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
             Property(p => p.IsValid).HasColumnName("IsValid");
             Property(p => p.IsCompleted).HasColumnName("IsCompleted");
             Property(p => p.Status).HasColumnName("Status");
+            Property(p => p.ContractName).HasColumnName("ContractName");
             Property(p => p.ContractDocGuid).HasColumnName("ContractDocGuid");
             Property(p => p.Note).HasColumnName("Note");
 
