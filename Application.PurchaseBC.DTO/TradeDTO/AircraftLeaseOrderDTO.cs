@@ -88,6 +88,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public Guid? ContractDocGuid { get; set; }
 
         /// <summary>
+        ///     日志记录
+        /// </summary>
+        public string LogWriter { get; set; }
+
+        /// <summary>
         ///     备注
         /// </summary>
         public string Note { get; set; }
