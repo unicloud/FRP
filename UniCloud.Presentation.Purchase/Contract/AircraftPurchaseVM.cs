@@ -213,7 +213,8 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         protected override void OnAddAttach(object sender)
         {
-            documentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
+            var docId = (Guid) sender;
+            documentView.ViewModel.InitData(false, docId, DocumentViewerClosed);
             documentView.ShowDialog();
         }
 
@@ -233,11 +234,9 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         protected override void OnViewAttach(object sender)
         {
-            if (_selAircraftPurchaseOrderDTO.ContractDocGuid != null)
-            {
-                documentView.ViewModel.InitData(true, _selAircraftPurchaseOrderDTO.ContractDocGuid.Value, null);
-                documentView.ShowDialog();
-            }
+            var docId = (Guid) sender;
+            documentView.ViewModel.InitData(true, docId, null);
+            documentView.ShowDialog();
         }
 
         #endregion
@@ -303,6 +302,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             {
                 OrderDate = DateTime.Now,
                 TradeId = _selTradeDTO.Id,
+                SourceGuid = Guid.NewGuid()
             };
             ViewAircraftPurchaseOrderDTO.AddNew(order);
         }

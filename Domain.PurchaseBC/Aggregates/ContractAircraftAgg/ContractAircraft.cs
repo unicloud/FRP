@@ -166,6 +166,20 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg
         }
 
         /// <summary>
+        ///     设置机型
+        /// </summary>
+        /// <param name="aircraftTypeId">机型ID</param>
+        public void SetAircraftType(Guid aircraftTypeId)
+        {
+            if (aircraftTypeId == Guid.Empty)
+            {
+                throw new ArgumentException("机型ID参数为空！");
+            }
+
+            AircraftTypeId = aircraftTypeId;
+        }
+
+        /// <summary>
         ///     设置计划飞机
         /// </summary>
         /// <param name="planAircraft">计划飞机</param>
@@ -202,6 +216,20 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg
 
             ImportCategory = importCategory;
             ImportCategoryId = importCategory.Id;
+        }
+
+        /// <summary>
+        ///     设置引进方式
+        /// </summary>
+        /// <param name="importCategoryId">引进方式ID</param>
+        public void SetImportCategory(Guid importCategoryId)
+        {
+            if (importCategoryId == Guid.Empty)
+            {
+                throw new ArgumentException("引进方式ID参数为空！");
+            }
+
+            ImportCategoryId = importCategoryId;
         }
 
         /// <summary>

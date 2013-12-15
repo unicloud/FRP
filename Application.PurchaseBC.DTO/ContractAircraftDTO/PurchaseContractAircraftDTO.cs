@@ -65,22 +65,22 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     机型
         /// </summary>
-        public virtual string AircraftTypeName { get; set; }
+        public string AircraftTypeName { get; set; }
 
         /// <summary>
         ///     计划飞机
         /// </summary>
-        public virtual string PlanAircraft { get; set; }
+        public string PlanAircraft { get; set; }
 
         /// <summary>
         ///     引进方式
         /// </summary>
-        public virtual string ImportType { get; set; }
+        public string ImportType { get; set; }
 
         /// <summary>
         ///     引进方式
         /// </summary>
-        public virtual string ImportActionName { get; set; }
+        public string ImportActionName { get; set; }
 
         #endregion
 

@@ -4,9 +4,9 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/11/06，21:11
-// 文件名：ActionCategory.cs
-// 程序集：UniCloud.Domain.UberModel
+// 作者：丁志浩 时间：2013/11/29，13:11
+// 方案：FRP
+// 项目：Domain.UberModel
 // 版本：V1.0.0
 //
 // 修改者： 时间： 

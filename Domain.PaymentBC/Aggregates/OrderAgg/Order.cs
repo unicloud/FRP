@@ -110,7 +110,12 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.OrderAgg
         /// <summary>
         ///     合同文档检索ID
         /// </summary>
-        public Guid? ContractDocGuid { get; protected set; }
+        public Guid ContractDocGuid { get; protected set; }
+
+        /// <summary>
+        ///     源GUID
+        /// </summary>
+        public Guid SourceGuid { get; protected set; }
 
         /// <summary>
         ///     备注

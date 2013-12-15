@@ -115,10 +115,8 @@
     <Compile Include="TradeDTO\EnginePurchaseOrderDTO.cs" />
     <Compile Include="TradeDTO\EnginePurchaseOrderLineDTO.cs" />
     <Compile Include="TradeDTO\TradeDTO.cs" />
-    <Compile Include="ReceptionDTO\ReceptionLineDTO.cs" />
     <Compile Include="ReceptionDTO\AircraftLeaseReceptionLineDTO.cs" />
     <Compile Include="ReceptionDTO\EngineLeaseReceptionLineDTO.cs" />
-    <Compile Include="ReceptionDTO\ReceptionDTO.cs" />
     <Compile Include="ReceptionDTO\ReceptionScheduleDTO.cs" />
   </ItemGroup>
   <ItemGroup>

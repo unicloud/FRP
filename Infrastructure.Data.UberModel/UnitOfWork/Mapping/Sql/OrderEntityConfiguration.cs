@@ -49,6 +49,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.Status).HasColumnName("Status");
             Property(p => p.ContractName).HasColumnName("ContractName");
             Property(p => p.ContractDocGuid).HasColumnName("ContractDocGuid");
+            Property(p => p.SourceGuid).HasColumnName("SourceGuid");
             Property(p => p.Note).HasColumnName("Note");
 
             Property(p => p.TradeId).HasColumnName("TradeId");

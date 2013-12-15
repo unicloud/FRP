@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 using UniCloud.Domain.PurchaseBC.Enums;
 
 #endregion
@@ -53,13 +54,53 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
 
         #region 外键属性
 
+        /// <summary>
+        ///     BFE物料ID
+        /// </summary>
+        public int BFEMaterialId { get; private set; }
+
         #endregion
 
         #region 导航属性
 
+        /// <summary>
+        ///     BFE物料
+        /// </summary>
+        public virtual BFEMaterial BFEMaterial { get; private set; }
+
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置BFE物料
+        /// </summary>
+        /// <param name="bfeMaterial">BFE物料</param>
+        public void SetBFEMaterial(BFEMaterial bfeMaterial)
+        {
+            if (bfeMaterial == null || bfeMaterial.IsTransient())
+            {
+                throw new ArgumentException("BFE物料参数为空！");
+            }
+
+            BFEMaterial = bfeMaterial;
+            BFEMaterialId = bfeMaterial.Id;
+        }
+
+        /// <summary>
+        ///     设置BFE物料
+        /// </summary>
+        /// <param name="bfeMaterialId">BFE物料ID</param>
+        public void SetBFEMaterial(int bfeMaterialId)
+        {
+            if (bfeMaterialId == 0)
+            {
+                throw new ArgumentException("BFE物料ID参数为空！");
+            }
+
+            BFEMaterialId = bfeMaterialId;
+        }
+
 
         /// <summary>
         ///     设置交易状态

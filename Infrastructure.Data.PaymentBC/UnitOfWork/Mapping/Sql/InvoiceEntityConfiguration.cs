@@ -39,14 +39,14 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
 
             Property(p => p.InvoiceNumber).HasColumnName("InvoiceNumber");
             Property(p => p.InvoideCode).HasColumnName("InvoideCode");
-            Property(p => p.InvoiceDate).HasColumnName("InvoiceDate");
+            Property(p => p.InvoiceDate).HasColumnName("InvoiceDate").HasColumnType("datetime2");
             Property(p => p.SupplierName).HasColumnName("SupplierName");
             Property(p => p.InvoiceValue).HasColumnName("InvoiceValue");
             Property(p => p.PaidAmount).HasColumnName("PaidAmount");
             Property(p => p.OperatorName).HasColumnName("OperatorName");
             Property(p => p.Reviewer).HasColumnName("Reviewer");
-            Property(p => p.CreateDate).HasColumnName("CreateDate");
-            Property(p => p.ReviewDate).HasColumnName("ReviewDate");
+            Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
+            Property(p => p.ReviewDate).HasColumnName("ReviewDate").HasColumnType("datetime2");
             Property(p => p.IsValid).HasColumnName("IsValid");
             Property(p => p.IsCompleted).HasColumnName("IsCompleted");
             Property(p => p.Status).HasColumnName("Status");

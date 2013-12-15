@@ -58,12 +58,17 @@ namespace UniCloud.Application.PurchaseBC.DTO
             get;
             set;
         }
-
+        /// <summary>
+        /// 开始时间
+        /// </summary>
         public DateTime Start
         {
             get;
             set;
         }
+        /// <summary>
+        /// 结束时间
+        /// </summary>
         public DateTime End
         {
             get;
@@ -107,7 +112,7 @@ namespace UniCloud.Application.PurchaseBC.DTO
         }
 
         /// <summary>
-        /// 
+        /// 唯一标识
         /// </summary>
         public string UniqueId
         {

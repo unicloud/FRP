@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 using UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.DocumentAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
@@ -69,12 +70,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         /// <summary>
         ///     合同名称
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         /// <summary>
         ///     经办人
         /// </summary>
-        public string OperatorName { get; set; }
+        public string OperatorName { get; internal set; }
 
         /// <summary>
         ///     创建日期
@@ -84,12 +85,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         /// <summary>
         ///     生效日期
         /// </summary>
-        public DateTime OrderDate { get; set; }
+        public DateTime OrderDate { get; internal set; }
 
         /// <summary>
         ///     撤销日期
         /// </summary>
-        public DateTime? RepealDate { get; set; }
+        public DateTime? RepealDate { get; private set; }
 
         /// <summary>
         ///     是否有效
@@ -114,7 +115,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         /// <summary>
         ///     合同文档检索ID
         /// </summary>
-        public Guid? ContractDocGuid { get; private set; }
+        public Guid ContractDocGuid { get; private set; }
+
+        /// <summary>
+        ///     源GUID
+        /// </summary>
+        public Guid SourceGuid { get; private set; }
 
         /// <summary>
         ///     备注
@@ -197,6 +203,34 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         }
 
         /// <summary>
+        ///     设置合同名称
+        /// </summary>
+        /// <param name="name">合同名称</param>
+        public void SetName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("合同名称参数为空！");
+            }
+
+            Name = name;
+        }
+
+        /// <summary>
+        ///     设置经办人
+        /// </summary>
+        /// <param name="operatorName">经办人</param>
+        public void SetOperatorName(string operatorName)
+        {
+            if (string.IsNullOrWhiteSpace(operatorName))
+            {
+                throw new ArgumentException("经办人参数为空！");
+            }
+
+            OperatorName = operatorName;
+        }
+
+        /// <summary>
         ///     设置合同编号
         /// </summary>
         /// <param name="contractNumber">合同编号</param>
@@ -236,6 +270,15 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         {
             // TODO：待完善
             IsCompleted = true;
+        }
+
+        /// <summary>
+        ///     设置撤销日期
+        /// </summary>
+        /// <param name="date">撤销日期</param>
+        public void SetRepealDate(DateTime date)
+        {
+            RepealDate = date;
         }
 
         /// <summary>
@@ -384,6 +427,20 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         }
 
         /// <summary>
+        ///     设置源GUID
+        /// </summary>
+        /// <param name="id">源GUID</param>
+        public void SetSourceGuid(Guid id)
+        {
+            if (id == null || id == Guid.Empty)
+            {
+                throw new ArgumentException("源GUID参数为空！");
+            }
+
+            SourceGuid = id;
+        }
+
+        /// <summary>
         ///     设置备注
         /// </summary>
         /// <param name="note">备注</param>
@@ -394,7 +451,13 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
                 throw new ArgumentException("合同说明参数为空！");
             }
 
-            Note = note;
+            var sb = new StringBuilder();
+            sb.AppendLine(DateTime.Now.Date.ToShortDateString());
+            sb.AppendLine(note);
+            sb.AppendLine();
+            sb.Append(Note);
+
+            Note = sb.ToString();
         }
 
         #endregion

@@ -34,13 +34,22 @@ namespace UniCloud.Application.PurchaseBC.DTO
     {
         #region 属性
 
-        //主键
+        /// <summary>
+        /// 主键
+        /// </summary>
         public int Id { get; set; }
-        // 业务外键
+        /// <summary>
+        /// 业务外键
+        /// </summary>
         public Guid SourceId { get; set; }
-        // 文档外键
+        /// <summary>
+        /// 文档外键
+        /// </summary>
         public Guid DocumentId { get; set; }
-        //文档名称 
+        /// <summary>
+        /// 文档名称
+        /// </summary>
+ 
         public string DocumentName { get; set; }
 
         #endregion

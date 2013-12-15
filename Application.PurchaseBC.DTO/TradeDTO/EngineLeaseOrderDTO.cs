@@ -34,6 +34,7 @@ namespace UniCloud.Application.PurchaseBC.DTO
         #region 私有字段
 
         private HashSet<EngineLeaseOrderLineDTO> _lines;
+        private HashSet<RelatedDocDTO> _relatedDocs;
 
         #endregion
 
@@ -46,6 +47,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     交易ID
         /// </summary>
         public int TradeId { get; set; }
+
+        /// <summary>
+        ///     合同名称
+        /// </summary>
+        public string Name { get; set; }
 
         /// <summary>
         ///     版本号
@@ -85,7 +91,12 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     合同文档检索ID
         /// </summary>
-        public Guid? ContractDocGuid { get; set; }
+        public Guid ContractDocGuid { get; set; }
+
+        /// <summary>
+        ///     源GUID
+        /// </summary>
+        public Guid SourceGuid { get; set; }
 
         /// <summary>
         ///     日志记录
@@ -104,6 +115,15 @@ namespace UniCloud.Application.PurchaseBC.DTO
         {
             get { return _lines ?? (_lines = new HashSet<EngineLeaseOrderLineDTO>()); }
             set { _lines = new HashSet<EngineLeaseOrderLineDTO>(value); }
+        }
+
+        /// <summary>
+        ///     关联文档集合
+        /// </summary>
+        public virtual ICollection<RelatedDocDTO> RelatedDocs
+        {
+            get { return _relatedDocs ?? (_relatedDocs = new HashSet<RelatedDocDTO>()); }
+            set { _relatedDocs = new HashSet<RelatedDocDTO>(value); }
         }
     }
 }

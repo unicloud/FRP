@@ -45,8 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aggregates\ActionCategoryAgg\ActionCategory.cs" />
+    <Compile Include="Aggregates\ActionCategoryAgg\ActionCategoryFactory.cs" />
     <Compile Include="Aggregates\AircraftAgg\Aircraft.cs" />
     <Compile Include="Aggregates\AircraftTypeAgg\AircraftType.cs" />
+    <Compile Include="Aggregates\AircraftTypeAgg\AircraftTypeFactory.cs" />
     <Compile Include="Aggregates\BankAccountAgg\BankAccount.cs" />
     <Compile Include="Aggregates\ContentTagAgg\ContentTag.cs" />
     <Compile Include="Aggregates\ContentTagAgg\ContentTagSpecifications.cs" />
