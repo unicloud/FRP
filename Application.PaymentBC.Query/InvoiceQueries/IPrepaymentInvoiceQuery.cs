@@ -14,18 +14,25 @@
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using UniCloud.Application.PaymentBC.DTO;
+using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 
 #endregion
 
 namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
 {
-    interface IPrepaymentInvoiceQuery
+    /// <summary>
+    /// 预付款发票查询接口
+    /// </summary>
+    public interface IPrepaymentInvoiceQuery
     {
+        /// <summary>
+        ///    预付款发票查询
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns>预付款发票DTO集合。</returns>
+        IQueryable<PrepaymentInvoiceDTO> PrepaymentInvoiceDTOQuery(
+            QueryBuilder<PrepaymentInvoice> query);
     }
 }
