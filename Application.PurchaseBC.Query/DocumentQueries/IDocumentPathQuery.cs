@@ -19,25 +19,26 @@
 #region 命名空间
 
 using System.Linq;
-using UniCloud.Application.CommonServiceBC.DTO;
-using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
-using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg;
+using UniCloud.Application.PurchaseBC.DTO;
+using UniCloud.Domain.PurchaseBC.Aggregates.DocumentPathAgg;
 
 #endregion
 
-namespace UniCloud.Application.CommonServiceBC.Query.DocumentQueries
+namespace UniCloud.Application.PurchaseBC.Query.DocumentQueries
 {
     /// <summary>
     ///    文档查询接口。
     /// </summary>
-    public interface IDocumentQuery
+    public interface IDocumentPathQuery
     {
+     
         /// <summary>
-        ///     查询文档。
+        ///     查询文档路径。
         /// </summary>
         /// <param name="query">查询条件。</param>
-        /// <returns>文档。</returns>
-        IQueryable<DocumentDTO> DocumentsQuery(
-            QueryBuilder<Document> query);
+        /// <returns>文档路径。</returns>
+        IQueryable<DocumentPathDTO> DocumentPathsQuery(
+            QueryBuilder<DocumentPath> query);
+  
     }
 }

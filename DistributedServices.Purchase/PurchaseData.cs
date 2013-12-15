@@ -25,6 +25,7 @@ using UniCloud.Application.PurchaseBC.ContractEngineServices;
 using UniCloud.Application.PurchaseBC.ContractServices;
 using UniCloud.Application.PurchaseBC.CurrencyServices;
 using UniCloud.Application.PurchaseBC.DTO;
+using UniCloud.Application.PurchaseBC.DocumentPathServices;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
 using UniCloud.Application.PurchaseBC.PartServices;
@@ -49,8 +50,9 @@ namespace UniCloud.DistributedServices.Purchase
         private readonly IAircraftPurchaseReceptionAppService _aircraftPurchaseReceptionAppService;
         private readonly IAircraftTypeAppService _aircraftTypeAppService;
         private readonly IContractAircraftAppService _contractAircraftAppService;
-        private readonly IContractEngineAppService _contractEngineAppService;        
-        private readonly ICurrencyAppService _currencyAppService;        
+        private readonly IContractEngineAppService _contractEngineAppService;
+        private readonly ICurrencyAppService _currencyAppService;
+        private readonly IDocumentPathAppService _documentPathAppService;
         private readonly IEngineLeaseReceptionAppService _engineLeaseReceptionAppService;
         private readonly IEnginePurchaseReceptionAppService _enginePurchaseReceptionAppService;
         private readonly IForwarderAppService _forwarderAppService;
@@ -90,6 +92,7 @@ namespace UniCloud.DistributedServices.Purchase
             _purchaseContractEngineAppService = DefaultContainer.Resolve<IPurchaseContractEngineAppService>();
             _relatedDocAppService = DefaultContainer.Resolve<IRelatedDocAppService>();
             _currencyAppService = DefaultContainer.Resolve<ICurrencyAppService>();
+            _documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
         }
 
         #region 合作公司相关集合
@@ -218,16 +221,12 @@ namespace UniCloud.DistributedServices.Purchase
 
         #region 合同发动机集合
 
-
         /// <summary>
         ///     合同发动机集合
         /// </summary>
         public IQueryable<ContractEngineDTO> ContractEngines
         {
-            get
-            {
-                return _contractEngineAppService.GetContractEngines();
-            }
+            get { return _contractEngineAppService.GetContractEngines(); }
         }
 
         /// <summary>
@@ -245,6 +244,7 @@ namespace UniCloud.DistributedServices.Purchase
         {
             get { return _purchaseContractEngineAppService.GetPurchaseContractEngines(); }
         }
+
         #endregion
 
         #region 物料相关集合
@@ -419,6 +419,18 @@ namespace UniCloud.DistributedServices.Purchase
         public IQueryable<CurrencyDTO> Currencies
         {
             get { return _currencyAppService.GetCurrencies(); }
+        }
+
+        #endregion
+
+        #region 文档相关集合
+
+        /// <summary>
+        ///     文件夹信息。
+        /// </summary>
+        public IQueryable<DocumentPathDTO> DocumentPaths
+        {
+            get { return _documentPathAppService.GetDocumentPaths(); }
         }
 
         #endregion

@@ -23,7 +23,7 @@ using System.Windows.Media;
 
 #endregion
 
-namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
+namespace UniCloud.Presentation.Service.Purchase.DocumentExtension
 {
     /// <summary>
     ///     Document 转化为ExplorerItem

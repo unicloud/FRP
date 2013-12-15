@@ -73,6 +73,8 @@
     <Compile Include="ContractEngineDTO\LeaseContractEngineDTO.cs" />
     <Compile Include="ContractEngineDTO\PurchaseContractEngineDTO.cs" />
     <Compile Include="CurrencyDTO\CurrencyDTO.cs" />
+    <Compile Include="DocumentPaths\DocumentPathDTO.cs" />
+    <Compile Include="DocumentPaths\SubDocumentPathDTO.cs" />
     <Compile Include="ForwarderDTO\ForwarderDTO.cs" />
     <Compile Include="MaterialDTO\AircraftMaterialDTO.cs" />
     <Compile Include="MaterialDTO\BFEMaterialDTO.cs" />

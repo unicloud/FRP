@@ -45,17 +45,6 @@ namespace UniCloud.Application.CommonServiceBC.Tests
 
         #endregion
 
-        [TestMethod]
-        public void GetDocumentPaths()
-        {
-            // Arrange
-            var service = DefaultContainer.Resolve<IDocumentAppService>();
-
-            // Act
-            var result = service.GetDocumentPaths().ToList();
-
-            // Assert
-            Assert.IsTrue(result.Any());
-        }
+     
     }
 }

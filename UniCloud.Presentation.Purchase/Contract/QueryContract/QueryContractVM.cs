@@ -21,16 +21,18 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
-using UniCloud.Presentation.Service.CommonService.Common;
-using UniCloud.Presentation.Service.CommonService.DocumentExtension;
 using UniCloud.Presentation.Service.Purchase;
+using UniCloud.Presentation.Service.Purchase.DocumentExtension;
+using UniCloud.Presentation.Service.Purchase.Purchase;
 
 #endregion
 
@@ -42,9 +44,8 @@ namespace UniCloud.Presentation.Purchase.Contract
     {
         private readonly IRegionManager _regionManager;
         [Import] public DocumentViewer DocumentView;
-        private CommonServiceData _context; //域上下文
+        private PurchaseData _context; //域上下文
         private string _loadType; //加载子项文件夹方式方式，1、DoubleClick 双击,2、SearchText 搜索框
-        private DocumentPathDTO _localDocPath; //用于缓存当前选中项，添加的文档加载到子项文件中
 
         [ImportingConstructor]
         public QueryContractVM(IRegionManager regionManager)
@@ -157,7 +158,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                 if (_selDocumentPath != value)
                 {
                     _selDocumentPath = value;
-                    DelDocumentPathCommand.RaiseCanExecuteChanged();
+                    DelDocumentPathToolBarCommand.RaiseCanExecuteChanged();
+                    OpenDocPathToolBarCommand.RaiseCanExecuteChanged();
                     RaisePropertyChanged(() => SelDocumentPath);
                 }
             }
@@ -171,6 +173,37 @@ namespace UniCloud.Presentation.Purchase.Contract
             get { return _listBoxDocumentItems; }
         }
 
+        /// <summary>
+        /// 添加文件夹路径图标
+        /// </summary>
+        public Image AddFolderImage
+        {
+            get { return ImagePathHelper.GetImageSourceByName("SmallAddFolder"); }
+        }
+
+        /// <summary>
+        /// 添加文件路径图标
+        /// </summary>
+        public Image AddDocumentImage
+        {
+            get { return ImagePathHelper.GetImageSourceByName("SmallAddDocument"); }
+        }
+
+        /// <summary>
+        /// 打开文件路径图标
+        /// </summary>
+        public Image OpenDocumentImage
+        {
+            get { return ImagePathHelper.GetImageSourceByName("SmallOpenDocument"); }
+        }
+        /// <summary>
+        /// 删除文件路径图标
+        /// </summary>
+        public Image DelDocumentImage
+        {
+            get { return ImagePathHelper.GetImageSourceByName("SmallDelDocument"); }
+        }
+    
         #endregion
 
         #region 方法
@@ -243,7 +276,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         private void OpenDocument(Guid? documentId)
         {
             DocumentView.Tag = null;
-            DocumentView.ViewModel.InitData(true, documentId.Value, null);
+            if (documentId != null) DocumentView.ViewModel.InitData(true, documentId.Value, null);
             DocumentView.ShowDialog();
         }
 
@@ -272,28 +305,31 @@ namespace UniCloud.Presentation.Purchase.Contract
         }
 
         /// <summary>
-        ///     创建文档路径
+        ///     创建文件路劲
         /// </summary>
         /// <param name="name">名称</param>
         /// <param name="isLeaf">是否是叶子节点</param>
-        /// <param name="extension">扩展</param>
-        /// <param name="documentId">文档id</param>
-        /// <param name="parentId">父亲节点</param>
-        /// <param name="pathSource">来源</param>
-        /// <returns></returns>
-        private SubDocumentPathDTO CreateDocumentPath(string name, bool isLeaf, string extension,
-                                                      Guid? documentId, int? parentId, int pathSource)
+        /// <param name="documentId">文档Guid</param>
+        /// <param name="parentId">父亲文档</param>
+        /// <param name="pathSource">路径类型</param>
+        /// <returns>Uri实例</returns>
+        private Uri CreateDocumentPathQuery(string name, bool isLeaf, string documentId, int parentId, int pathSource)
         {
-            return new SubDocumentPathDTO
-                {
-                    SubDocumentPathId = RandomHelper.Next(),
-                    Name = name,
-                    IsLeaf = isLeaf,
-                    Extension = extension,
-                    DocumentGuid = documentId,
-                    ParentId = parentId,
-                    PathSource = pathSource,
-                };
+            return new Uri(string.Format("AddDocPath?name='{0}'&isLeaf='{1}'" +
+                                         "&documentId='{2}'&parentId={3}" +
+                                         "&pathSource={4}", name, isLeaf, documentId, parentId, pathSource),
+                           UriKind.Relative);
+        }
+
+        /// <summary>
+        ///     删除文档路径
+        /// </summary>
+        /// <param name="docPathId"></param>
+        /// <returns></returns>
+        private Uri DelDocumentPathQuery(int docPathId)
+        {
+            return new Uri(string.Format("DelDocPath?docPathId={0}", docPathId),
+                           UriKind.Relative);
         }
 
         #endregion
@@ -302,8 +338,18 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 打开文档
 
-        public DelegateCommand<object> OpenCommand { get; private set; }
+        /// <summary>
+        /// 打开文档通过右击ListBoxItem，选择的RadContextMenu触发的事件
+        /// </summary>
+        public DelegateCommand<object> OpenDocPathListBoxCommand { get; private set; }
+        /// <summary>
+        ///打开文档通过右击ToolBar的打开按钮触发的事件
+        /// </summary>
+        public DelegateCommand<object> OpenDocPathToolBarCommand { get; private set; }
 
+        /// <summary>
+        /// 打开文档
+        /// </summary>
         private void OnOPen(object sender)
         {
             var selItem = sender as ListBoxDocumentItem;
@@ -318,12 +364,21 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
             OpenDocument(SelDocumentPath.DocumentGuid);
         }
-
-        private bool CanOpen(object sender)
+    
+        /// <summary>
+        /// 打开文档通过右击ListBoxItem，选择的RadContextMenu触发的事件按钮是否可用
+        /// </summary>
+        private bool CanOpenListBox(object sender)
         {
             return true;
         }
-
+        /// <summary>
+        /// 打开文档通过右击ToolBar的打开按钮触发的事件按钮是否可用
+        /// </summary>
+        private bool CanOpenToolBar(object sender)
+        {
+            return SelDocumentPath != null;
+        }
         #endregion
 
         #region 新建文档
@@ -346,9 +401,15 @@ namespace UniCloud.Presentation.Purchase.Contract
         #endregion
 
         #region 删除文档
+        /// <summary>
+        /// 删除文档通过右击ListBoxItem，选择的RadContextMenu触发的事件
+        /// </summary>
+        public DelegateCommand<object> DelDocumentPathListBoxCommand { get; private set; }
 
-        public DelegateCommand<object> DelDocumentPathCommand { get; private set; }
-
+        /// <summary>
+        /// 删除文档通过右击ToolBar的删除文件按钮触发的事件
+        /// </summary>
+        public DelegateCommand<object> DelDocumentPathToolBarCommand { get; private set; }
         private void DelDocumentPath(object sender)
         {
             if (SelDocumentPath == null)
@@ -360,36 +421,43 @@ namespace UniCloud.Presentation.Purchase.Contract
                 {
                     if (e.DialogResult == true)
                     {
-                        var currentDocPath =
-                            DocumentPathsView.FirstOrDefault(
-                                p => p.DocumentPathId == SelDocumentPath.ParentId);
-                        if (currentDocPath != null)
-                        {
-                            var delItem = currentDocPath.SubDocumentPaths.
-                                                         FirstOrDefault(
-                                                             p => p.SubDocumentPathId == SelDocumentPath.DocumentPathId);
-                            if (delItem != null)
-                            {
-                                currentDocPath.SubDocumentPaths.Remove(delItem);
-                                DocumentPathsView.SubmitChanges();
-                            }
-                        }
+                        DelDocPath();
                     }
                 });
         }
 
-        private bool CanDelDocumentPath(object sender)
+        /// <summary>
+        ///     删除文档路径
+        /// </summary>
+        private void DelDocPath()
+        {
+            var delDocPath = DelDocumentPathQuery(SelDocumentPath.DocumentPathId);
+            _context.BeginExecute<string>(delDocPath, p => Deployment.Current.Dispatcher.BeginInvoke(() => DocumentPathsView.Load(true)), null);
+        }
+
+        /// <summary>
+        /// 删除文档通过右击ListBoxItem，选择的RadContextMenu触发的事件按钮是否可用
+        /// </summary>
+        private bool CanDelDocumentPathListBox(object sender)
+        {
+            return true;
+        }
+        /// <summary>
+        /// 删除文档通过右击ToolBar的删除文件按钮触发的事件按钮是否可用
+        /// </summary>
+        private bool CanDelDocumentPathToolBar(object sender)
         {
             return SelDocumentPath != null;
         }
-
         #endregion
 
         private void InitialCommad()
         {
-            OpenCommand = new DelegateCommand<object>(OnOPen, CanOpen);
+            OpenDocPathListBoxCommand = new DelegateCommand<object>(OnOPen, CanOpenListBox);
+            OpenDocPathToolBarCommand=new DelegateCommand<object>(OnOPen,CanOpenToolBar);
             CreateDocumentPathCommand = new DelegateCommand<object>(CreateDocumentPath, CanCreateDocumentPath);
-            DelDocumentPathCommand = new DelegateCommand<object>(DelDocumentPath, CanDelDocumentPath);
+            DelDocumentPathToolBarCommand = new DelegateCommand<object>(DelDocumentPath, CanDelDocumentPathToolBar);
+            DelDocumentPathListBoxCommand = new DelegateCommand<object>(DelDocumentPath, CanDelDocumentPathListBox);
         }
 
         #endregion
@@ -472,13 +540,13 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
             if (sender.ToString().Equals("文件夹", StringComparison.CurrentCultureIgnoreCase))
             {
-                var folder = CreateDocumentPath(DocumentName, false, null, null,
-                                                CurrentPathItem.DocumentPathId, 0);
-                var currentDocPath =
-                    DocumentPathsView.FirstOrDefault(
-                        p => p.DocumentPathId == CurrentPathItem.DocumentPathId);
-                if (currentDocPath != null) currentDocPath.SubDocumentPaths.Add(folder);
-                DocumentPathsView.SubmitChanges();
+                var newDocPath = CreateDocumentPathQuery(DocumentName, false, null,
+                                                         CurrentPathItem.DocumentPathId, 0);
+                _context.BeginExecute<string>(newDocPath, p => Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {
+                        DocumentPathsView.Load(true);
+                        AddDocumentPathChildView.Close();
+                    }), null);
             }
         }
 
@@ -532,7 +600,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// <returns></returns>
         protected override IService CreateService()
         {
-            _context = new CommonServiceData(AgentHelper.CommonServiceUri);
+            _context = new PurchaseData(AgentHelper.PurchaseUri);
             return new PurchaseService(_context);
         }
 
