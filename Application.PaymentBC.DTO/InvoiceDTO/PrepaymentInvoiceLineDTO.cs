@@ -24,7 +24,7 @@ using System.Threading.Tasks;
 
 #endregion
 
-namespace UniCloud.Application.PaymentBC.DTO.InvoiceDTO
+namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
     /// 预付款发票

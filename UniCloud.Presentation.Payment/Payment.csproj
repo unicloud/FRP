@@ -63,6 +63,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Data.Services.Client.SL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.0\lib\sl4\Microsoft.Data.Services.Client.SL.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.4.1.0.0\lib\SL5\Microsoft.Expression.Interactions.dll</HintPath>
       <Private>False</Private>
@@ -99,6 +102,7 @@
       <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Interactivity, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.4.1.0.0\lib\SL5\System.Windows.Interactivity.dll</HintPath>
       <Private>False</Private>
@@ -199,6 +203,10 @@
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.Payment\Service.Payment.csproj">
+      <Project>{8a34eaf1-0a35-4b80-bc53-f8bf11b626dc}</Project>
+      <Name>Service.Payment</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service\Service.csproj">
       <Project>{5f45eae5-2f35-4ad1-bf0e-f5fd5539fd32}</Project>
       <Name>Service</Name>

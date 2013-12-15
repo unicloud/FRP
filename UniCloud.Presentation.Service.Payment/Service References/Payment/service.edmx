@@ -60,8 +60,15 @@
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
         <Property Name="PaymentScheduleLineId" Type="Edm.Int32" />
-        <NavigationProperty Name="InvoiceLines" Relationship="UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceDTO_InvoiceLines" ToRole="InvoiceLines" FromRole="PrepaymentInvoiceDTO" />
+        <Property Name="InvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceLineDTO)" Nullable="false" />
       </EntityType>
+      <ComplexType Name="PrepaymentInvoiceLineDTO">
+        <Property Name="PrepaymentInvoiceLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ItemName" Type="Edm.String" />
+        <Property Name="Amount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="InvoiceId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="OrderLineId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
       <EntityType Name="PurchaseInvoiceDTO">
         <Key>
           <PropertyRef Name="PurchaseInvoiceId" />
@@ -93,10 +100,6 @@
         <Property Name="InvoiceId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OrderLineId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
-      <Association Name="PrepaymentInvoiceDTO_InvoiceLines">
-        <End Type="UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceDTO" Role="InvoiceLines" Multiplicity="*" />
-        <End Type="UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceDTO" Role="PrepaymentInvoiceDTO" Multiplicity="*" />
-      </Association>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Payment" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="PaymentData" m:IsDefaultEntityContainer="true">
@@ -104,10 +107,6 @@
         <EntitySet Name="LeaseInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.LeaseInvoiceDTO" />
         <EntitySet Name="PrepaymentInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceDTO" />
         <EntitySet Name="PurchaseInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.PurchaseInvoiceDTO" />
-        <AssociationSet Name="PrepaymentInvoiceDTO_InvoiceLines" Association="UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceDTO_InvoiceLines">
-          <End Role="PrepaymentInvoiceDTO" EntitySet="PrepaymentInvoices" />
-          <End Role="InvoiceLines" EntitySet="PrepaymentInvoices" />
-        </AssociationSet>
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

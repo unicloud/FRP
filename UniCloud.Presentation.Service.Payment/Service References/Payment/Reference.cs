@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2013/12/15 18:18:33
+// 生成日期: 2013/12/15 22:06:16
 namespace UniCloud.Presentation.Service.Payment.Payment
 {
     
@@ -207,9 +207,13 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                 "\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OrderId\" Type=\"Edm." +
                 "Int32\" Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=" +
                 "\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prope" +
-                "rty Name=\"PaymentScheduleLineId\" Type=\"Edm.Int32\" /><NavigationProperty Name=\"In" +
-                "voiceLines\" Relationship=\"UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceDT" +
-                "O_InvoiceLines\" ToRole=\"InvoiceLines\" FromRole=\"PrepaymentInvoiceDTO\" /></Entity" +
+                "rty Name=\"PaymentScheduleLineId\" Type=\"Edm.Int32\" /><Property Name=\"InvoiceLines" +
+                "\" Type=\"Collection(UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceLineDTO)\"" +
+                " Nullable=\"false\" /></EntityType><ComplexType Name=\"PrepaymentInvoiceLineDTO\"><P" +
+                "roperty Name=\"PrepaymentInvoiceLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prop" +
+                "erty Name=\"ItemName\" Type=\"Edm.String\" /><Property Name=\"Amount\" Type=\"Edm.Decim" +
+                "al\" Nullable=\"false\" /><Property Name=\"InvoiceId\" Type=\"Edm.Int32\" Nullable=\"fal" +
+                "se\" /><Property Name=\"OrderLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /></Complex" +
                 "Type><EntityType Name=\"PurchaseInvoiceDTO\"><Key><PropertyRef Name=\"PurchaseInvoi" +
                 "ceId\" /></Key><Property Name=\"PurchaseInvoiceId\" Type=\"Edm.Int32\" Nullable=\"fals" +
                 "e\" /><Property Name=\"InvoiceNumber\" Type=\"Edm.String\" /><Property Name=\"InvoideC" +
@@ -230,23 +234,16 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                 "ame=\"PurchaseInvoiceLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"" +
                 "ItemName\" Type=\"Edm.String\" /><Property Name=\"Amount\" Type=\"Edm.Decimal\" Nullabl" +
                 "e=\"false\" /><Property Name=\"InvoiceId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prop" +
-                "erty Name=\"OrderLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><Assoc" +
-                "iation Name=\"PrepaymentInvoiceDTO_InvoiceLines\"><End Type=\"UniCloud.Application." +
-                "PaymentBC.DTO.PrepaymentInvoiceDTO\" Role=\"InvoiceLines\" Multiplicity=\"*\" /><End " +
-                "Type=\"UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceDTO\" Role=\"PrepaymentI" +
-                "nvoiceDTO\" Multiplicity=\"*\" /></Association></Schema><Schema Namespace=\"UniCloud" +
-                ".DistributedServices.Payment\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/ed" +
-                "m\"><EntityContainer Name=\"PaymentData\" m:IsDefaultEntityContainer=\"true\"><Entity" +
-                "Set Name=\"MaintainInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Maint" +
-                "ainInvoiceDTO\" /><EntitySet Name=\"LeaseInvoices\" EntityType=\"UniCloud.Applicatio" +
-                "n.PaymentBC.DTO.LeaseInvoiceDTO\" /><EntitySet Name=\"PrepaymentInvoices\" EntityTy" +
-                "pe=\"UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceDTO\" /><EntitySet Name=\"" +
-                "PurchaseInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PurchaseInvoice" +
-                "DTO\" /><AssociationSet Name=\"PrepaymentInvoiceDTO_InvoiceLines\" Association=\"Uni" +
-                "Cloud.Application.PaymentBC.DTO.PrepaymentInvoiceDTO_InvoiceLines\"><End Role=\"Pr" +
-                "epaymentInvoiceDTO\" EntitySet=\"PrepaymentInvoices\" /><End Role=\"InvoiceLines\" En" +
-                "titySet=\"PrepaymentInvoices\" /></AssociationSet></EntityContainer></Schema></edm" +
-                "x:DataServices></edmx:Edmx>";
+                "erty Name=\"OrderLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType></Sche" +
+                "ma><Schema Namespace=\"UniCloud.DistributedServices.Payment\" xmlns=\"http://schema" +
+                "s.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"PaymentData\" m:IsDefault" +
+                "EntityContainer=\"true\"><EntitySet Name=\"MaintainInvoices\" EntityType=\"UniCloud.A" +
+                "pplication.PaymentBC.DTO.MaintainInvoiceDTO\" /><EntitySet Name=\"LeaseInvoices\" E" +
+                "ntityType=\"UniCloud.Application.PaymentBC.DTO.LeaseInvoiceDTO\" /><EntitySet Name" +
+                "=\"PrepaymentInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PrepaymentI" +
+                "nvoiceDTO\" /><EntitySet Name=\"PurchaseInvoices\" EntityType=\"UniCloud.Application" +
+                ".PaymentBC.DTO.PurchaseInvoiceDTO\" /></EntityContainer></Schema></edmx:DataServi" +
+                "ces></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -952,6 +949,149 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         }
     }
     /// <summary>
+    /// 架构中不存在 ComplexType UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceLineDTO 的注释。
+    /// </summary>
+    public partial class PrepaymentInvoiceLineDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 PrepaymentInvoiceLineDTO 对象。
+        /// </summary>
+        /// <param name="prepaymentInvoiceLineId">PrepaymentInvoiceLineId 的初始值。</param>
+        /// <param name="amount">Amount 的初始值。</param>
+        /// <param name="invoiceId">InvoiceId 的初始值。</param>
+        /// <param name="orderLineId">OrderLineId 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static PrepaymentInvoiceLineDTO CreatePrepaymentInvoiceLineDTO(int prepaymentInvoiceLineId, decimal amount, int invoiceId, int orderLineId)
+        {
+            PrepaymentInvoiceLineDTO prepaymentInvoiceLineDTO = new PrepaymentInvoiceLineDTO();
+            prepaymentInvoiceLineDTO.PrepaymentInvoiceLineId = prepaymentInvoiceLineId;
+            prepaymentInvoiceLineDTO.Amount = amount;
+            prepaymentInvoiceLineDTO.InvoiceId = invoiceId;
+            prepaymentInvoiceLineDTO.OrderLineId = orderLineId;
+            return prepaymentInvoiceLineDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 PrepaymentInvoiceLineId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int PrepaymentInvoiceLineId
+        {
+            get
+            {
+                return this._PrepaymentInvoiceLineId;
+            }
+            set
+            {
+                this.OnPrepaymentInvoiceLineIdChanging(value);
+                this._PrepaymentInvoiceLineId = value;
+                this.OnPrepaymentInvoiceLineIdChanged();
+                this.OnPropertyChanged("PrepaymentInvoiceLineId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _PrepaymentInvoiceLineId;
+        partial void OnPrepaymentInvoiceLineIdChanging(int value);
+        partial void OnPrepaymentInvoiceLineIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 ItemName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ItemName
+        {
+            get
+            {
+                return this._ItemName;
+            }
+            set
+            {
+                this.OnItemNameChanging(value);
+                this._ItemName = value;
+                this.OnItemNameChanged();
+                this.OnPropertyChanged("ItemName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ItemName;
+        partial void OnItemNameChanging(string value);
+        partial void OnItemNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Amount 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal Amount
+        {
+            get
+            {
+                return this._Amount;
+            }
+            set
+            {
+                this.OnAmountChanging(value);
+                this._Amount = value;
+                this.OnAmountChanged();
+                this.OnPropertyChanged("Amount");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _Amount;
+        partial void OnAmountChanging(decimal value);
+        partial void OnAmountChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoiceId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int InvoiceId
+        {
+            get
+            {
+                return this._InvoiceId;
+            }
+            set
+            {
+                this.OnInvoiceIdChanging(value);
+                this._InvoiceId = value;
+                this.OnInvoiceIdChanged();
+                this.OnPropertyChanged("InvoiceId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _InvoiceId;
+        partial void OnInvoiceIdChanging(int value);
+        partial void OnInvoiceIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 OrderLineId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int OrderLineId
+        {
+            get
+            {
+                return this._OrderLineId;
+            }
+            set
+            {
+                this.OnOrderLineIdChanging(value);
+                this._OrderLineId = value;
+                this.OnOrderLineIdChanged();
+                this.OnPropertyChanged("OrderLineId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _OrderLineId;
+        partial void OnOrderLineIdChanging(int value);
+        partial void OnOrderLineIdChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
     /// 架构中不存在 UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceDTO 的注释。
     /// </summary>
     /// <KeyProperties>
@@ -975,8 +1115,9 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="orderId">OrderId 的初始值。</param>
         /// <param name="supplierId">SupplierId 的初始值。</param>
         /// <param name="currencyId">CurrencyId 的初始值。</param>
+        /// <param name="invoiceLines">InvoiceLines 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static PrepaymentInvoiceDTO CreatePrepaymentInvoiceDTO(int prepaymentInvoiceId, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int orderId, int supplierId, int currencyId)
+        public static PrepaymentInvoiceDTO CreatePrepaymentInvoiceDTO(int prepaymentInvoiceId, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int orderId, int supplierId, int currencyId, global::System.Collections.ObjectModel.ObservableCollection<PrepaymentInvoiceLineDTO> invoiceLines)
         {
             PrepaymentInvoiceDTO prepaymentInvoiceDTO = new PrepaymentInvoiceDTO();
             prepaymentInvoiceDTO.PrepaymentInvoiceId = prepaymentInvoiceId;
@@ -990,6 +1131,11 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             prepaymentInvoiceDTO.OrderId = orderId;
             prepaymentInvoiceDTO.SupplierId = supplierId;
             prepaymentInvoiceDTO.CurrencyId = currencyId;
+            if ((invoiceLines == null))
+            {
+                throw new global::System.ArgumentNullException("invoiceLines");
+            }
+            prepaymentInvoiceDTO.InvoiceLines = invoiceLines;
             return prepaymentInvoiceDTO;
         }
         /// <summary>
@@ -1389,10 +1535,10 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         partial void OnPaymentScheduleLineIdChanging(global::System.Nullable<int> value);
         partial void OnPaymentScheduleLineIdChanged();
         /// <summary>
-        /// 架构中不存在 InvoiceLines 的注释。
+        /// 架构中不存在属性 InvoiceLines 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Data.Services.Client.DataServiceCollection<PrepaymentInvoiceDTO> InvoiceLines
+        public global::System.Collections.ObjectModel.ObservableCollection<PrepaymentInvoiceLineDTO> InvoiceLines
         {
             get
             {
@@ -1400,12 +1546,16 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             }
             set
             {
+                this.OnInvoiceLinesChanging(value);
                 this._InvoiceLines = value;
+                this.OnInvoiceLinesChanged();
                 this.OnPropertyChanged("InvoiceLines");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Data.Services.Client.DataServiceCollection<PrepaymentInvoiceDTO> _InvoiceLines = new global::System.Data.Services.Client.DataServiceCollection<PrepaymentInvoiceDTO>(null, global::System.Data.Services.Client.TrackingMode.None);
+        private global::System.Collections.ObjectModel.ObservableCollection<PrepaymentInvoiceLineDTO> _InvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<PrepaymentInvoiceLineDTO>();
+        partial void OnInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<PrepaymentInvoiceLineDTO> value);
+        partial void OnInvoiceLinesChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

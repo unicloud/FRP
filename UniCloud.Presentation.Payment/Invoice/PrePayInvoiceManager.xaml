@@ -52,7 +52,7 @@
                                                    CommandParameter="{Binding }">
                                     <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                            Stretch="Fill"
-                                           ToolTipService.ToolTip="保存" />
+                                           ToolTipService.ToolTip="保存发票" />
                                 </telerik:RadButton>
                                 <telerik:RadButton Margin="2,2,2,-2"
                                                    Command="{Binding AbortCommand}"
@@ -66,21 +66,21 @@
                                                    Command="{Binding NewCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/New.png"
                                            Stretch="Fill"
-                                           ToolTipService.ToolTip="New Document" />
+                                           ToolTipService.ToolTip="新建预付款发票" />
                                 </telerik:RadButton>
                                 <telerik:RadButton Margin="2,2,2,-2"
                                                    Command="{Binding DeleteCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
                                            Stretch="Fill"
-                                           ToolTipService.ToolTip="New Document" />
+                                           ToolTipService.ToolTip="删除预付款发票" />
                                 </telerik:RadButton>
                             </telerik:RadToolBar>
                             <telerik:RadGridView IsReadOnly="True"
                                                  Grid.Row="1"
-                                                 ItemsSource="{Binding }"
-                                                 IsBusy="{Binding }"
+                                                 ItemsSource="{Binding PrepaymentInvoices}"
+                                                 IsBusy="{Binding PrepaymentInvoices.IsBusy}"
                                                  AutoGenerateColumns="False"
-                                                 SelectedItem="{Binding }"
+                                                 SelectedItem="{Binding SelPrepaymentInvoice}"
                                                  AutoExpandGroups="True"
                                                  ShowGroupPanel="False"
                                                  CanUserSortColumns="True"
@@ -120,11 +120,31 @@
                                          FontSize="{StaticResource TextFontSize}"
                                          ContextMenuTemplate="{x:Null}">
                             <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                    Margin="-1 -2 -1 0">
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                                                       Command="{Binding AddCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Add.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="新增发票行" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                                                       Command="{Binding RemoveCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="删除发票行" />
+                                    </telerik:RadButton>
+                                </telerik:RadToolBar>
                                 <telerik:RadGridView IsReadOnly="True"
-                                                     ItemsSource="{Binding }"
-                                                     IsBusy="{Binding }"
+                                                     Grid.Row="1"
+                                                     ItemsSource="{Binding PrepaymentInvoiceLines}"
+                                                     IsBusy="{Binding PrepaymentInvoices.IsBusy}"
                                                      AutoGenerateColumns="False"
-                                                     SelectedItem="{Binding }"
+                                                     SelectedItem="{Binding SelPrepaymentInvoiceLine}"
                                                      AutoExpandGroups="True"
                                                      ShowGroupPanel="False"
                                                      CanUserSortColumns="True"
