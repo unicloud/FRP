@@ -37,7 +37,7 @@ namespace UniCloud.Domain
         /// <summary>
         ///     获取持久化对象的ID
         /// </summary>
-        public Guid Id { get; set; }
+        public Guid Id { get; protected set; }
 
         #endregion
 

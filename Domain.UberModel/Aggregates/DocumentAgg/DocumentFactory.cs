@@ -51,8 +51,8 @@ namespace UniCloud.Domain.UberModel.Aggregates.DocumentAgg
                 IsValid = isValid,
                 CreateTime = DateTime.Now,
                 FileStorage = stream,
-                Id = docId,
             };
+            doc.ChangeCurrentIdentity(docId);
             doc.SetIndexStatus(IndexStatus.未建);
             return doc;
         }

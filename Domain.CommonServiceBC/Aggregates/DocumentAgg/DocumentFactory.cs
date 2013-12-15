@@ -43,7 +43,6 @@ namespace UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg
         {
             var doc = new StandardDocument
                 {
-                    Id = docId,
                     FileName = fileName,
                     Extension = extension,
                     Abstract = abstractInfo,
@@ -53,6 +52,7 @@ namespace UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg
                     CreateTime = DateTime.Now,
                     FileStorage = stream
                 };
+            doc.ChangeCurrentIdentity(docId);
             doc.SetIndexStatus(IndexStatus.未建);
             return doc;
         }
