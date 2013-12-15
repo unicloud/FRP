@@ -25,11 +25,12 @@ namespace UniCloud.Application.PurchaseBC.DTO
     ///  租赁发动机接收项目
     /// </summary>
     [DataServiceKey("EngineLeaseReceptionId")]
-    public partial class EngineLeaseReceptionDTO : ReceptionDTO
+    public partial class EngineLeaseReceptionDTO
     {
         public EngineLeaseReceptionDTO()
         {
             ReceptionLines = new List<EngineLeaseReceptionLineDTO>();
+            ReceptionSchedules = new List<ReceptionScheduleDTO>();
         }
 
         #region 属性
@@ -37,6 +38,54 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// 租赁发动机接收项目主键
         /// </summary>
         public int EngineLeaseReceptionId { get; set; }
+
+        /// <summary>
+        /// 接机编号
+        /// </summary>
+        public string ReceptionNumber { get; set; }
+        /// <summary>
+        /// 描述
+        /// </summary>
+        public string Description { get; set; }
+        /// <summary>
+        /// 交付起始时间
+        /// </summary>
+ 
+        public DateTime StartDate { get; set; }
+        /// <summary>
+        /// 交付截止时间
+        /// </summary>
+        public DateTime? EndDate { get; set; }
+        /// <summary>
+        /// 创建日期
+        /// </summary>
+        public DateTime CreateDate { get; set; }
+        /// <summary>
+        /// 是否关闭
+        /// </summary>
+        public bool IsClosed { get; set; }
+        /// <summary>
+        /// 关闭日期
+        /// </summary>
+        public DateTime? CloseDate { get; set; }
+
+        /// <summary>
+        /// 供应商
+        /// </summary>
+        public string SupplierName { get; set; }
+
+        /// <summary>
+        /// 源ID
+        /// </summary>
+        public Guid SourceId { get; set; }
+        #endregion
+
+        #region 外键属性
+
+        /// <summary>
+        /// 供应商外键
+        /// </summary>
+        public int SupplierId { get; set; }
 
         #endregion
 
@@ -46,6 +95,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     接收行
         /// </summary>
         public List<EngineLeaseReceptionLineDTO> ReceptionLines { get; set; }
+
+        /// <summary>
+        ///     交付日程
+        /// </summary>
+        public List<ReceptionScheduleDTO> ReceptionSchedules { get; set; }
         #endregion
     }
 }

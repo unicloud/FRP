@@ -31,13 +31,22 @@ namespace UniCloud.Application.PurchaseBC.DTO
 
         #region 属性
 
-        //发动机生产序列号
+        
+        /// <summary>
+        /// 发动机生产序列号
+        /// </summary>
         public string SerialNumber { get; set; }
-        //合同号
+        /// <summary>
+        /// 合同号
+        /// </summary>
         public string ContractNumber { get; set; }
-        //合同名称
+        /// <summary>
+        /// 合同名称
+        /// </summary>
         public string ContractName { get; set; }
-        //Rank号
+        /// <summary>
+        /// Rank号
+        /// </summary>
         public string RankNumber { get; set; }
 
         /// <summary>

@@ -26,36 +26,83 @@ namespace UniCloud.Application.PurchaseBC.DTO
     /// 接收行
     /// </summary>
     [DataServiceKey("AircraftLeaseReceptionLineId")]
-    public partial class AircraftLeaseReceptionLineDTO : ReceptionLineDTO
+    public partial class AircraftLeaseReceptionLineDTO
     {
         /// <summary>
         /// 租赁飞机接收行主键
         /// </summary>
         public int AircraftLeaseReceptionLineId { get; set; }
-        //飞机生产序列号
+
+        /// <summary>
+        /// 接收数量
+        /// </summary>
+ 
+        public int ReceivedAmount { get; set; }
+        /// <summary>
+        /// 实际接收数量
+        /// </summary>
+        public int AcceptedAmount { get; set; }
+        /// <summary>
+        /// 是否完成
+        /// </summary>
+ 
+        public bool IsCompleted { get; set; }
+        /// <summary>
+        /// 备注
+        /// </summary>
+ 
+        public string Note { get; set; }
+
+        /// <summary>
+        /// 飞机生产序列号
+        /// </summary>
         public string MSN { get; set; }
-        //合同号
+        /// <summary>
+        /// 合同号
+        /// </summary>
         public string ContractNumber { get; set; }
-        //合同名称
+        /// <summary>
+        /// 合同名称
+        /// </summary>
         public string ContractName { get; set; }
-        //Rank号
+        /// <summary>
+        /// Rank号
+        /// </summary>
         public string RankNumber { get; set; }
-        //机型
+        /// <summary>
+        /// 机型
+        /// </summary>
         public string AircraftType { get; set; }
-        //选呼号
+        /// <summary>
+        /// 选呼号
+        /// </summary>
         public string DailNumber { get; set; }
-        //计划交付时间
+        /// <summary>
+        /// 计划交付时间
+        /// </summary>
         public DateTime DeliverDate { get; set; }
-        //计划交付地点
+        /// <summary>
+        /// 计划交付地点
+        /// </summary>
         public string DeliverPlace { get; set; }
-        //调机航班号
+        /// <summary>
+        /// 调机航班号
+        /// </summary>
         public string FlightNumber { get; set; }
-        //引进方式
+        /// <summary>
+        /// 引进方式
+        /// </summary>
         public string ImportCategoryId { get; set; }
-        //引进批文号
+        /// <summary>
+        /// 引进批文号
+        /// </summary>
         public string ApprovalDocNumber { get; set; }
 
         #region 外键属性
+        /// <summary>
+        ///     接收ID
+        /// </summary>
+        public int ReceptionId { get; set; }
 
         /// <summary>
         ///     租赁合同飞机ID
