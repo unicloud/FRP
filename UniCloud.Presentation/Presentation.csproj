@@ -375,6 +375,12 @@
   <ItemGroup>
     <Resource Include="Images\OpenDocument.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SmallAddDocument.png" />
+    <Resource Include="Images\SmallAddFolder.png" />
+    <Resource Include="Images\SmallDelDocument.png" />
+    <Resource Include="Images\SmallOpenDocument.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

@@ -39,14 +39,5 @@ namespace UniCloud.Application.CommonServiceBC.Query.DocumentQueries
         /// <returns>文档。</returns>
         IQueryable<DocumentDTO> DocumentsQuery(
             QueryBuilder<Document> query);
-
-        /// <summary>
-        ///     查询文档路径。
-        /// </summary>
-        /// <param name="query">查询条件。</param>
-        /// <returns>文档路径。</returns>
-        IQueryable<DocumentPathDTO> DocumentPathsQuery(
-            QueryBuilder<DocumentPath> query);
-  
     }
 }

@@ -51,28 +51,5 @@ namespace UniCloud.Application.CommonServiceBC.Query.DocumentQueries
                     FileStorage = p.FileStorage
                 });
         }
-        public IQueryable<DocumentPathDTO> DocumentPathsQuery(QueryBuilder<DocumentPath> query)
-        {
-            return query.ApplyTo(_unitOfWork.CreateSet<DocumentPath>()).Select(p => new DocumentPathDTO
-                {
-                    DocumentPathId = p.Id,
-                    DocumentGuid = p.DocumentGuid,
-                    Name = p.Name,
-                    Extension = p.Extension,
-                    IsLeaf = p.IsLeaf,
-                    ParentId = p.ParentId,
-                    PathSource = (int) p.PathSource,
-                    SubDocumentPaths = p.DocumentPaths.Select(c => new SubDocumentPathDTO
-                        {
-                            SubDocumentPathId = c.Id,
-                            DocumentGuid = c.DocumentGuid,
-                            Name = c.Name,
-                            Extension = c.Extension,
-                            IsLeaf = c.IsLeaf,
-                            ParentId = c.ParentId,
-                            PathSource = (int)c.PathSource
-                        }).ToList(),
-                });
-        }
     }
 }

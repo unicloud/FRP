@@ -48,15 +48,6 @@ namespace UniCloud.DistributedServices.CommonService
         {
             get { return _documentAppService.GetDocuments(); }
         }
-
-        /// <summary>
-        ///     文件夹信息。
-        /// </summary>
-        public IQueryable<DocumentPathDTO> DocumentPaths
-        {
-            get { return _documentAppService.GetDocumentPaths(); }
-        }
-
         #endregion
     }
 }

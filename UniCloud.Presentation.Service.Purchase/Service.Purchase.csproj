@@ -101,6 +101,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocumentExtension\ImagePathHelper.cs" />
+    <Compile Include="DocumentExtension\ListBoxDocumentItem.cs" />
+    <Compile Include="DocumentExtension\ListBoxItemHelper.cs" />
     <Compile Include="GlobalServiceHelper.cs">
       <SubType>Code</SubType>
     </Compile>

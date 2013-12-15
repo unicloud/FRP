@@ -70,6 +70,8 @@
     <Compile Include="ContractQueries\MaintainContractQuery.cs" />
     <Compile Include="CurrencyQueries\CurrencyQuery.cs" />
     <Compile Include="CurrencyQueries\ICurrencyQuery.cs" />
+    <Compile Include="DocumentQueries\DocumentPathQuery.cs" />
+    <Compile Include="DocumentQueries\IDocumentPathQuery.cs" />
     <Compile Include="ForwarderQueries\ForwarderQuery.cs" />
     <Compile Include="ForwarderQueries\IForwarderQuery.cs" />
     <Compile Include="MaterialQueries\MaterialQuery.cs" />
