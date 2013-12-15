@@ -82,13 +82,13 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public string Note { get; set; }
 
         /// <summary>
-        ///     购买合同飞机ID
+        ///     合同飞机ID
         /// </summary>
         public int ContractAircraftId { get; set; }
 
         /// <summary>
-        ///     机型ID
+        ///     飞机物料ID
         /// </summary>
-        public Guid AircraftTypeId { get; set; }
+        public int AircraftMaterialId { get; set; }
     }
 }

@@ -41,6 +41,7 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
             Property(p => p.RefitCost).HasColumnName("RefitCost");
             Property(p => p.EnginePrice).HasColumnName("EnginePrice");
 
+            Property(p => p.AircraftMaterialId).HasColumnName("AircraftMaterialId");
             Property(p => p.ContractAircraftId).HasColumnName("ContractAircraftId");
 
             HasRequired(a => a.PurchaseContractAircraft)

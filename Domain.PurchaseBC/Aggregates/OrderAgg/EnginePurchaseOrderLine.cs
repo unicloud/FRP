@@ -19,6 +19,7 @@
 
 using System;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 
 #endregion
 
@@ -49,22 +50,61 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         #region 外键属性
 
         /// <summary>
+        ///     发动机物料ID
+        /// </summary>
+        public int EngineMaterialId { get; private set; }
+
+        /// <summary>
         ///     购买合同发动机ID
         /// </summary>
-        public int ContractEngineId { get; set; }
+        public int ContractEngineId { get; private set; }
 
         #endregion
 
         #region 导航属性
 
         /// <summary>
+        ///     发动机物料
+        /// </summary>
+        public virtual EngineMaterial EngineMaterial { get; private set; }
+
+        /// <summary>
         ///     购买合同发动机
         /// </summary>
-        public virtual PurchaseContractEngine PurchaseContractEngine { get; set; }
+        public virtual PurchaseContractEngine PurchaseContractEngine { get; private set; }
 
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置发动机物料
+        /// </summary>
+        /// <param name="engineMaterial">发动机物料</param>
+        public void SetEngineMaterial(EngineMaterial engineMaterial)
+        {
+            if (engineMaterial == null || engineMaterial.IsTransient())
+            {
+                throw new ArgumentException("发动机物料参数为空！");
+            }
+
+            EngineMaterial = engineMaterial;
+            EngineMaterialId = engineMaterial.Id;
+        }
+
+        /// <summary>
+        ///     设置发动机物料
+        /// </summary>
+        /// <param name="engineMaterialId">发动机物料ID</param>
+        public void SetEngineMaterial(int engineMaterialId)
+        {
+            if (engineMaterialId == 0)
+            {
+                throw new ArgumentException("发动机物料ID参数为空！");
+            }
+
+            EngineMaterialId = engineMaterialId;
+        }
 
         /// <summary>
         ///     设置购买合同发动机

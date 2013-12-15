@@ -52,6 +52,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.OrderAgg
 
         #region 外键属性
 
+        /// <summary>
+        ///     BFE物料ID
+        /// </summary>
+        public int BFEMaterialId { get; protected set; }
+
         #endregion
 
         #region 导航属性

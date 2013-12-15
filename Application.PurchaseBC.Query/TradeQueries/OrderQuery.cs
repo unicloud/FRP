@@ -68,15 +68,18 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     ContractDocGuid = o.ContractDocGuid,
                     SourceGuid = o.SourceGuid,
                     Note = o.Note,
-                    AircraftLeaseOrderLines = o.OrderLines.Select(l => new AircraftLeaseOrderLineDTO
-                    {
-                        Id = l.Id,
-                        UnitPrice = l.UnitPrice,
-                        Amount = l.Amount,
-                        Discount = l.Discount,
-                        EstimateDeliveryDate = l.EstimateDeliveryDate,
-                        Note = l.Note
-                    }).ToList(),
+                    AircraftLeaseOrderLines =
+                        o.OrderLines.OfType<AircraftLeaseOrderLine>().Select(l => new AircraftLeaseOrderLineDTO
+                        {
+                            Id = l.Id,
+                            UnitPrice = l.UnitPrice,
+                            Amount = l.Amount,
+                            Discount = l.Discount,
+                            EstimateDeliveryDate = l.EstimateDeliveryDate,
+                            Note = l.Note,
+                            ContractAircraftId = l.ContractAircraftId,
+                            AircraftMaterialId = l.AircraftMaterialId
+                        }).ToList(),
                     RelatedDocs = relatedDocs.Where(r => r.SourceId == o.SourceGuid).Select(r => new RelatedDocDTO
                     {
                         Id = r.Id,
@@ -127,7 +130,9 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                             RefitCost = l.RefitCost,
                             EnginePrice = l.EnginePrice,
                             EstimateDeliveryDate = l.EstimateDeliveryDate,
-                            Note = l.Note
+                            Note = l.Note,
+                            ContractAircraftId = l.ContractAircraftId,
+                            AircraftMaterialId = l.AircraftMaterialId
                         }).ToList(),
                     RelatedDocs = relatedDocs.Where(r => r.SourceId == o.SourceGuid).Select(r => new RelatedDocDTO
                     {
@@ -168,15 +173,17 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     ContractDocGuid = o.ContractDocGuid,
                     SourceGuid = o.SourceGuid,
                     Note = o.Note,
-                    EngineLeaseOrderLines = o.OrderLines.Select(l => new EngineLeaseOrderLineDTO
-                    {
-                        Id = l.Id,
-                        UnitPrice = l.UnitPrice,
-                        Amount = l.Amount,
-                        Discount = l.Discount,
-                        EstimateDeliveryDate = l.EstimateDeliveryDate,
-                        Note = l.Note
-                    }).ToList(),
+                    EngineLeaseOrderLines =
+                        o.OrderLines.OfType<EngineLeaseOrderLine>().Select(l => new EngineLeaseOrderLineDTO
+                        {
+                            Id = l.Id,
+                            UnitPrice = l.UnitPrice,
+                            Amount = l.Amount,
+                            Discount = l.Discount,
+                            EstimateDeliveryDate = l.EstimateDeliveryDate,
+                            Note = l.Note,
+                            EngineMaterialId = l.EngineMaterialId
+                        }).ToList(),
                     RelatedDocs = relatedDocs.Where(r => r.SourceId == o.SourceGuid).Select(r => new RelatedDocDTO
                     {
                         Id = r.Id,
@@ -216,15 +223,17 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     ContractDocGuid = o.ContractDocGuid,
                     SourceGuid = o.SourceGuid,
                     Note = o.Note,
-                    EnginePurchaseOrderLines = o.OrderLines.Select(l => new EnginePurchaseOrderLineDTO
-                    {
-                        Id = l.Id,
-                        UnitPrice = l.UnitPrice,
-                        Amount = l.Amount,
-                        Discount = l.Discount,
-                        EstimateDeliveryDate = l.EstimateDeliveryDate,
-                        Note = l.Note
-                    }).ToList(),
+                    EnginePurchaseOrderLines =
+                        o.OrderLines.OfType<EnginePurchaseOrderLine>().Select(l => new EnginePurchaseOrderLineDTO
+                        {
+                            Id = l.Id,
+                            UnitPrice = l.UnitPrice,
+                            Amount = l.Amount,
+                            Discount = l.Discount,
+                            EstimateDeliveryDate = l.EstimateDeliveryDate,
+                            Note = l.Note,
+                            EngineMaterialId = l.EngineMaterialId
+                        }).ToList(),
                     RelatedDocs = relatedDocs.Where(r => r.SourceId == o.SourceGuid).Select(r => new RelatedDocDTO
                     {
                         Id = r.Id,
@@ -264,15 +273,17 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     ContractDocGuid = o.ContractDocGuid,
                     SourceGuid = o.SourceGuid,
                     Note = o.Note,
-                    BFEPurchaseOrderLines = o.OrderLines.Select(l => new BFEPurchaseOrderLineDTO
-                    {
-                        Id = l.Id,
-                        UnitPrice = l.UnitPrice,
-                        Amount = l.Amount,
-                        Discount = l.Discount,
-                        EstimateDeliveryDate = l.EstimateDeliveryDate,
-                        Note = l.Note
-                    }).ToList(),
+                    BFEPurchaseOrderLines =
+                        o.OrderLines.OfType<BFEPurchaseOrderLine>().Select(l => new BFEPurchaseOrderLineDTO
+                        {
+                            Id = l.Id,
+                            UnitPrice = l.UnitPrice,
+                            Amount = l.Amount,
+                            Discount = l.Discount,
+                            EstimateDeliveryDate = l.EstimateDeliveryDate,
+                            Note = l.Note,
+                            BFEMaterialId = l.BFEMaterialId
+                        }).ToList(),
                     RelatedDocs = relatedDocs.Where(r => r.SourceId == o.SourceGuid).Select(r => new RelatedDocDTO
                     {
                         Id = r.Id,

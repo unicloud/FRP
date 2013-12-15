@@ -19,6 +19,7 @@
 
 using System;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 
 #endregion
 
@@ -64,22 +65,61 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         #region 外键属性
 
         /// <summary>
+        ///     飞机物料ID
+        /// </summary>
+        public int AircraftMaterialId { get; private set; }
+
+        /// <summary>
         ///     购买合同飞机ID
         /// </summary>
-        public int ContractAircraftId { get; set; }
+        public int ContractAircraftId { get; private set; }
 
         #endregion
 
         #region 导航属性
 
         /// <summary>
+        ///     飞机物料
+        /// </summary>
+        public virtual AircraftMaterial AircraftMaterial { get; private set; }
+
+        /// <summary>
         ///     购买合同飞机
         /// </summary>
-        public virtual PurchaseContractAircraft PurchaseContractAircraft { get; set; }
+        public virtual PurchaseContractAircraft PurchaseContractAircraft { get; private set; }
 
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置飞机物料
+        /// </summary>
+        /// <param name="aircraftMaterial">飞机物料</param>
+        public void SetAircraftMaterial(AircraftMaterial aircraftMaterial)
+        {
+            if (aircraftMaterial == null || aircraftMaterial.IsTransient())
+            {
+                throw new ArgumentException("飞机物料参数为空！");
+            }
+
+            AircraftMaterial = aircraftMaterial;
+            AircraftMaterialId = aircraftMaterial.Id;
+        }
+
+        /// <summary>
+        ///     设置飞机物料
+        /// </summary>
+        /// <param name="aircraftMaterialId">飞机物料ID</param>
+        public void SetAircraftMaterial(int aircraftMaterialId)
+        {
+            if (aircraftMaterialId == 0)
+            {
+                throw new ArgumentException("飞机物料ID参数为空！");
+            }
+
+            AircraftMaterialId = aircraftMaterialId;
+        }
 
         /// <summary>
         ///     设置价格成本

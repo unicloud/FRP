@@ -48,6 +48,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.OrderAgg
         #region 外键属性
 
         /// <summary>
+        ///     发动机物料ID
+        /// </summary>
+        public int EngineMaterialId { get; protected set; }
+
+        /// <summary>
         ///     租赁合同发动机ID
         /// </summary>
         public int ContractEngineId { get; protected set; }
