@@ -25,7 +25,44 @@ using System.Threading.Tasks;
 
 namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
 {
-    class CreditMemoQuery
+    /// <summary>
+    /// 合同发动机查询实现
+    /// </summary>
+    public class CreditMemoQuery : ICreditMemoQuery
     {
+    //            private readonly IQueryableUnitOfWork _unitOfWork;
+    //    public CreditMemoQuery(IQueryableUnitOfWork unitOfWork)
+    //    {
+    //        _unitOfWork = unitOfWork;
+    //    }
+
+    //    /// <summary>
+    //    ///    所有合同发动机查询
+    //    /// </summary>
+    //    /// <param name="query">查询表达式。</param>
+    //    /// <returns>合同发动机DTO集合。</returns>
+    //    public IQueryable<CreditMemoDTO> ContractEngineDTOQuery(
+    //        QueryBuilder<CreditMemo> query)
+    //    {
+            
+    //        return
+    //            query.ApplyTo(_unitOfWork.CreateSet<ContractEngine>())
+    //                 .Select(p => new ContractEngineDTO
+    //                 {
+    //                     ContractName = p.ContractName,
+    //                     ContractNumber = p.ContractNumber,
+    //                     RankNumber = p.RankNumber,
+    //                     SerialNumber = p.SerialNumber,
+    //                     IsValid = p.IsValid,
+    //                     ReceivedAmount = p.ReceivedAmount,
+    //                     AcceptedAmount = p.AcceptedAmount,
+    //                     ImportCategoryId = p.ImportCategoryId,
+    //                     ImportType = p.ImportCategory.ActionType,
+    //                     ImportActionName = p.ImportCategory.ActionName,
+    //                 });
+    //    }
+
+    //}
+
     }
 }

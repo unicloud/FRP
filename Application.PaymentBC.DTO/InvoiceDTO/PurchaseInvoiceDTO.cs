@@ -32,5 +32,115 @@ namespace UniCloud.Application.PaymentBC.DTO
     [DataServiceKey("PurchaseInvoiceId")]
     public class PurchaseInvoiceDTO
     {
+        public PurchaseInvoiceDTO()
+        {
+            InvoiceLines=new List<PurchaseInvoiceLineDTO>();
+        }
+
+        #region 属性
+        /// <summary>
+        /// 采购发票主键
+        /// </summary>
+        public int PurchaseInvoiceId { get; set; }
+
+        /// <summary>
+        ///     发票编号
+        /// </summary>
+        public string InvoiceNumber { get; private set; }
+
+        /// <summary>
+        ///     发票号码
+        /// </summary>
+        public string InvoideCode { get; internal set; }
+
+        /// <summary>
+        ///     发票日期
+        /// </summary>
+        public DateTime InvoiceDate { get; internal set; }
+
+        /// <summary>
+        ///     供应商名称
+        /// </summary>
+        public string SupplierName { get; private set; }
+
+        /// <summary>
+        ///     发票金额
+        /// </summary>
+        public decimal InvoiceValue { get; private set; }
+
+        /// <summary>
+        ///     已付金额
+        /// </summary>
+        public decimal PaidAmount { get; private set; }
+
+        /// <summary>
+        ///     经办人
+        /// </summary>
+        public string OperatorName { get; private set; }
+
+        /// <summary>
+        ///     审核人
+        /// </summary>
+        public string Reviewer { get; private set; }
+
+        /// <summary>
+        ///     创建日期
+        /// </summary>
+        public DateTime CreateDate { get; internal set; }
+
+        /// <summary>
+        ///     审核日期
+        /// </summary>
+        public DateTime? ReviewDate { get; private set; }
+
+        /// <summary>
+        ///     是否有效
+        /// </summary>
+        public bool IsValid { get; private set; }
+
+        /// <summary>
+        ///     是否完成
+        /// </summary>
+        public bool IsCompleted { get; private set; }
+
+        /// <summary>
+        ///     发票状态
+        /// </summary>
+        public int Status { get; private set; }
+
+        #endregion
+
+        #region 外键属性
+
+        /// <summary>
+        ///     订单ID
+        /// </summary>
+        public int OrderId { get; private set; }
+
+        /// <summary>
+        ///     供应商ID
+        /// </summary>
+        public int SupplierId { get; private set; }
+
+        /// <summary>
+        ///     币种ID
+        /// </summary>
+        public int CurrencyId { get; private set; }
+
+        /// <summary>
+        ///     付款计划行ID
+        /// </summary>
+        public int? PaymentScheduleLineId { get; private set; }
+
+        #endregion
+
+        #region 导航属性
+
+        /// <summary>
+        ///    采购发票行集合
+        /// </summary>
+        public List<PurchaseInvoiceLineDTO> InvoiceLines { get; set; }
+
+        #endregion
     }
 }
