@@ -464,10 +464,38 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 子窗体相关
 
-        [Import] public AddDocumentPathChild AddDocumentPathChildView; //初始化子窗体
+        [Import] public AddDocumentPathChild AddDocumentPathChildView; //初始化添加文档路径子窗体
+        [Import]
+        public AddDocumetChild AddDocumetChildView; //初始化添加文档子窗体
+
+        //#region 加载OrderDocumentDTO相关信息
+
+        ///// <summary>
+        /////     订单文档View
+        ///// </summary>
+        //public QueryableDataServiceCollectionView<OrderDocumentDTO> OrderDocumentView { get; set; }
+
+    
+        ///// <summary>
+        /////     初始化订单文档
+        ///// </summary>
+        //private void InitialOrderDocument()
+        //{
+        //    OrderDocumentView = Service.CreateCollection(_context.DocumentPaths.Expand(p => p.SubDocumentPaths));
+        //    OrderDocumentView.LoadedData += (sender, e) =>
+        //    {
+        //        if (e.HasError)
+        //        {
+        //            e.MarkErrorAsHandled();
+        //            return;
+        //        }
+        //        GetListBoxDocumentItem();
+        //    };
+        //}
+
+        //#endregion
 
         private string _documentName;
-
         /// <summary>
         ///     新建文件夹路径名称
         /// </summary>

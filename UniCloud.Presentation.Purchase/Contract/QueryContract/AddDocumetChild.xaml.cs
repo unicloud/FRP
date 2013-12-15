@@ -1,22 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
+    [Export(typeof (AddDocumetChild))]
+    [PartCreationPolicy(CreationPolicy.Shared)]
     public partial class AddDocumetChild
     {
         public AddDocumetChild()
         {
             InitializeComponent();
+        }
+
+        [Import]
+        public QueryContractVM ViewModel
+        {
+            get { return DataContext as QueryContractVM; }
+            set { DataContext = value; }
         }
     }
 }

@@ -118,6 +118,7 @@
     <Compile Include="ReceptionDTO\AircraftLeaseReceptionLineDTO.cs" />
     <Compile Include="ReceptionDTO\EngineLeaseReceptionLineDTO.cs" />
     <Compile Include="ReceptionDTO\ReceptionScheduleDTO.cs" />
+    <Compile Include="TradeDTO\OrderDocumentDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

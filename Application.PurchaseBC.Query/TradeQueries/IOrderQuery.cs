@@ -61,5 +61,13 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
         /// <param name="query">查询表达式</param>
         /// <returns>采购BFE订单集合</returns>
         IQueryable<BFEPurchaseOrderDTO> BFEPurchaseOrderQuery(QueryBuilder<Order> query);
+
+         /// <summary>
+        ///     查询订单的合同文档
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        /// <returns>订单合同集合</returns>
+        IQueryable<OrderDocumentDTO> OrderDocumentQuery(QueryBuilder<Order> query);
+        
     }
 }

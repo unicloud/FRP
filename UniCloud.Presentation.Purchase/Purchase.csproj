@@ -222,6 +222,9 @@
     <Compile Include="Contract\QueryContract\AddDocumentPathChild.xaml.cs">
       <DependentUpon>AddDocumentPathChild.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Contract\QueryContract\AddDocumetChild.xaml.cs">
+      <DependentUpon>AddDocumetChild.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Contract\QueryContract\QueryContractDbClickHelper.cs" />
     <Compile Include="Contract\QueryContract\QueryContract.xaml.cs">
       <DependentUpon>QueryContract.xaml</DependentUpon>
@@ -330,6 +333,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Contract\QueryContract\AddDocumentPathChild.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Contract\QueryContract\AddDocumetChild.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

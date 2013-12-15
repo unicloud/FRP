@@ -64,5 +64,11 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
         /// </summary>
         /// <returns></returns>
         IQueryable<BFEPurchaseOrderDTO> GetBFEPurchaseOrders();
+
+        /// <summary>
+        ///     获取订单文档集合
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<OrderDocumentDTO> GetOrderDocuments();
     }
 }
