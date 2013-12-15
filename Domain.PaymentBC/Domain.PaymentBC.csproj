@@ -78,11 +78,8 @@
     <Compile Include="Aggregates\InvoiceAgg\InvoiceLine.cs" />
     <Compile Include="Aggregates\InvoiceAgg\InvoiceSpecifications.cs" />
     <Compile Include="Aggregates\InvoiceAgg\PrepaymentInvoice.cs" />
-    <Compile Include="Aggregates\InvoiceAgg\PrepaymentInvoiceLine.cs" />
     <Compile Include="Aggregates\InvoiceAgg\PurchaseInvoice.cs" />
-    <Compile Include="Aggregates\InvoiceAgg\PurchaseInvoiceLine.cs" />
     <Compile Include="Aggregates\InvoiceAgg\LeaseInvoice.cs" />
-    <Compile Include="Aggregates\InvoiceAgg\LeaseInvoiceLine.cs" />
     <Compile Include="Aggregates\LinkmanAgg\ILinkmanRepository.cs" />
     <Compile Include="Aggregates\LinkmanAgg\Linkman.cs" />
     <Compile Include="Aggregates\LinkmanAgg\LinkmanSpecifications.cs" />
@@ -92,6 +89,11 @@
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContractSpecifications.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\UndercartMaintainContract.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\IMaintainInvoiceRepository.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoice.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoiceFactory.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoiceLine.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoiceSpecifications.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftLeaseOrder.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftLeaseOrderLine.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftPurchaseOrder.cs" />
@@ -132,7 +134,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Aggregates\MaintainInvoiceAgg\" />
     <Folder Include="Services\" />
     <Folder Include="ValueObjects\" />
   </ItemGroup>

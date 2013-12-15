@@ -30,7 +30,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
     ///     发票聚合根
     ///     发票行
     /// </summary>
-    public abstract class InvoiceLine : EntityInt, IValidatableObject
+    public class InvoiceLine : EntityInt, IValidatableObject
     {
         #region 构造函数
 
