@@ -42,31 +42,5 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
         /// <param name="document">文档DTO</param>
         void InsertDocument(DocumentDTO document);
 
-
-        /// <summary>
-        /// 获取文档路径
-        /// </summary>
-        /// <returns>文档路径</returns>
-        IQueryable<DocumentPathDTO> GetDocumentPaths();
-
-        /// <summary>
-        ///     新增路径DTO。
-        /// </summary>
-        /// <param name="documentPath">文档路径DTO</param>
-        void InsertDocumentPath(DocumentPathDTO documentPath);
-
-        /// <summary>
-        ///     修改文档路径。
-        /// </summary>
-        /// <param name="documentPath">文档路径DTO</param>
-        void ModifyDocumentPath(DocumentPathDTO documentPath);
-
-
-        /// <summary>
-        ///     删除联系人。
-        /// </summary>
-        /// <param name="documentPath">文档路径DTO</param>
-        void DeleteDocumentPath(DocumentPathDTO documentPath);
-
     }
 }

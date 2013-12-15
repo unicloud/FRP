@@ -20,11 +20,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UniCloud.Presentation.Service.CommonService.Common;
+using UniCloud.Presentation.Service.Purchase.Purchase;
 
 #endregion
 
-namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
+namespace UniCloud.Presentation.Service.Purchase.DocumentExtension
 {
     /// <summary>
     ///     文件夹文档转化ListBoxItem

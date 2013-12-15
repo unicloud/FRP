@@ -23,7 +23,7 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.CommonServiceBC.DTO
+namespace UniCloud.Application.PurchaseBC.DTO
 {
     /// <summary>
     ///    文档路径

@@ -204,7 +204,7 @@
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="False"
-                                                     ItemsSource="{Binding SelEnginePurchaseReception.ReceptionLines}"
+                                                     ItemsSource="{Binding EnginePurchaseReceptionLines}"
                                                      SelectedItem="{Binding SelEnginePurchaseReceptionLine,Mode=TwoWay}"
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True"

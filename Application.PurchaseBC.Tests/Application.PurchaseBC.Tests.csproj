@@ -72,6 +72,7 @@
     <Compile Include="Services\ActionCategoryBCTest.cs" />
     <Compile Include="Services\AircraftTypeBCTest.cs" />
     <Compile Include="Services\ContractAircraftBCTest.cs" />
+    <Compile Include="Services\DocumentPathBCTest.cs" />
     <Compile Include="Services\MaintainContractBCTests.cs" />
     <Compile Include="Services\MaterialBCTest.cs" />
     <Compile Include="Services\PartBCTests.cs" />

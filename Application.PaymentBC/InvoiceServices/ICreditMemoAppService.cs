@@ -25,7 +25,10 @@ using System.Threading.Tasks;
 
 namespace UniCloud.Application.PaymentBC.InvoiceServices
 {
-    interface ICreditMemoAppService
+    /// <summary>
+    /// 贷项单服务接口
+    /// </summary>
+    public interface ICreditMemoAppService
     {
     }
 }

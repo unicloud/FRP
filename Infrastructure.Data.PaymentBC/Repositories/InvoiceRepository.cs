@@ -17,7 +17,10 @@
 
 #region 命名空间
 
+using System.Data.Entity;
+using System.Linq;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 
 #endregion
 
@@ -35,6 +38,33 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.Repositories
 
         #region 方法重载
 
+        public override Invoice Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as PaymentBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<Invoice>();
+
+            return set.Include(p => p.InvoiceLines).SingleOrDefault(l => l.Id == (int)id);
+        }
+
+        public override IQueryable<Invoice> GetAll()
+        {
+            var currentUnitOfWork = UnitOfWork as PaymentBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<Invoice>();
+
+            return set.Include(p => p.InvoiceLines);
+        }
+
+        public void DeleteInvoice(Invoice invoice)
+        {
+            var currentUnitOfWork = UnitOfWork as PaymentBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            var dbInvoiceLines = currentUnitOfWork.CreateSet<InvoiceLine>();
+            var dbInvoices = currentUnitOfWork.CreateSet<Invoice>();
+            dbInvoiceLines.RemoveRange(invoice.InvoiceLines);
+            dbInvoices.Remove(invoice);
+        }
         #endregion
     }
 }

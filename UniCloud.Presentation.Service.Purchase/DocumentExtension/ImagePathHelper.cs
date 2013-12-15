@@ -17,11 +17,12 @@
 
 #region 命名空间
 
+using System.Windows.Controls;
 using System.Windows.Media;
 
 #endregion
 
-namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
+namespace UniCloud.Presentation.Service.Purchase.DocumentExtension
 {
     /// <summary>
     ///     文件夹文档转化ListBoxItem
@@ -95,6 +96,21 @@ namespace UniCloud.Presentation.Service.CommonService.DocumentExtension
                 default:
                     return (ImageSource)Isc.ConvertFromString("/UniCloud.Presentation;component/Images/folder.png");
             }
+        }
+
+        /// <summary>
+        /// 根据图片名称 获取图标路径
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static Image GetImageSourceByName(string name)
+        {
+            var path = string.Format("/UniCloud.Presentation;component/Images/{0}.png",name);
+            return new Image
+                {
+                    Source = (ImageSource) Isc.ConvertFromString(path)
+                };
+
         }
     }
 }
