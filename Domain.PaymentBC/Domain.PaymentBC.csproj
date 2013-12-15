@@ -72,6 +72,7 @@
     <Compile Include="Aggregates\GuaranteeAgg\IGuaranteeRepository.cs" />
     <Compile Include="Aggregates\GuaranteeAgg\LeaseGuarantee.cs" />
     <Compile Include="Aggregates\GuaranteeAgg\MaintainGuarantee.cs" />
+    <Compile Include="Aggregates\InvoiceAgg\CreditNoteInvoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\IInvoiceRepository.cs" />
     <Compile Include="Aggregates\InvoiceAgg\Invoice.cs" />
     <Compile Include="Aggregates\InvoiceAgg\InvoiceFactory.cs" />
@@ -108,6 +109,9 @@
     <Compile Include="Aggregates\OrderAgg\Order.cs" />
     <Compile Include="Aggregates\OrderAgg\OrderLine.cs" />
     <Compile Include="Aggregates\OrderAgg\OrderSpecifications.cs" />
+    <Compile Include="Aggregates\PartAgg\IPartRepository.cs" />
+    <Compile Include="Aggregates\PartAgg\Part.cs" />
+    <Compile Include="Aggregates\PartAgg\PartSpecifications.cs" />
     <Compile Include="Aggregates\PaymentNoticeAgg\IPaymentNoticeRepository.cs" />
     <Compile Include="Aggregates\PaymentNoticeAgg\PaymentNotice.cs" />
     <Compile Include="Aggregates\PaymentNoticeAgg\PaymentNoticeFactory.cs" />

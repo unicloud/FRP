@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using UniCloud.Domain.PurchaseBC.Aggregates.PartAgg;
 
 #endregion
@@ -50,7 +51,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
         /// <summary>
         ///     附件ID
         /// </summary>
-        public int PartID { get; set; }
+        public int PartID { get; internal set; }
 
         #endregion
 
@@ -59,11 +60,26 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg
         /// <summary>
         ///     附件
         /// </summary>
-        public virtual Part Part { get; set; }
+        public virtual Part Part { get; private set; }
 
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置附件
+        /// </summary>
+        /// <param name="part">附件</param>
+        public void SetPart(Part part)
+        {
+            if (part == null || part.IsTransient())
+            {
+                throw new ArgumentException("附件参数为空！");
+            }
+
+            Part = part;
+            PartID = part.Id;
+        }
 
         #endregion
     }

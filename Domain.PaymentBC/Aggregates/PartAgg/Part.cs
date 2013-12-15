@@ -4,9 +4,9 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/12/09，22:12
+// 作者：丁志浩 时间：2013/12/15，17:12
 // 方案：FRP
-// 项目：Domain.UberModel
+// 项目：Domain.PaymentBC
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -15,13 +15,12 @@
 
 #endregion
 
-namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
+namespace UniCloud.Domain.PaymentBC.Aggregates.PartAgg
 {
     /// <summary>
-    ///     发票聚合根
-    ///     租赁发票
+    ///     附件聚合根
     /// </summary>
-    public class LeaseInvoice : Invoice
+    public class Part : EntityInt
     {
         #region 构造函数
 
@@ -29,13 +28,23 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal LeaseInvoice()
+        internal Part()
         {
         }
 
         #endregion
 
         #region 属性
+
+        /// <summary>
+        ///     件号
+        /// </summary>
+        public string Pn { get; protected set; }
+
+        /// <summary>
+        ///     名称
+        /// </summary>
+        public string Name { get; protected set; }
 
         #endregion
 

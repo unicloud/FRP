@@ -335,11 +335,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new InvoiceEntityConfiguration())
                 .Add(new InvoiceLineEntityConfiguration())
                 .Add(new LeaseInvoiceEntityConfiguration())
-                .Add(new LeaseInvoiceLineEntityConfiguration())
                 .Add(new PurchaseInvoiceEntityConfiguration())
-                .Add(new PurchaseInvoiceLineEntityConfiguration())
                 .Add(new PrepaymentInvoiceEntityConfiguration())
-                .Add(new PrepaymentInvoiceLineEntityConfiguration())
 
                 #endregion
 

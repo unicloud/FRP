@@ -4,7 +4,7 @@
 // 版权所有 (C) 2013 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/12/07，10:58
+// 作者：丁志浩 时间：2013/12/15，15:23
 // 方案：FRP
 // 项目：Domain.PaymentBC
 // 版本：V1.0.0
@@ -20,17 +20,17 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.PartAgg;
 
 #endregion
 
-namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
+namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
 {
     /// <summary>
-    ///     发票聚合根
-    ///     发票行
+    ///     维修发票聚合根
+    ///     维修发票行
     /// </summary>
-    public class InvoiceLine : EntityInt, IValidatableObject
+    public class MaintainInvoiceLine : EntityInt, IValidatableObject
     {
         #region 构造函数
 
@@ -38,7 +38,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal InvoiceLine()
+        internal MaintainInvoiceLine()
         {
         }
 
@@ -66,45 +66,59 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         #region 外键属性
 
         /// <summary>
-        ///     发票ID
+        ///     维修发票ID
         /// </summary>
-        public int InvoiceId { get; internal set; }
+        public int MaintainInvoiceId { get; internal set; }
 
         /// <summary>
-        ///     订单行ID
+        ///     附件ID
         /// </summary>
-        public int OrderLineId { get; private set; }
+        public int PartID { get; private set; }
 
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        ///     订单行
+        ///     附件
         /// </summary>
-        public virtual OrderLine OrderLine { get; private set; }
+        public virtual Part Part { get; private set; }
 
         #endregion
 
         #region 操作
 
         /// <summary>
-        ///     设置订单行
+        ///     设置附件
         /// </summary>
-        /// <param name="orderLine">订单行</param>
-        public void SetOrderLine(OrderLine orderLine)
+        /// <param name="part">附件</param>
+        public void SetPart(Part part)
         {
-            if (orderLine == null || orderLine.IsTransient())
+            if (part == null || part.IsTransient())
             {
-                throw new ArgumentException("订单行参数为空！");
+                throw new ArgumentException("附件参数为空！");
             }
 
-            OrderLine = orderLine;
-            OrderLineId = orderLine.Id;
+            Part = part;
+            PartID = part.Id;
         }
 
         /// <summary>
-        ///     设置发票行说明
+        ///     设置附件
+        /// </summary>
+        /// <param name="partId">附件ID</param>
+        public void SetPart(int partId)
+        {
+            if (partId == 0)
+            {
+                throw new ArgumentException("附件ID参数为空！");
+            }
+
+            PartID = partId;
+        }
+
+        /// <summary>
+        ///     设置维修发票行说明
         /// </summary>
         /// <param name="note">说明</param>
         public void SetNote(string note)

@@ -1,27 +1,27 @@
 ﻿#region 版本信息
 
-// ========================================================================
+// =====================================================
 // 版权所有 (C) 2013 UniCloud 
-//【本类功能概述】
+// 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/12/09，22:12
+// 作者：丁志浩 时间：2013/12/15，16:33
 // 方案：FRP
-// 项目：Domain.UberModel
+// 项目：Domain.PaymentBC
 // 版本：V1.0.0
-//
+// 
 // 修改者： 时间： 
 // 修改说明：
-// ========================================================================
+// =====================================================
 
 #endregion
 
-namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
+namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
 {
     /// <summary>
     ///     发票聚合根
-    ///     租赁发票
+    ///     贷项通知单
     /// </summary>
-    public class LeaseInvoice : Invoice
+    public class CreditNoteInvoice : Invoice
     {
         #region 构造函数
 
@@ -29,7 +29,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal LeaseInvoice()
+        internal CreditNoteInvoice()
         {
         }
 

@@ -15,12 +15,6 @@
 
 #endregion
 
-#region 命名空间
-
-using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
-
-#endregion
-
 namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
 {
     /// <summary>

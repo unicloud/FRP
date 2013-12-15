@@ -1,17 +1,17 @@
 ﻿#region 版本信息
 
-// ========================================================================
+// =====================================================
 // 版权所有 (C) 2013 UniCloud 
-//【本类功能概述】
+// 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/12/09，22:12
+// 作者：丁志浩 时间：2013/12/15，14:37
 // 方案：FRP
-// 项目：Domain.UberModel
+// 项目：Domain.PaymentBC
 // 版本：V1.0.0
-//
+// 
 // 修改者： 时间： 
 // 修改说明：
-// ========================================================================
+// =====================================================
 
 #endregion
 
@@ -20,24 +20,22 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using UniCloud.Domain.UberModel.Aggregates.CurrencyAgg;
-using UniCloud.Domain.UberModel.Aggregates.OrderAgg;
-using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
-using UniCloud.Domain.UberModel.Enums;
+using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
+using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 
-namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
+namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
 {
     /// <summary>
-    ///     发票聚合根
+    ///     维修发票聚合根
     /// </summary>
-    public abstract class Invoice : EntityInt, IValidatableObject
+    public abstract class MaintainInvoice : EntityInt, IValidatableObject
     {
         #region 私有字段
 
-        private HashSet<InvoiceLine> _lines;
+        private HashSet<MaintainInvoiceLine> _lines;
 
         #endregion
 
@@ -47,7 +45,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal Invoice()
+        internal MaintainInvoice()
         {
         }
 
@@ -125,11 +123,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         #region 外键属性
 
         /// <summary>
-        ///     订单ID
-        /// </summary>
-        public int OrderId { get; private set; }
-
-        /// <summary>
         ///     供应商ID
         /// </summary>
         public int SupplierId { get; private set; }
@@ -139,19 +132,9 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         /// </summary>
         public int CurrencyId { get; private set; }
 
-        /// <summary>
-        ///     付款计划行ID
-        /// </summary>
-        public int? PaymentScheduleLineId { get; private set; }
-
         #endregion
 
         #region 导航属性
-
-        /// <summary>
-        ///     订单
-        /// </summary>
-        public virtual Order Order { get; private set; }
 
         /// <summary>
         ///     供应商
@@ -166,10 +149,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         /// <summary>
         ///     发票行
         /// </summary>
-        public virtual ICollection<InvoiceLine> InvoiceLines
+        public virtual ICollection<MaintainInvoiceLine> MaintainInvoiceLines
         {
-            get { return _lines ?? (_lines = new HashSet<InvoiceLine>()); }
-            set { _lines = new HashSet<InvoiceLine>(value); }
+            get { return _lines ?? (_lines = new HashSet<MaintainInvoiceLine>()); }
+            set { _lines = new HashSet<MaintainInvoiceLine>(value); }
         }
 
         #endregion
@@ -177,7 +160,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         #region 操作
 
         /// <summary>
-        ///     设置发票编号
+        ///     设置维修发票编号
         /// </summary>
         /// <param name="seq">流水号</param>
         public void SetInvoiceNumber(int seq)
@@ -208,24 +191,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         /// <summary>
         ///     设置发票金额
         /// </summary>
-        public void SetInvoiceValue()
+        /// <param name="invoiceValue">发票金额</param>
+        public void SetInvoiceValue(decimal invoiceValue)
         {
-            InvoiceValue = InvoiceLines.Sum(i => i.Amount);
-        }
-
-        /// <summary>
-        ///     设置订单
-        /// </summary>
-        /// <param name="order">订单</param>
-        public void SetOrder(Order order)
-        {
-            if (order == null || order.IsTransient())
+            if (invoiceValue == 0)
             {
-                throw new ArgumentException("订单参数为空！");
+                throw new ArgumentException("发票金额参数为空！");
             }
 
-            Order = order;
-            OrderId = order.Id;
+            InvoiceValue = invoiceValue;
         }
 
         /// <summary>
@@ -336,39 +310,23 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         }
 
         /// <summary>
-        ///     设置付款计划行ID
-        /// </summary>
-        /// <param name="id">付款计划行ID</param>
-        public void SetPaymentScheduleLine(int id)
-        {
-            if (id == 0)
-            {
-                throw new ArgumentException("付款计划行ID参数为空！");
-            }
-
-            PaymentScheduleLineId = id;
-        }
-
-        /// <summary>
-        ///     添加发票行
+        ///     添加维修发票行
         /// </summary>
         /// <param name="itemName">项名称</param>
         /// <param name="amount">金额</param>
-        /// <param name="orderLine">订单行</param>
-        /// <returns>发票行</returns>
-        public InvoiceLine AddInvoiceLine(string itemName, decimal amount, OrderLine orderLine)
+        /// <returns>维修发票行</returns>
+        public MaintainInvoiceLine AddMaintainInvoiceLine(string itemName, decimal amount)
         {
-            var invoiceLine = new InvoiceLine
+            var maintaitInvoiceLine = new MaintainInvoiceLine
             {
                 ItemName = itemName,
                 Amount = amount,
             };
-            invoiceLine.GenerateNewIdentity();
-            invoiceLine.SetOrderLine(orderLine);
+            maintaitInvoiceLine.GenerateNewIdentity();
 
-            InvoiceLines.Add(invoiceLine);
+            MaintainInvoiceLines.Add(maintaitInvoiceLine);
 
-            return invoiceLine;
+            return maintaitInvoiceLine;
         }
 
         #endregion
