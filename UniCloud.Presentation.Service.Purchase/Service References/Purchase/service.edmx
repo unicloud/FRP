@@ -546,6 +546,8 @@
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
+        <Property Name="ContractAircraftId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AircraftMaterialId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="AircraftPurchaseOrderDTO">
         <Key>
@@ -579,7 +581,7 @@
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="ContractAircraftId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftMaterialId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="EngineLeaseOrderDTO">
         <Key>
@@ -609,6 +611,7 @@
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
+        <Property Name="EngineMaterialId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="EnginePurchaseOrderDTO">
         <Key>
@@ -638,6 +641,7 @@
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
+        <Property Name="EngineMaterialId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="BFEPurchaseOrderDTO">
         <Key>
@@ -667,6 +671,7 @@
         <Property Name="Discount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
+        <Property Name="BFEMaterialId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="CurrencyDTO">
         <Key>

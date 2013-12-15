@@ -65,5 +65,10 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     备注
         /// </summary>
         public string Note { get; set; }
+
+        /// <summary>
+        ///     BFE物料ID
+        /// </summary>
+        public int BFEMaterialId { get; set; }
     }
 }
