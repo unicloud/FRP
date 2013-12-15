@@ -230,10 +230,10 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
 
                 .Add(new InvoiceEntityConfiguration())
                 .Add(new InvoiceLineEntityConfiguration())
+                .Add(new CreditNoteInvoiceEntityConfiguration())
                 .Add(new LeaseInvoiceEntityConfiguration())
                 .Add(new PurchaseInvoiceEntityConfiguration())
                 .Add(new PrepaymentInvoiceEntityConfiguration())
-                .Add(new CreditNoteInvoiceEntityConfiguration())
 
                 #endregion
 
@@ -254,7 +254,12 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
 
                 #region MaintainInvoiceAgg
 
-
+                .Add(new MaintainInvoiceEntityConfiguration())
+                .Add(new MaintainInvoiceLineEntityConfiguration())
+                .Add(new AirframeMaintainInvoiceEntityConfiguration())
+                .Add(new APUMaintainInvoiceEntityConfiguration())
+                .Add(new EngineMaintainInvoiceEntityConfiguration())
+                .Add(new UndercartMaintainInvoiceEntityConfiguration())
 
                 #endregion
 

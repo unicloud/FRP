@@ -1,17 +1,17 @@
 ﻿#region 版本信息
 
-// =====================================================
+// ========================================================================
 // 版权所有 (C) 2013 UniCloud 
-// 【本类功能概述】
+//【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/12/15，14:37
+// 作者：丁志浩 时间：2013/12/15，21:12
 // 方案：FRP
-// 项目：Domain.PaymentBC
+// 项目：Domain.UberModel
 // 版本：V1.0.0
-// 
+//
 // 修改者： 时间： 
 // 修改说明：
-// =====================================================
+// ========================================================================
 
 #endregion
 
@@ -20,13 +20,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
-using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.PaymentBC.Enums;
+using UniCloud.Domain.UberModel.Aggregates.CurrencyAgg;
+using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
+using UniCloud.Domain.UberModel.Enums;
 
 #endregion
 
-namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
+namespace UniCloud.Domain.UberModel.Aggregates.MaintainInvoiceAgg
 {
     /// <summary>
     ///     维修发票聚合根

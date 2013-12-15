@@ -73,7 +73,9 @@
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftPurchaseOrderEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftPurchaseOrderLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftTypeEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AirframeMaintainInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\APUMaintainContractEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\APUMaintainInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BankAccountEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseOrderEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseOrderLineEntityConfiguration.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\EngineLeaseOrderEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineLeaseOrderLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineMaintainContractEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineMaintainInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EnginePaymentScheduleEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EnginePurchaseOrderEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EnginePurchaseOrderLineEntityConfiguration.cs" />
@@ -97,6 +100,8 @@
     <Compile Include="UnitOfWork\Mapping\Sql\LinkmanEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainContractEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainGuaranteeEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\MaintainInvoiceEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\MaintainInvoiceLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OrderEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OrderLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PartEntityConfiguration.cs" />
@@ -111,6 +116,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\StandardPaymentScheduleEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\UndercartMaintainContractEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\UndercartMaintainInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\PaymentBCUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

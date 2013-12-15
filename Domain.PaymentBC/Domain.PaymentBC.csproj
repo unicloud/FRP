@@ -90,11 +90,15 @@
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContractSpecifications.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\UndercartMaintainContract.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\AirframeMaintainInvoice.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\APUMaintainInvoice.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\EngineMaintainInvoice.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\IMaintainInvoiceRepository.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoice.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoiceFactory.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoiceLine.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoiceSpecifications.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\UndercartMaintainInvoice.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftLeaseOrder.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftLeaseOrderLine.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftPurchaseOrder.cs" />
@@ -133,6 +137,7 @@
     <Compile Include="Enums\GuaranteeStatus.cs" />
     <Compile Include="Enums\InvoiceStatus.cs" />
     <Compile Include="Enums\InvoiceType.cs" />
+    <Compile Include="Enums\MaintainItem.cs" />
     <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Enums\PaymentNoticeStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

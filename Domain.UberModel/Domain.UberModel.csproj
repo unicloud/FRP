@@ -87,6 +87,13 @@
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContractFactory.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\UndercartMaintainContract.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\AirframeMaintainInvoice.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\APUMaintainInvoice.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\EngineMaintainInvoice.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoice.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoiceFactory.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoiceLine.cs" />
+    <Compile Include="Aggregates\MaintainInvoiceAgg\UndercartMaintainInvoice.cs" />
     <Compile Include="Aggregates\ManufacturerAgg\Manufacturer.cs" />
     <Compile Include="Aggregates\MaterialAgg\AircraftMaterial.cs" />
     <Compile Include="Aggregates\MaterialAgg\BFEMaterial.cs" />
@@ -154,6 +161,7 @@
     <Compile Include="Enums\IndexStatus.cs" />
     <Compile Include="Enums\InvoiceStatus.cs" />
     <Compile Include="Enums\InvoiceType.cs" />
+    <Compile Include="Enums\MaintainItem.cs" />
     <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Enums\PathSource.cs" />
     <Compile Include="Enums\PaymentNoticeStatus.cs" />
