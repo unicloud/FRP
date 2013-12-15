@@ -38,6 +38,8 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(p => p.Status).HasColumnName("Status");
+
+            Property(p => p.BFEMaterialId).HasColumnName("BFEMaterialId");
         }
     }
 }

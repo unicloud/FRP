@@ -37,6 +37,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
+            Property(p => p.EngineMaterialId).HasColumnName("EngineMaterialId");
             Property(p => p.ContractEngineId).HasColumnName("ContractEngineId");
 
             HasRequired(e => e.PurchaseContractEngine)
