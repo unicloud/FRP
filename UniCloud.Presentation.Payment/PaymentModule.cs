@@ -33,7 +33,7 @@ namespace UniCloud.Presentation.Payment
 
         private void RegisterView()
         {
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(CreditMemoManager));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(CreditNoteManager));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(LeaseInvoiceManager));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(PrePayInvoiceManager));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(PurchaseInvoiceManager));

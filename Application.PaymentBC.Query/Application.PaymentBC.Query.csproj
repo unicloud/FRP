@@ -50,8 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InvoiceQueries\CreditMemoQuery.cs" />
-    <Compile Include="InvoiceQueries\ICreditMemoQuery.cs" />
+    <Compile Include="InvoiceQueries\CreditNoteQuery.cs" />
+    <Compile Include="InvoiceQueries\ICreditNoteQuery.cs" />
     <Compile Include="InvoiceQueries\ILeaseInvoiceQuery.cs" />
     <Compile Include="InvoiceQueries\IPrepaymentInvoiceQuery.cs" />
     <Compile Include="InvoiceQueries\IPurchaseInvoiceQuery.cs" />
@@ -63,6 +63,32 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application.PaymentBC.DTO\Application.PaymentBC.DTO.csproj">
+      <Project>{41bd4fb9-2140-402f-a73d-b6e80f67e5d9}</Project>
+      <Name>Application.PaymentBC.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{c926e107-6971-4b5c-8e00-db7761eeac8e}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.PaymentBC\Domain.PaymentBC.csproj">
+      <Project>{d9aa0a25-5ee4-4ca0-ad0a-4cafed1e17a1}</Project>
+      <Name>Domain.PaymentBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.PaymentBC\Infrastructure.Data.PaymentBC.csproj">
+      <Project>{61eb2b16-80c1-439e-87f0-fa884567a18d}</Project>
+      <Name>Infrastructure.Data.PaymentBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{cad91a38-6b90-4a18-83ca-0215ce512f4d}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

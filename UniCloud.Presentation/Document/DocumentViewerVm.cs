@@ -38,7 +38,7 @@ namespace UniCloud.Presentation.Document
 
         [Import]
         public DocumentViewer CurrentDocumentView;
-        private DocumentDTO _currentDoc = new DocumentDTO();
+        private readonly DocumentDTO _currentDoc = new DocumentDTO();
         private bool _onlyView;
         private byte[] _byteContent;
         private readonly QueryableDataServiceCollectionView<DocumentDTO> _documents;
@@ -137,6 +137,7 @@ namespace UniCloud.Presentation.Document
                     if (openFileDialog.ShowDialog() == true)
                     {
                         _currentDoc.Name = openFileDialog.File.Name;
+                        _currentDoc.Extension = openFileDialog.File.Extension;
                         var input = (Stream)openFileDialog.File.OpenRead();
                         using (input)
                         {
@@ -150,6 +151,7 @@ namespace UniCloud.Presentation.Document
                     if (openFileDialog.ShowDialog() == true)
                     {
                         _currentDoc.Name = openFileDialog.File.Name;
+                        _currentDoc.Extension = openFileDialog.File.Extension;
                         _byteContent = new byte[openFileDialog.File.Length];
                         openFileDialog.File.OpenRead().Read(_byteContent, 0, _byteContent.Length);
                         Stream currentContent = new MemoryStream(_byteContent);
@@ -192,6 +194,8 @@ namespace UniCloud.Presentation.Document
                            {
                                DocumentId = _currentDoc.DocumentId,
                                Name = _currentDoc.Name,
+                               Extension = _currentDoc.Extension,
+                               IsValid = true
                            };
             if (CurrentDocumentView.PaneGroups.SelectedPane.Name.Equals("WordPane", StringComparison.OrdinalIgnoreCase))
             {

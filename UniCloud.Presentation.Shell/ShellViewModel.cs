@@ -364,7 +364,7 @@ namespace UniCloud.Presentation.Shell
             var menu424 = new MenuItem
             {
                 Text = "维护贷项单",
-                NavUri = "UniCloud.Presentation.Payment.Invoice.CreditMemoManager"
+                NavUri = "UniCloud.Presentation.Payment.Invoice.CreditNoteManager"
             };
             var menu425 = new MenuItem
             {

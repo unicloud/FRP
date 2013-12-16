@@ -185,9 +185,6 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             if (delAircraftLeaseReception != null)
             {
                 _receptionRepository.DeleteReception(delAircraftLeaseReception);//删除租赁飞机接收项目。
-                //delAircraftLeaseReception.ReceptionLines.RemoveAll(p => p.ReceptionId == delAircraftLeaseReception.Id);
-                //delAircraftLeaseReception.ReceptionSchedules.RemoveAll(p => p.ReceptionId == delAircraftLeaseReception.Id);
-                //_receptionRepository.Remove(delAircraftLeaseReception); //删除租赁飞机接收项目。
             }
         }
 

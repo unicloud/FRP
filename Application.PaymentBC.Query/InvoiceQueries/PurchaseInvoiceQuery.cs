@@ -14,18 +14,42 @@
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using UniCloud.Application.PaymentBC.DTO;
+using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Infrastructure.Data;
 
 #endregion
 
 namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
 {
-    class PurchaseInvoiceQuery
+    /// <summary>
+    /// 采购发票查询实现
+    /// </summary>
+    public class PurchaseInvoiceQuery : IPurchaseInvoiceQuery
     {
+        private readonly IQueryableUnitOfWork _unitOfWork;
+        public PurchaseInvoiceQuery(IQueryableUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        /// <summary>
+        ///    采购发票查询
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns>采购发票DTO集合。</returns>
+        public IQueryable<PurchaseInvoiceDTO> PurchaseInvoiceDTOQuery(
+            QueryBuilder<PurchaseInvoice> query)
+        {
+
+            return
+                query.ApplyTo(_unitOfWork.CreateSet<PurchaseInvoice>())
+                     .Select(p => new PurchaseInvoiceDTO
+                     {
+
+
+                     });
+        }
     }
 }

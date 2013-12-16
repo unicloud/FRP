@@ -30,7 +30,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
     ///     发票聚合根
     ///     发票行
     /// </summary>
-    public abstract class InvoiceLine : EntityInt, IValidatableObject
+    public class InvoiceLine : EntityInt, IValidatableObject
     {
         #region 构造函数
 
@@ -55,6 +55,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         ///     金额
         /// </summary>
         public decimal Amount { get; internal set; }
+
+        /// <summary>
+        ///     备注
+        /// </summary>
+        public string Note { get; private set; }
 
         #endregion
 
@@ -96,6 +101,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
 
             OrderLine = orderLine;
             OrderLineId = orderLine.Id;
+        }
+
+        /// <summary>
+        ///     设置发票行说明
+        /// </summary>
+        /// <param name="note">说明</param>
+        public void SetNote(string note)
+        {
+            Note = note;
         }
 
         #endregion

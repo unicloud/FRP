@@ -29,7 +29,9 @@ using UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainContractAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.PartAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
@@ -53,7 +55,9 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
         private IDbSet<Invoice> _invoices;
         private IDbSet<Linkman> _linkmen;
         private IDbSet<MaintainContract> _maintainContracts;
+        private IDbSet<MaintainInvoice> _maintainInvoices;
         private IDbSet<Order> _orders;
+        private IDbSet<Part> _parts;
         private IDbSet<PaymentNotice> _paymentNotices;
         private IDbSet<PaymentSchedule> _paymentSchedules;
         private IDbSet<Supplier> _suppliers;
@@ -108,9 +112,19 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
             get { return _maintainContracts ?? (_maintainContracts = base.Set<MaintainContract>()); }
         }
 
+        public IDbSet<MaintainInvoice> MaintainInvoices
+        {
+            get { return _maintainInvoices ?? (_maintainInvoices = base.Set<MaintainInvoice>()); }
+        }
+
         public IDbSet<Order> Orders
         {
             get { return _orders ?? (_orders = base.Set<Order>()); }
+        }
+
+        public IDbSet<Part> Parts
+        {
+            get { return _parts ?? (_parts = base.Set<Part>()); }
         }
 
         public IDbSet<PaymentNotice> PaymentNotices
@@ -216,12 +230,10 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
 
                 .Add(new InvoiceEntityConfiguration())
                 .Add(new InvoiceLineEntityConfiguration())
+                .Add(new CreditNoteInvoiceEntityConfiguration())
                 .Add(new LeaseInvoiceEntityConfiguration())
-                .Add(new LeaseInvoiceLineEntityConfiguration())
                 .Add(new PurchaseInvoiceEntityConfiguration())
-                .Add(new PurchaseInvoiceLineEntityConfiguration())
                 .Add(new PrepaymentInvoiceEntityConfiguration())
-                .Add(new PrepaymentInvoiceLineEntityConfiguration())
 
                 #endregion
 
@@ -240,6 +252,17 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
 
                 #endregion
 
+                #region MaintainInvoiceAgg
+
+                .Add(new MaintainInvoiceEntityConfiguration())
+                .Add(new MaintainInvoiceLineEntityConfiguration())
+                .Add(new AirframeMaintainInvoiceEntityConfiguration())
+                .Add(new APUMaintainInvoiceEntityConfiguration())
+                .Add(new EngineMaintainInvoiceEntityConfiguration())
+                .Add(new UndercartMaintainInvoiceEntityConfiguration())
+
+                #endregion
+
                 #region OrderAgg
 
                 .Add(new OrderEntityConfiguration())
@@ -254,6 +277,12 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
                 .Add(new EngineLeaseOrderLineEntityConfiguration())
                 .Add(new EnginePurchaseOrderEntityConfiguration())
                 .Add(new EnginePurchaseOrderLineEntityConfiguration())
+
+                #endregion
+
+                #region PartAgg
+
+                .Add(new PartEntityConfiguration())
 
                 #endregion
 

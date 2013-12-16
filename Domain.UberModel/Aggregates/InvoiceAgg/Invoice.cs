@@ -349,6 +349,28 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
             PaymentScheduleLineId = id;
         }
 
+        /// <summary>
+        ///     添加发票行
+        /// </summary>
+        /// <param name="itemName">项名称</param>
+        /// <param name="amount">金额</param>
+        /// <param name="orderLine">订单行</param>
+        /// <returns>发票行</returns>
+        public InvoiceLine AddInvoiceLine(string itemName, decimal amount, OrderLine orderLine)
+        {
+            var invoiceLine = new InvoiceLine
+            {
+                ItemName = itemName,
+                Amount = amount,
+            };
+            invoiceLine.GenerateNewIdentity();
+            invoiceLine.SetOrderLine(orderLine);
+
+            InvoiceLines.Add(invoiceLine);
+
+            return invoiceLine;
+        }
+
         #endregion
 
         #region IValidatableObject 成员

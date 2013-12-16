@@ -14,18 +14,42 @@
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using UniCloud.Application.PaymentBC.DTO;
+using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Infrastructure.Data;
 
 #endregion
 
 namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
 {
-    class LeaseInvoiceQuery
+    /// <summary>
+    /// 租赁发票查询实现
+    /// </summary>
+    public class LeaseInvoiceQuery : ILeaseInvoiceQuery
     {
+        private readonly IQueryableUnitOfWork _unitOfWork;
+        public LeaseInvoiceQuery(IQueryableUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        /// <summary>
+        ///    租赁发票查询
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns>租赁发票DTO集合。</returns>
+        public IQueryable<LeaseInvoiceDTO> LeaseInvoiceDTOQuery(
+            QueryBuilder<LeaseInvoice> query)
+        {
+
+            return
+                query.ApplyTo(_unitOfWork.CreateSet<LeaseInvoice>())
+                     .Select(p => new LeaseInvoiceDTO
+                     {
+
+
+                     });
+        }
     }
 }

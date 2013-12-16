@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,8 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InvoiceServices\CreditMemoAppService.cs" />
-    <Compile Include="InvoiceServices\ICreditMemoAppService.cs" />
+    <Compile Include="InvoiceServices\CreditNoteAppService.cs" />
+    <Compile Include="InvoiceServices\ICreditNoteAppService.cs" />
     <Compile Include="InvoiceServices\ILeaseInvoiceAppService.cs" />
     <Compile Include="InvoiceServices\IPrepaymentInvoiceAppService.cs" />
     <Compile Include="InvoiceServices\IPurchaseInvoiceAppService.cs" />
@@ -55,7 +56,32 @@
     <Compile Include="Services\IPaymentAppService.cs" />
     <Compile Include="Services\PaymentAppService.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Application.PaymentBC.DTO\Application.PaymentBC.DTO.csproj">
+      <Project>{41bd4fb9-2140-402f-a73d-b6e80f67e5d9}</Project>
+      <Name>Application.PaymentBC.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.PaymentBC.Query\Application.PaymentBC.Query.csproj">
+      <Project>{9fc96fc6-439f-4cbd-9373-a28636fad49f}</Project>
+      <Name>Application.PaymentBC.Query</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{c926e107-6971-4b5c-8e00-db7761eeac8e}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.PaymentBC\Domain.PaymentBC.csproj">
+      <Project>{d9aa0a25-5ee4-4ca0-ad0a-4cafed1e17a1}</Project>
+      <Name>Domain.PaymentBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Utilities\Infrastructure.Utilities.csproj">
+      <Project>{34a8a0e1-3d4a-48ca-9e78-71f88e2d273d}</Project>
+      <Name>Infrastructure.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -15,12 +15,6 @@
 
 #endregion
 
-#region 命名空间
-
-using UniCloud.Domain.UberModel.Aggregates.OrderAgg;
-
-#endregion
-
 namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
 {
     /// <summary>
@@ -54,28 +48,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         #endregion
 
         #region 操作
-
-        /// <summary>
-        ///     添加租赁发票行
-        /// </summary>
-        /// <param name="itemName">项名称</param>
-        /// <param name="amount">金额</param>
-        /// <param name="orderLine">订单行</param>
-        /// <returns>租赁发票行</returns>
-        public LeaseInvoiceLine AddLeaseInvoiceLine(string itemName, decimal amount, OrderLine orderLine)
-        {
-            var invoiceLine = new LeaseInvoiceLine
-            {
-                ItemName = itemName,
-                Amount = amount,
-            };
-            invoiceLine.GenerateNewIdentity();
-            invoiceLine.SetOrderLine(orderLine);
-
-            InvoiceLines.Add(invoiceLine);
-
-            return invoiceLine;
-        }
 
         #endregion
     }

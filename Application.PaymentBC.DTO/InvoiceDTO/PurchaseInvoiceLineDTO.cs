@@ -33,5 +33,40 @@ namespace UniCloud.Application.PaymentBC.DTO
     [DataServiceKey("PurchaseInvoiceLineId")]
     public class PurchaseInvoiceLineDTO
     {
+        #region 属性
+        /// <summary>
+        ///     主键
+        /// </summary>
+        public int PurchaseInvoiceLineId { get; set; }
+
+        /// <summary>
+        ///     项名称
+        /// </summary>
+        public string ItemName { get; set; }
+
+        /// <summary>
+        ///     金额
+        /// </summary>
+        public decimal Amount { get; set; }
+
+        #endregion
+
+        #region 外键属性
+
+        /// <summary>
+        ///     发票ID
+        /// </summary>
+        public int InvoiceId { get; set; }
+
+        /// <summary>
+        ///     订单行ID
+        /// </summary>
+        public int OrderLineId { get; set; }
+
+        #endregion
+
+        #region 导航属性
+
+        #endregion
     }
 }

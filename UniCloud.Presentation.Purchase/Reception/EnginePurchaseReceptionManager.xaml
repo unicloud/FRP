@@ -182,14 +182,12 @@
                                 <StackPanel Grid.Row="0"
                                             Orientation="Horizontal"
                                             HorizontalAlignment="Left">
-                                    <Button Style="{StaticResource CafmToolButtonStyle}"
-                                            ToolTipService.ToolTip="添加接收行"
+                                    <Button ToolTipService.ToolTip="添加接收行"
                                             Command="{Binding AddEntityCommand}">
                                         <Image Stretch="Fill"
                                                Source="/UniCloud.Presentation;component/Images/Add.png" />
                                     </Button>
-                                    <Button Style="{StaticResource CafmToolButtonStyle}"
-                                            ToolTipService.ToolTip="移除接收行"
+                                    <Button ToolTipService.ToolTip="移除接收行"
                                             Command="{Binding RemoveEntityCommand}">
                                         <Image Stretch="Fill"
                                                Source="/UniCloud.Presentation;component/Images/Remove.png" />
@@ -204,7 +202,7 @@
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="False"
-                                                     ItemsSource="{Binding SelEnginePurchaseReception.ReceptionLines}"
+                                                     ItemsSource="{Binding EnginePurchaseReceptionLines}"
                                                      SelectedItem="{Binding SelEnginePurchaseReceptionLine,Mode=TwoWay}"
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True"
