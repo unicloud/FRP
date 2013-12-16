@@ -313,6 +313,15 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
         }
 
         /// <summary>
+        ///     设置币种
+        /// </summary>
+        /// <param name="currencyId">币种Id</param>
+        public void SetCurrency(int currencyId)
+        {
+            CurrencyId = currencyId;
+        }
+
+        /// <summary>
         ///     设置供应商
         /// </summary>
         /// <param name="supplier">供应商</param>
@@ -326,6 +335,17 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
             Supplier = supplier;
             SupplierId = supplier.Id;
             SupplierName = supplier.Name;
+        }
+
+        /// <summary>
+        ///     设置供应商
+        /// </summary>
+        /// <param name="supplierId">供应商Id</param>
+        /// <param name="supplierName">供应商名字</param>
+        public void SetSupplier(int supplierId,string supplierName)
+        {
+            SupplierId = supplierId;
+            SupplierName = supplierName;
         }
 
         /// <summary>

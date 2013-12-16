@@ -15,23 +15,27 @@
 
 #endregion
 
+#region 命名空间
+
 using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(UnderCartMaintain))]
+    [Export(typeof(UndercartMaintain))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class UnderCartMaintain 
+    public partial class UndercartMaintain 
     {
-        public UnderCartMaintain()
+        public UndercartMaintain()
         {
             InitializeComponent();
         }
 
         [Import]
-        public UnderCartMaintainVm ViewModel
+        public UndercartMaintainVm ViewModel
         {
-            get { return DataContext as UnderCartMaintainVm; }
+            get { return DataContext as UndercartMaintainVm; }
             set { DataContext = value; }
         }
     }

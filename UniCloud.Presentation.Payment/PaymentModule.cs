@@ -2,13 +2,16 @@
 // 
 //------------------------------------------------------------------------------
 
-using System;
+#region 命名空间
+
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.MefExtensions.Modularity;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 using UniCloud.Presentation.Payment.Invoice;
 using UniCloud.Presentation.Payment.QueryAnalyse;
+
+#endregion
 
 namespace UniCloud.Presentation.Payment
 {
@@ -39,8 +42,8 @@ namespace UniCloud.Presentation.Payment
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(PurchaseInvoiceManager));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(EngineMaintain));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(APUMaintain));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(UnderCartMaintain));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FuselageMaintain));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(UndercartMaintain));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(AirframeMaintain));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(AnalyseMaintenanceCosts));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FinancingDemandForecast));
         }

@@ -15,23 +15,27 @@
 
 #endregion
 
+#region 命名空间
+
 using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(FuselageMaintain))]
+    [Export(typeof(AirframeMaintain))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class FuselageMaintain 
+    public partial class AirframeMaintain 
     {
-        public FuselageMaintain()
+        public AirframeMaintain()
         {
             InitializeComponent();
         }
 
         [Import]
-        public FuselageMaintainVm ViewModel
+        public AirframeMaintainVm ViewModel
         {
-            get { return DataContext as FuselageMaintainVm; }
+            get { return DataContext as AirframeMaintainVm; }
             set { DataContext = value; }
         }
     }

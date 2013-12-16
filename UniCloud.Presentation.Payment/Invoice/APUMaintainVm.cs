@@ -11,15 +11,16 @@
 // 修改说明：
 // ========================================================================*/
 #endregion
-using System;
+
+#region 命名空间
+
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Regions;
-using Telerik.Windows.Controls;
-using Telerik.Windows.Data;
-using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
+
+#endregion
 
 namespace UniCloud.Presentation.Payment.Invoice
 {

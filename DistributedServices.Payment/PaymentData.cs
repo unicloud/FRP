@@ -1,14 +1,9 @@
-﻿//------------------------------------------------------------------------------
-// 
-//------------------------------------------------------------------------------
-
-#region 命名空间
+﻿#region 命名空间
 
 using System.Linq;
-using UniCloud.Application.PaymentBC.ContractAircraftServices;
-using UniCloud.Application.PaymentBC.ContractEngineServices;
-using UniCloud.Application.PaymentBC.CurrencyServices;
 using UniCloud.Application.PaymentBC.DTO;
+using UniCloud.Application.PaymentBC.InvoiceServices;
+using UniCloud.Application.PaymentBC.MaintainInvoiceServices;
 using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
@@ -20,52 +15,91 @@ namespace UniCloud.DistributedServices.Payment
     /// </summary>
     public class PaymentData : ExposeData.ExposeData
     {
-        private readonly IContractAircraftAppService _contractAircraftAppService;
-        private readonly IContractEngineAppService _contractEngineAppService;
-        private readonly ICurrencyAppService _currencyAppService;
+        //private readonly IPaymentAppService _flightLogAppService = Container.Current.Resolve<IPaymentAppService>();
+
+        private readonly ICreditNoteAppService _creditNoteAppService;
+        private readonly ILeaseInvoiceAppService _leaseInvoiceAppService;
+        private readonly IMaintainInvoiceAppService _maintainInvoiceAppService;
+        private readonly IPrepaymentInvoiceAppService _prepaymentInvoiceAppService;
+        private readonly IPurchaseInvoiceAppService _purchaseInvoiceAppService;
 
         public PaymentData()
             : base("UniCloud.Application.PaymentBC.DTO")
         {
-            _currencyAppService = DefaultContainer.Resolve<ICurrencyAppService>();
-            _contractAircraftAppService = DefaultContainer.Resolve<IContractAircraftAppService>();
-            _contractEngineAppService = DefaultContainer.Resolve<IContractEngineAppService>();
+            _creditNoteAppService = DefaultContainer.Resolve<ICreditNoteAppService>();
+            _leaseInvoiceAppService = DefaultContainer.Resolve<ILeaseInvoiceAppService>();
+            _prepaymentInvoiceAppService = DefaultContainer.Resolve<IPrepaymentInvoiceAppService>();
+            _purchaseInvoiceAppService = DefaultContainer.Resolve<IPurchaseInvoiceAppService>();
+            _maintainInvoiceAppService = DefaultContainer.Resolve<IMaintainInvoiceAppService>();
         }
 
-        public IQueryable<MaintainInvoiceDTO> MaintainInvoices
+        #region Invoice集合
+
+        //public IQueryable<CreditNoteDTO> CreditNotes
+        //{
+        //    get { return  null; }
+        //}
+        /// <summary>
+        ///     贷项单集合
+        /// </summary>
+        /// <summary>
+        ///     租赁发票集合
+        /// </summary>
+        public IQueryable<LeaseInvoiceDTO> LeaseInvoices
         {
-            get { return null; }
+            get { return _leaseInvoiceAppService.GetLeaseInvoices(); }
         }
 
-        #region 合同飞机
-
-        public IQueryable<ContractAircraftDTO> ContractAircrafts
+        /// <summary>
+        ///     预付款集合
+        /// </summary>
+        public IQueryable<PrepaymentInvoiceDTO> PrepaymentInvoices
         {
-            get { return _contractAircraftAppService.GetContractAircrafts(); }
+            get { return _prepaymentInvoiceAppService.GetPrepaymentInvoices(); }
+        }
+
+        /// <summary>
+        ///     采购发票集合
+        /// </summary>
+        public IQueryable<PurchaseInvoiceDTO> PurchaseInvoices
+        {
+            get { return _purchaseInvoiceAppService.GetPurchaseInvoices(); }
         }
 
         #endregion
 
-        #region 币种
+        #region 维修发票
 
         /// <summary>
-        ///     币种集合
+        ///     发动机维修发票集合
         /// </summary>
-        public IQueryable<CurrencyDTO> Currencies
+        public IQueryable<EngineMaintainInvoiceDTO> EngineMaintainInvoices
         {
-            get { return _currencyAppService.GetCurrencies(); }
+            get { return _maintainInvoiceAppService.GetEngineMaintainInvoices(); }
         }
 
-        #endregion
-
-        #region 合同发动机
+        /// <summary>
+        ///     APU维修发票集合
+        /// </summary>
+        public IQueryable<APUMaintainInvoiceDTO> APUMaintainInvoices
+        {
+            get { return _maintainInvoiceAppService.GetApuMaintainInvoices(); }
+        }
 
         /// <summary>
-        ///     合同发动机集合
+        ///     机身维修发票集合
         /// </summary>
-        public IQueryable<ContractEngineDTO> ContractEngines
+        public IQueryable<AirframeMaintainInvoiceDTO> AirframeMaintainInvoices
         {
-            get { return _contractEngineAppService.GetContractEngines(); }
+            get { return _maintainInvoiceAppService.GetAirframeMaintainInvoices(); }
+        }
+
+        /// <summary>
+        ///     起落架维修发票集合
+        /// </summary>
+        public IQueryable<UndercartMaintainInvoiceDTO> UndercartMaintainInvoices
+        {
+            get { return _maintainInvoiceAppService.GetUndercartMaintainInvoices(); }
         }
 
         #endregion

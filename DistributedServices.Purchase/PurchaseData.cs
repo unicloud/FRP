@@ -16,6 +16,7 @@
 
 #endregion
 
+
 #region 命名空间
 
 using System.Linq;
@@ -290,6 +291,7 @@ namespace UniCloud.DistributedServices.Purchase
 
         #endregion
 
+        #region 维修合同
         /// <summary>
         ///     发动机维修合同信息
         /// </summary>
@@ -313,6 +315,7 @@ namespace UniCloud.DistributedServices.Purchase
         {
             get { return _maintainContractAppService.GetUndercartMaintainContracts(); }
         }
+        #endregion
 
         #region Reception
 
@@ -436,11 +439,15 @@ namespace UniCloud.DistributedServices.Purchase
             get { return _documentPathAppService.GetDocumentPaths(); }
         }
 
-        public IQueryable<OrderDocumentDTO>  OrderDocuments
-        {
-            get { return _contractDocumentAppService.GetOrderDocuments(); }
-        }
+        #endregion
 
+        #region 订单文档
+
+        public IQueryable<OrderDocumentDTO> OrderDocuments()
+        {
+            return _contractDocumentAppService.GetOrderDocuments();
+        }
         #endregion
     }
 }
+
