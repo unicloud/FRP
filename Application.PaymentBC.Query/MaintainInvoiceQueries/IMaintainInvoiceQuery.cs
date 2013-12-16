@@ -30,7 +30,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
         /// <param name="query">查询表达式</param>
         /// <returns>发动机维修发票DTO集合</returns>
         IQueryable<EngineMaintainInvoiceDTO> EngineMaintainInvoiceDTOQuery(
-            QueryBuilder<EngineMaintainInvoice> query);
+            QueryBuilder<MaintainInvoice> query);
 
         /// <summary>
         ///     APU维修发票查询
@@ -38,7 +38,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
         /// <param name="query">查询表达式</param>
         /// <returns>APU维修发票DTO集合</returns>
         IQueryable<APUMaintainInvoiceDTO> APUMaintainInvoiceDTOQuery(
-            QueryBuilder<APUMaintainInvoice> query);
+            QueryBuilder<MaintainInvoice> query);
 
         /// <summary>
         ///     机身维修发票查询
@@ -46,7 +46,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
         /// <param name="query">查询表达式</param>
         /// <returns>机身维修发票DTO集合</returns>
         IQueryable<AirframeMaintainInvoiceDTO> AirframeMaintainInvoiceDTOQuery(
-            QueryBuilder<AirframeMaintainInvoice> query);
+            QueryBuilder<MaintainInvoice> query);
 
         /// <summary>
         ///     起落架维修发票查询
@@ -54,6 +54,6 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
         /// <param name="query">查询表达式</param>
         /// <returns>起落架维修发票DTO集合</returns>
         IQueryable<UndercartMaintainInvoiceDTO> UndercartMaintainInvoiceDTOQuery(
-            QueryBuilder<UndercartMaintainInvoice> query);
+            QueryBuilder<MaintainInvoice> query);
     }
 }
