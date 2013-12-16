@@ -33,9 +33,7 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         private readonly IMaintainInvoiceQuery _maintainInvoiceQuery;
         private readonly IMaintainInvoiceRepository _invoiceRepository;
 
-
-        public MaintainInvoiceAppService(IMaintainInvoiceQuery maintainInvoiceQuery,
-                                                IMaintainInvoiceRepository invoiceRepository)
+        public MaintainInvoiceAppService(IMaintainInvoiceQuery maintainInvoiceQuery, IMaintainInvoiceRepository invoiceRepository)
         {
             _maintainInvoiceQuery = maintainInvoiceQuery;
             _invoiceRepository = invoiceRepository;

@@ -2,10 +2,15 @@
 // 
 //------------------------------------------------------------------------------
 
+#region 命名空间
+
 using System.Linq;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.InvoiceServices;
+using UniCloud.Application.PaymentBC.MaintainInvoiceServices;
 using UniCloud.Infrastructure.Utilities.Container;
+
+#endregion
 
 namespace UniCloud.DistributedServices.Payment
 {
@@ -20,6 +25,7 @@ namespace UniCloud.DistributedServices.Payment
         private readonly ILeaseInvoiceAppService _leaseInvoiceAppService;
         private readonly IPrepaymentInvoiceAppService _prepaymentInvoiceAppService;
         private readonly IPurchaseInvoiceAppService _purchaseInvoiceAppService;
+        private readonly IMaintainInvoiceAppService _maintainInvoiceAppService;
 
         public PaymentData()
             : base("UniCloud.Application.PaymentBC.DTO")
@@ -28,13 +34,10 @@ namespace UniCloud.DistributedServices.Payment
             _leaseInvoiceAppService = DefaultContainer.Resolve<ILeaseInvoiceAppService>();
             _prepaymentInvoiceAppService = DefaultContainer.Resolve<IPrepaymentInvoiceAppService>();
             _purchaseInvoiceAppService = DefaultContainer.Resolve<IPurchaseInvoiceAppService>();
-
+            _maintainInvoiceAppService = DefaultContainer.Resolve<IMaintainInvoiceAppService>();
         }
 
-        public IQueryable<MaintainInvoiceDTO> MaintainInvoices
-        {
-            get { return null; }
-        }
+
 
         #region Invoice集合
 
@@ -70,6 +73,40 @@ namespace UniCloud.DistributedServices.Payment
             get { return _purchaseInvoiceAppService.GetPurchaseInvoices(); }
         }
 
+        #endregion
+
+        #region 维修发票
+        /// <summary>
+        /// 发动机维修发票集合
+        /// </summary>
+        public IQueryable<EngineMaintainInvoiceDTO> EngineMaintainInvoices
+        {
+            get { return _maintainInvoiceAppService.GetEngineMaintainInvoices(); }
+        }
+
+        /// <summary>
+        /// APU维修发票集合
+        /// </summary>
+        public IQueryable<APUMaintainInvoiceDTO> APUMaintainInvoices
+        {
+            get { return _maintainInvoiceAppService.GetApuMaintainInvoices(); }
+        }
+
+        /// <summary>
+        /// 机身维修发票集合
+        /// </summary>
+        public IQueryable<AirframeMaintainInvoiceDTO> AirframeMaintainInvoices
+        {
+            get { return _maintainInvoiceAppService.GetAirframeMaintainInvoices(); }
+        }
+
+        /// <summary>
+        /// 起落架维修发票集合
+        /// </summary>
+        public IQueryable<UndercartMaintainInvoiceDTO> UndercartMaintainInvoices
+        {
+            get { return _maintainInvoiceAppService.GetUndercartMaintainInvoices(); }
+        }
         #endregion
     }
 }

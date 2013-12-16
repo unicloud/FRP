@@ -3,8 +3,11 @@
 //------------------------------------------------------------------------------
 
 using UniCloud.Application.PaymentBC.InvoiceServices;
+using UniCloud.Application.PaymentBC.MaintainInvoiceServices;
 using UniCloud.Application.PaymentBC.Query.InvoiceQueries;
+using UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
@@ -39,6 +42,13 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
                 .Register<IPrepaymentInvoiceAppService, PrepaymentInvoiceAppService>()
                 .Register<IPurchaseInvoiceAppService, PurchaseInvoiceAppService>()
                 .Register<IInvoiceRepository, InvoiceRepository>()
+                #endregion
+
+                #region 维修发票相关配置，包括查询，应用服务，仓储注册
+
+                .Register<IMaintainInvoiceQuery, MaintainInvoiceQuery>()
+                .Register<IMaintainInvoiceAppService, MaintainInvoiceAppService>()
+                .Register<IMaintainInvoiceRepository, MaintainInvoiceRepository>()
                 #endregion
 
                 ;
