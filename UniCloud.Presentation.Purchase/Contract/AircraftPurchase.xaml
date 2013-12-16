@@ -82,7 +82,7 @@
                                                                         DisplayMemberPath="Name" />
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding StartDate}"
                                                                     Header="开始日期"
-                                                                    DataFormatString="{} {0:yyyy/MM/dd}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}"
                                                                     TextAlignment="Center" />
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding TradeStatus}"
                                                                     Header="状态"
@@ -158,7 +158,7 @@
                                                                         DisplayMemberPath="Name" TextAlignment="Center" />
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding OrderDate}"
                                                                     Header="生效日期"
-                                                                    DataFormatString="{} {0:yyyy/MM/dd}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}"
                                                                     TextAlignment="Center" />
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding OrderStatus}"
                                                                     Header="状态"
@@ -261,20 +261,23 @@
                                                                     TextAlignment="Center" />
                                         <telerik:GridViewExpressionColumn Header="行金额"
                                                                           Expression="(UnitPrice*Amount)*(1 - (Discount/100))"
-                                                                          DataFormatString="{} {0:N}"
+                                                                          DataFormatString="{StaticResource CurrencyStringFormat}"
                                                                           TextAlignment="Right" />
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding AirframePrice}"
-                                                                    Header="机身价格" DataFormatString="{} {0:N}"
+                                                                    Header="机身价格"
+                                                                    DataFormatString="{StaticResource CurrencyStringFormat}"
                                                                     TextAlignment="Right" />
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding RefitCost}"
                                                                     Header="机身改装费用"
-                                                                    DataFormatString="{} {0:N}" TextAlignment="Right" />
+                                                                    DataFormatString="{StaticResource CurrencyStringFormat}"
+                                                                    TextAlignment="Right" />
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding EnginePrice}"
-                                                                    Header="发动机价格" DataFormatString="{} {0:N}"
+                                                                    Header="发动机价格"
+                                                                    DataFormatString="{StaticResource CurrencyStringFormat}"
                                                                     TextAlignment="Right" />
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding EstimateDeliveryDate}"
                                                                     Header="预计交付日期"
-                                                                    DataFormatString="{} {0:yyyy/MM/dd}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}"
                                                                     TextAlignment="Center" />
                                         <telerik:GridViewDataColumn DataMemberBinding="{Binding Note}" Header="备注" />
                                     </telerik:RadGridView.Columns>
