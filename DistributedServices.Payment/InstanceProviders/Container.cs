@@ -30,11 +30,11 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
 
                 #region 发票相关配置，包括查询，应用服务，仓储注册
 
-                .Register<ICreditMemoQuery, CreditMemoQuery>()
+                .Register<ICreditNoteQuery, CreditNoteQuery>()
                 .Register<ILeaseInvoiceQuery, LeaseInvoiceQuery>()
                 .Register<IPrepaymentInvoiceQuery, PrepaymentInvoiceQuery>()
                 .Register<IPurchaseInvoiceQuery, PurchaseInvoiceQuery>()
-                .Register<ICreditMemoAppService, CreditMemoAppService>()
+                .Register<ICreditNoteAppService, CreditNoteAppService>()
                 .Register<ILeaseInvoiceAppService, LeaseInvoiceAppService>()
                 .Register<IPrepaymentInvoiceAppService, PrepaymentInvoiceAppService>()
                 .Register<IPurchaseInvoiceAppService, PurchaseInvoiceAppService>()

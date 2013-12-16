@@ -16,7 +16,7 @@ namespace UniCloud.DistributedServices.Payment
     {
         //private readonly IPaymentAppService _flightLogAppService = Container.Current.Resolve<IPaymentAppService>();
 
-        private readonly ICreditMemoAppService _creditMemoAppService;
+        private readonly ICreditNoteAppService _creditNoteAppService;
         private readonly ILeaseInvoiceAppService _leaseInvoiceAppService;
         private readonly IPrepaymentInvoiceAppService _prepaymentInvoiceAppService;
         private readonly IPurchaseInvoiceAppService _purchaseInvoiceAppService;
@@ -24,7 +24,7 @@ namespace UniCloud.DistributedServices.Payment
         public PaymentData()
             : base("UniCloud.Application.PaymentBC.DTO")
         {
-            _creditMemoAppService = DefaultContainer.Resolve<ICreditMemoAppService>();
+            _creditNoteAppService = DefaultContainer.Resolve<ICreditNoteAppService>();
             _leaseInvoiceAppService = DefaultContainer.Resolve<ILeaseInvoiceAppService>();
             _prepaymentInvoiceAppService = DefaultContainer.Resolve<IPrepaymentInvoiceAppService>();
             _purchaseInvoiceAppService = DefaultContainer.Resolve<IPurchaseInvoiceAppService>();
@@ -41,7 +41,7 @@ namespace UniCloud.DistributedServices.Payment
         /// <summary>
         ///     贷项单集合
         /// </summary>
-        //public IQueryable<CreditMemoDTO> CreditMemos
+        //public IQueryable<CreditNoteDTO> CreditNotes
         //{
         //    get { return  null; }
         //}
