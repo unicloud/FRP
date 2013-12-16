@@ -159,10 +159,10 @@
       <DependentUpon>APUMaintain.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\APUMaintainVm.cs" />
-    <Compile Include="Invoice\CreditMemoManager.xaml.cs">
-      <DependentUpon>CreditMemoManager.xaml</DependentUpon>
+    <Compile Include="Invoice\CreditNoteManager.xaml.cs">
+      <DependentUpon>CreditNoteManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Invoice\CreditMemoManagerVM.cs" />
+    <Compile Include="Invoice\CreditNoteManagerVM.cs" />
     <Compile Include="Invoice\EngineMaintain.xaml.cs">
       <DependentUpon>EngineMaintain.xaml</DependentUpon>
     </Compile>
@@ -223,7 +223,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Invoice\CreditMemoManager.xaml">
+    <Page Include="Invoice\CreditNoteManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

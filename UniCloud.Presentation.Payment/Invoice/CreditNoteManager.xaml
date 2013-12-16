@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UniCloud.Presentation.Payment.Invoice.CreditMemoManager"
+﻿<UserControl x:Class="UniCloud.Presentation.Payment.Invoice.CreditNoteManager"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,7 +10,7 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance uc:CreditMemoManagerVM}">
+             d:DataContext="{d:DesignInstance uc:CreditNoteManagerVM}">
 
     <UserControl.Resources>
         <ResourceDictionary>

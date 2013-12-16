@@ -50,8 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InvoiceQueries\CreditMemoQuery.cs" />
-    <Compile Include="InvoiceQueries\ICreditMemoQuery.cs" />
+    <Compile Include="InvoiceQueries\CreditNoteQuery.cs" />
+    <Compile Include="InvoiceQueries\ICreditNoteQuery.cs" />
     <Compile Include="InvoiceQueries\ILeaseInvoiceQuery.cs" />
     <Compile Include="InvoiceQueries\IPrepaymentInvoiceQuery.cs" />
     <Compile Include="InvoiceQueries\IPurchaseInvoiceQuery.cs" />

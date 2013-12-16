@@ -2,18 +2,18 @@
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(CreditMemoManager))]
+    [Export(typeof(CreditNoteManager))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class CreditMemoManager
+    public partial class CreditNoteManager
     {
-        public CreditMemoManager()
+        public CreditNoteManager()
         {
             InitializeComponent();
         }
         [Import]
-        public CreditMemoManagerVM ViewModel
+        public CreditNoteManagerVM ViewModel
         {
-            get { return DataContext as CreditMemoManagerVM; }
+            get { return DataContext as CreditNoteManagerVM; }
             set { DataContext = value; }
         }
     }

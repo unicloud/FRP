@@ -44,8 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InvoiceServices\CreditMemoAppService.cs" />
-    <Compile Include="InvoiceServices\ICreditMemoAppService.cs" />
+    <Compile Include="InvoiceServices\CreditNoteAppService.cs" />
+    <Compile Include="InvoiceServices\ICreditNoteAppService.cs" />
     <Compile Include="InvoiceServices\ILeaseInvoiceAppService.cs" />
     <Compile Include="InvoiceServices\IPrepaymentInvoiceAppService.cs" />
     <Compile Include="InvoiceServices\IPurchaseInvoiceAppService.cs" />

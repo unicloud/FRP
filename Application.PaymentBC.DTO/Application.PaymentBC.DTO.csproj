@@ -60,8 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InvoiceDTO\CreditMemoDTO.cs" />
-    <Compile Include="InvoiceDTO\CreditMemoLineDTO.cs" />
+    <Compile Include="InvoiceDTO\CreditNoteDTO.cs" />
+    <Compile Include="InvoiceDTO\CreditNoteLineDTO.cs" />
     <Compile Include="InvoiceDTO\LeaseInvoiceDTO.cs" />
     <Compile Include="InvoiceDTO\LeaseInvoiceLineDTO.cs" />
     <Compile Include="InvoiceDTO\PrepaymentInvoiceDTO.cs" />
