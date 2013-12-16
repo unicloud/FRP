@@ -20,7 +20,5 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid x:Name="EngineMaintainLayoutRoot" Background="White">
-
-    </Grid>
+    <Grid x:Name="EngineMaintainLayoutRoot" Background="White" />
 </UserControl>
