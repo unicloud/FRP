@@ -21,6 +21,7 @@
 using System.Linq;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Domain.PaymentBC.Aggregates.ContractAircraftAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
@@ -43,7 +44,7 @@ namespace UniCloud.Application.PaymentBC.Query.ContractAircraftQueries
         public IQueryable<ContractAircraftDTO> ContractAircraftsQuery(
             QueryBuilder<ContractAircraft> query)
         {
-            
+            var dbSupplier = _unitOfWork.CreateSet<Supplier>();
             return 
                 query.ApplyTo(_unitOfWork.CreateSet<ContractAircraft>())
                      .Select(p => new ContractAircraftDTO
@@ -55,8 +56,10 @@ namespace UniCloud.Application.PaymentBC.Query.ContractAircraftQueries
                          SerialNumber = p.SerialNumber,
                          IsValid = p.IsValid,
                          AircraftTypeName = p.AircraftType.Name,
-                         ImportType = p.ImportCategory.ActionType + ":" + p.ImportCategory.ActionName,
-                         ContractAircrafId = p.Id
+                         ImportType = p.ImportCategory.ActionType + "-" + p.ImportCategory.ActionName,
+                         ContractAircrafId = p.Id,
+                         SupplierName = dbSupplier.FirstOrDefault(c=>c.Id==p.SupplierId).Name,
+                         SupplierId = p.SupplierId,
                      });
         }
 

@@ -318,7 +318,6 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Page Include="Contract\AircraftPurchase.xaml">
       <Generator>MSBuild:Compile</Generator>

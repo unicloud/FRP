@@ -34,7 +34,7 @@ namespace UniCloud.Application.PaymentBC.DTO
     {
         public PrepaymentInvoiceDTO()
         {
-            InvoiceLines=new List<PrepaymentInvoiceLineDTO>();
+            InvoiceLines = new List<InvoiceLineDTO>();
         }
 
         #region 属性
@@ -46,67 +46,67 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///     发票编号
         /// </summary>
-        public string InvoiceNumber { get; private set; }
+        public string InvoiceNumber { get; set; }
 
         /// <summary>
         ///     发票号码
         /// </summary>
-        public string InvoideCode { get; internal set; }
+        public string InvoideCode { get; set; }
 
         /// <summary>
         ///     发票日期
         /// </summary>
-        public DateTime InvoiceDate { get; internal set; }
+        public DateTime InvoiceDate { get; set; }
 
         /// <summary>
         ///     供应商名称
         /// </summary>
-        public string SupplierName { get; private set; }
+        public string SupplierName { get; set; }
 
         /// <summary>
         ///     发票金额
         /// </summary>
-        public decimal InvoiceValue { get; private set; }
+        public decimal InvoiceValue { get; set; }
 
         /// <summary>
         ///     已付金额
         /// </summary>
-        public decimal PaidAmount { get; private set; }
+        public decimal PaidAmount { get; set; }
 
         /// <summary>
         ///     经办人
         /// </summary>
-        public string OperatorName { get; private set; }
+        public string OperatorName { get; set; }
 
         /// <summary>
         ///     审核人
         /// </summary>
-        public string Reviewer { get; private set; }
+        public string Reviewer { get; set; }
 
         /// <summary>
         ///     创建日期
         /// </summary>
-        public DateTime CreateDate { get; internal set; }
+        public DateTime CreateDate { get; set; }
 
         /// <summary>
         ///     审核日期
         /// </summary>
-        public DateTime? ReviewDate { get; private set; }
+        public DateTime? ReviewDate { get; set; }
 
         /// <summary>
         ///     是否有效
         /// </summary>
-        public bool IsValid { get; private set; }
+        public bool IsValid { get; set; }
 
         /// <summary>
         ///     是否完成
         /// </summary>
-        public bool IsCompleted { get; private set; }
+        public bool IsCompleted { get; set; }
 
         /// <summary>
         ///     发票状态
         /// </summary>
-        public int Status { get; private set; }
+        public int Status { get; set; }
 
         #endregion
 
@@ -115,31 +115,31 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///     订单ID
         /// </summary>
-        public int OrderId { get; private set; }
+        public int OrderId { get; set; }
 
         /// <summary>
         ///     供应商ID
         /// </summary>
-        public int SupplierId { get; private set; }
+        public int SupplierId { get; set; }
 
         /// <summary>
         ///     币种ID
         /// </summary>
-        public int CurrencyId { get; private set; }
+        public int CurrencyId { get; set; }
 
         /// <summary>
         ///     付款计划行ID
         /// </summary>
-        public int? PaymentScheduleLineId { get; private set; }
+        public int PaymentScheduleLineId { get; set; }
 
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        ///    预付款发票行集合
+        ///    发票行集合
         /// </summary>
-        public List<PrepaymentInvoiceLineDTO> InvoiceLines { get; set; }
+        public List<InvoiceLineDTO> InvoiceLines { get; set; }
 
         #endregion
     }

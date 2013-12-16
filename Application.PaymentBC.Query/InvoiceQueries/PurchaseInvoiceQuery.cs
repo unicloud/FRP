@@ -42,12 +42,32 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
         public IQueryable<PurchaseInvoiceDTO> PurchaseInvoiceDTOQuery(
             QueryBuilder<PurchaseInvoice> query)
         {
-
             return
                 query.ApplyTo(_unitOfWork.CreateSet<PurchaseInvoice>())
                      .Select(p => new PurchaseInvoiceDTO
                      {
-
+                         PurchaseInvoiceId = p.Id,
+                         InvoiceNumber = p.InvoiceNumber,
+                         InvoideCode = p.InvoideCode,
+                         InvoiceDate = p.InvoiceDate,
+                         SupplierName = p.SupplierName,
+                         InvoiceValue = p.InvoiceValue,
+                         PaidAmount = p.PaidAmount,
+                         OperatorName = p.OperatorName,
+                         Reviewer = p.Reviewer,
+                         CreateDate = p.CreateDate,
+                         ReviewDate = p.ReviewDate,
+                         IsValid = p.IsValid,
+                         IsCompleted = p.IsCompleted,
+                         Status = (int)p.Status,
+                         InvoiceLines = p.InvoiceLines.Select(q => new InvoiceLineDTO
+                         {
+                             InvoiceLineId = q.Id,
+                             ItemName = q.ItemName,
+                             Amount = q.Amount,
+                             InvoiceId = q.InvoiceId,
+                             OrderLineId = q.OrderLineId,
+                         }).ToList(),
 
                      });
         }

@@ -127,10 +127,10 @@ namespace UniCloud.Presentation.Payment.Invoice
                 if (_selLeaseInvoice != value)
                 {
                     _selLeaseInvoice = value;
-                    _leaseInvoiceLines.Clear();
+                    _invoiceLines.Clear();
                     foreach (var invoiceLine in value.InvoiceLines)
                     {
-                        LeaseInvoiceLines.Add(invoiceLine);
+                        InvoiceLines.Add(invoiceLine);
                     }
                     RaisePropertyChanged(() => SelLeaseInvoice);
                 }
@@ -141,20 +141,20 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 租赁发票行
 
-        private ObservableCollection<LeaseInvoiceLineDTO> _leaseInvoiceLines=new ObservableCollection<LeaseInvoiceLineDTO>();
+        private ObservableCollection<InvoiceLineDTO> _invoiceLines=new ObservableCollection<InvoiceLineDTO>();
 
         /// <summary>
         ///     租赁发票行
         /// </summary>
-        public ObservableCollection<LeaseInvoiceLineDTO> LeaseInvoiceLines
+        public ObservableCollection<InvoiceLineDTO> InvoiceLines
         {
-            get { return _leaseInvoiceLines; }
+            get { return _invoiceLines; }
             private set
             {
-                if (_leaseInvoiceLines != value)
+                if (_invoiceLines != value)
                 {
-                    _leaseInvoiceLines = value;
-                    RaisePropertyChanged(() => LeaseInvoiceLines);
+                    _invoiceLines = value;
+                    RaisePropertyChanged(() => InvoiceLines);
                 }
             }
         }
@@ -163,20 +163,20 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 选择的租赁发票行
 
-        private LeaseInvoiceLineDTO _selLeaseInvoiceLine;
+        private InvoiceLineDTO _selInvoiceLine;
 
         /// <summary>
         ///     选择的租赁发票行
         /// </summary>
-        public LeaseInvoiceLineDTO SelLeaseInvoiceLine
+        public InvoiceLineDTO SelInvoiceLine
         {
-            get { return _selLeaseInvoiceLine; }
+            get { return _selInvoiceLine; }
             set
             {
-                if (_selLeaseInvoiceLine != value)
+                if (_selInvoiceLine != value)
                 {
-                    _selLeaseInvoiceLine = value;
-                    RaisePropertyChanged(() => SelLeaseInvoiceLine);
+                    _selInvoiceLine = value;
+                    RaisePropertyChanged(() => SelInvoiceLine);
                 }
             }
         }
@@ -228,7 +228,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             if (currentLeaseInvoice == null)
             {
                 //删除完，若没有记录了，则也要删除界面明细
-                LeaseInvoiceLines.Clear();
+                InvoiceLines.Clear();
             }
         }
 
@@ -252,13 +252,13 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnAdd(object obj)
         {
-            var invoiceLine = new LeaseInvoiceLineDTO
+            var invoiceLine = new InvoiceLineDTO
             {
-                LeaseInvoiceLineId = RandomHelper.Next(),
+                InvoiceLineId = RandomHelper.Next(),
                 InvoiceId = SelLeaseInvoice.LeaseInvoiceId
             };
             SelLeaseInvoice.InvoiceLines.Add(invoiceLine);
-            LeaseInvoiceLines.Add(invoiceLine);
+            InvoiceLines.Add(invoiceLine);
         }
 
         private bool CanAdd(object obj)
@@ -276,14 +276,14 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnRemove(object obj)
         {
-            SelLeaseInvoice.InvoiceLines.Remove(SelLeaseInvoiceLine);
-            LeaseInvoiceLines.Remove(SelLeaseInvoiceLine);
+            SelLeaseInvoice.InvoiceLines.Remove(SelInvoiceLine);
+            InvoiceLines.Remove(SelInvoiceLine);
         }
 
         private bool CanRemove(object obj)
         {
             bool canRemove;
-            if (SelLeaseInvoice != null && SelLeaseInvoiceLine != null)
+            if (SelLeaseInvoice != null && SelInvoiceLine != null)
                 canRemove = true;
             else canRemove = false;
             return canRemove;

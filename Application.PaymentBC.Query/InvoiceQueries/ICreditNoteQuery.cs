@@ -20,6 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UniCloud.Application.PaymentBC.DTO;
+using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 
 #endregion
 
@@ -35,7 +36,7 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
         /// </summary>
         /// <param name="query">查询表达式。</param>
         /// <returns>贷项单DTO集合。</returns>
-        //IQueryable<CreditNoteDTO> CreditNoteDTOQuery(
-        //    QueryBuilder<CreditNote> query);
+        IQueryable<CreditNoteDTO> CreditNoteDTOQuery(
+            QueryBuilder<CreditNoteInvoice> query);
     }
 }

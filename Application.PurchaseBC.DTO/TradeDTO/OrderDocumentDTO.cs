@@ -27,13 +27,13 @@ namespace UniCloud.Application.PurchaseBC.DTO
     /// <summary>
     ///     订单合同
     /// </summary>
-    [DataServiceKey("Id")]
+    [DataServiceKey("OrderDocumentId")]
     public class OrderDocumentDTO
     {
         /// <summary>
         ///     订单ID
         /// </summary>
-        public int Id { get; set; }
+        public int OrderDocumentId { get; set; }
 
         /// <summary>
         ///     合同名称
