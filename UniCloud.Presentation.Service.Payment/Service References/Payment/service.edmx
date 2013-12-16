@@ -104,6 +104,171 @@
         <Property Name="PaymentScheduleLineId" Type="Edm.Int32" Nullable="false" />
         <Property Name="InvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.InvoiceLineDTO)" Nullable="false" />
       </EntityType>
+      <EntityType Name="EngineMaintainInvoiceDTO">
+        <Key>
+          <PropertyRef Name="EngineMaintainInvoiceId" />
+        </Key>
+        <Property Name="EngineMaintainInvoiceId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainInvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.EngineMaintainInvoiceLineDTO)" Nullable="false" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="InvoiceNumber" Type="Edm.String" />
+        <Property Name="InvoideCode" Type="Edm.String" />
+        <Property Name="InvoiceDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="SupplierName" Type="Edm.String" />
+        <Property Name="InvoiceValue" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="PaidAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="OperatorName" Type="Edm.String" />
+        <Property Name="Reviewer" Type="Edm.String" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ReviewDate" Type="Edm.DateTime" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="EngineMaintainInvoiceLineDTO">
+        <Property Name="EngineMaintainInvoiceLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainItem" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ItemName" Type="Edm.String" />
+        <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Amount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Note" Type="Edm.String" />
+        <Property Name="PartId" Type="Edm.Int32" />
+      </ComplexType>
+      <EntityType Name="APUMaintainInvoiceDTO">
+        <Key>
+          <PropertyRef Name="APUMaintainInvoiceId" />
+        </Key>
+        <Property Name="APUMaintainInvoiceId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainInvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.APUMaintainInvoiceLineDTO)" Nullable="false" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="InvoiceNumber" Type="Edm.String" />
+        <Property Name="InvoideCode" Type="Edm.String" />
+        <Property Name="InvoiceDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="SupplierName" Type="Edm.String" />
+        <Property Name="InvoiceValue" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="PaidAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="OperatorName" Type="Edm.String" />
+        <Property Name="Reviewer" Type="Edm.String" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ReviewDate" Type="Edm.DateTime" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="APUMaintainInvoiceLineDTO">
+        <Property Name="APUMaintainInvoiceLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainItem" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ItemName" Type="Edm.String" />
+        <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Amount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Note" Type="Edm.String" />
+        <Property Name="PartId" Type="Edm.Int32" />
+      </ComplexType>
+      <EntityType Name="AirframeMaintainInvoiceDTO">
+        <Key>
+          <PropertyRef Name="AirframeMaintainInvoiceId" />
+        </Key>
+        <Property Name="AirframeMaintainInvoiceId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainInvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.AirframeMaintainInvoiceLineDTO)" Nullable="false" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="InvoiceNumber" Type="Edm.String" />
+        <Property Name="InvoideCode" Type="Edm.String" />
+        <Property Name="InvoiceDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="SupplierName" Type="Edm.String" />
+        <Property Name="InvoiceValue" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="PaidAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="OperatorName" Type="Edm.String" />
+        <Property Name="Reviewer" Type="Edm.String" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ReviewDate" Type="Edm.DateTime" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="AirframeMaintainInvoiceLineDTO">
+        <Property Name="AirframeMaintainInvoiceLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainItem" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ItemName" Type="Edm.String" />
+        <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Amount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Note" Type="Edm.String" />
+        <Property Name="PartId" Type="Edm.Int32" />
+      </ComplexType>
+      <EntityType Name="UndercartMaintainInvoiceDTO">
+        <Key>
+          <PropertyRef Name="UndercartMaintainInvoiceId" />
+        </Key>
+        <Property Name="UndercartMaintainInvoiceId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainInvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.UndercartMaintainInvoiceLineDTO)" Nullable="false" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="InvoiceNumber" Type="Edm.String" />
+        <Property Name="InvoideCode" Type="Edm.String" />
+        <Property Name="InvoiceDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="SupplierName" Type="Edm.String" />
+        <Property Name="InvoiceValue" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="PaidAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="OperatorName" Type="Edm.String" />
+        <Property Name="Reviewer" Type="Edm.String" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ReviewDate" Type="Edm.DateTime" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="UndercartMaintainInvoiceLineDTO">
+        <Property Name="UndercartMaintainInvoiceLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainItem" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ItemName" Type="Edm.String" />
+        <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Amount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Note" Type="Edm.String" />
+        <Property Name="PartId" Type="Edm.Int32" />
+      </ComplexType>
+      <EntityType Name="ContractAircraftDTO">
+        <Key>
+          <PropertyRef Name="ContractAircrafId" />
+        </Key>
+        <Property Name="ContractAircrafId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="RankNumber" Type="Edm.String" />
+        <Property Name="CSCNumber" Type="Edm.String" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="AircraftTypeName" Type="Edm.String" />
+        <Property Name="ImportType" Type="Edm.String" />
+        <Property Name="SupplierId" Type="Edm.Int32" />
+        <Property Name="SupplierName" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="ContractEngineDTO">
+        <Key>
+          <PropertyRef Name="ContractEngineId" />
+        </Key>
+        <Property Name="ContractEngineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="RankNumber" Type="Edm.String" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="ImportType" Type="Edm.String" />
+        <Property Name="SupplierName" Type="Edm.String" />
+        <Property Name="SupplierId" Type="Edm.Int32" />
+      </EntityType>
+      <EntityType Name="CurrencyDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+      </EntityType>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Payment" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="PaymentData" m:IsDefaultEntityContainer="true">
@@ -111,6 +276,13 @@
         <EntitySet Name="LeaseInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.LeaseInvoiceDTO" />
         <EntitySet Name="PrepaymentInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceDTO" />
         <EntitySet Name="PurchaseInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.PurchaseInvoiceDTO" />
+        <EntitySet Name="EngineMaintainInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.EngineMaintainInvoiceDTO" />
+        <EntitySet Name="APUMaintainInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.APUMaintainInvoiceDTO" />
+        <EntitySet Name="AirframeMaintainInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.AirframeMaintainInvoiceDTO" />
+        <EntitySet Name="UndercartMaintainInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.UndercartMaintainInvoiceDTO" />
+        <EntitySet Name="ContractAircrafts" EntityType="UniCloud.Application.PaymentBC.DTO.ContractAircraftDTO" />
+        <EntitySet Name="ContractEngines" EntityType="UniCloud.Application.PaymentBC.DTO.ContractEngineDTO" />
+        <EntitySet Name="Currencies" EntityType="UniCloud.Application.PaymentBC.DTO.CurrencyDTO" />
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

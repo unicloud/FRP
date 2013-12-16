@@ -19,11 +19,11 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.UberModel.Aggregates.PartAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.PartAgg;
 
 #endregion
 
-namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
+namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
 {
     /// <summary>
     ///     Part实体相关配置

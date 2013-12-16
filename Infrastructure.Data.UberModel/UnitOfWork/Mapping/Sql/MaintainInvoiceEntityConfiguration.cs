@@ -19,11 +19,11 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
+using UniCloud.Domain.UberModel.Aggregates.MaintainInvoiceAgg;
 
 #endregion
 
-namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
+namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 {
     /// <summary>
     ///     MaintainInvoice实体相关配置

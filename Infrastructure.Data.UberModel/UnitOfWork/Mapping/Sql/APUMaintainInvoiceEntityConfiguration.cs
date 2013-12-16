@@ -19,20 +19,20 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
+using UniCloud.Domain.UberModel.Aggregates.MaintainInvoiceAgg;
 
 #endregion
 
-namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
+namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 {
     /// <summary>
-    ///     AirframeMaintainInvoice实体相关配置
+    ///     APUMaintainInvoice实体相关配置
     /// </summary>
-    internal class AirframeMaintainInvoiceEntityConfiguration : EntityTypeConfiguration<AirframeMaintainInvoice>
+    internal class APUMaintainInvoiceEntityConfiguration : EntityTypeConfiguration<APUMaintainInvoice>
     {
-        public AirframeMaintainInvoiceEntityConfiguration()
+        public APUMaintainInvoiceEntityConfiguration()
         {
-            ToTable("AirframeMaintainInvoice", DbConfig.Schema);
+            ToTable("APUMaintainInvoice", DbConfig.Schema);
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
