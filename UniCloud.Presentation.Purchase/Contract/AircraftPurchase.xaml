@@ -54,7 +54,7 @@
                                                ToolTipService.ToolTip="删除交易" />
                                     </telerik:RadButton>
                                 </telerik:RadToolBar>
-                                <telerik:RadGridView Grid.Row="1" x:Name="Trade" AutoGenerateColumns="False"
+                                <telerik:RadGridView Grid.Row="1" x:Name="Trade"
                                                      ItemsSource="{Binding ViewTradeDTO}"
                                                      SelectedItem="{Binding SelTradeDTO, Mode=TwoWay}"
                                                      IsBusy="{Binding ViewTradeDTO.IsBusy}" EditTriggers="CellClick"
@@ -123,7 +123,7 @@
                                                ToolTipService.ToolTip="删除订单" />
                                     </telerik:RadButton>
                                 </telerik:RadToolBar>
-                                <telerik:RadGridView Grid.Row="1" x:Name="Order" AutoGenerateColumns="False"
+                                <telerik:RadGridView Grid.Row="1" x:Name="Order"
                                                      ItemsSource="{Binding ViewAircraftPurchaseOrderDTO}"
                                                      SelectedItem="{Binding SelAircraftPurchaseOrderDTO,Mode=TwoWay}"
                                                      IsBusy="{Binding ViewAircraftPurchaseOrderDTO.IsBusy}"
@@ -237,7 +237,7 @@
                                         </ScrollViewer>
                                     </telerik:GroupBox>
                                 </Grid>
-                                <telerik:RadGridView Grid.Row="2" x:Name="OrderLine" AutoGenerateColumns="False"
+                                <telerik:RadGridView Grid.Row="2" x:Name="OrderLine"
                                                      ItemsSource="{Binding SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines}"
                                                      IsBusy="{Binding ViewAircraftPurchaseOrderDTO.IsBusy}"
                                                      ShowGroupPanel="False" IsFilteringAllowed="False"

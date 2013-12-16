@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using UniCloud.Presentation.Service.Purchase.Purchase.Enums;
 
 #endregion
@@ -31,6 +32,14 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         public OrderStatus OrderStatus
         {
             get { return (OrderStatus) Status; }
+        }
+
+        partial void OnNameChanging(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new Exception("合同名称不能为空！");
+            }
         }
     }
 }

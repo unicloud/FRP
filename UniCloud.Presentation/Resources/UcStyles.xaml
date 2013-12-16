@@ -21,7 +21,7 @@
 
     <!-- 字体、字号 -->
     <!--<FontFamily  x:Key="NormalFontFamily">Microsoft YaHei UI</FontFamily>-->
-    <FontFamily  x:Key="NormalFontFamily">Microsoft YaHei UI</FontFamily>
+    <FontFamily x:Key="NormalFontFamily">Microsoft YaHei UI</FontFamily>
     <system:Double x:Key="TitleFontSize">16</system:Double>
     <system:Double x:Key="HeaderFontSize">14</system:Double>
     <system:Double x:Key="TextFontSize">13</system:Double>
@@ -36,7 +36,6 @@
     <system:Int32 x:Key="PageSize">10</system:Int32>
     <system:String x:Key="DateTFormat">yyyy/mm/dd</system:String>
     <system:Double x:Key="CellMaxWidth">150</system:Double>
-
 
     <Style x:Key="CellStyle"
            TargetType="telerik:GridViewCell">
@@ -155,4 +154,10 @@
         <Setter Property="VerticalAlignment"
                 Value="Center" />
     </Style>
+
+    <Style TargetType="telerik:RadGridView" x:Key="BaseRadGridView" />
+    <Style TargetType="telerik:RadGridView" BasedOn="{StaticResource BaseRadGridView}">
+        <Setter Property="AutoGenerateColumns" Value="False" />
+    </Style>
+
 </ResourceDictionary>
