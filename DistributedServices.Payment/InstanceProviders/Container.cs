@@ -4,7 +4,10 @@
 
 using UniCloud.Application.PaymentBC.InvoiceServices;
 using UniCloud.Application.PaymentBC.Query.InvoiceQueries;
+using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
@@ -41,6 +44,21 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
                 .Register<IInvoiceRepository, InvoiceRepository>()
                 #endregion
 
+                #region 供应商相关配置，包括查询，应用服务，仓储注册
+
+                         .Register<ISupplierRepository, SupplierRepository>()
+                #endregion
+
+                #region 交易相关配置，包括查询，应用服务，仓储注册
+
+                         .Register<IOrderRepository, OrderRepository>()
+
+                #endregion
+
+                #region   币种相关配置，包括查询，应用服务，仓储注册
+
+                         .Register<ICurrencyRepository, CurrencyRepository>()
+                #endregion
                 ;
         }
 

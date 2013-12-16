@@ -3,8 +3,8 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2013/12/15 10:32:47
-// 文件名：PrepaymentInvoiceLineDTO
+// 作者：HuangQiBin 时间：2013/12/15 10:23:53
+// 文件名：InvoiceLineDTO
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -27,17 +27,16 @@ using System.Threading.Tasks;
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    /// 预付款发票
-    /// 预付款发票行DTO
+    /// 发票行DTO
     /// </summary>
-    [DataServiceKey("PrepaymentInvoiceLineId")]
-    public class PrepaymentInvoiceLineDTO
+    [DataServiceKey("InvoiceLineId")]
+    public class InvoiceLineDTO
     {
         #region 属性
         /// <summary>
         ///     主键
         /// </summary>
-        public int PrepaymentInvoiceLineId { get; set; }
+        public int InvoiceLineId { get; set; }
 
         /// <summary>
         ///     项名称

@@ -61,13 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InvoiceDTO\CreditNoteDTO.cs" />
-    <Compile Include="InvoiceDTO\CreditNoteLineDTO.cs" />
     <Compile Include="InvoiceDTO\LeaseInvoiceDTO.cs" />
-    <Compile Include="InvoiceDTO\LeaseInvoiceLineDTO.cs" />
+    <Compile Include="InvoiceDTO\InvoiceLineDTO.cs" />
     <Compile Include="InvoiceDTO\PrepaymentInvoiceDTO.cs" />
-    <Compile Include="InvoiceDTO\PrepaymentInvoiceLineDTO.cs" />
     <Compile Include="InvoiceDTO\PurchaseInvoiceDTO.cs" />
-    <Compile Include="InvoiceDTO\PurchaseInvoiceLineDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\AirframeMaintainInvoiceDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\AirframeMaintainInvoiceLineDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\APUMaintainInvoiceDTO.cs" />

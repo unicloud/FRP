@@ -31,20 +31,15 @@ namespace UniCloud.DistributedServices.Payment
 
         }
 
-        public IQueryable<MaintainInvoiceDTO> MaintainInvoices
-        {
-            get { return null; }
-        }
-
         #region Invoice集合
 
         /// <summary>
-        ///     贷项单集合
+        ///     贷项通知单集合
         /// </summary>
-        //public IQueryable<CreditNoteDTO> CreditNotes
-        //{
-        //    get { return  null; }
-        //}
+        public IQueryable<CreditNoteDTO> CreditNotes
+        {
+            get { return _creditNoteAppService.GetCreditNoteInvoices(); }
+        }
 
         /// <summary>
         ///     租赁发票集合
