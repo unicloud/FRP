@@ -40,20 +40,10 @@ namespace UniCloud.Presentation.Purchase
 
         public void Initialize()
         {
-            LoadStaticData();
             RegisterView();
         }
 
         #endregion
-
-        private static void LoadStaticData()
-        {
-            GlobalServiceHelper.LoadSupplier();
-            GlobalServiceHelper.LoadAircraftType();
-            GlobalServiceHelper.LoadLeaseContractAircrafts();
-            GlobalServiceHelper.LoadCurrency();
-            GlobalServiceHelper.LoadLinkman();
-        }
 
         private void RegisterView()
         {

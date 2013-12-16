@@ -30,13 +30,11 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
 {
     public class OrderQuery : IOrderQuery
     {
-        private readonly IOrderRepository _orderRepository;
         private readonly IQueryableUnitOfWork _unitOfWork;
 
-        public OrderQuery(IQueryableUnitOfWork unitOfWork, IOrderRepository orderRepository)
+        public OrderQuery(IQueryableUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _orderRepository = orderRepository;
         }
 
         #region IOrderQuery 成员
@@ -53,7 +51,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
         public IQueryable<AircraftLeaseOrderDTO> AircraftLeaseOrderQuery(QueryBuilder<Order> query)
         {
             var relatedDocs = _unitOfWork.CreateSet<RelatedDoc>();
-            var result = query.ApplyTo(_orderRepository.GetAll().OfType<AircraftLeaseOrder>())
+            var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<AircraftLeaseOrder>())
                 .Select(o => new AircraftLeaseOrderDTO
                 {
                     Id = o.Id,
@@ -104,7 +102,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
         public IQueryable<AircraftPurchaseOrderDTO> AircraftPurchaseOrderQuery(QueryBuilder<Order> query)
         {
             var relatedDocs = _unitOfWork.CreateSet<RelatedDoc>();
-            var result = query.ApplyTo(_orderRepository.GetAll().OfType<AircraftPurchaseOrder>())
+            var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<AircraftPurchaseOrder>())
                 .Select(o => new AircraftPurchaseOrderDTO
                 {
                     Id = o.Id,
@@ -158,7 +156,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
         public IQueryable<EngineLeaseOrderDTO> EngineLeaseOrderQuery(QueryBuilder<Order> query)
         {
             var relatedDocs = _unitOfWork.CreateSet<RelatedDoc>();
-            var result = query.ApplyTo(_orderRepository.GetAll().OfType<EngineLeaseOrder>())
+            var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<EngineLeaseOrder>())
                 .Select(o => new EngineLeaseOrderDTO
                 {
                     Id = o.Id,
@@ -208,7 +206,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
         public IQueryable<EnginePurchaseOrderDTO> EnginePurchaseOrderQuery(QueryBuilder<Order> query)
         {
             var relatedDocs = _unitOfWork.CreateSet<RelatedDoc>();
-            var result = query.ApplyTo(_orderRepository.GetAll().OfType<EnginePurchaseOrder>())
+            var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<EnginePurchaseOrder>())
                 .Select(o => new EnginePurchaseOrderDTO
                 {
                     Id = o.Id,
@@ -258,7 +256,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
         public IQueryable<BFEPurchaseOrderDTO> BFEPurchaseOrderQuery(QueryBuilder<Order> query)
         {
             var relatedDocs = _unitOfWork.CreateSet<RelatedDoc>();
-            var result = query.ApplyTo(_orderRepository.GetAll().OfType<BFEPurchaseOrder>())
+            var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<BFEPurchaseOrder>())
                 .Select(o => new BFEPurchaseOrderDTO
                 {
                     Id = o.Id,
@@ -296,7 +294,6 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
             return result;
         }
 
-
         /// <summary>
         ///     查询订单的合同文档
         /// </summary>
@@ -309,12 +306,11 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                 .Select(o => new OrderDocumentDTO
                 {
                     Id = o.Id,
-                    SupplierName = dbTrade.Where(p=>p.Id==o.TradeId)
-                                    .Select(p=>p.Supplier.Name).FirstOrDefault(),
+                    SupplierName = dbTrade.Where(p => p.Id == o.TradeId)
+                        .Select(p => p.Supplier.Name).FirstOrDefault(),
                     Name = o.Name,
                     ContractName = o.ContractName,
                     ContractDocGuid = o.ContractDocGuid,
-                 
                 });
             return result;
         }

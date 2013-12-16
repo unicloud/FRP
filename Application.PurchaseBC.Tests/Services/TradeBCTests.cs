@@ -23,6 +23,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.PurchaseBC.Query.TradeQueries;
 using UniCloud.Application.PurchaseBC.TradeServices;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data;
@@ -49,6 +50,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
                 .Register<ITradeRepository, TradeRepository>()
                 .Register<ISupplierRepository, SupplierRepository>()
                 .Register<IOrderRepository, OrderRepository>()
+                .Register<IRelatedDocRepository,RelatedDocRepository>()
                 .Register<ITradeAppService, TradeAppService>()
                 .Register<ITradeQuery, TradeQuery>()
                 .Register<IOrderQuery, OrderQuery>();
@@ -69,6 +71,19 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
 
             // Act
             var result = service.GetTrades().ToList();
+
+            // Assert
+            Assert.IsTrue(result.Any());
+        }
+
+        [TestMethod]
+        public void GetOrders()
+        {
+            // Arrange
+            var service = DefaultContainer.Resolve<ITradeAppService>();
+
+            // Act
+            var result = service.GetAircraftPurchaseOrders().ToList();
 
             // Assert
             Assert.IsTrue(result.Any());
