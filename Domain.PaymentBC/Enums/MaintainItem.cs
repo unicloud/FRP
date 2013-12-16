@@ -24,6 +24,7 @@ namespace UniCloud.Domain.PaymentBC.Enums
     {
         更换附件 = 0,
         耗材费 = 1,
-        工时费 = 2
+        工时费 = 2,
+        杂项 = 3
     }
 }
