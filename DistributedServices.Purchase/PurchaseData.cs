@@ -29,6 +29,7 @@ using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.DocumentPathServices;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
+using UniCloud.Application.PurchaseBC.OrderDocumentServices;
 using UniCloud.Application.PurchaseBC.PartServices;
 using UniCloud.Application.PurchaseBC.PlanAircraftServices;
 using UniCloud.Application.PurchaseBC.ReceptionServices;
@@ -68,7 +69,7 @@ namespace UniCloud.DistributedServices.Purchase
         private readonly IRelatedDocAppService _relatedDocAppService;
         private readonly ISupplierAppService _supplierAppService;
         private readonly ITradeAppService _tradeAppService;
-
+        private readonly IContractDocumentAppService _contractDocumentAppService;
         public PurchaseData()
             : base("UniCloud.Application.PurchaseBC.DTO")
         {
@@ -94,6 +95,7 @@ namespace UniCloud.DistributedServices.Purchase
             _relatedDocAppService = DefaultContainer.Resolve<IRelatedDocAppService>();
             _currencyAppService = DefaultContainer.Resolve<ICurrencyAppService>();
             _documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
+            _contractDocumentAppService = DefaultContainer.Resolve<IContractDocumentAppService>();
         }
 
         #region 合作公司相关集合
@@ -434,14 +436,11 @@ namespace UniCloud.DistributedServices.Purchase
             get { return _documentPathAppService.GetDocumentPaths(); }
         }
 
-        #endregion
+        public IQueryable<OrderDocumentDTO>  OrderDocuments
+        {
+            get { return _contractDocumentAppService.GetOrderDocuments(); }
+        }
 
-        #region 订单文档
-        
-         public IQueryable<OrderDocumentDTO> OrderDocuments()
-         {
-             return _tradeAppService.GetOrderDocuments();
-         }
         #endregion
     }
 }
