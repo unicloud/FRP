@@ -20,6 +20,7 @@ using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.InvoiceQueries;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
 
 #endregion
 
@@ -60,6 +61,8 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         [Insert(typeof(LeaseInvoiceDTO))]
         public void InsertLeaseInvoice(LeaseInvoiceDTO leaseInvoice)
         {
+            var newLeaseInvoice = InvoiceFactory.CreateLeaseInvoice();
+            newLeaseInvoice.SetInvoiceNumber(1);
 
         }
 

@@ -85,7 +85,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         protected override IService CreateService()
         {
-            _paymentData = new PaymentData(AgentHelper.PurchaseUri);
+            _paymentData = new PaymentData(AgentHelper.PaymentUri);
             return new PaymentService(_paymentData);
         }
 
@@ -150,7 +150,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 预付款发票行
 
-        private ObservableCollection<PrepaymentInvoiceLineDTO> _prepaymentInvoiceLines;
+        private ObservableCollection<PrepaymentInvoiceLineDTO> _prepaymentInvoiceLines=new ObservableCollection<PrepaymentInvoiceLineDTO>();
 
         /// <summary>
         ///     预付款发票行

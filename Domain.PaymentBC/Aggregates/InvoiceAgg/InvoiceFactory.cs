@@ -15,6 +15,8 @@
 
 #endregion
 
+using System;
+
 namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
 {
     /// <summary>
