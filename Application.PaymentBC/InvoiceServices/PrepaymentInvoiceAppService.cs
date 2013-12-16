@@ -15,17 +15,92 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using UniCloud.Application.ApplicationExtension;
+using UniCloud.Application.PaymentBC.DTO;
+using UniCloud.Application.PaymentBC.Query.InvoiceQueries;
+using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 
 #endregion
 
 namespace UniCloud.Application.PaymentBC.InvoiceServices
 {
-    class PrepaymentInvoiceAppService
+    /// <summary>
+    ///     预付款发票服务实现
+    /// </summary>
+    public class PrepaymentInvoiceAppService : IPrepaymentInvoiceAppService
     {
+        private readonly IPrepaymentInvoiceQuery _prepaymentInvoiceQuery;
+        private readonly IInvoiceRepository _invoiceRepository;
+
+        public PrepaymentInvoiceAppService(IPrepaymentInvoiceQuery prepaymentInvoiceQuery,
+            IInvoiceRepository invoiceRepository)
+        {
+            _prepaymentInvoiceQuery = prepaymentInvoiceQuery;
+            _invoiceRepository = invoiceRepository;
+        }
+
+        #region PrepaymentInvoiceDTO
+
+        /// <summary>
+        ///     获取所有预付款发票
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<PrepaymentInvoiceDTO> GetPrepaymentInvoices()
+        {
+            var queryBuilder =
+                new QueryBuilder<PrepaymentInvoice>();
+            return _prepaymentInvoiceQuery.PrepaymentInvoiceDTOQuery(queryBuilder);
+        }
+
+        /// <summary>
+        ///     新增预付款发票。
+        /// </summary>
+        /// <param name="prepaymentInvoice">预付款发票DTO。</param>
+        [Insert(typeof(PrepaymentInvoiceDTO))]
+        public void InsertPrepaymentInvoice(PrepaymentInvoiceDTO prepaymentInvoice)
+        {
+
+        }
+
+        /// <summary>
+        ///     更新预付款发票。
+        /// </summary>
+        /// <param name="prepaymentInvoice">预付款发票DTO。</param>
+        [Update(typeof(PrepaymentInvoiceDTO))]
+        public void ModifyPrepaymentInvoice(PrepaymentInvoiceDTO prepaymentInvoice)
+        {
+            var updatePrepaymentInvoice = _invoiceRepository.GetFiltered(t => t.Id == prepaymentInvoice.PrepaymentInvoiceId).FirstOrDefault();
+            //获取需要更新的对象。
+            if (updatePrepaymentInvoice != null)
+            {
+                //更新主表。
+
+
+                //更新从表。
+            }
+            _invoiceRepository.Modify(updatePrepaymentInvoice);
+        }
+
+        /// <summary>
+        ///     删除预付款发票。
+        /// </summary>
+        /// <param name="prepaymentInvoice">预付款发票DTO。</param>
+        [Delete(typeof(PrepaymentInvoiceDTO))]
+        public void DeletePrepaymentInvoice(PrepaymentInvoiceDTO prepaymentInvoice)
+        {
+            if (prepaymentInvoice == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+            var delPrepaymentInvoice = _invoiceRepository.Get(prepaymentInvoice.PrepaymentInvoiceId);
+            //获取需要删除的对象。
+            if (delPrepaymentInvoice != null)
+            {
+                _invoiceRepository.DeleteInvoice(delPrepaymentInvoice);//删除预付款发票。
+            }
+        }
+
+        #endregion
     }
 }

@@ -279,6 +279,11 @@ namespace UniCloud.Presentation.Purchase.Reception
                         Appointment appointment = scheduleExtension.ConvertToAppointment(schedule);
                         _appointments.Add(appointment);
                     }
+                    _enginePurchaseReceptionLines.Clear();
+                    foreach (var receptionLine in value.ReceptionLines)
+                    {
+                        EnginePurchaseReceptionLines.Add(receptionLine);
+                    }
                     var viewDocuments = RelatedDocs.Where(l => l.SourceId == SelEnginePurchaseReception.SourceId).ToList();
                     ViewDocuments.Clear();
                     foreach (var doc in viewDocuments)
@@ -300,7 +305,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// <summary>
         ///     购买发动机接收行
         /// </summary>
-        public ObservableCollection<EnginePurchaseReceptionLineDTO> EngineReceptionLines
+        public ObservableCollection<EnginePurchaseReceptionLineDTO> EnginePurchaseReceptionLines
         {
             get { return _enginePurchaseReceptionLines; }
             private set
@@ -308,7 +313,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                 if (_enginePurchaseReceptionLines != value)
                 {
                     _enginePurchaseReceptionLines = value;
-                    RaisePropertyChanged(() => EngineReceptionLines);
+                    RaisePropertyChanged(() => EnginePurchaseReceptionLines);
                 }
             }
         }
@@ -451,6 +456,14 @@ namespace UniCloud.Presentation.Purchase.Reception
                 RelatedDocs.Remove(delDocs);
             }
             EnginePurchaseReceptions.Remove(SelEnginePurchaseReception);
+            var currentEnginePurchaseReception = EnginePurchaseReceptions.FirstOrDefault();
+            if (currentEnginePurchaseReception == null)
+            {
+                //删除完，若没有记录了，则也要删除界面明细
+                EnginePurchaseReceptionLines.Clear();
+                ViewDocuments.Clear();
+                Appointments.Clear();
+            }
         }
 
         private bool CanRemove(object obj)
@@ -478,9 +491,11 @@ namespace UniCloud.Presentation.Purchase.Reception
                 EnginePurchaseReceptionLineId = RandomHelper.Next(),
                 ReceivedAmount = 1,
                 AcceptedAmount = 1,
+                DeliverDate = DateTime.Now,
                 ReceptionId = SelEnginePurchaseReception.EnginePurchaseReceptionId
             };
             SelEnginePurchaseReception.ReceptionLines.Add(receptionLine);
+            EnginePurchaseReceptionLines.Add(receptionLine);
         }
 
         private bool CanAddEntity(object obj)
@@ -499,6 +514,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         private void OnRemoveEntity(object obj)
         {
             SelEnginePurchaseReception.ReceptionLines.Remove(SelEnginePurchaseReceptionLine);
+            EnginePurchaseReceptionLines.Remove(SelEnginePurchaseReceptionLine);
         }
 
         private bool CanRemoveEntity(object obj)

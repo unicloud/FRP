@@ -2,7 +2,11 @@
 // 
 //------------------------------------------------------------------------------
 
+using UniCloud.Application.PaymentBC.InvoiceServices;
+using UniCloud.Application.PaymentBC.Query.InvoiceQueries;
+using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 using UniCloud.Infrastructure.Data;
+using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
 
@@ -22,8 +26,22 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
             Configuration.Create()
                 .UseAutofac()
                 .CreateLog()
-                .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager());
+                .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
 
+                #region 发票相关配置，包括查询，应用服务，仓储注册
+
+                .Register<ICreditMemoQuery, CreditMemoQuery>()
+                .Register<ILeaseInvoiceQuery, LeaseInvoiceQuery>()
+                .Register<IPrepaymentInvoiceQuery, PrepaymentInvoiceQuery>()
+                .Register<IPurchaseInvoiceQuery, PurchaseInvoiceQuery>()
+                .Register<ICreditMemoAppService, CreditMemoAppService>()
+                .Register<ILeaseInvoiceAppService, LeaseInvoiceAppService>()
+                .Register<IPrepaymentInvoiceAppService, PrepaymentInvoiceAppService>()
+                .Register<IPurchaseInvoiceAppService, PurchaseInvoiceAppService>()
+                .Register<IInvoiceRepository, InvoiceRepository>()
+                #endregion
+
+                ;
         }
 
         #endregion

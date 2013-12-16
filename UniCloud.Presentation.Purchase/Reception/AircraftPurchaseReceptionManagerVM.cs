@@ -265,6 +265,11 @@ namespace UniCloud.Presentation.Purchase.Reception
                         Appointment appointment = scheduleExtension.ConvertToAppointment(schedule);
                         _appointments.Add(appointment);
                     }
+                    _aircraftPurchaseReceptionLines.Clear();
+                    foreach (var receptionLine in value.ReceptionLines)
+                    {
+                        AircraftPurchaseReceptionLines.Add(receptionLine);
+                    }
                     var viewDocuments = RelatedDocs.Where(l => l.SourceId == SelAircraftPurchaseReception.SourceId).ToList();
                     ViewDocuments.Clear();
                     foreach (var doc in viewDocuments)
@@ -286,7 +291,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// <summary>
         ///     购买飞机接收行
         /// </summary>
-        public ObservableCollection<AircraftPurchaseReceptionLineDTO> AircraftReceptionLines
+        public ObservableCollection<AircraftPurchaseReceptionLineDTO> AircraftPurchaseReceptionLines
         {
             get { return _aircraftPurchaseReceptionLines; }
             private set
@@ -294,7 +299,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                 if (_aircraftPurchaseReceptionLines != value)
                 {
                     _aircraftPurchaseReceptionLines = value;
-                    RaisePropertyChanged(() => AircraftReceptionLines);
+                    RaisePropertyChanged(() => AircraftPurchaseReceptionLines);
                 }
             }
         }
@@ -437,6 +442,14 @@ namespace UniCloud.Presentation.Purchase.Reception
                 RelatedDocs.Remove(delDocs);
             }
             AircraftPurchaseReceptions.Remove(SelAircraftPurchaseReception);
+            var currentAircraftPurchaseReception = AircraftPurchaseReceptions.FirstOrDefault();
+            if (currentAircraftPurchaseReception == null)
+            {
+                //删除完，若没有记录了，则也要删除界面明细
+                AircraftPurchaseReceptionLines.Clear();
+                ViewDocuments.Clear();
+                Appointments.Clear();
+            }
         }
 
         private bool CanRemove(object obj)
@@ -464,9 +477,11 @@ namespace UniCloud.Presentation.Purchase.Reception
                 AircraftPurchaseReceptionLineId = RandomHelper.Next(),
                 ReceivedAmount = 1,
                 AcceptedAmount = 1,
+                DeliverDate = DateTime.Now,
                 ReceptionId = SelAircraftPurchaseReception.AircraftPurchaseReceptionId
             };
             SelAircraftPurchaseReception.ReceptionLines.Add(receptionLine);
+            AircraftPurchaseReceptionLines.Add(receptionLine);
         }
 
         private bool CanAddEntity(object obj)
@@ -485,6 +500,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         private void OnRemoveEntity(object obj)
         {
             SelAircraftPurchaseReception.ReceptionLines.Remove(SelAircraftPurchaseReceptionLine);
+            AircraftPurchaseReceptionLines.Remove(SelAircraftPurchaseReceptionLine);
         }
 
         private bool CanRemoveEntity(object obj)

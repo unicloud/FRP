@@ -14,18 +14,27 @@
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using UniCloud.Application.PaymentBC.Query.InvoiceQueries;
+using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 
 #endregion
 
 namespace UniCloud.Application.PaymentBC.InvoiceServices
 {
-    class CreditMemoAppService
+    /// <summary>
+    /// 贷项单服务实现
+    /// </summary>
+    public class CreditMemoAppService : ICreditMemoAppService
     {
+        private readonly ICreditMemoQuery _creditMemoQuery;
+        private readonly IInvoiceRepository _invoiceRepository;
+
+        public CreditMemoAppService(ICreditMemoQuery creditMemoQuery,
+            IInvoiceRepository invoiceRepository)
+        {
+            _creditMemoQuery = creditMemoQuery;
+            _invoiceRepository = invoiceRepository;
+        }
     }
 }

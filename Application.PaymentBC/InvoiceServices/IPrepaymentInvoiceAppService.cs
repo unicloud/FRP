@@ -19,13 +19,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using UniCloud.Application.PaymentBC.DTO;
 
 #endregion
 
 namespace UniCloud.Application.PaymentBC.InvoiceServices
 {
-    interface IPrepaymentInvoiceAppService
+    /// <summary>
+    ///     预付款发票服务接口
+    /// </summary>
+    public interface IPrepaymentInvoiceAppService
     {
+        /// <summary>
+        ///     获取所有预付款发票
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<PrepaymentInvoiceDTO> GetPrepaymentInvoices();
     }
 }

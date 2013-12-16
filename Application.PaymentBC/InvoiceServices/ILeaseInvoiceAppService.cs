@@ -19,13 +19,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using UniCloud.Application.PaymentBC.DTO;
 
 #endregion
 
 namespace UniCloud.Application.PaymentBC.InvoiceServices
 {
-    interface ILeaseInvoiceAppService
+    /// <summary>
+    ///     租赁发票服务接口
+    /// </summary>
+    public interface ILeaseInvoiceAppService
     {
+        /// <summary>
+        ///     获取所有租赁发票
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<LeaseInvoiceDTO> GetLeaseInvoices();
     }
 }

@@ -267,6 +267,11 @@ namespace UniCloud.Presentation.Purchase.Reception
                         Appointment appointment = scheduleExtension.ConvertToAppointment(schedule);
                         _appointments.Add(appointment);
                     }
+                    _aircraftLeaseReceptionLines.Clear();
+                    foreach (var receptionLine in value.ReceptionLines)
+                    {
+                        AircraftReceptionLeaseLines.Add(receptionLine);
+                    }
                     var viewDocuments = RelatedDocs.Where(l => l.SourceId == SelAircraftLeaseReception.SourceId).ToList();
                     ViewDocuments.Clear();
                     foreach (var doc in viewDocuments)
@@ -283,12 +288,12 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #region 租赁飞机接收行
 
-        private ObservableCollection<AircraftLeaseReceptionLineDTO> _aircraftLeaseReceptionLines;
+        private ObservableCollection<AircraftLeaseReceptionLineDTO> _aircraftLeaseReceptionLines=new ObservableCollection<AircraftLeaseReceptionLineDTO>();
 
         /// <summary>
         ///     租赁飞机接收行
         /// </summary>
-        public ObservableCollection<AircraftLeaseReceptionLineDTO> AircraftReceptionLines
+        public ObservableCollection<AircraftLeaseReceptionLineDTO> AircraftReceptionLeaseLines
         {
             get { return _aircraftLeaseReceptionLines; }
             private set
@@ -296,7 +301,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                 if (_aircraftLeaseReceptionLines != value)
                 {
                     _aircraftLeaseReceptionLines = value;
-                    RaisePropertyChanged(() => AircraftReceptionLines);
+                    RaisePropertyChanged(() => AircraftReceptionLeaseLines);
                 }
             }
         }
@@ -439,7 +444,14 @@ namespace UniCloud.Presentation.Purchase.Reception
                 RelatedDocs.Remove(delDocs);
             }
             AircraftLeaseReceptions.Remove(SelAircraftLeaseReception);
-
+            var currentAircraftLeaseReception = AircraftLeaseReceptions.FirstOrDefault();
+            if (currentAircraftLeaseReception == null)
+            {
+                //删除完，若没有记录了，则也要删除界面明细
+                AircraftReceptionLeaseLines.Clear();
+                ViewDocuments.Clear();
+                Appointments.Clear();
+            }
         }
 
         private bool CanRemove(object obj)
@@ -467,9 +479,11 @@ namespace UniCloud.Presentation.Purchase.Reception
                 AircraftLeaseReceptionLineId = RandomHelper.Next(),
                 ReceivedAmount = 1,
                 AcceptedAmount = 1,
+                DeliverDate = DateTime.Now,
                 ReceptionId = SelAircraftLeaseReception.AircraftLeaseReceptionId
             };
             SelAircraftLeaseReception.ReceptionLines.Add(receptionLine);
+            AircraftReceptionLeaseLines.Add(receptionLine);
         }
 
         private bool CanAddEntity(object obj)
@@ -488,6 +502,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         private void OnRemoveEntity(object obj)
         {
             SelAircraftLeaseReception.ReceptionLines.Remove(SelAircraftLeaseReceptionLine);
+            AircraftReceptionLeaseLines.Remove(SelAircraftLeaseReceptionLine);
         }
 
         private bool CanRemoveEntity(object obj)
@@ -516,7 +531,7 @@ namespace UniCloud.Presentation.Purchase.Reception
             {
                 var relatedDoc = new RelatedDocDTO()
                 {
-                     Id = RandomHelper.Next(),
+                    Id = RandomHelper.Next(),
                     SourceId = SelAircraftLeaseReception.SourceId,
                 };
                 var document = DocumentView.Tag as DocumentDTO;

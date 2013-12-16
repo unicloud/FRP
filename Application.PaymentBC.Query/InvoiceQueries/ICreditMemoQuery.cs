@@ -19,13 +19,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using UniCloud.Application.PaymentBC.DTO;
 
 #endregion
 
 namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
 {
-    interface ICreditMemoQuery
+    /// <summary>
+    /// 贷项单查询接口
+    /// </summary>
+    public interface ICreditMemoQuery
     {
+        /// <summary>
+        ///    贷项单查询
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns>贷项单DTO集合。</returns>
+        //IQueryable<CreditMemoDTO> CreditMemoDTOQuery(
+        //    QueryBuilder<CreditMemo> query);
     }
 }

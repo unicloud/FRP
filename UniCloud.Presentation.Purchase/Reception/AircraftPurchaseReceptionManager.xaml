@@ -203,7 +203,7 @@
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="False"
-                                                     ItemsSource="{Binding SelAircraftPurchaseReception.ReceptionLines}"
+                                                     ItemsSource="{Binding AircraftPurchaseReceptionLines}"
                                                      SelectedItem="{Binding SelAircraftPurchaseReceptionLine,Mode=TwoWay}"
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True"

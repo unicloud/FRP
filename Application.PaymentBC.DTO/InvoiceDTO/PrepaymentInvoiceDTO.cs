@@ -34,7 +34,7 @@ namespace UniCloud.Application.PaymentBC.DTO
     {
         public PrepaymentInvoiceDTO()
         {
-            InvoiceLines=new List<PrepaymentInvoiceDTO>();
+            InvoiceLines=new List<PrepaymentInvoiceLineDTO>();
         }
 
         #region 属性
@@ -139,7 +139,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///    预付款发票行集合
         /// </summary>
-        public List<PrepaymentInvoiceDTO> InvoiceLines { get; set; }
+        public List<PrepaymentInvoiceLineDTO> InvoiceLines { get; set; }
 
         #endregion
     }
