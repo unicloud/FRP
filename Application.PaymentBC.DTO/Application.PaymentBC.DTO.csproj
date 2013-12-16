@@ -65,8 +65,6 @@
     <Compile Include="ContractAircraftDTO\ContractAircraftDTO.cs" />
     <Compile Include="ContractEngineDTO\ContractEngineDTO.cs" />
     <Compile Include="CurrencyDTO\CurrencyDTO.cs" />
-    <Compile Include="InvoiceDTO\CreditMemoDTO.cs" />
-    <Compile Include="InvoiceDTO\CreditMemoLineDTO.cs" />
     <Compile Include="InvoiceDTO\LeaseInvoiceDTO.cs" />
     <Compile Include="InvoiceDTO\LeaseInvoiceLineDTO.cs" />
     <Compile Include="InvoiceDTO\PrepaymentInvoiceDTO.cs" />

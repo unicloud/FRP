@@ -58,8 +58,6 @@
     <Compile Include="ContractEngineQueries\IContractEngineQuery.cs" />
     <Compile Include="CurrencyQueries\CurrencyQuery.cs" />
     <Compile Include="CurrencyQueries\ICurrencyQuery.cs" />
-    <Compile Include="InvoiceQueries\CreditMemoQuery.cs" />
-    <Compile Include="InvoiceQueries\ICreditMemoQuery.cs" />
     <Compile Include="InvoiceQueries\ILeaseInvoiceQuery.cs" />
     <Compile Include="InvoiceQueries\IPrepaymentInvoiceQuery.cs" />
     <Compile Include="InvoiceQueries\IPurchaseInvoiceQuery.cs" />

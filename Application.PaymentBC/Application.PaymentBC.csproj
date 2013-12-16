@@ -52,8 +52,6 @@
     <Compile Include="ContractEngineServices\IContractEngineAppService.cs" />
     <Compile Include="CurrencyServices\CurrencyAppService.cs" />
     <Compile Include="CurrencyServices\ICurrencyAppService.cs" />
-    <Compile Include="InvoiceServices\CreditMemoAppService.cs" />
-    <Compile Include="InvoiceServices\ICreditMemoAppService.cs" />
     <Compile Include="InvoiceServices\ILeaseInvoiceAppService.cs" />
     <Compile Include="InvoiceServices\IPrepaymentInvoiceAppService.cs" />
     <Compile Include="InvoiceServices\IPurchaseInvoiceAppService.cs" />

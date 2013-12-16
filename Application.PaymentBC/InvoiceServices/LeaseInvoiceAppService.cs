@@ -61,8 +61,8 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         [Insert(typeof(LeaseInvoiceDTO))]
         public void InsertLeaseInvoice(LeaseInvoiceDTO leaseInvoice)
         {
-            var newLeaseInvoice = InvoiceFactory.CreateLeaseInvoice();
-            newLeaseInvoice.SetInvoiceNumber(1);
+            //var newLeaseInvoice = InvoiceFactory.CreateLeaseInvoice();
+            //newLeaseInvoice.SetInvoiceNumber(1);
 
         }
 
