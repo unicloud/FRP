@@ -84,7 +84,8 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
 
                 #region 交易相关配置，包括查询，应用服务，仓储注册
                          .Register<IOrderRepository, OrderRepository>()
-                #endregion                ;
+                #endregion                
+                 ;
         }
 
         #endregion

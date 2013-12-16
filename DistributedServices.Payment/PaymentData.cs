@@ -45,7 +45,8 @@ namespace UniCloud.DistributedServices.Payment
         #region Invoice集合
         /// <summary>
         ///     贷项通知单集合
-        /// </summary>        public IQueryable<CreditNoteDTO> CreditNotes
+        /// </summary>        
+        public IQueryable<CreditNoteDTO> CreditNotes
         {
             get { return _creditNoteAppService.GetCreditNoteInvoices(); }
         }
