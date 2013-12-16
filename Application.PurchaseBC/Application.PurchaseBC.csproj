@@ -70,6 +70,8 @@
     <Compile Include="ForwarderServices\IForwarderAppService.cs" />
     <Compile Include="MaterialServices\MaterialAppService.cs" />
     <Compile Include="MaterialServices\IMaterialAppService.cs" />
+    <Compile Include="OrderDocumentServices\ContractDocumentAppService.cs" />
+    <Compile Include="OrderDocumentServices\IContractDocumentAppService.cs" />
     <Compile Include="PartServices\IPartAppService.cs" />
     <Compile Include="PartServices\PartAppService.cs" />
     <Compile Include="PlanAircraftServices\IPlanAircraftAppService.cs" />

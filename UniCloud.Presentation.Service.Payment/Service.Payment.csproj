@@ -90,6 +90,8 @@
   <ItemGroup>
     <Compile Include="IPaymentService.cs" />
     <Compile Include="PaymentService.cs" />
+    <Compile Include="Payment\Enums\InvoiceStatus.cs" />
+    <Compile Include="Payment\Enums\MaintainItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\Payment\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -110,9 +112,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Payment\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ServiceReferenceMetadataStorage Include="Service References\Payment\">
       <Type>datasvcmap</Type>

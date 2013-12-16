@@ -1,17 +1,22 @@
-﻿#region Version Info
-/* ========================================================================
+﻿#region 版本信息
+
+// ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：wuql 时间：2013/11/12 14:59:04
-// 文件名：DocumentsManagerDoubleClickHelper
+// 作者：陈春勇 时间：2013/12/05，17:12
+// 文件名：QueryContractDbClickHelper.cs
+// 程序集：UniCloud.Presentation.Purchase
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
 // 修改说明：
-// ========================================================================*/
+// ========================================================================
+
 #endregion
 
+
+using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Controls;
 using UniCloud.Presentation.Input;
 
@@ -21,7 +26,7 @@ namespace UniCloud.Presentation.Purchase.Contract
     {
         protected override void ListBoxDoubleClick(RadListBoxItem listBoxItem)
         {
-            var viewModel = Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<QueryContractVM>();
+            var viewModel =ServiceLocator.Current.GetInstance<QueryContractVM>();
             viewModel.ListBoxDoubleClick();
         }
 

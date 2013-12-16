@@ -76,6 +76,8 @@
     <Compile Include="ForwarderQueries\IForwarderQuery.cs" />
     <Compile Include="MaterialQueries\MaterialQuery.cs" />
     <Compile Include="MaterialQueries\IMaterialQuery.cs" />
+    <Compile Include="OrderDocumentQueries\ContractDocumentQuery.cs" />
+    <Compile Include="OrderDocumentQueries\IContractDocumentQuery.cs" />
     <Compile Include="PartQueries\IPartQuery.cs" />
     <Compile Include="PartQueries\PartQuery.cs" />
     <Compile Include="PlanAircraftQueries\IPlanAircraftQuery.cs" />

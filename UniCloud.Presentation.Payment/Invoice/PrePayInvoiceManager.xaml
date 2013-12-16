@@ -104,8 +104,7 @@
                                                                     DisplayMemberPath="RegNumber"
                                                                     DataMemberBinding="{Binding PlanAircraftID,Mode=TwoWay}"
                                                                     SelectedValueMemberPath="Id"
-                                                                    EditorStyle="{StaticResource EditComboBox}">
-                                    </telerik:GridViewComboBoxColumn>
+                                                                    EditorStyle="{StaticResource EditComboBox}" />
                                 </telerik:RadGridView.Columns>
                             </telerik:RadGridView>
                         </Grid>

@@ -61,6 +61,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InvoiceDTO\CreditNoteDTO.cs" />
+    <Compile Include="InvoiceDTO\CreditNoteLineDTO.cs" />
+    <Compile Include="ContractAircraftDTO\ContractAircraftDTO.cs" />
+    <Compile Include="ContractEngineDTO\ContractEngineDTO.cs" />
+    <Compile Include="CurrencyDTO\CurrencyDTO.cs" />
     <Compile Include="InvoiceDTO\LeaseInvoiceDTO.cs" />
     <Compile Include="InvoiceDTO\InvoiceLineDTO.cs" />
     <Compile Include="InvoiceDTO\PrepaymentInvoiceDTO.cs" />

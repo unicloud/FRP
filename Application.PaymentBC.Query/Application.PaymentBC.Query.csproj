@@ -52,12 +52,20 @@
   <ItemGroup>
     <Compile Include="InvoiceQueries\CreditNoteQuery.cs" />
     <Compile Include="InvoiceQueries\ICreditNoteQuery.cs" />
+    <Compile Include="ContractAircraftQueries\ContractAircraftQuery.cs" />
+    <Compile Include="ContractAircraftQueries\IContractAircraftQuery.cs" />
+    <Compile Include="ContractEngineQueries\ContractEngineQuery.cs" />
+    <Compile Include="ContractEngineQueries\IContractEngineQuery.cs" />
+    <Compile Include="CurrencyQueries\CurrencyQuery.cs" />
+    <Compile Include="CurrencyQueries\ICurrencyQuery.cs" />
     <Compile Include="InvoiceQueries\ILeaseInvoiceQuery.cs" />
     <Compile Include="InvoiceQueries\IPrepaymentInvoiceQuery.cs" />
     <Compile Include="InvoiceQueries\IPurchaseInvoiceQuery.cs" />
     <Compile Include="InvoiceQueries\LeaseInvoiceQuery.cs" />
     <Compile Include="InvoiceQueries\PrepaymentInvoiceQuery.cs" />
     <Compile Include="InvoiceQueries\PurchaseInvoiceQuery.cs" />
+    <Compile Include="MaintainInvoiceQueries\IMaintainInvoiceQuery.cs" />
+    <Compile Include="MaintainInvoiceQueries\MaintainInvoiceQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -90,6 +98,7 @@
       <Name>Infrastructure.Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

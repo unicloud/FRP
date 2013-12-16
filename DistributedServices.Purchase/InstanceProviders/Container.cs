@@ -26,6 +26,7 @@ using UniCloud.Application.PurchaseBC.CurrencyServices;
 using UniCloud.Application.PurchaseBC.DocumentPathServices;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
+using UniCloud.Application.PurchaseBC.OrderDocumentServices;
 using UniCloud.Application.PurchaseBC.PartServices;
 using UniCloud.Application.PurchaseBC.PlanAircraftServices;
 using UniCloud.Application.PurchaseBC.Query.ActionCategoryQueries;
@@ -37,6 +38,7 @@ using UniCloud.Application.PurchaseBC.Query.CurrencyQueries;
 using UniCloud.Application.PurchaseBC.Query.DocumentQueries;
 using UniCloud.Application.PurchaseBC.Query.ForwarderQueries;
 using UniCloud.Application.PurchaseBC.Query.MaterialQueries;
+using UniCloud.Application.PurchaseBC.Query.OrderDocumentQueries;
 using UniCloud.Application.PurchaseBC.Query.PartQueries;
 using UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries;
 using UniCloud.Application.PurchaseBC.Query.ReceptionQueries;
@@ -208,12 +210,18 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
                          .Register<ICurrencyRepository, CurrencyRepository>()
                 #endregion
 
-            #region 文档相关配置，包括查询，应用服务，仓储注册
+                #region 文档相关配置，包括查询，应用服务，仓储注册
 
                          .Register<IDocumentPathAppService, DocumentPathAppService>()
                          .Register<IDocumentPathRepository, DocumentPathRepository>()
                          .Register<IDocumentPathQuery, DocumentPathQuery>()
-            #endregion
+                #endregion
+
+                #region 订单文档相关配置，包括查询，应用服务，仓储注册
+
+                         .Register<IContractDocumentAppService, ContractDocumentAppService>()
+                         .Register<IContractDocumentQuery, ContractDocumentQuery>()
+                #endregion
 
                 ;
         }
