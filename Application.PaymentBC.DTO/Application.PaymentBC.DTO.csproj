@@ -64,11 +64,20 @@
     <Compile Include="InvoiceDTO\CreditMemoLineDTO.cs" />
     <Compile Include="InvoiceDTO\LeaseInvoiceDTO.cs" />
     <Compile Include="InvoiceDTO\LeaseInvoiceLineDTO.cs" />
-    <Compile Include="InvoiceDTO\MaintainInvoiceDTO.cs" />
     <Compile Include="InvoiceDTO\PrepaymentInvoiceDTO.cs" />
     <Compile Include="InvoiceDTO\PrepaymentInvoiceLineDTO.cs" />
     <Compile Include="InvoiceDTO\PurchaseInvoiceDTO.cs" />
     <Compile Include="InvoiceDTO\PurchaseInvoiceLineDTO.cs" />
+    <Compile Include="MaintainInvoiceDTO\AirframeMaintainInvoiceDTO.cs" />
+    <Compile Include="MaintainInvoiceDTO\AirframeMaintainInvoiceLineDTO.cs" />
+    <Compile Include="MaintainInvoiceDTO\APUMaintainInvoiceDTO.cs" />
+    <Compile Include="MaintainInvoiceDTO\APUMaintainInvoiceLineDTO.cs" />
+    <Compile Include="MaintainInvoiceDTO\EngineMaintainInvoiceDTO.cs" />
+    <Compile Include="MaintainInvoiceDTO\EngineMaintainInvoiceLineDTO.cs" />
+    <Compile Include="MaintainInvoiceDTO\MaintainInvoiceDTO.cs" />
+    <Compile Include="MaintainInvoiceDTO\MaintainInvoiceLineDTO.cs" />
+    <Compile Include="MaintainInvoiceDTO\UndercartMaintainInvoiceDTO.cs" />
+    <Compile Include="MaintainInvoiceDTO\UndercartMaintainInvoiceLineDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
