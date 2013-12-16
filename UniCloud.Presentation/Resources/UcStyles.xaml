@@ -4,10 +4,10 @@
                     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation">
 
     <!-- 日期格式 -->
-    <system:String x:Key="DateStringFormat">{} {0:yyyy/MM/dd}</system:String>
+    <system:String x:Key="DateStringFormat">{0:yyyy/MM/dd}</system:String>
     
     <!--货币格式-->
-    <system:String x:Key="CurrencyStringFormat">{} {0:N}</system:String>
+    <system:String x:Key="CurrencyStringFormat">{0:N}</system:String>
 
     <!-- 字体、字号 -->
     <FontFamily x:Key="NormalFontFamily">Microsoft YaHei UI</FontFamily>
