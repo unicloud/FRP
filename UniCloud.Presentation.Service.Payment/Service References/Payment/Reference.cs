@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2013/12/15 22:06:16
+// 生成日期: 2013/12/16 16:33:39
 namespace UniCloud.Presentation.Service.Payment.Payment
 {
     
@@ -61,22 +61,22 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             return null;
         }
         /// <summary>
-        /// 架构中不存在 MaintainInvoices 的注释。
+        /// 架构中不存在 CreditNotes 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Data.Services.Client.DataServiceQuery<MaintainInvoiceDTO> MaintainInvoices
+        public global::System.Data.Services.Client.DataServiceQuery<CreditNoteDTO> CreditNotes
         {
             get
             {
-                if ((this._MaintainInvoices == null))
+                if ((this._CreditNotes == null))
                 {
-                    this._MaintainInvoices = base.CreateQuery<MaintainInvoiceDTO>("MaintainInvoices");
+                    this._CreditNotes = base.CreateQuery<CreditNoteDTO>("CreditNotes");
                 }
-                return this._MaintainInvoices;
+                return this._CreditNotes;
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Data.Services.Client.DataServiceQuery<MaintainInvoiceDTO> _MaintainInvoices;
+        private global::System.Data.Services.Client.DataServiceQuery<CreditNoteDTO> _CreditNotes;
         /// <summary>
         /// 架构中不存在 LeaseInvoices 的注释。
         /// </summary>
@@ -129,12 +129,131 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<PurchaseInvoiceDTO> _PurchaseInvoices;
         /// <summary>
-        /// 架构中不存在 MaintainInvoices 的注释。
+        /// 架构中不存在 EngineMaintainInvoices 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public void AddToMaintainInvoices(MaintainInvoiceDTO maintainInvoiceDTO)
+        public global::System.Data.Services.Client.DataServiceQuery<EngineMaintainInvoiceDTO> EngineMaintainInvoices
         {
-            base.AddObject("MaintainInvoices", maintainInvoiceDTO);
+            get
+            {
+                if ((this._EngineMaintainInvoices == null))
+                {
+                    this._EngineMaintainInvoices = base.CreateQuery<EngineMaintainInvoiceDTO>("EngineMaintainInvoices");
+                }
+                return this._EngineMaintainInvoices;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<EngineMaintainInvoiceDTO> _EngineMaintainInvoices;
+        /// <summary>
+        /// 架构中不存在 APUMaintainInvoices 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<APUMaintainInvoiceDTO> APUMaintainInvoices
+        {
+            get
+            {
+                if ((this._APUMaintainInvoices == null))
+                {
+                    this._APUMaintainInvoices = base.CreateQuery<APUMaintainInvoiceDTO>("APUMaintainInvoices");
+                }
+                return this._APUMaintainInvoices;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<APUMaintainInvoiceDTO> _APUMaintainInvoices;
+        /// <summary>
+        /// 架构中不存在 AirframeMaintainInvoices 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<AirframeMaintainInvoiceDTO> AirframeMaintainInvoices
+        {
+            get
+            {
+                if ((this._AirframeMaintainInvoices == null))
+                {
+                    this._AirframeMaintainInvoices = base.CreateQuery<AirframeMaintainInvoiceDTO>("AirframeMaintainInvoices");
+                }
+                return this._AirframeMaintainInvoices;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<AirframeMaintainInvoiceDTO> _AirframeMaintainInvoices;
+        /// <summary>
+        /// 架构中不存在 UndercartMaintainInvoices 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<UndercartMaintainInvoiceDTO> UndercartMaintainInvoices
+        {
+            get
+            {
+                if ((this._UndercartMaintainInvoices == null))
+                {
+                    this._UndercartMaintainInvoices = base.CreateQuery<UndercartMaintainInvoiceDTO>("UndercartMaintainInvoices");
+                }
+                return this._UndercartMaintainInvoices;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<UndercartMaintainInvoiceDTO> _UndercartMaintainInvoices;
+        /// <summary>
+        /// 架构中不存在 ContractAircrafts 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<ContractAircraftDTO> ContractAircrafts
+        {
+            get
+            {
+                if ((this._ContractAircrafts == null))
+                {
+                    this._ContractAircrafts = base.CreateQuery<ContractAircraftDTO>("ContractAircrafts");
+                }
+                return this._ContractAircrafts;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<ContractAircraftDTO> _ContractAircrafts;
+        /// <summary>
+        /// 架构中不存在 ContractEngines 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<ContractEngineDTO> ContractEngines
+        {
+            get
+            {
+                if ((this._ContractEngines == null))
+                {
+                    this._ContractEngines = base.CreateQuery<ContractEngineDTO>("ContractEngines");
+                }
+                return this._ContractEngines;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<ContractEngineDTO> _ContractEngines;
+        /// <summary>
+        /// 架构中不存在 Currencies 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<CurrencyDTO> Currencies
+        {
+            get
+            {
+                if ((this._Currencies == null))
+                {
+                    this._Currencies = base.CreateQuery<CurrencyDTO>("Currencies");
+                }
+                return this._Currencies;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<CurrencyDTO> _Currencies;
+        /// <summary>
+        /// 架构中不存在 CreditNotes 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToCreditNotes(CreditNoteDTO creditNoteDTO)
+        {
+            base.AddObject("CreditNotes", creditNoteDTO);
         }
         /// <summary>
         /// 架构中不存在 LeaseInvoices 的注释。
@@ -160,6 +279,62 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         {
             base.AddObject("PurchaseInvoices", purchaseInvoiceDTO);
         }
+        /// <summary>
+        /// 架构中不存在 EngineMaintainInvoices 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToEngineMaintainInvoices(EngineMaintainInvoiceDTO engineMaintainInvoiceDTO)
+        {
+            base.AddObject("EngineMaintainInvoices", engineMaintainInvoiceDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 APUMaintainInvoices 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToAPUMaintainInvoices(APUMaintainInvoiceDTO aPUMaintainInvoiceDTO)
+        {
+            base.AddObject("APUMaintainInvoices", aPUMaintainInvoiceDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 AirframeMaintainInvoices 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToAirframeMaintainInvoices(AirframeMaintainInvoiceDTO airframeMaintainInvoiceDTO)
+        {
+            base.AddObject("AirframeMaintainInvoices", airframeMaintainInvoiceDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 UndercartMaintainInvoices 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToUndercartMaintainInvoices(UndercartMaintainInvoiceDTO undercartMaintainInvoiceDTO)
+        {
+            base.AddObject("UndercartMaintainInvoices", undercartMaintainInvoiceDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 ContractAircrafts 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToContractAircrafts(ContractAircraftDTO contractAircraftDTO)
+        {
+            base.AddObject("ContractAircrafts", contractAircraftDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 ContractEngines 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToContractEngines(ContractEngineDTO contractEngineDTO)
+        {
+            base.AddObject("ContractEngines", contractEngineDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 Currencies 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToCurrencies(CurrencyDTO currencyDTO)
+        {
+            base.AddObject("Currencies", currencyDTO);
+        }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private abstract class GeneratedEdmModel
         {
@@ -170,52 +345,8 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                 "x\"><edmx:DataServices m:DataServiceVersion=\"3.0\" m:MaxDataServiceVersion=\"3.0\" x" +
                 "mlns:m=\"http://schemas.microsoft.com/ado/2007/08/dataservices/metadata\"><Schema " +
                 "Namespace=\"UniCloud.Application.PaymentBC.DTO\" xmlns=\"http://schemas.microsoft.c" +
-                "om/ado/2009/11/edm\"><EntityType Name=\"MaintainInvoiceDTO\"><Key><PropertyRef Name" +
-                "=\"MaintainInvoiceId\" /></Key><Property Name=\"MaintainInvoiceId\" Type=\"Edm.Int32\"" +
-                " Nullable=\"false\" /></EntityType><EntityType Name=\"LeaseInvoiceDTO\"><Key><Proper" +
-                "tyRef Name=\"LeaseInvoiceId\" /></Key><Property Name=\"LeaseInvoiceId\" Type=\"Edm.In" +
-                "t32\" Nullable=\"false\" /><Property Name=\"InvoiceNumber\" Type=\"Edm.String\" /><Prop" +
-                "erty Name=\"InvoideCode\" Type=\"Edm.String\" /><Property Name=\"InvoiceDate\" Type=\"E" +
-                "dm.DateTime\" Nullable=\"false\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" " +
-                "/><Property Name=\"InvoiceValue\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property " +
-                "Name=\"PaidAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Operator" +
-                "Name\" Type=\"Edm.String\" /><Property Name=\"Reviewer\" Type=\"Edm.String\" /><Propert" +
-                "y Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Revie" +
-                "wDate\" Type=\"Edm.DateTime\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullabl" +
-                "e=\"false\" /><Property Name=\"IsCompleted\" Type=\"Edm.Boolean\" Nullable=\"false\" /><" +
-                "Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Order" +
-                "Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.In" +
-                "t32\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"f" +
-                "alse\" /><Property Name=\"PaymentScheduleLineId\" Type=\"Edm.Int32\" /><Property Name" +
-                "=\"InvoiceLines\" Type=\"Collection(UniCloud.Application.PaymentBC.DTO.LeaseInvoice" +
-                "LineDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"LeaseInvoiceLineDTO" +
-                "\"><Property Name=\"LeaseInvoiceLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prope" +
-                "rty Name=\"ItemName\" Type=\"Edm.String\" /><Property Name=\"Amount\" Type=\"Edm.Decima" +
-                "l\" Nullable=\"false\" /><Property Name=\"InvoiceId\" Type=\"Edm.Int32\" Nullable=\"fals" +
-                "e\" /><Property Name=\"OrderLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexT" +
-                "ype><EntityType Name=\"PrepaymentInvoiceDTO\"><Key><PropertyRef Name=\"PrepaymentIn" +
-                "voiceId\" /></Key><Property Name=\"PrepaymentInvoiceId\" Type=\"Edm.Int32\" Nullable=" +
-                "\"false\" /><Property Name=\"InvoiceNumber\" Type=\"Edm.String\" /><Property Name=\"Inv" +
-                "oideCode\" Type=\"Edm.String\" /><Property Name=\"InvoiceDate\" Type=\"Edm.DateTime\" N" +
-                "ullable=\"false\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /><Property Na" +
-                "me=\"InvoiceValue\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"PaidAmou" +
-                "nt\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"OperatorName\" Type=\"Ed" +
-                "m.String\" /><Property Name=\"Reviewer\" Type=\"Edm.String\" /><Property Name=\"Create" +
-                "Date\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"ReviewDate\" Type=\"E" +
-                "dm.DateTime\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><P" +
-                "roperty Name=\"IsCompleted\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=" +
-                "\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OrderId\" Type=\"Edm." +
-                "Int32\" Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=" +
-                "\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prope" +
-                "rty Name=\"PaymentScheduleLineId\" Type=\"Edm.Int32\" /><Property Name=\"InvoiceLines" +
-                "\" Type=\"Collection(UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceLineDTO)\"" +
-                " Nullable=\"false\" /></EntityType><ComplexType Name=\"PrepaymentInvoiceLineDTO\"><P" +
-                "roperty Name=\"PrepaymentInvoiceLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prop" +
-                "erty Name=\"ItemName\" Type=\"Edm.String\" /><Property Name=\"Amount\" Type=\"Edm.Decim" +
-                "al\" Nullable=\"false\" /><Property Name=\"InvoiceId\" Type=\"Edm.Int32\" Nullable=\"fal" +
-                "se\" /><Property Name=\"OrderLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /></Complex" +
-                "Type><EntityType Name=\"PurchaseInvoiceDTO\"><Key><PropertyRef Name=\"PurchaseInvoi" +
-                "ceId\" /></Key><Property Name=\"PurchaseInvoiceId\" Type=\"Edm.Int32\" Nullable=\"fals" +
+                "om/ado/2009/11/edm\"><EntityType Name=\"CreditNoteDTO\"><Key><PropertyRef Name=\"Cre" +
+                "ditNoteId\" /></Key><Property Name=\"CreditNoteId\" Type=\"Edm.Int32\" Nullable=\"fals" +
                 "e\" /><Property Name=\"InvoiceNumber\" Type=\"Edm.String\" /><Property Name=\"InvoideC" +
                 "ode\" Type=\"Edm.String\" /><Property Name=\"InvoiceDate\" Type=\"Edm.DateTime\" Nullab" +
                 "le=\"false\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"I" +
@@ -228,26 +359,183 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                 "us\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OrderId\" Type=\"Edm.Int32" +
                 "\" Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"fals" +
                 "e\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property N" +
-                "ame=\"PaymentScheduleLineId\" Type=\"Edm.Int32\" /><Property Name=\"InvoiceLines\" Typ" +
-                "e=\"Collection(UniCloud.Application.PaymentBC.DTO.PurchaseInvoiceLineDTO)\" Nullab" +
-                "le=\"false\" /></EntityType><ComplexType Name=\"PurchaseInvoiceLineDTO\"><Property N" +
-                "ame=\"PurchaseInvoiceLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"" +
-                "ItemName\" Type=\"Edm.String\" /><Property Name=\"Amount\" Type=\"Edm.Decimal\" Nullabl" +
-                "e=\"false\" /><Property Name=\"InvoiceId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prop" +
-                "erty Name=\"OrderLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType></Sche" +
-                "ma><Schema Namespace=\"UniCloud.DistributedServices.Payment\" xmlns=\"http://schema" +
-                "s.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"PaymentData\" m:IsDefault" +
-                "EntityContainer=\"true\"><EntitySet Name=\"MaintainInvoices\" EntityType=\"UniCloud.A" +
-                "pplication.PaymentBC.DTO.MaintainInvoiceDTO\" /><EntitySet Name=\"LeaseInvoices\" E" +
-                "ntityType=\"UniCloud.Application.PaymentBC.DTO.LeaseInvoiceDTO\" /><EntitySet Name" +
-                "=\"PrepaymentInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PrepaymentI" +
-                "nvoiceDTO\" /><EntitySet Name=\"PurchaseInvoices\" EntityType=\"UniCloud.Application" +
-                ".PaymentBC.DTO.PurchaseInvoiceDTO\" /></EntityContainer></Schema></edmx:DataServi" +
-                "ces></edmx:Edmx>";
+                "ame=\"PaymentScheduleLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"" +
+                "InvoiceLines\" Type=\"Collection(UniCloud.Application.PaymentBC.DTO.InvoiceLineDTO" +
+                ")\" Nullable=\"false\" /></EntityType><ComplexType Name=\"InvoiceLineDTO\"><Property " +
+                "Name=\"InvoiceLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ItemNam" +
+                "e\" Type=\"Edm.String\" /><Property Name=\"Amount\" Type=\"Edm.Decimal\" Nullable=\"fals" +
+                "e\" /><Property Name=\"InvoiceId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Na" +
+                "me=\"OrderLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType N" +
+                "ame=\"LeaseInvoiceDTO\"><Key><PropertyRef Name=\"LeaseInvoiceId\" /></Key><Property " +
+                "Name=\"LeaseInvoiceId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Invoic" +
+                "eNumber\" Type=\"Edm.String\" /><Property Name=\"InvoideCode\" Type=\"Edm.String\" /><P" +
+                "roperty Name=\"InvoiceDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name" +
+                "=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"InvoiceValue\" Type=\"Edm.Deci" +
+                "mal\" Nullable=\"false\" /><Property Name=\"PaidAmount\" Type=\"Edm.Decimal\" Nullable=" +
+                "\"false\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"Revi" +
+                "ewer\" Type=\"Edm.String\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullab" +
+                "le=\"false\" /><Property Name=\"ReviewDate\" Type=\"Edm.DateTime\" /><Property Name=\"I" +
+                "sValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"IsCompleted\" Type=" +
+                "\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullab" +
+                "le=\"false\" /><Property Name=\"OrderId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Curren" +
+                "cyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"PaymentScheduleLineId\"" +
+                " Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"InvoiceLines\" Type=\"Collect" +
+                "ion(UniCloud.Application.PaymentBC.DTO.InvoiceLineDTO)\" Nullable=\"false\" /></Ent" +
+                "ityType><EntityType Name=\"PrepaymentInvoiceDTO\"><Key><PropertyRef Name=\"Prepayme" +
+                "ntInvoiceId\" /></Key><Property Name=\"PrepaymentInvoiceId\" Type=\"Edm.Int32\" Nulla" +
+                "ble=\"false\" /><Property Name=\"InvoiceNumber\" Type=\"Edm.String\" /><Property Name=" +
+                "\"InvoideCode\" Type=\"Edm.String\" /><Property Name=\"InvoiceDate\" Type=\"Edm.DateTim" +
+                "e\" Nullable=\"false\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /><Propert" +
+                "y Name=\"InvoiceValue\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Paid" +
+                "Amount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"OperatorName\" Type" +
+                "=\"Edm.String\" /><Property Name=\"Reviewer\" Type=\"Edm.String\" /><Property Name=\"Cr" +
+                "eateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"ReviewDate\" Typ" +
+                "e=\"Edm.DateTime\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" " +
+                "/><Property Name=\"IsCompleted\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property N" +
+                "ame=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OrderId\" Type=\"" +
+                "Edm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nulla" +
+                "ble=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><P" +
+                "roperty Name=\"PaymentScheduleLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Proper" +
+                "ty Name=\"InvoiceLines\" Type=\"Collection(UniCloud.Application.PaymentBC.DTO.Invoi" +
+                "ceLineDTO)\" Nullable=\"false\" /></EntityType><EntityType Name=\"PurchaseInvoiceDTO" +
+                "\"><Key><PropertyRef Name=\"PurchaseInvoiceId\" /></Key><Property Name=\"PurchaseInv" +
+                "oiceId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"InvoiceNumber\" Type=" +
+                "\"Edm.String\" /><Property Name=\"InvoideCode\" Type=\"Edm.String\" /><Property Name=\"" +
+                "InvoiceDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"SupplierName" +
+                "\" Type=\"Edm.String\" /><Property Name=\"InvoiceValue\" Type=\"Edm.Decimal\" Nullable=" +
+                "\"false\" /><Property Name=\"PaidAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Pro" +
+                "perty Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"Reviewer\" Type=\"Ed" +
+                "m.String\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><" +
+                "Property Name=\"ReviewDate\" Type=\"Edm.DateTime\" /><Property Name=\"IsValid\" Type=\"" +
+                "Edm.Boolean\" Nullable=\"false\" /><Property Name=\"IsCompleted\" Type=\"Edm.Boolean\" " +
+                "Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><" +
+                "Property Name=\"OrderId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Supp" +
+                "lierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type=\"Ed" +
+                "m.Int32\" Nullable=\"false\" /><Property Name=\"PaymentScheduleLineId\" Type=\"Edm.Int" +
+                "32\" Nullable=\"false\" /><Property Name=\"InvoiceLines\" Type=\"Collection(UniCloud.A" +
+                "pplication.PaymentBC.DTO.InvoiceLineDTO)\" Nullable=\"false\" /></EntityType><Entit" +
+                "yType Name=\"EngineMaintainInvoiceDTO\"><Key><PropertyRef Name=\"EngineMaintainInvo" +
+                "iceId\" /></Key><Property Name=\"EngineMaintainInvoiceId\" Type=\"Edm.Int32\" Nullabl" +
+                "e=\"false\" /><Property Name=\"MaintainInvoiceLines\" Type=\"Collection(UniCloud.Appl" +
+                "ication.PaymentBC.DTO.EngineMaintainInvoiceLineDTO)\" Nullable=\"false\" /><Propert" +
+                "y Name=\"SerialNumber\" Type=\"Edm.String\" /><Property Name=\"InvoiceNumber\" Type=\"E" +
+                "dm.String\" /><Property Name=\"InvoideCode\" Type=\"Edm.String\" /><Property Name=\"In" +
+                "voiceDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"SupplierName\" " +
+                "Type=\"Edm.String\" /><Property Name=\"InvoiceValue\" Type=\"Edm.Decimal\" Nullable=\"f" +
+                "alse\" /><Property Name=\"PaidAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"Reviewer\" Type=\"Edm." +
+                "String\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"ReviewDate\" Type=\"Edm.DateTime\" /><Property Name=\"IsValid\" Type=\"Ed" +
+                "m.Boolean\" Nullable=\"false\" /><Property Name=\"IsCompleted\" Type=\"Edm.Boolean\" Nu" +
+                "llable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Cur" +
+                "rencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /></EntityType><ComplexType Name=\"Eng" +
+                "ineMaintainInvoiceLineDTO\"><Property Name=\"EngineMaintainInvoiceLineId\" Type=\"Ed" +
+                "m.Int32\" Nullable=\"false\" /><Property Name=\"MaintainItem\" Type=\"Edm.Int32\" Nulla" +
+                "ble=\"false\" /><Property Name=\"ItemName\" Type=\"Edm.String\" /><Property Name=\"Unit" +
+                "Price\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name";
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+            private const string ModelPart1 = "=\"Amount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.S" +
+                "tring\" /><Property Name=\"PartId\" Type=\"Edm.Int32\" /></ComplexType><EntityType Na" +
+                "me=\"APUMaintainInvoiceDTO\"><Key><PropertyRef Name=\"APUMaintainInvoiceId\" /></Key" +
+                "><Property Name=\"APUMaintainInvoiceId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prop" +
+                "erty Name=\"MaintainInvoiceLines\" Type=\"Collection(UniCloud.Application.PaymentBC" +
+                ".DTO.APUMaintainInvoiceLineDTO)\" Nullable=\"false\" /><Property Name=\"SerialNumber" +
+                "\" Type=\"Edm.String\" /><Property Name=\"InvoiceNumber\" Type=\"Edm.String\" /><Proper" +
+                "ty Name=\"InvoideCode\" Type=\"Edm.String\" /><Property Name=\"InvoiceDate\" Type=\"Edm" +
+                ".DateTime\" Nullable=\"false\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" />" +
+                "<Property Name=\"InvoiceValue\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Na" +
+                "me=\"PaidAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"OperatorNa" +
+                "me\" Type=\"Edm.String\" /><Property Name=\"Reviewer\" Type=\"Edm.String\" /><Property " +
+                "Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"ReviewD" +
+                "ate\" Type=\"Edm.DateTime\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=" +
+                "\"false\" /><Property Name=\"IsCompleted\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Supplie" +
+                "rId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.I" +
+                "nt32\" Nullable=\"false\" /></EntityType><ComplexType Name=\"APUMaintainInvoiceLineD" +
+                "TO\"><Property Name=\"APUMaintainInvoiceLineId\" Type=\"Edm.Int32\" Nullable=\"false\" " +
+                "/><Property Name=\"MaintainItem\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Na" +
+                "me=\"ItemName\" Type=\"Edm.String\" /><Property Name=\"UnitPrice\" Type=\"Edm.Decimal\" " +
+                "Nullable=\"false\" /><Property Name=\"Amount\" Type=\"Edm.Decimal\" Nullable=\"false\" /" +
+                "><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"PartId\" Type=\"Edm.Int" +
+                "32\" /></ComplexType><EntityType Name=\"AirframeMaintainInvoiceDTO\"><Key><Property" +
+                "Ref Name=\"AirframeMaintainInvoiceId\" /></Key><Property Name=\"AirframeMaintainInv" +
+                "oiceId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"MaintainInvoiceLines" +
+                "\" Type=\"Collection(UniCloud.Application.PaymentBC.DTO.AirframeMaintainInvoiceLin" +
+                "eDTO)\" Nullable=\"false\" /><Property Name=\"SerialNumber\" Type=\"Edm.String\" /><Pro" +
+                "perty Name=\"InvoiceNumber\" Type=\"Edm.String\" /><Property Name=\"InvoideCode\" Type" +
+                "=\"Edm.String\" /><Property Name=\"InvoiceDate\" Type=\"Edm.DateTime\" Nullable=\"false" +
+                "\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"InvoiceVal" +
+                "ue\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"PaidAmount\" Type=\"Edm." +
+                "Decimal\" Nullable=\"false\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /><P" +
+                "roperty Name=\"Reviewer\" Type=\"Edm.String\" /><Property Name=\"CreateDate\" Type=\"Ed" +
+                "m.DateTime\" Nullable=\"false\" /><Property Name=\"ReviewDate\" Type=\"Edm.DateTime\" /" +
+                "><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"" +
+                "IsCompleted\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Status\" Type=" +
+                "\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Null" +
+                "able=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><" +
+                "/EntityType><ComplexType Name=\"AirframeMaintainInvoiceLineDTO\"><Property Name=\"A" +
+                "irframeMaintainInvoiceLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name" +
+                "=\"MaintainItem\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ItemName\" Ty" +
+                "pe=\"Edm.String\" /><Property Name=\"UnitPrice\" Type=\"Edm.Decimal\" Nullable=\"false\"" +
+                " /><Property Name=\"Amount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=" +
+                "\"Note\" Type=\"Edm.String\" /><Property Name=\"PartId\" Type=\"Edm.Int32\" /></ComplexT" +
+                "ype><EntityType Name=\"UndercartMaintainInvoiceDTO\"><Key><PropertyRef Name=\"Under" +
+                "cartMaintainInvoiceId\" /></Key><Property Name=\"UndercartMaintainInvoiceId\" Type=" +
+                "\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"MaintainInvoiceLines\" Type=\"Colle" +
+                "ction(UniCloud.Application.PaymentBC.DTO.UndercartMaintainInvoiceLineDTO)\" Nulla" +
+                "ble=\"false\" /><Property Name=\"SerialNumber\" Type=\"Edm.String\" /><Property Name=\"" +
+                "InvoiceNumber\" Type=\"Edm.String\" /><Property Name=\"InvoideCode\" Type=\"Edm.String" +
+                "\" /><Property Name=\"InvoiceDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Propert" +
+                "y Name=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"InvoiceValue\" Type=\"Ed" +
+                "m.Decimal\" Nullable=\"false\" /><Property Name=\"PaidAmount\" Type=\"Edm.Decimal\" Nul" +
+                "lable=\"false\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name" +
+                "=\"Reviewer\" Type=\"Edm.String\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" " +
+                "Nullable=\"false\" /><Property Name=\"ReviewDate\" Type=\"Edm.DateTime\" /><Property N" +
+                "ame=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"IsCompleted\"" +
+                " Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" " +
+                "Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\"" +
+                " /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /></EntityType>" +
+                "<ComplexType Name=\"UndercartMaintainInvoiceLineDTO\"><Property Name=\"UndercartMai" +
+                "ntainInvoiceLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Maintain" +
+                "Item\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ItemName\" Type=\"Edm.St" +
+                "ring\" /><Property Name=\"UnitPrice\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Proper" +
+                "ty Name=\"Amount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Note\" Typ" +
+                "e=\"Edm.String\" /><Property Name=\"PartId\" Type=\"Edm.Int32\" /></ComplexType><Entit" +
+                "yType Name=\"ContractAircraftDTO\"><Key><PropertyRef Name=\"ContractAircrafId\" /></" +
+                "Key><Property Name=\"ContractAircrafId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prop" +
+                "erty Name=\"ContractName\" Type=\"Edm.String\" /><Property Name=\"ContractNumber\" Typ" +
+                "e=\"Edm.String\" /><Property Name=\"RankNumber\" Type=\"Edm.String\" /><Property Name=" +
+                "\"CSCNumber\" Type=\"Edm.String\" /><Property Name=\"SerialNumber\" Type=\"Edm.String\" " +
+                "/><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=" +
+                "\"AircraftTypeName\" Type=\"Edm.String\" /><Property Name=\"ImportType\" Type=\"Edm.Str" +
+                "ing\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" /><Property Name=\"SupplierNa" +
+                "me\" Type=\"Edm.String\" /></EntityType><EntityType Name=\"ContractEngineDTO\"><Key><" +
+                "PropertyRef Name=\"ContractEngineId\" /></Key><Property Name=\"ContractEngineId\" Ty" +
+                "pe=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SerialNumber\" Type=\"Edm.String" +
+                "\" /><Property Name=\"ContractNumber\" Type=\"Edm.String\" /><Property Name=\"Contract" +
+                "Name\" Type=\"Edm.String\" /><Property Name=\"RankNumber\" Type=\"Edm.String\" /><Prope" +
+                "rty Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"ImportT" +
+                "ype\" Type=\"Edm.String\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /><Prop" +
+                "erty Name=\"SupplierId\" Type=\"Edm.Int32\" /></EntityType><EntityType Name=\"Currenc" +
+                "yDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" N" +
+                "ullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /></EntityType></Schem" +
+                "a><Schema Namespace=\"UniCloud.DistributedServices.Payment\" xmlns=\"http://schemas" +
+                ".microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"PaymentData\" m:IsDefaultE" +
+                "ntityContainer=\"true\"><EntitySet Name=\"CreditNotes\" EntityType=\"UniCloud.Applica" +
+                "tion.PaymentBC.DTO.CreditNoteDTO\" /><EntitySet Name=\"LeaseInvoices\" EntityType=\"" +
+                "UniCloud.Application.PaymentBC.DTO.LeaseInvoiceDTO\" /><EntitySet Name=\"Prepaymen" +
+                "tInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceDTO\" " +
+                "/><EntitySet Name=\"PurchaseInvoices\" EntityType=\"UniCloud.Application.PaymentBC." +
+                "DTO.PurchaseInvoiceDTO\" /><EntitySet Name=\"EngineMaintainInvoices\" EntityType=\"U" +
+                "niCloud.Application.PaymentBC.DTO.EngineMaintainInvoiceDTO\"";
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+            private const string ModelPart2 = @" /><EntitySet Name=""APUMaintainInvoices"" EntityType=""UniCloud.Application.PaymentBC.DTO.APUMaintainInvoiceDTO"" /><EntitySet Name=""AirframeMaintainInvoices"" EntityType=""UniCloud.Application.PaymentBC.DTO.AirframeMaintainInvoiceDTO"" /><EntitySet Name=""UndercartMaintainInvoices"" EntityType=""UniCloud.Application.PaymentBC.DTO.UndercartMaintainInvoiceDTO"" /><EntitySet Name=""ContractAircrafts"" EntityType=""UniCloud.Application.PaymentBC.DTO.ContractAircraftDTO"" /><EntitySet Name=""ContractEngines"" EntityType=""UniCloud.Application.PaymentBC.DTO.ContractEngineDTO"" /><EntitySet Name=""Currencies"" EntityType=""UniCloud.Application.PaymentBC.DTO.CurrencyDTO"" /></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
-                return string.Concat(ModelPart0);
+                return string.Concat(ModelPart0, ModelPart1, ModelPart2);
             }
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             public static global::Microsoft.Data.Edm.IEdmModel GetInstance()
@@ -276,103 +564,49 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         }
     }
     /// <summary>
-    /// 架构中不存在 UniCloud.Application.PaymentBC.DTO.MaintainInvoiceDTO 的注释。
+    /// 架构中不存在 ComplexType UniCloud.Application.PaymentBC.DTO.InvoiceLineDTO 的注释。
     /// </summary>
-    /// <KeyProperties>
-    /// MaintainInvoiceId
-    /// </KeyProperties>
-    [global::System.Data.Services.Common.EntitySetAttribute("MaintainInvoices")]
-    [global::System.Data.Services.Common.DataServiceKeyAttribute("MaintainInvoiceId")]
-    public partial class MaintainInvoiceDTO : global::System.ComponentModel.INotifyPropertyChanged
+    public partial class InvoiceLineDTO : global::System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
-        /// 创建新的 MaintainInvoiceDTO 对象。
+        /// 创建新的 InvoiceLineDTO 对象。
         /// </summary>
-        /// <param name="maintainInvoiceId">MaintainInvoiceId 的初始值。</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static MaintainInvoiceDTO CreateMaintainInvoiceDTO(int maintainInvoiceId)
-        {
-            MaintainInvoiceDTO maintainInvoiceDTO = new MaintainInvoiceDTO();
-            maintainInvoiceDTO.MaintainInvoiceId = maintainInvoiceId;
-            return maintainInvoiceDTO;
-        }
-        /// <summary>
-        /// 架构中不存在属性 MaintainInvoiceId 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int MaintainInvoiceId
-        {
-            get
-            {
-                return this._MaintainInvoiceId;
-            }
-            set
-            {
-                this.OnMaintainInvoiceIdChanging(value);
-                this._MaintainInvoiceId = value;
-                this.OnMaintainInvoiceIdChanged();
-                this.OnPropertyChanged("MaintainInvoiceId");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _MaintainInvoiceId;
-        partial void OnMaintainInvoiceIdChanging(int value);
-        partial void OnMaintainInvoiceIdChanged();
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        protected virtual void OnPropertyChanged(string property)
-        {
-            if ((this.PropertyChanged != null))
-            {
-                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
-            }
-        }
-    }
-    /// <summary>
-    /// 架构中不存在 ComplexType UniCloud.Application.PaymentBC.DTO.LeaseInvoiceLineDTO 的注释。
-    /// </summary>
-    public partial class LeaseInvoiceLineDTO : global::System.ComponentModel.INotifyPropertyChanged
-    {
-        /// <summary>
-        /// 创建新的 LeaseInvoiceLineDTO 对象。
-        /// </summary>
-        /// <param name="leaseInvoiceLineId">LeaseInvoiceLineId 的初始值。</param>
+        /// <param name="invoiceLineId">InvoiceLineId 的初始值。</param>
         /// <param name="amount">Amount 的初始值。</param>
         /// <param name="invoiceId">InvoiceId 的初始值。</param>
         /// <param name="orderLineId">OrderLineId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static LeaseInvoiceLineDTO CreateLeaseInvoiceLineDTO(int leaseInvoiceLineId, decimal amount, int invoiceId, int orderLineId)
+        public static InvoiceLineDTO CreateInvoiceLineDTO(int invoiceLineId, decimal amount, int invoiceId, int orderLineId)
         {
-            LeaseInvoiceLineDTO leaseInvoiceLineDTO = new LeaseInvoiceLineDTO();
-            leaseInvoiceLineDTO.LeaseInvoiceLineId = leaseInvoiceLineId;
-            leaseInvoiceLineDTO.Amount = amount;
-            leaseInvoiceLineDTO.InvoiceId = invoiceId;
-            leaseInvoiceLineDTO.OrderLineId = orderLineId;
-            return leaseInvoiceLineDTO;
+            InvoiceLineDTO invoiceLineDTO = new InvoiceLineDTO();
+            invoiceLineDTO.InvoiceLineId = invoiceLineId;
+            invoiceLineDTO.Amount = amount;
+            invoiceLineDTO.InvoiceId = invoiceId;
+            invoiceLineDTO.OrderLineId = orderLineId;
+            return invoiceLineDTO;
         }
         /// <summary>
-        /// 架构中不存在属性 LeaseInvoiceLineId 的注释。
+        /// 架构中不存在属性 InvoiceLineId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int LeaseInvoiceLineId
+        public int InvoiceLineId
         {
             get
             {
-                return this._LeaseInvoiceLineId;
+                return this._InvoiceLineId;
             }
             set
             {
-                this.OnLeaseInvoiceLineIdChanging(value);
-                this._LeaseInvoiceLineId = value;
-                this.OnLeaseInvoiceLineIdChanged();
-                this.OnPropertyChanged("LeaseInvoiceLineId");
+                this.OnInvoiceLineIdChanging(value);
+                this._InvoiceLineId = value;
+                this.OnInvoiceLineIdChanged();
+                this.OnPropertyChanged("InvoiceLineId");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _LeaseInvoiceLineId;
-        partial void OnLeaseInvoiceLineIdChanging(int value);
-        partial void OnLeaseInvoiceLineIdChanged();
+        private int _InvoiceLineId;
+        partial void OnInvoiceLineIdChanging(int value);
+        partial void OnInvoiceLineIdChanged();
         /// <summary>
         /// 架构中不存在属性 ItemName 的注释。
         /// </summary>
@@ -473,19 +707,19 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         }
     }
     /// <summary>
-    /// 架构中不存在 UniCloud.Application.PaymentBC.DTO.LeaseInvoiceDTO 的注释。
+    /// 架构中不存在 UniCloud.Application.PaymentBC.DTO.CreditNoteDTO 的注释。
     /// </summary>
     /// <KeyProperties>
-    /// LeaseInvoiceId
+    /// CreditNoteId
     /// </KeyProperties>
-    [global::System.Data.Services.Common.EntitySetAttribute("LeaseInvoices")]
-    [global::System.Data.Services.Common.DataServiceKeyAttribute("LeaseInvoiceId")]
-    public partial class LeaseInvoiceDTO : global::System.ComponentModel.INotifyPropertyChanged
+    [global::System.Data.Services.Common.EntitySetAttribute("CreditNotes")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("CreditNoteId")]
+    public partial class CreditNoteDTO : global::System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
-        /// 创建新的 LeaseInvoiceDTO 对象。
+        /// 创建新的 CreditNoteDTO 对象。
         /// </summary>
-        /// <param name="leaseInvoiceId">LeaseInvoiceId 的初始值。</param>
+        /// <param name="creditNoteId">CreditNoteId 的初始值。</param>
         /// <param name="invoiceDate">InvoiceDate 的初始值。</param>
         /// <param name="invoiceValue">InvoiceValue 的初始值。</param>
         /// <param name="paidAmount">PaidAmount 的初始值。</param>
@@ -496,51 +730,53 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="orderId">OrderId 的初始值。</param>
         /// <param name="supplierId">SupplierId 的初始值。</param>
         /// <param name="currencyId">CurrencyId 的初始值。</param>
+        /// <param name="paymentScheduleLineId">PaymentScheduleLineId 的初始值。</param>
         /// <param name="invoiceLines">InvoiceLines 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static LeaseInvoiceDTO CreateLeaseInvoiceDTO(int leaseInvoiceId, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int orderId, int supplierId, int currencyId, global::System.Collections.ObjectModel.ObservableCollection<LeaseInvoiceLineDTO> invoiceLines)
+        public static CreditNoteDTO CreateCreditNoteDTO(int creditNoteId, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int orderId, int supplierId, int currencyId, int paymentScheduleLineId, global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO> invoiceLines)
         {
-            LeaseInvoiceDTO leaseInvoiceDTO = new LeaseInvoiceDTO();
-            leaseInvoiceDTO.LeaseInvoiceId = leaseInvoiceId;
-            leaseInvoiceDTO.InvoiceDate = invoiceDate;
-            leaseInvoiceDTO.InvoiceValue = invoiceValue;
-            leaseInvoiceDTO.PaidAmount = paidAmount;
-            leaseInvoiceDTO.CreateDate = createDate;
-            leaseInvoiceDTO.IsValid = isValid;
-            leaseInvoiceDTO.IsCompleted = isCompleted;
-            leaseInvoiceDTO.Status = status;
-            leaseInvoiceDTO.OrderId = orderId;
-            leaseInvoiceDTO.SupplierId = supplierId;
-            leaseInvoiceDTO.CurrencyId = currencyId;
+            CreditNoteDTO creditNoteDTO = new CreditNoteDTO();
+            creditNoteDTO.CreditNoteId = creditNoteId;
+            creditNoteDTO.InvoiceDate = invoiceDate;
+            creditNoteDTO.InvoiceValue = invoiceValue;
+            creditNoteDTO.PaidAmount = paidAmount;
+            creditNoteDTO.CreateDate = createDate;
+            creditNoteDTO.IsValid = isValid;
+            creditNoteDTO.IsCompleted = isCompleted;
+            creditNoteDTO.Status = status;
+            creditNoteDTO.OrderId = orderId;
+            creditNoteDTO.SupplierId = supplierId;
+            creditNoteDTO.CurrencyId = currencyId;
+            creditNoteDTO.PaymentScheduleLineId = paymentScheduleLineId;
             if ((invoiceLines == null))
             {
                 throw new global::System.ArgumentNullException("invoiceLines");
             }
-            leaseInvoiceDTO.InvoiceLines = invoiceLines;
-            return leaseInvoiceDTO;
+            creditNoteDTO.InvoiceLines = invoiceLines;
+            return creditNoteDTO;
         }
         /// <summary>
-        /// 架构中不存在属性 LeaseInvoiceId 的注释。
+        /// 架构中不存在属性 CreditNoteId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int LeaseInvoiceId
+        public int CreditNoteId
         {
             get
             {
-                return this._LeaseInvoiceId;
+                return this._CreditNoteId;
             }
             set
             {
-                this.OnLeaseInvoiceIdChanging(value);
-                this._LeaseInvoiceId = value;
-                this.OnLeaseInvoiceIdChanged();
-                this.OnPropertyChanged("LeaseInvoiceId");
+                this.OnCreditNoteIdChanging(value);
+                this._CreditNoteId = value;
+                this.OnCreditNoteIdChanged();
+                this.OnPropertyChanged("CreditNoteId");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _LeaseInvoiceId;
-        partial void OnLeaseInvoiceIdChanging(int value);
-        partial void OnLeaseInvoiceIdChanged();
+        private int _CreditNoteId;
+        partial void OnCreditNoteIdChanging(int value);
+        partial void OnCreditNoteIdChanged();
         /// <summary>
         /// 架构中不存在属性 InvoiceNumber 的注释。
         /// </summary>
@@ -897,7 +1133,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// 架构中不存在属性 PaymentScheduleLineId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Nullable<int> PaymentScheduleLineId
+        public int PaymentScheduleLineId
         {
             get
             {
@@ -912,14 +1148,14 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Nullable<int> _PaymentScheduleLineId;
-        partial void OnPaymentScheduleLineIdChanging(global::System.Nullable<int> value);
+        private int _PaymentScheduleLineId;
+        partial void OnPaymentScheduleLineIdChanging(int value);
         partial void OnPaymentScheduleLineIdChanged();
         /// <summary>
         /// 架构中不存在属性 InvoiceLines 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Collections.ObjectModel.ObservableCollection<LeaseInvoiceLineDTO> InvoiceLines
+        public global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO> InvoiceLines
         {
             get
             {
@@ -934,8 +1170,8 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Collections.ObjectModel.ObservableCollection<LeaseInvoiceLineDTO> _InvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<LeaseInvoiceLineDTO>();
-        partial void OnInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<LeaseInvoiceLineDTO> value);
+        private global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO> _InvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO>();
+        partial void OnInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO> value);
         partial void OnInvoiceLinesChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
@@ -949,137 +1185,472 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         }
     }
     /// <summary>
-    /// 架构中不存在 ComplexType UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceLineDTO 的注释。
+    /// 架构中不存在 UniCloud.Application.PaymentBC.DTO.LeaseInvoiceDTO 的注释。
     /// </summary>
-    public partial class PrepaymentInvoiceLineDTO : global::System.ComponentModel.INotifyPropertyChanged
+    /// <KeyProperties>
+    /// LeaseInvoiceId
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("LeaseInvoices")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("LeaseInvoiceId")]
+    public partial class LeaseInvoiceDTO : global::System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
-        /// 创建新的 PrepaymentInvoiceLineDTO 对象。
+        /// 创建新的 LeaseInvoiceDTO 对象。
         /// </summary>
-        /// <param name="prepaymentInvoiceLineId">PrepaymentInvoiceLineId 的初始值。</param>
-        /// <param name="amount">Amount 的初始值。</param>
-        /// <param name="invoiceId">InvoiceId 的初始值。</param>
-        /// <param name="orderLineId">OrderLineId 的初始值。</param>
+        /// <param name="leaseInvoiceId">LeaseInvoiceId 的初始值。</param>
+        /// <param name="invoiceDate">InvoiceDate 的初始值。</param>
+        /// <param name="invoiceValue">InvoiceValue 的初始值。</param>
+        /// <param name="paidAmount">PaidAmount 的初始值。</param>
+        /// <param name="createDate">CreateDate 的初始值。</param>
+        /// <param name="isValid">IsValid 的初始值。</param>
+        /// <param name="isCompleted">IsCompleted 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
+        /// <param name="orderId">OrderId 的初始值。</param>
+        /// <param name="supplierId">SupplierId 的初始值。</param>
+        /// <param name="currencyId">CurrencyId 的初始值。</param>
+        /// <param name="paymentScheduleLineId">PaymentScheduleLineId 的初始值。</param>
+        /// <param name="invoiceLines">InvoiceLines 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static PrepaymentInvoiceLineDTO CreatePrepaymentInvoiceLineDTO(int prepaymentInvoiceLineId, decimal amount, int invoiceId, int orderLineId)
+        public static LeaseInvoiceDTO CreateLeaseInvoiceDTO(int leaseInvoiceId, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int orderId, int supplierId, int currencyId, int paymentScheduleLineId, global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO> invoiceLines)
         {
-            PrepaymentInvoiceLineDTO prepaymentInvoiceLineDTO = new PrepaymentInvoiceLineDTO();
-            prepaymentInvoiceLineDTO.PrepaymentInvoiceLineId = prepaymentInvoiceLineId;
-            prepaymentInvoiceLineDTO.Amount = amount;
-            prepaymentInvoiceLineDTO.InvoiceId = invoiceId;
-            prepaymentInvoiceLineDTO.OrderLineId = orderLineId;
-            return prepaymentInvoiceLineDTO;
+            LeaseInvoiceDTO leaseInvoiceDTO = new LeaseInvoiceDTO();
+            leaseInvoiceDTO.LeaseInvoiceId = leaseInvoiceId;
+            leaseInvoiceDTO.InvoiceDate = invoiceDate;
+            leaseInvoiceDTO.InvoiceValue = invoiceValue;
+            leaseInvoiceDTO.PaidAmount = paidAmount;
+            leaseInvoiceDTO.CreateDate = createDate;
+            leaseInvoiceDTO.IsValid = isValid;
+            leaseInvoiceDTO.IsCompleted = isCompleted;
+            leaseInvoiceDTO.Status = status;
+            leaseInvoiceDTO.OrderId = orderId;
+            leaseInvoiceDTO.SupplierId = supplierId;
+            leaseInvoiceDTO.CurrencyId = currencyId;
+            leaseInvoiceDTO.PaymentScheduleLineId = paymentScheduleLineId;
+            if ((invoiceLines == null))
+            {
+                throw new global::System.ArgumentNullException("invoiceLines");
+            }
+            leaseInvoiceDTO.InvoiceLines = invoiceLines;
+            return leaseInvoiceDTO;
         }
         /// <summary>
-        /// 架构中不存在属性 PrepaymentInvoiceLineId 的注释。
+        /// 架构中不存在属性 LeaseInvoiceId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int PrepaymentInvoiceLineId
+        public int LeaseInvoiceId
         {
             get
             {
-                return this._PrepaymentInvoiceLineId;
+                return this._LeaseInvoiceId;
             }
             set
             {
-                this.OnPrepaymentInvoiceLineIdChanging(value);
-                this._PrepaymentInvoiceLineId = value;
-                this.OnPrepaymentInvoiceLineIdChanged();
-                this.OnPropertyChanged("PrepaymentInvoiceLineId");
+                this.OnLeaseInvoiceIdChanging(value);
+                this._LeaseInvoiceId = value;
+                this.OnLeaseInvoiceIdChanged();
+                this.OnPropertyChanged("LeaseInvoiceId");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _PrepaymentInvoiceLineId;
-        partial void OnPrepaymentInvoiceLineIdChanging(int value);
-        partial void OnPrepaymentInvoiceLineIdChanged();
+        private int _LeaseInvoiceId;
+        partial void OnLeaseInvoiceIdChanging(int value);
+        partial void OnLeaseInvoiceIdChanged();
         /// <summary>
-        /// 架构中不存在属性 ItemName 的注释。
+        /// 架构中不存在属性 InvoiceNumber 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string ItemName
+        public string InvoiceNumber
         {
             get
             {
-                return this._ItemName;
+                return this._InvoiceNumber;
             }
             set
             {
-                this.OnItemNameChanging(value);
-                this._ItemName = value;
-                this.OnItemNameChanged();
-                this.OnPropertyChanged("ItemName");
+                this.OnInvoiceNumberChanging(value);
+                this._InvoiceNumber = value;
+                this.OnInvoiceNumberChanged();
+                this.OnPropertyChanged("InvoiceNumber");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _ItemName;
-        partial void OnItemNameChanging(string value);
-        partial void OnItemNameChanged();
+        private string _InvoiceNumber;
+        partial void OnInvoiceNumberChanging(string value);
+        partial void OnInvoiceNumberChanged();
         /// <summary>
-        /// 架构中不存在属性 Amount 的注释。
+        /// 架构中不存在属性 InvoideCode 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public decimal Amount
+        public string InvoideCode
         {
             get
             {
-                return this._Amount;
+                return this._InvoideCode;
             }
             set
             {
-                this.OnAmountChanging(value);
-                this._Amount = value;
-                this.OnAmountChanged();
-                this.OnPropertyChanged("Amount");
+                this.OnInvoideCodeChanging(value);
+                this._InvoideCode = value;
+                this.OnInvoideCodeChanged();
+                this.OnPropertyChanged("InvoideCode");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private decimal _Amount;
-        partial void OnAmountChanging(decimal value);
-        partial void OnAmountChanged();
+        private string _InvoideCode;
+        partial void OnInvoideCodeChanging(string value);
+        partial void OnInvoideCodeChanged();
         /// <summary>
-        /// 架构中不存在属性 InvoiceId 的注释。
+        /// 架构中不存在属性 InvoiceDate 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int InvoiceId
+        public global::System.DateTime InvoiceDate
         {
             get
             {
-                return this._InvoiceId;
+                return this._InvoiceDate;
             }
             set
             {
-                this.OnInvoiceIdChanging(value);
-                this._InvoiceId = value;
-                this.OnInvoiceIdChanged();
-                this.OnPropertyChanged("InvoiceId");
+                this.OnInvoiceDateChanging(value);
+                this._InvoiceDate = value;
+                this.OnInvoiceDateChanged();
+                this.OnPropertyChanged("InvoiceDate");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _InvoiceId;
-        partial void OnInvoiceIdChanging(int value);
-        partial void OnInvoiceIdChanged();
+        private global::System.DateTime _InvoiceDate;
+        partial void OnInvoiceDateChanging(global::System.DateTime value);
+        partial void OnInvoiceDateChanged();
         /// <summary>
-        /// 架构中不存在属性 OrderLineId 的注释。
+        /// 架构中不存在属性 SupplierName 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int OrderLineId
+        public string SupplierName
         {
             get
             {
-                return this._OrderLineId;
+                return this._SupplierName;
             }
             set
             {
-                this.OnOrderLineIdChanging(value);
-                this._OrderLineId = value;
-                this.OnOrderLineIdChanged();
-                this.OnPropertyChanged("OrderLineId");
+                this.OnSupplierNameChanging(value);
+                this._SupplierName = value;
+                this.OnSupplierNameChanged();
+                this.OnPropertyChanged("SupplierName");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _OrderLineId;
-        partial void OnOrderLineIdChanging(int value);
-        partial void OnOrderLineIdChanged();
+        private string _SupplierName;
+        partial void OnSupplierNameChanging(string value);
+        partial void OnSupplierNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoiceValue 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal InvoiceValue
+        {
+            get
+            {
+                return this._InvoiceValue;
+            }
+            set
+            {
+                this.OnInvoiceValueChanging(value);
+                this._InvoiceValue = value;
+                this.OnInvoiceValueChanged();
+                this.OnPropertyChanged("InvoiceValue");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _InvoiceValue;
+        partial void OnInvoiceValueChanging(decimal value);
+        partial void OnInvoiceValueChanged();
+        /// <summary>
+        /// 架构中不存在属性 PaidAmount 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal PaidAmount
+        {
+            get
+            {
+                return this._PaidAmount;
+            }
+            set
+            {
+                this.OnPaidAmountChanging(value);
+                this._PaidAmount = value;
+                this.OnPaidAmountChanged();
+                this.OnPropertyChanged("PaidAmount");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _PaidAmount;
+        partial void OnPaidAmountChanging(decimal value);
+        partial void OnPaidAmountChanged();
+        /// <summary>
+        /// 架构中不存在属性 OperatorName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string OperatorName
+        {
+            get
+            {
+                return this._OperatorName;
+            }
+            set
+            {
+                this.OnOperatorNameChanging(value);
+                this._OperatorName = value;
+                this.OnOperatorNameChanged();
+                this.OnPropertyChanged("OperatorName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _OperatorName;
+        partial void OnOperatorNameChanging(string value);
+        partial void OnOperatorNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Reviewer 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Reviewer
+        {
+            get
+            {
+                return this._Reviewer;
+            }
+            set
+            {
+                this.OnReviewerChanging(value);
+                this._Reviewer = value;
+                this.OnReviewerChanged();
+                this.OnPropertyChanged("Reviewer");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Reviewer;
+        partial void OnReviewerChanging(string value);
+        partial void OnReviewerChanged();
+        /// <summary>
+        /// 架构中不存在属性 CreateDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime CreateDate
+        {
+            get
+            {
+                return this._CreateDate;
+            }
+            set
+            {
+                this.OnCreateDateChanging(value);
+                this._CreateDate = value;
+                this.OnCreateDateChanged();
+                this.OnPropertyChanged("CreateDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _CreateDate;
+        partial void OnCreateDateChanging(global::System.DateTime value);
+        partial void OnCreateDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 ReviewDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.DateTime> ReviewDate
+        {
+            get
+            {
+                return this._ReviewDate;
+            }
+            set
+            {
+                this.OnReviewDateChanging(value);
+                this._ReviewDate = value;
+                this.OnReviewDateChanged();
+                this.OnPropertyChanged("ReviewDate");
+        }
+    }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.DateTime> _ReviewDate;
+        partial void OnReviewDateChanging(global::System.Nullable<global::System.DateTime> value);
+        partial void OnReviewDateChanged();
+    /// <summary>
+        /// 架构中不存在属性 IsValid 的注释。
+    /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsValid
+        {
+            get
+            {
+                return this._IsValid;
+            }
+            set
+    {
+                this.OnIsValidChanging(value);
+                this._IsValid = value;
+                this.OnIsValidChanged();
+                this.OnPropertyChanged("IsValid");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsValid;
+        partial void OnIsValidChanging(bool value);
+        partial void OnIsValidChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsCompleted 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsCompleted
+        {
+            get
+            {
+                return this._IsCompleted;
+            }
+            set
+            {
+                this.OnIsCompletedChanging(value);
+                this._IsCompleted = value;
+                this.OnIsCompletedChanged();
+                this.OnPropertyChanged("IsCompleted");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsCompleted;
+        partial void OnIsCompletedChanging(bool value);
+        partial void OnIsCompletedChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+        }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 OrderId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int OrderId
+        {
+            get
+            {
+                return this._OrderId;
+            }
+            set
+            {
+                this.OnOrderIdChanging(value);
+                this._OrderId = value;
+                this.OnOrderIdChanged();
+                this.OnPropertyChanged("OrderId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _OrderId;
+        partial void OnOrderIdChanging(int value);
+        partial void OnOrderIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int SupplierId
+        {
+            get
+            {
+                return this._SupplierId;
+            }
+            set
+            {
+                this.OnSupplierIdChanging(value);
+                this._SupplierId = value;
+                this.OnSupplierIdChanged();
+                this.OnPropertyChanged("SupplierId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _SupplierId;
+        partial void OnSupplierIdChanging(int value);
+        partial void OnSupplierIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 CurrencyId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int CurrencyId
+        {
+            get
+            {
+                return this._CurrencyId;
+            }
+            set
+            {
+                this.OnCurrencyIdChanging(value);
+                this._CurrencyId = value;
+                this.OnCurrencyIdChanged();
+                this.OnPropertyChanged("CurrencyId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _CurrencyId;
+        partial void OnCurrencyIdChanging(int value);
+        partial void OnCurrencyIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 PaymentScheduleLineId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int PaymentScheduleLineId
+        {
+            get
+            {
+                return this._PaymentScheduleLineId;
+            }
+            set
+            {
+                this.OnPaymentScheduleLineIdChanging(value);
+                this._PaymentScheduleLineId = value;
+                this.OnPaymentScheduleLineIdChanged();
+                this.OnPropertyChanged("PaymentScheduleLineId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _PaymentScheduleLineId;
+        partial void OnPaymentScheduleLineIdChanging(int value);
+        partial void OnPaymentScheduleLineIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoiceLines 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO> InvoiceLines
+        {
+            get
+            {
+                return this._InvoiceLines;
+            }
+            set
+            {
+                this.OnInvoiceLinesChanging(value);
+                this._InvoiceLines = value;
+                this.OnInvoiceLinesChanged();
+                this.OnPropertyChanged("InvoiceLines");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO> _InvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO>();
+        partial void OnInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO> value);
+        partial void OnInvoiceLinesChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -1115,9 +1686,10 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="orderId">OrderId 的初始值。</param>
         /// <param name="supplierId">SupplierId 的初始值。</param>
         /// <param name="currencyId">CurrencyId 的初始值。</param>
+        /// <param name="paymentScheduleLineId">PaymentScheduleLineId 的初始值。</param>
         /// <param name="invoiceLines">InvoiceLines 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static PrepaymentInvoiceDTO CreatePrepaymentInvoiceDTO(int prepaymentInvoiceId, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int orderId, int supplierId, int currencyId, global::System.Collections.ObjectModel.ObservableCollection<PrepaymentInvoiceLineDTO> invoiceLines)
+        public static PrepaymentInvoiceDTO CreatePrepaymentInvoiceDTO(int prepaymentInvoiceId, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int orderId, int supplierId, int currencyId, int paymentScheduleLineId, global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO> invoiceLines)
         {
             PrepaymentInvoiceDTO prepaymentInvoiceDTO = new PrepaymentInvoiceDTO();
             prepaymentInvoiceDTO.PrepaymentInvoiceId = prepaymentInvoiceId;
@@ -1131,6 +1703,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             prepaymentInvoiceDTO.OrderId = orderId;
             prepaymentInvoiceDTO.SupplierId = supplierId;
             prepaymentInvoiceDTO.CurrencyId = currencyId;
+            prepaymentInvoiceDTO.PaymentScheduleLineId = paymentScheduleLineId;
             if ((invoiceLines == null))
             {
                 throw new global::System.ArgumentNullException("invoiceLines");
@@ -1516,7 +2089,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// 架构中不存在属性 PaymentScheduleLineId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Nullable<int> PaymentScheduleLineId
+        public int PaymentScheduleLineId
         {
             get
             {
@@ -1531,14 +2104,14 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Nullable<int> _PaymentScheduleLineId;
-        partial void OnPaymentScheduleLineIdChanging(global::System.Nullable<int> value);
+        private int _PaymentScheduleLineId;
+        partial void OnPaymentScheduleLineIdChanging(int value);
         partial void OnPaymentScheduleLineIdChanged();
         /// <summary>
         /// 架构中不存在属性 InvoiceLines 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Collections.ObjectModel.ObservableCollection<PrepaymentInvoiceLineDTO> InvoiceLines
+        public global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO> InvoiceLines
         {
             get
             {
@@ -1553,152 +2126,9 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Collections.ObjectModel.ObservableCollection<PrepaymentInvoiceLineDTO> _InvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<PrepaymentInvoiceLineDTO>();
-        partial void OnInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<PrepaymentInvoiceLineDTO> value);
+        private global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO> _InvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO>();
+        partial void OnInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO> value);
         partial void OnInvoiceLinesChanged();
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        protected virtual void OnPropertyChanged(string property)
-        {
-            if ((this.PropertyChanged != null))
-            {
-                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
-            }
-        }
-    }
-    /// <summary>
-    /// 架构中不存在 ComplexType UniCloud.Application.PaymentBC.DTO.PurchaseInvoiceLineDTO 的注释。
-    /// </summary>
-    public partial class PurchaseInvoiceLineDTO : global::System.ComponentModel.INotifyPropertyChanged
-    {
-        /// <summary>
-        /// 创建新的 PurchaseInvoiceLineDTO 对象。
-        /// </summary>
-        /// <param name="purchaseInvoiceLineId">PurchaseInvoiceLineId 的初始值。</param>
-        /// <param name="amount">Amount 的初始值。</param>
-        /// <param name="invoiceId">InvoiceId 的初始值。</param>
-        /// <param name="orderLineId">OrderLineId 的初始值。</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static PurchaseInvoiceLineDTO CreatePurchaseInvoiceLineDTO(int purchaseInvoiceLineId, decimal amount, int invoiceId, int orderLineId)
-        {
-            PurchaseInvoiceLineDTO purchaseInvoiceLineDTO = new PurchaseInvoiceLineDTO();
-            purchaseInvoiceLineDTO.PurchaseInvoiceLineId = purchaseInvoiceLineId;
-            purchaseInvoiceLineDTO.Amount = amount;
-            purchaseInvoiceLineDTO.InvoiceId = invoiceId;
-            purchaseInvoiceLineDTO.OrderLineId = orderLineId;
-            return purchaseInvoiceLineDTO;
-        }
-        /// <summary>
-        /// 架构中不存在属性 PurchaseInvoiceLineId 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int PurchaseInvoiceLineId
-        {
-            get
-            {
-                return this._PurchaseInvoiceLineId;
-            }
-            set
-            {
-                this.OnPurchaseInvoiceLineIdChanging(value);
-                this._PurchaseInvoiceLineId = value;
-                this.OnPurchaseInvoiceLineIdChanged();
-                this.OnPropertyChanged("PurchaseInvoiceLineId");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _PurchaseInvoiceLineId;
-        partial void OnPurchaseInvoiceLineIdChanging(int value);
-        partial void OnPurchaseInvoiceLineIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 ItemName 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string ItemName
-        {
-            get
-            {
-                return this._ItemName;
-            }
-            set
-            {
-                this.OnItemNameChanging(value);
-                this._ItemName = value;
-                this.OnItemNameChanged();
-                this.OnPropertyChanged("ItemName");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _ItemName;
-        partial void OnItemNameChanging(string value);
-        partial void OnItemNameChanged();
-        /// <summary>
-        /// 架构中不存在属性 Amount 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public decimal Amount
-        {
-            get
-            {
-                return this._Amount;
-            }
-            set
-            {
-                this.OnAmountChanging(value);
-                this._Amount = value;
-                this.OnAmountChanged();
-                this.OnPropertyChanged("Amount");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private decimal _Amount;
-        partial void OnAmountChanging(decimal value);
-        partial void OnAmountChanged();
-        /// <summary>
-        /// 架构中不存在属性 InvoiceId 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int InvoiceId
-        {
-            get
-            {
-                return this._InvoiceId;
-            }
-            set
-            {
-                this.OnInvoiceIdChanging(value);
-                this._InvoiceId = value;
-                this.OnInvoiceIdChanged();
-                this.OnPropertyChanged("InvoiceId");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _InvoiceId;
-        partial void OnInvoiceIdChanging(int value);
-        partial void OnInvoiceIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 OrderLineId 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int OrderLineId
-        {
-            get
-            {
-                return this._OrderLineId;
-            }
-            set
-            {
-                this.OnOrderLineIdChanging(value);
-                this._OrderLineId = value;
-                this.OnOrderLineIdChanged();
-                this.OnPropertyChanged("OrderLineId");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _OrderLineId;
-        partial void OnOrderLineIdChanging(int value);
-        partial void OnOrderLineIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -1734,9 +2164,10 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="orderId">OrderId 的初始值。</param>
         /// <param name="supplierId">SupplierId 的初始值。</param>
         /// <param name="currencyId">CurrencyId 的初始值。</param>
+        /// <param name="paymentScheduleLineId">PaymentScheduleLineId 的初始值。</param>
         /// <param name="invoiceLines">InvoiceLines 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static PurchaseInvoiceDTO CreatePurchaseInvoiceDTO(int purchaseInvoiceId, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int orderId, int supplierId, int currencyId, global::System.Collections.ObjectModel.ObservableCollection<PurchaseInvoiceLineDTO> invoiceLines)
+        public static PurchaseInvoiceDTO CreatePurchaseInvoiceDTO(int purchaseInvoiceId, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int orderId, int supplierId, int currencyId, int paymentScheduleLineId, global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO> invoiceLines)
         {
             PurchaseInvoiceDTO purchaseInvoiceDTO = new PurchaseInvoiceDTO();
             purchaseInvoiceDTO.PurchaseInvoiceId = purchaseInvoiceId;
@@ -1750,6 +2181,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             purchaseInvoiceDTO.OrderId = orderId;
             purchaseInvoiceDTO.SupplierId = supplierId;
             purchaseInvoiceDTO.CurrencyId = currencyId;
+            purchaseInvoiceDTO.PaymentScheduleLineId = paymentScheduleLineId;
             if ((invoiceLines == null))
             {
                 throw new global::System.ArgumentNullException("invoiceLines");
@@ -2135,7 +2567,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// 架构中不存在属性 PaymentScheduleLineId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Nullable<int> PaymentScheduleLineId
+        public int PaymentScheduleLineId
         {
             get
             {
@@ -2150,14 +2582,14 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Nullable<int> _PaymentScheduleLineId;
-        partial void OnPaymentScheduleLineIdChanging(global::System.Nullable<int> value);
+        private int _PaymentScheduleLineId;
+        partial void OnPaymentScheduleLineIdChanging(int value);
         partial void OnPaymentScheduleLineIdChanged();
         /// <summary>
         /// 架构中不存在属性 InvoiceLines 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Collections.ObjectModel.ObservableCollection<PurchaseInvoiceLineDTO> InvoiceLines
+        public global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO> InvoiceLines
         {
             get
             {
@@ -2172,9 +2604,3149 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Collections.ObjectModel.ObservableCollection<PurchaseInvoiceLineDTO> _InvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<PurchaseInvoiceLineDTO>();
-        partial void OnInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<PurchaseInvoiceLineDTO> value);
+        private global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO> _InvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO>();
+        partial void OnInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<InvoiceLineDTO> value);
         partial void OnInvoiceLinesChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 ComplexType UniCloud.Application.PaymentBC.DTO.EngineMaintainInvoiceLineDTO 的注释。
+    /// </summary>
+    public partial class EngineMaintainInvoiceLineDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 EngineMaintainInvoiceLineDTO 对象。
+        /// </summary>
+        /// <param name="engineMaintainInvoiceLineId">EngineMaintainInvoiceLineId 的初始值。</param>
+        /// <param name="maintainItem">MaintainItem 的初始值。</param>
+        /// <param name="unitPrice">UnitPrice 的初始值。</param>
+        /// <param name="amount">Amount 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static EngineMaintainInvoiceLineDTO CreateEngineMaintainInvoiceLineDTO(int engineMaintainInvoiceLineId, int maintainItem, decimal unitPrice, decimal amount)
+        {
+            EngineMaintainInvoiceLineDTO engineMaintainInvoiceLineDTO = new EngineMaintainInvoiceLineDTO();
+            engineMaintainInvoiceLineDTO.EngineMaintainInvoiceLineId = engineMaintainInvoiceLineId;
+            engineMaintainInvoiceLineDTO.MaintainItem = maintainItem;
+            engineMaintainInvoiceLineDTO.UnitPrice = unitPrice;
+            engineMaintainInvoiceLineDTO.Amount = amount;
+            return engineMaintainInvoiceLineDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 EngineMaintainInvoiceLineId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int EngineMaintainInvoiceLineId
+        {
+            get
+            {
+                return this._EngineMaintainInvoiceLineId;
+            }
+            set
+            {
+                this.OnEngineMaintainInvoiceLineIdChanging(value);
+                this._EngineMaintainInvoiceLineId = value;
+                this.OnEngineMaintainInvoiceLineIdChanged();
+                this.OnPropertyChanged("EngineMaintainInvoiceLineId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _EngineMaintainInvoiceLineId;
+        partial void OnEngineMaintainInvoiceLineIdChanging(int value);
+        partial void OnEngineMaintainInvoiceLineIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 MaintainItem 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int MaintainItem
+        {
+            get
+            {
+                return this._MaintainItem;
+            }
+            set
+            {
+                this.OnMaintainItemChanging(value);
+                this._MaintainItem = value;
+                this.OnMaintainItemChanged();
+                this.OnPropertyChanged("MaintainItem");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _MaintainItem;
+        partial void OnMaintainItemChanging(int value);
+        partial void OnMaintainItemChanged();
+        /// <summary>
+        /// 架构中不存在属性 ItemName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ItemName
+        {
+            get
+            {
+                return this._ItemName;
+            }
+            set
+            {
+                this.OnItemNameChanging(value);
+                this._ItemName = value;
+                this.OnItemNameChanged();
+                this.OnPropertyChanged("ItemName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ItemName;
+        partial void OnItemNameChanging(string value);
+        partial void OnItemNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 UnitPrice 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal UnitPrice
+        {
+            get
+            {
+                return this._UnitPrice;
+            }
+            set
+            {
+                this.OnUnitPriceChanging(value);
+                this._UnitPrice = value;
+                this.OnUnitPriceChanged();
+                this.OnPropertyChanged("UnitPrice");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _UnitPrice;
+        partial void OnUnitPriceChanging(decimal value);
+        partial void OnUnitPriceChanged();
+        /// <summary>
+        /// 架构中不存在属性 Amount 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal Amount
+        {
+            get
+            {
+                return this._Amount;
+            }
+            set
+            {
+                this.OnAmountChanging(value);
+                this._Amount = value;
+                this.OnAmountChanged();
+                this.OnPropertyChanged("Amount");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _Amount;
+        partial void OnAmountChanging(decimal value);
+        partial void OnAmountChanged();
+        /// <summary>
+        /// 架构中不存在属性 Note 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Note
+        {
+            get
+            {
+                return this._Note;
+            }
+            set
+            {
+                this.OnNoteChanging(value);
+                this._Note = value;
+                this.OnNoteChanged();
+                this.OnPropertyChanged("Note");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Note;
+        partial void OnNoteChanging(string value);
+        partial void OnNoteChanged();
+        /// <summary>
+        /// 架构中不存在属性 PartId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<int> PartId
+        {
+            get
+            {
+                return this._PartId;
+            }
+            set
+            {
+                this.OnPartIdChanging(value);
+                this._PartId = value;
+                this.OnPartIdChanged();
+                this.OnPropertyChanged("PartId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<int> _PartId;
+        partial void OnPartIdChanging(global::System.Nullable<int> value);
+        partial void OnPartIdChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.PaymentBC.DTO.EngineMaintainInvoiceDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// EngineMaintainInvoiceId
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("EngineMaintainInvoices")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("EngineMaintainInvoiceId")]
+    public partial class EngineMaintainInvoiceDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 EngineMaintainInvoiceDTO 对象。
+        /// </summary>
+        /// <param name="engineMaintainInvoiceId">EngineMaintainInvoiceId 的初始值。</param>
+        /// <param name="maintainInvoiceLines">MaintainInvoiceLines 的初始值。</param>
+        /// <param name="invoiceDate">InvoiceDate 的初始值。</param>
+        /// <param name="invoiceValue">InvoiceValue 的初始值。</param>
+        /// <param name="paidAmount">PaidAmount 的初始值。</param>
+        /// <param name="createDate">CreateDate 的初始值。</param>
+        /// <param name="isValid">IsValid 的初始值。</param>
+        /// <param name="isCompleted">IsCompleted 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
+        /// <param name="supplierId">SupplierId 的初始值。</param>
+        /// <param name="currencyId">CurrencyId 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static EngineMaintainInvoiceDTO CreateEngineMaintainInvoiceDTO(int engineMaintainInvoiceId, global::System.Collections.ObjectModel.ObservableCollection<EngineMaintainInvoiceLineDTO> maintainInvoiceLines, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int supplierId, int currencyId)
+        {
+            EngineMaintainInvoiceDTO engineMaintainInvoiceDTO = new EngineMaintainInvoiceDTO();
+            engineMaintainInvoiceDTO.EngineMaintainInvoiceId = engineMaintainInvoiceId;
+            if ((maintainInvoiceLines == null))
+            {
+                throw new global::System.ArgumentNullException("maintainInvoiceLines");
+            }
+            engineMaintainInvoiceDTO.MaintainInvoiceLines = maintainInvoiceLines;
+            engineMaintainInvoiceDTO.InvoiceDate = invoiceDate;
+            engineMaintainInvoiceDTO.InvoiceValue = invoiceValue;
+            engineMaintainInvoiceDTO.PaidAmount = paidAmount;
+            engineMaintainInvoiceDTO.CreateDate = createDate;
+            engineMaintainInvoiceDTO.IsValid = isValid;
+            engineMaintainInvoiceDTO.IsCompleted = isCompleted;
+            engineMaintainInvoiceDTO.Status = status;
+            engineMaintainInvoiceDTO.SupplierId = supplierId;
+            engineMaintainInvoiceDTO.CurrencyId = currencyId;
+            return engineMaintainInvoiceDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 EngineMaintainInvoiceId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int EngineMaintainInvoiceId
+        {
+            get
+            {
+                return this._EngineMaintainInvoiceId;
+            }
+            set
+            {
+                this.OnEngineMaintainInvoiceIdChanging(value);
+                this._EngineMaintainInvoiceId = value;
+                this.OnEngineMaintainInvoiceIdChanged();
+                this.OnPropertyChanged("EngineMaintainInvoiceId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _EngineMaintainInvoiceId;
+        partial void OnEngineMaintainInvoiceIdChanging(int value);
+        partial void OnEngineMaintainInvoiceIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 MaintainInvoiceLines 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<EngineMaintainInvoiceLineDTO> MaintainInvoiceLines
+        {
+            get
+            {
+                return this._MaintainInvoiceLines;
+            }
+            set
+            {
+                this.OnMaintainInvoiceLinesChanging(value);
+                this._MaintainInvoiceLines = value;
+                this.OnMaintainInvoiceLinesChanged();
+                this.OnPropertyChanged("MaintainInvoiceLines");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<EngineMaintainInvoiceLineDTO> _MaintainInvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<EngineMaintainInvoiceLineDTO>();
+        partial void OnMaintainInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<EngineMaintainInvoiceLineDTO> value);
+        partial void OnMaintainInvoiceLinesChanged();
+        /// <summary>
+        /// 架构中不存在属性 SerialNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SerialNumber
+        {
+            get
+            {
+                return this._SerialNumber;
+            }
+            set
+            {
+                this.OnSerialNumberChanging(value);
+                this._SerialNumber = value;
+                this.OnSerialNumberChanged();
+                this.OnPropertyChanged("SerialNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SerialNumber;
+        partial void OnSerialNumberChanging(string value);
+        partial void OnSerialNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoiceNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string InvoiceNumber
+        {
+            get
+            {
+                return this._InvoiceNumber;
+            }
+            set
+            {
+                this.OnInvoiceNumberChanging(value);
+                this._InvoiceNumber = value;
+                this.OnInvoiceNumberChanged();
+                this.OnPropertyChanged("InvoiceNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _InvoiceNumber;
+        partial void OnInvoiceNumberChanging(string value);
+        partial void OnInvoiceNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoideCode 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string InvoideCode
+        {
+            get
+            {
+                return this._InvoideCode;
+            }
+            set
+            {
+                this.OnInvoideCodeChanging(value);
+                this._InvoideCode = value;
+                this.OnInvoideCodeChanged();
+                this.OnPropertyChanged("InvoideCode");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _InvoideCode;
+        partial void OnInvoideCodeChanging(string value);
+        partial void OnInvoideCodeChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoiceDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime InvoiceDate
+        {
+            get
+            {
+                return this._InvoiceDate;
+            }
+            set
+            {
+                this.OnInvoiceDateChanging(value);
+                this._InvoiceDate = value;
+                this.OnInvoiceDateChanged();
+                this.OnPropertyChanged("InvoiceDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _InvoiceDate;
+        partial void OnInvoiceDateChanging(global::System.DateTime value);
+        partial void OnInvoiceDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SupplierName
+        {
+            get
+            {
+                return this._SupplierName;
+            }
+            set
+            {
+                this.OnSupplierNameChanging(value);
+                this._SupplierName = value;
+                this.OnSupplierNameChanged();
+                this.OnPropertyChanged("SupplierName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SupplierName;
+        partial void OnSupplierNameChanging(string value);
+        partial void OnSupplierNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoiceValue 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal InvoiceValue
+        {
+            get
+            {
+                return this._InvoiceValue;
+            }
+            set
+            {
+                this.OnInvoiceValueChanging(value);
+                this._InvoiceValue = value;
+                this.OnInvoiceValueChanged();
+                this.OnPropertyChanged("InvoiceValue");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _InvoiceValue;
+        partial void OnInvoiceValueChanging(decimal value);
+        partial void OnInvoiceValueChanged();
+        /// <summary>
+        /// 架构中不存在属性 PaidAmount 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal PaidAmount
+        {
+            get
+            {
+                return this._PaidAmount;
+            }
+            set
+            {
+                this.OnPaidAmountChanging(value);
+                this._PaidAmount = value;
+                this.OnPaidAmountChanged();
+                this.OnPropertyChanged("PaidAmount");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _PaidAmount;
+        partial void OnPaidAmountChanging(decimal value);
+        partial void OnPaidAmountChanged();
+        /// <summary>
+        /// 架构中不存在属性 OperatorName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string OperatorName
+        {
+            get
+            {
+                return this._OperatorName;
+            }
+            set
+            {
+                this.OnOperatorNameChanging(value);
+                this._OperatorName = value;
+                this.OnOperatorNameChanged();
+                this.OnPropertyChanged("OperatorName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _OperatorName;
+        partial void OnOperatorNameChanging(string value);
+        partial void OnOperatorNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Reviewer 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Reviewer
+        {
+            get
+            {
+                return this._Reviewer;
+            }
+            set
+            {
+                this.OnReviewerChanging(value);
+                this._Reviewer = value;
+                this.OnReviewerChanged();
+                this.OnPropertyChanged("Reviewer");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Reviewer;
+        partial void OnReviewerChanging(string value);
+        partial void OnReviewerChanged();
+        /// <summary>
+        /// 架构中不存在属性 CreateDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime CreateDate
+        {
+            get
+            {
+                return this._CreateDate;
+            }
+            set
+            {
+                this.OnCreateDateChanging(value);
+                this._CreateDate = value;
+                this.OnCreateDateChanged();
+                this.OnPropertyChanged("CreateDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _CreateDate;
+        partial void OnCreateDateChanging(global::System.DateTime value);
+        partial void OnCreateDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 ReviewDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.DateTime> ReviewDate
+        {
+            get
+            {
+                return this._ReviewDate;
+            }
+            set
+            {
+                this.OnReviewDateChanging(value);
+                this._ReviewDate = value;
+                this.OnReviewDateChanged();
+                this.OnPropertyChanged("ReviewDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.DateTime> _ReviewDate;
+        partial void OnReviewDateChanging(global::System.Nullable<global::System.DateTime> value);
+        partial void OnReviewDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsValid 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsValid
+        {
+            get
+            {
+                return this._IsValid;
+            }
+            set
+            {
+                this.OnIsValidChanging(value);
+                this._IsValid = value;
+                this.OnIsValidChanged();
+                this.OnPropertyChanged("IsValid");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsValid;
+        partial void OnIsValidChanging(bool value);
+        partial void OnIsValidChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsCompleted 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsCompleted
+        {
+            get
+            {
+                return this._IsCompleted;
+            }
+            set
+            {
+                this.OnIsCompletedChanging(value);
+                this._IsCompleted = value;
+                this.OnIsCompletedChanged();
+                this.OnPropertyChanged("IsCompleted");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsCompleted;
+        partial void OnIsCompletedChanging(bool value);
+        partial void OnIsCompletedChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int SupplierId
+        {
+            get
+            {
+                return this._SupplierId;
+            }
+            set
+            {
+                this.OnSupplierIdChanging(value);
+                this._SupplierId = value;
+                this.OnSupplierIdChanged();
+                this.OnPropertyChanged("SupplierId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _SupplierId;
+        partial void OnSupplierIdChanging(int value);
+        partial void OnSupplierIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 CurrencyId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int CurrencyId
+        {
+            get
+            {
+                return this._CurrencyId;
+            }
+            set
+            {
+                this.OnCurrencyIdChanging(value);
+                this._CurrencyId = value;
+                this.OnCurrencyIdChanged();
+                this.OnPropertyChanged("CurrencyId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _CurrencyId;
+        partial void OnCurrencyIdChanging(int value);
+        partial void OnCurrencyIdChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 ComplexType UniCloud.Application.PaymentBC.DTO.APUMaintainInvoiceLineDTO 的注释。
+    /// </summary>
+    public partial class APUMaintainInvoiceLineDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 APUMaintainInvoiceLineDTO 对象。
+        /// </summary>
+        /// <param name="aPUMaintainInvoiceLineId">APUMaintainInvoiceLineId 的初始值。</param>
+        /// <param name="maintainItem">MaintainItem 的初始值。</param>
+        /// <param name="unitPrice">UnitPrice 的初始值。</param>
+        /// <param name="amount">Amount 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static APUMaintainInvoiceLineDTO CreateAPUMaintainInvoiceLineDTO(int aPUMaintainInvoiceLineId, int maintainItem, decimal unitPrice, decimal amount)
+        {
+            APUMaintainInvoiceLineDTO aPUMaintainInvoiceLineDTO = new APUMaintainInvoiceLineDTO();
+            aPUMaintainInvoiceLineDTO.APUMaintainInvoiceLineId = aPUMaintainInvoiceLineId;
+            aPUMaintainInvoiceLineDTO.MaintainItem = maintainItem;
+            aPUMaintainInvoiceLineDTO.UnitPrice = unitPrice;
+            aPUMaintainInvoiceLineDTO.Amount = amount;
+            return aPUMaintainInvoiceLineDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 APUMaintainInvoiceLineId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int APUMaintainInvoiceLineId
+        {
+            get
+            {
+                return this._APUMaintainInvoiceLineId;
+            }
+            set
+            {
+                this.OnAPUMaintainInvoiceLineIdChanging(value);
+                this._APUMaintainInvoiceLineId = value;
+                this.OnAPUMaintainInvoiceLineIdChanged();
+                this.OnPropertyChanged("APUMaintainInvoiceLineId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _APUMaintainInvoiceLineId;
+        partial void OnAPUMaintainInvoiceLineIdChanging(int value);
+        partial void OnAPUMaintainInvoiceLineIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 MaintainItem 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int MaintainItem
+        {
+            get
+            {
+                return this._MaintainItem;
+            }
+            set
+            {
+                this.OnMaintainItemChanging(value);
+                this._MaintainItem = value;
+                this.OnMaintainItemChanged();
+                this.OnPropertyChanged("MaintainItem");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _MaintainItem;
+        partial void OnMaintainItemChanging(int value);
+        partial void OnMaintainItemChanged();
+        /// <summary>
+        /// 架构中不存在属性 ItemName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ItemName
+        {
+            get
+            {
+                return this._ItemName;
+            }
+            set
+            {
+                this.OnItemNameChanging(value);
+                this._ItemName = value;
+                this.OnItemNameChanged();
+                this.OnPropertyChanged("ItemName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ItemName;
+        partial void OnItemNameChanging(string value);
+        partial void OnItemNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 UnitPrice 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal UnitPrice
+        {
+            get
+            {
+                return this._UnitPrice;
+            }
+            set
+            {
+                this.OnUnitPriceChanging(value);
+                this._UnitPrice = value;
+                this.OnUnitPriceChanged();
+                this.OnPropertyChanged("UnitPrice");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _UnitPrice;
+        partial void OnUnitPriceChanging(decimal value);
+        partial void OnUnitPriceChanged();
+        /// <summary>
+        /// 架构中不存在属性 Amount 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal Amount
+        {
+            get
+            {
+                return this._Amount;
+            }
+            set
+            {
+                this.OnAmountChanging(value);
+                this._Amount = value;
+                this.OnAmountChanged();
+                this.OnPropertyChanged("Amount");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _Amount;
+        partial void OnAmountChanging(decimal value);
+        partial void OnAmountChanged();
+        /// <summary>
+        /// 架构中不存在属性 Note 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Note
+        {
+            get
+            {
+                return this._Note;
+            }
+            set
+            {
+                this.OnNoteChanging(value);
+                this._Note = value;
+                this.OnNoteChanged();
+                this.OnPropertyChanged("Note");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Note;
+        partial void OnNoteChanging(string value);
+        partial void OnNoteChanged();
+        /// <summary>
+        /// 架构中不存在属性 PartId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<int> PartId
+        {
+            get
+            {
+                return this._PartId;
+            }
+            set
+            {
+                this.OnPartIdChanging(value);
+                this._PartId = value;
+                this.OnPartIdChanged();
+                this.OnPropertyChanged("PartId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<int> _PartId;
+        partial void OnPartIdChanging(global::System.Nullable<int> value);
+        partial void OnPartIdChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.PaymentBC.DTO.APUMaintainInvoiceDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// APUMaintainInvoiceId
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("APUMaintainInvoices")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("APUMaintainInvoiceId")]
+    public partial class APUMaintainInvoiceDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 APUMaintainInvoiceDTO 对象。
+        /// </summary>
+        /// <param name="aPUMaintainInvoiceId">APUMaintainInvoiceId 的初始值。</param>
+        /// <param name="maintainInvoiceLines">MaintainInvoiceLines 的初始值。</param>
+        /// <param name="invoiceDate">InvoiceDate 的初始值。</param>
+        /// <param name="invoiceValue">InvoiceValue 的初始值。</param>
+        /// <param name="paidAmount">PaidAmount 的初始值。</param>
+        /// <param name="createDate">CreateDate 的初始值。</param>
+        /// <param name="isValid">IsValid 的初始值。</param>
+        /// <param name="isCompleted">IsCompleted 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
+        /// <param name="supplierId">SupplierId 的初始值。</param>
+        /// <param name="currencyId">CurrencyId 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static APUMaintainInvoiceDTO CreateAPUMaintainInvoiceDTO(int aPUMaintainInvoiceId, global::System.Collections.ObjectModel.ObservableCollection<APUMaintainInvoiceLineDTO> maintainInvoiceLines, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int supplierId, int currencyId)
+        {
+            APUMaintainInvoiceDTO aPUMaintainInvoiceDTO = new APUMaintainInvoiceDTO();
+            aPUMaintainInvoiceDTO.APUMaintainInvoiceId = aPUMaintainInvoiceId;
+            if ((maintainInvoiceLines == null))
+            {
+                throw new global::System.ArgumentNullException("maintainInvoiceLines");
+            }
+            aPUMaintainInvoiceDTO.MaintainInvoiceLines = maintainInvoiceLines;
+            aPUMaintainInvoiceDTO.InvoiceDate = invoiceDate;
+            aPUMaintainInvoiceDTO.InvoiceValue = invoiceValue;
+            aPUMaintainInvoiceDTO.PaidAmount = paidAmount;
+            aPUMaintainInvoiceDTO.CreateDate = createDate;
+            aPUMaintainInvoiceDTO.IsValid = isValid;
+            aPUMaintainInvoiceDTO.IsCompleted = isCompleted;
+            aPUMaintainInvoiceDTO.Status = status;
+            aPUMaintainInvoiceDTO.SupplierId = supplierId;
+            aPUMaintainInvoiceDTO.CurrencyId = currencyId;
+            return aPUMaintainInvoiceDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 APUMaintainInvoiceId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int APUMaintainInvoiceId
+        {
+            get
+            {
+                return this._APUMaintainInvoiceId;
+            }
+            set
+            {
+                this.OnAPUMaintainInvoiceIdChanging(value);
+                this._APUMaintainInvoiceId = value;
+                this.OnAPUMaintainInvoiceIdChanged();
+                this.OnPropertyChanged("APUMaintainInvoiceId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _APUMaintainInvoiceId;
+        partial void OnAPUMaintainInvoiceIdChanging(int value);
+        partial void OnAPUMaintainInvoiceIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 MaintainInvoiceLines 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<APUMaintainInvoiceLineDTO> MaintainInvoiceLines
+        {
+            get
+            {
+                return this._MaintainInvoiceLines;
+            }
+            set
+            {
+                this.OnMaintainInvoiceLinesChanging(value);
+                this._MaintainInvoiceLines = value;
+                this.OnMaintainInvoiceLinesChanged();
+                this.OnPropertyChanged("MaintainInvoiceLines");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<APUMaintainInvoiceLineDTO> _MaintainInvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<APUMaintainInvoiceLineDTO>();
+        partial void OnMaintainInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<APUMaintainInvoiceLineDTO> value);
+        partial void OnMaintainInvoiceLinesChanged();
+        /// <summary>
+        /// 架构中不存在属性 SerialNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SerialNumber
+        {
+            get
+            {
+                return this._SerialNumber;
+            }
+            set
+            {
+                this.OnSerialNumberChanging(value);
+                this._SerialNumber = value;
+                this.OnSerialNumberChanged();
+                this.OnPropertyChanged("SerialNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SerialNumber;
+        partial void OnSerialNumberChanging(string value);
+        partial void OnSerialNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoiceNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string InvoiceNumber
+        {
+            get
+            {
+                return this._InvoiceNumber;
+            }
+            set
+            {
+                this.OnInvoiceNumberChanging(value);
+                this._InvoiceNumber = value;
+                this.OnInvoiceNumberChanged();
+                this.OnPropertyChanged("InvoiceNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _InvoiceNumber;
+        partial void OnInvoiceNumberChanging(string value);
+        partial void OnInvoiceNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoideCode 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string InvoideCode
+        {
+            get
+            {
+                return this._InvoideCode;
+            }
+            set
+            {
+                this.OnInvoideCodeChanging(value);
+                this._InvoideCode = value;
+                this.OnInvoideCodeChanged();
+                this.OnPropertyChanged("InvoideCode");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _InvoideCode;
+        partial void OnInvoideCodeChanging(string value);
+        partial void OnInvoideCodeChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoiceDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime InvoiceDate
+        {
+            get
+            {
+                return this._InvoiceDate;
+            }
+            set
+            {
+                this.OnInvoiceDateChanging(value);
+                this._InvoiceDate = value;
+                this.OnInvoiceDateChanged();
+                this.OnPropertyChanged("InvoiceDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _InvoiceDate;
+        partial void OnInvoiceDateChanging(global::System.DateTime value);
+        partial void OnInvoiceDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SupplierName
+        {
+            get
+            {
+                return this._SupplierName;
+            }
+            set
+            {
+                this.OnSupplierNameChanging(value);
+                this._SupplierName = value;
+                this.OnSupplierNameChanged();
+                this.OnPropertyChanged("SupplierName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SupplierName;
+        partial void OnSupplierNameChanging(string value);
+        partial void OnSupplierNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoiceValue 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal InvoiceValue
+        {
+            get
+            {
+                return this._InvoiceValue;
+            }
+            set
+            {
+                this.OnInvoiceValueChanging(value);
+                this._InvoiceValue = value;
+                this.OnInvoiceValueChanged();
+                this.OnPropertyChanged("InvoiceValue");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _InvoiceValue;
+        partial void OnInvoiceValueChanging(decimal value);
+        partial void OnInvoiceValueChanged();
+        /// <summary>
+        /// 架构中不存在属性 PaidAmount 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal PaidAmount
+        {
+            get
+            {
+                return this._PaidAmount;
+            }
+            set
+            {
+                this.OnPaidAmountChanging(value);
+                this._PaidAmount = value;
+                this.OnPaidAmountChanged();
+                this.OnPropertyChanged("PaidAmount");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _PaidAmount;
+        partial void OnPaidAmountChanging(decimal value);
+        partial void OnPaidAmountChanged();
+        /// <summary>
+        /// 架构中不存在属性 OperatorName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string OperatorName
+        {
+            get
+            {
+                return this._OperatorName;
+            }
+            set
+            {
+                this.OnOperatorNameChanging(value);
+                this._OperatorName = value;
+                this.OnOperatorNameChanged();
+                this.OnPropertyChanged("OperatorName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _OperatorName;
+        partial void OnOperatorNameChanging(string value);
+        partial void OnOperatorNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Reviewer 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Reviewer
+        {
+            get
+            {
+                return this._Reviewer;
+            }
+            set
+            {
+                this.OnReviewerChanging(value);
+                this._Reviewer = value;
+                this.OnReviewerChanged();
+                this.OnPropertyChanged("Reviewer");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Reviewer;
+        partial void OnReviewerChanging(string value);
+        partial void OnReviewerChanged();
+        /// <summary>
+        /// 架构中不存在属性 CreateDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime CreateDate
+        {
+            get
+            {
+                return this._CreateDate;
+            }
+            set
+            {
+                this.OnCreateDateChanging(value);
+                this._CreateDate = value;
+                this.OnCreateDateChanged();
+                this.OnPropertyChanged("CreateDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _CreateDate;
+        partial void OnCreateDateChanging(global::System.DateTime value);
+        partial void OnCreateDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 ReviewDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.DateTime> ReviewDate
+        {
+            get
+            {
+                return this._ReviewDate;
+            }
+            set
+            {
+                this.OnReviewDateChanging(value);
+                this._ReviewDate = value;
+                this.OnReviewDateChanged();
+                this.OnPropertyChanged("ReviewDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.DateTime> _ReviewDate;
+        partial void OnReviewDateChanging(global::System.Nullable<global::System.DateTime> value);
+        partial void OnReviewDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsValid 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsValid
+        {
+            get
+            {
+                return this._IsValid;
+            }
+            set
+            {
+                this.OnIsValidChanging(value);
+                this._IsValid = value;
+                this.OnIsValidChanged();
+                this.OnPropertyChanged("IsValid");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsValid;
+        partial void OnIsValidChanging(bool value);
+        partial void OnIsValidChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsCompleted 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsCompleted
+        {
+            get
+            {
+                return this._IsCompleted;
+            }
+            set
+            {
+                this.OnIsCompletedChanging(value);
+                this._IsCompleted = value;
+                this.OnIsCompletedChanged();
+                this.OnPropertyChanged("IsCompleted");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsCompleted;
+        partial void OnIsCompletedChanging(bool value);
+        partial void OnIsCompletedChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int SupplierId
+        {
+            get
+            {
+                return this._SupplierId;
+            }
+            set
+            {
+                this.OnSupplierIdChanging(value);
+                this._SupplierId = value;
+                this.OnSupplierIdChanged();
+                this.OnPropertyChanged("SupplierId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _SupplierId;
+        partial void OnSupplierIdChanging(int value);
+        partial void OnSupplierIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 CurrencyId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int CurrencyId
+        {
+            get
+            {
+                return this._CurrencyId;
+            }
+            set
+            {
+                this.OnCurrencyIdChanging(value);
+                this._CurrencyId = value;
+                this.OnCurrencyIdChanged();
+                this.OnPropertyChanged("CurrencyId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _CurrencyId;
+        partial void OnCurrencyIdChanging(int value);
+        partial void OnCurrencyIdChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 ComplexType UniCloud.Application.PaymentBC.DTO.AirframeMaintainInvoiceLineDTO 的注释。
+    /// </summary>
+    public partial class AirframeMaintainInvoiceLineDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 AirframeMaintainInvoiceLineDTO 对象。
+        /// </summary>
+        /// <param name="airframeMaintainInvoiceLineId">AirframeMaintainInvoiceLineId 的初始值。</param>
+        /// <param name="maintainItem">MaintainItem 的初始值。</param>
+        /// <param name="unitPrice">UnitPrice 的初始值。</param>
+        /// <param name="amount">Amount 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static AirframeMaintainInvoiceLineDTO CreateAirframeMaintainInvoiceLineDTO(int airframeMaintainInvoiceLineId, int maintainItem, decimal unitPrice, decimal amount)
+        {
+            AirframeMaintainInvoiceLineDTO airframeMaintainInvoiceLineDTO = new AirframeMaintainInvoiceLineDTO();
+            airframeMaintainInvoiceLineDTO.AirframeMaintainInvoiceLineId = airframeMaintainInvoiceLineId;
+            airframeMaintainInvoiceLineDTO.MaintainItem = maintainItem;
+            airframeMaintainInvoiceLineDTO.UnitPrice = unitPrice;
+            airframeMaintainInvoiceLineDTO.Amount = amount;
+            return airframeMaintainInvoiceLineDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 AirframeMaintainInvoiceLineId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int AirframeMaintainInvoiceLineId
+        {
+            get
+            {
+                return this._AirframeMaintainInvoiceLineId;
+            }
+            set
+            {
+                this.OnAirframeMaintainInvoiceLineIdChanging(value);
+                this._AirframeMaintainInvoiceLineId = value;
+                this.OnAirframeMaintainInvoiceLineIdChanged();
+                this.OnPropertyChanged("AirframeMaintainInvoiceLineId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _AirframeMaintainInvoiceLineId;
+        partial void OnAirframeMaintainInvoiceLineIdChanging(int value);
+        partial void OnAirframeMaintainInvoiceLineIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 MaintainItem 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int MaintainItem
+        {
+            get
+            {
+                return this._MaintainItem;
+            }
+            set
+            {
+                this.OnMaintainItemChanging(value);
+                this._MaintainItem = value;
+                this.OnMaintainItemChanged();
+                this.OnPropertyChanged("MaintainItem");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _MaintainItem;
+        partial void OnMaintainItemChanging(int value);
+        partial void OnMaintainItemChanged();
+        /// <summary>
+        /// 架构中不存在属性 ItemName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ItemName
+        {
+            get
+            {
+                return this._ItemName;
+            }
+            set
+            {
+                this.OnItemNameChanging(value);
+                this._ItemName = value;
+                this.OnItemNameChanged();
+                this.OnPropertyChanged("ItemName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ItemName;
+        partial void OnItemNameChanging(string value);
+        partial void OnItemNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 UnitPrice 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal UnitPrice
+        {
+            get
+            {
+                return this._UnitPrice;
+            }
+            set
+            {
+                this.OnUnitPriceChanging(value);
+                this._UnitPrice = value;
+                this.OnUnitPriceChanged();
+                this.OnPropertyChanged("UnitPrice");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _UnitPrice;
+        partial void OnUnitPriceChanging(decimal value);
+        partial void OnUnitPriceChanged();
+        /// <summary>
+        /// 架构中不存在属性 Amount 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal Amount
+        {
+            get
+            {
+                return this._Amount;
+            }
+            set
+            {
+                this.OnAmountChanging(value);
+                this._Amount = value;
+                this.OnAmountChanged();
+                this.OnPropertyChanged("Amount");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _Amount;
+        partial void OnAmountChanging(decimal value);
+        partial void OnAmountChanged();
+        /// <summary>
+        /// 架构中不存在属性 Note 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Note
+        {
+            get
+            {
+                return this._Note;
+            }
+            set
+            {
+                this.OnNoteChanging(value);
+                this._Note = value;
+                this.OnNoteChanged();
+                this.OnPropertyChanged("Note");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Note;
+        partial void OnNoteChanging(string value);
+        partial void OnNoteChanged();
+        /// <summary>
+        /// 架构中不存在属性 PartId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<int> PartId
+        {
+            get
+            {
+                return this._PartId;
+            }
+            set
+            {
+                this.OnPartIdChanging(value);
+                this._PartId = value;
+                this.OnPartIdChanged();
+                this.OnPropertyChanged("PartId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<int> _PartId;
+        partial void OnPartIdChanging(global::System.Nullable<int> value);
+        partial void OnPartIdChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.PaymentBC.DTO.AirframeMaintainInvoiceDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// AirframeMaintainInvoiceId
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("AirframeMaintainInvoices")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("AirframeMaintainInvoiceId")]
+    public partial class AirframeMaintainInvoiceDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 AirframeMaintainInvoiceDTO 对象。
+        /// </summary>
+        /// <param name="airframeMaintainInvoiceId">AirframeMaintainInvoiceId 的初始值。</param>
+        /// <param name="maintainInvoiceLines">MaintainInvoiceLines 的初始值。</param>
+        /// <param name="invoiceDate">InvoiceDate 的初始值。</param>
+        /// <param name="invoiceValue">InvoiceValue 的初始值。</param>
+        /// <param name="paidAmount">PaidAmount 的初始值。</param>
+        /// <param name="createDate">CreateDate 的初始值。</param>
+        /// <param name="isValid">IsValid 的初始值。</param>
+        /// <param name="isCompleted">IsCompleted 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
+        /// <param name="supplierId">SupplierId 的初始值。</param>
+        /// <param name="currencyId">CurrencyId 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static AirframeMaintainInvoiceDTO CreateAirframeMaintainInvoiceDTO(int airframeMaintainInvoiceId, global::System.Collections.ObjectModel.ObservableCollection<AirframeMaintainInvoiceLineDTO> maintainInvoiceLines, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int supplierId, int currencyId)
+        {
+            AirframeMaintainInvoiceDTO airframeMaintainInvoiceDTO = new AirframeMaintainInvoiceDTO();
+            airframeMaintainInvoiceDTO.AirframeMaintainInvoiceId = airframeMaintainInvoiceId;
+            if ((maintainInvoiceLines == null))
+            {
+                throw new global::System.ArgumentNullException("maintainInvoiceLines");
+            }
+            airframeMaintainInvoiceDTO.MaintainInvoiceLines = maintainInvoiceLines;
+            airframeMaintainInvoiceDTO.InvoiceDate = invoiceDate;
+            airframeMaintainInvoiceDTO.InvoiceValue = invoiceValue;
+            airframeMaintainInvoiceDTO.PaidAmount = paidAmount;
+            airframeMaintainInvoiceDTO.CreateDate = createDate;
+            airframeMaintainInvoiceDTO.IsValid = isValid;
+            airframeMaintainInvoiceDTO.IsCompleted = isCompleted;
+            airframeMaintainInvoiceDTO.Status = status;
+            airframeMaintainInvoiceDTO.SupplierId = supplierId;
+            airframeMaintainInvoiceDTO.CurrencyId = currencyId;
+            return airframeMaintainInvoiceDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 AirframeMaintainInvoiceId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int AirframeMaintainInvoiceId
+        {
+            get
+            {
+                return this._AirframeMaintainInvoiceId;
+            }
+            set
+            {
+                this.OnAirframeMaintainInvoiceIdChanging(value);
+                this._AirframeMaintainInvoiceId = value;
+                this.OnAirframeMaintainInvoiceIdChanged();
+                this.OnPropertyChanged("AirframeMaintainInvoiceId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _AirframeMaintainInvoiceId;
+        partial void OnAirframeMaintainInvoiceIdChanging(int value);
+        partial void OnAirframeMaintainInvoiceIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 MaintainInvoiceLines 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<AirframeMaintainInvoiceLineDTO> MaintainInvoiceLines
+        {
+            get
+            {
+                return this._MaintainInvoiceLines;
+            }
+            set
+            {
+                this.OnMaintainInvoiceLinesChanging(value);
+                this._MaintainInvoiceLines = value;
+                this.OnMaintainInvoiceLinesChanged();
+                this.OnPropertyChanged("MaintainInvoiceLines");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<AirframeMaintainInvoiceLineDTO> _MaintainInvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<AirframeMaintainInvoiceLineDTO>();
+        partial void OnMaintainInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<AirframeMaintainInvoiceLineDTO> value);
+        partial void OnMaintainInvoiceLinesChanged();
+        /// <summary>
+        /// 架构中不存在属性 SerialNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SerialNumber
+        {
+            get
+            {
+                return this._SerialNumber;
+            }
+            set
+            {
+                this.OnSerialNumberChanging(value);
+                this._SerialNumber = value;
+                this.OnSerialNumberChanged();
+                this.OnPropertyChanged("SerialNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SerialNumber;
+        partial void OnSerialNumberChanging(string value);
+        partial void OnSerialNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoiceNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string InvoiceNumber
+        {
+            get
+            {
+                return this._InvoiceNumber;
+            }
+            set
+            {
+                this.OnInvoiceNumberChanging(value);
+                this._InvoiceNumber = value;
+                this.OnInvoiceNumberChanged();
+                this.OnPropertyChanged("InvoiceNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _InvoiceNumber;
+        partial void OnInvoiceNumberChanging(string value);
+        partial void OnInvoiceNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoideCode 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string InvoideCode
+        {
+            get
+            {
+                return this._InvoideCode;
+            }
+            set
+            {
+                this.OnInvoideCodeChanging(value);
+                this._InvoideCode = value;
+                this.OnInvoideCodeChanged();
+                this.OnPropertyChanged("InvoideCode");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _InvoideCode;
+        partial void OnInvoideCodeChanging(string value);
+        partial void OnInvoideCodeChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoiceDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime InvoiceDate
+        {
+            get
+            {
+                return this._InvoiceDate;
+            }
+            set
+            {
+                this.OnInvoiceDateChanging(value);
+                this._InvoiceDate = value;
+                this.OnInvoiceDateChanged();
+                this.OnPropertyChanged("InvoiceDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _InvoiceDate;
+        partial void OnInvoiceDateChanging(global::System.DateTime value);
+        partial void OnInvoiceDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SupplierName
+        {
+            get
+            {
+                return this._SupplierName;
+            }
+            set
+            {
+                this.OnSupplierNameChanging(value);
+                this._SupplierName = value;
+                this.OnSupplierNameChanged();
+                this.OnPropertyChanged("SupplierName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SupplierName;
+        partial void OnSupplierNameChanging(string value);
+        partial void OnSupplierNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoiceValue 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal InvoiceValue
+        {
+            get
+            {
+                return this._InvoiceValue;
+            }
+            set
+            {
+                this.OnInvoiceValueChanging(value);
+                this._InvoiceValue = value;
+                this.OnInvoiceValueChanged();
+                this.OnPropertyChanged("InvoiceValue");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _InvoiceValue;
+        partial void OnInvoiceValueChanging(decimal value);
+        partial void OnInvoiceValueChanged();
+        /// <summary>
+        /// 架构中不存在属性 PaidAmount 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal PaidAmount
+        {
+            get
+            {
+                return this._PaidAmount;
+            }
+            set
+            {
+                this.OnPaidAmountChanging(value);
+                this._PaidAmount = value;
+                this.OnPaidAmountChanged();
+                this.OnPropertyChanged("PaidAmount");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _PaidAmount;
+        partial void OnPaidAmountChanging(decimal value);
+        partial void OnPaidAmountChanged();
+        /// <summary>
+        /// 架构中不存在属性 OperatorName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string OperatorName
+        {
+            get
+            {
+                return this._OperatorName;
+            }
+            set
+            {
+                this.OnOperatorNameChanging(value);
+                this._OperatorName = value;
+                this.OnOperatorNameChanged();
+                this.OnPropertyChanged("OperatorName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _OperatorName;
+        partial void OnOperatorNameChanging(string value);
+        partial void OnOperatorNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Reviewer 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Reviewer
+        {
+            get
+            {
+                return this._Reviewer;
+            }
+            set
+            {
+                this.OnReviewerChanging(value);
+                this._Reviewer = value;
+                this.OnReviewerChanged();
+                this.OnPropertyChanged("Reviewer");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Reviewer;
+        partial void OnReviewerChanging(string value);
+        partial void OnReviewerChanged();
+        /// <summary>
+        /// 架构中不存在属性 CreateDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime CreateDate
+        {
+            get
+            {
+                return this._CreateDate;
+            }
+            set
+            {
+                this.OnCreateDateChanging(value);
+                this._CreateDate = value;
+                this.OnCreateDateChanged();
+                this.OnPropertyChanged("CreateDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _CreateDate;
+        partial void OnCreateDateChanging(global::System.DateTime value);
+        partial void OnCreateDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 ReviewDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.DateTime> ReviewDate
+        {
+            get
+            {
+                return this._ReviewDate;
+            }
+            set
+            {
+                this.OnReviewDateChanging(value);
+                this._ReviewDate = value;
+                this.OnReviewDateChanged();
+                this.OnPropertyChanged("ReviewDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.DateTime> _ReviewDate;
+        partial void OnReviewDateChanging(global::System.Nullable<global::System.DateTime> value);
+        partial void OnReviewDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsValid 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsValid
+        {
+            get
+            {
+                return this._IsValid;
+            }
+            set
+            {
+                this.OnIsValidChanging(value);
+                this._IsValid = value;
+                this.OnIsValidChanged();
+                this.OnPropertyChanged("IsValid");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsValid;
+        partial void OnIsValidChanging(bool value);
+        partial void OnIsValidChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsCompleted 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsCompleted
+        {
+            get
+            {
+                return this._IsCompleted;
+            }
+            set
+            {
+                this.OnIsCompletedChanging(value);
+                this._IsCompleted = value;
+                this.OnIsCompletedChanged();
+                this.OnPropertyChanged("IsCompleted");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsCompleted;
+        partial void OnIsCompletedChanging(bool value);
+        partial void OnIsCompletedChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int SupplierId
+        {
+            get
+            {
+                return this._SupplierId;
+            }
+            set
+            {
+                this.OnSupplierIdChanging(value);
+                this._SupplierId = value;
+                this.OnSupplierIdChanged();
+                this.OnPropertyChanged("SupplierId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _SupplierId;
+        partial void OnSupplierIdChanging(int value);
+        partial void OnSupplierIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 CurrencyId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int CurrencyId
+        {
+            get
+            {
+                return this._CurrencyId;
+            }
+            set
+            {
+                this.OnCurrencyIdChanging(value);
+                this._CurrencyId = value;
+                this.OnCurrencyIdChanged();
+                this.OnPropertyChanged("CurrencyId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _CurrencyId;
+        partial void OnCurrencyIdChanging(int value);
+        partial void OnCurrencyIdChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 ComplexType UniCloud.Application.PaymentBC.DTO.UndercartMaintainInvoiceLineDTO 的注释。
+    /// </summary>
+    public partial class UndercartMaintainInvoiceLineDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 UndercartMaintainInvoiceLineDTO 对象。
+        /// </summary>
+        /// <param name="undercartMaintainInvoiceLineId">UndercartMaintainInvoiceLineId 的初始值。</param>
+        /// <param name="maintainItem">MaintainItem 的初始值。</param>
+        /// <param name="unitPrice">UnitPrice 的初始值。</param>
+        /// <param name="amount">Amount 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static UndercartMaintainInvoiceLineDTO CreateUndercartMaintainInvoiceLineDTO(int undercartMaintainInvoiceLineId, int maintainItem, decimal unitPrice, decimal amount)
+        {
+            UndercartMaintainInvoiceLineDTO undercartMaintainInvoiceLineDTO = new UndercartMaintainInvoiceLineDTO();
+            undercartMaintainInvoiceLineDTO.UndercartMaintainInvoiceLineId = undercartMaintainInvoiceLineId;
+            undercartMaintainInvoiceLineDTO.MaintainItem = maintainItem;
+            undercartMaintainInvoiceLineDTO.UnitPrice = unitPrice;
+            undercartMaintainInvoiceLineDTO.Amount = amount;
+            return undercartMaintainInvoiceLineDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 UndercartMaintainInvoiceLineId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int UndercartMaintainInvoiceLineId
+        {
+            get
+            {
+                return this._UndercartMaintainInvoiceLineId;
+            }
+            set
+            {
+                this.OnUndercartMaintainInvoiceLineIdChanging(value);
+                this._UndercartMaintainInvoiceLineId = value;
+                this.OnUndercartMaintainInvoiceLineIdChanged();
+                this.OnPropertyChanged("UndercartMaintainInvoiceLineId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _UndercartMaintainInvoiceLineId;
+        partial void OnUndercartMaintainInvoiceLineIdChanging(int value);
+        partial void OnUndercartMaintainInvoiceLineIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 MaintainItem 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int MaintainItem
+        {
+            get
+            {
+                return this._MaintainItem;
+            }
+            set
+            {
+                this.OnMaintainItemChanging(value);
+                this._MaintainItem = value;
+                this.OnMaintainItemChanged();
+                this.OnPropertyChanged("MaintainItem");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _MaintainItem;
+        partial void OnMaintainItemChanging(int value);
+        partial void OnMaintainItemChanged();
+        /// <summary>
+        /// 架构中不存在属性 ItemName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ItemName
+        {
+            get
+            {
+                return this._ItemName;
+            }
+            set
+            {
+                this.OnItemNameChanging(value);
+                this._ItemName = value;
+                this.OnItemNameChanged();
+                this.OnPropertyChanged("ItemName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ItemName;
+        partial void OnItemNameChanging(string value);
+        partial void OnItemNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 UnitPrice 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal UnitPrice
+        {
+            get
+            {
+                return this._UnitPrice;
+            }
+            set
+            {
+                this.OnUnitPriceChanging(value);
+                this._UnitPrice = value;
+                this.OnUnitPriceChanged();
+                this.OnPropertyChanged("UnitPrice");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _UnitPrice;
+        partial void OnUnitPriceChanging(decimal value);
+        partial void OnUnitPriceChanged();
+        /// <summary>
+        /// 架构中不存在属性 Amount 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal Amount
+        {
+            get
+            {
+                return this._Amount;
+            }
+            set
+            {
+                this.OnAmountChanging(value);
+                this._Amount = value;
+                this.OnAmountChanged();
+                this.OnPropertyChanged("Amount");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _Amount;
+        partial void OnAmountChanging(decimal value);
+        partial void OnAmountChanged();
+        /// <summary>
+        /// 架构中不存在属性 Note 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Note
+        {
+            get
+            {
+                return this._Note;
+            }
+            set
+            {
+                this.OnNoteChanging(value);
+                this._Note = value;
+                this.OnNoteChanged();
+                this.OnPropertyChanged("Note");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Note;
+        partial void OnNoteChanging(string value);
+        partial void OnNoteChanged();
+        /// <summary>
+        /// 架构中不存在属性 PartId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<int> PartId
+        {
+            get
+            {
+                return this._PartId;
+            }
+            set
+            {
+                this.OnPartIdChanging(value);
+                this._PartId = value;
+                this.OnPartIdChanged();
+                this.OnPropertyChanged("PartId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<int> _PartId;
+        partial void OnPartIdChanging(global::System.Nullable<int> value);
+        partial void OnPartIdChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.PaymentBC.DTO.UndercartMaintainInvoiceDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// UndercartMaintainInvoiceId
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("UndercartMaintainInvoices")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("UndercartMaintainInvoiceId")]
+    public partial class UndercartMaintainInvoiceDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 UndercartMaintainInvoiceDTO 对象。
+        /// </summary>
+        /// <param name="undercartMaintainInvoiceId">UndercartMaintainInvoiceId 的初始值。</param>
+        /// <param name="maintainInvoiceLines">MaintainInvoiceLines 的初始值。</param>
+        /// <param name="invoiceDate">InvoiceDate 的初始值。</param>
+        /// <param name="invoiceValue">InvoiceValue 的初始值。</param>
+        /// <param name="paidAmount">PaidAmount 的初始值。</param>
+        /// <param name="createDate">CreateDate 的初始值。</param>
+        /// <param name="isValid">IsValid 的初始值。</param>
+        /// <param name="isCompleted">IsCompleted 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
+        /// <param name="supplierId">SupplierId 的初始值。</param>
+        /// <param name="currencyId">CurrencyId 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static UndercartMaintainInvoiceDTO CreateUndercartMaintainInvoiceDTO(int undercartMaintainInvoiceId, global::System.Collections.ObjectModel.ObservableCollection<UndercartMaintainInvoiceLineDTO> maintainInvoiceLines, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int supplierId, int currencyId)
+        {
+            UndercartMaintainInvoiceDTO undercartMaintainInvoiceDTO = new UndercartMaintainInvoiceDTO();
+            undercartMaintainInvoiceDTO.UndercartMaintainInvoiceId = undercartMaintainInvoiceId;
+            if ((maintainInvoiceLines == null))
+            {
+                throw new global::System.ArgumentNullException("maintainInvoiceLines");
+            }
+            undercartMaintainInvoiceDTO.MaintainInvoiceLines = maintainInvoiceLines;
+            undercartMaintainInvoiceDTO.InvoiceDate = invoiceDate;
+            undercartMaintainInvoiceDTO.InvoiceValue = invoiceValue;
+            undercartMaintainInvoiceDTO.PaidAmount = paidAmount;
+            undercartMaintainInvoiceDTO.CreateDate = createDate;
+            undercartMaintainInvoiceDTO.IsValid = isValid;
+            undercartMaintainInvoiceDTO.IsCompleted = isCompleted;
+            undercartMaintainInvoiceDTO.Status = status;
+            undercartMaintainInvoiceDTO.SupplierId = supplierId;
+            undercartMaintainInvoiceDTO.CurrencyId = currencyId;
+            return undercartMaintainInvoiceDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 UndercartMaintainInvoiceId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int UndercartMaintainInvoiceId
+        {
+            get
+            {
+                return this._UndercartMaintainInvoiceId;
+            }
+            set
+            {
+                this.OnUndercartMaintainInvoiceIdChanging(value);
+                this._UndercartMaintainInvoiceId = value;
+                this.OnUndercartMaintainInvoiceIdChanged();
+                this.OnPropertyChanged("UndercartMaintainInvoiceId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _UndercartMaintainInvoiceId;
+        partial void OnUndercartMaintainInvoiceIdChanging(int value);
+        partial void OnUndercartMaintainInvoiceIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 MaintainInvoiceLines 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<UndercartMaintainInvoiceLineDTO> MaintainInvoiceLines
+        {
+            get
+            {
+                return this._MaintainInvoiceLines;
+            }
+            set
+            {
+                this.OnMaintainInvoiceLinesChanging(value);
+                this._MaintainInvoiceLines = value;
+                this.OnMaintainInvoiceLinesChanged();
+                this.OnPropertyChanged("MaintainInvoiceLines");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<UndercartMaintainInvoiceLineDTO> _MaintainInvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<UndercartMaintainInvoiceLineDTO>();
+        partial void OnMaintainInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<UndercartMaintainInvoiceLineDTO> value);
+        partial void OnMaintainInvoiceLinesChanged();
+        /// <summary>
+        /// 架构中不存在属性 SerialNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SerialNumber
+        {
+            get
+            {
+                return this._SerialNumber;
+            }
+            set
+            {
+                this.OnSerialNumberChanging(value);
+                this._SerialNumber = value;
+                this.OnSerialNumberChanged();
+                this.OnPropertyChanged("SerialNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SerialNumber;
+        partial void OnSerialNumberChanging(string value);
+        partial void OnSerialNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoiceNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string InvoiceNumber
+        {
+            get
+            {
+                return this._InvoiceNumber;
+            }
+            set
+            {
+                this.OnInvoiceNumberChanging(value);
+                this._InvoiceNumber = value;
+                this.OnInvoiceNumberChanged();
+                this.OnPropertyChanged("InvoiceNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _InvoiceNumber;
+        partial void OnInvoiceNumberChanging(string value);
+        partial void OnInvoiceNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoideCode 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string InvoideCode
+        {
+            get
+            {
+                return this._InvoideCode;
+            }
+            set
+            {
+                this.OnInvoideCodeChanging(value);
+                this._InvoideCode = value;
+                this.OnInvoideCodeChanged();
+                this.OnPropertyChanged("InvoideCode");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _InvoideCode;
+        partial void OnInvoideCodeChanging(string value);
+        partial void OnInvoideCodeChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoiceDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime InvoiceDate
+        {
+            get
+            {
+                return this._InvoiceDate;
+            }
+            set
+            {
+                this.OnInvoiceDateChanging(value);
+                this._InvoiceDate = value;
+                this.OnInvoiceDateChanged();
+                this.OnPropertyChanged("InvoiceDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _InvoiceDate;
+        partial void OnInvoiceDateChanging(global::System.DateTime value);
+        partial void OnInvoiceDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SupplierName
+        {
+            get
+            {
+                return this._SupplierName;
+            }
+            set
+            {
+                this.OnSupplierNameChanging(value);
+                this._SupplierName = value;
+                this.OnSupplierNameChanged();
+                this.OnPropertyChanged("SupplierName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SupplierName;
+        partial void OnSupplierNameChanging(string value);
+        partial void OnSupplierNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 InvoiceValue 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal InvoiceValue
+        {
+            get
+            {
+                return this._InvoiceValue;
+            }
+            set
+            {
+                this.OnInvoiceValueChanging(value);
+                this._InvoiceValue = value;
+                this.OnInvoiceValueChanged();
+                this.OnPropertyChanged("InvoiceValue");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _InvoiceValue;
+        partial void OnInvoiceValueChanging(decimal value);
+        partial void OnInvoiceValueChanged();
+        /// <summary>
+        /// 架构中不存在属性 PaidAmount 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal PaidAmount
+        {
+            get
+            {
+                return this._PaidAmount;
+            }
+            set
+            {
+                this.OnPaidAmountChanging(value);
+                this._PaidAmount = value;
+                this.OnPaidAmountChanged();
+                this.OnPropertyChanged("PaidAmount");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _PaidAmount;
+        partial void OnPaidAmountChanging(decimal value);
+        partial void OnPaidAmountChanged();
+        /// <summary>
+        /// 架构中不存在属性 OperatorName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string OperatorName
+        {
+            get
+            {
+                return this._OperatorName;
+            }
+            set
+            {
+                this.OnOperatorNameChanging(value);
+                this._OperatorName = value;
+                this.OnOperatorNameChanged();
+                this.OnPropertyChanged("OperatorName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _OperatorName;
+        partial void OnOperatorNameChanging(string value);
+        partial void OnOperatorNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Reviewer 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Reviewer
+        {
+            get
+            {
+                return this._Reviewer;
+            }
+            set
+            {
+                this.OnReviewerChanging(value);
+                this._Reviewer = value;
+                this.OnReviewerChanged();
+                this.OnPropertyChanged("Reviewer");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Reviewer;
+        partial void OnReviewerChanging(string value);
+        partial void OnReviewerChanged();
+        /// <summary>
+        /// 架构中不存在属性 CreateDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime CreateDate
+        {
+            get
+            {
+                return this._CreateDate;
+            }
+            set
+            {
+                this.OnCreateDateChanging(value);
+                this._CreateDate = value;
+                this.OnCreateDateChanged();
+                this.OnPropertyChanged("CreateDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _CreateDate;
+        partial void OnCreateDateChanging(global::System.DateTime value);
+        partial void OnCreateDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 ReviewDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.DateTime> ReviewDate
+        {
+            get
+            {
+                return this._ReviewDate;
+            }
+            set
+            {
+                this.OnReviewDateChanging(value);
+                this._ReviewDate = value;
+                this.OnReviewDateChanged();
+                this.OnPropertyChanged("ReviewDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.DateTime> _ReviewDate;
+        partial void OnReviewDateChanging(global::System.Nullable<global::System.DateTime> value);
+        partial void OnReviewDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsValid 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsValid
+        {
+            get
+            {
+                return this._IsValid;
+            }
+            set
+            {
+                this.OnIsValidChanging(value);
+                this._IsValid = value;
+                this.OnIsValidChanged();
+                this.OnPropertyChanged("IsValid");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsValid;
+        partial void OnIsValidChanging(bool value);
+        partial void OnIsValidChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsCompleted 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsCompleted
+        {
+            get
+            {
+                return this._IsCompleted;
+            }
+            set
+            {
+                this.OnIsCompletedChanging(value);
+                this._IsCompleted = value;
+                this.OnIsCompletedChanged();
+                this.OnPropertyChanged("IsCompleted");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsCompleted;
+        partial void OnIsCompletedChanging(bool value);
+        partial void OnIsCompletedChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int SupplierId
+        {
+            get
+            {
+                return this._SupplierId;
+            }
+            set
+            {
+                this.OnSupplierIdChanging(value);
+                this._SupplierId = value;
+                this.OnSupplierIdChanged();
+                this.OnPropertyChanged("SupplierId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _SupplierId;
+        partial void OnSupplierIdChanging(int value);
+        partial void OnSupplierIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 CurrencyId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int CurrencyId
+        {
+            get
+            {
+                return this._CurrencyId;
+            }
+            set
+            {
+                this.OnCurrencyIdChanging(value);
+                this._CurrencyId = value;
+                this.OnCurrencyIdChanged();
+                this.OnPropertyChanged("CurrencyId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _CurrencyId;
+        partial void OnCurrencyIdChanging(int value);
+        partial void OnCurrencyIdChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.PaymentBC.DTO.ContractAircraftDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// ContractAircrafId
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("ContractAircrafts")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("ContractAircrafId")]
+    public partial class ContractAircraftDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 ContractAircraftDTO 对象。
+        /// </summary>
+        /// <param name="contractAircrafId">ContractAircrafId 的初始值。</param>
+        /// <param name="isValid">IsValid 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static ContractAircraftDTO CreateContractAircraftDTO(int contractAircrafId, bool isValid)
+        {
+            ContractAircraftDTO contractAircraftDTO = new ContractAircraftDTO();
+            contractAircraftDTO.ContractAircrafId = contractAircrafId;
+            contractAircraftDTO.IsValid = isValid;
+            return contractAircraftDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 ContractAircrafId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int ContractAircrafId
+        {
+            get
+            {
+                return this._ContractAircrafId;
+            }
+            set
+            {
+                this.OnContractAircrafIdChanging(value);
+                this._ContractAircrafId = value;
+                this.OnContractAircrafIdChanged();
+                this.OnPropertyChanged("ContractAircrafId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _ContractAircrafId;
+        partial void OnContractAircrafIdChanging(int value);
+        partial void OnContractAircrafIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 ContractName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ContractName
+        {
+            get
+            {
+                return this._ContractName;
+            }
+            set
+            {
+                this.OnContractNameChanging(value);
+                this._ContractName = value;
+                this.OnContractNameChanged();
+                this.OnPropertyChanged("ContractName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ContractName;
+        partial void OnContractNameChanging(string value);
+        partial void OnContractNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 ContractNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ContractNumber
+        {
+            get
+            {
+                return this._ContractNumber;
+            }
+            set
+            {
+                this.OnContractNumberChanging(value);
+                this._ContractNumber = value;
+                this.OnContractNumberChanged();
+                this.OnPropertyChanged("ContractNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ContractNumber;
+        partial void OnContractNumberChanging(string value);
+        partial void OnContractNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 RankNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string RankNumber
+        {
+            get
+            {
+                return this._RankNumber;
+            }
+            set
+            {
+                this.OnRankNumberChanging(value);
+                this._RankNumber = value;
+                this.OnRankNumberChanged();
+                this.OnPropertyChanged("RankNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _RankNumber;
+        partial void OnRankNumberChanging(string value);
+        partial void OnRankNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 CSCNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string CSCNumber
+        {
+            get
+            {
+                return this._CSCNumber;
+            }
+            set
+            {
+                this.OnCSCNumberChanging(value);
+                this._CSCNumber = value;
+                this.OnCSCNumberChanged();
+                this.OnPropertyChanged("CSCNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _CSCNumber;
+        partial void OnCSCNumberChanging(string value);
+        partial void OnCSCNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 SerialNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SerialNumber
+        {
+            get
+            {
+                return this._SerialNumber;
+            }
+            set
+            {
+                this.OnSerialNumberChanging(value);
+                this._SerialNumber = value;
+                this.OnSerialNumberChanged();
+                this.OnPropertyChanged("SerialNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SerialNumber;
+        partial void OnSerialNumberChanging(string value);
+        partial void OnSerialNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsValid 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsValid
+        {
+            get
+            {
+                return this._IsValid;
+            }
+            set
+            {
+                this.OnIsValidChanging(value);
+                this._IsValid = value;
+                this.OnIsValidChanged();
+                this.OnPropertyChanged("IsValid");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsValid;
+        partial void OnIsValidChanging(bool value);
+        partial void OnIsValidChanged();
+        /// <summary>
+        /// 架构中不存在属性 AircraftTypeName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string AircraftTypeName
+        {
+            get
+            {
+                return this._AircraftTypeName;
+            }
+            set
+            {
+                this.OnAircraftTypeNameChanging(value);
+                this._AircraftTypeName = value;
+                this.OnAircraftTypeNameChanged();
+                this.OnPropertyChanged("AircraftTypeName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _AircraftTypeName;
+        partial void OnAircraftTypeNameChanging(string value);
+        partial void OnAircraftTypeNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 ImportType 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ImportType
+        {
+            get
+            {
+                return this._ImportType;
+            }
+            set
+            {
+                this.OnImportTypeChanging(value);
+                this._ImportType = value;
+                this.OnImportTypeChanged();
+                this.OnPropertyChanged("ImportType");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ImportType;
+        partial void OnImportTypeChanging(string value);
+        partial void OnImportTypeChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<int> SupplierId
+        {
+            get
+            {
+                return this._SupplierId;
+            }
+            set
+            {
+                this.OnSupplierIdChanging(value);
+                this._SupplierId = value;
+                this.OnSupplierIdChanged();
+                this.OnPropertyChanged("SupplierId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<int> _SupplierId;
+        partial void OnSupplierIdChanging(global::System.Nullable<int> value);
+        partial void OnSupplierIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SupplierName
+        {
+            get
+            {
+                return this._SupplierName;
+            }
+            set
+            {
+                this.OnSupplierNameChanging(value);
+                this._SupplierName = value;
+                this.OnSupplierNameChanged();
+                this.OnPropertyChanged("SupplierName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SupplierName;
+        partial void OnSupplierNameChanging(string value);
+        partial void OnSupplierNameChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.PaymentBC.DTO.ContractEngineDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// ContractEngineId
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("ContractEngines")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("ContractEngineId")]
+    public partial class ContractEngineDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 ContractEngineDTO 对象。
+        /// </summary>
+        /// <param name="contractEngineId">ContractEngineId 的初始值。</param>
+        /// <param name="isValid">IsValid 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static ContractEngineDTO CreateContractEngineDTO(int contractEngineId, bool isValid)
+        {
+            ContractEngineDTO contractEngineDTO = new ContractEngineDTO();
+            contractEngineDTO.ContractEngineId = contractEngineId;
+            contractEngineDTO.IsValid = isValid;
+            return contractEngineDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 ContractEngineId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int ContractEngineId
+        {
+            get
+            {
+                return this._ContractEngineId;
+            }
+            set
+            {
+                this.OnContractEngineIdChanging(value);
+                this._ContractEngineId = value;
+                this.OnContractEngineIdChanged();
+                this.OnPropertyChanged("ContractEngineId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _ContractEngineId;
+        partial void OnContractEngineIdChanging(int value);
+        partial void OnContractEngineIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 SerialNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SerialNumber
+        {
+            get
+            {
+                return this._SerialNumber;
+            }
+            set
+            {
+                this.OnSerialNumberChanging(value);
+                this._SerialNumber = value;
+                this.OnSerialNumberChanged();
+                this.OnPropertyChanged("SerialNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SerialNumber;
+        partial void OnSerialNumberChanging(string value);
+        partial void OnSerialNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 ContractNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ContractNumber
+        {
+            get
+            {
+                return this._ContractNumber;
+            }
+            set
+            {
+                this.OnContractNumberChanging(value);
+                this._ContractNumber = value;
+                this.OnContractNumberChanged();
+                this.OnPropertyChanged("ContractNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ContractNumber;
+        partial void OnContractNumberChanging(string value);
+        partial void OnContractNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 ContractName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ContractName
+        {
+            get
+            {
+                return this._ContractName;
+            }
+            set
+            {
+                this.OnContractNameChanging(value);
+                this._ContractName = value;
+                this.OnContractNameChanged();
+                this.OnPropertyChanged("ContractName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ContractName;
+        partial void OnContractNameChanging(string value);
+        partial void OnContractNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 RankNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string RankNumber
+        {
+            get
+            {
+                return this._RankNumber;
+            }
+            set
+            {
+                this.OnRankNumberChanging(value);
+                this._RankNumber = value;
+                this.OnRankNumberChanged();
+                this.OnPropertyChanged("RankNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _RankNumber;
+        partial void OnRankNumberChanging(string value);
+        partial void OnRankNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsValid 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsValid
+        {
+            get
+            {
+                return this._IsValid;
+            }
+            set
+            {
+                this.OnIsValidChanging(value);
+                this._IsValid = value;
+                this.OnIsValidChanged();
+                this.OnPropertyChanged("IsValid");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsValid;
+        partial void OnIsValidChanging(bool value);
+        partial void OnIsValidChanged();
+        /// <summary>
+        /// 架构中不存在属性 ImportType 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ImportType
+        {
+            get
+            {
+                return this._ImportType;
+            }
+            set
+            {
+                this.OnImportTypeChanging(value);
+                this._ImportType = value;
+                this.OnImportTypeChanged();
+                this.OnPropertyChanged("ImportType");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ImportType;
+        partial void OnImportTypeChanging(string value);
+        partial void OnImportTypeChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SupplierName
+        {
+            get
+            {
+                return this._SupplierName;
+            }
+            set
+            {
+                this.OnSupplierNameChanging(value);
+                this._SupplierName = value;
+                this.OnSupplierNameChanged();
+                this.OnPropertyChanged("SupplierName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SupplierName;
+        partial void OnSupplierNameChanging(string value);
+        partial void OnSupplierNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<int> SupplierId
+        {
+            get
+            {
+                return this._SupplierId;
+            }
+            set
+            {
+                this.OnSupplierIdChanging(value);
+                this._SupplierId = value;
+                this.OnSupplierIdChanged();
+                this.OnPropertyChanged("SupplierId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<int> _SupplierId;
+        partial void OnSupplierIdChanging(global::System.Nullable<int> value);
+        partial void OnSupplierIdChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.PaymentBC.DTO.CurrencyDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("Currencies")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class CurrencyDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 CurrencyDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static CurrencyDTO CreateCurrencyDTO(int ID)
+        {
+            CurrencyDTO currencyDTO = new CurrencyDTO();
+            currencyDTO.Id = ID;
+            return currencyDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Name 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                this.OnNameChanging(value);
+                this._Name = value;
+                this.OnNameChanged();
+                this.OnPropertyChanged("Name");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Name;
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

@@ -703,6 +703,17 @@
         <Property Name="PathSource" Type="Edm.Int32" Nullable="false" />
         <Property Name="ParentId" Type="Edm.Int32" />
       </ComplexType>
+      <EntityType Name="OrderDocumentDTO">
+        <Key>
+          <PropertyRef Name="OrderDocumentId" />
+        </Key>
+        <Property Name="OrderDocumentId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="SupplierName" Type="Edm.String" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="ContractDocGuid" Type="Edm.Guid" Nullable="false" />
+      </EntityType>
       <Association Name="ContractAircraftDTO_BFEPurchaseOrders">
         <End Type="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO" Role="ContractAircraftDTO" Multiplicity="*" />
         <End Type="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO" Role="BFEPurchaseOrders" Multiplicity="*" />
@@ -774,6 +785,7 @@
         <EntitySet Name="BFEPurchaseOrders" EntityType="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO" />
         <EntitySet Name="Currencies" EntityType="UniCloud.Application.PurchaseBC.DTO.CurrencyDTO" />
         <EntitySet Name="DocumentPaths" EntityType="UniCloud.Application.PurchaseBC.DTO.DocumentPathDTO" />
+        <EntitySet Name="OrderDocuments" EntityType="UniCloud.Application.PurchaseBC.DTO.OrderDocumentDTO" />
         <FunctionImport Name="AddDocPath" m:HttpMethod="GET">
           <Parameter Name="name" Type="Edm.String" />
           <Parameter Name="isLeaf" Type="Edm.String" />

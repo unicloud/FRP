@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UniCloud.Presentation.Payment.Invoice.FuselageMaintain"
+﻿<UserControl x:Class="UniCloud.Presentation.Payment.Invoice.AirframeMaintain"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,7 +10,7 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance uc:FuselageMaintainVm}">
+             d:DataContext="{d:DesignInstance uc:AirframeMaintainVm}">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -20,7 +20,5 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid x:Name="FuselageMaintainLayoutRoot" Background="White">
-
-    </Grid>
+    <Grid x:Name="FuselageMaintainLayoutRoot" Background="White" />
 </UserControl>

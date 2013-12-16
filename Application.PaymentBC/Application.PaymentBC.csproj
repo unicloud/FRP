@@ -46,12 +46,20 @@
   <ItemGroup>
     <Compile Include="InvoiceServices\CreditNoteAppService.cs" />
     <Compile Include="InvoiceServices\ICreditNoteAppService.cs" />
+    <Compile Include="ContractAircraftServices\ContractAircraftAppService.cs" />
+    <Compile Include="ContractAircraftServices\IContractAircraftAppService.cs" />
+    <Compile Include="ContractEngineServices\ContractEngineAppService.cs" />
+    <Compile Include="ContractEngineServices\IContractEngineAppService.cs" />
+    <Compile Include="CurrencyServices\CurrencyAppService.cs" />
+    <Compile Include="CurrencyServices\ICurrencyAppService.cs" />
     <Compile Include="InvoiceServices\ILeaseInvoiceAppService.cs" />
     <Compile Include="InvoiceServices\IPrepaymentInvoiceAppService.cs" />
     <Compile Include="InvoiceServices\IPurchaseInvoiceAppService.cs" />
     <Compile Include="InvoiceServices\LeaseInvoiceAppService.cs" />
     <Compile Include="InvoiceServices\PrepaymentInvoiceAppService.cs" />
     <Compile Include="InvoiceServices\PurchaseInvoiceAppService.cs" />
+    <Compile Include="MaintainInvoiceServices\IMaintainInvoiceAppService.cs" />
+    <Compile Include="MaintainInvoiceServices\MaintainInvoiceAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IPaymentAppService.cs" />
     <Compile Include="Services\PaymentAppService.cs" />

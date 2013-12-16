@@ -18,8 +18,8 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </telerik:RadWindow.Resources>
-
-    <Grid x:Name="LayoutRoot" Background="White">
+    <telerik:RadBusyIndicator BusyContent="正在处理，请稍后..." IsBusy="{Binding DocumentChildIsBusy}">
+        <Grid x:Name="LayoutRoot" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -35,4 +35,5 @@
             <telerik:RadButton Content="取消" Height="30" Width="100"  Margin="5,2" Command="{Binding CancelCommand}" CommandParameter="文件夹"></telerik:RadButton>
         </StackPanel>
     </Grid>
+    </telerik:RadBusyIndicator>
 </telerik:RadWindow>

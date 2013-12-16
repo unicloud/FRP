@@ -47,7 +47,28 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
                 query.ApplyTo(_unitOfWork.CreateSet<PrepaymentInvoice>())
                      .Select(p => new PrepaymentInvoiceDTO
                      {
-
+                         PrepaymentInvoiceId = p.Id,
+                         InvoiceNumber = p.InvoiceNumber,
+                         InvoideCode = p.InvoideCode,
+                         InvoiceDate = p.InvoiceDate,
+                         SupplierName = p.SupplierName,
+                         InvoiceValue = p.InvoiceValue,
+                         PaidAmount = p.PaidAmount,
+                         OperatorName = p.OperatorName,
+                         Reviewer = p.Reviewer,
+                         CreateDate = p.CreateDate,
+                         ReviewDate = p.ReviewDate,
+                         IsValid = p.IsValid,
+                         IsCompleted = p.IsCompleted,
+                         Status = (int)p.Status,
+                         InvoiceLines = p.InvoiceLines.Select(q => new InvoiceLineDTO
+                         {
+                             InvoiceLineId = q.Id,
+                             ItemName = q.ItemName,
+                             Amount = q.Amount,
+                             InvoiceId = q.InvoiceId,
+                             OrderLineId = q.OrderLineId,
+                         }).ToList(),
 
                      });
         }

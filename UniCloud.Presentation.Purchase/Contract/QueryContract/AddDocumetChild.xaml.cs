@@ -6,7 +6,7 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
-    [Export(typeof (AddDocumetChild))]
+    [Export(typeof(AddDocumetChild))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public partial class AddDocumetChild
     {

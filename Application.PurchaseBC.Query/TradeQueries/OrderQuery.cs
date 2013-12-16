@@ -293,28 +293,6 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                 });
             return result;
         }
-
-        /// <summary>
-        ///     查询订单的合同文档
-        /// </summary>
-        /// <param name="query">查询表达式</param>
-        /// <returns>订单合同集合</returns>
-        public IQueryable<OrderDocumentDTO> OrderDocumentQuery(QueryBuilder<Order> query)
-        {
-            var dbTrade = _unitOfWork.CreateSet<Trade>();
-            var result = query.ApplyTo(_unitOfWork.CreateSet<Order>())
-                .Select(o => new OrderDocumentDTO
-                {
-                    Id = o.Id,
-                    SupplierName = dbTrade.Where(p => p.Id == o.TradeId)
-                        .Select(p => p.Supplier.Name).FirstOrDefault(),
-                    Name = o.Name,
-                    ContractName = o.ContractName,
-                    ContractDocGuid = o.ContractDocGuid,
-                });
-            return result;
-        }
-
         #endregion
     }
 }

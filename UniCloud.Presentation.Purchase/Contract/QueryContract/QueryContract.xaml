@@ -60,8 +60,8 @@
                 </telerik:RadButton>
                 <telerik:RadToolBarSeparator />
                 <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AbortCommand}"
-                                                       CommandParameter="{Binding LinkmansView}">
+                                                       Command="{Binding CreateDocumentPathCommand}"
+                                                       CommandParameter="文件">
                     <Image Source="/UniCloud.Presentation;component/Images/AddDocument.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="添加合同" />

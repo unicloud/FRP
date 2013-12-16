@@ -15,6 +15,7 @@
 
 #endregion
 
+
 #region 命名空间
 
 using System.Collections.Generic;
@@ -29,6 +30,7 @@ using UniCloud.Application.PurchaseBC.DocumentPathServices;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
+using UniCloud.Application.PurchaseBC.OrderDocumentServices;
 using UniCloud.Application.PurchaseBC.PartServices;
 using UniCloud.Application.PurchaseBC.PlanAircraftServices;
 using UniCloud.Application.PurchaseBC.ReceptionServices;
@@ -80,7 +82,7 @@ namespace UniCloud.DistributedServices.Purchase
         private readonly IRelatedDocAppService _relatedDocAppService;
         private readonly ISupplierAppService _supplierAppService;
         private readonly ITradeAppService _tradeAppService;
-
+        private readonly IContractDocumentAppService _contractDocumentAppService;
         public PurchaseData()
             : base("UniCloud.Application.PurchaseBC.DTO")
         {
@@ -106,6 +108,7 @@ namespace UniCloud.DistributedServices.Purchase
             _relatedDocAppService = DefaultContainer.Resolve<IRelatedDocAppService>();
             _currencyAppService = DefaultContainer.Resolve<ICurrencyAppService>();
             _documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
+            _contractDocumentAppService = DefaultContainer.Resolve<IContractDocumentAppService>();
         }
 
         #region 合作公司相关集合
@@ -129,7 +132,7 @@ namespace UniCloud.DistributedServices.Purchase
                 if (_suppliers == null)
                     _suppliers = _supplierAppService.GetSuppliers().ToList();
                 return _suppliers.AsQueryable<SupplierDTO>();
-            }
+        }
         }
 
         /// <summary>
@@ -333,6 +336,7 @@ namespace UniCloud.DistributedServices.Purchase
 
         #endregion
 
+        #region 维修合同
         /// <summary>
         ///     发动机维修合同信息
         /// </summary>
@@ -356,6 +360,7 @@ namespace UniCloud.DistributedServices.Purchase
         {
             get { return _maintainContractAppService.GetUndercartMaintainContracts(); }
         }
+        #endregion
 
         #region Reception
 
@@ -486,12 +491,13 @@ namespace UniCloud.DistributedServices.Purchase
         #endregion
 
         #region 订单文档
-
-        public IQueryable<OrderDocumentDTO> OrderDocuments()
-        {
-            return _tradeAppService.GetOrderDocuments();
-        }
+        
+         public IQueryable<OrderDocumentDTO> OrderDocuments()
+         {
+            return _contractDocumentAppService.GetOrderDocuments();
+         }
 
         #endregion
     }
 }
+

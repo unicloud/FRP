@@ -20,11 +20,17 @@
 using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UniCloud.Application.PurchaseBC.Query.SupplierQueries;
 using UniCloud.Application.PurchaseBC.Query.TradeQueries;
+using UniCloud.Application.PurchaseBC.SupplierServices;
 using UniCloud.Application.PurchaseBC.TradeServices;
+using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
@@ -47,7 +53,20 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
                 .UseAutofac()
                 .CreateLog()
                 .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                #region 交易相关配置，包括查询，应用服务，仓储注册
+
+                         .Register<ITradeQuery, TradeQuery>()
+                         .Register<IOrderQuery, OrderQuery>()
+                         .Register<ITradeAppService, TradeAppService>()
                 .Register<ITradeRepository, TradeRepository>()
+                         .Register<IOrderRepository, OrderRepository>()
+
+                #endregion
+            #region 供应商相关配置，包括查询，应用服务，仓储注册
+
+                         .Register<ISupplierQuery, SupplierQuery>()
+                         .Register<ISupplierAppService, SupplierAppService>()
+                         .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
                 .Register<ISupplierRepository, SupplierRepository>()
                 .Register<IOrderRepository, OrderRepository>()
                 .Register<IRelatedDocRepository,RelatedDocRepository>()

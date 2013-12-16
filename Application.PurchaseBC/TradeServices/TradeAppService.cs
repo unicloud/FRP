@@ -449,18 +449,6 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
 
         #endregion
 
-        #region OrderDocumentDTO
-
-        /// <summary>
-        ///     获取订单文档集合
-        /// </summary>
-        /// <returns></returns>
-        public IQueryable<OrderDocumentDTO> GetOrderDocuments()
-        {
-            var query = new QueryBuilder<Order>();
-            return _orderQuery.OrderDocumentQuery(query);
-        }
-
-        #endregion
+     
     }
 }

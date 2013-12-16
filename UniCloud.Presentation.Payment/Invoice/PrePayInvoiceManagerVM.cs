@@ -18,15 +18,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
@@ -136,10 +127,10 @@ namespace UniCloud.Presentation.Payment.Invoice
                 if (_selPrepaymentInvoice != value)
                 {
                     _selPrepaymentInvoice = value;
-                    _prepaymentInvoiceLines.Clear();
+                    _invoiceLines.Clear();
                     foreach (var invoiceLine in value.InvoiceLines)
                     {
-                        PrepaymentInvoiceLines.Add(invoiceLine);
+                        InvoiceLines.Add(invoiceLine);
                     }
                     RaisePropertyChanged(() => SelPrepaymentInvoice);
                 }
@@ -150,20 +141,20 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 预付款发票行
 
-        private ObservableCollection<PrepaymentInvoiceLineDTO> _prepaymentInvoiceLines=new ObservableCollection<PrepaymentInvoiceLineDTO>();
+        private ObservableCollection<InvoiceLineDTO> _invoiceLines=new ObservableCollection<InvoiceLineDTO>();
 
         /// <summary>
         ///     预付款发票行
         /// </summary>
-        public ObservableCollection<PrepaymentInvoiceLineDTO> PrepaymentInvoiceLines
+        public ObservableCollection<InvoiceLineDTO> InvoiceLines
         {
-            get { return _prepaymentInvoiceLines; }
+            get { return _invoiceLines; }
             private set
             {
-                if (_prepaymentInvoiceLines != value)
+                if (_invoiceLines != value)
                 {
-                    _prepaymentInvoiceLines = value;
-                    RaisePropertyChanged(() => PrepaymentInvoiceLines);
+                    _invoiceLines = value;
+                    RaisePropertyChanged(() => InvoiceLines);
                 }
             }
         }
@@ -172,20 +163,20 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 选择的预付款发票行
 
-        private PrepaymentInvoiceLineDTO _selPrepaymentInvoiceLine;
+        private InvoiceLineDTO _selInvoiceLine;
 
         /// <summary>
         ///     选择的预付款发票行
         /// </summary>
-        public PrepaymentInvoiceLineDTO SelPrepaymentInvoiceLine
+        public InvoiceLineDTO SelInvoiceLine
         {
-            get { return _selPrepaymentInvoiceLine; }
+            get { return _selInvoiceLine; }
             set
             {
-                if (_selPrepaymentInvoiceLine != value)
+                if (_selInvoiceLine != value)
                 {
-                    _selPrepaymentInvoiceLine = value;
-                    RaisePropertyChanged(() => SelPrepaymentInvoiceLine);
+                    _selInvoiceLine = value;
+                    RaisePropertyChanged(() => SelInvoiceLine);
                 }
             }
         }
@@ -237,7 +228,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             if (currentPrepaymentInvoice == null)
             {
                 //删除完，若没有记录了，则也要删除界面明细
-                PrepaymentInvoiceLines.Clear();
+                InvoiceLines.Clear();
             }
         }
 
@@ -261,13 +252,13 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnAdd(object obj)
         {
-            var invoiceLine = new PrepaymentInvoiceLineDTO
+            var invoiceLine = new InvoiceLineDTO
             {
-                PrepaymentInvoiceLineId = RandomHelper.Next(),
+                InvoiceLineId = RandomHelper.Next(),
                 InvoiceId = SelPrepaymentInvoice.PrepaymentInvoiceId
             };
             SelPrepaymentInvoice.InvoiceLines.Add(invoiceLine);
-            PrepaymentInvoiceLines.Add(invoiceLine);
+            InvoiceLines.Add(invoiceLine);
         }
 
         private bool CanAdd(object obj)
@@ -285,14 +276,14 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnRemove(object obj)
         {
-            SelPrepaymentInvoice.InvoiceLines.Remove(SelPrepaymentInvoiceLine);
-            PrepaymentInvoiceLines.Remove(SelPrepaymentInvoiceLine);
+            SelPrepaymentInvoice.InvoiceLines.Remove(SelInvoiceLine);
+            InvoiceLines.Remove(SelInvoiceLine);
         }
 
         private bool CanRemove(object obj)
         {
             bool canRemove;
-            if (SelPrepaymentInvoice != null && SelPrepaymentInvoiceLine != null)
+            if (SelPrepaymentInvoice != null && SelInvoiceLine != null)
                 canRemove = true;
             else canRemove = false;
             return canRemove;

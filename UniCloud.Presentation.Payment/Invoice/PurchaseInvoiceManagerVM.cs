@@ -18,15 +18,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
@@ -136,10 +127,10 @@ namespace UniCloud.Presentation.Payment.Invoice
                 if (_selPurchaseInvoice != value)
                 {
                     _selPurchaseInvoice = value;
-                    _purchaseInvoiceLines.Clear();
+                    _invoiceLines.Clear();
                     foreach (var invoiceLine in value.InvoiceLines)
                     {
-                        PurchaseInvoiceLines.Add(invoiceLine);
+                        InvoiceLines.Add(invoiceLine);
                     }
                     RaisePropertyChanged(() => SelPurchaseInvoice);
                 }
@@ -150,20 +141,20 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 采购发票行
 
-        private ObservableCollection<PurchaseInvoiceLineDTO> _purchaseInvoiceLines=new ObservableCollection<PurchaseInvoiceLineDTO>();
+        private ObservableCollection<InvoiceLineDTO> _invoiceLines=new ObservableCollection<InvoiceLineDTO>();
 
         /// <summary>
         ///     采购发票行
         /// </summary>
-        public ObservableCollection<PurchaseInvoiceLineDTO> PurchaseInvoiceLines
+        public ObservableCollection<InvoiceLineDTO> InvoiceLines
         {
-            get { return _purchaseInvoiceLines; }
+            get { return _invoiceLines; }
             private set
             {
-                if (_purchaseInvoiceLines != value)
+                if (_invoiceLines != value)
                 {
-                    _purchaseInvoiceLines = value;
-                    RaisePropertyChanged(() => PurchaseInvoiceLines);
+                    _invoiceLines = value;
+                    RaisePropertyChanged(() => InvoiceLines);
                 }
             }
         }
@@ -172,20 +163,20 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 选择的采购发票行
 
-        private PurchaseInvoiceLineDTO _selPurchaseInvoiceLine;
+        private InvoiceLineDTO _selInvoiceLine;
 
         /// <summary>
         ///     选择的采购发票行
         /// </summary>
-        public PurchaseInvoiceLineDTO SelPurchaseInvoiceLine
+        public InvoiceLineDTO SelInvoiceLine
         {
-            get { return _selPurchaseInvoiceLine; }
+            get { return _selInvoiceLine; }
             set
             {
-                if (_selPurchaseInvoiceLine != value)
+                if (_selInvoiceLine != value)
                 {
-                    _selPurchaseInvoiceLine = value;
-                    RaisePropertyChanged(() => SelPurchaseInvoiceLine);
+                    _selInvoiceLine = value;
+                    RaisePropertyChanged(() => SelInvoiceLine);
                 }
             }
         }
@@ -237,7 +228,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             if (currentPurchaseInvoice == null)
             {
                 //删除完，若没有记录了，则也要删除界面明细
-                PurchaseInvoiceLines.Clear();
+                InvoiceLines.Clear();
             }
         }
 
@@ -261,13 +252,13 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnAdd(object obj)
         {
-            var invoiceLine = new PurchaseInvoiceLineDTO
+            var invoiceLine = new InvoiceLineDTO
             {
-                PurchaseInvoiceLineId = RandomHelper.Next(),
+                InvoiceLineId = RandomHelper.Next(),
                 InvoiceId = SelPurchaseInvoice.PurchaseInvoiceId
             };
             SelPurchaseInvoice.InvoiceLines.Add(invoiceLine);
-            PurchaseInvoiceLines.Add(invoiceLine);
+            InvoiceLines.Add(invoiceLine);
         }
 
         private bool CanAdd(object obj)
@@ -285,14 +276,14 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnRemove(object obj)
         {
-            SelPurchaseInvoice.InvoiceLines.Remove(SelPurchaseInvoiceLine);
-            PurchaseInvoiceLines.Remove(SelPurchaseInvoiceLine);
+            SelPurchaseInvoice.InvoiceLines.Remove(SelInvoiceLine);
+            InvoiceLines.Remove(SelInvoiceLine);
         }
 
         private bool CanRemove(object obj)
         {
             bool canRemove;
-            if (SelPurchaseInvoice != null && SelPurchaseInvoiceLine != null)
+            if (SelPurchaseInvoice != null && SelInvoiceLine != null)
                 canRemove = true;
             else canRemove = false;
             return canRemove;

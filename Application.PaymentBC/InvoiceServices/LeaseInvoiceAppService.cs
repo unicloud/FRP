@@ -19,8 +19,11 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.InvoiceQueries;
+using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
+using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 
@@ -33,12 +36,20 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
     {
         private readonly ILeaseInvoiceQuery _leaseInvoiceQuery;
         private readonly IInvoiceRepository _invoiceRepository;
-
+        private readonly ISupplierRepository _supplierRepository;
+        private readonly IOrderRepository _orderRepository;
+        private readonly ICurrencyRepository _currencyRepository;
         public LeaseInvoiceAppService(ILeaseInvoiceQuery leaseInvoiceQuery,
-            IInvoiceRepository invoiceRepository)
+            IInvoiceRepository invoiceRepository,
+            ISupplierRepository supplierRepository,
+            IOrderRepository orderRepository,
+            ICurrencyRepository currencyRepository)
         {
             _leaseInvoiceQuery = leaseInvoiceQuery;
             _invoiceRepository = invoiceRepository;
+            _supplierRepository = supplierRepository;
+            _orderRepository = orderRepository;
+            _currencyRepository = currencyRepository;
         }
 
         #region LeaseInvoiceDTO
@@ -61,9 +72,32 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         [Insert(typeof(LeaseInvoiceDTO))]
         public void InsertLeaseInvoice(LeaseInvoiceDTO leaseInvoice)
         {
-            //var newLeaseInvoice = InvoiceFactory.CreateLeaseInvoice();
-            //newLeaseInvoice.SetInvoiceNumber(1);
-
+            var supplier = _supplierRepository.GetFiltered(p => p.Id == leaseInvoice.SupplierId).FirstOrDefault();
+            var order = _orderRepository.GetFiltered(p => p.Id == leaseInvoice.OrderId).FirstOrDefault();
+            var currency = _currencyRepository.GetFiltered(p => p.Id == leaseInvoice.CurrencyId).FirstOrDefault();
+            
+            var newLeaseInvoice = InvoiceFactory.CreateLeaseInvoice(leaseInvoice.InvoideCode, leaseInvoice.InvoiceDate, leaseInvoice.OperatorName);
+            newLeaseInvoice.SetInvoiceNumber(1);
+            newLeaseInvoice.SetSupplier(supplier);
+            newLeaseInvoice.SetInvoiceValue();
+            newLeaseInvoice.SetOrder(order);
+            newLeaseInvoice.SetPaidAmount(leaseInvoice.PaidAmount);
+            newLeaseInvoice.Review(leaseInvoice.Reviewer);
+            newLeaseInvoice.SetCurrency(currency);
+            newLeaseInvoice.SetPaymentScheduleLine(leaseInvoice.PaymentScheduleLineId);
+            newLeaseInvoice.SetInvoiceStatus(InvoiceStatus.草稿);
+            foreach (var invoiceLine in leaseInvoice.InvoiceLines)
+            {
+                if (order != null)
+                {
+                    var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
+                    newLeaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine);
+                }
+                else
+                {
+                    newLeaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null);
+                }
+            }
         }
 
         /// <summary>
