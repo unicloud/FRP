@@ -44,13 +44,13 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-
                                 <telerik:RadRichTextBoxRibbonUI  BackstageClippingElement="{Binding ElementName=LayoutRoot}"
                                                                  DataContext="{Binding Commands, ElementName=WordReader}"
                                                                  ApplicationName=" "
                                                                  ApplicationButtonContent="文件"
                                                                  x:Name="RadRichTextBoxRibbonUI"
-                                                                 VerticalAlignment="Stretch">
+                                                                 VerticalAlignment="Stretch"
+                                                                 IsMinimized="True">
                                     <telerik:RadRichTextBoxRibbonUI.Resources>
                                         <telerik:FontFamiliesProvider x:Key="FontFamiliesProvider" />
                                     </telerik:RadRichTextBoxRibbonUI.Resources>
