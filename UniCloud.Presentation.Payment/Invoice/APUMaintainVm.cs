@@ -15,7 +15,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
@@ -23,9 +22,6 @@ using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
-using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
-using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
@@ -35,12 +31,11 @@ namespace UniCloud.Presentation.Payment.Invoice
 {
     [Export(typeof(APUMaintainVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class APUMaintainVm: EditViewModelBase
+    public class APUMaintainVm : InvoiceVm
     {
         #region 声明、初始化
 
         private readonly IRegionManager _regionManager;
-        private PaymentData _paymentData;
         [Import]
         public DocumentViewer DocumentView;
 
@@ -48,10 +43,6 @@ namespace UniCloud.Presentation.Payment.Invoice
         public APUMaintainVm(IRegionManager regionManager)
         {
             _regionManager = regionManager;
-            AddMaintainInvoiceCommand = new DelegateCommand<object>(OnAddMaintainInvoice, CanAddMaintainInvoice);
-            RemoveMaintainInvoiceCommand = new DelegateCommand<object>(OnRemoveMaintainInvoice, CanRemoveMaintainInvoice);
-            AddMaintainInvoiceLineCommand = new DelegateCommand<object>(OnAddMaintainInvoiceLine, CanAddMaintainInvoiceLine);
-            RemoveMaintainInvoiceLineCommand = new DelegateCommand<object>(OnRemoveMaintainInvoiceLine, CanRemoveMaintainInvoiceLine);
 
             InitializeVm();
         }
@@ -65,7 +56,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            ApuMaintainInvoices = Service.CreateCollection(_paymentData.APUMaintainInvoices);
+            ApuMaintainInvoices = Service.CreateCollection(PaymentDataService.APUMaintainInvoices);
             Service.RegisterCollectionView(ApuMaintainInvoices);
             ApuMaintainInvoices.PropertyChanged += OnViewPropertyChanged;
             //ApuMaintainInvoices.PropertyChanged += (sender, e) =>
@@ -75,15 +66,6 @@ namespace UniCloud.Presentation.Payment.Invoice
             //        CanSelectApuMaintain = !ApuMaintainInvoices.HasChanges;
             //    }
             //};
-        }
-
-        /// <summary>
-        ///     创建服务实例
-        /// </summary>
-        protected override IService CreateService()
-        {
-            _paymentData = new PaymentData(AgentHelper.PaymentUri);
-            return new PaymentService(_paymentData); 
         }
 
         #endregion
@@ -104,7 +86,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         ///     </remarks>
         /// </summary>
         public override void LoadData()
-        { 
+        {
             // 将CollectionView的AutoLoad属性设为True
             ApuMaintainInvoices.AutoLoad = true;
         }
@@ -205,13 +187,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         #endregion
 
         #region 创建新维修发票
-
-        /// <summary>
-        ///  创建新维修发票
-        /// </summary>
-        public DelegateCommand<object> AddMaintainInvoiceCommand { get;  set; }
-
-        private void OnAddMaintainInvoice(object obj)
+        protected override void OnAddInvoice(object obj)
         {
             var maintainInvoice = new APUMaintainInvoiceDTO
                                   {
@@ -222,21 +198,14 @@ namespace UniCloud.Presentation.Payment.Invoice
             ApuMaintainInvoices.AddNew(maintainInvoice);
         }
 
-        private bool CanAddMaintainInvoice(object obj)
+        protected override bool CanAddInvoice(object obj)
         {
             return true;
         }
-
         #endregion
 
         #region 删除维修发票
-
-        /// <summary>
-        ///     删除维修发票
-        /// </summary>
-        public DelegateCommand<object> RemoveMaintainInvoiceCommand { get;  set; }
-
-        private void OnRemoveMaintainInvoice(object obj)
+        protected override void OnRemoveInvoice(object obj)
         {
             if (_apuMaintainInvoice != null)
             {
@@ -244,21 +213,14 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
         }
 
-        private bool CanRemoveMaintainInvoice(object obj)
+        protected override bool CanRemoveInvoice(object obj)
         {
             return true;
         }
-
         #endregion
 
         #region 增加维修发票行
-
-        /// <summary>
-        ///     增加维修发票行
-        /// </summary>
-        public DelegateCommand<object> AddMaintainInvoiceLineCommand { get;  set; }
-
-        private void OnAddMaintainInvoiceLine(object obj)
+        protected override void OnAddInvoiceLine(object obj)
         {
             var maintainInvoiceLine = new MaintainInvoiceLineDTO
             {
@@ -268,30 +230,44 @@ namespace UniCloud.Presentation.Payment.Invoice
             ApuMaintainInvoice.MaintainInvoiceLines.Add(maintainInvoiceLine);
         }
 
-        private bool CanAddMaintainInvoiceLine(object obj)
+        protected override bool CanAddInvoiceLine(object obj)
         {
             return true;
         }
-
         #endregion
 
         #region 移除维修发票行
-
-        /// <summary>
-        ///     移除维修发票行
-        /// </summary>
-        public DelegateCommand<object> RemoveMaintainInvoiceLineCommand { get; private set; }
-
-        private void OnRemoveMaintainInvoiceLine(object obj)
+        protected override void OnRemoveInvoiceLine(object obj)
         {
             ApuMaintainInvoice.MaintainInvoiceLines.Remove(ApuMaintainInvoiceLine);
         }
 
-        private bool CanRemoveMaintainInvoiceLine(object obj)
+        protected override bool CanRemoveInvoiceLine(object obj)
         {
             return true;
         }
+        #endregion
 
+        #region 提交发票
+        protected override void OnSubmitInvoice(object obj)
+        {
+        }
+
+        protected override bool CanSubmitInvoice(object obj)
+        {
+            return true;
+        }
+        #endregion
+
+        #region 审核发票
+        protected override void OnReviewInvoice(object obj)
+        {
+        }
+
+        protected override bool CanReviewInvoice(object obj)
+        {
+            return true;
+        }
         #endregion
         #endregion
 

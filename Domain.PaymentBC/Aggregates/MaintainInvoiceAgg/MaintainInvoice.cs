@@ -123,9 +123,18 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
         /// </summary>
         public InvoiceStatus Status { get; private set; }
 
+        /// <summary>
+        ///  文档名称
+        /// </summary>
+        public string DocumentName { get; set; }
         #endregion
 
         #region 外键属性
+
+        /// <summary>
+        ///  文档ID
+        /// </summary>
+        public Guid DocumentId { get; set; }
 
         /// <summary>
         ///     供应商ID
@@ -342,7 +351,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
         /// </summary>
         /// <param name="supplierId">供应商Id</param>
         /// <param name="supplierName">供应商名字</param>
-        public void SetSupplier(int supplierId,string supplierName)
+        public void SetSupplier(int supplierId, string supplierName)
         {
             SupplierId = supplierId;
             SupplierName = supplierName;
