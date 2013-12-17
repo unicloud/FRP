@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2013/12/17 14:39:18
+// 生成日期: 2013/12/17 16:20:00
 namespace UniCloud.Presentation.Service.Payment.Payment
 {
     
@@ -576,18 +576,18 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                 "entBC.DTO.InvoiceLineDTO)\" Nullable=\"false\" /></EntityType><EntityType Name=\"Eng" +
                 "ineMaintainInvoiceDTO\"><Key><PropertyRef Name=\"EngineMaintainInvoiceId\" /></Key>" +
                 "<Property Name=\"EngineMaintainInvoiceId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pr" +
-                "operty Name=\"MaintainInvoiceLines\" Type=\"Collection(UniCloud.Application.Payment" +
-                "BC.DTO.MaintainInvoiceLineDTO)\" Nullable=\"false\" /><Property Name=\"SerialNumber\"" +
-                " Type=\"Edm.String\" /><Property Name=\"InvoiceNumber\" Type=\"Edm.String\" /><Propert" +
-                "y Name=\"InvoideCode\" Type=\"Edm.String\" /><Property Name=\"InvoiceDate\" Type=\"Edm." +
-                "DateTime\" Nullable=\"false\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /><" +
-                "Property Name=\"InvoiceValue\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Nam" +
-                "e=\"PaidAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"OperatorNam" +
-                "e\" Type=\"Edm.String\" /><Property Name=\"Reviewer\" Type=\"Edm.String\" /><Property N" +
-                "ame=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"ReviewDa" +
-                "te\" Type=\"Edm.DateTime\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"" +
-                "false\" /><Property Name=\"IsCompleted\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Pro" +
-                "perty Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Supplier" +
+                "operty Name=\"SerialNumber\" Type=\"Edm.String\" /><Property Name=\"InvoiceNumber\" Ty" +
+                "pe=\"Edm.String\" /><Property Name=\"InvoideCode\" Type=\"Edm.String\" /><Property Nam" +
+                "e=\"InvoiceDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"SupplierN" +
+                "ame\" Type=\"Edm.String\" /><Property Name=\"InvoiceValue\" Type=\"Edm.Decimal\" Nullab" +
+                "le=\"false\" /><Property Name=\"PaidAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><" +
+                "Property Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"Reviewer\" Type=" +
+                "\"Edm.String\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" " +
+                "/><Property Name=\"ReviewDate\" Type=\"Edm.DateTime\" /><Property Name=\"IsValid\" Typ" +
+                "e=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"IsCompleted\" Type=\"Edm.Boolea" +
+                "n\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" " +
+                "/><Property Name=\"MaintainInvoiceLines\" Type=\"Collection(UniCloud.Application.Pa" +
+                "ymentBC.DTO.MaintainInvoiceLineDTO)\" Nullable=\"false\" /><Property Name=\"Supplier" +
                 "Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.In" +
                 "t32\" Nullable=\"false\" /></EntityType><ComplexType Name=\"MaintainInvoiceLineDTO\">" +
                 "<Property Name=\"MaintainInvoiceLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prop" +
@@ -597,51 +597,51 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                 "rty Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"PartId\" Type=\"Edm.Int32\" /><" +
                 "/ComplexType><EntityType Name=\"APUMaintainInvoiceDTO\"><Key><PropertyRef Name=\"AP" +
                 "UMaintainInvoiceId\" /></Key><Property Name=\"APUMaintainInvoiceId\" Type=\"Edm.Int3" +
-                "2\" Nullable=\"false\" /><Property Name=\"MaintainInvoiceLines\" Type=\"Collection(Uni" +
-                "Cloud.Application.PaymentBC.DTO.MaintainInvoiceLineDTO)\" Nullable=\"false\" /><Pro" +
-                "perty Name=\"SerialNumber\" Type=\"Edm.String\" /><Property Name=\"InvoiceNumber\" Typ" +
-                "e=\"Edm.String\" /><Property Name=\"InvoideCode\" Type=\"Edm.String\" /><Property Name" +
-                "=\"InvoiceDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"SupplierNa" +
-                "me\" Type=\"Edm.String\" /><Property Name=\"InvoiceValue\" Type=\"Edm.Decimal\" Nullabl" +
-                "e=\"false\" /><Property Name=\"PaidAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><P" +
-                "roperty Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"Reviewer\" Type=\"" +
-                "Edm.String\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /" +
-                "><Property Name=\"ReviewDate\" Type=\"Edm.DateTime\" /><Property Name=\"IsValid\" Type" +
-                "=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"IsCompleted\" Type=\"Edm.Boolean" +
-                "\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /" +
+                "2\" Nullable=\"false\" /><Property Name=\"SerialNumber\" Type=\"Edm.String\" /><Propert" +
+                "y Name=\"InvoiceNumber\" Type=\"Edm.String\" /><Property Name=\"InvoideCode\" Type=\"Ed" +
+                "m.String\" /><Property Name=\"InvoiceDate\" Type=\"Edm.DateTime\" Nullable=\"false\" />" +
+                "<Property Name=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"InvoiceValue\" " +
+                "Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"PaidAmount\" Type=\"Edm.Deci" +
+                "mal\" Nullable=\"false\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /><Prope" +
+                "rty Name=\"Reviewer\" Type=\"Edm.String\" /><Property Name=\"CreateDate\" Type=\"Edm.Da" +
+                "teTime\" Nullable=\"false\" /><Property Name=\"ReviewDate\" Type=\"Edm.DateTime\" /><Pr" +
+                "operty Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"IsCo" +
+                "mpleted\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm" +
+                ".Int32\" Nullable=\"false\" /><Property Name=\"MaintainInvoiceLines\" Type=\"Collectio" +
+                "n(UniCloud.Application.PaymentBC.DTO.MaintainInvoiceLineDTO)\" Nullable=\"false\" /" +
                 "><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"fal";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private const string ModelPart1 = "se\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /></EntityTyp" +
                 "e><EntityType Name=\"AirframeMaintainInvoiceDTO\"><Key><PropertyRef Name=\"Airframe" +
                 "MaintainInvoiceId\" /></Key><Property Name=\"AirframeMaintainInvoiceId\" Type=\"Edm." +
-                "Int32\" Nullable=\"false\" /><Property Name=\"MaintainInvoiceLines\" Type=\"Collection" +
-                "(UniCloud.Application.PaymentBC.DTO.MaintainInvoiceLineDTO)\" Nullable=\"false\" />" +
-                "<Property Name=\"SerialNumber\" Type=\"Edm.String\" /><Property Name=\"InvoiceNumber\"" +
-                " Type=\"Edm.String\" /><Property Name=\"InvoideCode\" Type=\"Edm.String\" /><Property " +
-                "Name=\"InvoiceDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Suppli" +
-                "erName\" Type=\"Edm.String\" /><Property Name=\"InvoiceValue\" Type=\"Edm.Decimal\" Nul" +
-                "lable=\"false\" /><Property Name=\"PaidAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" " +
-                "/><Property Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"Reviewer\" Ty" +
-                "pe=\"Edm.String\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"fals" +
-                "e\" /><Property Name=\"ReviewDate\" Type=\"Edm.DateTime\" /><Property Name=\"IsValid\" " +
-                "Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"IsCompleted\" Type=\"Edm.Boo" +
-                "lean\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"fals" +
+                "Int32\" Nullable=\"false\" /><Property Name=\"SerialNumber\" Type=\"Edm.String\" /><Pro" +
+                "perty Name=\"InvoiceNumber\" Type=\"Edm.String\" /><Property Name=\"InvoideCode\" Type" +
+                "=\"Edm.String\" /><Property Name=\"InvoiceDate\" Type=\"Edm.DateTime\" Nullable=\"false" +
+                "\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"InvoiceVal" +
+                "ue\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"PaidAmount\" Type=\"Edm." +
+                "Decimal\" Nullable=\"false\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /><P" +
+                "roperty Name=\"Reviewer\" Type=\"Edm.String\" /><Property Name=\"CreateDate\" Type=\"Ed" +
+                "m.DateTime\" Nullable=\"false\" /><Property Name=\"ReviewDate\" Type=\"Edm.DateTime\" /" +
+                "><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"" +
+                "IsCompleted\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Status\" Type=" +
+                "\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"MaintainInvoiceLines\" Type=\"Colle" +
+                "ction(UniCloud.Application.PaymentBC.DTO.MaintainInvoiceLineDTO)\" Nullable=\"fals" +
                 "e\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property N" +
                 "ame=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /></EntityType><EntityType Na" +
                 "me=\"UndercartMaintainInvoiceDTO\"><Key><PropertyRef Name=\"UndercartMaintainInvoic" +
                 "eId\" /></Key><Property Name=\"UndercartMaintainInvoiceId\" Type=\"Edm.Int32\" Nullab" +
-                "le=\"false\" /><Property Name=\"MaintainInvoiceLines\" Type=\"Collection(UniCloud.App" +
-                "lication.PaymentBC.DTO.MaintainInvoiceLineDTO)\" Nullable=\"false\" /><Property Nam" +
-                "e=\"SerialNumber\" Type=\"Edm.String\" /><Property Name=\"InvoiceNumber\" Type=\"Edm.St" +
-                "ring\" /><Property Name=\"InvoideCode\" Type=\"Edm.String\" /><Property Name=\"Invoice" +
-                "Date\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"SupplierName\" Type=" +
-                "\"Edm.String\" /><Property Name=\"InvoiceValue\" Type=\"Edm.Decimal\" Nullable=\"false\"" +
-                " /><Property Name=\"PaidAmount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property N" +
-                "ame=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"Reviewer\" Type=\"Edm.Strin" +
-                "g\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Propert" +
-                "y Name=\"ReviewDate\" Type=\"Edm.DateTime\" /><Property Name=\"IsValid\" Type=\"Edm.Boo" +
-                "lean\" Nullable=\"false\" /><Property Name=\"IsCompleted\" Type=\"Edm.Boolean\" Nullabl" +
-                "e=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Propert" +
+                "le=\"false\" /><Property Name=\"SerialNumber\" Type=\"Edm.String\" /><Property Name=\"I" +
+                "nvoiceNumber\" Type=\"Edm.String\" /><Property Name=\"InvoideCode\" Type=\"Edm.String\"" +
+                " /><Property Name=\"InvoiceDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property" +
+                " Name=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"InvoiceValue\" Type=\"Edm" +
+                ".Decimal\" Nullable=\"false\" /><Property Name=\"PaidAmount\" Type=\"Edm.Decimal\" Null" +
+                "able=\"false\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name=" +
+                "\"Reviewer\" Type=\"Edm.String\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" N" +
+                "ullable=\"false\" /><Property Name=\"ReviewDate\" Type=\"Edm.DateTime\" /><Property Na" +
+                "me=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"IsCompleted\" " +
+                "Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" N" +
+                "ullable=\"false\" /><Property Name=\"MaintainInvoiceLines\" Type=\"Collection(UniClou" +
+                "d.Application.PaymentBC.DTO.MaintainInvoiceLineDTO)\" Nullable=\"false\" /><Propert" +
                 "y Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Currency" +
                 "Id\" Type=\"Edm.Int32\" Nullable=\"false\" /></EntityType><EntityType Name=\"ContractA" +
                 "ircraftDTO\"><Key><PropertyRef Name=\"ContractAircrafId\" /></Key><Property Name=\"C" +
@@ -2611,7 +2611,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// 创建新的 EngineMaintainInvoiceDTO 对象。
         /// </summary>
         /// <param name="engineMaintainInvoiceId">EngineMaintainInvoiceId 的初始值。</param>
-        /// <param name="maintainInvoiceLines">MaintainInvoiceLines 的初始值。</param>
         /// <param name="invoiceDate">InvoiceDate 的初始值。</param>
         /// <param name="invoiceValue">InvoiceValue 的初始值。</param>
         /// <param name="paidAmount">PaidAmount 的初始值。</param>
@@ -2619,18 +2618,14 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="isValid">IsValid 的初始值。</param>
         /// <param name="isCompleted">IsCompleted 的初始值。</param>
         /// <param name="status">Status 的初始值。</param>
+        /// <param name="maintainInvoiceLines">MaintainInvoiceLines 的初始值。</param>
         /// <param name="supplierId">SupplierId 的初始值。</param>
         /// <param name="currencyId">CurrencyId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static EngineMaintainInvoiceDTO CreateEngineMaintainInvoiceDTO(int engineMaintainInvoiceId, global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> maintainInvoiceLines, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int supplierId, int currencyId)
+        public static EngineMaintainInvoiceDTO CreateEngineMaintainInvoiceDTO(int engineMaintainInvoiceId, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> maintainInvoiceLines, int supplierId, int currencyId)
         {
             EngineMaintainInvoiceDTO engineMaintainInvoiceDTO = new EngineMaintainInvoiceDTO();
             engineMaintainInvoiceDTO.EngineMaintainInvoiceId = engineMaintainInvoiceId;
-            if ((maintainInvoiceLines == null))
-            {
-                throw new global::System.ArgumentNullException("maintainInvoiceLines");
-            }
-            engineMaintainInvoiceDTO.MaintainInvoiceLines = maintainInvoiceLines;
             engineMaintainInvoiceDTO.InvoiceDate = invoiceDate;
             engineMaintainInvoiceDTO.InvoiceValue = invoiceValue;
             engineMaintainInvoiceDTO.PaidAmount = paidAmount;
@@ -2638,6 +2633,11 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             engineMaintainInvoiceDTO.IsValid = isValid;
             engineMaintainInvoiceDTO.IsCompleted = isCompleted;
             engineMaintainInvoiceDTO.Status = status;
+            if ((maintainInvoiceLines == null))
+            {
+                throw new global::System.ArgumentNullException("maintainInvoiceLines");
+            }
+            engineMaintainInvoiceDTO.MaintainInvoiceLines = maintainInvoiceLines;
             engineMaintainInvoiceDTO.SupplierId = supplierId;
             engineMaintainInvoiceDTO.CurrencyId = currencyId;
             return engineMaintainInvoiceDTO;
@@ -2664,28 +2664,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private int _EngineMaintainInvoiceId;
         partial void OnEngineMaintainInvoiceIdChanging(int value);
         partial void OnEngineMaintainInvoiceIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 MaintainInvoiceLines 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> MaintainInvoiceLines
-        {
-            get
-            {
-                return this._MaintainInvoiceLines;
-            }
-            set
-            {
-                this.OnMaintainInvoiceLinesChanging(value);
-                this._MaintainInvoiceLines = value;
-                this.OnMaintainInvoiceLinesChanged();
-                this.OnPropertyChanged("MaintainInvoiceLines");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> _MaintainInvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO>();
-        partial void OnMaintainInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> value);
-        partial void OnMaintainInvoiceLinesChanged();
         /// <summary>
         /// 架构中不存在属性 SerialNumber 的注释。
         /// </summary>
@@ -2994,6 +2972,28 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private int _Status;
         partial void OnStatusChanging(int value);
         partial void OnStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 MaintainInvoiceLines 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> MaintainInvoiceLines
+        {
+            get
+            {
+                return this._MaintainInvoiceLines;
+            }
+            set
+            {
+                this.OnMaintainInvoiceLinesChanging(value);
+                this._MaintainInvoiceLines = value;
+                this.OnMaintainInvoiceLinesChanged();
+                this.OnPropertyChanged("MaintainInvoiceLines");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> _MaintainInvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO>();
+        partial void OnMaintainInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> value);
+        partial void OnMaintainInvoiceLinesChanged();
         /// <summary>
         /// 架构中不存在属性 SupplierId 的注释。
         /// </summary>
@@ -3063,7 +3063,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// 创建新的 APUMaintainInvoiceDTO 对象。
         /// </summary>
         /// <param name="aPUMaintainInvoiceId">APUMaintainInvoiceId 的初始值。</param>
-        /// <param name="maintainInvoiceLines">MaintainInvoiceLines 的初始值。</param>
         /// <param name="invoiceDate">InvoiceDate 的初始值。</param>
         /// <param name="invoiceValue">InvoiceValue 的初始值。</param>
         /// <param name="paidAmount">PaidAmount 的初始值。</param>
@@ -3071,18 +3070,14 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="isValid">IsValid 的初始值。</param>
         /// <param name="isCompleted">IsCompleted 的初始值。</param>
         /// <param name="status">Status 的初始值。</param>
+        /// <param name="maintainInvoiceLines">MaintainInvoiceLines 的初始值。</param>
         /// <param name="supplierId">SupplierId 的初始值。</param>
         /// <param name="currencyId">CurrencyId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static APUMaintainInvoiceDTO CreateAPUMaintainInvoiceDTO(int aPUMaintainInvoiceId, global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> maintainInvoiceLines, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int supplierId, int currencyId)
+        public static APUMaintainInvoiceDTO CreateAPUMaintainInvoiceDTO(int aPUMaintainInvoiceId, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> maintainInvoiceLines, int supplierId, int currencyId)
         {
             APUMaintainInvoiceDTO aPUMaintainInvoiceDTO = new APUMaintainInvoiceDTO();
             aPUMaintainInvoiceDTO.APUMaintainInvoiceId = aPUMaintainInvoiceId;
-            if ((maintainInvoiceLines == null))
-            {
-                throw new global::System.ArgumentNullException("maintainInvoiceLines");
-            }
-            aPUMaintainInvoiceDTO.MaintainInvoiceLines = maintainInvoiceLines;
             aPUMaintainInvoiceDTO.InvoiceDate = invoiceDate;
             aPUMaintainInvoiceDTO.InvoiceValue = invoiceValue;
             aPUMaintainInvoiceDTO.PaidAmount = paidAmount;
@@ -3090,6 +3085,11 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             aPUMaintainInvoiceDTO.IsValid = isValid;
             aPUMaintainInvoiceDTO.IsCompleted = isCompleted;
             aPUMaintainInvoiceDTO.Status = status;
+            if ((maintainInvoiceLines == null))
+            {
+                throw new global::System.ArgumentNullException("maintainInvoiceLines");
+            }
+            aPUMaintainInvoiceDTO.MaintainInvoiceLines = maintainInvoiceLines;
             aPUMaintainInvoiceDTO.SupplierId = supplierId;
             aPUMaintainInvoiceDTO.CurrencyId = currencyId;
             return aPUMaintainInvoiceDTO;
@@ -3116,28 +3116,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private int _APUMaintainInvoiceId;
         partial void OnAPUMaintainInvoiceIdChanging(int value);
         partial void OnAPUMaintainInvoiceIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 MaintainInvoiceLines 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> MaintainInvoiceLines
-        {
-            get
-            {
-                return this._MaintainInvoiceLines;
-            }
-            set
-            {
-                this.OnMaintainInvoiceLinesChanging(value);
-                this._MaintainInvoiceLines = value;
-                this.OnMaintainInvoiceLinesChanged();
-                this.OnPropertyChanged("MaintainInvoiceLines");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> _MaintainInvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO>();
-        partial void OnMaintainInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> value);
-        partial void OnMaintainInvoiceLinesChanged();
         /// <summary>
         /// 架构中不存在属性 SerialNumber 的注释。
         /// </summary>
@@ -3446,6 +3424,28 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private int _Status;
         partial void OnStatusChanging(int value);
         partial void OnStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 MaintainInvoiceLines 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> MaintainInvoiceLines
+        {
+            get
+            {
+                return this._MaintainInvoiceLines;
+            }
+            set
+            {
+                this.OnMaintainInvoiceLinesChanging(value);
+                this._MaintainInvoiceLines = value;
+                this.OnMaintainInvoiceLinesChanged();
+                this.OnPropertyChanged("MaintainInvoiceLines");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> _MaintainInvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO>();
+        partial void OnMaintainInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> value);
+        partial void OnMaintainInvoiceLinesChanged();
         /// <summary>
         /// 架构中不存在属性 SupplierId 的注释。
         /// </summary>
@@ -3515,7 +3515,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// 创建新的 AirframeMaintainInvoiceDTO 对象。
         /// </summary>
         /// <param name="airframeMaintainInvoiceId">AirframeMaintainInvoiceId 的初始值。</param>
-        /// <param name="maintainInvoiceLines">MaintainInvoiceLines 的初始值。</param>
         /// <param name="invoiceDate">InvoiceDate 的初始值。</param>
         /// <param name="invoiceValue">InvoiceValue 的初始值。</param>
         /// <param name="paidAmount">PaidAmount 的初始值。</param>
@@ -3523,18 +3522,14 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="isValid">IsValid 的初始值。</param>
         /// <param name="isCompleted">IsCompleted 的初始值。</param>
         /// <param name="status">Status 的初始值。</param>
+        /// <param name="maintainInvoiceLines">MaintainInvoiceLines 的初始值。</param>
         /// <param name="supplierId">SupplierId 的初始值。</param>
         /// <param name="currencyId">CurrencyId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static AirframeMaintainInvoiceDTO CreateAirframeMaintainInvoiceDTO(int airframeMaintainInvoiceId, global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> maintainInvoiceLines, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int supplierId, int currencyId)
+        public static AirframeMaintainInvoiceDTO CreateAirframeMaintainInvoiceDTO(int airframeMaintainInvoiceId, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> maintainInvoiceLines, int supplierId, int currencyId)
         {
             AirframeMaintainInvoiceDTO airframeMaintainInvoiceDTO = new AirframeMaintainInvoiceDTO();
             airframeMaintainInvoiceDTO.AirframeMaintainInvoiceId = airframeMaintainInvoiceId;
-            if ((maintainInvoiceLines == null))
-            {
-                throw new global::System.ArgumentNullException("maintainInvoiceLines");
-            }
-            airframeMaintainInvoiceDTO.MaintainInvoiceLines = maintainInvoiceLines;
             airframeMaintainInvoiceDTO.InvoiceDate = invoiceDate;
             airframeMaintainInvoiceDTO.InvoiceValue = invoiceValue;
             airframeMaintainInvoiceDTO.PaidAmount = paidAmount;
@@ -3542,6 +3537,11 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             airframeMaintainInvoiceDTO.IsValid = isValid;
             airframeMaintainInvoiceDTO.IsCompleted = isCompleted;
             airframeMaintainInvoiceDTO.Status = status;
+            if ((maintainInvoiceLines == null))
+            {
+                throw new global::System.ArgumentNullException("maintainInvoiceLines");
+            }
+            airframeMaintainInvoiceDTO.MaintainInvoiceLines = maintainInvoiceLines;
             airframeMaintainInvoiceDTO.SupplierId = supplierId;
             airframeMaintainInvoiceDTO.CurrencyId = currencyId;
             return airframeMaintainInvoiceDTO;
@@ -3568,28 +3568,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private int _AirframeMaintainInvoiceId;
         partial void OnAirframeMaintainInvoiceIdChanging(int value);
         partial void OnAirframeMaintainInvoiceIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 MaintainInvoiceLines 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> MaintainInvoiceLines
-        {
-            get
-            {
-                return this._MaintainInvoiceLines;
-            }
-            set
-            {
-                this.OnMaintainInvoiceLinesChanging(value);
-                this._MaintainInvoiceLines = value;
-                this.OnMaintainInvoiceLinesChanged();
-                this.OnPropertyChanged("MaintainInvoiceLines");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> _MaintainInvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO>();
-        partial void OnMaintainInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> value);
-        partial void OnMaintainInvoiceLinesChanged();
         /// <summary>
         /// 架构中不存在属性 SerialNumber 的注释。
         /// </summary>
@@ -3898,6 +3876,28 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private int _Status;
         partial void OnStatusChanging(int value);
         partial void OnStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 MaintainInvoiceLines 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> MaintainInvoiceLines
+        {
+            get
+            {
+                return this._MaintainInvoiceLines;
+            }
+            set
+            {
+                this.OnMaintainInvoiceLinesChanging(value);
+                this._MaintainInvoiceLines = value;
+                this.OnMaintainInvoiceLinesChanged();
+                this.OnPropertyChanged("MaintainInvoiceLines");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> _MaintainInvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO>();
+        partial void OnMaintainInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> value);
+        partial void OnMaintainInvoiceLinesChanged();
         /// <summary>
         /// 架构中不存在属性 SupplierId 的注释。
         /// </summary>
@@ -3967,7 +3967,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// 创建新的 UndercartMaintainInvoiceDTO 对象。
         /// </summary>
         /// <param name="undercartMaintainInvoiceId">UndercartMaintainInvoiceId 的初始值。</param>
-        /// <param name="maintainInvoiceLines">MaintainInvoiceLines 的初始值。</param>
         /// <param name="invoiceDate">InvoiceDate 的初始值。</param>
         /// <param name="invoiceValue">InvoiceValue 的初始值。</param>
         /// <param name="paidAmount">PaidAmount 的初始值。</param>
@@ -3975,18 +3974,14 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="isValid">IsValid 的初始值。</param>
         /// <param name="isCompleted">IsCompleted 的初始值。</param>
         /// <param name="status">Status 的初始值。</param>
+        /// <param name="maintainInvoiceLines">MaintainInvoiceLines 的初始值。</param>
         /// <param name="supplierId">SupplierId 的初始值。</param>
         /// <param name="currencyId">CurrencyId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static UndercartMaintainInvoiceDTO CreateUndercartMaintainInvoiceDTO(int undercartMaintainInvoiceId, global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> maintainInvoiceLines, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, int supplierId, int currencyId)
+        public static UndercartMaintainInvoiceDTO CreateUndercartMaintainInvoiceDTO(int undercartMaintainInvoiceId, global::System.DateTime invoiceDate, decimal invoiceValue, decimal paidAmount, global::System.DateTime createDate, bool isValid, bool isCompleted, int status, global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> maintainInvoiceLines, int supplierId, int currencyId)
         {
             UndercartMaintainInvoiceDTO undercartMaintainInvoiceDTO = new UndercartMaintainInvoiceDTO();
             undercartMaintainInvoiceDTO.UndercartMaintainInvoiceId = undercartMaintainInvoiceId;
-            if ((maintainInvoiceLines == null))
-            {
-                throw new global::System.ArgumentNullException("maintainInvoiceLines");
-            }
-            undercartMaintainInvoiceDTO.MaintainInvoiceLines = maintainInvoiceLines;
             undercartMaintainInvoiceDTO.InvoiceDate = invoiceDate;
             undercartMaintainInvoiceDTO.InvoiceValue = invoiceValue;
             undercartMaintainInvoiceDTO.PaidAmount = paidAmount;
@@ -3994,6 +3989,11 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             undercartMaintainInvoiceDTO.IsValid = isValid;
             undercartMaintainInvoiceDTO.IsCompleted = isCompleted;
             undercartMaintainInvoiceDTO.Status = status;
+            if ((maintainInvoiceLines == null))
+            {
+                throw new global::System.ArgumentNullException("maintainInvoiceLines");
+            }
+            undercartMaintainInvoiceDTO.MaintainInvoiceLines = maintainInvoiceLines;
             undercartMaintainInvoiceDTO.SupplierId = supplierId;
             undercartMaintainInvoiceDTO.CurrencyId = currencyId;
             return undercartMaintainInvoiceDTO;
@@ -4020,28 +4020,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private int _UndercartMaintainInvoiceId;
         partial void OnUndercartMaintainInvoiceIdChanging(int value);
         partial void OnUndercartMaintainInvoiceIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 MaintainInvoiceLines 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> MaintainInvoiceLines
-        {
-            get
-            {
-                return this._MaintainInvoiceLines;
-            }
-            set
-            {
-                this.OnMaintainInvoiceLinesChanging(value);
-                this._MaintainInvoiceLines = value;
-                this.OnMaintainInvoiceLinesChanged();
-                this.OnPropertyChanged("MaintainInvoiceLines");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> _MaintainInvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO>();
-        partial void OnMaintainInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> value);
-        partial void OnMaintainInvoiceLinesChanged();
         /// <summary>
         /// 架构中不存在属性 SerialNumber 的注释。
         /// </summary>
@@ -4350,6 +4328,28 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private int _Status;
         partial void OnStatusChanging(int value);
         partial void OnStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 MaintainInvoiceLines 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> MaintainInvoiceLines
+        {
+            get
+            {
+                return this._MaintainInvoiceLines;
+            }
+            set
+            {
+                this.OnMaintainInvoiceLinesChanging(value);
+                this._MaintainInvoiceLines = value;
+                this.OnMaintainInvoiceLinesChanged();
+                this.OnPropertyChanged("MaintainInvoiceLines");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> _MaintainInvoiceLines = new global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO>();
+        partial void OnMaintainInvoiceLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<MaintainInvoiceLineDTO> value);
+        partial void OnMaintainInvoiceLinesChanged();
         /// <summary>
         /// 架构中不存在属性 SupplierId 的注释。
         /// </summary>

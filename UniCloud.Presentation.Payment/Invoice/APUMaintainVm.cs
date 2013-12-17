@@ -139,6 +139,23 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
         }
 
+        private MaintainInvoiceLineDTO _apuMaintainInvoiceLine;
+        /// <summary>
+        /// 选中的APU维修发票
+        /// </summary>
+        public MaintainInvoiceLineDTO ApuMaintainInvoiceLine
+        {
+            get { return _apuMaintainInvoiceLine; }
+            set
+            {
+                if (_apuMaintainInvoiceLine != value)
+                {
+                    _apuMaintainInvoiceLine = value;
+                    RaisePropertyChanged(() => ApuMaintainInvoiceLine);
+                }
+            }
+        }
+
         private bool _canSelectApuMaintain = true;
         //用户能否选择
         public bool CanSelectApuMaintain
@@ -266,6 +283,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnRemoveMaintainInvoiceLine(object obj)
         {
+            ApuMaintainInvoice.MaintainInvoiceLines.Remove(ApuMaintainInvoiceLine);
         }
 
         private bool CanRemoveMaintainInvoiceLine(object obj)
