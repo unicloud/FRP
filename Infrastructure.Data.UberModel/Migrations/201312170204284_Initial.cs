@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class database : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -273,6 +273,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         IsValid = c.Boolean(nullable: false),
                         ReceivedAmount = c.Int(nullable: false),
                         AcceptedAmount = c.Int(nullable: false),
+                        Status = c.Int(nullable: false),
                         AircraftTypeId = c.Guid(nullable: false),
                         PlanAircraftID = c.Guid(),
                         ImportCategoryId = c.Guid(nullable: false),
@@ -307,6 +308,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         IsValid = c.Boolean(nullable: false),
                         ReceivedAmount = c.Int(nullable: false),
                         AcceptedAmount = c.Int(nullable: false),
+                        Status = c.Int(nullable: false),
                         PartID = c.Int(nullable: false),
                         ImportCategoryId = c.Guid(nullable: false),
                         SupplierId = c.Int(),

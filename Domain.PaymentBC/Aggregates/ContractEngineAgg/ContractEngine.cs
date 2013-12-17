@@ -19,6 +19,7 @@
 
 using System;
 using UniCloud.Domain.PaymentBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 
@@ -77,6 +78,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.ContractEngineAgg
         ///     接受数量
         /// </summary>
         public int AcceptedAmount { get; protected set; }
+
+        /// <summary>
+        ///     管理状态
+        /// </summary>
+        public ContractEngineStatus Status { get; protected set; }
 
         #endregion
 

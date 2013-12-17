@@ -102,6 +102,7 @@
       <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Interactivity, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.4.1.0.0\lib\SL5\System.Windows.Interactivity.dll</HintPath>
@@ -175,6 +176,9 @@
       <DependentUpon>LeaseInvoiceManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\LeaseInvoiceManagerVM.cs" />
+    <Compile Include="Invoice\LeaseOrderChildView.xaml.cs">
+      <DependentUpon>LeaseOrderChildView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Invoice\PrePayInvoiceManager.xaml.cs">
       <DependentUpon>PrePayInvoiceManager.xaml</DependentUpon>
     </Compile>
@@ -183,11 +187,22 @@
       <DependentUpon>PurchaseInvoiceManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\PurchaseInvoiceManagerVM.cs" />
+    <Compile Include="Invoice\PurchaseOrderChildView.xaml.cs">
+      <DependentUpon>PurchaseOrderChildView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Invoice\UndercartMaintain.xaml.cs">
       <DependentUpon>UndercartMaintain.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\UndercartMaintainVm.cs" />
     <Compile Include="PaymentModule.cs" />
+    <Compile Include="PaymentSchedules\AcPaymentSchedule.xaml.cs">
+      <DependentUpon>AcPaymentSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentSchedules\AcPaymentScheduleVM.cs" />
+    <Compile Include="PaymentSchedules\EnginePaymentSchedule.xaml.cs">
+      <DependentUpon>EnginePaymentSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentSchedules\EnginePaymentScheduleVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryAnalyse\AnalyseMaintenanceCosts.xaml.cs">
       <DependentUpon>AnalyseMaintenanceCosts.xaml</DependentUpon>
@@ -239,6 +254,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Invoice\LeaseOrderChildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Invoice\PrePayInvoiceManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -247,7 +266,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Invoice\PurchaseOrderChildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Invoice\UndercartMaintain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PaymentSchedules\AcPaymentSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PaymentSchedules\EnginePaymentSchedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

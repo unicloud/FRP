@@ -15,6 +15,8 @@
 
 #endregion
 
+using System;
+
 namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
 {
     /// <summary>
@@ -22,5 +24,45 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
     /// </summary>
     public static class PaymentScheduleFactory
     {
+        /// <summary>
+        ///  创建飞机付款计划
+        /// </summary>
+        /// <param name="supplierName"></param>
+        /// <param name="supplierId"></param>
+        /// <param name="currencyId"></param>
+        /// <param name="contractAcId"></param>
+        /// <returns></returns>
+        public static PaymentSchedule CreateAcPaymentSchedule(string supplierName,int supplierId,int currencyId,int contractAcId)
+        {
+            var acPaymentSchedule=new AircraftPaymentSchedule
+               {
+                 CreateDate   = DateTime.Now
+               };
+            acPaymentSchedule.SetSupplier(supplierId,supplierName);
+            acPaymentSchedule.SetCurrency(currencyId);
+            acPaymentSchedule.SetContractAircraft(contractAcId);
+            return acPaymentSchedule;
+        }
+
+        /// <summary>
+        /// 创建发动机付款计划
+        /// </summary>
+        /// <param name="supplierName"></param>
+        /// <param name="supplierId"></param>
+        /// <param name="currencyId"></param>
+        /// <param name="contractEngineId"></param>
+        /// <returns></returns>
+        public static PaymentSchedule CreateEnginePaymentSchedule(string supplierName, int supplierId, int currencyId,
+                                                              int contractEngineId)
+        {
+            var enginePaymentSchedule = new EnginePaymentSchedule
+            {
+                CreateDate = DateTime.Now
+            };
+            enginePaymentSchedule.SetSupplier(supplierId, supplierName);
+            enginePaymentSchedule.SetCurrency(currencyId);
+            enginePaymentSchedule.SetContractEngine(contractEngineId);
+            return enginePaymentSchedule;
+        }
     }
 }

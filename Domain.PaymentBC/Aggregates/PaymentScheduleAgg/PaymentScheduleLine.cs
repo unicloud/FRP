@@ -124,6 +124,31 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
             InvoiceId = id;
         }
 
+        /// <summary>
+        /// 设置付款时间
+        /// </summary>
+        /// <param name="scheduleDate"></param>
+        public void SetScheduleDate(DateTime scheduleDate)
+        {
+            ScheduleDate = scheduleDate;
+        }
+
+        /// <summary>
+        /// 设置价格
+        /// </summary>
+        /// <param name="amount"></param>
+        public void SetAmount(decimal amount)
+        {
+            Amount = amount;
+        }
+        /// <summary>
+        /// 设置备注
+        /// </summary>
+        /// <param name="note"></param>
+        public void SetNote(string note)
+        {
+            Note = note;
+        }
         #endregion
 
         #region IValidatableObject 成员

@@ -90,5 +90,25 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     飞机物料ID
         /// </summary>
         public int AircraftMaterialId { get; set; }
+
+        /// <summary>
+        ///     合同Rank号
+        /// </summary>
+        public string RankNumber { get; set; }
+
+        /// <summary>
+        ///     飞机批次号
+        /// </summary>
+        public string CSCNumber { get; set; }
+
+        /// <summary>
+        ///     飞机序列号
+        /// </summary>
+        public string SerialNumber { get; set; }
+
+        /// <summary>
+        ///     管理状态
+        /// </summary>
+        public int Status { get; set; }
     }
 }

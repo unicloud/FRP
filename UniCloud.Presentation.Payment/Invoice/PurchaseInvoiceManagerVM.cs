@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
@@ -69,6 +70,8 @@ namespace UniCloud.Presentation.Payment.Invoice
             DeleteCommand = new DelegateCommand<object>(OnDelete, CanDelete);
             AddCommand = new DelegateCommand<object>(OnAdd, CanAdd);
             RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
+            CommitCommand = new DelegateCommand<object>(OnCommitExecute, CanCommitExecute);
+            CancelCommand = new DelegateCommand<object>(OnCancelExecute, CanCancelExecute);
         }
 
         /// <summary>
@@ -100,6 +103,10 @@ namespace UniCloud.Presentation.Payment.Invoice
         public override void LoadData()
         {
             PurchaseInvoices.AutoLoad = true;
+            Currencys.AutoLoad = true;
+            AircraftPurchaseOrders.AutoLoad = true;
+            EnginePurchaseOrders.AutoLoad = true;
+            BFEPurchaseOrders.AutoLoad = true;
         }
 
         #region 业务
@@ -182,6 +189,123 @@ namespace UniCloud.Presentation.Payment.Invoice
         }
 
         #endregion
+
+        #region 币种集合
+        /// <summary>
+        ///     币种集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<CurrencyDTO> Currencys { get; set; }
+
+        #endregion
+
+        #region 订单集合
+
+        /// <summary>
+        ///     飞机采购订单集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftPurchaseOrderDTO> AircraftPurchaseOrders { get; set; }
+
+        /// <summary>
+        ///     飞机租赁订单集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftLeaseOrderDTO> AircraftLeaseOrders { get; set; }
+
+        /// <summary>
+        ///     发动机采购订单集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<EnginePurchaseOrderDTO> EnginePurchaseOrders { get; set; }
+
+        /// <summary>
+        ///     发动机租赁订单集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<EngineLeaseOrderDTO> EngineLeaseOrders { get; set; }
+
+        /// <summary>
+        ///     BFE订单集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<BFEPurchaseOrderDTO> BFEPurchaseOrders { get; set; }
+
+        #endregion
+
+        #region 选择的订单
+
+        private AircraftPurchaseOrderDTO _selAircraftPurchaseOrder;
+
+        /// <summary>
+        ///     选择的订单
+        /// </summary>
+        public AircraftPurchaseOrderDTO SelAircraftPurchaseOrder
+        {
+            get { return _selAircraftPurchaseOrder; }
+            set
+            {
+                if (_selAircraftPurchaseOrder != value)
+                {
+                    _selAircraftPurchaseOrder = value;
+                    _aircraftPurchaseOrderLines.Clear();
+                    foreach (var orderLine in value.AircraftPurchaseOrderLines)
+                    {
+                        AircraftPurchaseOrderLines.Add(orderLine);
+                    }
+                    RaisePropertyChanged(() => SelAircraftPurchaseOrder);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 订单行
+
+        private ObservableCollection<AircraftPurchaseOrderLineDTO> _aircraftPurchaseOrderLines = new ObservableCollection<AircraftPurchaseOrderLineDTO>();
+
+        /// <summary>
+        ///     订单行
+        /// </summary>
+        public ObservableCollection<AircraftPurchaseOrderLineDTO> AircraftPurchaseOrderLines
+        {
+            get { return _aircraftPurchaseOrderLines; }
+            private set
+            {
+                if (_aircraftPurchaseOrderLines != value)
+                {
+                    _aircraftPurchaseOrderLines = value;
+                    RaisePropertyChanged(() => AircraftPurchaseOrderLines);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 选择的订单行
+
+        private AircraftPurchaseOrderLineDTO _selAircraftPurchaseOrderLine;
+
+        /// <summary>
+        ///     选择的订单行
+        /// </summary>
+        public AircraftPurchaseOrderLineDTO SelAircraftPurchaseOrderLine
+        {
+            get { return _selAircraftPurchaseOrderLine; }
+            set
+            {
+                if (_selAircraftPurchaseOrderLine != value)
+                {
+                    _selAircraftPurchaseOrderLine = value;
+                    RaisePropertyChanged(() => SelAircraftPurchaseOrderLine);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 付款计划集合
+        /// <summary>
+        ///     付款计划集合
+        /// </summary>
+        //public QueryableDataServiceCollectionView<schedule> Currencys { get; set; }
+
+        #endregion
+
         #endregion
 
         #endregion
@@ -199,12 +323,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnNew(object obj)
         {
-            var invoice = new PurchaseInvoiceDTO
-            {
-                PurchaseInvoiceId = RandomHelper.Next(),
-                CreateDate = DateTime.Now,
-            };
-            PurchaseInvoices.AddNew(invoice);
+            PurchaseOrderChildView.ShowDialog();
         }
 
         private bool CanNew(object obj)
@@ -289,6 +408,88 @@ namespace UniCloud.Presentation.Payment.Invoice
             return canRemove;
         }
         #endregion
+
+        #endregion
+
+        #region 子窗体相关操作
+        [Import]
+        public PurchaseOrderChildView PurchaseOrderChildView; //初始化子窗体
+
+        #region 命令
+
+        #region 取消命令
+
+        public DelegateCommand<object> CancelCommand { get; private set; }
+
+        /// <summary>
+        ///     执行取消命令。
+        /// </summary>
+        /// <param name="sender"></param>
+        public void OnCancelExecute(object sender)
+        {
+            PurchaseOrderChildView.Close();
+        }
+
+        /// <summary>
+        ///     判断取消命令是否可用。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <returns>取消命令是否可用。</returns>
+        public bool CanCancelExecute(object sender)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 确定命令
+
+        public DelegateCommand<object> CommitCommand { get; private set; }
+
+        /// <summary>
+        ///     执行确定命令。
+        /// </summary>
+        /// <param name="sender"></param>
+        public void OnCommitExecute(object sender)
+        {
+            var invoice = new PurchaseInvoiceDTO
+            {
+                PurchaseInvoiceId = RandomHelper.Next(),
+                CreateDate = DateTime.Now,
+            };
+            string selectedPane = this.PurchaseOrderChildView.PaneGroups.SelectedPane.Title.ToString();
+            if (selectedPane == "飞机采购订单")
+            {
+                var selOrderLine = SelAircraftPurchaseOrderLine;
+                PurchaseInvoices.AddNew(invoice);
+            }
+            else if (selectedPane == "发动采购订单")
+            {
+                PurchaseInvoices.AddNew(invoice);
+            }
+            else if (selectedPane == "BFE采购订单")
+            {
+                PurchaseInvoices.AddNew(invoice);
+            }
+
+
+        }
+
+
+        /// <summary>
+        ///     判断确定命令是否可用。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <returns>确定命令是否可用。</returns>
+        public bool CanCommitExecute(object sender)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #endregion
+
         #endregion
     }
 }

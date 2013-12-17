@@ -32,6 +32,7 @@ using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
+using UniCloud.Presentation.Service.Purchase.Purchase.Enums;
 
 #endregion
 
@@ -79,8 +80,8 @@ namespace UniCloud.Presentation.Purchase.Contract
 
             ViewAircraftPurchaseOrderDTO =
                 Service.CreateCollection<AircraftPurchaseOrderDTO>(_context.AircraftPurchaseOrders);
-            //var fd2 = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, null);
-            //ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(fd2);
+            var fd2 = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, 0);
+            ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(fd2);
             Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
             ViewAircraftPurchaseOrderDTO.PropertyChanged += OnViewPropertyChanged;
         }
@@ -150,14 +151,8 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         public override void LoadData()
         {
-            if (!ViewTradeDTO.Any())
-            {
-                ViewTradeDTO.AutoLoad = true;
-            }
-            if (!ViewAircraftPurchaseOrderDTO.Any())
-            {
-                ViewAircraftPurchaseOrderDTO.AutoLoad = true;
-            }
+            ViewTradeDTO.AutoLoad = true;
+            ViewAircraftPurchaseOrderDTO.AutoLoad = true;
         }
 
         #region 交易
@@ -180,7 +175,22 @@ namespace UniCloud.Presentation.Purchase.Contract
                 if (_selTradeDTO != value)
                 {
                     _selTradeDTO = value;
-                    RaisePropertyChanged(()=>AircraftMaterials);
+                    if (_selTradeDTO != null)
+                    {
+                        if (_selTradeDTO.TradeStatus > TradeStatus.开始)
+                        {
+                            var fd = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, _selTradeDTO.Id);
+                            ViewAircraftPurchaseOrderDTO.FilterDescriptors.Clear();
+                            ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(fd);
+                        }
+                        else
+                        {
+                            var fd = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, 0);
+                            ViewAircraftPurchaseOrderDTO.FilterDescriptors.Clear();
+                            ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(fd);
+                        }
+                        RaisePropertyChanged(() => AircraftMaterials);
+                    }
                     RaisePropertyChanged(() => SelTradeDTO);
                 }
             }
