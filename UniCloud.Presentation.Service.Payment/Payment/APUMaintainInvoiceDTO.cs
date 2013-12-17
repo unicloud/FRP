@@ -31,6 +31,9 @@ namespace UniCloud.Presentation.Service.Payment.Payment
 
     public partial class MaintainInvoiceLineDTO
     {
-        
+        partial void OnMaintainItemChanging(int value)
+        {
+            
+        }
     } 
 }

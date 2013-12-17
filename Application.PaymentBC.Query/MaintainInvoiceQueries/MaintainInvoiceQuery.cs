@@ -63,8 +63,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      MaintainInvoiceLines =
                                          p.MaintainInvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                             {
-                                                                                MaintainInvoiceLineId = 
-                                                                                    q.MaintainInvoiceId,
+                                                                                MaintainInvoiceLineId = q.Id,
                                                                                 MaintainItem = (int) q.MaintainItem,
                                                                                 ItemName = q.ItemName,
                                                                                 UnitPrice = q.UnitPrice,
@@ -107,8 +106,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      MaintainInvoiceLines =
                                          p.MaintainInvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                             {
-                                                                                MaintainInvoiceLineId = 
-                                                                                    q.MaintainInvoiceId,
+                                                                                MaintainInvoiceLineId = q.Id,
                                                                                 MaintainItem = (int) q.MaintainItem,
                                                                                 ItemName = q.ItemName,
                                                                                 UnitPrice = q.UnitPrice,
@@ -150,8 +148,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      MaintainInvoiceLines =
                                          p.MaintainInvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                             {
-                                                                                MaintainInvoiceLineId = 
-                                                                                    q.MaintainInvoiceId,
+                                                                                MaintainInvoiceLineId =  q.Id,
                                                                                 MaintainItem = (int) q.MaintainItem,
                                                                                 ItemName = q.ItemName,
                                                                                 UnitPrice = q.UnitPrice,
@@ -194,8 +191,7 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      MaintainInvoiceLines =
                                          p.MaintainInvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                             {
-                                                                                MaintainInvoiceLineId = 
-                                                                                    q.MaintainInvoiceId,
+                                                                                MaintainInvoiceLineId = q.Id,
                                                                                 MaintainItem = (int) q.MaintainItem,
                                                                                 ItemName = q.ItemName,
                                                                                 UnitPrice = q.UnitPrice,

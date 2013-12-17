@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
@@ -135,6 +136,23 @@ namespace UniCloud.Presentation.Payment.Invoice
                         }
                     }
                     RaisePropertyChanged(() => ApuMaintainInvoice);
+                }
+            }
+        }
+
+        private MaintainInvoiceLineDTO _apuMaintainInvoiceLine;
+        /// <summary>
+        /// 选中的APU维修发票
+        /// </summary>
+        public MaintainInvoiceLineDTO ApuMaintainInvoiceLine
+        {
+            get { return _apuMaintainInvoiceLine; }
+            set
+            {
+                if (_apuMaintainInvoiceLine != value)
+                {
+                    _apuMaintainInvoiceLine = value;
+                    RaisePropertyChanged(() => ApuMaintainInvoiceLine);
                 }
             }
         }
@@ -266,6 +284,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnRemoveMaintainInvoiceLine(object obj)
         {
+            ApuMaintainInvoice.MaintainInvoiceLines.Remove(ApuMaintainInvoiceLine);
         }
 
         private bool CanRemoveMaintainInvoiceLine(object obj)

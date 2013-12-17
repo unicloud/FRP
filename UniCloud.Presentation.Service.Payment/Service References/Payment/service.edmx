@@ -85,7 +85,6 @@
           <PropertyRef Name="EngineMaintainInvoiceId" />
         </Key>
         <Property Name="EngineMaintainInvoiceId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="MaintainInvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.MaintainInvoiceLineDTO)" Nullable="false" />
         <Property Name="SerialNumber" Type="Edm.String" />
         <Property Name="InvoiceNumber" Type="Edm.String" />
         <Property Name="InvoideCode" Type="Edm.String" />
@@ -100,6 +99,7 @@
         <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
         <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainInvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.MaintainInvoiceLineDTO)" Nullable="false" />
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
       </EntityType>
@@ -117,7 +117,6 @@
           <PropertyRef Name="APUMaintainInvoiceId" />
         </Key>
         <Property Name="APUMaintainInvoiceId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="MaintainInvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.MaintainInvoiceLineDTO)" Nullable="false" />
         <Property Name="SerialNumber" Type="Edm.String" />
         <Property Name="InvoiceNumber" Type="Edm.String" />
         <Property Name="InvoideCode" Type="Edm.String" />
@@ -132,6 +131,7 @@
         <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
         <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainInvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.MaintainInvoiceLineDTO)" Nullable="false" />
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
       </EntityType>
@@ -140,7 +140,6 @@
           <PropertyRef Name="AirframeMaintainInvoiceId" />
         </Key>
         <Property Name="AirframeMaintainInvoiceId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="MaintainInvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.MaintainInvoiceLineDTO)" Nullable="false" />
         <Property Name="SerialNumber" Type="Edm.String" />
         <Property Name="InvoiceNumber" Type="Edm.String" />
         <Property Name="InvoideCode" Type="Edm.String" />
@@ -155,6 +154,7 @@
         <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
         <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainInvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.MaintainInvoiceLineDTO)" Nullable="false" />
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
       </EntityType>
@@ -163,7 +163,6 @@
           <PropertyRef Name="UndercartMaintainInvoiceId" />
         </Key>
         <Property Name="UndercartMaintainInvoiceId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="MaintainInvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.MaintainInvoiceLineDTO)" Nullable="false" />
         <Property Name="SerialNumber" Type="Edm.String" />
         <Property Name="InvoiceNumber" Type="Edm.String" />
         <Property Name="InvoideCode" Type="Edm.String" />
@@ -178,6 +177,7 @@
         <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
         <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainInvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.MaintainInvoiceLineDTO)" Nullable="false" />
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
       </EntityType>

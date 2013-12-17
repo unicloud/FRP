@@ -23,5 +23,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
     /// </summary>
     public interface IMaintainInvoiceRepository : IRepository<MaintainInvoice>
     {
+        void RemoveMaintainInvoiceLine(MaintainInvoiceLine maintainInvoiceLine);
     }
 }
