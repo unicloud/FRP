@@ -54,7 +54,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             InitialDocumentPath(); //初始化文档路径
             InitialCommad(); //初始化命令
             InitialAddFolder();
-            InitialOrderDocument();
+            //InitialOrderDocument();
         }
 
         #region 加载DocumentPathDTO相关信息
@@ -555,18 +555,18 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// <summary>
         ///     选中订单文档
         /// </summary>
-        public OrderDocumentDTO SelOrderDocument
-        {
-            get { return _selOrderDocument; }
-            set
-            {
-                if (_selOrderDocument != value)
-                {
-                    _selOrderDocument = value;
-                    RaisePropertyChanged(() => SelOrderDocument);
-                }
-            }
-        }
+        //public OrderDocumentDTO SelOrderDocument
+        //{
+        //    get { return _selOrderDocument; }
+        //    set
+        //    {
+        //        if (_selOrderDocument != value)
+        //        {
+        //            _selOrderDocument = value;
+        //            RaisePropertyChanged(() => SelOrderDocument);
+        //        }
+        //    }
+        //}
 
         private bool _documentChildIsBusy;
         /// <summary>
@@ -724,35 +724,35 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #endregion
 
-        #region 加载OrderDocumentDTO相关信息
+        //#region 加载OrderDocumentDTO相关信息
 
-        /// <summary>
-        ///     订单文档View
-        /// </summary>
-        public QueryableDataServiceCollectionView<OrderDocumentDTO> OrderDocumentView { get; set; }
+        ///// <summary>
+        /////     订单文档View
+        ///// </summary>
+        //public QueryableDataServiceCollectionView<OrderDocumentDTO> OrderDocumentView { get; set; }
 
-        /// <summary>
-        ///     初始化订单文档
-        /// </summary>
-        private void InitialOrderDocument()
-        {
-            OrderDocumentView = Service.CreateCollection(_context.OrderDocuments);
-            OrderDocumentView.PageSize = 20;
-            OrderDocumentView.LoadedData += (sender, e) =>
-                {
-                    if (e.HasError)
-                    {
-                        e.MarkErrorAsHandled();
-                        return;
-                    }
-                    if (e.Entities.Cast<OrderDocumentDTO>().FirstOrDefault() != null)
-                    {
-                        SelOrderDocument = (e.Entities.Cast<OrderDocumentDTO>().FirstOrDefault());
-                    }
-                };
-        }
+        ///// <summary>
+        /////     初始化订单文档
+        ///// </summary>
+        //private void InitialOrderDocument()
+        //{
+        //    OrderDocumentView = Service.CreateCollection(_context.OrderDocuments);
+        //    OrderDocumentView.PageSize = 20;
+        //    OrderDocumentView.LoadedData += (sender, e) =>
+        //        {
+        //            if (e.HasError)
+        //            {
+        //                e.MarkErrorAsHandled();
+        //                return;
+        //            }
+        //            if (e.Entities.Cast<OrderDocumentDTO>().FirstOrDefault() != null)
+        //            {
+        //                SelOrderDocument = (e.Entities.Cast<OrderDocumentDTO>().FirstOrDefault());
+        //            }
+        //        };
+        //}
 
-        #endregion
+        //#endregion
 
         /// <summary>
         ///     初始化文件夹信息

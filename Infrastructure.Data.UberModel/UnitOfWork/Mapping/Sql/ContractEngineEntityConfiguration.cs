@@ -44,6 +44,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.IsValid).HasColumnName("IsValid");
             Property(p => p.ReceivedAmount).HasColumnName("ReceivedAmount");
             Property(p => p.AcceptedAmount).HasColumnName("AcceptedAmount");
+            Property(p => p.Status).HasColumnName("Status");
 
             Property(p => p.PartId).HasColumnName("PartID");
             Property(p => p.ImportCategoryId).HasColumnName("ImportCategoryId");

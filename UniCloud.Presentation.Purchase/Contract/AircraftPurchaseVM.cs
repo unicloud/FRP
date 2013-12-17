@@ -180,7 +180,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 if (_selTradeDTO != value)
                 {
                     _selTradeDTO = value;
-                    RaisePropertyChanged(()=>AircraftMaterials);
+                    RaisePropertyChanged(() => AircraftMaterials);
                     RaisePropertyChanged(() => SelTradeDTO);
                 }
             }

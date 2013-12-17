@@ -291,7 +291,8 @@
                                         <telerik:GridViewDataColumn Header="预计交付日期" TextAlignment="Center"
                                                                     DataMemberBinding="{Binding EstimateDeliveryDate}"
                                                                     DataFormatString="{StaticResource DateStringFormat}" />
-                                        <telerik:GridViewDataColumn Header="备注" DataMemberBinding="{Binding Note}" Width="*"/>
+                                        <telerik:GridViewDataColumn Header="备注" DataMemberBinding="{Binding Note}"
+                                                                    Width="*" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
                             </Grid>
