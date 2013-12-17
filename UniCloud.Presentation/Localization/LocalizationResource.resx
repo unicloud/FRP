@@ -492,4 +492,10 @@
   <data name="WeekendDays" xml:space="preserve">
     <value>周末</value>
   </data>
+  <data name="Maximize" xml:space="preserve">
+    <value>最大化</value>
+  </data>
+  <data name="Minimize" xml:space="preserve">
+    <value>最小化</value>
+  </data>
 </root>

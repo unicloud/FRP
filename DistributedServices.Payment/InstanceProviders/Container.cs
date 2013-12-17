@@ -10,18 +10,20 @@ using UniCloud.Application.PaymentBC.CurrencyServices;
 using UniCloud.Application.PaymentBC.InvoiceServices;
 using UniCloud.Application.PaymentBC.MaintainInvoiceServices;
 using UniCloud.Application.PaymentBC.PaymentScheduleServices;
+using UniCloud.Application.PaymentBC.OrderServices;
+using UniCloud.Application.PaymentBC.SupplierServices;
 using UniCloud.Application.PaymentBC.Query.ContractAircraftQueries;
 using UniCloud.Application.PaymentBC.Query.ContractEngineQueries;
 using UniCloud.Application.PaymentBC.Query.CurrencyQueries;
 using UniCloud.Application.PaymentBC.Query.InvoiceQueries;
 using UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries;
 using UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries;
+using UniCloud.Application.PaymentBC.Query.OrderQueries;
 using UniCloud.Application.PaymentBC.Query.SupplierQueries;
-using UniCloud.Application.PaymentBC.SupplierServices;
-using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
-using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
 using UniCloud.Infrastructure.Data;
@@ -85,6 +87,7 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
                          .Register<ICurrencyAppService, CurrencyAppService>()
                          .Register<ICurrencyRepository, CurrencyRepository>()
                 #endregion
+
                 #region 供应商相关配置，包括查询，应用服务，仓储注册
 
                          .Register<ISupplierRepository, SupplierRepository>()
@@ -93,9 +96,10 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
                 #endregion
 
                 #region 交易相关配置，包括查询，应用服务，仓储注册
-
-                         .Register<IOrderRepository, OrderRepository>()
+                         .Register<IOrderQuery, OrderQuery>()
+                         .Register<IOrderAppService, OrderAppService>()                         .Register<IOrderRepository, OrderRepository>()
                 #endregion
+
                 #region   付款计划相关配置，包括查询，应用服务，仓储注册
 
                          .Register<IPaymentScheduleQuery, PaymentScheduleQuery>()

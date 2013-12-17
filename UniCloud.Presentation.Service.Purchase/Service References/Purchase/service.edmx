@@ -586,6 +586,7 @@
         <Property Name="RankNumber" Type="Edm.String" />
         <Property Name="CSCNumber" Type="Edm.String" />
         <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="EngineLeaseOrderDTO">
         <Key>
