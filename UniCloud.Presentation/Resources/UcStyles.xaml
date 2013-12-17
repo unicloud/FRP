@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=mscorlib"
-                    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation">
+                    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+                    xmlns:valueConverts="http://schemas.unicloud.com/2012/xaml/presentation">
 
     <!-- 日期格式 -->
     <system:String x:Key="DateStringFormat">{0:yyyy/MM/dd}</system:String>
@@ -57,5 +58,5 @@
     </Style>
     
     <!--GridView相关样式-->
-
+    <valueConverts:EnumToStringConverter x:Key="EnumToStringConverter" />
 </ResourceDictionary>
