@@ -55,16 +55,29 @@
                                 </telerik:RadButton>
                                 <telerik:RadToolBarSeparator />
                                 <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding AddMaintainInvoiceCommand}">
+                                                   Command="{Binding AddInvoiceCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/New.png"
                                            Stretch="Fill"
                                            ToolTipService.ToolTip="创建新维修发票" />
                                 </telerik:RadButton>
                                 <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding RemoveMaintainInvoiceCommand}">
+                                                   Command="{Binding RemoveInvoiceCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
                                            Stretch="Fill"
                                            ToolTipService.ToolTip="删除维修发票" />
+                                </telerik:RadButton>
+                                <telerik:RadToolBarSeparator />
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding AddInvoiceCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Up.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="提交发票" />
+                                </telerik:RadButton>
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding RemoveInvoiceCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Check.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="审核发票" />
                                 </telerik:RadButton>
                             </telerik:RadToolBar>
                             <Grid Row="1">
@@ -219,13 +232,13 @@
                             <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                 Margin="0 0 0 -1">
                                 <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding AddMaintainInvoiceLineCommand}">
+                                                   Command="{Binding AddInvoiceLineCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/Add.png"
                                            Stretch="Fill"
                                            ToolTipService.ToolTip="增加发票明细" />
                                 </telerik:RadButton>
                                 <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding RemoveMaintainInvoiceLineCommand}">
+                                                   Command="{Binding RemoveInvoiceLineCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
                                            Stretch="Fill"
                                            ToolTipService.ToolTip="移除发票明细" />

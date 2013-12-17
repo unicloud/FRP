@@ -19,9 +19,5 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
 {
     public partial class EngineMaintainContractDTO
     {
-        public List<SupplierDTO> Suppliers
-        {
-            get { return GlobalServiceHelper.GetSupplier(null).Where(p => p.MaintainSupplier).ToList(); }
-        }
     }
 }

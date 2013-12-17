@@ -172,6 +172,7 @@
       <DependentUpon>AirframeMaintain.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\AirframeMaintainVm.cs" />
+    <Compile Include="Invoice\InvoiceVm.cs" />
     <Compile Include="Invoice\LeaseInvoiceManager.xaml.cs">
       <DependentUpon>LeaseInvoiceManager.xaml</DependentUpon>
     </Compile>

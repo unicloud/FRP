@@ -84,6 +84,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                     CanSelectEngineMaintain = !EngineMaintainContracts.HasChanges;
                 }
             };
+
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_purchaseData, _purchaseData.Suppliers);
         }
 
         /// <summary>
@@ -100,7 +102,10 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 数据
 
         #region 公共属性
-       
+        /// <summary>
+        ///     供应商
+        /// </summary>
+        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
         #endregion
 
         #region 加载数据
@@ -142,10 +147,9 @@ namespace UniCloud.Presentation.Purchase.Contract
                     {
                         _document.DocumentId = _engineMaintainContract.DocumentId;
                         _document.Name = _engineMaintainContract.DocumentName;
-                        if (value.Suppliers != null)
+                        if (Suppliers != null)
                         {
-                            _supplier =
-                                value.Suppliers.FirstOrDefault(p => p.SupplierId == _engineMaintainContract.SignatoryId);
+                            _supplier = Suppliers.FirstOrDefault(p => p.SupplierId == _engineMaintainContract.SignatoryId);
                         }
                     }
                     RaisePropertyChanged(() => EngineMaintainContract);
