@@ -9,6 +9,7 @@ using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.InvoiceServices;
 using UniCloud.Application.PaymentBC.MaintainInvoiceServices;
 using UniCloud.Application.PaymentBC.PaymentScheduleServices;
+using UniCloud.Application.PaymentBC.SupplierServices;
 using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
@@ -31,7 +32,7 @@ namespace UniCloud.DistributedServices.Payment
         private readonly IContractEngineAppService _contractEngineAppService;
         private readonly ICurrencyAppService _currencyAppService;
         private readonly IPaymentScheduleAppService _paymentScheduleAppService;
-
+        private readonly ISupplierAppService _supplierAppService;
         public PaymentData()
             : base("UniCloud.Application.PaymentBC.DTO")
         {
@@ -44,6 +45,7 @@ namespace UniCloud.DistributedServices.Payment
             _contractEngineAppService = DefaultContainer.Resolve<IContractEngineAppService>();
             _currencyAppService = DefaultContainer.Resolve<ICurrencyAppService>();
             _paymentScheduleAppService = DefaultContainer.Resolve<IPaymentScheduleAppService>();
+            _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();
         }
 
         #region Invoice集合
@@ -175,6 +177,16 @@ namespace UniCloud.DistributedServices.Payment
             get { return _paymentScheduleAppService.GetEnginePaymentSchedules(); }
         }
 
+        #endregion
+
+        #region 供应商
+        /// <summary>
+        ///  供应商集合
+        /// </summary>
+        public IQueryable<SupplierDTO> Suppliers
+        {
+            get { return _supplierAppService.GetSuppliers(); }
+        }
         #endregion
     }
 }
