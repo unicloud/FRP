@@ -15,11 +15,11 @@
 
 #endregion
 
-
 #region 命名空间
 
 using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.PurchaseBC;
 using UniCloud.Application.PurchaseBC.ActionCategoryServices;
 using UniCloud.Application.PurchaseBC.AircraftTypeServices;
 using UniCloud.Application.PurchaseBC.ContractAircraftServices;
@@ -65,6 +65,7 @@ namespace UniCloud.DistributedServices.Purchase
         private readonly IAircraftPurchaseReceptionAppService _aircraftPurchaseReceptionAppService;
         private readonly IAircraftTypeAppService _aircraftTypeAppService;
         private readonly IContractAircraftAppService _contractAircraftAppService;
+        private readonly IContractDocumentAppService _contractDocumentAppService;
         private readonly IContractEngineAppService _contractEngineAppService;
         private readonly ICurrencyAppService _currencyAppService;
         private readonly IDocumentPathAppService _documentPathAppService;
@@ -82,7 +83,7 @@ namespace UniCloud.DistributedServices.Purchase
         private readonly IRelatedDocAppService _relatedDocAppService;
         private readonly ISupplierAppService _supplierAppService;
         private readonly ITradeAppService _tradeAppService;
-        private readonly IContractDocumentAppService _contractDocumentAppService;
+
         public PurchaseData()
             : base("UniCloud.Application.PurchaseBC.DTO")
         {
@@ -132,7 +133,7 @@ namespace UniCloud.DistributedServices.Purchase
                 if (_suppliers == null)
                     _suppliers = _supplierAppService.GetSuppliers().ToList();
                 return _suppliers.AsQueryable<SupplierDTO>();
-        }
+            }
         }
 
         /// <summary>
@@ -166,8 +167,11 @@ namespace UniCloud.DistributedServices.Purchase
         {
             get
             {
-                if (_aircraftMaterials == null)
+                if (_aircraftMaterials == null || StaticLoad.RefreshSupplierMaterial)
+                {
                     _aircraftMaterials = _supplierAppService.GetSupplierCompanyAcMaterials().ToList();
+                    StaticLoad.RefreshSupplierMaterial = false;
+                }
                 return _aircraftMaterials.AsQueryable<SupplierCompanyAcMaterialDTO>();
             }
         }
@@ -179,8 +183,11 @@ namespace UniCloud.DistributedServices.Purchase
         {
             get
             {
-                if (_engineMaterials == null)
+                if (_engineMaterials == null || StaticLoad.RefreshSupplierMaterial)
+                {
                     _engineMaterials = _supplierAppService.GetSupplierCompanyEngineMaterials().ToList();
+                    StaticLoad.RefreshSupplierMaterial = false;
+                }
                 return _engineMaterials.AsQueryable<SupplierCompanyEngineMaterialDTO>();
             }
         }
@@ -192,8 +199,11 @@ namespace UniCloud.DistributedServices.Purchase
         {
             get
             {
-                if (_bfeMaterials == null)
+                if (_bfeMaterials == null || StaticLoad.RefreshSupplierMaterial)
+                {
                     _bfeMaterials = _supplierAppService.GetSupplierCompanyBFEMaterials().ToList();
+                    StaticLoad.RefreshSupplierMaterial = false;
+                }
                 return _bfeMaterials.AsQueryable<SupplierCompanyBFEMaterialDTO>();
             }
         }
@@ -337,6 +347,7 @@ namespace UniCloud.DistributedServices.Purchase
         #endregion
 
         #region 维修合同
+
         /// <summary>
         ///     发动机维修合同信息
         /// </summary>
@@ -360,6 +371,7 @@ namespace UniCloud.DistributedServices.Purchase
         {
             get { return _maintainContractAppService.GetUndercartMaintainContracts(); }
         }
+
         #endregion
 
         #region Reception
@@ -491,13 +503,12 @@ namespace UniCloud.DistributedServices.Purchase
         #endregion
 
         #region 订单文档
-        
-         public IQueryable<OrderDocumentDTO> OrderDocuments
-         {
-             get { return _contractDocumentAppService.GetOrderDocuments(); }
-         }
+
+        public IQueryable<OrderDocumentDTO> OrderDocuments
+        {
+            get { return _contractDocumentAppService.GetOrderDocuments(); }
+        }
 
         #endregion
     }
 }
-
