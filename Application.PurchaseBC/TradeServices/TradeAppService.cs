@@ -448,7 +448,5 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
         }
 
         #endregion
-
-     
     }
 }

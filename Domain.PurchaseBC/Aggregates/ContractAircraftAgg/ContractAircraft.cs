@@ -24,6 +24,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftBFEAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg;
+using UniCloud.Domain.PurchaseBC.Enums;
 
 #endregion
 
@@ -57,7 +58,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg
         /// <summary>
         ///     合同名称
         /// </summary>
-        public string ContractName { get; set; }
+        public string ContractName { get; internal set; }
 
         /// <summary>
         ///     合同编号
@@ -67,32 +68,37 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg
         /// <summary>
         ///     合同Rank号
         /// </summary>
-        public string RankNumber { get; set; }
+        public string RankNumber { get; internal set; }
 
         /// <summary>
         ///     飞机批次号
         /// </summary>
-        public string CSCNumber { get; set; }
+        public string CSCNumber { get; private set; }
 
         /// <summary>
         ///     飞机序列号
         /// </summary>
-        public string SerialNumber { get; set; }
+        public string SerialNumber { get; private set; }
 
         /// <summary>
         ///     是否有效
         /// </summary>
-        public bool IsValid { get; set; }
+        public bool IsValid { get; private set; }
 
         /// <summary>
         ///     接收数量
         /// </summary>
-        public int ReceivedAmount { get; set; }
+        public int ReceivedAmount { get; private set; }
 
         /// <summary>
         ///     接受数量
         /// </summary>
-        public int AcceptedAmount { get; set; }
+        public int AcceptedAmount { get; private set; }
+
+        /// <summary>
+        ///     管理状态
+        /// </summary>
+        public ContractAircraftStatus Status { get; private set; }
 
         #endregion
 
@@ -258,6 +264,71 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg
             }
 
             SupplierId = id;
+        }
+
+        /// <summary>
+        ///     设置批次号
+        /// </summary>
+        /// <param name="cscNumber">批次号</param>
+        public void SetCSCNumber(string cscNumber)
+        {
+            if (string.IsNullOrWhiteSpace(cscNumber))
+            {
+                throw new ArgumentException("批次号参数为空！");
+            }
+
+            CSCNumber = cscNumber;
+        }
+
+        /// <summary>
+        ///     设置序列号
+        /// </summary>
+        /// <param name="serialNumber">序列号</param>
+        public void SetSerialNumber(string serialNumber)
+        {
+            if (string.IsNullOrWhiteSpace(serialNumber))
+            {
+                throw new ArgumentException("序列号参数为空！");
+            }
+
+            SerialNumber = serialNumber;
+        }
+
+        /// <summary>
+        ///     设置接收数量
+        /// </summary>
+        /// <param name="received">接收数量</param>
+        /// <param name="accepted">接受数量</param>
+        public void SetReception(int received, int accepted)
+        {
+            ReceivedAmount = received;
+            AcceptedAmount = accepted;
+        }
+
+        /// <summary>
+        ///     设置管理状态
+        /// </summary>
+        /// <param name="status">管理状态</param>
+        public void SetContractAircraftStatus(ContractAircraftStatus status)
+        {
+            switch (status)
+            {
+                case ContractAircraftStatus.预备:
+                    Status = ContractAircraftStatus.预备;
+                    break;
+                case ContractAircraftStatus.签约:
+                    Status = ContractAircraftStatus.签约;
+                    IsValid = true;
+                    break;
+                case ContractAircraftStatus.接收:
+                    Status = ContractAircraftStatus.接收;
+                    break;
+                case ContractAircraftStatus.运营:
+                    Status = ContractAircraftStatus.运营;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
         }
 
         #endregion
