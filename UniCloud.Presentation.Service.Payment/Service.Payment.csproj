@@ -90,7 +90,10 @@
   <ItemGroup>
     <Compile Include="IPaymentService.cs" />
     <Compile Include="PaymentService.cs" />
+    <Compile Include="Payment\PaymentScheduleDTO.cs" />
+    <Compile Include="Payment\PaymentScheduleLineDTO.cs" />
     <Compile Include="Payment\APUMaintainInvoiceDTO.cs" />
+    <Compile Include="Payment\Enums\ControlStatus.cs" />
     <Compile Include="Payment\Enums\InvoiceStatus.cs" />
     <Compile Include="Payment\Enums\MaintainItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

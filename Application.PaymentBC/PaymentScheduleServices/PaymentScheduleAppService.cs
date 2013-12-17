@@ -245,6 +245,7 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
                                            List<PaymentScheduleLineDTO> paymentScheduleLines)
         {
             var addingPaymentDetail = new List<PaymentScheduleLineDTO>();//需要添加的付款计划明细
+            var deletingPaymentDetail = new List<PaymentScheduleLine>();//需要删除的付款计划明细 
              paymentScheduleLines.ForEach(p =>
                  {
                      //存在付款计划行
@@ -282,13 +283,14 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
                          paymentScheduleLines.FirstOrDefault(c => c.PaymentScheduleLineId == p.Id);
                      if (persistPaymentScheduleLine==null)
                      {
-                         persistPaymentSchedule.PaymentScheduleLines.Remove(p);
+                         deletingPaymentDetail.Add(p);
                      }
                 });
 
             addingPaymentDetail.ForEach(p=>persistPaymentSchedule
                         .AddPaymentScheduleLine(p.ScheduleDate,p.Amount,p.Note));
-          
+
+            deletingPaymentDetail.ForEach(p => persistPaymentSchedule.PaymentScheduleLines.Remove(p));
         }
     }
 }

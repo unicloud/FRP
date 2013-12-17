@@ -36,6 +36,11 @@ namespace UniCloud.Application.PaymentBC.DTO
         public int PaymentScheduleId { get; set; }
 
         /// <summary>
+        /// 关联的发票信息
+        /// </summary>
+        public int? InvoiceId { get; set; }
+
+        /// <summary>
         ///     备注
         /// </summary>
         public string Note { get; set; }
