@@ -70,11 +70,8 @@
     <Compile Include="InvoiceDTO\PrepaymentInvoiceDTO.cs" />
     <Compile Include="InvoiceDTO\PurchaseInvoiceDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\AirframeMaintainInvoiceDTO.cs" />
-    <Compile Include="MaintainInvoiceDTO\AirframeMaintainInvoiceLineDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\APUMaintainInvoiceDTO.cs" />
-    <Compile Include="MaintainInvoiceDTO\APUMaintainInvoiceLineDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\EngineMaintainInvoiceDTO.cs" />
-    <Compile Include="MaintainInvoiceDTO\EngineMaintainInvoiceLineDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\MaintainInvoiceDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\MaintainInvoiceLineDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\UndercartMaintainInvoiceDTO.cs" />
@@ -83,6 +80,8 @@
     <Compile Include="PaymentScheduleDTO\EnginePaymentScheduleDTO.cs" />
     <Compile Include="PaymentScheduleDTO\PaymentScheduleLineDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SupplierDTO\BankAccountDTO.cs" />
+    <Compile Include="SupplierDTO\SupplierDTO.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
@@ -92,7 +93,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
         /// <summary>
         ///     设置维修发票属性
         /// </summary>
-        /// <param name="maintainInvoice">维修合同</param>
+        /// <param name="maintainInvoice">维修发票</param>
         /// <param name="serialNumber">序列号</param>
         /// <param name="invoiceNumber">发票编号</param>
         /// <param name="invoideCode">发票号码</param>
@@ -131,6 +132,35 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
             else if (maintainInvoice is AirframeMaintainInvoice)
             {
             }
+        }
+
+        /// <summary>
+        ///     创建维修发票行
+        /// </summary>
+        /// <returns></returns>
+        public static MaintainInvoiceLine CreateMaintainInvoiceLine()
+        {
+            var maintainInvoiceLine = new MaintainInvoiceLine();
+            maintainInvoiceLine.GenerateNewIdentity();
+            return maintainInvoiceLine;
+        }
+
+        /// <summary>
+        ///     设置维修发票行属性
+        /// </summary>
+        /// <param name="maintainInvoiceLine">币种ID</param>
+        /// <param name="maintainItem">维修项</param>
+        /// <param name="itemName">项名称</param>
+        /// <param name="unitPrice">单价</param>
+        /// <param name="amount">数量</param>
+        /// <param name="note">备注</param>
+        public static void SetMaintainInvoiceLine(MaintainInvoiceLine maintainInvoiceLine, int maintainItem, string itemName, decimal unitPrice, decimal amount, string note)
+        {
+            maintainInvoiceLine.SetMaintainItem((MaintainItem)maintainItem);
+            maintainInvoiceLine.ItemName = itemName;
+            maintainInvoiceLine.UnitPrice = unitPrice;
+            maintainInvoiceLine.Amount = amount;
+            maintainInvoiceLine.SetNote(note);
         }
     }
 }

@@ -36,7 +36,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///  起落架维修发票行集合
         /// </summary>
-        public virtual List<UndercartMaintainInvoiceLineDTO> MaintainInvoiceLines { get; set; }
+        public virtual List<MaintainInvoiceLineDTO> MaintainInvoiceLines { get; set; }
         #endregion
 
         #region 外键属性
