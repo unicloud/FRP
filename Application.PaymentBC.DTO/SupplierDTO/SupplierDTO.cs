@@ -3,65 +3,67 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2013/12/16 9:55:20
-// 文件名：MaintainInvoiceLineDTO
+// 作者：linxw 时间：2013/12/17 9:32:20
+// 文件名：SupplierDTO
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2013/12/16 9:55:20
+// 修改者：linxw 时间：2013/12/17 9:32:20
 // 修改说明：
 // ========================================================================*/
 #endregion
 
+#region 命名空间
+
+using System.Collections.Generic;
 using System.Data.Services.Common;
+
+#endregion
 
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    /// 维修发票行基类
+    ///  供应商
     /// </summary>
-   [DataServiceKey("MaintainInvoiceLineId")]
-    public class MaintainInvoiceLineDTO
+    [DataServiceKey("SupplierId")]
+    public class SupplierDTO
     {
         #region 属性
+        /// <summary>
+        ///  供应商主键
+        /// </summary>
+        public int SupplierId { get; set; }
+        /// <summary>
+        ///     组织机构代码
+        /// </summary>
+        public string Code { get;  set; }
 
         /// <summary>
-        /// 维修发票行主键
+        ///     名称
         /// </summary>
-        public int MaintainInvoiceLineId { get; set; }
+        public string Name { get;  set; }
 
         /// <summary>
-        ///     维修项
+        ///     是否有效
         /// </summary>
-        public int MaintainItem { get; set; }
-
-        /// <summary>
-        ///     项名称
-        /// </summary>
-        public string ItemName { get; set; }
-
-        /// <summary>
-        ///     单价
-        /// </summary>
-        public decimal UnitPrice { get; set; }
-
-        /// <summary>
-        ///     数量
-        /// </summary>
-        public decimal Amount { get; set; }
+        public bool IsValid { get;  set; }
 
         /// <summary>
         ///     备注
         /// </summary>
-        public string Note { get; set; }
+        public string Note { get;  set; }
 
         #endregion
 
         #region 外键属性
 
+        #endregion
+
+        #region 导航属性
+
         /// <summary>
-        ///     附件ID
+        ///     银行账户
         /// </summary>
-        public int? PartId { get; set; }
+        public virtual List<BankAccountDTO> BankAccounts { get; set; }
 
         #endregion
     }
