@@ -107,7 +107,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
             CommitCommand = new DelegateCommand<object>(OnCommitExecute, CanCommitExecute);
             CancelCommand = new DelegateCommand<object>(OnCancelExecute, CanCancelExecute);
-            CellEditEndCommand=new DelegateCommand<object>(OnCellEditEnd);
+            CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
         }
 
         /// <summary>
@@ -592,7 +592,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 {
                     decimal totalCount = SelPurchaseInvoice.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
                     SelPurchaseInvoice.InvoiceValue = totalCount;
-                }      
+                }
             }
         }
 
@@ -650,7 +650,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             string selectedPane = this.PurchaseOrderChildView.PaneGroups.SelectedPane.Title.ToString();
             if (selectedPane == "飞机采购订单")
             {
-                if (SelAircraftPurchaseOrderLine != null)
+                if (SelAircraftPurchaseOrder != null && SelAircraftPurchaseOrderLine != null)
                 {
                     invoice.OrderId = SelAircraftPurchaseOrder.Id;
                     invoice.SupplierName = SelAircraftPurchaseOrder.Name;
@@ -658,6 +658,11 @@ namespace UniCloud.Presentation.Payment.Invoice
                         AcPaymentSchedules.FirstOrDefault(
                             p => p.ContractAcId == SelAircraftPurchaseOrderLine.ContractAircraftId);
                     if (paymentSchedule != null) invoice.PaymentScheduleLineId = paymentSchedule.AcPaymentScheduleId;
+                    var invoiceLine = new InvoiceLineDTO
+                    {
+                        OrderLineId = SelAircraftPurchaseOrderLine.Id,
+                    };
+                    invoice.InvoiceLines.Add(invoiceLine);
                     PurchaseInvoices.AddNew(invoice);
                     PurchaseOrderChildView.Close();
                 }
@@ -668,7 +673,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
             else if (selectedPane == "发动机采购订单")
             {
-                if (SelEnginePurchaseOrderLine != null)
+                if (SelEnginePurchaseOrder != null && SelEnginePurchaseOrderLine != null)
                 {
                     invoice.OrderId = SelEnginePurchaseOrder.Id;
                     invoice.SupplierName = SelEnginePurchaseOrder.Name;
@@ -676,6 +681,11 @@ namespace UniCloud.Presentation.Payment.Invoice
                         EnginePaymentSchedules.FirstOrDefault(
                             p => p.ContractEngineId == SelEnginePurchaseOrderLine.ContractEngineId);
                     if (paymentSchedule != null) invoice.PaymentScheduleLineId = paymentSchedule.EnginePaymentScheduleId;
+                    var invoiceLine = new InvoiceLineDTO
+                    {
+                        OrderLineId = SelEnginePurchaseOrderLine.Id,
+                    };
+                    invoice.InvoiceLines.Add(invoiceLine);
                     PurchaseInvoices.AddNew(invoice);
                     PurchaseOrderChildView.Close();
                 }
