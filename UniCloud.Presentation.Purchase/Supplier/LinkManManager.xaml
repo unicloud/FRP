@@ -116,14 +116,14 @@
                                     <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding AddLinkManCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Add.png"
+                                        <Image Source="/UniCloud.Presentation;component/Images/New.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="新增" />
                                     </telerik:RadButton>
                                     <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding DelLinkManCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
+                                        <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="删除" />
                                     </telerik:RadButton>
