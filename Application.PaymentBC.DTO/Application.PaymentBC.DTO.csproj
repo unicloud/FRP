@@ -79,6 +79,16 @@
     <Compile Include="MaintainInvoiceDTO\MaintainInvoiceLineDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\UndercartMaintainInvoiceDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\UndercartMaintainInvoiceLineDTO.cs" />
+    <Compile Include="OrderDTO\AircraftLeaseOrderDTO.cs" />
+    <Compile Include="OrderDTO\AircraftLeaseOrderLineDTO.cs" />
+    <Compile Include="OrderDTO\AircraftPurchaseOrderDTO.cs" />
+    <Compile Include="OrderDTO\AircraftPurchaseOrderLineDTO.cs" />
+    <Compile Include="OrderDTO\BFEPurchaseOrderDTO.cs" />
+    <Compile Include="OrderDTO\BFEPurchaseOrderLineDTO.cs" />
+    <Compile Include="OrderDTO\EngineLeaseOrderDTO.cs" />
+    <Compile Include="OrderDTO\EngineLeaseOrderLineDTO.cs" />
+    <Compile Include="OrderDTO\EnginePurchaseOrderDTO.cs" />
+    <Compile Include="OrderDTO\EnginePurchaseOrderLineDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

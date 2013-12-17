@@ -102,6 +102,7 @@
       <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Interactivity, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.4.1.0.0\lib\SL5\System.Windows.Interactivity.dll</HintPath>
@@ -175,6 +176,9 @@
       <DependentUpon>LeaseInvoiceManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\LeaseInvoiceManagerVM.cs" />
+    <Compile Include="Invoice\LeaseOrderChildView.xaml.cs">
+      <DependentUpon>LeaseOrderChildView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Invoice\PrePayInvoiceManager.xaml.cs">
       <DependentUpon>PrePayInvoiceManager.xaml</DependentUpon>
     </Compile>
@@ -183,6 +187,9 @@
       <DependentUpon>PurchaseInvoiceManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\PurchaseInvoiceManagerVM.cs" />
+    <Compile Include="Invoice\PurchaseOrderChildView.xaml.cs">
+      <DependentUpon>PurchaseOrderChildView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Invoice\UndercartMaintain.xaml.cs">
       <DependentUpon>UndercartMaintain.xaml</DependentUpon>
     </Compile>
@@ -239,11 +246,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Invoice\LeaseOrderChildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Invoice\PrePayInvoiceManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Invoice\PurchaseInvoiceManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Invoice\PurchaseOrderChildView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
