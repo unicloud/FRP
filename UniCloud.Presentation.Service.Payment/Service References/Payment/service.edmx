@@ -252,6 +252,28 @@
         <Property Name="ContractEngineId" Type="Edm.Int32" Nullable="false" />
         <Property Name="PaymentScheduleLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.PaymentScheduleLineDTO)" Nullable="false" />
       </EntityType>
+      <EntityType Name="SupplierDTO">
+        <Key>
+          <PropertyRef Name="SupplierId" />
+        </Key>
+        <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Code" Type="Edm.String" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Note" Type="Edm.String" />
+        <Property Name="BankAccounts" Type="Collection(UniCloud.Application.PaymentBC.DTO.BankAccountDTO)" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="BankAccountDTO">
+        <Property Name="BankAccountId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Account" Type="Edm.String" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Bank" Type="Edm.String" />
+        <Property Name="Branch" Type="Edm.String" />
+        <Property Name="Country" Type="Edm.String" />
+        <Property Name="Address" Type="Edm.String" />
+        <Property Name="IsCurrent" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Payment" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="PaymentData" m:IsDefaultEntityContainer="true">
@@ -267,6 +289,7 @@
         <EntitySet Name="Currencies" EntityType="UniCloud.Application.PaymentBC.DTO.CurrencyDTO" />
         <EntitySet Name="AcPaymentSchedules" EntityType="UniCloud.Application.PaymentBC.DTO.AcPaymentScheduleDTO" />
         <EntitySet Name="EnginePaymentSchedules" EntityType="UniCloud.Application.PaymentBC.DTO.EnginePaymentScheduleDTO" />
+        <EntitySet Name="Suppliers" EntityType="UniCloud.Application.PaymentBC.DTO.SupplierDTO" />
       </EntityContainer>
     </Schema>
   </edmx:DataServices>
