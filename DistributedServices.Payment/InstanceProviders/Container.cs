@@ -9,13 +9,16 @@ using UniCloud.Application.PaymentBC.ContractEngineServices;
 using UniCloud.Application.PaymentBC.CurrencyServices;
 using UniCloud.Application.PaymentBC.InvoiceServices;
 using UniCloud.Application.PaymentBC.MaintainInvoiceServices;
+using UniCloud.Application.PaymentBC.PaymentScheduleServices;
 using UniCloud.Application.PaymentBC.Query.ContractAircraftQueries;
 using UniCloud.Application.PaymentBC.Query.ContractEngineQueries;
 using UniCloud.Application.PaymentBC.Query.CurrencyQueries;
 using UniCloud.Application.PaymentBC.Query.InvoiceQueries;
 using UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries;
+using UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
@@ -76,6 +79,13 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
                          .Register<ICurrencyQuery, CurrencyQuery>()
                          .Register<ICurrencyAppService, CurrencyAppService>()
                 #endregion
+
+                #region   付款计划相关配置，包括查询，应用服务，仓储注册
+
+                         .Register<IPaymentScheduleQuery, PaymentScheduleQuery>()
+                         .Register<IPaymentScheduleAppService, PaymentScheduleAppService>()
+                         .Register<IPaymentScheduleRepository, PaymentScheduleRepository>()
+            #endregion
 
                 ;
         }

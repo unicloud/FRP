@@ -7,6 +7,7 @@ using UniCloud.Application.PaymentBC.CurrencyServices;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.InvoiceServices;
 using UniCloud.Application.PaymentBC.MaintainInvoiceServices;
+using UniCloud.Application.PaymentBC.PaymentScheduleServices;
 using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
@@ -28,6 +29,7 @@ namespace UniCloud.DistributedServices.Payment
         private readonly IContractAircraftAppService _contractAircraftAppService;
         private readonly IContractEngineAppService _contractEngineAppService;
         private readonly ICurrencyAppService _currencyAppService;
+        private readonly IPaymentScheduleAppService _paymentScheduleAppService;
         public PaymentData()
             : base("UniCloud.Application.PaymentBC.DTO")
         {
@@ -39,7 +41,7 @@ namespace UniCloud.DistributedServices.Payment
             _contractAircraftAppService = DefaultContainer.Resolve<IContractAircraftAppService>();
             _contractEngineAppService = DefaultContainer.Resolve<IContractEngineAppService>();
             _currencyAppService = DefaultContainer.Resolve<ICurrencyAppService>();
-
+            _paymentScheduleAppService = DefaultContainer.Resolve<IPaymentScheduleAppService>();
         }
 
         #region Invoice集合
@@ -153,6 +155,24 @@ namespace UniCloud.DistributedServices.Payment
 
         #endregion
 
+        #region 付款计划集合
+
+        /// <summary>
+        /// 飞机付款计划
+        /// </summary>
+        public IQueryable<AcPaymentScheduleDTO> AcPaymentSchedules
+        {
+            get { return _paymentScheduleAppService.GetAcPaymentSchedules(); }
+        }
+        /// <summary>
+        /// 发动机付款计划
+        /// </summary>
+        public IQueryable<EnginePaymentScheduleDTO>  EnginePaymentSchedules
+        {
+            get { return _paymentScheduleAppService.GetEnginePaymentSchedules(); }
+        }
+
+        #endregion
 
 
     }

@@ -81,6 +81,9 @@
     <Compile Include="MaintainInvoiceDTO\MaintainInvoiceLineDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\UndercartMaintainInvoiceDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\UndercartMaintainInvoiceLineDTO.cs" />
+    <Compile Include="PaymentScheduleDTO\AcPaymentScheduleDTO.cs" />
+    <Compile Include="PaymentScheduleDTO\EnginePaymentScheduleDTO.cs" />
+    <Compile Include="PaymentScheduleDTO\PaymentScheduleLineDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

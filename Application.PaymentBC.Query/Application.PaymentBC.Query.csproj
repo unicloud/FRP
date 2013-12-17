@@ -66,6 +66,8 @@
     <Compile Include="InvoiceQueries\PurchaseInvoiceQuery.cs" />
     <Compile Include="MaintainInvoiceQueries\IMaintainInvoiceQuery.cs" />
     <Compile Include="MaintainInvoiceQueries\MaintainInvoiceQuery.cs" />
+    <Compile Include="PaymentScheduleQueries\IPaymentScheduleQuery.cs" />
+    <Compile Include="PaymentScheduleQueries\PaymentScheduleQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

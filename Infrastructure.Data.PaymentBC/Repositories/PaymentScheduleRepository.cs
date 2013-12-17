@@ -17,8 +17,10 @@
 
 #region 命名空间
 
+using System.Linq;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
-
+using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
+using System.Data.Entity;
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PaymentBC.Repositories
@@ -35,6 +37,13 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.Repositories
 
         #region 方法重载
 
+        public override PaymentSchedule Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as PaymentBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<PaymentSchedule>();
+            return set.Include(t => t.PaymentScheduleLines).FirstOrDefault(p => p.Id == (int)id);
+        }
         #endregion
     }
 }
