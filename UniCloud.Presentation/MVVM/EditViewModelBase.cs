@@ -57,7 +57,9 @@ namespace UniCloud.Presentation.MVVM
                     MessageAlert("提示", "保存成功。");
                     OnSaveSuccess(collectionView);
                 }
+                RefreshCommandState();
             });
+            RefreshCommandState();
         }
 
         /// <summary>
@@ -138,5 +140,18 @@ namespace UniCloud.Presentation.MVVM
         }
 
         #endregion
+
+        #region 刷新按钮状态方法
+        /// <summary>
+        /// 刷新按钮状态
+        /// </summary>
+        public virtual void RefreshCommandState()
+        {
+            SaveCommand.RaiseCanExecuteChanged();
+            AbortCommand.RaiseCanExecuteChanged();
+        }
+        #endregion
+
+      
     }
 }

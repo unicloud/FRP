@@ -237,6 +237,7 @@
         <Property Name="Amount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="PaymentScheduleId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="InvoiceId" Type="Edm.Int32" />
         <Property Name="Note" Type="Edm.String" />
       </ComplexType>
       <EntityType Name="EnginePaymentScheduleDTO">

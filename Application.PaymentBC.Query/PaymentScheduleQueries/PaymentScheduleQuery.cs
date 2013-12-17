@@ -51,7 +51,8 @@ namespace UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries
                             Note = c.Note,
                             PaymentScheduleId = c.PaymentScheduleId,
                             ScheduleDate = c.ScheduleDate,
-                            Status = (int) c.Status
+                            Status = (int) c.Status,
+                            InvoiceId = c.InvoiceId
                         }).ToList(),
                 });
         }
@@ -74,7 +75,8 @@ namespace UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries
                     Note = c.Note,
                     PaymentScheduleId = c.PaymentScheduleId,
                     ScheduleDate = c.ScheduleDate,
-                    Status = (int)c.Status
+                    Status = (int)c.Status,
+                    InvoiceId = c.InvoiceId,
                 }).ToList(),
             });
         }
