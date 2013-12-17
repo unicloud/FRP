@@ -12,39 +12,47 @@
 // ========================================================================*/
 #endregion
 
+using System.Data.Services.Common;
+
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
     /// 维修发票行基类
     /// </summary>
-   public class MaintainInvoiceLineDTO
+   [DataServiceKey("MaintainInvoiceLineId")]
+    public class MaintainInvoiceLineDTO
     {
         #region 属性
 
         /// <summary>
+        /// 维修发票行主键
+        /// </summary>
+        public int MaintainInvoiceLineId { get; set; }
+
+        /// <summary>
         ///     维修项
         /// </summary>
-       public int MaintainItem { get; set; }
+        public int MaintainItem { get; set; }
 
         /// <summary>
         ///     项名称
         /// </summary>
-        public string ItemName { get;  set; }
+        public string ItemName { get; set; }
 
         /// <summary>
         ///     单价
         /// </summary>
-        public decimal UnitPrice { get;  set; }
+        public decimal UnitPrice { get; set; }
 
         /// <summary>
         ///     数量
         /// </summary>
-        public decimal Amount { get;  set; }
+        public decimal Amount { get; set; }
 
         /// <summary>
         ///     备注
         /// </summary>
-        public string Note { get;  set; }
+        public string Note { get; set; }
 
         #endregion
 
@@ -53,7 +61,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///     附件ID
         /// </summary>
-        public int? PartId { get;  set; }
+        public int? PartId { get; set; }
 
         #endregion
     }

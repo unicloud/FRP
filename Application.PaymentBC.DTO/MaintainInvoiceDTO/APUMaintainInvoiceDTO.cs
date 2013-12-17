@@ -36,7 +36,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///  APU维修发票行集合
         /// </summary>
-        public virtual List<APUMaintainInvoiceLineDTO> MaintainInvoiceLines { get; set; }
+        public virtual List<MaintainInvoiceLineDTO> MaintainInvoiceLines { get; set; }
         #endregion
 
         #region 外键属性

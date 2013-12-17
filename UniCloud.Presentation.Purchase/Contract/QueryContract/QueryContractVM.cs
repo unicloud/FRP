@@ -552,9 +552,9 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
         }
 
-        /// <summary>
-        ///     选中订单文档
-        /// </summary>
+      /// <summary>
+      /// 选中订单文档
+      /// </summary>
         public OrderDocumentDTO SelOrderDocument
         {
             get { return _selOrderDocument; }

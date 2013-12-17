@@ -56,6 +56,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public int SupplierId { get; set; }
 
         /// <summary>
+        ///     合作公司外键。
+        /// </summary>
+        public int SuppierCompanyId { get; set; }
+
+        /// <summary>
         ///     开始日期
         /// </summary>
         public DateTime StartDate { get; set; }

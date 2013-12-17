@@ -514,6 +514,7 @@
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SuppierCompanyId" Type="Edm.Int32" Nullable="false" />
         <Property Name="StartDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="IsClosed" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
@@ -582,6 +583,10 @@
         <Property Name="Note" Type="Edm.String" />
         <Property Name="ContractAircraftId" Type="Edm.Int32" Nullable="false" />
         <Property Name="AircraftMaterialId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RankNumber" Type="Edm.String" />
+        <Property Name="CSCNumber" Type="Edm.String" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="EngineLeaseOrderDTO">
         <Key>

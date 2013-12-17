@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.PartAgg;
+using UniCloud.Domain.PurchaseBC.Enums;
 
 #endregion
 
@@ -49,7 +50,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg
         /// <summary>
         ///     合同名称
         /// </summary>
-        public string ContractName { get; set; }
+        public string ContractName { get; internal set; }
 
         /// <summary>
         ///     合同编号
@@ -59,27 +60,32 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg
         /// <summary>
         ///     合同Rank号
         /// </summary>
-        public string RankNumber { get; set; }
+        public string RankNumber { get; internal set; }
 
         /// <summary>
         ///     发动机序列号
         /// </summary>
-        public string SerialNumber { get; set; }
+        public string SerialNumber { get; private set; }
 
         /// <summary>
         ///     是否有效
         /// </summary>
-        public bool IsValid { get; set; }
+        public bool IsValid { get; private set; }
 
         /// <summary>
         ///     接收数量
         /// </summary>
-        public int ReceivedAmount { get; set; }
+        public int ReceivedAmount { get; private set; }
 
         /// <summary>
         ///     接受数量
         /// </summary>
-        public int AcceptedAmount { get; set; }
+        public int AcceptedAmount { get; private set; }
+
+        /// <summary>
+        ///     管理状态
+        /// </summary>
+        public ContractEngineStatus Status { get; private set; }
 
         #endregion
 
@@ -174,6 +180,57 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg
             }
 
             SupplierId = id;
+        }
+
+        /// <summary>
+        ///     设置序列号
+        /// </summary>
+        /// <param name="serialNumber">序列号</param>
+        public void SetSerialNumber(string serialNumber)
+        {
+            if (string.IsNullOrWhiteSpace(serialNumber))
+            {
+                throw new ArgumentException("序列号参数为空！");
+            }
+
+            SerialNumber = serialNumber;
+        }
+
+        /// <summary>
+        ///     设置接收数量
+        /// </summary>
+        /// <param name="received">接收数量</param>
+        /// <param name="accepted">接受数量</param>
+        public void SetReception(int received, int accepted)
+        {
+            ReceivedAmount = received;
+            AcceptedAmount = accepted;
+        }
+
+        /// <summary>
+        ///     设置管理状态
+        /// </summary>
+        /// <param name="status">管理状态</param>
+        public void SetContractEngineStatus(ContractEngineStatus status)
+        {
+            switch (status)
+            {
+                case ContractEngineStatus.预备:
+                    Status = ContractEngineStatus.预备;
+                    break;
+                case ContractEngineStatus.签约:
+                    Status = ContractEngineStatus.签约;
+                    IsValid = true;
+                    break;
+                case ContractEngineStatus.接收:
+                    Status = ContractEngineStatus.接收;
+                    break;
+                case ContractEngineStatus.运营:
+                    Status = ContractEngineStatus.运营;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
         }
 
         #endregion

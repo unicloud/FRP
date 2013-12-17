@@ -47,7 +47,7 @@ namespace UniCloud.Presentation.Input
             RadDateTimePicker picker = new RadDateTimePicker();
             TouchManager.SetIsTouchHitTestVisible(picker, false);
             picker.IsTooltipEnabled = false;
-
+            picker.InputMode = InputMode.DatePicker;
             picker.TimeInterval = this.TimeInterval;
 
             picker.SetBinding(this.BindingTarget, this.CreateValueBinding());

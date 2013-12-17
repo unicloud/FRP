@@ -1,4 +1,3 @@
-﻿
 ﻿#region 版本信息
 
 // ========================================================================
@@ -16,18 +15,19 @@
 
 #endregion
 
-
 #region 命名空间
 
+using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.PurchaseBC;
 using UniCloud.Application.PurchaseBC.ActionCategoryServices;
 using UniCloud.Application.PurchaseBC.AircraftTypeServices;
 using UniCloud.Application.PurchaseBC.ContractAircraftServices;
 using UniCloud.Application.PurchaseBC.ContractEngineServices;
 using UniCloud.Application.PurchaseBC.ContractServices;
 using UniCloud.Application.PurchaseBC.CurrencyServices;
-using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.DocumentPathServices;
+using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
 using UniCloud.Application.PurchaseBC.OrderDocumentServices;
@@ -48,11 +48,24 @@ namespace UniCloud.DistributedServices.Purchase
     /// </summary>
     public class PurchaseData : ExposeData.ExposeData
     {
+        #region 静态数据集合
+
+        private static IList<AircraftTypeDTO> _aircraftTypes;
+        private static IList<CurrencyDTO> _currencies;
+        private static IList<LinkmanDTO> _linkmen;
+        private static IList<SupplierDTO> _suppliers;
+        private static IList<SupplierCompanyAcMaterialDTO> _aircraftMaterials;
+        private static IList<SupplierCompanyEngineMaterialDTO> _engineMaterials;
+        private static IList<SupplierCompanyBFEMaterialDTO> _bfeMaterials;
+
+        #endregion
+
         private readonly IActionCategoryAppService _actionCategoryAppService;
         private readonly IAircraftLeaseReceptionAppService _aircraftLeaseReceptionAppService;
         private readonly IAircraftPurchaseReceptionAppService _aircraftPurchaseReceptionAppService;
         private readonly IAircraftTypeAppService _aircraftTypeAppService;
         private readonly IContractAircraftAppService _contractAircraftAppService;
+        private readonly IContractDocumentAppService _contractDocumentAppService;
         private readonly IContractEngineAppService _contractEngineAppService;
         private readonly ICurrencyAppService _currencyAppService;
         private readonly IDocumentPathAppService _documentPathAppService;
@@ -70,7 +83,7 @@ namespace UniCloud.DistributedServices.Purchase
         private readonly IRelatedDocAppService _relatedDocAppService;
         private readonly ISupplierAppService _supplierAppService;
         private readonly ITradeAppService _tradeAppService;
-        private readonly IContractDocumentAppService _contractDocumentAppService;
+
         public PurchaseData()
             : base("UniCloud.Application.PurchaseBC.DTO")
         {
@@ -110,11 +123,17 @@ namespace UniCloud.DistributedServices.Purchase
         }
 
         /// <summary>
-        ///     供应商信息。
+        ///     供应商信息
+        ///     一次性获取有效供应商信息
         /// </summary>
         public IQueryable<SupplierDTO> Suppliers
         {
-            get { return _supplierAppService.GetSuppliers(); }
+            get
+            {
+                if (_suppliers == null)
+                    _suppliers = _supplierAppService.GetSuppliers().ToList();
+                return _suppliers.AsQueryable<SupplierDTO>();
+            }
         }
 
         /// <summary>
@@ -126,11 +145,19 @@ namespace UniCloud.DistributedServices.Purchase
         }
 
         /// <summary>
-        ///     联系人信息。
+        ///     联系人信息
+        ///     一次性获取联系人信息
         /// </summary>
         public IQueryable<LinkmanDTO> Linkmans
         {
-            get { return _supplierAppService.GetLinkmans(); }
+            get
+            {
+                if (_linkmen == null)
+                {
+                    _linkmen = _supplierAppService.GetLinkmans().ToList();
+                }
+                return _linkmen.AsQueryable<LinkmanDTO>();
+            }
         }
 
         /// <summary>
@@ -138,7 +165,15 @@ namespace UniCloud.DistributedServices.Purchase
         /// </summary>
         public IQueryable<SupplierCompanyAcMaterialDTO> SupplierCompanyAcMaterials
         {
-            get { return _supplierAppService.GetSupplierCompanyAcMaterials(); }
+            get
+            {
+                if (_aircraftMaterials == null || StaticLoad.RefreshSupplierMaterial)
+                {
+                    _aircraftMaterials = _supplierAppService.GetSupplierCompanyAcMaterials().ToList();
+                    StaticLoad.RefreshSupplierMaterial = false;
+                }
+                return _aircraftMaterials.AsQueryable<SupplierCompanyAcMaterialDTO>();
+            }
         }
 
         /// <summary>
@@ -146,7 +181,15 @@ namespace UniCloud.DistributedServices.Purchase
         /// </summary>
         public IQueryable<SupplierCompanyEngineMaterialDTO> SupplierCompanyEngineMaterials
         {
-            get { return _supplierAppService.GetSupplierCompanyEngineMaterials(); }
+            get
+            {
+                if (_engineMaterials == null || StaticLoad.RefreshSupplierMaterial)
+                {
+                    _engineMaterials = _supplierAppService.GetSupplierCompanyEngineMaterials().ToList();
+                    StaticLoad.RefreshSupplierMaterial = false;
+                }
+                return _engineMaterials.AsQueryable<SupplierCompanyEngineMaterialDTO>();
+            }
         }
 
         /// <summary>
@@ -154,7 +197,15 @@ namespace UniCloud.DistributedServices.Purchase
         /// </summary>
         public IQueryable<SupplierCompanyBFEMaterialDTO> SupplierCompanyBFEMaterials
         {
-            get { return _supplierAppService.GetSupplierCompanyBFEMaterials(); }
+            get
+            {
+                if (_bfeMaterials == null || StaticLoad.RefreshSupplierMaterial)
+                {
+                    _bfeMaterials = _supplierAppService.GetSupplierCompanyBFEMaterials().ToList();
+                    StaticLoad.RefreshSupplierMaterial = false;
+                }
+                return _bfeMaterials.AsQueryable<SupplierCompanyBFEMaterialDTO>();
+            }
         }
 
         #endregion
@@ -166,7 +217,11 @@ namespace UniCloud.DistributedServices.Purchase
         /// </summary>
         public IQueryable<AircraftTypeDTO> AircraftTypes
         {
-            get { return _aircraftTypeAppService.GetAircraftTypes(); }
+            get
+            {
+                if (_aircraftTypes == null) _aircraftTypes = _aircraftTypeAppService.GetAircraftTypes().ToList();
+                return _aircraftTypes.AsQueryable<AircraftTypeDTO>();
+            }
         }
 
         #endregion
@@ -292,6 +347,7 @@ namespace UniCloud.DistributedServices.Purchase
         #endregion
 
         #region 维修合同
+
         /// <summary>
         ///     发动机维修合同信息
         /// </summary>
@@ -315,6 +371,7 @@ namespace UniCloud.DistributedServices.Purchase
         {
             get { return _maintainContractAppService.GetUndercartMaintainContracts(); }
         }
+
         #endregion
 
         #region Reception
@@ -424,7 +481,11 @@ namespace UniCloud.DistributedServices.Purchase
         /// </summary>
         public IQueryable<CurrencyDTO> Currencies
         {
-            get { return _currencyAppService.GetCurrencies(); }
+            get
+            {
+                if (_currencies == null) _currencies = _currencyAppService.GetCurrencies().ToList();
+                return _currencies.AsQueryable<CurrencyDTO>();
+            }
         }
 
         #endregion
@@ -443,11 +504,11 @@ namespace UniCloud.DistributedServices.Purchase
 
         #region 订单文档
 
-        public IQueryable<OrderDocumentDTO> OrderDocuments()
+        public IQueryable<OrderDocumentDTO> OrderDocuments
         {
-            return _contractDocumentAppService.GetOrderDocuments();
+            get { return _contractDocumentAppService.GetOrderDocuments(); }
         }
+
         #endregion
     }
 }
-

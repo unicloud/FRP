@@ -156,6 +156,8 @@
     <Compile Include="Aggregates\TradeAgg\Trade.cs" />
     <Compile Include="Aggregates\TradeAgg\TradeFactory.cs" />
     <Compile Include="Enums\BFEStatus.cs" />
+    <Compile Include="Enums\ContractAircraftStatus.cs" />
+    <Compile Include="Enums\ContractEngineStatus.cs" />
     <Compile Include="Enums\ControlStatus.cs" />
     <Compile Include="Enums\GuaranteeStatus.cs" />
     <Compile Include="Enums\IndexStatus.cs" />

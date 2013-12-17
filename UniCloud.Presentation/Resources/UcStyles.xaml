@@ -4,10 +4,10 @@
                     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation">
 
     <!-- 日期格式 -->
-    <system:String x:Key="DateStringFormat">{} {0:yyyy/MM/dd}</system:String>
+    <system:String x:Key="DateStringFormat">{0:yyyy/MM/dd}</system:String>
     
     <!--货币格式-->
-    <system:String x:Key="CurrencyStringFormat">{} {0:N}</system:String>
+    <system:String x:Key="CurrencyStringFormat">{0:N}</system:String>
 
     <!-- 字体、字号 -->
     <FontFamily x:Key="NormalFontFamily">Microsoft YaHei UI</FontFamily>
@@ -28,6 +28,9 @@
 
     <!--ComboBox相关样式-->
     <Style TargetType="telerik:RadComboBox" x:Key="BaseRadComboBox" />
+    <Style TargetType="telerik:RadComboBox" BasedOn="{StaticResource BaseRadComboBox}">
+        <Setter Property="OpenDropDownOnFocus" Value="True"/>
+    </Style>
     
     <!--ComboBox相关样式-->
 
@@ -48,6 +51,11 @@
         <Setter Property="Background" Value="#EEF1EB" />
     </Style>
 
+    <Style TargetType="telerik:GridViewHeaderCell" x:Key="BaseGridViewHeaderCell"/>
+    <Style TargetType="telerik:GridViewHeaderCell" BasedOn="{StaticResource BaseGridViewHeaderCell}">
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+    
     <!--GridView相关样式-->
 
 </ResourceDictionary>

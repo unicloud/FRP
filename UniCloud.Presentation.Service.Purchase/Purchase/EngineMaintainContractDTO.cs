@@ -21,7 +21,7 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
     {
         public List<SupplierDTO> Suppliers
         {
-            get { return GlobalServiceHelper.Suppliers.Where(p => p.MaintainSupplier).ToList(); }
+            get { return GlobalServiceHelper.GetSupplier(null).Where(p => p.MaintainSupplier).ToList(); }
         }
     }
 }
