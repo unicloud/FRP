@@ -16,12 +16,16 @@ using UniCloud.Application.PaymentBC.Query.CurrencyQueries;
 using UniCloud.Application.PaymentBC.Query.InvoiceQueries;
 using UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries;
 using UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries;
+using UniCloud.Application.PaymentBC.Query.SupplierQueries;
+using UniCloud.Application.PaymentBC.SupplierServices;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
-using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
-using UniCloud.Infrastructure.Data;using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
+using UniCloud.Infrastructure.Data;
+using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
 
@@ -84,6 +88,8 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
                 #region 供应商相关配置，包括查询，应用服务，仓储注册
 
                          .Register<ISupplierRepository, SupplierRepository>()
+                         .Register<ISupplierAppService, SupplierAppService>()
+                         .Register<ISupplierQuery, SupplierQuery>()
                 #endregion
 
                 #region 交易相关配置，包括查询，应用服务，仓储注册
