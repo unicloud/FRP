@@ -492,9 +492,9 @@ namespace UniCloud.DistributedServices.Purchase
 
         #region 订单文档
         
-         public IQueryable<OrderDocumentDTO> OrderDocuments()
+         public IQueryable<OrderDocumentDTO> OrderDocuments
          {
-            return _contractDocumentAppService.GetOrderDocuments();
+             get { return _contractDocumentAppService.GetOrderDocuments(); }
          }
 
         #endregion

@@ -81,6 +81,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         }
 
         #endregion
+        #endregion
 
         [TestMethod]
         public void GetTrades()

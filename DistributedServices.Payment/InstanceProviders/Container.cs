@@ -16,8 +16,11 @@ using UniCloud.Application.PaymentBC.Query.CurrencyQueries;
 using UniCloud.Application.PaymentBC.Query.InvoiceQueries;
 using UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries;
 using UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries;
+using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
 using UniCloud.Infrastructure.Data;using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
@@ -64,7 +67,7 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
 
                          .Register<IContractAircraftQuery, ContractAircraftQuery>()
                          .Register<IContractAircraftAppService, ContractAircraftAppService>()
-                #endregion 
+                #endregion
 
                 #region 合同发动机相关配置，包括查询，应用服务，仓储注册
 
@@ -78,20 +81,26 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
                          .Register<ICurrencyAppService, CurrencyAppService>()
                          .Register<ICurrencyRepository, CurrencyRepository>()
                 #endregion
- #region 供应商相关配置，包括查询，应用服务，仓储注册
+                #region 供应商相关配置，包括查询，应用服务，仓储注册
+
                          .Register<ISupplierRepository, SupplierRepository>()
                 #endregion
 
                 #region 交易相关配置，包括查询，应用服务，仓储注册
+
                          .Register<IOrderRepository, OrderRepository>()
-                #endregion      
- #region   付款计划相关配置，包括查询，应用服务，仓储注册
+                #endregion
+                #region   付款计划相关配置，包括查询，应用服务，仓储注册
 
                          .Register<IPaymentScheduleQuery, PaymentScheduleQuery>()
                          .Register<IPaymentScheduleAppService, PaymentScheduleAppService>()
                          .Register<IPaymentScheduleRepository, PaymentScheduleRepository>()
-            #endregion        }
 
-        #endregion
+                #endregion
+
+                ;
+
+            #endregion
+        }
     }
 }
