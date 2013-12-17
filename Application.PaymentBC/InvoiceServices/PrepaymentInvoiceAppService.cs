@@ -82,7 +82,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
             newPrepaymentInvoice.SetInvoiceValue();
             newPrepaymentInvoice.SetOrder(order);
             newPrepaymentInvoice.SetPaidAmount(prepaymentInvoice.PaidAmount);
-            newPrepaymentInvoice.Review(prepaymentInvoice.Reviewer);
+            //newPrepaymentInvoice.Review(prepaymentInvoice.Reviewer);
             newPrepaymentInvoice.SetCurrency(currency);
             newPrepaymentInvoice.SetPaymentScheduleLine(prepaymentInvoice.PaymentScheduleLineId);
             newPrepaymentInvoice.SetInvoiceStatus(InvoiceStatus.草稿);

@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2013/12/17 14:39:18
+// 生成日期: 2013/12/17 17:25:05
 namespace UniCloud.Presentation.Service.Payment.Payment
 {
     
@@ -747,7 +747,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                 "ble=\"false\" /><Property Name=\"Discount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><P" +
                 "roperty Name=\"EstimateDeliveryDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Prop" +
                 "erty Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"TotalLine\" Type=\"Edm.Decima" +
-                "l\" Nullable=\"false\" /><Property Name=\"EngineMaterialId\" Type=\"Edm.Int32\" Nullabl" +
+                "l\" Nullable=\"false\" /><Property Name=\"ContractEngineId\" Type=\"Edm.Int32\" Nullabl" +
                 "e=\"false\" /></ComplexType><EntityType Name=\"EngineLeaseOrderDTO\"><Key><PropertyR" +
                 "ef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pr" +
                 "operty Name=\"TradeId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" " +
@@ -764,7 +764,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                 "<Property Name=\"Discount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"" +
                 "EstimateDeliveryDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Not" +
                 "e\" Type=\"Edm.String\" /><Property Name=\"TotalLine\" Type=\"Edm.Decimal\" Nullable=\"f" +
-                "alse\" /><Property Name=\"EngineMaterialId\" Type=\"Edm.Int32\" Nullable=\"false\" /></" +
+                "alse\" /><Property Name=\"ContractEngineId\" Type=\"Edm.Int32\" Nullable=\"false\" /></" +
                 "ComplexType><EntityType Name=\"BFEPurchaseOrderDTO\"><Key><PropertyRef Name=\"Id\" /" +
                 "></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"T" +
                 "radeId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.Stri" +
@@ -7033,9 +7033,9 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="discount">Discount 的初始值。</param>
         /// <param name="estimateDeliveryDate">EstimateDeliveryDate 的初始值。</param>
         /// <param name="totalLine">TotalLine 的初始值。</param>
-        /// <param name="engineMaterialId">EngineMaterialId 的初始值。</param>
+        /// <param name="contractEngineId">ContractEngineId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static EnginePurchaseOrderLineDTO CreateEnginePurchaseOrderLineDTO(int ID, decimal unitPrice, int amount, decimal discount, global::System.DateTime estimateDeliveryDate, decimal totalLine, int engineMaterialId)
+        public static EnginePurchaseOrderLineDTO CreateEnginePurchaseOrderLineDTO(int ID, decimal unitPrice, int amount, decimal discount, global::System.DateTime estimateDeliveryDate, decimal totalLine, int contractEngineId)
         {
             EnginePurchaseOrderLineDTO enginePurchaseOrderLineDTO = new EnginePurchaseOrderLineDTO();
             enginePurchaseOrderLineDTO.Id = ID;
@@ -7044,7 +7044,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             enginePurchaseOrderLineDTO.Discount = discount;
             enginePurchaseOrderLineDTO.EstimateDeliveryDate = estimateDeliveryDate;
             enginePurchaseOrderLineDTO.TotalLine = totalLine;
-            enginePurchaseOrderLineDTO.EngineMaterialId = engineMaterialId;
+            enginePurchaseOrderLineDTO.ContractEngineId = contractEngineId;
             return enginePurchaseOrderLineDTO;
         }
         /// <summary>
@@ -7202,27 +7202,27 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         partial void OnTotalLineChanging(decimal value);
         partial void OnTotalLineChanged();
         /// <summary>
-        /// 架构中不存在属性 EngineMaterialId 的注释。
+        /// 架构中不存在属性 ContractEngineId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int EngineMaterialId
+        public int ContractEngineId
         {
             get
             {
-                return this._EngineMaterialId;
+                return this._ContractEngineId;
             }
             set
             {
-                this.OnEngineMaterialIdChanging(value);
-                this._EngineMaterialId = value;
-                this.OnEngineMaterialIdChanged();
-                this.OnPropertyChanged("EngineMaterialId");
+                this.OnContractEngineIdChanging(value);
+                this._ContractEngineId = value;
+                this.OnContractEngineIdChanged();
+                this.OnPropertyChanged("ContractEngineId");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _EngineMaterialId;
-        partial void OnEngineMaterialIdChanging(int value);
-        partial void OnEngineMaterialIdChanged();
+        private int _ContractEngineId;
+        partial void OnContractEngineIdChanging(int value);
+        partial void OnContractEngineIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -7516,9 +7516,9 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         /// <param name="discount">Discount 的初始值。</param>
         /// <param name="estimateDeliveryDate">EstimateDeliveryDate 的初始值。</param>
         /// <param name="totalLine">TotalLine 的初始值。</param>
-        /// <param name="engineMaterialId">EngineMaterialId 的初始值。</param>
+        /// <param name="contractEngineId">ContractEngineId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static EngineLeaseOrderLineDTO CreateEngineLeaseOrderLineDTO(int ID, decimal unitPrice, int amount, decimal discount, global::System.DateTime estimateDeliveryDate, decimal totalLine, int engineMaterialId)
+        public static EngineLeaseOrderLineDTO CreateEngineLeaseOrderLineDTO(int ID, decimal unitPrice, int amount, decimal discount, global::System.DateTime estimateDeliveryDate, decimal totalLine, int contractEngineId)
         {
             EngineLeaseOrderLineDTO engineLeaseOrderLineDTO = new EngineLeaseOrderLineDTO();
             engineLeaseOrderLineDTO.Id = ID;
@@ -7527,7 +7527,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
             engineLeaseOrderLineDTO.Discount = discount;
             engineLeaseOrderLineDTO.EstimateDeliveryDate = estimateDeliveryDate;
             engineLeaseOrderLineDTO.TotalLine = totalLine;
-            engineLeaseOrderLineDTO.EngineMaterialId = engineMaterialId;
+            engineLeaseOrderLineDTO.ContractEngineId = contractEngineId;
             return engineLeaseOrderLineDTO;
         }
         /// <summary>
@@ -7685,27 +7685,27 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         partial void OnTotalLineChanging(decimal value);
         partial void OnTotalLineChanged();
         /// <summary>
-        /// 架构中不存在属性 EngineMaterialId 的注释。
+        /// 架构中不存在属性 ContractEngineId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int EngineMaterialId
+        public int ContractEngineId
         {
             get
             {
-                return this._EngineMaterialId;
+                return this._ContractEngineId;
             }
             set
             {
-                this.OnEngineMaterialIdChanging(value);
-                this._EngineMaterialId = value;
-                this.OnEngineMaterialIdChanged();
-                this.OnPropertyChanged("EngineMaterialId");
+                this.OnContractEngineIdChanging(value);
+                this._ContractEngineId = value;
+                this.OnContractEngineIdChanged();
+                this.OnPropertyChanged("ContractEngineId");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _EngineMaterialId;
-        partial void OnEngineMaterialIdChanging(int value);
-        partial void OnEngineMaterialIdChanged();
+        private int _ContractEngineId;
+        partial void OnContractEngineIdChanging(int value);
+        partial void OnContractEngineIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

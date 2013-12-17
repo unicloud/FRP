@@ -18,9 +18,12 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Windows;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -32,7 +35,7 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof (PurchaseInvoiceManagerVM))]
+    [Export(typeof(PurchaseInvoiceManagerVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class PurchaseInvoiceManagerVM : EditViewModelBase
     {
@@ -59,6 +62,38 @@ namespace UniCloud.Presentation.Payment.Invoice
             PurchaseInvoices = Service.CreateCollection<PurchaseInvoiceDTO>(_paymentData.PurchaseInvoices);
             Service.RegisterCollectionView(PurchaseInvoices); //注册查询集合。
             PurchaseInvoices.PropertyChanged += OnViewPropertyChanged;
+
+            Currencies = Service.CreateCollection<CurrencyDTO>(_paymentData.Currencies);
+            Service.RegisterCollectionView(Currencies); //注册查询集合。
+            Currencies.PropertyChanged += OnViewPropertyChanged;
+
+            AircraftPurchaseOrders = Service.CreateCollection<AircraftPurchaseOrderDTO>(_paymentData.AircraftPurchaseOrders);
+            Service.RegisterCollectionView(AircraftPurchaseOrders); //注册查询集合。
+            AircraftPurchaseOrders.PropertyChanged += OnViewPropertyChanged;
+
+            EnginePurchaseOrders = Service.CreateCollection<EnginePurchaseOrderDTO>(_paymentData.EnginePurchaseOrders);
+            Service.RegisterCollectionView(EnginePurchaseOrders); //注册查询集合。
+            EnginePurchaseOrders.PropertyChanged += OnViewPropertyChanged;
+
+            BFEPurchaseOrders = Service.CreateCollection<BFEPurchaseOrderDTO>(_paymentData.BFEPurchaseOrders);
+            Service.RegisterCollectionView(BFEPurchaseOrders); //注册查询集合。
+            BFEPurchaseOrders.PropertyChanged += OnViewPropertyChanged;
+
+            AcPaymentSchedules = Service.CreateCollection<AcPaymentScheduleDTO>(_paymentData.AcPaymentSchedules);
+            Service.RegisterCollectionView(AcPaymentSchedules); //注册查询集合。
+            AcPaymentSchedules.PropertyChanged += OnViewPropertyChanged;
+
+            EnginePaymentSchedules = Service.CreateCollection<EnginePaymentScheduleDTO>(_paymentData.EnginePaymentSchedules);
+            Service.RegisterCollectionView(EnginePaymentSchedules); //注册查询集合。
+            EnginePaymentSchedules.PropertyChanged += OnViewPropertyChanged;
+
+            ContractAircrafts = Service.CreateCollection<ContractAircraftDTO>(_paymentData.ContractAircrafts);
+            Service.RegisterCollectionView(ContractAircrafts); //注册查询集合。
+            ContractAircrafts.PropertyChanged += OnViewPropertyChanged;
+
+            ContractEngines = Service.CreateCollection<ContractEngineDTO>(_paymentData.ContractEngines);
+            Service.RegisterCollectionView(ContractEngines); //注册查询集合。
+            ContractEngines.PropertyChanged += OnViewPropertyChanged;
         }
 
         /// <summary>
@@ -72,6 +107,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
             CommitCommand = new DelegateCommand<object>(OnCommitExecute, CanCommitExecute);
             CancelCommand = new DelegateCommand<object>(OnCancelExecute, CanCancelExecute);
+            CellEditEndCommand=new DelegateCommand<object>(OnCellEditEnd);
         }
 
         /// <summary>
@@ -103,10 +139,14 @@ namespace UniCloud.Presentation.Payment.Invoice
         public override void LoadData()
         {
             PurchaseInvoices.AutoLoad = true;
-            Currencys.AutoLoad = true;
+            Currencies.AutoLoad = true;
             AircraftPurchaseOrders.AutoLoad = true;
             EnginePurchaseOrders.AutoLoad = true;
             BFEPurchaseOrders.AutoLoad = true;
+            AcPaymentSchedules.AutoLoad = true;
+            EnginePaymentSchedules.AutoLoad = true;
+            ContractAircrafts.AutoLoad = true;
+            ContractEngines.AutoLoad = true;
         }
 
         #region 业务
@@ -148,7 +188,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 采购发票行
 
-        private ObservableCollection<InvoiceLineDTO> _invoiceLines=new ObservableCollection<InvoiceLineDTO>();
+        private ObservableCollection<InvoiceLineDTO> _invoiceLines = new ObservableCollection<InvoiceLineDTO>();
 
         /// <summary>
         ///     采购发票行
@@ -194,7 +234,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// <summary>
         ///     币种集合
         /// </summary>
-        public QueryableDataServiceCollectionView<CurrencyDTO> Currencys { get; set; }
+        public QueryableDataServiceCollectionView<CurrencyDTO> Currencies { get; set; }
 
         #endregion
 
@@ -232,7 +272,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         private AircraftPurchaseOrderDTO _selAircraftPurchaseOrder;
 
         /// <summary>
-        ///     选择的订单
+        ///     选择的飞机采购订单
         /// </summary>
         public AircraftPurchaseOrderDTO SelAircraftPurchaseOrder
         {
@@ -252,6 +292,51 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
         }
 
+        private EnginePurchaseOrderDTO _selEnginePurchaseOrder;
+
+        /// <summary>
+        ///     选择的发动机采购订单
+        /// </summary>
+        public EnginePurchaseOrderDTO SelEnginePurchaseOrder
+        {
+            get { return _selEnginePurchaseOrder; }
+            set
+            {
+                if (_selEnginePurchaseOrder != value)
+                {
+                    _selEnginePurchaseOrder = value;
+                    _enginePurchaseOrderLines.Clear();
+                    foreach (var orderLine in value.EnginePurchaseOrderLines)
+                    {
+                        EnginePurchaseOrderLines.Add(orderLine);
+                    }
+                    RaisePropertyChanged(() => SelEnginePurchaseOrder);
+                }
+            }
+        }
+
+        private BFEPurchaseOrderDTO _selBFEPurchaseOrder;
+
+        /// <summary>
+        ///     选择的BFE订单
+        /// </summary>
+        public BFEPurchaseOrderDTO SelBFEPurchaseOrder
+        {
+            get { return _selBFEPurchaseOrder; }
+            set
+            {
+                if (_selBFEPurchaseOrder != value)
+                {
+                    _selBFEPurchaseOrder = value;
+                    _bfePurchaseOrderLines.Clear();
+                    foreach (var orderLine in value.BFEPurchaseOrderLines)
+                    {
+                        BFEPurchaseOrderLines.Add(orderLine);
+                    }
+                    RaisePropertyChanged(() => SelBFEPurchaseOrder);
+                }
+            }
+        }
         #endregion
 
         #region 订单行
@@ -259,7 +344,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         private ObservableCollection<AircraftPurchaseOrderLineDTO> _aircraftPurchaseOrderLines = new ObservableCollection<AircraftPurchaseOrderLineDTO>();
 
         /// <summary>
-        ///     订单行
+        ///     飞机采购订单行
         /// </summary>
         public ObservableCollection<AircraftPurchaseOrderLineDTO> AircraftPurchaseOrderLines
         {
@@ -274,6 +359,44 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
         }
 
+
+        private ObservableCollection<EnginePurchaseOrderLineDTO> _enginePurchaseOrderLines = new ObservableCollection<EnginePurchaseOrderLineDTO>();
+
+        /// <summary>
+        ///     发动机采购订单行
+        /// </summary>
+        public ObservableCollection<EnginePurchaseOrderLineDTO> EnginePurchaseOrderLines
+        {
+            get { return _enginePurchaseOrderLines; }
+            private set
+            {
+                if (_enginePurchaseOrderLines != value)
+                {
+                    _enginePurchaseOrderLines = value;
+                    RaisePropertyChanged(() => EnginePurchaseOrderLines);
+                }
+            }
+        }
+
+
+        private ObservableCollection<BFEPurchaseOrderLineDTO> _bfePurchaseOrderLines = new ObservableCollection<BFEPurchaseOrderLineDTO>();
+
+        /// <summary>
+        ///     BFE订单行
+        /// </summary>
+        public ObservableCollection<BFEPurchaseOrderLineDTO> BFEPurchaseOrderLines
+        {
+            get { return _bfePurchaseOrderLines; }
+            private set
+            {
+                if (_bfePurchaseOrderLines != value)
+                {
+                    _bfePurchaseOrderLines = value;
+                    RaisePropertyChanged(() => BFEPurchaseOrderLines);
+                }
+            }
+        }
+
         #endregion
 
         #region 选择的订单行
@@ -281,7 +404,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         private AircraftPurchaseOrderLineDTO _selAircraftPurchaseOrderLine;
 
         /// <summary>
-        ///     选择的订单行
+        ///     选择的采购订单行
         /// </summary>
         public AircraftPurchaseOrderLineDTO SelAircraftPurchaseOrderLine
         {
@@ -296,13 +419,56 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
         }
 
+        private EnginePurchaseOrderLineDTO _selEnginePurchaseOrderLine;
+
+        /// <summary>
+        ///     选择的发动机采购订单行
+        /// </summary>
+        public EnginePurchaseOrderLineDTO SelEnginePurchaseOrderLine
+        {
+            get { return _selEnginePurchaseOrderLine; }
+            set
+            {
+                if (_selEnginePurchaseOrderLine != value)
+                {
+                    _selEnginePurchaseOrderLine = value;
+                    RaisePropertyChanged(() => SelEnginePurchaseOrderLine);
+                }
+            }
+        }
         #endregion
 
         #region 付款计划集合
         /// <summary>
+        ///     飞机付款计划集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<AcPaymentScheduleDTO> AcPaymentSchedules { get; set; }
+
+
+        /// <summary>
+        ///     发动机付款计划集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<EnginePaymentScheduleDTO> EnginePaymentSchedules { get; set; }
+
+        /// <summary>
         ///     付款计划集合
         /// </summary>
-        //public QueryableDataServiceCollectionView<schedule> Currencys { get; set; }
+        //public QueryableDataServiceCollectionView<PaymentScheduleDTO> AcPaymentSchedules { get; set; }
+        #endregion
+
+        #region 合同飞机集合
+        /// <summary>
+        ///     合同飞机集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ContractAircraftDTO> ContractAircrafts { get; set; }
+
+        #endregion
+
+        #region 合同发动机集合
+        /// <summary>
+        ///     合同发动机集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ContractEngineDTO> ContractEngines { get; set; }
 
         #endregion
 
@@ -312,7 +478,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
 
-        #region 重载操作
+        #region 操作
 
         #region 新建采购发票
 
@@ -409,6 +575,29 @@ namespace UniCloud.Presentation.Payment.Invoice
         }
         #endregion
 
+        #region GridView单元格变更处理
+        public DelegateCommand<object> CellEditEndCommand { set; get; }
+
+        /// <summary>
+        /// GridView单元格变更处理
+        /// </summary>
+        /// <param name="sender"></param>
+        public void OnCellEditEnd(object sender)
+        {
+            var gridView = sender as RadGridView;
+            if (gridView != null)
+            {
+                var cell = gridView.CurrentCell;
+                if (string.Equals(cell.Column.UniqueName, "TotalLine"))
+                {
+                    decimal totalCount = SelPurchaseInvoice.InvoiceLines.Sum(invoiceLine => invoiceLine.Amount);
+                    SelPurchaseInvoice.InvoiceValue = totalCount;
+                }      
+            }
+        }
+
+
+        #endregion
         #endregion
 
         #region 子窗体相关操作
@@ -456,23 +645,63 @@ namespace UniCloud.Presentation.Payment.Invoice
             {
                 PurchaseInvoiceId = RandomHelper.Next(),
                 CreateDate = DateTime.Now,
+                InvoiceDate = DateTime.Now,
             };
             string selectedPane = this.PurchaseOrderChildView.PaneGroups.SelectedPane.Title.ToString();
             if (selectedPane == "飞机采购订单")
             {
-                var selOrderLine = SelAircraftPurchaseOrderLine;
-                PurchaseInvoices.AddNew(invoice);
+                if (SelAircraftPurchaseOrderLine != null)
+                {
+                    invoice.OrderId = SelAircraftPurchaseOrder.Id;
+                    invoice.SupplierName = SelAircraftPurchaseOrder.Name;
+                    var paymentSchedule =
+                        AcPaymentSchedules.FirstOrDefault(
+                            p => p.ContractAcId == SelAircraftPurchaseOrderLine.ContractAircraftId);
+                    if (paymentSchedule != null) invoice.PaymentScheduleLineId = paymentSchedule.AcPaymentScheduleId;
+                    PurchaseInvoices.AddNew(invoice);
+                    PurchaseOrderChildView.Close();
+                }
+                else
+                {
+                    MessageAlert("未选中飞机采购订单行");
+                }
             }
-            else if (selectedPane == "发动采购订单")
+            else if (selectedPane == "发动机采购订单")
             {
-                PurchaseInvoices.AddNew(invoice);
+                if (SelEnginePurchaseOrderLine != null)
+                {
+                    invoice.OrderId = SelEnginePurchaseOrder.Id;
+                    invoice.SupplierName = SelEnginePurchaseOrder.Name;
+                    var paymentSchedule =
+                        EnginePaymentSchedules.FirstOrDefault(
+                            p => p.ContractEngineId == SelEnginePurchaseOrderLine.ContractEngineId);
+                    if (paymentSchedule != null) invoice.PaymentScheduleLineId = paymentSchedule.EnginePaymentScheduleId;
+                    PurchaseInvoices.AddNew(invoice);
+                    PurchaseOrderChildView.Close();
+                }
+                else
+                {
+                    MessageBox.Show("未选中发动机采购订单行！");
+                }
             }
             else if (selectedPane == "BFE采购订单")
             {
-                PurchaseInvoices.AddNew(invoice);
+                if (SelBFEPurchaseOrder != null)
+                {
+                    invoice.OrderId = SelEnginePurchaseOrder.Id;
+                    invoice.SupplierName = SelBFEPurchaseOrder.Name;
+                    //var paymentSchedule =
+                    //    AcPaymentSchedules.FirstOrDefault(
+                    //        p => p.ContractAcId == SelAircraftPurchaseOrderLine.ContractAircraftId);
+                    //if (paymentSchedule != null) invoice.PaymentScheduleLineId = paymentSchedule.AcPaymentScheduleId;
+                    PurchaseInvoices.AddNew(invoice);
+                    PurchaseOrderChildView.Close();
+                }
+                else
+                {
+                    MessageBox.Show("未选中BFE采购订单！");
+                }
             }
-
-
         }
 
 

@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="IPaymentService.cs" />
     <Compile Include="PaymentService.cs" />
+    <Compile Include="Payment\PurchaseInvoiceDTO.cs" />
     <Compile Include="Payment\APUMaintainInvoiceDTO.cs" />
     <Compile Include="Payment\Enums\InvoiceStatus.cs" />
     <Compile Include="Payment\Enums\MaintainItem.cs" />
