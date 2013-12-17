@@ -237,6 +237,7 @@
         <Property Name="Amount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="PaymentScheduleId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="InvoiceId" Type="Edm.Int32" />
         <Property Name="Note" Type="Edm.String" />
       </ComplexType>
       <EntityType Name="EnginePaymentScheduleDTO">
@@ -349,7 +350,7 @@
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="EngineMaterialId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractEngineId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="EngineLeaseOrderDTO">
         <Key>
@@ -375,7 +376,7 @@
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="EngineMaterialId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractEngineId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="BFEPurchaseOrderDTO">
         <Key>

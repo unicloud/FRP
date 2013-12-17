@@ -83,7 +83,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
             newPurchaseInvoice.SetInvoiceValue();
             newPurchaseInvoice.SetOrder(order);
             newPurchaseInvoice.SetPaidAmount(purchaseInvoice.PaidAmount);
-            newPurchaseInvoice.Review(purchaseInvoice.Reviewer);
+            //newPurchaseInvoice.Review(purchaseInvoice.Reviewer);
             newPurchaseInvoice.SetCurrency(currency);
             newPurchaseInvoice.SetPaymentScheduleLine(purchaseInvoice.PaymentScheduleLineId);
             newPurchaseInvoice.SetInvoiceStatus(InvoiceStatus.草稿);
@@ -99,6 +99,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
                     newPurchaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null);
                 }
             }
+            _invoiceRepository.Add(newPurchaseInvoice);
         }
 
         /// <summary>
