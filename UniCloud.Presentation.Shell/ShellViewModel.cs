@@ -328,10 +328,13 @@ namespace UniCloud.Presentation.Shell
             var menu411 = new MenuItem
             {
                 Text = "管理飞机付款计划",
+                NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.AcPaymentSchedule"
             };
             var menu412 = new MenuItem
             {
                 Text = "管理发动机付款计划",
+                NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.EnginePaymentSchedule"
+
             };
             var menu413 = new MenuItem
             {

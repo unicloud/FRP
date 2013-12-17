@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
@@ -26,6 +27,7 @@ using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
+using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 #endregion
 
@@ -102,7 +104,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         ///     </remarks>
         /// </summary>
         public override void LoadData()
-        {
+        { 
             // 将CollectionView的AutoLoad属性设为True
             ApuMaintainInvoices.AutoLoad = true;
         }
@@ -134,6 +136,23 @@ namespace UniCloud.Presentation.Payment.Invoice
                         }
                     }
                     RaisePropertyChanged(() => ApuMaintainInvoice);
+                }
+            }
+        }
+
+        private MaintainInvoiceLineDTO _apuMaintainInvoiceLine;
+        /// <summary>
+        /// 选中的APU维修发票
+        /// </summary>
+        public MaintainInvoiceLineDTO ApuMaintainInvoiceLine
+        {
+            get { return _apuMaintainInvoiceLine; }
+            set
+            {
+                if (_apuMaintainInvoiceLine != value)
+                {
+                    _apuMaintainInvoiceLine = value;
+                    RaisePropertyChanged(() => ApuMaintainInvoiceLine);
                 }
             }
         }
@@ -265,6 +284,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnRemoveMaintainInvoiceLine(object obj)
         {
+            ApuMaintainInvoice.MaintainInvoiceLines.Remove(ApuMaintainInvoiceLine);
         }
 
         private bool CanRemoveMaintainInvoiceLine(object obj)
@@ -274,5 +294,21 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
         #endregion
-    } 
+
+        private Array values = Enum.GetValues(typeof(MaintainItem));
+        public Array Values
+        {
+            get { return values; }
+            set
+            {
+                if (value != null && values != value)
+                {
+                    values = value;
+                    RaisePropertyChanged(() => Values);
+                }
+            }
+
+        }
+    }
+
 }

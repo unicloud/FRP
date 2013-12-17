@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 
 #endregion
 
@@ -96,6 +97,10 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// </summary>
         public int Status { get; set; }
 
+        /// <summary>
+        ///  维修发票行集合
+        /// </summary>
+        public virtual List<MaintainInvoiceLineDTO> MaintainInvoiceLines { get; set; }
         #endregion
 
         #region 外键属性

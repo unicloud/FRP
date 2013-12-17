@@ -22,6 +22,7 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.TradeQueries;
+using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
@@ -41,10 +42,11 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
         private readonly ISupplierRepository _supplierRepository;
         private readonly ITradeQuery _tradeQuery;
         private readonly ITradeRepository _tradeRepository;
+        private readonly IActionCategoryRepository _actionCategoryRepository;
 
         public TradeAppService(ITradeQuery queryTrade, ITradeRepository tradeRepository,
             IOrderQuery orderQuery, IOrderRepository orderRepository, ISupplierRepository supplierRepository,
-            IRelatedDocRepository relatedDocRepository)
+            IRelatedDocRepository relatedDocRepository, IActionCategoryRepository actionCategoryRepository)
         {
             _tradeQuery = queryTrade;
             _tradeRepository = tradeRepository;
@@ -52,6 +54,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             _orderRepository = orderRepository;
             _supplierRepository = supplierRepository;
             _relatedDocRepository = relatedDocRepository;
+            _actionCategoryRepository = actionCategoryRepository;
         }
 
         #region ITradeAppService 成员
@@ -232,8 +235,10 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             }
 
             // TODO : 获取机型ID和引进方式ID，需要移除
-            var aircraftTypeId = Guid.Parse("EF5DD798-C16D-47CD-A588-ABD257A6B6B6");
-            var imortTypeId = Guid.Parse("8C58622E-01E3-4F61-B34D-619D3FB432AF");
+            //var aircraftType = 
+            var imortType =
+                _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "购买")
+                    .FirstOrDefault();
 
             // 处理订单行
             if (dto.AircraftPurchaseOrderLines != null)
@@ -245,10 +250,10 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                     orderLine.SetCost(line.AirframePrice, line.RefitCost, line.EnginePrice);
                     orderLine.SetAircraftMaterial(line.AircraftMaterialId);
                     // 创建合同飞机
-                    var contractAircraft = ContractAircraftFactory.CreatePurchaseContractAircraft(dto.Name, "0001");
+                    var contractAircraft = ContractAircraftFactory.CreatePurchaseContractAircraft(dto.Name, line.RankNumber);
                     contractAircraft.GenerateNewIdentity();
-                    contractAircraft.SetAircraftType(aircraftTypeId);
-                    contractAircraft.SetImportCategory(imortTypeId);
+                    //contractAircraft.SetAircraftType(aircraftType);
+                    contractAircraft.SetImportCategory(imortType);
                     orderLine.SetContractAircraft(contractAircraft);
                 });
             }

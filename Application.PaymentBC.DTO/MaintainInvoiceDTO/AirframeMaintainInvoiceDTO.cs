@@ -33,10 +33,6 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// </summary>
         public int AirframeMaintainInvoiceId { get; set; }
 
-        /// <summary>
-        ///  机身维修发票行集合
-        /// </summary>
-        public virtual List<MaintainInvoiceLineDTO> MaintainInvoiceLines { get; set; }
         #endregion
 
         #region 外键属性

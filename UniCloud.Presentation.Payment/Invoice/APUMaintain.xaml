@@ -85,76 +85,109 @@
                                         <telerik:GridViewDataColumn Header="序列号"
                                                                     IsSortable="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding SerialNumber}" />
                                         <telerik:GridViewDataColumn Header="发票编号"
                                                                     IsSortable="True"
+                                                                    IsReadOnly="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding InvoiceNumber}" />
                                         <telerik:GridViewDataColumn Header="发票号码"
                                                                     IsSortable="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding InvoideCode}" />
                                         <uc:DateTimePickerColumn Header="发票时间"
                                                                  IsSortable="True"
                                                                  MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                 TextAlignment="Right"
                                                                  HeaderTextAlignment="Center"
                                                                  DataMemberBinding="{Binding InvoiceDate, StringFormat={StaticResource DateStringFormat}}" />
                                         <telerik:GridViewDataColumn Header="供应商"
-                                                                        IsSortable="True"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding SupplierId}" />
+                                                                    IsSortable="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    TextAlignment="Right"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding SupplierId}" />
                                         <telerik:GridViewDataColumn Header="币种"
                                                                     IsSortable="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding CurrencyId}" />
-                                        <telerik:GridViewDataColumn Header="发票金额"
-                                                                    IsSortable="True"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    HeaderTextAlignment="Center"
-                                                                    DataMemberBinding="{Binding InvoiceValue,StringFormat={StaticResource CurrencyStringFormat}}" />
-                                        <telerik:GridViewDataColumn Header="已付金额"
-                                                                    IsSortable="True"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    HeaderTextAlignment="Center"
-                                                                    DataMemberBinding="{Binding PaidAmount,StringFormat={StaticResource CurrencyStringFormat}}" />
+                                        <telerik:GridViewMaskedInputColumn Header="发票金额"
+                                                                           IsSortable="True"
+                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                           TextAlignment="Right"
+                                                                           HeaderTextAlignment="Center"
+                                                                           DataMemberBinding="{Binding InvoiceValue,StringFormat={StaticResource CurrencyStringFormat}}"
+                                                                           MaskType="Currency"
+                                                                           Mask="###,###,###.##" />
+                                        <telerik:GridViewMaskedInputColumn Header="已付金额"
+                                                                           IsSortable="True"
+                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                           TextAlignment="Right"
+                                                                           HeaderTextAlignment="Center"
+                                                                           DataMemberBinding="{Binding PaidAmount,StringFormat={StaticResource CurrencyStringFormat}}"
+                                                                           MaskType="Currency"
+                                                                           Mask="###,###,###.##" />
                                         <telerik:GridViewDataColumn Header="经办人"
                                                                     IsSortable="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding OperatorName}" />
                                         <telerik:GridViewDataColumn Header="审核人"
                                                                     IsSortable="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding Reviewer}" />
                                         <uc:DateTimePickerColumn Header="审核日期"
                                                                  IsSortable="True"
                                                                  MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                 TextAlignment="Right"
                                                                  HeaderTextAlignment="Center"
                                                                  DataMemberBinding="{Binding ReviewDate, StringFormat={StaticResource DateStringFormat}}" />
                                         <telerik:GridViewCheckBoxColumn Header="有效"
                                                                         IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding IsValid}" />
+                                                                        DataMemberBinding="{Binding IsValid}" >
+                                            <telerik:GridViewCheckBoxColumn.CellStyle>
+                                                <Style TargetType="telerik:GridViewCell">
+                                                    <Setter Property="HorizontalContentAlignment"
+                                                            Value="Center" />
+                                                </Style>
+                                            </telerik:GridViewCheckBoxColumn.CellStyle>
+                                            </telerik:GridViewCheckBoxColumn>
                                         <telerik:GridViewCheckBoxColumn Header="完成"
                                                                         IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        TextAlignment="Center"
                                                                         HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding IsCompleted}" />
+                                                                        DataMemberBinding="{Binding IsCompleted}">
+                                            <telerik:GridViewCheckBoxColumn.CellStyle>
+                                                <Style TargetType="telerik:GridViewCell">
+                                                    <Setter Property="HorizontalContentAlignment"
+                                                            Value="Center" />
+                                                </Style>
+                                            </telerik:GridViewCheckBoxColumn.CellStyle>
+                                        </telerik:GridViewCheckBoxColumn>
                                         <telerik:GridViewDataColumn Header="状态"
                                                                     IsSortable="True"
+                                                                    IsReadOnly="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
-                                                                    DataMemberBinding="{Binding Status}" />
+                                                                    DataMemberBinding="{Binding Status, ConverterParameter=InvoiceStatus, Converter={StaticResource EnumToStringConverter}}" />
                                         <telerik:GridViewDataColumn Header="创建日期"
-                                                                    IsSortable="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
                                                                     IsReadOnly="True"
                                                                     DataMemberBinding="{Binding CreateDate, StringFormat={StaticResource DateStringFormat}}" />
@@ -201,7 +234,8 @@
                             <telerik:RadGridView Grid.Row="1"
                                                  x:Name="MaintainInvoiceLine"
                                                  AutoGenerateColumns="False"
-                                                 ItemsSource="{Binding ApuMaintainInvoice.MaintainInvoiceLines}"
+                                                 ItemsSource="{Binding ApuMaintainInvoice.MaintainInvoiceLines,Mode=TwoWay}"
+                                                 SelectedItem="{Binding ApuMaintainInvoiceLine,Mode=TwoWay}"
                                                  IsBusy="{Binding ApuMaintainInvoices.IsBusy}"
                                                  ShowGroupPanel="False"
                                                  IsFilteringAllowed="False"
@@ -210,37 +244,43 @@
                                     <telerik:RadContextMenu>
                                         <telerik:RadMenuItem Header="导出Excel"
                                                              Command="{Binding ExcelExportCommand}"
-                                                             CommandParameter="{Binding ElementName=OrderLine, Mode=OneWay}" />
+                                                             CommandParameter="{Binding ElementName=MaintainInvoiceLine, Mode=OneWay}" />
                                         <telerik:RadMenuItem Header="导出Word"
                                                              Command="{Binding WordExportCommand}"
-                                                             CommandParameter="{Binding ElementName=OrderLine, Mode=OneWay}" />
+                                                             CommandParameter="{Binding ElementName=MaintainInvoiceLine, Mode=OneWay}" />
                                     </telerik:RadContextMenu>
                                 </telerik:RadContextMenu.ContextMenu>
                                 <telerik:RadGridView.Columns>
-                                    <uc:DataPageSerialColumn Header="序号"/>
+                                    <uc:DataPageSerialColumn Header="序号" />
                                     <telerik:GridViewComboBoxColumn Header="维修项"
-                                                                IsSortable="True"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                HeaderTextAlignment="Center"
-                                                                DataMemberBinding="{Binding MaintainItem}" />
+                                                                    IsSortable="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    TextAlignment="Right"
+                                                                    HeaderTextAlignment="Center"
+                                                                    ItemsSource="{Binding Values}"
+                                                                    DataMemberBinding="{Binding MaintainItem}" />
                                     <telerik:GridViewDataColumn Header="项名称"
                                                                 IsSortable="True"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                TextAlignment="Right"
                                                                 HeaderTextAlignment="Center"
                                                                 DataMemberBinding="{Binding ItemName}" />
                                     <telerik:GridViewDataColumn Header="单价"
                                                                 IsSortable="True"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                TextAlignment="Right"
                                                                 HeaderTextAlignment="Center"
                                                                 DataMemberBinding="{Binding UnitPrice}" />
                                     <telerik:GridViewDataColumn Header="数量"
                                                                 IsSortable="True"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                TextAlignment="Right"
                                                                 HeaderTextAlignment="Center"
                                                                 DataMemberBinding="{Binding Amount}" />
                                     <telerik:GridViewDataColumn Header="备注"
                                                                 IsSortable="True"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                TextAlignment="Right"
                                                                 HeaderTextAlignment="Center"
                                                                 DataMemberBinding="{Binding Note}" />
                                 </telerik:RadGridView.Columns>

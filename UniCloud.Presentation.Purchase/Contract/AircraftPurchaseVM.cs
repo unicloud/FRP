@@ -18,9 +18,7 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
@@ -84,6 +82,12 @@ namespace UniCloud.Presentation.Purchase.Contract
             ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(fd2);
             Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
             ViewAircraftPurchaseOrderDTO.PropertyChanged += OnViewPropertyChanged;
+
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
+            Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context, _context.Currencies);
+            Linkmen = new QueryableDataServiceCollectionView<LinkmanDTO>(_context, _context.Linkmans);
+            AircraftMaterials = new QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO>(_context,
+                _context.SupplierCompanyAcMaterials);
         }
 
         /// <summary>
@@ -104,39 +108,22 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// <summary>
         ///     供应商
         /// </summary>
-        public IEnumerable<SupplierDTO> Suppliers
-        {
-            get { return GlobalServiceHelper.GetSupplier(() => RaisePropertyChanged(() => Suppliers)); }
-        }
+        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
 
         /// <summary>
         ///     币种
         /// </summary>
-        public IEnumerable<CurrencyDTO> Currencies
-        {
-            get { return GlobalServiceHelper.GetCurrency(() => RaisePropertyChanged(() => Currencies)); }
-        }
+        public QueryableDataServiceCollectionView<CurrencyDTO> Currencies { get; set; }
 
         /// <summary>
         ///     联系人
         /// </summary>
-        public IEnumerable<LinkmanDTO> Linkmen
-        {
-            get { return GlobalServiceHelper.GetLinkman(() => RaisePropertyChanged(() => Linkmen)); }
-        }
+        public QueryableDataServiceCollectionView<LinkmanDTO> Linkmen { get; set; }
 
         /// <summary>
         ///     飞机物料
         /// </summary>
-        public IEnumerable<SupplierCompanyAcMaterialDTO> AircraftMaterials
-        {
-            get
-            {
-                return
-                    GlobalServiceHelper.GetAircraftMaterial(() => RaisePropertyChanged(() => AircraftMaterials))
-                        .Where(a => a.SupplierCompanyId == _selTradeDTO.SuppierCompanyId);
-            }
-        }
+        public QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO> AircraftMaterials { get; set; }
 
         #endregion
 
@@ -153,6 +140,11 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             ViewTradeDTO.AutoLoad = true;
             ViewAircraftPurchaseOrderDTO.AutoLoad = true;
+
+            Suppliers.Load(true);
+            Currencies.Load(true);
+            Linkmen.Load(true);
+            AircraftMaterials.Load(true);
         }
 
         #region 交易
