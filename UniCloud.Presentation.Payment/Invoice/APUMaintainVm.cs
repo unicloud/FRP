@@ -26,7 +26,6 @@ using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
-using UniCloud.Presentation.Service.Payment.Purchase;
 
 #endregion
 
@@ -242,7 +241,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnAddMaintainInvoiceLine(object obj)
         {
-            var maintainInvoiceLine = new APUMaintainInvoiceLineDTO
+            var maintainInvoiceLine = new MaintainInvoiceLineDTO
             {
                 Amount = 1,
             };

@@ -13,7 +13,6 @@
 #endregion
 
 using System.Collections.Generic;
-using UniCloud.Presentation.Service.Payment.Purchase;
 
 namespace UniCloud.Presentation.Service.Payment.Payment
 {

@@ -14,6 +14,7 @@
 
 #region 命名空间
 
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
@@ -62,6 +63,16 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
                 engineMaintainInvoice.InvoideCode, engineMaintainInvoice.InvoiceDate, engineMaintainInvoice.SupplierName, engineMaintainInvoice.SupplierId,
                 engineMaintainInvoice.InvoiceValue, engineMaintainInvoice.PaidAmount, engineMaintainInvoice.OperatorName,
                 engineMaintainInvoice.Reviewer, engineMaintainInvoice.Status, engineMaintainInvoice.CurrencyId);
+            if (engineMaintainInvoice.MaintainInvoiceLines != null)
+            {
+                foreach (var maintainInvoiceLine in engineMaintainInvoice.MaintainInvoiceLines)
+                {
+                    var newMaintainInvoiceLine = MaintainInvoiceFactory.CreateMaintainInvoiceLine();
+                    MaintainInvoiceFactory.SetMaintainInvoiceLine(newMaintainInvoiceLine, maintainInvoiceLine.MaintainItem, maintainInvoiceLine.ItemName, maintainInvoiceLine.UnitPrice,
+                        maintainInvoiceLine.Amount, maintainInvoiceLine.Note);
+                    newEngineMaintainInvoice.MaintainInvoiceLines.Add(newMaintainInvoiceLine);
+                }
+            }
             _invoiceRepository.Add(newEngineMaintainInvoice);
         }
 
@@ -79,6 +90,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
                 engineMaintainInvoice.InvoideCode, engineMaintainInvoice.InvoiceDate, engineMaintainInvoice.SupplierName, engineMaintainInvoice.SupplierId,
                 engineMaintainInvoice.InvoiceValue, engineMaintainInvoice.PaidAmount, engineMaintainInvoice.OperatorName,
                engineMaintainInvoice.Reviewer, engineMaintainInvoice.Status, engineMaintainInvoice.CurrencyId);
+            updateEngineMaintainInvoice.MaintainInvoiceLines = UpdateMaintainInvoiceLines(engineMaintainInvoice.MaintainInvoiceLines,
+                 updateEngineMaintainInvoice.MaintainInvoiceLines);
             _invoiceRepository.Modify(updateEngineMaintainInvoice);
         }
 
@@ -118,6 +131,16 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
                 apuMaintainInvoice.InvoideCode, apuMaintainInvoice.InvoiceDate, apuMaintainInvoice.SupplierName, apuMaintainInvoice.SupplierId,
                 apuMaintainInvoice.InvoiceValue, apuMaintainInvoice.PaidAmount, apuMaintainInvoice.OperatorName,
                apuMaintainInvoice.Reviewer, apuMaintainInvoice.Status, apuMaintainInvoice.CurrencyId);
+            if (apuMaintainInvoice.MaintainInvoiceLines != null)
+            {
+                foreach (var maintainInvoiceLine in apuMaintainInvoice.MaintainInvoiceLines)
+                {
+                    var newMaintainInvoiceLine = MaintainInvoiceFactory.CreateMaintainInvoiceLine();
+                    MaintainInvoiceFactory.SetMaintainInvoiceLine(newMaintainInvoiceLine, maintainInvoiceLine.MaintainItem, maintainInvoiceLine.ItemName, maintainInvoiceLine.UnitPrice,
+                        maintainInvoiceLine.Amount, maintainInvoiceLine.Note);
+                    newApuMaintainInvoice.MaintainInvoiceLines.Add(newMaintainInvoiceLine);
+                }
+            }
             _invoiceRepository.Add(newApuMaintainInvoice);
         }
 
@@ -128,12 +151,14 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         [Update(typeof(APUMaintainInvoiceDTO))]
         public void ModifyApuMaintainInvoice(APUMaintainInvoiceDTO apuMaintainInvoice)
         {
-            var updateApuMaintainInvoice = _invoiceRepository.Get(apuMaintainInvoice.APUMaintainInvoiceId);
+            var updateApuMaintainInvoice = _invoiceRepository.Get(apuMaintainInvoice.APUMaintainInvoiceId);//获取需要更新的对象。
             MaintainInvoiceFactory.SetMaintainInvoice(updateApuMaintainInvoice, apuMaintainInvoice.SerialNumber, apuMaintainInvoice.InvoiceNumber,
                 apuMaintainInvoice.InvoideCode, apuMaintainInvoice.InvoiceDate, apuMaintainInvoice.SupplierName, apuMaintainInvoice.SupplierId,
                 apuMaintainInvoice.InvoiceValue, apuMaintainInvoice.PaidAmount, apuMaintainInvoice.OperatorName,
                apuMaintainInvoice.Reviewer, apuMaintainInvoice.Status, apuMaintainInvoice.CurrencyId);
-            //获取需要更新的对象。
+            updateApuMaintainInvoice.MaintainInvoiceLines = UpdateMaintainInvoiceLines(apuMaintainInvoice.MaintainInvoiceLines,
+               updateApuMaintainInvoice.MaintainInvoiceLines);
+
             _invoiceRepository.Modify(updateApuMaintainInvoice);
         }
 
@@ -173,6 +198,16 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
                 airframeMaintainInvoice.InvoideCode, airframeMaintainInvoice.InvoiceDate, airframeMaintainInvoice.SupplierName, airframeMaintainInvoice.SupplierId,
                 airframeMaintainInvoice.InvoiceValue, airframeMaintainInvoice.PaidAmount, airframeMaintainInvoice.OperatorName,
                 airframeMaintainInvoice.Reviewer, airframeMaintainInvoice.Status, airframeMaintainInvoice.CurrencyId);
+            if (airframeMaintainInvoice.MaintainInvoiceLines != null)
+            {
+                foreach (var maintainInvoiceLine in airframeMaintainInvoice.MaintainInvoiceLines)
+                {
+                    var newMaintainInvoiceLine = MaintainInvoiceFactory.CreateMaintainInvoiceLine();
+                    MaintainInvoiceFactory.SetMaintainInvoiceLine(newMaintainInvoiceLine, maintainInvoiceLine.MaintainItem, maintainInvoiceLine.ItemName, maintainInvoiceLine.UnitPrice,
+                        maintainInvoiceLine.Amount, maintainInvoiceLine.Note);
+                    newAirframeMaintainInvoice.MaintainInvoiceLines.Add(newMaintainInvoiceLine);
+                }
+            }
             _invoiceRepository.Add(newAirframeMaintainInvoice);
         }
 
@@ -183,12 +218,13 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         [Update(typeof(AirframeMaintainInvoiceDTO))]
         public void ModifyAirframeMaintainInvoice(AirframeMaintainInvoiceDTO airframeMaintainInvoice)
         {
-            var updateAirframeMaintainInvoice = _invoiceRepository.Get(airframeMaintainInvoice.AirframeMaintainInvoiceId);
+            var updateAirframeMaintainInvoice = _invoiceRepository.Get(airframeMaintainInvoice.AirframeMaintainInvoiceId);//获取需要更新的对象。
             MaintainInvoiceFactory.SetMaintainInvoice(updateAirframeMaintainInvoice, airframeMaintainInvoice.SerialNumber, airframeMaintainInvoice.InvoiceNumber,
                  airframeMaintainInvoice.InvoideCode, airframeMaintainInvoice.InvoiceDate, airframeMaintainInvoice.SupplierName, airframeMaintainInvoice.SupplierId,
                  airframeMaintainInvoice.InvoiceValue, airframeMaintainInvoice.PaidAmount, airframeMaintainInvoice.OperatorName,
                  airframeMaintainInvoice.Reviewer, airframeMaintainInvoice.Status, airframeMaintainInvoice.CurrencyId);
-            //获取需要更新的对象。
+            updateAirframeMaintainInvoice.MaintainInvoiceLines = UpdateMaintainInvoiceLines(airframeMaintainInvoice.MaintainInvoiceLines,
+              updateAirframeMaintainInvoice.MaintainInvoiceLines);
             _invoiceRepository.Modify(updateAirframeMaintainInvoice);
         }
 
@@ -228,6 +264,16 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
                 undercartMaintainInvoice.InvoideCode, undercartMaintainInvoice.InvoiceDate, undercartMaintainInvoice.SupplierName, undercartMaintainInvoice.SupplierId,
                 undercartMaintainInvoice.InvoiceValue, undercartMaintainInvoice.PaidAmount, undercartMaintainInvoice.OperatorName,
                undercartMaintainInvoice.Reviewer, undercartMaintainInvoice.Status, undercartMaintainInvoice.CurrencyId);
+            if (undercartMaintainInvoice.MaintainInvoiceLines != null)
+            {
+                foreach (var maintainInvoiceLine in undercartMaintainInvoice.MaintainInvoiceLines)
+                {
+                    var newMaintainInvoiceLine = MaintainInvoiceFactory.CreateMaintainInvoiceLine();
+                    MaintainInvoiceFactory.SetMaintainInvoiceLine(newMaintainInvoiceLine, maintainInvoiceLine.MaintainItem, maintainInvoiceLine.ItemName, maintainInvoiceLine.UnitPrice,
+                        maintainInvoiceLine.Amount, maintainInvoiceLine.Note);
+                    newUndercartMaintainInvoice.MaintainInvoiceLines.Add(newMaintainInvoiceLine);
+                }
+            }
             _invoiceRepository.Add(newUndercartMaintainInvoice);
         }
 
@@ -239,12 +285,13 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         public void ModifyUndercartMaintainInvoice(UndercartMaintainInvoiceDTO undercartMaintainInvoice)
         {
             var updateUndercartMaintainInvoice =
-                _invoiceRepository.Get(undercartMaintainInvoice.UndercartMaintainInvoiceId);
+                _invoiceRepository.Get(undercartMaintainInvoice.UndercartMaintainInvoiceId);//获取需要更新的对象。
             MaintainInvoiceFactory.SetMaintainInvoice(updateUndercartMaintainInvoice, undercartMaintainInvoice.SerialNumber, undercartMaintainInvoice.InvoiceNumber,
                   undercartMaintainInvoice.InvoideCode, undercartMaintainInvoice.InvoiceDate, undercartMaintainInvoice.SupplierName, undercartMaintainInvoice.SupplierId,
                   undercartMaintainInvoice.InvoiceValue, undercartMaintainInvoice.PaidAmount, undercartMaintainInvoice.OperatorName,
                  undercartMaintainInvoice.Reviewer, undercartMaintainInvoice.Status, undercartMaintainInvoice.CurrencyId);
-            //获取需要更新的对象。
+            updateUndercartMaintainInvoice.MaintainInvoiceLines = UpdateMaintainInvoiceLines(undercartMaintainInvoice.MaintainInvoiceLines,
+              updateUndercartMaintainInvoice.MaintainInvoiceLines);
             _invoiceRepository.Modify(updateUndercartMaintainInvoice);
         }
 
@@ -259,6 +306,30 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
                 _invoiceRepository.Get(undercartMaintainInvoice.UndercartMaintainInvoiceId);
             //获取需要删除的对象。
             _invoiceRepository.Remove(deleteUndercartMaintainInvoice); //删除Undercart维修发票。
+        }
+        #endregion
+
+        #region 更新发票行集合
+        /// <summary>
+        /// 更新发票行集合
+        /// </summary>
+        /// <param name="sourceMaintainInvoiceLines">客户端集合</param>
+        /// <param name="dstMaintainInvoiceLines">数据库集合</param>
+        private List<MaintainInvoiceLine> UpdateMaintainInvoiceLines(IEnumerable<MaintainInvoiceLineDTO> sourceMaintainInvoiceLines, ICollection<MaintainInvoiceLine> dstMaintainInvoiceLines)
+        {
+            var maintainInvoiceLines = new List<MaintainInvoiceLine>();
+            foreach (var sourceMaintainInvoiceLine in sourceMaintainInvoiceLines)
+            {
+                var result = dstMaintainInvoiceLines.FirstOrDefault(p => p.MaintainInvoiceId == sourceMaintainInvoiceLine.MaintainInvoiceLineId);
+                if (result == null)
+                {
+                    result = MaintainInvoiceFactory.CreateMaintainInvoiceLine();
+                }
+                MaintainInvoiceFactory.SetMaintainInvoiceLine(result, sourceMaintainInvoiceLine.MaintainItem, sourceMaintainInvoiceLine.ItemName, sourceMaintainInvoiceLine.UnitPrice,
+                        sourceMaintainInvoiceLine.Amount, sourceMaintainInvoiceLine.Note);
+                maintainInvoiceLines.Add(result);
+            }
+            return maintainInvoiceLines;
         }
         #endregion
     }

@@ -67,6 +67,8 @@
     <Compile Include="MaintainInvoiceQueries\IMaintainInvoiceQuery.cs" />
     <Compile Include="MaintainInvoiceQueries\MaintainInvoiceQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SupplierQueries\ISupplierQuery.cs" />
+    <Compile Include="SupplierQueries\SupplierQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

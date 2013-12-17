@@ -63,6 +63,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IPaymentAppService.cs" />
     <Compile Include="Services\PaymentAppService.cs" />
+    <Compile Include="SupplierServices\ISupplierAppService.cs" />
+    <Compile Include="SupplierServices\SupplierAppService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application.PaymentBC.DTO\Application.PaymentBC.DTO.csproj">

@@ -61,9 +61,9 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      SupplierId = p.SupplierId,
                                      CurrencyId = p.CurrencyId,
                                      MaintainInvoiceLines =
-                                         p.MaintainInvoiceLines.Select(q => new EngineMaintainInvoiceLineDTO
+                                         p.MaintainInvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                             {
-                                                                                EngineMaintainInvoiceLineId =
+                                                                                MaintainInvoiceLineId = 
                                                                                     q.MaintainInvoiceId,
                                                                                 MaintainItem = (int) q.MaintainItem,
                                                                                 ItemName = q.ItemName,
@@ -105,9 +105,9 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      SupplierId = p.SupplierId,
                                      CurrencyId = p.CurrencyId,
                                      MaintainInvoiceLines =
-                                         p.MaintainInvoiceLines.Select(q => new APUMaintainInvoiceLineDTO
+                                         p.MaintainInvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                             {
-                                                                                APUMaintainInvoiceLineId =
+                                                                                MaintainInvoiceLineId = 
                                                                                     q.MaintainInvoiceId,
                                                                                 MaintainItem = (int) q.MaintainItem,
                                                                                 ItemName = q.ItemName,
@@ -148,9 +148,9 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      SupplierId = p.SupplierId,
                                      CurrencyId = p.CurrencyId,
                                      MaintainInvoiceLines =
-                                         p.MaintainInvoiceLines.Select(q => new AirframeMaintainInvoiceLineDTO
+                                         p.MaintainInvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                             {
-                                                                                AirframeMaintainInvoiceLineId =
+                                                                                MaintainInvoiceLineId = 
                                                                                     q.MaintainInvoiceId,
                                                                                 MaintainItem = (int) q.MaintainItem,
                                                                                 ItemName = q.ItemName,
@@ -192,9 +192,9 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      SupplierId = p.SupplierId,
                                      CurrencyId = p.CurrencyId,
                                      MaintainInvoiceLines =
-                                         p.MaintainInvoiceLines.Select(q => new UndercartMaintainInvoiceLineDTO
+                                         p.MaintainInvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                             {
-                                                                                UndercartMaintainInvoiceLineId =
+                                                                                MaintainInvoiceLineId = 
                                                                                     q.MaintainInvoiceId,
                                                                                 MaintainItem = (int) q.MaintainItem,
                                                                                 ItemName = q.ItemName,
