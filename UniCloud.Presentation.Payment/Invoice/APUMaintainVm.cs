@@ -26,6 +26,7 @@ using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
+using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 #endregion
 
@@ -102,7 +103,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         ///     </remarks>
         /// </summary>
         public override void LoadData()
-        {
+        { 
             // 将CollectionView的AutoLoad属性设为True
             ApuMaintainInvoices.AutoLoad = true;
         }
@@ -274,5 +275,21 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
         #endregion
-    } 
+
+        private Array values = Enum.GetValues(typeof(MaintainItem));
+        public Array Values
+        {
+            get { return values; }
+            set
+            {
+                if (value != null && values != value)
+                {
+                    values = value;
+                    RaisePropertyChanged(() => Values);
+                }
+            }
+
+        }
+    }
+
 }
