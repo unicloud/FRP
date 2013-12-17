@@ -172,7 +172,7 @@ namespace UniCloud.Application.PurchaseBC
         public IQueryable<SupplierCompanyEngineMaterialDTO> GetSupplierCompanyEngineMaterials()
         {
             if (_engineMaterials == null || _refreshSupplierMaterial)
-            {
+    {
                 var query = new QueryBuilder<SupplierCompanyMaterial>();
                 _engineMaterials = _supplierQuery.SupplierCompanyEngineMaterialsQuery(query).ToList();
                 _refreshSupplierMaterial = false;

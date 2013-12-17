@@ -112,7 +112,7 @@ namespace UniCloud.DistributedServices.Purchase
         public IQueryable<SupplierDTO> Suppliers
         {
             get { return _staticLoad.GetSuppliers(); }
-        }
+            }
 
         /// <summary>
         ///     供应商公司信息。
@@ -129,7 +129,7 @@ namespace UniCloud.DistributedServices.Purchase
         public IQueryable<LinkmanDTO> Linkmans
         {
             get { return _staticLoad.GetLinkMen(); }
-        }
+                }
 
         /// <summary>
         ///     合作公司下的飞机物料

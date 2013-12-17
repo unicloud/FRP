@@ -772,6 +772,24 @@ namespace UniCloud.Presentation.Localization {
         }
         
         /// <summary>
+        ///   查找类似 最大化 的本地化字符串。
+        /// </summary>
+        public static string Maximize {
+            get {
+                return ResourceManager.GetString("Maximize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 最小化 的本地化字符串。
+        /// </summary>
+        public static string Minimize {
+            get {
+                return ResourceManager.GetString("Minimize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 按月 的本地化字符串。
         /// </summary>
         public static string Month {
