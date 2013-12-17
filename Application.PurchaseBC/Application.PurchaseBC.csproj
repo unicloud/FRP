@@ -68,6 +68,7 @@
     <Compile Include="DocumentPathServices\IDocumentPathAppService.cs" />
     <Compile Include="ForwarderServices\ForwarderAppService.cs" />
     <Compile Include="ForwarderServices\IForwarderAppService.cs" />
+    <Compile Include="IStaticLoad.cs" />
     <Compile Include="MaterialServices\MaterialAppService.cs" />
     <Compile Include="MaterialServices\IMaterialAppService.cs" />
     <Compile Include="OrderDocumentServices\ContractDocumentAppService.cs" />
