@@ -68,6 +68,7 @@
     <Compile Include="DocumentPathServices\IDocumentPathAppService.cs" />
     <Compile Include="ForwarderServices\ForwarderAppService.cs" />
     <Compile Include="ForwarderServices\IForwarderAppService.cs" />
+    <Compile Include="IStaticLoad.cs" />
     <Compile Include="MaterialServices\MaterialAppService.cs" />
     <Compile Include="MaterialServices\IMaterialAppService.cs" />
     <Compile Include="OrderDocumentServices\ContractDocumentAppService.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="PartServices\PartAppService.cs" />
     <Compile Include="PlanAircraftServices\IPlanAircraftAppService.cs" />
     <Compile Include="PlanAircraftServices\PlanAircraftAppService.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReceptionServices\AircraftLeaseReceptionAppService.cs" />
     <Compile Include="ReceptionServices\AircraftPurchaseReceptionAppService.cs" />

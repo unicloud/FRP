@@ -297,7 +297,7 @@
                                         <telerik:GridViewDataColumn Header="预计交付日期" TextAlignment="Center"
                                                                     DataMemberBinding="{Binding EstimateDeliveryDate}"
                                                                     DataFormatString="{StaticResource DateStringFormat}" />
-                                        <telerik:GridViewDataColumn Header="状态"
+                                        <telerik:GridViewDataColumn Header="管理状态"
                                                                     DataMemberBinding="{Binding ContractAircraftStatus}"
                                                                     IsReadOnly="True" IsSortable="False" />
                                     </telerik:RadGridView.Columns>

@@ -18,7 +18,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
@@ -40,19 +39,23 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
     /// </summary>
     public class SupplierAppService : ISupplierAppService
     {
+        private readonly ILinkmanRepository _linkmanRepository;
+        private readonly IStaticLoad _staticLoad;
+        private readonly ISupplierCompanyMaterialRepository _supplierCompanyMaterialRepository;
         private readonly ISupplierCompanyRepository _supplierCompanyRepository;
         private readonly ISupplierQuery _supplierQuery;
         private readonly ISupplierRoleRepository _supplierRoleRepository;
-        private readonly ILinkmanRepository _linkmanRepository;
-        private readonly ISupplierCompanyMaterialRepository _supplierCompanyMaterialRepository;
+
         public SupplierAppService(ISupplierQuery supplierQuery, ISupplierRoleRepository supplierRoleRepository,
-                                  ISupplierCompanyRepository supplierCompanyRepository, ILinkmanRepository linkmanRepository, ISupplierCompanyMaterialRepository supplierCompanyMaterialRepository)
+            ISupplierCompanyRepository supplierCompanyRepository, ILinkmanRepository linkmanRepository,
+            ISupplierCompanyMaterialRepository supplierCompanyMaterialRepository, IStaticLoad staticLoad)
         {
             _supplierQuery = supplierQuery;
             _supplierRoleRepository = supplierRoleRepository;
             _supplierCompanyRepository = supplierCompanyRepository;
             _linkmanRepository = linkmanRepository;
             _supplierCompanyMaterialRepository = supplierCompanyMaterialRepository;
+            _staticLoad = staticLoad;
         }
 
         #region 合作公司相关操作
@@ -91,65 +94,64 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
             supplierCompany
                 //新增飞机租赁供应商角色
                 .If(p => p.AircraftLeaseSupplier, p =>
-                    {
-                        var aircraftLeaseSupplier =
-                            _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (AircraftLeaseSupplier),
-                                                                                    p.SupplierCompanyId);
-                        if (aircraftLeaseSupplier != null) return;
-                        var newAircraftLeaseSupplier = SupplierRoleFactory.CreateAircraftLeaseSupplier(supplierCmy);
-                        _supplierRoleRepository.Add(newAircraftLeaseSupplier);
-                    })
+                {
+                    var aircraftLeaseSupplier =
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (AircraftLeaseSupplier),
+                            p.SupplierCompanyId);
+                    if (aircraftLeaseSupplier != null) return;
+                    var newAircraftLeaseSupplier = SupplierRoleFactory.CreateAircraftLeaseSupplier(supplierCmy);
+                    _supplierRoleRepository.Add(newAircraftLeaseSupplier);
+                })
                 //新增飞机购买供应商角色
                 .If(p => p.AircraftPurchaseSupplier, p =>
-                    {
-                        var aircraftPurchaseSupplier =
-                            _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (AircraftPurchaseSupplier),
-                                                                                    p.SupplierCompanyId);
-                        if (aircraftPurchaseSupplier != null) return;
-                        var newAircraftPurchaseSupplier = SupplierRoleFactory.CreateAircraftPurchaseSupplier(supplierCmy);
-                        _supplierRoleRepository.Add(newAircraftPurchaseSupplier);
-                    })
+                {
+                    var aircraftPurchaseSupplier =
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (AircraftPurchaseSupplier),
+                            p.SupplierCompanyId);
+                    if (aircraftPurchaseSupplier != null) return;
+                    var newAircraftPurchaseSupplier = SupplierRoleFactory.CreateAircraftPurchaseSupplier(supplierCmy);
+                    _supplierRoleRepository.Add(newAircraftPurchaseSupplier);
+                })
                 //新增发动机租赁供应商角色
                 .If(p => p.EngineLeaseSupplier, p =>
-                    {
-                        var engineLeaseSupplier =
-                            _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (EngineLeaseSupplier),
-                                                                                    p.SupplierCompanyId);
-                        if (engineLeaseSupplier != null) return;
-                        var newEngineLeaseSupplier = SupplierRoleFactory.CreateEngineLeaseSupplier(supplierCmy);
-                        _supplierRoleRepository.Add(newEngineLeaseSupplier);
-                    })
+                {
+                    var engineLeaseSupplier =
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (EngineLeaseSupplier),
+                            p.SupplierCompanyId);
+                    if (engineLeaseSupplier != null) return;
+                    var newEngineLeaseSupplier = SupplierRoleFactory.CreateEngineLeaseSupplier(supplierCmy);
+                    _supplierRoleRepository.Add(newEngineLeaseSupplier);
+                })
                 //新增发动机购买供应商角色
                 .If(p => p.EnginePurchaseSupplier, p =>
-                    {
-                        var enginePurchaseSupplier =
-                            _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (EnginePurchaseSupplier),
-                                                                                    p.SupplierCompanyId);
-                        if (enginePurchaseSupplier != null) return;
-                        var newEnginePurchaseSupplier = SupplierRoleFactory.CreateEnginePurchaseSupplier(supplierCmy);
-                        _supplierRoleRepository.Add(newEnginePurchaseSupplier);
-                    })
+                {
+                    var enginePurchaseSupplier =
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (EnginePurchaseSupplier),
+                            p.SupplierCompanyId);
+                    if (enginePurchaseSupplier != null) return;
+                    var newEnginePurchaseSupplier = SupplierRoleFactory.CreateEnginePurchaseSupplier(supplierCmy);
+                    _supplierRoleRepository.Add(newEnginePurchaseSupplier);
+                })
                 //新增BFE供应商角色
                 .If(p => p.BFEPurchaseSupplier, p =>
-                    {
-                        var bfePurchaseSupplier =
-                            _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (BFEPurchaseSupplier),
-                                                                                    p.SupplierCompanyId);
-                        if (bfePurchaseSupplier != null) return;
-                        var newBFEPurchaseSupplier = SupplierRoleFactory.CreateBFEPurchaseSupplier(supplierCmy);
-                        _supplierRoleRepository.Add(newBFEPurchaseSupplier);
-                    })
+                {
+                    var bfePurchaseSupplier =
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (BFEPurchaseSupplier),
+                            p.SupplierCompanyId);
+                    if (bfePurchaseSupplier != null) return;
+                    var newBFEPurchaseSupplier = SupplierRoleFactory.CreateBFEPurchaseSupplier(supplierCmy);
+                    _supplierRoleRepository.Add(newBFEPurchaseSupplier);
+                })
                 //新增维修物料角色
-                .If(p=>p.MaintainSupplier, p =>
-                    {
-                        var maintainPurchaseSupplier =
-                       _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(MaintainSupplier),
-                                                            p.SupplierCompanyId);
-                        if (maintainPurchaseSupplier != null) return;
-                        var newMaintainPurchaseSupplier = SupplierRoleFactory.CreateBFEPurchaseSupplier(supplierCmy);
-                        _supplierRoleRepository.Add(newMaintainPurchaseSupplier);
-
-                    });
+                .If(p => p.MaintainSupplier, p =>
+                {
+                    var maintainPurchaseSupplier =
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (MaintainSupplier),
+                            p.SupplierCompanyId);
+                    if (maintainPurchaseSupplier != null) return;
+                    var newMaintainPurchaseSupplier = SupplierRoleFactory.CreateBFEPurchaseSupplier(supplierCmy);
+                    _supplierRoleRepository.Add(newMaintainPurchaseSupplier);
+                });
         }
 
         /// <summary>
@@ -163,65 +165,65 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
             supplierCompany
                 //删除飞机租赁供应商角色
                 .If(p => !p.AircraftLeaseSupplier, p =>
+                {
+                    var aircraftLeaseSupplier =
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (AircraftLeaseSupplier),
+                            p.SupplierCompanyId);
+                    if (aircraftLeaseSupplier != null)
                     {
-                        var aircraftLeaseSupplier =
-                            _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (AircraftLeaseSupplier),
-                                                                                    p.SupplierCompanyId);
-                        if (aircraftLeaseSupplier != null)
-                        {
-                            _supplierRoleRepository.Remove(aircraftLeaseSupplier);
-                        }
-                    })
+                        _supplierRoleRepository.Remove(aircraftLeaseSupplier);
+                    }
+                })
                 //删除飞机购买供应商角色
                 .If(p => !p.AircraftPurchaseSupplier, p =>
+                {
+                    var aircraftPurchaseSupplier =
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (AircraftPurchaseSupplier),
+                            p.SupplierCompanyId);
+                    if (aircraftPurchaseSupplier != null)
                     {
-                        var aircraftPurchaseSupplier =
-                            _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (AircraftPurchaseSupplier),
-                                                                                    p.SupplierCompanyId);
-                        if (aircraftPurchaseSupplier != null)
-                        {
-                            _supplierRoleRepository.Remove(aircraftPurchaseSupplier);
-                        }
-                    })
+                        _supplierRoleRepository.Remove(aircraftPurchaseSupplier);
+                    }
+                })
                 //删除发动机租赁供应商角色
                 .If(p => !p.EngineLeaseSupplier, p =>
+                {
+                    var engineLeaseSupplier =
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (EngineLeaseSupplier),
+                            p.SupplierCompanyId);
+                    if (engineLeaseSupplier != null)
                     {
-                        var engineLeaseSupplier =
-                            _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (EngineLeaseSupplier),
-                                                                                    p.SupplierCompanyId);
-                        if (engineLeaseSupplier != null)
-                        {
-                            _supplierRoleRepository.Remove(engineLeaseSupplier);
-                        }
-                    })
+                        _supplierRoleRepository.Remove(engineLeaseSupplier);
+                    }
+                })
                 //删除发动机购买供应商角色
                 .If(p => !p.EnginePurchaseSupplier, p =>
+                {
+                    var enginePurchaseSupplier =
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (EnginePurchaseSupplier),
+                            p.SupplierCompanyId);
+                    if (enginePurchaseSupplier != null)
                     {
-                        var enginePurchaseSupplier =
-                            _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (EnginePurchaseSupplier),
-                                                                                    p.SupplierCompanyId);
-                        if (enginePurchaseSupplier != null)
-                        {
-                            _supplierRoleRepository.Remove(enginePurchaseSupplier);
-                        }
-                    })
+                        _supplierRoleRepository.Remove(enginePurchaseSupplier);
+                    }
+                })
                 //删除BFE供应商角色
                 .If(p => !p.BFEPurchaseSupplier, p =>
+                {
+                    var bfePurchaseSupplier =
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (BFEPurchaseSupplier),
+                            p.SupplierCompanyId);
+                    if (bfePurchaseSupplier != null)
                     {
-                        var bfePurchaseSupplier =
-                            _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (BFEPurchaseSupplier),
-                                                                                    p.SupplierCompanyId);
-                        if (bfePurchaseSupplier != null)
-                        {
-                            _supplierRoleRepository.Remove(bfePurchaseSupplier);
-                        }
-                    })
+                        _supplierRoleRepository.Remove(bfePurchaseSupplier);
+                    }
+                })
                 //删除维修供应商角色
                 .If(p => !p.MaintainSupplier, p =>
                 {
                     var maintainSupplierPurchaseSupplier =
-                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof(MaintainSupplier),
-                                                                                p.SupplierCompanyId);
+                        _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (MaintainSupplier),
+                            p.SupplierCompanyId);
                     if (maintainSupplierPurchaseSupplier != null)
                     {
                         _supplierRoleRepository.Remove(maintainSupplierPurchaseSupplier);
@@ -267,7 +269,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         public void InsertLinkman(LinkmanDTO linkman)
         {
             var newLinkman = LinkmanFactory.CreateLinkman(linkman.Name, linkman.TelePhone, linkman.Mobile,
-    linkman.Fax, linkman.Email, new Address(null, null, linkman.Address, null),linkman.SourceId);
+                linkman.Fax, linkman.Email, new Address(null, null, linkman.Address, null), linkman.SourceId);
             _linkmanRepository.Add(newLinkman);
         }
 
@@ -301,7 +303,6 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         {
             var deletedLinkman = _linkmanRepository.Get(linkman.LinkmanId); //获取需要更新的对象。
             _linkmanRepository.Remove(deletedLinkman); //删除联系人。
-
         }
 
         #endregion
@@ -315,7 +316,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         public IQueryable<SupplierCompanyAcMaterialDTO> GetSupplierCompanyAcMaterials()
         {
             var queryBuilder =
-                     new QueryBuilder<SupplierCompanyMaterial>();
+                new QueryBuilder<SupplierCompanyMaterial>();
             return _supplierQuery.SupplierCompanyAcMaterialsQuery(queryBuilder);
         }
 
@@ -326,9 +327,8 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         public IQueryable<SupplierCompanyEngineMaterialDTO> GetSupplierCompanyEngineMaterials()
         {
             var queryBuilder =
-                     new QueryBuilder<SupplierCompanyMaterial>();
+                new QueryBuilder<SupplierCompanyMaterial>();
             return _supplierQuery.SupplierCompanyEngineMaterialsQuery(queryBuilder);
-
         }
 
         /// <summary>
@@ -338,7 +338,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         public IQueryable<SupplierCompanyBFEMaterialDTO> GetSupplierCompanyBFEMaterials()
         {
             var queryBuilder =
-                      new QueryBuilder<SupplierCompanyMaterial>();
+                new QueryBuilder<SupplierCompanyMaterial>();
             return _supplierQuery.SupplierCompanyBFEMaterialsQuery(queryBuilder);
         }
 
@@ -346,17 +346,17 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         ///     新增合作公司飞机物料。
         /// </summary>
         /// <param name="supplierCompanyAcMaterial">合作公司飞机物料DTO。</param>
-        [Insert(typeof(SupplierCompanyAcMaterialDTO))]
+        [Insert(typeof (SupplierCompanyAcMaterialDTO))]
         public void InsertSupplierCompanyAcMaterial(SupplierCompanyAcMaterialDTO supplierCompanyAcMaterial)
         {
-            StaticLoad.RefreshSupplierMaterial = true;
+            _staticLoad.RefreshSupplierMaterial();
             //判断增加的物料是否存在
             var supplierCompanyMaterial = _supplierCompanyMaterialRepository.GetAll()
-                                                      .FirstOrDefault(
-                                                          p => p.MaterialId == supplierCompanyAcMaterial.MaterialId
-                                                               &&
-                                                               p.SupplierCompanyId ==
-                                                               supplierCompanyAcMaterial.SupplierCompanyId);
+                .FirstOrDefault(
+                    p => p.MaterialId == supplierCompanyAcMaterial.MaterialId
+                         &&
+                         p.SupplierCompanyId ==
+                         supplierCompanyAcMaterial.SupplierCompanyId);
             if (supplierCompanyMaterial != null)
                 throw new Exception("飞机物料已存在");
             var supplier = _supplierCompanyRepository.Get(supplierCompanyAcMaterial.SupplierCompanyId);
@@ -364,18 +364,18 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
             {
                 supplier.AddMaterial(supplierCompanyAcMaterial.MaterialId); //添加物料
             }
-
         }
 
         /// <summary>
         ///     删除合作公司飞机物料。
         /// </summary>
         /// <param name="supplierCompanyAcMaterial">合作公司飞机物料DTO。</param>
-        [Delete(typeof(SupplierCompanyAcMaterialDTO))]
+        [Delete(typeof (SupplierCompanyAcMaterialDTO))]
         public void DeleteSupplierCompanyAcMaterial(SupplierCompanyAcMaterialDTO supplierCompanyAcMaterial)
         {
-            StaticLoad.RefreshSupplierMaterial = true;
-            var supplierMaterial = _supplierCompanyMaterialRepository.Get(supplierCompanyAcMaterial.SupplierCompanyMaterialId);
+            _staticLoad.RefreshSupplierMaterial();
+            var supplierMaterial =
+                _supplierCompanyMaterialRepository.Get(supplierCompanyAcMaterial.SupplierCompanyMaterialId);
             DelSupplierCompanyMaterial(supplierMaterial);
         }
 
@@ -383,22 +383,22 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         ///     新增合作公司发动机物料。
         /// </summary>
         /// <param name="supplierCompanyEngineMaterial">合作公司发动机物料DTO。</param>
-        [Insert(typeof(SupplierCompanyEngineMaterialDTO))]
+        [Insert(typeof (SupplierCompanyEngineMaterialDTO))]
         public void InsertSupplierCompanyEngineMaterial(SupplierCompanyEngineMaterialDTO supplierCompanyEngineMaterial)
         {
-            StaticLoad.RefreshSupplierMaterial = true;
+            _staticLoad.RefreshSupplierMaterial();
             //判断增加的物料是否存在
             var supplierCompanyMaterial = _supplierCompanyMaterialRepository.GetAll()
-                                                      .FirstOrDefault(
-                                                          p => p.MaterialId == supplierCompanyEngineMaterial.MaterialId
-                                                               &&
-                                                               p.SupplierCompanyId ==
-                                                               supplierCompanyEngineMaterial.SupplierCompanyId);
+                .FirstOrDefault(
+                    p => p.MaterialId == supplierCompanyEngineMaterial.MaterialId
+                         &&
+                         p.SupplierCompanyId ==
+                         supplierCompanyEngineMaterial.SupplierCompanyId);
             if (supplierCompanyMaterial != null)
                 throw new Exception("发动机物料已存在");
 
             var supplier = _supplierCompanyRepository.Get(supplierCompanyEngineMaterial.SupplierCompanyId);
-            if (supplier!=null)
+            if (supplier != null)
             {
                 supplier.AddMaterial(supplierCompanyEngineMaterial.MaterialId); //添加物料
             }
@@ -408,11 +408,12 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         ///     删除合作公司发动机物料。
         /// </summary>
         /// <param name="supplierCompanyEngineMaterial">合作公司发动机物料DTO。</param>
-        [Delete(typeof(SupplierCompanyEngineMaterialDTO))]
+        [Delete(typeof (SupplierCompanyEngineMaterialDTO))]
         public void DeleteSupplierCompanyEngineMaterial(SupplierCompanyEngineMaterialDTO supplierCompanyEngineMaterial)
         {
-            StaticLoad.RefreshSupplierMaterial = true;
-            var supplierMaterial = _supplierCompanyMaterialRepository.Get(supplierCompanyEngineMaterial.SupplierCompanyMaterialId);
+            _staticLoad.RefreshSupplierMaterial();
+            var supplierMaterial =
+                _supplierCompanyMaterialRepository.Get(supplierCompanyEngineMaterial.SupplierCompanyMaterialId);
             DelSupplierCompanyMaterial(supplierMaterial);
         }
 
@@ -420,23 +421,23 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         ///     新增合作公司BFE物料。
         /// </summary>
         /// <param name="supplierCompanyBFEMaterial">合作公司BFE物料DTO。</param>
-        [Insert(typeof(SupplierCompanyBFEMaterialDTO))]
+        [Insert(typeof (SupplierCompanyBFEMaterialDTO))]
         public void InsertSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBFEMaterial)
         {
-            StaticLoad.RefreshSupplierMaterial = true;
+            _staticLoad.RefreshSupplierMaterial();
             //判断增加的物料是否存在
             var supplierCompanyMaterial = _supplierCompanyMaterialRepository.GetAll()
-                                                      .FirstOrDefault(
-                                                          p => p.MaterialId == supplierCompanyBFEMaterial.MaterialId
-                                                               &&
-                                                               p.SupplierCompanyId ==
-                                                               supplierCompanyBFEMaterial.SupplierCompanyId);
-            if(supplierCompanyMaterial!=null)
+                .FirstOrDefault(
+                    p => p.MaterialId == supplierCompanyBFEMaterial.MaterialId
+                         &&
+                         p.SupplierCompanyId ==
+                         supplierCompanyBFEMaterial.SupplierCompanyId);
+            if (supplierCompanyMaterial != null)
                 throw new Exception("BFE物料已存在");
 
             var supplier = _supplierCompanyRepository.Get(supplierCompanyBFEMaterial.SupplierCompanyId);
             if (supplier != null)
-            {    
+            {
                 supplier.AddMaterial(supplierCompanyBFEMaterial.MaterialId); //添加物料
             }
         }
@@ -445,21 +446,22 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         ///     删除合作公司BFE物料。
         /// </summary>
         /// <param name="supplierCompanyBFEMaterial">合作公司BFE物料DTO。</param>
-        [Delete(typeof(SupplierCompanyBFEMaterialDTO))]
+        [Delete(typeof (SupplierCompanyBFEMaterialDTO))]
         public void DeleteSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBFEMaterial)
         {
-            StaticLoad.RefreshSupplierMaterial = true;
-            var supplierMaterial = _supplierCompanyMaterialRepository.Get(supplierCompanyBFEMaterial.SupplierCompanyMaterialId);
+            _staticLoad.RefreshSupplierMaterial();
+            var supplierMaterial =
+                _supplierCompanyMaterialRepository.Get(supplierCompanyBFEMaterial.SupplierCompanyMaterialId);
             DelSupplierCompanyMaterial(supplierMaterial);
         }
 
         /// <summary>
-        /// 删除合作公司物料
+        ///     删除合作公司物料
         /// </summary>
         /// <param name="supplierCompanyBFEMaterial"></param>
         private void DelSupplierCompanyMaterial(SupplierCompanyMaterial supplierCompanyBFEMaterial)
         {
-            StaticLoad.RefreshSupplierMaterial = true;
+            _staticLoad.RefreshSupplierMaterial();
             _supplierCompanyMaterialRepository.Remove(supplierCompanyBFEMaterial);
         }
 
