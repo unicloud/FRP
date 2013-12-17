@@ -75,7 +75,6 @@
     <Compile Include="MaintainInvoiceDTO\MaintainInvoiceDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\MaintainInvoiceLineDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\UndercartMaintainInvoiceDTO.cs" />
-    <Compile Include="MaintainInvoiceDTO\UndercartMaintainInvoiceLineDTO.cs" />
     <Compile Include="OrderDTO\AircraftLeaseOrderDTO.cs" />
     <Compile Include="OrderDTO\AircraftLeaseOrderLineDTO.cs" />
     <Compile Include="OrderDTO\AircraftPurchaseOrderDTO.cs" />

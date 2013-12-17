@@ -8,6 +8,7 @@ using UniCloud.Application.PaymentBC.CurrencyServices;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.InvoiceServices;
 using UniCloud.Application.PaymentBC.MaintainInvoiceServices;
+using UniCloud.Application.PaymentBC.OrderServices;
 using UniCloud.Application.PaymentBC.PaymentScheduleServices;using UniCloud.Application.PaymentBC.PaymentScheduleServices;
 using UniCloud.Application.PaymentBC.SupplierServices;using UniCloud.Infrastructure.Utilities.Container;
 
@@ -43,8 +44,10 @@ namespace UniCloud.DistributedServices.Payment
             _contractAircraftAppService = DefaultContainer.Resolve<IContractAircraftAppService>();
             _contractEngineAppService = DefaultContainer.Resolve<IContractEngineAppService>();
             _currencyAppService = DefaultContainer.Resolve<ICurrencyAppService>();
-            _orderAppService = DefaultContainer.Resolve<IOrderAppService>();            _paymentScheduleAppService = DefaultContainer.Resolve<IPaymentScheduleAppService>();
-            _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();        }
+            _orderAppService = DefaultContainer.Resolve<IOrderAppService>();            
+            _paymentScheduleAppService = DefaultContainer.Resolve<IPaymentScheduleAppService>();
+            _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();        
+        }
 
         #region Invoice集合
 
@@ -188,6 +191,7 @@ namespace UniCloud.DistributedServices.Payment
             get { return _supplierAppService.GetSuppliers(); }
         }
         #endregion
+
         #region 订单
 
 
@@ -228,5 +232,6 @@ namespace UniCloud.DistributedServices.Payment
         {
             get { return _orderAppService.GetBFEPurchaseOrders(); }
         }
-        #endregion    }
+        #endregion    
+    }
 }
