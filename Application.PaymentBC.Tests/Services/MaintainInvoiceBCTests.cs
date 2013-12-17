@@ -64,7 +64,7 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
             var result = service.GetApuMaintainInvoices().FirstOrDefault(p=>p.APUMaintainInvoiceId==3);
            var line= result.MaintainInvoiceLines.FirstOrDefault();
             result.MaintainInvoiceLines.Remove(line);
-            service.ModifyApuMaintainInvoice(result);
+            //service.ModifyApuMaintainInvoice(result);
             //var add = new APUMaintainInvoiceDTO();
             //add.SerialNumber = "11";
             //add.InvoiceNumber = "222";
