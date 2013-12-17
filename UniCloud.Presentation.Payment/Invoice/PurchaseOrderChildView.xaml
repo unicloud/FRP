@@ -17,6 +17,17 @@
                    d:DataContext="{d:DesignInstance uc:PurchaseInvoiceManagerVM}">
     <telerik:RadWindow.Resources>
         <ResourceDictionary>
+            <Style x:Key="EditComboBox"
+                   TargetType="telerik:RadComboBox">
+                <Setter Property="FontFamily"
+                        Value="Microsoft YaHei UI" />
+                <Setter Property="FontSize"
+                        Value="13" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="OpenDropDownOnFocus"
+                        Value="True" />
+            </Style>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -58,10 +69,40 @@
                                             <uc:DataPageSerialColumn Header="序号"
                                                                      CellStyle="{StaticResource CellStyle}"
                                                                      HeaderTextAlignment="Center" />
-                                            <telerik:GridViewDataColumn Header="Pn"
+                                            <telerik:GridViewDataColumn Header="合同名称"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding  Name}" />
+                                                                        DataMemberBinding="{Binding Name}" />
+                                            <telerik:GridViewDataColumn Header="版本号"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding Version}" />
+                                            <telerik:GridViewComboBoxColumn Header="币种"
+                                                                            IsReadOnly="True"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsFilterable="True"
+                                                                            ItemsSource="{Binding DataContext.Currencies, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                            DisplayMemberPath="Name"
+                                                                            DataMemberBinding="{Binding CurrencyId,Mode=TwoWay}"
+                                                                            SelectedValueMemberPath="Id"
+                                                                            EditorStyle="{StaticResource EditComboBox}" />
+                                            <telerik:GridViewDataColumn Header="经办人"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding OperatorName}" />
+                                            <telerik:GridViewDataColumn Header="生效日期"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding OrderDate}" />
+                                            <telerik:GridViewDataColumn Header="订单状态"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding Status}" />
+                                            <telerik:GridViewDataColumn Header="备注"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding Note}" />
                                         </telerik:RadGridView.Columns>
                                     </telerik:RadGridView>
                                     <telerik:RadTabControl  Grid.Row="1">
@@ -70,7 +111,7 @@
                                                 <telerik:RadGridView Name="AircraftOrderLine"
                                                                      ItemsSource="{Binding AircraftPurchaseOrderLines}"
                                                                      IsBusy="{Binding AircraftPurchaseOrders.IsBusy}"
-                                                                     SelectedItem="{Binding SeAircraftPurchaseOrderLine, Mode=TwoWay}"
+                                                                     SelectedItem="{Binding SelAircraftPurchaseOrderLine, Mode=TwoWay}"
                                                                      AutoGenerateColumns="False"
                                                                      IsReadOnly="True"
                                                                      ShowGroupPanel="False"
@@ -81,6 +122,52 @@
                                                         <uc:DataPageSerialColumn Header="序号"
                                                                                  CellStyle="{StaticResource CellStyle}"
                                                                                  HeaderTextAlignment="Center" />
+                                                        <telerik:GridViewDataColumn Header="单价"
+                                                                                    HeaderTextAlignment="Center"
+                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                    DataMemberBinding="{Binding UnitPrice}" />
+                                                        <telerik:GridViewDataColumn Header="数量"
+                                                                                    HeaderTextAlignment="Center"
+                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                    DataMemberBinding="{Binding Amount}" />
+                                                        <telerik:GridViewDataColumn Header="折扣"
+                                                                                    HeaderTextAlignment="Center"
+                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                    DataMemberBinding="{Binding Discount}" />
+                                                        <telerik:GridViewDataColumn Header="机身价格"
+                                                                                    HeaderTextAlignment="Center"
+                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                    DataMemberBinding="{Binding AirframePrice}" />
+                                                        <telerik:GridViewDataColumn Header="机身改装费用"
+                                                                                    HeaderTextAlignment="Center"
+                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                    DataMemberBinding="{Binding RefitCost}" />
+                                                        <telerik:GridViewDataColumn Header="发动机价格"
+                                                                                    HeaderTextAlignment="Center"
+                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                    DataMemberBinding="{Binding EnginePrice}" />
+                                                        <telerik:GridViewDataColumn Header="预计交付日期"
+                                                                                    HeaderTextAlignment="Center"
+                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                    DataMemberBinding="{Binding EstimateDeliveryDate}" />
+                                                        <telerik:GridViewDataColumn Header="备注"
+                                                                                    HeaderTextAlignment="Center"
+                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                    DataMemberBinding="{Binding Note}" />
+                                                        <telerik:GridViewDataColumn Header="行金额"
+                                                                                    HeaderTextAlignment="Center"
+                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                    DataMemberBinding="{Binding TotalLine}" />
+                                                        <telerik:GridViewComboBoxColumn Header="合同飞机"
+                                                                                        IsReadOnly="True"
+                                                                                        HeaderTextAlignment="Center"
+                                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                        IsFilterable="True"
+                                                                                        ItemsSource="{Binding DataContext.ContractAircrafts, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                                        DisplayMemberPath="SerialNumber"
+                                                                                        DataMemberBinding="{Binding ContractAircraftId,Mode=TwoWay}"
+                                                                                        SelectedValueMemberPath="ContractAircrafId"
+                                                                                        EditorStyle="{StaticResource EditComboBox}" />
                                                     </telerik:RadGridView.Columns>
                                                 </telerik:RadGridView>
                                             </Grid>
@@ -88,7 +175,7 @@
                                     </telerik:RadTabControl>
                                 </Grid>
                             </telerik:RadPane>
-                            <telerik:RadPane Header="发动采购订单"
+                            <telerik:RadPane Header="发动机采购订单"
                                              IsPinned="True"
                                              CanFloat="False"
                                              CanUserClose="False"
@@ -101,9 +188,9 @@
                                     </Grid.RowDefinitions>
                                     <telerik:RadGridView Grid.Row="0"
                                                          Name="EngineOrder"
-                                                         ItemsSource="{Binding AircraftPurchaseOrders}"
-                                                         IsBusy="{Binding AircraftPurchaseOrders.IsBusy}"
-                                                         SelectedItem="{Binding SelAircraftPurchaseOrder, Mode=TwoWay}"
+                                                         ItemsSource="{Binding EnginePurchaseOrders}"
+                                                         IsBusy="{Binding EnginePurchaseOrders.IsBusy}"
+                                                         SelectedItem="{Binding SelEnginePurchaseOrder, Mode=TwoWay}"
                                                          AutoGenerateColumns="False"
                                                          IsReadOnly="True"
                                                          ShowGroupPanel="False"
@@ -114,19 +201,49 @@
                                             <uc:DataPageSerialColumn Header="序号"
                                                                      CellStyle="{StaticResource CellStyle}"
                                                                      HeaderTextAlignment="Center" />
-                                            <telerik:GridViewDataColumn Header="Pn"
+                                            <telerik:GridViewDataColumn Header="合同名称"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding  Name}" />
+                                                                        DataMemberBinding="{Binding Name}" />
+                                            <telerik:GridViewDataColumn Header="版本号"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding Version}" />
+                                            <telerik:GridViewComboBoxColumn Header="币种"
+                                                                            IsReadOnly="True"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsFilterable="True"
+                                                                            ItemsSource="{Binding DataContext.Currencies, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                            DisplayMemberPath="Name"
+                                                                            DataMemberBinding="{Binding CurrencyId,Mode=TwoWay}"
+                                                                            SelectedValueMemberPath="Id"
+                                                                            EditorStyle="{StaticResource EditComboBox}" />
+                                            <telerik:GridViewDataColumn Header="经办人"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding OperatorName}" />
+                                            <telerik:GridViewDataColumn Header="生效日期"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding OrderDate}" />
+                                            <telerik:GridViewDataColumn Header="订单状态"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding Status}" />
+                                            <telerik:GridViewDataColumn Header="备注"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding Note}" />
                                         </telerik:RadGridView.Columns>
                                     </telerik:RadGridView>
                                     <telerik:RadTabControl  Grid.Row="1">
                                         <telerik:RadTabItem Header="发动机采购订单明细">
                                             <Grid>
                                                 <telerik:RadGridView Name="EngineOrderLine"
-                                                                     ItemsSource="{Binding AircraftPurchaseOrderLines}"
-                                                                     IsBusy="{Binding AircraftPurchaseOrders.IsBusy}"
-                                                                     SelectedItem="{Binding SeAircraftPurchaseOrderLine, Mode=TwoWay}"
+                                                                     ItemsSource="{Binding EnginePurchaseOrderLines}"
+                                                                     IsBusy="{Binding EnginePurchaseOrders.IsBusy}"
+                                                                     SelectedItem="{Binding SelEnginePurchaseOrderLine, Mode=TwoWay}"
                                                                      AutoGenerateColumns="False"
                                                                      IsReadOnly="True"
                                                                      ShowGroupPanel="False"
@@ -137,6 +254,40 @@
                                                         <uc:DataPageSerialColumn Header="序号"
                                                                                  CellStyle="{StaticResource CellStyle}"
                                                                                  HeaderTextAlignment="Center" />
+                                                        <telerik:GridViewDataColumn Header="单价"
+                                                                                    HeaderTextAlignment="Center"
+                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                    DataMemberBinding="{Binding UnitPrice}" />
+                                                        <telerik:GridViewDataColumn Header="数量"
+                                                                                    HeaderTextAlignment="Center"
+                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                    DataMemberBinding="{Binding Amount}" />
+                                                        <telerik:GridViewDataColumn Header="折扣"
+                                                                                    HeaderTextAlignment="Center"
+                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                    DataMemberBinding="{Binding Discount}" />
+                                                        <telerik:GridViewDataColumn Header="预计交付日期"
+                                                                                    HeaderTextAlignment="Center"
+                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                    DataMemberBinding="{Binding EstimateDeliveryDate}" />
+                                                        <telerik:GridViewDataColumn Header="备注"
+                                                                                    HeaderTextAlignment="Center"
+                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                    DataMemberBinding="{Binding Note}" />
+                                                        <telerik:GridViewDataColumn Header="行金额"
+                                                                                    HeaderTextAlignment="Center"
+                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                    DataMemberBinding="{Binding TotalLine}" />
+                                                        <telerik:GridViewComboBoxColumn Header="合同发动机"
+                                                                                        IsReadOnly="True"
+                                                                                        HeaderTextAlignment="Center"
+                                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                        IsFilterable="True"
+                                                                                        ItemsSource="{Binding DataContext.ContractEngines, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                                        DisplayMemberPath="SerialNumber"
+                                                                                        DataMemberBinding="{Binding ContractEngineId,Mode=TwoWay}"
+                                                                                        SelectedValueMemberPath="ContractEngineId"
+                                                                                        EditorStyle="{StaticResource EditComboBox}" />
                                                     </telerik:RadGridView.Columns>
                                                 </telerik:RadGridView>
                                             </Grid>
@@ -151,10 +302,10 @@
                                              CanUserPin="False"
                                              ContextMenuTemplate="{x:Null}">
                                 <telerik:RadGridView Grid.Row="0"
-                                                     Name="BFEOrder"
-                                                     ItemsSource="{Binding SupplierCompanyBFEMaterialsView}"
-                                                     IsBusy="{Binding SupplierCompanyBFEMaterialsView.IsBusy}"
-                                                     SelectedItem="{Binding SelSupplierCompanyBFEMaterial, Mode=TwoWay}"
+                                                     Name="BfeOrder"
+                                                     ItemsSource="{Binding BFEPurchaseOrders}"
+                                                     IsBusy="{Binding BFEPurchaseOrders.IsBusy}"
+                                                     SelectedItem="{Binding SelBFEPurchaseOrder, Mode=TwoWay}"
                                                      AutoGenerateColumns="False"
                                                      IsReadOnly="True"
                                                      ShowGroupPanel="False"
@@ -165,14 +316,40 @@
                                         <uc:DataPageSerialColumn Header="序号"
                                                                  CellStyle="{StaticResource CellStyle}"
                                                                  HeaderTextAlignment="Center" />
-                                        <telerik:GridViewDataColumn Header="Pn"
+                                        <telerik:GridViewDataColumn Header="合同名称"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding  Name}" />
+                                                                    DataMemberBinding="{Binding Name}" />
+                                        <telerik:GridViewDataColumn Header="版本号"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Version}" />
+                                        <telerik:GridViewComboBoxColumn Header="币种"
+                                                                        IsReadOnly="True"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        IsFilterable="True"
+                                                                        ItemsSource="{Binding DataContext.Currencies, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        DisplayMemberPath="Name"
+                                                                        DataMemberBinding="{Binding CurrencyId,Mode=TwoWay}"
+                                                                        SelectedValueMemberPath="Id"
+                                                                        EditorStyle="{StaticResource EditComboBox}" />
+                                        <telerik:GridViewDataColumn Header="经办人"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding OperatorName}" />
+                                        <telerik:GridViewDataColumn Header="生效日期"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding OrderDate}" />
+                                        <telerik:GridViewDataColumn Header="订单状态"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Status}" />
                                         <telerik:GridViewDataColumn Header="备注"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding  Description}" />
+                                                                    DataMemberBinding="{Binding Note}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
                             </telerik:RadPane>

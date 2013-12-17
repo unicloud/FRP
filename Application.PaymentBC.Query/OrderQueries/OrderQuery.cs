@@ -150,7 +150,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                             Discount = l.Discount,
                             EstimateDeliveryDate = l.EstimateDeliveryDate,
                             Note = l.Note,
-                            EngineMaterialId = l.EngineMaterialId,
+                            ContractEngineId = l.ContractEngineId,
                             TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
                         }).ToList(),
                 });
@@ -188,7 +188,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                             Discount = l.Discount,
                             EstimateDeliveryDate = l.EstimateDeliveryDate,
                             Note = l.Note,
-                            EngineMaterialId = l.EngineMaterialId,
+                            ContractEngineId = l.ContractEngineId,
                             TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
                         }).ToList(),
                 });

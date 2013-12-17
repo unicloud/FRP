@@ -31,11 +31,10 @@ namespace UniCloud.Application.PaymentBC.DTO
     [DataServiceKey("Id")]
     public class BFEPurchaseOrderDTO
     {
-        #region 私有字段
-
-        private HashSet<BFEPurchaseOrderLineDTO> _lines;
-
-        #endregion
+        public BFEPurchaseOrderDTO()
+        {
+            BFEPurchaseOrderLines = new List<BFEPurchaseOrderLineDTO>();
+        }
         /// <summary>
         ///     订单ID
         /// </summary>
@@ -84,10 +83,6 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///     BFE采购订单行集合
         /// </summary>
-        public virtual ICollection<BFEPurchaseOrderLineDTO> BFEPurchaseOrderLines
-        {
-            get { return _lines ?? (_lines = new HashSet<BFEPurchaseOrderLineDTO>()); }
-            set { _lines = new HashSet<BFEPurchaseOrderLineDTO>(value); }
-        }
+        public List<BFEPurchaseOrderLineDTO> BFEPurchaseOrderLines { get; set; }
     }
 }

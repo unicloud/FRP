@@ -31,11 +31,10 @@ namespace UniCloud.Application.PaymentBC.DTO
     [DataServiceKey("Id")]
     public class AircraftPurchaseOrderDTO
     {
-        #region 私有字段
-
-        private HashSet<AircraftPurchaseOrderLineDTO> _lines;
-
-        #endregion
+        public AircraftPurchaseOrderDTO()
+        {
+            AircraftPurchaseOrderLines = new List<AircraftPurchaseOrderLineDTO>();
+        }
         /// <summary>
         ///     订单ID
         /// </summary>
@@ -84,10 +83,6 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///     购买飞机订单行集合
         /// </summary>
-        public virtual ICollection<AircraftPurchaseOrderLineDTO> AircraftPurchaseOrderLines
-        {
-            get { return _lines ?? (_lines = new HashSet<AircraftPurchaseOrderLineDTO>()); }
-            set { _lines = new HashSet<AircraftPurchaseOrderLineDTO>(value); }
-        }
+        public List<AircraftPurchaseOrderLineDTO> AircraftPurchaseOrderLines { get; set; }
     }
 }

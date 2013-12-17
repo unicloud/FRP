@@ -82,7 +82,7 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
             newLeaseInvoice.SetInvoiceValue();
             newLeaseInvoice.SetOrder(order);
             newLeaseInvoice.SetPaidAmount(leaseInvoice.PaidAmount);
-            newLeaseInvoice.Review(leaseInvoice.Reviewer);
+            //newLeaseInvoice.Review(leaseInvoice.Reviewer);
             newLeaseInvoice.SetCurrency(currency);
             newLeaseInvoice.SetPaymentScheduleLine(leaseInvoice.PaymentScheduleLineId);
             newLeaseInvoice.SetInvoiceStatus(InvoiceStatus.草稿);

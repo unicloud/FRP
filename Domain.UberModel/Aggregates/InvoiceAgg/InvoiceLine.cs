@@ -73,7 +73,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         /// <summary>
         ///     订单行ID
         /// </summary>
-        public int OrderLineId { get; private set; }
+        public int? OrderLineId { get; private set; }
 
         #endregion
 
@@ -94,13 +94,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         /// <param name="orderLine">订单行</param>
         public void SetOrderLine(OrderLine orderLine)
         {
-            if (orderLine == null || orderLine.IsTransient())
+            if (orderLine != null)
             {
-                throw new ArgumentException("订单行参数为空！");
+                OrderLine = orderLine;
+                OrderLineId = orderLine.Id;
             }
-
-            OrderLine = orderLine;
-            OrderLineId = orderLine.Id;
         }
 
         /// <summary>

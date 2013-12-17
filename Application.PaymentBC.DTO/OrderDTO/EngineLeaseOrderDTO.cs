@@ -31,11 +31,10 @@ namespace UniCloud.Application.PaymentBC.DTO
     [DataServiceKey("Id")]
     public class EngineLeaseOrderDTO
     {
-        #region 私有字段
-
-        private HashSet<EngineLeaseOrderLineDTO> _lines;
-
-        #endregion
+        public EngineLeaseOrderDTO()
+        {
+            EngineLeaseOrderLines = new List<EngineLeaseOrderLineDTO>();
+        }
 
         /// <summary>
         ///     订单ID
@@ -90,10 +89,6 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///     租赁发动机订单行集合
         /// </summary>
-        public virtual ICollection<EngineLeaseOrderLineDTO> EngineLeaseOrderLines
-        {
-            get { return _lines ?? (_lines = new HashSet<EngineLeaseOrderLineDTO>()); }
-            set { _lines = new HashSet<EngineLeaseOrderLineDTO>(value); }
-        }
+        public List<EngineLeaseOrderLineDTO> EngineLeaseOrderLines { get; set; }
     }
 }
