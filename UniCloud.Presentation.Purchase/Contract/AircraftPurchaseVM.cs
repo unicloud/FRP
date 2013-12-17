@@ -105,7 +105,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         public IEnumerable<SupplierDTO> Suppliers
         {
-            get { return GlobalServiceHelper.Suppliers; }
+            get { return GlobalServiceHelper.GetSupplier(() => RaisePropertyChanged(() => Suppliers)); }
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         public IEnumerable<CurrencyDTO> Currencies
         {
-            get { return GlobalServiceHelper.Currencies; }
+            get { return GlobalServiceHelper.GetCurrency(() => RaisePropertyChanged(() => Currencies)); }
         }
 
         /// <summary>
@@ -121,7 +121,20 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         public IEnumerable<LinkmanDTO> Linkmen
         {
-            get { return GlobalServiceHelper.Linkmen; }
+            get { return GlobalServiceHelper.GetLinkman(() => RaisePropertyChanged(() => Linkmen)); }
+        }
+
+        /// <summary>
+        ///     飞机物料
+        /// </summary>
+        public IEnumerable<SupplierCompanyAcMaterialDTO> AircraftMaterials
+        {
+            get
+            {
+                return
+                    GlobalServiceHelper.GetAircraftMaterial(() => RaisePropertyChanged(() => AircraftMaterials))
+                        .Where(a => a.SupplierCompanyId == _selTradeDTO.SuppierCompanyId);
+            }
         }
 
         #endregion
@@ -167,6 +180,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 if (_selTradeDTO != value)
                 {
                     _selTradeDTO = value;
+                    RaisePropertyChanged(()=>AircraftMaterials);
                     RaisePropertyChanged(() => SelTradeDTO);
                 }
             }

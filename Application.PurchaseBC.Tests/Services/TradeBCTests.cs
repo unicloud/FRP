@@ -26,6 +26,7 @@ using UniCloud.Application.PurchaseBC.SupplierServices;
 using UniCloud.Application.PurchaseBC.TradeServices;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
@@ -49,15 +50,15 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         public void TestInitialize()
         {
             Configuration.Create()
-                         .UseAutofac()
-                         .CreateLog()
-                         .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .UseAutofac()
+                .CreateLog()
+                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 #region 交易相关配置，包括查询，应用服务，仓储注册
 
                          .Register<ITradeQuery, TradeQuery>()
                          .Register<IOrderQuery, OrderQuery>()
                          .Register<ITradeAppService, TradeAppService>()
-                         .Register<ITradeRepository, TradeRepository>()
+                .Register<ITradeRepository, TradeRepository>()
                          .Register<IOrderRepository, OrderRepository>()
 
                 #endregion
@@ -66,15 +67,12 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
                          .Register<ISupplierQuery, SupplierQuery>()
                          .Register<ISupplierAppService, SupplierAppService>()
                          .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
-                         .Register<ISupplierRepository, SupplierRepository>()
-                         .Register<ILinkmanRepository, LinkmanRepository>()
-                         .Register<ISupplierRoleRepository, SupplierRoleRepository>()
-                         .Register<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>()
-            #endregion
-
-
-                ;
-
+                .Register<ISupplierRepository, SupplierRepository>()
+                .Register<IOrderRepository, OrderRepository>()
+                .Register<IRelatedDocRepository,RelatedDocRepository>()
+                .Register<ITradeAppService, TradeAppService>()
+                .Register<ITradeQuery, TradeQuery>()
+                .Register<IOrderQuery, OrderQuery>();
         }
 
         [TestCleanup]
@@ -92,6 +90,19 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
 
             // Act
             var result = service.GetTrades().ToList();
+
+            // Assert
+            Assert.IsTrue(result.Any());
+        }
+
+        [TestMethod]
+        public void GetOrders()
+        {
+            // Arrange
+            var service = DefaultContainer.Resolve<ITradeAppService>();
+
+            // Act
+            var result = service.GetAircraftPurchaseOrders().ToList();
 
             // Assert
             Assert.IsTrue(result.Any());

@@ -28,6 +28,9 @@
 
     <!--ComboBox相关样式-->
     <Style TargetType="telerik:RadComboBox" x:Key="BaseRadComboBox" />
+    <Style TargetType="telerik:RadComboBox" BasedOn="{StaticResource BaseRadComboBox}">
+        <Setter Property="OpenDropDownOnFocus" Value="True"/>
+    </Style>
     
     <!--ComboBox相关样式-->
 
@@ -48,6 +51,11 @@
         <Setter Property="Background" Value="#EEF1EB" />
     </Style>
 
+    <Style TargetType="telerik:GridViewHeaderCell" x:Key="BaseGridViewHeaderCell"/>
+    <Style TargetType="telerik:GridViewHeaderCell" BasedOn="{StaticResource BaseGridViewHeaderCell}">
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    </Style>
+    
     <!--GridView相关样式-->
 
 </ResourceDictionary>
