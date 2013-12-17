@@ -373,6 +373,77 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
+                "FRP.Guarantee",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        StartDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        EndDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        SupplierName = c.String(),
+                        OperatorName = c.String(),
+                        Reviewer = c.String(),
+                        CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        ReviewDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        Status = c.Int(nullable: false),
+                        SupplierId = c.Int(nullable: false),
+                        CurrencyId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.Currency", t => t.CurrencyId)
+                .ForeignKey("FRP.Supplier", t => t.SupplierId)
+                .Index(t => t.CurrencyId)
+                .Index(t => t.SupplierId);
+            
+            CreateTable(
+                "FRP.InvoiceLine",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        ItemName = c.String(),
+                        Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Note = c.String(),
+                        InvoiceId = c.Int(nullable: false),
+                        OrderLineId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.OrderLine", t => t.OrderLineId)
+                .ForeignKey("FRP.Invoice", t => t.InvoiceId)
+                .Index(t => t.OrderLineId)
+                .Index(t => t.InvoiceId);
+            
+            CreateTable(
+                "FRP.Invoice",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        InvoiceNumber = c.String(),
+                        InvoideCode = c.String(),
+                        InvoiceDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        SupplierName = c.String(),
+                        InvoiceValue = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        PaidAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        OperatorName = c.String(),
+                        Reviewer = c.String(),
+                        CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        ReviewDate = c.DateTime(precision: 7, storeType: "datetime2"),
+                        IsValid = c.Boolean(nullable: false),
+                        IsCompleted = c.Boolean(nullable: false),
+                        Status = c.Int(nullable: false),
+                        OrderId = c.Int(nullable: false),
+                        SupplierId = c.Int(nullable: false),
+                        CurrencyId = c.Int(nullable: false),
+                        PaymentScheduleLineId = c.Int(),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.Currency", t => t.CurrencyId)
+                .ForeignKey("FRP.Order", t => t.OrderId)
+                .ForeignKey("FRP.Supplier", t => t.SupplierId)
+                .Index(t => t.CurrencyId)
+                .Index(t => t.OrderId)
+                .Index(t => t.SupplierId);
+            
+            CreateTable(
                 "FRP.MaintainContract",
                 c => new
                     {
@@ -390,6 +461,129 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.Supplier", t => t.SignatoryId)
                 .Index(t => t.SignatoryId);
+            
+            CreateTable(
+                "FRP.MaintainInvoiceLine",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        MaintainItem = c.Int(nullable: false),
+                        ItemName = c.String(),
+                        UnitPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Note = c.String(),
+                        MaintainInvoiceId = c.Int(nullable: false),
+                        PartID = c.Int(),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.Part", t => t.PartID)
+                .ForeignKey("FRP.MaintainInvoice", t => t.MaintainInvoiceId)
+                .Index(t => t.PartID)
+                .Index(t => t.MaintainInvoiceId);
+            
+            CreateTable(
+                "FRP.MaintainInvoice",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        SerialNumber = c.String(),
+                        InvoiceNumber = c.String(),
+                        InvoideCode = c.String(),
+                        InvoiceDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        SupplierName = c.String(),
+                        InvoiceValue = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        PaidAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        OperatorName = c.String(),
+                        Reviewer = c.String(),
+                        CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        ReviewDate = c.DateTime(precision: 7, storeType: "datetime2"),
+                        IsValid = c.Boolean(nullable: false),
+                        IsCompleted = c.Boolean(nullable: false),
+                        Status = c.Int(nullable: false),
+                        SupplierId = c.Int(nullable: false),
+                        CurrencyId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.Currency", t => t.CurrencyId)
+                .ForeignKey("FRP.Supplier", t => t.SupplierId)
+                .Index(t => t.CurrencyId)
+                .Index(t => t.SupplierId);
+            
+            CreateTable(
+                "FRP.PaymentNotice",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        NoticeNumber = c.String(),
+                        CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        DeadLine = c.DateTime(nullable: false),
+                        SupplierName = c.String(),
+                        OperatorName = c.String(),
+                        Reviewer = c.String(),
+                        ReviewDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        Status = c.Int(nullable: false),
+                        CurrencyId = c.Int(nullable: false),
+                        SupplierId = c.Int(nullable: false),
+                        BankAccountId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.BankAccount", t => t.BankAccountId)
+                .ForeignKey("FRP.Currency", t => t.CurrencyId)
+                .ForeignKey("FRP.Supplier", t => t.SupplierId)
+                .Index(t => t.BankAccountId)
+                .Index(t => t.CurrencyId)
+                .Index(t => t.SupplierId);
+            
+            CreateTable(
+                "FRP.PaymentNoticeLine",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        InvoiceType = c.Int(nullable: false),
+                        InvoiceNumber = c.String(),
+                        Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Note = c.String(),
+                        PaymentNoticeId = c.Int(nullable: false),
+                        InvoiceId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.Invoice", t => t.InvoiceId)
+                .ForeignKey("FRP.PaymentNotice", t => t.PaymentNoticeId)
+                .Index(t => t.InvoiceId)
+                .Index(t => t.PaymentNoticeId);
+            
+            CreateTable(
+                "FRP.PaymentScheduleLine",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        ScheduleDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        Status = c.Int(nullable: false),
+                        Note = c.String(),
+                        PaymentScheduleId = c.Int(nullable: false),
+                        InvoiceId = c.Int(),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.PaymentSchedule", t => t.PaymentScheduleId)
+                .Index(t => t.PaymentScheduleId);
+            
+            CreateTable(
+                "FRP.PaymentSchedule",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        SupplierName = c.String(),
+                        IsCompleted = c.Boolean(nullable: false),
+                        CurrencyId = c.Int(nullable: false),
+                        SupplierId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.Currency", t => t.CurrencyId)
+                .ForeignKey("FRP.Supplier", t => t.SupplierId)
+                .Index(t => t.CurrencyId)
+                .Index(t => t.SupplierId);
             
             CreateTable(
                 "FRP.ReceptionLine",
@@ -484,152 +678,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
-                "FRP.Guarantee",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        StartDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
-                        EndDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
-                        Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        SupplierName = c.String(),
-                        OperatorName = c.String(),
-                        Reviewer = c.String(),
-                        CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
-                        ReviewDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
-                        Status = c.Int(nullable: false),
-                        SupplierId = c.Int(nullable: false),
-                        CurrencyId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.Currency", t => t.CurrencyId)
-                .ForeignKey("FRP.Supplier", t => t.SupplierId)
-                .Index(t => t.CurrencyId)
-                .Index(t => t.SupplierId);
-            
-            CreateTable(
-                "FRP.InvoiceLine",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        ItemName = c.String(),
-                        Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        InvoiceId = c.Int(nullable: false),
-                        OrderLineId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.OrderLine", t => t.OrderLineId)
-                .ForeignKey("FRP.Invoice", t => t.InvoiceId)
-                .Index(t => t.OrderLineId)
-                .Index(t => t.InvoiceId);
-            
-            CreateTable(
-                "FRP.Invoice",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        InvoiceNumber = c.String(),
-                        InvoideCode = c.String(),
-                        InvoiceDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
-                        SupplierName = c.String(),
-                        InvoiceValue = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        PaidAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        OperatorName = c.String(),
-                        Reviewer = c.String(),
-                        CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
-                        ReviewDate = c.DateTime(precision: 7, storeType: "datetime2"),
-                        IsValid = c.Boolean(nullable: false),
-                        IsCompleted = c.Boolean(nullable: false),
-                        Status = c.Int(nullable: false),
-                        OrderId = c.Int(nullable: false),
-                        SupplierId = c.Int(nullable: false),
-                        CurrencyId = c.Int(nullable: false),
-                        PaymentScheduleLineId = c.Int(),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.Currency", t => t.CurrencyId)
-                .ForeignKey("FRP.Order", t => t.OrderId)
-                .ForeignKey("FRP.Supplier", t => t.SupplierId)
-                .Index(t => t.CurrencyId)
-                .Index(t => t.OrderId)
-                .Index(t => t.SupplierId);
-            
-            CreateTable(
-                "FRP.PaymentNotice",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        NoticeNumber = c.String(),
-                        CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
-                        DeadLine = c.DateTime(nullable: false),
-                        SupplierName = c.String(),
-                        OperatorName = c.String(),
-                        Reviewer = c.String(),
-                        ReviewDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
-                        Status = c.Int(nullable: false),
-                        CurrencyId = c.Int(nullable: false),
-                        SupplierId = c.Int(nullable: false),
-                        BankAccountId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.BankAccount", t => t.BankAccountId)
-                .ForeignKey("FRP.Currency", t => t.CurrencyId)
-                .ForeignKey("FRP.Supplier", t => t.SupplierId)
-                .Index(t => t.BankAccountId)
-                .Index(t => t.CurrencyId)
-                .Index(t => t.SupplierId);
-            
-            CreateTable(
-                "FRP.PaymentNoticeLine",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        InvoiceType = c.Int(nullable: false),
-                        InvoiceNumber = c.String(),
-                        Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Note = c.String(),
-                        PaymentNoticeId = c.Int(nullable: false),
-                        InvoiceId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.Invoice", t => t.InvoiceId)
-                .ForeignKey("FRP.PaymentNotice", t => t.PaymentNoticeId)
-                .Index(t => t.InvoiceId)
-                .Index(t => t.PaymentNoticeId);
-            
-            CreateTable(
-                "FRP.PaymentScheduleLine",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        ScheduleDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
-                        Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
-                        Status = c.Int(nullable: false),
-                        Note = c.String(),
-                        PaymentScheduleId = c.Int(nullable: false),
-                        InvoiceId = c.Int(),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.PaymentSchedule", t => t.PaymentScheduleId)
-                .Index(t => t.PaymentScheduleId);
-            
-            CreateTable(
-                "FRP.PaymentSchedule",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
-                        SupplierName = c.String(),
-                        IsCompleted = c.Boolean(nullable: false),
-                        CurrencyId = c.Int(nullable: false),
-                        SupplierId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.Currency", t => t.CurrencyId)
-                .ForeignKey("FRP.Supplier", t => t.SupplierId)
-                .Index(t => t.CurrencyId)
-                .Index(t => t.SupplierId);
-            
-            CreateTable(
                 "FRP.LeaseContractAircraft",
                 c => new
                     {
@@ -721,7 +769,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .Index(t => t.ID);
             
             CreateTable(
-                "FRP.LeaseInvoice",
+                "FRP.CreditNoteInvoice",
                 c => new
                     {
                         ID = c.Int(nullable: false),
@@ -731,13 +779,13 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .Index(t => t.ID);
             
             CreateTable(
-                "FRP.LeaseInvoiceLine",
+                "FRP.LeaseInvoice",
                 c => new
                     {
                         ID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.InvoiceLine", t => t.ID)
+                .ForeignKey("FRP.Invoice", t => t.ID)
                 .Index(t => t.ID);
             
             CreateTable(
@@ -751,16 +799,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .Index(t => t.ID);
             
             CreateTable(
-                "FRP.PurchaseInvoiceLine",
-                c => new
-                    {
-                        ID = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.InvoiceLine", t => t.ID)
-                .Index(t => t.ID);
-            
-            CreateTable(
                 "FRP.PrepaymentInvoice",
                 c => new
                     {
@@ -768,16 +806,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.Invoice", t => t.ID)
-                .Index(t => t.ID);
-            
-            CreateTable(
-                "FRP.PrepaymentInvoiceLine",
-                c => new
-                    {
-                        ID = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.InvoiceLine", t => t.ID)
                 .Index(t => t.ID);
             
             CreateTable(
@@ -808,6 +836,46 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.MaintainContract", t => t.ID)
+                .Index(t => t.ID);
+            
+            CreateTable(
+                "FRP.AirframeMaintainInvoice",
+                c => new
+                    {
+                        ID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.MaintainInvoice", t => t.ID)
+                .Index(t => t.ID);
+            
+            CreateTable(
+                "FRP.APUMaintainInvoice",
+                c => new
+                    {
+                        ID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.MaintainInvoice", t => t.ID)
+                .Index(t => t.ID);
+            
+            CreateTable(
+                "FRP.EngineMaintainInvoice",
+                c => new
+                    {
+                        ID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.MaintainInvoice", t => t.ID)
+                .Index(t => t.ID);
+            
+            CreateTable(
+                "FRP.UndercartMaintainInvoice",
+                c => new
+                    {
+                        ID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.MaintainInvoice", t => t.ID)
                 .Index(t => t.ID);
             
             CreateTable(
@@ -1224,15 +1292,17 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.BFEMaterial", "ID", "FRP.Material");
             DropForeignKey("FRP.AircraftMaterial", "AircraftTypeId", "FRP.AircraftType");
             DropForeignKey("FRP.AircraftMaterial", "ID", "FRP.Material");
+            DropForeignKey("FRP.UndercartMaintainInvoice", "ID", "FRP.MaintainInvoice");
+            DropForeignKey("FRP.EngineMaintainInvoice", "ID", "FRP.MaintainInvoice");
+            DropForeignKey("FRP.APUMaintainInvoice", "ID", "FRP.MaintainInvoice");
+            DropForeignKey("FRP.AirframeMaintainInvoice", "ID", "FRP.MaintainInvoice");
             DropForeignKey("FRP.UndercartMaintainContract", "ID", "FRP.MaintainContract");
             DropForeignKey("FRP.EngineMaintainContract", "ID", "FRP.MaintainContract");
             DropForeignKey("FRP.APUMaintainContract", "ID", "FRP.MaintainContract");
-            DropForeignKey("FRP.PrepaymentInvoiceLine", "ID", "FRP.InvoiceLine");
             DropForeignKey("FRP.PrepaymentInvoice", "ID", "FRP.Invoice");
-            DropForeignKey("FRP.PurchaseInvoiceLine", "ID", "FRP.InvoiceLine");
             DropForeignKey("FRP.PurchaseInvoice", "ID", "FRP.Invoice");
-            DropForeignKey("FRP.LeaseInvoiceLine", "ID", "FRP.InvoiceLine");
             DropForeignKey("FRP.LeaseInvoice", "ID", "FRP.Invoice");
+            DropForeignKey("FRP.CreditNoteInvoice", "ID", "FRP.Invoice");
             DropForeignKey("FRP.MaintainGuarantee", "ID", "FRP.Guarantee");
             DropForeignKey("FRP.LeaseGuarantee", "ID", "FRP.Guarantee");
             DropForeignKey("FRP.StandardDocument", "ID", "FRP.Document");
@@ -1241,6 +1311,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.LeaseContractEngine", "ID", "FRP.ContractEngine");
             DropForeignKey("FRP.PurchaseContractAircraft", "ID", "FRP.ContractAircraft");
             DropForeignKey("FRP.LeaseContractAircraft", "ID", "FRP.ContractAircraft");
+            DropForeignKey("FRP.SupplierRole", "SupplierCompanyId", "FRP.SupplierCompany");
+            DropForeignKey("FRP.Reception", "SupplierId", "FRP.Supplier");
+            DropForeignKey("FRP.ReceptionSchedule", "ReceptionId", "FRP.Reception");
+            DropForeignKey("FRP.ReceptionLine", "ReceptionId", "FRP.Reception");
             DropForeignKey("FRP.PaymentSchedule", "SupplierId", "FRP.Supplier");
             DropForeignKey("FRP.PaymentScheduleLine", "PaymentScheduleId", "FRP.PaymentSchedule");
             DropForeignKey("FRP.PaymentSchedule", "CurrencyId", "FRP.Currency");
@@ -1249,6 +1323,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.PaymentNoticeLine", "InvoiceId", "FRP.Invoice");
             DropForeignKey("FRP.PaymentNotice", "CurrencyId", "FRP.Currency");
             DropForeignKey("FRP.PaymentNotice", "BankAccountId", "FRP.BankAccount");
+            DropForeignKey("FRP.MaintainInvoice", "SupplierId", "FRP.Supplier");
+            DropForeignKey("FRP.MaintainInvoiceLine", "MaintainInvoiceId", "FRP.MaintainInvoice");
+            DropForeignKey("FRP.MaintainInvoiceLine", "PartID", "FRP.Part");
+            DropForeignKey("FRP.MaintainInvoice", "CurrencyId", "FRP.Currency");
+            DropForeignKey("FRP.MaintainContract", "SignatoryId", "FRP.Supplier");
             DropForeignKey("FRP.Invoice", "SupplierId", "FRP.Supplier");
             DropForeignKey("FRP.Invoice", "OrderId", "FRP.Order");
             DropForeignKey("FRP.InvoiceLine", "InvoiceId", "FRP.Invoice");
@@ -1256,11 +1335,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.Invoice", "CurrencyId", "FRP.Currency");
             DropForeignKey("FRP.Guarantee", "SupplierId", "FRP.Supplier");
             DropForeignKey("FRP.Guarantee", "CurrencyId", "FRP.Currency");
-            DropForeignKey("FRP.SupplierRole", "SupplierCompanyId", "FRP.SupplierCompany");
-            DropForeignKey("FRP.Reception", "SupplierId", "FRP.Supplier");
-            DropForeignKey("FRP.ReceptionSchedule", "ReceptionId", "FRP.Reception");
-            DropForeignKey("FRP.ReceptionLine", "ReceptionId", "FRP.Reception");
-            DropForeignKey("FRP.MaintainContract", "SignatoryId", "FRP.Supplier");
             DropForeignKey("FRP.DocumentPath", "ParentId", "FRP.DocumentPath");
             DropForeignKey("FRP.ContractEngine", "PartID", "FRP.Part");
             DropForeignKey("FRP.ContractEngine", "ImportCategoryId", "FRP.ActionCategory");
@@ -1328,15 +1402,17 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.BFEMaterial", new[] { "ID" });
             DropIndex("FRP.AircraftMaterial", new[] { "AircraftTypeId" });
             DropIndex("FRP.AircraftMaterial", new[] { "ID" });
+            DropIndex("FRP.UndercartMaintainInvoice", new[] { "ID" });
+            DropIndex("FRP.EngineMaintainInvoice", new[] { "ID" });
+            DropIndex("FRP.APUMaintainInvoice", new[] { "ID" });
+            DropIndex("FRP.AirframeMaintainInvoice", new[] { "ID" });
             DropIndex("FRP.UndercartMaintainContract", new[] { "ID" });
             DropIndex("FRP.EngineMaintainContract", new[] { "ID" });
             DropIndex("FRP.APUMaintainContract", new[] { "ID" });
-            DropIndex("FRP.PrepaymentInvoiceLine", new[] { "ID" });
             DropIndex("FRP.PrepaymentInvoice", new[] { "ID" });
-            DropIndex("FRP.PurchaseInvoiceLine", new[] { "ID" });
             DropIndex("FRP.PurchaseInvoice", new[] { "ID" });
-            DropIndex("FRP.LeaseInvoiceLine", new[] { "ID" });
             DropIndex("FRP.LeaseInvoice", new[] { "ID" });
+            DropIndex("FRP.CreditNoteInvoice", new[] { "ID" });
             DropIndex("FRP.MaintainGuarantee", new[] { "ID" });
             DropIndex("FRP.LeaseGuarantee", new[] { "ID" });
             DropIndex("FRP.StandardDocument", new[] { "ID" });
@@ -1345,6 +1421,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.LeaseContractEngine", new[] { "ID" });
             DropIndex("FRP.PurchaseContractAircraft", new[] { "ID" });
             DropIndex("FRP.LeaseContractAircraft", new[] { "ID" });
+            DropIndex("FRP.SupplierRole", new[] { "SupplierCompanyId" });
+            DropIndex("FRP.Reception", new[] { "SupplierId" });
+            DropIndex("FRP.ReceptionSchedule", new[] { "ReceptionId" });
+            DropIndex("FRP.ReceptionLine", new[] { "ReceptionId" });
             DropIndex("FRP.PaymentSchedule", new[] { "SupplierId" });
             DropIndex("FRP.PaymentScheduleLine", new[] { "PaymentScheduleId" });
             DropIndex("FRP.PaymentSchedule", new[] { "CurrencyId" });
@@ -1353,6 +1433,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.PaymentNoticeLine", new[] { "InvoiceId" });
             DropIndex("FRP.PaymentNotice", new[] { "CurrencyId" });
             DropIndex("FRP.PaymentNotice", new[] { "BankAccountId" });
+            DropIndex("FRP.MaintainInvoice", new[] { "SupplierId" });
+            DropIndex("FRP.MaintainInvoiceLine", new[] { "MaintainInvoiceId" });
+            DropIndex("FRP.MaintainInvoiceLine", new[] { "PartID" });
+            DropIndex("FRP.MaintainInvoice", new[] { "CurrencyId" });
+            DropIndex("FRP.MaintainContract", new[] { "SignatoryId" });
             DropIndex("FRP.Invoice", new[] { "SupplierId" });
             DropIndex("FRP.Invoice", new[] { "OrderId" });
             DropIndex("FRP.InvoiceLine", new[] { "InvoiceId" });
@@ -1360,11 +1445,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.Invoice", new[] { "CurrencyId" });
             DropIndex("FRP.Guarantee", new[] { "SupplierId" });
             DropIndex("FRP.Guarantee", new[] { "CurrencyId" });
-            DropIndex("FRP.SupplierRole", new[] { "SupplierCompanyId" });
-            DropIndex("FRP.Reception", new[] { "SupplierId" });
-            DropIndex("FRP.ReceptionSchedule", new[] { "ReceptionId" });
-            DropIndex("FRP.ReceptionLine", new[] { "ReceptionId" });
-            DropIndex("FRP.MaintainContract", new[] { "SignatoryId" });
             DropIndex("FRP.DocumentPath", new[] { "ParentId" });
             DropIndex("FRP.ContractEngine", new[] { "PartID" });
             DropIndex("FRP.ContractEngine", new[] { "ImportCategoryId" });
@@ -1415,15 +1495,17 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.EngineMaterial");
             DropTable("FRP.BFEMaterial");
             DropTable("FRP.AircraftMaterial");
+            DropTable("FRP.UndercartMaintainInvoice");
+            DropTable("FRP.EngineMaintainInvoice");
+            DropTable("FRP.APUMaintainInvoice");
+            DropTable("FRP.AirframeMaintainInvoice");
             DropTable("FRP.UndercartMaintainContract");
             DropTable("FRP.EngineMaintainContract");
             DropTable("FRP.APUMaintainContract");
-            DropTable("FRP.PrepaymentInvoiceLine");
             DropTable("FRP.PrepaymentInvoice");
-            DropTable("FRP.PurchaseInvoiceLine");
             DropTable("FRP.PurchaseInvoice");
-            DropTable("FRP.LeaseInvoiceLine");
             DropTable("FRP.LeaseInvoice");
+            DropTable("FRP.CreditNoteInvoice");
             DropTable("FRP.MaintainGuarantee");
             DropTable("FRP.LeaseGuarantee");
             DropTable("FRP.StandardDocument");
@@ -1432,20 +1514,22 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.LeaseContractEngine");
             DropTable("FRP.PurchaseContractAircraft");
             DropTable("FRP.LeaseContractAircraft");
-            DropTable("FRP.PaymentSchedule");
-            DropTable("FRP.PaymentScheduleLine");
-            DropTable("FRP.PaymentNoticeLine");
-            DropTable("FRP.PaymentNotice");
-            DropTable("FRP.Invoice");
-            DropTable("FRP.InvoiceLine");
-            DropTable("FRP.Guarantee");
             DropTable("FRP.ContentTag");
             DropTable("FRP.SupplierRole");
             DropTable("FRP.RelatedDoc");
             DropTable("FRP.Reception");
             DropTable("FRP.ReceptionSchedule");
             DropTable("FRP.ReceptionLine");
+            DropTable("FRP.PaymentSchedule");
+            DropTable("FRP.PaymentScheduleLine");
+            DropTable("FRP.PaymentNoticeLine");
+            DropTable("FRP.PaymentNotice");
+            DropTable("FRP.MaintainInvoice");
+            DropTable("FRP.MaintainInvoiceLine");
             DropTable("FRP.MaintainContract");
+            DropTable("FRP.Invoice");
+            DropTable("FRP.InvoiceLine");
+            DropTable("FRP.Guarantee");
             DropTable("FRP.Document");
             DropTable("FRP.DocumentPath");
             DropTable("FRP.Trade");

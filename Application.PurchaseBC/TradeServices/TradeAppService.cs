@@ -243,6 +243,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                     var orderLine = order.AddNewAircraftPurchaseOrderLine(line.UnitPrice, line.Amount, line.Discount,
                         line.EstimateDeliveryDate);
                     orderLine.SetCost(line.AirframePrice, line.RefitCost, line.EnginePrice);
+                    orderLine.SetAircraftMaterial(line.AircraftMaterialId);
                     // 创建合同飞机
                     var contractAircraft = ContractAircraftFactory.CreatePurchaseContractAircraft(dto.Name, "0001");
                     contractAircraft.GenerateNewIdentity();

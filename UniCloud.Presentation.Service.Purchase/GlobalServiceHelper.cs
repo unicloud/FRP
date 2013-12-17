@@ -16,8 +16,7 @@
 
 #region 命名空间
 
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
@@ -31,169 +30,163 @@ namespace UniCloud.Presentation.Service.Purchase
 
         static GlobalServiceHelper()
         {
-            if (Context == null)
-            {
-                Context = new PurchaseData(AgentHelper.PurchaseUri);
-            }
-            InitialSupplier();
-            InitialAircraftType();
-            InitialLeaseContractAircraft();
-            InitialCurrency();
-            InitialLinkman();
+            Context = new PurchaseData(AgentHelper.PurchaseUri);
         }
 
         #region Supplier
 
-        private static QueryableDataServiceCollectionView<SupplierDTO> _supplierQuery;
-        public static List<SupplierDTO> Suppliers { get; set; }
-
-        /// <summary>
-        ///     初始化
-        /// </summary>
-        private static void InitialSupplier()
-        {
-            _supplierQuery = new QueryableDataServiceCollectionView<SupplierDTO>(Context, Context.Suppliers);
-            _supplierQuery.LoadedData += (o, e) =>
-            {
-                var result = o as QueryableDataServiceCollectionView<SupplierDTO>;
-                Suppliers = result.ToList();
-            };
-        }
+        private static QueryableDataServiceCollectionView<SupplierDTO> _supplier;
 
         /// <summary>
         ///     加载数据
         /// </summary>
-        public static void LoadSupplier()
+        public static QueryableDataServiceCollectionView<SupplierDTO> GetSupplier(Action loaded)
         {
-            if (Suppliers == null)
+            if (_supplier == null)
             {
-                _supplierQuery.AutoLoad = true;
+                _supplier = new QueryableDataServiceCollectionView<SupplierDTO>(Context, Context.Suppliers)
+                {
+                    AutoLoad = true
+                };
+                _supplier.LoadedData += (o, e) => loaded();
             }
-        }
-
-        #endregion
-
-        #region  ContractAircraft
-
-        private static QueryableDataServiceCollectionView<LeaseContractAircraftDTO> _leaseContractAircraftQuery;
-        public static List<LeaseContractAircraftDTO> LeaseContractAircrafts { get; set; }
-
-        /// <summary>
-        ///     初始化
-        /// </summary>
-        private static void InitialLeaseContractAircraft()
-        {
-            _leaseContractAircraftQuery = new QueryableDataServiceCollectionView<LeaseContractAircraftDTO>(Context,
-                Context.LeaseContractAircrafts);
-            _leaseContractAircraftQuery.LoadedData += (o, e) =>
-            {
-                var result = o as QueryableDataServiceCollectionView<LeaseContractAircraftDTO>;
-                LeaseContractAircrafts = result.ToList();
-            };
-        }
-
-
-        public static void LoadLeaseContractAircrafts()
-        {
-            if (LeaseContractAircrafts == null)
-            {
-                Context.LeaseContractAircrafts.BeginExecute(
-                    p => { LeaseContractAircrafts = Context.LeaseContractAircrafts.EndExecute(p).ToList(); },
-                    null);
-            }
+            return _supplier;
         }
 
         #endregion
 
         #region AircraftType
 
-        private static QueryableDataServiceCollectionView<AircraftTypeDTO> _aircraftTypeQuery;
-        public static List<AircraftTypeDTO> AircraftTypes { get; set; }
-
-        /// <summary>
-        ///     初始化
-        /// </summary>
-        private static void InitialAircraftType()
-        {
-            _aircraftTypeQuery = new QueryableDataServiceCollectionView<AircraftTypeDTO>(Context, Context.AircraftTypes);
-            _aircraftTypeQuery.LoadedData += (o, e) =>
-            {
-                var result = o as QueryableDataServiceCollectionView<AircraftTypeDTO>;
-                AircraftTypes = result.ToList();
-            };
-        }
+        private static QueryableDataServiceCollectionView<AircraftTypeDTO> _aircraftType;
 
         /// <summary>
         ///     加载数据
         /// </summary>
-        public static void LoadAircraftType()
+        public static QueryableDataServiceCollectionView<AircraftTypeDTO> GetAircraftType(Action loaded)
         {
-            if (AircraftTypes == null)
+            if (_aircraftType == null)
             {
-                _aircraftTypeQuery.AutoLoad = true;
+                _aircraftType = new QueryableDataServiceCollectionView<AircraftTypeDTO>(Context, Context.AircraftTypes)
+                {
+                    AutoLoad = true
+                };
+                _aircraftType.LoadedData += (o, e) => loaded();
             }
+            return _aircraftType;
         }
 
         #endregion
 
         #region Currency
 
-        private static QueryableDataServiceCollectionView<CurrencyDTO> _currencyQuery;
-        public static List<CurrencyDTO> Currencies { get; set; }
-
-        /// <summary>
-        ///     初始化
-        /// </summary>
-        private static void InitialCurrency()
-        {
-            _currencyQuery = new QueryableDataServiceCollectionView<CurrencyDTO>(Context, Context.Currencies);
-            _currencyQuery.LoadedData += (o, e) =>
-            {
-                var result = o as QueryableDataServiceCollectionView<CurrencyDTO>;
-                Currencies = result.ToList();
-            };
-        }
+        private static QueryableDataServiceCollectionView<CurrencyDTO> _currency;
 
         /// <summary>
         ///     加载数据
         /// </summary>
-        public static void LoadCurrency()
+        public static QueryableDataServiceCollectionView<CurrencyDTO> GetCurrency(Action loaded)
         {
-            if (Currencies == null)
+            if (_currency == null)
             {
-                _currencyQuery.AutoLoad = true;
+                _currency = new QueryableDataServiceCollectionView<CurrencyDTO>(Context, Context.Currencies)
+                {
+                    AutoLoad = true
+                };
+                _currency.LoadedData += (o, e) => loaded();
             }
+            return _currency;
         }
 
         #endregion
 
         #region Linkman
 
-        private static QueryableDataServiceCollectionView<LinkmanDTO> _linkmanQuery;
-        public static List<LinkmanDTO> Linkmen { get; set; }
-
-        /// <summary>
-        ///     初始化
-        /// </summary>
-        private static void InitialLinkman()
-        {
-            _linkmanQuery = new QueryableDataServiceCollectionView<LinkmanDTO>(Context, Context.Linkmans);
-            _linkmanQuery.LoadedData += (o, e) =>
-            {
-                var result = o as QueryableDataServiceCollectionView<LinkmanDTO>;
-                Linkmen = result.ToList();
-            };
-        }
+        private static QueryableDataServiceCollectionView<LinkmanDTO> _linkman;
 
         /// <summary>
         ///     加载数据
         /// </summary>
-        public static void LoadLinkman()
+        public static QueryableDataServiceCollectionView<LinkmanDTO> GetLinkman(Action loaded)
         {
-            if (Currencies == null)
+            if (_linkman == null)
             {
-                _linkmanQuery.AutoLoad = true;
+                _linkman = new QueryableDataServiceCollectionView<LinkmanDTO>(Context, Context.Linkmans)
+                {
+                    AutoLoad = true
+                };
+                _linkman.LoadedData += (o, e) => loaded();
             }
+            return _linkman;
+        }
+
+        #endregion
+
+        #region SupplierCompanyAcMaterial
+
+        private static QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO> _aircraftMaterials;
+
+        /// <summary>
+        ///     加载数据
+        /// </summary>
+        public static QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO> GetAircraftMaterial(Action loaded)
+        {
+            if (_aircraftMaterials == null)
+            {
+                _aircraftMaterials = new QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO>(Context,
+                    Context.SupplierCompanyAcMaterials)
+                {
+                    AutoLoad = true
+                };
+                _aircraftMaterials.LoadedData += (o, e) => loaded();
+            }
+            return _aircraftMaterials;
+        }
+
+        #endregion
+
+        #region SupplierCompanyEngineMaterial
+
+        private static QueryableDataServiceCollectionView<SupplierCompanyEngineMaterialDTO> _engineMaterials;
+
+        /// <summary>
+        ///     加载数据
+        /// </summary>
+        public static QueryableDataServiceCollectionView<SupplierCompanyEngineMaterialDTO> GetEngineMaterial(
+            Action loaded)
+        {
+            if (_engineMaterials == null)
+            {
+                _engineMaterials = new QueryableDataServiceCollectionView<SupplierCompanyEngineMaterialDTO>(Context,
+                    Context.SupplierCompanyEngineMaterials)
+                {
+                    AutoLoad = true
+                };
+                _engineMaterials.LoadedData += (o, e) => loaded();
+            }
+            return _engineMaterials;
+        }
+
+        #endregion
+
+        #region SupplierCompanyEngineMaterial
+
+        private static QueryableDataServiceCollectionView<SupplierCompanyBFEMaterialDTO> _bfeMaterials;
+
+        /// <summary>
+        ///     加载数据
+        /// </summary>
+        public static QueryableDataServiceCollectionView<SupplierCompanyBFEMaterialDTO> GetBfeMaterial(Action loaded)
+        {
+            if (_bfeMaterials == null)
+            {
+                _bfeMaterials = new QueryableDataServiceCollectionView<SupplierCompanyBFEMaterialDTO>(Context,
+                    Context.SupplierCompanyBFEMaterials)
+                {
+                    AutoLoad = true
+                };
+                _bfeMaterials.LoadedData += (o, e) => loaded();
+            }
+            return _bfeMaterials;
         }
 
         #endregion

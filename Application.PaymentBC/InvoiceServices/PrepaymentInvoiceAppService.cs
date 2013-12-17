@@ -19,7 +19,11 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.InvoiceQueries;
+using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
+using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 
@@ -32,12 +36,20 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
     {
         private readonly IPrepaymentInvoiceQuery _prepaymentInvoiceQuery;
         private readonly IInvoiceRepository _invoiceRepository;
-
+        private readonly ISupplierRepository _supplierRepository;
+        private readonly IOrderRepository _orderRepository;
+        private readonly ICurrencyRepository _currencyRepository;
         public PrepaymentInvoiceAppService(IPrepaymentInvoiceQuery prepaymentInvoiceQuery,
-            IInvoiceRepository invoiceRepository)
+            IInvoiceRepository invoiceRepository,
+            ISupplierRepository supplierRepository,
+            IOrderRepository orderRepository,
+            ICurrencyRepository currencyRepository)
         {
             _prepaymentInvoiceQuery = prepaymentInvoiceQuery;
             _invoiceRepository = invoiceRepository;
+            _supplierRepository = supplierRepository;
+            _orderRepository = orderRepository;
+            _currencyRepository = currencyRepository;
         }
 
         #region PrepaymentInvoiceDTO
@@ -60,7 +72,32 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         [Insert(typeof(PrepaymentInvoiceDTO))]
         public void InsertPrepaymentInvoice(PrepaymentInvoiceDTO prepaymentInvoice)
         {
+            var supplier = _supplierRepository.GetFiltered(p => p.Id == prepaymentInvoice.SupplierId).FirstOrDefault();
+            var order = _orderRepository.GetFiltered(p => p.Id == prepaymentInvoice.OrderId).FirstOrDefault();
+            var currency = _currencyRepository.GetFiltered(p => p.Id == prepaymentInvoice.CurrencyId).FirstOrDefault();
 
+            var newPrepaymentInvoice = InvoiceFactory.CreatePrepaymentInvoice(prepaymentInvoice.InvoideCode, prepaymentInvoice.InvoiceDate, prepaymentInvoice.OperatorName);
+            newPrepaymentInvoice.SetInvoiceNumber(1);
+            newPrepaymentInvoice.SetSupplier(supplier);
+            newPrepaymentInvoice.SetInvoiceValue();
+            newPrepaymentInvoice.SetOrder(order);
+            newPrepaymentInvoice.SetPaidAmount(prepaymentInvoice.PaidAmount);
+            newPrepaymentInvoice.Review(prepaymentInvoice.Reviewer);
+            newPrepaymentInvoice.SetCurrency(currency);
+            newPrepaymentInvoice.SetPaymentScheduleLine(prepaymentInvoice.PaymentScheduleLineId);
+            newPrepaymentInvoice.SetInvoiceStatus(InvoiceStatus.草稿);
+            foreach (var invoiceLine in prepaymentInvoice.InvoiceLines)
+            {
+                if (order != null)
+                {
+                    var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
+                    newPrepaymentInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine);
+                }
+                else
+                {
+                    newPrepaymentInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null);
+                }
+            }
         }
 
         /// <summary>

@@ -19,7 +19,11 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.InvoiceQueries;
+using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
+using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 
@@ -32,12 +36,21 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
     {
         private readonly IPurchaseInvoiceQuery _purchaseInvoiceQuery;
         private readonly IInvoiceRepository _invoiceRepository;
+        private readonly ISupplierRepository _supplierRepository;
+        private readonly IOrderRepository _orderRepository;
+        private readonly ICurrencyRepository _currencyRepository;
 
         public PurchaseInvoiceAppService(IPurchaseInvoiceQuery purchaseInvoiceQuery,
-            IInvoiceRepository invoiceRepository)
+            IInvoiceRepository invoiceRepository,
+            ISupplierRepository supplierRepository,
+            IOrderRepository orderRepository,
+            ICurrencyRepository currencyRepository)
         {
             _purchaseInvoiceQuery = purchaseInvoiceQuery;
             _invoiceRepository = invoiceRepository;
+            _supplierRepository = supplierRepository;
+            _orderRepository = orderRepository;
+            _currencyRepository = currencyRepository;
         }
 
         #region PurchaseInvoiceDTO
@@ -60,7 +73,32 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         [Insert(typeof(PurchaseInvoiceDTO))]
         public void InsertPurchaseInvoice(PurchaseInvoiceDTO purchaseInvoice)
         {
+            var supplier = _supplierRepository.GetFiltered(p => p.Id == purchaseInvoice.SupplierId).FirstOrDefault();
+            var order = _orderRepository.GetFiltered(p => p.Id == purchaseInvoice.OrderId).FirstOrDefault();
+            var currency = _currencyRepository.GetFiltered(p => p.Id == purchaseInvoice.CurrencyId).FirstOrDefault();
 
+            var newPurchaseInvoice = InvoiceFactory.CreatePurchaseInvoice(purchaseInvoice.InvoideCode, purchaseInvoice.InvoiceDate, purchaseInvoice.OperatorName);
+            newPurchaseInvoice.SetInvoiceNumber(1);
+            newPurchaseInvoice.SetSupplier(supplier);
+            newPurchaseInvoice.SetInvoiceValue();
+            newPurchaseInvoice.SetOrder(order);
+            newPurchaseInvoice.SetPaidAmount(purchaseInvoice.PaidAmount);
+            newPurchaseInvoice.Review(purchaseInvoice.Reviewer);
+            newPurchaseInvoice.SetCurrency(currency);
+            newPurchaseInvoice.SetPaymentScheduleLine(purchaseInvoice.PaymentScheduleLineId);
+            newPurchaseInvoice.SetInvoiceStatus(InvoiceStatus.草稿);
+            foreach (var invoiceLine in purchaseInvoice.InvoiceLines)
+            {
+                if (order != null)
+                {
+                    var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
+                    newPurchaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine);
+                }
+                else
+                {
+                    newPurchaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null);
+                }
+            }
         }
 
         /// <summary>

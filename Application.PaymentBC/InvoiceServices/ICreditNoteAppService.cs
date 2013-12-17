@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using UniCloud.Application.PaymentBC.DTO;
 
 #endregion
 
@@ -30,5 +30,10 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
     /// </summary>
     public interface ICreditNoteAppService
     {
+        /// <summary>
+        ///     获取所有贷项单
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<CreditNoteDTO> GetCreditNoteInvoices();
     }
 }

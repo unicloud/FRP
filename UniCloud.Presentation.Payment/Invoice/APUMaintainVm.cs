@@ -14,11 +14,19 @@
 
 #region 命名空间
 
+using System;
 using System.ComponentModel.Composition;
+using System.Linq;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
+using UniCloud.Presentation.Service.Payment;
+using UniCloud.Presentation.Service.Payment.Payment;
+using UniCloud.Presentation.Service.Payment.Purchase;
 
 #endregion
 
@@ -31,7 +39,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 声明、初始化
 
         private readonly IRegionManager _regionManager;
-        //private PurchaseData _purchaseData;
+        private PaymentData _paymentData;
         [Import]
         public DocumentViewer DocumentView;
 
@@ -39,6 +47,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         public APUMaintainVm(IRegionManager regionManager)
         {
             _regionManager = regionManager;
+            AddMaintainInvoiceCommand = new DelegateCommand<object>(OnAddMaintainInvoice, CanAddMaintainInvoice);
+            RemoveMaintainInvoiceCommand = new DelegateCommand<object>(OnRemoveMaintainInvoice, CanRemoveMaintainInvoice);
+            AddMaintainInvoiceLineCommand = new DelegateCommand<object>(OnAddMaintainInvoiceLine, CanAddMaintainInvoiceLine);
+            RemoveMaintainInvoiceLineCommand = new DelegateCommand<object>(OnRemoveMaintainInvoiceLine, CanRemoveMaintainInvoiceLine);
+
             InitializeVm();
         }
 
@@ -51,23 +64,14 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            //ApuMaintainContracts = Service.CreateCollection(_purchaseData.APUMaintainContracts);
-            //Service.RegisterCollectionView(ApuMaintainContracts);
-            //ApuMaintainContracts.PropertyChanged += (sender, e) =>
+            ApuMaintainInvoices = Service.CreateCollection(_paymentData.APUMaintainInvoices);
+            Service.RegisterCollectionView(ApuMaintainInvoices);
+            ApuMaintainInvoices.PropertyChanged += OnViewPropertyChanged;
+            //ApuMaintainInvoices.PropertyChanged += (sender, e) =>
             //{
-            //    if (e.PropertyName == "IsAddingNew")
+            //    if (e.PropertyName == "HasChanges")
             //    {
-            //        var newItem = ApuMaintainContracts.CurrentAddItem as APUMaintainContractDTO;
-            //        if (newItem != null)
-            //        {
-            //            newItem.APUMaintainContractId = RandomHelper.Next();
-            //            newItem.SignDate = DateTime.Now;
-            //            newItem.CreateDate = DateTime.Now;
-            //        }
-            //    }
-            //    else if (e.PropertyName == "HasChanges")
-            //    {
-            //        CanSelectApuMaintain = !ApuMaintainContracts.HasChanges;
+            //        CanSelectApuMaintain = !ApuMaintainInvoices.HasChanges;
             //    }
             //};
         }
@@ -77,9 +81,8 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         protected override IService CreateService()
         {
-            //_purchaseData = new PurchaseData(AgentHelper.PurchaseUri);
-            //return new PurchaseService(_purchaseData);
-            return null;
+            _paymentData = new PaymentData(AgentHelper.PaymentUri);
+            return new PaymentService(_paymentData); 
         }
 
         #endregion
@@ -102,77 +105,75 @@ namespace UniCloud.Presentation.Payment.Invoice
         public override void LoadData()
         {
             // 将CollectionView的AutoLoad属性设为True
-            //ApuMaintainContracts.AutoLoad = true;
+            ApuMaintainInvoices.AutoLoad = true;
         }
 
 
-        //#region APU维修合同
-        ///// <summary>
-        ///// APU维修合同集合
-        ///// </summary>
-        //public QueryableDataServiceCollectionView<APUMaintainContractDTO> ApuMaintainContracts { get; set; }
+        #region APU维修发票
+        /// <summary>
+        /// APU维修发票集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<APUMaintainInvoiceDTO> ApuMaintainInvoices { get; set; }
 
-        //private APUMaintainContractDTO _apuMaintainContract;
-        ///// <summary>
-        ///// 选中的APU维修合同
-        ///// </summary>
-        //public APUMaintainContractDTO ApuMaintainContract
-        //{
-        //    get { return _apuMaintainContract; }
-        //    set
-        //    {
-        //        if (_apuMaintainContract != value)
-        //        {
-        //            _apuMaintainContract = value;
-        //            if (_apuMaintainContract != null)
-        //            {
-        //                _document.DocumentId = _apuMaintainContract.DocumentId;
-        //                _document.Name = _apuMaintainContract.DocumentName;
-        //                if (value.Suppliers != null)
-        //                {
-        //                    _supplier = value.Suppliers.FirstOrDefault(p => p.SupplierId == _apuMaintainContract.SignatoryId);
-        //                }
-        //            }
-        //            RaisePropertyChanged(() => ApuMaintainContract);
-        //        }
-        //    }
-        //}
+        private APUMaintainInvoiceDTO _apuMaintainInvoice;
+        /// <summary>
+        /// 选中的APU维修发票
+        /// </summary>
+        public APUMaintainInvoiceDTO ApuMaintainInvoice
+        {
+            get { return _apuMaintainInvoice; }
+            set
+            {
+                if (_apuMaintainInvoice != value)
+                {
+                    _apuMaintainInvoice = value;
+                    if (_apuMaintainInvoice != null)
+                    {
+                        if (value.Suppliers != null)
+                        {
+                            _supplier = value.Suppliers.FirstOrDefault(p => p.SupplierId == _apuMaintainInvoice.SupplierId);
+                        }
+                    }
+                    RaisePropertyChanged(() => ApuMaintainInvoice);
+                }
+            }
+        }
 
-        //private bool _canSelectApuMaintain = true;
-        ////用户能否选择
-        //public bool CanSelectApuMaintain
-        //{
-        //    get { return _canSelectApuMaintain; }
-        //    set
-        //    {
-        //        if (_canSelectApuMaintain != value)
-        //        {
-        //            _canSelectApuMaintain = value;
-        //            RaisePropertyChanged(() => CanSelectApuMaintain);
-        //        }
-        //    }
-        //}
-        //#endregion
+        private bool _canSelectApuMaintain = true;
+        //用户能否选择
+        public bool CanSelectApuMaintain
+        {
+            get { return _canSelectApuMaintain; }
+            set
+            {
+                if (_canSelectApuMaintain != value)
+                {
+                    _canSelectApuMaintain = value;
+                    RaisePropertyChanged(() => CanSelectApuMaintain);
+                }
+            }
+        }
+        #endregion
 
-        //#region 签约对象
-        //private SupplierDTO _supplier;
-        ///// <summary>
-        ///// 选中的签约对象
-        ///// </summary>
-        //public SupplierDTO Supplier
-        //{
-        //    get { return _supplier; }
-        //    set
-        //    {
-        //        if (value != null && _supplier != value)
-        //        {
-        //            _supplier = value;
-        //            ApuMaintainContract.Signatory = _supplier.Name;
-        //            RaisePropertyChanged(() => Supplier);
-        //        }
-        //    }
-        //}
-        //#endregion
+        #region 签约对象
+        private SupplierDTO _supplier;
+        /// <summary>
+        /// 选中的签约对象
+        /// </summary>
+        public SupplierDTO Supplier
+        {
+            get { return _supplier; }
+            set
+            {
+                if (value != null && _supplier != value)
+                {
+                    _supplier = value;
+                    ApuMaintainInvoice.SupplierName = _supplier.Name;
+                    RaisePropertyChanged(() => Supplier);
+                }
+            }
+        }
+        #endregion
 
         #endregion
 
@@ -185,6 +186,94 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
 
+        #region 创建新维修发票
+
+        /// <summary>
+        ///  创建新维修发票
+        /// </summary>
+        public DelegateCommand<object> AddMaintainInvoiceCommand { get;  set; }
+
+        private void OnAddMaintainInvoice(object obj)
+        {
+            var maintainInvoice = new APUMaintainInvoiceDTO
+                                  {
+                                      APUMaintainInvoiceId = RandomHelper.Next(),
+                                      CreateDate = DateTime.Now,
+                                      InvoiceDate = DateTime.Now
+                                  };
+            ApuMaintainInvoices.AddNew(maintainInvoice);
+        }
+
+        private bool CanAddMaintainInvoice(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 删除维修发票
+
+        /// <summary>
+        ///     删除维修发票
+        /// </summary>
+        public DelegateCommand<object> RemoveMaintainInvoiceCommand { get;  set; }
+
+        private void OnRemoveMaintainInvoice(object obj)
+        {
+            if (_apuMaintainInvoice != null)
+            {
+                ApuMaintainInvoices.Remove(_apuMaintainInvoice);
+            }
+        }
+
+        private bool CanRemoveMaintainInvoice(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 增加维修发票行
+
+        /// <summary>
+        ///     增加维修发票行
+        /// </summary>
+        public DelegateCommand<object> AddMaintainInvoiceLineCommand { get;  set; }
+
+        private void OnAddMaintainInvoiceLine(object obj)
+        {
+            var maintainInvoiceLine = new APUMaintainInvoiceLineDTO
+            {
+                Amount = 1,
+            };
+
+            ApuMaintainInvoice.MaintainInvoiceLines.Add(maintainInvoiceLine);
+        }
+
+        private bool CanAddMaintainInvoiceLine(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 移除维修发票行
+
+        /// <summary>
+        ///     移除维修发票行
+        /// </summary>
+        public DelegateCommand<object> RemoveMaintainInvoiceLineCommand { get; private set; }
+
+        private void OnRemoveMaintainInvoiceLine(object obj)
+        {
+        }
+
+        private bool CanRemoveMaintainInvoiceLine(object obj)
+        {
+            return true;
+        }
+
+        #endregion
         #endregion
     } 
 }

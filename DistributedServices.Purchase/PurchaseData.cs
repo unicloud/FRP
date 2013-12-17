@@ -1,4 +1,3 @@
-﻿
 ﻿#region 版本信息
 
 // ========================================================================
@@ -19,6 +18,7 @@
 
 #region 命名空间
 
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.PurchaseBC.ActionCategoryServices;
 using UniCloud.Application.PurchaseBC.AircraftTypeServices;
@@ -26,8 +26,8 @@ using UniCloud.Application.PurchaseBC.ContractAircraftServices;
 using UniCloud.Application.PurchaseBC.ContractEngineServices;
 using UniCloud.Application.PurchaseBC.ContractServices;
 using UniCloud.Application.PurchaseBC.CurrencyServices;
-using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.DocumentPathServices;
+using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
 using UniCloud.Application.PurchaseBC.OrderDocumentServices;
@@ -48,6 +48,18 @@ namespace UniCloud.DistributedServices.Purchase
     /// </summary>
     public class PurchaseData : ExposeData.ExposeData
     {
+        #region 静态数据集合
+
+        private static IList<AircraftTypeDTO> _aircraftTypes;
+        private static IList<CurrencyDTO> _currencies;
+        private static IList<LinkmanDTO> _linkmen;
+        private static IList<SupplierDTO> _suppliers;
+        private static IList<SupplierCompanyAcMaterialDTO> _aircraftMaterials;
+        private static IList<SupplierCompanyEngineMaterialDTO> _engineMaterials;
+        private static IList<SupplierCompanyBFEMaterialDTO> _bfeMaterials;
+
+        #endregion
+
         private readonly IActionCategoryAppService _actionCategoryAppService;
         private readonly IAircraftLeaseReceptionAppService _aircraftLeaseReceptionAppService;
         private readonly IAircraftPurchaseReceptionAppService _aircraftPurchaseReceptionAppService;
@@ -110,11 +122,17 @@ namespace UniCloud.DistributedServices.Purchase
         }
 
         /// <summary>
-        ///     供应商信息。
+        ///     供应商信息
+        ///     一次性获取有效供应商信息
         /// </summary>
         public IQueryable<SupplierDTO> Suppliers
         {
-            get { return _supplierAppService.GetSuppliers(); }
+            get
+            {
+                if (_suppliers == null)
+                    _suppliers = _supplierAppService.GetSuppliers().ToList();
+                return _suppliers.AsQueryable<SupplierDTO>();
+        }
         }
 
         /// <summary>
@@ -126,11 +144,19 @@ namespace UniCloud.DistributedServices.Purchase
         }
 
         /// <summary>
-        ///     联系人信息。
+        ///     联系人信息
+        ///     一次性获取联系人信息
         /// </summary>
         public IQueryable<LinkmanDTO> Linkmans
         {
-            get { return _supplierAppService.GetLinkmans(); }
+            get
+            {
+                if (_linkmen == null)
+                {
+                    _linkmen = _supplierAppService.GetLinkmans().ToList();
+                }
+                return _linkmen.AsQueryable<LinkmanDTO>();
+            }
         }
 
         /// <summary>
@@ -138,7 +164,12 @@ namespace UniCloud.DistributedServices.Purchase
         /// </summary>
         public IQueryable<SupplierCompanyAcMaterialDTO> SupplierCompanyAcMaterials
         {
-            get { return _supplierAppService.GetSupplierCompanyAcMaterials(); }
+            get
+            {
+                if (_aircraftMaterials == null)
+                    _aircraftMaterials = _supplierAppService.GetSupplierCompanyAcMaterials().ToList();
+                return _aircraftMaterials.AsQueryable<SupplierCompanyAcMaterialDTO>();
+            }
         }
 
         /// <summary>
@@ -146,7 +177,12 @@ namespace UniCloud.DistributedServices.Purchase
         /// </summary>
         public IQueryable<SupplierCompanyEngineMaterialDTO> SupplierCompanyEngineMaterials
         {
-            get { return _supplierAppService.GetSupplierCompanyEngineMaterials(); }
+            get
+            {
+                if (_engineMaterials == null)
+                    _engineMaterials = _supplierAppService.GetSupplierCompanyEngineMaterials().ToList();
+                return _engineMaterials.AsQueryable<SupplierCompanyEngineMaterialDTO>();
+            }
         }
 
         /// <summary>
@@ -154,7 +190,12 @@ namespace UniCloud.DistributedServices.Purchase
         /// </summary>
         public IQueryable<SupplierCompanyBFEMaterialDTO> SupplierCompanyBFEMaterials
         {
-            get { return _supplierAppService.GetSupplierCompanyBFEMaterials(); }
+            get
+            {
+                if (_bfeMaterials == null)
+                    _bfeMaterials = _supplierAppService.GetSupplierCompanyBFEMaterials().ToList();
+                return _bfeMaterials.AsQueryable<SupplierCompanyBFEMaterialDTO>();
+            }
         }
 
         #endregion
@@ -166,7 +207,11 @@ namespace UniCloud.DistributedServices.Purchase
         /// </summary>
         public IQueryable<AircraftTypeDTO> AircraftTypes
         {
-            get { return _aircraftTypeAppService.GetAircraftTypes(); }
+            get
+            {
+                if (_aircraftTypes == null) _aircraftTypes = _aircraftTypeAppService.GetAircraftTypes().ToList();
+                return _aircraftTypes.AsQueryable<AircraftTypeDTO>();
+            }
         }
 
         #endregion
@@ -424,7 +469,11 @@ namespace UniCloud.DistributedServices.Purchase
         /// </summary>
         public IQueryable<CurrencyDTO> Currencies
         {
-            get { return _currencyAppService.GetCurrencies(); }
+            get
+            {
+                if (_currencies == null) _currencies = _currencyAppService.GetCurrencies().ToList();
+                return _currencies.AsQueryable<CurrencyDTO>();
+            }
         }
 
         #endregion
@@ -442,11 +491,12 @@ namespace UniCloud.DistributedServices.Purchase
         #endregion
 
         #region 订单文档
-
-        public IQueryable<OrderDocumentDTO> OrderDocuments()
-        {
+        
+         public IQueryable<OrderDocumentDTO> OrderDocuments()
+         {
             return _contractDocumentAppService.GetOrderDocuments();
-        }
+         }
+
         #endregion
     }
 }

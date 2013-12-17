@@ -139,10 +139,10 @@
                                 </telerik:RadToolBar>
                                 <telerik:RadGridView IsReadOnly="True"
                                                      Grid.Row="1"
-                                                     ItemsSource="{Binding LeaseInvoiceLines,Mode=TwoWay}"
+                                                     ItemsSource="{Binding InvoiceLines,Mode=TwoWay}"
                                                      IsBusy="{Binding LeaseInvoices.IsBusy}"
                                                      AutoGenerateColumns="False"
-                                                     SelectedItem="{Binding SelLeaseInvoiceLine,Mode=TwoWay}"
+                                                     SelectedItem="{Binding SelInvoiceLine,Mode=TwoWay}"
                                                      AutoExpandGroups="True"
                                                      ShowGroupPanel="False"
                                                      CanUserSortColumns="True"
