@@ -44,6 +44,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 
             Property(p => p.PaymentScheduleId).HasColumnName("PaymentScheduleId");
             Property(p => p.InvoiceId).HasColumnName("InvoiceId");
+
+            HasOptional(p => p.Invoice).WithMany().HasForeignKey(p => p.InvoiceId);
         }
     }
 }

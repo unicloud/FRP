@@ -51,6 +51,7 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
                          InvoideCode = p.InvoideCode,
                          InvoiceDate = p.InvoiceDate,
                          SupplierName = p.SupplierName,
+                         SupplierId = p.SupplierId,
                          InvoiceValue = p.InvoiceValue,
                          PaidAmount = p.PaidAmount,
                          OperatorName = p.OperatorName,
@@ -60,6 +61,8 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
                          IsValid = p.IsValid,
                          IsCompleted = p.IsCompleted,
                          Status = (int)p.Status,
+                         OrderId = p.OrderId,
+                         CurrencyId = p.CurrencyId,
                          InvoiceLines = p.InvoiceLines.Select(q => new InvoiceLineDTO
                          {
                              InvoiceLineId = q.Id,
@@ -67,6 +70,7 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
                              Amount = q.Amount,
                              InvoiceId = q.InvoiceId,
                              OrderLineId = q.OrderLineId,
+                             Note=q.Note,
                          }).ToList(),
 
                      });

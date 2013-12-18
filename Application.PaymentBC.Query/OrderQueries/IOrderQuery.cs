@@ -27,6 +27,13 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
     public interface IOrderQuery
     {
         /// <summary>
+        ///     查询所有订单
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        /// <returns>租赁飞机订单集合</returns>
+        IQueryable<OrderDTO> OrderDTOQuery(QueryBuilder<Order> query);
+
+        /// <summary>
         ///     查询飞机租赁订单
         /// </summary>
         /// <param name="query">查询表达式</param>

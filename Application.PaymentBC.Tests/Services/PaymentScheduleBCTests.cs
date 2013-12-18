@@ -3,8 +3,8 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2013/12/17 16:59:03
-// 文件名：OrderBCTests
+// 作者：HuangQiBin 时间：2013/12/18 11:05:46
+// 文件名：PaymentScheduleBCTests
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -16,9 +16,9 @@
 
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UniCloud.Application.PaymentBC.OrderServices;
-using UniCloud.Application.PaymentBC.Query.OrderQueries;
-using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
+using UniCloud.Application.PaymentBC.PaymentScheduleServices;
+using UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries;
+using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
@@ -29,7 +29,7 @@ using UniCloud.Infrastructure.Utilities.Container;
 namespace UniCloud.Application.PaymentBC.Tests.Services
 {
     [TestClass]
-    public class OrderBCTests
+    public class PaymentScheduleBCTests
     {
         #region 基础配置
 
@@ -40,9 +40,9 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
                 .UseAutofac()
                 .CreateLog()
                 .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IOrderRepository, OrderRepository>()
-                .Register<IOrderAppService, OrderAppService>()
-                .Register<IOrderQuery, OrderQuery>();
+                .Register<IPaymentScheduleRepository, PaymentScheduleRepository>()
+                .Register<IPaymentScheduleAppService, PaymentScheduleAppService>()
+                .Register<IPaymentScheduleQuery, PaymentScheduleQuery>();
         }
 
         [TestCleanup]
@@ -53,29 +53,30 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         #endregion
 
         [TestMethod]
-        public void GetAircraftPurchaseOrders()
+        public void GetPaymentSchedules()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IOrderAppService>();
+            var service = DefaultContainer.Resolve<IPaymentScheduleAppService>();
 
             // Act
-            var result = service.GetAircraftPurchaseOrders().ToList();
+            var result = service.GetPaymentSchedules().ToList();
 
             // Assert
             Assert.IsTrue(result.Any());
         }
 
         [TestMethod]
-        public void TestGetAllOrders()
+        public void GetAcPaymentSchedules()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IOrderAppService>();
+            var service = DefaultContainer.Resolve<IPaymentScheduleAppService>();
 
             // Act
-            var result = service.GetOrders().ToList();
+            var result = service.GetAcPaymentSchedules().ToList();
 
             // Assert
             Assert.IsTrue(result.Any());
         }
+
     }
 }

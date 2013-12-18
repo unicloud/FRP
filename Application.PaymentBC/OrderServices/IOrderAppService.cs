@@ -31,6 +31,12 @@ namespace UniCloud.Application.PaymentBC.OrderServices
     public interface IOrderAppService
     {
         /// <summary>
+        ///     获取所有订单
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<OrderDTO> GetOrders();
+
+        /// <summary>
         ///     获取租赁飞机订单集合
         /// </summary>
         /// <returns></returns>
@@ -59,7 +65,7 @@ namespace UniCloud.Application.PaymentBC.OrderServices
         /// </summary>
         /// <returns></returns>
         IQueryable<BFEPurchaseOrderDTO> GetBFEPurchaseOrders();
-
+      
         /// <summary>
         ///     获取标准采购订单集合
         /// </summary>

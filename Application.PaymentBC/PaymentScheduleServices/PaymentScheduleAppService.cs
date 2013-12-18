@@ -44,6 +44,20 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
             _paymentScheduleRepository = paymentScheduleRepository;
         }
 
+
+        #region 所有付款计划
+
+        /// <summary>
+        ///     查询所有付款计划
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<PaymentScheduleDTO> GetPaymentSchedules()
+        {
+            var query = new QueryBuilder<PaymentSchedule>();
+            return _paymentScheduleQuery.PaymentSchedulesQuery(query);
+        }
+        #endregion
+
         #region 飞机付款计划
 
         /// <summary>

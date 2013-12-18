@@ -92,6 +92,7 @@
     <Compile Include="PaymentService.cs" />
     <Compile Include="Payment\EnginePaymentScheduleDTO.cs" />
     <Compile Include="Payment\Enums\PaymentScheduleStatus.cs" />
+    <Compile Include="Payment\MaintainInvoiceLineDTO.cs" />
     <Compile Include="Payment\PurchaseInvoiceDTO.cs" />
     <Compile Include="Payment\PaymentScheduleDTO.cs" />
     <Compile Include="Payment\PaymentScheduleLineDTO.cs" />
