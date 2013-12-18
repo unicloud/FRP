@@ -66,6 +66,7 @@
     <Compile Include="Repositories\PaymentNoticeRepository.cs" />
     <Compile Include="Repositories\PaymentScheduleRepository.cs" />
     <Compile Include="Repositories\SupplierRepository.cs" />
+    <Compile Include="Repositories\TradeRepository.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ActionCategoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftLeaseOrderEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftLeaseOrderLineEntityConfiguration.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\StandardPaymentScheduleEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\TradeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\UndercartMaintainContractEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\UndercartMaintainInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\PaymentBCUnitOfWork.cs" />
