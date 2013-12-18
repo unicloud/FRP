@@ -73,6 +73,16 @@ namespace UniCloud.Application.PaymentBC.OrderServices
             return _orderQuery.BFEPurchaseOrderQuery(query);
         }
 
+        /// <summary>
+        ///     获取标准采购订单集合
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<StandardOrderDTO> GetStandardOrders()
+        {
+            var query = new QueryBuilder<Order>();
+            return _orderQuery.StandardOrderQuery(query);
+        }
+
         #endregion
     }
 }
