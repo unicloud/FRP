@@ -310,8 +310,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             }
             //付款计划跟发票建立关联，则不能删除
             return SelectedContractAircraft != null && SelectedAcPaymentSchedule != null
-                   && !SelectedAcPaymentSchedule.IsCompleted && SelectPaymentScheduleLine != null
-                   && SelectPaymentScheduleLine.InvoiceId == null;
+                   && !SelectedAcPaymentSchedule.IsCompleted && SelectPaymentScheduleLine != null;
+                   //&& SelectPaymentScheduleLine.InvoiceId == null;
         }
 
         #endregion

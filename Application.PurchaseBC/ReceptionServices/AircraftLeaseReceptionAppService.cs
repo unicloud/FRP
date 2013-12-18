@@ -76,7 +76,9 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             var supplier = _supplierRepository.GetFiltered(p => p.SupplierCompanyId == aircraftLeaseReception.SupplierId).FirstOrDefault();
 
             var newAircraftLeaseReception = ReceptionFactory.CreateAircraftLeaseReception();
-            newAircraftLeaseReception.SetReceptionNumber(1);
+            var date = DateTime.Now.Date;
+            var seq = _receptionRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+            newAircraftLeaseReception.SetReceptionNumber(seq);
             newAircraftLeaseReception.Description = aircraftLeaseReception.Description;
             newAircraftLeaseReception.StartDate = aircraftLeaseReception.StartDate;
             newAircraftLeaseReception.SetStatus(0);

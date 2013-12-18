@@ -24,5 +24,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
     public interface IInvoiceRepository : IRepository<Invoice>
     {
         void DeleteInvoice(Invoice invoice);
+
+        void RemoveInvoiceLine(InvoiceLine invoice);
     }
 }

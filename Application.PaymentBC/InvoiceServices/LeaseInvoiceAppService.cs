@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
@@ -73,16 +74,16 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         public void InsertLeaseInvoice(LeaseInvoiceDTO leaseInvoice)
         {
             var supplier = _supplierRepository.GetFiltered(p => p.Id == leaseInvoice.SupplierId).FirstOrDefault();
-            var order = _orderRepository.GetFiltered(p => p.Id == leaseInvoice.OrderId).FirstOrDefault();
+            var order = _orderRepository.Get(leaseInvoice.OrderId);
             var currency = _currencyRepository.GetFiltered(p => p.Id == leaseInvoice.CurrencyId).FirstOrDefault();
-            
+
             var newLeaseInvoice = InvoiceFactory.CreateLeaseInvoice(leaseInvoice.InvoideCode, leaseInvoice.InvoiceDate, leaseInvoice.OperatorName);
-            newLeaseInvoice.SetInvoiceNumber(1);
+            var date = DateTime.Now.Date;
+            var seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+            newLeaseInvoice.SetInvoiceNumber(seq);
             newLeaseInvoice.SetSupplier(supplier);
-            newLeaseInvoice.SetInvoiceValue();
             newLeaseInvoice.SetOrder(order);
             newLeaseInvoice.SetPaidAmount(leaseInvoice.PaidAmount);
-            //newLeaseInvoice.Review(leaseInvoice.Reviewer);
             newLeaseInvoice.SetCurrency(currency);
             newLeaseInvoice.SetPaymentScheduleLine(leaseInvoice.PaymentScheduleLineId);
             newLeaseInvoice.SetInvoiceStatus(InvoiceStatus.草稿);
@@ -91,13 +92,15 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
                 if (order != null)
                 {
                     var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
-                    newLeaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine);
+                    newLeaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine, invoiceLine.Note);
                 }
                 else
                 {
-                    newLeaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null);
+                    newLeaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null, invoiceLine.Note);
                 }
             }
+            newLeaseInvoice.SetInvoiceValue();
+            _invoiceRepository.Add(newLeaseInvoice);
         }
 
         /// <summary>
@@ -107,13 +110,19 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         [Update(typeof(LeaseInvoiceDTO))]
         public void ModifyLeaseInvoice(LeaseInvoiceDTO leaseInvoice)
         {
-            var updateLeaseInvoice = _invoiceRepository.GetFiltered(t => t.Id == leaseInvoice.LeaseInvoiceId).FirstOrDefault();
+            var supplier = _supplierRepository.GetFiltered(p => p.Id == leaseInvoice.SupplierId).FirstOrDefault();
+            var order = _orderRepository.Get(leaseInvoice.OrderId);
+            var currency = _currencyRepository.GetFiltered(p => p.Id == leaseInvoice.CurrencyId).FirstOrDefault();
+
+            var updateLeaseInvoice = _invoiceRepository.Get(leaseInvoice.LeaseInvoiceId);
             //获取需要更新的对象。
             if (updateLeaseInvoice != null)
             {
+                InvoiceFactory.SetInvoice(updateLeaseInvoice, leaseInvoice.InvoideCode, leaseInvoice.InvoiceDate, leaseInvoice.OperatorName, leaseInvoice.InvoiceNumber, supplier, order,
+                    leaseInvoice.PaidAmount, currency, leaseInvoice.PaymentScheduleLineId, leaseInvoice.Status);
                 //更新主表。
 
-
+                UpdateInvoiceLines(leaseInvoice.InvoiceLines, updateLeaseInvoice, order);
                 //更新从表。
             }
             _invoiceRepository.Modify(updateLeaseInvoice);
@@ -138,6 +147,37 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
             }
         }
 
+        #endregion
+
+        #region 更新发票行集合
+        /// <summary>
+        /// 更新发票行集合
+        /// </summary>
+        /// <param name="sourceInvoiceLines">客户端集合</param>
+        /// <param name="dstInvoice">数据库集合</param>
+        private void UpdateInvoiceLines(IEnumerable<InvoiceLineDTO> sourceInvoiceLines, Invoice dstInvoice, Order order)
+        {
+            var invoiceLines = new List<InvoiceLine>();
+            foreach (var sourceInvoiceLine in sourceInvoiceLines)
+            {
+                var result = dstInvoice.InvoiceLines.FirstOrDefault(p => p.Id == sourceInvoiceLine.InvoiceLineId);
+                if (result == null)
+                {
+                    result = InvoiceFactory.CreateInvoiceLine();
+                    result.ChangeCurrentIdentity(sourceInvoiceLine.InvoiceLineId);
+                }
+                InvoiceFactory.SetInvoiceLine(result, sourceInvoiceLine.ItemName, sourceInvoiceLine.Amount, order, sourceInvoiceLine.InvoiceLineId, sourceInvoiceLine.Note);
+                invoiceLines.Add(result);
+            }
+            dstInvoice.InvoiceLines.ToList().ForEach(p =>
+            {
+                if (invoiceLines.FirstOrDefault(t => t.Id == p.Id) == null)
+                {
+                    _invoiceRepository.RemoveInvoiceLine(p);
+                }
+            });
+            dstInvoice.InvoiceLines = invoiceLines;
+        }
         #endregion
     }
 }

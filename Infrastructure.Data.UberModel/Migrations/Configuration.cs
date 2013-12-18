@@ -18,15 +18,15 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
 
         protected override void Seed(UberModelUnitOfWork context)
         {
-            InitialContainer.CreateInitialContainer()
-                            .Register(new SupplierData(context))
-                            .Register(new AcTypeData(context))
-                            .Register(new ForwardData(context))
-                            .Register(new TradeData(context))
-                            .Register(new PartData(context))
-                            .Register(new ActionCategoryData(context))
-                            .Register(new DocumentData(context))
-                            .InitialData();
+            //InitialContainer.CreateInitialContainer()
+            //                .Register(new SupplierData(context))
+            //                .Register(new AcTypeData(context))
+            //                .Register(new ForwardData(context))
+            //                .Register(new TradeData(context))
+            //                .Register(new PartData(context))
+            //                .Register(new ActionCategoryData(context))
+            //                .Register(new DocumentData(context))
+            //                .InitialData();
         }
     }
 }

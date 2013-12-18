@@ -178,20 +178,21 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <StackPanel Grid.Row="0"
-                                            Orientation="Horizontal"
-                                            HorizontalAlignment="Left">
-                                    <Button ToolTipService.ToolTip="添加接收行"
-                                            Command="{Binding AddEntityCommand}">
-                                        <Image Stretch="Fill"
-                                               Source="/UniCloud.Presentation;component/Images/Add.png" />
-                                    </Button>
-                                    <Button ToolTipService.ToolTip="移除接收行"
-                                            Command="{Binding RemoveEntityCommand}">
-                                        <Image Stretch="Fill"
-                                               Source="/UniCloud.Presentation;component/Images/Remove.png" />
-                                    </Button>
-                                </StackPanel>
+                                <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                    Margin="-1 -2 -1 0">
+                                    <telerik:RadButton Margin="4,2,2,-2"
+                                                       Command="{Binding AddEntityCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Add.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="添加接收行" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                                                       Command="{Binding RemoveEntityCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="移除接收行" />
+                                    </telerik:RadButton>
+                                </telerik:RadToolBar>
                                 <telerik:RadGridView x:Name="ReceptionLines"
                                                      ShowGroupPanel="False"
                                                      AutoExpandGroups="True"

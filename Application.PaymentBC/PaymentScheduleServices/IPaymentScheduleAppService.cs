@@ -29,7 +29,17 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
     ///     表示用于付款计划相关信息服务
     /// </summary>
     public interface IPaymentScheduleAppService
-    {
+    {       
+        #region 所有付款计划
+
+        /// <summary>
+        ///     查询所有付款计划
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<PaymentScheduleDTO> GetPaymentSchedules();
+
+        #endregion
+
         #region 飞机付款计划
 
         /// <summary>

@@ -32,10 +32,11 @@ namespace UniCloud.Application.PaymentBC.DTO
     [DataServiceKey("PurchaseInvoiceId")]
     public class PurchaseInvoiceDTO
     {
-        public PurchaseInvoiceDTO()
-        {
-            InvoiceLines = new List<InvoiceLineDTO>();
-        }
+        #region 私有字段
+
+        private List<InvoiceLineDTO> _lines;
+
+        #endregion
 
         #region 属性
         /// <summary>
@@ -139,8 +140,11 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///    发票行集合
         /// </summary>
-        public List<InvoiceLineDTO> InvoiceLines { get; set; }
-
+        public List<InvoiceLineDTO> InvoiceLines
+        {
+            get { return _lines ?? (_lines = new List<InvoiceLineDTO>()); }
+            set { _lines = value; }
+        }
         #endregion
     }
 }

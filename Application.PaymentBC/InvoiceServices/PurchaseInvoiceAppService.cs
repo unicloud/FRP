@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
@@ -74,16 +75,16 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         public void InsertPurchaseInvoice(PurchaseInvoiceDTO purchaseInvoice)
         {
             var supplier = _supplierRepository.GetFiltered(p => p.Id == purchaseInvoice.SupplierId).FirstOrDefault();
-            var order = _orderRepository.GetFiltered(p => p.Id == purchaseInvoice.OrderId).FirstOrDefault();
+            var order = _orderRepository.Get(purchaseInvoice.OrderId);
             var currency = _currencyRepository.GetFiltered(p => p.Id == purchaseInvoice.CurrencyId).FirstOrDefault();
 
             var newPurchaseInvoice = InvoiceFactory.CreatePurchaseInvoice(purchaseInvoice.InvoideCode, purchaseInvoice.InvoiceDate, purchaseInvoice.OperatorName);
-            newPurchaseInvoice.SetInvoiceNumber(1);
+            var date = DateTime.Now.Date;
+            var seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+            newPurchaseInvoice.SetInvoiceNumber(seq);
             newPurchaseInvoice.SetSupplier(supplier);
-            newPurchaseInvoice.SetInvoiceValue();
             newPurchaseInvoice.SetOrder(order);
             newPurchaseInvoice.SetPaidAmount(purchaseInvoice.PaidAmount);
-            //newPurchaseInvoice.Review(purchaseInvoice.Reviewer);
             newPurchaseInvoice.SetCurrency(currency);
             newPurchaseInvoice.SetPaymentScheduleLine(purchaseInvoice.PaymentScheduleLineId);
             newPurchaseInvoice.SetInvoiceStatus(InvoiceStatus.草稿);
@@ -92,13 +93,14 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
                 if (order != null)
                 {
                     var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
-                    newPurchaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine);
+                    newPurchaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine,invoiceLine.Note);
                 }
                 else
                 {
-                    newPurchaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null);
+                    newPurchaseInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null,invoiceLine.Note);
                 }
             }
+            newPurchaseInvoice.SetInvoiceValue();
             _invoiceRepository.Add(newPurchaseInvoice);
         }
 
@@ -109,13 +111,19 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         [Update(typeof(PurchaseInvoiceDTO))]
         public void ModifyPurchaseInvoice(PurchaseInvoiceDTO purchaseInvoice)
         {
-            var updatePurchaseInvoice = _invoiceRepository.GetFiltered(t => t.Id == purchaseInvoice.PurchaseInvoiceId).FirstOrDefault();
+            var supplier = _supplierRepository.GetFiltered(p => p.Id == purchaseInvoice.SupplierId).FirstOrDefault();
+            var order = _orderRepository.Get(purchaseInvoice.OrderId);
+            var currency = _currencyRepository.GetFiltered(p => p.Id == purchaseInvoice.CurrencyId).FirstOrDefault();
+
+            var updatePurchaseInvoice = _invoiceRepository.Get(purchaseInvoice.PurchaseInvoiceId);
             //获取需要更新的对象。
             if (updatePurchaseInvoice != null)
             {
+                InvoiceFactory.SetInvoice(updatePurchaseInvoice, purchaseInvoice.InvoideCode, purchaseInvoice.InvoiceDate,purchaseInvoice.OperatorName, purchaseInvoice.InvoiceNumber,supplier,order,
+                    purchaseInvoice.PaidAmount, currency, purchaseInvoice.PaymentScheduleLineId,purchaseInvoice.Status);
                 //更新主表。
 
-
+                UpdateInvoiceLines(purchaseInvoice.InvoiceLines, updatePurchaseInvoice,order);
                 //更新从表。
             }
             _invoiceRepository.Modify(updatePurchaseInvoice);
@@ -140,6 +148,37 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
             }
         }
 
+        #endregion
+
+        #region 更新发票行集合
+        /// <summary>
+        /// 更新发票行集合
+        /// </summary>
+        /// <param name="sourceInvoiceLines">客户端集合</param>
+        /// <param name="dstInvoice">数据库集合</param>
+        private void UpdateInvoiceLines(IEnumerable<InvoiceLineDTO> sourceInvoiceLines, Invoice dstInvoice,Order order)
+        {
+            var invoiceLines = new List<InvoiceLine>();
+            foreach (var sourceInvoiceLine in sourceInvoiceLines)
+            {
+                var result = dstInvoice.InvoiceLines.FirstOrDefault(p => p.Id == sourceInvoiceLine.InvoiceLineId);
+                if (result == null)
+                {
+                    result = InvoiceFactory.CreateInvoiceLine();
+                    result.ChangeCurrentIdentity(sourceInvoiceLine.InvoiceLineId);
+                }
+                InvoiceFactory.SetInvoiceLine(result, sourceInvoiceLine.ItemName, sourceInvoiceLine.Amount, order,sourceInvoiceLine.InvoiceLineId, sourceInvoiceLine.Note);
+                invoiceLines.Add(result);
+            }
+            dstInvoice.InvoiceLines.ToList().ForEach(p =>
+            {
+                if (invoiceLines.FirstOrDefault(t => t.Id == p.Id) == null)
+                {
+                    _invoiceRepository.RemoveInvoiceLine(p);
+                }
+            });
+            dstInvoice.InvoiceLines = invoiceLines;
+        }
         #endregion
     }
 }

@@ -97,7 +97,8 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
 
                 #region 交易相关配置，包括查询，应用服务，仓储注册
                          .Register<IOrderQuery, OrderQuery>()
-                         .Register<IOrderAppService, OrderAppService>()                         .Register<IOrderRepository, OrderRepository>()
+                         .Register<IOrderAppService, OrderAppService>()                        
+                         .Register<IOrderRepository, OrderRepository>()
                 #endregion
 
                 #region   付款计划相关配置，包括查询，应用服务，仓储注册
