@@ -40,6 +40,12 @@ namespace UniCloud.Application.PaymentBC.DTO
         public int CurrencyId { get;  set; }
 
         /// <summary>
+        /// 币种名称
+        /// </summary>
+        public string CurrencyName { get; set; }
+
+
+        /// <summary>
         ///     供应商ID
         /// </summary>
         public int SupplierId { get; set; }

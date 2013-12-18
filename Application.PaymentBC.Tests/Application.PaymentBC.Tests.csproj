@@ -71,6 +71,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CurrencyBCTests.cs" />
     <Compile Include="Services\MaintainInvoiceBCTests.cs" />
+    <Compile Include="Services\ContractEngineBCTests.cs" />
     <Compile Include="Services\OrderBCTests.cs" />
   </ItemGroup>
   <ItemGroup>

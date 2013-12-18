@@ -1,26 +1,41 @@
-﻿using System;
+﻿#region 版本信息
+
+// ========================================================================
+// 版权所有 (C) 2013 UniCloud 
+//【本类功能概述】
+// 
+// 作者：陈春勇 时间：2013/12/18，13:12
+// 文件名：StandardPaymentScheduleDTO.cs
+// 程序集：UniCloud.Application.PaymentBC.DTO
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// ========================================================================
+
+#endregion
+
+using System;
 using System.Collections.Generic;
 using System.Data.Services.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    /// 发动机付款计划
+    /// 标准付款计划
     /// </summary>
-    [DataServiceKey("EnginePaymentScheduleId")]
-    public class EnginePaymentScheduleDTO
+    [DataServiceKey("StandardPaymentScheduleId")]
+    public class StandardPaymentScheduleDTO
     {
-        public EnginePaymentScheduleDTO()
+        public StandardPaymentScheduleDTO()
         {
             PaymentScheduleLines = new List<PaymentScheduleLineDTO>();
         }
         /// <summary>
         /// 主键
         /// </summary>
-        public int EnginePaymentScheduleId { get; set; }
+        public int StandardPaymentScheduleId { get; set; }
 
         /// <summary>
         ///  创建时间
@@ -55,7 +70,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         /// 合同发动机主键
         /// </summary>
-        public int ContractEngineId { get; set; }
+        public int OrderId { get; set; }
 
         /// <summary>
         ///     付款计划行

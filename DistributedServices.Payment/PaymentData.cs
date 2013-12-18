@@ -184,6 +184,14 @@ namespace UniCloud.DistributedServices.Payment
             get { return _paymentScheduleAppService.GetEnginePaymentSchedules(); }
         }
 
+        /// <summary>
+        /// 标准付款计划
+        /// </summary>
+        public IQueryable<StandardPaymentScheduleDTO> StandardPaymentSchedules
+        {
+            get { return _paymentScheduleAppService.GetStandardPaymentSchedules(); }
+        }
+
         #endregion
 
         #region 供应商

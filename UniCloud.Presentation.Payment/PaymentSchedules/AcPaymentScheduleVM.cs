@@ -21,6 +21,7 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
+using Telerik.Windows.Controls.DataServices;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -47,6 +48,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             InitialContractAircraft(); // 初始化合同飞机信息。
             InitialAcPaymentSchedule();//初始化付款计划
             InitialCommand();//初始化命令
+            InitialCurrency();//初始化币种
         }
 
         #region 加载合同飞机
@@ -162,6 +164,47 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         }
         #endregion
 
+        #region 加载币种
+
+        private CurrencyDTO _selectedCurrency;
+
+        /// <summary>
+        ///     选择币种
+        /// </summary>
+        public CurrencyDTO SelectedCurrency
+        {
+            get { return _selectedCurrency; }
+            set
+            {
+
+                _selectedCurrency = value;
+                RaisePropertyChanged(() => SelectedCurrency);
+            }
+        }
+
+        /// <summary>
+        ///     获取所有币种。
+        /// </summary>
+        public QueryableDataServiceCollectionView<CurrencyDTO> CurrencysView { get; set; }
+
+        /// <summary>
+        ///     初始化币种信息。
+        /// </summary>
+        private void InitialCurrency()
+        {
+            CurrencysView = Service.CreateCollection(_context.Currencies);
+            CurrencysView.LoadedData += (sender, e) =>
+            {
+                if (e.HasError)
+                {
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                SelectedCurrency = e.Entities.Cast<CurrencyDTO>().FirstOrDefault();
+            };
+        }
+        #endregion
+
         #region 属性
 
         private PaymentScheduleLineDTO _selectPaymentScheduleLine;
@@ -214,8 +257,11 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                  SupplierId = SelectedContractAircraft.SupplierId == null ? 0 : SelectedContractAircraft
                                                              .SupplierId.Value,
                  SupplierName = SelectedContractAircraft.SupplierName,
-                 CurrencyId = 1,
              };
+            //美元作为默认选中货币
+            var currencyDto = CurrencysView.FirstOrDefault(p => p.Name.Equals("美元"));
+            if (currencyDto != null)
+                SelectedAcPaymentSchedule.CurrencyId = currencyDto.Id;
             AcPaymentSchedulesView.AddNewItem(SelectedAcPaymentSchedule);
             RefreshCommandState();//刷新按钮状态
         }
@@ -327,6 +373,25 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
 
         #endregion
 
+        #region 重载保存命令操作
+        /// <summary>
+        /// 保存前操作
+        /// </summary>
+        /// <param name="sender"></param>
+        protected override bool OnSaveExecuting(QueryableDataServiceCollectionViewBase sender)
+        {
+            if (SelectedAcPaymentSchedule != null)
+            {
+                if (SelectedAcPaymentSchedule.PaymentScheduleLines.Count > 0) return true;
+                MessageAlert("提示", "付款计划行不能为空");
+                return false;
+            }
+            MessageAlert("提示","飞机付款计划不能为空");
+            return false;
+        }
+
+        #endregion
+
         #region 重载基类服务
 
         protected override IService CreateService()
@@ -337,13 +402,21 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
 
         public override void LoadData()
         {
-            ContractAircraftsView.AutoLoad = true;
+            if (!ContractAircraftsView.AutoLoad)
+            {
+                ContractAircraftsView.AutoLoad = true;
+            }
+            else
+            {
+                ContractAircraftsView.AutoLoad = true;
+            }
+            CurrencysView.AutoLoad = true;
         }
 
         /// <summary>
         /// 刷新按钮状态
         /// </summary>
-        public  void RefreshCommandState()
+        public override void RefreshCommandState()
         {
             SaveCommand.RaiseCanExecuteChanged();
             AbortCommand.RaiseCanExecuteChanged();

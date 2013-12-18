@@ -86,5 +86,35 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
 
 
         #endregion
+
+        #region 标准付款计划
+
+        /// <summary>
+        ///     获取所有标准付款计划
+        /// </summary>
+        /// <returns>所有标准付款计划</returns>
+        IQueryable<StandardPaymentScheduleDTO> GetStandardPaymentSchedules();
+
+        /// <summary>
+        ///     新增标准付款计划
+        /// </summary>
+        /// <param name="standardPaymentSchedule">标准付款计划DTO。</param>
+        void InsertStandardPaymentSchedule(StandardPaymentScheduleDTO standardPaymentSchedule);
+
+        /// <summary>
+        ///     修改标准付款计划
+        /// </summary>
+        /// <param name="standardPaymentSchedule">标准付款计划DTO。</param>
+        void ModifyStandardPaymentSchedule(StandardPaymentScheduleDTO standardPaymentSchedule);
+
+        /// <summary>
+        ///     删除标准付款计划
+        /// </summary>
+        /// <param name="standardPaymentSchedule">标准付款计划DTO。</param>
+        void DeleteStandardPaymentSchedule(StandardPaymentScheduleDTO standardPaymentSchedule);
+
+
+        #endregion
+
     }
 }
