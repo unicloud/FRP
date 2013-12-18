@@ -4,8 +4,8 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：陈春勇 时间：2013/12/17，10:12
-// 文件名：EnginePaymentScheduleVM.cs
+// 作者：陈春勇 时间：2013/12/18，16:12
+// 文件名：StandardPaymentScheduleVM.cs
 // 程序集：UniCloud.Presentation.Payment
 // 版本：V1.0.0
 //
@@ -27,139 +27,140 @@ using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
-using UniCloud.Presentation.Service.Payment.Payment;
+using UniCloud.Presentation.Service.Payment.Payment;	
 
 #endregion
 
+
 namespace UniCloud.Presentation.Payment.PaymentSchedules
 {
-    [Export(typeof(EnginePaymentScheduleVM))]
+    [Export(typeof(StandardPaymentScheduleVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class EnginePaymentScheduleVM : EditViewModelBase
+    public class StandardPaymentScheduleVM : EditViewModelBase
     {
-        private PaymentData _context;
+          private PaymentData _context;
 
         /// <summary>
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public EnginePaymentScheduleVM()
+          public StandardPaymentScheduleVM()
         {
-            InitialContractEngine(); // 初始化合同发动机信息。
-            InitialEnginePaymentSchedule();//初始化付款计划
+            InitialStandardOrder(); // 初始化标准订单信息。
+            InitialStandardPaymentSchedule();//初始化付款计划
             InitialCommand();//初始化命令
             InitialCurrency();//初始化币种
         }
 
-        #region 加载合同发动机
+        #region 加载标准订单
 
-        private ContractEngineDTO _selectedContractEngine;
+        private StandardOrderDTO _selectedStandardOrder;
 
         /// <summary>
-        ///     选择合同发动机。
+        ///     选择标准订单。
         /// </summary>
-        public ContractEngineDTO SelectedContractEngine
+        public StandardOrderDTO SelectedStandardOrder
         {
-            get { return _selectedContractEngine; }
+            get { return _selectedStandardOrder; }
             set
             {
-                if (_selectedContractEngine != value)
+                if (_selectedStandardOrder != value)
                 {
-                    _selectedContractEngine = value;
+                    _selectedStandardOrder = value;
                     if (value != null)
                     {
-                        LoadEnginePaymentScheduleByContractEngineId();
+                        LoadStandardPaymentScheduleByOrderId();
                     }
-                    RaisePropertyChanged(() => SelectedContractEngine);
+                    RaisePropertyChanged(() => SelectedStandardOrder);
                 }
             }
         }
 
         /// <summary>
-        ///     获取所有合同发动机信息。
+        ///     获取所有标准订单信息。
         /// </summary>
-        public QueryableDataServiceCollectionView<ContractEngineDTO> ContractEnginesView { get; set; }
+        public QueryableDataServiceCollectionView<StandardOrderDTO> StandardOrdersView { get; set; }
 
         /// <summary>
-        ///     初始化合同发动机信息。
+        ///     初始化标准订单信息。
         /// </summary>
-        private void InitialContractEngine()
+        private void InitialStandardOrder()
         {
-            ContractEnginesView = Service.CreateCollection(_context.ContractEngines);
-            ContractEnginesView.PageSize = 20;
-            ContractEnginesView.LoadedData += (sender, e) =>
+            StandardOrdersView = Service.CreateCollection(_context.StandardOrders);
+            StandardOrdersView.PageSize = 20;
+            StandardOrdersView.LoadedData += (sender, e) =>
                 {
                     if (e.HasError)
                     {
                         e.MarkErrorAsHandled();
                         return;
                     }
-                    if (SelectedContractEngine == null)
+                    if (SelectedStandardOrder == null)
                     {
-                        SelectedContractEngine = e.Entities.Cast<ContractEngineDTO>().FirstOrDefault();
+                        SelectedStandardOrder = e.Entities.Cast<StandardOrderDTO>().FirstOrDefault();
                     }
                 };
         }
 
         #endregion
 
-        #region 加载合同发动机下的付款计划
+        #region 加载标准订单下的付款计划
 
         private FilterDescriptor _paymnetFilterOperator;//付款计划查询
 
-        private EnginePaymentScheduleDTO _selectedEnginePaymentSchedule;
+        private StandardPaymentScheduleDTO _selectedStandardPaymentSchedule;
 
         /// <summary>
-        ///     选择发动机付款计划
+        ///     选择标准付款计划
         /// </summary>
-        public EnginePaymentScheduleDTO SelectedEnginePaymentSchedule
+        public StandardPaymentScheduleDTO SelectedStandardPaymentSchedule
         {
-            get { return _selectedEnginePaymentSchedule; }
+            get { return _selectedStandardPaymentSchedule; }
             set
             {
 
-                _selectedEnginePaymentSchedule = value;
-                RaisePropertyChanged(() => SelectedEnginePaymentSchedule);
+                _selectedStandardPaymentSchedule = value;
+                RaisePropertyChanged(() => SelectedStandardPaymentSchedule);
             }
         }
 
         /// <summary>
         ///     获取所有付款计划信息。
         /// </summary>
-        public QueryableDataServiceCollectionView<EnginePaymentScheduleDTO> EnginePaymentSchedulesView { get; set; }
+        public QueryableDataServiceCollectionView<StandardPaymentScheduleDTO> StandardPaymentSchedulesView { get; set; }
 
         /// <summary>
         ///     初始化付款计划信息。
         /// </summary>
-        private void InitialEnginePaymentSchedule()
+        private void InitialStandardPaymentSchedule()
         {
-            EnginePaymentSchedulesView = Service.CreateCollection(_context.EnginePaymentSchedules);
-            _paymnetFilterOperator = new FilterDescriptor("ContractEngineId", FilterOperator.IsEqualTo, 0);
-            EnginePaymentSchedulesView.FilterDescriptors.Add(_paymnetFilterOperator);
-            EnginePaymentSchedulesView.LoadedData += (sender, e) =>
+            StandardPaymentSchedulesView = Service.CreateCollection(_context.StandardPaymentSchedules);
+            _paymnetFilterOperator = new FilterDescriptor("OrderId", FilterOperator.IsEqualTo, 0);
+            StandardPaymentSchedulesView.FilterDescriptors.Add(_paymnetFilterOperator);
+            StandardPaymentSchedulesView.LoadedData += (sender, e) =>
             {
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
                     return;
                 }
-                SelectedEnginePaymentSchedule = e.Entities.Cast<EnginePaymentScheduleDTO>().FirstOrDefault();
+                SelectedStandardPaymentSchedule = e.Entities.Cast<StandardPaymentScheduleDTO>().FirstOrDefault();
                 RefreshCommandState();//刷新按钮状态
             };
         }
         /// <summary>
-        ///根据合同发动机Id查询付款计划
+        ///根据标准订单Id查询付款计划
         /// </summary>
-        private void LoadEnginePaymentScheduleByContractEngineId()
+        private void LoadStandardPaymentScheduleByOrderId()
         {
-            _paymnetFilterOperator.Value = SelectedContractEngine.ContractEngineId;
-            if (!EnginePaymentSchedulesView.AutoLoad)
+            _paymnetFilterOperator.Value = SelectedStandardOrder.StandardOrderId;
+            if (!StandardPaymentSchedulesView.AutoLoad)
             {
-                EnginePaymentSchedulesView.AutoLoad = true;
+                StandardPaymentSchedulesView.AutoLoad = true;
             }
             else
             {
-                EnginePaymentSchedulesView.Load(true);
+                StandardPaymentSchedulesView.Load(true);
             }
         }
         #endregion
@@ -176,6 +177,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             get { return _selectedCurrency; }
             set
             {
+
                 _selectedCurrency = value;
                 RaisePropertyChanged(() => SelectedCurrency);
             }
@@ -227,7 +229,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
 
         #region 命令
 
-        #region 新增发动机付款计划命令
+        #region 新增标准付款计划命令
 
         public DelegateCommand<object> AddPaymentScheduleCommand { get; private set; }
 
@@ -237,51 +239,51 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// <param name="sender"></param>
         public void OndAddPaymentSchedule(object sender)
         {
-            if (SelectedContractEngine == null)
+            if (SelectedStandardOrder == null)
             {
-                MessageAlert("提示", "合同发动机不能为空");
+                MessageAlert("提示", "标准订单不能为空");
                 return;
             }
-            if (EnginePaymentSchedulesView.Count >= 1)
+            if (StandardPaymentSchedulesView.Count >= 1)
             {
                 MessageAlert("提示", "已存在付款计划");
                 return;
             }
-            //新增发动机付款计划
-            SelectedEnginePaymentSchedule = new EnginePaymentScheduleDTO
+            //新增标准付款计划
+            SelectedStandardPaymentSchedule = new StandardPaymentScheduleDTO
              {
-                 EnginePaymentScheduleId = RandomHelper.Next(),
+                 StandardPaymentScheduleId = RandomHelper.Next(),
                  CreateDate = DateTime.Now,
-                 ContractEngineId = SelectedContractEngine.ContractEngineId,
-                 SupplierId = SelectedContractEngine.SupplierId == null ? 0 : SelectedContractEngine
-                                                             .SupplierId.Value,
-                 SupplierName = SelectedContractEngine.SupplierName,
+                 OrderId = SelectedStandardOrder.StandardOrderId,
+                 SupplierId = SelectedStandardOrder
+                     .SupplierId,
+                 SupplierName = SelectedStandardOrder.SupplierName,
              };
             //美元作为默认选中货币
             var currencyDto = CurrencysView.FirstOrDefault(p => p.Name.Equals("美元"));
             if (currencyDto != null)
-                SelectedEnginePaymentSchedule.CurrencyId = currencyDto.Id;
-            EnginePaymentSchedulesView.AddNewItem(SelectedEnginePaymentSchedule);
+                SelectedStandardPaymentSchedule.CurrencyId = currencyDto.Id;
+            StandardPaymentSchedulesView.AddNewItem(SelectedStandardPaymentSchedule);
             RefreshCommandState();//刷新按钮状态
         }
 
         /// <summary>
-        ///     判断新增发动机付款计划命令是否可用。
+        ///     判断新增标准付款计划命令是否可用。
         /// </summary>
         /// <param name="sender"></param>
         /// <returns>新增命令是否可用。</returns>
         public bool CanAddPaymentSchedule(object sender)
         {
-            if (EnginePaymentSchedulesView.IsSubmittingChanges)
+            if (StandardPaymentSchedulesView.IsSubmittingChanges)
             {
                 return false;
             }
-            return SelectedContractEngine != null && EnginePaymentSchedulesView.Count <= 0;
+            return SelectedStandardOrder != null && StandardPaymentSchedulesView.Count <= 0;
         }
 
         #endregion
 
-        #region 新增发动机付款计划行命令
+        #region 新增标准付款计划行命令
 
         public DelegateCommand<object> AddPaymentScheduleLineCommand { get; private set; }
 
@@ -291,34 +293,34 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// <param name="sender"></param>
         public void OndAddPaymentScheduleLine(object sender)
         {
-            if (SelectedEnginePaymentSchedule == null)
+            if (SelectedStandardPaymentSchedule == null)
             {
                 MessageAlert("提示", "付款计划不能为空");
                 return;
             }
-            //新增发动机付款计划行
+            //新增标准付款计划行
             SelectPaymentScheduleLine = new PaymentScheduleLineDTO
             {
                 PaymentScheduleLineId = RandomHelper.Next(),
-                PaymentScheduleId = SelectedEnginePaymentSchedule.EnginePaymentScheduleId,
+                PaymentScheduleId = SelectedStandardPaymentSchedule.StandardPaymentScheduleId,
                 ScheduleDate = DateTime.Now,
             };
-            SelectedEnginePaymentSchedule.PaymentScheduleLines.Add(SelectPaymentScheduleLine);
+            SelectedStandardPaymentSchedule.PaymentScheduleLines.Add(SelectPaymentScheduleLine);
         }
 
         /// <summary>
-        ///     判断新增发动机付款计划行命令是否可用。
+        ///     判断新增标准付款计划行命令是否可用。
         /// </summary>
         /// <param name="sender"></param>
         /// <returns>新增命令是否可用。</returns>
         public bool CanAddPaymentScheduleLine(object sender)
         {
-            if (EnginePaymentSchedulesView.IsSubmittingChanges)
+            if (StandardPaymentSchedulesView.IsSubmittingChanges)
             {
                 return false;
             }
-            return SelectedContractEngine != null && SelectedEnginePaymentSchedule != null
-                   && !SelectedEnginePaymentSchedule.IsCompleted;
+            return SelectedStandardOrder != null && SelectedStandardPaymentSchedule != null
+                   && !SelectedStandardPaymentSchedule.IsCompleted;
         }
 
         #endregion
@@ -338,24 +340,24 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                 MessageAlert("提示", "请选择需要删除的付款计划明细");
                 return;
             }
-            SelectedEnginePaymentSchedule.PaymentScheduleLines.Remove(SelectPaymentScheduleLine);
+            SelectedStandardPaymentSchedule.PaymentScheduleLines.Remove(SelectPaymentScheduleLine);
             RefreshCommandState();//刷新按钮状态
         }
 
         /// <summary>
-        ///     判断删除发动机付款计划行命令是否可用。
+        ///     判断删除标准付款计划行命令是否可用。
         /// </summary>
         /// <param name="sender"></param>
         /// <returns>新增命令是否可用。</returns>
         public bool CanDelPaymentScheduleLine(object sender)
         {
-            if (EnginePaymentSchedulesView.IsSubmittingChanges)
+            if (StandardPaymentSchedulesView.IsSubmittingChanges)
             {
                 return false;
             }
             //付款计划跟发票建立关联，则不能删除
-            return SelectedContractEngine != null && SelectedEnginePaymentSchedule != null
-                   && !SelectedEnginePaymentSchedule.IsCompleted && SelectPaymentScheduleLine != null;
+            return SelectedStandardOrder != null && SelectedStandardPaymentSchedule != null
+                   && !SelectedStandardPaymentSchedule.IsCompleted && SelectPaymentScheduleLine != null;
         }
 
         #endregion
@@ -379,13 +381,13 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// <param name="sender"></param>
         protected override bool OnSaveExecuting(QueryableDataServiceCollectionViewBase sender)
         {
-            if (SelectedEnginePaymentSchedule != null)
+            if (SelectedStandardPaymentSchedule != null)
             {
-                if (SelectedEnginePaymentSchedule.PaymentScheduleLines.Count > 0) return true;
+                if (SelectedStandardPaymentSchedule.PaymentScheduleLines.Count > 0) return true;
                 MessageAlert("提示", "付款计划行不能为空");
                 return false;
             }
-            MessageAlert("提示", "发动机付款计划不能为空");
+            MessageAlert("提示","标准付款计划不能为空");
             return false;
         }
 
@@ -401,13 +403,13 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
 
         public override void LoadData()
         {
-            if (!ContractEnginesView.AutoLoad)
+            if (!StandardOrdersView.AutoLoad)
             {
-                ContractEnginesView.AutoLoad = true;
+                StandardOrdersView.AutoLoad = true;
             }
             else
             {
-                ContractEnginesView.AutoLoad = true;
+                StandardOrdersView.AutoLoad = true;
             }
             CurrencysView.AutoLoad = true;
         }

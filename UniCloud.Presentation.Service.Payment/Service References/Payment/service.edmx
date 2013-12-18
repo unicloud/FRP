@@ -471,6 +471,18 @@
         <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
         <Property Name="BFEMaterialId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
+      <EntityType Name="StandardOrderDTO">
+        <Key>
+          <PropertyRef Name="StandardOrderId" />
+        </Key>
+        <Property Name="StandardOrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SupplierName" Type="Edm.String" />
+        <Property Name="Note" Type="Edm.String" />
+      </EntityType>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Payment" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="PaymentData" m:IsDefaultEntityContainer="true">
@@ -495,6 +507,7 @@
         <EntitySet Name="EnginePurchaseOrders" EntityType="UniCloud.Application.PaymentBC.DTO.EnginePurchaseOrderDTO" />
         <EntitySet Name="EngineLeaseOrders" EntityType="UniCloud.Application.PaymentBC.DTO.EngineLeaseOrderDTO" />
         <EntitySet Name="BFEPurchaseOrders" EntityType="UniCloud.Application.PaymentBC.DTO.BFEPurchaseOrderDTO" />
+        <EntitySet Name="StandardOrders" EntityType="UniCloud.Application.PaymentBC.DTO.StandardOrderDTO" />
       </EntityContainer>
     </Schema>
   </edmx:DataServices>
