@@ -43,8 +43,7 @@ namespace UniCloud.Application.PaymentBC.Query.ContractEngineQueries
         public IQueryable<ContractEngineDTO> ContractEnginesQuery(
             QueryBuilder<ContractEngine> query)
         {
-                        var dbSupplier = _unitOfWork.CreateSet<Supplier>();
-
+            var dbSupplier = _unitOfWork.CreateSet<Supplier>();
             return
                 query.ApplyTo(_unitOfWork.CreateSet<ContractEngine>())
                      .Select(p => new ContractEngineDTO
@@ -54,7 +53,7 @@ namespace UniCloud.Application.PaymentBC.Query.ContractEngineQueries
                          RankNumber = p.RankNumber,
                          SerialNumber = p.SerialNumber,
                          IsValid = p.IsValid,
-                         ImportType = p.ImportCategory.ActionType+"-"+p.ImportCategory.ActionName,
+                         ImportType = p.ImportCategory.ActionType + "-" + p.ImportCategory.ActionName,
                          SupplierName = dbSupplier.FirstOrDefault(c => c.Id == p.SupplierId).Name,
                          SupplierId = p.SupplierId,
 

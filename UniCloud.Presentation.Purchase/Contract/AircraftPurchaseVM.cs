@@ -30,7 +30,6 @@ using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
-using UniCloud.Presentation.Service.Purchase.Purchase.Enums;
 
 #endregion
 
@@ -71,15 +70,13 @@ namespace UniCloud.Presentation.Purchase.Contract
         private void InitializeVM()
         {
             ViewTradeDTO = Service.CreateCollection<TradeDTO>(_context.Trades);
-            var fd1 = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
-            ViewTradeDTO.FilterDescriptors.Add(fd1);
+            var fd = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
+            ViewTradeDTO.FilterDescriptors.Add(fd);
             Service.RegisterCollectionView(ViewTradeDTO);
             ViewTradeDTO.PropertyChanged += OnViewPropertyChanged;
 
             ViewAircraftPurchaseOrderDTO =
                 Service.CreateCollection<AircraftPurchaseOrderDTO>(_context.AircraftPurchaseOrders);
-            var fd2 = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, 0);
-            ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(fd2);
             Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
             ViewAircraftPurchaseOrderDTO.PropertyChanged += OnViewPropertyChanged;
 
@@ -139,12 +136,11 @@ namespace UniCloud.Presentation.Purchase.Contract
         public override void LoadData()
         {
             ViewTradeDTO.AutoLoad = true;
-            ViewAircraftPurchaseOrderDTO.AutoLoad = true;
 
-            Suppliers.Load(true);
-            Currencies.Load(true);
-            Linkmen.Load(true);
-            AircraftMaterials.Load(true);
+            Suppliers.Load();
+            Currencies.Load();
+            Linkmen.Load();
+            AircraftMaterials.Load();
         }
 
         #region 交易
@@ -169,18 +165,10 @@ namespace UniCloud.Presentation.Purchase.Contract
                     _selTradeDTO = value;
                     if (_selTradeDTO != null)
                     {
-                        if (_selTradeDTO.TradeStatus > TradeStatus.开始)
-                        {
-                            var fd = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, _selTradeDTO.Id);
-                            ViewAircraftPurchaseOrderDTO.FilterDescriptors.Clear();
-                            ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(fd);
-                        }
-                        else
-                        {
-                            var fd = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, 0);
-                            ViewAircraftPurchaseOrderDTO.FilterDescriptors.Clear();
-                            ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(fd);
-                        }
+                        ViewAircraftPurchaseOrderDTO.FilterDescriptors.Clear();
+                        var fd = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, _selTradeDTO.Id);
+                        ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(fd);
+                        ViewAircraftPurchaseOrderDTO.Load();
                         RaisePropertyChanged(() => AircraftMaterials);
                     }
                     RaisePropertyChanged(() => SelTradeDTO);

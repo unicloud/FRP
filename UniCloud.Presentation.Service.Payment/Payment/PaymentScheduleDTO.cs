@@ -1,27 +1,35 @@
-﻿using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+﻿#region 版本信息
+
+// ========================================================================
+// 版权所有 (C) 2013 UniCloud 
+//【本类功能概述】
+// 
+// 作者：陈春勇 时间：2013/12/17，18:12
+// 文件名：PaymentScheduleDTO.cs
+// 程序集：UniCloud.Presentation.Service.Payment
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// ========================================================================
+
+#endregion
+
+using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Service.Payment.Payment
 {
     public partial class AcPaymentScheduleDTO
     {
-        ///// <summary>
-        ///// 完成的String类型状态
-        ///// </summary>
-        //public string CompletedString
-        //{
-        //    get
-        //    {
-        //        return IsCompleted ? "已完成" : "未完成";
-        //    }
-        //}
+        /// <summary>
+        /// 完成的PaymentScheduleStatus类型状态
+        /// </summary>
+        public PaymentScheduleStatus CompletedString
+        {
+            get
+            {
+                return IsCompleted ? PaymentScheduleStatus.已完成 : PaymentScheduleStatus.未完成;
+            }
+        }
     }
 }

@@ -45,6 +45,13 @@ namespace UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries
         IQueryable<EnginePaymentScheduleDTO> EnginePaymentSchedulesQuery(
             QueryBuilder<PaymentSchedule> query);
 
-    
+        /// <summary>
+        ///     标准付款计划
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        /// <returns>标准付款计划DTO集合</returns>
+        IQueryable<StandardPaymentScheduleDTO> StandardPaymentSchedulesQuery(
+            QueryBuilder<PaymentSchedule> query);
+
     }
 }

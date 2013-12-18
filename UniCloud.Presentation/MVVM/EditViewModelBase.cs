@@ -49,7 +49,10 @@ namespace UniCloud.Presentation.MVVM
         private void OnSave(object sender)
         {
             var collectionView = sender as QueryableDataServiceCollectionViewBase;
-            OnSaveExecuting(collectionView);
+            if (!OnSaveExecuting(collectionView))
+            {
+                return;
+            }
             Service.SubmitChanges(collectionView, sm =>
             {
                 if (sm.Error == null)
@@ -66,8 +69,9 @@ namespace UniCloud.Presentation.MVVM
         ///     保存成功前执行的操作。
         /// </summary>
         /// <param name="sender"></param>
-        protected virtual void OnSaveExecuting(QueryableDataServiceCollectionViewBase sender)
+        protected virtual bool OnSaveExecuting(QueryableDataServiceCollectionViewBase sender)
         {
+            return true;
         }
 
         /// <summary>

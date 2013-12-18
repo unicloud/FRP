@@ -45,5 +45,17 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.Repositories
             return set.Include(t => t.PaymentScheduleLines).FirstOrDefault(p => p.Id == (int)id);
         }
         #endregion
+
+        /// <summary>
+        /// 删除付款计划行
+        /// </summary>
+        /// <param name="paymentScheduleLine">付款计划行</param>
+        public void RemovePaymentScheduleLine(PaymentScheduleLine paymentScheduleLine)
+        {
+            var currentUnitOfWork = UnitOfWork as PaymentBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            var set = currentUnitOfWork.CreateSet<PaymentScheduleLine>();
+            set.Remove(paymentScheduleLine);
+        }
     }
 }
