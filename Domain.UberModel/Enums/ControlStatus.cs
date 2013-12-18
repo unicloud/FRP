@@ -21,6 +21,7 @@ namespace UniCloud.Domain.UberModel.Enums
     {
         正常支付 = 0,
         暂缓支付 = 1,
-        已完成 = 2
+        已匹配发票 = 2,
+        已完成 = 3
     }
 }
