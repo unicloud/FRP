@@ -61,8 +61,8 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
             var service = DefaultContainer.Resolve<IMaintainInvoiceAppService>();
 
             // Act
-            var result = service.GetApuMaintainInvoices().FirstOrDefault(p=>p.APUMaintainInvoiceId==3);
-           var line= result.MaintainInvoiceLines.FirstOrDefault();
+            var result = service.GetApuMaintainInvoices().FirstOrDefault(p => p.APUMaintainInvoiceId == 3);
+            var line = result.MaintainInvoiceLines.FirstOrDefault();
             result.MaintainInvoiceLines.Remove(line);
             //service.ModifyApuMaintainInvoice(result);
             //var add = new APUMaintainInvoiceDTO();
