@@ -193,10 +193,10 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         public override void LoadData()
         {
-            RelatedDocs.AutoLoad = true;
-            PurchaseContractEngines.AutoLoad = true;
-            Suppliers.AutoLoad = true;
-            EnginePurchaseReceptions.AutoLoad = true;
+            RelatedDocs.Load(true);
+            PurchaseContractEngines.Load(true);
+            Suppliers.Load(true);
+            EnginePurchaseReceptions.Load(true);
         }
 
         #region 业务

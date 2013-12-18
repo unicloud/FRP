@@ -184,6 +184,9 @@
       <DependentUpon>PrePayInvoiceManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\PrePayInvoiceManagerVM.cs" />
+    <Compile Include="Invoice\PrepaymentOrderChildView.xaml.cs">
+      <DependentUpon>PrepaymentOrderChildView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Invoice\PurchaseInvoiceManager.xaml.cs">
       <DependentUpon>PurchaseInvoiceManager.xaml</DependentUpon>
     </Compile>
@@ -264,6 +267,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Invoice\PrePayInvoiceManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Invoice\PrepaymentOrderChildView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

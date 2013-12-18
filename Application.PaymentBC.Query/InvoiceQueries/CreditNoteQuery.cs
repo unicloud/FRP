@@ -63,6 +63,7 @@ namespace UniCloud.Application.PaymentBC.Query.InvoiceQueries
                          Status = (int)p.Status,
                          OrderId = p.OrderId,
                          CurrencyId = p.CurrencyId,
+                         PaymentScheduleLineId = p.PaymentScheduleLineId,
                          InvoiceLines = p.InvoiceLines.Select(q => new InvoiceLineDTO
                          {
                              InvoiceLineId = q.Id,

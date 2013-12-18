@@ -181,10 +181,10 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         public override void LoadData()
         {
-            RelatedDocs.AutoLoad = true;
-            LeaseContractAircrafts.AutoLoad = true;
-            Suppliers.AutoLoad = true;
-            AircraftLeaseReceptions.AutoLoad = true;
+            RelatedDocs.Load(true);
+            LeaseContractAircrafts.Load(true);
+            Suppliers.Load(true);
+            AircraftLeaseReceptions.Load(true);
         }
 
         #region 业务

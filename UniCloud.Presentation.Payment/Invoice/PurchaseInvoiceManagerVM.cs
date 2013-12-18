@@ -63,33 +63,19 @@ namespace UniCloud.Presentation.Payment.Invoice
             Service.RegisterCollectionView(PurchaseInvoices); //注册查询集合。
             PurchaseInvoices.PropertyChanged += OnViewPropertyChanged;
 
-            Currencies = Service.CreateCollection<CurrencyDTO>(_paymentData.Currencies);
-            Service.RegisterCollectionView(Currencies); //注册查询集合。
-            Currencies.PropertyChanged += OnViewPropertyChanged;
+            Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_paymentData, _paymentData.Currencies);
 
-            Suppliers = Service.CreateCollection<SupplierDTO>(_paymentData.Suppliers);
-            Service.RegisterCollectionView(Suppliers); //注册查询集合。
-            Suppliers.PropertyChanged += OnViewPropertyChanged;
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_paymentData, _paymentData.Suppliers);
 
-            Orders = Service.CreateCollection<OrderDTO>(_paymentData.Orders);
-            Service.RegisterCollectionView(Orders); //注册查询集合。
-            Orders.PropertyChanged += OnViewPropertyChanged;
+            Orders = new QueryableDataServiceCollectionView<OrderDTO>(_paymentData, _paymentData.Orders);
 
-            AircraftPurchaseOrders = Service.CreateCollection<AircraftPurchaseOrderDTO>(_paymentData.AircraftPurchaseOrders);
-            Service.RegisterCollectionView(AircraftPurchaseOrders); //注册查询集合。
-            AircraftPurchaseOrders.PropertyChanged += OnViewPropertyChanged;
+            AircraftPurchaseOrders = new QueryableDataServiceCollectionView<AircraftPurchaseOrderDTO>(_paymentData, _paymentData.AircraftPurchaseOrders);
 
-            EnginePurchaseOrders = Service.CreateCollection<EnginePurchaseOrderDTO>(_paymentData.EnginePurchaseOrders);
-            Service.RegisterCollectionView(EnginePurchaseOrders); //注册查询集合。
-            EnginePurchaseOrders.PropertyChanged += OnViewPropertyChanged;
+            EnginePurchaseOrders = new QueryableDataServiceCollectionView<EnginePurchaseOrderDTO>(_paymentData, _paymentData.EnginePurchaseOrders);
 
-            BFEPurchaseOrders = Service.CreateCollection<BFEPurchaseOrderDTO>(_paymentData.BFEPurchaseOrders);
-            Service.RegisterCollectionView(BFEPurchaseOrders); //注册查询集合。
-            BFEPurchaseOrders.PropertyChanged += OnViewPropertyChanged;
+            BFEPurchaseOrders = new QueryableDataServiceCollectionView<BFEPurchaseOrderDTO>(_paymentData, _paymentData.BFEPurchaseOrders);
 
-            PaymentSchedules = Service.CreateCollection<PaymentScheduleDTO>(_paymentData.PaymentSchedules);
-            Service.RegisterCollectionView(PaymentSchedules); //注册查询集合。
-            PaymentSchedules.PropertyChanged += OnViewPropertyChanged;
+            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_paymentData, _paymentData.PaymentSchedules);
 
             AcPaymentSchedules = Service.CreateCollection<AcPaymentScheduleDTO>(_paymentData.AcPaymentSchedules);
             Service.RegisterCollectionView(AcPaymentSchedules); //注册查询集合。
@@ -99,13 +85,13 @@ namespace UniCloud.Presentation.Payment.Invoice
             Service.RegisterCollectionView(EnginePaymentSchedules); //注册查询集合。
             EnginePaymentSchedules.PropertyChanged += OnViewPropertyChanged;
 
-            ContractAircrafts = Service.CreateCollection<ContractAircraftDTO>(_paymentData.ContractAircrafts);
-            Service.RegisterCollectionView(ContractAircrafts); //注册查询集合。
-            ContractAircrafts.PropertyChanged += OnViewPropertyChanged;
+            StandardPaymentSchedules = Service.CreateCollection<StandardPaymentScheduleDTO>(_paymentData.StandardPaymentSchedules);
+            Service.RegisterCollectionView(StandardPaymentSchedules); //注册查询集合。
+            StandardPaymentSchedules.PropertyChanged += OnViewPropertyChanged;
 
-            ContractEngines = Service.CreateCollection<ContractEngineDTO>(_paymentData.ContractEngines);
-            Service.RegisterCollectionView(ContractEngines); //注册查询集合。
-            ContractEngines.PropertyChanged += OnViewPropertyChanged;
+            ContractAircrafts = new QueryableDataServiceCollectionView<ContractAircraftDTO>(_paymentData, _paymentData.ContractAircrafts);
+
+            ContractEngines = new QueryableDataServiceCollectionView<ContractEngineDTO>(_paymentData, _paymentData.ContractEngines);
         }
 
         /// <summary>
@@ -173,18 +159,19 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         public override void LoadData()
         {
-            Currencies.AutoLoad = true;
-            Suppliers.AutoLoad = true;
-            PurchaseInvoices.AutoLoad = true;
-            Orders.AutoLoad = true;
-            AircraftPurchaseOrders.AutoLoad = true;
-            EnginePurchaseOrders.AutoLoad = true;
-            BFEPurchaseOrders.AutoLoad = true;
-            PaymentSchedules.AutoLoad = true;
-            AcPaymentSchedules.AutoLoad = true;
-            EnginePaymentSchedules.AutoLoad = true;
-            ContractAircrafts.AutoLoad = true;
-            ContractEngines.AutoLoad = true;
+            Currencies.Load(true);
+            Suppliers.Load(true);
+            PurchaseInvoices.Load(true);
+            Orders.Load(true);
+            AircraftPurchaseOrders.Load(true);
+            EnginePurchaseOrders.Load(true);
+            BFEPurchaseOrders.Load(true);
+            PaymentSchedules.Load(true);
+            AcPaymentSchedules.Load(true);
+            EnginePaymentSchedules.Load(true);
+            StandardPaymentSchedules.Load(true);
+            ContractAircrafts.Load(true);
+            ContractEngines.Load(true);
         }
 
         #region 业务
@@ -354,19 +341,9 @@ namespace UniCloud.Presentation.Payment.Invoice
         public QueryableDataServiceCollectionView<AircraftPurchaseOrderDTO> AircraftPurchaseOrders { get; set; }
 
         /// <summary>
-        ///     飞机租赁订单集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<AircraftLeaseOrderDTO> AircraftLeaseOrders { get; set; }
-
-        /// <summary>
         ///     发动机采购订单集合
         /// </summary>
         public QueryableDataServiceCollectionView<EnginePurchaseOrderDTO> EnginePurchaseOrders { get; set; }
-
-        /// <summary>
-        ///     发动机租赁订单集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<EngineLeaseOrderDTO> EngineLeaseOrders { get; set; }
 
         /// <summary>
         ///     BFE订单集合
@@ -599,9 +576,9 @@ namespace UniCloud.Presentation.Payment.Invoice
         public QueryableDataServiceCollectionView<EnginePaymentScheduleDTO> EnginePaymentSchedules { get; set; }
 
         /// <summary>
-        ///     付款计划集合
+        ///     标准付款计划集合
         /// </summary>
-        //public QueryableDataServiceCollectionView<PaymentScheduleDTO> AcPaymentSchedules { get; set; }
+        public QueryableDataServiceCollectionView<StandardPaymentScheduleDTO> StandardPaymentSchedules { get; set; }
         #endregion
 
         #region 选择的付款计划
@@ -855,12 +832,9 @@ namespace UniCloud.Presentation.Payment.Invoice
             {
                 if (SelAircraftPurchaseOrder != null && SelAircraftPurchaseOrderLine != null)
                 {
-                    //var supplier=Suppliers.FirstOrDefault(p=>p.SupplierId==SelAircraftPurchaseOrder)
                     invoice.OrderId = SelAircraftPurchaseOrder.Id;
-                    invoice.SupplierName = "波音";
-                    invoice.SupplierId = 1;
-                    //invoice.SupplierName = supplier.Name;
-                    //invoice.SupplierId = supplier.Id;
+                    invoice.SupplierName = SelAircraftPurchaseOrder.SupplierName;
+                    invoice.SupplierId = SelAircraftPurchaseOrder.SupplierId;
                     var paymentSchedule =
                         AcPaymentSchedules.FirstOrDefault(
                             p => p.ContractAcId == SelAircraftPurchaseOrderLine.ContractAircraftId);
@@ -890,7 +864,8 @@ namespace UniCloud.Presentation.Payment.Invoice
                 if (SelEnginePurchaseOrder != null && SelEnginePurchaseOrderLine != null)
                 {
                     invoice.OrderId = SelEnginePurchaseOrder.Id;
-                    invoice.SupplierName = SelEnginePurchaseOrder.Name;
+                    invoice.SupplierName = SelAircraftPurchaseOrder.SupplierName;
+                    invoice.SupplierId = SelAircraftPurchaseOrder.SupplierId;
                     var paymentSchedule =
                         EnginePaymentSchedules.FirstOrDefault(
                             p => p.ContractEngineId == SelEnginePurchaseOrderLine.ContractEngineId);
