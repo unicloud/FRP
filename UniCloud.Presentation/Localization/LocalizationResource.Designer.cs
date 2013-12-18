@@ -169,6 +169,69 @@ namespace UniCloud.Presentation.Localization {
         }
         
         /// <summary>
+        ///   查找类似 添加 的本地化字符串。
+        /// </summary>
+        public static string DataForm_AddNew {
+            get {
+                return ResourceManager.GetString("DataForm_AddNew", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 修改 的本地化字符串。
+        /// </summary>
+        public static string DataForm_BeginEdit {
+            get {
+                return ResourceManager.GetString("DataForm_BeginEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 删除 的本地化字符串。
+        /// </summary>
+        public static string DataForm_Delete {
+            get {
+                return ResourceManager.GetString("DataForm_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 第一个 的本地化字符串。
+        /// </summary>
+        public static string DataForm_MoveCurrentToFirst {
+            get {
+                return ResourceManager.GetString("DataForm_MoveCurrentToFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 最后一个 的本地化字符串。
+        /// </summary>
+        public static string DataForm_MoveCurrentToLast {
+            get {
+                return ResourceManager.GetString("DataForm_MoveCurrentToLast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 下一个 的本地化字符串。
+        /// </summary>
+        public static string DataForm_MoveCurrentToNext {
+            get {
+                return ResourceManager.GetString("DataForm_MoveCurrentToNext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 上一个 的本地化字符串。
+        /// </summary>
+        public static string DataForm_MoveCurrentToPrevious {
+            get {
+                return ResourceManager.GetString("DataForm_MoveCurrentToPrevious", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 按天 的本地化字符串。
         /// </summary>
         public static string Day {
