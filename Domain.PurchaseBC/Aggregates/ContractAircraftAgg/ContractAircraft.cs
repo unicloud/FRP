@@ -244,11 +244,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg
         /// <param name="contractNumber">合同编号</param>
         public void SetContractNumber(string contractNumber)
         {
-            if (string.IsNullOrWhiteSpace(contractNumber))
-            {
-                throw new ArgumentException("合同编号参数为空！");
-            }
-
             ContractNumber = contractNumber;
         }
 
@@ -267,16 +262,20 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg
         }
 
         /// <summary>
+        ///     设置RANK号
+        /// </summary>
+        /// <param name="rankNumber">RANK号</param>
+        public void SetRankNumber(string rankNumber)
+        {
+            RankNumber = rankNumber;
+        }
+
+        /// <summary>
         ///     设置批次号
         /// </summary>
         /// <param name="cscNumber">批次号</param>
         public void SetCSCNumber(string cscNumber)
         {
-            if (string.IsNullOrWhiteSpace(cscNumber))
-            {
-                throw new ArgumentException("批次号参数为空！");
-            }
-
             CSCNumber = cscNumber;
         }
 
@@ -286,11 +285,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg
         /// <param name="serialNumber">序列号</param>
         public void SetSerialNumber(string serialNumber)
         {
-            if (string.IsNullOrWhiteSpace(serialNumber))
-            {
-                throw new ArgumentException("序列号参数为空！");
-            }
-
             SerialNumber = serialNumber;
         }
 

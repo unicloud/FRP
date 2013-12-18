@@ -20,8 +20,6 @@
 using System;
 using System.Linq;
 using UniCloud.Application.ApplicationExtension;
-using UniCloud.Application.PurchaseBC.ActionCategoryServices;
-using UniCloud.Application.PurchaseBC.AircraftTypeServices;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.TradeQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
@@ -39,18 +37,20 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
 {
     public class TradeAppService : ITradeAppService
     {
+        private readonly IActionCategoryRepository _actionCategoryRepository;
+        private readonly IContractAircraftRepository _contractAircraftRepository;
+        private readonly IMaterialRepository _materialRepository;
         private readonly IOrderQuery _orderQuery;
         private readonly IOrderRepository _orderRepository;
         private readonly IRelatedDocRepository _relatedDocRepository;
         private readonly ISupplierRepository _supplierRepository;
         private readonly ITradeQuery _tradeQuery;
         private readonly ITradeRepository _tradeRepository;
-        private readonly IMaterialRepository _materialRepository;
-        private readonly IActionCategoryRepository _actionCategoryRepository;
 
         public TradeAppService(ITradeQuery queryTrade, ITradeRepository tradeRepository,
             IOrderQuery orderQuery, IOrderRepository orderRepository, ISupplierRepository supplierRepository,
-            IRelatedDocRepository relatedDocRepository, IMaterialRepository materialRepository, IActionCategoryRepository actionCategoryRepository)
+            IRelatedDocRepository relatedDocRepository, IMaterialRepository materialRepository,
+            IActionCategoryRepository actionCategoryRepository, IContractAircraftRepository contractAircraftRepository)
         {
             _tradeQuery = queryTrade;
             _tradeRepository = tradeRepository;
@@ -60,6 +60,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             _relatedDocRepository = relatedDocRepository;
             _materialRepository = materialRepository;
             _actionCategoryRepository = actionCategoryRepository;
+            _contractAircraftRepository = contractAircraftRepository;
         }
 
         #region ITradeAppService 成员
@@ -212,6 +213,72 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
 
         #region AircraftPurchaseOrderDTO
 
+        /// <summary>
+        ///     插入新订单行
+        /// </summary>
+        /// <param name="order">订单</param>
+        /// <param name="dto">订单DTO</param>
+        /// <param name="line">订单行DTO</param>
+        /// <param name="importType">引进方式</param>
+        private void InsertOrderLine(ref AircraftPurchaseOrder order, AircraftPurchaseOrderDTO dto,
+            AircraftPurchaseOrderLineDTO line, ActionCategory importType)
+        {
+            // 获取飞机物料机型
+            var material =
+                _materialRepository.GetFiltered(m => m.Id == line.AircraftMaterialId)
+                    .OfType<AircraftMaterial>()
+                    .FirstOrDefault();
+            if (material == null)
+            {
+                throw new ArgumentException("未能获取飞机物料！");
+            }
+            var aircraftTypeId = material.AircraftTypeId;
+
+            // 添加订单行
+            var orderLine = order.AddNewAircraftPurchaseOrderLine(line.UnitPrice, line.Amount, line.Discount,
+                line.EstimateDeliveryDate);
+            orderLine.SetCost(line.AirframePrice, line.RefitCost, line.EnginePrice);
+            orderLine.SetAircraftMaterial(line.AircraftMaterialId);
+
+            // 创建合同飞机
+            var contractAircraft = ContractAircraftFactory.CreatePurchaseContractAircraft(dto.Name, line.RankNumber);
+            contractAircraft.GenerateNewIdentity();
+            contractAircraft.SetAircraftType(aircraftTypeId);
+            contractAircraft.SetImportCategory(importType);
+            orderLine.SetContractAircraft(contractAircraft);
+        }
+
+        /// <summary>
+        ///     更新订单行
+        /// </summary>
+        /// <param name="orderLine">订单行</param>
+        /// <param name="line">订单行DTO</param>
+        private void UpdateOrderLine(AircraftPurchaseOrderLine orderLine, AircraftPurchaseOrderLineDTO line)
+        {
+            // 获取飞机物料机型
+            var material =
+                _materialRepository.GetFiltered(m => m.Id == line.AircraftMaterialId)
+                    .OfType<AircraftMaterial>()
+                    .FirstOrDefault();
+            if (material == null)
+            {
+                throw new ArgumentException("未能获取飞机物料！");
+            }
+            var aircraftTypeId = material.AircraftTypeId;
+
+            // 更新订单行
+            orderLine.UpdateOrderLine(line.UnitPrice, line.Amount, line.Discount, line.EstimateDeliveryDate);
+            orderLine.SetCost(line.AirframePrice, line.RefitCost, line.EnginePrice);
+            orderLine.SetAircraftMaterial(line.AircraftMaterialId);
+
+            // 更新合同飞机
+            var contractAircraft = _contractAircraftRepository.Get(orderLine.ContractAircraftId);
+            contractAircraft.SetAircraftType(aircraftTypeId);
+            contractAircraft.SetCSCNumber(line.CSCNumber);
+            contractAircraft.SetSerialNumber(line.SerialNumber);
+        }
+
+
         [Insert(typeof (AircraftPurchaseOrderDTO))]
         public void InsertAircraftPurchaseOrder(AircraftPurchaseOrderDTO dto)
         {
@@ -240,40 +307,12 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             }
 
             // 获取引进方式
-            var imortType =
+            var importType =
                 _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "购买")
                     .FirstOrDefault();
-                
+
             // 处理订单行
-            if (dto.AircraftPurchaseOrderLines != null)
-            {
-                dto.AircraftPurchaseOrderLines.ToList().ForEach(line =>
-                {
-                    // 获取飞机物料机型
-                    var material =
-                        _materialRepository.GetFiltered(m => m.Id == line.AircraftMaterialId)
-                            .OfType<AircraftMaterial>()
-                            .FirstOrDefault();
-                    if (material==null)
-                    {
-                        throw new ArgumentException("未能获取飞机物料！");
-                    }
-                    var aircraftTypeId = material.AircraftTypeId;
-
-                    // 添加订单行
-                    var orderLine = order.AddNewAircraftPurchaseOrderLine(line.UnitPrice, line.Amount, line.Discount,
-                        line.EstimateDeliveryDate);
-                    orderLine.SetCost(line.AirframePrice, line.RefitCost, line.EnginePrice);
-                    orderLine.SetAircraftMaterial(line.AircraftMaterialId);
-
-                    // 创建合同飞机
-                    var contractAircraft = ContractAircraftFactory.CreatePurchaseContractAircraft(dto.Name, line.RankNumber);
-                    contractAircraft.GenerateNewIdentity();
-                    contractAircraft.SetAircraftType(aircraftTypeId);
-                    contractAircraft.SetImportCategory(imortType);
-                    orderLine.SetContractAircraft(contractAircraft);
-                });
-            }
+            dto.AircraftPurchaseOrderLines.ToList().ForEach(line => InsertOrderLine(ref order, dto, line, importType));
 
             // 处理关联文档
             if (dto.RelatedDocs != null)
@@ -315,38 +354,13 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 // 处理订单行
                 if (dto.AircraftPurchaseOrderLines != null)
                 {
-                    dto.AircraftPurchaseOrderLines.ToList().ForEach(line =>
-                    {
-                        //if (order.OrderLines.Where(l=>))
-                        //{
-                            
-                        //}
-                        // 获取飞机物料机型
-                        var material =
-                            _materialRepository.GetFiltered(m => m.Id == line.AircraftMaterialId)
-                                .OfType<AircraftMaterial>()
-                                .FirstOrDefault();
-                        if (material == null)
-                        {
-                            throw new ArgumentException("未能获取飞机物料！");
-                        }
-                        var aircraftTypeId = material.AircraftTypeId;
-
-                        // 添加订单行
-                        var orderLine = order.AddNewAircraftPurchaseOrderLine(line.UnitPrice, line.Amount, line.Discount,
-                            line.EstimateDeliveryDate);
-                        orderLine.SetCost(line.AirframePrice, line.RefitCost, line.EnginePrice);
-                        orderLine.SetAircraftMaterial(line.AircraftMaterialId);
-
-                        // 创建合同飞机
-                        var contractAircraft = ContractAircraftFactory.CreatePurchaseContractAircraft(dto.Name, line.RankNumber);
-                        contractAircraft.GenerateNewIdentity();
-                        contractAircraft.SetAircraftType(aircraftTypeId);
-                        orderLine.SetContractAircraft(contractAircraft);
-                    });
+                    dto.AircraftPurchaseOrderLines.ToList().ForEach(line => order.OrderLines.OfType<AircraftPurchaseOrderLine>()
+                        .Where(l => l.Id == line.Id)
+                        .ToList()
+                        .ForEach(l => UpdateOrderLine(l, line)));
                 }
 
-                _orderRepository.Modify(order);
+                //_orderRepository.Modify(order);
             }
         }
 

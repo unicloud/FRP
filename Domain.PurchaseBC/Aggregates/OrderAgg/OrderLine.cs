@@ -115,6 +115,22 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
             IsCompleted = true;
         }
 
+        /// <summary>
+        ///     更新订单行
+        /// </summary>
+        /// <param name="price">单价</param>
+        /// <param name="amount">数量</param>
+        /// <param name="discount">折扣</param>
+        /// <param name="delivery">预计交付日期</param>
+        /// <returns></returns>
+        public void UpdateOrderLine(decimal price, int amount, decimal discount, DateTime delivery)
+        {
+            UnitPrice = price;
+            Amount = amount;
+            Discount = discount;
+            EstimateDeliveryDate = delivery;
+        }
+
         #endregion
 
         #region IValidatableObject 成员
