@@ -9,7 +9,9 @@
     
     <!--货币格式-->
     <system:String x:Key="CurrencyStringFormat">{0:N}</system:String>
-
+    
+    <!--数字格式-->
+    <system:String x:Key="NumberStringFormat">###,###</system:String>
     <!-- 字体、字号 -->
     <FontFamily x:Key="NormalFontFamily">Microsoft YaHei UI</FontFamily>
     <system:Double x:Key="TitleFontSize">16</system:Double>

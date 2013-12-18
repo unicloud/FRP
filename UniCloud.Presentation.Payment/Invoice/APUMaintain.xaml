@@ -325,12 +325,14 @@
                                                                        DataMemberBinding="{Binding UnitPrice,StringFormat={StaticResource CurrencyStringFormat}}"
                                                                        MaskType="Currency"
                                                                        Mask="###,###,###.##" />
-                                    <telerik:GridViewDataColumn Header="数量"
-                                                                IsSortable="True"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                TextAlignment="Right"
-                                                                HeaderTextAlignment="Center"
-                                                                DataMemberBinding="{Binding Amount}" />
+                                    <telerik:GridViewMaskedInputColumn Header="数量"
+                                                                       IsSortable="True"
+                                                                       MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                       TextAlignment="Right"
+                                                                       HeaderTextAlignment="Center"
+                                                                       DataMemberBinding="{Binding Amount,StringFormat={StaticResource NumberStringFormat}}"
+                                                                       MaskType="Numeric"
+                                                                       Mask="###" />
                                     <telerik:GridViewDataColumn Header="备注"
                                                                 IsSortable="True"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
