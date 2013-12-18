@@ -60,6 +60,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Domain.PaymentBC\Enums\MaintainItem.cs">
+      <Link>MaintainInvoiceDTO\MaintainItem.cs</Link>
+    </Compile>
     <Compile Include="InvoiceDTO\CreditNoteDTO.cs" />
     <Compile Include="InvoiceDTO\CreditNoteLineDTO.cs" />
     <Compile Include="ContractAircraftDTO\ContractAircraftDTO.cs" />
