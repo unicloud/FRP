@@ -115,11 +115,9 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             get { return _selectedAcPaymentSchedule; }
             set
             {
-                if (_selectedAcPaymentSchedule != value)
-                {
-                    _selectedAcPaymentSchedule = value;
-                    RaisePropertyChanged(() => SelectedAcPaymentSchedule);
-                }
+
+                _selectedAcPaymentSchedule = value;
+                RaisePropertyChanged(() => SelectedAcPaymentSchedule);
             }
         }
 
@@ -143,12 +141,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                     e.MarkErrorAsHandled();
                     return;
                 }
-                if (SelectedAcPaymentSchedule == null)
-                {
-                    SelectedAcPaymentSchedule = e.Entities.Cast<AcPaymentScheduleDTO>().FirstOrDefault();
-                   
-
-                }
+                SelectedAcPaymentSchedule = e.Entities.Cast<AcPaymentScheduleDTO>().FirstOrDefault();
                 RefreshCommandState();//刷新按钮状态
             };
         }
@@ -205,6 +198,11 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             if (SelectedContractAircraft == null)
             {
                 MessageAlert("提示", "合同飞机不能为空");
+                return;
+            }
+            if (AcPaymentSchedulesView.Count >= 1)
+            {
+                MessageAlert("提示", "已存在付款计划");
                 return;
             }
             //新增飞机付款计划
