@@ -30,67 +30,67 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///     序列号
         /// </summary>
-        public string SerialNumber { get;  set; }
+        public string SerialNumber { get; set; }
 
         /// <summary>
         ///     发票编号
         /// </summary>
-        public string InvoiceNumber { get;  set; }
+        public string InvoiceNumber { get; set; }
 
         /// <summary>
         ///     发票号码
         /// </summary>
-        public string InvoideCode { get;  set; }
+        public string InvoideCode { get; set; }
 
         /// <summary>
         ///     发票日期
         /// </summary>
-        public DateTime InvoiceDate { get;  set; }
+        public DateTime InvoiceDate { get; set; }
 
         /// <summary>
         ///     供应商名称
         /// </summary>
-        public string SupplierName { get;  set; }
+        public string SupplierName { get; set; }
 
         /// <summary>
         ///     发票金额
         /// </summary>
-        public decimal InvoiceValue { get;  set; }
+        public decimal InvoiceValue { get; set; }
 
         /// <summary>
         ///     已付金额
         /// </summary>
-        public decimal PaidAmount { get;  set; }
+        public decimal PaidAmount { get; set; }
 
         /// <summary>
         ///     经办人
         /// </summary>
-        public string OperatorName { get;  set; }
+        public string OperatorName { get; set; }
 
         /// <summary>
         ///     审核人
         /// </summary>
-        public string Reviewer { get;  set; }
+        public string Reviewer { get; set; }
 
         /// <summary>
         ///     创建日期
         /// </summary>
-        public DateTime CreateDate { get;  set; }
+        public DateTime CreateDate { get; set; }
 
         /// <summary>
         ///     审核日期
         /// </summary>
-        public DateTime? ReviewDate { get;  set; }
+        public DateTime? ReviewDate { get; set; }
 
         /// <summary>
         ///     是否有效
         /// </summary>
-        public bool IsValid { get;  set; }
+        public bool IsValid { get; set; }
 
         /// <summary>
         ///     是否完成
         /// </summary>
-        public bool IsCompleted { get;  set; }
+        public bool IsCompleted { get; set; }
 
         /// <summary>
         ///     发票状态
@@ -101,11 +101,16 @@ namespace UniCloud.Application.PaymentBC.DTO
         ///  文档名称
         /// </summary>
         public string DocumentName { get; set; }
-        
+
         /// <summary>
         ///  维修发票行集合
         /// </summary>
-        public virtual List<MaintainInvoiceLineDTO> MaintainInvoiceLines { get; set; }
+        private List<MaintainInvoiceLineDTO> _maintainInvoiceLines;
+        public virtual List<MaintainInvoiceLineDTO> MaintainInvoiceLines
+        {
+            get { return _maintainInvoiceLines ?? new List<MaintainInvoiceLineDTO>(); }
+            set { _maintainInvoiceLines = value; }
+        }
         #endregion
 
         #region 外键属性
@@ -117,12 +122,12 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///     供应商ID
         /// </summary>
-        public int SupplierId { get;  set; }
+        public int SupplierId { get; set; }
 
         /// <summary>
         ///     币种ID
         /// </summary>
-        public int CurrencyId { get;  set; }
+        public int CurrencyId { get; set; }
 
         #endregion
     }

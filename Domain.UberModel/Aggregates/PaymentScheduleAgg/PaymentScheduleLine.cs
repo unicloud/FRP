@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.UberModel.Aggregates.InvoiceAgg;
 using UniCloud.Domain.UberModel.Enums;
 
 #endregion
@@ -84,6 +85,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.PaymentScheduleAgg
 
         #region 导航属性
 
+        /// <summary>
+        ///     发票
+        /// </summary>
+        public virtual Invoice Invoice { get; private set; }
+
         #endregion
 
         #region 操作
@@ -102,12 +108,31 @@ namespace UniCloud.Domain.UberModel.Aggregates.PaymentScheduleAgg
                 case ControlStatus.暂缓支付:
                     Status = ControlStatus.暂缓支付;
                     break;
+                case ControlStatus.已匹配发票:
+                    Status = ControlStatus.已匹配发票;
+                    break;
                 case ControlStatus.已完成:
                     Status = ControlStatus.已完成;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("status");
             }
+        }
+
+        /// <summary>
+        ///     设置发票
+        /// </summary>
+        /// <param name="invoice">发票</param>
+        public void SetInvoice(Invoice invoice)
+        {
+            if (invoice == null || invoice.IsTransient())
+            {
+                throw new ArgumentException("发票参数为空！");
+            }
+
+            Invoice = invoice;
+            InvoiceId = invoice.Id;
+            Status = ControlStatus.已匹配发票;
         }
 
         /// <summary>
@@ -122,6 +147,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.PaymentScheduleAgg
             }
 
             InvoiceId = id;
+            Status = ControlStatus.已匹配发票;
         }
 
         #endregion

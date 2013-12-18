@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
@@ -114,15 +115,29 @@ namespace UniCloud.Presentation.Payment.Invoice
                 if (_apuMaintainInvoice != value)
                 {
                     _apuMaintainInvoice = value;
-                    if (_apuMaintainInvoice != null)
-                    {
-                        if (value.Suppliers != null)
-                        {
-                            _supplier = value.Suppliers.FirstOrDefault(p => p.SupplierId == _apuMaintainInvoice.SupplierId);
-                        }
-                    }
                     RaisePropertyChanged(() => ApuMaintainInvoice);
                 }
+            }
+        }
+
+        void MaintainInvoiceLines_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+           
+            if (e.NewItems != null)
+                foreach (MaintainInvoiceLineDTO item in e.NewItems)
+                    item.PropertyChanged += MyType_PropertyChanged;
+
+            if (e.OldItems != null)
+                foreach (MaintainInvoiceLineDTO item in e.OldItems)
+                    item.PropertyChanged -= MyType_PropertyChanged;
+        }
+
+        void MyType_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "MyProperty")
+            {
+                SaveCommand.RaiseCanExecuteChanged();
+                AbortCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -211,7 +226,11 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条记录！");
                 return;
             }
-            ApuMaintainInvoices.Remove(_apuMaintainInvoice);
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                ApuMaintainInvoices.Remove(_apuMaintainInvoice);
+                                            });
         }
 
         protected override bool CanRemoveInvoice(object obj)
@@ -223,9 +242,14 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 增加维修发票行
         protected override void OnAddInvoiceLine(object obj)
         {
+            if (ApuMaintainInvoice == null)
+            {
+                MessageAlert("请选择一条维修发票记录！");
+                return;
+            }
             var maintainInvoiceLine = new MaintainInvoiceLineDTO
             {
-                Amount = 1,
+                MaintainInvoiceLineId = RandomHelper.Next(),
             };
 
             ApuMaintainInvoice.MaintainInvoiceLines.Add(maintainInvoiceLine);
@@ -242,10 +266,14 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             if (ApuMaintainInvoiceLine == null)
             {
-                MessageAlert("请选择一条记录！");
+                MessageAlert("请选择一条维修发票明细！");
                 return;
             }
-            ApuMaintainInvoice.MaintainInvoiceLines.Remove(ApuMaintainInvoiceLine);
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+                                            {
+                                                if (arg.DialogResult != true) return;
+                                                ApuMaintainInvoice.MaintainInvoiceLines.Remove(ApuMaintainInvoiceLine);
+                                            });
         }
 
         protected override bool CanRemoveInvoiceLine(object obj)
@@ -259,7 +287,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             if (ApuMaintainInvoice == null)
             {
-                MessageAlert("请选择一条记录！");
+                MessageAlert("请选择一条维修发票记录！");
                 return;
             }
             ApuMaintainInvoice.Status = (int)InvoiceStatus.待审核;
@@ -276,7 +304,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             if (ApuMaintainInvoice == null)
             {
-                MessageAlert("请选择一条记录！");
+                MessageAlert("请选择一条维修发票记录！");
                 return;
             }
             ApuMaintainInvoice.Status = (int)InvoiceStatus.已审核;

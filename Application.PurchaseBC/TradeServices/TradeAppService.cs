@@ -295,8 +295,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 throw new ArgumentException("参数为空！");
             }
 
-            var order =
-                _orderRepository.GetFiltered(o => o.Id == dto.Id).OfType<AircraftPurchaseOrder>().FirstOrDefault();
+            var order = _orderRepository.Get(dto.Id) as AircraftPurchaseOrder;
             if (order != null)
             {
                 // 更新当前记录
@@ -318,6 +317,10 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 {
                     dto.AircraftPurchaseOrderLines.ToList().ForEach(line =>
                     {
+                        //if (order.OrderLines.Where(l=>))
+                        //{
+                            
+                        //}
                         // 获取飞机物料机型
                         var material =
                             _materialRepository.GetFiltered(m => m.Id == line.AircraftMaterialId)
