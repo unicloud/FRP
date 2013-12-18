@@ -77,6 +77,17 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 公共属性
 
+        private string _supplierName;
+        public string SupplierName
+        {
+            get { return _supplierName; }
+            set
+            {
+                _supplierName = value;
+                _supplierName = "aaaa";
+                RaisePropertyChanged("SupplierName");
+            }
+        }
         #endregion
 
         #region 加载数据
@@ -92,10 +103,10 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             // 将CollectionView的AutoLoad属性设为True
             ApuMaintainInvoices.AutoLoad = true;
+            ApuMaintainInvoices.Load(true);
             Suppliers.Load(true);
             Currencies.Load(true);
         }
-
 
         #region APU维修发票
         /// <summary>
@@ -117,27 +128,6 @@ namespace UniCloud.Presentation.Payment.Invoice
                     _apuMaintainInvoice = value;
                     RaisePropertyChanged(() => ApuMaintainInvoice);
                 }
-            }
-        }
-
-        void MaintainInvoiceLines_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-           
-            if (e.NewItems != null)
-                foreach (MaintainInvoiceLineDTO item in e.NewItems)
-                    item.PropertyChanged += MyType_PropertyChanged;
-
-            if (e.OldItems != null)
-                foreach (MaintainInvoiceLineDTO item in e.OldItems)
-                    item.PropertyChanged -= MyType_PropertyChanged;
-        }
-
-        void MyType_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "MyProperty")
-            {
-                SaveCommand.RaiseCanExecuteChanged();
-                AbortCommand.RaiseCanExecuteChanged();
             }
         }
 

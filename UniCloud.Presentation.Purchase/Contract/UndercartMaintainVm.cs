@@ -121,6 +121,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             // 将CollectionView的AutoLoad属性设为True
             UndercartMaintainContracts.AutoLoad = true;
+            UndercartMaintainContracts.Load(true);
             Suppliers.Load(true);
         }
 

@@ -121,6 +121,8 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             // 将CollectionView的AutoLoad属性设为True
             EngineMaintainContracts.AutoLoad = true;
+            EngineMaintainContracts.Load(true);
+            Suppliers.Load(true);
         }
 
         #region 发动机维修合同
