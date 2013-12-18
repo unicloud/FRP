@@ -1,34 +1,36 @@
 ﻿#region 版本信息
-
-// =====================================================
+/* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
-// 【本类功能概述】
+//【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/11/26，15:48
-// 方案：FRP
-// 项目：Application.PurchaseBC.DTO
+// 作者：HuangQiBin 时间：2013/12/17 22:55:52
+// 文件名：OrderLineDTO
 // 版本：V1.0.0
-// 
+//
 // 修改者： 时间： 
 // 修改说明：
-// =====================================================
-
+// ========================================================================*/
 #endregion
 
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Data.Services.Common;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 
 #endregion
 
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    ///     租赁发动机订单行DTO
+    ///    订单行DTO
     /// </summary>
     [DataServiceKey("Id")]
-    public class EngineLeaseOrderLineDTO
+    public class OrderLineDTO
     {
         /// <summary>
         ///     订单行ID
@@ -72,8 +74,9 @@ namespace UniCloud.Application.PaymentBC.DTO
         public decimal TotalLine { get; set; }
 
         /// <summary>
-        ///     合同发动机ID
+        ///   物料名称
         /// </summary>
-        public int ContractEngineId { get; set; }
+        public string MaterialName { get; set; }
+
     }
 }

@@ -1,18 +1,15 @@
 ﻿#region 版本信息
-
-// =====================================================
+/* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
-// 【本类功能概述】
+//【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/11/26，15:37
-// 方案：FRP
-// 项目：Application.PurchaseBC.DTO
+// 作者：HuangQiBin 时间：2013/12/17 22:55:38
+// 文件名：OrderDTO
 // 版本：V1.0.0
-// 
+//
 // 修改者： 时间： 
 // 修改说明：
-// =====================================================
-
+// ========================================================================*/
 #endregion
 
 #region 命名空间
@@ -20,30 +17,29 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Common;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 
 #endregion
 
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    ///     BFE采购订单DTO
+    ///    订单DTO
     /// </summary>
     [DataServiceKey("Id")]
-    public class BFEPurchaseOrderDTO
+    public class OrderDTO
     {
-        public BFEPurchaseOrderDTO()
+        public OrderDTO()
         {
-            BFEPurchaseOrderLines = new List<BFEPurchaseOrderLineDTO>();
+            OrderLines = new List<OrderLineDTO>();
         }
         /// <summary>
         ///     订单ID
         /// </summary>
         public int Id { get; set; }
-
-        /// <summary>
-        ///     交易ID
-        /// </summary>
-        public int TradeId { get; set; }
 
         /// <summary>
         ///     合同名称
@@ -65,6 +61,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// </summary>
         public string OperatorName { get; set; }
 
+
         /// <summary>
         ///     生效日期
         /// </summary>
@@ -75,14 +72,15 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// </summary>
         public int Status { get; set; }
 
+
         /// <summary>
         ///     备注
         /// </summary>
         public string Note { get; set; }
 
         /// <summary>
-        ///     BFE采购订单行集合
+        ///     订单行集合
         /// </summary>
-        public List<BFEPurchaseOrderLineDTO> BFEPurchaseOrderLines { get; set; }
+        public List<OrderLineDTO> OrderLines { get; set; }
     }
 }

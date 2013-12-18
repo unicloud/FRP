@@ -60,6 +60,8 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      Status = (int) p.Status,
                                      SupplierId = p.SupplierId,
                                      CurrencyId = p.CurrencyId,
+                                     DocumentName = p.DocumentName,
+                                     DocumentId = p.DocumentId,
                                      MaintainInvoiceLines =
                                          p.MaintainInvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                             {
@@ -103,6 +105,8 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      Status = (int) p.Status,
                                      SupplierId = p.SupplierId,
                                      CurrencyId = p.CurrencyId,
+                                     DocumentName = p.DocumentName,
+                                     DocumentId = p.DocumentId,
                                      MaintainInvoiceLines =
                                          p.MaintainInvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                             {
@@ -145,6 +149,8 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      Status = (int) p.Status,
                                      SupplierId = p.SupplierId,
                                      CurrencyId = p.CurrencyId,
+                                     DocumentName = p.DocumentName,
+                                     DocumentId = p.DocumentId,
                                      MaintainInvoiceLines =
                                          p.MaintainInvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                             {
@@ -188,6 +194,8 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
                                      Status = (int) p.Status,
                                      SupplierId = p.SupplierId,
                                      CurrencyId = p.CurrencyId,
+                                     DocumentName = p.DocumentName,
+                                     DocumentId = p.DocumentId,
                                      MaintainInvoiceLines =
                                          p.MaintainInvoiceLines.Select(q => new MaintainInvoiceLineDTO
                                                                             {

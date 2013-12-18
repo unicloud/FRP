@@ -105,9 +105,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
         /// <param name="reviewer">审核人</param>
         /// <param name="status">发票状态</param>
         /// <param name="currencyId">币种ID</param>
+        /// <param name="documentName">文档名称</param>
+        /// <param name="documentId">文档ID</param>
         public static void SetMaintainInvoice(MaintainInvoice maintainInvoice, string serialNumber, string invoideCode, 
             DateTime invoiceDate, string supplierName, int supplierId, decimal invoiceValue, decimal paidAmount, string operatorName,
-            string reviewer, int status, int currencyId)
+            string reviewer, int status, int currencyId,string documentName,Guid documentId)
         {
             maintainInvoice.SetSerialNumber(serialNumber);
             maintainInvoice.InvoideCode = invoideCode;
@@ -118,6 +120,8 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
             maintainInvoice.SetInvoiceStatus((InvoiceStatus)status);
             maintainInvoice.SetSupplier(supplierId, supplierName);
             maintainInvoice.SetCurrency(currencyId);
+            maintainInvoice.DocumentName = documentName;
+            maintainInvoice.DocumentId = documentId;
             if (maintainInvoice is EngineMaintainInvoice)
             {
             }

@@ -60,7 +60,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///     订单行ID
         /// </summary>
-        public int OrderLineId { get; set; }
+        public int? OrderLineId { get; set; }
 
         #endregion
 
