@@ -146,6 +146,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                 if (SelectedAcPaymentSchedule == null)
                 {
                     SelectedAcPaymentSchedule = e.Entities.Cast<AcPaymentScheduleDTO>().FirstOrDefault();
+                   
+
                 }
                 RefreshCommandState();//刷新按钮状态
             };
