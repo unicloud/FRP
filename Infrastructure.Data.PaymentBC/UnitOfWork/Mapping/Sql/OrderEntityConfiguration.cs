@@ -52,11 +52,13 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
             Property(p => p.SourceGuid).HasColumnName("SourceGuid");
             Property(p => p.Note).HasColumnName("Note");
 
+            Property(p => p.TradeId).HasColumnName("TradeId");
             Property(p => p.CurrencyId).HasColumnName("CurrencyId");
             Property(p => p.LinkmanId).HasColumnName("LinkmanId");
 
             HasRequired(o => o.Currency).WithMany().HasForeignKey(o => o.CurrencyId);
             HasOptional(o => o.Linkman).WithMany().HasForeignKey(o => o.LinkmanId);
+            HasRequired(o => o.Trade).WithMany(t => t.Orders).HasForeignKey(o => o.TradeId);
             HasMany(o => o.OrderLines).WithRequired().HasForeignKey(o => o.OrderId);
         }
     }
