@@ -9,17 +9,13 @@
 //
 // 修改者：linxw 时间：2013/12/13 9:45:49
 // 修改说明：
-<<<<<<< HEAD
 // ========================================================================*/
 #endregion
 
 #region 命名空间
 
 using System;
-using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.Linq;
-using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
@@ -78,17 +74,6 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 公共属性
 
-        private string _supplierName;
-        public string SupplierName
-        {
-            get { return _supplierName; }
-            set
-            {
-                _supplierName = value;
-                _supplierName = "aaaa";
-                RaisePropertyChanged("SupplierName");
-            }
-        }
         #endregion
 
         #region 加载数据
@@ -149,20 +134,6 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
         }
 
-        private bool _canSelectApuMaintain = true;
-        //用户能否选择
-        public bool CanSelectApuMaintain
-        {
-            get { return _canSelectApuMaintain; }
-            set
-            {
-                if (_canSelectApuMaintain != value)
-                {
-                    _canSelectApuMaintain = value;
-                    RaisePropertyChanged(() => CanSelectApuMaintain);
-                }
-            }
-        }
         #endregion
 
         #region 签约对象
