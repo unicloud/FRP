@@ -264,7 +264,7 @@
                                          ContextMenuTemplate="{x:Null}">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="5*"></RowDefinition>
+                                    <RowDefinition Height="6*"></RowDefinition>
                                     <RowDefinition Height="6*"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <telerik:RadGridView Grid.Row="0"
