@@ -29,7 +29,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.ContractAircraftAgg
     /// <summary>
     ///     合同飞机聚合根
     /// </summary>
-    public class ContractAircraft : EntityInt
+    public abstract class ContractAircraft : EntityInt
     {
         #region 构造函数
 
