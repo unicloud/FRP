@@ -68,9 +68,6 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
 
             // Act
             var result = service.GetContractEngines().ToList();
-
-            var c = DefaultContainer.Resolve<IQueryableUnitOfWork>();
-            var z = c.CreateSet<ContractEngine>().ToList();
             // Assert
             Assert.IsTrue(result.Any());
         }

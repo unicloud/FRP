@@ -21,8 +21,7 @@ using System.Linq;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.PaymentBC.Aggregates.TradeAgg;
-using UniCloud.Infrastructure.Data;
+using UniCloud.Domain.PaymentBC.Aggregates.TradeAgg;using UniCloud.Infrastructure.Data;
 
 #endregion
 
@@ -335,6 +334,29 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                 });
             return result;
         }
+        /// <summary>
+        /// 查询标准订单
+        /// </summary>
+        /// <param name="query"></param>
+        /// <returns></returns>
+        public IQueryable<StandardOrderDTO> StandardOrderQuery(QueryBuilder<Order> query)
+        {
+            var dbTrade = _unitOfWork.CreateSet<Trade>();
+            var result = query.ApplyTo(_orderRepository.GetAll().OfType<BFEPurchaseOrder>().Where(p => p.IsValid == true))
+               .Select(o => new StandardOrderDTO
+               {
+                   StandardOrderId = o.Id,
+                   Name = o.Name,
+                   ContractNumber = o.ContractNumber,
+                   CurrencyId = o.Currency.Id,
+                   SupplierId = dbTrade.FirstOrDefault(c=>c.SupplierId==o.TradeId).SupplierId,
+                   SupplierName = dbTrade.FirstOrDefault(c => c.SupplierId == o.TradeId).Supplier.Name,
+                   Note = o.Note,
+               
+               });
+            return result;
+        }
+
         #endregion
     }
 }

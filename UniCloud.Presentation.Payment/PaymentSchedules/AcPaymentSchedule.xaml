@@ -16,7 +16,6 @@
         </ResourceDictionary>
 
     </UserControl.Resources>
-   <telerik:RadBusyIndicator IsBusy="{Binding AcPaymentSchedulesView.IsBusy}">
     <Grid>
         <telerik:RadDocking HasDocumentHost="False">
             <telerik:RadSplitContainer>
@@ -93,98 +92,99 @@
                 </telerik:RadSplitContainer>
                 <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600"
                                            Orientation="Vertical">
-                        <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="300, 600">
+                    <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="300, 600">
                         <telerik:RadPane Header="付款计划"
                                          IsPinned="True"
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
                                          ContextMenuTemplate="{x:Null}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
-                                <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="0 0 0 -1">
-                                    <telerik:RadButton Margin="4,2,2,-2" Command="{Binding SaveCommand}"
+                            <telerik:RadBusyIndicator BusyContent="" IsBusy="{Binding AcPaymentSchedulesView.IsBusy}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="0 0 0 -1">
+                                        <telerik:RadButton Margin="4,2,2,-2" Command="{Binding SaveCommand}"
                                                        CommandParameter="{Binding AcPaymentSchedulesView}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Save.png" Stretch="Fill"
+                                            <Image Source="/UniCloud.Presentation;component/Images/Save.png" Stretch="Fill"
                                                ToolTipService.ToolTip="保存" />
-                                    </telerik:RadButton>
-                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AbortCommand}"
+                                        </telerik:RadButton>
+                                        <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AbortCommand}"
                                                        CommandParameter="{Binding AcPaymentSchedulesView}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                            <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="放弃更改" />
-                                    </telerik:RadButton>
-                                    <telerik:RadToolBarSeparator />
+                                        </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
 
-                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddPaymentScheduleCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/New.png" Stretch="Fill"
+                                        <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddPaymentScheduleCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/New.png" Stretch="Fill"
                                                ToolTipService.ToolTip="创建付款计划" />
-                                    </telerik:RadButton>
-                                </telerik:RadToolBar>
-                                <telerik:GroupBox Grid.Row="1"
+                                        </telerik:RadButton>
+                                    </telerik:RadToolBar>
+                                    <telerik:GroupBox Grid.Row="1"
                                                   Margin="8"
                                                   Header="付款计划">
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="15"></ColumnDefinition>
-                                            <ColumnDefinition Width="65"></ColumnDefinition>
-                                            <ColumnDefinition Width="3*"></ColumnDefinition>
-                                            <ColumnDefinition Width="0.1*"></ColumnDefinition>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="35" />
-                                            <RowDefinition Height="35" />
-                                            <RowDefinition Height="35" />
-                                            <RowDefinition Height="35" />
-                                            <RowDefinition Height="35" />
-                                        </Grid.RowDefinitions>
-                                        <TextBlock Grid.Row="0"
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                                <ColumnDefinition Width="65"></ColumnDefinition>
+                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="35" />
+                                                <RowDefinition Height="35" />
+                                                <RowDefinition Height="35" />
+                                                <RowDefinition Height="35" />
+                                                <RowDefinition Height="35" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="0"
                                                    Grid.Column="1"
                                                    Text="币种"
                                                    TextAlignment="Left"
                                                    VerticalAlignment="Center" />
-                                        <telerik:RadComboBox Grid.Column="2"
+                                            <telerik:RadComboBox Grid.Column="2"
                                                              Margin="0,3"
                                                              Grid.Row="0"
                                                              telerik:StyleManager.Theme="Windows8"
                                                              ItemsSource="{Binding CurrencysView}"
                                                              DisplayMemberPath="Name"
-                                                             SelectedValue="{Binding SelectedAcPaymentSchedule.CurrencyId}"
+                                                             SelectedValue="{Binding SelectedAcPaymentSchedule.CurrencyId,Mode=TwoWay}"
                                                              SelectedValuePath="Id">
-                                        </telerik:RadComboBox>
-                                        <TextBlock Grid.Column="1"
+                                            </telerik:RadComboBox>
+                                            <TextBlock Grid.Column="1"
                                                    Grid.Row="1"
                                                    Text="供应商"
                                                    TextAlignment="Left"
                                                    VerticalAlignment="Center" />
-                                        <TextBox Grid.Column="2"
+                                            <TextBox Grid.Column="2"
                                                  Grid.Row="1"
                                                  Margin="0,3"
                                                  Text="{Binding SelectedAcPaymentSchedule.SupplierName, Mode=TwoWay}"
                                                  telerik:StyleManager.Theme="Windows8"
                                                  IsReadOnly="True">
-                                        </TextBox>
-                                        <TextBlock Grid.Row="2"
+                                            </TextBox>
+                                            <TextBlock Grid.Row="2"
                                                    Grid.Column="1"
                                                    Text="创建时间"
                                                    TextAlignment="Left"
                                                    VerticalAlignment="Center" />
-                                        <TextBox Grid.Column="2"
+                                            <TextBox Grid.Column="2"
                                                  Margin="0,3"
                                                  Grid.Row="2"
                                                  Text="{Binding SelectedAcPaymentSchedule.CreateDate ,Mode=TwoWay, StringFormat={StaticResource DateStringFormat}}"
                                                  telerik:StyleManager.Theme="Windows8"
                                                  IsReadOnly="True">
-                                        </TextBox>
-                                        <TextBlock Grid.Row="3"
+                                            </TextBox>
+                                            <TextBlock Grid.Row="3"
                                                    Grid.Column="1"
                                                    Text="状态"
                                                    TextAlignment="Left"
                                                    VerticalAlignment="Center" />
-                                        <TextBox Grid.Column="2"
+                                            <TextBox Grid.Column="2"
                                                  Margin="1,3"
                                                  Grid.Row="3"
                                                  BorderThickness="1"
@@ -192,13 +192,14 @@
                                                  Text="{Binding SelectedAcPaymentSchedule.CompletedString}"
                                                  telerik:StyleManager.Theme="Windows8"
                                                  IsReadOnly="True">
-                                        </TextBox>
-                                    </Grid>
-                                </telerik:GroupBox>
-                            </Grid>
+                                            </TextBox>
+                                        </Grid>
+                                    </telerik:GroupBox>
+                                </Grid>
+                            </telerik:RadBusyIndicator>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
-                       <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="600, 600">
+                    <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="600, 600">
                         <telerik:RadPane Header="计划明细"
                                          IsPinned="True"
                                          CanFloat="False"
@@ -227,6 +228,7 @@
                                 <telerik:RadGridView
                                     Grid.Row="1"
                                     ItemsSource="{Binding SelectedAcPaymentSchedule.PaymentScheduleLines}"
+                                    IsBusy="{Binding AcPaymentSchedulesView.IsBusy}"
                                     SelectedItem="{Binding SelectPaymentScheduleLine, Mode=TwoWay}"
                                     AutoExpandGroups="True"
                                     ShowGroupPanel="False"
@@ -276,5 +278,4 @@
             </telerik:RadSplitContainer>
         </telerik:RadDocking>
     </Grid>
-    </telerik:RadBusyIndicator>
 </UserControl>

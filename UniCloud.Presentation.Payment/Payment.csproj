@@ -207,6 +207,14 @@
       <DependentUpon>EnginePaymentSchedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="PaymentSchedules\EnginePaymentScheduleVM.cs" />
+    <Compile Include="PaymentSchedules\QueryPaymentSchedule.xaml.cs">
+      <DependentUpon>QueryPaymentSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentSchedules\QueryPaymentScheduleVM.cs" />
+    <Compile Include="PaymentSchedules\StandardPaymentSchedule.xaml.cs">
+      <DependentUpon>StandardPaymentSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentSchedules\StandardPaymentScheduleVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryAnalyse\AnalyseMaintenanceCosts.xaml.cs">
       <DependentUpon>AnalyseMaintenanceCosts.xaml</DependentUpon>
@@ -291,6 +299,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PaymentSchedules\EnginePaymentSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PaymentSchedules\QueryPaymentSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PaymentSchedules\StandardPaymentSchedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

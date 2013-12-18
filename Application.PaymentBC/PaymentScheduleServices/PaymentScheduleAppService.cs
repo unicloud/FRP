@@ -245,7 +245,7 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
                 throw new Exception("付款计划不能为空");
             }
 
-            var newStandardPaymentSchedule = PaymentScheduleFactory.CreateAcPaymentSchedule(standardPaymentSchedule.SupplierName,
+            var newStandardPaymentSchedule = PaymentScheduleFactory.CreateStandardPaymentSchedule(standardPaymentSchedule.SupplierName,
                                                                                       standardPaymentSchedule.SupplierId,
                                                                                       standardPaymentSchedule.CurrencyId,
                                                                                       standardPaymentSchedule.OrderId);

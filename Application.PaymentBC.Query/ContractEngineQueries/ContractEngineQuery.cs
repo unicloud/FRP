@@ -48,6 +48,7 @@ namespace UniCloud.Application.PaymentBC.Query.ContractEngineQueries
                 query.ApplyTo(_unitOfWork.CreateSet<ContractEngine>())
                      .Select(p => new ContractEngineDTO
                      {
+                         ContractEngineId = p.Id,
                          ContractName = p.ContractName,
                          ContractNumber = p.ContractNumber,
                          RankNumber = p.RankNumber,

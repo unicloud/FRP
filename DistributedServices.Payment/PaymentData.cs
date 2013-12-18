@@ -255,6 +255,15 @@ namespace UniCloud.DistributedServices.Payment
         {
             get { return _orderAppService.GetBFEPurchaseOrders(); }
         }
+
+        /// <summary>
+        ///     标准订单集合
+        /// </summary>
+        public IQueryable<StandardOrderDTO> StandardOrders
+        {
+            get { return _orderAppService.GetStandardOrders(); }
+        }
+
         #endregion    
     }
 }

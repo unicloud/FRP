@@ -339,6 +339,7 @@ namespace UniCloud.Presentation.Shell
             var menu413 = new MenuItem
             {
                 Text = "管理一般付款计划",
+                NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.StandardPaymentSchedule"
             };
             menu41.Items.Add(menu411);
             menu41.Items.Add(menu412);
@@ -448,6 +449,7 @@ namespace UniCloud.Presentation.Shell
             var menu451 = new MenuItem
             {
                 Text = "查询付款计划",
+                NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.QueryPaymentSchedule"
             };
             var menu452 = new MenuItem
             {

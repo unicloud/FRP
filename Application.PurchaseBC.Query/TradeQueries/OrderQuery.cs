@@ -19,9 +19,9 @@
 
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
+using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
@@ -102,6 +102,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
         public IQueryable<AircraftPurchaseOrderDTO> AircraftPurchaseOrderQuery(QueryBuilder<Order> query)
         {
             var relatedDocs = _unitOfWork.CreateSet<RelatedDoc>();
+            var contractAircraft = _unitOfWork.CreateSet<ContractAircraft>();
             var result = query.ApplyTo(_unitOfWork.CreateSet<Order>().OfType<AircraftPurchaseOrder>())
                 .Select(o => new AircraftPurchaseOrderDTO
                 {
@@ -131,7 +132,12 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                             EstimateDeliveryDate = l.EstimateDeliveryDate,
                             Note = l.Note,
                             ContractAircraftId = l.ContractAircraftId,
-                            AircraftMaterialId = l.AircraftMaterialId
+                            AircraftMaterialId = l.AircraftMaterialId,
+                            RankNumber = contractAircraft.FirstOrDefault(c => c.Id == l.ContractAircraftId).RankNumber,
+                            CSCNumber = contractAircraft.FirstOrDefault(c => c.Id == l.ContractAircraftId).CSCNumber,
+                            SerialNumber =
+                                contractAircraft.FirstOrDefault(c => c.Id == l.ContractAircraftId).SerialNumber,
+                            Status = (int) contractAircraft.FirstOrDefault(c => c.Id == l.ContractAircraftId).Status
                         }).ToList(),
                     RelatedDocs = relatedDocs.Where(r => r.SourceId == o.SourceGuid).Select(r => new RelatedDocDTO
                     {
@@ -293,6 +299,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                 });
             return result;
         }
+
         #endregion
     }
 }
