@@ -138,7 +138,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         /// <param name="status">发票状态</param>
         /// <returns>发票</returns>
         public static void SetInvoice(Invoice invoice,string invoideCode,DateTime invoiceDate,string operatorName,string invoiceNumber,Supplier supplier,Order order,
-            decimal paidAmount, Currency currency, int paymentScheduleLineId, int status)
+            decimal paidAmount, Currency currency, int? paymentScheduleLineId, int status)
         {
             invoice.InvoideCode=invoideCode;
             invoice.InvoiceDate = invoiceDate;

@@ -20,8 +20,8 @@
 using System.Linq;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
-using UniCloud.Domain.PaymentBC.Aggregates.TradeAgg;
-using UniCloud.Infrastructure.Data;
+using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.TradeAgg;using UniCloud.Infrastructure.Data;
 
 #endregion
 
@@ -31,7 +31,6 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IQueryableUnitOfWork _unitOfWork;
-
         public OrderQuery(IQueryableUnitOfWork unitOfWork, IOrderRepository orderRepository)
         {
             _unitOfWork = unitOfWork;
@@ -51,6 +50,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
         /// </returns>
         public IQueryable<OrderDTO> OrderDTOQuery(QueryBuilder<Order> query)
         {
+            var trades = _unitOfWork.CreateSet<Trade>();
             var result = query.ApplyTo(_orderRepository.GetAll().Where(p => p.IsValid == true))
                 .Select(o => new OrderDTO
                 {
@@ -62,6 +62,8 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     OrderDate = o.OrderDate,
                     Status = (int)o.Status,
                     Note = o.Note,
+                    SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
                     OrderLines = 
                         (((o.OrderLines.OfType<AircraftLeaseOrderLine>().Select(l => new OrderLineDTO
                         {
@@ -135,6 +137,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
         /// </returns>
         public IQueryable<AircraftLeaseOrderDTO> AircraftLeaseOrderQuery(QueryBuilder<Order> query)
         {
+            var trades = _unitOfWork.CreateSet<Trade>();
             var result = query.ApplyTo(_orderRepository.GetAll().OfType<AircraftLeaseOrder>().Where(p => p.IsValid == true))
                 .Select(o => new AircraftLeaseOrderDTO
                 {
@@ -146,6 +149,8 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     OrderDate = o.OrderDate,
                     Status = (int)o.Status,
                     Note = o.Note,
+                    SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
                     AircraftLeaseOrderLines =
                         o.OrderLines.OfType<AircraftLeaseOrderLine>().Select(l => new AircraftLeaseOrderLineDTO
                         {
@@ -173,6 +178,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
         /// </returns>
         public IQueryable<AircraftPurchaseOrderDTO> AircraftPurchaseOrderQuery(QueryBuilder<Order> query)
         {
+            var trades = _unitOfWork.CreateSet<Trade>();
             var result = query.ApplyTo(_orderRepository.GetAll().OfType<AircraftPurchaseOrder>().Where(p => p.IsValid == true))
                 .Select(o => new AircraftPurchaseOrderDTO
                 {
@@ -184,6 +190,8 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     OrderDate = o.OrderDate,
                     Status = (int)o.Status,
                     Note = o.Note,
+                    SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
                     AircraftPurchaseOrderLines =
                         o.OrderLines.OfType<AircraftPurchaseOrderLine>().Select(l => new AircraftPurchaseOrderLineDTO
                         {
@@ -214,6 +222,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
         /// </returns>
         public IQueryable<EngineLeaseOrderDTO> EngineLeaseOrderQuery(QueryBuilder<Order> query)
         {
+            var trades = _unitOfWork.CreateSet<Trade>();
             var result = query.ApplyTo(_orderRepository.GetAll().OfType<EngineLeaseOrder>().Where(p => p.IsValid == true))
                 .Select(o => new EngineLeaseOrderDTO
                 {
@@ -226,6 +235,8 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     OrderDate = o.OrderDate,
                     Status = (int)o.Status,
                     Note = o.Note,
+                    SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
                     EngineLeaseOrderLines =
                         o.OrderLines.OfType<EngineLeaseOrderLine>().Select(l => new EngineLeaseOrderLineDTO
                         {
@@ -253,6 +264,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
         /// </returns>
         public IQueryable<EnginePurchaseOrderDTO> EnginePurchaseOrderQuery(QueryBuilder<Order> query)
         {
+            var trades = _unitOfWork.CreateSet<Trade>();
             var result = query.ApplyTo(_orderRepository.GetAll().OfType<EnginePurchaseOrder>().Where(p => p.IsValid == true))
                 .Select(o => new EnginePurchaseOrderDTO
                 {
@@ -264,6 +276,8 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     OrderDate = o.OrderDate,
                     Status = (int)o.Status,
                     Note = o.Note,
+                    SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
                     EnginePurchaseOrderLines =
                         o.OrderLines.OfType<EnginePurchaseOrderLine>().Select(l => new EnginePurchaseOrderLineDTO
                         {
@@ -291,6 +305,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
         /// </returns>
         public IQueryable<BFEPurchaseOrderDTO> BFEPurchaseOrderQuery(QueryBuilder<Order> query)
         {
+            var trades = _unitOfWork.CreateSet<Trade>();
             var result = query.ApplyTo(_orderRepository.GetAll().OfType<BFEPurchaseOrder>().Where(p => p.IsValid == true))
                 .Select(o => new BFEPurchaseOrderDTO
                 {
@@ -302,6 +317,8 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     OrderDate = o.OrderDate,
                     Status = (int)o.Status,
                     Note = o.Note,
+                    SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
                     BFEPurchaseOrderLines =
                         o.OrderLines.OfType<BFEPurchaseOrderLine>().Select(l => new BFEPurchaseOrderLineDTO
                         {

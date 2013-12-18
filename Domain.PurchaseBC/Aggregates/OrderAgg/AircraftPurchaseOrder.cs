@@ -66,18 +66,23 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         public AircraftPurchaseOrderLine AddNewAircraftPurchaseOrderLine(decimal price, int amount, decimal discount,
             DateTime delivery)
         {
-            var aircraftPurchaseOrderLine = new AircraftPurchaseOrderLine();
-            aircraftPurchaseOrderLine.GenerateNewIdentity();
-
-            aircraftPurchaseOrderLine.OrderId = Id;
-            aircraftPurchaseOrderLine.UnitPrice = price;
-            aircraftPurchaseOrderLine.Amount = amount;
-            aircraftPurchaseOrderLine.Discount = discount;
-            aircraftPurchaseOrderLine.EstimateDeliveryDate = delivery;
+            var aircraftPurchaseOrderLine = new AircraftPurchaseOrderLine
+            {
+                OrderId = Id,
+                UnitPrice = price,
+                Amount = amount,
+                Discount = discount,
+                EstimateDeliveryDate = delivery
+            };
 
             OrderLines.Add(aircraftPurchaseOrderLine);
+            aircraftPurchaseOrderLine.GenerateNewIdentity();
 
             return aircraftPurchaseOrderLine;
+        }
+
+        public void UpdateAircraftPurchaseOrderLine(ref AircraftPurchaseOrderLine line)
+        {
         }
 
         #endregion

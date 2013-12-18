@@ -131,7 +131,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///     付款计划行ID
         /// </summary>
-        public int PaymentScheduleLineId { get; set; }
+        public int? PaymentScheduleLineId { get; set; }
 
         #endregion
 

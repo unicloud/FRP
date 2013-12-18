@@ -84,6 +84,11 @@ namespace UniCloud.Application.PaymentBC.DTO
         public int SupplierId { get; set; }
 
         /// <summary>
+        ///     供应商名称
+        /// </summary>
+        public string SupplierName { get; set; }
+
+        /// <summary>
         ///     订单行集合
         /// </summary>
         public List<OrderLineDTO> OrderLines { get; set; }

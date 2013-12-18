@@ -339,7 +339,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.InvoiceAgg
         ///     设置付款计划行ID
         /// </summary>
         /// <param name="id">付款计划行ID</param>
-        public void SetPaymentScheduleLine(int id)
+        public void SetPaymentScheduleLine(int? id)
         {
             if (id == 0)
             {
