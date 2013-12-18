@@ -115,11 +115,9 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             get { return _selectedAcPaymentSchedule; }
             set
             {
-                if (_selectedAcPaymentSchedule != value)
-                {
-                    _selectedAcPaymentSchedule = value;
-                    RaisePropertyChanged(() => SelectedAcPaymentSchedule);
-                }
+
+                _selectedAcPaymentSchedule = value;
+                RaisePropertyChanged(() => SelectedAcPaymentSchedule);
             }
         }
 
@@ -143,10 +141,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                     e.MarkErrorAsHandled();
                     return;
                 }
-                if (SelectedAcPaymentSchedule == null)
-                {
-                    SelectedAcPaymentSchedule = e.Entities.Cast<AcPaymentScheduleDTO>().FirstOrDefault();
-                }
+                SelectedAcPaymentSchedule = e.Entities.Cast<AcPaymentScheduleDTO>().FirstOrDefault();
                 RefreshCommandState();//刷新按钮状态
             };
         }
@@ -203,6 +198,11 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             if (SelectedContractAircraft == null)
             {
                 MessageAlert("提示", "合同飞机不能为空");
+                return;
+            }
+            if (AcPaymentSchedulesView.Count >= 1)
+            {
+                MessageAlert("提示", "已存在付款计划");
                 return;
             }
             //新增飞机付款计划
@@ -310,8 +310,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             }
             //付款计划跟发票建立关联，则不能删除
             return SelectedContractAircraft != null && SelectedAcPaymentSchedule != null
-                   && !SelectedAcPaymentSchedule.IsCompleted && SelectPaymentScheduleLine != null
-                   && SelectPaymentScheduleLine.InvoiceId == null;
+                   && !SelectedAcPaymentSchedule.IsCompleted && SelectPaymentScheduleLine != null;
         }
 
         #endregion
@@ -344,7 +343,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// <summary>
         /// 刷新按钮状态
         /// </summary>
-        public override void RefreshCommandState()
+        public  void RefreshCommandState()
         {
             SaveCommand.RaiseCanExecuteChanged();
             AbortCommand.RaiseCanExecuteChanged();

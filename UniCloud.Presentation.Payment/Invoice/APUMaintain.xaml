@@ -68,13 +68,13 @@
                                 </telerik:RadButton>
                                 <telerik:RadToolBarSeparator />
                                 <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding AddInvoiceCommand}">
+                                                   Command="{Binding SubmitInvoiceCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/Up.png"
                                            Stretch="Fill"
                                            ToolTipService.ToolTip="提交发票" />
                                 </telerik:RadButton>
                                 <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding RemoveInvoiceCommand}">
+                                                   Command="{Binding ReviewInvoiceCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/Check.png"
                                            Stretch="Fill"
                                            ToolTipService.ToolTip="审核发票" />
@@ -126,12 +126,15 @@
                                                                     TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding SupplierId}" />
-                                        <telerik:GridViewDataColumn Header="币种"
-                                                                    IsSortable="True"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    TextAlignment="Right"
-                                                                    HeaderTextAlignment="Center"
-                                                                    DataMemberBinding="{Binding CurrencyId}" />
+                                        <telerik:GridViewComboBoxColumn Header="币种"
+                                                                        IsSortable="True"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        TextAlignment="Right"
+                                                                        HeaderTextAlignment="Center"
+                                                                        ItemsSource="{Binding DataContext.Currencies, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl},Mode=TwoWay}"
+                                                                        DataMemberBinding="{Binding CurrencyId}"
+                                                                        SelectedValueMemberPath="Id"
+                                                                        DisplayMemberPath="Name" />
                                         <telerik:GridViewMaskedInputColumn Header="发票金额"
                                                                            IsSortable="True"
                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -170,14 +173,14 @@
                                                                         IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding IsValid}" >
+                                                                        DataMemberBinding="{Binding IsValid}">
                                             <telerik:GridViewCheckBoxColumn.CellStyle>
                                                 <Style TargetType="telerik:GridViewCell">
                                                     <Setter Property="HorizontalContentAlignment"
                                                             Value="Center" />
                                                 </Style>
                                             </telerik:GridViewCheckBoxColumn.CellStyle>
-                                            </telerik:GridViewCheckBoxColumn>
+                                        </telerik:GridViewCheckBoxColumn>
                                         <telerik:GridViewCheckBoxColumn Header="完成"
                                                                         IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"

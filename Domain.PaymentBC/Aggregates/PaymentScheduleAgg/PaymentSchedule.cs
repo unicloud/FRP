@@ -126,7 +126,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
 
             paymentScheduleLine.GenerateNewIdentity();
             paymentScheduleLine.SetControlStatus(ControlStatus.正常支付);
-
+            PaymentScheduleLines.Add(paymentScheduleLine);
             return paymentScheduleLine;
         }
 

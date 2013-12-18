@@ -13,6 +13,7 @@
 #endregion
 using System;
 using Microsoft.Practices.Prism.Commands;
+using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
@@ -22,10 +23,14 @@ namespace UniCloud.Presentation.Payment.Invoice
 {
     public class InvoiceVm : EditViewModelBase
     {
+        #region 声明、初始化
         protected PaymentData PaymentDataService;
 
         public InvoiceVm()
         {
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(PaymentDataService, PaymentDataService.Suppliers);
+            Currencies=new QueryableDataServiceCollectionView<CurrencyDTO>(PaymentDataService,PaymentDataService.Currencies);
+
             AddInvoiceCommand = new DelegateCommand<object>(OnAddInvoice, CanAddInvoice);
             RemoveInvoiceCommand = new DelegateCommand<object>(OnRemoveInvoice, CanRemoveInvoice);
             AddInvoiceLineCommand = new DelegateCommand<object>(OnAddInvoiceLine, CanAddInvoiceLine);
@@ -33,7 +38,21 @@ namespace UniCloud.Presentation.Payment.Invoice
             SubmitInvoiceCommand = new DelegateCommand<object>(OnSubmitInvoice, CanSubmitInvoice);
             ReviewInvoiceCommand = new DelegateCommand<object>(OnReviewInvoice, CanReviewInvoice);
         }
+        #endregion
 
+        #region 公共属性
+        /// <summary>
+        /// 供应商
+        /// </summary>
+        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
+
+        /// <summary>
+        /// 币种
+        /// </summary>
+        public QueryableDataServiceCollectionView<CurrencyDTO> Currencies { get; set; }
+        #endregion
+
+        #region 操作
         #region 创建新发票
         /// <summary>
         ///  创建新发票
@@ -137,5 +156,6 @@ namespace UniCloud.Presentation.Payment.Invoice
         public override void LoadData()
         {
         }
+        #endregion
     }
 }
