@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class database : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -569,7 +569,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         InvoiceId = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.Invoice", t => t.InvoiceId)
                 .ForeignKey("FRP.PaymentSchedule", t => t.PaymentScheduleId)
+                .Index(t => t.InvoiceId)
                 .Index(t => t.PaymentScheduleId);
             
             CreateTable(
@@ -1321,6 +1323,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.ReceptionLine", "ReceptionId", "FRP.Reception");
             DropForeignKey("FRP.PaymentSchedule", "SupplierId", "FRP.Supplier");
             DropForeignKey("FRP.PaymentScheduleLine", "PaymentScheduleId", "FRP.PaymentSchedule");
+            DropForeignKey("FRP.PaymentScheduleLine", "InvoiceId", "FRP.Invoice");
             DropForeignKey("FRP.PaymentSchedule", "CurrencyId", "FRP.Currency");
             DropForeignKey("FRP.PaymentNotice", "SupplierId", "FRP.Supplier");
             DropForeignKey("FRP.PaymentNoticeLine", "PaymentNoticeId", "FRP.PaymentNotice");
@@ -1431,6 +1434,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.ReceptionLine", new[] { "ReceptionId" });
             DropIndex("FRP.PaymentSchedule", new[] { "SupplierId" });
             DropIndex("FRP.PaymentScheduleLine", new[] { "PaymentScheduleId" });
+            DropIndex("FRP.PaymentScheduleLine", new[] { "InvoiceId" });
             DropIndex("FRP.PaymentSchedule", new[] { "CurrencyId" });
             DropIndex("FRP.PaymentNotice", new[] { "SupplierId" });
             DropIndex("FRP.PaymentNoticeLine", new[] { "PaymentNoticeId" });

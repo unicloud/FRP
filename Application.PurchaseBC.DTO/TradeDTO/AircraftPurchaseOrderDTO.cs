@@ -31,6 +31,9 @@ namespace UniCloud.Application.PurchaseBC.DTO
     [DataServiceKey("Id")]
     public class AircraftPurchaseOrderDTO
     {
+        private List<AircraftPurchaseOrderLineDTO> _orderLines;
+        private List<RelatedDocDTO> _relatedDocs;
+
         /// <summary>
         ///     订单ID
         /// </summary>
@@ -104,11 +107,19 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     购买飞机订单行集合
         /// </summary>
-        public virtual List<AircraftPurchaseOrderLineDTO> AircraftPurchaseOrderLines { get; set; }
+        public virtual List<AircraftPurchaseOrderLineDTO> AircraftPurchaseOrderLines
+        {
+            get { return _orderLines ?? (_orderLines = new List<AircraftPurchaseOrderLineDTO>()); }
+            set { _orderLines = value; }
+        }
 
         /// <summary>
         ///     关联文档集合
         /// </summary>
-        public virtual List<RelatedDocDTO> RelatedDocs { get; set; }
+        public virtual List<RelatedDocDTO> RelatedDocs
+        {
+            get { return _relatedDocs ?? (_relatedDocs = new List<RelatedDocDTO>()); }
+            set { _relatedDocs = value; }
+        }
     }
 }

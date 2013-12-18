@@ -123,7 +123,7 @@
     <Compile Include="Aggregates\PaymentNoticeAgg\PaymentNoticeSpecifications.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\AircraftPaymentSchedule.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\EnginePaymentSchedule.cs" />
-    <Compile Include="Enums\IPaymentScheduleRepository.cs" />
+    <Compile Include="Aggregates\PaymentScheduleAgg\IPaymentScheduleRepository.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\PaymentSchedule.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\PaymentScheduleFactory.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\PaymentScheduleLine.cs" />
