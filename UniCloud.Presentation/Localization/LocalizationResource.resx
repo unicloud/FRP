@@ -498,4 +498,25 @@
   <data name="Minimize" xml:space="preserve">
     <value>最小化</value>
   </data>
+  <data name="DataForm_AddNew" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="DataForm_BeginEdit" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="DataForm_Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DataForm_MoveCurrentToFirst" xml:space="preserve">
+    <value>第一个</value>
+  </data>
+  <data name="DataForm_MoveCurrentToLast" xml:space="preserve">
+    <value>最后一个</value>
+  </data>
+  <data name="DataForm_MoveCurrentToNext" xml:space="preserve">
+    <value>下一个</value>
+  </data>
+  <data name="DataForm_MoveCurrentToPrevious" xml:space="preserve">
+    <value>上一个</value>
+  </data>
 </root>
