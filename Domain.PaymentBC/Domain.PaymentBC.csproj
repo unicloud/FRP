@@ -123,7 +123,7 @@
     <Compile Include="Aggregates\PaymentNoticeAgg\PaymentNoticeSpecifications.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\AircraftPaymentSchedule.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\EnginePaymentSchedule.cs" />
-    <Compile Include="Aggregates\PaymentScheduleAgg\IPaymentScheduleRepository.cs" />
+    <Compile Include="Enums\IPaymentScheduleRepository.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\PaymentSchedule.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\PaymentScheduleFactory.cs" />
     <Compile Include="Aggregates\PaymentScheduleAgg\PaymentScheduleLine.cs" />
@@ -132,6 +132,9 @@
     <Compile Include="Aggregates\SupplierAgg\ISupplierRepository.cs" />
     <Compile Include="Aggregates\SupplierAgg\Supplier.cs" />
     <Compile Include="Aggregates\SupplierAgg\SupplierSpecifications.cs" />
+    <Compile Include="Aggregates\TradeAgg\ITradeRepository.cs" />
+    <Compile Include="Aggregates\TradeAgg\Trade.cs" />
+    <Compile Include="Aggregates\TradeAgg\TradeSpecifications.cs" />
     <Compile Include="Enums\BFEStatus.cs" />
     <Compile Include="Enums\ContractAircraftStatus.cs" />
     <Compile Include="Enums\ContractEngineStatus.cs" />
@@ -142,6 +145,7 @@
     <Compile Include="Enums\MaintainItem.cs" />
     <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Enums\PaymentNoticeStatus.cs" />
+    <Compile Include="Enums\TradeStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

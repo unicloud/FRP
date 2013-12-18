@@ -122,6 +122,22 @@
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="删除订单" />
                                     </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddAttachCommand}"
+                                                       CommandParameter="{Binding SelAircraftPurchaseOrderDTO.ContractDocGuid}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="添加合同文档" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddOrderLineCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Add.png" Stretch="Fill"
+                                               ToolTipService.ToolTip="增加订单行" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding RemoveOrderLineCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="移除订单行" />
+                                    </telerik:RadButton>
                                 </telerik:RadToolBar>
                                 <telerik:RadGridView Grid.Row="1" x:Name="Order"
                                                      ItemsSource="{Binding ViewAircraftPurchaseOrderDTO}"
@@ -129,7 +145,7 @@
                                                      IsBusy="{Binding ViewAircraftPurchaseOrderDTO.IsBusy}"
                                                      ShowGroupPanel="False"
                                                      IsFilteringAllowed="False"
-                                                     EditTriggers="CellClick">
+                                                     EditTriggers="CellClick" IsSynchronizedWithCurrentItem="True">
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
@@ -176,28 +192,10 @@
                         <telerik:RadPane Header="交易明细" CanUserClose="False">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
                                     <RowDefinition />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="0 0 0 -1">
-                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddAttachCommand}"
-                                                       CommandParameter="{Binding SelAircraftPurchaseOrderDTO.ContractDocGuid}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="添加合同文档" />
-                                    </telerik:RadButton>
-                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddOrderLineCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Add.png" Stretch="Fill"
-                                               ToolTipService.ToolTip="增加订单行" />
-                                    </telerik:RadButton>
-                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding RemoveOrderLineCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="移除订单行" />
-                                    </telerik:RadButton>
-                                </telerik:RadToolBar>
-                                <Grid Grid.Row="1" Margin="0,3,0,0">
+                                <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="40" />
                                         <RowDefinition />
@@ -239,7 +237,7 @@
                                         </ScrollViewer>
                                     </telerik:GroupBox>
                                 </Grid>
-                                <telerik:RadGridView Grid.Row="2" x:Name="OrderLine"
+                                <telerik:RadGridView Grid.Row="1" x:Name="OrderLine"
                                                      ItemsSource="{Binding SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines}"
                                                      IsBusy="{Binding ViewAircraftPurchaseOrderDTO.IsBusy}"
                                                      ShowGroupPanel="False" IsFilteringAllowed="False"

@@ -17,6 +17,7 @@
 using System.Linq;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries;
+using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
 using UniCloud.Infrastructure.Data;
@@ -58,6 +59,7 @@ namespace UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries
 
         public IQueryable<AcPaymentScheduleDTO> AcPaymentSchedulesQuery(QueryBuilder<PaymentSchedule> query)
         {
+            var dbCurrency = _unitOfWork.CreateSet<Currency>();
             return query.ApplyTo(_unitOfWork.CreateSet<PaymentSchedule>()).OfType<AircraftPaymentSchedule>().Select(p => new AcPaymentScheduleDTO
                 {
                     AcPaymentScheduleId = p.Id,
@@ -67,6 +69,7 @@ namespace UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries
                     SupplierId = p.SupplierId,
                     SupplierName = p.SupplierName,
                     ContractAcId = p.ContractAircraftId,
+                    CurrencyName = dbCurrency.FirstOrDefault(c=>c.Id==p.CurrencyId).CnName,
                     PaymentScheduleLines = p.PaymentScheduleLines.Select(c => new PaymentScheduleLineDTO
                         {
                             PaymentScheduleLineId = c.Id,
@@ -82,6 +85,7 @@ namespace UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries
 
         public IQueryable<EnginePaymentScheduleDTO> EnginePaymentSchedulesQuery(QueryBuilder<PaymentSchedule> query)
         {
+            var dbCurrency = _unitOfWork.CreateSet<Currency>();
             return query.ApplyTo(_unitOfWork.CreateSet<PaymentSchedule>()).OfType<EnginePaymentSchedule>().Select(p => new EnginePaymentScheduleDTO
             {
                 EnginePaymentScheduleId = p.Id,
@@ -91,6 +95,7 @@ namespace UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries
                 SupplierId = p.SupplierId,
                 SupplierName = p.SupplierName,
                 ContractEngineId = p.ContractEngineId,
+                CurrencyName = dbCurrency.FirstOrDefault(c => c.Id == p.CurrencyId).CnName,
                 PaymentScheduleLines = p.PaymentScheduleLines.Select(c => new PaymentScheduleLineDTO
                 {
                     PaymentScheduleLineId = c.Id,
@@ -100,6 +105,32 @@ namespace UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries
                     ScheduleDate = c.ScheduleDate,
                     Status = (int)c.Status,
                     InvoiceId = c.InvoiceId,
+                }).ToList(),
+            });
+        }
+
+        public IQueryable<StandardPaymentScheduleDTO> StandardPaymentSchedulesQuery(QueryBuilder<PaymentSchedule> query)
+        {
+            var dbCurrency = _unitOfWork.CreateSet<Currency>();
+            return query.ApplyTo(_unitOfWork.CreateSet<PaymentSchedule>()).OfType<StandardPaymentSchedule>().Select(p => new StandardPaymentScheduleDTO
+            {
+                StandardPaymentScheduleId = p.Id,
+                CreateDate = p.CreateDate,
+                CurrencyId = p.CurrencyId,
+                IsCompleted = p.IsCompleted,
+                SupplierId = p.SupplierId,
+                SupplierName = p.SupplierName,
+                OrderId = p.OrderId,
+                CurrencyName = dbCurrency.FirstOrDefault(c => c.Id == p.CurrencyId).CnName,
+                PaymentScheduleLines = p.PaymentScheduleLines.Select(c => new PaymentScheduleLineDTO
+                {
+                    PaymentScheduleLineId = c.Id,
+                    Amount = c.Amount,
+                    Note = c.Note,
+                    PaymentScheduleId = c.PaymentScheduleId,
+                    ScheduleDate = c.ScheduleDate,
+                    Status = (int)c.Status,
+                    InvoiceId = c.InvoiceId
                 }).ToList(),
             });
         }

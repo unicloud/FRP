@@ -23,5 +23,10 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
     /// </summary>
     public interface IPaymentScheduleRepository : IRepository<PaymentSchedule>
     {
+        /// <summary>
+        /// 删除付款计划行
+        /// </summary>
+        /// <param name="paymentScheduleLine">付款计划行</param>
+        void RemovePaymentScheduleLine(PaymentScheduleLine paymentScheduleLine);
     }
 }

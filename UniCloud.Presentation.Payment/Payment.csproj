@@ -219,6 +219,10 @@
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.CommonService\Service.CommonService.csproj">
+      <Project>{e182cb39-cb47-4a7a-bf2d-0094d38d24fe}</Project>
+      <Name>Service.CommonService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service.Payment\Service.Payment.csproj">
       <Project>{8a34eaf1-0a35-4b80-bc53-f8bf11b626dc}</Project>
       <Name>Service.Payment</Name>

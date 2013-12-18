@@ -60,6 +60,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Domain.PaymentBC\Enums\MaintainItem.cs">
+      <Link>MaintainInvoiceDTO\MaintainItem.cs</Link>
+    </Compile>
     <Compile Include="InvoiceDTO\CreditNoteDTO.cs" />
     <Compile Include="ContractAircraftDTO\ContractAircraftDTO.cs" />
     <Compile Include="ContractEngineDTO\ContractEngineDTO.cs" />
@@ -90,6 +93,7 @@
     <Compile Include="PaymentScheduleDTO\EnginePaymentScheduleDTO.cs" />
     <Compile Include="PaymentScheduleDTO\PaymentScheduleDTO.cs" />
     <Compile Include="PaymentScheduleDTO\PaymentScheduleLineDTO.cs" />
+    <Compile Include="PaymentScheduleDTO\StandardPaymentScheduleDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SupplierDTO\BankAccountDTO.cs" />
     <Compile Include="SupplierDTO\SupplierDTO.cs" />

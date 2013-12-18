@@ -12,6 +12,7 @@
 // ========================================================================*/
 #endregion
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
@@ -31,9 +32,9 @@ namespace UniCloud.Presentation.Service.Payment.Payment
 
     public partial class MaintainInvoiceLineDTO
     {
-        partial void OnMaintainItemChanging(int value)
+        partial void OnMaintainItemStringChanging(string value)
         {
-            
+            MaintainItem = (int)(MaintainItem)Enum.Parse(typeof(MaintainItem), value, true);
         }
     } 
 }

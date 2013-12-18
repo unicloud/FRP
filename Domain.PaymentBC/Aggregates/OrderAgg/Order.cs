@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.LinkmanAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.TradeAgg;
 using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
@@ -127,6 +128,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.OrderAgg
         #region 外键属性
 
         /// <summary>
+        ///     交易ID
+        /// </summary>
+        public int TradeId { get; protected set; }
+
+        /// <summary>
         ///     币种ID
         /// </summary>
         public int CurrencyId { get; protected set; }
@@ -139,6 +145,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.OrderAgg
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        ///     交易
+        /// </summary>
+        public virtual Trade Trade { get; protected set; }
 
         /// <summary>
         ///     币种

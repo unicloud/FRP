@@ -35,6 +35,7 @@ using UniCloud.Domain.PaymentBC.Aggregates.PartAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql;
 
 #endregion
@@ -61,6 +62,7 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
         private IDbSet<PaymentNotice> _paymentNotices;
         private IDbSet<PaymentSchedule> _paymentSchedules;
         private IDbSet<Supplier> _suppliers;
+        private IDbSet<Trade> _trades;
 
         public IDbSet<ActionCategory> ActionCategories
         {
@@ -140,6 +142,11 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
         public IDbSet<Supplier> Suppliers
         {
             get { return _suppliers ?? (_suppliers = base.Set<Supplier>()); }
+        }
+
+        public IDbSet<Trade> Trades
+        {
+            get { return _trades ?? (_trades = base.Set<Trade>()); }
         }
 
         #endregion
@@ -300,6 +307,12 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork
                 .Add(new AircraftPaymentScheduleEntityConfiguration())
                 .Add(new EnginePaymentScheduleEntityConfiguration())
                 .Add(new StandardPaymentScheduleEntityConfiguration())
+
+                #endregion
+
+                #region TradeAgg
+
+                .Add(new TradeEntityConfiguration())
 
                 #endregion
 

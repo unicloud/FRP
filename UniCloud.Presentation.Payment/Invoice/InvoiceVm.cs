@@ -13,26 +13,67 @@
 #endregion
 using System;
 using Microsoft.Practices.Prism.Commands;
+using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
+using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
     public class InvoiceVm : EditViewModelBase
     {
+        #region 声明、初始化
         protected PaymentData PaymentDataService;
 
         public InvoiceVm()
         {
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(PaymentDataService, PaymentDataService.Suppliers);
+            Currencies=new QueryableDataServiceCollectionView<CurrencyDTO>(PaymentDataService,PaymentDataService.Currencies);
+
+            SupplierChangedCommand=new DelegateCommand<object>(OnSupplierChanged);
             AddInvoiceCommand = new DelegateCommand<object>(OnAddInvoice, CanAddInvoice);
             RemoveInvoiceCommand = new DelegateCommand<object>(OnRemoveInvoice, CanRemoveInvoice);
             AddInvoiceLineCommand = new DelegateCommand<object>(OnAddInvoiceLine, CanAddInvoiceLine);
             RemoveInvoiceLineCommand = new DelegateCommand<object>(OnRemoveInvoiceLine, CanRemoveInvoiceLine);
             SubmitInvoiceCommand = new DelegateCommand<object>(OnSubmitInvoice, CanSubmitInvoice);
             ReviewInvoiceCommand = new DelegateCommand<object>(OnReviewInvoice, CanReviewInvoice);
+
         }
+        #endregion
+
+        #region 公共属性
+        /// <summary>
+        /// 供应商
+        /// </summary>
+        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
+
+        /// <summary>
+        /// 币种
+        /// </summary>
+        public QueryableDataServiceCollectionView<CurrencyDTO> Currencies { get; set; }
+
+        /// <summary>
+        /// 维修发票维修项
+        /// </summary>
+        public Array MaintainItems
+        {
+            get { return Enum.GetValues(typeof(MaintainItem)); }
+        }
+        #endregion
+
+        #region 操作
+
+        #region
+        /// <summary>
+        ///  创建新发票
+        /// </summary>
+        public DelegateCommand<object> SupplierChangedCommand { get; set; }
+        protected virtual void OnSupplierChanged(object obj)
+        {
+        }
+        #endregion
 
         #region 创建新发票
         /// <summary>
@@ -137,5 +178,6 @@ namespace UniCloud.Presentation.Payment.Invoice
         public override void LoadData()
         {
         }
+        #endregion
     }
 }

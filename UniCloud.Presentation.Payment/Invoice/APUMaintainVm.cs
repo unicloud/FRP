@@ -19,9 +19,11 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
+using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
@@ -86,9 +88,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         ///     </remarks>
         /// </summary>
         public override void LoadData()
-        { 
+        {
             // 将CollectionView的AutoLoad属性设为True
             ApuMaintainInvoices.AutoLoad = true;
+            Suppliers.Load(true);
+            Currencies.Load(true);
         }
 
 
@@ -181,11 +185,6 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 操作
 
-        #region 重载操作
-
-
-        #endregion
-
         #region 创建新维修发票
         protected override void OnAddInvoice(object obj)
         {
@@ -207,10 +206,12 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 删除维修发票
         protected override void OnRemoveInvoice(object obj)
         {
-            if (_apuMaintainInvoice != null)
+            if (ApuMaintainInvoice == null)
             {
-                ApuMaintainInvoices.Remove(_apuMaintainInvoice);
+                MessageAlert("请选择一条记录！");
+                return;
             }
+            ApuMaintainInvoices.Remove(_apuMaintainInvoice);
         }
 
         protected override bool CanRemoveInvoice(object obj)
@@ -239,6 +240,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 移除维修发票行
         protected override void OnRemoveInvoiceLine(object obj)
         {
+            if (ApuMaintainInvoiceLine == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
             ApuMaintainInvoice.MaintainInvoiceLines.Remove(ApuMaintainInvoiceLine);
         }
 
@@ -251,6 +257,12 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 提交发票
         protected override void OnSubmitInvoice(object obj)
         {
+            if (ApuMaintainInvoice == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+            ApuMaintainInvoice.Status = (int)InvoiceStatus.待审核;
         }
 
         protected override bool CanSubmitInvoice(object obj)
@@ -262,6 +274,15 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 审核发票
         protected override void OnReviewInvoice(object obj)
         {
+            if (ApuMaintainInvoice == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+            ApuMaintainInvoice.Status = (int)InvoiceStatus.已审核;
+            ApuMaintainInvoice.Reviewer = "admin";
+            ApuMaintainInvoice.ReviewDate = DateTime.Now;
+            ApuMaintainInvoice.IsValid = true;
         }
 
         protected override bool CanReviewInvoice(object obj)
@@ -269,22 +290,42 @@ namespace UniCloud.Presentation.Payment.Invoice
             return true;
         }
         #endregion
+
+        #region 添加附件
+        protected override void OnAddAttach(object sender)
+        {
+            if (ApuMaintainInvoice == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+            DocumentView.ViewModel.InitData(false, ApuMaintainInvoice.DocumentId, DocumentViewerClosed);
+            DocumentView.ShowDialog();
+        }
+
+        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
+        {
+            if (DocumentView.Tag is DocumentDTO)
+            {
+                var document = DocumentView.Tag as DocumentDTO;
+                ApuMaintainInvoice.DocumentId = document.DocumentId;
+                ApuMaintainInvoice.DocumentName = document.Name;
+            }
+        }
         #endregion
 
-        private Array values = Enum.GetValues(typeof(MaintainItem));
-        public Array Values
+        #region 查看附件
+        protected override void OnViewAttach(object sender)
         {
-            get { return values; }
-            set
+            if (ApuMaintainInvoice == null)
             {
-                if (value != null && values != value)
-                {
-                    values = value;
-                    RaisePropertyChanged(() => Values);
-                }
+                MessageAlert("请选择一条记录！");
+                return;
             }
-
+            DocumentView.ViewModel.InitData(true, ApuMaintainInvoice.DocumentId, null);
+            DocumentView.ShowDialog();
         }
+        #endregion
+        #endregion
     }
-
 }
