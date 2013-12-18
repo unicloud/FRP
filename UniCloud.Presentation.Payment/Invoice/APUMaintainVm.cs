@@ -89,6 +89,8 @@ namespace UniCloud.Presentation.Payment.Invoice
         { 
             // 将CollectionView的AutoLoad属性设为True
             ApuMaintainInvoices.AutoLoad = true;
+            Suppliers.Load(true);
+            Currencies.Load(true);
         }
 
 
