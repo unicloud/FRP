@@ -68,11 +68,34 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ContractEngineTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.PaymentBC\Domain.PaymentBC.csproj">
+      <Project>{d9aa0a25-5ee4-4ca0-ad0a-4cafed1e17a1}</Project>
+      <Name>Domain.PaymentBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.PaymentBC\Infrastructure.Data.PaymentBC.csproj">
+      <Project>{61eb2b16-80c1-439e-87f0-fa884567a18d}</Project>
+      <Name>Infrastructure.Data.PaymentBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{cad91a38-6b90-4a18-83ca-0215ce512f4d}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Utilities\Infrastructure.Utilities.csproj">
+      <Project>{34a8a0e1-3d4a-48ca-9e78-71f88e2d273d}</Project>
+      <Name>Infrastructure.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -108,7 +108,6 @@
       <ComplexType Name="MaintainInvoiceLineDTO">
         <Property Name="MaintainInvoiceLineId" Type="Edm.Int32" Nullable="false" />
         <Property Name="MaintainItem" Type="Edm.Int32" Nullable="false" />
-        <Property Name="MaintainItemString" Type="Edm.String" />
         <Property Name="ItemName" Type="Edm.String" />
         <Property Name="UnitPrice" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Amount" Type="Edm.Decimal" Nullable="false" />
