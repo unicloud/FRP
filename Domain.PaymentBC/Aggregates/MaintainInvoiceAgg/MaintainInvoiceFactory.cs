@@ -18,7 +18,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
@@ -122,6 +121,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
             maintainInvoice.SetCurrency(currencyId);
             maintainInvoice.DocumentName = documentName;
             maintainInvoice.DocumentId = documentId;
+            if (!string.IsNullOrEmpty(reviewer))
+            {
+                maintainInvoice.Review(reviewer);
+                maintainInvoice.SetCompleted();
+            }
             if (maintainInvoice is EngineMaintainInvoice)
             {
             }
@@ -150,7 +154,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
         /// <summary>
         ///     设置维修发票行属性
         /// </summary>
-        /// <param name="maintainInvoiceLine">币种ID</param>
+        /// <param name="maintainInvoiceLine">维修发票行</param>
         /// <param name="maintainItem">维修项</param>
         /// <param name="itemName">项名称</param>
         /// <param name="unitPrice">单价</param>

@@ -116,6 +116,9 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
                 case MaintainItem.工时费:
                     MaintainItem = MaintainItem.工时费;
                     break;
+                case MaintainItem.杂项:
+                    MaintainItem = MaintainItem.杂项;
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException("item");
             }
