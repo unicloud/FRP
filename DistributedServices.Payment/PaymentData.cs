@@ -36,8 +36,7 @@ namespace UniCloud.DistributedServices.Payment
         private readonly IPaymentScheduleAppService _paymentScheduleAppService;
         private readonly ISupplierAppService _supplierAppService;
         private readonly IStaticLoad _staticLoad;
-        public PaymentData()
-            : base("UniCloud.Application.PaymentBC.DTO")
+        public PaymentData()            : base("UniCloud.Application.PaymentBC.DTO")
         {
             _staticLoad = DefaultContainer.Resolve<IStaticLoad>();
             _creditNoteAppService = DefaultContainer.Resolve<ICreditNoteAppService>();
@@ -166,6 +165,13 @@ namespace UniCloud.DistributedServices.Payment
 
         #region 付款计划集合
 
+        /// <summary>
+        /// 所有付款计划
+        /// </summary>
+        public IQueryable<PaymentScheduleDTO> PaymentSchedules
+        {
+            get { return _paymentScheduleAppService.GetPaymentSchedules(); }
+        }
 
         /// <summary>
         /// 飞机付款计划
@@ -205,7 +211,13 @@ namespace UniCloud.DistributedServices.Payment
         #endregion
 
         #region 订单
-
+        /// <summary>
+        ///     所有订单集合
+        /// </summary>
+        public IQueryable<OrderDTO> Orders
+        {
+            get { return _orderAppService.GetOrders(); }
+        }
 
         /// <summary>
         ///     飞机采购订单集合
@@ -214,7 +226,6 @@ namespace UniCloud.DistributedServices.Payment
         {
             get { return _orderAppService.GetAircraftPurchaseOrders(); }
         }
-
 
         /// <summary>
         ///     飞机租赁订单集合
@@ -244,6 +255,15 @@ namespace UniCloud.DistributedServices.Payment
         {
             get { return _orderAppService.GetBFEPurchaseOrders(); }
         }
+
+        /// <summary>
+        ///     标准订单集合
+        /// </summary>
+        public IQueryable<StandardOrderDTO> StandardOrders
+        {
+            get { return _orderAppService.GetStandardOrders(); }
+        }
+
         #endregion    
     }
 }

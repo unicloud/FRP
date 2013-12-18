@@ -65,25 +65,29 @@ namespace UniCloud.Presentation.Purchase.Contract
             EngineMaintainContracts = Service.CreateCollection(_purchaseData.EngineMaintainContracts);
             Service.RegisterCollectionView(EngineMaintainContracts);
             EngineMaintainContracts.PropertyChanged += (sender, e) =>
-            {
-                if (e.PropertyName == "IsAddingNew")
-                {
-                    var newItem = EngineMaintainContracts.CurrentAddItem as EngineMaintainContractDTO;
-                    if (newItem != null)
-                    {
-                        newItem.EngineMaintainContractId = RandomHelper.Next();
-                        newItem.SignDate = DateTime.Now;
-                        newItem.CreateDate = DateTime.Now;
-                        newItem.DocumentName = "添加附件";
-                        _document.DocumentId = new Guid();
-                        _document.Name = string.Empty;
-                    }
-                }
-                else if (e.PropertyName == "HasChanges")
-                {
-                    CanSelectEngineMaintain = !EngineMaintainContracts.HasChanges;
-                }
-            };
+                                                       {
+                                                           if (e.PropertyName == "IsAddingNew")
+                                                           {
+                                                               var newItem =
+                                                                   EngineMaintainContracts.CurrentAddItem as
+                                                                       EngineMaintainContractDTO;
+                                                               if (newItem != null)
+                                                               {
+                                                                   newItem.EngineMaintainContractId =
+                                                                       RandomHelper.Next();
+                                                                   newItem.SignDate = DateTime.Now;
+                                                                   newItem.CreateDate = DateTime.Now;
+                                                                   newItem.DocumentName = "添加附件";
+                                                                   _document.DocumentId = new Guid();
+                                                                   _document.Name = string.Empty;
+                                                               }
+                                                           }
+                                                           else if (e.PropertyName == "HasChanges")
+                                                           {
+                                                               CanSelectEngineMaintain =
+                                                                   !EngineMaintainContracts.HasChanges;
+                                                           }
+                                                       };
 
             Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_purchaseData, _purchaseData.Suppliers);
         }
@@ -102,10 +106,12 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 数据
 
         #region 公共属性
+
         /// <summary>
         ///     供应商
         /// </summary>
         public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
+
         #endregion
 
         #region 加载数据
@@ -121,6 +127,8 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             // 将CollectionView的AutoLoad属性设为True
             EngineMaintainContracts.AutoLoad = true;
+            EngineMaintainContracts.Load(true);
+            Suppliers.Load(true);
         }
 
         #region 发动机维修合同
@@ -149,7 +157,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                         _document.Name = _engineMaintainContract.DocumentName;
                         if (Suppliers != null)
                         {
-                            _supplier = Suppliers.FirstOrDefault(p => p.SupplierId == _engineMaintainContract.SignatoryId);
+                            _supplier =
+                                Suppliers.FirstOrDefault(p => p.SupplierId == _engineMaintainContract.SignatoryId);
                         }
                     }
                     RaisePropertyChanged(() => EngineMaintainContract);
@@ -171,10 +180,13 @@ namespace UniCloud.Presentation.Purchase.Contract
                 }
             }
         }
+
         #endregion
 
         #region 签约对象
+
         private SupplierDTO _supplier;
+
         /// <summary>
         ///     选中的签约对象
         /// </summary>
@@ -201,11 +213,12 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 操作
 
         #region 添加附件
+
         protected override void OnAddAttach(object sender)
         {
             DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
-            }
+        }
 
         private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {
@@ -220,11 +233,13 @@ namespace UniCloud.Presentation.Purchase.Contract
         #endregion
 
         #region 查看附件
+
         protected override void OnViewAttach(object sender)
         {
             DocumentView.ViewModel.InitData(true, _document.DocumentId, null);
             DocumentView.ShowDialog();
         }
+
         #endregion
 
         #region 重载操作

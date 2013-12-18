@@ -88,7 +88,7 @@
                                 </telerik:RadButton>
                             </telerik:RadToolBar>
                             <Grid Row="1">
-                                <telerik:RadGridView Name="ApuMaintainContractList"
+                                <telerik:RadGridView Name="ApuMaintainInvoiceList"
                                                      AutoExpandGroups="True"
                                                      AutoGenerateColumns="False"
                                                      CanUserSortColumns="True"
@@ -136,12 +136,6 @@
                                                                         DataMemberBinding="{Binding SupplierId}"
                                                                         SelectedValueMemberPath="SupplierId"
                                                                         DisplayMemberPath="Name">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="PropertyChanged">
-                                                    <i:InvokeCommandAction Command="{Binding SupplierChangedCommand}"
-                                                                           CommandParameter="" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
                                         </telerik:GridViewComboBoxColumn>
                                         <telerik:GridViewComboBoxColumn Header="币种"
                                                                         IsSortable="True"

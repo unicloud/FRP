@@ -507,11 +507,7 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         private bool CanRemoveEntity(object obj)
         {
-            bool canRemove;
-            if (SelAircraftLeaseReception != null && SelAircraftLeaseReceptionLine != null)
-                canRemove = true;
-            else canRemove = false;
-            return canRemove;
+            return true;
         }
         #endregion
 

@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
@@ -73,16 +74,16 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         public void InsertCreditNoteInvoice(CreditNoteDTO creditNoteInvoice)
         {
             var supplier = _supplierRepository.GetFiltered(p => p.Id == creditNoteInvoice.SupplierId).FirstOrDefault();
-            var order = _orderRepository.GetFiltered(p => p.Id == creditNoteInvoice.OrderId).FirstOrDefault();
+            var order = _orderRepository.Get(creditNoteInvoice.OrderId);
             var currency = _currencyRepository.GetFiltered(p => p.Id == creditNoteInvoice.CurrencyId).FirstOrDefault();
 
             var newCreditNoteInvoice = InvoiceFactory.CreateCreditNoteInvoice(creditNoteInvoice.InvoideCode, creditNoteInvoice.InvoiceDate, creditNoteInvoice.OperatorName);
-            newCreditNoteInvoice.SetInvoiceNumber(1);
+            var date = DateTime.Now.Date;
+            var seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+            newCreditNoteInvoice.SetInvoiceNumber(seq);
             newCreditNoteInvoice.SetSupplier(supplier);
-            newCreditNoteInvoice.SetInvoiceValue();
             newCreditNoteInvoice.SetOrder(order);
             newCreditNoteInvoice.SetPaidAmount(creditNoteInvoice.PaidAmount);
-            newCreditNoteInvoice.Review(creditNoteInvoice.Reviewer);
             newCreditNoteInvoice.SetCurrency(currency);
             newCreditNoteInvoice.SetPaymentScheduleLine(creditNoteInvoice.PaymentScheduleLineId);
             newCreditNoteInvoice.SetInvoiceStatus(InvoiceStatus.草稿);
@@ -91,13 +92,15 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
                 if (order != null)
                 {
                     var orderLine = order.OrderLines.FirstOrDefault(p => p.Id == invoiceLine.OrderLineId);
-                    newCreditNoteInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine);
+                    newCreditNoteInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, orderLine, invoiceLine.Note);
                 }
                 else
                 {
-                    newCreditNoteInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null);
+                    newCreditNoteInvoice.AddInvoiceLine(invoiceLine.ItemName, invoiceLine.Amount, null, invoiceLine.Note);
                 }
             }
+            newCreditNoteInvoice.SetInvoiceValue();
+            _invoiceRepository.Add(newCreditNoteInvoice);
         }
 
         /// <summary>
@@ -107,13 +110,19 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
         [Update(typeof(CreditNoteDTO))]
         public void ModifyCreditNoteInvoice(CreditNoteDTO creditNoteInvoice)
         {
-            var updateCreditNoteInvoice = _invoiceRepository.GetFiltered(t => t.Id == creditNoteInvoice.CreditNoteId).FirstOrDefault();
+            var supplier = _supplierRepository.GetFiltered(p => p.Id == creditNoteInvoice.SupplierId).FirstOrDefault();
+            var order = _orderRepository.Get(creditNoteInvoice.OrderId);
+            var currency = _currencyRepository.GetFiltered(p => p.Id == creditNoteInvoice.CurrencyId).FirstOrDefault();
+
+            var updateCreditNoteInvoice = _invoiceRepository.Get(creditNoteInvoice.CreditNoteId);
             //获取需要更新的对象。
             if (updateCreditNoteInvoice != null)
             {
+                InvoiceFactory.SetInvoice(updateCreditNoteInvoice, creditNoteInvoice.InvoideCode, creditNoteInvoice.InvoiceDate, creditNoteInvoice.OperatorName, creditNoteInvoice.InvoiceNumber, supplier, order,
+                    creditNoteInvoice.PaidAmount, currency, creditNoteInvoice.PaymentScheduleLineId, creditNoteInvoice.Status);
                 //更新主表。
 
-
+                UpdateInvoiceLines(creditNoteInvoice.InvoiceLines, updateCreditNoteInvoice, order);
                 //更新从表。
             }
             _invoiceRepository.Modify(updateCreditNoteInvoice);
@@ -138,6 +147,37 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
             }
         }
 
+        #endregion
+
+        #region 更新贷项单行集合
+        /// <summary>
+        /// 更新贷项单行集合
+        /// </summary>
+        /// <param name="sourceInvoiceLines">客户端集合</param>
+        /// <param name="dstInvoice">数据库集合</param>
+        private void UpdateInvoiceLines(IEnumerable<InvoiceLineDTO> sourceInvoiceLines, Invoice dstInvoice, Order order)
+        {
+            var invoiceLines = new List<InvoiceLine>();
+            foreach (var sourceInvoiceLine in sourceInvoiceLines)
+            {
+                var result = dstInvoice.InvoiceLines.FirstOrDefault(p => p.Id == sourceInvoiceLine.InvoiceLineId);
+                if (result == null)
+                {
+                    result = InvoiceFactory.CreateInvoiceLine();
+                    result.ChangeCurrentIdentity(sourceInvoiceLine.InvoiceLineId);
+                }
+                InvoiceFactory.SetInvoiceLine(result, sourceInvoiceLine.ItemName, sourceInvoiceLine.Amount, order, sourceInvoiceLine.InvoiceLineId, sourceInvoiceLine.Note);
+                invoiceLines.Add(result);
+            }
+            dstInvoice.InvoiceLines.ToList().ForEach(p =>
+            {
+                if (invoiceLines.FirstOrDefault(t => t.Id == p.Id) == null)
+                {
+                    _invoiceRepository.RemoveInvoiceLine(p);
+                }
+            });
+            dstInvoice.InvoiceLines = invoiceLines;
+        }
         #endregion
     }
 }

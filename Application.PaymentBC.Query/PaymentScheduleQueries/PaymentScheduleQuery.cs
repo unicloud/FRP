@@ -34,6 +34,29 @@ namespace UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries
             _unitOfWork = unitOfWork;
         }
 
+          public IQueryable<PaymentScheduleDTO> PaymentSchedulesQuery(QueryBuilder<PaymentSchedule> query)
+          {
+              return query.ApplyTo(_unitOfWork.CreateSet<PaymentSchedule>()).Select(p => new PaymentScheduleDTO
+              {
+                  PaymentScheduleId = p.Id,
+                  CreateDate = p.CreateDate,
+                  CurrencyId = p.CurrencyId,
+                  IsCompleted = p.IsCompleted,
+                  SupplierId = p.SupplierId,
+                  SupplierName = p.SupplierName,
+                  PaymentScheduleLines = p.PaymentScheduleLines.Select(c => new PaymentScheduleLineDTO
+                  {
+                      PaymentScheduleLineId = c.Id,
+                      Amount = c.Amount,
+                      Note = c.Note,
+                      PaymentScheduleId = c.PaymentScheduleId,
+                      ScheduleDate = c.ScheduleDate,
+                      Status = (int)c.Status,
+                      InvoiceId = c.InvoiceId
+                  }).ToList(),
+              });
+          }
+
         public IQueryable<AcPaymentScheduleDTO> AcPaymentSchedulesQuery(QueryBuilder<PaymentSchedule> query)
         {
             var dbCurrency = _unitOfWork.CreateSet<Currency>();

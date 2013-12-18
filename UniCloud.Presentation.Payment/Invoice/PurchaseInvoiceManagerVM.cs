@@ -67,6 +67,14 @@ namespace UniCloud.Presentation.Payment.Invoice
             Service.RegisterCollectionView(Currencies); //注册查询集合。
             Currencies.PropertyChanged += OnViewPropertyChanged;
 
+            Suppliers = Service.CreateCollection<SupplierDTO>(_paymentData.Suppliers);
+            Service.RegisterCollectionView(Suppliers); //注册查询集合。
+            Suppliers.PropertyChanged += OnViewPropertyChanged;
+
+            Orders = Service.CreateCollection<OrderDTO>(_paymentData.Orders);
+            Service.RegisterCollectionView(Orders); //注册查询集合。
+            Orders.PropertyChanged += OnViewPropertyChanged;
+
             AircraftPurchaseOrders = Service.CreateCollection<AircraftPurchaseOrderDTO>(_paymentData.AircraftPurchaseOrders);
             Service.RegisterCollectionView(AircraftPurchaseOrders); //注册查询集合。
             AircraftPurchaseOrders.PropertyChanged += OnViewPropertyChanged;
@@ -78,6 +86,10 @@ namespace UniCloud.Presentation.Payment.Invoice
             BFEPurchaseOrders = Service.CreateCollection<BFEPurchaseOrderDTO>(_paymentData.BFEPurchaseOrders);
             Service.RegisterCollectionView(BFEPurchaseOrders); //注册查询集合。
             BFEPurchaseOrders.PropertyChanged += OnViewPropertyChanged;
+
+            PaymentSchedules = Service.CreateCollection<PaymentScheduleDTO>(_paymentData.PaymentSchedules);
+            Service.RegisterCollectionView(PaymentSchedules); //注册查询集合。
+            PaymentSchedules.PropertyChanged += OnViewPropertyChanged;
 
             AcPaymentSchedules = Service.CreateCollection<AcPaymentScheduleDTO>(_paymentData.AcPaymentSchedules);
             Service.RegisterCollectionView(AcPaymentSchedules); //注册查询集合。
@@ -108,6 +120,8 @@ namespace UniCloud.Presentation.Payment.Invoice
             CommitCommand = new DelegateCommand<object>(OnCommitExecute, CanCommitExecute);
             CancelCommand = new DelegateCommand<object>(OnCancelExecute, CanCancelExecute);
             CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
+            SubmitCommand = new DelegateCommand<object>(OnSubmit, CanSubmit);
+            CheckCommand = new DelegateCommand<object>(OnCheck,CanCheck);
         }
 
         /// <summary>
@@ -125,6 +139,27 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 公共属性
 
+        #region 是否已提交审核
+
+        private bool _isSubmited;
+
+        /// <summary>
+        ///  是否已提交审核
+        /// </summary>
+        public bool IsSubmited
+        {
+            get { return this._isSubmited; }
+            private set
+            {
+                if (this._isSubmited != value)
+                {
+                    _isSubmited = value;
+                    this.RaisePropertyChanged(() => this.IsSubmited);
+                }
+            }
+        }
+
+        #endregion
         #endregion
 
         #region 加载数据
@@ -138,11 +173,14 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         public override void LoadData()
         {
-            PurchaseInvoices.AutoLoad = true;
             Currencies.AutoLoad = true;
+            Suppliers.AutoLoad = true;
+            PurchaseInvoices.AutoLoad = true;
+            Orders.AutoLoad = true;
             AircraftPurchaseOrders.AutoLoad = true;
             EnginePurchaseOrders.AutoLoad = true;
             BFEPurchaseOrders.AutoLoad = true;
+            PaymentSchedules.AutoLoad = true;
             AcPaymentSchedules.AutoLoad = true;
             EnginePaymentSchedules.AutoLoad = true;
             ContractAircrafts.AutoLoad = true;
@@ -179,6 +217,64 @@ namespace UniCloud.Presentation.Payment.Invoice
                     {
                         InvoiceLines.Add(invoiceLine);
                     }
+                    SelInvoiceLine = InvoiceLines.FirstOrDefault();
+                    _relatedOrder.Clear();
+                    RelatedOrder.Add(Orders.FirstOrDefault(p => p.Id == value.OrderId));
+                    SelOrder = RelatedOrder.FirstOrDefault();
+                    if (SelOrder != null)
+                        RelatedOrderLine = SelOrder.OrderLines.FirstOrDefault(p => p.Id == SelInvoiceLine.OrderLineId);
+                    _relatedPaymentSchedule.Clear();
+                    RelatedPaymentSchedule.Add(
+                        PaymentSchedules.FirstOrDefault(p =>
+                        {
+                            var paymentScheduleLine = p.PaymentScheduleLines.FirstOrDefault(l => l.PaymentScheduleLineId == value.PaymentScheduleLineId);
+                            return paymentScheduleLine != null && paymentScheduleLine.PaymentScheduleLineId == value.PaymentScheduleLineId;
+                        }));
+                    SelPaymentSchedule = RelatedPaymentSchedule.FirstOrDefault();
+                    RaisePropertyChanged(() => SelPurchaseInvoice);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 关联的采购订单及订单行
+
+        private ObservableCollection<OrderDTO> _relatedOrder = new ObservableCollection<OrderDTO>();
+
+        /// <summary>
+        ///     关联的采购订单
+        /// </summary>
+        public ObservableCollection<OrderDTO> RelatedOrder
+        {
+            get { return _relatedOrder; }
+            set
+            {
+                if (_relatedOrder != value)
+                {
+                    _relatedOrder = value;
+                    RaisePropertyChanged(() => RelatedOrder);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 关联的付款计划
+
+        private ObservableCollection<PaymentScheduleDTO> _relatedPaymentSchedule = new ObservableCollection<PaymentScheduleDTO>();
+
+        /// <summary>
+        ///     关联的付款计划
+        /// </summary>
+        public ObservableCollection<PaymentScheduleDTO> RelatedPaymentSchedule
+        {
+            get { return _relatedPaymentSchedule; }
+            set
+            {
+                if (_relatedPaymentSchedule != value)
+                {
+                    _relatedPaymentSchedule = value;
                     RaisePropertyChanged(() => SelPurchaseInvoice);
                 }
             }
@@ -238,7 +334,19 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
 
+        #region 供应商集合
+        /// <summary>
+        ///     供应商集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
+
+        #endregion
+
         #region 订单集合
+        /// <summary>
+        ///     所有订单集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<OrderDTO> Orders { get; set; }
 
         /// <summary>
         ///     飞机采购订单集合
@@ -268,6 +376,23 @@ namespace UniCloud.Presentation.Payment.Invoice
         #endregion
 
         #region 选择的订单
+        private OrderDTO _selOrder;
+
+        /// <summary>
+        ///     选择的采购订单
+        /// </summary>
+        public OrderDTO SelOrder
+        {
+            get { return _selOrder; }
+            set
+            {
+                if (_selOrder != value)
+                {
+                    _selOrder = value;
+                    RaisePropertyChanged(() => SelOrder);
+                }
+            }
+        }
 
         private AircraftPurchaseOrderDTO _selAircraftPurchaseOrder;
 
@@ -400,6 +525,24 @@ namespace UniCloud.Presentation.Payment.Invoice
         #endregion
 
         #region 选择的订单行
+        private OrderLineDTO _relatedOrderLine;
+
+        /// <summary>
+        ///     选择的关联采购订单行
+        /// </summary>
+        public OrderLineDTO RelatedOrderLine
+        {
+            get { return _relatedOrderLine; }
+            set
+            {
+                if (_relatedOrderLine != value)
+                {
+                    _relatedOrderLine = value;
+                    RaisePropertyChanged(() => RelatedOrderLine);
+                }
+            }
+        }
+
 
         private AircraftPurchaseOrderLineDTO _selAircraftPurchaseOrderLine;
 
@@ -440,6 +583,11 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 付款计划集合
         /// <summary>
+        ///    所有付款计划集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PaymentScheduleDTO> PaymentSchedules { get; set; }
+
+        /// <summary>
         ///     飞机付款计划集合
         /// </summary>
         public QueryableDataServiceCollectionView<AcPaymentScheduleDTO> AcPaymentSchedules { get; set; }
@@ -454,6 +602,26 @@ namespace UniCloud.Presentation.Payment.Invoice
         ///     付款计划集合
         /// </summary>
         //public QueryableDataServiceCollectionView<PaymentScheduleDTO> AcPaymentSchedules { get; set; }
+        #endregion
+
+        #region 选择的付款计划
+        private PaymentScheduleDTO _selPaymentSchedule;
+
+        /// <summary>
+        ///     选择的付款计划
+        /// </summary>
+        public PaymentScheduleDTO SelPaymentSchedule
+        {
+            get { return _selPaymentSchedule; }
+            set
+            {
+                if (_selPaymentSchedule != value)
+                {
+                    _selPaymentSchedule = value;
+                    RaisePropertyChanged(() => SelPaymentSchedule);
+                }
+            }
+        }
         #endregion
 
         #region 合同飞机集合
@@ -514,6 +682,8 @@ namespace UniCloud.Presentation.Payment.Invoice
             {
                 //删除完，若没有记录了，则也要删除界面明细
                 InvoiceLines.Clear();
+                RelatedPaymentSchedule.Clear();
+                RelatedOrder.Clear();
             }
         }
 
@@ -567,11 +737,44 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private bool CanRemove(object obj)
         {
-            bool canRemove;
-            if (SelPurchaseInvoice != null && SelInvoiceLine != null)
-                canRemove = true;
-            else canRemove = false;
-            return canRemove;
+            return true;
+        }
+        #endregion
+
+        #region 提交审核
+
+        /// <summary>
+        ///     提交审核
+        /// </summary>
+        public DelegateCommand<object> SubmitCommand { get; private set; }
+
+        private void OnSubmit(object obj)
+        {
+            IsSubmited = true;
+        }
+
+        private bool CanSubmit(object obj)
+        {   
+            return true;
+        }
+        #endregion
+
+        #region 审核
+
+        /// <summary>
+        ///     审核
+        /// </summary>
+        public DelegateCommand<object> CheckCommand { get; private set; }
+
+        private void OnCheck(object obj)
+        {
+            SelPurchaseInvoice.Reviewer = "HQB";
+            SelPurchaseInvoice.ReviewDate = DateTime.Now;
+        }
+
+        private bool CanCheck(object obj)
+        {
+            return true;
         }
         #endregion
 
@@ -652,19 +855,30 @@ namespace UniCloud.Presentation.Payment.Invoice
             {
                 if (SelAircraftPurchaseOrder != null && SelAircraftPurchaseOrderLine != null)
                 {
+                    //var supplier=Suppliers.FirstOrDefault(p=>p.SupplierId==SelAircraftPurchaseOrder)
                     invoice.OrderId = SelAircraftPurchaseOrder.Id;
-                    invoice.SupplierName = SelAircraftPurchaseOrder.Name;
+                    invoice.SupplierName = "波音";
+                    invoice.SupplierId = 1;
+                    //invoice.SupplierName = supplier.Name;
+                    //invoice.SupplierId = supplier.Id;
                     var paymentSchedule =
                         AcPaymentSchedules.FirstOrDefault(
                             p => p.ContractAcId == SelAircraftPurchaseOrderLine.ContractAircraftId);
-                    if (paymentSchedule != null) invoice.PaymentScheduleLineId = paymentSchedule.AcPaymentScheduleId;
-                    var invoiceLine = new InvoiceLineDTO
+                    if (paymentSchedule != null && paymentSchedule.PaymentScheduleLines!=null)
                     {
-                        OrderLineId = SelAircraftPurchaseOrderLine.Id,
-                    };
-                    invoice.InvoiceLines.Add(invoiceLine);
-                    PurchaseInvoices.AddNew(invoice);
-                    PurchaseOrderChildView.Close();
+                        invoice.PaymentScheduleLineId = paymentSchedule.PaymentScheduleLines.First().PaymentScheduleLineId;
+                        var invoiceLine = new InvoiceLineDTO
+                        {
+                            OrderLineId = SelAircraftPurchaseOrderLine.Id,
+                        };
+                        invoice.InvoiceLines.Add(invoiceLine);
+                        PurchaseInvoices.AddNew(invoice);
+                        PurchaseOrderChildView.Close();
+                    }
+                    else
+                    {
+                        MessageAlert("此订单行还没有创建付款计划！");
+                    }
                 }
                 else
                 {
@@ -680,18 +894,26 @@ namespace UniCloud.Presentation.Payment.Invoice
                     var paymentSchedule =
                         EnginePaymentSchedules.FirstOrDefault(
                             p => p.ContractEngineId == SelEnginePurchaseOrderLine.ContractEngineId);
-                    if (paymentSchedule != null) invoice.PaymentScheduleLineId = paymentSchedule.EnginePaymentScheduleId;
-                    var invoiceLine = new InvoiceLineDTO
+                    if (paymentSchedule != null)
                     {
-                        OrderLineId = SelEnginePurchaseOrderLine.Id,
-                    };
-                    invoice.InvoiceLines.Add(invoiceLine);
-                    PurchaseInvoices.AddNew(invoice);
-                    PurchaseOrderChildView.Close();
+                        invoice.PaymentScheduleLineId = paymentSchedule.EnginePaymentScheduleId;
+
+                        var invoiceLine = new InvoiceLineDTO
+                        {
+                            OrderLineId = SelEnginePurchaseOrderLine.Id,
+                        };
+                        invoice.InvoiceLines.Add(invoiceLine);
+                        PurchaseInvoices.AddNew(invoice);
+                        PurchaseOrderChildView.Close();
+                    }
+                    else
+                    {
+                        MessageAlert("此订单行还没有创建付款计划！");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("未选中发动机采购订单行！");
+                    MessageAlert("未选中发动机采购订单行！");
                 }
             }
             else if (selectedPane == "BFE采购订单")

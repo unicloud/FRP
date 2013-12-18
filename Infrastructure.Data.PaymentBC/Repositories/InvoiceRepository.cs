@@ -65,6 +65,14 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.Repositories
             dbInvoiceLines.RemoveRange(invoice.InvoiceLines);
             dbInvoices.Remove(invoice);
         }
+
+        public void RemoveInvoiceLine(InvoiceLine invoiceLine)
+        {
+            var currentUnitOfWork = UnitOfWork as PaymentBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            var set = currentUnitOfWork.CreateSet<InvoiceLine>();
+            set.Remove(invoiceLine);
+        }
         #endregion
     }
 }

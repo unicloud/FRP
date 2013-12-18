@@ -15,10 +15,7 @@
 #region 命名空间
 
 using System;
-using System.ComponentModel;
 using System.ComponentModel.Composition;
-using System.Linq;
-using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
@@ -92,10 +89,10 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             // 将CollectionView的AutoLoad属性设为True
             ApuMaintainInvoices.AutoLoad = true;
+            ApuMaintainInvoices.Load(true);
             Suppliers.Load(true);
             Currencies.Load(true);
         }
-
 
         #region APU维修发票
         /// <summary>
@@ -120,27 +117,6 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
         }
 
-        void MaintainInvoiceLines_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-           
-            if (e.NewItems != null)
-                foreach (MaintainInvoiceLineDTO item in e.NewItems)
-                    item.PropertyChanged += MyType_PropertyChanged;
-
-            if (e.OldItems != null)
-                foreach (MaintainInvoiceLineDTO item in e.OldItems)
-                    item.PropertyChanged -= MyType_PropertyChanged;
-        }
-
-        void MyType_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "MyProperty")
-            {
-                SaveCommand.RaiseCanExecuteChanged();
-                AbortCommand.RaiseCanExecuteChanged();
-            }
-        }
-
         private MaintainInvoiceLineDTO _apuMaintainInvoiceLine;
         /// <summary>
         /// 选中的APU维修发票
@@ -158,20 +134,6 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
         }
 
-        private bool _canSelectApuMaintain = true;
-        //用户能否选择
-        public bool CanSelectApuMaintain
-        {
-            get { return _canSelectApuMaintain; }
-            set
-            {
-                if (_canSelectApuMaintain != value)
-                {
-                    _canSelectApuMaintain = value;
-                    RaisePropertyChanged(() => CanSelectApuMaintain);
-                }
-            }
-        }
         #endregion
 
         #region 签约对象

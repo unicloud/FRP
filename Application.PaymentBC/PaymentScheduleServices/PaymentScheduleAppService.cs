@@ -44,6 +44,20 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
             _paymentScheduleRepository = paymentScheduleRepository;
         }
 
+
+        #region 所有付款计划
+
+        /// <summary>
+        ///     查询所有付款计划
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<PaymentScheduleDTO> GetPaymentSchedules()
+        {
+            var query = new QueryBuilder<PaymentSchedule>();
+            return _paymentScheduleQuery.PaymentSchedulesQuery(query);
+        }
+        #endregion
+
         #region 飞机付款计划
 
         /// <summary>
@@ -231,7 +245,7 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
                 throw new Exception("付款计划不能为空");
             }
 
-            var newStandardPaymentSchedule = PaymentScheduleFactory.CreateAcPaymentSchedule(standardPaymentSchedule.SupplierName,
+            var newStandardPaymentSchedule = PaymentScheduleFactory.CreateStandardPaymentSchedule(standardPaymentSchedule.SupplierName,
                                                                                       standardPaymentSchedule.SupplierId,
                                                                                       standardPaymentSchedule.CurrencyId,
                                                                                       standardPaymentSchedule.OrderId);

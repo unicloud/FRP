@@ -119,6 +119,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             // 将CollectionView的AutoLoad属性设为True
             ApuMaintainContracts.AutoLoad = true;
+            ApuMaintainContracts.Load(true);
             Suppliers.Load(true);
         }
 
@@ -202,7 +203,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
-            }
+        }
 
         private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {
@@ -229,5 +230,5 @@ namespace UniCloud.Presentation.Purchase.Contract
         #endregion
 
         #endregion
-    } 
+    }
 }

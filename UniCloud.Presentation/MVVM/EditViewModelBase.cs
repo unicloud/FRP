@@ -95,11 +95,12 @@ namespace UniCloud.Presentation.MVVM
         {
             var collectionView = sender as QueryableDataServiceCollectionViewBase;
             //提交时，保存按钮不可用
-            if (collectionView != null &&collectionView.IsSubmittingChanges)
+            if (collectionView != null && collectionView.IsSubmittingChanges)
             {
                 return false;
             }
             return collectionView != null && collectionView.HasChanges;
+           
         }
 
         #endregion

@@ -17,7 +17,10 @@
 
 #region 命名空间
 
+using System.Linq;
+using System.Data.Entity;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
+using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 
 #endregion
 
@@ -35,6 +38,14 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.Repositories
 
         #region 方法重载
 
+        public override Order Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as PaymentBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<Order>();
+
+            return set.Include(p => p.OrderLines).SingleOrDefault(l => l.Id == (int)id);
+        }
         #endregion
     }
 }
