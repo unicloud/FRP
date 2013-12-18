@@ -21,20 +21,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
 {
     public partial class APUMaintainInvoiceDTO
     {
-        public List<SupplierDTO> Suppliers
-        {
-            get
-            {
-                return null;/*GlobalServiceHelper.Suppliers.Where(p => p.MaintainSupplier).ToList();*/
-            }
-        }
     }
 
-    public partial class MaintainInvoiceLineDTO
-    {
-        partial void OnMaintainItemStringChanging(string value)
-        {
-            MaintainItem = (int)(MaintainItem)Enum.Parse(typeof(MaintainItem), value, true);
-        }
-    } 
 }
