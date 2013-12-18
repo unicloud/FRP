@@ -64,7 +64,6 @@
       <Link>MaintainInvoiceDTO\MaintainItem.cs</Link>
     </Compile>
     <Compile Include="InvoiceDTO\CreditNoteDTO.cs" />
-    <Compile Include="InvoiceDTO\CreditNoteLineDTO.cs" />
     <Compile Include="ContractAircraftDTO\ContractAircraftDTO.cs" />
     <Compile Include="ContractEngineDTO\ContractEngineDTO.cs" />
     <Compile Include="CurrencyDTO\CurrencyDTO.cs" />
@@ -92,6 +91,7 @@
     <Compile Include="OrderDTO\OrderLineDTO.cs" />
     <Compile Include="PaymentScheduleDTO\AcPaymentScheduleDTO.cs" />
     <Compile Include="PaymentScheduleDTO\EnginePaymentScheduleDTO.cs" />
+    <Compile Include="PaymentScheduleDTO\PaymentScheduleDTO.cs" />
     <Compile Include="PaymentScheduleDTO\PaymentScheduleLineDTO.cs" />
     <Compile Include="PaymentScheduleDTO\StandardPaymentScheduleDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

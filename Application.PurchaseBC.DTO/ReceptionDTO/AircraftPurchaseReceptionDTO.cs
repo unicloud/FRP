@@ -27,12 +27,12 @@ namespace UniCloud.Application.PurchaseBC.DTO
     [DataServiceKey("AircraftPurchaseReceptionId")]
     public partial class AircraftPurchaseReceptionDTO
     {
-        public AircraftPurchaseReceptionDTO()
-        {
-            ReceptionLines = new List<AircraftPurchaseReceptionLineDTO>();
-            ReceptionSchedules = new List<ReceptionScheduleDTO>();
-        }
+        #region 私有字段
 
+        private List<AircraftPurchaseReceptionLineDTO> _lines;
+        private List<ReceptionScheduleDTO> _schedules;
+
+        #endregion
         #region 属性
         /// <summary>
         /// 购买飞机接收项目主键
@@ -96,12 +96,20 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     接收行
         /// </summary>
-        public List<AircraftPurchaseReceptionLineDTO> ReceptionLines { get; set; }
+        public List<AircraftPurchaseReceptionLineDTO> ReceptionLines
+        {
+            get { return _lines ?? (_lines = new List<AircraftPurchaseReceptionLineDTO>()); }
+            set { _lines = value; }
+        }
 
         /// <summary>
         ///     交付日程
         /// </summary>
-        public List<ReceptionScheduleDTO> ReceptionSchedules { get; set; }
+        public List<ReceptionScheduleDTO> ReceptionSchedules
+        {
+            get { return _schedules ?? (_schedules = new List<ReceptionScheduleDTO>()); }
+            set { _schedules = value; }
+        }
         #endregion
     }
 }

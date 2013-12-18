@@ -355,14 +355,16 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         /// <param name="itemName">项名称</param>
         /// <param name="amount">金额</param>
         /// <param name="orderLine">订单行</param>
+        /// <param name="note">备注</param>
         /// <returns>发票行</returns>
-        public InvoiceLine AddInvoiceLine(string itemName, decimal amount, OrderLine orderLine)
+        public InvoiceLine AddInvoiceLine(string itemName, decimal amount, OrderLine orderLine,string note)
         {
             var invoiceLine = new InvoiceLine
             {
                 ItemName = itemName,
                 Amount = amount,
             };
+            invoiceLine.SetNote(note);
             invoiceLine.GenerateNewIdentity();
             invoiceLine.SetOrderLine(orderLine);
 

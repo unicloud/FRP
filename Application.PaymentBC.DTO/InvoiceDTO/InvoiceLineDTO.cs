@@ -48,6 +48,11 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// </summary>
         public decimal Amount { get; set; }
 
+
+        /// <summary>
+        ///     备注
+        /// </summary>
+        public string Note { get; set; }
         #endregion
 
         #region 外键属性

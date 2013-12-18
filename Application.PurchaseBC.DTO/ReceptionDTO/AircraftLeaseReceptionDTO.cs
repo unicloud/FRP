@@ -27,11 +27,12 @@ namespace UniCloud.Application.PurchaseBC.DTO
     [DataServiceKey("AircraftLeaseReceptionId")]
     public partial class AircraftLeaseReceptionDTO
     {
-        public AircraftLeaseReceptionDTO()
-        {
-            ReceptionLines=new List<AircraftLeaseReceptionLineDTO>();
-            ReceptionSchedules = new List<ReceptionScheduleDTO>();
-        }
+        #region 私有字段
+
+        private List<AircraftLeaseReceptionLineDTO> _lines;
+        private List<ReceptionScheduleDTO> _schedules; 
+
+        #endregion
 
         #region 属性
         /// <summary>
@@ -50,7 +51,7 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         /// 交付起始时间
         /// </summary>
- 
+
         public DateTime StartDate { get; set; }
         /// <summary>
         /// 交付截止时间
@@ -94,13 +95,20 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     接收行
         /// </summary>
-        public List<AircraftLeaseReceptionLineDTO> ReceptionLines { get; set; }
-
+        public List<AircraftLeaseReceptionLineDTO> ReceptionLines
+        {
+            get { return _lines ?? (_lines = new List<AircraftLeaseReceptionLineDTO>()); }
+            set { _lines = value; }
+        }
 
         /// <summary>
         ///     交付日程
         /// </summary>
-        public List<ReceptionScheduleDTO> ReceptionSchedules { get; set; }
+        public List<ReceptionScheduleDTO> ReceptionSchedules
+        {
+            get { return _schedules ?? (_schedules = new List<ReceptionScheduleDTO>()); }
+            set { _schedules = value; }
+        }
         #endregion
     }
 }

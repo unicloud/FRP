@@ -41,7 +41,13 @@ namespace UniCloud.Application.PaymentBC.OrderServices
             _orderQuery = orderQuery;
         }
 
-        #region ITradeAppService 成员
+        #region IOrderAppService 成员
+
+        public IQueryable<OrderDTO> GetOrders()
+        {
+            var query = new QueryBuilder<Order>();
+            return _orderQuery.OrderDTOQuery(query);
+        }
 
         public IQueryable<AircraftLeaseOrderDTO> GetAircraftLeaseOrders()
         {

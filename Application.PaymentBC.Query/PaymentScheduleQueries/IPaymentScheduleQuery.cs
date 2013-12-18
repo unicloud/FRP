@@ -30,6 +30,14 @@ namespace UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries
     public interface IPaymentScheduleQuery
     {
         /// <summary>
+        ///     所有付款计划
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        /// <returns>所有付款计划DTO集合</returns>
+        IQueryable<PaymentScheduleDTO> PaymentSchedulesQuery(QueryBuilder<PaymentSchedule> query);
+
+
+        /// <summary>
         ///     飞机付款计划
         /// </summary>
         /// <param name="query">查询表达式</param>
