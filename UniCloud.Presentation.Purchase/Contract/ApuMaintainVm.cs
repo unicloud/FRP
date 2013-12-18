@@ -82,6 +82,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                     CanSelectApuMaintain = !ApuMaintainContracts.HasChanges;
                 }
             };
+
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_purchaseData, _purchaseData.Suppliers);
         }
 
         /// <summary>
@@ -98,7 +100,10 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 数据
 
         #region 公共属性
-
+        /// <summary>
+        ///     供应商
+        /// </summary>
+        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
         #endregion
 
         #region 加载数据
@@ -114,6 +119,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             // 将CollectionView的AutoLoad属性设为True
             ApuMaintainContracts.AutoLoad = true;
+            Suppliers.Load(true);
         }
 
 
@@ -139,9 +145,9 @@ namespace UniCloud.Presentation.Purchase.Contract
                     {
                         _document.DocumentId = _apuMaintainContract.DocumentId;
                         _document.Name = _apuMaintainContract.DocumentName;
-                        if (value.Suppliers != null)
+                        if (Suppliers != null)
                         {
-                            _supplier = value.Suppliers.FirstOrDefault(p => p.SupplierId == _apuMaintainContract.SignatoryId);
+                            _supplier = Suppliers.FirstOrDefault(p => p.SupplierId == _apuMaintainContract.SignatoryId);
                         }
                     }
                     RaisePropertyChanged(() => ApuMaintainContract);

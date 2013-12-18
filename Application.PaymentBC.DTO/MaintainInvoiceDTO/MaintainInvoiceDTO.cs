@@ -98,12 +98,21 @@ namespace UniCloud.Application.PaymentBC.DTO
         public int Status { get; set; }
 
         /// <summary>
+        ///  文档名称
+        /// </summary>
+        public string DocumentName { get; set; }
+        
+        /// <summary>
         ///  维修发票行集合
         /// </summary>
         public virtual List<MaintainInvoiceLineDTO> MaintainInvoiceLines { get; set; }
         #endregion
 
         #region 外键属性
+        /// <summary>
+        ///  文档ID
+        /// </summary>
+        public Guid DocumentId { get; set; }
 
         /// <summary>
         ///     供应商ID

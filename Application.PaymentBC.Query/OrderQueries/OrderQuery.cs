@@ -48,6 +48,45 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
         /// <returns>
         ///     <see cref="IOrderQuery" />
         /// </returns>
+        public IQueryable<OrderDTO> OrderDTOQuery(QueryBuilder<Order> query)
+        {
+            var result = query.ApplyTo(_orderRepository.GetAll().Where(p => p.IsValid == true))
+                .Select(o => new OrderDTO
+                {
+                    Id = o.Id,
+                    Name = o.Name,
+                    Version = o.Version,
+                    CurrencyId = o.Currency.Id,
+                    OperatorName = o.OperatorName,
+                    OrderDate = o.OrderDate,
+                    Status = (int)o.Status,
+                    Note = o.Note,
+                    OrderLines = 
+                        o.OrderLines.OfType<AircraftLeaseOrderLine>().Select(l => new OrderLineDTO
+                        {
+                            Id = l.Id,
+                            UnitPrice = l.UnitPrice,
+                            Amount = l.Amount,
+                            Discount = l.Discount,
+                            EstimateDeliveryDate = l.EstimateDeliveryDate,
+                            Note = l.Note,
+                            MaterialName = l.LeaseContractAircraft.SerialNumber,
+                            TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
+                        }).ToList(),
+                });
+            return result;
+        }
+
+
+        /// <summary>
+        ///     <see cref="IOrderQuery" />
+        /// </summary>
+        /// <param name="query">
+        ///     <see cref="IOrderQuery" />
+        /// </param>
+        /// <returns>
+        ///     <see cref="IOrderQuery" />
+        /// </returns>
         public IQueryable<AircraftLeaseOrderDTO> AircraftLeaseOrderQuery(QueryBuilder<Order> query)
         {
             var result = query.ApplyTo(_orderRepository.GetAll().OfType<AircraftLeaseOrder>().Where(p=>p.IsValid==true))
@@ -150,7 +189,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                             Discount = l.Discount,
                             EstimateDeliveryDate = l.EstimateDeliveryDate,
                             Note = l.Note,
-                            EngineMaterialId = l.EngineMaterialId,
+                            ContractEngineId = l.ContractEngineId,
                             TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
                         }).ToList(),
                 });
@@ -188,7 +227,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                             Discount = l.Discount,
                             EstimateDeliveryDate = l.EstimateDeliveryDate,
                             Note = l.Note,
-                            EngineMaterialId = l.EngineMaterialId,
+                            ContractEngineId = l.ContractEngineId,
                             TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
                         }).ToList(),
                 });

@@ -17,8 +17,8 @@
 #region 命名空间
 
 using System;
-using System.Linq;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
@@ -84,6 +84,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                     CanSelectUndercartMaintain = !UndercartMaintainContracts.HasChanges;
                 }
             };
+
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_purchaseData, _purchaseData.Suppliers);
         }
 
         /// <summary>
@@ -100,7 +102,10 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 数据
 
         #region 公共属性
-
+        /// <summary>
+        ///     供应商
+        /// </summary>
+        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
         #endregion
 
         #region 加载数据
@@ -116,6 +121,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             // 将CollectionView的AutoLoad属性设为True
             UndercartMaintainContracts.AutoLoad = true;
+            Suppliers.Load(true);
         }
 
         #region 起落架维修合同
@@ -142,10 +148,9 @@ namespace UniCloud.Presentation.Purchase.Contract
                     {
                         _document.DocumentId = _undercartMaintainContract.DocumentId;
                         _document.Name = _undercartMaintainContract.DocumentName;
-                        if (value.Suppliers != null)
+                        if (Suppliers != null)
                         {
-                            _supplier =
-                                value.Suppliers.FirstOrDefault(p => p.SupplierId == _undercartMaintainContract.SignatoryId);
+                            _supplier = Suppliers.FirstOrDefault(p => p.SupplierId == _undercartMaintainContract.SignatoryId);
                         }
                     }
                     RaisePropertyChanged(() => UndercartMaintainContract);
@@ -201,7 +206,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
-            }
+        }
 
         private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {

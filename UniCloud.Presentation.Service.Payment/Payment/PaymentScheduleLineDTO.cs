@@ -36,7 +36,8 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         {
             get
             {
-                return InvoiceId != null;
+                //return InvoiceId != null;
+                return true;
             }
         }
     }
