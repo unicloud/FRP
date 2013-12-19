@@ -320,7 +320,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Add.png" />
-    <Resource Include="Images\Apply.png" />
     <Resource Include="Images\Auction.png" />
     <Resource Include="Images\Bin.png" />
     <Resource Include="Images\Check.png" />
@@ -390,6 +389,15 @@
     <Resource Include="Images\SmallAddFolder.png" />
     <Resource Include="Images\SmallDelDocument.png" />
     <Resource Include="Images\SmallOpenDocument.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DeleteRed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\RelatedDoc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Tool.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>

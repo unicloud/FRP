@@ -6,10 +6,10 @@
 
     <!-- 日期格式 -->
     <system:String x:Key="DateStringFormat">{0:yyyy/MM/dd}</system:String>
-    
+
     <!--货币格式-->
     <system:String x:Key="CurrencyStringFormat">{0:N}</system:String>
-    
+
     <!--数字格式-->
     <system:String x:Key="NumberStringFormat">###,###</system:String>
     <!-- 字体、字号 -->
@@ -32,9 +32,9 @@
     <!--ComboBox相关样式-->
     <Style TargetType="telerik:RadComboBox" x:Key="BaseRadComboBox" />
     <Style TargetType="telerik:RadComboBox" BasedOn="{StaticResource BaseRadComboBox}">
-        <Setter Property="OpenDropDownOnFocus" Value="True"/>
+        <Setter Property="OpenDropDownOnFocus" Value="True" />
     </Style>
-    
+
     <!--ComboBox相关样式-->
 
     <!--GridView相关样式-->
@@ -54,11 +54,16 @@
         <Setter Property="Background" Value="#EEF1EB" />
     </Style>
 
-    <Style TargetType="telerik:GridViewHeaderCell" x:Key="BaseGridViewHeaderCell"/>
+    <Style TargetType="telerik:GridViewHeaderCell" x:Key="BaseGridViewHeaderCell" />
     <Style TargetType="telerik:GridViewHeaderCell" BasedOn="{StaticResource BaseGridViewHeaderCell}">
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
     </Style>
-    
+
     <!--GridView相关样式-->
+
+    <!--ListBox相关样式-->
+
+    <!--ListBox相关样式-->
+
     <valueConverts:EnumToStringConverter x:Key="EnumToStringConverter" />
 </ResourceDictionary>

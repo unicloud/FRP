@@ -130,7 +130,7 @@
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddAttachCommand}"
                                                        CommandParameter="{Binding SelAircraftPurchaseOrderDTO.RelatedDocs}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
+                                        <Image Source="/UniCloud.Presentation;component/Images/RelatedDoc.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="添加关联文档" />
                                     </telerik:RadButton>
@@ -151,7 +151,7 @@
                                                      IsBusy="{Binding ViewAircraftPurchaseOrderDTO.IsBusy}"
                                                      ShowGroupPanel="False"
                                                      IsFilteringAllowed="False"
-                                                     EditTriggers="CellClick" IsSynchronizedWithCurrentItem="True">
+                                                     EditTriggers="CellClick">
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
@@ -223,9 +223,20 @@
                                                             ItemsSource="{Binding SelAircraftPurchaseOrderDTO.RelatedDocs}">
                                             <telerik:RadListBox.ItemTemplate>
                                                 <DataTemplate>
-                                                    <HyperlinkButton Content="{Binding DocumentName}"
-                                                                     Command="{Binding DataContext.ViewAttachCommand, ElementName=LayoutRoot}"
-                                                                     CommandParameter="{Binding}" />
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <telerik:RadButton VerticalAlignment="Center"
+                                                                           BorderThickness="0" Background="Transparent"
+                                                                           Command="{Binding DataContext.RemoveDocCommand, ElementName=LayoutRoot}"
+                                                                           CommandParameter="{Binding}">
+                                                            <Image
+                                                                Source="/UniCloud.Presentation;component/Images/DeleteRed.png"
+                                                                ToolTipService.ToolTip="移除关联文档" />
+                                                        </telerik:RadButton>
+                                                        <HyperlinkButton Content="{Binding DocumentName}"
+                                                                         VerticalAlignment="Center"
+                                                                         Command="{Binding DataContext.ViewAttachCommand, ElementName=LayoutRoot}"
+                                                                         CommandParameter="{Binding}" Margin="10,0,0,0" />
+                                                    </StackPanel>
                                                 </DataTemplate>
                                             </telerik:RadListBox.ItemTemplate>
                                         </telerik:RadListBox>

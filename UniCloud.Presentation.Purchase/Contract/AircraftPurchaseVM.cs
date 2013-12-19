@@ -56,6 +56,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             RemoveTradeCommand = new DelegateCommand<object>(OnRemoveTrade, CanRemoveTrade);
             AddOrderCommand = new DelegateCommand<object>(OnAddOrder, CanAddOrder);
             RemoveOrderCommand = new DelegateCommand<object>(OnRemoveOrder, CanRemoveOrder);
+            RemoveDocCommand = new DelegateCommand<object>(OnRemoveDoc, CanRemoveDoc);
             AddOrderLineCommand = new DelegateCommand<object>(OnAddOrderLine, CanAddOrderLine);
             RemoveOrderLineCommand = new DelegateCommand<object>(OnRemoveOrderLine, CanRemoveOrderLine);
 
@@ -218,34 +219,32 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         protected override void OnAddAttach(object sender)
         {
-            documentView.Closed -= DocumentViewerClosed;
-            documentView.Closed += DocumentViewerClosed;
             if (sender is Guid)
             {
                 _isAttach = true;
-            var docId = (Guid) sender;
-                documentView.ViewModel.InitData(false, docId,null);
+                var docId = (Guid) sender;
+                documentView.ViewModel.InitData(false, docId, DocumentViewerClosed);
                 documentView.ShowDialog();
             }
             else
             {
                 _isAttach = false;
                 var docId = Guid.Empty;
-                documentView.ViewModel.InitData(false, docId,null);
-            documentView.ShowDialog();
-        }
+                documentView.ViewModel.InitData(false, docId, DocumentViewerClosed);
+                documentView.ShowDialog();
+            }
         }
 
         private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {
-            if ( documentView.Tag is DocumentDTO)
+            if (documentView.Tag is DocumentDTO)
             {
                 if (_isAttach)
-            {
-                _document = documentView.Tag as DocumentDTO;
-                SelAircraftPurchaseOrderDTO.ContractName = _document.Name;
-                SelAircraftPurchaseOrderDTO.ContractDocGuid = _document.DocumentId;
-            }
+                {
+                    _document = documentView.Tag as DocumentDTO;
+                    SelAircraftPurchaseOrderDTO.ContractName = _document.Name;
+                    SelAircraftPurchaseOrderDTO.ContractDocGuid = _document.DocumentId;
+                }
                 else
                 {
                     _document = documentView.Tag as DocumentDTO;
@@ -266,19 +265,18 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         protected override void OnViewAttach(object sender)
         {
-            documentView.Closed -= DocumentViewerClosed;
             if (sender is Guid)
             {
-            var docId = (Guid) sender;
-                documentView.ViewModel.InitData(true, docId,null);
+                var docId = (Guid) sender;
+                documentView.ViewModel.InitData(true, docId, DocumentViewerClosed);
                 documentView.ShowDialog();
             }
             else if (sender is RelatedDocDTO)
             {
                 var doc = sender as RelatedDocDTO;
-                documentView.ViewModel.InitData(true, doc.DocumentId,null);
-            documentView.ShowDialog();
-        }
+                documentView.ViewModel.InitData(true, doc.DocumentId, DocumentViewerClosed);
+                documentView.ShowDialog();
+            }
         }
 
         #endregion
@@ -372,6 +370,35 @@ namespace UniCloud.Presentation.Purchase.Contract
         }
 
         private bool CanRemoveOrder(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 删除关联文档
+
+        /// <summary>
+        ///     删除关联文档
+        /// </summary>
+        public DelegateCommand<object> RemoveDocCommand { get; private set; }
+
+        private void OnRemoveDoc(object obj)
+        {
+            var doc = obj as RelatedDocDTO;
+            if (doc != null)
+            {
+                MessageConfirm("确认移除", "是否移除关联文档：" + doc.DocumentName + "？", (o, e) =>
+                {
+                    if (e.DialogResult == true)
+                    {
+                        SelAircraftPurchaseOrderDTO.RelatedDocs.Remove(doc);
+                    }
+                });
+            }
+        }
+
+        private bool CanRemoveDoc(object obj)
         {
             return true;
         }
