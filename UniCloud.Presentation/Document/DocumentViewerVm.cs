@@ -91,6 +91,7 @@ namespace UniCloud.Presentation.Document
         #region 初始化文档信息
         public void InitData(bool onlyView, Guid docId, EventHandler<WindowClosedEventArgs> closed)
         {
+            CurrentDocumentView.Tag = null;
             CurrentDocumentView.WordPane.IsHidden = false;
             CurrentDocumentView.PdfPane.IsHidden = false;
             IsBusy = true;
@@ -99,9 +100,13 @@ namespace UniCloud.Presentation.Document
             if (_onlyView)
             {
                 CurrentDocumentView.Header = "查看文档";
+                CurrentDocumentView.Closed -= closed;
             }
-            CurrentDocumentView.Closed -= closed;
-            CurrentDocumentView.Closed += closed;
+            else
+            {
+                CurrentDocumentView.Closed -= closed;
+                CurrentDocumentView.Closed += closed;
+            }
             CurrentDocumentView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             if (!docId.Equals(Guid.Empty))
             {
