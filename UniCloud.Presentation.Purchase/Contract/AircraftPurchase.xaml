@@ -128,6 +128,12 @@
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="添加合同文档" />
                                     </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddAttachCommand}"
+                                                       CommandParameter="{Binding SelAircraftPurchaseOrderDTO.RelatedDocs}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="添加关联文档" />
+                                    </telerik:RadButton>
                                     <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddOrderLineCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Add.png" Stretch="Fill"
@@ -217,7 +223,9 @@
                                                             ItemsSource="{Binding SelAircraftPurchaseOrderDTO.RelatedDocs}">
                                             <telerik:RadListBox.ItemTemplate>
                                                 <DataTemplate>
-                                                    <HyperlinkButton Content="{Binding DocumentName}" />
+                                                    <HyperlinkButton Content="{Binding DocumentName}"
+                                                                     Command="{Binding DataContext.ViewAttachCommand, ElementName=LayoutRoot}"
+                                                                     CommandParameter="{Binding}" />
                                                 </DataTemplate>
                                             </telerik:RadListBox.ItemTemplate>
                                         </telerik:RadListBox>

@@ -44,6 +44,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         private readonly IRegionManager _regionManager;
         private PurchaseData _context;
         private DocumentDTO _document = new DocumentDTO();
+        private bool _isAttach;
         [Import] public DocumentViewer documentView;
 
         [ImportingConstructor]
@@ -217,18 +218,45 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         protected override void OnAddAttach(object sender)
         {
+            documentView.Closed -= DocumentViewerClosed;
+            documentView.Closed += DocumentViewerClosed;
+            if (sender is Guid)
+            {
+                _isAttach = true;
             var docId = (Guid) sender;
-            documentView.ViewModel.InitData(false, docId, DocumentViewerClosed);
+                documentView.ViewModel.InitData(false, docId,null);
+                documentView.ShowDialog();
+            }
+            else
+            {
+                _isAttach = false;
+                var docId = Guid.Empty;
+                documentView.ViewModel.InitData(false, docId,null);
             documentView.ShowDialog();
+        }
         }
 
         private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {
-            if (documentView.Tag is DocumentDTO)
+            if ( documentView.Tag is DocumentDTO)
+            {
+                if (_isAttach)
             {
                 _document = documentView.Tag as DocumentDTO;
                 SelAircraftPurchaseOrderDTO.ContractName = _document.Name;
                 SelAircraftPurchaseOrderDTO.ContractDocGuid = _document.DocumentId;
+            }
+                else
+                {
+                    _document = documentView.Tag as DocumentDTO;
+                    var doc = new RelatedDocDTO
+                    {
+                        DocumentId = _document.DocumentId,
+                        DocumentName = _document.Name,
+                        SourceId = SelAircraftPurchaseOrderDTO.SourceGuid
+                    };
+                    SelAircraftPurchaseOrderDTO.RelatedDocs.Add(doc);
+                }
             }
         }
 
@@ -238,9 +266,19 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         protected override void OnViewAttach(object sender)
         {
+            documentView.Closed -= DocumentViewerClosed;
+            if (sender is Guid)
+            {
             var docId = (Guid) sender;
-            documentView.ViewModel.InitData(true, docId, DocumentViewerClosed);
+                documentView.ViewModel.InitData(true, docId,null);
+                documentView.ShowDialog();
+            }
+            else if (sender is RelatedDocDTO)
+            {
+                var doc = sender as RelatedDocDTO;
+                documentView.ViewModel.InitData(true, doc.DocumentId,null);
             documentView.ShowDialog();
+        }
         }
 
         #endregion

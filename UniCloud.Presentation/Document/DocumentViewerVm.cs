@@ -113,8 +113,8 @@ namespace UniCloud.Presentation.Document
                 LoadDocumentByDocId(docId);
             }
             
-            IsBusy = false;
-        }
+                IsBusy = false;
+            }
         #endregion
 
         #region 加载文档
