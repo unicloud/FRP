@@ -312,7 +312,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条记录！");
                 return;
             }
-            DocumentView.ViewModel.InitData(true, ApuMaintainInvoice.DocumentId, null);
+            DocumentView.ViewModel.InitData(true, ApuMaintainInvoice.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
         }
         #endregion

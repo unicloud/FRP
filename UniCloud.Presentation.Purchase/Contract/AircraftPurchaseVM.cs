@@ -223,7 +223,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             if (sender is Guid)
             {
                 _isAttach = true;
-                var docId = (Guid) sender;
+            var docId = (Guid) sender;
                 documentView.ViewModel.InitData(false, docId,null);
                 documentView.ShowDialog();
             }
@@ -232,8 +232,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                 _isAttach = false;
                 var docId = Guid.Empty;
                 documentView.ViewModel.InitData(false, docId,null);
-                documentView.ShowDialog();
-            }
+            documentView.ShowDialog();
+        }
         }
 
         private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
@@ -241,11 +241,11 @@ namespace UniCloud.Presentation.Purchase.Contract
             if ( documentView.Tag is DocumentDTO)
             {
                 if (_isAttach)
-                {
-                    _document = documentView.Tag as DocumentDTO;
-                    SelAircraftPurchaseOrderDTO.ContractName = _document.Name;
-                    SelAircraftPurchaseOrderDTO.ContractDocGuid = _document.DocumentId;
-                }
+            {
+                _document = documentView.Tag as DocumentDTO;
+                SelAircraftPurchaseOrderDTO.ContractName = _document.Name;
+                SelAircraftPurchaseOrderDTO.ContractDocGuid = _document.DocumentId;
+            }
                 else
                 {
                     _document = documentView.Tag as DocumentDTO;
@@ -269,7 +269,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             documentView.Closed -= DocumentViewerClosed;
             if (sender is Guid)
             {
-                var docId = (Guid) sender;
+            var docId = (Guid) sender;
                 documentView.ViewModel.InitData(true, docId,null);
                 documentView.ShowDialog();
             }
@@ -277,8 +277,8 @@ namespace UniCloud.Presentation.Purchase.Contract
             {
                 var doc = sender as RelatedDocDTO;
                 documentView.ViewModel.InitData(true, doc.DocumentId,null);
-                documentView.ShowDialog();
-            }
+            documentView.ShowDialog();
+        }
         }
 
         #endregion

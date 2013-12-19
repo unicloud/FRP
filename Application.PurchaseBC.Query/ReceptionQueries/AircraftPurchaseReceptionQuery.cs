@@ -65,6 +65,8 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
                         AircraftType = q.PurchaseContractAircraft.AircraftType.Name,
                         ImportCategoryId = q.PurchaseContractAircraft.ImportCategory.ActionName,
                         ContractAircraftId = q.ContractAircraftId,
+                        DeliverDate = q.DeliverDate,
+                        DeliverPlace = q.DeliverPlace,
                         RankNumber = q.PurchaseContractAircraft.RankNumber,
                     }).ToList(),
                     ReceptionSchedules = p.ReceptionSchedules.Select(q => new ReceptionScheduleDTO
