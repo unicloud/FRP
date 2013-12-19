@@ -38,7 +38,7 @@ namespace UniCloud.Presentation.Document
 
         [Import]
         public DocumentViewer CurrentDocumentView;
-        private  DocumentDTO _currentDoc = new DocumentDTO();
+        private DocumentDTO _currentDoc = new DocumentDTO();
         private bool _onlyView;
         private byte[] _byteContent;
         private readonly QueryableDataServiceCollectionView<DocumentDTO> _documents;
@@ -64,13 +64,11 @@ namespace UniCloud.Presentation.Document
                             CurrentDocumentView.WordPane.IsHidden = true;
                             Stream currentContent = new MemoryStream(result.FileStorage);
                             CurrentDocumentView.PdfReader.Document = new PdfFormatProvider(currentContent, FormatProviderSettings.ReadOnDemand).Import();
-                            CurrentDocumentView.WordReader.Document = new RadDocument();
                         }
                         else if (result.Name.EndsWith(".docx", StringComparison.OrdinalIgnoreCase))
                         {
                             CurrentDocumentView.PdfPane.IsHidden = true;
                             CurrentDocumentView.WordReader.Document = new DocxFormatProvider().Import(result.FileStorage);
-                            CurrentDocumentView.PdfReader.Document = null;
                         }
                     }
                 }
@@ -92,6 +90,8 @@ namespace UniCloud.Presentation.Document
         public void InitData(bool onlyView, Guid docId, EventHandler<WindowClosedEventArgs> closed)
         {
             CurrentDocumentView.Tag = null;
+            CurrentDocumentView.WordReader.Document = new RadDocument();
+            CurrentDocumentView.PdfReader.Document = null;
             CurrentDocumentView.WordPane.IsHidden = false;
             CurrentDocumentView.PdfPane.IsHidden = false;
             IsBusy = true;
@@ -112,9 +112,8 @@ namespace UniCloud.Presentation.Document
             {
                 LoadDocumentByDocId(docId);
             }
-            
-                IsBusy = false;
-            }
+            IsBusy = false;
+        }
         #endregion
 
         #region 加载文档
