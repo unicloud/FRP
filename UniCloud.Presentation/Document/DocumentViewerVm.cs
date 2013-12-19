@@ -38,7 +38,7 @@ namespace UniCloud.Presentation.Document
 
         [Import]
         public DocumentViewer CurrentDocumentView;
-        private readonly DocumentDTO _currentDoc = new DocumentDTO();
+        private  DocumentDTO _currentDoc = new DocumentDTO();
         private bool _onlyView;
         private byte[] _byteContent;
         private readonly QueryableDataServiceCollectionView<DocumentDTO> _documents;
@@ -112,12 +112,8 @@ namespace UniCloud.Presentation.Document
             {
                 LoadDocumentByDocId(docId);
             }
-            else
-            {
-                CurrentDocumentView.WordReader.Document = new RadDocument();
-                CurrentDocumentView.PdfReader.Document = null;
-                IsBusy = false;
-            }
+            
+            IsBusy = false;
         }
         #endregion
 
@@ -195,28 +191,25 @@ namespace UniCloud.Presentation.Document
                 isNew = true;
                 _currentDoc.DocumentId = Guid.NewGuid();
             }
-            var document = new DocumentDTO
-                           {
-                               DocumentId = _currentDoc.DocumentId,
-                               Name = _currentDoc.Name,
-                               Extension = _currentDoc.Extension,
-                               IsValid = true
-                           };
             if (CurrentDocumentView.PaneGroups.SelectedPane.Name.Equals("WordPane", StringComparison.OrdinalIgnoreCase))
             {
-                document.FileStorage = new DocxFormatProvider().Export(CurrentDocumentView.WordReader.Document);
+                _currentDoc.FileStorage = new DocxFormatProvider().Export(CurrentDocumentView.WordReader.Document);
             }
             else if (CurrentDocumentView.PaneGroups.SelectedPane.Name.Equals("PdfPane", StringComparison.OrdinalIgnoreCase))
             {
-                document.FileStorage = _byteContent;
+                _currentDoc.FileStorage = _byteContent;
             }
             if (isNew)
             {
-                _documents.AddNew(document);
+                _documents.AddNew(_currentDoc);
             }
             else
             {
-                _documents.EditItem(document);
+                var tempDoc = _documents.FirstOrDefault();
+                tempDoc.DocumentId = _currentDoc.DocumentId;
+                tempDoc.Name = _currentDoc.Name;
+                tempDoc.Extension = _currentDoc.Extension;
+                tempDoc.FileStorage = _currentDoc.FileStorage;
             }
             _documents.SubmitChanges();
             if (_submitChanges == null)
