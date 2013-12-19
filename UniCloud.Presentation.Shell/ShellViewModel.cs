@@ -348,7 +348,7 @@ namespace UniCloud.Presentation.Shell
 
             var menu42 = new MenuItem
             {
-                Text = "管理发票",
+                Text = "管理采购发票",
             };
             var menu421 = new MenuItem
             {
@@ -370,106 +370,115 @@ namespace UniCloud.Presentation.Shell
                 Text = "维护贷项单",
                 NavUri = "UniCloud.Presentation.Payment.Invoice.CreditNoteManager"
             };
-            var menu425 = new MenuItem
-            {
-                Text = "维护发动机维修发票",
-                NavUri = "UniCloud.Presentation.Payment.Invoice.EngineMaintain"
-            };
-            var menu426 = new MenuItem
-            {
-                Text = "维护APU维修发票",
-                NavUri = "UniCloud.Presentation.Payment.Invoice.APUMaintain"
-            };
-            var menu427 = new MenuItem
-            {
-                Text = "维护起落架维修发票",
-                NavUri = "UniCloud.Presentation.Payment.Invoice.UndercartMaintain"
-            };
-            var menu428 = new MenuItem
-            {
-                Text = "维护机身维修发票",
-                NavUri = "UniCloud.Presentation.Payment.Invoice.AirframeMaintain"
-            };
-            var menu429 = new MenuItem
-            {
-                Text = "维护付款通知",
-            };
             menu42.Items.Add(menu421);
             menu42.Items.Add(menu422);
             menu42.Items.Add(menu423);
             menu42.Items.Add(menu424);
-            menu42.Items.Add(menu425);
-            menu42.Items.Add(menu426);
-            menu42.Items.Add(menu427);
-            menu42.Items.Add(menu428);
-            menu42.Items.Add(menu429);
             menu4.Items.Add(menu42);
+
 
             var menu43 = new MenuItem
             {
-                Text = "管理保函",
+                Text = "管理维修发票",
             };
             var menu431 = new MenuItem
             {
-                Text = "维护租赁保证金",
+                Text = "维护发动机维修发票",
+                NavUri = "UniCloud.Presentation.Payment.Invoice.EngineMaintain"
             };
             var menu432 = new MenuItem
             {
-                Text = "维护大修保证金",
+                Text = "维护APU维修发票",
+                NavUri = "UniCloud.Presentation.Payment.Invoice.APUMaintain"
+            };
+            var menu433 = new MenuItem
+            {
+                Text = "维护起落架维修发票",
+                NavUri = "UniCloud.Presentation.Payment.Invoice.UndercartMaintain"
+            };
+            var menu434 = new MenuItem
+            {
+                Text = "维护机身维修发票",
+                NavUri = "UniCloud.Presentation.Payment.Invoice.AirframeMaintain"
             };
             menu43.Items.Add(menu431);
             menu43.Items.Add(menu432);
+            menu43.Items.Add(menu433);
+            menu43.Items.Add(menu434);
             menu4.Items.Add(menu43);
+
 
             var menu44 = new MenuItem
             {
-                Text = "管理飞机价格",
+                Text = "维护付款通知",
             };
-            var menu441 = new MenuItem
-            {
-                Text = "设置飞机价格公式",
-            };
-            var menu442 = new MenuItem
-            {
-                Text = "设置发动机价格公式",
-            };
-            var menu443 = new MenuItem
-            {
-                Text = "计算飞机价格",
-            };
-            menu44.Items.Add(menu441);
-            menu44.Items.Add(menu442);
-            menu44.Items.Add(menu443);
             menu4.Items.Add(menu44);
 
             var menu45 = new MenuItem
             {
-                Text = "查询分析",
+                Text = "管理保函",
             };
             var menu451 = new MenuItem
+            {
+                Text = "维护租赁保证金",
+            };
+            var menu452 = new MenuItem
+            {
+                Text = "维护大修保证金",
+            };
+            menu45.Items.Add(menu451);
+            menu45.Items.Add(menu452);
+            menu4.Items.Add(menu45);
+
+            var menu46 = new MenuItem
+            {
+                Text = "管理飞机价格",
+            };
+            var menu461 = new MenuItem
+            {
+                Text = "设置飞机价格公式",
+            };
+            var menu462 = new MenuItem
+            {
+                Text = "设置发动机价格公式",
+            };
+            var menu463 = new MenuItem
+            {
+                Text = "计算飞机价格",
+            };
+            menu46.Items.Add(menu461);
+            menu46.Items.Add(menu462);
+            menu46.Items.Add(menu463);
+            menu4.Items.Add(menu46);
+
+            var menu47 = new MenuItem
+            {
+                Text = "查询分析",
+            };
+            var menu471 = new MenuItem
             {
                 Text = "查询付款计划",
                 NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.QueryPaymentSchedule"
             };
-            var menu452 = new MenuItem
+            var menu472 = new MenuItem
             {
                 Text = "预测资金需求",
                 NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.FinancingDemandForecast"
             };
-            var menu453 = new MenuItem
+            var menu473 = new MenuItem
             {
                 Text = "分析付款计划执行",
             };
-            var menu454 = new MenuItem
+            var menu474 = new MenuItem
             {
                 Text = "分析维修成本",
                 NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.AnalyseMaintenanceCosts"
             };
-            menu45.Items.Add(menu451);
-            menu45.Items.Add(menu452);
-            menu45.Items.Add(menu453);
-            menu45.Items.Add(menu454);
-            menu4.Items.Add(menu45);
+            menu47.Items.Add(menu471);
+            menu47.Items.Add(menu472);
+            menu47.Items.Add(menu473);
+            menu47.Items.Add(menu474);
+            menu4.Items.Add(menu47);
 
 
             _items.Add(menu4);
