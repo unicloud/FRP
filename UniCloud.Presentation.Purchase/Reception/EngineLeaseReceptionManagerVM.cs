@@ -577,7 +577,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         #region 查看附件
         protected override void OnViewAttach(object sender)
         {
-            DocumentView.ViewModel.InitData(true, _document.DocumentId, null);
+            DocumentView.ViewModel.InitData(true, _document.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
         }
         #endregion

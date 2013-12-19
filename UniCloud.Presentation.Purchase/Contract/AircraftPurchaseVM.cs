@@ -239,7 +239,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         protected override void OnViewAttach(object sender)
         {
             var docId = (Guid) sender;
-            documentView.ViewModel.InitData(true, docId, null);
+            documentView.ViewModel.InitData(true, docId, DocumentViewerClosed);
             documentView.ShowDialog();
         }
 

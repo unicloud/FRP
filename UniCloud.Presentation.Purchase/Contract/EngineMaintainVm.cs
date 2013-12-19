@@ -77,7 +77,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                                                                        RandomHelper.Next();
                                                                    newItem.SignDate = DateTime.Now;
                                                                    newItem.CreateDate = DateTime.Now;
-                                                                   newItem.DocumentName = "添加附件";
+                                                                   DocumentName = "添加附件";
                                                                    _document.DocumentId = new Guid();
                                                                    _document.Name = string.Empty;
                                                                }
@@ -112,6 +112,19 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
 
+        /// <summary>
+        /// 文档名称
+        /// </summary>
+        private string _documentName;
+        public string DocumentName
+        {
+            get { return _documentName; }
+            set
+            {
+                _documentName = value;
+                RaisePropertyChanged("DocumentName");
+            }
+        }
         #endregion
 
         #region 加载数据
@@ -155,6 +168,11 @@ namespace UniCloud.Presentation.Purchase.Contract
                     {
                         _document.DocumentId = _engineMaintainContract.DocumentId;
                         _document.Name = _engineMaintainContract.DocumentName;
+                        DocumentName = _engineMaintainContract.DocumentName;
+                        if (string.IsNullOrEmpty(DocumentName))
+                        {
+                            DocumentName = "添加附件";
+                        }
                         if (Suppliers != null)
                         {
                             _supplier =
@@ -227,6 +245,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 _document = DocumentView.Tag as DocumentDTO;
                 EngineMaintainContract.DocumentId = _document.DocumentId;
                 EngineMaintainContract.DocumentName = _document.Name;
+                DocumentName = _document.Name;
             }
         }
 
@@ -236,7 +255,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         protected override void OnViewAttach(object sender)
         {
-            DocumentView.ViewModel.InitData(true, _document.DocumentId, null);
+            DocumentView.ViewModel.InitData(true, _document.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
         }
 
