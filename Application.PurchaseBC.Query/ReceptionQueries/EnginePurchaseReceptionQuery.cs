@@ -64,6 +64,8 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
                         ContractName = q.PurchaseContractEngine.ContractName,
                         ImportCategoryId = q.PurchaseContractEngine.ImportCategory.ActionName,
                         ContractEngineId = q.ContractEngineId,
+                        DeliverDate = q.DeliverDate,
+                        DeliverPlace = q.DeliverPlace,
                         RankNumber = q.PurchaseContractEngine.RankNumber,
                     }).ToList(),
                     ReceptionSchedules = p.ReceptionSchedules.Select(q => new ReceptionScheduleDTO

@@ -81,7 +81,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             newAircraftLeaseReception.SetReceptionNumber(seq);
             newAircraftLeaseReception.Description = aircraftLeaseReception.Description;
             newAircraftLeaseReception.StartDate = aircraftLeaseReception.StartDate;
-            newAircraftLeaseReception.SetStatus(0);
+            newAircraftLeaseReception.SetStatus(ReceptionStatus.开始);
             newAircraftLeaseReception.EndDate = aircraftLeaseReception.EndDate;
             newAircraftLeaseReception.SetSupplier(supplier);
             newAircraftLeaseReception.SourceId = aircraftLeaseReception.SourceId;
@@ -139,31 +139,14 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             //获取需要更新的对象。
             if (updateAircraftLeaseReception != null)
             {
+                updateAircraftLeaseReception.SetReceptionNumber(aircraftLeaseReception.ReceptionNumber);
                 updateAircraftLeaseReception.Description = aircraftLeaseReception.Description;
                 updateAircraftLeaseReception.StartDate = aircraftLeaseReception.StartDate;
                 updateAircraftLeaseReception.EndDate = aircraftLeaseReception.EndDate;
                 updateAircraftLeaseReception.SetSupplier(supplier);
+                updateAircraftLeaseReception.SetStatus((ReceptionStatus)aircraftLeaseReception.Status);
                 updateAircraftLeaseReception.SourceId = aircraftLeaseReception.SourceId;
                 //更新主表。 
-
-                    var updateReceptionLines = aircraftLeaseReception.ReceptionLines;
-                    var formerReceptionLines = updateAircraftLeaseReception.ReceptionLines;
-                if (aircraftLeaseReception.ReceptionLines != null)//更新从表需要双向比对变更
-                {
-
-                    foreach (var receptionLine in updateReceptionLines)
-                    {
-                        AddOrUpdateReceptionLine(receptionLine,formerReceptionLines);
-                        //更新或删除此接收行
-                    }
-                }
-                if (updateAircraftLeaseReception.ReceptionLines != null)
-                {
-                    foreach (var formerReceptionLine in formerReceptionLines)
-                    {
-                        DeleteReceptionLine(formerReceptionLine, updateReceptionLines);
-                    }
-                }
 
 
                 //更新从表。

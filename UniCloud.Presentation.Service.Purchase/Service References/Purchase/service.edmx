@@ -351,6 +351,7 @@
         <Property Name="CloseDate" Type="Edm.DateTime" />
         <Property Name="SupplierName" Type="Edm.String" />
         <Property Name="SourceId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ReceptionLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.AircraftLeaseReceptionLineDTO)" Nullable="false" />
         <Property Name="ReceptionSchedules" Type="Collection(UniCloud.Application.PurchaseBC.DTO.ReceptionScheduleDTO)" Nullable="false" />
@@ -404,6 +405,7 @@
         <Property Name="CloseDate" Type="Edm.DateTime" />
         <Property Name="SupplierName" Type="Edm.String" />
         <Property Name="SourceId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ReceptionLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseReceptionLineDTO)" Nullable="false" />
         <Property Name="ReceptionSchedules" Type="Collection(UniCloud.Application.PurchaseBC.DTO.ReceptionScheduleDTO)" Nullable="false" />
@@ -442,6 +444,7 @@
         <Property Name="CloseDate" Type="Edm.DateTime" />
         <Property Name="SupplierName" Type="Edm.String" />
         <Property Name="SourceId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ReceptionLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.EngineLeaseReceptionLineDTO)" Nullable="false" />
         <Property Name="ReceptionSchedules" Type="Collection(UniCloud.Application.PurchaseBC.DTO.ReceptionScheduleDTO)" Nullable="false" />
@@ -476,6 +479,7 @@
         <Property Name="CloseDate" Type="Edm.DateTime" />
         <Property Name="SupplierName" Type="Edm.String" />
         <Property Name="SourceId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ReceptionLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.EnginePurchaseReceptionLineDTO)" Nullable="false" />
         <Property Name="ReceptionSchedules" Type="Collection(UniCloud.Application.PurchaseBC.DTO.ReceptionScheduleDTO)" Nullable="false" />

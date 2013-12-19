@@ -245,6 +245,8 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             contractAircraft.GenerateNewIdentity();
             contractAircraft.SetAircraftType(aircraftTypeId);
             contractAircraft.SetImportCategory(importType);
+            contractAircraft.SetCSCNumber(line.CSCNumber);
+            contractAircraft.SetSerialNumber(line.SerialNumber);
             orderLine.SetContractAircraft(contractAircraft);
         }
 
@@ -351,16 +353,21 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                     order.SetContractDoc(dto.ContractDocGuid, dto.ContractName);
                 }
 
+                // 获取引进方式
+                var importType =
+                    _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "购买")
+                        .FirstOrDefault();
+
                 // 处理订单行
                 if (dto.AircraftPurchaseOrderLines != null)
                 {
-                    dto.AircraftPurchaseOrderLines.ToList().ForEach(line => order.OrderLines.OfType<AircraftPurchaseOrderLine>()
-                        .Where(l => l.Id == line.Id)
-                        .ToList()
-                        .ForEach(l => UpdateOrderLine(l, line)));
+                    dto.AircraftPurchaseOrderLines.ToList().ForEach(line =>
+                    {
+                        var ol = order.OrderLines.OfType<AircraftPurchaseOrderLine>().FirstOrDefault(l => l.Id == line.Id);
+                        if (ol != null) UpdateOrderLine(ol, line);
+                        else InsertOrderLine(ref order, dto, line, importType);
+                    });
                 }
-
-                //_orderRepository.Modify(order);
             }
         }
 

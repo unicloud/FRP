@@ -254,7 +254,7 @@
                 </telerik:RadSplitContainer>
                 <telerik:RadSplitContainer Orientation="Horizontal"
                                            InitialPosition="DockedRight"
-                                           telerik:ProportionalStackPanel.RelativeSize="500, 600">
+                                           telerik:ProportionalStackPanel.RelativeSize="550, 600">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="关联的采购订单"
                                          IsPinned="True"
@@ -264,7 +264,7 @@
                                          ContextMenuTemplate="{x:Null}">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="5*"></RowDefinition>
+                                    <RowDefinition Height="6*"></RowDefinition>
                                     <RowDefinition Height="6*"></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <telerik:RadGridView Grid.Row="0"
