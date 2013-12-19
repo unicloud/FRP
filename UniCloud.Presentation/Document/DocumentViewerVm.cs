@@ -71,10 +71,10 @@ namespace UniCloud.Presentation.Document
                             CurrentDocumentView.WordReader.Document = new DocxFormatProvider().Import(result.FileStorage);
                         }
                     }
-                    else
-                    {
-                        MessageAlert("找不到该文档！");
-                    }
+                    //else
+                    //{
+                    //    MessageAlert("找不到该文档！");
+                    //}
                 }
                 catch (Exception ex)
                 {
