@@ -56,5 +56,31 @@ namespace UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg
             doc.SetIndexStatus(IndexStatus.未建);
             return doc;
         }
+
+        /// <summary>
+        /// 新增标准文档
+        /// </summary>
+        /// <param name="document">文档</param>
+        /// <param name="fileName">名称</param>
+        /// <param name="extension">扩展名</param>
+        /// <param name="abstractInfo">摘要</param>
+        /// <param name="note">备注</param>
+        /// <param name="uploader">上传者</param>
+        /// <param name="isValid">是否有效</param>
+        /// <param name="stream">字节数组</param>
+        /// <returns>标准文档</returns>
+        public static void UpdateDocument(Document document,string fileName, string extension,
+                                        string abstractInfo, string note, string uploader, bool isValid,
+                                        byte[] stream)
+        {
+
+            document.FileName = fileName;
+            document.Extension = extension;
+            document.Abstract = abstractInfo;
+            document.Note = note;
+            document.Uploader = uploader;
+            document.IsValid = isValid;
+            document.FileStorage = stream;
+        }
     }
 }
