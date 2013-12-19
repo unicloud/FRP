@@ -38,7 +38,7 @@ namespace UniCloud.Presentation.Document
 
         [Import]
         public DocumentViewer CurrentDocumentView;
-        private DocumentDTO _currentDoc = new DocumentDTO();
+        private DocumentDTO _currentDoc;
         private bool _onlyView;
         private byte[] _byteContent;
         private readonly QueryableDataServiceCollectionView<DocumentDTO> _documents;
@@ -71,6 +71,10 @@ namespace UniCloud.Presentation.Document
                             CurrentDocumentView.WordReader.Document = new DocxFormatProvider().Import(result.FileStorage);
                         }
                     }
+                    else
+                    {
+                        MessageAlert("找不到该文档！");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -89,6 +93,7 @@ namespace UniCloud.Presentation.Document
         #region 初始化文档信息
         public void InitData(bool onlyView, Guid docId, EventHandler<WindowClosedEventArgs> closed)
         {
+            _currentDoc = new DocumentDTO();
             CurrentDocumentView.Tag = null;
             CurrentDocumentView.WordReader.Document = new RadDocument();
             CurrentDocumentView.PdfReader.Document = null;
@@ -104,6 +109,7 @@ namespace UniCloud.Presentation.Document
             }
             else
             {
+                CurrentDocumentView.Header = "编辑文档";
                 CurrentDocumentView.Closed -= closed;
                 CurrentDocumentView.Closed += closed;
             }
@@ -184,12 +190,7 @@ namespace UniCloud.Presentation.Document
         private void Save(object sender)
         {
             IsBusy = true;
-            bool isNew = false;
-            if (_currentDoc.DocumentId.Equals(Guid.Empty))
-            {
-                isNew = true;
-                _currentDoc.DocumentId = Guid.NewGuid();
-            }
+           
             if (CurrentDocumentView.PaneGroups.SelectedPane.Name.Equals("WordPane", StringComparison.OrdinalIgnoreCase))
             {
                 _currentDoc.FileStorage = new DocxFormatProvider().Export(CurrentDocumentView.WordReader.Document);
@@ -198,14 +199,15 @@ namespace UniCloud.Presentation.Document
             {
                 _currentDoc.FileStorage = _byteContent;
             }
-            if (isNew)
+            if (_currentDoc.DocumentId.Equals(Guid.Empty))
             {
+                _currentDoc.DocumentId = Guid.NewGuid();
+
                 _documents.AddNew(_currentDoc);
             }
             else
             {
                 var tempDoc = _documents.FirstOrDefault();
-                tempDoc.DocumentId = _currentDoc.DocumentId;
                 tempDoc.Name = _currentDoc.Name;
                 tempDoc.Extension = _currentDoc.Extension;
                 tempDoc.FileStorage = _currentDoc.FileStorage;
