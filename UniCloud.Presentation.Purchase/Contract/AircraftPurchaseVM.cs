@@ -78,7 +78,8 @@ namespace UniCloud.Presentation.Purchase.Contract
             ViewTradeDTO.PropertyChanged += OnViewPropertyChanged;
 
             ViewAircraftPurchaseOrderDTO =
-                Service.CreateCollection<AircraftPurchaseOrderDTO>(_context.AircraftPurchaseOrders);
+                Service.CreateCollection<AircraftPurchaseOrderDTO>(
+                    _context.AircraftPurchaseOrders.Expand(p => p.RelatedDocs));
             Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
             ViewAircraftPurchaseOrderDTO.PropertyChanged += OnViewPropertyChanged;
 
@@ -160,7 +161,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         public TradeDTO SelTradeDTO
         {
             get { return _selTradeDTO; }
-            set
+            private set
             {
                 if (_selTradeDTO != value)
                 {
@@ -195,12 +196,36 @@ namespace UniCloud.Presentation.Purchase.Contract
         public AircraftPurchaseOrderDTO SelAircraftPurchaseOrderDTO
         {
             get { return _selAircraftPurchaseOrderDTO; }
-            set
+            private set
             {
                 if (_selAircraftPurchaseOrderDTO != value)
                 {
                     _selAircraftPurchaseOrderDTO = value;
                     RaisePropertyChanged(() => SelAircraftPurchaseOrderDTO);
+                    RemoveOrderCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        #endregion
+
+        #region 选中的购买飞机订单行
+
+        private AircraftPurchaseOrderLineDTO _selAircraftPurchaseOrderLineDTO;
+
+        /// <summary>
+        ///     选中的购买飞机订单行
+        /// </summary>
+        public AircraftPurchaseOrderLineDTO SelAircraftPurchaseOrderLineDTO
+        {
+            get { return _selAircraftPurchaseOrderLineDTO; }
+            private set
+            {
+                if (_selAircraftPurchaseOrderLineDTO != value)
+                {
+                    _selAircraftPurchaseOrderLineDTO = value;
+                    RaisePropertyChanged(() => SelAircraftPurchaseOrderLineDTO);
+                    RemoveOrderLineCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -324,7 +349,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private bool CanRemoveTrade(object obj)
         {
-            return true;
+            return _selTradeDTO != null;
         }
 
         #endregion
@@ -371,7 +396,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private bool CanRemoveOrder(object obj)
         {
-            return true;
+            return _selAircraftPurchaseOrderDTO != null;
         }
 
         #endregion
@@ -439,11 +464,15 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveOrderLine(object obj)
         {
+            if (_selAircraftPurchaseOrderLineDTO != null)
+            {
+                SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Remove(_selAircraftPurchaseOrderLineDTO);
+            }
         }
 
         private bool CanRemoveOrderLine(object obj)
         {
-            return true;
+            return _selAircraftPurchaseOrderLineDTO != null;
         }
 
         #endregion

@@ -26,7 +26,6 @@ using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Domain.PurchaseBC.Enums;
@@ -42,22 +41,20 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
         private readonly IMaterialRepository _materialRepository;
         private readonly IOrderQuery _orderQuery;
         private readonly IOrderRepository _orderRepository;
-        private readonly IRelatedDocRepository _relatedDocRepository;
         private readonly ISupplierRepository _supplierRepository;
         private readonly ITradeQuery _tradeQuery;
         private readonly ITradeRepository _tradeRepository;
 
-        public TradeAppService(ITradeQuery queryTrade, ITradeRepository tradeRepository,
-            IOrderQuery orderQuery, IOrderRepository orderRepository, ISupplierRepository supplierRepository,
-            IRelatedDocRepository relatedDocRepository, IMaterialRepository materialRepository,
-            IActionCategoryRepository actionCategoryRepository, IContractAircraftRepository contractAircraftRepository)
+        public TradeAppService(ITradeQuery queryTrade, ITradeRepository tradeRepository, IOrderQuery orderQuery,
+            IOrderRepository orderRepository, ISupplierRepository supplierRepository,
+            IMaterialRepository materialRepository, IActionCategoryRepository actionCategoryRepository,
+            IContractAircraftRepository contractAircraftRepository)
         {
             _tradeQuery = queryTrade;
             _tradeRepository = tradeRepository;
             _orderQuery = orderQuery;
             _orderRepository = orderRepository;
             _supplierRepository = supplierRepository;
-            _relatedDocRepository = relatedDocRepository;
             _materialRepository = materialRepository;
             _actionCategoryRepository = actionCategoryRepository;
             _contractAircraftRepository = contractAircraftRepository;
@@ -213,6 +210,8 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
 
         #region AircraftPurchaseOrderDTO
 
+        #region 订单行处理
+
         /// <summary>
         ///     插入新订单行
         /// </summary>
@@ -220,7 +219,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
         /// <param name="dto">订单DTO</param>
         /// <param name="line">订单行DTO</param>
         /// <param name="importType">引进方式</param>
-        private void InsertOrderLine(ref AircraftPurchaseOrder order, AircraftPurchaseOrderDTO dto,
+        private void InsertOrderLine(AircraftPurchaseOrder order, AircraftPurchaseOrderDTO dto,
             AircraftPurchaseOrderLineDTO line, ActionCategory importType)
         {
             // 获取飞机物料机型
@@ -280,6 +279,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             contractAircraft.SetSerialNumber(line.SerialNumber);
         }
 
+        #endregion
 
         [Insert(typeof (AircraftPurchaseOrderDTO))]
         public void InsertAircraftPurchaseOrder(AircraftPurchaseOrderDTO dto)
@@ -314,17 +314,8 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                     .FirstOrDefault();
 
             // 处理订单行
-            dto.AircraftPurchaseOrderLines.ToList().ForEach(line => InsertOrderLine(ref order, dto, line, importType));
+            dto.AircraftPurchaseOrderLines.ToList().ForEach(line => InsertOrderLine(order, dto, line, importType));
 
-            // 处理关联文档
-            if (dto.RelatedDocs != null)
-            {
-                dto.RelatedDocs.ToList().ForEach(doc =>
-                {
-                    var relatedDoc = RelatedDocFactory.CreateRelatedDoc(doc.SourceId, doc.DocumentId, doc.DocumentName);
-                    _relatedDocRepository.Add(relatedDoc);
-                });
-            }
             _orderRepository.Add(order);
         }
 
@@ -363,9 +354,10 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 {
                     dto.AircraftPurchaseOrderLines.ToList().ForEach(line =>
                     {
-                        var ol = order.OrderLines.OfType<AircraftPurchaseOrderLine>().FirstOrDefault(l => l.Id == line.Id);
+                        var ol =
+                            order.OrderLines.OfType<AircraftPurchaseOrderLine>().FirstOrDefault(l => l.Id == line.Id);
                         if (ol != null) UpdateOrderLine(ol, line);
-                        else InsertOrderLine(ref order, dto, line, importType);
+                        else InsertOrderLine(order, dto, line, importType);
                     });
                 }
             }
