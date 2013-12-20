@@ -302,7 +302,7 @@
         <Property Name="SupplierName" Type="Edm.String" />
         <Property Name="OperatorName" Type="Edm.String" />
         <Property Name="Reviewer" Type="Edm.String" />
-        <Property Name="ReviewDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ReviewDate" Type="Edm.DateTime" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="PaymentNoticeLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.PaymentNoticeLineDTO)" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />

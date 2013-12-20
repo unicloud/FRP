@@ -60,13 +60,16 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
         public void InsertPaymentNotice(PaymentNoticeDTO paymentNotice)
         {
             var newPaymentNotice = PaymentNoticeFactory.CreatePaymentNotice();
-            var date = DateTime.Now.Date;
-            var seq = _paymentNoticeRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
+            var date = DateTime.Now.Date.ToString("yyyyMMdd").Substring(0, 8);
+            var noticeNumber = _paymentNoticeRepository.GetAll().Max(p => p.NoticeNumber);
+            int seq = 1;
+            if (!string.IsNullOrEmpty(noticeNumber) && noticeNumber.StartsWith(date))
+            {
+                seq = Int32.Parse(noticeNumber.Substring(8)) + 1;
+            }
             newPaymentNotice.SetNoticeNumber(seq);
-            PaymentNoticeFactory.SetPaymentNotice(newPaymentNotice, paymentNotice.NoticeNumber,
-                paymentNotice.DeadLine, paymentNotice.SupplierName, paymentNotice.SupplierId,
-                paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status,
-                paymentNotice.CurrencyId, paymentNotice.BankAccountId);
+            PaymentNoticeFactory.SetPaymentNotice(newPaymentNotice, paymentNotice.DeadLine, paymentNotice.SupplierName, paymentNotice.SupplierId,
+                paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status, paymentNotice.CurrencyId, paymentNotice.BankAccountId);
             if (paymentNotice.PaymentNoticeLines != null)
             {
                 foreach (var paymentNoticeLine in paymentNotice.PaymentNoticeLines)
@@ -89,10 +92,8 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
         public void ModifyPaymentNotice(PaymentNoticeDTO paymentNotice)
         {
             var updatePaymentNotice = _paymentNoticeRepository.Get(paymentNotice.PaymentNoticeId); //获取需要更新的对象。
-            PaymentNoticeFactory.SetPaymentNotice(updatePaymentNotice, paymentNotice.NoticeNumber,
-                paymentNotice.DeadLine, paymentNotice.SupplierName, paymentNotice.SupplierId,
-                paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status,
-                paymentNotice.CurrencyId, paymentNotice.BankAccountId);
+            PaymentNoticeFactory.SetPaymentNotice(updatePaymentNotice, paymentNotice.DeadLine, paymentNotice.SupplierName, paymentNotice.SupplierId,
+                paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status, paymentNotice.CurrencyId, paymentNotice.BankAccountId);
             UpdatePaymentNoticeLines(paymentNotice.PaymentNoticeLines, updatePaymentNotice);
             _paymentNoticeRepository.Modify(updatePaymentNotice);
         }
