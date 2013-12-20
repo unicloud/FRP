@@ -43,14 +43,14 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.Repositories
             var set = currentUnitOfWork.CreateSet<MaintainInvoice>();
             return set.Include(t => t.MaintainInvoiceLines).FirstOrDefault(p => p.Id == (int)id);
         }
+        #endregion
 
         public void RemoveMaintainInvoiceLine(MaintainInvoiceLine maintainInvoiceLine)
         {
             var currentUnitOfWork = UnitOfWork as PaymentBCUnitOfWork;
-            if (currentUnitOfWork == null) return ;
+            if (currentUnitOfWork == null) return;
             var set = currentUnitOfWork.CreateSet<MaintainInvoiceLine>();
             set.Remove(maintainInvoiceLine);
         }
-        #endregion
     }
 }

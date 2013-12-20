@@ -165,7 +165,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
         ///     设置通知编号
         /// </summary>
         /// <param name="noticeNumber">通知编号</param>
-        public void SetInvoiceNumber(string noticeNumber)
+        public void SetNoticeNumber(string noticeNumber)
         {
             if (string.IsNullOrWhiteSpace(noticeNumber))
             {
@@ -212,6 +212,15 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
         }
 
         /// <summary>
+        ///     设置币种
+        /// </summary>
+        /// <param name="currencyId">币种Id</param>
+        public void SetCurrency(int currencyId)
+        {
+            CurrencyId = currencyId;
+        }
+
+        /// <summary>
         ///     设置供应商
         /// </summary>
         /// <param name="supplier">供应商</param>
@@ -228,6 +237,17 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
         }
 
         /// <summary>
+        ///     设置供应商
+        /// </summary>
+        /// <param name="supplierId">供应商Id</param>
+        /// <param name="supplierName">供应商名字</param>
+        public void SetSupplier(int supplierId, string supplierName)
+        {
+            SupplierId = supplierId;
+            SupplierName = supplierName;
+        }
+
+        /// <summary>
         ///     设置银行账户
         /// </summary>
         /// <param name="account">银行账户</param>
@@ -240,6 +260,15 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
 
             BankAccount = account;
             BankAccountId = account.Id;
+        }
+
+        /// <summary>
+        ///     设置银行账户
+        /// </summary>
+        /// <param name="accountId">银行账户Id</param>
+        public void SetBankAccount(int accountId)
+        {
+            BankAccountId = accountId;
         }
 
         /// <summary>
@@ -269,6 +298,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
 
             Reviewer = reviewer;
             ReviewDate = DateTime.Now;
+            SetPaymentNoticeStatus(PaymentNoticeStatus.已审核);
         }
 
         /// <summary>
