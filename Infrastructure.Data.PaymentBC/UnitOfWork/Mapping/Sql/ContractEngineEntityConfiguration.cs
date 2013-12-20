@@ -50,6 +50,7 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
             Property(p => p.SupplierId).HasColumnName("SupplierId");
 
             HasRequired(c => c.ImportCategory).WithMany().HasForeignKey(c => c.ImportCategoryId);
+            HasRequired(c => c.Supplier).WithMany().HasForeignKey(c => c.SupplierId);
         }
     }
 }
