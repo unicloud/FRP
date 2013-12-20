@@ -68,6 +68,8 @@
     <Compile Include="MaintainInvoiceQueries\MaintainInvoiceQuery.cs" />
     <Compile Include="OrderQueries\IOrderQuery.cs" />
     <Compile Include="OrderQueries\OrderQuery.cs" />
+    <Compile Include="PaymentNoticeQueries\IPaymentNoticeQuery.cs" />
+    <Compile Include="PaymentNoticeQueries\PaymentNoticeQuery.cs" />
     <Compile Include="PaymentScheduleQueries\IPaymentScheduleQuery.cs" />
     <Compile Include="PaymentScheduleQueries\PaymentScheduleQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
