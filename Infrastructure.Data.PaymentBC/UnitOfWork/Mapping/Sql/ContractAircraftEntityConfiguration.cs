@@ -53,6 +53,7 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
 
             HasRequired(c => c.AircraftType).WithMany().HasForeignKey(c => c.AircraftTypeId);
             HasRequired(c => c.ImportCategory).WithMany().HasForeignKey(c => c.ImportCategoryId);
+            HasRequired(c => c.Supplier).WithMany().HasForeignKey(c => c.SupplierId);
         }
     }
 }

@@ -20,6 +20,7 @@
 using System;
 using UniCloud.Domain.PaymentBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
@@ -107,7 +108,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.ContractAircraftAgg
         /// <summary>
         ///     供应商ID
         /// </summary>
-        public int? SupplierId { get; protected set; }
+        public int SupplierId { get; protected set; }
 
         #endregion
 
@@ -122,6 +123,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.ContractAircraftAgg
         ///     引进方式
         /// </summary>
         public virtual ActionCategory ImportCategory { get; protected set; }
+
+        /// <summary>
+        ///     供应商
+        /// </summary>
+        public virtual Supplier Supplier { get; protected set; }
 
         #endregion
 

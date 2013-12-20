@@ -45,7 +45,6 @@ namespace UniCloud.Presentation.Purchase.Contract
         private PurchaseData _context;
         private DocumentDTO _document = new DocumentDTO();
         private bool _isAttach;
-        [Import] public DocumentViewer documentView;
 
         [ImportingConstructor]
         public AircraftPurchaseVM(IRegionManager regionManager)
@@ -248,6 +247,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             {
                 _isAttach = true;
                 var docId = (Guid) sender;
+                var documentView = new DocumentViewer();
                 documentView.ViewModel.InitData(false, docId, DocumentViewerClosed);
                 documentView.ShowDialog();
             }
@@ -255,6 +255,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             {
                 _isAttach = false;
                 var docId = Guid.Empty;
+                var documentView = new DocumentViewer();
                 documentView.ViewModel.InitData(false, docId, DocumentViewerClosed);
                 documentView.ShowDialog();
             }
@@ -262,7 +263,8 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {
-            if (documentView.Tag is DocumentDTO)
+            var documentView = sender as DocumentViewer;
+            if (documentView != null && documentView.Tag is DocumentDTO)
             {
                 if (_isAttach)
                 {
@@ -293,14 +295,16 @@ namespace UniCloud.Presentation.Purchase.Contract
             if (sender is Guid)
             {
                 var docId = (Guid) sender;
+                var documentView = new DocumentViewer();
                 documentView.ViewModel.InitData(true, docId, DocumentViewerClosed);
-                documentView.ShowDialog();
+                documentView.Show();
             }
             else if (sender is RelatedDocDTO)
             {
                 var doc = sender as RelatedDocDTO;
+                var documentView = new DocumentViewer();
                 documentView.ViewModel.InitData(true, doc.DocumentId, DocumentViewerClosed);
-                documentView.ShowDialog();
+                documentView.Show();
             }
         }
 
