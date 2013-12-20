@@ -19,6 +19,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
@@ -30,6 +31,7 @@ using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
+using UniCloud.Presentation.Service.Purchase.Purchase.Enums;
 
 #endregion
 
@@ -81,6 +83,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     _context.AircraftPurchaseOrders.Expand(p => p.RelatedDocs));
             Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
             ViewAircraftPurchaseOrderDTO.PropertyChanged += OnViewPropertyChanged;
+            ViewAircraftPurchaseOrderDTO.LoadedData += (o, e) => { if (_refreshTradeDTO) ViewTradeDTO.Load(); };
 
             Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
             Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context, _context.Currencies);
@@ -147,6 +150,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 交易
 
+        private bool _refreshTradeDTO;
         private TradeDTO _selTradeDTO;
 
         /// <summary>
@@ -173,6 +177,9 @@ namespace UniCloud.Presentation.Purchase.Contract
                         ViewAircraftPurchaseOrderDTO.Load();
                         RaisePropertyChanged(() => AircraftMaterials);
                     }
+                    // 刷新按钮状态
+                    RemoveTradeCommand.RaiseCanExecuteChanged();
+
                     RaisePropertyChanged(() => SelTradeDTO);
                 }
             }
@@ -201,6 +208,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 {
                     _selAircraftPurchaseOrderDTO = value;
                     RaisePropertyChanged(() => SelAircraftPurchaseOrderDTO);
+                    // 刷新按钮状态
                     RemoveOrderCommand.RaiseCanExecuteChanged();
                 }
             }
@@ -224,6 +232,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 {
                     _selAircraftPurchaseOrderLineDTO = value;
                     RaisePropertyChanged(() => SelAircraftPurchaseOrderLineDTO);
+                    // 刷新按钮状态
                     RemoveOrderLineCommand.RaiseCanExecuteChanged();
                 }
             }
@@ -277,6 +286,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     _document = documentView.Tag as DocumentDTO;
                     var doc = new RelatedDocDTO
                     {
+                        Id = RandomHelper.Next(),
                         DocumentId = _document.DocumentId,
                         DocumentName = _document.Name,
                         SourceId = SelAircraftPurchaseOrderDTO.SourceGuid
@@ -353,7 +363,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private bool CanRemoveTrade(object obj)
         {
-            return _selTradeDTO != null;
+            return _selTradeDTO != null && _selTradeDTO.TradeStatus == TradeStatus.开始;
         }
 
         #endregion
@@ -369,11 +379,13 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             var order = new AircraftPurchaseOrderDTO
             {
+                Id = RandomHelper.Next(),
                 OrderDate = DateTime.Now,
                 TradeId = _selTradeDTO.Id,
                 SourceGuid = Guid.NewGuid()
             };
             ViewAircraftPurchaseOrderDTO.AddNew(order);
+            if (_selTradeDTO.TradeStatus == TradeStatus.开始) _refreshTradeDTO = true;
         }
 
         private bool CanAddOrder(object obj)
@@ -400,7 +412,8 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private bool CanRemoveOrder(object obj)
         {
-            return _selAircraftPurchaseOrderDTO != null;
+            return _selAircraftPurchaseOrderDTO != null &&
+                   !_selAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Any();
         }
 
         #endregion
@@ -445,6 +458,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             var orderLine = new AircraftPurchaseOrderLineDTO
             {
+                Id = RandomHelper.Next(),
                 Amount = 1,
                 EstimateDeliveryDate = DateTime.Now
             };
@@ -471,6 +485,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             if (_selAircraftPurchaseOrderLineDTO != null)
             {
                 SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Remove(_selAircraftPurchaseOrderLineDTO);
+                RemoveOrderCommand.RaiseCanExecuteChanged();
             }
         }
 

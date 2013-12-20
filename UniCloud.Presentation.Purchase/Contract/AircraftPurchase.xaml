@@ -58,7 +58,8 @@
                                                      SelectedItem="{Binding SelTradeDTO, Mode=TwoWay}"
                                                      IsBusy="{Binding ViewTradeDTO.IsBusy}" EditTriggers="CellClick"
                                                      ShowGroupPanel="False"
-                                                     IsFilteringAllowed="False">
+                                                     IsFilteringAllowed="False"
+                                                     IsReadOnlyBinding="{Binding IsActive}">
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
@@ -285,7 +286,7 @@
                                                                            MaskType="Numeric"
                                                                            Mask="###,###,###.##" />
                                         <telerik:GridViewDataColumn Header="数量" TextAlignment="Center"
-                                                                    DataMemberBinding="{Binding Amount}" />
+                                                                    DataMemberBinding="{Binding Amount}" IsReadOnly="true"/>
                                         <telerik:GridViewDataColumn Header="折扣" TextAlignment="Center"
                                                                     DataMemberBinding="{Binding Discount}" />
                                         <telerik:GridViewExpressionColumn Header="行金额" TextAlignment="Right"

@@ -217,8 +217,9 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
         /// <param name="dto">订单DTO</param>
         /// <param name="line">订单行DTO</param>
         /// <param name="importType">引进方式</param>
+        /// <param name="supplierId">供应商ID</param>
         private void InsertOrderLine(AircraftPurchaseOrder order, AircraftPurchaseOrderDTO dto,
-            AircraftPurchaseOrderLineDTO line, ActionCategory importType)
+            AircraftPurchaseOrderLineDTO line, ActionCategory importType, int supplierId)
         {
             // 获取飞机物料机型
             var material =
@@ -244,6 +245,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             contractAircraft.SetImportCategory(importType);
             contractAircraft.SetCSCNumber(line.CSCNumber);
             contractAircraft.SetSerialNumber(line.SerialNumber);
+            contractAircraft.SetSupplier(supplierId);
             orderLine.SetContractAircraft(contractAircraft);
         }
 
@@ -311,12 +313,13 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "购买")
                     .FirstOrDefault();
 
-            // 处理订单行
-            dto.AircraftPurchaseOrderLines.ToList().ForEach(line => InsertOrderLine(order, dto, line, importType));
-
             // 修改交易状态
             var trade = _tradeRepository.Get(order.TradeId);
             trade.SetStatus(TradeStatus.进行中);
+
+            // 处理订单行
+            dto.AircraftPurchaseOrderLines.ToList()
+                .ForEach(line => InsertOrderLine(order, dto, line, importType, trade.SupplierId));
 
             _orderRepository.Add(order);
         }
@@ -351,6 +354,8 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                     _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "购买")
                         .FirstOrDefault();
 
+                var trade = _tradeRepository.Get(order.TradeId);
+
                 // 处理订单行
                 if (dto.AircraftPurchaseOrderLines != null)
                 {
@@ -359,7 +364,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                         var ol =
                             order.OrderLines.OfType<AircraftPurchaseOrderLine>().FirstOrDefault(l => l.Id == line.Id);
                         if (ol != null) UpdateOrderLine(ol, line);
-                        else InsertOrderLine(order, dto, line, importType);
+                        else InsertOrderLine(order, dto, line, importType, trade.SupplierId);
                     });
                 }
             }

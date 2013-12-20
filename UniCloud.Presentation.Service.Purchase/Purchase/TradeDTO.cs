@@ -26,6 +26,8 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
 {
     public partial class TradeDTO
     {
+        #region 属性
+
         /// <summary>
         ///     交易状态
         /// </summary>
@@ -33,6 +35,16 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         {
             get { return (TradeStatus) Status; }
         }
+
+        /// <summary>
+        ///     只读控制
+        /// </summary>
+        public bool IsActive
+        {
+            get { return TradeStatus > TradeStatus.开始; }
+        }
+
+        #endregion
 
         partial void OnNameChanging(string value)
         {
