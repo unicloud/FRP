@@ -44,7 +44,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
         ///     设置付款通知属性
         /// </summary>
         /// <param name="paymentNotice">付款通知</param>
-        /// <param name="noticeNumber">通知编号</param>
         /// <param name="deadLine">付款期限</param>
         /// <param name="supplierName">供应商名称</param>
         /// <param name="supplierId">供应商ID</param>
@@ -53,15 +52,15 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
         /// <param name="status">付款通知状态</param>
         /// <param name="currencyId">币种ID</param>
         /// <param name="bankAccountId">银行账户ID</param>
-        public static void SetPaymentNotice(PaymentNotice paymentNotice, string noticeNumber, DateTime deadLine, string supplierName, int supplierId, string operatorName,
+        public static void SetPaymentNotice(PaymentNotice paymentNotice, DateTime deadLine, string supplierName, int supplierId, string operatorName,
             string reviewer, int status, int currencyId, int bankAccountId)
         {
-            paymentNotice.SetNoticeNumber(noticeNumber);
             paymentNotice.DeadLine = deadLine;
             paymentNotice.SetSupplier(supplierId, supplierName);
             paymentNotice.SetOperator(operatorName);
             paymentNotice.SetPaymentNoticeStatus((PaymentNoticeStatus)status);
             paymentNotice.SetCurrency(currencyId);
+            paymentNotice.SetBankAccount(bankAccountId);
             if (!string.IsNullOrEmpty(reviewer))
             {
                 paymentNotice.Review(reviewer);

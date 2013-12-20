@@ -68,7 +68,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///     审核日期
         /// </summary>
-        public DateTime ReviewDate { get; set; }
+        public DateTime? ReviewDate { get; set; }
 
         /// <summary>
         ///     付款通知状态

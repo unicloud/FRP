@@ -27,7 +27,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         {
             if (string.IsNullOrEmpty(value))
             {
-                throw new Exception("发票类型");
+                throw new Exception("请选择发票类型");
             }
             InvoiceType = (int)(InvoiceType)Enum.Parse(typeof(InvoiceType), value, true);
         }
