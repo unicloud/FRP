@@ -1024,6 +1024,15 @@ namespace UniCloud.Presentation.Localization {
         }
         
         /// <summary>
+        ///   查找类似 还原 的本地化字符串。
+        /// </summary>
+        public static string Restore {
+            get {
+                return ResourceManager.GetString("Restore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 保存并关闭 的本地化字符串。
         /// </summary>
         public static string SaveAndClose {
