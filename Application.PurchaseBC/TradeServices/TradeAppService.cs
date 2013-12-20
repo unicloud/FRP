@@ -113,14 +113,12 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             var supplier = _supplierRepository.Get(dto.SupplierId);
             var newTrade = TradeFactory.CreateTrade(dto.Name, dto.Description, dto.StartDate);
             newTrade.GenerateNewIdentity();
-            // 设置交易编号
+            // TODO:设置交易编号,如果当天的记录被删除过，本方法导致会出现重复交易号
             var date = DateTime.Now.Date;
             var seq = _tradeRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
             newTrade.SetTradeNumber(seq);
             // 设置供应商
             newTrade.SetSupplier(supplier);
-            // 修改状态
-            newTrade.SetStatus(TradeStatus.进行中);
 
             _tradeRepository.Add(newTrade);
         }
@@ -315,6 +313,10 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
 
             // 处理订单行
             dto.AircraftPurchaseOrderLines.ToList().ForEach(line => InsertOrderLine(order, dto, line, importType));
+
+            // 修改交易状态
+            var trade = _tradeRepository.Get(order.TradeId);
+            trade.SetStatus(TradeStatus.进行中);
 
             _orderRepository.Add(order);
         }
