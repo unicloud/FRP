@@ -209,6 +209,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                     RaisePropertyChanged(() => SelAircraftPurchaseOrderDTO);
                     // 刷新按钮状态
                     RemoveOrderCommand.RaiseCanExecuteChanged();
+                    AddAttachCommand.RaiseCanExecuteChanged();
+                    AddOrderLineCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -293,6 +295,11 @@ namespace UniCloud.Presentation.Purchase.Contract
                     SelAircraftPurchaseOrderDTO.RelatedDocs.Add(doc);
                 }
             }
+        }
+
+        protected override bool CanAddAttach(object obj)
+        {
+            return _selAircraftPurchaseOrderDTO != null;
         }
 
         #endregion
@@ -440,7 +447,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private bool CanRemoveDoc(object obj)
         {
-            return true;
+            return _selAircraftPurchaseOrderDTO != null;
         }
 
         #endregion
@@ -466,7 +473,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private bool CanAddOrderLine(object obj)
         {
-            return true;
+            return _selAircraftPurchaseOrderDTO != null;
         }
 
         #endregion
