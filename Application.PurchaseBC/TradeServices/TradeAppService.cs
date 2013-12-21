@@ -252,9 +252,9 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
         /// <summary>
         ///     更新订单行
         /// </summary>
-        /// <param name="orderLine">订单行</param>
         /// <param name="line">订单行DTO</param>
-        private void UpdateOrderLine(AircraftPurchaseOrderLine orderLine, AircraftPurchaseOrderLineDTO line)
+        /// <param name="orderLine">订单行</param>
+        private void UpdateOrderLine(AircraftPurchaseOrderLineDTO line, AircraftPurchaseOrderLine orderLine)
         {
             // 获取飞机物料机型
             var material =
@@ -275,6 +275,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             // 更新合同飞机
             var contractAircraft = _contractAircraftRepository.Get(orderLine.ContractAircraftId);
             contractAircraft.SetAircraftType(aircraftTypeId);
+            contractAircraft.SetRankNumber(line.RankNumber);
             contractAircraft.SetCSCNumber(line.CSCNumber);
             contractAircraft.SetSerialNumber(line.SerialNumber);
         }
@@ -290,7 +291,8 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             }
 
             // 获取版本号
-            var version = _orderRepository.GetFiltered(o => o.TradeId == dto.TradeId).Count() + 1;
+            var id = dto.TradeId;
+            var version = _orderRepository.GetFiltered(o => o.TradeId == id).Count() + 1;
 
             // 创建订单
             var order = OrderFactory.CreateAircraftPurchaseOrder(version, dto.OperatorName, dto.OrderDate);
@@ -357,16 +359,13 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 var trade = _tradeRepository.Get(order.TradeId);
 
                 // 处理订单行
-                if (dto.AircraftPurchaseOrderLines != null)
-                {
-                    dto.AircraftPurchaseOrderLines.ToList().ForEach(line =>
-                    {
-                        var ol =
-                            order.OrderLines.OfType<AircraftPurchaseOrderLine>().FirstOrDefault(l => l.Id == line.Id);
-                        if (ol != null) UpdateOrderLine(ol, line);
-                        else InsertOrderLine(order, dto, line, importType, trade.SupplierId);
-                    });
-                }
+                var current = dto.AircraftPurchaseOrderLines.ToArray();
+                var persist = order.OrderLines.OfType<AircraftPurchaseOrderLine>().ToArray();
+                DataHelper.DetailHandle(current, persist, c => c.Id,
+                    p => p.Id,
+                    i => InsertOrderLine(order, dto, i, importType, trade.SupplierId),
+                    UpdateOrderLine,
+                    d => _orderRepository.RemoveOrderLine(d));
             }
         }
 
@@ -381,6 +380,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             var deleteAircraftPurchaseOrder = _orderRepository.Get(dto.Id);
             if (deleteAircraftPurchaseOrder != null)
             {
+                deleteAircraftPurchaseOrder.OrderLines.ToList().ForEach(ol => _orderRepository.RemoveOrderLine(ol));
                 _orderRepository.Remove(deleteAircraftPurchaseOrder);
             }
         }

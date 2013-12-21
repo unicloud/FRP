@@ -19,7 +19,6 @@
 
 using System;
 using System.ComponentModel.Composition;
-using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
@@ -412,8 +411,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private bool CanRemoveOrder(object obj)
         {
-            return _selAircraftPurchaseOrderDTO != null &&
-                   !_selAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Any();
+            return _selAircraftPurchaseOrderDTO != null && _selAircraftPurchaseOrderDTO.OrderStatus < OrderStatus.已审核;
         }
 
         #endregion

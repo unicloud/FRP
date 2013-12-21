@@ -46,6 +46,7 @@
     <Compile Include="ApplicationExtension\DeleteAttribute.cs" />
     <Compile Include="ApplicationExtension\InsertAttribute.cs" />
     <Compile Include="ApplicationExtension\UpdateAttribute.cs" />
+    <Compile Include="DataHelper.cs" />
     <Compile Include="PropertiesHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryBuilder.cs" />

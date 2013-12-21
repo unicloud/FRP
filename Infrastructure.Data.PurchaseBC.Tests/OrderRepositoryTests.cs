@@ -141,6 +141,22 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         }
 
         [TestMethod]
+        public void RemoveOrderLine()
+        {
+            // Arrange
+            var service = DefaultContainer.Resolve<IOrderRepository>();
+            var order = service.GetAll().OfType<AircraftPurchaseOrder>().FirstOrDefault(o => o.OrderLines.Any());
+            if (order != null)
+            {
+                var orderLine = order.OrderLines.FirstOrDefault();
+                service.RemoveOrderLine(orderLine);
+            }
+
+            // Act
+            service.UnitOfWork.Commit();
+        }
+
+        [TestMethod]
         public void AddContractAircraftWithBFEOrder()
         {
             // Arrange
