@@ -361,8 +361,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 // 处理订单行
                 var current = dto.AircraftPurchaseOrderLines.ToArray();
                 var persist = order.OrderLines.OfType<AircraftPurchaseOrderLine>().ToArray();
-                DataHelper.DetailHandle(current, persist, c => c.Id,
-                    p => p.Id,
+                DataHelper.DetailHandle(current, persist, c => c.Id,p => p.Id,
                     i => InsertOrderLine(order, dto, i, importType, trade.SupplierId),
                     UpdateOrderLine,
                     d => _orderRepository.RemoveOrderLine(d));
