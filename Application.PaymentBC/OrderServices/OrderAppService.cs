@@ -49,6 +49,12 @@ namespace UniCloud.Application.PaymentBC.OrderServices
             return _orderQuery.OrderDTOQuery(query);
         }
 
+        public IQueryable<PurchaseOrderDTO> GetPurchaseOrders()
+        {
+            var query = new QueryBuilder<Order>();
+            return _orderQuery.PurchaseOrderQuery(query);
+        }
+
         public IQueryable<AircraftLeaseOrderDTO> GetAircraftLeaseOrders()
         {
             var query = new QueryBuilder<Order>();

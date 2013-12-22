@@ -2,19 +2,19 @@
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(LeaseOrderChildView))]
+    [Export(typeof(PurchasePayscheduleChildView))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class LeaseOrderChildView
+    public partial class PurchasePayscheduleChildView
     {
-        public LeaseOrderChildView()
+        public PurchasePayscheduleChildView()
         {
             InitializeComponent();
         }
 
         [Import]
-        public LeaseInvoiceManagerVM ViewModel
+        public PurchaseInvoiceManagerVM ViewModel
         {
-            get { return DataContext as LeaseInvoiceManagerVM; }
+            get { return DataContext as PurchaseInvoiceManagerVM; }
             set { DataContext = value; }
         }
     }

@@ -89,6 +89,7 @@
     <Compile Include="OrderDTO\EnginePurchaseOrderLineDTO.cs" />
     <Compile Include="OrderDTO\OrderDTO.cs" />
     <Compile Include="OrderDTO\OrderLineDTO.cs" />
+    <Compile Include="OrderDTO\PurchaseOrderDTO.cs" />
     <Compile Include="PaymentScheduleDTO\AcPaymentScheduleDTO.cs" />
     <Compile Include="PaymentScheduleDTO\EnginePaymentScheduleDTO.cs" />
     <Compile Include="PaymentScheduleDTO\PaymentScheduleDTO.cs" />

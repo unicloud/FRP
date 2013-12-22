@@ -177,15 +177,17 @@
       <DependentUpon>LeaseInvoiceManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\LeaseInvoiceManagerVM.cs" />
-    <Compile Include="Invoice\LeaseOrderChildView.xaml.cs">
-      <DependentUpon>LeaseOrderChildView.xaml</DependentUpon>
+    <Compile Include="Invoice\LeasePayscheduleChildView.xaml.cs">
+      <DependentUpon>LeasePayscheduleChildView.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Invoice\PrePayInvoiceManager.xaml.cs">
       <DependentUpon>PrePayInvoiceManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\PrePayInvoiceManagerVM.cs" />
-    <Compile Include="Invoice\PrepaymentOrderChildView.xaml.cs">
-      <DependentUpon>PrepaymentOrderChildView.xaml</DependentUpon>
+    <Compile Include="Invoice\PrepayPayscheduleChildView.xaml.cs">
+      <DependentUpon>PrepayPayscheduleChildView.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Invoice\PurchaseInvoiceManager.xaml.cs">
       <DependentUpon>PurchaseInvoiceManager.xaml</DependentUpon>
@@ -193,6 +195,9 @@
     <Compile Include="Invoice\PurchaseInvoiceManagerVM.cs" />
     <Compile Include="Invoice\PurchaseOrderChildView.xaml.cs">
       <DependentUpon>PurchaseOrderChildView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice\PurchasePayscheduleChildView.xaml.cs">
+      <DependentUpon>PurchasePayscheduleChildView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Invoice\UndercartMaintain.xaml.cs">
       <DependentUpon>UndercartMaintain.xaml</DependentUpon>
@@ -267,18 +272,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Invoice\LeaseInvoiceManager.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Invoice\LeaseOrderChildView.xaml">
+    <Page Include="Invoice\LeasePayscheduleChildView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Invoice\PrePayInvoiceManager.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Invoice\PrepaymentOrderChildView.xaml">
+    <Page Include="Invoice\PrepayPayscheduleChildView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -287,6 +292,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Invoice\PurchaseOrderChildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Invoice\PurchasePayscheduleChildView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

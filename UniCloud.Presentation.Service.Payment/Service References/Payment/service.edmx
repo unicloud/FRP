@@ -1,11 +1,11 @@
 ﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
   <edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
     <Schema Namespace="UniCloud.Application.PaymentBC.DTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-      <EntityType Name="LeaseInvoiceDTO">
+      <EntityType Name="CreditNoteDTO">
         <Key>
-          <PropertyRef Name="LeaseInvoiceId" />
+          <PropertyRef Name="CreditNoteId" />
         </Key>
-        <Property Name="LeaseInvoiceId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CreditNoteId" Type="Edm.Int32" Nullable="false" />
         <Property Name="InvoiceNumber" Type="Edm.String" />
         <Property Name="InvoideCode" Type="Edm.String" />
         <Property Name="InvoiceDate" Type="Edm.DateTime" Nullable="false" />
@@ -33,6 +33,30 @@
         <Property Name="InvoiceId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OrderLineId" Type="Edm.Int32" />
       </ComplexType>
+      <EntityType Name="LeaseInvoiceDTO">
+        <Key>
+          <PropertyRef Name="LeaseInvoiceId" />
+        </Key>
+        <Property Name="LeaseInvoiceId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="InvoiceNumber" Type="Edm.String" />
+        <Property Name="InvoideCode" Type="Edm.String" />
+        <Property Name="InvoiceDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="SupplierName" Type="Edm.String" />
+        <Property Name="InvoiceValue" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="PaidAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="OperatorName" Type="Edm.String" />
+        <Property Name="Reviewer" Type="Edm.String" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ReviewDate" Type="Edm.DateTime" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="PaymentScheduleLineId" Type="Edm.Int32" />
+        <Property Name="InvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.InvoiceLineDTO)" Nullable="false" />
+      </EntityType>
       <EntityType Name="PrepaymentInvoiceDTO">
         <Key>
           <PropertyRef Name="PrepaymentInvoiceId" />
@@ -338,7 +362,24 @@
         <Property Name="Note" Type="Edm.String" />
         <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
         <Property Name="MaterialName" Type="Edm.String" />
+        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
+      <EntityType Name="PurchaseOrderDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Version" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="OperatorName" Type="Edm.String" />
+        <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Note" Type="Edm.String" />
+        <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SupplierName" Type="Edm.String" />
+        <Property Name="OrderLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.OrderLineDTO)" Nullable="false" />
+      </EntityType>
       <EntityType Name="AircraftPurchaseOrderDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -367,6 +408,7 @@
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ContractAircraftId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="AircraftLeaseOrderDTO">
@@ -393,6 +435,7 @@
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ContractAircraftId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="EnginePurchaseOrderDTO">
@@ -420,6 +463,7 @@
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ContractEngineId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="EngineLeaseOrderDTO">
@@ -448,6 +492,7 @@
         <Property Name="EstimateDeliveryDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ContractEngineId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="BFEPurchaseOrderDTO">
@@ -476,6 +521,7 @@
         <Property Name="Note" Type="Edm.String" />
         <Property Name="TotalLine" Type="Edm.Decimal" Nullable="false" />
         <Property Name="BFEMaterialId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="OrderId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="StandardOrderDTO">
         <Key>
@@ -492,6 +538,7 @@
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Payment" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="PaymentData" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="CreditNotes" EntityType="UniCloud.Application.PaymentBC.DTO.CreditNoteDTO" />
         <EntitySet Name="LeaseInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.LeaseInvoiceDTO" />
         <EntitySet Name="PrepaymentInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceDTO" />
         <EntitySet Name="PurchaseInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.PurchaseInvoiceDTO" />
@@ -508,6 +555,7 @@
         <EntitySet Name="StandardPaymentSchedules" EntityType="UniCloud.Application.PaymentBC.DTO.StandardPaymentScheduleDTO" />
         <EntitySet Name="Suppliers" EntityType="UniCloud.Application.PaymentBC.DTO.SupplierDTO" />
         <EntitySet Name="Orders" EntityType="UniCloud.Application.PaymentBC.DTO.OrderDTO" />
+        <EntitySet Name="PurchaseOrders" EntityType="UniCloud.Application.PaymentBC.DTO.PurchaseOrderDTO" />
         <EntitySet Name="AircraftPurchaseOrders" EntityType="UniCloud.Application.PaymentBC.DTO.AircraftPurchaseOrderDTO" />
         <EntitySet Name="AircraftLeaseOrders" EntityType="UniCloud.Application.PaymentBC.DTO.AircraftLeaseOrderDTO" />
         <EntitySet Name="EnginePurchaseOrders" EntityType="UniCloud.Application.PaymentBC.DTO.EnginePurchaseOrderDTO" />
