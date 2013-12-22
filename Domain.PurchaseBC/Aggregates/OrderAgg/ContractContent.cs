@@ -46,12 +46,12 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         ///         用“|”分隔
         ///     </remarks>
         /// </summary>
-        public string ContentTags { get; set; }
+        public string ContentTags { get; private set; }
 
         /// <summary>
         ///     内容文档
         /// </summary>
-        public byte[] ContentDoc { get; set; }
+        public byte[] ContentDoc { get; internal set; }
 
         #endregion
 
@@ -69,6 +69,18 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置内容标签
+        /// </summary>
+        /// <param name="tag">标签</param>
+        public void SetContentTag(string tag)
+        {
+            if (!string.IsNullOrWhiteSpace(tag))
+            {
+                ContentTags = ContentTags + "|" + tag;
+            }
+        }
 
         #endregion
 

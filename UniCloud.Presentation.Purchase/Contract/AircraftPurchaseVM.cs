@@ -59,6 +59,8 @@ namespace UniCloud.Presentation.Purchase.Contract
             RemoveDocCommand = new DelegateCommand<object>(OnRemoveDoc, CanRemoveDoc);
             AddOrderLineCommand = new DelegateCommand<object>(OnAddOrderLine, CanAddOrderLine);
             RemoveOrderLineCommand = new DelegateCommand<object>(OnRemoveOrderLine, CanRemoveOrderLine);
+            AddContentCommand = new DelegateCommand<object>(OnAddContent, CanAddContent);
+            RemoveContentCommand = new DelegateCommand<object>(OnRemoveContent, CanRemoveContent);
 
             InitializeVM();
         }
@@ -125,6 +127,28 @@ namespace UniCloud.Presentation.Purchase.Contract
         ///     飞机物料
         /// </summary>
         public QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO> AircraftMaterials { get; set; }
+
+        #region 合同内容
+
+        private byte[] _body;
+
+        /// <summary>
+        /// 合同内容
+        /// </summary>
+        public byte[] Body
+        {
+            get { return this._body; }
+            private set
+            {
+                if (this._body != value)
+                {
+                    this._body = value;
+                    this.RaisePropertyChanged(() => this.Body);
+                }
+            }
+        }
+
+        #endregion
 
         #endregion
 
@@ -497,6 +521,42 @@ namespace UniCloud.Presentation.Purchase.Contract
         private bool CanRemoveOrderLine(object obj)
         {
             return _selAircraftPurchaseOrderLineDTO != null;
+        }
+
+        #endregion
+
+        #region 增加合同分解内容
+
+        /// <summary>
+        ///     增加合同分解内容
+        /// </summary>
+        public DelegateCommand<object> AddContentCommand { get; private set; }
+
+        private void OnAddContent(object obj)
+        {
+        }
+
+        private bool CanAddContent(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 移除合同分解内容
+
+        /// <summary>
+        ///     移除合同分解内容
+        /// </summary>
+        public DelegateCommand<object> RemoveContentCommand { get; private set; }
+
+        private void OnRemoveContent(object obj)
+        {
+        }
+
+        private bool CanRemoveContent(object obj)
+        {
+            return true;
         }
 
         #endregion

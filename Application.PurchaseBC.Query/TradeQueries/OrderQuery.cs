@@ -139,6 +139,12 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                                 contractAircraft.FirstOrDefault(c => c.Id == l.ContractAircraftId).SerialNumber,
                             Status = (int) contractAircraft.FirstOrDefault(c => c.Id == l.ContractAircraftId).Status
                         }).ToList(),
+                    ContractContents = o.ContractContents.Select(c => new ContractContentDTO
+                    {
+                        Id = c.Id,
+                        ContentTags = c.ContentTags,
+                        ContentDoc = c.ContentDoc
+                    }).ToList(),
                     RelatedDocs = relatedDocs.Where(r => r.SourceId == o.SourceGuid).Select(r => new RelatedDocDTO
                     {
                         Id = r.Id,

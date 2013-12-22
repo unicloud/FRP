@@ -31,6 +31,7 @@ namespace UniCloud.Application.PurchaseBC.DTO
     [DataServiceKey("Id")]
     public class AircraftPurchaseOrderDTO
     {
+        private List<ContractContentDTO> _contractContents;
         private List<AircraftPurchaseOrderLineDTO> _orderLines;
         private List<RelatedDocDTO> _relatedDocs;
 
@@ -111,6 +112,15 @@ namespace UniCloud.Application.PurchaseBC.DTO
         {
             get { return _orderLines ?? (_orderLines = new List<AircraftPurchaseOrderLineDTO>()); }
             set { _orderLines = value; }
+        }
+
+        /// <summary>
+        ///     购买飞机合同内容集合
+        /// </summary>
+        public virtual List<ContractContentDTO> ContractContents
+        {
+            get { return _contractContents ?? (_contractContents = new List<ContractContentDTO>()); }
+            set { _contractContents = value; }
         }
 
         /// <summary>
