@@ -125,7 +125,6 @@
     <Compile Include="Purchase\UndercartMaintainContractDTO.cs" />
     <Compile Include="SchdeuleExtension\ControlExtension.cs" />
     <Compile Include="SchdeuleExtension\SetExtension.cs" />
-    <Compile Include="SchdeuleExtension\Task.cs" />
     <Compile Include="Service References\Purchase\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
