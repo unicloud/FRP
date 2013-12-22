@@ -53,7 +53,25 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Repositories
             if (currentUnitOfWork == null) return null;
             var set = currentUnitOfWork.CreateSet<Order>();
 
-            return set.Include(o => o.OrderLines).SingleOrDefault(o => o.Id == (int)id);
+            return set.Include(o => o.OrderLines).SingleOrDefault(o => o.Id == (int) id);
+        }
+
+        #endregion
+
+        #region IOrderRepository 成员
+
+        /// <summary>
+        ///     <see cref="IOrderRepository" />
+        /// </summary>
+        /// <param name="line">
+        ///     <see cref="IOrderRepository" />
+        /// </param>
+        public void RemoveOrderLine(OrderLine line)
+        {
+            var currentUnitOfWork = UnitOfWork as PurchaseBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            var set = currentUnitOfWork.CreateSet<OrderLine>();
+            set.Remove(line);
         }
 
         #endregion

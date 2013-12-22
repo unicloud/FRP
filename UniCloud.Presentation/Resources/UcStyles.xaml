@@ -6,12 +6,13 @@
 
     <!-- 日期格式 -->
     <system:String x:Key="DateStringFormat">{0:yyyy/MM/dd}</system:String>
-    
+
     <!--货币格式-->
     <system:String x:Key="CurrencyStringFormat">{0:N}</system:String>
-    
+
     <!--数字格式-->
     <system:String x:Key="NumberStringFormat">###,###</system:String>
+    
     <!-- 字体、字号 -->
     <FontFamily x:Key="NormalFontFamily">Microsoft YaHei UI</FontFamily>
     <system:Double x:Key="TitleFontSize">16</system:Double>
@@ -32,9 +33,9 @@
     <!--ComboBox相关样式-->
     <Style TargetType="telerik:RadComboBox" x:Key="BaseRadComboBox" />
     <Style TargetType="telerik:RadComboBox" BasedOn="{StaticResource BaseRadComboBox}">
-        <Setter Property="OpenDropDownOnFocus" Value="True"/>
+        <Setter Property="OpenDropDownOnFocus" Value="True" />
     </Style>
-    
+
     <!--ComboBox相关样式-->
 
     <!--GridView相关样式-->
@@ -54,11 +55,43 @@
         <Setter Property="Background" Value="#EEF1EB" />
     </Style>
 
-    <Style TargetType="telerik:GridViewHeaderCell" x:Key="BaseGridViewHeaderCell"/>
+    <Style TargetType="telerik:GridViewHeaderCell" x:Key="BaseGridViewHeaderCell" />
     <Style TargetType="telerik:GridViewHeaderCell" BasedOn="{StaticResource BaseGridViewHeaderCell}">
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+    </Style>
+
+    <!--GridView相关样式-->
+
+    <!--ListBox相关样式-->
+
+    <!--ListBox相关样式-->
+    
+    <!--RibbonView相关样式-->
+    <Style TargetType="telerik:RadRibbonBackstageItem" x:Key="BaseRadRibbonBackstageItem"/>
+    <Style TargetType="telerik:RadRibbonBackstageItem" BasedOn="{StaticResource BaseRadRibbonBackstageItem}">
+        <Setter Property="FontFamily" Value="{StaticResource NormalFontFamily}"/>
+        <Setter Property="FontSize" Value="12"/>
     </Style>
     
-    <!--GridView相关样式-->
+    <Style TargetType="telerik:RadRibbonTab" x:Key="BaseRadRibbonTab"/>
+    <Style TargetType="telerik:RadRibbonTab" BasedOn="{StaticResource BaseRadRibbonTab}">
+        <Setter Property="FontFamily" Value="{StaticResource NormalFontFamily}"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+    
+    <Style TargetType="telerik:RadRibbonGroup" x:Key="BaseRadRibbonGroup"/>
+    <Style TargetType="telerik:RadRibbonGroup" BasedOn="{StaticResource BaseRadRibbonGroup}">
+        <Setter Property="FontFamily" Value="{StaticResource NormalFontFamily}"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+    
+    <Style TargetType="telerik:RadRibbonButton" x:Key="BaseRadRibbonButton"/>
+    <Style TargetType="telerik:RadRibbonButton" BasedOn="{StaticResource BaseRadRibbonButton}">
+        <Setter Property="FontFamily" Value="{StaticResource NormalFontFamily}"/>
+        <Setter Property="FontSize" Value="12"/>
+    </Style>
+
+    <!--RibbonView相关样式-->
+
     <valueConverts:EnumToStringConverter x:Key="EnumToStringConverter" />
 </ResourceDictionary>

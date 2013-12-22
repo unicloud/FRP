@@ -4,11 +4,13 @@ using System.Windows.Controls;
 namespace UniCloud.Presentation.Document
 {
     [Export]
-    public partial class DocumentViewer 
+    public partial class DocumentViewer
     {
         public DocumentViewer()
         {
             InitializeComponent();
+            ViewModel = new DocumentViewerVm(this);
+            DataContext = ViewModel;
         }
 
         [Import(typeof(DocumentViewerVm))]

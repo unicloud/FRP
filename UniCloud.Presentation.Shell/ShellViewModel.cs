@@ -411,6 +411,7 @@ namespace UniCloud.Presentation.Shell
             var menu44 = new MenuItem
             {
                 Text = "维护付款通知",
+                NavUri = "UniCloud.Presentation.Payment.PaymentNotice.PaymentNotice"
             };
             menu4.Items.Add(menu44);
 

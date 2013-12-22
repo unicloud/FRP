@@ -213,7 +213,7 @@
                                                                     IsSortable="True"
                                                                     IsReadOnly="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    TextAlignment="Right"
+                                                                    TextAlignment="Center"
                                                                     HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding Status, ConverterParameter=InvoiceStatus, Converter={StaticResource EnumToStringConverter}}" />
                                         <telerik:GridViewDataColumn Header="文档名称"

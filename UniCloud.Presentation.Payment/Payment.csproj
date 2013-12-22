@@ -204,6 +204,10 @@
     </Compile>
     <Compile Include="Invoice\UndercartMaintainVm.cs" />
     <Compile Include="PaymentModule.cs" />
+    <Compile Include="PaymentNotice\PaymentNotice.xaml.cs">
+      <DependentUpon>PaymentNotice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentNotice\PaymentNoticeVm.cs" />
     <Compile Include="PaymentSchedules\AcPaymentSchedule.xaml.cs">
       <DependentUpon>AcPaymentSchedule.xaml</DependentUpon>
     </Compile>
@@ -300,6 +304,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Invoice\UndercartMaintain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PaymentNotice\PaymentNotice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

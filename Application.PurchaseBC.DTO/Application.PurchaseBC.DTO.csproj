@@ -110,6 +110,7 @@
     <Compile Include="TradeDTO\AircraftPurchaseOrderLineDTO.cs" />
     <Compile Include="TradeDTO\BFEPurchaseOrderDTO.cs" />
     <Compile Include="TradeDTO\BFEPurchaseOrderLineDTO.cs" />
+    <Compile Include="TradeDTO\ContractContentDTO.cs" />
     <Compile Include="TradeDTO\EngineLeaseOrderDTO.cs" />
     <Compile Include="TradeDTO\EngineLeaseOrderLineDTO.cs" />
     <Compile Include="TradeDTO\EnginePurchaseOrderDTO.cs" />

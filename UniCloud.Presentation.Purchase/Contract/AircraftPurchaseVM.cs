@@ -30,6 +30,7 @@ using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
+using UniCloud.Presentation.Service.Purchase.Purchase.Enums;
 
 #endregion
 
@@ -45,7 +46,6 @@ namespace UniCloud.Presentation.Purchase.Contract
         private PurchaseData _context;
         private DocumentDTO _document = new DocumentDTO();
         private bool _isAttach;
-        [Import] public DocumentViewer documentView;
 
         [ImportingConstructor]
         public AircraftPurchaseVM(IRegionManager regionManager)
@@ -56,8 +56,11 @@ namespace UniCloud.Presentation.Purchase.Contract
             RemoveTradeCommand = new DelegateCommand<object>(OnRemoveTrade, CanRemoveTrade);
             AddOrderCommand = new DelegateCommand<object>(OnAddOrder, CanAddOrder);
             RemoveOrderCommand = new DelegateCommand<object>(OnRemoveOrder, CanRemoveOrder);
+            RemoveDocCommand = new DelegateCommand<object>(OnRemoveDoc, CanRemoveDoc);
             AddOrderLineCommand = new DelegateCommand<object>(OnAddOrderLine, CanAddOrderLine);
             RemoveOrderLineCommand = new DelegateCommand<object>(OnRemoveOrderLine, CanRemoveOrderLine);
+            AddContentCommand = new DelegateCommand<object>(OnAddContent, CanAddContent);
+            RemoveContentCommand = new DelegateCommand<object>(OnRemoveContent, CanRemoveContent);
 
             InitializeVM();
         }
@@ -77,9 +80,11 @@ namespace UniCloud.Presentation.Purchase.Contract
             ViewTradeDTO.PropertyChanged += OnViewPropertyChanged;
 
             ViewAircraftPurchaseOrderDTO =
-                Service.CreateCollection<AircraftPurchaseOrderDTO>(_context.AircraftPurchaseOrders);
+                Service.CreateCollection<AircraftPurchaseOrderDTO>(
+                    _context.AircraftPurchaseOrders.Expand(p => p.RelatedDocs));
             Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
             ViewAircraftPurchaseOrderDTO.PropertyChanged += OnViewPropertyChanged;
+            ViewAircraftPurchaseOrderDTO.LoadedData += (o, e) => { if (_refreshTradeDTO) ViewTradeDTO.Load(); };
 
             Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
             Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context, _context.Currencies);
@@ -123,6 +128,28 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         public QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO> AircraftMaterials { get; set; }
 
+        #region 合同内容
+
+        private byte[] _body;
+
+        /// <summary>
+        /// 合同内容
+        /// </summary>
+        public byte[] Body
+        {
+            get { return this._body; }
+            private set
+            {
+                if (this._body != value)
+                {
+                    this._body = value;
+                    this.RaisePropertyChanged(() => this.Body);
+                }
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region 加载数据
@@ -146,6 +173,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 交易
 
+        private bool _refreshTradeDTO;
         private TradeDTO _selTradeDTO;
 
         /// <summary>
@@ -159,7 +187,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         public TradeDTO SelTradeDTO
         {
             get { return _selTradeDTO; }
-            set
+            private set
             {
                 if (_selTradeDTO != value)
                 {
@@ -172,6 +200,9 @@ namespace UniCloud.Presentation.Purchase.Contract
                         ViewAircraftPurchaseOrderDTO.Load();
                         RaisePropertyChanged(() => AircraftMaterials);
                     }
+                    // 刷新按钮状态
+                    RemoveTradeCommand.RaiseCanExecuteChanged();
+
                     RaisePropertyChanged(() => SelTradeDTO);
                 }
             }
@@ -194,12 +225,40 @@ namespace UniCloud.Presentation.Purchase.Contract
         public AircraftPurchaseOrderDTO SelAircraftPurchaseOrderDTO
         {
             get { return _selAircraftPurchaseOrderDTO; }
-            set
+            private set
             {
                 if (_selAircraftPurchaseOrderDTO != value)
                 {
                     _selAircraftPurchaseOrderDTO = value;
                     RaisePropertyChanged(() => SelAircraftPurchaseOrderDTO);
+                    // 刷新按钮状态
+                    RemoveOrderCommand.RaiseCanExecuteChanged();
+                    AddAttachCommand.RaiseCanExecuteChanged();
+                    AddOrderLineCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        #endregion
+
+        #region 选中的购买飞机订单行
+
+        private AircraftPurchaseOrderLineDTO _selAircraftPurchaseOrderLineDTO;
+
+        /// <summary>
+        ///     选中的购买飞机订单行
+        /// </summary>
+        public AircraftPurchaseOrderLineDTO SelAircraftPurchaseOrderLineDTO
+        {
+            get { return _selAircraftPurchaseOrderLineDTO; }
+            private set
+            {
+                if (_selAircraftPurchaseOrderLineDTO != value)
+                {
+                    _selAircraftPurchaseOrderLineDTO = value;
+                    RaisePropertyChanged(() => SelAircraftPurchaseOrderLineDTO);
+                    // 刷新按钮状态
+                    RemoveOrderLineCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -218,39 +277,41 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         protected override void OnAddAttach(object sender)
         {
-            documentView.Closed -= DocumentViewerClosed;
-            documentView.Closed += DocumentViewerClosed;
             if (sender is Guid)
             {
                 _isAttach = true;
-            var docId = (Guid) sender;
-                documentView.ViewModel.InitData(false, docId,null);
+                var docId = (Guid) sender;
+                var documentView = new DocumentViewer();
+                documentView.ViewModel.InitData(false, docId, DocumentViewerClosed);
                 documentView.ShowDialog();
             }
             else
             {
                 _isAttach = false;
                 var docId = Guid.Empty;
-                documentView.ViewModel.InitData(false, docId,null);
-            documentView.ShowDialog();
-        }
+                var documentView = new DocumentViewer();
+                documentView.ViewModel.InitData(false, docId, DocumentViewerClosed);
+                documentView.ShowDialog();
+            }
         }
 
         private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {
-            if ( documentView.Tag is DocumentDTO)
+            var documentView = sender as DocumentViewer;
+            if (documentView != null && documentView.Tag is DocumentDTO)
             {
                 if (_isAttach)
-            {
-                _document = documentView.Tag as DocumentDTO;
-                SelAircraftPurchaseOrderDTO.ContractName = _document.Name;
-                SelAircraftPurchaseOrderDTO.ContractDocGuid = _document.DocumentId;
-            }
+                {
+                    _document = documentView.Tag as DocumentDTO;
+                    SelAircraftPurchaseOrderDTO.ContractName = _document.Name;
+                    SelAircraftPurchaseOrderDTO.ContractDocGuid = _document.DocumentId;
+                }
                 else
                 {
                     _document = documentView.Tag as DocumentDTO;
                     var doc = new RelatedDocDTO
                     {
+                        Id = RandomHelper.Next(),
                         DocumentId = _document.DocumentId,
                         DocumentName = _document.Name,
                         SourceId = SelAircraftPurchaseOrderDTO.SourceGuid
@@ -260,25 +321,31 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
         }
 
+        protected override bool CanAddAttach(object obj)
+        {
+            return _selAircraftPurchaseOrderDTO != null;
+        }
+
         #endregion
 
         #region 查看合同文档
 
         protected override void OnViewAttach(object sender)
         {
-            documentView.Closed -= DocumentViewerClosed;
             if (sender is Guid)
             {
-            var docId = (Guid) sender;
-                documentView.ViewModel.InitData(true, docId,null);
-                documentView.ShowDialog();
+                var docId = (Guid) sender;
+                var documentView = new DocumentViewer();
+                documentView.ViewModel.InitData(true, docId, DocumentViewerClosed);
+                documentView.Show();
             }
             else if (sender is RelatedDocDTO)
             {
                 var doc = sender as RelatedDocDTO;
-                documentView.ViewModel.InitData(true, doc.DocumentId,null);
-            documentView.ShowDialog();
-        }
+                var documentView = new DocumentViewer();
+                documentView.ViewModel.InitData(true, doc.DocumentId, DocumentViewerClosed);
+                documentView.Show();
+            }
         }
 
         #endregion
@@ -326,7 +393,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private bool CanRemoveTrade(object obj)
         {
-            return true;
+            return _selTradeDTO != null && _selTradeDTO.TradeStatus == TradeStatus.开始;
         }
 
         #endregion
@@ -342,11 +409,13 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             var order = new AircraftPurchaseOrderDTO
             {
+                Id = RandomHelper.Next(),
                 OrderDate = DateTime.Now,
                 TradeId = _selTradeDTO.Id,
                 SourceGuid = Guid.NewGuid()
             };
             ViewAircraftPurchaseOrderDTO.AddNew(order);
+            if (_selTradeDTO.TradeStatus == TradeStatus.开始) _refreshTradeDTO = true;
         }
 
         private bool CanAddOrder(object obj)
@@ -373,7 +442,36 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private bool CanRemoveOrder(object obj)
         {
-            return true;
+            return _selAircraftPurchaseOrderDTO != null && _selAircraftPurchaseOrderDTO.OrderStatus < OrderStatus.已审核;
+        }
+
+        #endregion
+
+        #region 删除关联文档
+
+        /// <summary>
+        ///     删除关联文档
+        /// </summary>
+        public DelegateCommand<object> RemoveDocCommand { get; private set; }
+
+        private void OnRemoveDoc(object obj)
+        {
+            var doc = obj as RelatedDocDTO;
+            if (doc != null)
+            {
+                MessageConfirm("确认移除", "是否移除关联文档：" + doc.DocumentName + "？", (o, e) =>
+                {
+                    if (e.DialogResult == true)
+                    {
+                        SelAircraftPurchaseOrderDTO.RelatedDocs.Remove(doc);
+                    }
+                });
+            }
+        }
+
+        private bool CanRemoveDoc(object obj)
+        {
+            return _selAircraftPurchaseOrderDTO != null;
         }
 
         #endregion
@@ -389,6 +487,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             var orderLine = new AircraftPurchaseOrderLineDTO
             {
+                Id = RandomHelper.Next(),
                 Amount = 1,
                 EstimateDeliveryDate = DateTime.Now
             };
@@ -398,7 +497,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private bool CanAddOrderLine(object obj)
         {
-            return true;
+            return _selAircraftPurchaseOrderDTO != null;
         }
 
         #endregion
@@ -412,9 +511,50 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveOrderLine(object obj)
         {
+            if (_selAircraftPurchaseOrderLineDTO != null)
+            {
+                SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Remove(_selAircraftPurchaseOrderLineDTO);
+                RemoveOrderCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private bool CanRemoveOrderLine(object obj)
+        {
+            return _selAircraftPurchaseOrderLineDTO != null;
+        }
+
+        #endregion
+
+        #region 增加合同分解内容
+
+        /// <summary>
+        ///     增加合同分解内容
+        /// </summary>
+        public DelegateCommand<object> AddContentCommand { get; private set; }
+
+        private void OnAddContent(object obj)
+        {
+        }
+
+        private bool CanAddContent(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 移除合同分解内容
+
+        /// <summary>
+        ///     移除合同分解内容
+        /// </summary>
+        public DelegateCommand<object> RemoveContentCommand { get; private set; }
+
+        private void OnRemoveContent(object obj)
+        {
+        }
+
+        private bool CanRemoveContent(object obj)
         {
             return true;
         }

@@ -37,7 +37,7 @@ namespace UniCloud.Presentation.MVVM
 
         protected ViewModelBase()
         {
-            AddAttachCommand=new DelegateCommand<object>(OnAddAttach);
+            AddAttachCommand = new DelegateCommand<object>(OnAddAttach, CanAddAttach);
             ViewAttachCommand = new DelegateCommand<object>(OnViewAttach);
             ExcelExportCommand = new DelegateCommand<object>(OnExcelExport);
             WordExportCommand = new DelegateCommand<object>(OnWordExport);
@@ -130,6 +130,11 @@ namespace UniCloud.Presentation.MVVM
         /// <param name="sender"></param>
         protected virtual void OnAddAttach(object sender)
         {
+        }
+
+        protected virtual bool CanAddAttach(object obj)
+        {
+            return true;
         }
 
         #endregion
