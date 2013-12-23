@@ -42,14 +42,11 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
             Property(p => p.Subject).HasColumnName("Subject");
             Property(p => p.Body).HasColumnName("Body");
             Property(p => p.Importance).HasColumnName("Importance");
+            Property(p => p.Tempo).HasColumnName("Tempo");
             Property(p => p.Start).HasColumnName("Start").HasColumnType("datetime2");
             Property(p => p.End).HasColumnName("End").HasColumnType("datetime2");
             Property(p => p.IsAllDayEvent).HasColumnName("IsAllDayEvent"); 
             Property(p => p.Group).HasColumnName("Group");
-            Property(p => p.Tempo).HasColumnName("Tempo");
-            Property(p => p.Location).HasColumnName("Location");
-            Property(p => p.UniqueId).HasColumnName("UniqueId");
-            Property(p => p.Url).HasColumnName("Url");
 
             Property(p => p.ReceptionId).HasColumnName("ReceptionId");
         }

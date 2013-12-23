@@ -57,23 +57,5 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Repositories
         }
 
         #endregion
-
-        #region IOrderRepository 成员
-
-        /// <summary>
-        ///     <see cref="IOrderRepository" />
-        /// </summary>
-        /// <param name="line">
-        ///     <see cref="IOrderRepository" />
-        /// </param>
-        public void RemoveOrderLine(OrderLine line)
-        {
-            var currentUnitOfWork = UnitOfWork as PurchaseBCUnitOfWork;
-            if (currentUnitOfWork == null) return;
-            var set = currentUnitOfWork.CreateSet<OrderLine>();
-            set.Remove(line);
-        }
-
-        #endregion
     }
 }

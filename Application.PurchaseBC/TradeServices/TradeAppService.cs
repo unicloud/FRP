@@ -361,10 +361,11 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 // 处理订单行
                 var current = dto.AircraftPurchaseOrderLines.ToArray();
                 var persist = order.OrderLines.OfType<AircraftPurchaseOrderLine>().ToArray();
-                DataHelper.DetailHandle(current, persist, c => c.Id,p => p.Id,
+                var orderLines = order.OrderLines;
+                DataHelper.DetailHandle(current, persist, c => c.Id, p => p.Id,
                     i => InsertOrderLine(order, dto, i, importType, trade.SupplierId),
                     UpdateOrderLine,
-                    d => _orderRepository.RemoveOrderLine(d));
+                    d => orderLines.Remove(d));
             }
         }
 
@@ -379,7 +380,6 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             var deleteAircraftPurchaseOrder = _orderRepository.Get(dto.Id);
             if (deleteAircraftPurchaseOrder != null)
             {
-                deleteAircraftPurchaseOrder.OrderLines.ToList().ForEach(ol => _orderRepository.RemoveOrderLine(ol));
                 _orderRepository.Remove(deleteAircraftPurchaseOrder);
             }
         }
