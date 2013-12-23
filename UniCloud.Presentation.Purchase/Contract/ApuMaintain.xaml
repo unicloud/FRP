@@ -212,7 +212,7 @@
                                       Command="{Binding DataContext.AddAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                       VerticalContentAlignment="Top"
                                       HorizontalContentAlignment="Left">
-                        <TextBlock Text="{Binding DocumentName,Mode=TwoWay}"
+                        <TextBlock Text="{Binding DataContext.DocumentName,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl},Mode=TwoWay}"
                                    TextDecorations="Underline" />
                     </HyperlinkButton>
                 </Grid>

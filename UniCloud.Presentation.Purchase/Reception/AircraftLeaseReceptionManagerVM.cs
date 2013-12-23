@@ -288,7 +288,7 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #region 租赁飞机接收行
 
-        private ObservableCollection<AircraftLeaseReceptionLineDTO> _aircraftLeaseReceptionLines=new ObservableCollection<AircraftLeaseReceptionLineDTO>();
+        private ObservableCollection<AircraftLeaseReceptionLineDTO> _aircraftLeaseReceptionLines = new ObservableCollection<AircraftLeaseReceptionLineDTO>();
 
         /// <summary>
         ///     租赁飞机接收行
@@ -535,6 +535,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                 relatedDoc.DocumentName = document.Name;
                 RelatedDocs.AddNew(relatedDoc);
                 ViewDocuments.Add(relatedDoc);
+                SaveCommand.Execute(RelatedDocs);
             }
         }
 
@@ -550,15 +551,15 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// <param name="sender"></param>
         protected virtual void OnRemoveAttach(object sender)
         {
-            if (SelDocument == null)
+            var currentItem = sender as RelatedDocDTO;
+            if (currentItem == null)
             {
                 MessageBox.Show("没有选中的文档!");
+                return;
             }
-            else
-            {
-                RelatedDocs.Remove(SelDocument);
-                ViewDocuments.Remove(SelDocument);
-            }
+            RelatedDocs.Remove(currentItem);
+            ViewDocuments.Remove(currentItem);
+            SaveCommand.Execute(RelatedDocs);
         }
 
         #endregion
@@ -566,7 +567,13 @@ namespace UniCloud.Presentation.Purchase.Reception
         #region 查看附件
         protected override void OnViewAttach(object sender)
         {
-            DocumentView.ViewModel.InitData(true, _document.DocumentId, null);
+            var currentItem = sender as RelatedDocDTO;
+            if (currentItem == null)
+            {
+                MessageBox.Show("没有选中的文档!");
+                return;
+            }
+            DocumentView.ViewModel.InitData(true, currentItem.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
         }
         #endregion

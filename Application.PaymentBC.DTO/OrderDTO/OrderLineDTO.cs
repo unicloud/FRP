@@ -78,5 +78,10 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// </summary>
         public string MaterialName { get; set; }
 
+        /// <summary>
+        ///     订单Id
+        /// </summary>
+        public int OrderId { get; set; }
+
     }
 }

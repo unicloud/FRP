@@ -122,6 +122,18 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
             }
         }
 
+        /// <summary>
+        ///     设置发票
+        /// </summary>
+        /// <param name="invoiceId">发票Id</param>
+        /// <param name="invoiceNumber">发票编号</param>
+        /// <param name="invoiceType">发票类型</param>
+        public void SetInvoice(int invoiceId, string invoiceNumber, InvoiceType invoiceType)
+        {
+            InvoiceId = invoiceId;
+            InvoiceNumber = invoiceNumber;
+            InvoiceType = invoiceType;
+        }
         #endregion
 
         #region IValidatableObject 成员

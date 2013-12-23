@@ -65,8 +65,40 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
             var newDocument = DocumentFactory.CreateStandardDocument(document.DocumentId, document.Name,
                                                                      document.Extension,
                                                                      document.Abstract, document.Note, document.Uploader,
-                                                                     true, document.FileStorage);
+                                                                     document.IsValid, document.FileStorage);
             _documentRepository.Add(newDocument);
+        }
+
+        /// <summary>
+        ///     更新文档。
+        /// </summary>
+        /// <param name="document">文档DTO。</param>
+        [Update(typeof(DocumentDTO))]
+        public void ModifyDocument(DocumentDTO document)
+        {
+            if (document == null)
+            {
+                throw new Exception("文档不能为空");
+            }
+            var updateDocument = _documentRepository.Get(document.DocumentId);
+            DocumentFactory.UpdateDocument(updateDocument, document.Name, document.Extension,document.Abstract,
+                document.Note, document.Uploader, document.IsValid, document.FileStorage);
+            _documentRepository.Modify(updateDocument);
+        }
+
+        /// <summary>
+        ///     删除文档。
+        /// </summary>
+        /// <param name="document">文档DTO。</param>
+        [Delete(typeof(DocumentDTO))]
+        public void DeleteDocument(DocumentDTO document)
+        {
+            if (document == null)
+            {
+                throw new Exception("文档不能为空");
+            }
+            var deleteDocument = _documentRepository.Get(document.DocumentId);
+            _documentRepository.Remove(deleteDocument); 
         }
     }
 }

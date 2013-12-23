@@ -152,7 +152,7 @@
                                                                            TextAlignment="Right"
                                                                            HeaderTextAlignment="Center"
                                                                            DataMemberBinding="{Binding InvoiceValue,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                           MaskType="Currency"
+                                                                           MaskType="Numeric"
                                                                            Mask="###,###,###.##" />
                                         <telerik:GridViewMaskedInputColumn Header="已付金额"
                                                                            IsSortable="True"
@@ -160,7 +160,7 @@
                                                                            TextAlignment="Right"
                                                                            HeaderTextAlignment="Center"
                                                                            DataMemberBinding="{Binding PaidAmount,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                           MaskType="Currency"
+                                                                           MaskType="Numeric"
                                                                            Mask="###,###,###.##" />
                                         <telerik:GridViewDataColumn Header="经办人"
                                                                     IsSortable="True"
@@ -213,7 +213,7 @@
                                                                     IsSortable="True"
                                                                     IsReadOnly="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    TextAlignment="Right"
+                                                                    TextAlignment="Center"
                                                                     HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding Status, ConverterParameter=InvoiceStatus, Converter={StaticResource EnumToStringConverter}}" />
                                         <telerik:GridViewDataColumn Header="文档名称"
@@ -317,7 +317,7 @@
                                                                        TextAlignment="Right"
                                                                        HeaderTextAlignment="Center"
                                                                        DataMemberBinding="{Binding UnitPrice,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                       MaskType="Currency"
+                                                                       MaskType="Numeric"
                                                                        Mask="###,###,###.##" />
                                     <telerik:GridViewMaskedInputColumn Header="数量"
                                                                        IsSortable="True"

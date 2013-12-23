@@ -11,8 +11,10 @@ using UniCloud.Application.PaymentBC.ContractEngineServices;
 using UniCloud.Application.PaymentBC.CurrencyServices;
 using UniCloud.Application.PaymentBC.InvoiceServices;
 using UniCloud.Application.PaymentBC.MaintainInvoiceServices;
+using UniCloud.Application.PaymentBC.PaymentNoticeServices;
 using UniCloud.Application.PaymentBC.PaymentScheduleServices;
 using UniCloud.Application.PaymentBC.OrderServices;
+using UniCloud.Application.PaymentBC.Query.PaymentNoticeQueries;
 using UniCloud.Application.PaymentBC.SupplierServices;
 using UniCloud.Application.PaymentBC.Query.ContractAircraftQueries;
 using UniCloud.Application.PaymentBC.Query.ContractEngineQueries;
@@ -26,6 +28,7 @@ using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
 using UniCloud.Infrastructure.Crosscutting.InterceptionBehaviors;
@@ -100,6 +103,7 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
                 #endregion
 
                 #region 交易相关配置，包括查询，应用服务，仓储注册
+
                          .Register<IOrderQuery, OrderQuery>()
                          .Register<IOrderAppService, OrderAppService>()                        
                          .Register<IOrderRepository, OrderRepository>()
@@ -112,6 +116,14 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
                          //(null, new Interceptor<InterfaceInterceptor>(), 
                          //       new InterceptionBehavior<CachingBehavior>())
                          .Register<IPaymentScheduleRepository, PaymentScheduleRepository>()
+
+                #endregion
+
+                #region   付款通知相关配置，包括查询，应用服务，仓储注册
+
+                .Register<IPaymentNoticeQuery, PaymentNoticeQuery>()
+                .Register<IPaymentNoticeAppService, PaymentNoticeAppService>()
+                .Register<IPaymentNoticeRepository, PaymentNoticeRepository>()
 
                 #endregion
 

@@ -78,6 +78,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// 源ID
         /// </summary>
         public Guid SourceId { get; set; }
+
+        /// <summary>
+        /// 状态
+        /// </summary>
+        public int Status { get; set; }
         #endregion
 
         #region 外键属性

@@ -81,10 +81,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
             return aircraftPurchaseOrderLine;
         }
 
-        public void UpdateAircraftPurchaseOrderLine(ref AircraftPurchaseOrderLine line)
-        {
-        }
-
         #endregion
     }
 }

@@ -31,25 +31,36 @@ using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 namespace UniCloud.Presentation.Document
 {
     [Export(typeof(DocumentViewerVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
     public class DocumentViewerVm : ViewModelBase
     {
         #region 声明、初始化
 
         [Import]
         public DocumentViewer CurrentDocumentView;
-        private readonly DocumentDTO _currentDoc = new DocumentDTO();
+        private DocumentDTO _currentDoc;
         private bool _onlyView;
         private byte[] _byteContent;
-        private readonly QueryableDataServiceCollectionView<DocumentDTO> _documents;
+        private QueryableDataServiceCollectionView<DocumentDTO> _documents;
         private EventHandler<DataServiceSubmittedChangesEventArgs> _submitChanges;
-        private readonly FilterDescriptor _filter;
+        private FilterDescriptor _filter;
+        public DocumentViewerVm(DocumentViewer documentView)
+        {
+            CurrentDocumentView = documentView;
+            InitVm();
+        }
+
         public DocumentViewerVm()
+        {
+            InitVm();
+        }
+
+        private void InitVm()
         {
             SaveCommand = new DelegateCommand<object>(Save, CanSave);
             OpenDocumentCommand = new DelegateCommand<object>(OpenDocument);
             var commonServiceData = new CommonServiceData(AgentHelper.CommonServiceUri);
             _documents = new QueryableDataServiceCollectionView<DocumentDTO>(commonServiceData, commonServiceData.Documents);
+
             _filter = new FilterDescriptor("DocumentId", FilterOperator.IsEqualTo, Guid.Empty);
             _documents.FilterDescriptors.Add(_filter);
             _documents.LoadedData += (o, e) =>
@@ -64,15 +75,17 @@ namespace UniCloud.Presentation.Document
                             CurrentDocumentView.WordPane.IsHidden = true;
                             Stream currentContent = new MemoryStream(result.FileStorage);
                             CurrentDocumentView.PdfReader.Document = new PdfFormatProvider(currentContent, FormatProviderSettings.ReadOnDemand).Import();
-                            CurrentDocumentView.WordReader.Document = new RadDocument();
                         }
                         else if (result.Name.EndsWith(".docx", StringComparison.OrdinalIgnoreCase))
                         {
                             CurrentDocumentView.PdfPane.IsHidden = true;
                             CurrentDocumentView.WordReader.Document = new DocxFormatProvider().Import(result.FileStorage);
-                            CurrentDocumentView.PdfReader.Document = null;
                         }
                     }
+                    //else
+                    //{
+                    //    MessageAlert("找不到该文档！");
+                    //}
                 }
                 catch (Exception ex)
                 {
@@ -91,6 +104,10 @@ namespace UniCloud.Presentation.Document
         #region 初始化文档信息
         public void InitData(bool onlyView, Guid docId, EventHandler<WindowClosedEventArgs> closed)
         {
+            _currentDoc = new DocumentDTO();
+            CurrentDocumentView.Tag = null;
+            CurrentDocumentView.WordReader.Document = new RadDocument();
+            CurrentDocumentView.PdfReader.Document = null;
             CurrentDocumentView.WordPane.IsHidden = false;
             CurrentDocumentView.PdfPane.IsHidden = false;
             IsBusy = true;
@@ -99,20 +116,20 @@ namespace UniCloud.Presentation.Document
             if (_onlyView)
             {
                 CurrentDocumentView.Header = "查看文档";
+                CurrentDocumentView.Closed -= closed;
             }
-            CurrentDocumentView.Closed -= closed;
-            CurrentDocumentView.Closed += closed;
+            else
+            {
+                CurrentDocumentView.Header = "编辑文档";
+                CurrentDocumentView.Closed -= closed;
+                CurrentDocumentView.Closed += closed;
+            }
             CurrentDocumentView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             if (!docId.Equals(Guid.Empty))
             {
                 LoadDocumentByDocId(docId);
             }
-            else
-            {
-                CurrentDocumentView.WordReader.Document = new RadDocument();
-                CurrentDocumentView.PdfReader.Document = null;
-                IsBusy = false;
-            }
+            IsBusy = false;
         }
         #endregion
 
@@ -184,34 +201,27 @@ namespace UniCloud.Presentation.Document
         private void Save(object sender)
         {
             IsBusy = true;
-            bool isNew = false;
-            if (_currentDoc.DocumentId.Equals(Guid.Empty))
-            {
-                isNew = true;
-                _currentDoc.DocumentId = Guid.NewGuid();
-            }
-            var document = new DocumentDTO
-                           {
-                               DocumentId = _currentDoc.DocumentId,
-                               Name = _currentDoc.Name,
-                               Extension = _currentDoc.Extension,
-                               IsValid = true
-                           };
+
             if (CurrentDocumentView.PaneGroups.SelectedPane.Name.Equals("WordPane", StringComparison.OrdinalIgnoreCase))
             {
-                document.FileStorage = new DocxFormatProvider().Export(CurrentDocumentView.WordReader.Document);
+                _currentDoc.FileStorage = new DocxFormatProvider().Export(CurrentDocumentView.WordReader.Document);
             }
             else if (CurrentDocumentView.PaneGroups.SelectedPane.Name.Equals("PdfPane", StringComparison.OrdinalIgnoreCase))
             {
-                document.FileStorage = _byteContent;
+                _currentDoc.FileStorage = _byteContent;
             }
-            if (isNew)
+            if (_currentDoc.DocumentId.Equals(Guid.Empty))
             {
-                _documents.AddNew(document);
+                _currentDoc.DocumentId = Guid.NewGuid();
+
+                _documents.AddNew(_currentDoc);
             }
             else
             {
-                _documents.EditItem(document);
+                var tempDoc = _documents.FirstOrDefault();
+                tempDoc.Name = _currentDoc.Name;
+                tempDoc.Extension = _currentDoc.Extension;
+                tempDoc.FileStorage = _currentDoc.FileStorage;
             }
             _documents.SubmitChanges();
             if (_submitChanges == null)

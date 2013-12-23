@@ -23,5 +23,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
     /// </summary>
     public interface IPaymentNoticeRepository : IRepository<PaymentNotice>
     {
+        void RemovePaymentNoticeLine(PaymentNoticeLine paymentNoticeLine);
     }
 }

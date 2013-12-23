@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,11 +11,11 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -26,107 +27,21 @@ namespace UniCloud.Domain.UberModel.Aggregates.ReceptionAgg
     ///     接收聚合根
     ///     交付日程
     /// </summary>
-    public class ReceptionSchedule : EntityInt, IValidatableObject
+    public class ReceptionSchedule : ScheduleBase, IValidatableObject
     {
-
         #region 属性
-        /// <summary>
-        /// 主题
-        /// </summary>
-        public string Subject
-        {
-            get;
-            set;
-        }
 
         /// <summary>
-        /// 内容
+        ///     分组信息
         /// </summary>
-        public string Body
-        {
-            get;
-            set;
-        }
+        public string Group { get; set; }
 
-        /// <summary>
-        /// 重要性级别
-        /// </summary>
-        public string Importance
-        {
-            get;
-            set;
-        }
-
-        public DateTime Start
-        {
-            get;
-            set;
-        }
-        public DateTime End
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 是否全天事件
-        /// </summary>
-        public bool IsAllDayEvent
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 分组信息
-        /// </summary>
-        public string Group
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 进度
-        /// </summary>
-        public string Tempo
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Location
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string UniqueId
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Url
-        {
-            get;
-            set;
-        }
         #endregion
 
         #region 外键
 
         /// <summary>
-        /// 接收项目外键
+        ///     接收项目外键
         /// </summary>
         public int ReceptionId { get; set; }
 

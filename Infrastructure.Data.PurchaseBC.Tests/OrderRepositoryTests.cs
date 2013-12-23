@@ -27,6 +27,8 @@ using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftBFEAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
@@ -55,6 +57,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
                 .Register<IContractAircraftBFERepository, ContractAircraftBFERepository>()
                 .Register<IAircraftTypeRepository, AircraftTypeRepository>()
                 .Register<IActionCategoryRepository, ActionCategoryRepository>()
+                .Register<IRelatedDocRepository, RelatedDocRepository>()
                 .Register<ILinkmanRepository, LinkmanRepository>();
         }
 
@@ -106,7 +109,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
 
             // 2、添加订单行
             var acPurchaseOrderLine1 = acPurchaseOrder.AddNewAircraftPurchaseOrderLine(200M, 1, 0, DateTime.Now);
-            acPurchaseOrderLine1.SetCost(100M,50M,50M);
+            acPurchaseOrderLine1.SetCost(100M, 50M, 50M);
 
             // 3、创建与订单对应的合同飞机
             var contractAircraft = ContractAircraftFactory.CreatePurchaseContractAircraft("购机合同", "0001");
@@ -136,6 +139,21 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
 
             // Act
             orderRep.UnitOfWork.Commit();
+        }
+
+        [TestMethod]
+        public void RemoveOrder()
+        {
+            // Arrange
+            var service = DefaultContainer.Resolve<IOrderRepository>();
+            var order = service.GetAll().OfType<AircraftPurchaseOrder>().FirstOrDefault(o => o.OrderLines.Any());
+            if (order != null)
+            {
+                service.Remove(order);
+            }
+
+            // Act
+            service.UnitOfWork.Commit();
         }
 
         [TestMethod]
@@ -199,6 +217,21 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
             // Act
             cabRep.Remove(cab);
             cabRep.UnitOfWork.Commit();
+        }
+
+        [TestMethod]
+        public void GetRelatedDocByOrder()
+        {
+            // Arrange
+            var docRep = DefaultContainer.Resolve<IRelatedDocRepository>();
+            var orderId = Guid.Parse("066157a2-bf6c-4c7d-86e1-adfd7b725f72");
+
+            // Act
+            var result =
+                docRep.GetFiltered(d => d.SourceId == orderId).ToList();
+
+            // Assert
+            Assert.IsTrue(result.Any());
         }
     }
 }

@@ -72,6 +72,11 @@ namespace UniCloud.Application.PaymentBC.DTO
         public decimal TotalLine { get; set; }
 
         /// <summary>
+        ///     订单Id
+        /// </summary>
+        public int OrderId { get; set; }
+
+        /// <summary>
         ///     合同发动机ID
         /// </summary>
         public int ContractEngineId { get; set; }

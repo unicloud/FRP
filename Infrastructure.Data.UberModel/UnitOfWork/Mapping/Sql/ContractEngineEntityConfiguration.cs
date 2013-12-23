@@ -52,6 +52,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 
             HasRequired(c => c.Part).WithMany().HasForeignKey(c => c.PartId);
             HasRequired(c => c.ImportCategory).WithMany().HasForeignKey(c => c.ImportCategoryId);
+            HasRequired(c => c.Supplier).WithMany().HasForeignKey(c => c.SupplierId);
         }
     }
 }

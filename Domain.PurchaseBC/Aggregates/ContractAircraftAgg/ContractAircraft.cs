@@ -24,6 +24,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftBFEAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Enums;
 
 #endregion
@@ -122,7 +123,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg
         /// <summary>
         ///     供应商ID
         /// </summary>
-        public int? SupplierId { get; private set; }
+        public int SupplierId { get; private set; }
 
         #endregion
 
@@ -142,6 +143,11 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg
         ///     引进方式
         /// </summary>
         public virtual ActionCategory ImportCategory { get; private set; }
+
+        /// <summary>
+        ///     供应商
+        /// </summary>
+        public virtual Supplier Supplier { get; private set; }
 
         /// <summary>
         ///     合同飞机BFE
@@ -248,7 +254,22 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg
         }
 
         /// <summary>
-        ///     设置供应商ID
+        ///     设置供应商
+        /// </summary>
+        /// <param name="supplier">供应商</param>
+        public void SetSupplier(Supplier supplier)
+        {
+            if (supplier == null || supplier.IsTransient())
+            {
+                throw new ArgumentException("供应商参数为空！");
+            }
+
+            Supplier = supplier;
+            SupplierId = supplier.Id;
+        }
+
+        /// <summary>
+        ///     设置供应商
         /// </summary>
         /// <param name="id">供应商ID</param>
         public void SetSupplier(int id)

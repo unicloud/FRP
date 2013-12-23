@@ -12,9 +12,9 @@ namespace UniCloud.Presentation.Payment.Invoice
         }
 
         [Import]
-        public PurchaseInvoiceManagerVM ViewModel
+        public CreditNoteManagerVM ViewModel
         {
-            get { return DataContext as PurchaseInvoiceManagerVM; }
+            get { return DataContext as CreditNoteManagerVM; }
             set { DataContext = value; }
         }
     }

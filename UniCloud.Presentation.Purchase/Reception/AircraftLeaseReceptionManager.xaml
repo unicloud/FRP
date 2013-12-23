@@ -15,6 +15,9 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
             <Style x:Key="EditComboBox"
                    TargetType="telerik:RadComboBox">
                 <Setter Property="FontFamily"
@@ -26,9 +29,55 @@
                 <Setter Property="OpenDropDownOnFocus"
                         Value="True" />
             </Style>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="AppointmentToolTipTemplate">
+                <Grid MaxWidth="300">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="43" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{Binding Subject}"
+                               Grid.ColumnSpan="2"
+                               TextWrapping="Wrap"
+                               Margin="5 8 4 3"
+                               FontWeight="Bold" />
+                    <Image Grid.Row="1"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Left"
+                           Margin="5 5 0 0"
+                           Source="/UniCloud.Presentation;component/Images/Save.png"
+                           Width="28"
+                           Height="29" />
+                    <StackPanel Orientation="Vertical"
+                                Grid.Column="1"
+                                Grid.Row="1"
+                                Margin="0 5 0 0">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0 0 0 0">
+                            <TextBlock Text="{Binding Start, StringFormat='hh:mm tt', Mode=TwoWay}"
+                                       TextWrapping="Wrap"
+                                       FontSize="10" />
+                            <TextBlock Text=" - "
+                                       FontSize="10" />
+                            <TextBlock Text="{Binding End, StringFormat='hh:mm tt', Mode=TwoWay}"
+                                       TextWrapping="Wrap"
+                                       FontSize="10" />
+                        </StackPanel>
+                        <TextBlock Text="{Binding Start, StringFormat='dddd dd MMM yyyy', Mode=TwoWay}"
+                                   Margin="0 3"
+                                   FontSize="10" />
+                    </StackPanel>
+                    <TextBlock Grid.Row="2"
+                               Grid.ColumnSpan="2"
+                               Text="{Binding Body}"
+                               Margin="5 3 5 8"
+                               TextWrapping="Wrap" />
+                </Grid>
+            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -292,7 +341,7 @@
                                          CanUserClose="False"
                                          CanUserPin="False"
                                          FontSize="{StaticResource TextFontSize}"
-                                         ContextMenuTemplate="{x:Null}">                            
+                                         ContextMenuTemplate="{x:Null}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -300,38 +349,11 @@
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                     Margin="-1 -2 -1 0">
-                                    <telerik:RadButton Margin="4,2,2,-2"
-                                                       Command="{Binding SaveCommand}"
-                                                       CommandParameter="{Binding RelatedDocs}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Save.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="保存" />
-                                    </telerik:RadButton>
-                                    <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AbortCommand}"
-                                                       CommandParameter="{Binding RelatedDocs}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="放弃更改" />
-                                    </telerik:RadButton>
-                                    <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding AddAttachCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Add.png"
-                                               Stretch="Fill" 
+                                        <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
+                                               Stretch="Fill"
                                                ToolTipService.ToolTip="添加文档" />
-                                    </telerik:RadButton>
-                                    <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding RemoveAttachCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="删除文档" />
-                                    </telerik:RadButton>
-                                    <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding ViewAttachCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Search.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="查看文档" />
                                     </telerik:RadButton>
                                 </telerik:RadToolBar>
                                 <telerik:RadGridView x:Name="RelatedDocuments"
@@ -348,6 +370,26 @@
                                                      IsFilteringAllowed="True"
                                                      IsBusy="{Binding RelatedDocs.IsBusy}">
                                     <telerik:RadGridView.Columns>
+                                        <telerik:GridViewColumn>
+                                            <telerik:GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <telerik:RadButton Content="查看文档"
+                                                                       Command="{Binding DataContext.ViewAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                       CommandParameter="{Binding}">
+                                                    </telerik:RadButton>
+                                                </DataTemplate>
+                                            </telerik:GridViewColumn.CellTemplate>
+                                        </telerik:GridViewColumn>
+                                        <telerik:GridViewColumn>
+                                            <telerik:GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <telerik:RadButton Content="移除文档"
+                                                                       Command="{Binding DataContext.RemoveAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                       CommandParameter="{Binding}">
+                                                    </telerik:RadButton>
+                                                </DataTemplate>
+                                            </telerik:GridViewColumn.CellTemplate>
+                                        </telerik:GridViewColumn>
                                         <input:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="标题"
@@ -375,6 +417,7 @@
                                                           SnapAppointments="True"
                                                           AppointmentsSource="{Binding Appointments,Mode=TwoWay}"
                                                           CategoriesSource="{Binding Categories}"
+                                                          ToolTipTemplate="{StaticResource AppointmentToolTipTemplate}"
                                                           telerik:StyleManager.Theme="Windows8">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="AppointmentCreated">
@@ -419,7 +462,7 @@
                                         <telerik:WeekViewDefinition DayStartTime="8:00"
                                                                     DayEndTime="20:00"
                                                                     MinTimeRulerExtent="1"
-                                                                    MajorTickLength="1h"
+                                                                    MajorTickLength="4h"
                                                                     StretchGroupHeaders="True"
                                                                     TimerulerMajorTickStringFormat="{}{0:tt h:mm}"
                                                                     Orientation="Vertical" />
