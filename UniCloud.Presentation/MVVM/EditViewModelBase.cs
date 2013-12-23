@@ -82,7 +82,6 @@ namespace UniCloud.Presentation.MVVM
         {
         }
 
-
         /// <summary>
         ///     保存失败后执行的操作
         /// </summary>
@@ -100,7 +99,6 @@ namespace UniCloud.Presentation.MVVM
                 return false;
             }
             return collectionView != null && collectionView.HasChanges;
-           
         }
 
         #endregion
@@ -147,16 +145,16 @@ namespace UniCloud.Presentation.MVVM
         #endregion
 
         #region 刷新按钮状态方法
+
         /// <summary>
-        /// 刷新按钮状态
+        ///     刷新按钮状态
         /// </summary>
         public virtual void RefreshCommandState()
         {
             SaveCommand.RaiseCanExecuteChanged();
             AbortCommand.RaiseCanExecuteChanged();
         }
-        #endregion
 
-      
+        #endregion
     }
 }

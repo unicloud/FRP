@@ -26,6 +26,18 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrderAgg
 {
     public class ContractContent : EntityInt, IValidatableObject
     {
+        #region 构造函数
+
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能从内部创建新实例
+        /// </summary>
+        internal ContractContent()
+        {
+        }
+
+        #endregion
+
         #region 属性
 
         /// <summary>
@@ -34,12 +46,17 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrderAgg
         ///         用“|”分隔
         ///     </remarks>
         /// </summary>
-        public string ContentTags { get; set; }
+        public string ContentTags { get; private set; }
+
+        /// <summary>
+        ///     描述
+        /// </summary>
+        public string Description { get; private set; }
 
         /// <summary>
         ///     内容文档
         /// </summary>
-        public byte[] ContentDoc { get; set; }
+        public byte[] ContentDoc { get; internal set; }
 
         #endregion
 
@@ -57,6 +74,30 @@ namespace UniCloud.Domain.UberModel.Aggregates.OrderAgg
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置内容标签
+        /// </summary>
+        /// <param name="tag">标签</param>
+        public void SetContentTag(string tag)
+        {
+            if (!string.IsNullOrWhiteSpace(tag))
+            {
+                ContentTags = tag;
+            }
+        }
+
+        /// <summary>
+        ///     设置描述信息
+        /// </summary>
+        /// <param name="description">描述信息</param>
+        public void SetDescription(string description)
+        {
+            if (!string.IsNullOrWhiteSpace(description))
+            {
+                Description = description;
+            }
+        }
 
         #endregion
 

@@ -59,14 +59,14 @@ namespace UniCloud.DistributedServices.Payment
         }
 
         #region Invoice集合
-
-        //public IQueryable<CreditNoteDTO> CreditNotes
-        //{
-        //    get { return  null; }
-        //}
         /// <summary>
         ///     贷项单集合
         /// </summary>
+        public IQueryable<CreditNoteDTO> CreditNotes
+        {
+            get { return _creditNoteAppService.GetCreditNoteInvoices(); }
+        }
+
         /// <summary>
         ///     租赁发票集合
         /// </summary>
@@ -233,6 +233,14 @@ namespace UniCloud.DistributedServices.Payment
         public IQueryable<OrderDTO> Orders
         {
             get { return _orderAppService.GetOrders(); }
+        }
+
+        /// <summary>
+        ///     所有采购订单集合
+        /// </summary>
+        public IQueryable<PurchaseOrderDTO> PurchaseOrders
+        {
+            get { return _orderAppService.GetPurchaseOrders(); }
         }
 
         /// <summary>

@@ -38,6 +38,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(p => p.ContentTags).HasColumnName("ContentTags");
+            Property(p => p.Description).HasColumnName("Description");
             Property(p => p.ContentDoc).HasColumnName("ContentDoc");
 
             Property(p => p.OrderId).HasColumnName("OrderId");

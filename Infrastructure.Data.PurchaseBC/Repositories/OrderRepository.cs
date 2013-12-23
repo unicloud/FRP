@@ -53,7 +53,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Repositories
             if (currentUnitOfWork == null) return null;
             var set = currentUnitOfWork.CreateSet<Order>();
 
-            return set.Include(o => o.OrderLines).SingleOrDefault(o => o.Id == (int)id);
+            return set.Include(o => o.OrderLines).SingleOrDefault(o => o.Id == (int) id);
         }
 
         #endregion

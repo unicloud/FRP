@@ -31,7 +31,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
     ///     付款计划聚合根
     ///     付款计划行
     /// </summary>
-    public class PaymentScheduleLine : EntityInt, IValidatableObject
+    public class PaymentScheduleLine : ScheduleBase, IValidatableObject
     {
         #region 构造函数
 
@@ -61,11 +61,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
         ///     付款控制状态
         /// </summary>
         public ControlStatus Status { get; private set; }
-
-        /// <summary>
-        ///     备注
-        /// </summary>
-        public string Note { get; internal set; }
 
         #endregion
 
@@ -166,15 +161,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
         public void SetAmount(decimal amount)
         {
             Amount = amount;
-        }
-
-        /// <summary>
-        ///     设置备注
-        /// </summary>
-        /// <param name="note"></param>
-        public void SetNote(string note)
-        {
-            Note = note;
         }
 
         #endregion

@@ -573,6 +573,7 @@
         <Property Name="LogWriter" Type="Edm.String" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="AircraftPurchaseOrderLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseOrderLineDTO)" Nullable="false" />
+        <Property Name="ContractContents" Type="Collection(UniCloud.Application.PurchaseBC.DTO.ContractContentDTO)" Nullable="false" />
         <NavigationProperty Name="RelatedDocs" Relationship="UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseOrderDTO_RelatedDocs" ToRole="RelatedDocs" FromRole="AircraftPurchaseOrderDTO" />
       </EntityType>
       <ComplexType Name="AircraftPurchaseOrderLineDTO">
@@ -591,6 +592,11 @@
         <Property Name="CSCNumber" Type="Edm.String" />
         <Property Name="SerialNumber" Type="Edm.String" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
+      <ComplexType Name="ContractContentDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContentTags" Type="Edm.String" />
+        <Property Name="ContentDoc" Type="Edm.Binary" />
       </ComplexType>
       <EntityType Name="EngineLeaseOrderDTO">
         <Key>

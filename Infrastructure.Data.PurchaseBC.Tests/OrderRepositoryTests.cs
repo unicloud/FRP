@@ -28,6 +28,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
@@ -138,6 +139,21 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
 
             // Act
             orderRep.UnitOfWork.Commit();
+        }
+
+        [TestMethod]
+        public void RemoveOrder()
+        {
+            // Arrange
+            var service = DefaultContainer.Resolve<IOrderRepository>();
+            var order = service.GetAll().OfType<AircraftPurchaseOrder>().FirstOrDefault(o => o.OrderLines.Any());
+            if (order != null)
+            {
+                service.Remove(order);
+            }
+
+            // Act
+            service.UnitOfWork.Commit();
         }
 
         [TestMethod]

@@ -522,4 +522,49 @@
   <data name="Restore" xml:space="preserve">
     <value>还原</value>
   </data>
+  <data name="Documents_ContextMenu_Clipboard_Copy" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="Documents_ContextMenu_Clipboard_Cut" xml:space="preserve">
+    <value>剪切</value>
+  </data>
+  <data name="Documents_ContextMenu_Clipboard_Paste" xml:space="preserve">
+    <value>粘贴</value>
+  </data>
+  <data name="Documents_ContextMenu_Hyperlink_ShowHyperlinkPropertiesDialog" xml:space="preserve">
+    <value>超链接…</value>
+  </data>
+  <data name="Documents_ContextMenu_Lists_RestartAt" xml:space="preserve">
+    <value>编号重新开始于1</value>
+  </data>
+  <data name="Documents_ContextMenu_Lists_SetNumberingValue" xml:space="preserve">
+    <value>设置编号值…</value>
+  </data>
+  <data name="Documents_ContextMenu_Text_ShowFontPropertiesDialog" xml:space="preserve">
+    <value>字体…</value>
+  </data>
+  <data name="Documents_ContextMenu_Text_ShowParagraphPropertiesDialog" xml:space="preserve">
+    <value>段落…</value>
+  </data>
+  <data name="RibbonViewGalleryButtonMore" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RibbonViewGalleryButtonUpDown" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RibbonViewQATCustomize" xml:space="preserve">
+    <value>自定义快速访问工具栏</value>
+  </data>
+  <data name="RibbonViewQATMinimize" xml:space="preserve">
+    <value>显示选项卡</value>
+  </data>
+  <data name="RibbonViewQATShowAbove" xml:space="preserve">
+    <value>在功能区上方显示</value>
+  </data>
+  <data name="RibbonViewQATShowBelow" xml:space="preserve">
+    <value>在功能区下方显示</value>
+  </data>
+  <data name="RibbonViewWindowTitleDivider" xml:space="preserve">
+    <value>恢复</value>
+  </data>
 </root>

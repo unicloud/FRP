@@ -3,8 +3,8 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2013/12/17 22:55:52
-// 文件名：OrderLineDTO
+// 作者：HuangQiBin 时间：2013/12/22 22:12:46
+// 文件名：PurchaseOrderDTO
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -27,41 +27,51 @@ using System.Threading.Tasks;
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    ///    订单行DTO
+    ///    采购订单DTO，包含飞机采购订单、发动机采购订单、BFE采购订单
     /// </summary>
     [DataServiceKey("Id")]
-    public class OrderLineDTO
+    public class PurchaseOrderDTO
     {
+        public PurchaseOrderDTO()
+        {
+            OrderLines = new List<OrderLineDTO>();
+        }
         /// <summary>
-        ///     订单行ID
+        ///     订单ID
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        ///     单价
-        ///     <remarks>
-        ///         单价不能小于0
-        ///     </remarks>
+        ///     合同名称
         /// </summary>
-        public decimal UnitPrice { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
-        ///     数量
+        ///     版本号
         /// </summary>
-        public int Amount { get; set; }
+        public int Version { get; set; }
 
         /// <summary>
-        ///     折扣
-        ///     <remarks>
-        ///         取值范围为 [0-100]
-        ///     </remarks>
+        ///     币种ID
         /// </summary>
-        public decimal Discount { get; set; }
+        public int CurrencyId { get; set; }
 
         /// <summary>
-        ///     预计交付日期
+        ///     经办人
         /// </summary>
-        public DateTime EstimateDeliveryDate { get; set; }
+        public string OperatorName { get; set; }
+
+
+        /// <summary>
+        ///     生效日期
+        /// </summary>
+        public DateTime OrderDate { get; set; }
+
+        /// <summary>
+        ///     订单状态
+        /// </summary>
+        public int Status { get; set; }
+
 
         /// <summary>
         ///     备注
@@ -69,19 +79,18 @@ namespace UniCloud.Application.PaymentBC.DTO
         public string Note { get; set; }
 
         /// <summary>
-        ///     行金额
+        ///     供应商外键
         /// </summary>
-        public decimal TotalLine { get; set; }
+        public int SupplierId { get; set; }
 
         /// <summary>
-        ///   物料名称
+        ///     供应商名称
         /// </summary>
-        public string MaterialName { get; set; }
+        public string SupplierName { get; set; }
 
         /// <summary>
-        ///     订单Id
+        ///     订单行集合
         /// </summary>
-        public int OrderId { get; set; }
-
+        public List<OrderLineDTO> OrderLines { get; set; }
     }
 }
