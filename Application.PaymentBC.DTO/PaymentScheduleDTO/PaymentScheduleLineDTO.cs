@@ -44,5 +44,25 @@ namespace UniCloud.Application.PaymentBC.DTO
         ///     备注
         /// </summary>
         public string Note { get; set; }
+
+        /// <summary>
+        /// 主题
+        /// </summary>
+        public string Subject { get; set; }
+
+        /// <summary>
+        /// 内容
+        /// </summary>
+        public string Body { get; set; }
+
+        /// <summary>
+        /// 重要级别
+        /// </summary>
+        public string Importance { get; set; }
+
+        /// <summary>
+        /// 进程状态
+        /// </summary>
+        public string ProcessStatus { get; set; }
     }
 }

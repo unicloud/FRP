@@ -126,6 +126,9 @@
       <HintPath>..\packages\Telerik.Windows.Controls.DataServices50.2.0.0\lib\Telerik.Windows.Controls.DataServices50.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Telerik.Windows.Controls.DataVisualization">
+      <HintPath>..\packages\Telerik.Windows.Controls.DataVisualization.2.0.0\lib\Telerik.Windows.Controls.DataVisualization.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Windows.Controls.Docking, Version=2013.3.1016.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Controls.Docking.2.0.0\lib\Telerik.Windows.Controls.Docking.dll</HintPath>
       <Private>False</Private>
@@ -141,6 +144,9 @@
     <Reference Include="Telerik.Windows.Controls.Navigation, Version=2013.3.1016.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Controls.Navigation.2.0.0\lib\Telerik.Windows.Controls.Navigation.dll</HintPath>
       <Private>False</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.ScheduleView">
+      <HintPath>..\packages\Telerik.Windows.Controls.ScheduleView.2.0.0\lib\Telerik.Windows.Controls.ScheduleView.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Data, Version=2013.3.1016.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Data.2.0.0\lib\Telerik.Windows.Data.dll</HintPath>
@@ -216,6 +222,9 @@
       <DependentUpon>EnginePaymentSchedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="PaymentSchedules\EnginePaymentScheduleVM.cs" />
+    <Compile Include="PaymentSchedules\PaymentScheduleExtension\AppointmentConvertHelper.cs" />
+    <Compile Include="PaymentSchedules\PaymentScheduleExtension\PaymentAppointment.cs" />
+    <Compile Include="PaymentSchedules\PaymentScheduleExtension\PaymentAppointmentCollection.cs" />
     <Compile Include="PaymentSchedules\QueryPaymentSchedule.xaml.cs">
       <DependentUpon>QueryPaymentSchedule.xaml</DependentUpon>
     </Compile>

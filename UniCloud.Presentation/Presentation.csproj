@@ -250,6 +250,7 @@
     <Compile Include="CommonExtension\CommonExtension.cs" />
     <Compile Include="CommonExtension\RandomHelper.cs" />
     <Compile Include="ControlExtension\DataForm\MasterCommandProvider.cs" />
+    <Compile Include="ControlExtension\ScheduleView\MonthlyTickProvider.cs" />
     <Compile Include="Document\DocumentViewer.xaml.cs">
       <DependentUpon>DocumentViewer.xaml</DependentUpon>
     </Compile>

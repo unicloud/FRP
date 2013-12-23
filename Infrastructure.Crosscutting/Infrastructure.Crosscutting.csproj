@@ -34,8 +34,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception">
+      <HintPath>..\packages\Unity.Interception.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
+      <HintPath>..\packages\Unity.Interception.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,6 +56,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caching\CacheManager.cs" />
+    <Compile Include="Caching\CachingAttribute.cs" />
+    <Compile Include="Caching\CachingMethod.cs" />
+    <Compile Include="Caching\DefaultCacheProvider.cs" />
+    <Compile Include="Caching\ICacheProvider.cs" />
+    <Compile Include="ContainerExtension\ConfigurationExtension.cs" />
+    <Compile Include="InterceptionBehaviors\CachingBehavior.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\ILoggerFactory.cs" />
     <Compile Include="Logging\LoggerFactory.cs" />
@@ -50,6 +70,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure.Utilities\Infrastructure.Utilities.csproj">
+      <Project>{34a8a0e1-3d4a-48ca-9e78-71f88e2d273d}</Project>
+      <Name>Infrastructure.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

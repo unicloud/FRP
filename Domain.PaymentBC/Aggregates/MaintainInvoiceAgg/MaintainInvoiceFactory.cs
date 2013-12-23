@@ -124,7 +124,6 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
             if (!string.IsNullOrEmpty(reviewer))
             {
                 maintainInvoice.Review(reviewer);
-                maintainInvoice.SetCompleted();
             }
             if (maintainInvoice is EngineMaintainInvoice)
             {

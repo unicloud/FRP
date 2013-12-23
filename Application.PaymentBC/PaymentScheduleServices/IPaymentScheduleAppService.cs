@@ -20,6 +20,7 @@
 
 using System.Linq;
 using UniCloud.Application.PaymentBC.DTO;
+using UniCloud.Infrastructure.Crosscutting.Caching;
 
 #endregion
 
@@ -46,24 +47,27 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
         ///     获取所有飞机付款计划
         /// </summary>
         /// <returns>所有飞机付款计划</returns>
+       [Caching(CachingMethod.Get, typeof(AcPaymentScheduleDTO))]
         IQueryable<AcPaymentScheduleDTO> GetAcPaymentSchedules();
 
         /// <summary>
         ///     新增飞机付款计划
         /// </summary>
         /// <param name="acPaymentSchedule">飞机付款计划DTO。</param>
-        void InsertAcPaymentSchedule(AcPaymentScheduleDTO acPaymentSchedule);
-
-        /// <summary>
+       [Caching(CachingMethod.Put, typeof(AcPaymentScheduleDTO))]
+       void InsertAcPaymentSchedule(AcPaymentScheduleDTO acPaymentSchedule);
+       /// <summary>
         ///     修改飞机付款计划
         /// </summary>
         /// <param name="acPaymentSchedule">飞机付款计划DTO。</param>
+        [Caching(CachingMethod.Put, typeof(AcPaymentScheduleDTO))]
         void ModifyAcPaymentSchedule(AcPaymentScheduleDTO acPaymentSchedule);
 
         /// <summary>
         ///     删除飞机付款计划
         /// </summary>
         /// <param name="acPaymentSchedule">飞机付款计划DTO。</param>
+        [Caching(CachingMethod.Remove, typeof(AcPaymentScheduleDTO))]
         void DeleteAcPaymentSchedule(AcPaymentScheduleDTO acPaymentSchedule);
 
         #endregion
