@@ -26,6 +26,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Domain.PurchaseBC.Enums;
@@ -41,6 +42,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
         private readonly IMaterialRepository _materialRepository;
         private readonly IOrderQuery _orderQuery;
         private readonly IOrderRepository _orderRepository;
+        private readonly IRelatedDocRepository _relatedDocRepository;
         private readonly ISupplierRepository _supplierRepository;
         private readonly ITradeQuery _tradeQuery;
         private readonly ITradeRepository _tradeRepository;
@@ -48,7 +50,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
         public TradeAppService(ITradeQuery queryTrade, ITradeRepository tradeRepository, IOrderQuery orderQuery,
             IOrderRepository orderRepository, ISupplierRepository supplierRepository,
             IMaterialRepository materialRepository, IActionCategoryRepository actionCategoryRepository,
-            IContractAircraftRepository contractAircraftRepository)
+            IContractAircraftRepository contractAircraftRepository, IRelatedDocRepository relatedDocRepository)
         {
             _tradeQuery = queryTrade;
             _tradeRepository = tradeRepository;
@@ -58,6 +60,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             _materialRepository = materialRepository;
             _actionCategoryRepository = actionCategoryRepository;
             _contractAircraftRepository = contractAircraftRepository;
+            _relatedDocRepository = relatedDocRepository;
         }
 
         #region ITradeAppService 成员
@@ -380,6 +383,9 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             var deleteAircraftPurchaseOrder = _orderRepository.Get(dto.Id);
             if (deleteAircraftPurchaseOrder != null)
             {
+                _relatedDocRepository.GetFiltered(r => r.SourceId == deleteAircraftPurchaseOrder.SourceGuid)
+                    .ToList()
+                    .ForEach(r => _relatedDocRepository.Remove(r));
                 _orderRepository.Remove(deleteAircraftPurchaseOrder);
             }
         }
