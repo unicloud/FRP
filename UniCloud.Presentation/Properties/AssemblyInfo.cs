@@ -38,6 +38,7 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.Export")]
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.ControlExtension")]
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.ControlExtension.DataForm")]
+[assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.ControlExtension.ScheduleView")]
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.Images")]
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.Input")]
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.Localization")]

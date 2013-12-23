@@ -38,7 +38,7 @@ namespace UniCloud.Presentation.MVVM
             if (e.PropertyName == "HasChanges")
             {
                 SaveCommand.RaiseCanExecuteChanged();
-                AbortCommand.RaiseCanExecuteChanged();
+                AbortCommand.RaiseCanExecuteChanged();    
             }
         }
 

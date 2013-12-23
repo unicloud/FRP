@@ -42,3 +42,4 @@ using System.Windows.Markup;
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.Payment.Invoice")]
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.Payment.QueryAnalyse")]
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.Payment.PaymentSchedules")]
+[assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtension")]

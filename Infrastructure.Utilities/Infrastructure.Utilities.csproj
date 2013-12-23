@@ -34,8 +34,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Practices.Unity">
+    <Reference Include="Microsoft.Practices.Unity, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception">
+      <HintPath>..\packages\Unity.Interception.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
+      <HintPath>..\packages\Unity.Interception.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,14 +65,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure.Crosscutting.NetFramework\Infrastructure.Crosscutting.NetFramework.csproj">
-      <Project>{a0251720-e467-468c-9316-72c47a12cf39}</Project>
-      <Name>Infrastructure.Crosscutting.NetFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infrastructure.Crosscutting\Infrastructure.Crosscutting.csproj">
-      <Project>{340e4cf3-f789-4ae1-bc04-96040995859c}</Project>
-      <Name>Infrastructure.Crosscutting</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

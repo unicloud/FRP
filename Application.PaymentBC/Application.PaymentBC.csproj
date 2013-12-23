@@ -93,6 +93,10 @@
       <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Crosscutting\Infrastructure.Crosscutting.csproj">
+      <Project>{340e4cf3-f789-4ae1-bc04-96040995859c}</Project>
+      <Name>Infrastructure.Crosscutting</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Infrastructure.Utilities\Infrastructure.Utilities.csproj">
       <Project>{34a8a0e1-3d4a-48ca-9e78-71f88e2d273d}</Project>
       <Name>Infrastructure.Utilities</Name>

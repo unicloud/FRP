@@ -23,6 +23,7 @@ using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
+using UniCloud.Infrastructure.Crosscutting.Caching;
 
 #endregion
 

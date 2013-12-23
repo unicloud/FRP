@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System.ComponentModel.Composition;
+using Telerik.Windows.Controls;
 
 #endregion
 
@@ -38,5 +39,6 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             get { return DataContext as AcPaymentScheduleVM; }
             set { DataContext = value; }
         }
+
     }
 }

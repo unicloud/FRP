@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Practices.Unity;
+using Microsoft.Practices.Unity.InterceptionExtension;
 
 namespace UniCloud.Infrastructure.Utilities.Container
 {
@@ -25,16 +26,25 @@ namespace UniCloud.Infrastructure.Utilities.Container
         public static void SetContainer(IUnityContainer container)
         {
             _container = container;
+            //SetInjectionMembers();
         }
 
-        public static void RegisterType(Type implementationType,LifetimeManager lifetimeManager=null)
+        /// <summary>
+        /// 设置依赖注入
+        /// </summary>
+        public static void SetInjectionMembers()
+        {
+            _container.AddExtension(new Interception());
+        }
+
+        public static void RegisterType(Type implementationType, LifetimeManager lifetimeManager = null, params InjectionMember[] injectionMembers)
         {
             if (lifetimeManager==null)
             {
-                _container.RegisterType(implementationType);
+                _container.RegisterType(implementationType,injectionMembers);
                 return;
             }
-            _container.RegisterType(implementationType, lifetimeManager);
+            _container.RegisterType(implementationType, lifetimeManager,injectionMembers);
 
           
         }
@@ -43,17 +53,17 @@ namespace UniCloud.Infrastructure.Utilities.Container
         /// </summary>
         /// <typeparam name="TImplementer">接口实例。</typeparam>
         /// <typeparam name="TService">接口类型。</typeparam>
-        public static void Register<TService, TImplementer>(LifetimeManager lifetimeManager = null)
+        public static void Register<TService, TImplementer>(LifetimeManager lifetimeManager = null, params InjectionMember[] injectionMembers)
             where TService : class
             where TImplementer : class, TService
         {
             if (lifetimeManager==null)
             {
-                _container.RegisterType<TService, TImplementer>();
+                _container.RegisterType<TService, TImplementer>(injectionMembers);
                 return;
             }
-           
-            _container.RegisterType<TService, TImplementer>(lifetimeManager);
+
+            _container.RegisterType<TService, TImplementer>(lifetimeManager, injectionMembers);
         }
         /// <summary>
         /// 实例化接口。

@@ -4,6 +4,7 @@
 
 #region 命名空间
 
+using Microsoft.Practices.Unity.InterceptionExtension;
 using UniCloud.Application.PaymentBC;
 using UniCloud.Application.PaymentBC.ContractAircraftServices;
 using UniCloud.Application.PaymentBC.ContractEngineServices;
@@ -27,6 +28,7 @@ using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
+using UniCloud.Infrastructure.Crosscutting.InterceptionBehaviors;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
@@ -46,6 +48,7 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
         {
             Configuration.Create()
                          .UseAutofac()
+                         //.UserCaching()
                          .CreateLog()
                          .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                           .Register<IStaticLoad, StaticLoad>()
@@ -106,6 +109,8 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
 
                          .Register<IPaymentScheduleQuery, PaymentScheduleQuery>()
                          .Register<IPaymentScheduleAppService, PaymentScheduleAppService>()
+                         //(null, new Interceptor<InterfaceInterceptor>(), 
+                         //       new InterceptionBehavior<CachingBehavior>())
                          .Register<IPaymentScheduleRepository, PaymentScheduleRepository>()
 
                 #endregion
