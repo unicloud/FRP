@@ -75,5 +75,10 @@ namespace UniCloud.Application.PaymentBC.DTO
         ///     BFE物料ID
         /// </summary>
         public int BFEMaterialId { get; set; }
+
+        /// <summary>
+        ///     订单Id
+        /// </summary>
+        public int OrderId { get; set; }
     }
 }

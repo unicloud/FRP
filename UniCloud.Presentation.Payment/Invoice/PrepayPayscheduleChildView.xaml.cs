@@ -2,11 +2,11 @@
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(PrepaymentOrderChildView))]
+    [Export(typeof(PrepayPayscheduleChildView))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class PrepaymentOrderChildView
+    public partial class PrepayPayscheduleChildView
     {
-        public PrepaymentOrderChildView()
+        public PrepayPayscheduleChildView()
         {
             InitializeComponent();
         }

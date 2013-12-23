@@ -65,8 +65,6 @@ namespace UniCloud.Presentation.Payment.Invoice
 
             Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_paymentData, _paymentData.Suppliers);
 
-            Orders = new QueryableDataServiceCollectionView<OrderDTO>(_paymentData, _paymentData.Orders);
-
             AircraftLeaseOrders = new QueryableDataServiceCollectionView<AircraftLeaseOrderDTO>(_paymentData, _paymentData.AircraftLeaseOrders);
 
             EngineLeaseOrders = new QueryableDataServiceCollectionView<EngineLeaseOrderDTO>(_paymentData, _paymentData.EngineLeaseOrders);
@@ -81,9 +79,21 @@ namespace UniCloud.Presentation.Payment.Invoice
             Service.RegisterCollectionView(EnginePaymentSchedules); //注册查询集合。
             EnginePaymentSchedules.PropertyChanged += OnViewPropertyChanged;
 
-            ContractAircrafts = new QueryableDataServiceCollectionView<ContractAircraftDTO>(_paymentData, _paymentData.ContractAircrafts);
+            var fd = new FilterDescriptor("ImportType", FilterOperator.Contains, "引进");
+            var fd2 = new FilterDescriptor("ImportType", FilterOperator.DoesNotContain, "购买");
 
-            ContractEngines = new QueryableDataServiceCollectionView<ContractEngineDTO>(_paymentData, _paymentData.ContractEngines);
+            ContractAircrafts = Service.CreateCollection<ContractAircraftDTO>(_paymentData.ContractAircrafts);
+            ContractAircrafts.FilterDescriptors.Add(fd);
+            ContractAircrafts.FilterDescriptors.Add(fd2);
+            Service.RegisterCollectionView(ContractAircrafts); //注册查询集合。
+            ContractAircrafts.PropertyChanged += OnViewPropertyChanged;
+
+
+            ContractEngines = Service.CreateCollection<ContractEngineDTO>(_paymentData.ContractEngines);
+            ContractEngines.FilterDescriptors.Add(fd);
+            ContractEngines.FilterDescriptors.Add(fd2);
+            Service.RegisterCollectionView(ContractEngines); //注册查询集合。
+            ContractEngines.PropertyChanged += OnViewPropertyChanged;
         }
 
         /// <summary>
@@ -154,7 +164,6 @@ namespace UniCloud.Presentation.Payment.Invoice
             Currencies.Load(true);
             Suppliers.Load(true);
             LeaseInvoices.Load(true);
-            Orders.Load(true);
             AircraftLeaseOrders.Load(true);
             EngineLeaseOrders.Load(true);
             PaymentSchedules.Load(true);
@@ -194,64 +203,21 @@ namespace UniCloud.Presentation.Payment.Invoice
                     {
                         InvoiceLines.Add(invoiceLine);
                     }
-                    SelInvoiceLine = InvoiceLines.FirstOrDefault();
-                    _relatedOrder.Clear();
-                    RelatedOrder.Add(Orders.FirstOrDefault(p => p.Id == value.OrderId));
-                    SelOrder = RelatedOrder.FirstOrDefault();
-                    if (SelOrder != null)
-                        RelatedOrderLine = SelOrder.OrderLines.FirstOrDefault(p => p.Id == SelInvoiceLine.OrderLineId);
                     _relatedPaymentSchedule.Clear();
                     RelatedPaymentSchedule.Add(
                         PaymentSchedules.FirstOrDefault(p =>
                         {
-                            var paymentScheduleLine = p.PaymentScheduleLines.FirstOrDefault(l => l.PaymentScheduleLineId == value.PaymentScheduleLineId);
-                            return paymentScheduleLine != null && paymentScheduleLine.PaymentScheduleLineId == value.PaymentScheduleLineId;
+                            var paymentScheduleLine =
+                                p.PaymentScheduleLines.FirstOrDefault(
+                                    l => l.PaymentScheduleLineId == value.PaymentScheduleLineId);
+                            return paymentScheduleLine != null &&
+                                   paymentScheduleLine.PaymentScheduleLineId == value.PaymentScheduleLineId;
                         }));
                     SelPaymentSchedule = RelatedPaymentSchedule.FirstOrDefault();
-                    RaisePropertyChanged(() => SelLeaseInvoice);
-                }
-            }
-        }
-
-        #endregion
-
-        #region 关联的租赁订单及订单行
-
-        private ObservableCollection<OrderDTO> _relatedOrder = new ObservableCollection<OrderDTO>();
-
-        /// <summary>
-        ///     关联的租赁订单
-        /// </summary>
-        public ObservableCollection<OrderDTO> RelatedOrder
-        {
-            get { return _relatedOrder; }
-            set
-            {
-                if (_relatedOrder != value)
-                {
-                    _relatedOrder = value;
-                    RaisePropertyChanged(() => RelatedOrder);
-                }
-            }
-        }
-
-        #endregion
-
-        #region 关联的付款计划
-
-        private ObservableCollection<PaymentScheduleDTO> _relatedPaymentSchedule = new ObservableCollection<PaymentScheduleDTO>();
-
-        /// <summary>
-        ///     关联的付款计划
-        /// </summary>
-        public ObservableCollection<PaymentScheduleDTO> RelatedPaymentSchedule
-        {
-            get { return _relatedPaymentSchedule; }
-            set
-            {
-                if (_relatedPaymentSchedule != value)
-                {
-                    _relatedPaymentSchedule = value;
+                    if (SelPaymentSchedule != null)
+                        RelatedPaymentScheduleLine =
+                            SelPaymentSchedule.PaymentScheduleLines.FirstOrDefault(
+                                l => l.InvoiceId == value.LeaseInvoiceId);
                     RaisePropertyChanged(() => SelLeaseInvoice);
                 }
             }
@@ -303,6 +269,64 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
 
+        #region 关联的付款计划及付款计划行
+
+        private ObservableCollection<PaymentScheduleDTO> _relatedPaymentSchedule =
+            new ObservableCollection<PaymentScheduleDTO>();
+
+        /// <summary>
+        ///     关联的付款计划
+        /// </summary>
+        public ObservableCollection<PaymentScheduleDTO> RelatedPaymentSchedule
+        {
+            get { return _relatedPaymentSchedule; }
+            set
+            {
+                if (_relatedPaymentSchedule != value)
+                {
+                    _relatedPaymentSchedule = value;
+                    RaisePropertyChanged(() => RelatedPaymentSchedule);
+                }
+            }
+        }
+        private PaymentScheduleDTO _selPaymentSchedule;
+
+        /// <summary>
+        ///     关联的付款计划
+        /// </summary>
+        public PaymentScheduleDTO SelPaymentSchedule
+        {
+            get { return _selPaymentSchedule; }
+            set
+            {
+                if (_selPaymentSchedule != value)
+                {
+                    _selPaymentSchedule = value;
+                    RaisePropertyChanged(() => SelPaymentSchedule);
+                }
+            }
+        }
+
+        private PaymentScheduleLineDTO _relatedPaymentScheduleLine;
+
+        /// <summary>
+        ///     选择的付款计划行
+        /// </summary>
+        public PaymentScheduleLineDTO RelatedPaymentScheduleLine
+        {
+            get { return _relatedPaymentScheduleLine; }
+            set
+            {
+                if (_relatedPaymentScheduleLine != value)
+                {
+                    _relatedPaymentScheduleLine = value;
+                    RaisePropertyChanged(() => RelatedPaymentScheduleLine);
+                }
+            }
+        }
+
+        #endregion
+
         #region 币种集合
         /// <summary>
         ///     币种集合
@@ -320,10 +344,6 @@ namespace UniCloud.Presentation.Payment.Invoice
         #endregion
 
         #region 订单集合
-        /// <summary>
-        ///     所有订单集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<OrderDTO> Orders { get; set; }
 
         /// <summary>
         ///     飞机租赁订单集合
@@ -334,226 +354,6 @@ namespace UniCloud.Presentation.Payment.Invoice
         ///     发动机租赁订单集合
         /// </summary>
         public QueryableDataServiceCollectionView<EngineLeaseOrderDTO> EngineLeaseOrders { get; set; }
-
-        #endregion
-
-        #region 选择的订单
-        private OrderDTO _selOrder;
-
-        /// <summary>
-        ///     选择的租赁订单
-        /// </summary>
-        public OrderDTO SelOrder
-        {
-            get { return _selOrder; }
-            set
-            {
-                if (_selOrder != value)
-                {
-                    _selOrder = value;
-                    RaisePropertyChanged(() => SelOrder);
-                }
-            }
-        }
-
-        private AircraftLeaseOrderDTO _selAircraftLeaseOrder;
-
-        /// <summary>
-        ///     选择的飞机租赁订单
-        /// </summary>
-        public AircraftLeaseOrderDTO SelAircraftLeaseOrder
-        {
-            get { return _selAircraftLeaseOrder; }
-            set
-            {
-                if (_selAircraftLeaseOrder != value)
-                {
-                    _selAircraftLeaseOrder = value;
-                    _aircraftLeaseOrderLines.Clear();
-                    foreach (var orderLine in value.AircraftLeaseOrderLines)
-                    {
-                        AircraftLeaseOrderLines.Add(orderLine);
-                    }
-                    RaisePropertyChanged(() => SelAircraftLeaseOrder);
-                }
-            }
-        }
-
-        private EngineLeaseOrderDTO _selEngineLeaseOrder;
-
-        /// <summary>
-        ///     选择的发动机租赁订单
-        /// </summary>
-        public EngineLeaseOrderDTO SelEngineLeaseOrder
-        {
-            get { return _selEngineLeaseOrder; }
-            set
-            {
-                if (_selEngineLeaseOrder != value)
-                {
-                    _selEngineLeaseOrder = value;
-                    _engineLeaseOrderLines.Clear();
-                    foreach (var orderLine in value.EngineLeaseOrderLines)
-                    {
-                        EngineLeaseOrderLines.Add(orderLine);
-                    }
-                    RaisePropertyChanged(() => SelEngineLeaseOrder);
-                }
-            }
-        }
-
-        #endregion
-
-        #region 订单行
-
-        private ObservableCollection<AircraftLeaseOrderLineDTO> _aircraftLeaseOrderLines = new ObservableCollection<AircraftLeaseOrderLineDTO>();
-
-        /// <summary>
-        ///     飞机租赁订单行
-        /// </summary>
-        public ObservableCollection<AircraftLeaseOrderLineDTO> AircraftLeaseOrderLines
-        {
-            get { return _aircraftLeaseOrderLines; }
-            private set
-            {
-                if (_aircraftLeaseOrderLines != value)
-                {
-                    _aircraftLeaseOrderLines = value;
-                    RaisePropertyChanged(() => AircraftLeaseOrderLines);
-                }
-            }
-        }
-
-
-        private ObservableCollection<EngineLeaseOrderLineDTO> _engineLeaseOrderLines = new ObservableCollection<EngineLeaseOrderLineDTO>();
-
-        /// <summary>
-        ///     发动机租赁订单行
-        /// </summary>
-        public ObservableCollection<EngineLeaseOrderLineDTO> EngineLeaseOrderLines
-        {
-            get { return _engineLeaseOrderLines; }
-            private set
-            {
-                if (_engineLeaseOrderLines != value)
-                {
-                    _engineLeaseOrderLines = value;
-                    RaisePropertyChanged(() => EngineLeaseOrderLines);
-                }
-            }
-        }
-
-        #endregion
-
-        #region 选择的订单行
-        private OrderLineDTO _relatedOrderLine;
-
-        /// <summary>
-        ///     选择的关联租赁订单行
-        /// </summary>
-        public OrderLineDTO RelatedOrderLine
-        {
-            get { return _relatedOrderLine; }
-            set
-            {
-                if (_relatedOrderLine != value)
-                {
-                    _relatedOrderLine = value;
-                    RaisePropertyChanged(() => RelatedOrderLine);
-                }
-            }
-        }
-
-
-        private AircraftLeaseOrderLineDTO _selAircraftLeaseOrderLine;
-
-        /// <summary>
-        ///     选择的租赁订单行
-        /// </summary>
-        public AircraftLeaseOrderLineDTO SelAircraftLeaseOrderLine
-        {
-            get { return _selAircraftLeaseOrderLine; }
-            set
-            {
-                if (_selAircraftLeaseOrderLine != value)
-                {
-                    _selAircraftLeaseOrderLine = value;
-                    RaisePropertyChanged(() => SelAircraftLeaseOrderLine);
-                }
-            }
-        }
-
-        private EngineLeaseOrderLineDTO _selEngineLeaseOrderLine;
-
-        /// <summary>
-        ///     选择的发动机租赁订单行
-        /// </summary>
-        public EngineLeaseOrderLineDTO SelEngineLeaseOrderLine
-        {
-            get { return _selEngineLeaseOrderLine; }
-            set
-            {
-                if (_selEngineLeaseOrderLine != value)
-                {
-                    _selEngineLeaseOrderLine = value;
-                    RaisePropertyChanged(() => SelEngineLeaseOrderLine);
-                }
-            }
-        }
-        #endregion
-
-        #region 付款计划集合
-        /// <summary>
-        ///    所有付款计划集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<PaymentScheduleDTO> PaymentSchedules { get; set; }
-
-        /// <summary>
-        ///     飞机付款计划集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<AcPaymentScheduleDTO> AcPaymentSchedules { get; set; }
-
-
-        /// <summary>
-        ///     发动机付款计划集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<EnginePaymentScheduleDTO> EnginePaymentSchedules { get; set; }
-
-        #endregion
-
-        #region 选择的付款计划
-        private PaymentScheduleDTO _selPaymentSchedule;
-
-        /// <summary>
-        ///     选择的付款计划
-        /// </summary>
-        public PaymentScheduleDTO SelPaymentSchedule
-        {
-            get { return _selPaymentSchedule; }
-            set
-            {
-                if (_selPaymentSchedule != value)
-                {
-                    _selPaymentSchedule = value;
-                    RaisePropertyChanged(() => SelPaymentSchedule);
-                }
-            }
-        }
-        #endregion
-
-        #region 合同飞机集合
-        /// <summary>
-        ///     合同飞机集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<ContractAircraftDTO> ContractAircrafts { get; set; }
-
-        #endregion
-
-        #region 合同发动机集合
-        /// <summary>
-        ///     合同发动机集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<ContractEngineDTO> ContractEngines { get; set; }
 
         #endregion
 
@@ -574,7 +374,7 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private void OnNew(object obj)
         {
-            LeaseOrderChildView.ShowDialog();
+            LeasePayscheduleChildView.ShowDialog();
         }
 
         private bool CanNew(object obj)
@@ -600,7 +400,6 @@ namespace UniCloud.Presentation.Payment.Invoice
                 //删除完，若没有记录了，则也要删除界面明细
                 InvoiceLines.Clear();
                 RelatedPaymentSchedule.Clear();
-                RelatedOrder.Clear();
             }
         }
 
@@ -722,7 +521,198 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 子窗体相关操作
         [Import]
-        public LeaseOrderChildView LeaseOrderChildView; //初始化子窗体
+        public LeasePayscheduleChildView LeasePayscheduleChildView; //初始化子窗体
+
+        #region 付款计划集合
+
+        /// <summary>
+        ///    所有付款计划集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PaymentScheduleDTO> PaymentSchedules { get; set; }
+
+        /// <summary>
+        ///     飞机付款计划集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<AcPaymentScheduleDTO> AcPaymentSchedules { get; set; }
+
+        /// <summary>
+        ///     发动机付款计划集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<EnginePaymentScheduleDTO> EnginePaymentSchedules { get; set; }
+
+        /// <summary>
+        ///     标准付款计划集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<StandardPaymentScheduleDTO> StandardPaymentSchedules { get; set; }
+
+        #endregion
+
+        #region 合同飞机集合
+
+        /// <summary>
+        ///     合同飞机集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ContractAircraftDTO> ContractAircrafts { get; set; }
+
+        private ContractAircraftDTO _selContractAircraft;
+
+        /// <summary>
+        ///     选择的合同飞机
+        /// </summary>
+        public ContractAircraftDTO SelContractAircraft
+        {
+            get { return _selContractAircraft; }
+            set
+            {
+                if (_selContractAircraft != value)
+                {
+                    _selContractAircraft = value;
+                    _curAcPaymentSchedule.Clear();
+                    CurAcPaymentSchedule.Add(
+                        AcPaymentSchedules.FirstOrDefault(p => p.ContractAcId == value.ContractAircrafId));
+                    SelAcPaymentSchedule = CurAcPaymentSchedule.FirstOrDefault();
+                    RaisePropertyChanged(() => SelContractAircraft);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 合同发动机集合
+
+        /// <summary>
+        ///     合同发动机集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ContractEngineDTO> ContractEngines { get; set; }
+
+        private ContractEngineDTO _selContractEngine;
+
+        /// <summary>
+        ///     选择的合同发动机
+        /// </summary>
+        public ContractEngineDTO SelContractEngine
+        {
+            get { return _selContractEngine; }
+            set
+            {
+                if (_selContractEngine != value)
+                {
+                    _selContractEngine = value;
+                    _curEnginePaymentSchedule.Clear();
+                    CurEnginePaymentSchedule.Add(
+                        EnginePaymentSchedules.FirstOrDefault(p => p.ContractEngineId == value.ContractEngineId));
+                    SelEnginePaymentSchedule = CurEnginePaymentSchedule.FirstOrDefault();
+
+                    RaisePropertyChanged(() => SelContractEngine);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 与选择合同飞机关联的飞机付款计划
+
+        private ObservableCollection<AcPaymentScheduleDTO> _curAcPaymentSchedule =
+            new ObservableCollection<AcPaymentScheduleDTO>();
+
+        /// <summary>
+        /// 与选择合同飞机关联的飞机付款计划
+        /// </summary>
+        public ObservableCollection<AcPaymentScheduleDTO> CurAcPaymentSchedule
+        {
+            get { return _curAcPaymentSchedule; }
+            set
+            {
+                if (_curAcPaymentSchedule != value)
+                {
+                    _curAcPaymentSchedule = value;
+                    RaisePropertyChanged(() => CurAcPaymentSchedule);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 与选择合同发动机关联的发动机付款计划
+
+        private ObservableCollection<EnginePaymentScheduleDTO> _curEnginePaymentSchedule =
+            new ObservableCollection<EnginePaymentScheduleDTO>();
+
+        /// <summary>
+        /// 与选择合同发动机关联的发动机付款计划
+        /// </summary>
+        public ObservableCollection<EnginePaymentScheduleDTO> CurEnginePaymentSchedule
+        {
+            get { return _curEnginePaymentSchedule; }
+            set
+            {
+                if (_curEnginePaymentSchedule != value)
+                {
+                    _curEnginePaymentSchedule = value;
+                    RaisePropertyChanged(() => CurEnginePaymentSchedule);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 选择的付款计划及付款计划行
+
+        private AcPaymentScheduleDTO _selAcPaymentSchedule;
+
+        /// <summary>
+        ///     选择的飞机付款计划
+        /// </summary>
+        public AcPaymentScheduleDTO SelAcPaymentSchedule
+        {
+            get { return _selAcPaymentSchedule; }
+            set
+            {
+                if (_selAcPaymentSchedule != value)
+                {
+                    _selAcPaymentSchedule = value;
+                    RaisePropertyChanged(() => SelAcPaymentSchedule);
+                }
+            }
+        }
+
+        private EnginePaymentScheduleDTO _selEnginePaymentSchedule;
+
+        /// <summary>
+        ///     选择的发动机付款计划
+        /// </summary>
+        public EnginePaymentScheduleDTO SelEnginePaymentSchedule
+        {
+            get { return _selEnginePaymentSchedule; }
+            set
+            {
+                if (_selEnginePaymentSchedule != value)
+                {
+                    _selEnginePaymentSchedule = value;
+                    RaisePropertyChanged(() => SelEnginePaymentSchedule);
+                }
+            }
+        }
+
+        private PaymentScheduleLineDTO _selPaymentScheduleLine;
+
+        /// <summary>
+        ///     选择的付款计划行
+        /// </summary>
+        public PaymentScheduleLineDTO SelPaymentScheduleLine
+        {
+            get { return _selPaymentScheduleLine; }
+            set
+            {
+                if (_selPaymentScheduleLine != value)
+                {
+                    _selPaymentScheduleLine = value;
+                    RaisePropertyChanged(() => SelPaymentScheduleLine);
+                }
+            }
+        }
+
+        #endregion
 
         #region 命令
 
@@ -736,7 +726,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// <param name="sender"></param>
         public void OnCancelExecute(object sender)
         {
-            LeaseOrderChildView.Close();
+            LeasePayscheduleChildView.Close();
         }
 
         /// <summary>
@@ -767,68 +757,98 @@ namespace UniCloud.Presentation.Payment.Invoice
                 CreateDate = DateTime.Now,
                 InvoiceDate = DateTime.Now,
             };
-            string selectedPane = this.LeaseOrderChildView.PaneGroups.SelectedPane.Title.ToString();
-            if (selectedPane == "飞机租赁订单")
+            string selectedPane = this.LeasePayscheduleChildView.PaneGroups.SelectedPane.Title.ToString();
+            if (selectedPane == "租赁的飞机对应的付款计划")
             {
-                if (SelAircraftLeaseOrder != null && SelAircraftLeaseOrderLine != null)
+                if (SelContractAircraft == null)
                 {
-                    invoice.OrderId = SelAircraftLeaseOrder.Id;
-                    invoice.SupplierName = SelAircraftLeaseOrder.SupplierName;
-                    invoice.SupplierId = SelAircraftLeaseOrder.SupplierId;
-                    var paymentSchedule =
-                        AcPaymentSchedules.FirstOrDefault(
-                            p => p.ContractAcId == SelAircraftLeaseOrderLine.ContractAircraftId);
-                    if (paymentSchedule != null && paymentSchedule.PaymentScheduleLines!=null)
+                    MessageAlert("还未选择合同飞机！");
+                }
+                else if (SelAcPaymentSchedule != null)
+                {
+                    if (SelPaymentScheduleLine == null)
                     {
-                        invoice.PaymentScheduleLineId = paymentSchedule.PaymentScheduleLines.First().PaymentScheduleLineId;
-                        var invoiceLine = new InvoiceLineDTO
-                        {
-                            OrderLineId = SelAircraftLeaseOrderLine.Id,
-                        };
-                        invoice.InvoiceLines.Add(invoiceLine);
-                        LeaseInvoices.AddNew(invoice);
-                        LeaseOrderChildView.Close();
+                        MessageAlert("请选择一条付款计划行!");
                     }
                     else
                     {
-                        MessageAlert("此订单行还没有创建付款计划！");
+                        var orderline = new AircraftLeaseOrderLineDTO();
+                        var order = AircraftLeaseOrders.FirstOrDefault(p =>
+                        {
+                            orderline =
+                                p.AircraftLeaseOrderLines.FirstOrDefault(
+                                    l => l.ContractAircraftId == SelContractAircraft.ContractAircrafId);
+                            return orderline != null &&
+                                   orderline.OrderId == p.Id;
+                        });
+                        if (order != null)
+                        {
+                            invoice.OrderId = order.Id; //发票关联到订单，发票行关联到订单行
+                        }
+                        else
+                        {
+                            MessageAlert("与订单关联时出错，请检查数据！");
+                        }
+                        invoice.SupplierName = SelAcPaymentSchedule.SupplierName;
+                        invoice.SupplierId = SelAcPaymentSchedule.SupplierId;
+                        invoice.PaymentScheduleLineId = SelPaymentScheduleLine.PaymentScheduleLineId;
+                        invoice.InvoiceValue = SelPaymentScheduleLine.Amount;
+                        var invoiceLine = new InvoiceLineDTO
+                        {
+                            OrderLineId = orderline.Id,
+                            Amount = SelPaymentScheduleLine.Amount,
+                        };
+                        invoice.InvoiceLines.Add(invoiceLine);
+                        LeaseInvoices.AddNew(invoice);
+                        LeasePayscheduleChildView.Close();
+
                     }
-                }
-                else
-                {
-                    MessageAlert("未选中飞机租赁订单行");
                 }
             }
-            else if (selectedPane == "发动机租赁订单")
+            else if (selectedPane == "租赁的发动机对应的付款计划")
             {
-                if (SelEngineLeaseOrder != null && SelEngineLeaseOrderLine != null)
+                if (SelContractEngine == null)
                 {
-                    invoice.OrderId = SelEngineLeaseOrder.Id;
-                    invoice.SupplierName = SelAircraftLeaseOrder.SupplierName;
-                    invoice.SupplierId = SelAircraftLeaseOrder.SupplierId;
-                    var paymentSchedule =
-                        EnginePaymentSchedules.FirstOrDefault(
-                            p => p.ContractEngineId == SelEngineLeaseOrderLine.ContractEngineId);
-                    if (paymentSchedule != null)
+                    MessageAlert("还未选择合同发动机！");
+                }
+                else if (SelEnginePaymentSchedule != null)
+                {
+                    if (SelPaymentScheduleLine == null)
                     {
-                        invoice.PaymentScheduleLineId = paymentSchedule.EnginePaymentScheduleId;
-
-                        var invoiceLine = new InvoiceLineDTO
-                        {
-                            OrderLineId = SelEngineLeaseOrderLine.Id,
-                        };
-                        invoice.InvoiceLines.Add(invoiceLine);
-                        LeaseInvoices.AddNew(invoice);
-                        LeaseOrderChildView.Close();
+                        MessageAlert("请选择一条付款计划行!");
                     }
                     else
                     {
-                        MessageAlert("此订单行还没有创建付款计划！");
+                        var orderline = new EngineLeaseOrderLineDTO();
+                        var order = EngineLeaseOrders.FirstOrDefault(p =>
+                        {
+                            orderline =
+                                p.EngineLeaseOrderLines.FirstOrDefault(
+                                    l => l.ContractEngineId == SelContractEngine.ContractEngineId);
+                            return orderline != null &&
+                                   orderline.OrderId == p.Id;
+                        });
+                        if (order != null)
+                        {
+                            invoice.OrderId = order.Id; //发票关联到订单，发票行关联到订单行
+                        }
+                        else
+                        {
+                            MessageAlert("与订单关联时出错，请检查数据！");
+                        }
+                        invoice.SupplierName = SelEnginePaymentSchedule.SupplierName;
+                        invoice.SupplierId = SelEnginePaymentSchedule.SupplierId;
+                        invoice.PaymentScheduleLineId = SelPaymentScheduleLine.PaymentScheduleLineId;
+                        invoice.InvoiceValue = SelPaymentScheduleLine.Amount;
+                        var invoiceLine = new InvoiceLineDTO
+                        {
+                            OrderLineId = orderline.Id,
+                            Amount = SelPaymentScheduleLine.Amount,
+                        };
+                        invoice.InvoiceLines.Add(invoiceLine);
+                        LeaseInvoices.AddNew(invoice);
+                        LeasePayscheduleChildView.Close();
                     }
-                }
-                else
-                {
-                    MessageAlert("未选中发动机租赁订单行！");
                 }
             }
         }
