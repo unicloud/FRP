@@ -321,12 +321,53 @@
                         <telerik:RadPane Header="合同分解" CanUserClose="False">
                             <Grid x:Name="WordLayoutRoot">
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="66" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="合同关键字搜索" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                               FontFamily="Microsoft YaHei UI" FontSize="18" FontWeight="ExtraBold"
+                                               Foreground="#FF5E5E7C" Margin="0,7,0,0" />
+                                    <telerik:GroupBox Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
+                                                      Header="合同分解内容说明">
+                                        <TextBox Text="{Binding SelContractContentDTO.Description,Mode=TwoWay}"
+                                                 TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"
+                                                 telerik:StyleManager.Theme="Windows8" VerticalContentAlignment="Top"
+                                                 BorderThickness="0" Cursor="IBeam"
+                                                 IsReadOnly="{Binding ContentReadOnly}" />
+                                    </telerik:GroupBox>
+                                    <telerik:RadAutoCompleteBox Grid.Row="1" Grid.Column="0"
+                                                                ItemsSource="{Binding SelAircraftPurchaseOrderDTO.ContractContents}"
+                                                                TextSearchMode="Contains" TextSearchPath="Description"
+                                                                SelectionMode="Single"
+                                                                SelectedItem="{Binding SelContractContentDTO,Mode=TwoWay}"
+                                                                VerticalAlignment="Bottom" Margin="0,0,10,1" />
+                                    <telerik:RadButton Grid.Row="0" Grid.Column="2" Height="29" Margin="5,0"
+                                                       Command="{Binding AddContentCommand}" BorderThickness="0"
+                                                       VerticalAlignment="Bottom">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Expand.png"
+                                               ToolTipService.ToolTip="增加合同分解内容" Stretch="Fill" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Grid.Row="1" Grid.Column="2" Height="29" Margin="5,0"
+                                                       Command="{Binding RemoveContentCommand}" BorderThickness="0"
+                                                       VerticalAlignment="Bottom">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Collapse.png"
+                                               ToolTipService.ToolTip="移除合同分解内容" Stretch="Fill" />
+                                    </telerik:RadButton>
+                                </Grid>
                                 <telerik:RadRichTextBoxRibbonUI
-                                    BackstageClippingElement="{Binding ElementName=WordLayoutRoot}"
+                                    Grid.Row="1" BackstageClippingElement="{Binding ElementName=WordLayoutRoot}"
                                     DataContext="{Binding Commands, ElementName=WordEditor}"
                                     ApplicationName=" "
                                     ApplicationButtonContent="文件"
@@ -338,14 +379,6 @@
                                     </telerik:RadRichTextBoxRibbonUI.Resources>
                                     <telerik:RadRichTextBoxRibbonUI.Backstage>
                                         <telerik:RadRibbonBackstage>
-                                            <telerik:RadRibbonBackstageItem Header="新建"
-                                                                            Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/new.png"
-                                                                            IsSelectable="false"
-                                                                            telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding NewDocumentCommand}" />
-                                            <telerik:RadRibbonBackstageItem Header="打开"
-                                                                            Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/open.png"
-                                                                            IsSelectable="false"
-                                                                            Command="{Binding OpenDocumentCommand}" />
                                             <telerik:RadRibbonBackstageItem Header="保存"
                                                                             Icon="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/save.png"
                                                                             IsDefault="false">
@@ -843,15 +876,12 @@
                                         </telerik:RadRibbonGroup>
                                     </telerik:RadRibbonTab>
                                 </telerik:RadRichTextBoxRibbonUI>
-                                <telerik:DocxDataProvider Grid.Row="1" RichTextBox="{Binding ElementName=WordEditor}"
-                                                          Docx="{Binding Body, Mode=TwoWay}"
+                                <telerik:DocxDataProvider Grid.Row="2" RichTextBox="{Binding ElementName=WordEditor}"
+                                                          Docx="{Binding SelContractContentDTO.ContentDoc, Mode=TwoWay}"
                                                           UpdateSourceTrigger="LostFocus" />
-                                <telerik:RadRichTextBox Grid.Row="1"
-                                                        x:Name="WordEditor"
-                                                        Margin="10 10 0 0"
-                                                        IsSpellCheckingEnabled="False"
-                                                        LayoutMode="Paged"/>
-                                <telerik:RadRichTextBoxStatusBar Grid.Row="2"
+                                <telerik:RadRichTextBox Grid.Row="2" x:Name="WordEditor" IsSpellCheckingEnabled="False"
+                                                        LayoutMode="Flow" IsReadOnly="{Binding ContentReadOnly}" />
+                                <telerik:RadRichTextBoxStatusBar Grid.Row="3"
                                                                  UseLayoutRounding="True"
                                                                  AssociatedRichTextBox="{Binding ElementName=WordEditor, Mode=OneTime}" />
                             </Grid>

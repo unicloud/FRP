@@ -358,6 +358,15 @@ namespace UniCloud.Presentation.Localization {
         }
         
         /// <summary>
+        ///   查找类似 继续编号 的本地化字符串。
+        /// </summary>
+        public static string Documents_ContextMenu_Lists_ContinueNumbering {
+            get {
+                return ResourceManager.GetString("Documents_ContextMenu_Lists_ContinueNumbering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 编号重新开始于1 的本地化字符串。
         /// </summary>
         public static string Documents_ContextMenu_Lists_RestartAt {

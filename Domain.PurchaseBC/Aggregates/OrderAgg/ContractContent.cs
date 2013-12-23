@@ -95,8 +95,17 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         {
             if (!string.IsNullOrWhiteSpace(description))
             {
-                Description = description;
+                Description = " " + description.Trim();
             }
+        }
+
+        /// <summary>
+        ///     更新合同内容
+        /// </summary>
+        /// <param name="doc">合同内容</param>
+        public void UpdateContent(byte[] doc)
+        {
+            ContentDoc = doc;
         }
 
         #endregion

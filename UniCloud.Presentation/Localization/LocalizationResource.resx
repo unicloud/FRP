@@ -567,4 +567,7 @@
   <data name="RibbonViewWindowTitleDivider" xml:space="preserve">
     <value>恢复</value>
   </data>
+  <data name="Documents_ContextMenu_Lists_ContinueNumbering" xml:space="preserve">
+    <value>继续编号</value>
+  </data>
 </root>
