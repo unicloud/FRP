@@ -296,7 +296,7 @@
                 <ColumnDefinition Width="8*"></ColumnDefinition>
                 <ColumnDefinition Width="5*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <telerik:RadChart Content="单月的资金需求情况"></telerik:RadChart>
+            <!--<telerik:RadChart Content="单月的资金需求情况"></telerik:RadChart>-->
             <telerik:RadGridView x:Name="AmountCounts"
                                  ShowGroupPanel="True"
                                  AutoExpandGroups="True"
