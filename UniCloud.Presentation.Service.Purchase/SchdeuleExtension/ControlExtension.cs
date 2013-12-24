@@ -38,36 +38,34 @@ namespace UniCloud.Presentation.Service.Purchase.SchdeuleExtension
         //实现后台ReceptionSchdeule和Appointment之间的装换
         public Appointment ConvertToAppointment(ReceptionScheduleDTO schedule)
         {
-            Appointment appointment = new Appointment();
-            appointment.Subject = schedule.Subject;
-            appointment.Body = schedule.Body;
-            appointment.End = schedule.End;
-            appointment.Start = schedule.Start;
-            appointment.IsAllDayEvent = schedule.IsAllDayEvent;
-            appointment.UniqueId = schedule.UniqueId;
-            appointment.Url = schedule.Url;
-            appointment.TimeMarker = GetTimeMarker(schedule.Importance);
-            appointment.Category = GetCategory(schedule.Tempo);
+            var appointment = new Appointment
+            {
+                Subject = schedule.Subject,
+                Body = schedule.Body,
+                End = schedule.End,
+                Start = schedule.Start,
+                IsAllDayEvent = schedule.IsAllDayEvent,
+                TimeMarker = GetTimeMarker(schedule.Importance),
+                Category = GetCategory(schedule.Tempo)
+            };
             appointment.Resources.Add(GetResource(schedule.Group));
-            appointment.Location = schedule.Location;
             return appointment;
         }
 
         public ReceptionScheduleDTO ConvertToReceptionSchedule(Appointment appointment)
         {
-            ReceptionScheduleDTO schedule = new ReceptionScheduleDTO();
-            schedule.Body = appointment.Body;
-            schedule.Subject = appointment.Subject;
-            schedule.Start = appointment.Start;
-            schedule.End = appointment.End;
+            var schedule = new ReceptionScheduleDTO
+            {
+                Body = appointment.Body,
+                Subject = appointment.Subject,
+                Start = appointment.Start,
+                End = appointment.End
+            };
             if (appointment.TimeMarker != null)
                 schedule.Importance = appointment.TimeMarker.TimeMarkerName;
             schedule.IsAllDayEvent = appointment.IsAllDayEvent;
             if (appointment.Category != null)
                 schedule.Tempo = appointment.Category.CategoryName;
-            schedule.UniqueId = appointment.UniqueId;
-            schedule.Url = appointment.Url;
-            schedule.Location = appointment.Location;
             ResourceCollection ar = appointment.Resources;
             schedule.Group = GetScheduleGroup(ar);//将对应的取过来
             return schedule;

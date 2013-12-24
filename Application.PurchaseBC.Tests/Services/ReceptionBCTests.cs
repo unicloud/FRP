@@ -135,7 +135,6 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
                         End = DateTime.Now,
                         Group = "机务组",
                         Tempo = "已完成",
-                        UniqueId = (new Guid()).ToString(),
                     }
                 },
             };

@@ -32,105 +32,71 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         ///     创建租赁飞机接收
         /// </summary>
         /// <returns>租赁飞机接收</returns>
-        public static AircraftLeaseReception CreateAircraftLeaseReception()
+        public static AircraftLeaseReception CreateAircraftLeaseReception(DateTime startDate,DateTime? endDate,Guid sourceId,string description)
         {
             var aircraftLeaseReception = new AircraftLeaseReception
             {
-                CreateDate = DateTime.Now, 
+                CreateDate = DateTime.Now,
+                StartDate = startDate,
+                EndDate = endDate,
+                SourceId = sourceId,
+                Description = description,
             };
-
             return aircraftLeaseReception;
-        }
-
-        /// <summary>
-        ///     创建租赁飞机接收行
-        /// </summary>
-        /// <returns>租赁飞机接收行</returns>
-        public static AircraftLeaseReceptionLine CreateAircraftLeaseReceptionLine()
-        {
-            var aircraftLeaseReceptionLine = new AircraftLeaseReceptionLine
-            {
-            };
-            return aircraftLeaseReceptionLine;
         }
 
         /// <summary>
         ///     创建购买飞机接收
         /// </summary>
         /// <returns>购买飞机接收</returns>
-        public static AircraftPurchaseReception CreateAircraftPurchaseReception()
+        public static AircraftPurchaseReception CreateAircraftPurchaseReception(DateTime startDate, DateTime? endDate, Guid sourceId, string description)
         {
             var aircraftPurchaseReception = new AircraftPurchaseReception
             {
                 CreateDate = DateTime.Now,
+                StartDate = startDate,
+                EndDate = endDate,
+                SourceId = sourceId,
+                Description = description,
             };
 
             return aircraftPurchaseReception;
         }
 
         /// <summary>
-        ///     创建采购飞机接收行
-        /// </summary>
-        /// <returns>采购飞机接收行</returns>
-        public static AircraftPurchaseReceptionLine CreateAircraftPurchaseReceptionLine()
-        {
-            var aircraftPurchaseReceptionLine = new AircraftPurchaseReceptionLine
-            {
-            };
-            return aircraftPurchaseReceptionLine;
-        }
-
-        /// <summary>
         ///     创建租赁发动机接收
         /// </summary>
         /// <returns>租赁发动机接收</returns>
-        public static EngineLeaseReception CreateEngineLeaseReception()
+        public static EngineLeaseReception CreateEngineLeaseReception(DateTime startDate, DateTime? endDate, Guid sourceId, string description)
         {
             var engineLeaseReception = new EngineLeaseReception
             {
-                CreateDate = DateTime.Now, 
+                CreateDate = DateTime.Now,
+                StartDate = startDate,
+                EndDate = endDate,
+                SourceId = sourceId,
+                Description = description,
             };
 
             return engineLeaseReception;
         }
 
         /// <summary>
-        ///     创建租赁发动机接收行
-        /// </summary>
-        /// <returns>租赁发动机接收行</returns>
-        public static EngineLeaseReceptionLine CreateEngineLeaseReceptionLine()
-        {
-            var engineLeaseReceptionLine = new EngineLeaseReceptionLine
-            {
-            };
-            return engineLeaseReceptionLine;
-        }
-
-        /// <summary>
         ///     创建购买发动机接收
         /// </summary>
         /// <returns>购买发动机接收</returns>
-        public static EnginePurchaseReception CreateEnginePurchaseReception()
+        public static EnginePurchaseReception CreateEnginePurchaseReception(DateTime startDate, DateTime? endDate, Guid sourceId, string description)
         {
             var enginePurchaseReception = new EnginePurchaseReception
             {
-                CreateDate = DateTime.Now, 
+                CreateDate = DateTime.Now,
+                StartDate = startDate,
+                EndDate = endDate,
+                SourceId = sourceId,
+                Description = description,
             };
 
             return enginePurchaseReception;
-        }
-
-
-        /// <summary>
-        ///     创建采购发动机接收行
-        /// </summary>
-        /// <returns>采购发动机接收行</returns>
-        public static EnginePurchaseReceptionLine CreateEnginePurchaseReceptionLine()
-        {
-            var enginePurchaseReceptionLine = new EnginePurchaseReceptionLine
-            {
-            };
-            return enginePurchaseReceptionLine;
         }
 
     }

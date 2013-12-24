@@ -275,26 +275,6 @@
       <DependentUpon>AnalyseAircraftPrice.xaml</DependentUpon>
     </Compile>
     <Compile Include="QueryAnalyse\AnalyseAircraftPriceVm.cs" />
-    <Compile Include="Reception\AircraftLeaseReceptionManager.xaml.cs">
-      <DependentUpon>AircraftLeaseReceptionManager.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Reception\AircraftLeaseReceptionManagerVM.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Reception\AircraftPurchaseReceptionManager.xaml.cs">
-      <DependentUpon>AircraftPurchaseReceptionManager.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Reception\AircraftPurchaseReceptionManagerVM.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Reception\EngineLeaseReceptionManager.xaml.cs">
-      <DependentUpon>EngineLeaseReceptionManager.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Reception\EngineLeaseReceptionManagerVM.cs" />
-    <Compile Include="Reception\EnginePurchaseReceptionManager.xaml.cs">
-      <DependentUpon>EnginePurchaseReceptionManager.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Reception\EnginePurchaseReceptionManagerVM.cs" />
     <Compile Include="Reception\MatchingPlanAircraftManager.xaml.cs">
       <DependentUpon>MatchingPlanAircraftManager.xaml</DependentUpon>
     </Compile>
@@ -384,22 +364,6 @@
     <Page Include="QueryAnalyse\AnalyseAircraftPrice.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Reception\AircraftLeaseReceptionManager.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Reception\AircraftPurchaseReceptionManager.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Reception\EngineLeaseReceptionManager.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Reception\EnginePurchaseReceptionManager.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Reception\MatchingPlanAircraftManager.xaml">
       <SubType>Designer</SubType>

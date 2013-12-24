@@ -355,6 +355,7 @@
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ReceptionLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.AircraftLeaseReceptionLineDTO)" Nullable="false" />
         <Property Name="ReceptionSchedules" Type="Collection(UniCloud.Application.PurchaseBC.DTO.ReceptionScheduleDTO)" Nullable="false" />
+        <NavigationProperty Name="RelatedDocs" Relationship="UniCloud.Application.PurchaseBC.DTO.AircraftLeaseReceptionDTO_RelatedDocs" ToRole="RelatedDocs" FromRole="AircraftLeaseReceptionDTO" />
       </EntityType>
       <ComplexType Name="AircraftLeaseReceptionLineDTO">
         <Property Name="AircraftLeaseReceptionLineId" Type="Edm.Int32" Nullable="false" />
@@ -386,9 +387,6 @@
         <Property Name="IsAllDayEvent" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Group" Type="Edm.String" />
         <Property Name="Tempo" Type="Edm.String" />
-        <Property Name="Location" Type="Edm.String" />
-        <Property Name="UniqueId" Type="Edm.String" />
-        <Property Name="Url" Type="Edm.String" />
         <Property Name="ReceptionId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="AircraftPurchaseReceptionDTO">
@@ -409,6 +407,7 @@
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ReceptionLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseReceptionLineDTO)" Nullable="false" />
         <Property Name="ReceptionSchedules" Type="Collection(UniCloud.Application.PurchaseBC.DTO.ReceptionScheduleDTO)" Nullable="false" />
+        <NavigationProperty Name="RelatedDocs" Relationship="UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseReceptionDTO_RelatedDocs" ToRole="RelatedDocs" FromRole="AircraftPurchaseReceptionDTO" />
       </EntityType>
       <ComplexType Name="AircraftPurchaseReceptionLineDTO">
         <Property Name="AircraftPurchaseReceptionLineId" Type="Edm.Int32" Nullable="false" />
@@ -448,6 +447,7 @@
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ReceptionLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.EngineLeaseReceptionLineDTO)" Nullable="false" />
         <Property Name="ReceptionSchedules" Type="Collection(UniCloud.Application.PurchaseBC.DTO.ReceptionScheduleDTO)" Nullable="false" />
+        <NavigationProperty Name="RelatedDocs" Relationship="UniCloud.Application.PurchaseBC.DTO.EngineLeaseReceptionDTO_RelatedDocs" ToRole="RelatedDocs" FromRole="EngineLeaseReceptionDTO" />
       </EntityType>
       <ComplexType Name="EngineLeaseReceptionLineDTO">
         <Property Name="EngineLeaseReceptionLineId" Type="Edm.Int32" Nullable="false" />
@@ -483,6 +483,7 @@
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ReceptionLines" Type="Collection(UniCloud.Application.PurchaseBC.DTO.EnginePurchaseReceptionLineDTO)" Nullable="false" />
         <Property Name="ReceptionSchedules" Type="Collection(UniCloud.Application.PurchaseBC.DTO.ReceptionScheduleDTO)" Nullable="false" />
+        <NavigationProperty Name="RelatedDocs" Relationship="UniCloud.Application.PurchaseBC.DTO.EnginePurchaseReceptionDTO_RelatedDocs" ToRole="RelatedDocs" FromRole="EnginePurchaseReceptionDTO" />
       </EntityType>
       <ComplexType Name="EnginePurchaseReceptionLineDTO">
         <Property Name="EnginePurchaseReceptionLineId" Type="Edm.Int32" Nullable="false" />
@@ -741,6 +742,22 @@
         <End Type="UniCloud.Application.PurchaseBC.DTO.PurchaseContractAircraftDTO" Role="PurchaseContractAircraftDTO" Multiplicity="*" />
         <End Type="UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO" Role="BFEPurchaseOrders" Multiplicity="*" />
       </Association>
+      <Association Name="AircraftLeaseReceptionDTO_RelatedDocs">
+        <End Type="UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO" Role="RelatedDocs" Multiplicity="*" />
+        <End Type="UniCloud.Application.PurchaseBC.DTO.AircraftLeaseReceptionDTO" Role="AircraftLeaseReceptionDTO" Multiplicity="*" />
+      </Association>
+      <Association Name="AircraftPurchaseReceptionDTO_RelatedDocs">
+        <End Type="UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO" Role="RelatedDocs" Multiplicity="*" />
+        <End Type="UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseReceptionDTO" Role="AircraftPurchaseReceptionDTO" Multiplicity="*" />
+      </Association>
+      <Association Name="EngineLeaseReceptionDTO_RelatedDocs">
+        <End Type="UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO" Role="RelatedDocs" Multiplicity="*" />
+        <End Type="UniCloud.Application.PurchaseBC.DTO.EngineLeaseReceptionDTO" Role="EngineLeaseReceptionDTO" Multiplicity="*" />
+      </Association>
+      <Association Name="EnginePurchaseReceptionDTO_RelatedDocs">
+        <End Type="UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO" Role="RelatedDocs" Multiplicity="*" />
+        <End Type="UniCloud.Application.PurchaseBC.DTO.EnginePurchaseReceptionDTO" Role="EnginePurchaseReceptionDTO" Multiplicity="*" />
+      </Association>
       <Association Name="AircraftLeaseOrderDTO_RelatedDocs">
         <End Type="UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO" Role="RelatedDocs" Multiplicity="*" />
         <End Type="UniCloud.Application.PurchaseBC.DTO.AircraftLeaseOrderDTO" Role="AircraftLeaseOrderDTO" Multiplicity="*" />
@@ -822,6 +839,22 @@
         <AssociationSet Name="PurchaseContractAircraftDTO_BFEPurchaseOrders" Association="UniCloud.Application.PurchaseBC.DTO.PurchaseContractAircraftDTO_BFEPurchaseOrders">
           <End Role="PurchaseContractAircraftDTO" EntitySet="PurchaseContractAircrafts" />
           <End Role="BFEPurchaseOrders" EntitySet="BFEPurchaseOrders" />
+        </AssociationSet>
+        <AssociationSet Name="AircraftLeaseReceptionDTO_RelatedDocs" Association="UniCloud.Application.PurchaseBC.DTO.AircraftLeaseReceptionDTO_RelatedDocs">
+          <End Role="AircraftLeaseReceptionDTO" EntitySet="AircraftLeaseReceptions" />
+          <End Role="RelatedDocs" EntitySet="RelatedDocs" />
+        </AssociationSet>
+        <AssociationSet Name="AircraftPurchaseReceptionDTO_RelatedDocs" Association="UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseReceptionDTO_RelatedDocs">
+          <End Role="AircraftPurchaseReceptionDTO" EntitySet="AircraftPurchaseReceptions" />
+          <End Role="RelatedDocs" EntitySet="RelatedDocs" />
+        </AssociationSet>
+        <AssociationSet Name="EngineLeaseReceptionDTO_RelatedDocs" Association="UniCloud.Application.PurchaseBC.DTO.EngineLeaseReceptionDTO_RelatedDocs">
+          <End Role="EngineLeaseReceptionDTO" EntitySet="EngineLeaseReceptions" />
+          <End Role="RelatedDocs" EntitySet="RelatedDocs" />
+        </AssociationSet>
+        <AssociationSet Name="EnginePurchaseReceptionDTO_RelatedDocs" Association="UniCloud.Application.PurchaseBC.DTO.EnginePurchaseReceptionDTO_RelatedDocs">
+          <End Role="EnginePurchaseReceptionDTO" EntitySet="EnginePurchaseReceptions" />
+          <End Role="RelatedDocs" EntitySet="RelatedDocs" />
         </AssociationSet>
         <AssociationSet Name="AircraftLeaseOrderDTO_RelatedDocs" Association="UniCloud.Application.PurchaseBC.DTO.AircraftLeaseOrderDTO_RelatedDocs">
           <End Role="AircraftLeaseOrderDTO" EntitySet="AircraftLeaseOrders" />

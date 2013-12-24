@@ -102,33 +102,6 @@ namespace UniCloud.Application.PurchaseBC.DTO
             set;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Location
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 唯一标识
-        /// </summary>
-        public string UniqueId
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string Url
-        {
-            get;
-            set;
-        }
-
         #region 外键
 
         /// <summary>

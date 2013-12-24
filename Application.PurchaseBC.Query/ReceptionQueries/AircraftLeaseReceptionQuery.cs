@@ -14,8 +14,8 @@
 
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
-using UniCloud.Application.PurchaseBC.Query.RelatedDocQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Infrastructure.Data;
 
 namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
@@ -39,6 +39,8 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
         public IQueryable<AircraftLeaseReceptionDTO> AircraftLeaseReceptionDTOQuery(
             QueryBuilder<AircraftLeaseReception> query)
         {
+            var relatedDocs = _unitOfWork.CreateSet<RelatedDoc>();
+
             return
             query.ApplyTo(_unitOfWork.CreateSet<Reception>().OfType<AircraftLeaseReception>())
                      .Select(p => new AircraftLeaseReceptionDTO
@@ -83,10 +85,14 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
                              IsAllDayEvent = q.IsAllDayEvent,
                              Group = q.Group,
                              Tempo = q.Tempo,
-                             //Location = q.Location,
-                             //UniqueId = q.UniqueId,
-                             //Url = q.Url,
                          }).ToList(),
+                         RelatedDocs = relatedDocs.Where(r => r.SourceId == p.SourceId).Select(r => new RelatedDocDTO
+                         {
+                             Id = r.Id,
+                             SourceId = r.SourceId,
+                             DocumentId = r.DocumentId,
+                             DocumentName = r.DocumentName
+                         }).ToList()
                      });
         }
     }

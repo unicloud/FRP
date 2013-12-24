@@ -31,6 +31,7 @@ namespace UniCloud.Application.PurchaseBC.DTO
 
         private List<AircraftPurchaseReceptionLineDTO> _lines;
         private List<ReceptionScheduleDTO> _schedules;
+        private List<RelatedDocDTO> _relatedDocs;
 
         #endregion
         #region 属性
@@ -114,6 +115,15 @@ namespace UniCloud.Application.PurchaseBC.DTO
         {
             get { return _schedules ?? (_schedules = new List<ReceptionScheduleDTO>()); }
             set { _schedules = value; }
+        }
+
+        /// <summary>
+        ///     关联文档集合
+        /// </summary>
+        public virtual List<RelatedDocDTO> RelatedDocs
+        {
+            get { return _relatedDocs ?? (_relatedDocs = new List<RelatedDocDTO>()); }
+            set { _relatedDocs = value; }
         }
         #endregion
     }
