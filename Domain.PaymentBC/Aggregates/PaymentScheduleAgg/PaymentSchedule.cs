@@ -114,7 +114,16 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
         /// </summary>
         /// <param name="scheduleDate">付款日期</param>
         /// <param name="amount">付款金额</param>
-        public PaymentScheduleLine AddPaymentScheduleLine(DateTime scheduleDate, decimal amount)
+        /// <param name="subject">主题</param>
+        /// <param name="body">内容</param>
+        /// <param name="importance">重要性级别</param>
+        /// <param name="tempo">进度</param>
+        /// <param name="start">开始时间</param>
+        /// <param name="end">结束时间</param>
+        /// <param name="isAllDay">是否全天事件</param>
+        public PaymentScheduleLine AddPaymentScheduleLine(DateTime scheduleDate, decimal amount, string subject,
+            string body, string importance, string tempo, DateTime start,
+            DateTime end, bool isAllDay)
         {
             var paymentScheduleLine = new PaymentScheduleLine
             {
@@ -124,6 +133,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
 
             paymentScheduleLine.GenerateNewIdentity();
             paymentScheduleLine.SetControlStatus(ControlStatus.正常支付);
+            paymentScheduleLine.SetSchedule(subject,body,importance,tempo,start,end,isAllDay);
             PaymentScheduleLines.Add(paymentScheduleLine);
             return paymentScheduleLine;
         }
@@ -142,8 +152,9 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
             Currency = currency;
             CurrencyId = currency.Id;
         }
+
         /// <summary>
-        /// 设置币种
+        ///     设置币种
         /// </summary>
         /// <param name="currencyId"></param>
         public void SetCurrency(int currencyId)
@@ -166,12 +177,13 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
             SupplierId = supplier.Id;
             SupplierName = supplier.Name;
         }
+
         /// <summary>
-        /// 设置供应商
+        ///     设置供应商
         /// </summary>
         /// <param name="supplierId"></param>
         /// <param name="supplierName"></param>
-        public void SetSupplier(int supplierId,string supplierName)
+        public void SetSupplier(int supplierId, string supplierName)
         {
             SupplierId = supplierId;
             SupplierName = supplierName;

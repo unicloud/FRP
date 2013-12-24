@@ -14,6 +14,15 @@ namespace UniCloud.Application.PaymentBC.DTO
         ///     主键
         /// </summary>
         public int PaymentScheduleLineId { get; set; }
+       /// <summary>
+       /// 任务开始时间
+       /// </summary>
+        public DateTime Start { get; set; }
+
+        /// <summary>
+        ///     结束时间
+        /// </summary>
+        public DateTime End { get; set; }
 
         /// <summary>
         ///     计划付款日期
@@ -41,11 +50,6 @@ namespace UniCloud.Application.PaymentBC.DTO
         public int? InvoiceId { get; set; }
 
         /// <summary>
-        ///     备注
-        /// </summary>
-        public string Note { get; set; }
-
-        /// <summary>
         /// 主题
         /// </summary>
         public string Subject { get; set; }
@@ -64,5 +68,10 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// 进程状态
         /// </summary>
         public string ProcessStatus { get; set; }
+
+        /// <summary>
+        ///     是否全天事件
+        /// </summary>
+        public bool IsAllDayEvent { get; set; }
     }
 }

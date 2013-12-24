@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Media;
 using Telerik.Windows.Controls;
@@ -35,24 +36,67 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
     /// </summary>
     public static class AppointmentConvertHelper
     {
-        //实现Appointment转化Appointment
+        /// <summary>
+        /// 实现Appointment转化Appointment
+        /// </summary>
+        /// <param name="schedule"></param>
+        /// <returns></returns>
         public static PaymentAppointment ConvertToAppointPayment(PaymentScheduleLineDTO schedule)
         {
             var appointment = new PaymentAppointment
             {
                 Subject = schedule.Subject,
                 Body = schedule.Body,
-                End = schedule.ScheduleDate,
-                Start = schedule.ScheduleDate,
+                End = schedule.End,
+                Start = schedule.Start,
                 Amount = schedule.Amount,
-                IsAllDayEvent = true,
-                UniqueId = Guid.NewGuid().ToString(),
+                IsAllDayEvent = schedule.IsAllDayEvent,
+                UniqueId = schedule.PaymentScheduleLineId.ToString(CultureInfo.InvariantCulture),
                 TimeMarker = GetTimeMarker(schedule.Importance),
                 Category = GetCategory(schedule.ProcessStatus)
             };
             return appointment;
         }
 
+        public static PaymentAppointment ConvertToAppointPayment(PaymentAppointment appointment, PaymentScheduleLineDTO schedule)
+        {
+
+            appointment.Subject = schedule.Subject;
+            appointment.Body = schedule.Body;
+            appointment.End = schedule.End;
+            appointment.Start = schedule.Start;
+            appointment.Amount = schedule.Amount;
+            appointment.IsAllDayEvent = schedule.IsAllDayEvent;
+            appointment.UniqueId = schedule.PaymentScheduleLineId.ToString(CultureInfo.InvariantCulture);
+            appointment.TimeMarker = GetTimeMarker(schedule.Importance);
+            appointment.Category = GetCategory(schedule.ProcessStatus);
+            return appointment;
+        }
+
+        /// <summary>
+        /// PaymentAppointment信息复制到PaymentScheduleLineDTO
+        /// </summary>
+        /// <param name="appointment"></param>
+        /// <param name="schedule"></param>
+        /// <returns></returns>
+        public static PaymentScheduleLineDTO ConvertToPaymentScheduleLine(PaymentAppointment appointment, PaymentScheduleLineDTO schedule)
+        {
+            if(appointment==null)
+                throw new Exception("日程不能为空");
+            if (schedule == null)
+                throw new Exception("付款计划行不能为空");
+            schedule.Subject = appointment.Subject;
+            schedule.Body = appointment.Body;
+            schedule.End = appointment.End;
+            schedule.Start = schedule.ScheduleDate;
+            schedule.Amount = schedule.Amount;
+            schedule.IsAllDayEvent = schedule.IsAllDayEvent;
+            if (appointment.TimeMarker != null)
+                schedule.Importance = appointment.TimeMarker.TimeMarkerName;
+            if (appointment.Category != null)
+                schedule.ProcessStatus = appointment.Category.CategoryName;
+            return schedule;
+        }
         /// <summary>
         ///     把Appointment转化PaymentScheduleLineDTO
         /// </summary>
@@ -65,16 +109,15 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
                 Body = appointment.Body,
                 Subject = appointment.Subject,
                 ScheduleDate = appointment.Start,
+                Start = appointment.Start,
+                End = appointment.End,
+                IsAllDayEvent = appointment.IsAllDayEvent,
                 Amount = appointment.Amount
             };
             if (appointment.TimeMarker != null)
                 schedule.Importance = appointment.TimeMarker.TimeMarkerName;
             if (appointment.Category != null)
                 schedule.ProcessStatus = appointment.Category.CategoryName;
-            if (appointment.RecurrenceRule!=null)
-            {
-                appointment.RecurrenceRule.Pattern.GetOccurrences(appointment.Start);
-            }
             return schedule;
         }
 
@@ -104,6 +147,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
             });
             return occurrencePaymentAppointment;
         }
+
+     
 
         /// <summary>
         ///     获取进度

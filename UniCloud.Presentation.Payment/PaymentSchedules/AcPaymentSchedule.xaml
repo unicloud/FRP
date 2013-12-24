@@ -27,7 +27,7 @@
             <telerik:RecurrenceStateIsExeptionToVisibilityConverter
                 x:Key="RecurrenceStateIsExeptionToVisibilityConverter" />
             <telerik:LocalizationManager x:Key="LocalizationManager" />
-            <SolidColorBrush x:Key="RadScheduleForeground" Color="White" />
+            <SolidColorBrush x:Key="RadScheduleForeground" Color="Black" />
 
             <Style x:Key="ImportanceMarkContentControlStyle" TargetType="ContentControl">
                 <Setter Property="Width" Value="10" />
@@ -35,7 +35,6 @@
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
             </Style>
-
             <ControlTemplate x:Key="LowImportanceMarkTemplate">
                 <Grid>
                     <Border Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" CornerRadius="5"
@@ -196,10 +195,21 @@
                                  Text="{Binding Occurrence.Appointment.Body, Mode=TwoWay}" TextWrapping="Wrap"
                                  telerik:StyleManager.Theme="Windows8" />
 
-                        <TextBlock Grid.Row="2" Grid.Column="0" Margin="6"
+                        <TextBlock Grid.Row="2" Grid.Column="0" Margin="6" VerticalAlignment="Center"
+                                   HorizontalAlignment="Left" Text="付款金额" />
+                        <telerik:RadMaskedNumericInput Width="208" Grid.Row="2" Grid.Column="1" Margin="3"
+                                                       IsReadOnly="{Binding IsReadOnly}"
+                                                       FormatString="n2"
+                                                       Text="{Binding Occurrence.Appointment.Amount, Mode=TwoWay}"
+                                                       EmptyContent="请输入付款金额"
+                                                       IsClearButtonVisible="True"
+                                                       telerik:StyleManager.Theme="Windows8" />
+
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Margin="6"
                                    telerik:LocalizationManager.ResourceKey="StartTime" HorizontalAlignment="Left" />
 
-                        <telerik:RadDateTimePicker Grid.Row="2" Grid.Column="1" Margin="3"
+                        <telerik:RadDateTimePicker Grid.Row="3" Grid.Column="1" Margin="3"
                                                    IsReadOnly="{Binding IsReadOnly}"
                                                    Culture="{Binding DefaultCulture,Source={StaticResource LocalizationManager}}"
                                                    SelectedValue="{Binding ActualStart, Mode=TwoWay}"
@@ -214,9 +224,9 @@
                             </telerik:RadDateTimePicker.InputMode>
                         </telerik:RadDateTimePicker>
 
-                        <TextBlock Grid.Row="3" Grid.Column="0" Margin="6" VerticalAlignment="Center"
+                        <TextBlock Grid.Row="4" Grid.Column="0" Margin="6" VerticalAlignment="Center"
                                    HorizontalAlignment="Left" telerik:LocalizationManager.ResourceKey="EndTime" />
-                        <telerik:RadDateTimePicker Grid.Row="3" Grid.Column="1" Margin="3"
+                        <telerik:RadDateTimePicker Grid.Row="4" Grid.Column="1" Margin="3"
                                                    IsReadOnly="{Binding IsReadOnly}"
                                                    Culture="{Binding DefaultCulture,Source={StaticResource LocalizationManager}}"
                                                    SelectedValue="{Binding ActualEnd, Mode=TwoWay}"
@@ -230,15 +240,6 @@
                                 </Binding>
                             </telerik:RadDateTimePicker.InputMode>
                         </telerik:RadDateTimePicker>
-                        <TextBlock Grid.Row="4" Grid.Column="0" Margin="6" VerticalAlignment="Center"
-                                   HorizontalAlignment="Left" Text="付款金额" />
-                        <telerik:RadMaskedNumericInput Width="208" Grid.Row="4" Grid.Column="1" Margin="3"
-                                                       IsReadOnly="{Binding IsReadOnly}"
-                                                       FormatString="n2"
-                                                       Text="{Binding Occurrence.Appointment.Amount, Mode=TwoWay}"
-                                                       EmptyContent="请输入付款金额"
-                                                       IsClearButtonVisible="True"
-                                                       telerik:StyleManager.Theme="Windows8" />
                         <CheckBox x:Name="AllDayEventCheckbox" Grid.Row="5" Grid.Column="1" Margin="3"
                                   VerticalAlignment="Center"
                                   IsChecked="{Binding Path=IsAllDayEvent, Mode=TwoWay}"
@@ -599,7 +600,7 @@
                 </Grid>
             </ControlTemplate>
             <Style x:Key="EditRecurrenceDialogStyle" TargetType="telerik:SchedulerDialog">
-                <Setter Property="Foreground" Value="{StaticResource RadScheduleForeground}" />
+                <Setter Property="Foreground" Value="White" />
                 <Setter Property="Width" Value="500" />
                 <Setter Property="IsTabStop" Value="False" />
                 <Setter Property="Template" Value="{StaticResource EditRecurrenceTemplate}" />
@@ -616,18 +617,18 @@
                     <Setter.Value>
                         <DataTemplate>
                             <StackPanel HorizontalAlignment="Left" MaxWidth="450" Orientation="Horizontal">
-                                <TextBlock Foreground="{StaticResource RadScheduleForeground}"
+                                <TextBlock Foreground="White"
                                            telerik:LocalizationManager.ResourceKey="Event"
                                            Visibility="{Binding Appointment.IsAllDayEvent, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                                <TextBlock Foreground="{StaticResource RadScheduleForeground}"
+                                <TextBlock Foreground="White"
                                            telerik:LocalizationManager.ResourceKey="Appointment"
                                            Visibility="{Binding Appointment.IsAllDayEvent, Converter={StaticResource InvertedBooleanToVisibilityConverter}}" />
-                                <TextBlock Foreground="{StaticResource RadScheduleForeground}" Text="-" />
+                                <TextBlock Foreground="White" Text="-" />
                                 <TextBlock x:Name="SubjectTextBlock"
-                                           Foreground="{StaticResource RadScheduleForeground}"
+                                           Foreground="White"
                                            Text="{Binding Appointment.Subject}"
                                            Visibility="{Binding Appointment.Subject, Converter={StaticResource NullToVisibilityConverter}}" />
-                                <TextBlock Foreground="{StaticResource RadScheduleForeground}"
+                                <TextBlock Foreground="White"
                                            telerik:LocalizationManager.ResourceKey="Untitled"
                                            Visibility="{Binding Appointment.Subject, Converter={StaticResource InvertedNullToVisibilityConverter}}" />
                             </StackPanel>
@@ -746,7 +747,8 @@
                                         </telerik:RadButton>
                                         <telerik:RadToolBarSeparator />
                                         <telerik:RadButton Margin="4,2,2,-2"
-                                                           Command="{Binding AddPaymentScheduleLineCommand}">
+                                                           Command="{Binding AddPaymentScheduleLineCommand}"
+                                                           CommandParameter="{Binding ElementName=PaymentScheduleView}">
                                             <Image Source="/UniCloud.Presentation;component/Images/Add.png"
                                                    Stretch="Fill"
                                                    ToolTipService.ToolTip="新增计划明细" />
@@ -757,15 +759,6 @@
                                             <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
                                                    Stretch="Fill"
                                                    ToolTipService.ToolTip="删除计划明细" />
-                                        </telerik:RadButton>
-                                        <telerik:RadToolBarSeparator />
-                                        <telerik:RadButton Margin="0,2,0,-2"
-                                                           Command="{Binding BatchAddPaymentScheduleLineCommand}"
-                                                           CommandParameter="{Binding ElementName=PaymentScheduleView}"
-                                                           Height="34" VerticalAlignment="Top">
-                                            <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
-                                                   Stretch="Fill"
-                                                   ToolTipService.ToolTip="批量添加付款计划明细" />
                                         </telerik:RadButton>
                                     </telerik:RadToolBar>
                                     <telerik:GroupBox Grid.Row="1"
@@ -872,20 +865,24 @@
                                                         CommandParameter="{Binding ElementName=PaymentScheduleView}" />
                                                 </i:EventTrigger>
                                                 <i:EventTrigger EventName="AppointmentDeleted">
-                                                    <i:InvokeCommandAction Command="{Binding DelCommand}"
-                                                                           CommandParameter="{Binding ElementName=RadScheduleView}" />
+                                                    <i:InvokeCommandAction Command="{Binding DelAppointmentCommand}"
+                                                                           CommandParameter="{Binding ElementName=DelAppointmentCommand}" />
                                                 </i:EventTrigger>
                                                 <i:EventTrigger EventName="AppointmentEdited">
                                                     <i:InvokeCommandAction Command="{Binding EditCommand}"
-                                                                           CommandParameter="{Binding ElementName=RadScheduleView}" />
+                                                                           CommandParameter="{Binding ElementName=DelAppointmentCommand}" />
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
                                             <telerik:RadScheduleView.AppointmentItemContentTemplate>
                                                 <DataTemplate>
-                                                    <StackPanel Margin="3,0">
+                                                    <StackPanel Margin="3,0" Height="60">
                                                         <TextBlock Text="{Binding Subject}" FontWeight="Bold" />
-                                                        <TextBlock Text="{Binding Appointment.Body}"
+                                                         <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="付款金额:"
+                                                                 Foreground="White" />
+                                                            <TextBlock Text="{Binding Appointment.Amount}"
                                                                    TextWrapping="Wrap" />
+                                                        </StackPanel>
                                                     </StackPanel>
                                                 </DataTemplate>
                                             </telerik:RadScheduleView.AppointmentItemContentTemplate>

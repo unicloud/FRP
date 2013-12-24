@@ -106,17 +106,17 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
                 foreach (var schdeule in engineLeaseReception.ReceptionSchedules)
                 {
                     var newSchedule = new ReceptionSchedule();
-                    newSchedule.Body = schdeule.Body;
-                    newSchedule.Subject = schdeule.Subject;
-                    newSchedule.Importance = schdeule.Importance;
-                    newSchedule.Start = schdeule.Start;
-                    newSchedule.End = schdeule.End;
-                    newSchedule.IsAllDayEvent = schdeule.IsAllDayEvent;
-                    newSchedule.Group = schdeule.Group;
-                    newSchedule.Tempo = schdeule.Tempo;
-                    newSchedule.Location = schdeule.Location;
-                    newSchedule.UniqueId = schdeule.UniqueId;
-                    newSchedule.Url = schdeule.Url;
+                    //newSchedule.Body = schdeule.Body;
+                    //newSchedule.Subject = schdeule.Subject;
+                    //newSchedule.Importance = schdeule.Importance;
+                    //newSchedule.Start = schdeule.Start;
+                    //newSchedule.End = schdeule.End;
+                    //newSchedule.IsAllDayEvent = schdeule.IsAllDayEvent;
+                    //newSchedule.Group = schdeule.Group;
+                    //newSchedule.Tempo = schdeule.Tempo;
+                    //newSchedule.Location = schdeule.Location;
+                    //newSchedule.UniqueId = schdeule.UniqueId;
+                    //newSchedule.Url = schdeule.Url;
                     newEngineLeaseReception.ReceptionSchedules.Add(newSchedule);
                 }
 

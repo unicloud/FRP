@@ -266,16 +266,18 @@
       </EntityType>
       <ComplexType Name="PaymentScheduleLineDTO">
         <Property Name="PaymentScheduleLineId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Start" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="End" Type="Edm.DateTime" Nullable="false" />
         <Property Name="ScheduleDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Amount" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="PaymentScheduleId" Type="Edm.Int32" Nullable="false" />
         <Property Name="InvoiceId" Type="Edm.Int32" />
-        <Property Name="Note" Type="Edm.String" />
         <Property Name="Subject" Type="Edm.String" />
         <Property Name="Body" Type="Edm.String" />
         <Property Name="Importance" Type="Edm.String" />
         <Property Name="ProcessStatus" Type="Edm.String" />
+        <Property Name="IsAllDayEvent" Type="Edm.Boolean" Nullable="false" />
       </ComplexType>
       <EntityType Name="AcPaymentScheduleDTO">
         <Key>

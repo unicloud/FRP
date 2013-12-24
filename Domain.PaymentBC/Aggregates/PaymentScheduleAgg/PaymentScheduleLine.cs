@@ -155,7 +155,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
         }
 
         /// <summary>
-        ///     设置价格
+        ///     设置金额
         /// </summary>
         /// <param name="amount"></param>
         public void SetAmount(decimal amount)

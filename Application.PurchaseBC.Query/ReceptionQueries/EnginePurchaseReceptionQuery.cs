@@ -80,9 +80,9 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
                         IsAllDayEvent = q.IsAllDayEvent,
                         Group = q.Group,
                         Tempo = q.Tempo,
-                        Location = q.Location,
-                        UniqueId = q.UniqueId,
-                        Url = q.Url,
+                        //Location = q.Location,
+                        //UniqueId = q.UniqueId,
+                        //Url = q.Url,
                     }).ToList(),
                 });
         }
