@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.Globalization;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,7 +32,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 #endregion
 
-namespace UniCloud.Presentation.Service.Purchase.SchdeuleExtension
+namespace UniCloud.Presentation.Purchase.Reception.SchdeuleExtension
 {
     public partial class ControlExtension
     {
@@ -46,7 +47,8 @@ namespace UniCloud.Presentation.Service.Purchase.SchdeuleExtension
                 Start = schedule.Start,
                 IsAllDayEvent = schedule.IsAllDayEvent,
                 TimeMarker = GetTimeMarker(schedule.Importance),
-                Category = GetCategory(schedule.Tempo)
+                Category = GetCategory(schedule.Tempo),
+                UniqueId = schedule.ReceptionScheduleId.ToString(CultureInfo.InvariantCulture),
             };
             appointment.Resources.Add(GetResource(schedule.Group));
             return appointment;

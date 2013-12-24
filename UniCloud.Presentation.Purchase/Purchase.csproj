@@ -275,6 +275,10 @@
       <DependentUpon>AnalyseAircraftPrice.xaml</DependentUpon>
     </Compile>
     <Compile Include="QueryAnalyse\AnalyseAircraftPriceVm.cs" />
+    <Compile Include="Reception\AircraftLeaseReceptionManager.xaml.cs">
+      <DependentUpon>AircraftLeaseReceptionManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reception\AircraftLeaseReceptionManagerVM.cs" />
     <Compile Include="Reception\MatchingPlanAircraftManager.xaml.cs">
       <DependentUpon>MatchingPlanAircraftManager.xaml</DependentUpon>
     </Compile>
@@ -282,6 +286,9 @@
     <Compile Include="Reception\PlanAircraftChildView.xaml.cs">
       <DependentUpon>PlanAircraftChildView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Reception\ReceptionVm.cs" />
+    <Compile Include="Reception\SchdeuleExtension\ControlExtension.cs" />
+    <Compile Include="Reception\SchdeuleExtension\SetExtension.cs" />
     <Compile Include="Supplier\LinkManManager.xaml.cs">
       <DependentUpon>LinkManManager.xaml</DependentUpon>
     </Compile>
@@ -362,6 +369,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="QueryAnalyse\AnalyseAircraftPrice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reception\AircraftLeaseReceptionManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

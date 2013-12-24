@@ -227,6 +227,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             var newSchedule = new ReceptionSchedule();
             newSchedule.SetSchedule(schedule.Subject, schedule.Body, schedule.Importance, schedule.Tempo, schedule.Start,
                 schedule.End, schedule.IsAllDayEvent);
+            newSchedule.Group = schedule.Group;
             reception.ReceptionSchedules.Add(newSchedule);
         }
 
@@ -240,6 +241,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             // 更新订单行
             receptionSchedule.SetSchedule(schedule.Subject, schedule.Body, schedule.Importance, schedule.Tempo, schedule.Start,
                 schedule.End, schedule.IsAllDayEvent);
+            receptionSchedule.Group = schedule.Group;
         }
 
         #endregion

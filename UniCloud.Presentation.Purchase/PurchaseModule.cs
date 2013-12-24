@@ -51,7 +51,7 @@ namespace UniCloud.Presentation.Purchase
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (AircraftPurchase));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (MatchingPlanAircraftManager));
             //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (AircraftPurchaseReceptionManager));
-            //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (AircraftLeaseReceptionManager));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(AircraftLeaseReceptionManager));
             //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (EnginePurchaseReceptionManager));
             //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (EngineLeaseReceptionManager));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (SupplierRoleManager));
