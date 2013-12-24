@@ -596,6 +596,7 @@
       <ComplexType Name="ContractContentDTO">
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="ContentTags" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
         <Property Name="ContentDoc" Type="Edm.Binary" />
       </ComplexType>
       <EntityType Name="EngineLeaseOrderDTO">

@@ -60,6 +60,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
             HasOptional(o => o.Linkman).WithMany().HasForeignKey(o => o.LinkmanId);
             HasRequired(o => o.Trade).WithMany(t => t.Orders).HasForeignKey(o => o.TradeId);
             HasMany(o => o.OrderLines).WithRequired().HasForeignKey(o => o.OrderId).WillCascadeOnDelete(true);
+            HasMany(o => o.ContractContents).WithRequired().HasForeignKey(o => o.OrderId).WillCascadeOnDelete(true);
         }
     }
 }

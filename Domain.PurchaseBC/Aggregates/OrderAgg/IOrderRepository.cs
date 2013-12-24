@@ -23,5 +23,16 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
     /// </summary>
     public interface IOrderRepository : IRepository<Order>
     {
+        /// <summary>
+        ///     移除订单行
+        /// </summary>
+        /// <param name="line">订单行</param>
+        void RemoveOrderLine(OrderLine line);
+
+        /// <summary>
+        ///     移除合同分解内容
+        /// </summary>
+        /// <param name="content">合同分解内容</param>
+        void RemoveContractContent(ContractContent content);
     }
 }

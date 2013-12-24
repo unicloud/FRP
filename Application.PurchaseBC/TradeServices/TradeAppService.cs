@@ -283,6 +283,30 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             contractAircraft.SetSerialNumber(line.SerialNumber);
         }
 
+        /// <summary>
+        ///     插入合同内容
+        /// </summary>
+        /// <param name="order">订单</param>
+        /// <param name="content">合同内容</param>
+        private void InsertContractContent(AircraftPurchaseOrder order, ContractContentDTO content)
+        {
+            var contractContent = order.AddNewContractContent(content.ContentDoc);
+            contractContent.SetDescription(content.Description);
+            contractContent.SetContentTag(content.ContentTags);
+        }
+
+        /// <summary>
+        ///     更新合同内容
+        /// </summary>
+        /// <param name="dtoContent">合同内容DTO</param>
+        /// <param name="content">合同内容</param>
+        private void UpdateContractContent(ContractContentDTO dtoContent, ContractContent content)
+        {
+            content.UpdateContent(dtoContent.ContentDoc);
+            content.SetContentTag(dtoContent.ContentTags);
+            content.SetDescription(dtoContent.Description);
+        }
+
         #endregion
 
         [Insert(typeof (AircraftPurchaseOrderDTO))]
@@ -326,6 +350,9 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             dto.AircraftPurchaseOrderLines.ToList()
                 .ForEach(line => InsertOrderLine(order, dto, line, importType, trade.SupplierId));
 
+            // 处理分解合同
+            dto.ContractContents.ToList().ForEach(c => InsertContractContent(order, c));
+
             _orderRepository.Add(order);
         }
 
@@ -362,13 +389,23 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 var trade = _tradeRepository.Get(order.TradeId);
 
                 // 处理订单行
-                var current = dto.AircraftPurchaseOrderLines.ToArray();
-                var persist = order.OrderLines.OfType<AircraftPurchaseOrderLine>().ToArray();
+                var dtoOrderLines = dto.AircraftPurchaseOrderLines;
                 var orderLines = order.OrderLines;
-                DataHelper.DetailHandle(current, persist, c => c.Id, p => p.Id,
+                DataHelper.DetailHandle(dtoOrderLines.ToArray(),
+                    orderLines.OfType<AircraftPurchaseOrderLine>().ToArray(),
+                    c => c.Id, p => p.Id,
                     i => InsertOrderLine(order, dto, i, importType, trade.SupplierId),
                     UpdateOrderLine,
-                    d => orderLines.Remove(d));
+                    d => _orderRepository.RemoveOrderLine(d));
+
+                // 处理分解合同
+                var dtoContents = dto.ContractContents;
+                var contents = order.ContractContents;
+                DataHelper.DetailHandle(dtoContents.ToArray(), contents.ToArray(),
+                    c => c.Id, p => p.Id,
+                    i => InsertContractContent(order, i),
+                    UpdateContractContent,
+                    d => _orderRepository.RemoveContractContent(d));
             }
         }
 

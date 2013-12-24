@@ -112,7 +112,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         OrderId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.Order", t => t.OrderId)
+                .ForeignKey("FRP.Order", t => t.OrderId, cascadeDelete: true)
                 .Index(t => t.OrderId);
             
             CreateTable(

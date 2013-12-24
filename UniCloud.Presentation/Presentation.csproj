@@ -400,6 +400,15 @@
   <ItemGroup>
     <Resource Include="Images\Tool.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Clipboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Collapse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Expand.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

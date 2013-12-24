@@ -27,6 +27,12 @@
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot" Background="White">
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseRightButtonDown">
+                <ei:CallMethodAction MethodName="MouseRightButtonDown"
+                                     TargetObject="{Binding}" />
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
