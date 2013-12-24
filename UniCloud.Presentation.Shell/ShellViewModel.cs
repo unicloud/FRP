@@ -19,6 +19,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
@@ -552,6 +553,18 @@ namespace UniCloud.Presentation.Shell
             }
         }
 
+        #endregion
+
+        #region 去掉默认右键菜单
+        /// <summary>
+        /// 去掉右击选择默认菜单
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+        }
         #endregion
 
         #endregion

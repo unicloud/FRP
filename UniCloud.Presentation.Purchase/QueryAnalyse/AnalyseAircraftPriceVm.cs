@@ -39,7 +39,7 @@ namespace UniCloud.Presentation.Purchase.QueryAnalyse
         {
             GenerateData();
             Zoom = new Size(3, 1);
-            PanOffset = new Point(-10000, 0);
+            PanOffset = new Point(-100000, 0);
         }
 
         public List<FinancialData> Data
