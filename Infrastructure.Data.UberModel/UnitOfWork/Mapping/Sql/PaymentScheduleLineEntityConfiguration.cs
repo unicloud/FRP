@@ -37,10 +37,16 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
+            Property(p => p.Subject).HasColumnName("Subject");
+            Property(p => p.Body).HasColumnName("Body");
+            Property(p => p.Importance).HasColumnName("Importance");
+            Property(p => p.Tempo).HasColumnName("Tempo");
+            Property(p => p.Start).HasColumnName("Start").HasColumnType("datetime2");
+            Property(p => p.End).HasColumnName("End").HasColumnType("datetime2");
+            Property(p => p.IsAllDayEvent).HasColumnName("IsAllDayEvent");
             Property(p => p.ScheduleDate).HasColumnName("ScheduleDate").HasColumnType("datetime2");
             Property(p => p.Amount).HasColumnName("Amount");
             Property(p => p.Status).HasColumnName("Status");
-            Property(p => p.Note).HasColumnName("Note");
 
             Property(p => p.PaymentScheduleId).HasColumnName("PaymentScheduleId");
             Property(p => p.InvoiceId).HasColumnName("InvoiceId");

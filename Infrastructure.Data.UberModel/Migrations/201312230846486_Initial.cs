@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class database : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -107,11 +107,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         ContentTags = c.String(),
+                        Description = c.String(),
                         ContentDoc = c.Binary(),
                         OrderId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.Order", t => t.OrderId)
+                .ForeignKey("FRP.Order", t => t.OrderId, cascadeDelete: true)
                 .Index(t => t.OrderId);
             
             CreateTable(
@@ -179,7 +180,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         OrderId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.Order", t => t.OrderId)
+                .ForeignKey("FRP.Order", t => t.OrderId, cascadeDelete: true)
                 .Index(t => t.OrderId);
             
             CreateTable(
@@ -568,9 +569,15 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         ScheduleDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         Amount = c.Decimal(nullable: false, precision: 18, scale: 2),
                         Status = c.Int(nullable: false),
-                        Note = c.String(),
                         PaymentScheduleId = c.Int(nullable: false),
                         InvoiceId = c.Int(),
+                        Subject = c.String(),
+                        Body = c.String(),
+                        Importance = c.String(),
+                        Tempo = c.String(),
+                        Start = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        End = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        IsAllDayEvent = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.Invoice", t => t.InvoiceId)
@@ -617,18 +624,15 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
+                        Group = c.String(),
+                        ReceptionId = c.Int(nullable: false),
                         Subject = c.String(),
                         Body = c.String(),
                         Importance = c.String(),
+                        Tempo = c.String(),
                         Start = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         End = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         IsAllDayEvent = c.Boolean(nullable: false),
-                        Group = c.String(),
-                        Tempo = c.String(),
-                        Location = c.String(),
-                        UniqueId = c.String(),
-                        Url = c.String(),
-                        ReceptionId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.Reception", t => t.ReceptionId)

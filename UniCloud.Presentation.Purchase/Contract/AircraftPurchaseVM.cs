@@ -128,22 +128,22 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         public QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO> AircraftMaterials { get; set; }
 
-        #region 合同内容
+        #region 是否可以编辑合同分解
 
-        private byte[] _body;
+        private bool _contentReadOnly = true;
 
         /// <summary>
-        /// 合同内容
+        ///     是否可以编辑合同分解
         /// </summary>
-        public byte[] Body
+        public bool ContentReadOnly
         {
-            get { return this._body; }
+            get { return _contentReadOnly; }
             private set
             {
-                if (this._body != value)
+                if (_contentReadOnly != value)
                 {
-                    this._body = value;
-                    this.RaisePropertyChanged(() => this.Body);
+                    _contentReadOnly = value;
+                    RaisePropertyChanged(() => ContentReadOnly);
                 }
             }
         }
@@ -259,6 +259,31 @@ namespace UniCloud.Presentation.Purchase.Contract
                     RaisePropertyChanged(() => SelAircraftPurchaseOrderLineDTO);
                     // 刷新按钮状态
                     RemoveOrderLineCommand.RaiseCanExecuteChanged();
+                }
+            }
+        }
+
+        #endregion
+
+        #region 选中的购买飞机合同内容行
+
+        private ContractContentDTO _selContractContentDTO;
+
+        /// <summary>
+        ///     选中的购买飞机合同内容行
+        /// </summary>
+        public ContractContentDTO SelContractContentDTO
+        {
+            get { return _selContractContentDTO; }
+            private set
+            {
+                if (_selContractContentDTO != value)
+                {
+                    _selContractContentDTO = value;
+                    RaisePropertyChanged(() => SelContractContentDTO);
+                    ContentReadOnly = _selContractContentDTO == null;
+                    // 刷新按钮状态
+                    RemoveContentCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -534,6 +559,12 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddContent(object obj)
         {
+            var content = new ContractContentDTO
+            {
+                Id = RandomHelper.Next(),
+            };
+            SelAircraftPurchaseOrderDTO.ContractContents.Add(content);
+            SelContractContentDTO = content;
         }
 
         private bool CanAddContent(object obj)
@@ -552,11 +583,16 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveContent(object obj)
         {
+            if (_selContractContentDTO != null)
+            {
+                SelAircraftPurchaseOrderDTO.ContractContents.Remove(_selContractContentDTO);
+                SelContractContentDTO = null;
+            }
         }
 
         private bool CanRemoveContent(object obj)
         {
-            return true;
+            return _selContractContentDTO != null;
         }
 
         #endregion

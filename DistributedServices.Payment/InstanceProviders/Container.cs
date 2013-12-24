@@ -4,6 +4,7 @@
 
 #region 命名空间
 
+using Microsoft.Practices.Unity.InterceptionExtension;
 using UniCloud.Application.PaymentBC;
 using UniCloud.Application.PaymentBC.ContractAircraftServices;
 using UniCloud.Application.PaymentBC.ContractEngineServices;
@@ -30,6 +31,7 @@ using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
+using UniCloud.Infrastructure.Crosscutting.InterceptionBehaviors;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
@@ -48,69 +50,72 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
         public static void ConfigureContainer()
         {
             Configuration.Create()
-                .UseAutofac()
-                .CreateLog()
-                .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IStaticLoad, StaticLoad>()
+                         .UseAutofac()
+                         //.UserCaching()
+                         .CreateLog()
+                         .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                          .Register<IStaticLoad, StaticLoad>()
 
                 #region 发票相关配置，包括查询，应用服务，仓储注册
 
-                .Register<ICreditNoteQuery, CreditNoteQuery>()
-                .Register<ILeaseInvoiceQuery, LeaseInvoiceQuery>()
-                .Register<IPrepaymentInvoiceQuery, PrepaymentInvoiceQuery>()
-                .Register<IPurchaseInvoiceQuery, PurchaseInvoiceQuery>()
-                .Register<ICreditNoteAppService, CreditNoteAppService>()
-                .Register<ILeaseInvoiceAppService, LeaseInvoiceAppService>()
-                .Register<IPrepaymentInvoiceAppService, PrepaymentInvoiceAppService>()
-                .Register<IPurchaseInvoiceAppService, PurchaseInvoiceAppService>()
-                .Register<IInvoiceRepository, InvoiceRepository>()
+                         .Register<ICreditNoteQuery, CreditNoteQuery>()
+                         .Register<ILeaseInvoiceQuery, LeaseInvoiceQuery>()
+                         .Register<IPrepaymentInvoiceQuery, PrepaymentInvoiceQuery>()
+                         .Register<IPurchaseInvoiceQuery, PurchaseInvoiceQuery>()
+                         .Register<ICreditNoteAppService, CreditNoteAppService>()
+                         .Register<ILeaseInvoiceAppService, LeaseInvoiceAppService>()
+                         .Register<IPrepaymentInvoiceAppService, PrepaymentInvoiceAppService>()
+                         .Register<IPurchaseInvoiceAppService, PurchaseInvoiceAppService>()
+                         .Register<IInvoiceRepository, InvoiceRepository>()
                 #endregion
 
                 #region 维修发票相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IMaintainInvoiceQuery, MaintainInvoiceQuery>()
-                .Register<IMaintainInvoiceAppService, MaintainInvoiceAppService>()
-                .Register<IMaintainInvoiceRepository, MaintainInvoiceRepository>()
+                         .Register<IMaintainInvoiceQuery, MaintainInvoiceQuery>()
+                         .Register<IMaintainInvoiceAppService, MaintainInvoiceAppService>()
+                         .Register<IMaintainInvoiceRepository, MaintainInvoiceRepository>()
                 #endregion
 
                 #region 合同飞机相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IContractAircraftQuery, ContractAircraftQuery>()
-                .Register<IContractAircraftAppService, ContractAircraftAppService>()
+                         .Register<IContractAircraftQuery, ContractAircraftQuery>()
+                         .Register<IContractAircraftAppService, ContractAircraftAppService>()
                 #endregion
 
                 #region 合同发动机相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IContractEngineQuery, ContractEngineQuery>()
-                .Register<IContractEngineAppService, ContractEngineAppService>()
+                         .Register<IContractEngineQuery, ContractEngineQuery>()
+                         .Register<IContractEngineAppService, ContractEngineAppService>()
                 #endregion
 
                 #region   币种相关配置，包括查询，应用服务，仓储注册
 
-                .Register<ICurrencyQuery, CurrencyQuery>()
-                .Register<ICurrencyAppService, CurrencyAppService>()
-                .Register<ICurrencyRepository, CurrencyRepository>()
+                         .Register<ICurrencyQuery, CurrencyQuery>()
+                         .Register<ICurrencyAppService, CurrencyAppService>()
+                         .Register<ICurrencyRepository, CurrencyRepository>()
                 #endregion
 
                 #region 供应商相关配置，包括查询，应用服务，仓储注册
 
-                .Register<ISupplierRepository, SupplierRepository>()
-                .Register<ISupplierAppService, SupplierAppService>()
-                .Register<ISupplierQuery, SupplierQuery>()
+                         .Register<ISupplierRepository, SupplierRepository>()
+                         .Register<ISupplierAppService, SupplierAppService>()
+                         .Register<ISupplierQuery, SupplierQuery>()
                 #endregion
 
                 #region 交易相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IOrderQuery, OrderQuery>()
-                .Register<IOrderAppService, OrderAppService>()
-                .Register<IOrderRepository, OrderRepository>()
+                         .Register<IOrderQuery, OrderQuery>()
+                         .Register<IOrderAppService, OrderAppService>()                        
+                         .Register<IOrderRepository, OrderRepository>()
                 #endregion
 
                 #region   付款计划相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IPaymentScheduleQuery, PaymentScheduleQuery>()
-                .Register<IPaymentScheduleAppService, PaymentScheduleAppService>()
-                .Register<IPaymentScheduleRepository, PaymentScheduleRepository>()
+                         .Register<IPaymentScheduleQuery, PaymentScheduleQuery>()
+                         .Register<IPaymentScheduleAppService, PaymentScheduleAppService>()
+                         //(null, new Interceptor<InterfaceInterceptor>(), 
+                         //       new InterceptionBehavior<CachingBehavior>())
+                         .Register<IPaymentScheduleRepository, PaymentScheduleRepository>()
 
                 #endregion
 

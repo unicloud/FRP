@@ -143,6 +143,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     {
                         Id = c.Id,
                         ContentTags = c.ContentTags,
+                        Description = c.Description,
                         ContentDoc = c.ContentDoc
                     }).ToList(),
                     RelatedDocs = relatedDocs.Where(r => r.SourceId == o.SourceGuid).Select(r => new RelatedDocDTO

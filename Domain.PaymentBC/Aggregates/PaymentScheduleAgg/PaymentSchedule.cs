@@ -114,14 +114,12 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
         /// </summary>
         /// <param name="scheduleDate">付款日期</param>
         /// <param name="amount">付款金额</param>
-        /// <param name="note">备注</param>
-        public PaymentScheduleLine AddPaymentScheduleLine(DateTime scheduleDate, decimal amount, string note)
+        public PaymentScheduleLine AddPaymentScheduleLine(DateTime scheduleDate, decimal amount)
         {
             var paymentScheduleLine = new PaymentScheduleLine
             {
                 ScheduleDate = scheduleDate,
                 Amount = amount,
-                Note = note,
             };
 
             paymentScheduleLine.GenerateNewIdentity();

@@ -31,7 +31,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.PaymentScheduleAgg
     ///     付款计划聚合根
     ///     付款计划行
     /// </summary>
-    public class PaymentScheduleLine : EntityInt, IValidatableObject
+    public class PaymentScheduleLine : ScheduleBase, IValidatableObject
     {
         #region 构造函数
 
@@ -50,22 +50,17 @@ namespace UniCloud.Domain.UberModel.Aggregates.PaymentScheduleAgg
         /// <summary>
         ///     计划付款日期
         /// </summary>
-        public DateTime ScheduleDate { get; set; }
+        public DateTime ScheduleDate { get; internal set; }
 
         /// <summary>
         ///     付款金额
         /// </summary>
-        public decimal Amount { get; set; }
+        public decimal Amount { get; internal set; }
 
         /// <summary>
         ///     付款控制状态
         /// </summary>
-        public ControlStatus Status { get; set; }
-
-        /// <summary>
-        ///     备注
-        /// </summary>
-        public string Note { get; set; }
+        public ControlStatus Status { get; private set; }
 
         #endregion
 
@@ -148,6 +143,24 @@ namespace UniCloud.Domain.UberModel.Aggregates.PaymentScheduleAgg
 
             InvoiceId = id;
             Status = ControlStatus.已匹配发票;
+        }
+
+        /// <summary>
+        ///     设置付款时间
+        /// </summary>
+        /// <param name="scheduleDate"></param>
+        public void SetScheduleDate(DateTime scheduleDate)
+        {
+            ScheduleDate = scheduleDate;
+        }
+
+        /// <summary>
+        ///     设置价格
+        /// </summary>
+        /// <param name="amount"></param>
+        public void SetAmount(decimal amount)
+        {
+            Amount = amount;
         }
 
         #endregion

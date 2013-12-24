@@ -49,6 +49,11 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         public string ContentTags { get; private set; }
 
         /// <summary>
+        ///     描述
+        /// </summary>
+        public string Description { get; private set; }
+
+        /// <summary>
         ///     内容文档
         /// </summary>
         public byte[] ContentDoc { get; internal set; }
@@ -78,8 +83,29 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         {
             if (!string.IsNullOrWhiteSpace(tag))
             {
-                ContentTags = ContentTags + "|" + tag;
+                ContentTags = tag;
             }
+        }
+
+        /// <summary>
+        ///     设置描述信息
+        /// </summary>
+        /// <param name="description">描述信息</param>
+        public void SetDescription(string description)
+        {
+            if (!string.IsNullOrWhiteSpace(description))
+            {
+                Description = " " + description.Trim();
+            }
+        }
+
+        /// <summary>
+        ///     更新合同内容
+        /// </summary>
+        /// <param name="doc">合同内容</param>
+        public void UpdateContent(byte[] doc)
+        {
+            ContentDoc = doc;
         }
 
         #endregion

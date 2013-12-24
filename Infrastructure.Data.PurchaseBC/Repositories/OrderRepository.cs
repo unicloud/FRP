@@ -44,7 +44,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Repositories
             if (currentUnitOfWork == null) return null;
             var set = currentUnitOfWork.CreateSet<Order>();
 
-            return set.Include(t => t.OrderLines);
+            return set.Include(o => o.OrderLines).Include(o => o.ContractContents);
         }
 
         public override Order Get(object id)
@@ -53,25 +53,27 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Repositories
             if (currentUnitOfWork == null) return null;
             var set = currentUnitOfWork.CreateSet<Order>();
 
-            return set.Include(o => o.OrderLines).SingleOrDefault(o => o.Id == (int) id);
+            return set.Include(o => o.OrderLines)
+                .Include(o => o.ContractContents)
+                .SingleOrDefault(o => o.Id == (int) id);
         }
 
         #endregion
 
         #region IOrderRepository 成员
 
-        /// <summary>
-        ///     <see cref="IOrderRepository" />
-        /// </summary>
-        /// <param name="line">
-        ///     <see cref="IOrderRepository" />
-        /// </param>
         public void RemoveOrderLine(OrderLine line)
         {
             var currentUnitOfWork = UnitOfWork as PurchaseBCUnitOfWork;
             if (currentUnitOfWork == null) return;
-            var set = currentUnitOfWork.CreateSet<OrderLine>();
-            set.Remove(line);
+            currentUnitOfWork.CreateSet<OrderLine>().Remove(line);
+        }
+
+        public void RemoveContractContent(ContractContent content)
+        {
+            var currentUnitOfWork = UnitOfWork as PurchaseBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            currentUnitOfWork.CreateSet<ContractContent>().Remove(content);
         }
 
         #endregion

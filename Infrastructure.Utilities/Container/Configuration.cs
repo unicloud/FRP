@@ -2,8 +2,6 @@
 
 using System;
 using Microsoft.Practices.Unity;
-using UniCloud.Infrastructure.Crosscutting.Logging;
-using UniCloud.Infrastructure.Crosscutting.NetFramework.Logging;
 
 #endregion
 
@@ -38,12 +36,13 @@ namespace UniCloud.Infrastructure.Utilities.Container
         /// <typeparam name="TService">接口类型。</typeparam>
         /// <typeparam name="TImplementer">接口实现。</typeparam>
         /// <param name="lifetimeManager">对象生命周期</param>
+        /// <param name="injectionMembers">注册类型</param>
         /// <returns></returns>
-        public Configuration Register<TService, TImplementer>(LifetimeManager lifetimeManager = null)
+        public Configuration Register<TService, TImplementer>(LifetimeManager lifetimeManager = null, params InjectionMember[] injectionMembers)
             where TService : class
             where TImplementer : class, TService
         {
-            DefaultContainer.Register<TService, TImplementer>(lifetimeManager);
+            DefaultContainer.Register<TService, TImplementer>(lifetimeManager, injectionMembers);
             return this;
         }
 
@@ -52,8 +51,9 @@ namespace UniCloud.Infrastructure.Utilities.Container
         /// </summary>
         /// <param name="type">注册类型。</param>
         /// <param name="lifetimeManager">对象生命周期</param>
+        /// <param name="injectionMembers"></param>
         /// <returns></returns>
-        public Configuration RegisterType(Type type, LifetimeManager lifetimeManager = null)
+        public Configuration RegisterType(Type type, LifetimeManager lifetimeManager = null, params InjectionMember[] injectionMembers)
          
         {
             DefaultContainer.RegisterType(type, lifetimeManager);
@@ -66,7 +66,6 @@ namespace UniCloud.Infrastructure.Utilities.Container
         /// <returns></returns>
         public Configuration CreateLog()
         {
-            LoggerFactory.SetCurrent(new UniCloudLogFactory());
             return this;
         }
     }
