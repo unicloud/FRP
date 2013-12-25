@@ -203,7 +203,7 @@
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="False"
-                                                     ItemsSource="{Binding EnginePurchaseReceptionLines}"
+                                                     ItemsSource="{Binding SelEnginePurchaseReception.ReceptionLines,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelEnginePurchaseReceptionLine,Mode=TwoWay}"
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True"
@@ -308,13 +308,12 @@
                                                      ShowGroupPanel="False"
                                                      AutoGenerateColumns="False"
                                                      CanUserSortColumns="True"
-                                                     ItemsSource="{Binding ViewDocuments,Mode=TwoWay}"
-                                                     SelectedItem="{Binding SelDocument, Mode=TwoWay}"
+                                                     ItemsSource="{Binding SelEnginePurchaseReception.RelatedDocs,Mode=TwoWay}"
                                                      CanUserFreezeColumns="False"
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
-                                                     IsBusy="{Binding RelatedDocs.IsBusy}">
+                                                     IsBusy="{Binding EnginePurchaseReceptions.IsBusy}">
                                     <telerik:RadGridView.Columns>
                                         <telerik:GridViewColumn>
                                             <telerik:GridViewColumn.CellTemplate>

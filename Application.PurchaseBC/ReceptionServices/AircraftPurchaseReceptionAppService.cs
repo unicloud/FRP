@@ -73,7 +73,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         public void InsertAircraftPurchaseReception(AircraftPurchaseReceptionDTO dto)
         {
             //获取供应商
-            var supplier = _supplierRepository.GetFiltered(p => p.SupplierCompanyId == dto.SupplierId).FirstOrDefault();
+            var supplier = _supplierRepository.Get(dto.SupplierId);
 
             //创建接机项目
             var newReception = ReceptionFactory.CreateAircraftPurchaseReception(dto.StartDate, dto.EndDate, dto.SourceId, dto.Description);
@@ -105,7 +105,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         public void ModifyAircraftPurchaseReception(AircraftPurchaseReceptionDTO dto)
         {
             //获取供应商
-            var supplier = _supplierRepository.GetFiltered(p => p.SupplierCompanyId == dto.SupplierId).FirstOrDefault();
+            var supplier = _supplierRepository.Get(dto.SupplierId);
 
             //获取需要更新的对象
             var updateReception = _receptionRepository.Get(dto.AircraftPurchaseReceptionId) as AircraftPurchaseReception;
