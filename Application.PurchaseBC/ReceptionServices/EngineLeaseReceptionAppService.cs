@@ -25,6 +25,7 @@ using UniCloud.Application.PurchaseBC.Query.ReceptionQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
+using UniCloud.Domain.PurchaseBC.Enums;
 
 #endregion
 
@@ -35,17 +36,17 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
     /// </summary>
     public class EngineLeaseReceptionAppService : IEngineLeaseReceptionAppService
     {
-        private readonly IEngineLeaseReceptionQuery _engineLeaseReceptionQuery;
+        private readonly IEngineLeaseReceptionQuery _dtoQuery;
         private readonly IReceptionRepository _receptionRepository;
         private readonly ISupplierRepository _supplierRepository;
         private readonly IContractEngineRepository _contractEngineRepository;
 
-        public EngineLeaseReceptionAppService(IEngineLeaseReceptionQuery engineLeaseReceptionQuery,
+        public EngineLeaseReceptionAppService(IEngineLeaseReceptionQuery dtoQuery,
             IReceptionRepository receptionRepository,
             ISupplierRepository supplierRepository,
             IContractEngineRepository contractEngineRepository)
         {
-            _engineLeaseReceptionQuery = engineLeaseReceptionQuery;
+            _dtoQuery = dtoQuery;
             _receptionRepository = receptionRepository;
             _supplierRepository = supplierRepository;
             _contractEngineRepository = contractEngineRepository;
@@ -61,124 +62,100 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         {
             var queryBuilder =
                 new QueryBuilder<EngineLeaseReception>();
-            return _engineLeaseReceptionQuery.EngineLeaseReceptionDTOQuery(queryBuilder);
+            return _dtoQuery.EngineLeaseReceptionDTOQuery(queryBuilder);
         }
 
         /// <summary>
         ///     新增租赁发动机接收项目。
         /// </summary>
-        /// <param name="engineLeaseReception">租赁发动机接收项目DTO。</param>
+        /// <param name="dto">租赁发动机接收项目DTO。</param>
         [Insert(typeof(EngineLeaseReceptionDTO))]
-        public void InsertEngineLeaseReception(EngineLeaseReceptionDTO engineLeaseReception)
+        public void InsertEngineLeaseReception(EngineLeaseReceptionDTO dto)
         {
-            var supplier = _supplierRepository.GetFiltered(p => p.SupplierCompanyId == engineLeaseReception.SupplierId).FirstOrDefault();
+            //获取供应商
+            var supplier = _supplierRepository.Get(dto.SupplierId);
 
-            var newEngineLeaseReception = ReceptionFactory.CreateEngineLeaseReception();
+            //创建接机项目
+            var newReception = ReceptionFactory.CreateEngineLeaseReception(dto.StartDate, dto.EndDate, dto.SourceId, dto.Description);
+
+            // TODO:设置接机编号,如果当天的记录被删除过，流水号seq可能会重复
             var date = DateTime.Now.Date;
             var seq = _receptionRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
-            newEngineLeaseReception.SetReceptionNumber(seq);
-            newEngineLeaseReception.Description = engineLeaseReception.Description;
-            newEngineLeaseReception.StartDate = engineLeaseReception.StartDate;
-            newEngineLeaseReception.SetStatus(0);
-            newEngineLeaseReception.EndDate = engineLeaseReception.EndDate;
-            newEngineLeaseReception.SetSupplier(supplier);
-            newEngineLeaseReception.SourceId = engineLeaseReception.SourceId;
-            if (engineLeaseReception.ReceptionLines != null)
-            {
-                foreach (var receptionLine in engineLeaseReception.ReceptionLines)
-                {
-                    var leaseConAc =
-                        _contractEngineRepository.GetFiltered(p => p.Id == receptionLine.ContractEngineId)
-                            .OfType<LeaseContractEngine>()
-                            .FirstOrDefault();
-                    var newRecepitonLine = ReceptionFactory.CreateEngineLeaseReceptionLine();
-                    newRecepitonLine.ReceivedAmount = receptionLine.ReceivedAmount;
-                    newRecepitonLine.AcceptedAmount = receptionLine.AcceptedAmount;
-                    newRecepitonLine.SetCompleted();
-                    newRecepitonLine.Note = receptionLine.Note;
-                    newRecepitonLine.DeliverDate = receptionLine.DeliverDate;
-                    newRecepitonLine.DeliverPlace = receptionLine.DeliverPlace;
-                    newRecepitonLine.SetContractEngine(leaseConAc);
-                    newEngineLeaseReception.ReceptionLines.Add(newRecepitonLine);
-                }
-            }
-            if (engineLeaseReception.ReceptionSchedules != null)
-                foreach (var schdeule in engineLeaseReception.ReceptionSchedules)
-                {
-                    var newSchedule = new ReceptionSchedule();
-                    //newSchedule.Body = schdeule.Body;
-                    //newSchedule.Subject = schdeule.Subject;
-                    //newSchedule.Importance = schdeule.Importance;
-                    //newSchedule.Start = schdeule.Start;
-                    //newSchedule.End = schdeule.End;
-                    //newSchedule.IsAllDayEvent = schdeule.IsAllDayEvent;
-                    //newSchedule.Group = schdeule.Group;
-                    //newSchedule.Tempo = schdeule.Tempo;
-                    //newSchedule.Location = schdeule.Location;
-                    //newSchedule.UniqueId = schdeule.UniqueId;
-                    //newSchedule.Url = schdeule.Url;
-                    newEngineLeaseReception.ReceptionSchedules.Add(newSchedule);
-                }
+            newReception.SetReceptionNumber(seq);
 
-            _receptionRepository.Add(newEngineLeaseReception);
+            //设置供应商
+            newReception.SetSupplier(supplier);
+
+            //设置接机的状态
+            newReception.SetStatus(ReceptionStatus.开始);
+
+            //添加接机行
+            dto.ReceptionLines.ToList().ForEach(line => InsertReceptionLine(newReception, line));
+            //添加相关的接机日程
+            dto.ReceptionSchedules.ToList().ForEach(scheduel => InsertReceptionSchedule(newReception, scheduel));
+
+            _receptionRepository.Add(newReception);
         }
 
         /// <summary>
         ///     更新租赁发动机接收项目。
         /// </summary>
-        /// <param name="engineLeaseReception">租赁发动机接收项目DTO。</param>
+        /// <param name="dto">租赁发动机接收项目DTO。</param>
         [Update(typeof(EngineLeaseReceptionDTO))]
-        public void ModifyEngineLeaseReception(EngineLeaseReceptionDTO engineLeaseReception)
+        public void ModifyEngineLeaseReception(EngineLeaseReceptionDTO dto)
         {
-            var supplier = _supplierRepository.GetFiltered(p => p.SupplierCompanyId == engineLeaseReception.SupplierId).FirstOrDefault();
-            var updateEngineLeaseReception = _receptionRepository.GetFiltered(t => t.Id == engineLeaseReception.EngineLeaseReceptionId).FirstOrDefault();
-            //获取需要更新的对象。
-            if (updateEngineLeaseReception != null)
+            //获取供应商
+            var supplier = _supplierRepository.Get(dto.SupplierId);
+
+            //获取需要更新的对象
+            var updateReception = _receptionRepository.Get(dto.EngineLeaseReceptionId) as EngineLeaseReception;
+
+            if (updateReception != null)
             {
-                updateEngineLeaseReception.Description = engineLeaseReception.Description;
-                updateEngineLeaseReception.StartDate = engineLeaseReception.StartDate;
-                updateEngineLeaseReception.EndDate = engineLeaseReception.EndDate;
-                updateEngineLeaseReception.SetSupplier(supplier);
-                updateEngineLeaseReception.SourceId = engineLeaseReception.SourceId;
-                //更新主表。 
+                //更新主表：
+                updateReception.SetReceptionNumber(dto.ReceptionNumber);
+                updateReception.Description = dto.Description;
+                updateReception.StartDate = dto.StartDate;
+                updateReception.EndDate = dto.EndDate;
+                updateReception.SetSupplier(supplier);
+                updateReception.SetStatus((ReceptionStatus)dto.Status);
+                updateReception.SourceId = dto.SourceId;
 
-                    var updateReceptionLines = engineLeaseReception.ReceptionLines;
-                    var formerReceptionLines = updateEngineLeaseReception.ReceptionLines;
-                if (engineLeaseReception.ReceptionLines != null)//更新从表需要双向比对变更
-                {
-
-                    foreach (var receptionLine in updateReceptionLines)
-                    {
-                        AddOrUpdateReceptionLine(receptionLine,formerReceptionLines);
-                        //更新或删除此接收行
-                    }
-                }
-                if (updateEngineLeaseReception.ReceptionLines != null)
-                {
-                    foreach (var formerReceptionLine in formerReceptionLines)
-                    {
-                        DeleteReceptionLine(formerReceptionLine, updateReceptionLines);
-                    }
-                }
-
-
-                //更新从表。
+                //更新接机行：
+                var dtoReceptionLines = dto.ReceptionLines;
+                var receptionLines = updateReception.ReceptionLines;
+                DataHelper.DetailHandle(dtoReceptionLines.ToArray(),
+                    receptionLines.OfType<EngineLeaseReceptionLine>().ToArray(),
+                    c => c.EngineLeaseReceptionLineId, p => p.Id,
+                    i => InsertReceptionLine(updateReception, i),
+                    UpdateReceptionLine,
+                    d => _receptionRepository.RemoveReceptionLine(d));
+                //更新交付日程：
+                var dtoReceptionSchedules = dto.ReceptionSchedules;
+                var receptionSchedules = updateReception.ReceptionSchedules;
+                DataHelper.DetailHandle(dtoReceptionSchedules.ToArray(),
+                    receptionSchedules.ToArray(),
+                    c => c.ReceptionScheduleId, p => p.Id,
+                    i => InsertReceptionSchedule(updateReception, i),
+                    UpdateReceptionSchedule,
+                    d => _receptionRepository.RemoveReceptionSchedule(d));
             }
-            _receptionRepository.Modify(updateEngineLeaseReception);
+            _receptionRepository.Modify(updateReception);
+
         }
 
         /// <summary>
         ///     删除租赁发动机接收项目。
         /// </summary>
-        /// <param name="engineLeaseReception">租赁发动机接收项目DTO。</param>
+        /// <param name="dto">租赁发动机接收项目DTO。</param>
         [Delete(typeof(EngineLeaseReceptionDTO))]
-        public void DeleteEngineLeaseReception(EngineLeaseReceptionDTO engineLeaseReception)
+        public void DeleteEngineLeaseReception(EngineLeaseReceptionDTO dto)
         {
-            if (engineLeaseReception == null)
+            if (dto == null)
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delEngineLeaseReception = _receptionRepository.Get(engineLeaseReception.EngineLeaseReceptionId);
+            var delEngineLeaseReception = _receptionRepository.Get(dto.EngineLeaseReceptionId);
             //获取需要删除的对象。
             if (delEngineLeaseReception != null)
             {
@@ -186,22 +163,86 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             }
         }
 
+
+
+        #region 处理接机行
+        /// <summary>
+        ///     插入新接机行
+        /// </summary>
+        /// <param name="reception">接机项目</param>
+        /// <param name="line">接机行DTO</param>
+        private void InsertReceptionLine(EngineLeaseReception reception, EngineLeaseReceptionLineDTO line)
+        {
+            //获取合同发动机
+            var leaseConEngine = _contractEngineRepository.GetFiltered(p => p.Id == line.ContractEngineId)
+                    .OfType<LeaseContractEngine>().FirstOrDefault();
+
+            // 添加接机行
+            var newRecepitonLine =
+                reception.AddNewEngineLeaseReceptionLine(line.ReceivedAmount);
+            newRecepitonLine.AcceptedAmount = line.AcceptedAmount;
+            newRecepitonLine.SetCompleted();
+            newRecepitonLine.DeliverDate = line.DeliverDate;
+            newRecepitonLine.DeliverPlace = line.DeliverPlace;
+            newRecepitonLine.SetContractEngine(leaseConEngine);
+            newRecepitonLine.Note = line.Note;
+        }
+
+        /// <summary>
+        ///     更新接机行
+        /// </summary>
+        /// <param name="line">接机行DTO</param>
+        /// <param name="receptionLine">接机行</param>
+        private void UpdateReceptionLine(EngineLeaseReceptionLineDTO line, EngineLeaseReceptionLine receptionLine)
+        {
+            //获取合同发动机
+            var leaseConEngine = _contractEngineRepository.GetFiltered(p => p.Id == line.ContractEngineId)
+                    .OfType<LeaseContractEngine>().FirstOrDefault();
+
+
+            // 更新订单行
+            receptionLine.ReceivedAmount = line.ReceivedAmount;
+            receptionLine.AcceptedAmount = line.AcceptedAmount;
+            receptionLine.SetCompleted();
+            receptionLine.DeliverDate = line.DeliverDate;
+            receptionLine.DeliverPlace = line.DeliverPlace;
+            receptionLine.SetContractEngine(leaseConEngine);
+            receptionLine.Note = line.Note;
+
+        }
+
         #endregion
-        #region 更新从表方法
 
-        private void AddOrUpdateReceptionLine(EngineLeaseReceptionLineDTO receptionLine,
-            IEnumerable<ReceptionLine> formerReceptionLines)
+        #region 处理接机日程
+        /// <summary>
+        ///     插入新接机日程
+        /// </summary>
+        /// <param name="reception">接机项目</param>
+        /// <param name="schedule">接机行DTO</param>
+        private void InsertReceptionSchedule(EngineLeaseReception reception, ReceptionScheduleDTO schedule)
         {
-            //获取源接收行
-            var existReceptionLine = formerReceptionLines.FirstOrDefault(p => p.Id == receptionLine.EngineLeaseReceptionLineId);
-            //if (existReceptionLine == null) 
-
+            // 添加接机行
+            var newSchedule = new ReceptionSchedule();
+            newSchedule.SetSchedule(schedule.Subject, schedule.Body, schedule.Importance, schedule.Tempo, schedule.Start,
+                schedule.End, schedule.IsAllDayEvent);
+            newSchedule.Group = schedule.Group;
+            reception.ReceptionSchedules.Add(newSchedule);
         }
 
-        private void DeleteReceptionLine(ReceptionLine formerReceptionLine, IEnumerable<EngineLeaseReceptionLineDTO> updateReceptionLines)
+        /// <summary>
+        ///     更新接机日程
+        /// </summary>
+        /// <param name="schedule">接机日程DTO</param>
+        /// <param name="receptionSchedule">接机日程</param>
+        private void UpdateReceptionSchedule(ReceptionScheduleDTO schedule, ReceptionSchedule receptionSchedule)
         {
+            // 更新订单行
+            receptionSchedule.SetSchedule(schedule.Subject, schedule.Body, schedule.Importance, schedule.Tempo, schedule.Start,
+                schedule.End, schedule.IsAllDayEvent);
+            receptionSchedule.Group = schedule.Group;
         }
 
+        #endregion
         #endregion
     }
 }

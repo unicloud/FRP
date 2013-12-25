@@ -44,6 +44,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -60,6 +61,10 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Telerik.Reporting.Service, Version=7.2.13.1016, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Telerik.Reporting.Service.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="ClientBin\AircraftConfig.xap" />
@@ -72,6 +77,7 @@
     <Content Include="ClientBin\Project.xap" />
     <Content Include="ClientBin\Purchase.xap" />
     <Content Include="ClientBin\Shell.xap" />
+    <Content Include="ReportService.svc" />
     <Content Include="Silverlight.js" />
     <Content Include="Default.aspx" />
     <Content Include="Default.html" />
@@ -90,7 +96,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ReportViewer\ReportViewer.csproj">
+      <Project>{3d257352-ea79-4dce-9404-6f93c5bbed68}</Project>
+      <Name>ReportViewer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

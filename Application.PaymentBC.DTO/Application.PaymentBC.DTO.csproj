@@ -68,6 +68,9 @@
     </Compile>
     <Compile Include="GuaranteeDTO\LeaseGuaranteeDTO.cs" />
     <Compile Include="GuaranteeDTO\MaintainGuaranteeDTO.cs" />
+    <Compile Include="..\Domain.PaymentBC\Enums\PaymentNoticeStatus.cs">
+      <Link>PaymentNoticeDTO\PaymentNoticeStatus.cs</Link>
+    </Compile>
     <Compile Include="InvoiceDTO\CreditNoteDTO.cs" />
     <Compile Include="ContractAircraftDTO\ContractAircraftDTO.cs" />
     <Compile Include="ContractEngineDTO\ContractEngineDTO.cs" />

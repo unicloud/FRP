@@ -23,6 +23,22 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
     /// </summary>
     public interface IReceptionRepository : IRepository<Reception>
     {
+        /// <summary>
+        ///     移除接收行
+        /// </summary>
+        /// <param name="line">接收行</param>
+        void RemoveReceptionLine(ReceptionLine line);
+
+        /// <summary>
+        ///     移除交付日程行
+        /// </summary>
+        /// <param name="schedule">交付日程行</param>
+        void RemoveReceptionSchedule(ReceptionSchedule schedule);
+
+        /// <summary>
+        ///     移除接收项目
+        /// </summary>
+        /// <param name="reception">接收项目</param>
         void DeleteReception(Reception reception);
     }
 }

@@ -59,6 +59,20 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Repositories
             return set.Include(p => p.ReceptionLines);
         }
 
+        public void RemoveReceptionLine(ReceptionLine line)
+        {
+            var currentUnitOfWork = UnitOfWork as PurchaseBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            currentUnitOfWork.CreateSet<ReceptionLine>().Remove(line);
+        }
+
+        public void RemoveReceptionSchedule(ReceptionSchedule schedule)
+        {
+            var currentUnitOfWork = UnitOfWork as PurchaseBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            currentUnitOfWork.CreateSet<ReceptionSchedule>().Remove(schedule);
+        }
+
         public void DeleteReception(Reception reception)
         {
             var currentUnitOfWork = UnitOfWork as PurchaseBCUnitOfWork;
