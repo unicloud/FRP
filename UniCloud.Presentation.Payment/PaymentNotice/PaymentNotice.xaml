@@ -79,9 +79,10 @@
                                            Stretch="Fill"
                                            ToolTipService.ToolTip="审核付款通知" />
                                 </telerik:RadButton>
+                                <telerik:RadToolBarSeparator />
                                 <telerik:RadButton Margin="2,2,2,-2"
                                                    Command="{Binding ViewReportCommand}">
-                                    <Image Source="/UniCloud.Presentation;component/Images/Check.png"
+                                    <Image Source="/UniCloud.Presentation;component/Images/Clipboard.png"
                                            Stretch="Fill"
                                            ToolTipService.ToolTip="报表" />
                                 </telerik:RadButton>

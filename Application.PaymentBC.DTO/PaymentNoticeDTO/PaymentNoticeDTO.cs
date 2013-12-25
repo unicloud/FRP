@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Common;
+using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 
@@ -56,6 +57,16 @@ namespace UniCloud.Application.PaymentBC.DTO
         public string SupplierName { get; set; }
 
         /// <summary>
+        ///     币种
+        /// </summary>
+        public string CurrencyName { get; set; }
+       
+        /// <summary>
+        ///     银行账户
+        /// </summary>
+        public string BankAccountName { get; set; }
+
+        /// <summary>
         ///     经办人
         /// </summary>
         public string OperatorName { get; set; }
@@ -74,6 +85,15 @@ namespace UniCloud.Application.PaymentBC.DTO
         ///     付款通知状态
         /// </summary>
         public int Status { get; set; }
+
+        /// <summary>
+        ///     付款通知状态
+        /// </summary>
+        public string StatusString
+        {
+            get { return ((PaymentNoticeStatus)Status).ToString(); }
+            set { Status = (int)(PaymentNoticeStatus)Enum.Parse(typeof(PaymentNoticeStatus), value, true); }
+        }
 
         /// <summary>
         ///     付款通知行

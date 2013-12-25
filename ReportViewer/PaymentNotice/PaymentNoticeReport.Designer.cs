@@ -64,6 +64,7 @@ namespace ReportViewer.PaymentNotice
             this.textBox31 = new Telerik.Reporting.TextBox();
             this.textBox32 = new Telerik.Reporting.TextBox();
             this.PaymentNotices = new Telerik.Reporting.ObjectDataSource();
+            this.panel3 = new Telerik.Reporting.Panel();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // textBox22
@@ -232,7 +233,7 @@ namespace ReportViewer.PaymentNotice
             this.textBox8.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(3.6998000144958496D), Telerik.Reporting.Drawing.Unit.Cm(0.70000004768371582D));
             this.textBox8.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
             this.textBox8.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
-            this.textBox8.Value = "=Fields.BankAccountId";
+            this.textBox8.Value = "= Fields.BankAccountName";
             // 
             // textBox9
             // 
@@ -250,7 +251,7 @@ namespace ReportViewer.PaymentNotice
             this.textBox10.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.7002005577087402D), Telerik.Reporting.Drawing.Unit.Cm(0.70000004768371582D));
             this.textBox10.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox10.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
-            this.textBox10.Value = "=Fields.CurrencyId";
+            this.textBox10.Value = "= Fields.CurrencyName";
             // 
             // textBox11
             // 
@@ -340,7 +341,7 @@ namespace ReportViewer.PaymentNotice
             this.textBox20.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(3.2801001071929932D), Telerik.Reporting.Drawing.Unit.Cm(0.70000004768371582D));
             this.textBox20.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox20.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
-            this.textBox20.Value = "=Fields.Status";
+            this.textBox20.Value = "= Fields.StatusString";
             // 
             // table1
             // 
@@ -440,17 +441,16 @@ namespace ReportViewer.PaymentNotice
             // 
             // pageFooterSection1
             // 
-            this.pageFooterSection1.Height = Telerik.Reporting.Drawing.Unit.Cm(3.8924987316131592D);
+            this.pageFooterSection1.Height = Telerik.Reporting.Drawing.Unit.Cm(4.3000006675720215D);
             this.pageFooterSection1.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
-            this.textBox28,
-            this.textBox30,
             this.textBox31,
-            this.textBox32});
+            this.textBox32,
+            this.panel3});
             this.pageFooterSection1.Name = "pageFooterSection1";
             // 
             // textBox28
             // 
-            this.textBox28.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(5.6003999710083008D), Telerik.Reporting.Drawing.Unit.Cm(0.00010012308484874666D));
+            this.textBox28.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(5.5998001098632812D), Telerik.Reporting.Drawing.Unit.Cm(0.00010012308484874666D));
             this.textBox28.Name = "textBox28";
             this.textBox28.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.9999992847442627D), Telerik.Reporting.Drawing.Unit.Cm(1.0000003576278687D));
             this.textBox28.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
@@ -460,7 +460,7 @@ namespace ReportViewer.PaymentNotice
             // textBox30
             // 
             this.textBox30.Format = "{0:C2}";
-            this.textBox30.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(8.8000001907348633D), Telerik.Reporting.Drawing.Unit.Cm(0.00010012308484874666D));
+            this.textBox30.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(9.1498003005981445D), Telerik.Reporting.Drawing.Unit.Cm(0.00010012308484874666D));
             this.textBox30.Name = "textBox30";
             this.textBox30.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.9999992847442627D), Telerik.Reporting.Drawing.Unit.Cm(1.0000003576278687D));
             this.textBox30.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
@@ -493,6 +493,16 @@ namespace ReportViewer.PaymentNotice
             this.PaymentNotices.Name = "PaymentNotices";
             this.PaymentNotices.Parameters.AddRange(new Telerik.Reporting.ObjectDataSourceParameter[] {
             new Telerik.Reporting.ObjectDataSourceParameter("noticeNumber", typeof(string), "=Parameters.noticeNumber.Value")});
+            // 
+            // panel3
+            // 
+            this.panel3.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
+            this.textBox30,
+            this.textBox28});
+            this.panel3.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.00020004430552944541D), Telerik.Reporting.Drawing.Unit.Cm(0.00010012308484874666D));
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(16.080101013183594D), Telerik.Reporting.Drawing.Unit.Cm(1.0001004934310913D));
+            this.panel3.Style.BorderStyle.Bottom = Telerik.Reporting.Drawing.BorderType.Solid;
             // 
             // PaymentNoticeReport
             // 
@@ -605,5 +615,6 @@ namespace ReportViewer.PaymentNotice
         private Telerik.Reporting.TextBox textBox31;
         private Telerik.Reporting.TextBox textBox32;
         private Telerik.Reporting.Panel panel2;
+        private Telerik.Reporting.Panel panel3;
     }
 }
