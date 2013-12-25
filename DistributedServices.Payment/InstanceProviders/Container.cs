@@ -9,11 +9,13 @@ using UniCloud.Application.PaymentBC;
 using UniCloud.Application.PaymentBC.ContractAircraftServices;
 using UniCloud.Application.PaymentBC.ContractEngineServices;
 using UniCloud.Application.PaymentBC.CurrencyServices;
+using UniCloud.Application.PaymentBC.GuaranteeServices;
 using UniCloud.Application.PaymentBC.InvoiceServices;
 using UniCloud.Application.PaymentBC.MaintainInvoiceServices;
 using UniCloud.Application.PaymentBC.PaymentNoticeServices;
 using UniCloud.Application.PaymentBC.PaymentScheduleServices;
 using UniCloud.Application.PaymentBC.OrderServices;
+using UniCloud.Application.PaymentBC.Query.GuaranteeQueries;
 using UniCloud.Application.PaymentBC.Query.PaymentNoticeQueries;
 using UniCloud.Application.PaymentBC.SupplierServices;
 using UniCloud.Application.PaymentBC.Query.ContractAircraftQueries;
@@ -24,6 +26,7 @@ using UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries;
 using UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries;
 using UniCloud.Application.PaymentBC.Query.OrderQueries;
 using UniCloud.Application.PaymentBC.Query.SupplierQueries;
+using UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
@@ -126,6 +129,14 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
                 .Register<IPaymentNoticeRepository, PaymentNoticeRepository>()
 
                 #endregion
+
+            #region  保函相关配置，包括查询，应用服务，仓储注册
+
+                .Register<IGuaranteeQuery, GuaranteeQuery>()
+                .Register<IGuaranteeAppService, GuaranteeAppService>()
+                .Register<IGuaranteeRepository, GuaranteeRepository>()
+
+            #endregion
 
                 ;
 
