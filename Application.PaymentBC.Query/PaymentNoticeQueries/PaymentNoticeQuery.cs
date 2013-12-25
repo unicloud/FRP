@@ -52,6 +52,8 @@ namespace UniCloud.Application.PaymentBC.Query.PaymentNoticeQueries
                                      Status = (int)p.Status,
                                      SupplierId = p.SupplierId,
                                      CurrencyId = p.CurrencyId,
+                                     CurrencyName = p.Currency.CnName,
+                                     BankAccountName = p.BankAccount.Bank + p.BankAccount.Branch,
                                      BankAccountId = p.BankAccountId,
                                      PaymentNoticeLines =
                                          p.PaymentNoticeLines.Select(q => new PaymentNoticeLineDTO
