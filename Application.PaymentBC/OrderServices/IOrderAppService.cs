@@ -43,6 +43,12 @@ namespace UniCloud.Application.PaymentBC.OrderServices
         IQueryable<PurchaseOrderDTO> GetPurchaseOrders();
 
         /// <summary>
+        ///     获取所有采购订单
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<LeaseOrderDTO> GetLeaseOrders();
+
+        /// <summary>
         ///     获取租赁飞机订单集合
         /// </summary>
         /// <returns></returns>

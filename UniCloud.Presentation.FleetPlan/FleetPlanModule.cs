@@ -7,6 +7,8 @@ using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.MefExtensions.Modularity;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
+using UniCloud.Presentation.FleetPlan.PerformFleetPlan;
+using UniCloud.Presentation.FleetPlan.PrepareFleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan
 {
@@ -19,13 +21,22 @@ namespace UniCloud.Presentation.FleetPlan
 
         public void Initialize()
         {
-            throw new NotImplementedException();
+            RegisterView();
         }
 
         #endregion
 
         private void RegisterView()
         {
+            //编制运力规划
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FleetPlanPrepare));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FleetPlanLay));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FleetPlanPublish));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FleetPlanSend));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(SpareEnginePlanLay));
+
+            //执行运力规划
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FleetPlanDeliver));
         }
     }
 }

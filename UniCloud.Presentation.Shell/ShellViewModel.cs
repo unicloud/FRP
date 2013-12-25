@@ -154,41 +154,41 @@ namespace UniCloud.Presentation.Shell
             var menu211 = new MenuItem
             {
                 Text = "民航五年规划",
-                NavUri = "UniCloud.Presentation.Purchase.Supplier.SupplierRoleManager"
+                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanPrepare"
             };
             var menu212 = new MenuItem
             {
                 Text = "管理五年规划",
-                NavUri = "UniCloud.Presentation.Purchase.Supplier.SupplierMaterialManager"
+                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanPrepare"
             };
             var menu213 = new MenuItem
             {
                 Text = "准备编制",
-                NavUri = "UniCloud.Presentation.Purchase.Supplier.LinkManManager"
+                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanPrepare"
 
             };
             var menu214 = new MenuItem
             {
                 Text = "编制规划",
-                NavUri = "UniCloud.Presentation.Purchase.Supplier.QuerySupplier"
+                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanLay"
 
             };
             var menu215 = new MenuItem
             {
-                Text = "发送规划",
-                NavUri = "UniCloud.Presentation.Purchase.Forwarder.ForwarderManager"
+                Text = "发布规划",
+                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanPublish"
 
             };
             var menu216 = new MenuItem
             {
                 Text = "报送规划",
-                NavUri = "UniCloud.Presentation.Purchase.Supplier.QuerySupplier"
+                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanSend"
 
             };
             var menu217 = new MenuItem
             {
                 Text = "编制备发计划",
-                NavUri = "UniCloud.Presentation.Purchase.Forwarder.ForwarderManager"
+                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.SpareEnginePlanLay"
 
             };
             menu21.Items.Add(menu211);
@@ -215,7 +215,7 @@ namespace UniCloud.Presentation.Shell
             var menu223 = new MenuItem
             {
                 Text = "完成规划",
-                NavUri = "UniCloud.Presentation.Purchase.Supplier.LinkManManager"
+                NavUri = "UniCloud.Presentation.FleetPlan.PerformFleetPlan.FleetPlanDeliver"
 
             };
             menu22.Items.Add(menu221);

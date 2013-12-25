@@ -87,7 +87,7 @@ namespace UniCloud.Presentation.Shell
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.OnDemand,
+                InitializationMode = InitializationMode.WhenAvailable,
                 Ref = "FleetPlan.xap",
                 ModuleName = "FleetPlanModule",
                 ModuleType =

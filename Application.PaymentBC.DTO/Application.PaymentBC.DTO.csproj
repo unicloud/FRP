@@ -93,6 +93,7 @@
     <Compile Include="OrderDTO\EngineLeaseOrderLineDTO.cs" />
     <Compile Include="OrderDTO\EnginePurchaseOrderDTO.cs" />
     <Compile Include="OrderDTO\EnginePurchaseOrderLineDTO.cs" />
+    <Compile Include="OrderDTO\LeaseOrderDTO.cs" />
     <Compile Include="OrderDTO\OrderDTO.cs" />
     <Compile Include="OrderDTO\OrderLineDTO.cs" />
     <Compile Include="OrderDTO\PurchaseOrderDTO.cs" />

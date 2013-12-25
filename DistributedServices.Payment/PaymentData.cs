@@ -244,6 +244,14 @@ namespace UniCloud.DistributedServices.Payment
         }
 
         /// <summary>
+        ///     所有租赁订单集合（不包含订单行）
+        /// </summary>
+        public IQueryable<LeaseOrderDTO> LeaseOrders
+        {
+            get { return _orderAppService.GetLeaseOrders(); }
+        }
+
+        /// <summary>
         ///     飞机采购订单集合
         /// </summary>
         public IQueryable<AircraftPurchaseOrderDTO> AircraftPurchaseOrders
