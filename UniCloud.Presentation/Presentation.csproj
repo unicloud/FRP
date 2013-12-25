@@ -100,6 +100,9 @@
       <HintPath>..\packages\Telerik.Pivot.Core.2.0.0\lib\Telerik.Pivot.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Telerik.ReportViewer.Silverlight">
+      <HintPath>..\packages\Telerik.ReportViewer.Silverlight.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Windows.Controls">
       <HintPath>..\packages\Telerik.Windows.Controls.2.0.0\lib\Telerik.Windows.Controls.dll</HintPath>
       <Private>False</Private>
@@ -284,6 +287,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LocalizationResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="Localization\ReportViewerLocalization.cs" />
     <Compile Include="MVVM\EditMasterSlaveViewModelBase.cs" />
     <Compile Include="MVVM\EditMasterViewModelBase.cs" />
     <Compile Include="MVVM\EditViewModelBase.cs" />
