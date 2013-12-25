@@ -61,6 +61,8 @@
     <Compile Include="IStaticLoad.cs" />
     <Compile Include="MaintainInvoiceServices\IMaintainInvoiceAppService.cs" />
     <Compile Include="MaintainInvoiceServices\MaintainInvoiceAppService.cs" />
+    <Compile Include="GuaranteeServices\IGuaranteeAppService.cs" />
+    <Compile Include="GuaranteeServices\GuaranteeAppService.cs" />
     <Compile Include="OrderServices\IOrderAppService.cs" />
     <Compile Include="OrderServices\OrderAppService.cs" />
     <Compile Include="PaymentNoticeServices\IPaymentNoticeAppService.cs" />

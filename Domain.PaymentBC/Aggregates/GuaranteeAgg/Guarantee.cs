@@ -138,6 +138,18 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg
             Currency = currency;
             CurrencyId = currency.Id;
         }
+        /// <summary>
+        ///     设置币种
+        /// </summary>
+        /// <param name="currencyId">币种Id</param>
+        public void SetCurrency(int currencyId)
+        {
+            if (currencyId == 0)
+            {
+                throw new ArgumentException("币种参数为空！");
+            }
+            CurrencyId = currencyId;
+        }
 
         /// <summary>
         ///     设置供应商
@@ -153,6 +165,21 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg
             Supplier = supplier;
             SupplierId = supplier.Id;
             SupplierName = supplier.Name;
+        }
+
+        /// <summary>
+        ///     设置供应商
+        /// </summary>
+        /// <param name="supplierId"></param>
+        /// <param name="supplierName"></param>
+        public void SetSupplier(int supplierId,string supplierName)
+        {
+            if (supplierId == 0)
+            {
+                throw new ArgumentException("供应商参数为空！");
+            }
+            SupplierId = supplierId;
+            SupplierName = supplierName;
         }
 
         /// <summary>
