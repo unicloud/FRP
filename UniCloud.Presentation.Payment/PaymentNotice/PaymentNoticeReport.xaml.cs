@@ -1,4 +1,8 @@
-﻿using UniCloud.Presentation.Localization;
+﻿#region 命名空间
+
+using UniCloud.Presentation.Localization;
+
+#endregion
 
 namespace UniCloud.Presentation.Payment.PaymentNotice
 {
