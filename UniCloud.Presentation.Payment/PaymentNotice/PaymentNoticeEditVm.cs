@@ -64,7 +64,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                     {
                         PaymentNotice = result;
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -145,7 +144,9 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                                 {
                                     PaymentNoticeId = RandomHelper.Next(),
                                     CreateDate = DateTime.Now,
-                                    DeadLine = DateTime.Now
+                                    DeadLine = DateTime.Now,
+                                    Status = 0,
+                                    StatusString = PaymentNoticeStatus.草稿.ToString()
                                 };
                 PaymentNotices.AddNew(PaymentNotice);
             }
