@@ -25,6 +25,7 @@ using UniCloud.Application.PurchaseBC.Query.ReceptionQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
+using UniCloud.Domain.PurchaseBC.Enums;
 
 #endregion
 
@@ -35,17 +36,17 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
     /// </summary>
     public class AircraftPurchaseReceptionAppService : IAircraftPurchaseReceptionAppService
     {
-        private readonly IAircraftPurchaseReceptionQuery _aircraftPurchaseReceptionQuery;
+        private readonly IAircraftPurchaseReceptionQuery _dtoQuery;
         private readonly IReceptionRepository _receptionRepository;
         private readonly ISupplierRepository _supplierRepository;
         private readonly IContractAircraftRepository _contractAircraftRepository;
 
-        public AircraftPurchaseReceptionAppService(IAircraftPurchaseReceptionQuery aircraftPurchaseReceptionQuery,
+        public AircraftPurchaseReceptionAppService(IAircraftPurchaseReceptionQuery dtoQuery,
             IReceptionRepository receptionRepository,
             ISupplierRepository supplierRepository,
             IContractAircraftRepository contractAircraftRepository)
         {
-            _aircraftPurchaseReceptionQuery = aircraftPurchaseReceptionQuery;
+            _dtoQuery = dtoQuery;
             _receptionRepository = receptionRepository;
             _supplierRepository = supplierRepository;
             _contractAircraftRepository = contractAircraftRepository;
@@ -61,126 +62,99 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         {
             var queryBuilder =
                 new QueryBuilder<AircraftPurchaseReception>();
-            return _aircraftPurchaseReceptionQuery.AircraftPurchaseReceptionDTOQuery(queryBuilder);
+            return _dtoQuery.AircraftPurchaseReceptionDTOQuery(queryBuilder);
         }
 
         /// <summary>
         ///     新增购买飞机接收项目。
         /// </summary>
-        /// <param name="aircraftPurchaseReception">购买飞机接收项目DTO。</param>
+        /// <param name="dto">购买飞机接收项目DTO。</param>
         [Insert(typeof(AircraftPurchaseReceptionDTO))]
-        public void InsertAircraftPurchaseReception(AircraftPurchaseReceptionDTO aircraftPurchaseReception)
+        public void InsertAircraftPurchaseReception(AircraftPurchaseReceptionDTO dto)
         {
-            var supplier = _supplierRepository.GetFiltered(p => p.SupplierCompanyId == aircraftPurchaseReception.SupplierId).FirstOrDefault();
+            //获取供应商
+            var supplier = _supplierRepository.GetFiltered(p => p.SupplierCompanyId == dto.SupplierId).FirstOrDefault();
 
-            var newAircraftPurchaseReception = ReceptionFactory.CreateAircraftPurchaseReception();
+            //创建接机项目
+            var newReception = ReceptionFactory.CreateAircraftPurchaseReception(dto.StartDate, dto.EndDate, dto.SourceId, dto.Description);
+
+            // TODO:设置接机编号,如果当天的记录被删除过，流水号seq可能会重复
             var date = DateTime.Now.Date;
             var seq = _receptionRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
-            newAircraftPurchaseReception.SetReceptionNumber(seq);
-            newAircraftPurchaseReception.Description = aircraftPurchaseReception.Description;
-            newAircraftPurchaseReception.StartDate = aircraftPurchaseReception.StartDate;
-            newAircraftPurchaseReception.SetStatus(0);
-            newAircraftPurchaseReception.EndDate = aircraftPurchaseReception.EndDate;
-            newAircraftPurchaseReception.SetSupplier(supplier);
-            newAircraftPurchaseReception.SourceId = aircraftPurchaseReception.SourceId;
-            if (aircraftPurchaseReception.ReceptionLines != null)
-            {
-                foreach (var receptionLine in aircraftPurchaseReception.ReceptionLines)
-                {
-                    var purchaseConAc =
-                        _contractAircraftRepository.GetFiltered(p => p.Id == receptionLine.ContractAircraftId)
-                            .OfType<PurchaseContractAircraft>()
-                            .FirstOrDefault();
-                    var newRecepitonLine = ReceptionFactory.CreateAircraftPurchaseReceptionLine();
-                    newRecepitonLine.ReceivedAmount = receptionLine.ReceivedAmount;
-                    newRecepitonLine.AcceptedAmount = receptionLine.AcceptedAmount;
-                    newRecepitonLine.SetCompleted();
-                    newRecepitonLine.Note = receptionLine.Note;
-                    newRecepitonLine.DeliverDate = receptionLine.DeliverDate;
-                    newRecepitonLine.DeliverPlace = receptionLine.DeliverPlace;
-                    newRecepitonLine.DailNumber = receptionLine.DailNumber;
-                    newRecepitonLine.FlightNumber = receptionLine.FlightNumber;
-                    newRecepitonLine.SetContractAircraft(purchaseConAc);
-                    newAircraftPurchaseReception.ReceptionLines.Add(newRecepitonLine);
-                }
-            }
-            if (aircraftPurchaseReception.ReceptionSchedules != null)
-                foreach (var schdeule in aircraftPurchaseReception.ReceptionSchedules)
-                {
-                    var newSchedule = new ReceptionSchedule();
-                    //newSchedule.Body = schdeule.Body;
-                    //newSchedule.Subject = schdeule.Subject;
-                    //newSchedule.Importance = schdeule.Importance;
-                    //newSchedule.Start = schdeule.Start;
-                    //newSchedule.End = schdeule.End;
-                    //newSchedule.IsAllDayEvent = schdeule.IsAllDayEvent;
-                    //newSchedule.Group = schdeule.Group;
-                    //newSchedule.Tempo = schdeule.Tempo;
-                    //newSchedule.Location = schdeule.Location;
-                    //newSchedule.UniqueId = schdeule.UniqueId;
-                    //newSchedule.Url = schdeule.Url;
-                    newAircraftPurchaseReception.ReceptionSchedules.Add(newSchedule);
-                }
+            newReception.SetReceptionNumber(seq);
 
-            _receptionRepository.Add(newAircraftPurchaseReception);
+            //设置供应商
+            newReception.SetSupplier(supplier);
+
+            //设置接机的状态
+            newReception.SetStatus(ReceptionStatus.开始);
+
+            //添加接机行
+            dto.ReceptionLines.ToList().ForEach(line => InsertReceptionLine(newReception, line));
+            //添加相关的接机日程
+            dto.ReceptionSchedules.ToList().ForEach(scheduel => InsertReceptionSchedule(newReception, scheduel));
+
+            _receptionRepository.Add(newReception);
         }
 
         /// <summary>
         ///     更新购买飞机接收项目。
         /// </summary>
-        /// <param name="aircraftPurchaseReception">购买飞机接收项目DTO。</param>
+        /// <param name="dto">购买飞机接收项目DTO。</param>
         [Update(typeof(AircraftPurchaseReceptionDTO))]
-        public void ModifyAircraftPurchaseReception(AircraftPurchaseReceptionDTO aircraftPurchaseReception)
+        public void ModifyAircraftPurchaseReception(AircraftPurchaseReceptionDTO dto)
         {
-            var supplier = _supplierRepository.GetFiltered(p => p.SupplierCompanyId == aircraftPurchaseReception.SupplierId).FirstOrDefault();
-            var updateAircraftPurchaseReception = _receptionRepository.GetFiltered(t => t.Id == aircraftPurchaseReception.AircraftPurchaseReceptionId).FirstOrDefault();
-            //获取需要更新的对象。
-            if (updateAircraftPurchaseReception != null)
+            //获取供应商
+            var supplier = _supplierRepository.GetFiltered(p => p.SupplierCompanyId == dto.SupplierId).FirstOrDefault();
+
+            //获取需要更新的对象
+            var updateReception = _receptionRepository.Get(dto.AircraftPurchaseReceptionId) as AircraftPurchaseReception;
+
+            if (updateReception != null)
             {
-                updateAircraftPurchaseReception.Description = aircraftPurchaseReception.Description;
-                updateAircraftPurchaseReception.StartDate = aircraftPurchaseReception.StartDate;
-                updateAircraftPurchaseReception.EndDate = aircraftPurchaseReception.EndDate;
-                updateAircraftPurchaseReception.SetSupplier(supplier);
-                updateAircraftPurchaseReception.SourceId = aircraftPurchaseReception.SourceId;
-                //更新主表。 
+                //更新主表：
+                updateReception.SetReceptionNumber(dto.ReceptionNumber);
+                updateReception.Description = dto.Description;
+                updateReception.StartDate = dto.StartDate;
+                updateReception.EndDate = dto.EndDate;
+                updateReception.SetSupplier(supplier);
+                updateReception.SetStatus((ReceptionStatus)dto.Status);
+                updateReception.SourceId = dto.SourceId;
 
-                var updateReceptionLines = aircraftPurchaseReception.ReceptionLines;
-                var formerReceptionLines = updateAircraftPurchaseReception.ReceptionLines;
-                if (aircraftPurchaseReception.ReceptionLines != null)//更新从表需要双向比对变更
-                {
-
-                    foreach (var receptionLine in updateReceptionLines)
-                    {
-                        AddOrUpdateReceptionLine(receptionLine, formerReceptionLines);
-                        //更新或删除此接收行
-                    }
-                }
-                if (updateAircraftPurchaseReception.ReceptionLines != null)
-                {
-                    foreach (var formerReceptionLine in formerReceptionLines)
-                    {
-                        DeleteReceptionLine(formerReceptionLine, updateReceptionLines);
-                    }
-                }
-
-
-                //更新从表。
+                //更新接机行：
+                var dtoReceptionLines = dto.ReceptionLines;
+                var receptionLines = updateReception.ReceptionLines;
+                DataHelper.DetailHandle(dtoReceptionLines.ToArray(),
+                    receptionLines.OfType<AircraftPurchaseReceptionLine>().ToArray(),
+                    c => c.AircraftPurchaseReceptionLineId, p => p.Id,
+                    i => InsertReceptionLine(updateReception, i),
+                    UpdateReceptionLine,
+                    d => _receptionRepository.RemoveReceptionLine(d));
+                //更新交付日程：
+                var dtoReceptionSchedules = dto.ReceptionSchedules;
+                var receptionSchedules = updateReception.ReceptionSchedules;
+                DataHelper.DetailHandle(dtoReceptionSchedules.ToArray(),
+                    receptionSchedules.ToArray(),
+                    c => c.ReceptionScheduleId, p => p.Id,
+                    i => InsertReceptionSchedule(updateReception, i),
+                    UpdateReceptionSchedule,
+                    d => _receptionRepository.RemoveReceptionSchedule(d));
             }
-            _receptionRepository.Modify(updateAircraftPurchaseReception);
+            _receptionRepository.Modify(updateReception);
         }
 
         /// <summary>
         ///     删除购买飞机接收项目。
         /// </summary>
-        /// <param name="aircraftPurchaseReception">购买飞机接收项目DTO。</param>
+        /// <param name="dto">购买飞机接收项目DTO。</param>
         [Delete(typeof(AircraftPurchaseReceptionDTO))]
-        public void DeleteAircraftPurchaseReception(AircraftPurchaseReceptionDTO aircraftPurchaseReception)
+        public void DeleteAircraftPurchaseReception(AircraftPurchaseReceptionDTO dto)
         {
-            if (aircraftPurchaseReception == null)
+            if (dto == null)
             {
                 throw new ArgumentException("参数为空！");
             }
-            var delAircraftPurchaseReception = _receptionRepository.Get(aircraftPurchaseReception.AircraftPurchaseReceptionId);
+            var delAircraftPurchaseReception = _receptionRepository.Get(dto.AircraftPurchaseReceptionId);
             //获取需要删除的对象。
             if (delAircraftPurchaseReception != null)
             {
@@ -188,21 +162,89 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             }
         }
 
+
+        #region 处理接机行
+        /// <summary>
+        ///     插入新接机行
+        /// </summary>
+        /// <param name="reception">接机项目</param>
+        /// <param name="line">接机行DTO</param>
+        private void InsertReceptionLine(AircraftPurchaseReception reception, AircraftPurchaseReceptionLineDTO line)
+        {
+            //获取合同飞机
+            var purchaseConAc = _contractAircraftRepository.GetFiltered(p => p.Id == line.ContractAircraftId)
+                    .OfType<PurchaseContractAircraft>().FirstOrDefault();
+
+            // 添加接机行
+            var newRecepitonLine =
+                reception.AddNewAircraftPurchaseReceptionLine(line.ReceivedAmount);
+            newRecepitonLine.AcceptedAmount = line.AcceptedAmount;
+            newRecepitonLine.SetCompleted();
+            newRecepitonLine.DeliverDate = line.DeliverDate;
+            newRecepitonLine.DeliverPlace = line.DeliverPlace;
+            newRecepitonLine.DailNumber = line.DailNumber;
+            newRecepitonLine.FlightNumber = line.FlightNumber;
+            newRecepitonLine.SetContractAircraft(purchaseConAc);
+            newRecepitonLine.Note = line.Note;
+        }
+
+        /// <summary>
+        ///     更新接机行
+        /// </summary>
+        /// <param name="line">接机行DTO</param>
+        /// <param name="receptionLine">接机行</param>
+        private void UpdateReceptionLine(AircraftPurchaseReceptionLineDTO line, AircraftPurchaseReceptionLine receptionLine)
+        {
+            //获取合同飞机
+            var purchaseConAc = _contractAircraftRepository.GetFiltered(p => p.Id == line.ContractAircraftId)
+                    .OfType<PurchaseContractAircraft>().FirstOrDefault();
+
+
+            // 更新订单行
+            receptionLine.ReceivedAmount = line.ReceivedAmount;
+            receptionLine.AcceptedAmount = line.AcceptedAmount;
+            receptionLine.SetCompleted();
+            receptionLine.DeliverDate = line.DeliverDate;
+            receptionLine.DeliverPlace = line.DeliverPlace;
+            receptionLine.DailNumber = line.DailNumber;
+            receptionLine.FlightNumber = line.FlightNumber;
+            receptionLine.SetContractAircraft(purchaseConAc);
+            receptionLine.Note = line.Note;
+
+        }
+
         #endregion
-        #region 更新从表方法
 
-        private void AddOrUpdateReceptionLine(AircraftPurchaseReceptionLineDTO receptionLine,
-            IEnumerable<ReceptionLine> formerReceptionLines)
+        #region 处理接机日程
+        /// <summary>
+        ///     插入新接机日程
+        /// </summary>
+        /// <param name="reception">接机项目</param>
+        /// <param name="schedule">接机行DTO</param>
+        private void InsertReceptionSchedule(AircraftPurchaseReception reception, ReceptionScheduleDTO schedule)
         {
-            //获取源接收行
-            var existReceptionLine = formerReceptionLines.FirstOrDefault(p => p.Id == receptionLine.AircraftPurchaseReceptionLineId);
-            //if (existReceptionLine == null) 
-
+            // 添加接机行
+            var newSchedule = new ReceptionSchedule();
+            newSchedule.SetSchedule(schedule.Subject, schedule.Body, schedule.Importance, schedule.Tempo, schedule.Start,
+                schedule.End, schedule.IsAllDayEvent);
+            newSchedule.Group = schedule.Group;
+            reception.ReceptionSchedules.Add(newSchedule);
         }
 
-        private void DeleteReceptionLine(ReceptionLine formerReceptionLine, IEnumerable<AircraftPurchaseReceptionLineDTO> updateReceptionLines)
+        /// <summary>
+        ///     更新接机日程
+        /// </summary>
+        /// <param name="schedule">接机日程DTO</param>
+        /// <param name="receptionSchedule">接机日程</param>
+        private void UpdateReceptionSchedule(ReceptionScheduleDTO schedule, ReceptionSchedule receptionSchedule)
         {
+            // 更新订单行
+            receptionSchedule.SetSchedule(schedule.Subject, schedule.Body, schedule.Importance, schedule.Tempo, schedule.Start,
+                schedule.End, schedule.IsAllDayEvent);
+            receptionSchedule.Group = schedule.Group;
         }
+
+        #endregion
 
         #endregion
     }

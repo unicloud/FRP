@@ -278,23 +278,7 @@
     <Compile Include="Reception\AircraftLeaseReceptionManager.xaml.cs">
       <DependentUpon>AircraftLeaseReceptionManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Reception\AircraftLeaseReceptionManagerVM.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Reception\AircraftPurchaseReceptionManager.xaml.cs">
-      <DependentUpon>AircraftPurchaseReceptionManager.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Reception\AircraftPurchaseReceptionManagerVM.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Reception\EngineLeaseReceptionManager.xaml.cs">
-      <DependentUpon>EngineLeaseReceptionManager.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Reception\EngineLeaseReceptionManagerVM.cs" />
-    <Compile Include="Reception\EnginePurchaseReceptionManager.xaml.cs">
-      <DependentUpon>EnginePurchaseReceptionManager.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Reception\EnginePurchaseReceptionManagerVM.cs" />
+    <Compile Include="Reception\AircraftLeaseReceptionManagerVM.cs" />
     <Compile Include="Reception\MatchingPlanAircraftManager.xaml.cs">
       <DependentUpon>MatchingPlanAircraftManager.xaml</DependentUpon>
     </Compile>
@@ -302,6 +286,9 @@
     <Compile Include="Reception\PlanAircraftChildView.xaml.cs">
       <DependentUpon>PlanAircraftChildView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Reception\ReceptionVm.cs" />
+    <Compile Include="Reception\SchdeuleExtension\ControlExtension.cs" />
+    <Compile Include="Reception\SchdeuleExtension\SetExtension.cs" />
     <Compile Include="Supplier\LinkManManager.xaml.cs">
       <DependentUpon>LinkManManager.xaml</DependentUpon>
     </Compile>
@@ -388,18 +375,6 @@
     <Page Include="Reception\AircraftLeaseReceptionManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Reception\AircraftPurchaseReceptionManager.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Reception\EngineLeaseReceptionManager.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Reception\EnginePurchaseReceptionManager.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Reception\MatchingPlanAircraftManager.xaml">
       <SubType>Designer</SubType>

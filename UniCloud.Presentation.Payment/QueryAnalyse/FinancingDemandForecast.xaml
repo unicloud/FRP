@@ -194,9 +194,8 @@
                                                 ValueBinding="Amount"
                                                 Stroke="#DC5B20"
                                                 StrokeThickness="2"
-                                                ShowLabels="False"
-                                                PointTemplate="{StaticResource PointTemplate1}">
-                                <!--<telerik:LineSeries.PointTemplate>
+                                                ShowLabels="False">
+                                <telerik:LineSeries.PointTemplate>
                                     <DataTemplate>
                                         <Ellipse Height='8'
                                                  Width='8'
@@ -212,7 +211,7 @@
                                                        FontFamily="Segoe UI" />
                                         </StackPanel>
                                     </DataTemplate>
-                                </telerik:LineSeries.TrackBallInfoTemplate>-->
+                                </telerik:LineSeries.TrackBallInfoTemplate>
                             </telerik:LineSeries>
                             <telerik:LineSeries DisplayName="已付金额"
                                                 ItemsSource="{Binding ViewFinancingDemands}"
@@ -221,9 +220,8 @@
                                                 Stroke="#FF25A0DA"
                                                 StrokeThickness="2"
                                                 ShowLabels="False"
-                                                Foreground="Black"
-                                                PointTemplate="{StaticResource PointTemplate2}">
-                                <!--<telerik:LineSeries.PointTemplate>
+                                                Foreground="Black">
+                                <telerik:LineSeries.PointTemplate>
                                     <DataTemplate>
                                         <Ellipse Height='8'
                                                  Width='8'
@@ -239,7 +237,7 @@
                                                        FontFamily="Segoe UI" />
                                         </StackPanel>
                                     </DataTemplate>
-                                </telerik:LineSeries.TrackBallInfoTemplate>-->
+                                </telerik:LineSeries.TrackBallInfoTemplate>
                             </telerik:LineSeries>
                         </telerik:RadCartesianChart>
                         <ScrollViewer Grid.Column="1"
@@ -296,7 +294,6 @@
                 <ColumnDefinition Width="8*"></ColumnDefinition>
                 <ColumnDefinition Width="5*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <telerik:RadChart Content="单月的资金需求情况"></telerik:RadChart>
             <telerik:RadGridView x:Name="AmountCounts"
                                  ShowGroupPanel="True"
                                  AutoExpandGroups="True"
