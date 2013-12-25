@@ -16,7 +16,9 @@
 
 using System;
 using System.ComponentModel.Composition;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
@@ -30,7 +32,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
 {
     [Export(typeof(PaymentNoticeVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class PaymentNoticeVm: InvoiceVm
+    public class PaymentNoticeVm : InvoiceVm
     {
         #region 声明、初始化
 
@@ -58,6 +60,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             PaymentNotices = Service.CreateCollection(PaymentDataService.PaymentNotices);
             Service.RegisterCollectionView(PaymentNotices);
             PaymentNotices.PropertyChanged += OnViewPropertyChanged;
+            ViewReportCommand = new DelegateCommand<object>(OnViewReport);
         }
 
         #endregion
@@ -277,6 +280,20 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         }
         #endregion
 
+        #region 预览报表
+        /// <summary>
+        ///  预览报表
+        /// </summary>
+        public DelegateCommand<object> ViewReportCommand { get; set; }
+
+        protected virtual void OnViewReport(object obj)
+        {
+            var noticeReport = new PaymentNoticeReport();
+            noticeReport.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            noticeReport.ShowDialog();
+        }
+        #endregion
+
         #region Combobox SelectedChanged
 
         public void SelectedChanged(object comboboxSelectedItem)
@@ -287,7 +304,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             }
             else if (comboboxSelectedItem is string)
             {
-                
+
             }
         }
         #endregion
