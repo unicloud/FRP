@@ -110,6 +110,9 @@
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Windows.Browser" />
+    <Reference Include="Telerik.ReportViewer.Silverlight">
+      <HintPath>..\packages\Telerik.ReportViewer.Silverlight.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Windows.Controls, Version=2013.3.1016.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Controls.2.0.0\lib\Telerik.Windows.Controls.dll</HintPath>
       <Private>False</Private>
@@ -212,6 +215,9 @@
     <Compile Include="PaymentModule.cs" />
     <Compile Include="PaymentNotice\PaymentNotice.xaml.cs">
       <DependentUpon>PaymentNotice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentNotice\PaymentNoticeReport.xaml.cs">
+      <DependentUpon>PaymentNoticeReport.xaml</DependentUpon>
     </Compile>
     <Compile Include="PaymentNotice\PaymentNoticeVm.cs" />
     <Compile Include="PaymentSchedules\AcPaymentSchedule.xaml.cs">
@@ -317,6 +323,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PaymentNotice\PaymentNotice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PaymentNotice\PaymentNoticeReport.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
