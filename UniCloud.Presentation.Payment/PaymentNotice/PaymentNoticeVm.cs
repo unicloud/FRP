@@ -137,25 +137,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
 
         #endregion
 
-        #region 供应商
-        private SupplierDTO _supplier;
-        /// <summary>
-        /// 选中的供应商
-        /// </summary>
-        public SupplierDTO Supplier
-        {
-            get { return _supplier; }
-            set
-            {
-                if (value != null && _supplier != value)
-                {
-                    _supplier = value;
-                    RaisePropertyChanged(() => Supplier);
-                }
-            }
-        }
-        #endregion
-
         #endregion
 
         #endregion
@@ -300,11 +281,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         {
             if (comboboxSelectedItem is SupplierDTO)
             {
-                Supplier = comboboxSelectedItem as SupplierDTO;
-            }
-            else if (comboboxSelectedItem is string)
-            {
-
+                PaymentNotice.SupplierName = (comboboxSelectedItem as SupplierDTO).Name;
             }
         }
         #endregion

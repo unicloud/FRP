@@ -136,26 +136,6 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
 
-        #region 签约对象
-        private SupplierDTO _supplier;
-        /// <summary>
-        /// 选中的签约对象
-        /// </summary>
-        public SupplierDTO Supplier
-        {
-            get { return _supplier; }
-            set
-            {
-                if (value != null && _supplier != value)
-                {
-                    _supplier = value;
-                    EngineMaintainInvoice.SupplierName = _supplier.Name;
-                    RaisePropertyChanged(() => Supplier);
-                }
-            }
-        }
-        #endregion
-
         #endregion
 
         #endregion
@@ -314,6 +294,17 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
             DocumentView.ViewModel.InitData(true, EngineMaintainInvoice.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
+        }
+        #endregion
+
+        #region Combobox SelectedChanged
+
+        public void SelectedChanged(object comboboxSelectedItem)
+        {
+            if (comboboxSelectedItem is SupplierDTO)
+            {
+                EngineMaintainInvoice.SupplierName = (comboboxSelectedItem as SupplierDTO).Name;
+            }
         }
         #endregion
         #endregion

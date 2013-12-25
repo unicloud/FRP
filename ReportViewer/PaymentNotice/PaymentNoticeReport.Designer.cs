@@ -203,14 +203,14 @@ namespace ReportViewer.PaymentNotice
             // 
             this.textBox5.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.4997996985912323D), Telerik.Reporting.Drawing.Unit.Cm(1.0000003576278687D));
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.700200080871582D), Telerik.Reporting.Drawing.Unit.Cm(0.70000004768371582D));
+            this.textBox5.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.8000003099441528D), Telerik.Reporting.Drawing.Unit.Cm(0.70000004768371582D));
             this.textBox5.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox5.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
-            this.textBox5.Value = "供应商:";
+            this.textBox5.Value = "供应商：";
             // 
             // textBox6
             // 
-            this.textBox6.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(3.2002003192901611D), Telerik.Reporting.Drawing.Unit.Cm(1.0000003576278687D));
+            this.textBox6.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(2.2999999523162842D), Telerik.Reporting.Drawing.Unit.Cm(1.0000003576278687D));
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(3.9000000953674316D), Telerik.Reporting.Drawing.Unit.Cm(0.70000004768371582D));
             this.textBox6.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
@@ -239,14 +239,14 @@ namespace ReportViewer.PaymentNotice
             // 
             this.textBox9.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.49999994039535522D), Telerik.Reporting.Drawing.Unit.Cm(2.0999996662139893D));
             this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.0999996662139893D), Telerik.Reporting.Drawing.Unit.Cm(0.70000004768371582D));
+            this.textBox9.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.5D), Telerik.Reporting.Drawing.Unit.Cm(0.70000004768371582D));
             this.textBox9.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox9.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox9.Value = "币种：";
             // 
             // textBox10
             // 
-            this.textBox10.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(3.1999990940093994D), Telerik.Reporting.Drawing.Unit.Cm(2.0999996662139893D));
+            this.textBox10.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(2.0002000331878662D), Telerik.Reporting.Drawing.Unit.Cm(2.0999996662139893D));
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.7002005577087402D), Telerik.Reporting.Drawing.Unit.Cm(0.70000004768371582D));
             this.textBox10.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
@@ -294,14 +294,14 @@ namespace ReportViewer.PaymentNotice
             // 
             this.textBox15.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0.49999994039535522D), Telerik.Reporting.Drawing.Unit.Cm(3.2999999523162842D));
             this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.0999996662139893D), Telerik.Reporting.Drawing.Unit.Cm(0.70000004768371582D));
+            this.textBox15.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.7998000383377075D), Telerik.Reporting.Drawing.Unit.Cm(0.70000004768371582D));
             this.textBox15.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Left;
             this.textBox15.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox15.Value = "审核人：";
             // 
             // textBox16
             // 
-            this.textBox16.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(3.1999990940093994D), Telerik.Reporting.Drawing.Unit.Cm(3.2999999523162842D));
+            this.textBox16.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(2.2999999523162842D), Telerik.Reporting.Drawing.Unit.Cm(3.299999475479126D));
             this.textBox16.Name = "textBox16";
             this.textBox16.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.7002007961273193D), Telerik.Reporting.Drawing.Unit.Cm(0.70000004768371582D));
             this.textBox16.Value = "=Fields.Reviewer";

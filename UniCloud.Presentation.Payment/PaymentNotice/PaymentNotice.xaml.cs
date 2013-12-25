@@ -18,8 +18,6 @@
 #region 命名空间
 
 using System.ComponentModel.Composition;
-using System.Windows;
-using System.Windows.Controls;
 using Telerik.Windows;
 using Telerik.Windows.Controls;
 
@@ -34,10 +32,10 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         public PaymentNotice()
         {
             InitializeComponent();
-            this.AddHandler(Selector.SelectionChangedEvent, new Telerik.Windows.Controls.SelectionChangedEventHandler(OnSelectionChanged), true);
+            this.AddHandler(Selector.SelectionChangedEvent, new SelectionChangedEventHandler(OnSelectionChanged), true);
         }
 
-        private void OnSelectionChanged(object sender, Telerik.Windows.Controls.SelectionChangedEventArgs e)
+        private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.AddedItems != null && e.AddedItems.Count > 0)
             {
