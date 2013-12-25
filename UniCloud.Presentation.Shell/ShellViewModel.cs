@@ -144,9 +144,175 @@ namespace UniCloud.Presentation.Shell
             var menu2 = new MenuItem
             {
                 Text = "运力规划",
-                NavUri = "UniCloud.Presentation.Portal.Manager.ManagerPortal"
             };
             _items.Add(menu2);
+
+            var menu21 = new MenuItem
+            {
+                Text = "编制运力规划",
+            };
+            var menu211 = new MenuItem
+            {
+                Text = "民航五年规划",
+                NavUri = "UniCloud.Presentation.Purchase.Supplier.SupplierRoleManager"
+            };
+            var menu212 = new MenuItem
+            {
+                Text = "管理五年规划",
+                NavUri = "UniCloud.Presentation.Purchase.Supplier.SupplierMaterialManager"
+            };
+            var menu213 = new MenuItem
+            {
+                Text = "准备编制",
+                NavUri = "UniCloud.Presentation.Purchase.Supplier.LinkManManager"
+
+            };
+            var menu214 = new MenuItem
+            {
+                Text = "编制规划",
+                NavUri = "UniCloud.Presentation.Purchase.Supplier.QuerySupplier"
+
+            };
+            var menu215 = new MenuItem
+            {
+                Text = "发送规划",
+                NavUri = "UniCloud.Presentation.Purchase.Forwarder.ForwarderManager"
+
+            };
+            var menu216 = new MenuItem
+            {
+                Text = "报送规划",
+                NavUri = "UniCloud.Presentation.Purchase.Supplier.QuerySupplier"
+
+            };
+            var menu217 = new MenuItem
+            {
+                Text = "编制备发计划",
+                NavUri = "UniCloud.Presentation.Purchase.Forwarder.ForwarderManager"
+
+            };
+            menu21.Items.Add(menu211);
+            menu21.Items.Add(menu212);
+            menu21.Items.Add(menu213);
+            menu21.Items.Add(menu214);
+            menu21.Items.Add(menu215);
+            menu21.Items.Add(menu216);
+            menu21.Items.Add(menu217);
+            menu2.Items.Add(menu21);
+
+            var menu22 = new MenuItem
+            {
+                Text = "执行运力规划",
+            };
+            var menu221 = new MenuItem
+            {
+                Text = "维护申请",
+            };
+            var menu222 = new MenuItem
+            {
+                Text = "维护批文",
+            };
+            var menu223 = new MenuItem
+            {
+                Text = "完成规划",
+                NavUri = "UniCloud.Presentation.Purchase.Supplier.LinkManManager"
+
+            };
+            menu22.Items.Add(menu221);
+            menu22.Items.Add(menu222);
+            menu22.Items.Add(menu223);
+            menu2.Items.Add(menu22);
+
+            var menu23 = new MenuItem
+            {
+                Text = "更新飞机数据",
+            };
+            var menu231 = new MenuItem
+            {
+                Text = "变更所有权",
+            };
+            var menu232 = new MenuItem
+            {
+                Text = "分配飞机运力",
+            };
+
+            menu23.Items.Add(menu231);
+            menu23.Items.Add(menu232);
+            menu2.Items.Add(menu23);
+
+            var menu24 = new MenuItem
+            {
+                Text = "分析规划执行",
+            };
+            var menu241 = new MenuItem
+            {
+                Text = "查询规划",
+            };
+            var menu242 = new MenuItem
+            {
+                Text = "分析规划执行",
+            };
+            var menu243 = new MenuItem
+            {
+                Text = "查询申请",
+            };
+            var menu244 = new MenuItem
+            {
+                Text = "查询批文",
+            };
+
+            menu24.Items.Add(menu241);
+            menu24.Items.Add(menu242);
+            menu24.Items.Add(menu243);
+            menu24.Items.Add(menu244);
+            menu2.Items.Add(menu24);
+
+            var menu25 = new MenuItem
+            {
+                Text = "查询分析",
+            };
+            var menu251 = new MenuItem
+            {
+                Text = "查询飞机档案",
+            };
+            var menu252 = new MenuItem
+            {
+                Text = "分析运力趋势",
+            };
+            var menu253 = new MenuItem
+            {
+                Text = "分析客机运力趋势",
+            };
+            var menu254 = new MenuItem
+            {
+                Text = "统计在册飞机",
+            };
+            var menu255 = new MenuItem
+            {
+                Text = "分析飞机引进方式",
+            };
+            var menu256 = new MenuItem
+            {
+                Text = "分析机队结构",
+            };
+            var menu257 = new MenuItem
+            {
+                Text = "分析飞机机龄",
+            };
+            var menu258 = new MenuItem
+            {
+                Text = "分析发动机引进方式",
+            };
+
+            menu25.Items.Add(menu251);
+            menu25.Items.Add(menu252);
+            menu25.Items.Add(menu253);
+            menu25.Items.Add(menu254);
+            menu25.Items.Add(menu255);
+            menu25.Items.Add(menu256);
+            menu25.Items.Add(menu257);
+            menu25.Items.Add(menu258);
+            menu2.Items.Add(menu25);
 
             #endregion
 
