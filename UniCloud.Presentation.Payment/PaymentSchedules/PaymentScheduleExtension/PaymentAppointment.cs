@@ -47,6 +47,26 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
             }
         }
 
+        private bool _editRecurrenceDialog=true;
+
+        /// <summary>
+        ///     控制编辑按钮是否可用
+        /// </summary>
+        public bool EditRecurrenceDialog
+        {
+            get { return Storage<PaymentAppointment>()._editRecurrenceDialog; }
+            set
+            {
+                var storage = Storage<PaymentAppointment>();
+                if (storage._editRecurrenceDialog != value)
+                {
+                    storage._editRecurrenceDialog = value;
+                    OnPropertyChanged(() => EditRecurrenceDialog);
+                }
+            }
+        }
+
+
         public override IAppointment Copy()
         {
             var newAppointment = new PaymentAppointment();
@@ -60,6 +80,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
             if (paymentAppointment != null)
             {
                 Amount = paymentAppointment._amount;
+                EditRecurrenceDialog = paymentAppointment._editRecurrenceDialog;
             }
             base.CopyFrom(other);
         }

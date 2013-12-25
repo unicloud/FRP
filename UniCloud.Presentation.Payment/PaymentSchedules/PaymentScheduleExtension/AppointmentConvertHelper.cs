@@ -25,6 +25,7 @@ using System.Windows.Media;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ColorEditor;
 using Telerik.Windows.Controls.ScheduleView;
+using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Service.Payment.Payment;
 
 #endregion
@@ -88,8 +89,9 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
             schedule.Subject = appointment.Subject;
             schedule.Body = appointment.Body;
             schedule.End = appointment.End;
-            schedule.Start = schedule.ScheduleDate;
-            schedule.Amount = schedule.Amount;
+            schedule.Start = appointment.Start;
+            schedule.ScheduleDate = appointment.Start;
+            schedule.Amount = appointment.Amount;
             schedule.IsAllDayEvent = schedule.IsAllDayEvent;
             if (appointment.TimeMarker != null)
                 schedule.Importance = appointment.TimeMarker.TimeMarkerName;
@@ -97,6 +99,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
                 schedule.ProcessStatus = appointment.Category.CategoryName;
             return schedule;
         }
+   
         /// <summary>
         ///     把Appointment转化PaymentScheduleLineDTO
         /// </summary>
@@ -112,7 +115,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
                 Start = appointment.Start,
                 End = appointment.End,
                 IsAllDayEvent = appointment.IsAllDayEvent,
-                Amount = appointment.Amount
+                Amount = appointment.Amount,
+                PaymentScheduleLineId = int.Parse(appointment.UniqueId)
             };
             if (appointment.TimeMarker != null)
                 schedule.Importance = appointment.TimeMarker.TimeMarkerName;
@@ -139,7 +143,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
                     Start = p,
                     Amount = appointment.Amount,
                     IsAllDayEvent = true,
-                    UniqueId = Guid.NewGuid().ToString(),
+                    UniqueId = RandomHelper.Next().ToString(CultureInfo.InvariantCulture),
                     TimeMarker = appointment.TimeMarker,
                     Category = appointment.Category,
                 };
@@ -148,7 +152,6 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtensio
             return occurrencePaymentAppointment;
         }
 
-     
 
         /// <summary>
         ///     获取进度

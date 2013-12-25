@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GuaranteeQueries\IGuaranteeQuery.cs" />
+    <Compile Include="GuaranteeQueries\GuaranteeQuery.cs" />
     <Compile Include="InvoiceQueries\CreditNoteQuery.cs" />
     <Compile Include="InvoiceQueries\ICreditNoteQuery.cs" />
     <Compile Include="ContractAircraftQueries\ContractAircraftQuery.cs" />
