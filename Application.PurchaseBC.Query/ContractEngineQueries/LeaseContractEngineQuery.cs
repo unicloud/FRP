@@ -17,9 +17,6 @@
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
@@ -45,13 +42,11 @@ namespace UniCloud.Application.PurchaseBC.Query.ContractEngineQueries
         public IQueryable<LeaseContractEngineDTO> LeaseContractEngineDTOQuery(
             QueryBuilder<LeaseContractEngine> query)
         {
-            var suppliers = _unitOfWork.CreateSet<Supplier>();
-            var orders = _unitOfWork.CreateSet<Order>().OfType<EngineLeaseOrder>();
-            var trades = _unitOfWork.CreateSet<Trade>();
             return
-                query.ApplyTo(_unitOfWork.CreateSet<LeaseContractEngine>())
+                query.ApplyTo(_unitOfWork.CreateSet<ContractEngine>().OfType<LeaseContractEngine>())
                      .Select(p => new LeaseContractEngineDTO
                      {
+                         LeaseContractEngineId = p.Id,
                          ContractName = p.ContractName,
                          ContractNumber = p.ContractNumber,
                          RankNumber = p.RankNumber,
@@ -62,7 +57,7 @@ namespace UniCloud.Application.PurchaseBC.Query.ContractEngineQueries
                          ImportCategoryId = p.ImportCategoryId,
                          ImportType = p.ImportCategory.ActionType,
                          ImportActionName = p.ImportCategory.ActionName,
-                         SupplierId = suppliers.FirstOrDefault(q => q.Id == trades.FirstOrDefault(l => l.Id == orders.FirstOrDefault(r => r.ContractNumber == p.ContractNumber).TradeId).SupplierId).Id,
+                         SupplierId = p.SupplierId,
                      });
         }
 

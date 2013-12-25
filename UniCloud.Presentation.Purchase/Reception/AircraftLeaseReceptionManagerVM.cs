@@ -54,7 +54,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         private void InitializeVM()
         {
-            LeaseContractAircrafts=new QueryableDataServiceCollectionView<LeaseContractAircraftDTO>(PurchaseDataService,PurchaseDataService.LeaseContractAircrafts);
+            LeaseContractAircrafts = new QueryableDataServiceCollectionView<LeaseContractAircraftDTO>(PurchaseDataService, PurchaseDataService.LeaseContractAircrafts);
 
             AircraftLeaseReceptions = Service.CreateCollection<AircraftLeaseReceptionDTO>(PurchaseDataService.AircraftLeaseReceptions.Expand(p => p.RelatedDocs));
             Service.RegisterCollectionView(AircraftLeaseReceptions); //注册查询集合。
@@ -180,6 +180,11 @@ namespace UniCloud.Presentation.Purchase.Reception
                         _appointments.Add(appointment);
                     }
                     RaisePropertyChanged(() => Appointments);
+
+                    //刷新界面按钮
+                    RemoveCommand.RaiseCanExecuteChanged();
+                    AddAttachCommand.RaiseCanExecuteChanged();
+                    AddEntityCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -202,6 +207,9 @@ namespace UniCloud.Presentation.Purchase.Reception
                 {
                     _selAircraftLeaseReceptionLine = value;
                     RaisePropertyChanged(() => SelAircraftLeaseReceptionLine);
+
+                    // 刷新按钮状态
+                    RemoveEntityCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -267,7 +275,6 @@ namespace UniCloud.Presentation.Purchase.Reception
             {
                 AircraftLeaseReceptions.Remove(SelAircraftLeaseReception);
             }
-            AircraftLeaseReceptions.Remove(SelAircraftLeaseReception);
             var currentAircraftLeaseReception = AircraftLeaseReceptions.FirstOrDefault();
             if (currentAircraftLeaseReception == null)
             {
@@ -278,13 +285,7 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         protected override bool CanRemove(object obj)
         {
-            bool canRemove;
-            if (SelAircraftLeaseReception != null)
-                canRemove = true;
-            else if (AircraftLeaseReceptions != null)
-                canRemove = true;
-            else canRemove = false;
-            return canRemove;
+            return _selAircraftLeaseReception != null;
         }
         #endregion
 
@@ -305,7 +306,7 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         protected override bool CanAddEntity(object obj)
         {
-            return SelAircraftLeaseReception!=null;
+            return SelAircraftLeaseReception != null;
         }
         #endregion
 
@@ -442,8 +443,6 @@ namespace UniCloud.Presentation.Purchase.Reception
                 schedule.ReceptionId = SelAircraftLeaseReception.AircraftLeaseReceptionId;
                 SelAircraftLeaseReception.ReceptionSchedules.Add(schedule);
             }
-
-
         }
         #endregion
 
@@ -487,7 +486,6 @@ namespace UniCloud.Presentation.Purchase.Reception
                     }
                 }
             }
-
         }
         #endregion
 

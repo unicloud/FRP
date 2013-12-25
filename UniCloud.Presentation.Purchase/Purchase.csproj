@@ -279,6 +279,18 @@
       <DependentUpon>AircraftLeaseReceptionManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Reception\AircraftLeaseReceptionManagerVM.cs" />
+    <Compile Include="Reception\AircraftPurchaseReceptionManager.xaml.cs">
+      <DependentUpon>AircraftPurchaseReceptionManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reception\AircraftPurchaseReceptionManagerVM.cs" />
+    <Compile Include="Reception\EngineLeaseReceptionManager.xaml.cs">
+      <DependentUpon>EngineLeaseReceptionManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reception\EngineLeaseReceptionManagerVM.cs" />
+    <Compile Include="Reception\EnginePurchaseReceptionManager.xaml.cs">
+      <DependentUpon>EnginePurchaseReceptionManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Reception\EnginePurchaseReceptionManagerVM.cs" />
     <Compile Include="Reception\MatchingPlanAircraftManager.xaml.cs">
       <DependentUpon>MatchingPlanAircraftManager.xaml</DependentUpon>
     </Compile>
@@ -373,6 +385,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Reception\AircraftLeaseReceptionManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reception\AircraftPurchaseReceptionManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reception\EngineLeaseReceptionManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Reception\EnginePurchaseReceptionManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
