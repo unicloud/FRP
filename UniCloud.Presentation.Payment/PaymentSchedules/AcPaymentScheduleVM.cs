@@ -20,7 +20,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Globalization;
 using System.Linq;
+using System.Windows;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.DataServices;
@@ -53,7 +55,6 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             InitialAcPaymentSchedule(); //初始化付款计划
             InitialCommand(); //初始化命令
             InitialCurrency(); //初始化币种
-            InitialPaymentAppointment(); //初始化PaymentAppointment
         }
 
         #region 加载合同飞机
@@ -152,7 +153,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialAcPaymentSchedule()
         {
-            AcPaymentSchedulesView = Service.CreateCollection(_context.AcPaymentSchedules);
+            AcPaymentSchedulesView =
+                Service.CreateCollection(_context.AcPaymentSchedules.Expand(p => p.PaymentScheduleLines));
             _paymnetFilterOperator = new FilterDescriptor("ContractAcId", FilterOperator.IsEqualTo, 0);
             AcPaymentSchedulesView.FilterDescriptors.Add(_paymnetFilterOperator);
             AcPaymentSchedulesView.LoadedData += (sender, e) =>
@@ -165,6 +167,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                 SelectedAcPaymentSchedule = e.Entities.Cast<AcPaymentScheduleDTO>().FirstOrDefault();
                 RefreshCommandState(); //刷新按钮状态
             };
+            AcPaymentSchedulesView.PropertyChanged += (s, o) => { };
         }
 
         /// <summary>
@@ -226,6 +229,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
 
         #endregion
 
+        #region 命令
+
         #region 新增飞机付款计划命令
 
         public DelegateCommand<object> AddPaymentScheduleCommand { get; private set; }
@@ -280,76 +285,6 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             return SelectedContractAircraft != null && AcPaymentSchedulesView.Count <= 0;
         }
 
-        /// <summary>
-        ///     初始化命令
-        /// </summary>
-        private void InitialCommand()
-        {
-            AddPaymentScheduleCommand = new DelegateCommand<object>(OndAddPaymentSchedule, CanAddPaymentSchedule);
-        }
-
-        #endregion
-
-        #region Schedule相关处理
-
-        private PaymentAppointmentCollection _paymentAppointmentCollection;
-
-        /// <summary>
-        ///     付款计划Appointment集合
-        /// </summary>
-        public PaymentAppointmentCollection PaymentAppointmentCollection
-        {
-            get { return _paymentAppointmentCollection; }
-        }
-
-        /// <summary>
-        ///     任务状态集合
-        /// </summary>
-        public CategoryCollection Categories
-        {
-            get { return AppointmentConvertHelper.GetCategoryCollection(); }
-        }
-
-        #region 保存
-
-        /// <summary>
-        ///     创建付款计划行
-        /// </summary>
-        public DelegateCommand<object> CreatePaymentScheduleCommand { set; get; }
-
-        public void OnCreatePaymentSchedule(object sender)
-        {
-            var scheduleView = sender as RadScheduleView;
-            if (scheduleView != null)
-            {
-                var appointment = scheduleView.EditedAppointment as PaymentAppointment;
-                if (appointment == null)
-                {
-                    return;
-                }
-                var convertToPaymentLines = new List<PaymentAppointment>();
-                //是否循环，如果循环，则批量增加
-                if (appointment.RecurrenceRule != null)
-                {
-                    var occurrenceAppointment = appointment.RecurrenceRule.Pattern.GetOccurrences(appointment.Start); //循环时间集合
-                    var occurrenceDateTiems = occurrenceAppointment as DateTime[] ?? occurrenceAppointment.ToArray();
-                    var allPaymentAppointments = AppointmentConvertHelper.GetOccurrences(appointment,
-                        occurrenceDateTiems); //所有循环的Appointment，包括当前Appointment
-                    _paymentAppointmentCollection.AddRange(allPaymentAppointments);
-                    convertToPaymentLines.AddRange(allPaymentAppointments);
-                    _paymentAppointmentCollection.Remove(appointment);
-                  
-                }
-                else
-                {
-                    convertToPaymentLines.Add(appointment);
-                }
-                //Appointment转化DTO，同时添加到需要增加的集合中
-                AppointmentToPaymentLineConvert(convertToPaymentLines);
-                RaisePropertyChanged(() => PaymentAppointmentCollection);
-            }
-        }
-
         #endregion
 
         #region 删除机付款计划行命令
@@ -362,13 +297,28 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// <param name="sender"></param>
         public void OndDelPaymentScheduleLine(object sender)
         {
-            if (SelectPaymentScheduleLine == null)
+            var selPayment = sender as PaymentScheduleLineDTO;
+            if (selPayment == null)
             {
                 MessageAlert("提示", "请选择需要删除的付款计划明细");
                 return;
             }
-            SelectedAcPaymentSchedule.PaymentScheduleLines.Remove(SelectPaymentScheduleLine);
-            RefreshCommandState(); //刷新按钮状态
+            MessageConfirm("提示", "是否删除改记录", (s, e) =>
+            {
+                if (e.DialogResult == true)
+                {
+                    SelectedAcPaymentSchedule.PaymentScheduleLines.Remove(selPayment);
+                    //在删除计划明细的同时，需要删除日程控件的中Appointment
+                    var paymentAppointment = _paymentAppointmentCollection.FirstOrDefault(
+                        p => p.UniqueId == selPayment.PaymentScheduleLineId.ToString(CultureInfo.InvariantCulture));
+                    if (paymentAppointment != null)
+                    {
+                        _paymentAppointmentCollection.Remove(paymentAppointment);
+                        RaisePropertyChanged(() => PaymentAppointmentCollection);
+                    }
+                    RefreshCommandState(); //刷新按钮状态
+                }
+            });
         }
 
         /// <summary>
@@ -378,13 +328,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// <returns>新增命令是否可用。</returns>
         public bool CanDelPaymentScheduleLine(object sender)
         {
-            if (AcPaymentSchedulesView.IsSubmittingChanges)
-            {
-                return false;
-            }
-            //付款计划跟发票建立关联，则不能删除
-            return SelectedContractAircraft != null && SelectedAcPaymentSchedule != null
-                   && !SelectedAcPaymentSchedule.IsCompleted && SelectPaymentScheduleLine != null;
+            return true;
         }
 
         #endregion
@@ -428,80 +372,94 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
 
         #endregion
 
-        #region 删除
-        public DelegateCommand<object> DelAppointmentCommand { set; get; }
+        #region 编辑付款计划行
 
-        public void OnDelAppointment(object sender)
+        public DelegateCommand<object> EditPaymentScheduleLineCommand { get; private set; }
+
+        /// <summary>
+        ///     执行编辑付款计划行命令。
+        /// </summary>
+        /// <param name="sender"></param>
+        public void OndEditPaymentScheduleLine(object sender)
         {
-              if (SelectedAcPaymentSchedule == null)
+            var selPayment = sender as PaymentScheduleLineDTO;
+            if (selPayment == null)
             {
-                MessageAlert("提示", "付款计划不能为空");
+                MessageAlert("提示", "请选择需要删除的付款计划明细");
                 return;
             }
-            var scheduleView = sender as RadScheduleView;
-            if (scheduleView != null)
-            {
-                var appointment = scheduleView.EditedAppointment as PaymentAppointment;
-                if (appointment != null)
-                {
-                    var paymentScheduleLine =
-                        SelectedAcPaymentSchedule.PaymentScheduleLines.FirstOrDefault(
-                            p => p.PaymentScheduleLineId == int.Parse(appointment.UniqueId));
-                    if (paymentScheduleLine!=null)
-                    {
-                        SelectedAcPaymentSchedule.PaymentScheduleLines.Remove(paymentScheduleLine);
-                    }
 
+            if (_scheduleView != null)
+            {
+                var ediAppointment =
+                    PaymentAppointmentCollection.FirstOrDefault(
+                        p => p.UniqueId == selPayment.PaymentScheduleLineId.ToString(CultureInfo.InvariantCulture));
+                if (ediAppointment != null)
+                {
+                    RadScheduleViewCommands.EditAppointment.Execute(ediAppointment, _scheduleView);
                 }
             }
         }
 
-        #endregion
-
-        #region 编辑
-        public DelegateCommand<object> EditAppointmentCommand { set; get; }
-
-        public void OnEditAppointment(object sender)
+        /// <summary>
+        ///     判断编辑飞机付款计划行命令是否可用。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <returns>新增命令是否可用。</returns>
+        public bool CanEditPaymentScheduleLine(object sender)
         {
-            if (SelectedAcPaymentSchedule == null)
-            {
-                MessageAlert("提示", "付款计划不能为空");
-                return;
-            }
-            var scheduleView = sender as RadScheduleView;
-            if (scheduleView != null)
-            {
-                var appointment = scheduleView.EditedAppointment as PaymentAppointment;
-                if (appointment != null)
-                {
-                    var paymentScheduleLine =
-                        SelectedAcPaymentSchedule.PaymentScheduleLines.FirstOrDefault(
-                            p => p.PaymentScheduleLineId == int.Parse(appointment.UniqueId));
-                    if (paymentScheduleLine!=null)
-                    {
-                        AppointmentConvertHelper.ConvertToPaymentScheduleLine(appointment, paymentScheduleLine);
-                    }
-                }
-            }
-
+            return true;
         }
 
         #endregion
 
         /// <summary>
-        ///     付款计划Schedule相关处理
+        ///     初始化命令
         /// </summary>
-        private void InitialPaymentAppointment()
+        private void InitialCommand()
         {
-            _paymentAppointmentCollection = new PaymentAppointmentCollection();
-            CreatePaymentScheduleCommand = new DelegateCommand<object>(OnCreatePaymentSchedule);
-            AddPaymentScheduleLineCommand = new DelegateCommand<object>(OndAddPaymentScheduleLine,
-                CanAddPaymentScheduleLine);
+            AddPaymentScheduleCommand = new DelegateCommand<object>(OndAddPaymentSchedule, CanAddPaymentSchedule);
             DelPaymentScheduleLineCommand = new DelegateCommand<object>(OndDelPaymentScheduleLine,
                 CanDelPaymentScheduleLine);
-            DelAppointmentCommand = new DelegateCommand<object>(OnDelAppointment);
-            EditAppointmentCommand=new DelegateCommand<object>(OnEditAppointment);
-       
+            AddPaymentScheduleLineCommand = new DelegateCommand<object>(OndAddPaymentScheduleLine,
+                CanAddPaymentScheduleLine);
+            EditPaymentScheduleLineCommand = new DelegateCommand<object>(OndEditPaymentScheduleLine,
+                CanEditPaymentScheduleLine);
+        }
+
+        #endregion
+
+        #region Schedule相关处理
+
+        private readonly PaymentAppointmentCollection _paymentAppointmentCollection = new PaymentAppointmentCollection();
+        private RadScheduleView _scheduleView;
+
+        public bool ScheduleViewEnable
+        {
+            get
+            {
+                if (AcPaymentSchedulesView.IsSubmittingChanges)
+                {
+                    return false;
+                }
+                return SelectedContractAircraft != null && SelectedAcPaymentSchedule != null;
+            }
+        }
+
+        /// <summary>
+        ///     付款计划Appointment集合
+        /// </summary>
+        public PaymentAppointmentCollection PaymentAppointmentCollection
+        {
+            get { return _paymentAppointmentCollection; }
+        }
+
+        /// <summary>
+        ///     任务状态集合
+        /// </summary>
+        public CategoryCollection Categories
+        {
+            get { return AppointmentConvertHelper.GetCategoryCollection(); }
         }
 
         /// <summary>
@@ -518,14 +476,14 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         }
 
         /// <summary>
-        /// 付款计划Appointment转化为付款计划行DTO
+        ///     付款计划Appointment转化为付款计划行DTO
         /// </summary>
         private void AppointmentToPaymentLineConvert(List<PaymentAppointment> paymentAppointments)
         {
             paymentAppointments.ForEach(p =>
             {
-               var paymentLine= AppointmentConvertHelper.ConvertToPaymentScheduleLine(p);
-               SelectedAcPaymentSchedule.PaymentScheduleLines.Add(paymentLine);
+                var paymentLine = AppointmentConvertHelper.ConvertToPaymentScheduleLine(p);
+                SelectedAcPaymentSchedule.PaymentScheduleLines.Add(paymentLine);
             });
         }
 
@@ -536,10 +494,133 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// <param name="e"></param>
         public void PaymentScheduleView_OnShowDialog(object sender, ShowDialogEventArgs e)
         {
+            var schedule = sender as RadScheduleView;
+            if (schedule == null)
+            {
+                return;
+            }
+            if (e.DialogViewModel is AppointmentDialogViewModel)
+            {
+                var viewModel = e.DialogViewModel as AppointmentDialogViewModel;
+                if (viewModel.ViewMode == AppointmentViewMode.Edit)
+                {
+                    var appointment = schedule.EditedAppointment as PaymentAppointment;
+                    if (appointment != null)
+                    {
+                        appointment.EditRecurrenceDialog = false;
+                    }
+                    return;
+                }
+            }
             if (e.DialogViewModel is RecurrenceDialogViewModel)
             {
                 var viewModel = e.DialogViewModel as RecurrenceDialogViewModel;
                 viewModel.RecurrenceRangeType = RecurrenceRangeType.RepeatUntil;
+            }
+        }
+
+        /// <summary>
+        ///     删除Appointment
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void PaymentScheduleView_OnAppointmentDeleted(object sender, AppointmentDeletedEventArgs e)
+        {
+            if (SelectedAcPaymentSchedule == null)
+            {
+                MessageAlert("提示", "付款计划不能为空");
+                return;
+            }
+            var scheduleView = sender as RadScheduleView;
+            if (scheduleView != null)
+            {
+                var appointment = e.Appointment as PaymentAppointment;
+                if (appointment != null)
+                {
+                    var paymentScheduleLine =
+                        SelectedAcPaymentSchedule.PaymentScheduleLines.FirstOrDefault(
+                            p => p.PaymentScheduleLineId == int.Parse(appointment.UniqueId));
+                    if (paymentScheduleLine != null)
+                    {
+                        SelectedAcPaymentSchedule.PaymentScheduleLines.Remove(paymentScheduleLine);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        ///     编辑Appointment
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void PaymentScheduleView_OnAppointmentEdited(object sender, AppointmentEditedEventArgs e)
+        {
+            if (SelectedAcPaymentSchedule == null)
+            {
+                MessageAlert("提示", "付款计划不能为空");
+                return;
+            }
+            var scheduleView = sender as RadScheduleView;
+            if (scheduleView != null)
+            {
+                var appointment = e.Appointment as PaymentAppointment;
+                if (appointment != null)
+                {
+                    var paymentScheduleLine =
+                        SelectedAcPaymentSchedule.PaymentScheduleLines.FirstOrDefault(
+                            p => p.PaymentScheduleLineId == int.Parse(appointment.UniqueId));
+                    if (paymentScheduleLine != null)
+                    {
+                        AppointmentConvertHelper.ConvertToPaymentScheduleLine(appointment, paymentScheduleLine);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        ///     增加付款计划行
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void PaymentScheduleView_OnAppointmentCreated(object sender, AppointmentCreatedEventArgs e)
+        {
+            var scheduleView = sender as RadScheduleView;
+            if (scheduleView != null)
+            {
+                var appointment = e.CreatedAppointment as PaymentAppointment;
+                if (appointment == null)
+                {
+                    return;
+                }
+                var convertToPaymentLines = new List<PaymentAppointment>();
+                //是否循环，如果循环，则批量增加
+                if (appointment.RecurrenceRule != null)
+                {
+                    var occurrenceAppointment = appointment.RecurrenceRule.Pattern.GetOccurrences(appointment.Start);
+                        //循环时间集合
+                    var occurrenceDateTiems = occurrenceAppointment as DateTime[] ?? occurrenceAppointment.ToArray();
+                    var allPaymentAppointments = AppointmentConvertHelper.GetOccurrences(appointment,
+                        occurrenceDateTiems); //所有循环的Appointment，包括当前Appointment
+                    _paymentAppointmentCollection.AddRange(allPaymentAppointments);
+                    convertToPaymentLines.AddRange(allPaymentAppointments);
+                    _paymentAppointmentCollection.Remove(appointment);
+                }
+                else
+                {
+                    appointment.UniqueId = RandomHelper.Next().ToString(CultureInfo.InvariantCulture);
+                    convertToPaymentLines.Add(appointment);
+                }
+                //Appointment转化DTO，同时添加到需要增加的集合中
+                AppointmentToPaymentLineConvert(convertToPaymentLines);
+                RaisePropertyChanged(() => PaymentAppointmentCollection);
+            }
+        }
+
+        public void PaymentScheduleView_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            if (_scheduleView == null)
+            {
+                _scheduleView = sender as RadScheduleView;
             }
         }
 
@@ -596,6 +677,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             AddPaymentScheduleCommand.RaiseCanExecuteChanged();
             AddPaymentScheduleLineCommand.RaiseCanExecuteChanged();
             DelPaymentScheduleLineCommand.RaiseCanExecuteChanged();
+            RaisePropertyChanged(() => ScheduleViewEnable);
         }
 
         #endregion

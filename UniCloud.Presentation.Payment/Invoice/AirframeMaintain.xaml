@@ -327,6 +327,12 @@
                                                                        DataMemberBinding="{Binding Amount,StringFormat={StaticResource NumberStringFormat}}"
                                                                        MaskType="Numeric"
                                                                        Mask="###" />
+                                    <telerik:GridViewExpressionColumn Header="行金额"
+                                                                      HeaderTextAlignment="Center"
+                                                                      MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                      TextAlignment="Right"
+                                                                      Expression="(UnitPrice*Amount)"
+                                                                      DataFormatString="{StaticResource CurrencyStringFormat}" />
                                     <telerik:GridViewDataColumn Header="备注"
                                                                 IsSortable="True"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"

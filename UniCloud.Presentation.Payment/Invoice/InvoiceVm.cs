@@ -36,6 +36,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             AddInvoiceCommand = new DelegateCommand<object>(OnAddInvoice, CanAddInvoice);
             RemoveInvoiceCommand = new DelegateCommand<object>(OnRemoveInvoice, CanRemoveInvoice);
             AddInvoiceLineCommand = new DelegateCommand<object>(OnAddInvoiceLine, CanAddInvoiceLine);
+            EditInvoiceCommand = new DelegateCommand<object>(OnEditInvoice, CanEditInvoice);
             RemoveInvoiceLineCommand = new DelegateCommand<object>(OnRemoveInvoiceLine, CanRemoveInvoiceLine);
             SubmitInvoiceCommand = new DelegateCommand<object>(OnSubmitInvoice, CanSubmitInvoice);
             ReviewInvoiceCommand = new DelegateCommand<object>(OnReviewInvoice, CanReviewInvoice);
@@ -85,6 +86,21 @@ namespace UniCloud.Presentation.Payment.Invoice
         }
 
         protected virtual bool CanAddInvoice(object obj)
+        {
+            return true;
+        }
+        #endregion
+
+        #region 修改发票
+        /// <summary>
+        ///  修改发票
+        /// </summary>
+        public DelegateCommand<object> EditInvoiceCommand { get; set; }
+        protected virtual void OnEditInvoice(object obj)
+        {
+        }
+
+        protected virtual bool CanEditInvoice(object obj)
         {
             return true;
         }

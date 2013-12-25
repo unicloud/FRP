@@ -20,8 +20,6 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.CommonExtension;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.Payment.Invoice;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
@@ -37,9 +35,8 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         #region 声明、初始化
 
         private readonly IRegionManager _regionManager;
-        [Import]
-        public DocumentViewer DocumentView;
-
+        //[Import]
+        //public PaymentNoticeEdit CurrenPaymentNoticeEdit;
         [ImportingConstructor]
         public PaymentNoticeVm(IRegionManager regionManager)
         {
@@ -91,7 +88,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             // 将CollectionView的AutoLoad属性设为True
             PaymentNotices.AutoLoad = true;
             PaymentNotices.Load(true);
-            Suppliers.Load(true);
             Currencies.Load(true);
         }
 
@@ -137,25 +133,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
 
         #endregion
 
-        #region 供应商
-        private SupplierDTO _supplier;
-        /// <summary>
-        /// 选中的供应商
-        /// </summary>
-        public SupplierDTO Supplier
-        {
-            get { return _supplier; }
-            set
-            {
-                if (value != null && _supplier != value)
-                {
-                    _supplier = value;
-                    RaisePropertyChanged(() => Supplier);
-                }
-            }
-        }
-        #endregion
-
         #endregion
 
         #endregion
@@ -165,16 +142,35 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         #region 创建新付款通知
         protected override void OnAddInvoice(object obj)
         {
-            var paymentNotice = new PaymentNoticeDTO
-                                  {
-                                      PaymentNoticeId = RandomHelper.Next(),
-                                      CreateDate = DateTime.Now,
-                                      DeadLine = DateTime.Now
-                                  };
-            PaymentNotices.AddNew(paymentNotice);
+             var currenPaymentNoticeEdit=new PaymentNoticeEdit();
+            currenPaymentNoticeEdit.ViewModel.InitData(0, PaymentNoticeEditClosed);
+            currenPaymentNoticeEdit.ShowDialog();
         }
 
         protected override bool CanAddInvoice(object obj)
+        {
+            return true;
+        }
+        private void PaymentNoticeEditClosed(object sender, WindowClosedEventArgs e)
+        {
+           PaymentNotices.Load(true);
+        }
+        #endregion
+
+        #region 修改付款通知
+        protected override void OnEditInvoice(object obj)
+        {
+            if (PaymentNotice == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+             var currenPaymentNoticeEdit=new PaymentNoticeEdit();
+            currenPaymentNoticeEdit.ViewModel.InitData(PaymentNotice.PaymentNoticeId, PaymentNoticeEditClosed);
+            currenPaymentNoticeEdit.ShowDialog();
+        }
+
+        protected override bool CanEditInvoice(object obj)
         {
             return true;
         }
@@ -196,49 +192,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         }
 
         protected override bool CanRemoveInvoice(object obj)
-        {
-            return true;
-        }
-        #endregion
-
-        #region 增加付款通知行
-        protected override void OnAddInvoiceLine(object obj)
-        {
-            if (PaymentNotice == null)
-            {
-                MessageAlert("请选择一条付款通知记录！");
-                return;
-            }
-            var maintainInvoiceLine = new PaymentNoticeLineDTO
-            {
-                PaymentNoticeLineId = RandomHelper.Next(),
-            };
-
-            PaymentNotice.PaymentNoticeLines.Add(maintainInvoiceLine);
-        }
-
-        protected override bool CanAddInvoiceLine(object obj)
-        {
-            return true;
-        }
-        #endregion
-
-        #region 移除付款通知行
-        protected override void OnRemoveInvoiceLine(object obj)
-        {
-            if (PaymentNoticeLine == null)
-            {
-                MessageAlert("请选择一条付款通知明细！");
-                return;
-            }
-            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                PaymentNotice.PaymentNoticeLines.Remove(PaymentNoticeLine);
-                                            });
-        }
-
-        protected override bool CanRemoveInvoiceLine(object obj)
         {
             return true;
         }
@@ -300,11 +253,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         {
             if (comboboxSelectedItem is SupplierDTO)
             {
-                Supplier = comboboxSelectedItem as SupplierDTO;
-            }
-            else if (comboboxSelectedItem is string)
-            {
-
+                PaymentNotice.SupplierName = (comboboxSelectedItem as SupplierDTO).Name;
             }
         }
         #endregion

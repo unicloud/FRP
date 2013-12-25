@@ -7,6 +7,8 @@ using UniCloud.Application.PaymentBC.ContractAircraftServices;
 using UniCloud.Application.PaymentBC.ContractEngineServices;
 using UniCloud.Application.PaymentBC.CurrencyServices;
 using UniCloud.Application.PaymentBC.DTO;
+using UniCloud.Application.PaymentBC.DTO.GuaranteeDTO;
+using UniCloud.Application.PaymentBC.GuaranteeServices;
 using UniCloud.Application.PaymentBC.InvoiceServices;
 using UniCloud.Application.PaymentBC.MaintainInvoiceServices;
 using UniCloud.Application.PaymentBC.OrderServices;
@@ -40,6 +42,7 @@ namespace UniCloud.DistributedServices.Payment
         private readonly ISupplierAppService _supplierAppService;
         private readonly IPaymentNoticeAppService _paymentNoticeAppService;
         private readonly IStaticLoad _staticLoad;
+        private readonly IGuaranteeAppService _guaranteeAppService;
         public PaymentData()
             : base("UniCloud.Application.PaymentBC.DTO")
         {
@@ -56,6 +59,7 @@ namespace UniCloud.DistributedServices.Payment
             _paymentScheduleAppService = DefaultContainer.Resolve<IPaymentScheduleAppService>();
             _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();
             _paymentNoticeAppService = DefaultContainer.Resolve<IPaymentNoticeAppService>();
+            _guaranteeAppService = DefaultContainer.Resolve<IGuaranteeAppService>();
         }
 
         #region Invoice集合
@@ -294,6 +298,26 @@ namespace UniCloud.DistributedServices.Payment
         public IQueryable<StandardOrderDTO> StandardOrders
         {
             get { return _orderAppService.GetStandardOrders(); }
+        }
+
+        #endregion
+
+        #region 保证金集合
+
+        /// <summary>
+        ///    租赁保证金
+        /// </summary>
+        public IQueryable<LeaseGuaranteeDTO> LeaseGuarantees
+        {
+            get { return _guaranteeAppService.GetLeaseGuarantees(); }
+        }
+
+        /// <summary>
+        ///    大修保证金
+        /// </summary>
+        public IQueryable<MaintainGuaranteeDTO> MaintainGuarantees
+        {
+            get { return _guaranteeAppService.GetMaintainGuarantee(); }
         }
 
         #endregion

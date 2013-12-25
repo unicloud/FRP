@@ -66,6 +66,8 @@
     <Compile Include="..\Domain.PaymentBC\Enums\MaintainItem.cs">
       <Link>MaintainInvoiceDTO\MaintainItem.cs</Link>
     </Compile>
+    <Compile Include="GuaranteeDTO\LeaseGuaranteeDTO.cs" />
+    <Compile Include="GuaranteeDTO\MaintainGuaranteeDTO.cs" />
     <Compile Include="..\Domain.PaymentBC\Enums\PaymentNoticeStatus.cs">
       <Link>PaymentNoticeDTO\PaymentNoticeStatus.cs</Link>
     </Compile>

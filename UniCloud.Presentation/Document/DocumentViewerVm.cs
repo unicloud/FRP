@@ -204,6 +204,10 @@ namespace UniCloud.Presentation.Document
 
             if (CurrentDocumentView.PaneGroups.SelectedPane.Name.Equals("WordPane", StringComparison.OrdinalIgnoreCase))
             {
+                if (string.IsNullOrEmpty(_currentDoc.Name))
+                {
+                    _currentDoc.Name = "新建Word文档" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".docx";
+                }
                 _currentDoc.FileStorage = new DocxFormatProvider().Export(CurrentDocumentView.WordReader.Document);
             }
             else if (CurrentDocumentView.PaneGroups.SelectedPane.Name.Equals("PdfPane", StringComparison.OrdinalIgnoreCase))
