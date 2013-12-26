@@ -165,6 +165,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Guarantees\LeaseGuarantee.xaml.cs">
+      <DependentUpon>LeaseGuarantee.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Guarantees\LeaseGuaranteeVM.cs" />
+    <Compile Include="Guarantees\MaintainGuarantee.xaml.cs">
+      <DependentUpon>MaintainGuarantee.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Guarantees\MaintainGuaranteeVM.cs" />
     <Compile Include="Invoice\APUMaintain.xaml.cs">
       <DependentUpon>APUMaintain.xaml</DependentUpon>
     </Compile>
@@ -278,6 +286,14 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="Guarantees\LeaseGuarantee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Guarantees\MaintainGuarantee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Invoice\APUMaintain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

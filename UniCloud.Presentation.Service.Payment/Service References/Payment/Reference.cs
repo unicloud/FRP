@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2013/12/25 11:30:20
+// 生成日期: 2013/12/25 18:07:56
 namespace UniCloud.Presentation.Service.Payment.Payment
 {
     
@@ -39,7 +39,13 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         protected global::System.Type ResolveTypeFromName(string typeName)
         {
-            global::System.Type resolvedType = this.DefaultResolveType(typeName, "UniCloud.Application.PaymentBC.DTO", "UniCloud.Presentation.Service.Payment.Payment");
+            global::System.Type resolvedType = this.DefaultResolveType(typeName, "UniCloud.Application.PaymentBC.DTO.GuaranteeDTO", "UniCloud.Presentation.Service.Payment.Payment.UniCloud.Application.PaymentBC.DTO." +
+                    "GuaranteeDTO");
+            if ((resolvedType != null))
+            {
+                return resolvedType;
+            }
+            resolvedType = this.DefaultResolveType(typeName, "UniCloud.Application.PaymentBC.DTO", "UniCloud.Presentation.Service.Payment.Payment");
             if ((resolvedType != null))
             {
                 return resolvedType;
@@ -54,6 +60,11 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         protected string ResolveNameFromType(global::System.Type clientType)
         {
+            if (clientType.Namespace.Equals("UniCloud.Presentation.Service.Payment.Payment.UniCloud.Application.PaymentBC.DTO." +
+                    "GuaranteeDTO", global::System.StringComparison.Ordinal))
+            {
+                return string.Concat("UniCloud.Application.PaymentBC.DTO.GuaranteeDTO.", clientType.Name);
+            }
             if (clientType.Namespace.Equals("UniCloud.Presentation.Service.Payment.Payment", global::System.StringComparison.Ordinal))
             {
                 return string.Concat("UniCloud.Application.PaymentBC.DTO.", clientType.Name);
@@ -486,6 +497,40 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<StandardOrderDTO> _StandardOrders;
         /// <summary>
+        /// 架构中不存在 LeaseGuarantees 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<UniCloud.Application.PaymentBC.DTO.GuaranteeDTO.LeaseGuaranteeDTO> LeaseGuarantees
+        {
+            get
+            {
+                if ((this._LeaseGuarantees == null))
+                {
+                    this._LeaseGuarantees = base.CreateQuery<UniCloud.Application.PaymentBC.DTO.GuaranteeDTO.LeaseGuaranteeDTO>("LeaseGuarantees");
+                }
+                return this._LeaseGuarantees;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<UniCloud.Application.PaymentBC.DTO.GuaranteeDTO.LeaseGuaranteeDTO> _LeaseGuarantees;
+        /// <summary>
+        /// 架构中不存在 MaintainGuarantees 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<UniCloud.Application.PaymentBC.DTO.GuaranteeDTO.MaintainGuaranteeDTO> MaintainGuarantees
+        {
+            get
+            {
+                if ((this._MaintainGuarantees == null))
+                {
+                    this._MaintainGuarantees = base.CreateQuery<UniCloud.Application.PaymentBC.DTO.GuaranteeDTO.MaintainGuaranteeDTO>("MaintainGuarantees");
+                }
+                return this._MaintainGuarantees;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<UniCloud.Application.PaymentBC.DTO.GuaranteeDTO.MaintainGuaranteeDTO> _MaintainGuarantees;
+        /// <summary>
         /// 架构中不存在 CreditNotes 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -684,6 +729,22 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         public void AddToStandardOrders(StandardOrderDTO standardOrderDTO)
         {
             base.AddObject("StandardOrders", standardOrderDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 LeaseGuarantees 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToLeaseGuarantees(UniCloud.Application.PaymentBC.DTO.GuaranteeDTO.LeaseGuaranteeDTO leaseGuaranteeDTO)
+        {
+            base.AddObject("LeaseGuarantees", leaseGuaranteeDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 MaintainGuarantees 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToMaintainGuarantees(UniCloud.Application.PaymentBC.DTO.GuaranteeDTO.MaintainGuaranteeDTO maintainGuaranteeDTO)
+        {
+            base.AddObject("MaintainGuarantees", maintainGuaranteeDTO);
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private abstract class GeneratedEdmModel
@@ -1065,44 +1126,72 @@ namespace UniCloud.Presentation.Service.Payment.Payment
                 "g\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property N" +
                 "ame=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierNam" +
                 "e\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /></EntityType></" +
-                "Schema><Schema Namespace=\"UniCloud.DistributedServices.Payment\" xmlns=\"http://sc" +
-                "hemas.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"PaymentData\" m:IsDef" +
-                "aultEntityContainer=\"true\"><EntitySet Name=\"CreditNotes\" EntityType=\"UniCloud.Ap" +
-                "plication.PaymentBC.DTO.CreditNoteDTO\" /><EntitySet Name=\"LeaseInvoices\" EntityT" +
-                "ype=\"UniCloud.Application.PaymentBC.DTO.LeaseInvoiceDTO\" />";
+                "Schema><Schema Namespace=\"UniCloud.Application.PaymentBC.DTO.GuaranteeDTO\" xmlns" +
+                "=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityType Name=\"LeaseGuarantee" +
+                "DTO\"><Key><PropertyRef Name=\"GuaranteeId\" /></Key><Property Name=\"GuaranteeId\" T" +
+                "ype=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"StartDate\" Type=\"Edm.DateTime" +
+                "\" Nullable=\"false\" /><Property Name=\"EndDate\" Type=\"Edm.Dat";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart4 = "<EntitySet Name=\"PrepaymentInvoices\" EntityType=\"UniCloud.Application.PaymentBC.D" +
-                "TO.PrepaymentInvoiceDTO\" /><EntitySet Name=\"PurchaseInvoices\" EntityType=\"UniClo" +
-                "ud.Application.PaymentBC.DTO.PurchaseInvoiceDTO\" /><EntitySet Name=\"EngineMainta" +
-                "inInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.EngineMaintainInvoice" +
-                "DTO\" /><EntitySet Name=\"APUMaintainInvoices\" EntityType=\"UniCloud.Application.Pa" +
-                "ymentBC.DTO.APUMaintainInvoiceDTO\" /><EntitySet Name=\"AirframeMaintainInvoices\" " +
-                "EntityType=\"UniCloud.Application.PaymentBC.DTO.AirframeMaintainInvoiceDTO\" /><En" +
-                "titySet Name=\"UndercartMaintainInvoices\" EntityType=\"UniCloud.Application.Paymen" +
-                "tBC.DTO.UndercartMaintainInvoiceDTO\" /><EntitySet Name=\"ContractAircrafts\" Entit" +
-                "yType=\"UniCloud.Application.PaymentBC.DTO.ContractAircraftDTO\" /><EntitySet Name" +
-                "=\"ContractEngines\" EntityType=\"UniCloud.Application.PaymentBC.DTO.ContractEngine" +
-                "DTO\" /><EntitySet Name=\"Currencies\" EntityType=\"UniCloud.Application.PaymentBC.D" +
-                "TO.CurrencyDTO\" /><EntitySet Name=\"PaymentSchedules\" EntityType=\"UniCloud.Applic" +
-                "ation.PaymentBC.DTO.PaymentScheduleDTO\" /><EntitySet Name=\"AcPaymentSchedules\" E" +
-                "ntityType=\"UniCloud.Application.PaymentBC.DTO.AcPaymentScheduleDTO\" /><EntitySet" +
-                " Name=\"EnginePaymentSchedules\" EntityType=\"UniCloud.Application.PaymentBC.DTO.En" +
-                "ginePaymentScheduleDTO\" /><EntitySet Name=\"StandardPaymentSchedules\" EntityType=" +
-                "\"UniCloud.Application.PaymentBC.DTO.StandardPaymentScheduleDTO\" /><EntitySet Nam" +
-                "e=\"PaymentNotices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PaymentNoticeD" +
-                "TO\" /><EntitySet Name=\"Suppliers\" EntityType=\"UniCloud.Application.PaymentBC.DTO" +
-                ".SupplierDTO\" /><EntitySet Name=\"Orders\" EntityType=\"UniCloud.Application.Paymen" +
-                "tBC.DTO.OrderDTO\" /><EntitySet Name=\"PurchaseOrders\" EntityType=\"UniCloud.Applic" +
-                "ation.PaymentBC.DTO.PurchaseOrderDTO\" /><EntitySet Name=\"AircraftPurchaseOrders\"" +
-                " EntityType=\"UniCloud.Application.PaymentBC.DTO.AircraftPurchaseOrderDTO\" /><Ent" +
-                "itySet Name=\"AircraftLeaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO" +
-                ".AircraftLeaseOrderDTO\" /><EntitySet Name=\"EnginePurchaseOrders\" EntityType=\"Uni" +
-                "Cloud.Application.PaymentBC.DTO.EnginePurchaseOrderDTO\" /><EntitySet Name=\"Engin" +
-                "eLeaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.EngineLeaseOrderDTO" +
-                "\" /><EntitySet Name=\"BFEPurchaseOrders\" EntityType=\"UniCloud.Application.Payment" +
-                "BC.DTO.BFEPurchaseOrderDTO\" /><EntitySet Name=\"StandardOrders\" EntityType=\"UniCl" +
-                "oud.Application.PaymentBC.DTO.StandardOrderDTO\" /></EntityContainer></Schema></e" +
-                "dmx:DataServices></edmx:Edmx>";
+            private const string ModelPart4 = "eTime\" Nullable=\"false\" /><Property Name=\"Amount\" Type=\"Edm.Decimal\" Nullable=\"fa" +
+                "lse\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"Currenc" +
+                "yName\" Type=\"Edm.String\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /><Pr" +
+                "operty Name=\"Reviewer\" Type=\"Edm.String\" /><Property Name=\"CreateDate\" Type=\"Edm" +
+                ".DateTime\" Nullable=\"false\" /><Property Name=\"ReviewDate\" Type=\"Edm.DateTime\" Nu" +
+                "llable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Ord" +
+                "erId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm." +
+                "Int32\" Nullable=\"false\" /></EntityType><EntityType Name=\"MaintainGuaranteeDTO\"><" +
+                "Key><PropertyRef Name=\"GuaranteeId\" /></Key><Property Name=\"MaintainContractId\" " +
+                "Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"GuaranteeId\" Type=\"Edm.Int32" +
+                "\" Nullable=\"false\" /><Property Name=\"StartDate\" Type=\"Edm.DateTime\" Nullable=\"fa" +
+                "lse\" /><Property Name=\"EndDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property" +
+                " Name=\"Amount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"SupplierNam" +
+                "e\" Type=\"Edm.String\" /><Property Name=\"CurrencyName\" Type=\"Edm.String\" /><Proper" +
+                "ty Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"Reviewer\" Type=\"Edm.S" +
+                "tring\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Pro" +
+                "perty Name=\"ReviewDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"S" +
+                "tatus\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm" +
+                ".Int32\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable" +
+                "=\"false\" /></EntityType></Schema><Schema Namespace=\"UniCloud.DistributedServices" +
+                ".Payment\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityContainer " +
+                "Name=\"PaymentData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"CreditNote" +
+                "s\" EntityType=\"UniCloud.Application.PaymentBC.DTO.CreditNoteDTO\" /><EntitySet Na" +
+                "me=\"LeaseInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.LeaseInvoiceDT" +
+                "O\" /><EntitySet Name=\"PrepaymentInvoices\" EntityType=\"UniCloud.Application.Payme" +
+                "ntBC.DTO.PrepaymentInvoiceDTO\" /><EntitySet Name=\"PurchaseInvoices\" EntityType=\"" +
+                "UniCloud.Application.PaymentBC.DTO.PurchaseInvoiceDTO\" /><EntitySet Name=\"Engine" +
+                "MaintainInvoices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.EngineMaintainI" +
+                "nvoiceDTO\" /><EntitySet Name=\"APUMaintainInvoices\" EntityType=\"UniCloud.Applicat" +
+                "ion.PaymentBC.DTO.APUMaintainInvoiceDTO\" /><EntitySet Name=\"AirframeMaintainInvo" +
+                "ices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.AirframeMaintainInvoiceDTO\"" +
+                " /><EntitySet Name=\"UndercartMaintainInvoices\" EntityType=\"UniCloud.Application." +
+                "PaymentBC.DTO.UndercartMaintainInvoiceDTO\" /><EntitySet Name=\"ContractAircrafts\"" +
+                " EntityType=\"UniCloud.Application.PaymentBC.DTO.ContractAircraftDTO\" /><EntitySe" +
+                "t Name=\"ContractEngines\" EntityType=\"UniCloud.Application.PaymentBC.DTO.Contract" +
+                "EngineDTO\" /><EntitySet Name=\"Currencies\" EntityType=\"UniCloud.Application.Payme" +
+                "ntBC.DTO.CurrencyDTO\" /><EntitySet Name=\"PaymentSchedules\" EntityType=\"UniCloud." +
+                "Application.PaymentBC.DTO.PaymentScheduleDTO\" /><EntitySet Name=\"AcPaymentSchedu" +
+                "les\" EntityType=\"UniCloud.Application.PaymentBC.DTO.AcPaymentScheduleDTO\" /><Ent" +
+                "itySet Name=\"EnginePaymentSchedules\" EntityType=\"UniCloud.Application.PaymentBC." +
+                "DTO.EnginePaymentScheduleDTO\" /><EntitySet Name=\"StandardPaymentSchedules\" Entit" +
+                "yType=\"UniCloud.Application.PaymentBC.DTO.StandardPaymentScheduleDTO\" /><EntityS" +
+                "et Name=\"PaymentNotices\" EntityType=\"UniCloud.Application.PaymentBC.DTO.PaymentN" +
+                "oticeDTO\" /><EntitySet Name=\"Suppliers\" EntityType=\"UniCloud.Application.Payment" +
+                "BC.DTO.SupplierDTO\" /><EntitySet Name=\"Orders\" EntityType=\"UniCloud.Application." +
+                "PaymentBC.DTO.OrderDTO\" /><EntitySet Name=\"PurchaseOrders\" EntityType=\"UniCloud." +
+                "Application.PaymentBC.DTO.PurchaseOrderDTO\" /><EntitySet Name=\"AircraftPurchaseO" +
+                "rders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.AircraftPurchaseOrderDTO\" " +
+                "/><EntitySet Name=\"AircraftLeaseOrders\" EntityType=\"UniCloud.Application.Payment" +
+                "BC.DTO.AircraftLeaseOrderDTO\" /><EntitySet Name=\"EnginePurchaseOrders\" EntityTyp" +
+                "e=\"UniCloud.Application.PaymentBC.DTO.EnginePurchaseOrderDTO\" /><EntitySet Name=" +
+                "\"EngineLeaseOrders\" EntityType=\"UniCloud.Application.PaymentBC.DTO.EngineLeaseOr" +
+                "derDTO\" /><EntitySet Name=\"BFEPurchaseOrders\" EntityType=\"UniCloud.Application.P" +
+                "aymentBC.DTO.BFEPurchaseOrderDTO\" /><EntitySet Name=\"StandardOrders\" EntityType=" +
+                "\"UniCloud.Application.PaymentBC.DTO.StandardOrderDTO\" /><EntitySet Name=\"LeaseGu" +
+                "arantees\" EntityType=\"UniCloud.Application.PaymentBC.DTO.GuaranteeDTO.LeaseGuara" +
+                "nteeDTO\" /><EntitySet Name=\"MaintainGuarantees\" EntityType=\"UniCloud.Application" +
+                ".PaymentBC.DTO.GuaranteeDTO.MaintainGuaranteeDTO\" /></EntityContainer></Schema><" +
+                "/edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -12074,6 +12163,728 @@ namespace UniCloud.Presentation.Service.Payment.Payment
         private string _Note;
         partial void OnNoteChanging(string value);
         partial void OnNoteChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+}
+// 原始文件名:
+// 生成日期: 2013/12/25 18:07:58
+namespace UniCloud.Application.PaymentBC.DTO.GuaranteeDTO
+{
+    
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.PaymentBC.DTO.GuaranteeDTO.LeaseGuaranteeDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// GuaranteeId
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("LeaseGuarantees")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("GuaranteeId")]
+    public partial class LeaseGuaranteeDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 LeaseGuaranteeDTO 对象。
+        /// </summary>
+        /// <param name="guaranteeId">GuaranteeId 的初始值。</param>
+        /// <param name="startDate">StartDate 的初始值。</param>
+        /// <param name="endDate">EndDate 的初始值。</param>
+        /// <param name="amount">Amount 的初始值。</param>
+        /// <param name="createDate">CreateDate 的初始值。</param>
+        /// <param name="reviewDate">ReviewDate 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
+        /// <param name="supplierId">SupplierId 的初始值。</param>
+        /// <param name="orderId">OrderId 的初始值。</param>
+        /// <param name="currencyId">CurrencyId 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static LeaseGuaranteeDTO CreateLeaseGuaranteeDTO(int guaranteeId, global::System.DateTime startDate, global::System.DateTime endDate, decimal amount, global::System.DateTime createDate, global::System.DateTime reviewDate, int status, int supplierId, int orderId, int currencyId)
+        {
+            LeaseGuaranteeDTO leaseGuaranteeDTO = new LeaseGuaranteeDTO();
+            leaseGuaranteeDTO.GuaranteeId = guaranteeId;
+            leaseGuaranteeDTO.StartDate = startDate;
+            leaseGuaranteeDTO.EndDate = endDate;
+            leaseGuaranteeDTO.Amount = amount;
+            leaseGuaranteeDTO.CreateDate = createDate;
+            leaseGuaranteeDTO.ReviewDate = reviewDate;
+            leaseGuaranteeDTO.Status = status;
+            leaseGuaranteeDTO.SupplierId = supplierId;
+            leaseGuaranteeDTO.OrderId = orderId;
+            leaseGuaranteeDTO.CurrencyId = currencyId;
+            return leaseGuaranteeDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 GuaranteeId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int GuaranteeId
+        {
+            get
+            {
+                return this._GuaranteeId;
+            }
+            set
+            {
+                this.OnGuaranteeIdChanging(value);
+                this._GuaranteeId = value;
+                this.OnGuaranteeIdChanged();
+                this.OnPropertyChanged("GuaranteeId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _GuaranteeId;
+        partial void OnGuaranteeIdChanging(int value);
+        partial void OnGuaranteeIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 StartDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime StartDate
+        {
+            get
+            {
+                return this._StartDate;
+            }
+            set
+            {
+                this.OnStartDateChanging(value);
+                this._StartDate = value;
+                this.OnStartDateChanged();
+                this.OnPropertyChanged("StartDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _StartDate;
+        partial void OnStartDateChanging(global::System.DateTime value);
+        partial void OnStartDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 EndDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime EndDate
+        {
+            get
+            {
+                return this._EndDate;
+            }
+            set
+            {
+                this.OnEndDateChanging(value);
+                this._EndDate = value;
+                this.OnEndDateChanged();
+                this.OnPropertyChanged("EndDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _EndDate;
+        partial void OnEndDateChanging(global::System.DateTime value);
+        partial void OnEndDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 Amount 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal Amount
+        {
+            get
+            {
+                return this._Amount;
+            }
+            set
+            {
+                this.OnAmountChanging(value);
+                this._Amount = value;
+                this.OnAmountChanged();
+                this.OnPropertyChanged("Amount");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _Amount;
+        partial void OnAmountChanging(decimal value);
+        partial void OnAmountChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SupplierName
+        {
+            get
+            {
+                return this._SupplierName;
+            }
+            set
+            {
+                this.OnSupplierNameChanging(value);
+                this._SupplierName = value;
+                this.OnSupplierNameChanged();
+                this.OnPropertyChanged("SupplierName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SupplierName;
+        partial void OnSupplierNameChanging(string value);
+        partial void OnSupplierNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 CurrencyName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string CurrencyName
+        {
+            get
+            {
+                return this._CurrencyName;
+            }
+            set
+            {
+                this.OnCurrencyNameChanging(value);
+                this._CurrencyName = value;
+                this.OnCurrencyNameChanged();
+                this.OnPropertyChanged("CurrencyName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _CurrencyName;
+        partial void OnCurrencyNameChanging(string value);
+        partial void OnCurrencyNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 OperatorName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string OperatorName
+        {
+            get
+            {
+                return this._OperatorName;
+            }
+            set
+            {
+                this.OnOperatorNameChanging(value);
+                this._OperatorName = value;
+                this.OnOperatorNameChanged();
+                this.OnPropertyChanged("OperatorName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _OperatorName;
+        partial void OnOperatorNameChanging(string value);
+        partial void OnOperatorNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Reviewer 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Reviewer
+        {
+            get
+            {
+                return this._Reviewer;
+            }
+            set
+            {
+                this.OnReviewerChanging(value);
+                this._Reviewer = value;
+                this.OnReviewerChanged();
+                this.OnPropertyChanged("Reviewer");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Reviewer;
+        partial void OnReviewerChanging(string value);
+        partial void OnReviewerChanged();
+        /// <summary>
+        /// 架构中不存在属性 CreateDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime CreateDate
+        {
+            get
+            {
+                return this._CreateDate;
+            }
+            set
+            {
+                this.OnCreateDateChanging(value);
+                this._CreateDate = value;
+                this.OnCreateDateChanged();
+                this.OnPropertyChanged("CreateDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _CreateDate;
+        partial void OnCreateDateChanging(global::System.DateTime value);
+        partial void OnCreateDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 ReviewDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime ReviewDate
+        {
+            get
+            {
+                return this._ReviewDate;
+            }
+            set
+            {
+                this.OnReviewDateChanging(value);
+                this._ReviewDate = value;
+                this.OnReviewDateChanged();
+                this.OnPropertyChanged("ReviewDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _ReviewDate;
+        partial void OnReviewDateChanging(global::System.DateTime value);
+        partial void OnReviewDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int SupplierId
+        {
+            get
+            {
+                return this._SupplierId;
+            }
+            set
+            {
+                this.OnSupplierIdChanging(value);
+                this._SupplierId = value;
+                this.OnSupplierIdChanged();
+                this.OnPropertyChanged("SupplierId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _SupplierId;
+        partial void OnSupplierIdChanging(int value);
+        partial void OnSupplierIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 OrderId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int OrderId
+        {
+            get
+            {
+                return this._OrderId;
+            }
+            set
+            {
+                this.OnOrderIdChanging(value);
+                this._OrderId = value;
+                this.OnOrderIdChanged();
+                this.OnPropertyChanged("OrderId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _OrderId;
+        partial void OnOrderIdChanging(int value);
+        partial void OnOrderIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 CurrencyId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int CurrencyId
+        {
+            get
+            {
+                return this._CurrencyId;
+            }
+            set
+            {
+                this.OnCurrencyIdChanging(value);
+                this._CurrencyId = value;
+                this.OnCurrencyIdChanged();
+                this.OnPropertyChanged("CurrencyId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _CurrencyId;
+        partial void OnCurrencyIdChanging(int value);
+        partial void OnCurrencyIdChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.PaymentBC.DTO.GuaranteeDTO.MaintainGuaranteeDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// GuaranteeId
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("MaintainGuarantees")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("GuaranteeId")]
+    public partial class MaintainGuaranteeDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 MaintainGuaranteeDTO 对象。
+        /// </summary>
+        /// <param name="maintainContractId">MaintainContractId 的初始值。</param>
+        /// <param name="guaranteeId">GuaranteeId 的初始值。</param>
+        /// <param name="startDate">StartDate 的初始值。</param>
+        /// <param name="endDate">EndDate 的初始值。</param>
+        /// <param name="amount">Amount 的初始值。</param>
+        /// <param name="createDate">CreateDate 的初始值。</param>
+        /// <param name="reviewDate">ReviewDate 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
+        /// <param name="supplierId">SupplierId 的初始值。</param>
+        /// <param name="currencyId">CurrencyId 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static MaintainGuaranteeDTO CreateMaintainGuaranteeDTO(int maintainContractId, int guaranteeId, global::System.DateTime startDate, global::System.DateTime endDate, decimal amount, global::System.DateTime createDate, global::System.DateTime reviewDate, int status, int supplierId, int currencyId)
+        {
+            MaintainGuaranteeDTO maintainGuaranteeDTO = new MaintainGuaranteeDTO();
+            maintainGuaranteeDTO.MaintainContractId = maintainContractId;
+            maintainGuaranteeDTO.GuaranteeId = guaranteeId;
+            maintainGuaranteeDTO.StartDate = startDate;
+            maintainGuaranteeDTO.EndDate = endDate;
+            maintainGuaranteeDTO.Amount = amount;
+            maintainGuaranteeDTO.CreateDate = createDate;
+            maintainGuaranteeDTO.ReviewDate = reviewDate;
+            maintainGuaranteeDTO.Status = status;
+            maintainGuaranteeDTO.SupplierId = supplierId;
+            maintainGuaranteeDTO.CurrencyId = currencyId;
+            return maintainGuaranteeDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 MaintainContractId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int MaintainContractId
+        {
+            get
+            {
+                return this._MaintainContractId;
+            }
+            set
+            {
+                this.OnMaintainContractIdChanging(value);
+                this._MaintainContractId = value;
+                this.OnMaintainContractIdChanged();
+                this.OnPropertyChanged("MaintainContractId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _MaintainContractId;
+        partial void OnMaintainContractIdChanging(int value);
+        partial void OnMaintainContractIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 GuaranteeId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int GuaranteeId
+        {
+            get
+            {
+                return this._GuaranteeId;
+            }
+            set
+            {
+                this.OnGuaranteeIdChanging(value);
+                this._GuaranteeId = value;
+                this.OnGuaranteeIdChanged();
+                this.OnPropertyChanged("GuaranteeId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _GuaranteeId;
+        partial void OnGuaranteeIdChanging(int value);
+        partial void OnGuaranteeIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 StartDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime StartDate
+        {
+            get
+            {
+                return this._StartDate;
+            }
+            set
+            {
+                this.OnStartDateChanging(value);
+                this._StartDate = value;
+                this.OnStartDateChanged();
+                this.OnPropertyChanged("StartDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _StartDate;
+        partial void OnStartDateChanging(global::System.DateTime value);
+        partial void OnStartDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 EndDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime EndDate
+        {
+            get
+            {
+                return this._EndDate;
+            }
+            set
+            {
+                this.OnEndDateChanging(value);
+                this._EndDate = value;
+                this.OnEndDateChanged();
+                this.OnPropertyChanged("EndDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _EndDate;
+        partial void OnEndDateChanging(global::System.DateTime value);
+        partial void OnEndDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 Amount 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal Amount
+        {
+            get
+            {
+                return this._Amount;
+            }
+            set
+            {
+                this.OnAmountChanging(value);
+                this._Amount = value;
+                this.OnAmountChanged();
+                this.OnPropertyChanged("Amount");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _Amount;
+        partial void OnAmountChanging(decimal value);
+        partial void OnAmountChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SupplierName
+        {
+            get
+            {
+                return this._SupplierName;
+            }
+            set
+            {
+                this.OnSupplierNameChanging(value);
+                this._SupplierName = value;
+                this.OnSupplierNameChanged();
+                this.OnPropertyChanged("SupplierName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SupplierName;
+        partial void OnSupplierNameChanging(string value);
+        partial void OnSupplierNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 CurrencyName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string CurrencyName
+        {
+            get
+            {
+                return this._CurrencyName;
+            }
+            set
+            {
+                this.OnCurrencyNameChanging(value);
+                this._CurrencyName = value;
+                this.OnCurrencyNameChanged();
+                this.OnPropertyChanged("CurrencyName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _CurrencyName;
+        partial void OnCurrencyNameChanging(string value);
+        partial void OnCurrencyNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 OperatorName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string OperatorName
+        {
+            get
+            {
+                return this._OperatorName;
+            }
+            set
+            {
+                this.OnOperatorNameChanging(value);
+                this._OperatorName = value;
+                this.OnOperatorNameChanged();
+                this.OnPropertyChanged("OperatorName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _OperatorName;
+        partial void OnOperatorNameChanging(string value);
+        partial void OnOperatorNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Reviewer 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Reviewer
+        {
+            get
+            {
+                return this._Reviewer;
+            }
+            set
+            {
+                this.OnReviewerChanging(value);
+                this._Reviewer = value;
+                this.OnReviewerChanged();
+                this.OnPropertyChanged("Reviewer");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Reviewer;
+        partial void OnReviewerChanging(string value);
+        partial void OnReviewerChanged();
+        /// <summary>
+        /// 架构中不存在属性 CreateDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime CreateDate
+        {
+            get
+            {
+                return this._CreateDate;
+            }
+            set
+            {
+                this.OnCreateDateChanging(value);
+                this._CreateDate = value;
+                this.OnCreateDateChanged();
+                this.OnPropertyChanged("CreateDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _CreateDate;
+        partial void OnCreateDateChanging(global::System.DateTime value);
+        partial void OnCreateDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 ReviewDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime ReviewDate
+        {
+            get
+            {
+                return this._ReviewDate;
+            }
+            set
+            {
+                this.OnReviewDateChanging(value);
+                this._ReviewDate = value;
+                this.OnReviewDateChanged();
+                this.OnPropertyChanged("ReviewDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _ReviewDate;
+        partial void OnReviewDateChanging(global::System.DateTime value);
+        partial void OnReviewDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int SupplierId
+        {
+            get
+            {
+                return this._SupplierId;
+            }
+            set
+            {
+                this.OnSupplierIdChanging(value);
+                this._SupplierId = value;
+                this.OnSupplierIdChanged();
+                this.OnPropertyChanged("SupplierId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _SupplierId;
+        partial void OnSupplierIdChanging(int value);
+        partial void OnSupplierIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 CurrencyId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int CurrencyId
+        {
+            get
+            {
+                return this._CurrencyId;
+            }
+            set
+            {
+                this.OnCurrencyIdChanging(value);
+                this._CurrencyId = value;
+                this.OnCurrencyIdChanged();
+                this.OnPropertyChanged("CurrencyId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _CurrencyId;
+        partial void OnCurrencyIdChanging(int value);
+        partial void OnCurrencyIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
