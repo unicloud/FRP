@@ -34,7 +34,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
         /// <summary>
         ///     机号
         /// </summary>
-        public string AircraftReg { get; set; }
+        public string RegNumber { get; set; }
 
         #endregion
 

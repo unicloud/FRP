@@ -37,7 +37,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            Property(p => p.AircraftReg).HasColumnName("AircraftReg");
+            Property(p => p.RegNumber).HasColumnName("RegNumber");
 
             Property(p => p.AircraftTypeId).HasColumnName("AircraftTypeId");
 
