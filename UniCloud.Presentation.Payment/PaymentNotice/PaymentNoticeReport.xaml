@@ -7,18 +7,19 @@
                    xmlns:silverlight="clr-namespace:Telerik.ReportViewer.Silverlight;assembly=Telerik.ReportViewer.Silverlight"
                    mc:Ignorable="d"
                    d:DesignHeight="300"
-                   d:DesignWidth="400">
+                   d:DesignWidth="400"
+                   Height="600"
+                   Width="800"
+                   Header="付款通知">
 
     <Grid x:Name="LayoutRoot"
           Background="White">
         <silverlight:ReportViewer Name="ReportViewer"
-                                  telerik:StyleManager.Theme="Windows8"
+                                  Height="558"
                                   HorizontalAlignment="Center"
-                                  Height="600"
-                                  Margin="10,10,0,0"
                                   VerticalAlignment="Center"
-                                  Width="800"
                                   ReportServiceUri="../ReportService.svc"
-                                  Report="ReportViewer.PaymentNotice.PaymentNoticeReport, ReportViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                                  Report="ReportViewer.PaymentNotice.PaymentNoticeReport, ReportViewer, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+                                  Width="780" />
     </Grid>
 </telerik:RadWindow>
