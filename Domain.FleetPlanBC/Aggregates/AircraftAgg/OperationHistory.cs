@@ -47,7 +47,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// <summary>
         ///     注册号
         /// </summary>
-        public string AircraftReg { get; private set; }
+        public string RegNumber { get; private set; }
 
         /// <summary>
         ///     运营日期

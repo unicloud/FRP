@@ -100,8 +100,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
 
         #region 外键属性
 
-        public Guid OwnerID { get; private set; }
-
 
         #endregion
 
