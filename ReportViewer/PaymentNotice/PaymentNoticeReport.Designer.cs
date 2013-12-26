@@ -384,6 +384,7 @@ namespace ReportViewer.PaymentNotice
             // 
             this.textBox26.Name = "textBox26";
             this.textBox26.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.6499998569488525D), Telerik.Reporting.Drawing.Unit.Cm(0.899999737739563D));
+            this.textBox26.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox26.StyleName = "Office.TableBody";
             this.textBox26.Value = "=Fields.InvoiceTypeString";
             // 
@@ -391,6 +392,7 @@ namespace ReportViewer.PaymentNotice
             // 
             this.textBox27.Name = "textBox27";
             this.textBox27.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.6499998569488525D), Telerik.Reporting.Drawing.Unit.Cm(0.899999737739563D));
+            this.textBox27.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox27.StyleName = "Office.TableBody";
             this.textBox27.Value = "=Fields.InvoiceNumber";
             // 
@@ -399,6 +401,7 @@ namespace ReportViewer.PaymentNotice
             this.AmountTextBox.Format = "{0:C2}";
             this.AmountTextBox.Name = "AmountTextBox";
             this.AmountTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.6499998569488525D), Telerik.Reporting.Drawing.Unit.Cm(0.899999737739563D));
+            this.AmountTextBox.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.AmountTextBox.StyleName = "Office.TableBody";
             this.AmountTextBox.Value = "=Fields.Amount";
             // 
@@ -406,6 +409,7 @@ namespace ReportViewer.PaymentNotice
             // 
             this.textBox29.Name = "textBox29";
             this.textBox29.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.6499998569488525D), Telerik.Reporting.Drawing.Unit.Cm(0.899999737739563D));
+            this.textBox29.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Middle;
             this.textBox29.StyleName = "Office.TableBody";
             this.textBox29.Value = "=Fields.Note";
             // 
