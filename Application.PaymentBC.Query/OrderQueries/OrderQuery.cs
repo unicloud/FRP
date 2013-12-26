@@ -224,7 +224,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                             TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
                         }).ToList(),
                 });
-            var result = acResult.Union(engineResult.AsEnumerable(), null).Union(bfeResult.AsEnumerable(), null);
+            var result = acResult.AsEnumerable().Union(engineResult.AsEnumerable(), null).Union(bfeResult.AsEnumerable(), null);
             return result.AsQueryable();
         }
 
