@@ -77,5 +77,18 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
             // Assert
             Assert.IsTrue(result.Any());
         }
+
+        [TestMethod]
+        public void TestGetPurchaseOrders()
+        {
+            // Arrange
+            var service = DefaultContainer.Resolve<IOrderAppService>();
+
+            // Act
+            var result = service.GetPurchaseOrders().ToList();
+
+            // Assert
+            Assert.IsTrue(result.Any());
+        }
     }
 }
