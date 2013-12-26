@@ -324,6 +324,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlightLog", "UniCloud.Presentation.FlightLog\FlightLog.csproj", "{B25661D6-F562-4439-8A45-DA528A36D0CE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FleetPlan", "UniCloud.Presentation.FleetPlan\FleetPlan.csproj", "{C80A02D9-9D33-40C5-8D55-9DE66BAC3C33}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3C6304C1-D115-4DAD-BF15-AB0ECC3201CD} = {3C6304C1-D115-4DAD-BF15-AB0ECC3201CD}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Purchase", "UniCloud.Presentation.Purchase\Purchase.csproj", "{1E0EB192-EA72-46C1-88F0-34742AF3594D}"
 EndProject

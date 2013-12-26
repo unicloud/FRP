@@ -1,3 +1,4 @@
+
 ﻿#region 版本信息
 
 // ========================================================================
@@ -242,7 +243,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         ///     执行新增命令。
         /// </summary>
         /// <param name="sender"></param>
-        public void OnAddPaymentSchedule(object sender)
+        public void OndAddPaymentSchedule(object sender)
         {
             if (SelectedStandardOrder == null)
             {
@@ -296,7 +297,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         ///     执行删除付款计划行命令。
         /// </summary>
         /// <param name="sender"></param>
-        public void OnDelPaymentScheduleLine(object sender)
+        public void OndDelPaymentScheduleLine(object sender)
         {
             var selPayment = sender as PaymentScheduleLineDTO;
             if (selPayment == null)
@@ -326,7 +327,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         ///     判断删除飞机付款计划行命令是否可用。
         /// </summary>
         /// <param name="sender"></param>
-        /// <returns>删除命令是否可用。</returns>
+        /// <returns>新增命令是否可用。</returns>
         public bool CanDelPaymentScheduleLine(object sender)
         {
             return true;
@@ -342,7 +343,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         ///     执行新增付款计划行命令。
         /// </summary>
         /// <param name="sender"></param>
-        public void OnAddPaymentScheduleLine(object sender)
+        public void OndAddPaymentScheduleLine(object sender)
         {
             if (SelectedStandardPaymentSchedule == null)
             {
@@ -381,7 +382,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         ///     执行编辑付款计划行命令。
         /// </summary>
         /// <param name="sender"></param>
-        public void OnEditPaymentScheduleLine(object sender)
+        public void OndEditPaymentScheduleLine(object sender)
         {
             var selPayment = sender as PaymentScheduleLineDTO;
             if (selPayment == null)
@@ -406,7 +407,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         ///     判断编辑飞机付款计划行命令是否可用。
         /// </summary>
         /// <param name="sender"></param>
-        /// <returns>编辑命令是否可用。</returns>
+        /// <returns>新增命令是否可用。</returns>
         public bool CanEditPaymentScheduleLine(object sender)
         {
             return true;
@@ -419,12 +420,12 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialCommand()
         {
-            AddPaymentScheduleCommand = new DelegateCommand<object>(OnAddPaymentSchedule, CanAddPaymentSchedule);
-            DelPaymentScheduleLineCommand = new DelegateCommand<object>(OnDelPaymentScheduleLine,
+            AddPaymentScheduleCommand = new DelegateCommand<object>(OndAddPaymentSchedule, CanAddPaymentSchedule);
+            DelPaymentScheduleLineCommand = new DelegateCommand<object>(OndDelPaymentScheduleLine,
                 CanDelPaymentScheduleLine);
-            AddPaymentScheduleLineCommand = new DelegateCommand<object>(OnAddPaymentScheduleLine,
+            AddPaymentScheduleLineCommand = new DelegateCommand<object>(OndAddPaymentScheduleLine,
                 CanAddPaymentScheduleLine);
-            EditPaymentScheduleLineCommand = new DelegateCommand<object>(OnEditPaymentScheduleLine,
+            EditPaymentScheduleLineCommand = new DelegateCommand<object>(OndEditPaymentScheduleLine,
                 CanEditPaymentScheduleLine);
         }
 
@@ -684,4 +685,5 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
 
         #endregion
     }
+
 }

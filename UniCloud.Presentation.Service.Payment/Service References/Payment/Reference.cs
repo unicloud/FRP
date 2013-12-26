@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2013/12/25 18:07:56
+// 生成日期: 2013/12/26 9:43:04
 namespace UniCloud.Presentation.Service.Payment.Payment
 {
     
@@ -12176,7 +12176,7 @@ namespace UniCloud.Presentation.Service.Payment.Payment
     }
 }
 // 原始文件名:
-// 生成日期: 2013/12/25 18:07:58
+// 生成日期: 2013/12/26 9:43:06
 namespace UniCloud.Application.PaymentBC.DTO.GuaranteeDTO
 {
     

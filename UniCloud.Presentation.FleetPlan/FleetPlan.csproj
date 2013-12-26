@@ -28,8 +28,7 @@
     <OutOfBrowserSettingsFile>Properties\OutOfBrowserSettings.xml</OutOfBrowserSettingsFile>
     <UsePlatformExtensions>false</UsePlatformExtensions>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
-    <LinkedServerProject>
-    </LinkedServerProject>
+    <LinkedServerProject>..\DistributedServices.FleetPlan\DistributedServices.FleetPlan.csproj</LinkedServerProject>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
@@ -50,7 +49,7 @@
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <WarningLevel>3</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -200,6 +199,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FleetPlanModule.cs" />
+    <Compile Include="PerformFleetPlan\FleetPlanDeliver.xaml.cs">
+      <DependentUpon>FleetPlanDeliver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PerformFleetPlan\FleetPlanDeliverVM.cs" />
+    <Compile Include="PrepareFleetPlan\FleetPlanLay.xaml.cs">
+      <DependentUpon>FleetPlanLay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrepareFleetPlan\FleetPlanLayVM.cs" />
+    <Compile Include="PrepareFleetPlan\FleetPlanPrepare.xaml.cs">
+      <DependentUpon>FleetPlanPrepare.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrepareFleetPlan\FleetPlanPrepareVM.cs" />
+    <Compile Include="PrepareFleetPlan\FleetPlanPublish.xaml.cs">
+      <DependentUpon>FleetPlanPublish.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrepareFleetPlan\FleetPlanPublishVM.cs" />
+    <Compile Include="PrepareFleetPlan\FleetPlanSend.xaml.cs">
+      <DependentUpon>FleetPlanSend.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrepareFleetPlan\FleetPlanSendVM.cs" />
+    <Compile Include="PrepareFleetPlan\SpareEnginePlanLay.xaml.cs">
+      <DependentUpon>SpareEnginePlanLay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrepareFleetPlan\SpareEnginePlanLayVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -226,8 +249,33 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\" />
+    <Page Include="PerformFleetPlan\FleetPlanDeliver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PrepareFleetPlan\FleetPlanLay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PrepareFleetPlan\FleetPlanPrepare.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PrepareFleetPlan\FleetPlanPublish.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PrepareFleetPlan\FleetPlanSend.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PrepareFleetPlan\SpareEnginePlanLay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UpdateAircraftData\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
