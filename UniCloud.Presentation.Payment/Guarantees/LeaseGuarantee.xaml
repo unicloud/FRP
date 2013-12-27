@@ -64,175 +64,143 @@
                                                    Command="{Binding DelGuaranteeCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
                                            Stretch="Fill"
-                                           ToolTipService.ToolTip="删除维修发票" />
+                                           ToolTipService.ToolTip="删除租赁保证金" />
                                 </telerik:RadButton>
                                 <telerik:RadToolBarSeparator />
                                 <telerik:RadButton Margin="2,2,2,-2"
                                                    Command="{Binding SubmitGuaranteeCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/Up.png"
                                            Stretch="Fill"
-                                           ToolTipService.ToolTip="提交发票" />
+                                           ToolTipService.ToolTip="提交审核" />
                                 </telerik:RadButton>
                                 <telerik:RadButton Margin="2,2,2,-2"
                                                    Command="{Binding ReviewGuaranteeCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/Check.png"
                                            Stretch="Fill"
-                                           ToolTipService.ToolTip="审核发票" />
+                                           ToolTipService.ToolTip="审核" />
                                 </telerik:RadButton>
                             </telerik:RadToolBar>
-                            <!--<Grid Row="1">
+                            <Grid Row="1">
                                 <telerik:RadGridView Name="EngineMaintainInvoiceList"
-                                                     AutoExpandGroups="True"
-                                                     AutoGenerateColumns="False"
                                                      CanUserSortColumns="True"
                                                      CanUserFreezeColumns="False"
                                                      IsFilteringAllowed="True"
+                                                     EditTriggers="CellClick"
                                                      FontSize="{StaticResource TextFontSize}"
-                                                     ItemsSource="{Binding EngineMaintainInvoices,Mode=TwoWay}"
-                                                     IsBusy="{Binding EngineMaintainInvoices.IsBusy}"
-                                                     SelectedItem="{Binding EngineMaintainInvoice,Mode=TwoWay}"
+                                                     ItemsSource="{Binding LeaseGuaranteesView,Mode=TwoWay}"
+                                                     IsBusy="{Binding LeaseGuaranteesView.IsBusy}"
+                                                     SelectedItem="{Binding SelectedLeaseGuarantee,Mode=TwoWay}"
                                                      ValidatesOnDataErrors="InEditMode"
-                                                     RowIndicatorVisibility="Visible">
+                                                    >
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号" />
-                                        <telerik:GridViewDataColumn Header="序列号"
+                                        <telerik:GridViewDataColumn Header="开始时间"
                                                                     IsSortable="True"
+                                                                    TextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
-                                                                    DataMemberBinding="{Binding SerialNumber}" />
-                                        <telerik:GridViewDataColumn Header="发票编号"
+                                                                    DataMemberBinding="{Binding StartDate,StringFormat={StaticResource DateStringFormat}}"
+                                                                    >
+                                            <telerik:GridViewDataColumn.CellEditTemplate>
+                                                <DataTemplate>
+                                                    <telerik:RadDateTimePicker InputMode="DatePicker" DisplayDateEnd="{Binding EndDate}" SelectedDate="{Binding StartDate,StringFormat={StaticResource DateStringFormat}}"></telerik:RadDateTimePicker>
+                                                </DataTemplate>
+                                            </telerik:GridViewDataColumn.CellEditTemplate>
+                                            </telerik:GridViewDataColumn>
+                                     <telerik:GridViewDataColumn Header="结束时间"
+                                                                    IsSortable="True"                                                                 
+                                                                    TextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding EndDate,StringFormat={StaticResource DateStringFormat}}">
+                                            <telerik:GridViewDataColumn.CellEditTemplate>
+                                                <DataTemplate>
+                                                    <telerik:RadDateTimePicker InputMode="DatePicker" DisplayDateStart="{Binding StartDate}" SelectedDate="{Binding EndDate,StringFormat={StaticResource DateStringFormat}}"></telerik:RadDateTimePicker>
+                                                </DataTemplate>
+                                            </telerik:GridViewDataColumn.CellEditTemplate>
+                                        </telerik:GridViewDataColumn>
+                                        <telerik:GridViewMaskedInputColumn Header="金额"
+                                                                           TextAlignment="Center"
+                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                           DataMemberBinding="{Binding Amount}"
+                                                                           DataFormatString="{StaticResource CurrencyStringFormat}"
+                                                                           MaskType="Numeric"
+                                                                           Mask="###,###,###.##" />
+
+                                        <telerik:GridViewDataColumn Header="租赁订单名称"
                                                                     IsSortable="True"
-                                                                    IsReadOnly="True"
+                                                                    TextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
-                                                                    DataMemberBinding="{Binding InvoiceNumber}" />
-                                        <telerik:GridViewDataColumn Header="发票号码"
-                                                                    IsSortable="True"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    TextAlignment="Right"
-                                                                    HeaderTextAlignment="Center"
-                                                                    DataMemberBinding="{Binding InvoideCode}" />
-                                        <uc:DateTimePickerColumn Header="发票时间"
-                                                                 IsSortable="True"
-                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                 TextAlignment="Right"
-                                                                 HeaderTextAlignment="Center"
-                                                                 DataMemberBinding="{Binding InvoiceDate, StringFormat={StaticResource DateStringFormat}}" />
-                                        <telerik:GridViewComboBoxColumn Header="供应商"
-                                                                        IsSortable="True"
+                                                                    DataMemberBinding="{Binding OrderName}"
+                                                                    >
+                                            <telerik:GridViewDataColumn.CellEditTemplate>
+                                                <DataTemplate>
+                                                    <telerik:RadComboBox 
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        TextAlignment="Right"
-                                                                        HeaderTextAlignment="Center"
-                                                                        ItemsSource="{Binding DataContext.Suppliers, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl},Mode=TwoWay}"
-                                                                        DataMemberBinding="{Binding SupplierId}"
-                                                                        SelectedValueMemberPath="SupplierId"
+                                                                        ItemsSource="{Binding DataContext.LeaseOrdersView, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
+                                                                        SelectedItem="{Binding DataContext.SelectedLeaseOrder,Mode=TwoWay ,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
+                                                                        SelectedValue="{Binding OrderId,Mode=TwoWay}"
+                                                                        SelectedValuePath="Id"
                                                                         DisplayMemberPath="Name">
-                                        </telerik:GridViewComboBoxColumn>
+                                                    </telerik:RadComboBox>
+                                                </DataTemplate>
+                                            </telerik:GridViewDataColumn.CellEditTemplate>
+                                        </telerik:GridViewDataColumn>
+                                        <telerik:GridViewDataColumn Header="供应商"
+                                                                    TextAlignment="Center"
+                                                                    IsReadOnly="True"
+                                                                    IsSortable="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    DataMemberBinding="{Binding SupplierName}" />
                                         <telerik:GridViewComboBoxColumn Header="币种"
+                                                                        TextAlignment="Center"
                                                                         IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        TextAlignment="Right"
                                                                         HeaderTextAlignment="Center"
-                                                                        ItemsSource="{Binding DataContext.Currencies, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl},Mode=TwoWay}"
+                                                                        ItemsSource="{Binding DataContext.CurrencysView, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor},Mode=TwoWay}"
                                                                         DataMemberBinding="{Binding CurrencyId}"
                                                                         SelectedValueMemberPath="Id"
                                                                         DisplayMemberPath="Name" />
-                                        <telerik:GridViewMaskedInputColumn Header="发票金额"
-                                                                           IsSortable="True"
-                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                           TextAlignment="Right"
-                                                                           HeaderTextAlignment="Center"
-                                                                           DataMemberBinding="{Binding InvoiceValue,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                           MaskType="Numeric"
-                                                                           Mask="###,###,###.##" />
-                                        <telerik:GridViewMaskedInputColumn Header="已付金额"
-                                                                           IsSortable="True"
-                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                           TextAlignment="Right"
-                                                                           HeaderTextAlignment="Center"
-                                                                           DataMemberBinding="{Binding PaidAmount,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                           MaskType="Numeric"
-                                                                           Mask="###,###,###.##" />
                                         <telerik:GridViewDataColumn Header="经办人"
+                                                                    TextAlignment="Center"
+                                                                    IsReadOnly="True"
                                                                     IsSortable="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding OperatorName}" />
                                         <telerik:GridViewDataColumn Header="审核人"
+                                                                    TextAlignment="Center"
                                                                     IsSortable="True"
                                                                     IsReadOnly="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding Reviewer}" />
                                         <telerik:GridViewDataColumn Header="审核日期"
                                                                     IsSortable="True"
+                                                                    TextAlignment="Center"
                                                                     IsReadOnly="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding ReviewDate, StringFormat={StaticResource DateStringFormat}}" />
-                                        <telerik:GridViewCheckBoxColumn Header="有效"
-                                                                        IsSortable="True"
-                                                                        IsReadOnly="True"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding IsValid}">
-                                            <telerik:GridViewCheckBoxColumn.CellStyle>
-                                                <Style TargetType="telerik:GridViewCell">
-                                                    <Setter Property="HorizontalContentAlignment"
-                                                            Value="Center" />
-                                                </Style>
-                                            </telerik:GridViewCheckBoxColumn.CellStyle>
-                                        </telerik:GridViewCheckBoxColumn>
-                                        <telerik:GridViewCheckBoxColumn Header="完成"
-                                                                        IsSortable="True"
-                                                                        IsReadOnly="True"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        TextAlignment="Center"
-                                                                        HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding IsCompleted}">
-                                            <telerik:GridViewCheckBoxColumn.CellStyle>
-                                                <Style TargetType="telerik:GridViewCell">
-                                                    <Setter Property="HorizontalContentAlignment"
-                                                            Value="Center" />
-                                                </Style>
-                                            </telerik:GridViewCheckBoxColumn.CellStyle>
-                                        </telerik:GridViewCheckBoxColumn>
                                         <telerik:GridViewDataColumn Header="状态"
                                                                     IsSortable="True"
                                                                     IsReadOnly="True"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     TextAlignment="Center"
-                                                                    HeaderTextAlignment="Center"
-                                                                    DataMemberBinding="{Binding Status, ConverterParameter=InvoiceStatus, Converter={StaticResource EnumToStringConverter}}" />
-                                        <telerik:GridViewDataColumn Header="文档名称"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
-                                                                    IsReadOnly="True"
-                                                                    IsSortable="True"
-                                                                    DataMemberBinding="{Binding DocumentName}">
-                                            <telerik:GridViewDataColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <HyperlinkButton Content="{Binding DocumentName}"
-                                                                     Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}" />
-                                                </DataTemplate>
-                                            </telerik:GridViewDataColumn.CellTemplate>
-                                        </telerik:GridViewDataColumn>
+                                                                    DataMemberBinding="{Binding Status, ConverterParameter=GuaranteeStatus, Converter={StaticResource EnumToStringConverter}}" />
                                         <telerik:GridViewDataColumn Header="创建日期"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    TextAlignment="Right"
+                                                                    TextAlignment="Center"
                                                                     HeaderTextAlignment="Center"
                                                                     IsReadOnly="True"
                                                                     IsSortable="True"
                                                                     DataMemberBinding="{Binding CreateDate, StringFormat={StaticResource DateStringFormat}}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
-                            </Grid>-->
+                            </Grid>
                             <Grid Grid.Row="2">
                                 <telerik:RadDataPager Name="RadPage"
                                                       BorderThickness="1,0,1,1"
