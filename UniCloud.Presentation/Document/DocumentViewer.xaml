@@ -7,6 +7,7 @@
                    xmlns:fixedViewersUI="clr-namespace:Telerik.Windows.Controls.FixedDocumentViewersUI;assembly=Telerik.Windows.Controls.FixedDocumentViewersUI"
                    xmlns:converters="clr-namespace:Telerik.Windows.Documents.Converters;assembly=Telerik.Windows.Controls.FixedDocumentViewers"
                    xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    mc:Ignorable="d"
                    d:DataContext="{d:DesignInstance uc:DocumentViewerVm }"
                    x:Name="RadDocumentViewer"
@@ -578,7 +579,8 @@
                                 <telerik:RadToolBar x:Name="Toolbar"
                                                     Grid.Row="0"
                                                     DataContext="{Binding ElementName=PdfReader, Path=Commands}"
-                                                    Grid.ColumnSpan="3">
+                                                    Grid.ColumnSpan="3"
+                                                    OverflowButtonVisibility="Collapsed">
                                     <telerik:RadToolBar.Resources>
                                         <converters:FixedDocumentViewerModeConverter x:Key="ModeConverter" />
                                     </telerik:RadToolBar.Resources>
@@ -744,7 +746,13 @@
 
                                 <telerik:RadPdfViewer Grid.Row="1"
                                                       Grid.RowSpan="2"
-                                                      x:Name="PdfReader" />
+                                                      x:Name="PdfReader" >
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="DocumentChanged">
+                                            <i:InvokeCommandAction Command="{Binding PdfDocumentChangedCommand}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </telerik:RadPdfViewer>
                             </Grid>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
