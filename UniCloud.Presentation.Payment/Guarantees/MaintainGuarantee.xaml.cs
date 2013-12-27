@@ -1,22 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Payment.Guarantees
 {
-    public partial class MaintainGuarantee : UserControl
+    [Export(typeof (MaintainGuarantee))]
+    [PartCreationPolicy(CreationPolicy.Shared)]
+    public partial class MaintainGuarantee
     {
         public MaintainGuarantee()
         {
             InitializeComponent();
+        }
+
+        [Import]
+        public MaintainGuaranteeVM ViewModel
+        {
+            get { return DataContext as MaintainGuaranteeVM; }
+            set { DataContext = value; }
         }
     }
 }

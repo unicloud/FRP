@@ -85,7 +85,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg
         /// <summary>
         ///     审核日期
         /// </summary>
-        public DateTime ReviewDate { get; private set; }
+        public DateTime? ReviewDate { get; private set; }
 
         /// <summary>
         ///     保函状态

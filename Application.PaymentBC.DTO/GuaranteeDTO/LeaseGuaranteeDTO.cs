@@ -22,7 +22,7 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.PaymentBC.DTO.GuaranteeDTO
+namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
     ///     租赁保证金
@@ -78,7 +78,7 @@ namespace UniCloud.Application.PaymentBC.DTO.GuaranteeDTO
         /// <summary>
         ///     审核日期
         /// </summary>
-        public DateTime ReviewDate { get; set; }
+        public DateTime? ReviewDate { get; set; }
 
         /// <summary>
         ///     保函状态
@@ -94,6 +94,11 @@ namespace UniCloud.Application.PaymentBC.DTO.GuaranteeDTO
         ///     订单ID
         /// </summary>
         public int OrderId { get; set; }
+
+        /// <summary>
+        /// 订单名称
+        /// </summary>
+        public string OrderName { get; set; }
 
         /// <summary>
         ///     币种ID

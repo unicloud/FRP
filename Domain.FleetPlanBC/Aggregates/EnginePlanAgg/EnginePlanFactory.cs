@@ -12,16 +12,7 @@
 // ========================================================================*/
 #endregion
 
-#region 命名空间
-
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-#endregion
 
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
 {
@@ -30,6 +21,20 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
     /// </summary>
     public static class EnginePlanFactory
     {
+        /// <summary>
+        ///     创建备发计划
+        /// </summary>
+        /// <param name="versionNumber">版本号</param>
+        /// <returns>备发计划</returns>
+        public static EnginePlan CreateEnginePlan(int versionNumber)
+        {
+            var enginePlan = new EnginePlan
+            {
+                VersionNumber = versionNumber,
+                CreateDate = DateTime.Now,
+            };
 
+            return enginePlan;
+        }
     }
 }

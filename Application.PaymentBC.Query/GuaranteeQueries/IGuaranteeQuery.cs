@@ -20,9 +20,7 @@
 
 using System.Linq;
 using UniCloud.Application.PaymentBC.DTO;
-using UniCloud.Application.PaymentBC.DTO.GuaranteeDTO;
 using UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg;
-using UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg;
 
 #endregion
 

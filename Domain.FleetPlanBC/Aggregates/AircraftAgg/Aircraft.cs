@@ -50,7 +50,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// <summary>
         ///     注册号
         /// </summary>
-        public string AircraftReg { get; private set; }
+        public string RegNumber { get; private set; }
 
         /// <summary>
         ///     序列号
@@ -60,7 +60,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// <summary>
         ///     运营状态
         /// </summary>
-        public bool IsOperation { get;internal set; }
+        public bool IsOperation { get; private set; }
 
         /// <summary>
         ///     创建日期
@@ -98,22 +98,22 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// <summary>
         /// 所有权人外键
         /// </summary>
-        public Guid? SupplierID { get; private set; }
+        public Guid? SupplierId { get; private set; }
 
         /// <summary>
         ///     机型外键
         /// </summary>
-        public Guid AircraftTypeID { get; private set; }
+        public Guid AircraftTypeId { get; private set; }
 
         /// <summary>
         ///     运营权人外键
         /// </summary>
-        public Guid AirlinesID { get; private set; }
+        public Guid AirlinesId { get; private set; }
 
         /// <summary>
         ///     引进方式
         /// </summary>
-        public Guid ImportCategoryID { get; private set; }
+        public Guid ImportCategoryId { get; private set; }
 
         #endregion
 
@@ -145,7 +145,195 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         #endregion
 
         #region 操作
+        /// <summary>
+        ///     设置飞机机号
+        /// </summary>
+        /// <param name="regNumber">注册号</param>
+        public void SetRegNumber(string regNumber)
+        {
+            if (string.IsNullOrWhiteSpace(regNumber))
+            {
+                throw new ArgumentException("注册号参数为空！");
+            }
 
+            RegNumber = regNumber;
+        }
+
+        /// <summary>
+        ///     设置飞机序列号
+        /// </summary>
+        /// <param name="serialNumber">注册号</param>
+        public void SetSerialNumber(string serialNumber)
+        {
+            if (string.IsNullOrWhiteSpace(serialNumber))
+            {
+                throw new ArgumentException("序列号参数为空！");
+            }
+
+            SerialNumber = serialNumber;
+        }
+
+        /// <summary>
+        /// 设置飞机运营状态
+        /// </summary>
+        public void SetOperation()
+        {
+            // TODO：待完善
+            IsOperation = true;
+        }
+
+        /// <summary>
+        ///     设置出厂日期
+        /// </summary>
+        /// <param name="date">出厂日期</param>
+        public void SetFactoryDate(DateTime? date)
+        {
+            FactoryDate = date;
+        }
+
+        /// <summary>
+        ///     设置引进日期
+        /// </summary>
+        /// <param name="date">引进日期</param>
+        public void SetImportDate(DateTime date)
+        {
+            ImportDate = date;
+        }
+
+        /// <summary>
+        ///     设置注销日期
+        /// </summary>
+        /// <param name="date">注销日期</param>
+        public void SetExportDate(DateTime? date)
+        {
+            ExportDate = date;
+        }
+
+        /// <summary>
+        /// 设置座位数
+        /// </summary>
+        /// <param name="seatingCapacity"></param>
+        public void SetSeatingCapacity(int seatingCapacity)
+        {
+            SeatingCapacity = seatingCapacity;
+        }
+
+        /// <summary>
+        /// 设置商载量
+        /// </summary>
+        /// <param name="carryingCapacity"></param>
+        public void SetCarryingCapacity(decimal carryingCapacity)
+        {
+            CarryingCapacity = carryingCapacity;
+        }
+
+        /// <summary>
+        ///     设置所有权人
+        /// </summary>
+        /// <param name="supplierId">所有权人</param>
+        public void SetSupplier(Guid supplierId)
+        {
+            if (supplierId == null)
+            {
+                throw new ArgumentException("所有权人Id参数为空！");
+            }
+
+            SupplierId = supplierId;
+        }
+
+        /// <summary>
+        ///     设置机型
+        /// </summary>
+        /// <param name="aircraftTypeId">机型</param>
+        public void SetAircraftType(Guid aircraftTypeId)
+        {
+            if (aircraftTypeId == null)
+            {
+                throw new ArgumentException("机型Id参数为空！");
+            }
+
+            AircraftTypeId = aircraftTypeId;
+        }
+
+        /// <summary>
+        ///     设置运营权人
+        /// </summary>
+        /// <param name="airlinesId">运营权人</param>
+        public void SetAirlines(Guid airlinesId)
+        {
+            if (airlinesId == null)
+            {
+                throw new ArgumentException("运营权人Id参数为空！");
+            }
+
+            AirlinesId = airlinesId;
+        }
+
+        /// <summary>
+        ///     设置引进方式
+        /// </summary>
+        /// <param name="importCategoryId">引进方式</param>
+        public void SetImportCategory(Guid importCategoryId)
+        {
+            if (importCategoryId == null)
+            {
+                throw new ArgumentException("引进方式Id参数为空！");
+            }
+
+            ImportCategoryId = importCategoryId;
+        }
+
+        /// <summary>
+        /// 新增飞机商业数据历史
+        /// </summary>
+        /// <returns></returns>
+        public AircraftBusiness AddNewAircraftBusiness()
+        {
+            var aircraftBusiness = new AircraftBusiness
+            {
+                AircraftId = Id,
+            };
+
+            aircraftBusiness.GenerateNewIdentity();
+            AircraftBusinesses.Add(aircraftBusiness);
+
+            return aircraftBusiness;
+        }
+
+        /// <summary>
+        /// 新增飞运营权历史
+        /// </summary>
+        /// <returns></returns>
+        public OperationHistory AddNewOperationHistory()
+        {
+            var operationHistory = new OperationHistory
+            {
+                AircraftId = Id,
+            };
+
+            operationHistory.GenerateNewIdentity();
+            OperationHistories.Add(operationHistory);
+
+            return operationHistory;
+        }
+
+
+        /// <summary>
+        /// 新增所有权历史
+        /// </summary>
+        /// <returns></returns>
+        public OwnershipHistory AddNewOwnershipHistory()
+        {
+            var ownershipHistory = new OwnershipHistory
+            {
+                AircraftId = Id,
+            };
+
+            ownershipHistory.GenerateNewIdentity();
+            OwnershipHistories.Add(ownershipHistory);
+
+            return ownershipHistory;
+        }
         #endregion
     }
 }

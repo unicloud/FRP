@@ -40,11 +40,13 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg
         /// <param name="supplierId"></param>
         /// <param name="currencyId"></param>
         /// <param name="orderId"></param>
+        /// <param name="status"></param>
+        /// <param name="reviewer"></param>
         /// <returns></returns>
         public static LeaseGuarantee CreateLeaseGuarantee(DateTime startDate, DateTime endDate, decimal amount,
             string supplierName,
             string operatorName,
-            int supplierId, int currencyId, int orderId)
+            int supplierId, int currencyId, int orderId,int status,string reviewer)
         {
             var newLeaseGuarantee = new LeaseGuarantee
             {
@@ -56,8 +58,12 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg
             newLeaseGuarantee.SetSupplier(supplierId, supplierName);
             newLeaseGuarantee.SetOperator(operatorName);
             newLeaseGuarantee.SetCurrency(currencyId);
-            newLeaseGuarantee.SetGuaranteeStatus(GuaranteeStatus.草稿);
+            newLeaseGuarantee.SetGuaranteeStatus((GuaranteeStatus)status);
             newLeaseGuarantee.SetOrderId(orderId);
+            if (!string.IsNullOrEmpty(reviewer))
+            {
+                newLeaseGuarantee.Review(reviewer);
+            }
             return newLeaseGuarantee;
         }
 
@@ -72,25 +78,31 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg
         /// <param name="supplierId"></param>
         /// <param name="currencyId"></param>
         /// <param name="maintainContractId"></param>
+        /// <param name="status"></param>
+        /// <param name="reviewer"></param>
         /// <returns></returns>
         public static MaintainGuarantee CreateMaintainGuarantee(DateTime startDate, DateTime endDate, decimal amount,
             string supplierName,
             string operatorName,
-            int supplierId, int currencyId, int maintainContractId)
+            int supplierId, int currencyId, int maintainContractId, int status, string reviewer)
         {
-            var newLeaseGuarantee = new MaintainGuarantee
+            var newMaintainGuarantee = new MaintainGuarantee
             {
                 StartDate = startDate,
                 EndDate = endDate,
                 Amount = amount,
                 CreateDate = DateTime.Now,
             };
-            newLeaseGuarantee.SetSupplier(supplierId, supplierName);
-            newLeaseGuarantee.SetOperator(operatorName);
-            newLeaseGuarantee.SetCurrency(currencyId);
-            newLeaseGuarantee.SetGuaranteeStatus(GuaranteeStatus.草稿);
-            newLeaseGuarantee.SetMaintainContractId(maintainContractId);
-            return newLeaseGuarantee;
+            newMaintainGuarantee.SetSupplier(supplierId, supplierName);
+            newMaintainGuarantee.SetOperator(operatorName);
+            newMaintainGuarantee.SetCurrency(currencyId);
+            newMaintainGuarantee.SetGuaranteeStatus((GuaranteeStatus)status);
+            newMaintainGuarantee.SetMaintainContractId(maintainContractId);
+            if (!string.IsNullOrEmpty(reviewer))
+            {
+                newMaintainGuarantee.Review(reviewer);
+            }
+            return newMaintainGuarantee;
         }
     }
 }

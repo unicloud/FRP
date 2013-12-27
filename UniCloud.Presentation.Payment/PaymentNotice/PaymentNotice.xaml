@@ -138,13 +138,6 @@
                                                                         DataMemberBinding="{Binding CurrencyId}"
                                                                         SelectedValueMemberPath="Id"
                                                                         DisplayMemberPath="Name" />
-                                        <telerik:GridViewMaskedInputColumn Header="付款总金额"
-                                                                           MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                           TextAlignment="Right"
-                                                                           HeaderTextAlignment="Center"
-                                                                           DataMemberBinding="{Binding InvoiceValue,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                           MaskType="Numeric"
-                                                                           Mask="###,###,###.##" />
                                         <telerik:GridViewDataColumn Header="经办人"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     TextAlignment="Right"
@@ -204,6 +197,7 @@
                                                  IsBusy="{Binding PaymentNotices.IsBusy}"
                                                  ShowGroupPanel="False"
                                                  IsFilteringAllowed="True"
+                                                 ShowColumnFooters="True"
                                                  EditTriggers="CellClick">
                                 <telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadContextMenu>
@@ -217,24 +211,28 @@
                                 </telerik:RadContextMenu.ContextMenu>
                                 <telerik:RadGridView.Columns>
                                     <uc:DataPageSerialColumn Header="序号" />
-                                    <telerik:GridViewComboBoxColumn Header="发票类型"
+                                    <telerik:GridViewDataColumn Header="发票类型"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
-                                                                    ItemsSource="{Binding InvoiceTypes}"
                                                                     DataMemberBinding="{Binding InvoiceTypeString}" />
                                     <telerik:GridViewDataColumn Header="发票编号"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 TextAlignment="Right"
                                                                 HeaderTextAlignment="Center"
-                                                                DataMemberBinding="{Binding InvoiceId}" />
-                                    <telerik:GridViewMaskedInputColumn Header="付款金额"
+                                                                DataMemberBinding="{Binding InvoiceId}"/>
+                                    <telerik:GridViewDataColumn Header="付款金额"
                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                        TextAlignment="Right"
                                                                        HeaderTextAlignment="Center"
                                                                        DataMemberBinding="{Binding Amount,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                       MaskType="Numeric"
-                                                                       Mask="###,###,###.##" />
+                                                                       FooterTextAlignment="Right">
+                                        <telerik:GridViewDataColumn.AggregateFunctions>
+                                            <telerik:SumFunction  Caption="总计:"
+                                                                  SourceField="Amount"
+                                                                  ResultFormatString="{StaticResource CurrencyStringFormat}"/>
+                                        </telerik:GridViewDataColumn.AggregateFunctions>
+                                    </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="备注"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 TextAlignment="Right"

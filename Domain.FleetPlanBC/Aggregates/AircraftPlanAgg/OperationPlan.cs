@@ -15,11 +15,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 #endregion
 
@@ -53,7 +48,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     运营历史外键
         /// </summary>
-        public Guid? OperationHistoryID { get; private set; }
+        public Guid? OperationHistoryId { get; private set; }
 
         #endregion
 
@@ -65,6 +60,14 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置运营权历史
+        /// </summary>
+        /// <param name="operationHistoryId">运营权历史</param>
+        public void SetOperationHistory(Guid? operationHistoryId)
+        {
+            OperationHistoryId = operationHistoryId;
+        }
 
 
         #endregion

@@ -17,15 +17,19 @@
 
 #region 命名空间
 
+using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
+using Telerik.Windows.Controls.DataServices;
 using Telerik.Windows.Data;
-using UniCloud.Application.PaymentBC.DTO.GuaranteeDTO;
+using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
+using UniCloud.Presentation.Service.Payment.Payment.Enums;
+using UniCloud.Presentation.SessionExtension;
 
 #endregion
 
@@ -45,8 +49,8 @@ namespace UniCloud.Presentation.Payment.Guarantees
         {
             InitialLeaseGuarantee(); //初始化租赁保证金
             InitialCurrency(); //初始币种
-            InitialSupplier(); //初始化供应商
-            InitialCommand();
+            InitialLeaseOrder(); //初始化租赁订单
+            InitialCommand(); //初始化命令
         }
 
         #region 加载租赁保证金
@@ -64,6 +68,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 if (_selectedLeaseGuarantee != value)
                 {
                     _selectedLeaseGuarantee = value;
+                    RefreshCommandState();
                     RaisePropertyChanged(() => SelectedLeaseGuarantee);
                 }
             }
@@ -92,6 +97,54 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 {
                     SelectedLeaseGuarantee = e.Entities.Cast<LeaseGuaranteeDTO>().FirstOrDefault();
                 }
+                RefreshCommandState();
+            };
+            LeaseGuaranteesView.PropertyChanged += OnViewPropertyChanged;
+        }
+
+        #endregion
+
+        #region 加载租赁订单
+
+        private LeaseOrderDTO _selectedLeaseOrder;
+
+        /// <summary>
+        ///     选择租赁订单。
+        /// </summary>
+        public LeaseOrderDTO SelectedLeaseOrder
+        {
+            get { return _selectedLeaseOrder; }
+            set
+            {
+                _selectedLeaseOrder = value;
+                if (SelectedLeaseGuarantee != null && value != null)
+                {
+                    SelectedLeaseGuarantee.SupplierId = value.SupplierId;
+                    SelectedLeaseGuarantee.SupplierName = value.SupplierName;
+                    SelectedLeaseGuarantee.OrderName = value.Name;
+                }
+                RaisePropertyChanged(() => SelectedLeaseOrder);
+            }
+        }
+
+        /// <summary>
+        ///     获取所有租赁订单信息。
+        /// </summary>
+        public QueryableDataServiceCollectionView<LeaseOrderDTO> LeaseOrdersView { get; set; }
+
+        /// <summary>
+        ///     初始化租赁订单信息。
+        /// </summary>
+        private void InitialLeaseOrder()
+        {
+            LeaseOrdersView = Service.CreateCollection(_context.LeaseOrders);
+            LeaseOrdersView.LoadedData += (sender, e) =>
+            {
+                if (e.HasError)
+                {
+                    e.MarkErrorAsHandled();
+                }
+                RefreshCommandState();
             };
         }
 
@@ -132,7 +185,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
                     e.MarkErrorAsHandled();
                     return;
                 }
-                SelectedCurrency = e.Entities.Cast<CurrencyDTO>().FirstOrDefault();
+                RefreshCommandState();
             };
         }
 
@@ -150,6 +203,15 @@ namespace UniCloud.Presentation.Payment.Guarantees
         /// <param name="sender"></param>
         public void OndAddGuarantee(object sender)
         {
+            var guarantee = new LeaseGuaranteeDTO
+            {
+                GuaranteeId = RandomHelper.Next(),
+                CreateDate = DateTime.Now,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(7),
+                OperatorName = SessionUser.UserName,
+            };
+            LeaseGuaranteesView.AddNew(guarantee);
         }
 
         /// <summary>
@@ -159,7 +221,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
         /// <returns>新增命令是否可用。</returns>
         public bool CanAddAddGuarantee(object sender)
         {
-            return true;
+            return GetButtonState();
         }
 
         #endregion
@@ -174,6 +236,13 @@ namespace UniCloud.Presentation.Payment.Guarantees
         /// <param name="sender"></param>
         public void OnDelGuarantee(object sender)
         {
+            if (SelectedLeaseGuarantee == null)
+            {
+                MessageAlert("提示", "请选择需要删除的记录");
+                return;
+            }
+            LeaseGuaranteesView.Remove(SelectedLeaseGuarantee);
+            RefreshCommandState();
         }
 
         /// <summary>
@@ -183,7 +252,11 @@ namespace UniCloud.Presentation.Payment.Guarantees
         /// <returns>删除命令是否可用。</returns>
         public bool CanDelGuarantee(object sender)
         {
-            return true;
+            if (!GetButtonState())
+            {
+                return false;
+            }
+            return SelectedLeaseGuarantee!=null;
         }
 
         #endregion
@@ -198,6 +271,13 @@ namespace UniCloud.Presentation.Payment.Guarantees
         /// <param name="sender"></param>
         public void OnSubmitGuarantee(object sender)
         {
+            if (SelectedLeaseGuarantee == null)
+            {
+                MessageAlert("提示", "请选择需要删除的记录");
+                return;
+            }
+            SelectedLeaseGuarantee.Status = (int) GuaranteeStatus.待审核;
+            RefreshCommandState();
         }
 
         /// <summary>
@@ -207,7 +287,11 @@ namespace UniCloud.Presentation.Payment.Guarantees
         /// <returns>提交审核命令是否可用。</returns>
         public bool CanSubmitGuarantee(object sender)
         {
-            return true;
+            if (!GetButtonState())
+            {
+                return false;
+            }
+            return SelectedLeaseGuarantee != null && SelectedLeaseGuarantee.Status < (int) GuaranteeStatus.待审核;
         }
 
         #endregion
@@ -222,6 +306,14 @@ namespace UniCloud.Presentation.Payment.Guarantees
         /// <param name="sender"></param>
         public void OnReviewGuarantee(object sender)
         {
+            if (SelectedLeaseGuarantee == null)
+            {
+                MessageAlert("提示", "请选择需要删除的记录");
+                return;
+            }
+            SelectedLeaseGuarantee.Status = (int) GuaranteeStatus.已审核;
+            SelectedLeaseGuarantee.Reviewer = SessionUser.UserName;
+            RefreshCommandState();
         }
 
         /// <summary>
@@ -231,10 +323,29 @@ namespace UniCloud.Presentation.Payment.Guarantees
         /// <returns>新增命令是否可用。</returns>
         public bool CanReviewGuarantee(object sender)
         {
-            return true;
+            if (!GetButtonState())
+            {
+                return false;
+            }
+            return SelectedLeaseGuarantee != null && SelectedLeaseGuarantee.Status < (int) GuaranteeStatus.已审核
+                   && SelectedLeaseGuarantee.Status > (int) GuaranteeStatus.草稿;
         }
 
         #endregion
+
+        /// <summary>
+        ///     获取按钮状态
+        /// </summary>
+        /// <returns></returns>
+        private bool GetButtonState()
+        {
+            //当处于加载中，按钮是不可用的
+            return !CurrencysView.IsLoading && !CurrencysView.IsSubmittingChanges
+                   && !LeaseGuaranteesView.IsLoading
+                   && !LeaseGuaranteesView.IsSubmittingChanges
+                   && !LeaseOrdersView.IsLoading
+                   && !LeaseOrdersView.IsSubmittingChanges;
+        }
 
         /// <summary>
         ///     初始化命令
@@ -248,52 +359,6 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 CanSubmitGuarantee);
             ReviewGuaranteeCommand = new DelegateCommand<object>(OnReviewGuarantee,
                 CanReviewGuarantee);
-        }
-
-        #endregion
-
-        #region Supplier相关信息
-
-        private SupplierDTO _selectedSupplier;
-
-        /// <summary>
-        ///     选择供应商。
-        /// </summary>
-        public SupplierDTO SelSupplier
-        {
-            get { return _selectedSupplier; }
-            set
-            {
-                if (_selectedSupplier != value)
-                {
-                    _selectedSupplier = value;
-                    RaisePropertyChanged(() => SelSupplier);
-                }
-            }
-        }
-
-
-        /// <summary>
-        ///     获取所有供应商公司信息。
-        /// </summary>
-        public QueryableDataServiceCollectionView<SupplierDTO> SuppliersView { get; set; }
-
-        /// <summary>
-        ///     初始化供应商。
-        /// </summary>
-        private void InitialSupplier()
-        {
-            SuppliersView = Service.CreateCollection(_context.Suppliers);
-            Service.RegisterCollectionView(SuppliersView); //注册查询集合。
-            SuppliersView.LoadedData += (sender, e) =>
-            {
-                if (e.HasError)
-                {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
-                SelSupplier = e.Entities.Cast<SupplierDTO>().FirstOrDefault();
-            };
         }
 
         #endregion
@@ -317,7 +382,44 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 LeaseGuaranteesView.AutoLoad = true;
             }
             CurrencysView.AutoLoad = true;
-            SuppliersView.AutoLoad = true;
+            LeaseOrdersView.AutoLoad = true;
+        }
+
+        public override void RefreshCommandState()
+        {
+            SubmitGuaranteeCommand.RaiseCanExecuteChanged();
+            DelGuaranteeCommand.RaiseCanExecuteChanged();
+            AddGuaranteeCommand.RaiseCanExecuteChanged();
+            ReviewGuaranteeCommand.RaiseCanExecuteChanged();
+            SaveCommand.RaiseCanExecuteChanged();
+            AbortCommand.RaiseCanExecuteChanged();
+        }
+
+        protected override bool OnSaveExecuting(QueryableDataServiceCollectionViewBase sender)
+        {
+            var canSave = true;
+            foreach (var p in LeaseGuaranteesView.ToList())
+            {
+                if (p.OrderId == 0)
+                {
+                    canSave = false;
+                    MessageAlert("订单不能为空");
+                    break;
+                }
+                if (p.CurrencyId == 0)
+                {
+                    canSave = false;
+                    MessageAlert("币种不能为空");
+                    break;
+                }
+                if (p.Amount == 0)
+                {
+                    canSave = false;
+                    MessageAlert("付款金额不能为空");
+                    break;
+                }
+            }
+            return canSave;
         }
 
         #endregion

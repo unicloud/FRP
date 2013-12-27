@@ -40,6 +40,9 @@ namespace UniCloud.Presentation.ValueConverts
                 case "PaymentNoticeStatus":
                     result = EnumUtility.GetName(typeof(PaymentNoticeStatus), (PaymentNoticeStatus)value);
                     break;
+                case "GuaranteeStatus":
+                    result = EnumUtility.GetName(typeof(GuaranteeStatus), (GuaranteeStatus)value);
+                    break;
                 default:
                     break;
             }

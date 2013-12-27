@@ -15,10 +15,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
@@ -47,7 +43,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg
         /// <summary>
         ///     审批日期
         /// </summary>
-        public DateTime? ExamineDate { get; internal set; }
+        public DateTime? ExamineDate { get; private set; }
 
         /// <summary>
         ///     民航局批文文号
@@ -72,20 +68,21 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg
         #endregion
 
         #region 外键属性
-        /// <summary>
-        ///     批准单位
-        /// </summary>
-        public Guid DispatchUnitID { get; private set; }
 
         /// <summary>
-        ///     文档
+        ///     审批单位
         /// </summary>
-        public Guid? CaacDocumentID { get; private set; }
+        public Guid DispatchUnitId { get; private set; }
 
         /// <summary>
-        ///     文档
+        ///     民航局批文文档
         /// </summary>
-        public Guid? NdrcDocumentID { get; private set; }
+        public Guid? CaacDocumentId { get; private set; }
+
+        /// <summary>
+        ///     发改委批文文档
+        /// </summary>
+        public Guid? NdrcDocumentId { get; private set; }
 
 
         #endregion
@@ -99,7 +96,91 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg
         #region 操作
 
 
+        /// <summary>
+        ///     设置处理状态
+        /// </summary>
+        /// <param name="status">处理状态</param>
+        public void SetOperationStatus(OperationStatus status)
+        {
+            switch (status)
+            {
+                case OperationStatus.草稿:
+                    Status = OperationStatus.草稿;
+                    break;
+                case OperationStatus.待审核:
+                    Status = OperationStatus.待审核;
+                    break;
+                case OperationStatus.已审核:
+                    Status = OperationStatus.已审核;
+                    break;
+                case OperationStatus.已提交:
+                    Status = OperationStatus.已提交;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
+        }
 
+        /// <summary>
+        ///     设置审批日期
+        /// </summary>
+        /// <param name="date">审批日期</param>
+        public void SetExamineDate(DateTime? date)
+        {
+            ExamineDate = date;
+        }
+
+        /// <summary>
+        ///     设置备注
+        /// </summary>
+        /// <param name="note">备注</param>
+        public void SetNote(string note)
+        {
+            Note = note;
+        }
+
+        /// <summary>
+        /// 设置民航局批文文档
+        /// </summary>
+        /// <param name="caacDocumentId"></param>
+        /// <param name="caacApprovalNumber"></param>
+        public void SetCaacDocument(Guid? caacDocumentId, string caacApprovalNumber)
+        {
+            if (string.IsNullOrWhiteSpace(caacApprovalNumber))
+            {
+                throw new ArgumentException("民航局批文文号为空！");
+            }
+            CaacDocumentId = caacDocumentId;
+            CaacApprovalNumber = caacApprovalNumber;
+        }
+
+        /// <summary>
+        /// 设置发改委批文文档
+        /// </summary>
+        /// <param name="ndrcDocumentId"></param>
+        /// <param name="ndrcApprovalNumber"></param>
+        public void SetNdrcDocument(Guid? ndrcDocumentId, string ndrcApprovalNumber)
+        {
+            if (string.IsNullOrWhiteSpace(ndrcApprovalNumber))
+            {
+                throw new ArgumentException("民航局批文文号为空！");
+            }
+            NdrcDocumentId = ndrcDocumentId;
+            NdrcApprovalNumber = ndrcApprovalNumber;
+        }
+
+        /// <summary>
+        /// 设置审批单位
+        /// </summary>
+        /// <param name="dispatchUnitId">审批单位</param>
+        public void SetDispatchUnit(Guid dispatchUnitId)
+        {
+            if (dispatchUnitId == null)
+            {
+                throw new ArgumentException("审批单位Id为空！");
+            }
+            DispatchUnitId = dispatchUnitId;
+        }
         #endregion
     }
 }

@@ -12,17 +12,6 @@
 // ========================================================================*/
 #endregion
 
-#region 命名空间
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-#endregion
-
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
 {
     /// <summary>

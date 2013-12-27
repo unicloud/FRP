@@ -32,7 +32,6 @@ namespace UniCloud.Presentation.Payment.Invoice
             Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(PaymentDataService, PaymentDataService.Suppliers);
             Currencies=new QueryableDataServiceCollectionView<CurrencyDTO>(PaymentDataService,PaymentDataService.Currencies);
 
-            SupplierChangedCommand=new DelegateCommand<object>(OnSupplierChanged);
             AddInvoiceCommand = new DelegateCommand<object>(OnAddInvoice, CanAddInvoice);
             RemoveInvoiceCommand = new DelegateCommand<object>(OnRemoveInvoice, CanRemoveInvoice);
             AddInvoiceLineCommand = new DelegateCommand<object>(OnAddInvoiceLine, CanAddInvoiceLine);
@@ -65,16 +64,6 @@ namespace UniCloud.Presentation.Payment.Invoice
         #endregion
 
         #region 操作
-
-        #region
-        /// <summary>
-        ///  创建新发票
-        /// </summary>
-        public DelegateCommand<object> SupplierChangedCommand { get; set; }
-        protected virtual void OnSupplierChanged(object obj)
-        {
-        }
-        #endregion
 
         #region 创建新发票
         /// <summary>
