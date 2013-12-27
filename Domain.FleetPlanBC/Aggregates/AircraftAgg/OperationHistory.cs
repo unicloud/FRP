@@ -15,11 +15,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 #endregion
 
@@ -98,22 +93,22 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// <summary>
         ///     飞机外键
         /// </summary>
-        public Guid AircraftID { get; private set; }
+        public Guid AircraftId { get; internal set; }
 
         /// <summary>
-        ///     航空公司外键
+        ///    运营权人外键
         /// </summary>
-        public Guid AirlinesID { get; private set; }
+        public Guid AirlinesId { get; private set; }
 
         /// <summary>
         ///     实际引进方式
         /// </summary>
-        public Guid ImportCategoryID { get; private set; }
+        public Guid ImportCategoryId { get; private set; }
 
         /// <summary>
         ///     实际退出方式
         /// </summary>
-        public Guid? ExportCategoryID { get; private set; }
+        public Guid? ExportCategoryId { get; private set; }
 
 
         #endregion
@@ -126,7 +121,137 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置飞机机号
+        /// </summary>
+        /// <param name="regNumber">注册号</param>
+        public void SetRegNumber(string regNumber)
+        {
+            if (string.IsNullOrWhiteSpace(regNumber))
+            {
+                throw new ArgumentException("注册号参数为空！");
+            }
 
+            RegNumber = regNumber;
+        }
+
+        /// <summary>
+        ///     设置运营日期
+        /// </summary>
+        /// <param name="date">运营日期</param>
+        public void SetStartDate(DateTime date)
+        {
+            StartDate = date;
+        }
+
+        /// <summary>
+        ///     设置退出停厂日期
+        /// </summary>
+        /// <param name="date">退出停厂日期</param>
+        public void SetStopDate(DateTime? date)
+        {
+            StopDate = date;
+        }
+
+        /// <summary>
+        ///     设置技术接收日期
+        /// </summary>
+        /// <param name="date">技术接收日期</param>
+        public void SetTechReceiptDate(DateTime? date)
+        {
+            TechReceiptDate = date;
+        }
+
+        /// <summary>
+        ///     设置接收日期
+        /// </summary>
+        /// <param name="date">接收日期</param>
+        public void SetReceiptDate(DateTime? date)
+        {
+            ReceiptDate = date;
+        }
+
+        /// <summary>
+        ///     设置技术交付日期
+        /// </summary>
+        /// <param name="date">技术交付日期</param>
+        public void SetTechDeliveryDate(DateTime? date)
+        {
+            TechDeliveryDate = date;
+        }
+
+        /// <summary>
+        ///     设置起租日期
+        /// </summary>
+        /// <param name="date">起租日期</param>
+        public void SetOnHireDate(DateTime? date)
+        {
+            OnHireDate = date;
+        }
+
+        /// <summary>
+        ///     设置退出日期
+        /// </summary>
+        /// <param name="date">退出日期</param>
+        public void SetEndDate(DateTime? date)
+        {
+            EndDate = date;
+        }
+
+        /// <summary>
+        ///     设置备注
+        /// </summary>
+        /// <param name="note">备注</param>
+        public void SetNote(string note)
+        {
+            //if (string.IsNullOrWhiteSpace(note))
+            //{
+            //    throw new ArgumentException("备注参数为空！");
+            //}
+            Note = note;
+        }
+
+        /// <summary>
+        ///     设置运营权人
+        /// </summary>
+        /// <param name="airlinesId">运营权人</param>
+        public void SetAirlines(Guid airlinesId)
+        {
+            if (airlinesId == null)
+            {
+                throw new ArgumentException("运营权人Id参数为空！");
+            }
+
+            AirlinesId = airlinesId;
+        }
+
+        /// <summary>
+        ///     设置实际引进方式
+        /// </summary>
+        /// <param name="importCategoryId">实际引进方式</param>
+        public void SetImportCategory(Guid importCategoryId)
+        {
+            if (importCategoryId == null)
+            {
+                throw new ArgumentException("实际引进方式Id参数为空！");
+            }
+
+            ImportCategoryId = importCategoryId;
+        }
+
+        /// <summary>
+        ///     设置实际退出方式
+        /// </summary>
+        /// <param name="exportCategoryId">实际退出方式</param>
+        public void SetExportCategoryID(Guid exportCategoryId)
+        {
+            if (exportCategoryId == null)
+            {
+                throw new ArgumentException("实际退出方式Id参数为空！");
+            }
+
+            ExportCategoryId = exportCategoryId;
+        }
 
         #endregion
     }

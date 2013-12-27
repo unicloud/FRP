@@ -16,9 +16,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
@@ -75,12 +72,12 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         public string RaDocNumber { get; private set; }
 
         /// <summary>
-        ///     地方局申请文号
+        ///     监管局申请文号
         /// </summary>
         public string SawsDocNumber { get; private set; }
 
         /// <summary>
-        ///     地方局申请文号
+        ///     民航局申请文号
         /// </summary>
         public string CaacDocNumber { get; private set; }
 

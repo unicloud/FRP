@@ -15,10 +15,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
@@ -66,12 +62,12 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// <summary>
         ///     飞机外键
         /// </summary>
-        public Guid AircraftID { get; private set; }
+        public Guid AircraftId { get; internal set; }
 
         /// <summary>
         ///     所有权人
         /// </summary>
-        public Guid SupplierID { get; private set; }
+        public Guid SupplierId { get; private set; }
 
 
         #endregion
@@ -84,7 +80,62 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置处理状态
+        /// </summary>
+        /// <param name="status">处理状态</param>
+        public void SetOperationStatus(OperationStatus status)
+        {
+            switch (status)
+            {
+                case OperationStatus.草稿:
+                    Status = OperationStatus.草稿;
+                    break;
+                case OperationStatus.待审核:
+                    Status = OperationStatus.待审核;
+                    break;
+                case OperationStatus.已审核:
+                    Status = OperationStatus.已审核;
+                    break;
+                case OperationStatus.已提交:
+                    Status = OperationStatus.已提交;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
+        }
 
+        /// <summary>
+        ///     设置开始日期
+        /// </summary>
+        /// <param name="date">开始日期</param>
+        public void SetStartDate(DateTime date)
+        {
+            StartDate = date;
+        }
+
+        /// <summary>
+        ///     设置结束日期
+        /// </summary>
+        /// <param name="date">结束日期</param>
+        public void SetEndDate(DateTime? date)
+        {
+            EndDate = date;
+        }
+
+        /// <summary>
+        ///     设置所有权人
+        /// </summary>
+        /// <param name="supplierId">所有权人</param>
+        public void SetSupplier(Guid supplierId)
+        {
+            if (supplierId == null)
+            {
+                throw new ArgumentException("所有权人Id参数为空！");
+            }
+
+            SupplierId = supplierId;
+        }
 
         #endregion
     }

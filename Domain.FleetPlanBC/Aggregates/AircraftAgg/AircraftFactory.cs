@@ -12,24 +12,28 @@
 // ========================================================================*/
 #endregion
 
-#region 命名空间
-
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-#endregion
 
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
 {
     /// <summary>
-    ///     “实际飞机”工厂
+    ///     “实际运营飞机”工厂
     /// </summary>
     public static class AircraftFactory
     {
+        /// <summary>
+        ///     创建运营飞机
+        /// </summary>
+        /// <returns>运营飞机</returns>
+        public static Aircraft CreateAircraft()
+        {
+            var aircraft = new Aircraft
+            {
+                CreateDate = DateTime.Now,
+            };
+
+            return aircraft;
+        }
 
     }
 }

@@ -15,11 +15,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 #endregion
 
@@ -53,10 +48,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ManagerAgg
 
         #region 外键属性
 
-        /// <summary>
-        /// Owner外键
-        /// </summary>
-        public Guid OwnerID { get; private set; }
 
         #endregion
 

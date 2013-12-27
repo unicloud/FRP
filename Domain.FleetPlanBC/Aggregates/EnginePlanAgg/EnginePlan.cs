@@ -16,9 +16,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
@@ -51,9 +48,9 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         #region 属性
 
         /// <summary>
-        ///     创建日期
+        ///     计划标题
         /// </summary>
-        public DateTime CreateDate { get; internal set; }
+        public string Title { get; private set; }
 
         /// <summary>
         ///     计划文号
@@ -61,14 +58,14 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         public string DocNumber { get; private set; }
 
         /// <summary>
+        ///     创建日期
+        /// </summary>
+        public DateTime CreateDate { get; internal set; }
+
+        /// <summary>
         ///     是否有效
         /// </summary>
         public bool IsValid { get; private set; }
-
-        /// <summary>
-        ///     计划标题
-        /// </summary>
-        public string Title { get; private set; }
 
         /// <summary>
         ///     版本号
@@ -83,7 +80,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         /// <summary>
         ///     计划编辑处理状态
         /// </summary>
-        public PlanStatus Status { get; private set; }
+        public EnginePlanStatus Status { get; private set; }
 
         /// <summary>
         /// 备注
@@ -97,17 +94,17 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         /// <summary>
         ///     航空公司外键
         /// </summary>
-        public Guid AirlinesID { get; private set; }
+        public Guid AirlinesId { get; private set; }
 
         /// <summary>
         /// 年度外键
         /// </summary>
-        public Guid AnnualID { get; private set; }
+        public Guid AnnualId { get; private set; }
 
         /// <summary>
         ///     文档Id
         /// </summary>
-        public Guid? DocumentID { get; private set; }
+        public Guid? DocumentId { get; private set; }
 
         #endregion
 
@@ -124,8 +121,122 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         #endregion
 
         #region 操作
+        /// <summary>
+        ///     设置计划编辑处理状态
+        /// </summary>
+        /// <param name="status">计划编辑处理状态</param>
+        public void SetEnginePlanStatus(EnginePlanStatus status)
+        {
+            switch (status)
+            {
+                case EnginePlanStatus.草稿:
+                    Status = EnginePlanStatus.草稿;
+                    break;
+                case EnginePlanStatus.待审核:
+                    Status = EnginePlanStatus.待审核;
+                    break;
+                case EnginePlanStatus.已审核:
+                    Status = EnginePlanStatus.已审核;
+                    IsValid = true;
+                    IsFinished = true;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
+        }
 
+        /// <summary>
+        ///     设置计划标题
+        /// </summary>
+        /// <param name="title">计划标题</param>
+        public void SetTitle(string title)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                throw new ArgumentException("计划标题参数为空！");
+            }
 
+            Title = title;
+        }
+
+        /// <summary>
+        ///     设置计划文号
+        /// </summary>
+        /// <param name="docNumber">计划文号</param>
+        public void SetDocNumber(string docNumber)
+        {
+            if (string.IsNullOrWhiteSpace(docNumber))
+            {
+                throw new ArgumentException("计划文号参数为空！");
+            }
+
+            DocNumber = docNumber;
+        }
+
+        /// <summary>
+        ///     设置备注
+        /// </summary>
+        /// <param name="note">备注</param>
+        public void SetNote(string note)
+        {
+            Note = note;
+        }
+
+        /// <summary>
+        ///     设置航空公司
+        /// </summary>
+        /// <param name="airlinesId">航空公司</param>
+        public void SetAirlines(Guid airlinesId)
+        {
+            if (airlinesId == null)
+            {
+                throw new ArgumentException("航空公司Id参数为空！");
+            }
+
+            AirlinesId = airlinesId;
+        }
+
+        /// <summary>
+        ///     设置计划年度
+        /// </summary>
+        /// <param name="annualId">计划年度</param>
+        public void SetAnnual(Guid annualId)
+        {
+            if (annualId == null)
+            {
+                throw new ArgumentException("计划年度Id参数为空！");
+            }
+
+            AnnualId = annualId;
+        }
+
+        /// <summary>
+        ///     设置计划文档
+        /// </summary>
+        /// <param name="documentId">计划文档</param>
+        public void SetDocument(Guid? documentId)
+        {
+            //if (documentId == null)
+            //{
+            //    throw new ArgumentException("计划文档Id参数为空！");
+            //}
+
+            DocumentId = documentId;
+        }
+
+        /// <summary>
+        /// 新增备发计划明细
+        /// </summary>
+        /// <returns></returns>
+        public EnginePlanHistory AddNewEnginePlanHistory()
+        {
+            var enginePlanHistory = new EnginePlanHistory
+            {
+                EnginePlanId = Id,
+            };
+
+            return enginePlanHistory;
+        }
 
         #endregion
     }
