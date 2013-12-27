@@ -15,10 +15,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
@@ -76,25 +72,112 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// <summary>
         ///     飞机外键
         /// </summary>
-        public Guid AircraftID { get; private set; }
+        public Guid AircraftId { get; internal set; }
 
         /// <summary>
         ///     机型外键
         /// </summary>
-        public Guid AircraftTypeID { get; private set; }
+        public Guid AircraftTypeId { get; private set; }
 
         /// <summary>
         ///     引进方式
         /// </summary>
-        public Guid ImportCategoryID { get; private set; }
+        public Guid ImportCategoryId { get; private set; }
 
 
         #endregion
 
         #region 导航属性
 
+        /// <summary>
+        ///     设置处理状态
+        /// </summary>
+        /// <param name="status">处理状态</param>
+        public void SetOperationStatus(OperationStatus status)
+        {
+            switch (status)
+            {
+                case OperationStatus.草稿:
+                    Status = OperationStatus.草稿;
+                    break;
+                case OperationStatus.待审核:
+                    Status = OperationStatus.待审核;
+                    break;
+                case OperationStatus.已审核:
+                    Status = OperationStatus.已审核;
+                    break;
+                case OperationStatus.已提交:
+                    Status = OperationStatus.已提交;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
+        }
+
+        /// <summary>
+        /// 设置座位数
+        /// </summary>
+        /// <param name="seatingCapacity"></param>
+        public void SetSeatingCapacity(int seatingCapacity)
+        {
+            SeatingCapacity = seatingCapacity;
+        }
+
+        /// <summary>
+        /// 设置商载量
+        /// </summary>
+        /// <param name="carryingCapacity"></param>
+        public void SetCarryingCapacity(decimal carryingCapacity)
+        {
+            CarryingCapacity = carryingCapacity;
+        }
+
+        /// <summary>
+        ///     设置开始日期
+        /// </summary>
+        /// <param name="date">开始日期</param>
+        public void SetStartDate(DateTime date)
+        {
+            StartDate = date;
+        }
+
+        /// <summary>
+        ///     设置结束日期
+        /// </summary>
+        /// <param name="date">结束日期</param>
+        public void SetEndDate(DateTime? date)
+        {
+            EndDate = date;
+        }
+
+        /// <summary>
+        ///     设置机型
+        /// </summary>
+        /// <param name="aircraftTypeId">机型</param>
+        public void SetAircraftType(Guid aircraftTypeId)
+        {
+            if (aircraftTypeId == null)
+            {
+                throw new ArgumentException("机型Id参数为空！");
+            }
+
+            AircraftTypeId = aircraftTypeId;
+        }
 
 
+        /// <summary>
+        ///     设置引进方式
+        /// </summary>
+        /// <param name="importCategoryId">引进方式</param>
+        public void SetImportCategory(Guid importCategoryId)
+        {
+            if (importCategoryId == null)
+            {
+                throw new ArgumentException("引进方式Id参数为空！");
+            }
+
+            ImportCategoryId = importCategoryId;
+        }
         #endregion
 
         #region 操作

@@ -3,8 +3,8 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2013/12/26 18:24:01
-// 文件名：ChangePlanDTO
+// 作者：HuangQiBin 时间：2013/12/27 14:51:28
+// 文件名：CaacProgrammingLine
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -16,7 +16,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Services.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,21 +23,9 @@ using System.Threading.Tasks;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.AircraftPlanDTO
+namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg
 {
-    /// <summary>
-    /// 变更计划明细
-    /// </summary>
-    [DataServiceKey("Id")]
-    public class ChangePlanDTO
+    class CaacProgrammingLine
     {
-        #region 属性
-
-        /// <summary>
-        /// 主键
-        /// </summary>
-        public Guid Id { get; set; }
-
-        #endregion
     }
 }

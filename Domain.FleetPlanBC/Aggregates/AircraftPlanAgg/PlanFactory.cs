@@ -12,16 +12,7 @@
 // ========================================================================*/
 #endregion
 
-#region 命名空间
-
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-
-#endregion
 
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
 {
@@ -30,6 +21,22 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
     /// </summary>
     public static class PlanFactory
     {
+        /// <summary>
+        ///     创建运力增减计划
+        /// </summary>
+        /// <param name="versionNumber">版本号</param>
+        /// <param name="submitDate">提交日期</param>
+        /// <returns>f飞机计划</returns>
+        public static Plan CreatePlan(int versionNumber,DateTime submitDate)
+        {
+            var plan = new Plan
+            {
+                VersionNumber = versionNumber,
+                CreateDate = DateTime.Now,
+                SubmitDate = submitDate,
+            };
 
+            return plan;
+        }
     }
 }

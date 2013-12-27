@@ -15,11 +15,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 #endregion
 
@@ -65,15 +60,13 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         public bool IsValid { get; internal set; }
 
         /// <summary>
-        ///     是否调整项
-        /// </summary>
-        public bool IsAdjust { get; private set; }
-
-        /// <summary>
         ///     是否提交
         /// </summary>
         public bool IsSubmit { get; internal set; }
 
+        /// <summary>
+        /// 备注
+        /// </summary>
         public string Note { get; private set; }
 
         #endregion
@@ -82,34 +75,37 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     计划飞机外键
         /// </summary>
-        public Guid? PlanAircraftID { get; private set; }
+        public Guid? PlanAircraftId { get; private set; }
 
         /// <summary>
         ///     计划外键
         /// </summary>
-        public Guid PlanID { get; private set; }
+        public Guid PlanId { get; internal set; }
 
         /// <summary>
-        ///     活动类型
+        ///     活动类别：包括引进、退出、变更
         /// </summary>
-        public Guid ActionCategoryID { get; private set; }
+        public Guid ActionCategoryId { get; private set; }
 
-        public Guid TargetCategoryID { get; private set; }
+        /// <summary>
+        /// 目标类别：具体的引进、退出方式
+        /// </summary>
+        public Guid TargetCategoryId { get; private set; }
 
         /// <summary>
         ///     机型外键
         /// </summary>
-        public Guid AircraftTypeID { get; private set; }
+        public Guid AircraftTypeId { get; private set; }
 
         /// <summary>
         ///     航空公司外键
         /// </summary>
-        public Guid AirlinesID { get; private set; }
+        public Guid AirlinesId { get; private set; }
 
         /// <summary>
         ///     执行年度
         /// </summary>
-        public Guid PerformAnnualID { get; private set; }
+        public Guid PerformAnnualId { get; private set; }
 
 
         #endregion
@@ -122,8 +118,109 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
 
         #region 操作
 
+        /// <summary>
+        /// 设置座位数
+        /// </summary>
+        /// <param name="seatingCapacity"></param>
+        public void SetSeatingCapacity(int seatingCapacity)
+        {
+            SeatingCapacity = seatingCapacity;
+        }
 
+        /// <summary>
+        /// 设置商载量
+        /// </summary>
+        /// <param name="carryingCapacity"></param>
+        public void SetCarryingCapacity(decimal carryingCapacity)
+        {
+            CarryingCapacity = carryingCapacity;
+        }
 
+        /// <summary>
+        /// 设置执行时间
+        /// </summary>
+        /// <param name="annualId"></param>
+        /// <param name="performMonth"></param>
+        public void SetPerformDate(Guid annualId, int performMonth)
+        {
+            if (annualId == null)
+            {
+                throw new ArgumentException("执行年度Id参数为空！");
+            }
+            PerformAnnualId = annualId;
+            PerformMonth = performMonth;
+        }
+
+        /// <summary>
+        ///     设置备注
+        /// </summary>
+        /// <param name="note">备注</param>
+        public void SetNote(string note)
+        {
+            //if (string.IsNullOrWhiteSpace(note))
+            //{
+            //    throw new ArgumentException("备注参数为空！");
+            //}
+
+            Note = note;
+        }
+
+        /// <summary>
+        ///     设置计划飞机
+        /// </summary>
+        /// <param name="planAircraftId">计划飞机</param>
+        public void SetPlanAircraft(Guid? planAircraftId)
+        {
+
+            PlanAircraftId = planAircraftId;
+        }
+
+        /// <summary>
+        ///     设置活动类型
+        /// </summary>
+        /// <param name="actionCategoryId">活动类型</param>
+        /// <param name="targetCategoryId">目标类别</param>
+        public void SetActionCategory(Guid actionCategoryId, Guid targetCategoryId)
+        {
+            if (actionCategoryId == null)
+            {
+                throw new ArgumentException("活动类型Id参数为空！");
+            }
+            if (targetCategoryId == null)
+            {
+                throw new ArgumentException("目标类别Id参数为空！");
+            }
+            ActionCategoryId = actionCategoryId;
+            TargetCategoryId = targetCategoryId;
+        }
+
+        /// <summary>
+        ///     设置机型
+        /// </summary>
+        /// <param name="aircraftTypeId">机型</param>
+        public void SetAircraftType(Guid aircraftTypeId)
+        {
+            if (aircraftTypeId == null)
+            {
+                throw new ArgumentException("机型Id参数为空！");
+            }
+
+            AircraftTypeId = aircraftTypeId;
+        }
+
+        /// <summary>
+        ///     设置航空公司
+        /// </summary>
+        /// <param name="airlinesId">航空公司</param>
+        public void SetAirlines(Guid airlinesId)
+        {
+            if (airlinesId == null)
+            {
+                throw new ArgumentException("航空公司Id参数为空！");
+            }
+
+            AirlinesId = airlinesId;
+        }
         #endregion
     }
 }
