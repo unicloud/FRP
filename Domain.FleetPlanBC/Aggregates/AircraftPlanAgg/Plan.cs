@@ -16,9 +16,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
@@ -63,12 +60,12 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     版本号
         /// </summary>
-        public int VersionNumber { get; private set; }
+        public int VersionNumber { get; internal set; }
 
         /// <summary>
         ///     是否当前版本
         /// </summary>
-        public bool IsCurrentVersion { get;internal set; }
+        public bool IsCurrentVersion { get; private set; }
 
         /// <summary>
         ///     提交日期
@@ -81,11 +78,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         public DateTime CreateDate { get; internal set; }
 
         /// <summary>
-        ///     文档Id
-        /// </summary>
-        public Guid? DocumentID { get; private set; }
-
-        /// <summary>
         ///     计划文号
         /// </summary>
         public string DocNumber { get; private set; }
@@ -94,21 +86,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         ///     是否完成
         /// </summary>
         public bool IsFinished { get; private set; }
-
-        /// <summary>
-        ///     客机评审标记
-        /// </summary>
-        public bool? ManageFlagPnr { get; private set; }
-
-        /// <summary>
-        ///     货机评审标记
-        /// </summary>
-        public bool? ManageFlagCargo { get; private set; }
-
-        /// <summary>
-        ///     评审备注
-        /// </summary>
-        public string ManageNote { get;private set; }
 
         /// <summary>
         ///     计划编辑处理状态
@@ -127,13 +104,17 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     航空公司外键
         /// </summary>
-        public Guid AirlinesID { get; private set; }
+        public Guid AirlinesId { get; private set; }
 
         /// <summary>
         ///     计划年度外键
         /// </summary>
-        public Guid AnnualID { get; private set; }
+        public Guid AnnualId { get; private set; }
 
+        /// <summary>
+        ///     文档Id
+        /// </summary>
+        public Guid? DocumentId { get; private set; }
 
         #endregion
 
@@ -142,7 +123,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     飞机计划明细
         /// </summary>
-        public virtual ICollection<PlanHistory> EnginePlanHistories
+        public virtual ICollection<PlanHistory> PlanHistories
         {
             get { return _planHistories ?? (_planHistories = new HashSet<PlanHistory>()); }
             set { _planHistories = new HashSet<PlanHistory>(value); }
@@ -153,8 +134,172 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置计划编辑处理状态
+        /// </summary>
+        /// <param name="status">计划编辑处理状态</param>
+        public void SetPlanStatus(PlanStatus status)
+        {
+            switch (status)
+            {
+                case PlanStatus.草稿:
+                    Status = PlanStatus.草稿;
+                    break;
+                case PlanStatus.待审核:
+                    Status = PlanStatus.待审核;
+                    break;
+                case PlanStatus.已审核:
+                    Status = PlanStatus.已审核;
+                    IsValid = true;
+                    break;
+                case PlanStatus.已提交:
+                    Status = PlanStatus.已提交;
+                    break;
+                case PlanStatus.退回:
+                    Status = PlanStatus.退回;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
+        }
+
+        
+        /// <summary>
+        ///     设置发布计划处理状态
+        /// </summary>
+        /// <param name="status">发布计划处理状态</param>
+        public void SetPlanPublishStatus(PlanPublishStatus status)
+        {
+            switch (status)
+            {
+                case PlanPublishStatus.待发布:
+                    PublishStatus = PlanPublishStatus.待发布;
+                    break;
+                case PlanPublishStatus.待审核:
+                    PublishStatus = PlanPublishStatus.待审核;
+                    break;
+                case PlanPublishStatus.已审核:
+                    PublishStatus = PlanPublishStatus.已审核;
+                    IsValid = true;
+                    break;
+                case PlanPublishStatus.已发布:
+                    PublishStatus = PlanPublishStatus.已发布;
+                    IsCurrentVersion = true;
+                    IsFinished = true;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
+        }
+
+        /// <summary>
+        ///     设置计划标题
+        /// </summary>
+        /// <param name="title">计划标题</param>
+        public void SetTitle(string title)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                throw new ArgumentException("计划标题参数为空！");
+            }
+
+            Title = title;
+        }
+
+        /// <summary>
+        ///     设置计划文号
+        /// </summary>
+        /// <param name="docNumber">计划文号</param>
+        public void SetDocNumber(string docNumber)
+        {
+            if (string.IsNullOrWhiteSpace(docNumber))
+            {
+                throw new ArgumentException("计划文号参数为空！");
+            }
+
+            DocNumber = docNumber;
+        }
+
+        /// <summary>
+        ///     设置航空公司
+        /// </summary>
+        /// <param name="airlinesId">航空公司</param>
+        public void SetAirlines(Guid airlinesId)
+        {
+            if (airlinesId == null)
+            {
+                throw new ArgumentException("航空公司Id参数为空！");
+            }
+
+            AirlinesId = airlinesId;
+        }
+
+        /// <summary>
+        ///     设置计划年度
+        /// </summary>
+        /// <param name="annualId">计划年度</param>
+        public void SetAnnual(Guid annualId)
+        {
+            if (annualId == null)
+            {
+                throw new ArgumentException("计划年度Id参数为空！");
+            }
+
+            AnnualId = annualId;
+        }
+
+        /// <summary>
+        ///     设置计划文档
+        /// </summary>
+        /// <param name="documentId">计划文档</param>
+        public void SetDocument(Guid? documentId)
+        {
+            //if (documentId == null)
+            //{
+            //    throw new ArgumentException("计划文档Id参数为空！");
+            //}
+
+            DocumentId = documentId;
+        }
 
 
+        /// <summary>
+        /// 新增飞机变更计划明细
+        /// </summary>
+        /// <returns></returns>
+        public PlanHistory AddNewChangePlan()
+        {
+            var changePlan = new ChangePlan
+            {
+                PlanId = Id,
+                IsValid = IsValid,
+                IsSubmit = (SubmitDate==null),
+            };
+
+            changePlan.GenerateNewIdentity();
+            PlanHistories.Add(changePlan);
+
+            return changePlan;
+        }
+
+        /// <summary>
+        /// 新增飞机运营计划明细
+        /// </summary>
+        /// <returns></returns>
+        public PlanHistory AddNewOperationPlan()
+        {
+            var operationPlan = new OperationPlan
+            {
+                PlanId = Id,
+                IsValid = IsValid,
+                IsSubmit = (SubmitDate == null),
+            };
+
+            operationPlan.GenerateNewIdentity();
+            PlanHistories.Add(operationPlan);
+
+            return operationPlan;
+        }
         #endregion
     }
 }

@@ -34,6 +34,5 @@ namespace UniCloud.Domain.FleetPlanBC.Enums
         待审核 = 1,
         已审核 = 2,
         已提交 = 3,
-        无状态 = 4,
     }
 }
