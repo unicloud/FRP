@@ -36,6 +36,10 @@ namespace UniCloud.Application.PaymentBC.DTO.GuaranteeDTO
         public int MaintainContractId { get;set; }
 
         /// <summary>
+        /// 合同名称
+        /// </summary>
+        public string MaintainContractName { get; set; }
+        /// <summary>
         ///     主键
         /// </summary>
         public int GuaranteeId { get; set; }
@@ -84,7 +88,7 @@ namespace UniCloud.Application.PaymentBC.DTO.GuaranteeDTO
         /// <summary>
         ///     审核日期
         /// </summary>
-        public DateTime ReviewDate { get; set; }
+        public DateTime? ReviewDate { get; set; }
 
         /// <summary>
         ///     保函状态

@@ -17,10 +17,13 @@
 
 #region 命名空间
 
+using System.Diagnostics.Contracts;
 using System.Linq;
 using UniCloud.Application.PaymentBC.DTO.GuaranteeDTO;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.MaintainContractAgg;
+using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
@@ -39,6 +42,7 @@ namespace UniCloud.Application.PaymentBC.Query.GuaranteeQueries
         public IQueryable<LeaseGuaranteeDTO> LeaseGuaranteeQuery(QueryBuilder<Guarantee> query)
         {
             var dbCurrency = _unitOfWork.CreateSet<Currency>();
+            var dbOrder = _unitOfWork.CreateSet<Order>();
             return
                 query.ApplyTo(_unitOfWork.CreateSet<Guarantee>()).OfType<LeaseGuarantee>()
                     .Select(p => new LeaseGuaranteeDTO
@@ -56,12 +60,14 @@ namespace UniCloud.Application.PaymentBC.Query.GuaranteeQueries
                         SupplierId = p.SupplierId,
                         SupplierName = p.SupplierName,
                         CurrencyName = dbCurrency.FirstOrDefault(c => c.Id == p.CurrencyId).CnName,
+                        OrderName = dbOrder.FirstOrDefault(c=>c.Id==p.OrderId).Name
                     });
         }
 
         public IQueryable<MaintainGuaranteeDTO> MaintainGuaranteeQuery(QueryBuilder<Guarantee> query)
         {
             var dbCurrency = _unitOfWork.CreateSet<Currency>();
+            var dbMaintainContract = _unitOfWork.CreateSet<MaintainContract>();
             return
                 query.ApplyTo(_unitOfWork.CreateSet<Guarantee>()).OfType<MaintainGuarantee>()
                     .Select(p => new MaintainGuaranteeDTO
@@ -79,6 +85,7 @@ namespace UniCloud.Application.PaymentBC.Query.GuaranteeQueries
                         SupplierId = p.SupplierId,
                         SupplierName = p.SupplierName,
                         CurrencyName = dbCurrency.FirstOrDefault(c => c.Id == p.CurrencyId).CnName,
+                        MaintainContractName = dbMaintainContract.FirstOrDefault(c=>c.Id==p.MaintainContractId).Name,
                     });
         }
     }
