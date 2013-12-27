@@ -73,6 +73,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierAgg
         /// </summary>
         public string Note { get; set; }
 
+        /// <summary>
+        /// 航空公司Guid
+        /// </summary>
+        public Guid? AirlineGuid { get; set ; }
+
+
         #endregion
 
         #region 外键属性

@@ -44,7 +44,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.UpdateDate).HasColumnName("UpdateDate").HasColumnType("datetime2");
             Property(p => p.IsValid).HasColumnName("IsValid");
             Property(p => p.Note).HasColumnName("Note");
-
+            Property(p => p.AirlineGuid).HasColumnName("AirlineGuid");
             Property(p => p.SupplierCompanyId).HasColumnName("SupplierCompanyId");
 
             HasRequired(s => s.SupplierCompany).WithMany(s => s.Suppliers).HasForeignKey(s => s.SupplierCompanyId);
