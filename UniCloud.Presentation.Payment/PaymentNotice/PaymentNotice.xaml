@@ -220,18 +220,19 @@
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 TextAlignment="Right"
                                                                 HeaderTextAlignment="Center"
-                                                                DataMemberBinding="{Binding InvoiceId}" />
-                                    <telerik:GridViewMaskedInputColumn Header="付款金额"
+                                                                DataMemberBinding="{Binding InvoiceId}"/>
+                                    <telerik:GridViewDataColumn Header="付款金额"
                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                        TextAlignment="Right"
                                                                        HeaderTextAlignment="Center"
                                                                        DataMemberBinding="{Binding Amount,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                       MaskType="Numeric"
-                                                                       Mask="###,###,###.##" >
-                                        <!--<telerik:GridViewFooterCell>
-                                            <TextBlock Text="aaaa" />
-                                        </telerik:GridViewFooterCell>-->
-                                    </telerik:GridViewMaskedInputColumn>
+                                                                       FooterTextAlignment="Right">
+                                        <telerik:GridViewDataColumn.AggregateFunctions>
+                                            <telerik:SumFunction  Caption="总计:"
+                                                                  SourceField="Amount"
+                                                                  ResultFormatString="{StaticResource CurrencyStringFormat}"/>
+                                        </telerik:GridViewDataColumn.AggregateFunctions>
+                                    </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="备注"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 TextAlignment="Right"
