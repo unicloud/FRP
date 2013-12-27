@@ -586,8 +586,6 @@
         <Property Name="SupplierName" Type="Edm.String" />
         <Property Name="Note" Type="Edm.String" />
       </EntityType>
-    </Schema>
-    <Schema Namespace="UniCloud.Application.PaymentBC.DTO.GuaranteeDTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityType Name="LeaseGuaranteeDTO">
         <Key>
           <PropertyRef Name="GuaranteeId" />
@@ -628,6 +626,16 @@
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
       </EntityType>
+      <EntityType Name="MaintainContractDTO">
+        <Key>
+          <PropertyRef Name="MaintainContractId" />
+        </Key>
+        <Property Name="MaintainContractId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Number" Type="Edm.String" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Signatory" Type="Edm.String" />
+        <Property Name="SignatoryId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Payment" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="PaymentData" m:IsDefaultEntityContainer="true">
@@ -657,8 +665,9 @@
         <EntitySet Name="EngineLeaseOrders" EntityType="UniCloud.Application.PaymentBC.DTO.EngineLeaseOrderDTO" />
         <EntitySet Name="BFEPurchaseOrders" EntityType="UniCloud.Application.PaymentBC.DTO.BFEPurchaseOrderDTO" />
         <EntitySet Name="StandardOrders" EntityType="UniCloud.Application.PaymentBC.DTO.StandardOrderDTO" />
-        <EntitySet Name="LeaseGuarantees" EntityType="UniCloud.Application.PaymentBC.DTO.GuaranteeDTO.LeaseGuaranteeDTO" />
-        <EntitySet Name="MaintainGuarantees" EntityType="UniCloud.Application.PaymentBC.DTO.GuaranteeDTO.MaintainGuaranteeDTO" />
+        <EntitySet Name="LeaseGuarantees" EntityType="UniCloud.Application.PaymentBC.DTO.LeaseGuaranteeDTO" />
+        <EntitySet Name="MaintainGuarantees" EntityType="UniCloud.Application.PaymentBC.DTO.MaintainGuaranteeDTO" />
+        <EntitySet Name="MaintainContracts" EntityType="UniCloud.Application.PaymentBC.DTO.MaintainContractDTO" />
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

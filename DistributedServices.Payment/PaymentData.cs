@@ -7,13 +7,12 @@ using UniCloud.Application.PaymentBC.ContractAircraftServices;
 using UniCloud.Application.PaymentBC.ContractEngineServices;
 using UniCloud.Application.PaymentBC.CurrencyServices;
 using UniCloud.Application.PaymentBC.DTO;
-using UniCloud.Application.PaymentBC.DTO.GuaranteeDTO;
 using UniCloud.Application.PaymentBC.GuaranteeServices;
 using UniCloud.Application.PaymentBC.InvoiceServices;
+using UniCloud.Application.PaymentBC.MaintainContractServices;
 using UniCloud.Application.PaymentBC.MaintainInvoiceServices;
 using UniCloud.Application.PaymentBC.OrderServices;
 using UniCloud.Application.PaymentBC.PaymentNoticeServices;
-using UniCloud.Application.PaymentBC.PaymentScheduleServices;
 using UniCloud.Application.PaymentBC.PaymentScheduleServices;
 using UniCloud.Application.PaymentBC.SupplierServices;
 using UniCloud.Infrastructure.Utilities.Container;
@@ -36,13 +35,12 @@ namespace UniCloud.DistributedServices.Payment
         private readonly IPurchaseInvoiceAppService _purchaseInvoiceAppService;
         private readonly IContractAircraftAppService _contractAircraftAppService;
         private readonly IContractEngineAppService _contractEngineAppService;
-        private readonly ICurrencyAppService _currencyAppService;
         private readonly IOrderAppService _orderAppService;
         private readonly IPaymentScheduleAppService _paymentScheduleAppService;
-        private readonly ISupplierAppService _supplierAppService;
         private readonly IPaymentNoticeAppService _paymentNoticeAppService;
         private readonly IStaticLoad _staticLoad;
         private readonly IGuaranteeAppService _guaranteeAppService;
+        private readonly IMaintainContractAppService _maintainContractAppService;
         public PaymentData()
             : base("UniCloud.Application.PaymentBC.DTO")
         {
@@ -54,13 +52,13 @@ namespace UniCloud.DistributedServices.Payment
             _maintainInvoiceAppService = DefaultContainer.Resolve<IMaintainInvoiceAppService>();
             _contractAircraftAppService = DefaultContainer.Resolve<IContractAircraftAppService>();
             _contractEngineAppService = DefaultContainer.Resolve<IContractEngineAppService>();
-            _currencyAppService = DefaultContainer.Resolve<ICurrencyAppService>();
             _orderAppService = DefaultContainer.Resolve<IOrderAppService>();
             _paymentScheduleAppService = DefaultContainer.Resolve<IPaymentScheduleAppService>();
-            _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();
             _paymentNoticeAppService = DefaultContainer.Resolve<IPaymentNoticeAppService>();
             _guaranteeAppService = DefaultContainer.Resolve<IGuaranteeAppService>();
+            _maintainContractAppService = DefaultContainer.Resolve<IMaintainContractAppService>();
         }
+
 
         #region Invoice集合
         /// <summary>
@@ -320,6 +318,17 @@ namespace UniCloud.DistributedServices.Payment
             get { return _guaranteeAppService.GetMaintainGuarantee(); }
         }
 
+        #endregion
+
+        #region 维修合同
+
+        /// <summary>
+        ///   维修合同
+        /// </summary>
+        public IQueryable<MaintainContractDTO> MaintainContracts
+        {
+            get { return _maintainContractAppService.GetMaintainContracts(); }
+        }
         #endregion
     }
 }

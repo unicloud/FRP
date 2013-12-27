@@ -138,6 +138,7 @@
                                                 <DataTemplate>
                                                     <telerik:RadComboBox 
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        IsEditable="True"
                                                                         ItemsSource="{Binding DataContext.LeaseOrdersView, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
                                                                         SelectedItem="{Binding DataContext.SelectedLeaseOrder,Mode=TwoWay ,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
                                                                         SelectedValue="{Binding OrderId,Mode=TwoWay}"
@@ -206,7 +207,7 @@
                                                       BorderThickness="1,0,1,1"
                                                       AutoEllipsisMode="Both"
                                                       DisplayMode="All"
-                                                      Source="{Binding EngineMaintainInvoices}" />
+                                                      Source="{Binding LeaseGuaranteesView}" />
                             </Grid>
                         </Grid>
                     </telerik:RadPane>

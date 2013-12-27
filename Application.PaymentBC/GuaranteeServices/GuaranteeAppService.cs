@@ -20,9 +20,10 @@
 using System;
 using System.Linq;
 using UniCloud.Application.ApplicationExtension;
-using UniCloud.Application.PaymentBC.DTO.GuaranteeDTO;
+using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.GuaranteeQueries;
 using UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg;
+using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 
@@ -66,7 +67,7 @@ namespace UniCloud.Application.PaymentBC.GuaranteeServices
             }
             var newGuarantee = GuaranteeFactory.CreateLeaseGuarantee(guarantee.StartDate, guarantee.EndDate,
                 guarantee.Amount, guarantee.SupplierName, guarantee.OperatorName,
-                guarantee.SupplierId, guarantee.CurrencyId, guarantee.OrderId);
+                guarantee.SupplierId, guarantee.CurrencyId, guarantee.OrderId, guarantee.Status, guarantee.Reviewer);
             AddGuarantee(newGuarantee);
         }
 
@@ -119,6 +120,10 @@ namespace UniCloud.Application.PaymentBC.GuaranteeServices
             {
                 persistGuarantee.SetOperator(guarantee.OperatorName);
             }
+            if (persistGuarantee.Status!=(GuaranteeStatus)guarantee.Status)
+            {
+                persistGuarantee.SetGuaranteeStatus((GuaranteeStatus)guarantee.Status);
+            }
             UpdateGuarantee(persistGuarantee);
         }
 
@@ -168,7 +173,7 @@ namespace UniCloud.Application.PaymentBC.GuaranteeServices
             }
             var newGuarantee = GuaranteeFactory.CreateMaintainGuarantee(guarantee.CreateDate, guarantee.EndDate,
                 guarantee.Amount, guarantee.SupplierName, guarantee.OperatorName,
-                guarantee.SupplierId, guarantee.CurrencyId, guarantee.MaintainContractId);
+                guarantee.SupplierId, guarantee.CurrencyId, guarantee.MaintainContractId, guarantee.Status, guarantee.Reviewer);
             AddGuarantee(newGuarantee);
         }
 
@@ -220,6 +225,10 @@ namespace UniCloud.Application.PaymentBC.GuaranteeServices
             if (persistGuarantee.OperatorName != guarantee.OperatorName)
             {
                 persistGuarantee.SetOperator(guarantee.OperatorName);
+            }
+            if (persistGuarantee.Status != (GuaranteeStatus)guarantee.Status)
+            {
+                persistGuarantee.SetGuaranteeStatus((GuaranteeStatus)guarantee.Status);
             }
             UpdateGuarantee(persistGuarantee);
         }

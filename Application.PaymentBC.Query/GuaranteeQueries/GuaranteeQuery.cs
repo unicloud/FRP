@@ -17,9 +17,8 @@
 
 #region 命名空间
 
-using System.Diagnostics.Contracts;
 using System.Linq;
-using UniCloud.Application.PaymentBC.DTO.GuaranteeDTO;
+using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.MaintainContractAgg;
@@ -59,6 +58,7 @@ namespace UniCloud.Application.PaymentBC.Query.GuaranteeQueries
                         StartDate = p.StartDate,
                         SupplierId = p.SupplierId,
                         SupplierName = p.SupplierName,
+                        Status = (int)p.Status,
                         CurrencyName = dbCurrency.FirstOrDefault(c => c.Id == p.CurrencyId).CnName,
                         OrderName = dbOrder.FirstOrDefault(c=>c.Id==p.OrderId).Name
                     });
@@ -84,6 +84,7 @@ namespace UniCloud.Application.PaymentBC.Query.GuaranteeQueries
                         StartDate = p.StartDate,
                         SupplierId = p.SupplierId,
                         SupplierName = p.SupplierName,
+                        Status = (int)p.Status,
                         CurrencyName = dbCurrency.FirstOrDefault(c => c.Id == p.CurrencyId).CnName,
                         MaintainContractName = dbMaintainContract.FirstOrDefault(c=>c.Id==p.MaintainContractId).Name,
                     });

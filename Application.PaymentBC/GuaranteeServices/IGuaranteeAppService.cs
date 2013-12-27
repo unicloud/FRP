@@ -20,7 +20,6 @@
 
 using System.Linq;
 using UniCloud.Application.PaymentBC.DTO;
-using UniCloud.Application.PaymentBC.DTO.GuaranteeDTO;
 
 #endregion
 

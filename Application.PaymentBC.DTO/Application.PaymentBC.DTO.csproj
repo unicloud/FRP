@@ -79,6 +79,7 @@
     <Compile Include="InvoiceDTO\InvoiceLineDTO.cs" />
     <Compile Include="InvoiceDTO\PrepaymentInvoiceDTO.cs" />
     <Compile Include="InvoiceDTO\PurchaseInvoiceDTO.cs" />
+    <Compile Include="MaintainContractDTO\MaintainContractDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\AirframeMaintainInvoiceDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\APUMaintainInvoiceDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\EngineMaintainInvoiceDTO.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="SupplierDTO\BankAccountDTO.cs" />
     <Compile Include="SupplierDTO\SupplierDTO.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

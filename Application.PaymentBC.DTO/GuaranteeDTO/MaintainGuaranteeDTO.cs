@@ -22,7 +22,7 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.PaymentBC.DTO.GuaranteeDTO
+namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
     ///     大修保证金
