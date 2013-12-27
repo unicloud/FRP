@@ -53,11 +53,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         public DateTime CreateDate { get; internal set; }
 
         /// <summary>
-        ///     退出日期
-        /// </summary>
-        public DateTime? ExportDate { get; private set; }
-
-        /// <summary>
         ///     出厂日期
         /// </summary>
         public DateTime? FactoryDate { get; private set; }
@@ -68,6 +63,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         public DateTime? ImportDate { get; private set; }
 
         /// <summary>
+        ///     注销日期
+        /// </summary>
+        public DateTime? ExportDate { get; private set; }
+
+        /// <summary>
         ///     生产序列号
         /// </summary>
         public string SerialNumber { get; private set; }
@@ -75,7 +75,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         /// <summary>
         ///     最大推力
         /// </summary>
-        public decimal MAXThrust { get; private set; }
+        public decimal MaxThrust { get; private set; }
 
         #endregion
 
@@ -84,40 +84,40 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         /// <summary>
         ///     发动机型号外键
         /// </summary>
-        public Guid EngineTypeID { get; private set; }
+        public Guid EngineTypeId { get; private set; }
 
         /// <summary>
         ///     发动机所有权人
         /// </summary>
-        public Guid? SupplierID { get; private set; }
+        public Guid? SupplierId { get; private set; }
 
         /// <summary>
         ///  航空公司外键
         /// </summary>
-        public Guid AirlinesID { get; private set; }
+        public Guid AirlinesId { get; private set; }
 
         /// <summary>
         ///     引进方式
         /// </summary>
-        public Guid ImportCategoryID { get; private set; }
+        public Guid ImportCategoryId { get; private set; }
 
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        ///     运营权历史
+        ///     所有权历史
         /// </summary>
-        public virtual ICollection<EngineOwnerShipHistory> OperationHistories
+        public virtual ICollection<EngineOwnerShipHistory> EngineOwnerShipHistories
         {
             get { return _engineOwnerShipHistories ?? (_engineOwnerShipHistories = new HashSet<EngineOwnerShipHistory>()); }
             set { _engineOwnerShipHistories = new HashSet<EngineOwnerShipHistory>(value); }
         }
 
         /// <summary>
-        ///     所有权历史
+        ///     商业数据历史
         /// </summary>
-        public virtual ICollection<EngineBusinessHistory> OwnershipHistories
+        public virtual ICollection<EngineBusinessHistory> EngineBusinessHistories
         {
             get { return _engineBusinessHistories ?? (_engineBusinessHistories = new HashSet<EngineBusinessHistory>()); }
             set { _engineBusinessHistories = new HashSet<EngineBusinessHistory>(value); }
@@ -128,7 +128,141 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置出厂日期
+        /// </summary>
+        /// <param name="date">出厂日期</param>
+        public void SetFactoryDate(DateTime? date)
+        {
+            FactoryDate = date;
+        }
 
+        /// <summary>
+        ///     设置引进日期
+        /// </summary>
+        /// <param name="date">引进日期</param>
+        public void SetImportDate(DateTime date)
+        {
+            ImportDate = date;
+        }
+
+        /// <summary>
+        ///     设置注销日期
+        /// </summary>
+        /// <param name="date">注销日期</param>
+        public void SetExportDate(DateTime? date)
+        {
+            ExportDate = date;
+        }
+
+        /// <summary>
+        ///     设置发动机生产序列号
+        /// </summary>
+        /// <param name="serialNumber">生产序列号</param>
+        public void SetSerialNumber(string serialNumber)
+        {
+            if (string.IsNullOrWhiteSpace(serialNumber))
+            {
+                throw new ArgumentException("生产序列号参数为空！");
+            }
+
+            SerialNumber = serialNumber;
+        }
+
+        /// <summary>
+        ///     设置发动机最大推力
+        /// </summary>
+        /// <param name="maxThrust">最大推力</param>
+        public void SetMaxThrust(decimal maxThrust)
+        {
+            MaxThrust = maxThrust;
+        }
+
+        /// <summary>
+        ///     设置发动机型号
+        /// </summary>
+        /// <param name="engineTypeId">发动机型号</param>
+        public void SetEngineType(Guid engineTypeId)
+        {
+            if (engineTypeId == null)
+            {
+                throw new ArgumentException("发动机型号Id参数为空！");
+            }
+
+            EngineTypeId = engineTypeId;
+        }
+
+        /// <summary>
+        ///     设置发动机所有权人
+        /// </summary>
+        /// <param name="supplierId">发动机所有权人</param>
+        public void SetSupplier(Guid? supplierId)
+        {
+            SupplierId = supplierId;
+        }
+
+        /// <summary>
+        ///     设置航空公司
+        /// </summary>
+        /// <param name="airlinesId">航空公司</param>
+        public void SetAirlines(Guid airlinesId)
+        {
+            if (airlinesId == null)
+            {
+                throw new ArgumentException("航空公司Id参数为空！");
+            }
+
+            AirlinesId = airlinesId;
+        }
+
+        /// <summary>
+        ///     设置引进方式
+        /// </summary>
+        /// <param name="importCategoryId">引进方式</param>
+        public void SetImportCategory(Guid importCategoryId)
+        {
+            if (importCategoryId == null)
+            {
+                throw new ArgumentException("引进方式Id参数为空！");
+            }
+
+            ImportCategoryId = importCategoryId;
+        }
+
+
+        /// <summary>
+        /// 新增飞机商业数据历史
+        /// </summary>
+        /// <returns></returns>
+        public EngineBusinessHistory AddNewEngineBusinessHistory()
+        {
+            var engineBusinessHistory = new EngineBusinessHistory
+            {
+                EngineId = Id,
+            };
+
+            engineBusinessHistory.GenerateNewIdentity();
+            EngineBusinessHistories.Add(engineBusinessHistory);
+
+            return engineBusinessHistory;
+        }
+
+        /// <summary>
+        /// 新增发动机所有权历史
+        /// </summary>
+        /// <returns></returns>
+        public EngineOwnerShipHistory AddNewEngineOwnerShipHistory()
+        {
+            var engineOwnershipHistory = new EngineOwnerShipHistory
+            {
+                EngineId = Id,
+            };
+
+            engineOwnershipHistory.GenerateNewIdentity();
+            EngineOwnerShipHistories.Add(engineOwnershipHistory);
+
+            return engineOwnershipHistory;
+        }
 
         #endregion
     }

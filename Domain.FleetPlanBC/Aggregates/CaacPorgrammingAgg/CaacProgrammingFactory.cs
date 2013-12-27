@@ -12,6 +12,8 @@
 // ========================================================================*/
 #endregion
 
+using System;
+
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg
 {
     /// <summary>
@@ -19,6 +21,18 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg
     /// </summary>
     public static class CaacProgrammingFactory
     {
+        /// <summary>
+        ///     创建民航局五年规划
+        /// </summary>
+        /// <returns>民航局五年规划</returns>
+        public static CaacProgramming CreateCaacProgramming()
+        {
+            var caacProgramming = new CaacProgramming
+            {
+                CreateDate = DateTime.Now,
+            };
 
+            return caacProgramming;
+        }
     }
 }

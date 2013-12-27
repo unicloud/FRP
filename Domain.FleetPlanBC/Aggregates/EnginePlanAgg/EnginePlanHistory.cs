@@ -48,16 +48,17 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         /// <summary>
         ///     执行情况
         /// </summary>
-        public PlanStatus Status { get; private set; }
+        public EnginePlanDeliverStatus Status { get; private set; }
 
         /// <summary>
         ///     是否完成
         /// </summary>
-        public bool IsFinished { get; internal set; }
+        public bool IsFinished { get; private set; }
+
         /// <summary>
         ///     最大推力
         /// </summary>
-        public decimal MAXThrust { get; private set; }
+        public decimal MaxThrust { get; private set; }
         
         #endregion
 
@@ -66,27 +67,27 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         /// <summary>
         ///     发动机型号
         /// </summary>
-        public Guid EngineTypeID { get; private set; }
+        public Guid EngineTypeId { get; private set; }
 
         /// <summary>
         ///     发动机计划外键
         /// </summary>
-        public Guid EnginePlanID { get; private set; }
+        public Guid EnginePlanId { get; internal set; }
 
         /// <summary>
         ///     执行年度
         /// </summary>
-        public Guid PerformAnnualID { get; private set; }
+        public Guid PerformAnnualId { get; private set; }
 
         /// <summary>
         ///     计划发动机ID
         /// </summary>
-        public Guid? PlanEngineID { get; private set; }
+        public Guid? PlanEngineId { get; private set; }
 
         /// <summary>
         ///     活动类型
         /// </summary>
-        public Guid ActionCategoryID { get; private set; }
+        public Guid ActionCategoryId { get; private set; }
 
         #endregion
 
@@ -97,8 +98,91 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置执行情况
+        /// </summary>
+        /// <param name="status">执行情况</param>
+        public void SetPlanStatus(EnginePlanDeliverStatus status)
+        {
+            switch (status)
+            {
+                case EnginePlanDeliverStatus.预备:
+                    Status = EnginePlanDeliverStatus.预备;
+                    break;
+                case EnginePlanDeliverStatus.签约:
+                    Status = EnginePlanDeliverStatus.签约;
+                    break;
+                case EnginePlanDeliverStatus.接收:
+                    Status = EnginePlanDeliverStatus.接收;
+                    IsFinished = true;
+                    break;
+                case EnginePlanDeliverStatus.运营:
+                    Status = EnginePlanDeliverStatus.运营;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
+        }
 
+        /// <summary>
+        /// 设置执行时间
+        /// </summary>
+        /// <param name="annualId"></param>
+        /// <param name="performMonth"></param>
+        public void SetPerformDate(Guid annualId, int performMonth)
+        {
+            if (annualId == null)
+            {
+                throw new ArgumentException("执行年度Id参数为空！");
+            }
+            PerformAnnualId = annualId;
+            PerformMonth = performMonth;
+        }
 
+        /// <summary>
+        /// 设置发动机最大推力
+        /// </summary>
+        /// <param name="maxThrust"></param>
+        public void SetMaxThrust(decimal maxThrust)
+        {
+            MaxThrust = maxThrust;
+        }
+        
+        /// <summary>
+        ///     设置发动机型号
+        /// </summary>
+        /// <param name="engineTypeId">发动机型号</param>
+        public void SetEngineType(Guid engineTypeId)
+        {
+            if (engineTypeId == null)
+            {
+                throw new ArgumentException("发动机型号Id参数为空！");
+            }
+
+            EngineTypeId = engineTypeId;
+        }
+
+        /// <summary>
+        ///     设置计划发动机
+        /// </summary>
+        /// <param name="planEngineId">计划发动机</param>
+        public void SetPlanEngine(Guid? planEngineId)
+        {
+            PlanEngineId = planEngineId;
+        }
+
+        /// <summary>
+        ///     设置活动类型
+        /// </summary>
+        /// <param name="actionCategoryId">活动类型</param>
+        public void SetActionCategory(Guid actionCategoryId)
+        {
+            if (actionCategoryId == null)
+            {
+                throw new ArgumentException("活动类型Id参数为空！");
+            }
+            ActionCategoryId = actionCategoryId;
+        }
         #endregion
     }
 }

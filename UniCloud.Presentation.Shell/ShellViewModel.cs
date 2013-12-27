@@ -26,6 +26,7 @@ using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Prism.ViewModel;
 using Telerik.Windows;
 using Telerik.Windows.Controls;
+using UniCloud.Presentation.SessionExtension;
 
 #endregion
 
@@ -66,6 +67,7 @@ namespace UniCloud.Presentation.Shell
         private void InitializeVM()
         {
             LoadMenuItems();
+            InitialSession("123456","test用户");
         }
 
         #endregion
@@ -589,10 +591,12 @@ namespace UniCloud.Presentation.Shell
             var menu451 = new MenuItem
             {
                 Text = "维护租赁保证金",
+                NavUri = "UniCloud.Presentation.Payment.Guarantees.LeaseGuarantee"
             };
             var menu452 = new MenuItem
             {
                 Text = "维护大修保证金",
+                NavUri = "UniCloud.Presentation.Payment.Guarantees.MaintainGuarantee"
             };
             menu45.Items.Add(menu451);
             menu45.Items.Add(menu452);
@@ -731,6 +735,22 @@ namespace UniCloud.Presentation.Shell
         {
             e.Handled = true;
         }
+        #endregion
+
+        #region 设置用户Session
+
+        /// <summary>
+        /// 设置用户Session
+        /// </summary>
+        /// <param name="userId">用户Id</param>
+        /// <param name="userName">用户名</param>
+
+        private void InitialSession(string userId, string userName)
+        {
+            SessionHelper.SetSession("userId", userId);
+            SessionHelper.SetSession("userName", userName);
+        }
+
         #endregion
 
         #endregion

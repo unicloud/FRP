@@ -52,11 +52,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ManufacturerAgg
 
         #region 外键属性
 
-        /// <summary>
-        /// Owner外键
-        /// </summary>
-        public Guid OwnerID { get; private set; }
-
         #endregion
 
         #region 导航属性

@@ -171,7 +171,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <param name="planAircraftId">计划飞机</param>
         public void SetPlanAircraft(Guid? planAircraftId)
         {
-
             PlanAircraftId = planAircraftId;
         }
 

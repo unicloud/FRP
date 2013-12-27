@@ -1,5 +1,6 @@
 ﻿#region 命名空间
 
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 
 #endregion

@@ -164,7 +164,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
             AircraftTypeId = aircraftTypeId;
         }
 
-
         /// <summary>
         ///     设置引进方式
         /// </summary>

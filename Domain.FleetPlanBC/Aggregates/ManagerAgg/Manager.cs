@@ -48,10 +48,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ManagerAgg
 
         #region 外键属性
 
-        /// <summary>
-        /// Owner外键
-        /// </summary>
-        public Guid OwnerID { get; private set; }
 
         #endregion
 

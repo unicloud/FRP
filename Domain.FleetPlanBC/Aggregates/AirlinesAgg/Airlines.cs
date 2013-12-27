@@ -12,6 +12,7 @@
 // ========================================================================*/
 #endregion
 
+using System;
 
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg
 {
@@ -34,6 +35,40 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg
 
         #region 属性
 
+        /// <summary>
+        ///     公司中文名称
+        /// </summary>
+        public string CnName { get; protected set; }
+
+        /// <summary>
+        ///     公司英文名称
+        /// </summary>
+        public string EnName { get; protected set; }
+
+        /// <summary>
+        ///     公司中文简称
+        /// </summary>
+        public string CnShortName { get; protected set; }
+
+        /// <summary>
+        ///     公司英文简称
+        /// </summary>
+        public string EnShortName { get; protected set; }
+
+        /// <summary>
+        ///     三字码
+        /// </summary>
+        public string ICAOCode { get; protected set; }
+
+        /// <summary>
+        ///     二字码
+        /// </summary>
+        public string IATACode { get; protected set; }
+
+        /// <summary>
+        ///     是否当前航空公司
+        /// </summary>
+        public bool IsCurrent { get; protected set; }
 
 
         #endregion

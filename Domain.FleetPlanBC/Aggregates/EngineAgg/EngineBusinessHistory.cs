@@ -38,11 +38,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         #endregion
 
         #region 属性
-        
-        /// <summary>
-        ///     结束日期
-        /// </summary>
-        public DateTime? EndDate { get; private set; }
 
         /// <summary>
         ///     开始日期
@@ -50,9 +45,14 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         public DateTime? StartDate { get; private set; }
 
         /// <summary>
+        ///     结束日期
+        /// </summary>
+        public DateTime? EndDate { get; private set; }
+
+        /// <summary>
         ///     最大推力
         /// </summary>
-        public decimal MAXThrust { get; private set; }
+        public decimal MaxThrust { get; private set; }
         
         #endregion
 
@@ -61,17 +61,17 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         /// <summary>
         ///     实际发动机外键
         /// </summary>
-        public Guid EngineID { get; private set; }
+        public Guid EngineId { get; internal set; }
 
         /// <summary>
         ///     发动机型号外键
         /// </summary>
-        public Guid EngineTypeID { get; private set; }
+        public Guid EngineTypeId { get; private set; }
 
         /// <summary>
         ///     引进方式
         /// </summary>
-        public Guid ImportCategoryID { get; private set; }
+        public Guid ImportCategoryId { get; private set; }
 
         #endregion
 
@@ -83,8 +83,61 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置开始日期
+        /// </summary>
+        /// <param name="date">开始日期</param>
+        public void SetStartDate(DateTime date)
+        {
+            StartDate = date;
+        }
+
+        /// <summary>
+        ///     设置结束日期
+        /// </summary>
+        /// <param name="date">结束日期</param>
+        public void SetEndDate(DateTime? date)
+        {
+            EndDate = date;
+        }
+
+        /// <summary>
+        ///     设置发动机最大推力
+        /// </summary>
+        /// <param name="maxThrust">最大推力</param>
+        public void SetMaxThrust(decimal maxThrust)
+        {
+            MaxThrust = maxThrust;
+        }
 
 
+        /// <summary>
+        ///     设置发动机型号
+        /// </summary>
+        /// <param name="engineTypeId">发动机型号</param>
+        public void SetEngineType(Guid engineTypeId)
+        {
+            if (engineTypeId == null)
+            {
+                throw new ArgumentException("发动机型号Id参数为空！");
+            }
+
+            EngineTypeId = engineTypeId;
+        }
+
+        /// <summary>
+        ///     设置引进方式
+        /// </summary>
+        /// <param name="importCategoryId">引进方式</param>
+        public void SetImportCategory(Guid importCategoryId)
+        {
+            if (importCategoryId == null)
+            {
+                throw new ArgumentException("引进方式Id参数为空！");
+            }
+
+            ImportCategoryId = importCategoryId;
+        }
         #endregion
     }
 }

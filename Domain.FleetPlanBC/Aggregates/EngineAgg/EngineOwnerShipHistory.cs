@@ -56,12 +56,12 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         /// <summary>
         ///     实际发动机外键
         /// </summary>
-        public Guid EngineID { get; private set; }
+        public Guid EngineId { get; internal set; }
 
         /// <summary>
         ///     所有权人
         /// </summary>
-        public Guid SupplierID { get; private set; }
+        public Guid SupplierId { get; private set; }
 
         #endregion
 
@@ -73,8 +73,37 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置开始日期
+        /// </summary>
+        /// <param name="date">开始日期</param>
+        public void SetStartDate(DateTime date)
+        {
+            StartDate = date;
+        }
 
+        /// <summary>
+        ///     设置结束日期
+        /// </summary>
+        /// <param name="date">结束日期</param>
+        public void SetEndDate(DateTime? date)
+        {
+            EndDate = date;
+        }
 
+        /// <summary>
+        ///     设置所有权人
+        /// </summary>
+        /// <param name="supplierId">所有权人</param>
+        public void SetSupplier(Guid supplierId)
+        {
+            if (supplierId == null)
+            {
+                throw new ArgumentException("所有权人Id参数为空！");
+            }
+
+            SupplierId = supplierId;
+        }
         #endregion
     }
 }

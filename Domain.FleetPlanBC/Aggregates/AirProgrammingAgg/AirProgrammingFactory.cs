@@ -12,6 +12,8 @@
 // ========================================================================*/
 #endregion
 
+using System;
+
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
 {
     /// <summary>
@@ -19,6 +21,18 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
     /// </summary>
     public static class AirProgrammingFactory
     {
+        /// <summary>
+        ///     创建航空公司五年规划
+        /// </summary>
+        /// <returns>航空公司五年规划</returns>
+        public static AirProgramming CreateAirProgramming()
+        {
+            var airProgramming = new AirProgramming
+            {
+                CreateDate = DateTime.Now,
+            };
 
+            return airProgramming;
+        }
     }
 }

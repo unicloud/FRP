@@ -20,6 +20,17 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg
     /// </summary>
     public static class ApprovalDocFactory
     {
+        /// <summary>
+        ///     创建批文文档
+        /// </summary>
+        /// <returns>批文</returns>
+        public static ApprovalDoc CreateApprovalDoc()
+        {
+            var approvalDoc = new ApprovalDoc
+            {
+            };
 
+            return approvalDoc;
+        }
     }
 }

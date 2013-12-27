@@ -104,6 +104,7 @@
     <Compile Include="Aggregates\EngineTypeAgg\IEngineTypeRepository.cs" />
     <Compile Include="Aggregates\MailAddressAgg\IMailAddressRepository.cs" />
     <Compile Include="Aggregates\MailAddressAgg\MailAddress.cs" />
+    <Compile Include="Aggregates\MailAddressAgg\MailAddressFactory.cs" />
     <Compile Include="Aggregates\MailAddressAgg\MailAddressSpecifications.cs" />
     <Compile Include="Aggregates\ManagerAgg\IManagerRepository.cs" />
     <Compile Include="Aggregates\ManagerAgg\Manager.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Aggregates\XmlSettingAgg\IXmlSettingRepository.cs" />
     <Compile Include="Aggregates\XmlSettingAgg\XmlSetting.cs" />
     <Compile Include="Aggregates\XmlSettingAgg\XmlSettingSpecifications.cs" />
+    <Compile Include="Enums\EnginePlanDeliverStatus.cs" />
     <Compile Include="Enums\EnginePlanStatus.cs" />
     <Compile Include="Enums\ManageStatus.cs" />
     <Compile Include="Enums\OperationStatus.cs" />
