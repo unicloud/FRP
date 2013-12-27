@@ -46,7 +46,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.AircraftAgg
         /// <summary>
         ///     机号
         /// </summary>
-        public string AircraftReg { get; protected set; }
+        public string RegNumber { get; protected set; }
 
         #endregion
 

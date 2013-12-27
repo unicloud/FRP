@@ -34,7 +34,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         #region 声明、初始化
 
         public PaymentNoticeEdit CurrenPaymentNoticeEdit;
-        private FilterDescriptor _filter;
+        private int _currentPaymentNoticeId;
         [ImportingConstructor]
         public PaymentNoticeEditVm(PaymentNoticeEdit payeNoticeEdit)
         {
@@ -53,13 +53,11 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             // 创建并注册CollectionView
             PaymentNotices = new QueryableDataServiceCollectionView<PaymentNoticeDTO>(PaymentDataService, PaymentDataService.PaymentNotices);
             PaymentNotices.PropertyChanged += OnViewPropertyChanged;
-            _filter = new FilterDescriptor("PaymentNoticeId", FilterOperator.IsEqualTo, 0);
-            PaymentNotices.FilterDescriptors.Add(_filter);
             PaymentNotices.LoadedData += (o, e) =>
             {
                 try
                 {
-                    var result = (o as QueryableDataServiceCollectionView<PaymentNoticeDTO>).FirstOrDefault();
+                    var result = (o as QueryableDataServiceCollectionView<PaymentNoticeDTO>).FirstOrDefault(p => p.PaymentNoticeId == _currentPaymentNoticeId);
                     if (result != null)
                     {
                         PaymentNotice = result;
@@ -72,7 +70,8 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             };
             PaymentNotices.SubmittedChanges += (o, e) =>
                                                {
-                                                   CurrenPaymentNoticeEdit.Close();
+                                                   if (e.Error == null)
+                                                       CurrenPaymentNoticeEdit.Close();
                                                };
         }
 
@@ -152,7 +151,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             }
             else
             {
-                _filter.Value = paymentNoticeId;
+                _currentPaymentNoticeId = paymentNoticeId;
                 PaymentNotices.Load(true);
             }
         }
