@@ -215,16 +215,5 @@ pip-log.txt
 .mr.developer.cfg
 
 /UniCloud.Presentation.Shell.Web/ClientBin/*.xap
-/UniCloud.Presentation.Shell.Web/ClientBin/*.xap
-/UniCloud.Presentation.Shell.Web/ClientBin/*.xap
-/UniCloud.Presentation.Shell.Web/ClientBin/*.xap
-/UniCloud.Presentation.Shell.Web/ClientBin/*.xap
-/UniCloud.Presentation.Shell.Web/ClientBin/*.xap
-/UniCloud.Presentation.Shell.Web/ClientBin/*.xap
-/UniCloud.Presentation.Shell.Web/ClientBin/*.xap
-/UniCloud.Presentation.Shell.Web/ClientBin/*.xap
-/UniCloud.Presentation.Shell.Web/ClientBin/*.xap
 /UniCloud.Presentation.Shell.Web/Shell.Web.csproj.user
-/UniCloud.Presentation.Shell.Web/ClientBin/*.xap
-/UniCloud.Presentation.Shell.Web/ClientBin/Purchase.xap
-/UniCloud.Presentation.Shell.Web/ClientBin/Purchase.xap
+
