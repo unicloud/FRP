@@ -17,6 +17,7 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
+using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -50,6 +51,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         /// </summary>
         private void InitializeVm()
         {
+            CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
             // 创建并注册CollectionView
             PaymentNotices = new QueryableDataServiceCollectionView<PaymentNoticeDTO>(PaymentDataService, PaymentDataService.PaymentNotices);
             PaymentNotices.PropertyChanged += OnViewPropertyChanged;
@@ -125,6 +127,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                 RaisePropertyChanged("BankAccount");
             }
         }
+
         #endregion
 
         #region 加载数据
@@ -286,6 +289,13 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         }
         #endregion
 
+        #region
+        public DelegateCommand<object> CellEditEndCommand { get; set; }
+        public void CellEditEnd(object sender)
+        {
+            
+        }
+        #endregion
         #endregion
     }
 }

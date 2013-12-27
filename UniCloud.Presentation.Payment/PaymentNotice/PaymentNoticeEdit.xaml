@@ -5,6 +5,7 @@
                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
                    xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+                   xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                    mc:Ignorable="d"
                    d:DesignHeight="600"
                    d:DesignWidth="800"
@@ -220,29 +221,6 @@
                                                      SelectedValue="{Binding PaymentNotice.CurrencyId, Mode=TwoWay}"
                                                      SelectedValuePath="Id"
                                                      DisplayMemberPath="Name" />
-                                <StackPanel Grid.Row="1"
-                                            Grid.Column="8"
-                                            HorizontalAlignment="Left"
-                                            Orientation="Horizontal">
-                                    <TextBlock Text="*"
-                                               FontSize="{StaticResource TextFontSize}"
-                                               Foreground="Red"
-                                               VerticalAlignment="Center"
-                                               TextAlignment="Right" />
-                                    <TextBlock Text="总金额"
-                                               FontSize="{StaticResource TextFontSize}"
-                                               VerticalAlignment="Center"
-                                               TextAlignment="Left" />
-                                </StackPanel>
-                                <TextBox Name="TbMoney"
-                                         Grid.Row="1"
-                                         Grid.Column="9"
-                                         HorizontalAlignment="Stretch"
-                                         VerticalAlignment="Center"
-                                         IsReadOnly="True"
-                                         Height="{StaticResource ControlHeight}"
-                                         Text="{Binding EditAircraftInvoice.Amount, Mode=TwoWay, StringFormat={StaticResource NumberStringFormat}}"
-                                         Margin="0,6" />
                                 <StackPanel Grid.Row="2"
                                             Grid.Column="2"
                                             Orientation="Horizontal">
@@ -319,7 +297,14 @@
                                                  IsBusy="{Binding PaymentNotices.IsBusy}"
                                                  ShowGroupPanel="False"
                                                  IsFilteringAllowed="False"
+                                                 ShowColumnFooters="True"
                                                  EditTriggers="CellClick">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="CellEditEnded">
+                                        <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"
+                                                               CommandParameter="{Binding ElementName=PaymentNoticeLine}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadContextMenu>
                                         <telerik:RadMenuItem Header="导出Excel"
@@ -344,7 +329,7 @@
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 TextAlignment="Right"
                                                                 HeaderTextAlignment="Center"
-                                                                DataMemberBinding="{Binding InvoiceId}" />
+                                                                DataMemberBinding="{Binding InvoiceId}"/>
                                     <telerik:GridViewMaskedInputColumn Header="付款金额"
                                                                        IsSortable="True"
                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -352,7 +337,14 @@
                                                                        HeaderTextAlignment="Center"
                                                                        DataMemberBinding="{Binding Amount,StringFormat={StaticResource CurrencyStringFormat}}"
                                                                        MaskType="Numeric"
-                                                                       Mask="###,###,###.##" />
+                                                                       Mask="###,###,###.##"
+                                                                       FooterTextAlignment="Right">
+                                        <telerik:GridViewMaskedInputColumn.AggregateFunctions>
+                                            <telerik:SumFunction  Caption="总计:"
+                                                                  SourceField="Amount"
+                                                                  ResultFormatString="{StaticResource CurrencyStringFormat}" />
+                                        </telerik:GridViewMaskedInputColumn.AggregateFunctions>
+                                    </telerik:GridViewMaskedInputColumn>
                                     <telerik:GridViewDataColumn Header="备注"
                                                                 IsSortable="True"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"

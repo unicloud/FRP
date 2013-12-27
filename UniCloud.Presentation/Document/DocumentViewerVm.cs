@@ -20,6 +20,7 @@ using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.DataServices;
 using Telerik.Windows.Data;
+using Telerik.Windows.Documents.Fixed;
 using Telerik.Windows.Documents.Fixed.FormatProviders;
 using Telerik.Windows.Documents.Fixed.FormatProviders.Pdf;
 using Telerik.Windows.Documents.FormatProviders.OpenXml.Docx;
@@ -40,6 +41,7 @@ namespace UniCloud.Presentation.Document
         private DocumentDTO _currentDoc;
         private bool _onlyView;
         private byte[] _byteContent;
+        private int _navigatePageNumber;
         private QueryableDataServiceCollectionView<DocumentDTO> _documents;
         private EventHandler<DataServiceSubmittedChangesEventArgs> _submitChanges;
         private FilterDescriptor _filter;
@@ -56,8 +58,10 @@ namespace UniCloud.Presentation.Document
 
         private void InitVm()
         {
+            _navigatePageNumber = 1;
             SaveCommand = new DelegateCommand<object>(Save, CanSave);
             OpenDocumentCommand = new DelegateCommand<object>(OpenDocument);
+            PdfDocumentChangedCommand = new DelegateCommand<object>(PdfDocumentChanged);
             var commonServiceData = new CommonServiceData(AgentHelper.CommonServiceUri);
             _documents = new QueryableDataServiceCollectionView<DocumentDTO>(commonServiceData, commonServiceData.Documents);
 
@@ -74,7 +78,7 @@ namespace UniCloud.Presentation.Document
                         {
                             CurrentDocumentView.WordPane.IsHidden = true;
                             Stream currentContent = new MemoryStream(result.FileStorage);
-                            CurrentDocumentView.PdfReader.Document = new PdfFormatProvider(currentContent, FormatProviderSettings.ReadOnDemand).Import();
+                            CurrentDocumentView.PdfReader.DocumentSource = new PdfDocumentSource(currentContent, FormatProviderSettings.ReadOnDemand);
                         }
                         else if (result.Name.EndsWith(".docx", StringComparison.OrdinalIgnoreCase))
                         {
@@ -148,6 +152,7 @@ namespace UniCloud.Presentation.Document
         {
             try
             {
+                _navigatePageNumber = 1;
                 if (CurrentDocumentView.PaneGroups.SelectedPane.Name.Equals("WordPane", StringComparison.OrdinalIgnoreCase))
                 {
                     var openFileDialog = new OpenFileDialog { Filter = "Word Documents(*.docx)|*.docx" };
@@ -174,8 +179,7 @@ namespace UniCloud.Presentation.Document
                         Stream currentContent = new MemoryStream(_byteContent);
                         //using (input)
                         {
-                            CurrentDocumentView.PdfReader.Document =
-                                new PdfFormatProvider(currentContent, FormatProviderSettings.ReadOnDemand).Import();
+                            CurrentDocumentView.PdfReader.DocumentSource = new PdfDocumentSource(currentContent, FormatProviderSettings.ReadOnDemand); ;
                         }
                     }
                 }
@@ -223,9 +227,12 @@ namespace UniCloud.Presentation.Document
             else
             {
                 var tempDoc = _documents.FirstOrDefault();
-                tempDoc.Name = _currentDoc.Name;
-                tempDoc.Extension = _currentDoc.Extension;
-                tempDoc.FileStorage = _currentDoc.FileStorage;
+                if (tempDoc != null)
+                {
+                    tempDoc.Name = _currentDoc.Name;
+                    tempDoc.Extension = _currentDoc.Extension;
+                    tempDoc.FileStorage = _currentDoc.FileStorage;
+                }
             }
             _documents.SubmitChanges();
             if (_submitChanges == null)
@@ -255,6 +262,31 @@ namespace UniCloud.Presentation.Document
         }
         #endregion
 
+        #region  Pdf文档导航特定页
+        public void PdfNavigateSpecialPage(int navigatePageNumber)
+        {
+            _navigatePageNumber = navigatePageNumber;
+        }
+        #endregion
+
+        #region PdfDocumentChanged
+        public DelegateCommand<object> PdfDocumentChangedCommand { get; set; }
+        private void PdfDocumentChanged(object sender)
+        {
+            if (CurrentDocumentView.PdfReader.Document != null)
+            {
+                if (_navigatePageNumber < 1)
+                {
+                    _navigatePageNumber = 1;
+                }
+                else if (_navigatePageNumber > CurrentDocumentView.PdfReader.Document.Pages.Count)
+                {
+                    _navigatePageNumber = CurrentDocumentView.PdfReader.Document.Pages.Count;
+                }
+                CurrentDocumentView.PdfReader.CurrentPageNumber = _navigatePageNumber;
+            }
+        }
+        #endregion
         protected override IService CreateService()
         {
             return null;
