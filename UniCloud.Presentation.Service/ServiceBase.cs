@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Services.Client;
 using System.Linq;
+using System.Windows;
 using Telerik.Windows.Controls.DataServices;
 using Telerik.Windows.Data;
 
@@ -99,10 +100,10 @@ namespace UniCloud.Presentation.Service
             if (_submitChanges == null)
             {
                 _submitChanges += (o, e) =>
-            {
-                result.Error = e.Error;
-                callback(result);
-            };
+                {
+                    result.Error = e.Error;
+                    callback(result);
+                };
                 collectionView.SubmittedChanges += _submitChanges;
             }
         }
@@ -117,17 +118,52 @@ namespace UniCloud.Presentation.Service
         }
 
         /// <summary>
-        ///     创建数据集合
+        ///     保存实体变化
         /// </summary>
-        /// <typeparam name="TService">实体类型</typeparam>
-        /// <param name="query">查询</param>
-        /// <returns>数据集合</returns>
-        public QueryableDataServiceCollectionView<TService> CreateCollection<TService>(DataServiceQuery<TService> query)
-            where TService : class, INotifyPropertyChanged
+        /// <param name="callback">回调</param>
+        /// <param name="state">状态</param>
+        public void SubmitChanges(Action<SubmitChangesResult> callback, object state = null)
         {
-            var result = new QueryableDataServiceCollectionView<TService>(_context, query);
-            return result;
+            SubmitChanges(SaveChangesOptions.Batch, callback, state);
         }
+
+        /// <summary>
+        ///     保存实体变化
+        /// </summary>
+        /// <param name="saveChangesOptions">保存方式</param>
+        /// <param name="callback">回调</param>
+        /// <param name="state">状态</param>
+        public void SubmitChanges(SaveChangesOptions saveChangesOptions, Action<SubmitChangesResult> callback,
+            object state = null)
+        {
+            _context.BeginSaveChanges(saveChangesOptions, p =>
+            {
+                var result = new SubmitChangesResult();
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    try
+                    {
+                        var response = _context.EndSaveChanges(p);
+                        foreach (var changeResponse in response)
+                        {
+                            result.Headers = changeResponse.Headers;
+                            result.Error = changeResponse.Error;
+                            result.StatusCode = changeResponse.StatusCode;
+                        }
+                        _dataServiceCollectionViews.ForEach(c => c.Refresh());
+                    }
+                    catch (Exception ex)
+                    {
+                        result.Error = ex;
+                    }
+                    finally
+                    {
+                        callback(result);
+                    }
+                });
+            }, Context);
+        }
+
 
         /// <summary>
         ///     注册服务集合
@@ -141,6 +177,22 @@ namespace UniCloud.Presentation.Service
             {
                 _dataServiceCollectionViews.Add(collectionView);
             }
+        }
+
+        /// <summary>
+        ///     创建数据集合
+        /// </summary>
+        /// <typeparam name="TService">实体类型</typeparam>
+        /// <param name="query">查询</param>
+        /// <param name="options">保存选项</param>
+        /// <returns>数据集合</returns>
+        public QueryableDataServiceCollectionView<TService> CreateCollection<TService>(DataServiceQuery<TService> query,
+            SaveChangesOptions options = SaveChangesOptions.Batch)
+            where TService : class, INotifyPropertyChanged
+        {
+            var result = new QueryableDataServiceCollectionView<TService>(_context, query);
+            result.SubmittingChanges += (o, e) => { e.SaveChangesOptions = options; };
+            return result;
         }
     }
 }
