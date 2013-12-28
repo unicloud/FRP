@@ -63,7 +63,6 @@
     <Compile Include="AircraftDTO\AircraftDTO.cs" />
     <Compile Include="AircraftDTO\OperationHistoryDTO.cs" />
     <Compile Include="AircraftDTO\OwnershipHistoryDTO.cs" />
-    <Compile Include="AircraftDTO\SubOperationHistoryDTO.cs" />
     <Compile Include="AircraftPlanDTO\PlanDTO.cs" />
     <Compile Include="AircraftPlanDTO\PlanHistoryDTO.cs" />
     <Compile Include="AircraftTypeDTO\AircraftTypeDTO.cs" />

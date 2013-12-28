@@ -224,7 +224,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.PaymentNoticeAgg
 
             Supplier = supplier;
             SupplierId = supplier.Id;
-            SupplierName = supplier.Name;
+            SupplierName = supplier.CnName;
         }
 
         /// <summary>

@@ -32,7 +32,7 @@ namespace UniCloud.Application.PurchaseBC.Query.OrderDocumentQueries
                                   {
                                       OrderDocumentId = o.Id,
                                       SupplierName = dbTrade.Where(p => p.Id == o.TradeId)
-                                                            .Select(p => p.Supplier.Name).FirstOrDefault(),
+                                                            .Select(p => p.Supplier.CnName).FirstOrDefault(),
                                       Name = o.Name,
                                       ContractName = o.ContractName,
                                       ContractDocGuid = o.ContractDocGuid,

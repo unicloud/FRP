@@ -52,7 +52,7 @@ namespace UniCloud.Application.PurchaseBC.Query.ReceptionQueries
                     CloseDate = p.CloseDate,
                     IsClosed = p.IsClosed,
                     SupplierId = p.SupplierId,
-                    SupplierName = p.Supplier.Name,
+                    SupplierName = p.Supplier.CnName,
                     SourceId = p.SourceId,
                     ReceptionLines = p.ReceptionLines.OfType<EnginePurchaseReceptionLine>()
                     .Select(q => new EnginePurchaseReceptionLineDTO

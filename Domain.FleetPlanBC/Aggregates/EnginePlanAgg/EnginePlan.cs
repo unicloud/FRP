@@ -16,6 +16,8 @@
 
 using System;
 using System.Collections.Generic;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
 using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
@@ -109,6 +111,15 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         #endregion
 
         #region 导航属性
+        /// <summary>
+        ///   航空公司
+        /// </summary>
+        public virtual Airlines Airlines { get; set; }
+
+        /// <summary>
+        /// 年度
+        /// </summary>
+        public virtual Annual Annual { get; set; }
 
         /// <summary>
         ///     备发计划明细

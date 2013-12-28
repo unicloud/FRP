@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 
 #endregion
 
@@ -54,7 +55,10 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
 
         #region 导航属性
 
-
+        /// <summary>
+        /// 运营历史
+        /// </summary>
+        public virtual OperationHistory OperationHistory { get; set; }
 
         #endregion
 

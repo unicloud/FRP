@@ -15,11 +15,7 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
 
@@ -44,6 +40,63 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg
 
         #region 属性
 
+        /// <summary>
+        ///     供应商类型
+        ///     <remarks>
+        ///         国外、国内
+        ///     </remarks>
+        /// </summary>
+        public SupplierType SupplierType { get; protected set; }
+
+        /// <summary>
+        ///     组织机构代码
+        /// </summary>
+        public string Code { get; protected set; }
+
+        /// <summary>
+        ///     供应商中文名称
+        /// </summary>
+        public string CnName { get; protected set; }
+
+        /// <summary>
+        ///     供应商英文名称
+        /// </summary>
+        public string EnName { get; protected set; }
+
+        /// <summary>
+        ///     供应商中文简称
+        /// </summary>
+        public string CnShortName { get; protected set; }
+
+        /// <summary>
+        ///     供应商英文简称
+        /// </summary>
+        public string EnShortName { get; protected set; }
+
+        /// <summary>
+        ///     创建日期
+        /// </summary>
+        public DateTime CreateDate { get; protected set; }
+
+        /// <summary>
+        ///     更改日期
+        /// </summary>
+        public DateTime UpdateDate { get; protected set; }
+
+        /// <summary>
+        ///     是否有效
+        /// </summary>
+        public bool IsValid { get; protected set; }
+
+        /// <summary>
+        ///     备注
+        /// </summary>
+        public string Note { get; protected set; }
+
+        /// <summary>
+        /// 航空公司Guid
+        /// </summary>
+        public Guid? AirlineGuid { get; protected set; }
 
 
         #endregion

@@ -51,7 +51,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg
         /// <summary>
         ///     名称
         /// </summary>
-        public string Name { get; protected set; }
+        public string CnName { get; protected set; }
 
         /// <summary>
         ///     是否有效

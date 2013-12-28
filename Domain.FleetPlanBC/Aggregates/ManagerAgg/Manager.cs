@@ -40,9 +40,25 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ManagerAgg
         #region 属性
 
         /// <summary>
-        /// 管理单位名称
+        ///     管理单位中文名称
         /// </summary>
-        public string Name { get; protected set; }
+        public string CnName { get; protected set; }
+
+        /// <summary>
+        ///     管理单位英文名称
+        /// </summary>
+        public string EnName { get; protected set; }
+
+        /// <summary>
+        ///     管理单位中文简称
+        /// </summary>
+        public string CnShortName { get; protected set; }
+
+        /// <summary>
+        ///     管理单位英文简称
+        /// </summary>
+        public string EnShortName { get; protected set; }
+
 
         #endregion
 

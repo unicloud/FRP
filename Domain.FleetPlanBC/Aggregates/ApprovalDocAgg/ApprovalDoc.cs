@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ManagerAgg;
 using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
@@ -89,7 +90,10 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg
 
         #region 导航属性
 
-
+        /// <summary>
+        /// 审批单位
+        /// </summary>
+        public virtual Manager DispatchUnit { get; set; }
 
         #endregion
 

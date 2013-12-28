@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
 
 #endregion
 
@@ -84,6 +85,15 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
         #region 导航属性
 
         /// <summary>
+        /// 飞机座级
+        /// </summary>
+        public virtual AircraftCategory AircraftCategory { get; set; }
+
+        #endregion
+
+        #region 操作
+
+        /// <summary>
         /// 设置规划内容
         /// </summary>
         /// <param name="year"></param>
@@ -137,12 +147,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
 
             AircraftCategoryId = aircraftCategoryId;
         }
-
-        #endregion
-
-        #region 操作
-
-
 
         #endregion
     }

@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
@@ -54,7 +55,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// <summary>
         ///     是否完成
         /// </summary>
-        public bool IsFinished { get; internal set; }
+        public bool IsFinished { get; private set; }
 
         /// <summary>
         ///     申请标题
@@ -108,32 +109,37 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// <summary>
         ///    民航局批文文档外键
         /// </summary>
-        public Guid? ApprovalDocID { get; private set; }
+        public Guid? ApprovalDocId { get; private set; }
 
         /// <summary>
         ///     地方局申请文档Id
         /// </summary>
-        public Guid? RaDocumentID { get; private set; }
+        public Guid? RaDocumentId { get; private set; }
 
         /// <summary>
         ///     监管局申请文档Id
         /// </summary>
-        public Guid? SawsDocumentID { get; private set; }
+        public Guid? SawsDocumentId { get; private set; }
 
         /// <summary>
         ///     民航局申请文档Id
         /// </summary>
-        public Guid? CaacDocumentID { get; private set; }
+        public Guid? CaacDocumentId { get; private set; }
 
         /// <summary>
         ///     航空公司外键
         /// </summary>
-        public Guid AirlinesID { get; private set; }
+        public Guid AirlinesId { get; private set; }
 
 
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        /// 航空公司
+        /// </summary>
+        public virtual Airlines Airlines { get; set; }
 
         /// <summary>
         ///     审批历史集合（申请明细集合）
@@ -148,7 +154,200 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置申请标题
+        /// </summary>
+        /// <param name="title">申请标题</param>
+        public void SetTitle(string title)
+        {
+            if (string.IsNullOrWhiteSpace(title))
+            {
+                throw new ArgumentException("申请标题参数为空！");
+            }
 
+            Title = title;
+        }
+
+        /// <summary>
+        ///     设置地方局申请文号
+        /// </summary>
+        /// <param name="raDocNumber">地方局申请文号</param>
+        public void SetRaDocNumber(string raDocNumber)
+        {
+            if (string.IsNullOrWhiteSpace(raDocNumber))
+            {
+                throw new ArgumentException("地方局申请文号参数为空！");
+            }
+
+            RaDocNumber = raDocNumber;
+        }
+
+        /// <summary>
+        ///     设置监管局申请文号
+        /// </summary>
+        /// <param name="sawsDocNumber">监管局申请文号</param>
+        public void SetSawsDocNumber(string sawsDocNumber)
+        {
+            if (string.IsNullOrWhiteSpace(sawsDocNumber))
+            {
+                throw new ArgumentException("监管局申请文号参数为空！");
+            }
+
+            SawsDocNumber = sawsDocNumber;
+        }
+
+        /// <summary>
+        ///     设置民航局申请文号
+        /// </summary>
+        /// <param name="caacDocNumber">民航局申请文号</param>
+        public void SetCaacDocNumber(string caacDocNumber)
+        {
+            if (string.IsNullOrWhiteSpace(caacDocNumber))
+            {
+                throw new ArgumentException("民航局申请文号参数为空！");
+            }
+
+            CaacDocNumber = caacDocNumber;
+        }
+
+        /// <summary>
+        ///     设置民航局申请状态
+        /// </summary>
+        /// <param name="status">民航局申请状态</param>
+        public void SetRequestStatus(RequestStatus status)
+        {
+            switch (status)
+            {
+                case RequestStatus.草稿:
+                    Status = RequestStatus.草稿;
+                    break;
+                case RequestStatus.待审核:
+                    Status = RequestStatus.待审核;
+                    break;
+                case RequestStatus.已审核:
+                    Status = RequestStatus.已审核;
+                    break;
+                case RequestStatus.已提交:
+                    Status = RequestStatus.已提交;
+                    break;
+                case RequestStatus.已审批:
+                    Status = RequestStatus.已审批;
+                    IsFinished = true;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
+        }
+
+        /// <summary>
+        /// 设置民航局审批意见
+        /// </summary>
+        /// <param name="caacNote"></param>
+        public void SetCaacNote(string caacNote)
+        {
+            if (string.IsNullOrWhiteSpace(caacNote))
+            {
+                throw new ArgumentException("民航局审批意见参数为空！");
+            }
+
+            CaacNote = caacNote;
+        }
+
+        /// <summary>
+        /// 设置地方局审批意见
+        /// </summary>
+        /// <param name="raNote"></param>
+        public void SetRaNote(string raNote)
+        {
+            if (string.IsNullOrWhiteSpace(raNote))
+            {
+                throw new ArgumentException("地方局审批意见参数为空！");
+            }
+
+            RaNote = raNote;
+        }
+
+        /// <summary>
+        /// 设置监管局审批意见
+        /// </summary>
+        /// <param name="sawsNote"></param>
+        public void SetSawsNote(string sawsNote)
+        {
+            if (string.IsNullOrWhiteSpace(sawsNote))
+            {
+                throw new ArgumentException("监管局审批意见参数为空！");
+            }
+
+            SawsNote = sawsNote;
+        }
+
+        /// <summary>
+        ///     设置民航局批文文档
+        /// </summary>
+        /// <param name="approvalDocId">民航局批文文档</param>
+        public void SetApprovalDoc(Guid? approvalDocId)
+        {
+            ApprovalDocId = approvalDocId;
+        }
+
+        /// <summary>
+        ///     设置地方局申请文档
+        /// </summary>
+        /// <param name="raDocumentId">地方局申请文档</param>
+        public void SetRaDocument(Guid? raDocumentId)
+        {
+            RaDocumentId = raDocumentId;
+        }
+
+        /// <summary>
+        ///     设置监管局申请文档
+        /// </summary>
+        /// <param name="sawsDocumentId">监管局申请文档</param>
+        public void SetSawsDocument(Guid? sawsDocumentId)
+        {
+            SawsDocumentId = sawsDocumentId;
+        }
+
+        /// <summary>
+        ///     设置民航局申请文档
+        /// </summary>
+        /// <param name="caacDocumentId">民航局申请文档</param>
+        public void SetCaacDocument(Guid? caacDocumentId)
+        {
+            CaacDocumentId = caacDocumentId;
+        }
+
+        /// <summary>
+        ///     设置航空公司
+        /// </summary>
+        /// <param name="airlinesId">航空公司</param>
+        public void SetAirlines(Guid airlinesId)
+        {
+            if (airlinesId == null)
+            {
+                throw new ArgumentException("航空公司Id参数为空！");
+            }
+
+            AirlinesId = airlinesId;
+        }
+
+        /// <summary>
+        /// 新增审批历史（申请明细）
+        /// </summary>
+        /// <returns></returns>
+        public ApprovalHistory AddNewApprovalHistory()
+        {
+            var approvalHistory = new ApprovalHistory
+            {
+                RequestId = Id,
+                IsApproved = (Status==RequestStatus.已审批),
+            };
+
+            approvalHistory.GenerateNewIdentity();
+            ApprovalHistories.Add(approvalHistory);
+
+            return approvalHistory;
+        }
 
         #endregion
     }

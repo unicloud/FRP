@@ -334,7 +334,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainInvoiceAgg
 
             Supplier = supplier;
             SupplierId = supplier.Id;
-            SupplierName = supplier.Name;
+            SupplierName = supplier.CnName;
         }
 
         /// <summary>

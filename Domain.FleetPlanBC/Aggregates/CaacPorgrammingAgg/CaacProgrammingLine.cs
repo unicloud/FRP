@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
 
 #endregion
 
@@ -71,6 +71,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        ///     飞机类别（座机）
+        /// </summary>
+        public virtual AircraftCategory AircraftCategory { get; set; }
 
         /// <summary>
         /// 设置规划内容

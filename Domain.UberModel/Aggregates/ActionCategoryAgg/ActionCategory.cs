@@ -34,6 +34,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg
         /// </summary>
         public string ActionName { get; set; }
 
+        /// <summary>
+        ///     需要审批
+        /// </summary>
+        public bool NeedRequest { get; set; }
+
+        /// <summary>
+        /// 活动类型对应的净增量
+        /// </summary>
+        public int NetIncrement { get; set; }
         #endregion
 
         #region 外键属性

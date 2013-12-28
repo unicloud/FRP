@@ -55,7 +55,7 @@ namespace UniCloud.Application.PaymentBC.Query.ContractEngineQueries
                          SerialNumber = p.SerialNumber,
                          IsValid = p.IsValid,
                          ImportType = p.ImportCategory.ActionType + "-" + p.ImportCategory.ActionName,
-                         SupplierName = dbSupplier.FirstOrDefault(c => c.Id == p.SupplierId).Name,
+                         SupplierName = dbSupplier.FirstOrDefault(c => c.Id == p.SupplierId).CnName,
                          SupplierId = p.SupplierId,
 
                      });

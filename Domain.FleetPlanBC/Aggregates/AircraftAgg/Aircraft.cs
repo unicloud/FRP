@@ -16,6 +16,9 @@
 
 using System;
 using System.Collections.Generic;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 
 #endregion
 
@@ -118,6 +121,23 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        ///     机型
+        /// </summary>
+        public virtual AircraftType AircraftType { get; set; }
+
+        /// <summary>
+        ///     航空公司
+        /// </summary>
+        public virtual Airlines Airlines { get; set; }
+
+        /// <summary>
+        ///     引进方式
+        /// </summary>
+        public virtual ActionCategory ImportCategory { get; set; }
+
+
         /// <summary>
         ///     运营权历史
         /// </summary>

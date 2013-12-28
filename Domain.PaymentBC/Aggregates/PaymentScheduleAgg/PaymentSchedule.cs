@@ -175,7 +175,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
 
             Supplier = supplier;
             SupplierId = supplier.Id;
-            SupplierName = supplier.Name;
+            SupplierName = supplier.CnName;
         }
 
         /// <summary>

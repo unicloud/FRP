@@ -49,6 +49,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.ManufacturerAgg
         /// </summary>
         public string Note { get; set; }
 
+        /// <summary>
+        /// 制造商类型 1表示飞机制造商，2表示发动机制造商
+        /// </summary>
+        public int Type { get; set; }
         #endregion
 
         #region 外键属性

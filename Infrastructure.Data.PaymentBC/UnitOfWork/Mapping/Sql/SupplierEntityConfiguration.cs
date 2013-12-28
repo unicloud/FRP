@@ -38,7 +38,7 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(p => p.Code).HasColumnName("Code");
-            Property(p => p.Name).HasColumnName("Name");
+            Property(p => p.CnName).HasColumnName("CnName");
             Property(p => p.IsValid).HasColumnName("IsValid");
             Property(p => p.Note).HasColumnName("Note");
 

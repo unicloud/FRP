@@ -63,7 +63,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     Status = (int)o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
-                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
                     OrderLines = 
                         o.OrderLines.OfType<AircraftLeaseOrderLine>().Select(l => new OrderLineDTO
                         {
@@ -155,7 +155,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     Status = (int)o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
-                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
                     OrderLines =
                         o.OrderLines.OfType<AircraftPurchaseOrderLine>().Select(l => new OrderLineDTO
                         {
@@ -182,7 +182,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                 Status = (int)o.Status,
                 Note = o.Note,
                 SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
-                SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
+                SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
                 OrderLines =
                     o.OrderLines.OfType<EnginePurchaseOrderLine>().Select(l => new OrderLineDTO
                     {
@@ -209,7 +209,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     Status = (int)o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
-                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
                     OrderLines =
                         o.OrderLines.OfType<BFEPurchaseOrderLine>().Select(l => new OrderLineDTO
                         {
@@ -252,7 +252,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     Status = (int)o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
-                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
                 });
                 var engineResult = query.ApplyTo(_orderRepository.GetAll().OfType<EngineLeaseOrder>())
                 .Select(o => new LeaseOrderDTO
@@ -266,7 +266,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     Status = (int)o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
-                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
                 });
                 var result = acResult.AsEnumerable().Union(engineResult.AsEnumerable(), null);
             return result.AsQueryable();
@@ -296,7 +296,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     Status = (int)o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
-                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
                     AircraftLeaseOrderLines =
                         o.OrderLines.OfType<AircraftLeaseOrderLine>().Select(l => new AircraftLeaseOrderLineDTO
                         {
@@ -338,7 +338,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     Status = (int)o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
-                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
                     AircraftPurchaseOrderLines =
                         o.OrderLines.OfType<AircraftPurchaseOrderLine>().Select(l => new AircraftPurchaseOrderLineDTO
                         {
@@ -384,7 +384,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     Status = (int)o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
-                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
                     EngineLeaseOrderLines =
                         o.OrderLines.OfType<EngineLeaseOrderLine>().Select(l => new EngineLeaseOrderLineDTO
                         {
@@ -426,7 +426,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     Status = (int)o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
-                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
                     EnginePurchaseOrderLines =
                         o.OrderLines.OfType<EnginePurchaseOrderLine>().Select(l => new EnginePurchaseOrderLineDTO
                         {
@@ -468,7 +468,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     Status = (int)o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
-                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.Name,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
                     BFEPurchaseOrderLines =
                         o.OrderLines.OfType<BFEPurchaseOrderLine>().Select(l => new BFEPurchaseOrderLineDTO
                         {
@@ -501,7 +501,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                    ContractNumber = o.ContractNumber,
                    CurrencyId = o.Currency.Id,
                    SupplierId = dbTrade.FirstOrDefault(c=>c.SupplierId==o.TradeId).SupplierId,
-                   SupplierName = dbTrade.FirstOrDefault(c => c.SupplierId == o.TradeId).Supplier.Name,
+                   SupplierName = dbTrade.FirstOrDefault(c => c.SupplierId == o.TradeId).Supplier.CnName,
                    Note = o.Note,
                
                });

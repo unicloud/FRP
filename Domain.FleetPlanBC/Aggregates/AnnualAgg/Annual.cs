@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingAgg;
 
 #endregion
 
@@ -40,11 +41,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg
         #region 属性
 
         /// <summary>
-        ///     规划ID
-        /// </summary>
-        public Guid ProgrammingID { get; protected set; }
-
-        /// <summary>
         ///     年度
         /// </summary>
         public int Year { get; protected set; }
@@ -58,13 +54,19 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg
 
         #region 外键属性
 
-
+        /// <summary>
+        ///     五年规划期间ID
+        /// </summary>
+        public Guid ProgrammingID { get; protected set; }
 
         #endregion
 
         #region 导航属性
 
-
+        /// <summary>
+        /// 五年规划期间
+        /// </summary>
+        public virtual Programming Programming { get; set; }
 
         #endregion
 

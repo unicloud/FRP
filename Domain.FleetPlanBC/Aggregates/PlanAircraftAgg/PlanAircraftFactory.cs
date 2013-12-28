@@ -19,6 +19,17 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg
     /// </summary>
     public static class PlanAircraftFactory
     {
+        /// <summary>
+        ///     创建计划飞机
+        /// </summary>
+        /// <returns>计划飞机</returns>
+        public static PlanAircraft CreatePlanAircraft()
+        {
+            var planAircraft = new PlanAircraft
+            {
+            };
 
+            return planAircraft;
+        }
     }
 }

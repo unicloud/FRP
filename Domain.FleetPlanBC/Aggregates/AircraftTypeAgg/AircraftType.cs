@@ -15,6 +15,8 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ManufacturerAgg;
 
 #endregion
 
@@ -67,7 +69,15 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg
         #endregion
 
         #region 导航属性
+        /// <summary>
+        /// 制造商
+        /// </summary>
+        public virtual Manufacturer Manufacturer { get; set; }
 
+        /// <summary>
+        /// 飞机类别
+        /// </summary>
+        public virtual ActionCategory ActionCategory { get; set; }
 
         #endregion
 

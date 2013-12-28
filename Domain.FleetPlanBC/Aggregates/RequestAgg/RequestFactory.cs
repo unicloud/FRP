@@ -12,6 +12,8 @@
 // ========================================================================*/
 #endregion
 
+using System;
+
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
 {
     /// <summary>
@@ -19,6 +21,19 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
     /// </summary>
     public static class RequestFactory
     {
+        /// <summary>
+        ///     创建申请
+        /// </summary>
+        /// <returns>申请</returns>
+        public static Request CreateRequest(DateTime? submitDate)
+        {
+            var request = new Request
+            {
+                CreateDate = DateTime.Now,
+                SubmitDate = submitDate,
+            };
 
+            return request;
+        }
     }
 }

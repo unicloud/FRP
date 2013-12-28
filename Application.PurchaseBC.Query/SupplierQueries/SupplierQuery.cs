@@ -79,7 +79,7 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
                     CreateDate = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).CreateDate,
                     SupplierType =
                         p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).SupplierType == 0 ? "国内" : "国外",
-                    Name = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).Name,
+                    Name = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).CnName,
                     Note = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).Note,
                 });
 
@@ -95,7 +95,7 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
             return query.ApplyTo(_unitOfWork.CreateSet<Supplier>()).Select(p => new SupplierDTO
                 {
                     SupplierId = p.Id,
-                    Name = p.Name,
+                    Name = p.CnName,
                     SupplierType = p.SupplierType == SupplierType.国外 ? "国外" : "国内",
                     CreateDate = p.CreateDate,
                     UpdateDate = p.UpdateDate,

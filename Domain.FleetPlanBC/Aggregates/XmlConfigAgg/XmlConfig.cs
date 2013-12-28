@@ -14,12 +14,7 @@
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.Xml.Linq;
 
 #endregion
 
@@ -44,7 +39,15 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.XmlConfigAgg
 
         #region 属性
 
+        public string ConfigType { get; protected set; }
+        public string ConfigContent { get; protected set; }
+        public int VersionNumber { get; protected set; }
 
+        public XElement XmlContent
+        {
+            get { return XElement.Parse(ConfigContent); }
+            set { ConfigContent = value.ToString(); }
+        }
 
         #endregion
 
