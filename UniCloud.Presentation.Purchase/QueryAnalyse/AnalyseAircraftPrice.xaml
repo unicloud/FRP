@@ -92,6 +92,7 @@
                                    TextAlignment="Right"
                                    Margin="20,0,0,0" />
                         <telerik:RadComboBox Margin="0 7"
+                                             Width="100"
                                              VerticalAlignment="Center"
                                              IsEditable="True"
                                              IsReadOnly="True">
@@ -107,6 +108,7 @@
                         <telerik:RadDateTimePicker x:Name="StartDateTimePicker"
                                                    Margin="0 7"
                                                    Width="120"
+                                                   DateTimeWatermarkContent=""
                                                    VerticalAlignment="Center"
                                                    InputMode="DatePicker"
                                                    DateSelectionMode="Month" />
@@ -118,6 +120,7 @@
                         <telerik:RadDateTimePicker x:Name="EndDateTimePicker"
                                                    Margin="0 7"
                                                    Width="120"
+                                                   DateTimeWatermarkContent=""
                                                    VerticalAlignment="Center"
                                                    InputMode="DatePicker"
                                                    DateSelectionMode="Month" />

@@ -566,6 +566,7 @@
         <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OperatorName" Type="Edm.String" />
         <Property Name="LinkmanId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
         <Property Name="OrderDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="ContractName" Type="Edm.String" />

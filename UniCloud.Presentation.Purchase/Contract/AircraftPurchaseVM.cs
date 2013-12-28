@@ -19,6 +19,8 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Data.Services.Client;
+using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
@@ -46,6 +48,8 @@ namespace UniCloud.Presentation.Purchase.Contract
         private PurchaseData _context;
         private DocumentDTO _document = new DocumentDTO();
         private bool _isAttach;
+        private FilterDescriptor _orderDescriptor;
+        private FilterDescriptor _tradeDescriptor;
 
         [ImportingConstructor]
         public AircraftPurchaseVM(IRegionManager regionManager)
@@ -74,17 +78,18 @@ namespace UniCloud.Presentation.Purchase.Contract
         private void InitializeVM()
         {
             ViewTradeDTO = Service.CreateCollection<TradeDTO>(_context.Trades);
-            var fd = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
-            ViewTradeDTO.FilterDescriptors.Add(fd);
+            _tradeDescriptor = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
+            ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor);
             Service.RegisterCollectionView(ViewTradeDTO);
             ViewTradeDTO.PropertyChanged += OnViewPropertyChanged;
 
             ViewAircraftPurchaseOrderDTO =
                 Service.CreateCollection<AircraftPurchaseOrderDTO>(
                     _context.AircraftPurchaseOrders.Expand(p => p.RelatedDocs));
+            _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
+            ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
             Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
             ViewAircraftPurchaseOrderDTO.PropertyChanged += OnViewPropertyChanged;
-            ViewAircraftPurchaseOrderDTO.LoadedData += (o, e) => { if (_refreshTradeDTO) ViewTradeDTO.Load(); };
 
             Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
             Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context, _context.Currencies);
@@ -173,7 +178,6 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 交易
 
-        private bool _refreshTradeDTO;
         private TradeDTO _selTradeDTO;
 
         /// <summary>
@@ -194,11 +198,16 @@ namespace UniCloud.Presentation.Purchase.Contract
                     _selTradeDTO = value;
                     if (_selTradeDTO != null)
                     {
-                        ViewAircraftPurchaseOrderDTO.FilterDescriptors.Clear();
-                        var fd = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, _selTradeDTO.Id);
-                        ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(fd);
-                        ViewAircraftPurchaseOrderDTO.Load();
+                        _orderDescriptor.Value = _selTradeDTO.Id;
                         RaisePropertyChanged(() => AircraftMaterials);
+                    }
+                    else
+                    {
+                        _orderDescriptor.Value = -1;
+                    }
+                    if (!ViewAircraftPurchaseOrderDTO.AutoLoad)
+                    {
+                        ViewAircraftPurchaseOrderDTO.AutoLoad = true;
                     }
                     // 刷新按钮状态
                     RemoveTradeCommand.RaiseCanExecuteChanged();
@@ -437,10 +446,11 @@ namespace UniCloud.Presentation.Purchase.Contract
                 Id = RandomHelper.Next(),
                 OrderDate = DateTime.Now,
                 TradeId = _selTradeDTO.Id,
-                SourceGuid = Guid.NewGuid()
+                SourceGuid = Guid.NewGuid(),
+                SupplierId=_selTradeDTO.SupplierId
             };
             ViewAircraftPurchaseOrderDTO.AddNew(order);
-            if (_selTradeDTO.TradeStatus == TradeStatus.开始) _refreshTradeDTO = true;
+            SelTradeDTO.Status = (int) TradeStatus.进行中;
         }
 
         private bool CanAddOrder(object obj)

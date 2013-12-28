@@ -115,7 +115,8 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
 
             var supplier = _supplierRepository.Get(dto.SupplierId);
             var newTrade = TradeFactory.CreateTrade(dto.Name, dto.Description, dto.StartDate);
-            newTrade.GenerateNewIdentity();
+            newTrade.ChangeCurrentIdentity(dto.Id);
+            newTrade.SetStatus((TradeStatus) dto.Status);
             // TODO:设置交易编号,如果当天的记录被删除过，本方法导致会出现重复交易号
             var date = DateTime.Now.Date;
             var seq = _tradeRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
@@ -342,13 +343,13 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "购买")
                     .FirstOrDefault();
 
-            // 修改交易状态
-            var trade = _tradeRepository.Get(order.TradeId);
-            trade.SetStatus(TradeStatus.进行中);
+            //// 修改交易状态
+            //var trade = _tradeRepository.Get(order.TradeId);
+            //trade.SetStatus(TradeStatus.进行中);
 
             // 处理订单行
             dto.AircraftPurchaseOrderLines.ToList()
-                .ForEach(line => InsertOrderLine(order, dto, line, importType, trade.SupplierId));
+                .ForEach(line => InsertOrderLine(order, dto, line, importType, dto.SupplierId));
 
             // 处理分解合同
             dto.ContractContents.ToList().ForEach(c => InsertContractContent(order, c));

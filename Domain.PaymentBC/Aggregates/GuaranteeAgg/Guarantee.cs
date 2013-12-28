@@ -164,7 +164,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg
 
             Supplier = supplier;
             SupplierId = supplier.Id;
-            SupplierName = supplier.CnName;
+            SupplierName = supplier.Name;
         }
 
         /// <summary>

@@ -97,5 +97,19 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg
 
             return enginePurchaseSupplier;
         }
+
+        /// <summary>
+        ///     创建维修供应商
+        /// </summary>
+        /// <param name="supplierCompany">供应商公司</param>
+        /// <returns>创建的维修供应商</returns>
+        public static MaintainSupplier CreateMaintainSupplier(SupplierCompany supplierCompany)
+        {
+            var mintainPurchaseSupplier = new MaintainSupplier();
+
+            mintainPurchaseSupplier.SetSupplierCompany(supplierCompany);
+
+            return mintainPurchaseSupplier;
+        }
     }
 }
