@@ -40,8 +40,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.RegNumber).HasColumnName("RegNumber");
 
             Property(p => p.AircraftTypeId).HasColumnName("AircraftTypeId");
-
-            HasRequired(a => a.AircraftType).WithMany(a => a.Aircrafts).HasForeignKey(a => a.AircraftTypeId);
         }
     }
 }

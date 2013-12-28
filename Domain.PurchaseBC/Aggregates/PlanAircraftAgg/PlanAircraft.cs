@@ -36,11 +36,6 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg
 
         #region 属性
 
-        /// <summary>
-        ///     注册号
-        /// </summary>
-        public string RegNumber { get; protected set; }
-
         #endregion
 
         #region 外键属性

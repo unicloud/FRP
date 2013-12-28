@@ -65,7 +65,7 @@ namespace UniCloud.Presentation.Input
             else if (viewModel.SelContractAircraft != null && viewModel.SelContractAircraft.PlanAircraftID == null)
             {
                 viewModel.SelContractAircraft.PlanAircraftID = planAircraft.Id;
-                viewModel.SelContractAircraft.PlanAircraft = planAircraft.RegNumber;
+                //viewModel.SelContractAircraft.PlanAircraft = planAircraft.RegNumber;
             }
         }
 

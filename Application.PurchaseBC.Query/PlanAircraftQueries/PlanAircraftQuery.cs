@@ -50,7 +50,6 @@ namespace UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries
             return query.ApplyTo(_unitOfWork.CreateSet<PlanAircraft>()).Select(p => new PlanAircraftDTO
             {
                 Id = p.Id,
-                RegNumber = p.RegNumber,
             });
         }
     }

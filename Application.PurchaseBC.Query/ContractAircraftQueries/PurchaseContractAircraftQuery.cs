@@ -56,7 +56,6 @@ namespace UniCloud.Application.PurchaseBC.Query.ContractAircraftQueries
                          AircraftTypeId = p.AircraftTypeId,
                          AircraftTypeName = p.AircraftType.Name,
                          PlanAircraftID = p.PlanAircraftID,
-                         PlanAircraft = p.PlanAircraft.RegNumber,
                          ImportCategoryId = p.ImportCategoryId,
                          ImportType = p.ImportCategory.ActionType,
                          ImportActionName = p.ImportCategory.ActionName,
