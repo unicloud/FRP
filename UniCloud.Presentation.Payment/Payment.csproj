@@ -260,6 +260,10 @@
       <DependentUpon>FinancingDemandForecast.xaml</DependentUpon>
     </Compile>
     <Compile Include="QueryAnalyse\FinancingDemandForecastVM.cs" />
+    <Compile Include="QueryAnalyse\PaymentScheduleExecute.xaml.cs">
+      <DependentUpon>PaymentScheduleExecute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\PaymentScheduleExecuteVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -377,6 +381,10 @@
     <Page Include="QueryAnalyse\FinancingDemandForecast.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QueryAnalyse\PaymentScheduleExecute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />

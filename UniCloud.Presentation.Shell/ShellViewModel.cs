@@ -640,6 +640,7 @@ namespace UniCloud.Presentation.Shell
             var menu473 = new MenuItem
             {
                 Text = "分析付款计划执行",
+                NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.PaymentScheduleExecute"
             };
             var menu474 = new MenuItem
             {
