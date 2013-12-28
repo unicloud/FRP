@@ -16,12 +16,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="legendStyle"
+            <Style x:Key="LegendStyle"
                    TargetType="StackPanel">
                 <Setter Property="Margin"
                         Value="10,6,10,0" />
             </Style>
-            <Style x:Key="legendItemStyle"
+            <Style x:Key="LegendItemStyle"
                    TargetType="TextBlock">
                 <Setter Property="FontFamily"
                         Value="Segoe UI" />
@@ -32,25 +32,25 @@
                 <Setter Property="Margin"
                         Value="4,2,4,2" />
             </Style>
-            <Style x:Key="tickStyle"
+            <Style x:Key="TickStyle"
                    TargetType="FrameworkElement">
                 <Setter Property="Visibility"
                         Value="Collapsed" />
             </Style>
-            <Style x:Key="labelFontStyle"
+            <Style x:Key="LabelFontStyle"
                    TargetType="TextBlock">
                 <Setter Property="FontFamily"
                         Value="Segoe UI" />
             </Style>
-            <Style x:Key="labelStyle"
+            <Style x:Key="LabelStyle"
                    TargetType="TextBlock"
-                   BasedOn="{StaticResource labelFontStyle}">
+                   BasedOn="{StaticResource LabelFontStyle}">
                 <Setter Property="Width"
                         Value="30" />
             </Style>
-            <Style x:Key="rightLabelStyle"
+            <Style x:Key="RightLabelStyle"
                    TargetType="TextBlock"
-                   BasedOn="{StaticResource labelStyle}">
+                   BasedOn="{StaticResource LabelStyle}">
                 <Setter Property="TextAlignment"
                         Value="Left" />
                 <Setter Property="Margin"
@@ -84,13 +84,12 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Rectangle x:Name="shadow"
+            <Rectangle x:Name="Shadow"
                        Height="7"
                        VerticalAlignment="Bottom"
                        StrokeThickness="0"
-                       Margin="0,0,0,-7"
-                       Fill="{StaticResource Shadow}" />
-            <Grid Background="{StaticResource ToolBarBackground}"
+                       Margin="0,0,0,-7" />
+            <Grid Grid.Row="0"
                   Height="50">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="开始时间："
@@ -100,7 +99,8 @@
                                Margin="20,0,0,0" />
                     <telerik:RadDateTimePicker Name="StartDateTimePicker"
                                                Margin="0 7"
-                                               Width="65"
+                                               Width="120"
+                                               DateTimeWatermarkContent=""
                                                SelectedValue="{Binding Path=StartDate,Mode=TwoWay}"
                                                DisplayDateEnd="{Binding Path=EndDate, Mode=TwoWay}"
                                                VerticalAlignment="Center"
@@ -116,7 +116,8 @@
                                Margin="20,0,0,0" />
                     <telerik:RadDateTimePicker Name="EndDateTimePicker"
                                                Margin="0 7"
-                                               Width="65"
+                                               Width="120"
+                                               DateTimeWatermarkContent=""
                                                SelectedValue="{Binding Path=EndDate,Mode=TwoWay}"
                                                DisplayDateStart="{Binding Path=StartDate, Mode=TwoWay}"
                                                VerticalAlignment="Center"
@@ -140,14 +141,12 @@
                                       ShadowDepth="4"
                                       Opacity="0.3" />
                 </Border.Effect>
-                <telerik:RadDocking Grid.Row="1"
-                                    BorderThickness="0"
-                                    Padding="0"
-                                    telerik:StyleManager.Theme="Windows8"
-                                    Margin="5"
-                                    HasDocumentHost="False">
+                <telerik:RadDocking  BorderThickness="0"
+                                     Padding="0"
+                                     telerik:StyleManager.Theme="Windows8"
+                                     Margin="5"
+                                     HasDocumentHost="False">
                     <telerik:RadSplitContainer InitialPosition="DockedTop"
-                                               Height="{StaticResource AnalyseDockingHeight}"
                                                Orientation="Horizontal">
                         <telerik:RadPaneGroup>
                             <telerik:RadPane Header="月平均在册统计"
@@ -158,8 +157,7 @@
                                              CanUserClose="False"
                                              CanUserPin="False"
                                              ContextMenuTemplate="{x:Null}">
-                                <Grid Grid.Row="0"
-                                      Name="MonthGrid"
+                                <Grid Name="MonthGrid"
                                       Background="White">
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
@@ -195,16 +193,14 @@
                                                                      Background="Black"
                                                                      MajorTickInterval="3"
                                                                      PlotMode="OnTicksPadded"
-                                                                     LabelStyle="{StaticResource labelFontStyle}" />
+                                                                     LabelStyle="{StaticResource LabelFontStyle}" />
                                         </telerik:RadCartesianChart.HorizontalAxis>
                                         <telerik:RadCartesianChart.VerticalAxis>
                                             <telerik:LinearAxis Name="MonthLinearAxis"
                                                                 LabelInterval="2"
                                                                 Title="月平均在册飞机数(架)"
-                                                                LabelStyle="{StaticResource rightLabelStyle}" />
+                                                                LabelStyle="{StaticResource RightLabelStyle}" />
                                         </telerik:RadCartesianChart.VerticalAxis>
-                                        <telerik:RadCartesianChart.Series>
-                                        </telerik:RadCartesianChart.Series>
                                         <telerik:RadCartesianChart.Grid>
                                             <telerik:CartesianChartGrid MajorLinesVisibility="X"
                                                                         StripLinesVisibility="X">
@@ -220,7 +216,7 @@
                                                   Margin="0,5,5,5"
                                                   VerticalScrollBarVisibility="Auto"
                                                   telerik:StyleManager.Theme="Windows8">
-                                        <StackPanel Style="{StaticResource legendStyle}">
+                                        <StackPanel Style="{StaticResource LegendStyle}">
                                         </StackPanel>
                                     </ScrollViewer>
                                 </Grid>
@@ -238,9 +234,8 @@
                                              CanUserClose="False"
                                              CanUserPin="False"
                                              ContextMenuTemplate="{x:Null}">
-                                <Grid Grid.Row="0"
-                                      Name="YearGrid"
-                                      Background="White">
+                                <Grid  Name="YearGrid"
+                                       Background="White">
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
                                             <i:Interaction.Triggers>
@@ -275,16 +270,14 @@
                                                                      Background="Black"
                                                                      MajorTickInterval="3"
                                                                      PlotMode="OnTicksPadded"
-                                                                     LabelStyle="{StaticResource labelFontStyle}" />
+                                                                     LabelStyle="{StaticResource LabelFontStyle}" />
                                         </telerik:RadCartesianChart.HorizontalAxis>
                                         <telerik:RadCartesianChart.VerticalAxis>
                                             <telerik:LinearAxis Name="YearLinearAxis"
                                                                 LabelInterval="2"
                                                                 Title="年平均在册飞机数(架)"
-                                                                LabelStyle="{StaticResource rightLabelStyle}" />
+                                                                LabelStyle="{StaticResource RightLabelStyle}" />
                                         </telerik:RadCartesianChart.VerticalAxis>
-                                        <telerik:RadCartesianChart.Series>
-                                        </telerik:RadCartesianChart.Series>
                                         <telerik:RadCartesianChart.Grid>
                                             <telerik:CartesianChartGrid MajorLinesVisibility="X"
                                                                         StripLinesVisibility="X">
@@ -300,7 +293,7 @@
                                                   Margin="0,5,5,5"
                                                   VerticalScrollBarVisibility="Auto"
                                                   telerik:StyleManager.Theme="Windows8">
-                                        <StackPanel Style="{StaticResource legendStyle}">
+                                        <StackPanel Style="{StaticResource LegendStyle}">
                                         </StackPanel>
                                     </ScrollViewer>
                                 </Grid>
@@ -310,6 +303,5 @@
                 </telerik:RadDocking>
             </Border>
         </Grid>
-
     </telerik:RadBusyIndicator>
 </UserControl>
