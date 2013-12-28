@@ -71,6 +71,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public int LinkmanId { get; set; }
 
         /// <summary>
+        ///     供应商ID
+        /// </summary>
+        public int SupplierId { get; set; }
+
+        /// <summary>
         ///     生效日期
         /// </summary>
         public DateTime OrderDate { get; set; }
