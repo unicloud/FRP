@@ -9,7 +9,8 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              d:DataContext="{d:DesignInstance uc:AircraftImportTypeVm}"
              mc:Ignorable="d"
-    d:DesignHeight="300" d:DesignWidth="400">
+             d:DesignHeight="300"
+             d:DesignWidth="400">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -23,7 +24,7 @@
                 <Setter Property="Margin"
                         Value="10,6,10,0" />
             </Style>
-            <Style x:Key="legendItemStyle"
+            <Style x:Key="LegendItemStyle"
                    TargetType="TextBlock">
                 <Setter Property="FontFamily"
                         Value="Segoe UI" />
@@ -34,25 +35,25 @@
                 <Setter Property="Margin"
                         Value="4,2,4,2" />
             </Style>
-            <Style x:Key="tickStyle"
+            <Style x:Key="TickStyle"
                    TargetType="FrameworkElement">
                 <Setter Property="Visibility"
                         Value="Collapsed" />
             </Style>
-            <Style x:Key="labelFontStyle"
+            <Style x:Key="LabelFontStyle"
                    TargetType="TextBlock">
                 <Setter Property="FontFamily"
                         Value="Segoe UI" />
             </Style>
-            <Style x:Key="labelStyle"
+            <Style x:Key="LabelStyle"
                    TargetType="TextBlock"
-                   BasedOn="{StaticResource labelFontStyle}">
+                   BasedOn="{StaticResource LabelFontStyle}">
                 <Setter Property="Width"
                         Value="30" />
             </Style>
-            <Style x:Key="rightLabelStyle"
+            <Style x:Key="RightLabelStyle"
                    TargetType="TextBlock"
-                   BasedOn="{StaticResource labelStyle}">
+                   BasedOn="{StaticResource LabelStyle}">
                 <Setter Property="TextAlignment"
                         Value="Left" />
                 <Setter Property="Margin"
@@ -69,7 +70,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Rectangle x:Name="shadow"
+            <Rectangle x:Name="Shadow"
                        Height="7"
                        VerticalAlignment="Bottom"
                        StrokeThickness="0"
@@ -83,8 +84,7 @@
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Grid Height="50"
-                  Background="{StaticResource ToolBarBackground}">
+            <Grid Height="50">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="时间的统计方式："
                                TextAlignment="Right"
@@ -92,6 +92,7 @@
                                Margin="20,0,0,0"
                                FontSize="{StaticResource TextFontSize}" />
                     <telerik:RadComboBox Margin="0 7"
+                                         Width="100"
                                          VerticalAlignment="Center"
                                          IsEditable="True"
                                          IsReadOnly="True"
@@ -107,7 +108,8 @@
                                FontSize="{StaticResource TextFontSize}" />
                     <telerik:RadDateTimePicker Name="StartDateTimePicker"
                                                Margin="0 7"
-                                               Width="65"
+                                               Width="120" 
+                                               DateTimeWatermarkContent=""
                                                SelectedValue="{Binding Path=StartDate,Mode=TwoWay}"
                                                DisplayDateEnd="{Binding Path=EndDate, Mode=TwoWay}"
                                                VerticalAlignment="Center"
@@ -122,7 +124,8 @@
                                FontSize="{StaticResource TextFontSize}" />
                     <telerik:RadDateTimePicker Name="EndDateTimePicker"
                                                Margin="0 7"
-                                               Width="65"
+                                               Width="120"
+                                               DateTimeWatermarkContent=""
                                                SelectedValue="{Binding Path=EndDate,Mode=TwoWay}"
                                                DisplayDateStart="{Binding Path=StartDate, Mode=TwoWay}"
                                                VerticalAlignment="Center"
@@ -142,17 +145,15 @@
                                       ShadowDepth="4"
                                       Opacity="0.3" />
                 </Border.Effect>
-                <telerik:RadDocking Grid.Row="1"
-                                    BorderThickness="0"
-                                    Padding="0"
-                                    HasDocumentHost="False"
-                                    Margin="5">
+                <telerik:RadDocking  BorderThickness="0"
+                                     Padding="0"
+                                     HasDocumentHost="False"
+                                     Margin="5">
 
                     <telerik:RadSplitContainer InitialPosition="DockedTop"
-                                               Orientation="Horizontal"
-                                               Height="{StaticResource AnalyseDockingHeight}">
-                        <telerik:RadPaneGroup x:Name="radPaneGroup">
-                            <telerik:RadPane Header="引进方式统计分析"
+                                               Orientation="Horizontal">
+                        <telerik:RadPaneGroup x:Name="RadPaneGroup">
+                            <telerik:RadPane Header="飞机引进方式统计分析"
                                              FontSize="{StaticResource TextFontSize}"
                                              CanDockInDocumentHost="False"
                                              CanFloat="False"
@@ -195,12 +196,12 @@
                                                                    EmptyContent="引进方式趋势变化趋势">
                                             <telerik:RadCartesianChart.Resources>
                                                 <!--<DataTemplate x:Key="LinePointTemplate">
-                                                    <example:CustomEllipse Width="10" Height="10" BorderBrush="#FF8EC441" Background="White" Foreground="#FF8EC441"/>
-                                                </DataTemplate>
-                                                <DataTemplate x:Key="LinePointTemplate1">
-                                                    <Ellipse Height='8' Width='8' Fill='#FF8EC441'/>
-                                                </DataTemplate>
-                                                <example:PaletteExtractorConverter x:Key="paletteExtractor" />-->
+													<example:CustomEllipse Width="10" Height="10" BorderBrush="#FF8EC441" Background="White" Foreground="#FF8EC441"/>
+												</DataTemplate>
+												<DataTemplate x:Key="LinePointTemplate1">
+													<Ellipse Height='8' Width='8' Fill='#FF8EC441'/>
+												</DataTemplate>
+												<example:PaletteExtractorConverter x:Key="paletteExtractor" />-->
                                                 <DataTemplate x:Key="LinePointTemplate">
                                                     <Ellipse Height='8'
                                                              Width='8'
@@ -236,15 +237,15 @@
                                                                          Background="Black"
                                                                          MajorTickInterval="3"
                                                                          PlotMode="OnTicksPadded"
-                                                                         LabelStyle="{StaticResource labelFontStyle}"
-                                                                         MajorTickStyle="{StaticResource tickStyle}" />
+                                                                         LabelStyle="{StaticResource LabelFontStyle}"
+                                                                         MajorTickStyle="{StaticResource TickStyle}" />
                                             </telerik:RadCartesianChart.HorizontalAxis>
                                             <telerik:RadCartesianChart.VerticalAxis>
                                                 <telerik:LinearAxis Name="LineLinearAxis"
                                                                     LabelInterval="2"
                                                                     ElementBrush="{Binding AircraftColor, Mode=OneWay}"
                                                                     Title="引进方式飞机数（架）"
-                                                                    LabelStyle="{StaticResource rightLabelStyle}" />
+                                                                    LabelStyle="{StaticResource RightLabelStyle}" />
                                             </telerik:RadCartesianChart.VerticalAxis>
                                             <telerik:RadCartesianChart.Grid>
                                                 <telerik:CartesianChartGrid MajorLinesVisibility="X"
@@ -315,7 +316,7 @@
                                                 <telerik:CategoricalAxis Name="BarCategoricalAxis"
                                                                          MajorTickInterval="3"
                                                                          PlotMode="OnTicksPadded"
-                                                                         LabelStyle="{StaticResource labelFontStyle}" />
+                                                                         LabelStyle="{StaticResource LabelFontStyle}" />
                                             </telerik:RadCartesianChart.HorizontalAxis>
                                             <telerik:RadCartesianChart.VerticalAxis>
                                                 <telerik:LinearAxis Name="BarLinearAxis"
@@ -323,7 +324,7 @@
                                                                     ElementBrush="{Binding AircraftColor, Mode=OneWay}"
                                                                     HorizontalLocation="Left"
                                                                     Title="飞机数（架）"
-                                                                    LabelStyle="{StaticResource rightLabelStyle}" />
+                                                                    LabelStyle="{StaticResource RightLabelStyle}" />
                                             </telerik:RadCartesianChart.VerticalAxis>
                                             <telerik:RadCartesianChart.Grid>
                                                 <telerik:CartesianChartGrid MajorLinesVisibility="X"
@@ -355,7 +356,6 @@
                                                       telerik:StyleManager.Theme="Windows8">
                                             <StackPanel Style="{StaticResource legendStyle}">
                                                 <StackPanel Orientation="Horizontal"
-                                                            Grid.Column="1"
                                                             Margin="5,5,5,5">
                                                     <Rectangle Width="15"
                                                                Height="15"
@@ -449,8 +449,6 @@
                                                            ItemsSource="{Binding FleetImportTypeCollection}"
                                                            ShowLabels="False"
                                                            RadiusFactor="0.7">
-                                            <telerik:PieSeries.SliceStyles>
-                                            </telerik:PieSeries.SliceStyles>
                                             <telerik:PieSeries.LabelDefinitions>
                                                 <telerik:ChartSeriesLabelDefinition Margin="-5,0,0,0" />
                                             </telerik:PieSeries.LabelDefinitions>
@@ -464,8 +462,7 @@
                                                   Margin="0,5,5,5"
                                                   VerticalScrollBarVisibility="Auto"
                                                   telerik:StyleManager.Theme="Windows8">
-                                        <StackPanel Style="{StaticResource legendStyle}"
-                                                    Grid.Column="1">
+                                        <StackPanel Style="{StaticResource legendStyle}">
                                         </StackPanel>
                                     </ScrollViewer>
                                 </Grid>
@@ -479,8 +476,7 @@
                                              CanUserClose="False"
                                              CanUserPin="False"
                                              ContextMenuTemplate="{x:Null}">
-                                <telerik:RadGridView Name="aircraftDetail"
-                                                     Grid.Column="2"
+                                <telerik:RadGridView Name="AircraftDetail"
                                                      FontSize="13"
                                                      AutoExpandGroups="True"
                                                      AutoGenerateColumns="False"
@@ -488,7 +484,6 @@
                                                      ShowGroupPanel="True"
                                                      RowIndicatorVisibility="Collapsed"
                                                      IsReadOnly="True"
-                                                     Margin="5,0,5,5"
                                                      ItemsSource="{Binding AircraftCollection}">
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
@@ -505,13 +500,12 @@
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
-                                        <!--<commonClass:SerialColumn Header="序号"
-                                                                  CellStyle="{StaticResource style}" />-->
+                                        <uc:DataPageSerialColumn Header="序号" />
                                         <telerik:GridViewDataColumn Header="注册号"
                                                                     DataMemberBinding="{Binding RegNumber}">
-                                            <telerik:GridViewDataColumn.AggregateFunctions>
+                                            <!--<telerik:GridViewDataColumn.AggregateFunctions>
                                                 <telerik:CountFunction Caption="{StaticResource AircraftCountFunction}" />
-                                            </telerik:GridViewDataColumn.AggregateFunctions>
+                                            </telerik:GridViewDataColumn.AggregateFunctions>-->
 
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="运营权人"
@@ -539,17 +533,14 @@
                                                                     DataMemberBinding="{Binding ThenCarryingCapacity}" />
                                     </telerik:RadGridView.Columns>
                                     <!--<telerik:RadGridView.GroupDescriptors>
-                            <telerik:GroupDescriptor Member="ImportCategory.ActionType" SortDirection="Ascending" DisplayContent="引进方式" />
-                        </telerik:RadGridView.GroupDescriptors>-->
+							<telerik:GroupDescriptor Member="ImportCategory.ActionType" SortDirection="Ascending" DisplayContent="引进方式" />
+						</telerik:RadGridView.GroupDescriptors>-->
                                 </telerik:RadGridView>
-
                             </telerik:RadPane>
                         </telerik:RadPaneGroup>
-
                     </telerik:RadSplitContainer>
                 </telerik:RadDocking>
             </Border>
         </Grid>
-
     </telerik:RadBusyIndicator>
 </UserControl>
