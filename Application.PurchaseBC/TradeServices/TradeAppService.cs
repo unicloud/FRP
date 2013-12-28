@@ -29,7 +29,6 @@ using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
-using UniCloud.Domain.PurchaseBC.Enums;
 
 #endregion
 
@@ -342,13 +341,13 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "购买")
                     .FirstOrDefault();
 
-            // 修改交易状态
-            var trade = _tradeRepository.Get(order.TradeId);
-            trade.SetStatus(TradeStatus.进行中);
+            //// 修改交易状态
+            //var trade = _tradeRepository.Get(order.TradeId);
+            //trade.SetStatus(TradeStatus.进行中);
 
             // 处理订单行
             dto.AircraftPurchaseOrderLines.ToList()
-                .ForEach(line => InsertOrderLine(order, dto, line, importType, trade.SupplierId));
+                .ForEach(line => InsertOrderLine(order, dto, line, importType, dto.SupplierId));
 
             // 处理分解合同
             dto.ContractContents.ToList().ForEach(c => InsertContractContent(order, c));

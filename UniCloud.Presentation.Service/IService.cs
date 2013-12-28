@@ -49,16 +49,9 @@ namespace UniCloud.Presentation.Service
         /// </summary>
         /// <param name="callback">回调</param>
         /// <param name="state">状态</param>
-        void SubmitChanges(Action<SubmitChangesResult> callback, object state = null);
-
-        /// <summary>
-        ///     保存实体变化
-        /// </summary>
         /// <param name="saveChangesOptions">保存方式</param>
-        /// <param name="callback">回调</param>
-        /// <param name="state">状态</param>
-        void SubmitChanges(SaveChangesOptions saveChangesOptions, Action<SubmitChangesResult> callback,
-            object state = null);
+        void SubmitChanges(Action<SubmitChangesResult> callback, object state = null,
+            SaveChangesOptions saveChangesOptions = SaveChangesOptions.Batch);
 
         /// <summary>
         ///     保存实体变化

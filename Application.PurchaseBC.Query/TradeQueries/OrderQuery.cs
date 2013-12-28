@@ -113,6 +113,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                     CurrencyId = o.Currency.Id,
                     OperatorName = o.OperatorName,
                     LinkmanId = o.Linkman.Id,
+                    SupplierId = o.Trade.SupplierId,
                     OrderDate = o.OrderDate,
                     Status = (int) o.Status,
                     ContractName = o.ContractName,
