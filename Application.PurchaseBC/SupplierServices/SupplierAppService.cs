@@ -149,7 +149,7 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
                         _supplierRoleRepository.GetSupplierRoleBySupplierCmpyId(typeof (MaintainSupplier),
                                                             p.SupplierCompanyId);
                         if (maintainPurchaseSupplier != null) return;
-                        var newMaintainPurchaseSupplier = SupplierRoleFactory.CreateBFEPurchaseSupplier(supplierCmy);
+                        var newMaintainPurchaseSupplier = SupplierRoleFactory.CreateMaintainSupplier(supplierCmy);
                         _supplierRoleRepository.Add(newMaintainPurchaseSupplier);
                     });
         }

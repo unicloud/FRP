@@ -19,6 +19,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
@@ -518,6 +519,8 @@ namespace UniCloud.Presentation.Purchase.Contract
             };
 
             SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Add(orderLine);
+            
+
         }
 
         private bool CanAddOrderLine(object obj)

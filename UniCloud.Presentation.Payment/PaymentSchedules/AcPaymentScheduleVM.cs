@@ -167,7 +167,10 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                 SelectedAcPaymentSchedule = e.Entities.Cast<AcPaymentScheduleDTO>().FirstOrDefault();
                 RefreshCommandState(); //刷新按钮状态
             };
-            AcPaymentSchedulesView.PropertyChanged += (s, o) => { };
+            AcPaymentSchedulesView.PropertyChanged += (s, o) =>
+            {
+                
+            };
         }
 
         /// <summary>
@@ -614,6 +617,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                 AppointmentToPaymentLineConvert(convertToPaymentLines);
                 RaisePropertyChanged(() => PaymentAppointmentCollection);
             }
+            RaisePropertyChanged(()=>SelectedAcPaymentSchedule.PaymentScheduleLines);
         }
 
         public void PaymentScheduleView_OnLoaded(object sender, RoutedEventArgs e)
