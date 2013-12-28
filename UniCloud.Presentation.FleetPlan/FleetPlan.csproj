@@ -224,6 +224,26 @@
     </Compile>
     <Compile Include="PrepareFleetPlan\SpareEnginePlanLayVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryAnalyse\AircraftImportType.xaml.cs">
+      <DependentUpon>AircraftImportType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\AircraftImportTypeVm.cs" />
+    <Compile Include="QueryAnalyse\CountRegisteredFleet.xaml.cs">
+      <DependentUpon>CountRegisteredFleet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\CountRegisteredFleetVm.cs" />
+    <Compile Include="QueryAnalyse\EngineImportType.xaml.cs">
+      <DependentUpon>EngineImportType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\EngineImportTypeVm.cs" />
+    <Compile Include="QueryAnalyse\FleetAge.xaml.cs">
+      <DependentUpon>FleetAge.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\FleetAgeVm.cs" />
+    <Compile Include="QueryAnalyse\FleetStructure.xaml.cs">
+      <DependentUpon>FleetStructure.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\FleetStructureVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -270,6 +290,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PrepareFleetPlan\SpareEnginePlanLay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QueryAnalyse\AircraftImportType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QueryAnalyse\CountRegisteredFleet.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QueryAnalyse\EngineImportType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QueryAnalyse\FleetAge.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QueryAnalyse\FleetStructure.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
