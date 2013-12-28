@@ -288,22 +288,27 @@ namespace UniCloud.Presentation.Shell
             var menu254 = new MenuItem
             {
                 Text = "统计在册飞机",
+                NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.CountRegisteredFleet"
             };
             var menu255 = new MenuItem
             {
                 Text = "分析飞机引进方式",
+                NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.AircraftImportType"
             };
             var menu256 = new MenuItem
             {
                 Text = "分析机队结构",
+                NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.FleetStructure"
             };
             var menu257 = new MenuItem
             {
                 Text = "分析飞机机龄",
+                NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.FleetAge"
             };
             var menu258 = new MenuItem
             {
                 Text = "分析发动机引进方式",
+                NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.EngineImportType"
             };
 
             menu25.Items.Add(menu251);
