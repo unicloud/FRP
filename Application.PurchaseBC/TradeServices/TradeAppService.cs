@@ -29,6 +29,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
+using UniCloud.Domain.PurchaseBC.Enums;
 
 #endregion
 
@@ -114,7 +115,8 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
 
             var supplier = _supplierRepository.Get(dto.SupplierId);
             var newTrade = TradeFactory.CreateTrade(dto.Name, dto.Description, dto.StartDate);
-            newTrade.GenerateNewIdentity();
+            newTrade.ChangeCurrentIdentity(dto.Id);
+            newTrade.SetStatus((TradeStatus) dto.Status);
             // TODO:设置交易编号,如果当天的记录被删除过，本方法导致会出现重复交易号
             var date = DateTime.Now.Date;
             var seq = _tradeRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;

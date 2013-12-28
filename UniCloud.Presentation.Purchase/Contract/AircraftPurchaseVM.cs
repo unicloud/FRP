@@ -90,7 +90,6 @@ namespace UniCloud.Presentation.Purchase.Contract
             ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
             Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
             ViewAircraftPurchaseOrderDTO.PropertyChanged += OnViewPropertyChanged;
-            ViewAircraftPurchaseOrderDTO.LoadedData += (o, e) => { if (_refreshTradeDTO) ViewTradeDTO.Load(); };
 
             Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
             Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context, _context.Currencies);
@@ -179,7 +178,6 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 交易
 
-        private bool _refreshTradeDTO;
         private TradeDTO _selTradeDTO;
 
         /// <summary>
@@ -448,10 +446,11 @@ namespace UniCloud.Presentation.Purchase.Contract
                 Id = RandomHelper.Next(),
                 OrderDate = DateTime.Now,
                 TradeId = _selTradeDTO.Id,
-                SourceGuid = Guid.NewGuid()
+                SourceGuid = Guid.NewGuid(),
+                SupplierId=_selTradeDTO.SupplierId
             };
             ViewAircraftPurchaseOrderDTO.AddNew(order);
-            if (_selTradeDTO.TradeStatus == TradeStatus.开始) _refreshTradeDTO = true;
+            SelTradeDTO.Status = (int) TradeStatus.进行中;
         }
 
         private bool CanAddOrder(object obj)

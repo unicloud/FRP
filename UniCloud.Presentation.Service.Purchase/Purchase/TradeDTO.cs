@@ -53,5 +53,10 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
                 throw new Exception("长度不足");
             }
         }
+
+        partial void OnStatusChanged()
+        {
+            OnPropertyChanged("TradeStatus");
+        }
     }
 }

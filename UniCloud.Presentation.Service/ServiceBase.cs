@@ -44,7 +44,6 @@ namespace UniCloud.Presentation.Service
         {
             _context = context;
             _dataServiceCollectionViews = new List<QueryableDataServiceCollectionViewBase>();
-            _context.MergeOption = MergeOption.NoTracking;
         }
 
         /// <summary>
@@ -69,7 +68,7 @@ namespace UniCloud.Presentation.Service
         /// <param name="collectionView">数据集合</param>
         public void SubmitChanges(QueryableDataServiceCollectionViewBase collectionView)
         {
-            SubmitChanges(collectionView, SaveChangesOptions.Batch, p => { });
+            SubmitChanges(collectionView, p => { });
         }
 
         /// <summary>
@@ -80,20 +79,6 @@ namespace UniCloud.Presentation.Service
         /// <param name="state">状态</param>
         public void SubmitChanges(QueryableDataServiceCollectionViewBase collectionView,
             Action<SubmitChangesResult> callback, object state = null)
-        {
-            SubmitChanges(collectionView, SaveChangesOptions.Batch, callback, state);
-        }
-
-        /// <summary>
-        ///     保存实体变化
-        /// </summary>
-        /// <param name="collectionView">数据集合</param>
-        /// <param name="saveChangesOptions">保存方式</param>
-        /// <param name="callback">回调</param>
-        /// <param name="state">状态</param>
-        public void SubmitChanges(QueryableDataServiceCollectionViewBase collectionView,
-            SaveChangesOptions saveChangesOptions, Action<SubmitChangesResult> callback,
-            object state = null)
         {
             var result = new SubmitChangesResult();
             collectionView.SubmitChanges();
@@ -106,15 +91,6 @@ namespace UniCloud.Presentation.Service
                 };
                 collectionView.SubmittedChanges += _submitChanges;
             }
-        }
-
-        /// <summary>
-        ///     撤销改变
-        /// </summary>
-        /// <param name="collectionView">数据集合</param>
-        public void RejectChanges(QueryableDataServiceCollectionViewBase collectionView)
-        {
-            collectionView.RejectChanges();
         }
 
         /// <summary>
@@ -153,6 +129,22 @@ namespace UniCloud.Presentation.Service
             }, Context);
         }
 
+        /// <summary>
+        ///     撤销改变
+        /// </summary>
+        public void RejectChanges()
+        {
+            _dataServiceCollectionViews.ForEach(RejectChanges);
+        }
+
+        /// <summary>
+        ///     撤销改变
+        /// </summary>
+        /// <param name="collectionView">数据集合</param>
+        public void RejectChanges(QueryableDataServiceCollectionViewBase collectionView)
+        {
+            collectionView.RejectChanges();
+        }
 
         /// <summary>
         ///     注册服务集合

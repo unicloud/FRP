@@ -47,15 +47,6 @@ namespace UniCloud.Presentation.Service
         /// <summary>
         ///     保存实体变化
         /// </summary>
-        /// <param name="callback">回调</param>
-        /// <param name="state">状态</param>
-        /// <param name="saveChangesOptions">保存方式</param>
-        void SubmitChanges(Action<SubmitChangesResult> callback, object state = null,
-            SaveChangesOptions saveChangesOptions = SaveChangesOptions.Batch);
-
-        /// <summary>
-        ///     保存实体变化
-        /// </summary>
         /// <param name="collectionView">数据集合</param>
         void SubmitChanges(QueryableDataServiceCollectionViewBase collectionView);
 
@@ -71,13 +62,16 @@ namespace UniCloud.Presentation.Service
         /// <summary>
         ///     保存实体变化
         /// </summary>
-        /// <param name="collectionView">数据集合</param>
-        /// <param name="saveChangesOptions">保存方式</param>
         /// <param name="callback">回调</param>
         /// <param name="state">状态</param>
-        void SubmitChanges(QueryableDataServiceCollectionViewBase collectionView, SaveChangesOptions saveChangesOptions,
-            Action<SubmitChangesResult> callback,
-            object state = null);
+        /// <param name="saveChangesOptions">保存方式</param>
+        void SubmitChanges(Action<SubmitChangesResult> callback, object state = null,
+            SaveChangesOptions saveChangesOptions = SaveChangesOptions.Batch);
+
+        /// <summary>
+        ///     撤销改变
+        /// </summary>
+        void RejectChanges();
 
         /// <summary>
         ///     撤销改变
