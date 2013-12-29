@@ -18,7 +18,9 @@
 #region 命名空间
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.Services.Client;
 using Telerik.Windows.Controls.DataServices;
@@ -40,9 +42,19 @@ namespace UniCloud.Presentation.Service
         DataServiceContext Context { get; }
 
         /// <summary>
+        ///     是否有变化
+        /// </summary>
+        bool HasChanges { get; }
+
+        /// <summary>
         ///     DataServiceCollectionView集合
         /// </summary>
         List<QueryableDataServiceCollectionViewBase> DataServiceCollectionViews { get; }
+
+        /// <summary>
+        ///     属性变化事件
+        /// </summary>
+        event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         ///     保存实体变化
@@ -84,9 +96,14 @@ namespace UniCloud.Presentation.Service
         /// </summary>
         /// <typeparam name="TService">实体类型</typeparam>
         /// <param name="query">查询</param>
+        /// <param name="add">添加项的处理</param>
+        /// <param name="remove">移除项的处理</param>
         /// <param name="options">保存选项</param>
         /// <returns>数据集合</returns>
-        QueryableDataServiceCollectionView<TService> CreateCollection<TService>(DataServiceQuery<TService> query,
+        QueryableDataServiceCollectionView<TService> CreateCollection<TService>(
+            DataServiceQuery<TService> query,
+            Action<IList, NotifyCollectionChangedEventHandler> add = null,
+            Action<IList, NotifyCollectionChangedEventHandler> remove = null,
             SaveChangesOptions options = SaveChangesOptions.Batch)
             where TService : class, INotifyPropertyChanged;
 

@@ -18,7 +18,9 @@
 #region 命名空间
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.Services.Client;
 using System.Linq;
@@ -38,6 +40,7 @@ namespace UniCloud.Presentation.Service
     {
         private readonly DataServiceContext _context;
         private readonly List<QueryableDataServiceCollectionViewBase> _dataServiceCollectionViews;
+        private bool _hasChanges;
         private EventHandler<DataServiceSubmittedChangesEventArgs> _submitChanges;
 
         protected ServiceBase(DataServiceContext context)
@@ -45,6 +48,27 @@ namespace UniCloud.Presentation.Service
             _context = context;
             _dataServiceCollectionViews = new List<QueryableDataServiceCollectionViewBase>();
         }
+
+        protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
+        {
+            if (PropertyChanged == null)
+                return;
+            PropertyChanged(this, e);
+        }
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
+        }
+
+        protected void OnViewCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            HasChanges = true;
+        }
+
+        #region IService 成员
+
+        #region 属性
 
         /// <summary>
         ///     域上下文对象
@@ -55,12 +79,40 @@ namespace UniCloud.Presentation.Service
         }
 
         /// <summary>
+        ///     是否有变化
+        /// </summary>
+        public bool HasChanges
+        {
+            get { return _hasChanges; }
+            protected set
+            {
+                if (_hasChanges == value)
+                    return;
+                _hasChanges = value;
+                OnPropertyChanged("HasChanges");
+            }
+        }
+
+        /// <summary>
         ///     DataServiceCollectionView集合
         /// </summary>
         public List<QueryableDataServiceCollectionViewBase> DataServiceCollectionViews
         {
             get { return _dataServiceCollectionViews; }
         }
+
+        #endregion
+
+        #region 事件
+
+        /// <summary>
+        ///     属性变化事件
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        #region 操作
 
         /// <summary>
         ///     保存实体变化
@@ -116,6 +168,7 @@ namespace UniCloud.Presentation.Service
                             result.Error = changeResponse.Error;
                             result.StatusCode = changeResponse.StatusCode;
                         }
+                        _dataServiceCollectionViews.ForEach(SubmitChanges);
                     }
                     catch (Exception ex)
                     {
@@ -165,15 +218,38 @@ namespace UniCloud.Presentation.Service
         /// </summary>
         /// <typeparam name="TService">实体类型</typeparam>
         /// <param name="query">查询</param>
+        /// <param name="add">添加项的处理</param>
+        /// <param name="remove">移除项的处理</param>
         /// <param name="options">保存选项</param>
         /// <returns>数据集合</returns>
-        public QueryableDataServiceCollectionView<TService> CreateCollection<TService>(DataServiceQuery<TService> query,
+        public QueryableDataServiceCollectionView<TService> CreateCollection<TService>(
+            DataServiceQuery<TService> query,
+            Action<IList, NotifyCollectionChangedEventHandler> add = null,
+            Action<IList, NotifyCollectionChangedEventHandler> remove = null,
             SaveChangesOptions options = SaveChangesOptions.Batch)
             where TService : class, INotifyPropertyChanged
         {
             var result = new QueryableDataServiceCollectionView<TService>(_context, query);
             result.SubmittingChanges += (o, e) => { e.SaveChangesOptions = options; };
+            result.LoadedData += (o, e) => { HasChanges = false; };
+            result.PropertyChanged += (o, e) => { HasChanges = result.HasChanges; };
+            result.CollectionChanged += (o, e) =>
+            {
+                if (e.NewItems != null && add != null)
+                {
+                    add(e.NewItems, OnViewCollectionChanged);
+                }
+                if (e.OldItems != null && remove != null)
+                {
+                    remove(e.OldItems, OnViewCollectionChanged);
+                }
+            };
+
             return result;
         }
+
+        #endregion
+
+        #endregion
     }
 }
