@@ -29,8 +29,19 @@ namespace UniCloud.Presentation.MVVM
     {
         protected EditViewModelBase()
         {
-            SaveCommand = new DelegateCommand<object>(OnSave, CanSave); //保存命令。
-            AbortCommand = new DelegateCommand<object>(OnAbort, CanAbort); //取消命令。
+            SaveCommand = new DelegateCommand<object>(OnSave, CanSave);
+            AbortCommand = new DelegateCommand<object>(OnAbort, CanAbort);
+            if (Service != null)
+            {
+                Service.PropertyChanged += (o, e) =>
+                {
+                    if (e.PropertyName == "HasChanges")
+                    {
+                        SaveCommand.RaiseCanExecuteChanged();
+                        AbortCommand.RaiseCanExecuteChanged();
+        }
+                };
+            }
         }
 
         protected void OnViewPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -48,6 +59,8 @@ namespace UniCloud.Presentation.MVVM
 
         private void OnSave(object sender)
         {
+            if (sender is QueryableDataServiceCollectionViewBase)
+            {
             var collectionView = sender as QueryableDataServiceCollectionViewBase;
             if (!OnSaveExecuting(collectionView))
             {
@@ -62,6 +75,19 @@ namespace UniCloud.Presentation.MVVM
                 }
                 RefreshCommandState();
             });
+            }
+            else
+            {
+                Service.SubmitChanges(sm =>
+                {
+                    if (sm.Error == null)
+                    {
+                        MessageAlert("提示", "保存成功。");
+                        OnSaveSuccess(sender);
+                    }
+            RefreshCommandState();
+                });
+        }
             RefreshCommandState();
         }
 
@@ -69,7 +95,7 @@ namespace UniCloud.Presentation.MVVM
         ///     保存成功前执行的操作。
         /// </summary>
         /// <param name="sender"></param>
-        protected virtual bool OnSaveExecuting(QueryableDataServiceCollectionViewBase sender)
+        protected virtual bool OnSaveExecuting(object sender)
         {
             return true;
         }
@@ -78,7 +104,7 @@ namespace UniCloud.Presentation.MVVM
         ///     保存成功后执行的操作
         /// </summary>
         /// <param name="sender"></param>
-        protected virtual void OnSaveSuccess(QueryableDataServiceCollectionViewBase sender)
+        protected virtual void OnSaveSuccess(object sender)
         {
         }
 
@@ -86,19 +112,13 @@ namespace UniCloud.Presentation.MVVM
         ///     保存失败后执行的操作
         /// </summary>
         /// <param name="sender"></param>
-        protected virtual void OnSaveFail(QueryableDataServiceCollectionViewBase sender)
+        protected virtual void OnSaveFail(object sender)
         {
         }
 
         private bool CanSave(object sender)
         {
-            var collectionView = sender as QueryableDataServiceCollectionViewBase;
-            //提交时，保存按钮不可用
-            if (collectionView != null && collectionView.IsSubmittingChanges)
-            {
-                return false;
-            }
-            return collectionView != null && collectionView.HasChanges;
+            return Service != null && Service.HasChanges;
         }
 
         #endregion
@@ -111,35 +131,36 @@ namespace UniCloud.Presentation.MVVM
         ///     放弃更改执行的操作
         /// </summary>
         /// <param name="sender"></param>
-        protected virtual void OnAbortExecuting(QueryableDataServiceCollectionViewBase sender)
+        protected virtual void OnAbortExecuting(object sender)
         {
         }
 
         private void OnAbort(object sender)
         {
+            if (sender is QueryableDataServiceCollectionViewBase)
+            {
             var collectionView = sender as QueryableDataServiceCollectionViewBase;
             OnAbortExecuting(collectionView); //取消前。
             Service.RejectChanges(collectionView); //取消。
             OnAbortExecuted(collectionView); //取消后。
+        }
+            else
+            {
+                Service.RejectChanges();
+            }
         }
 
         /// <summary>
         ///     放弃更改后执行的操作
         /// </summary>
         /// <param name="sender"></param>
-        protected virtual void OnAbortExecuted(QueryableDataServiceCollectionViewBase sender)
+        protected virtual void OnAbortExecuted(object sender)
         {
         }
 
         private bool CanAbort(object sender)
         {
-            var collectionView = sender as QueryableDataServiceCollectionViewBase;
-            //提交时，取消按钮不可用
-            if (collectionView != null && collectionView.IsSubmittingChanges)
-            {
-                return false;
-            }
-            return collectionView != null && collectionView.HasChanges;
+            return Service != null && Service.HasChanges;
         }
 
         #endregion
