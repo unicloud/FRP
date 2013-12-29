@@ -32,7 +32,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO.SupplierDTO
         /// <summary>
         /// 主键
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         #endregion
     }

@@ -14,13 +14,8 @@
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ManufacturerAgg;
 
 #endregion
@@ -39,6 +34,12 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
+            Property(p => p.CnName).HasColumnName("CnName");
+            Property(p => p.EnName).HasColumnName("EnName");
+            Property(p => p.CnShortName).HasColumnName("CnShortName");
+            Property(p => p.EnShortName).HasColumnName("EnShortName");
+            Property(p => p.Note).HasColumnName("Note");
+            Property(p => p.Type).HasColumnName("Type");
 
         }
     }

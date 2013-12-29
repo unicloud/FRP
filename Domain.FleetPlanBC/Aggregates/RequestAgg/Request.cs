@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
 using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
@@ -135,6 +136,12 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        /// 批文
+        /// </summary>
+        public virtual ApprovalDoc ApprovalDoc { get; set; }
+
 
         /// <summary>
         /// 航空公司

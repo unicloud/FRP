@@ -18,7 +18,7 @@
 #region 命名空间
 
 using System;
-using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.UberModel.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.ManufacturerAgg;
 
 #endregion
@@ -62,12 +62,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg
         /// <summary>
         ///     制造商
         /// </summary>
-        public Guid ManufacturerID { get; set; }
+        public Guid ManufacturerId { get; set; }
 
         /// <summary>
         ///     飞机类别
         /// </summary>
-        public Guid AircraftCategoryID { get; set; }
+        public Guid AircraftCategoryId { get; set; }
 
         #endregion
 
@@ -81,7 +81,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg
         /// <summary>
         /// 飞机类别
         /// </summary>
-        public virtual ActionCategory ActionCategory { get; set; }
+        public virtual AircraftCategory AircraftCategory { get; set; }
 
         #endregion
 

@@ -19,6 +19,7 @@ using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
 using UniCloud.Domain.UberModel.Aggregates.AnnualAgg;
+using UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg;
 
 #endregion
 
@@ -115,6 +116,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        /// 计划飞机
+        /// </summary>
+        public virtual PlanAircraft PlanAircraft { get; set; }
 
         /// <summary>
         /// 活动类别：包括引进、退出、变更

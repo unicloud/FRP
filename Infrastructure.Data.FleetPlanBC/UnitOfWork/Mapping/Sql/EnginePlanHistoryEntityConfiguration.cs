@@ -14,13 +14,8 @@
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg;
 
 #endregion
@@ -39,6 +34,21 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
+            Property(p => p.PerformAnnualId).HasColumnName("PerformAnnualId");
+            Property(p => p.PerformMonth).HasColumnName("PerformMonth");
+            Property(p => p.MaxThrust).HasColumnName("MaxThrust");
+            Property(p => p.Status).HasColumnName("Status");
+            Property(p => p.IsFinished).HasColumnName("IsFinished");
+
+            Property(p => p.EngineTypeId).HasColumnName("EngineTypeId");
+            Property(p => p.EnginePlanId).HasColumnName("EnginePlanId");
+            Property(p => p.PlanEngineId).HasColumnName("PlanEngineId");
+            Property(p => p.ActionCategoryId).HasColumnName("ActionCategoryId");
+
+            HasRequired(o => o.EngineType).WithMany().HasForeignKey(o => o.EngineTypeId);
+            HasRequired(o => o.PerformAnnual).WithMany().HasForeignKey(o => o.PerformAnnualId);
+            HasOptional(o => o.PlanEngine).WithMany().HasForeignKey(o => o.PlanEngineId);
+            HasRequired(o => o.ActionCategory).WithMany().HasForeignKey(o => o.ActionCategoryId);
 
         }
     }

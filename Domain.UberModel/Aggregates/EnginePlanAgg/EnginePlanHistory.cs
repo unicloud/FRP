@@ -18,6 +18,7 @@ using System;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AnnualAgg;
 using UniCloud.Domain.UberModel.Aggregates.EngineTypeAgg;
+using UniCloud.Domain.UberModel.Aggregates.PlanEngineAgg;
 using UniCloud.Domain.UberModel.Enums;
 
 #endregion
@@ -105,6 +106,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.EnginePlanAgg
         /// 执行年度
         /// </summary>
         public virtual Annual PerformAnnual { get; set; }
+
+        /// <summary>
+        /// 计划发动机
+        /// </summary>
+        public virtual PlanEngine PlanEngine { get; set; }
 
         /// <summary>
         ///   活动类型
