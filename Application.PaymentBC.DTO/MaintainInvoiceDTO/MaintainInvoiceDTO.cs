@@ -106,7 +106,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         ///  维修发票行集合
         /// </summary>
         private List<MaintainInvoiceLineDTO> _maintainInvoiceLines;
-        public virtual List<MaintainInvoiceLineDTO> MaintainInvoiceLines
+        public List<MaintainInvoiceLineDTO> MaintainInvoiceLines
         {
             get { return _maintainInvoiceLines ?? new List<MaintainInvoiceLineDTO>(); }
             set { _maintainInvoiceLines = value; }

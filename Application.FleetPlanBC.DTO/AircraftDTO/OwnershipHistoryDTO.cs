@@ -19,12 +19,12 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.AircraftDTO
+namespace UniCloud.Application.FleetPlanBC.DTO
 {
     /// <summary>
     /// 所有权历史
     /// </summary>
-    [DataServiceKey("Id")]
+    [DataServiceKey("OwnershipHistoryId")]
     public class OwnershipHistoryDTO
     {
         #region 属性
@@ -32,7 +32,35 @@ namespace UniCloud.Application.FleetPlanBC.DTO.AircraftDTO
         /// <summary>
         /// 主键
         /// </summary>
-        public Guid Id { get; set; }
+        public Guid OwnershipHistoryId { get; set; }
+
+        /// <summary>
+        ///     开始日期
+        /// </summary>
+        public DateTime StartDate { get; set; }
+
+        /// <summary>
+        ///     结束日期
+        /// </summary>
+        public DateTime? EndDate { get; set; }
+
+        /// <summary>
+        ///     处理状态
+        /// </summary>
+        public int Status { get; set; }
+
+        #endregion
+
+        #region 外键属性
+        /// <summary>
+        ///     飞机外键
+        /// </summary>
+        public Guid AircraftId { get; set; }
+
+        /// <summary>
+        ///     所有权人
+        /// </summary>
+        public Guid SupplierId { get; set; }
 
         #endregion
     }
