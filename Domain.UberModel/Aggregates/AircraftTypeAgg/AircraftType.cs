@@ -17,8 +17,9 @@
 
 #region 命名空间
 
-using System.Collections.Generic;
-using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
+using System;
+using UniCloud.Domain.UberModel.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.UberModel.Aggregates.ManufacturerAgg;
 
 #endregion
 
@@ -29,9 +30,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg
     /// </summary>
     public class AircraftType : EntityGuid
     {
-        #region 私有字段
+        #region 构造函数
 
-        private HashSet<Aircraft> _aircrafts;
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能从内部创建新实例
+        /// </summary>
+        internal AircraftType()
+        {
+        }
 
         #endregion
 
@@ -42,22 +49,39 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg
         /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        ///     备注
+        /// </summary>
+        public string Description { get; set; }
+
+
         #endregion
 
         #region 外键属性
+
+        /// <summary>
+        ///     制造商
+        /// </summary>
+        public Guid ManufacturerId { get; set; }
+
+        /// <summary>
+        ///     飞机类别
+        /// </summary>
+        public Guid AircraftCategoryId { get; set; }
 
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        ///     飞机集合
+        /// 制造商
         /// </summary>
-        public virtual ICollection<Aircraft> Aircrafts
-        {
-            get { return _aircrafts ?? (_aircrafts = new HashSet<Aircraft>()); }
-            set { _aircrafts = new HashSet<Aircraft>(value); }
-        }
+        public virtual Manufacturer Manufacturer { get; set; }
+
+        /// <summary>
+        /// 飞机类别
+        /// </summary>
+        public virtual AircraftCategory AircraftCategory { get; set; }
 
         #endregion
 

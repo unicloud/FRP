@@ -15,6 +15,8 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.EngineTypeAgg;
 
 #endregion
 
@@ -77,7 +79,15 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
 
         #region 导航属性
 
+        /// <summary>
+        /// 发动机型号
+        /// </summary>
+        public virtual EngineType EngineType { get; set; }
 
+        /// <summary>
+        /// 引进方式
+        /// </summary>
+        public virtual ActionCategory ImportCategory { get; set; }
 
         #endregion
 

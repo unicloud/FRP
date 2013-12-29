@@ -46,7 +46,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg
         /// </summary>
         public string ActionName { get; protected set; }
 
-
         /// <summary>
         ///     需要审批
         /// </summary>

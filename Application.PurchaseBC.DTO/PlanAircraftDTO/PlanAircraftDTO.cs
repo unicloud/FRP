@@ -33,11 +33,6 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// </summary>
         public Guid Id { get; set; }
 
-        /// <summary>
-        ///     注册号
-        /// </summary>
-        public string RegNumber { get; set; }
-
         #endregion
 
     }

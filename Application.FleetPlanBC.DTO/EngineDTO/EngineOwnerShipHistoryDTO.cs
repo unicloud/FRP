@@ -4,7 +4,7 @@
 //【本类功能概述】
 // 
 // 作者：HuangQiBin 时间：2013/12/26 18:29:07
-// 文件名：EngineOwnerShipHistoryDTO
+// 文件名：EngineOwnershipHistoryDTO
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -25,7 +25,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO.EngineDTO
     /// 发动机所有权历史
     /// </summary>
     [DataServiceKey("Id")]
-    public class EngineOwnerShipHistoryDTO
+    public class EngineOwnershipHistoryDTO
     {
         #region 属性
 

@@ -16,6 +16,8 @@
 
 using System;
 using System.Collections.Generic;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ManagerAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingAgg;
 
 #endregion
 
@@ -32,7 +34,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg
         private HashSet<CaacProgrammingLine> _caacProgrammingLines;
 
         #endregion
-
 
         #region 构造函数
 
@@ -95,6 +96,16 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        /// 规划期间
+        /// </summary>
+        public virtual Programming Programming { get; set; }
+
+        /// <summary>
+        /// 发文单位
+        /// </summary>
+        public virtual Manager IssuedUnit { get; set; }
 
         /// <summary>
         ///     民航局五年规划明细

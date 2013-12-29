@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
@@ -67,13 +68,17 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// <summary>
         ///     所有权人
         /// </summary>
-        public Guid SupplierId { get; private set; }
+        public int SupplierId { get; private set; }
 
 
         #endregion
 
         #region 导航属性
 
+        /// <summary>
+        ///     所有权人
+        /// </summary>
+        public virtual Supplier Supplier { get; set; }
 
 
         #endregion
@@ -127,9 +132,9 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         ///     设置所有权人
         /// </summary>
         /// <param name="supplierId">所有权人</param>
-        public void SetSupplier(Guid supplierId)
+        public void SetSupplier(int supplierId)
         {
-            if (supplierId == null)
+            if (supplierId == 0)
             {
                 throw new ArgumentException("所有权人Id参数为空！");
             }

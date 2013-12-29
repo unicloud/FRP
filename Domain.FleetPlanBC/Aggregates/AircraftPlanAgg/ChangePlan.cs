@@ -13,6 +13,7 @@
 #endregion
 
 using System;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
 {
@@ -50,7 +51,10 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
 
         #region 导航属性
 
-
+        /// <summary>
+        /// 商业数据历史
+        /// </summary>
+        public virtual AircraftBusiness AircraftBusiness { get; set; }
 
         #endregion
 

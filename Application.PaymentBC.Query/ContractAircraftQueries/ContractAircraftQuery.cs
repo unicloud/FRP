@@ -58,7 +58,7 @@ namespace UniCloud.Application.PaymentBC.Query.ContractAircraftQueries
                          AircraftTypeName = p.AircraftType.Name,
                          ImportType = p.ImportCategory.ActionType + "-" + p.ImportCategory.ActionName,
                          ContractAircrafId = p.Id,
-                         SupplierName = dbSupplier.FirstOrDefault(c=>c.Id==p.SupplierId).Name,
+                         SupplierName = dbSupplier.FirstOrDefault(c => c.Id == p.SupplierId).CnName,
                          SupplierId = p.SupplierId,
                      });
         }

@@ -19,12 +19,12 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.AircraftDTO
+namespace UniCloud.Application.FleetPlanBC.DTO
 {
     /// <summary>
     /// 飞机商业数据历史
     /// </summary>
-    [DataServiceKey("Id")]
+    [DataServiceKey("AircraftBusinessId")]
     public class AircraftBusinessDTO
     {
         #region 属性
@@ -32,7 +32,52 @@ namespace UniCloud.Application.FleetPlanBC.DTO.AircraftDTO
         /// <summary>
         /// 主键
         /// </summary>
-        public Guid Id { get; set; }
+        public Guid AircraftBusinessId { get; set; }
+
+        /// <summary>
+        ///     座位数
+        /// </summary>
+        public int SeatingCapacity { get; set; }
+
+        /// <summary>
+        ///     商载量
+        /// </summary>
+        public decimal CarryingCapacity { get; set; }
+
+        /// <summary>
+        ///     开始日期
+        /// </summary>
+        public DateTime StartDate { get; set; }
+
+        /// <summary>
+        ///     结束日期
+        /// </summary>
+        public DateTime? EndDate { get; set; }
+
+        /// <summary>
+        ///     处理状态
+        /// </summary>
+        public int Status { get; set; }
+
+        #endregion
+
+        #region 外键属性
+
+        /// <summary>
+        ///     飞机外键
+        /// </summary>
+        public Guid AircraftId { get; set; }
+
+        /// <summary>
+        ///     机型外键
+        /// </summary>
+        public Guid AircraftTypeId { get; set; }
+
+        /// <summary>
+        ///     引进方式
+        /// </summary>
+        public Guid ImportCategoryId { get; set; }
+
 
         #endregion
     }

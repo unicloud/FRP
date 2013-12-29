@@ -156,7 +156,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.PaymentScheduleAgg
 
             Supplier = supplier;
             SupplierId = supplier.Id;
-            SupplierName = supplier.Name;
+            SupplierName = supplier.CnName;
         }
 
         /// <summary>

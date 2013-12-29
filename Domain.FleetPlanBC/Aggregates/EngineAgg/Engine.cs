@@ -16,6 +16,10 @@
 
 using System;
 using System.Collections.Generic;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.EngineTypeAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg;
 
 #endregion
 
@@ -28,7 +32,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
     {
         #region 私有字段
 
-        private HashSet<EngineOwnerShipHistory> _engineOwnerShipHistories;
+        private HashSet<EngineOwnershipHistory> _engineOwnerShipHistories;
         private HashSet<EngineBusinessHistory> _engineBusinessHistories;
 
         #endregion
@@ -89,7 +93,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         /// <summary>
         ///     发动机所有权人
         /// </summary>
-        public Guid? SupplierId { get; private set; }
+        public int? SupplierId { get; private set; }
 
         /// <summary>
         ///  航空公司外键
@@ -106,12 +110,33 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         #region 导航属性
 
         /// <summary>
+        /// 发动机型号
+        /// </summary>
+        public virtual EngineType EngineType { get; set; }
+
+        /// <summary>
+        ///     发动机所有权人
+        /// </summary>
+        public virtual Supplier Supplier { get; set; }
+
+        /// <summary>
+        /// 航空公司
+        /// </summary>
+        public virtual Airlines Airlines { get; set; }
+
+        /// <summary>
+        /// 引进方式
+        /// </summary>
+        public virtual ActionCategory ImportCategory { get; set; }
+
+
+        /// <summary>
         ///     所有权历史
         /// </summary>
-        public virtual ICollection<EngineOwnerShipHistory> EngineOwnerShipHistories
+        public virtual ICollection<EngineOwnershipHistory> EngineOwnerShipHistories
         {
-            get { return _engineOwnerShipHistories ?? (_engineOwnerShipHistories = new HashSet<EngineOwnerShipHistory>()); }
-            set { _engineOwnerShipHistories = new HashSet<EngineOwnerShipHistory>(value); }
+            get { return _engineOwnerShipHistories ?? (_engineOwnerShipHistories = new HashSet<EngineOwnershipHistory>()); }
+            set { _engineOwnerShipHistories = new HashSet<EngineOwnershipHistory>(value); }
         }
 
         /// <summary>
@@ -196,7 +221,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         ///     设置发动机所有权人
         /// </summary>
         /// <param name="supplierId">发动机所有权人</param>
-        public void SetSupplier(Guid? supplierId)
+        public void SetSupplier(int? supplierId)
         {
             SupplierId = supplierId;
         }
@@ -251,9 +276,9 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         /// 新增发动机所有权历史
         /// </summary>
         /// <returns></returns>
-        public EngineOwnerShipHistory AddNewEngineOwnerShipHistory()
+        public EngineOwnershipHistory AddNewEngineOwnershipHistory()
         {
-            var engineOwnershipHistory = new EngineOwnerShipHistory
+            var engineOwnershipHistory = new EngineOwnershipHistory
             {
                 EngineId = Id,
             };

@@ -12,12 +12,6 @@
 // ========================================================================*/
 #endregion
 
-#region 命名空间
-
-using System;
-
-#endregion
-
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.ManufacturerAgg
 {
     /// <summary>
@@ -40,14 +34,34 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ManufacturerAgg
         #region 属性
 
         /// <summary>
-        /// 制造商名称
+        ///     制造商中文名称
         /// </summary>
-        public string Name { get; protected set; }
+        public string CnName { get; protected set; }
+
+        /// <summary>
+        ///     制造商英文名称
+        /// </summary>
+        public string EnName { get; protected set; }
+
+        /// <summary>
+        ///     制造商中文简称
+        /// </summary>
+        public string CnShortName { get; protected set; }
+
+        /// <summary>
+        ///     制造商英文简称
+        /// </summary>
+        public string EnShortName { get; protected set; }
+
+        /// <summary>
+        ///     备注
+        /// </summary>
+        public string Note { get; protected set; }
         
         /// <summary>
         /// 制造商类型 1表示飞机制造商，2表示发动机制造商
         /// </summary>
-        public int Type { get; set; }
+        public int Type { get; protected set; }
         #endregion
 
         #region 外键属性

@@ -63,7 +63,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg
         /// <summary>
         ///     名称
         /// </summary>
-        public string Name { get; set; }
+        public string CnName { get; set; }
 
         /// <summary>
         ///     创建日期

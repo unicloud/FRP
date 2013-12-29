@@ -4,7 +4,7 @@
 //【本类功能概述】
 // 
 // 作者：HuangQiBin 时间：2013/12/26 13:46:21
-// 文件名：EngineOwnerShipHistory
+// 文件名：EngineOwnershipHistory
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg;
 
 #endregion
 
@@ -23,7 +24,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
     /// <summary>
     ///     发动机所有权历史
     /// </summary>
-    public class EngineOwnerShipHistory : EntityGuid
+    public class EngineOwnershipHistory : EntityGuid
     {
         #region 构造函数
 
@@ -31,7 +32,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal EngineOwnerShipHistory()
+        internal EngineOwnershipHistory()
         {
         }
 
@@ -61,13 +62,16 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         /// <summary>
         ///     所有权人
         /// </summary>
-        public Guid SupplierId { get; private set; }
+        public int SupplierId { get; private set; }
 
         #endregion
 
         #region 导航属性
 
-
+        /// <summary>
+        /// 所有权人
+        /// </summary>
+        public virtual Supplier Supplier { get; set; }
 
         #endregion
 
@@ -95,9 +99,9 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         ///     设置所有权人
         /// </summary>
         /// <param name="supplierId">所有权人</param>
-        public void SetSupplier(Guid supplierId)
+        public void SetSupplier(int supplierId)
         {
-            if (supplierId == null)
+            if (supplierId == 0)
             {
                 throw new ArgumentException("所有权人Id参数为空！");
             }

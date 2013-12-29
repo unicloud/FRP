@@ -39,7 +39,7 @@ namespace UniCloud.Presentation.MVVM
                     {
                         SaveCommand.RaiseCanExecuteChanged();
                         AbortCommand.RaiseCanExecuteChanged();
-                    }
+        }
                 };
             }
         }
@@ -61,20 +61,20 @@ namespace UniCloud.Presentation.MVVM
         {
             if (sender is QueryableDataServiceCollectionViewBase)
             {
-                var collectionView = sender as QueryableDataServiceCollectionViewBase;
-                if (!OnSaveExecuting(collectionView))
+            var collectionView = sender as QueryableDataServiceCollectionViewBase;
+            if (!OnSaveExecuting(collectionView))
+            {
+                return;
+            }
+            Service.SubmitChanges(collectionView, sm =>
+            {
+                if (sm.Error == null)
                 {
-                    return;
+                    MessageAlert("提示", "保存成功。");
+                    OnSaveSuccess(collectionView);
                 }
-                Service.SubmitChanges(collectionView, sm =>
-                {
-                    if (sm.Error == null)
-                    {
-                        MessageAlert("提示", "保存成功。");
-                        OnSaveSuccess(collectionView);
-                    }
-                    RefreshCommandState();
-                });
+                RefreshCommandState();
+            });
             }
             else
             {
@@ -85,9 +85,9 @@ namespace UniCloud.Presentation.MVVM
                         MessageAlert("提示", "保存成功。");
                         OnSaveSuccess(sender);
                     }
-                    RefreshCommandState();
+            RefreshCommandState();
                 });
-            }
+        }
             RefreshCommandState();
         }
 
@@ -139,11 +139,11 @@ namespace UniCloud.Presentation.MVVM
         {
             if (sender is QueryableDataServiceCollectionViewBase)
             {
-                var collectionView = sender as QueryableDataServiceCollectionViewBase;
-                OnAbortExecuting(collectionView); //取消前。
-                Service.RejectChanges(collectionView); //取消。
-                OnAbortExecuted(collectionView); //取消后。
-            }
+            var collectionView = sender as QueryableDataServiceCollectionViewBase;
+            OnAbortExecuting(collectionView); //取消前。
+            Service.RejectChanges(collectionView); //取消。
+            OnAbortExecuted(collectionView); //取消后。
+        }
             else
             {
                 Service.RejectChanges();

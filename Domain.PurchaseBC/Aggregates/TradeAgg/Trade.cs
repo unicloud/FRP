@@ -181,7 +181,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg
 
             Supplier = supplier;
             SupplierId = supplier.Id;
-            Signatory = supplier.Name;
+            Signatory = supplier.CnName;
         }
 
         /// <summary>

@@ -54,7 +54,6 @@
     <Compile Include="Aggregates\AircraftAgg\IAircraftRepository.cs" />
     <Compile Include="Aggregates\AircraftAgg\OperationHistory.cs" />
     <Compile Include="Aggregates\AircraftAgg\OwnershipHistory.cs" />
-    <Compile Include="Aggregates\AircraftAgg\SubOperationHistory.cs" />
     <Compile Include="Aggregates\AircraftCategoryAgg\AircraftCategory.cs" />
     <Compile Include="Aggregates\AircraftCategoryAgg\AircraftCategorySepcifications.cs" />
     <Compile Include="Aggregates\AircraftCategoryAgg\IAircraftCategoryRepository.cs" />
@@ -144,6 +143,7 @@
     <Compile Include="Enums\PlanPublishStatus.cs" />
     <Compile Include="Enums\PlanStatus.cs" />
     <Compile Include="Enums\RequestStatus.cs" />
+    <Compile Include="Enums\SupplierType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

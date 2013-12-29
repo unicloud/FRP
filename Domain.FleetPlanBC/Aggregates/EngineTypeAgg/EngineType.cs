@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ManufacturerAgg;
 
 #endregion
 
@@ -49,14 +50,18 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineTypeAgg
         #region 外键属性
 
         /// <summary>
-        ///     制造商
+        ///    制造商
         /// </summary>
-        public Guid ManufacturerID { get; protected set; }
+        public Guid ManufacturerId { get; protected set; }
 
         #endregion
 
         #region 导航属性
 
+        /// <summary>
+        ///   制造商
+        /// </summary>
+        public virtual Manufacturer Manufacturer { get; set; }
 
 
         #endregion

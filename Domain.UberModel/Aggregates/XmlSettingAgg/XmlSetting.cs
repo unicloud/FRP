@@ -3,8 +3,8 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2013/12/26 10:14:33
-// 文件名：SubOperationHistory
+// 作者：HuangQiBin 时间：2013/12/28 17:17:20
+// 文件名：XmlSetting
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -14,16 +14,16 @@
 
 #region 命名空间
 
-using System;
+using System.Xml.Linq;
 
 #endregion
 
-namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
+namespace UniCloud.Domain.UberModel.Aggregates.XmlSettingAgg
 {
     /// <summary>
-    ///     (分子公司)运营权历史
+    ///     配置相关的xml
     /// </summary>
-    public class SubOperationHistory : EntityGuid
+    public class XmlSetting : EntityGuid
     {
         #region 构造函数
 
@@ -31,7 +31,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal SubOperationHistory()
+        internal XmlSetting()
         {
         }
 
@@ -39,31 +39,19 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
 
         #region 属性
 
+        public string SettingType { get; protected set; }
+        public string SettingContent { get; protected set; }
 
-        /// <summary>
-        ///     运营日期
-        /// </summary>
-        public DateTime StartDate { get; private set; }
-
-        /// <summary>
-        ///     退出日期
-        /// </summary>
-        public DateTime? EndDate { get; private set; }
-
+        public XElement XmlContent
+        {
+            get { return XElement.Parse(SettingContent); }
+            set { SettingContent = value.ToString(); }
+        }
 
         #endregion
 
         #region 外键属性
 
-        /// <summary>
-        ///     母公司运营历史外键
-        /// </summary>
-        public Guid OperationHistoryID { get; private set; }
-
-        /// <summary>
-        ///     分公司外键
-        /// </summary>
-        public Guid SubAirlinesID { get; private set; }
 
 
         #endregion

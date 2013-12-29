@@ -15,6 +15,10 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 
 #endregion
 
@@ -71,40 +75,153 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// <summary>
         ///     申请外键
         /// </summary>
-        public Guid RequestID { get; private set; }
+        public Guid RequestId { get; internal set; }
 
         /// <summary>
         ///     计划飞机外键
         /// </summary>
-        public Guid PlanAircraftID { get; private set; }
+        public Guid PlanAircraftId { get; private set; }
 
         /// <summary>
         ///     引进方式
         /// </summary>
-        public Guid ImportCategoryID { get; private set; }
+        public Guid ImportCategoryId { get; private set; }
 
         /// <summary>
         ///     申请交付年度
         /// </summary>
-        public Guid RequestDeliverAnnualID { get; private set; }
+        public Guid RequestDeliverAnnualId { get; private set; }
 
         /// <summary>
         ///     航空公司外键
         /// </summary>
-        public Guid AirlinesID { get; private set; }
+        public Guid AirlinesId { get; private set; }
 
         #endregion
 
         #region 导航属性
+        /// <summary>
+        ///  航空公司
+        /// </summary>
+        public virtual Airlines Airlines { get; set; }
 
+        /// <summary>
+        /// 计划飞机
+        /// </summary>
+        public virtual PlanAircraft PlanAircraft { get; set; }
 
+        /// <summary>
+        ///  引进方式
+        /// </summary>
+        public virtual ActionCategory ImportCategory { get; set; }
+
+        /// <summary>
+        ///  申请交付年度
+        /// </summary>
+        public virtual Annual RequestDeliverAnnual { get; set; }
 
         #endregion
 
         #region 操作
 
+        /// <summary>
+        ///     设置座位数
+        /// </summary>
+        /// <param name="seatingCapacity">座位数</param>
+        public void SetSeatingCapacity(int seatingCapacity)
+        {
+            SeatingCapacity = seatingCapacity;
+        }
 
+        /// <summary>
+        ///     设置商载量
+        /// </summary>
+        /// <param name="carryingCapacity">商载量</param>
+        public void SetCarryingCapacity(decimal carryingCapacity)
+        {
 
+            CarryingCapacity = carryingCapacity;
+        }
+
+        /// <summary>
+        /// 设置申请交付时间
+        /// </summary>
+        /// <param name="year"></param>
+        /// <param name="month"></param>
+        public void SetDeliverDate(Guid year, int month)
+        {
+            if (year == null)
+            {
+                throw new ArgumentException("交付年度Id参数为空！");
+            }
+            RequestDeliverAnnualId = year;
+            RequestDeliverMonth = month;
+        }
+
+        /// <summary>
+        ///     设置备注
+        /// </summary>
+        /// <param name="note">备注</param>
+        public void SetNote(string note)
+        {
+            Note = note;
+        }
+
+        /// <summary>
+        ///     设置申请
+        /// </summary>
+        /// <param name="requestId">申请</param>
+        public void SetRequest(Guid requestId)
+        {
+            if (requestId == null)
+            {
+                throw new ArgumentException("申请Id参数为空！");
+            }
+
+            RequestId = requestId;
+        }
+
+        /// <summary>
+        ///     设置计划飞机
+        /// </summary>
+        /// <param name="planAircraftId">计划飞机</param>
+        public void SetPlanAircraft(Guid planAircraftId)
+        {
+            if (planAircraftId == null)
+            {
+                throw new ArgumentException("计划飞机Id参数为空！");
+            }
+
+            PlanAircraftId = planAircraftId;
+        }
+
+        /// <summary>
+        ///     设置引进方式
+        /// </summary>
+        /// <param name="importCategoryId">引进方式</param>
+        public void SetImportCategory(Guid importCategoryId)
+        {
+            if (importCategoryId == null)
+            {
+                throw new ArgumentException("引进方式Id参数为空！");
+            }
+
+            ImportCategoryId = importCategoryId;
+        }
+
+        /// <summary>
+        ///     设置航空公司
+        /// </summary>
+        /// <param name="airlinesId">航空公司</param>
+        public void SetAirlines(Guid airlinesId)
+        {
+            if (airlinesId == null)
+            {
+                throw new ArgumentException("航空公司Id参数为空！");
+            }
+
+            AirlinesId = airlinesId;
+        }
         #endregion
     }
 }

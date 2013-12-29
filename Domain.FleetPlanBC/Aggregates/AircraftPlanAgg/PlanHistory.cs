@@ -15,6 +15,11 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 
 #endregion
 
@@ -112,7 +117,35 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
 
         #region 导航属性
 
+        /// <summary>
+        /// 计划飞机
+        /// </summary>
+        public virtual PlanAircraft PlanAircraft { get; set; }
 
+        /// <summary>
+        /// 活动类别：包括引进、退出、变更
+        /// </summary>
+        public virtual ActionCategory ActionCategory { get; set; }
+
+        /// <summary>
+        /// 目标类别：具体的引进、退出方式
+        /// </summary>
+        public virtual ActionCategory TargetCategory { get; set; }
+
+        /// <summary>
+        /// 机型
+        /// </summary>
+        public virtual AircraftType AircraftType { get; set; }
+
+        /// <summary>
+        /// 航空公司
+        /// </summary>
+        public virtual Airlines Airlines { get; set; }
+
+        /// <summary>
+        /// 执行年度
+        /// </summary>
+        public virtual Annual PerformAnnual { get; set; }
 
         #endregion
 

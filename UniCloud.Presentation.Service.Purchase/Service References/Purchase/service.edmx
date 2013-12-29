@@ -127,7 +127,6 @@
           <PropertyRef Name="Id" />
         </Key>
         <Property Name="Id" Type="Edm.Guid" Nullable="false" />
-        <Property Name="RegNumber" Type="Edm.String" />
       </EntityType>
       <EntityType Name="ContractAircraftDTO">
         <Key>

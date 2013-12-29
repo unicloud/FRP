@@ -49,9 +49,24 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierAgg
         public string Code { get; set; }
 
         /// <summary>
-        ///     名称
+        ///     供应商中文名称
         /// </summary>
-        public string Name { get; set; }
+        public string CnName { get; set; }
+
+        /// <summary>
+        ///     供应商英文名称
+        /// </summary>
+        public string EnName { get; set; }
+
+        /// <summary>
+        ///     供应商中文简称
+        /// </summary>
+        public string CnShortName { get; set; }
+
+        /// <summary>
+        ///     供应商英文简称
+        /// </summary>
+        public string EnShortName { get; set; }
 
         /// <summary>
         ///     创建日期

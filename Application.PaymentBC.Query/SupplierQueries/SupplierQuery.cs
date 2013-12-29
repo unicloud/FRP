@@ -41,7 +41,7 @@ namespace UniCloud.Application.PaymentBC.Query.SupplierQueries
             return query.ApplyTo(_unitOfWork.CreateSet<Supplier>()).Select(p => new SupplierDTO
                 {
                     SupplierId = p.Id,
-                    Name = p.Name,
+                    Name = p.CnName,
                     IsValid = p.IsValid,
                     Code = p.Code,
                     Note = p.Note,

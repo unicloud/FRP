@@ -45,7 +45,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.SupplierAgg
             {
                 SupplierType = supplierType,
                 Code = code,
-                Name = name,
+                CnName = name,
                 CreateDate = DateTime.Now,
                 UpdateDate = DateTime.Now,
                 IsValid = true,

@@ -332,7 +332,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
 
             Supplier = supplier;
             SupplierId = supplier.Id;
-            SupplierName = supplier.Name;
+            SupplierName = supplier.CnName;
         }
 
         /// <summary>

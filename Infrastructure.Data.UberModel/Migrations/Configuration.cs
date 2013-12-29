@@ -20,7 +20,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
         {
             InitialContainer.CreateInitialContainer()
                             .Register(new SupplierData(context))
-                            .Register(new AcTypeData(context))
+                            //.Register(new AcTypeData(context))
                             .Register(new ForwardData(context))
                             .Register(new TradeData(context))
                             .Register(new PartData(context))
