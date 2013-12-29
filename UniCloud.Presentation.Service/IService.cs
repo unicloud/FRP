@@ -96,14 +96,12 @@ namespace UniCloud.Presentation.Service
         /// </summary>
         /// <typeparam name="TService">实体类型</typeparam>
         /// <param name="query">查询</param>
-        /// <param name="add">添加项的处理</param>
-        /// <param name="remove">移除项的处理</param>
+        /// <param name="changed">变更的处理</param>
         /// <param name="options">保存选项</param>
         /// <returns>数据集合</returns>
         QueryableDataServiceCollectionView<TService> CreateCollection<TService>(
             DataServiceQuery<TService> query,
-            Action<IList, NotifyCollectionChangedEventHandler> add = null,
-            Action<IList, NotifyCollectionChangedEventHandler> remove = null,
+            Action<IList, PropertyChangedEventHandler, NotifyCollectionChangedEventHandler> changed = null,
             SaveChangesOptions options = SaveChangesOptions.Batch)
             where TService : class, INotifyPropertyChanged;
 

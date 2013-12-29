@@ -88,8 +88,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
                         SelSupplierCompany = e.Entities.Cast<SupplierCompanyDTO>().FirstOrDefault();
                     }
                 };
-
-            SupplierCompanysView.PropertyChanged += OnViewPropertyChanged;
         }
 
         #endregion

@@ -99,7 +99,6 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 }
                 RefreshCommandState();
             };
-            LeaseGuaranteesView.PropertyChanged += OnViewPropertyChanged;
         }
 
         #endregion

@@ -70,7 +70,6 @@ namespace UniCloud.Presentation.Purchase.Reception
 
             EnginePurchaseReceptions = Service.CreateCollection<EnginePurchaseReceptionDTO>(PurchaseDataService.EnginePurchaseReceptions.Expand(p => p.RelatedDocs));
             Service.RegisterCollectionView(EnginePurchaseReceptions); //注册查询集合。
-            EnginePurchaseReceptions.PropertyChanged += OnViewPropertyChanged;
         }
 
         /// <summary>
