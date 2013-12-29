@@ -55,6 +55,10 @@
     <Compile Include="AircraftQueries\IAircraftBusinessQuery.cs" />
     <Compile Include="AircraftQueries\IAircraftQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XmlConfigQueries\IXmlConfigQuery.cs" />
+    <Compile Include="XmlConfigQueries\XmlConfigQuery.cs" />
+    <Compile Include="XmlSettingQueries\IXmlSettingQuery.cs" />
+    <Compile Include="XmlSettingQueries\XmlSettingQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

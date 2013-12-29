@@ -26,7 +26,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftServices
 {
     /// <summary>
     ///     实现实际飞机接口。
-    ///     用于处于维修发票相关信息的服务，供Distributed Services调用。
+    ///     用于处于实际飞机相关信息的服务，供Distributed Services调用。
     /// </summary>
     public class AircraftAppService : IAircraftAppService
     {
