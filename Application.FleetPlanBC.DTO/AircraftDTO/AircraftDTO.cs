@@ -116,7 +116,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// <summary>
         /// 所有权人外键
         /// </summary>
-        public Guid? SupplierId { get; set; }
+        public int? SupplierId { get; set; }
 
         /// <summary>
         ///     机型外键

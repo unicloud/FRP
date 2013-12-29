@@ -60,7 +60,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// <summary>
         ///     所有权人
         /// </summary>
-        public Guid SupplierId { get; set; }
+        public int SupplierId { get; set; }
 
         #endregion
     }
