@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
+using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
 
 #endregion
 
@@ -104,7 +105,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
         /// <summary>
         /// 所有权人外键
         /// </summary>
-        public Guid? SupplierId { get; private set; }
+        public int? SupplierId { get; private set; }
 
         /// <summary>
         ///     机型外键
@@ -124,6 +125,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        ///     所有权人
+        /// </summary>
+        public virtual Supplier Supplier { get; set; }
 
         /// <summary>
         ///     机型
@@ -254,9 +260,9 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
         ///     设置所有权人
         /// </summary>
         /// <param name="supplierId">所有权人</param>
-        public void SetSupplier(Guid supplierId)
+        public void SetSupplier(int supplierId)
         {
-            if (supplierId == null)
+            if (supplierId == 0)
             {
                 throw new ArgumentException("所有权人Id参数为空！");
             }

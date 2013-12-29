@@ -76,6 +76,10 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg
         ///     飞机类别（座机）
         /// </summary>
         public virtual AircraftCategory AircraftCategory { get; set; }
+       
+        #endregion
+
+        #region 操作
 
         /// <summary>
         /// 设置规划内容
@@ -91,11 +95,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg
             Year = year;
             Number = number;
         }
-
-        #endregion
-
-        #region 操作
-
+        
         /// <summary>
         ///     设置飞机类别（座级范围）
         /// </summary>

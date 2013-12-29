@@ -15,6 +15,8 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 
 #endregion
 
@@ -115,6 +117,20 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
 
         #region 导航属性
 
+        /// <summary>
+        ///     运营权人
+        /// </summary>
+        public virtual Airlines Airlines { get; set; }
+
+        /// <summary>
+        ///     实际引进方式
+        /// </summary>
+        public virtual ActionCategory ImportCategory { get; set; }
+
+        /// <summary>
+        ///     实际退出方式
+        /// </summary>
+        public virtual ActionCategory ExportCategory { get; set; }
 
 
         #endregion

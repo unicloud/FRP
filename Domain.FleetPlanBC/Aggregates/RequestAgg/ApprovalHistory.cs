@@ -16,6 +16,7 @@
 
 using System;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 
@@ -100,9 +101,9 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
 
         #region 导航属性
         /// <summary>
-        ///  申请
+        ///  航空公司
         /// </summary>
-        public virtual Request Request { get; set; }
+        public virtual Airlines Airlines { get; set; }
 
         /// <summary>
         /// 计划飞机

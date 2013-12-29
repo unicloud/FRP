@@ -16,6 +16,7 @@
 
 using System;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
+using UniCloud.Domain.UberModel.Aggregates.EngineAgg;
 using UniCloud.Domain.UberModel.Aggregates.EngineTypeAgg;
 
 #endregion
@@ -63,6 +64,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.PlanEngineAgg
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        /// 实际发动机
+        /// </summary>
+        public virtual Engine Engine { get; set; }
 
         /// <summary>
         /// 发动机型号

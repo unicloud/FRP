@@ -14,13 +14,8 @@
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 
 #endregion
@@ -39,7 +34,18 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
+            Property(p => p.SeatingCapacity).HasColumnName("SeatingCapacity");
+            Property(p => p.CarryingCapacity).HasColumnName("CarryingCapacity");
+            Property(p => p.StartDate).HasColumnName("StartDate").HasColumnType("datetime2");
+            Property(p => p.EndDate).HasColumnName("EndDate").HasColumnType("datetime2");
+            Property(p => p.Status).HasColumnName("Status");
 
+            Property(p => p.AircraftId).HasColumnName("AircraftId");
+            Property(p => p.AircraftTypeId).HasColumnName("AircraftTypeId");
+            Property(p => p.ImportCategoryId).HasColumnName("ImportCategoryId");
+
+            HasRequired(o => o.AircraftType).WithMany().HasForeignKey(o => o.AircraftTypeId);
+            HasRequired(o => o.ImportCategory).WithMany().HasForeignKey(o => o.ImportCategoryId);
         }
     }
 }
