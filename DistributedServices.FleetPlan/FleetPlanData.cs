@@ -5,6 +5,7 @@
 using System.Linq;
 using UniCloud.Application.FleetPlanBC.AircraftServices;
 using UniCloud.Application.FleetPlanBC.DTO;
+using UniCloud.Application.FleetPlanBC.DTO.EngineDTO;
 using UniCloud.Application.FleetPlanBC.XmlConfigServices;
 using UniCloud.Application.FleetPlanBC.XmlSettingServices;
 using UniCloud.Infrastructure.Utilities.Container;
@@ -35,6 +36,16 @@ namespace UniCloud.DistributedServices.FleetPlan
         public IQueryable<AircraftDTO> Aircrafts
         {
             get { return _aircraftAppService.GetAircrafts(); }
+        }
+        #endregion
+
+        #region 发动机
+        /// <summary>
+        ///     发动机集合
+        /// </summary>
+        public IQueryable<EngineDTO> Engines
+        {
+            get { return null; }
         }
         #endregion
 
