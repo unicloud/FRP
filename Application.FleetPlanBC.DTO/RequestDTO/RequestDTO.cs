@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -20,16 +22,19 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO
+namespace UniCloud.Application.FleetPlanBC.DTO.RequestDTO
 {
     /// <summary>
-    /// 申请
+    ///     申请
     /// </summary>
     [DataServiceKey("Id")]
     public class RequestDTO
-    {       
+    {
         #region 私有字段
 
+        /// <summary>
+        ///     申请行集合
+        /// </summary>
         private List<ApprovalHistoryDTO> _approvalHistories;
 
         #endregion
@@ -37,7 +42,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         #region 属性
 
         /// <summary>
-        /// 主键
+        ///     主键
         /// </summary>
         public Guid Id { get; set; }
 
@@ -82,26 +87,31 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public int Status { get; set; }
 
         /// <summary>
-        /// 民航局审批意见
+        ///     民航局审批意见
         /// </summary>
         public string CaacNote { get; set; }
 
         /// <summary>
-        /// 地方局审批意见
+        ///     地方局审批意见
         /// </summary>
         public string RaNote { get; set; }
 
         /// <summary>
-        /// 监管局审批意见
+        ///     监管局审批意见
         /// </summary>
         public string SawsNote { get; set; }
+
+        /// <summary>
+        ///     地方局批文文档名称
+        /// </summary>
+        public string RaDocumentName { get; set; }
 
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        ///    民航局批文文档外键
+        ///     民航局批文文档外键
         /// </summary>
         public Guid? ApprovalDocId { get; set; }
 
@@ -116,15 +126,29 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public Guid? SawsDocumentId { get; set; }
 
         /// <summary>
+        ///     监管局申请文档名称
+        /// </summary>
+        public string SawsDocumentName { get; set; }
+
+        /// <summary>
         ///     民航局申请文档Id
         /// </summary>
         public Guid? CaacDocumentId { get; set; }
+
+        /// <summary>
+        ///     民航局申请文档名称
+        /// </summary>
+        public string CaacDocumentName { get; set; }
 
         /// <summary>
         ///     航空公司外键
         /// </summary>
         public Guid AirlinesId { get; set; }
 
+        /// <summary>
+        ///     航空公司名称
+        /// </summary>
+        public string AirlinesName { get; set; }
 
         #endregion
 
@@ -138,6 +162,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
             get { return _approvalHistories ?? (_approvalHistories = new List<ApprovalHistoryDTO>()); }
             set { _approvalHistories = value; }
         }
+
         #endregion
     }
 }

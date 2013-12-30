@@ -141,6 +141,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 // 更新当前记录
                 var supplier = _supplierRepository.Get(dto.SupplierId);
                 current.UpdateTrade(dto.Name, dto.Description, dto.StartDate);
+                current.SetStatus((TradeStatus) dto.Status);
                 current.SetSupplier(supplier);
 
                 _tradeRepository.Modify(current);
@@ -242,15 +243,24 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             orderLine.SetCost(line.AirframePrice, line.RefitCost, line.EnginePrice);
             orderLine.SetAircraftMaterial(line.AircraftMaterialId);
 
-            // 创建合同飞机
+            // 创建或引用合同飞机
+            var persist = _contractAircraftRepository.Get(line.ContractAircraftId) as PurchaseContractAircraft;
             var contractAircraft = ContractAircraftFactory.CreatePurchaseContractAircraft(dto.Name, line.RankNumber);
-            contractAircraft.GenerateNewIdentity();
+            contractAircraft.ChangeCurrentIdentity(line.ContractAircraftId);
             contractAircraft.SetAircraftType(aircraftTypeId);
             contractAircraft.SetImportCategory(importType);
             contractAircraft.SetCSCNumber(line.CSCNumber);
             contractAircraft.SetSerialNumber(line.SerialNumber);
             contractAircraft.SetSupplier(supplierId);
-            orderLine.SetContractAircraft(contractAircraft);
+            if (persist == null)
+            {
+                orderLine.SetContractAircraft(contractAircraft);
+            }
+            else
+            {
+                orderLine.SetContractAircraft(persist);
+                _contractAircraftRepository.Merge(persist, contractAircraft);
+            }
         }
 
         /// <summary>
@@ -329,6 +339,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             order.SetLinkman(dto.LinkmanId);
             order.SetSourceGuid(dto.SourceGuid);
             order.SetName(dto.Name);
+            order.SetOrderStatus((OrderStatus) dto.Status);
             if (!string.IsNullOrWhiteSpace(dto.LogWriter))
             {
                 order.SetNote(dto.LogWriter);
@@ -342,10 +353,6 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             var importType =
                 _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "购买")
                     .FirstOrDefault();
-
-            //// 修改交易状态
-            //var trade = _tradeRepository.Get(order.TradeId);
-            //trade.SetStatus(TradeStatus.进行中);
 
             // 处理订单行
             dto.AircraftPurchaseOrderLines.ToList()
@@ -373,6 +380,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 order.SetLinkman(dto.LinkmanId);
                 order.SetName(dto.Name);
                 order.SetOperatorName(dto.OperatorName);
+                order.SetOrderStatus((OrderStatus) dto.Status);
                 if (!string.IsNullOrWhiteSpace(dto.LogWriter))
                 {
                     order.SetNote(dto.LogWriter);

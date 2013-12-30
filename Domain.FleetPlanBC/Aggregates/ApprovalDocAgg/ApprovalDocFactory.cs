@@ -12,6 +12,8 @@
 // ========================================================================*/
 #endregion
 
+using System;
+using UniCloud.Domain.FleetPlanBC.Enums;
 
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg
 {
@@ -24,12 +26,18 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg
         ///     创建批文文档
         /// </summary>
         /// <returns>批文</returns>
-        public static ApprovalDoc CreateApprovalDoc()
+        public static ApprovalDoc CreateApprovalDoc(DateTime? caacExamineDate, DateTime? ndrcExamineDate, string caacApprovalNumber, string ndrcApprovalNumber, 
+            int status, string note,string caacDocumentName,string ndrcDocumentName,Guid? caacDocumentId,Guid? ndrcDocumentId)
         {
-            var approvalDoc = new ApprovalDoc
-            {
-            };
-
+            var approvalDoc = new ApprovalDoc();
+            approvalDoc.SetCaacExamineDate(caacExamineDate);
+            approvalDoc.SetNdrcExamineDate(ndrcExamineDate);
+            approvalDoc.SetCaacApprovalNumber(caacApprovalNumber);
+            approvalDoc.SetNdrcApprovalNumber(ndrcApprovalNumber);
+            approvalDoc.SetOperationStatus((OperationStatus)status);
+            approvalDoc.SetNote(note);
+            approvalDoc.SetCaacDocument(caacDocumentId, caacDocumentName);
+            approvalDoc.SetNdrcDocument(ndrcDocumentId,ndrcDocumentName);
             return approvalDoc;
         }
     }

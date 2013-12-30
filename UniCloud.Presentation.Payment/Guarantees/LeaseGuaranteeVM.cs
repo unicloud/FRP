@@ -384,7 +384,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
             LeaseOrdersView.AutoLoad = true;
         }
 
-        public override void RefreshCommandState()
+        protected override void RefreshCommandState()
         {
             SubmitGuaranteeCommand.RaiseCanExecuteChanged();
             DelGuaranteeCommand.RaiseCanExecuteChanged();

@@ -29,6 +29,8 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
 {
     public partial class AircraftPurchaseOrderDTO
     {
+        #region 属性
+
         /// <summary>
         ///     订单状态
         /// </summary>
@@ -37,12 +39,19 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
             get { return (OrderStatus) Status; }
         }
 
+        #endregion
+
         partial void OnNameChanging(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
             {
                 throw new Exception("合同名称不能为空！");
             }
+        }
+
+        partial void OnStatusChanged()
+        {
+            OnPropertyChanged("OrderStatus");
         }
     }
 }

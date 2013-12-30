@@ -19,7 +19,7 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO
+namespace UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO
 {
     /// <summary>
     /// 批文
@@ -27,13 +27,58 @@ namespace UniCloud.Application.FleetPlanBC.DTO
     [DataServiceKey("Id")]
     public class ApprovalDocDTO
     {
-        #region 属性
-
         /// <summary>
         /// 主键
         /// </summary>
         public Guid Id { get; set; }
 
-        #endregion
+        /// <summary>
+        ///     民航局审批日期
+        /// </summary>
+        public DateTime? CaacExamineDate { get;  set; }
+
+        /// <summary>
+        ///  发改委审批日期
+        /// </summary>
+        public DateTime? NdrcExamineDate { get; set; }
+        /// <summary>
+        ///     民航局批文文号
+        /// </summary>
+        public string CaacApprovalNumber { get;  set; }
+
+        /// <summary>
+        ///     发改委批文文号
+        /// </summary>
+        public string NdrcApprovalNumber { get;  set; }
+
+        /// <summary>
+        ///     处理状态
+        /// </summary>
+        public int Status { get;  set; }
+
+        /// <summary>
+        ///     评审意见
+        /// </summary>
+        public string Note { get; set; }
+
+        /// <summary>
+        ///     民航局批文文档名称
+        /// </summary>
+        public string CaacDocumentName { get;  set; }
+
+        /// <summary>
+        ///     发改委批文文档
+        /// </summary>
+        public string NdrcDocumentName { get;  set; }
+
+        /// <summary>
+        ///     民航局批文文档
+        /// </summary>
+        public Guid? CaacDocumentId { get;  set; }
+
+        /// <summary>
+        ///     发改委批文文档
+        /// </summary>
+        public Guid? NdrcDocumentId { get;  set; }
     }
 }

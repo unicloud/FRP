@@ -4,7 +4,7 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQibin 时间：2013/12/30，15:12
+// 作者：陈春勇 时间：2013/12/29，17:12
 // 文件名：IRequestAppService.cs
 // 程序集：UniCloud.Application.FleetPlanBC
 // 版本：V1.0.0
@@ -15,20 +15,19 @@
 
 #endregion
 
+
 #region 命名空间
 
 using System.Linq;
-using UniCloud.Application.FleetPlanBC.DTO;
+using UniCloud.Application.FleetPlanBC.DTO.RequestDTO;
 
 #endregion
 
 namespace UniCloud.Application.FleetPlanBC.RequestServices
 {
-    /// <summary>
-    ///     申请服务接口。
-    /// </summary>
     public interface IRequestAppService
     {
+
         /// <summary>
         ///     获取所有申请
         /// </summary>

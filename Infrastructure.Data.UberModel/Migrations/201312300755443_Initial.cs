@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class database : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -337,7 +337,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 c => new
                     {
                         ID = c.Guid(nullable: false),
-                        ExamineDate = c.DateTime(precision: 7, storeType: "datetime2"),
+                        CaacExamineDate = c.DateTime(precision: 7, storeType: "datetime2"),
+                        NdrcExamineDate = c.DateTime(precision: 7, storeType: "datetime2"),
                         CaacApprovalNumber = c.String(),
                         NdrcApprovalNumber = c.String(),
                         Status = c.Int(nullable: false),

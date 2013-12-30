@@ -63,6 +63,11 @@ namespace UniCloud.Presentation.MVVM
                         MessageAlert("提示", "保存成功。");
                         OnSaveSuccess(collectionView);
                     }
+                    else
+                    {
+                        MessageAlert("提示","保存失败，请检查！");
+                        OnSaveFail(collectionView);
+                    }
                     RefreshCommandState();
                 });
             }
@@ -75,10 +80,14 @@ namespace UniCloud.Presentation.MVVM
                         MessageAlert("提示", "保存成功。");
                         OnSaveSuccess(sender);
                     }
+                    else
+                    {
+                        MessageAlert("提示", "保存失败，请检查！");
+                        OnSaveFail(sender);
+                    }
                     RefreshCommandState();
                 });
             }
-            RefreshCommandState();
         }
 
         /// <summary>
@@ -136,7 +145,9 @@ namespace UniCloud.Presentation.MVVM
             }
             else
             {
+                OnAbortExecuting(sender);
                 Service.RejectChanges();
+                OnAbortExecuted(sender);
             }
         }
 
@@ -160,10 +171,8 @@ namespace UniCloud.Presentation.MVVM
         /// <summary>
         ///     刷新按钮状态
         /// </summary>
-        public virtual void RefreshCommandState()
+        protected virtual void RefreshCommandState()
         {
-            SaveCommand.RaiseCanExecuteChanged();
-            AbortCommand.RaiseCanExecuteChanged();
         }
 
         #endregion

@@ -4,9 +4,9 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQibin 时间：2013/12/30，15:12
-// 文件名：ApprovalDocAppService.cs
-// 程序集：UniCloud.Application.FleetPlanBC
+// 作者：陈春勇 时间：2013/12/12，16:12
+// 文件名：ContractAircraftAppService.cs
+// 程序集：UniCloud.Application.PaymentBC
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -17,8 +17,10 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
-using UniCloud.Application.FleetPlanBC.DTO;
+using UniCloud.Application.ApplicationExtension;
+using UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO;
 using UniCloud.Application.FleetPlanBC.Query.ApprovalDocQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
 
@@ -26,10 +28,6 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
 
 namespace UniCloud.Application.FleetPlanBC.ApprovalDocServices
 {
-    /// <summary>
-    ///     实现批文服务接口。
-    ///     用于处理批文相关信息的服务，供Distributed Services调用。
-    /// </summary>
     public class ApprovalDocAppService : IApprovalDocAppService
     {
         private readonly IApprovalDocQuery _approvalDocQuery;
@@ -39,19 +37,41 @@ namespace UniCloud.Application.FleetPlanBC.ApprovalDocServices
             _approvalDocQuery = approvalDocQuery;
         }
 
-        #region ApprovalDocDTO
-
-        /// <summary>
-        ///     获取所有批文
-        /// </summary>
-        /// <returns></returns>
         public IQueryable<ApprovalDocDTO> GetApprovalDocs()
         {
-            var queryBuilder =
-                new QueryBuilder<ApprovalDoc>();
-            return _approvalDocQuery.ApprovalDocDTOQuery(queryBuilder);
+            return _approvalDocQuery.RequestsQuery(new QueryBuilder<ApprovalDoc>());
         }
 
-        #endregion
+        [Insert(typeof (ApprovalDocDTO))]
+        public void InsertApprovalDoc(ApprovalDocDTO approvalDoc)
+        {
+            if (approvalDoc == null)
+            {
+                throw new Exception("批文不能为空");
+            }
+            var newapprovalDoc = ApprovalDocFactory.CreateApprovalDoc(approvalDoc.CaacExamineDate,
+                approvalDoc.NdrcExamineDate, approvalDoc.CaacApprovalNumber,
+                approvalDoc.NdrcApprovalNumber, approvalDoc.Status, approvalDoc.Note,
+                approvalDoc.CaacDocumentName, approvalDoc.NdrcDocumentName, approvalDoc.CaacDocumentId,
+                approvalDoc.NdrcDocumentId);
+        }
+
+        [Update(typeof (ApprovalDocDTO))]
+        public void ModifyApprovalDoc(ApprovalDocDTO approvalDoc)
+        {
+            if (approvalDoc == null)
+            {
+                throw new Exception("批文不能为空");
+            }
+        }
+
+        [Delete(typeof (ApprovalDocDTO))]
+        public void DeleteApprovalDoc(ApprovalDocDTO approvalDoc)
+        {
+            if (approvalDoc == null)
+            {
+                throw new Exception("批文不能为空");
+            }
+        }
     }
 }

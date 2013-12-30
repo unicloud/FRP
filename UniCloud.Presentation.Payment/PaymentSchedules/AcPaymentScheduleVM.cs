@@ -674,7 +674,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// <summary>
         ///     刷新按钮状态
         /// </summary>
-        public override void RefreshCommandState()
+        protected override void RefreshCommandState()
         {
             SaveCommand.RaiseCanExecuteChanged();
             AbortCommand.RaiseCanExecuteChanged();
