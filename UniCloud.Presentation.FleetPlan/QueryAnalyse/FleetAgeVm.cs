@@ -26,6 +26,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.ServiceLocation;
 using Telerik.Charting;
 using Telerik.Windows;
 using Telerik.Windows.Controls;
@@ -48,8 +49,12 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
     {
         #region 声明、初始化
         private FleetPlanData _fleetPlanDataService;
-        [Import]
-        public FleetAge CurrentFleetAge;
+
+        //[Import]
+        public FleetAge CurrentFleetAge
+        {
+            get { return ServiceLocator.Current.GetInstance<FleetAge>(); }   
+        }
         private static readonly CommonMethod CommonMethod = new CommonMethod();
 
         private int _i; //导出数据源格式判断
@@ -115,6 +120,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public QueryableDataServiceCollectionView<XmlConfigDTO> XmlConfigs { get; set; }//XmlConfig集合
         public QueryableDataServiceCollectionView<XmlSettingDTO> XmlSettings { get; set; } //XmlSetting集合
 
+        public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; } //飞机集合 
+
         private List<AircraftDTO> _aircraftCollection;//机龄饼图所对应的所有飞机数据（指定时间点）
 
         private List<FleetAgeTrend> _fleetAgeTrendCollection;//平均机龄趋势图的数据源集合
@@ -133,9 +140,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         public override void LoadData()
         {
-            XmlConfigs.AutoLoad = true;
+            IsBusy = true;
             XmlConfigs.Load(true);
-            XmlSettings.AutoLoad = true;
             XmlSettings.Load(true);
         }
 
@@ -1272,6 +1278,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             if (_loadXmlConfig && _loadXmlSetting)
             {
+                IsBusy = false;
                 _loadXmlConfig = false;
                 _loadXmlSetting = false;
                 CreateFleetAgeTrendCollection();
