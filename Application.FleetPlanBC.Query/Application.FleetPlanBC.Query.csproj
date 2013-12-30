@@ -95,10 +95,6 @@
     <Compile Include="RequestQueries\RequestQuery.cs" />
     <Compile Include="SupplierQueries\ISupplierQuery.cs" />
     <Compile Include="SupplierQueries\SupplierQuery.cs" />
-    <Compile Include="ApprovalDocQueries\IApprovalDocQuery.cs" />
-    <Compile Include="ApprovalDocQueries\ApprovalDocQuery.cs" />
-    <Compile Include="RequestQueries\RequestQuery.cs" />
-    <Compile Include="RequestQueries\IRequestQuery.cs" />
     <Compile Include="XmlConfigQueries\IXmlConfigQuery.cs" />
     <Compile Include="XmlConfigQueries\XmlConfigQuery.cs" />
     <Compile Include="XmlSettingQueries\IXmlSettingQuery.cs" />

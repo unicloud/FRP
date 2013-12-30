@@ -63,8 +63,6 @@
     <Compile Include="AirProgrammingServices\IAirProgrammingAppService.cs" />
     <Compile Include="AnnualServices\AnnualAppService.cs" />
     <Compile Include="AnnualServices\IAnnualAppService.cs" />
-    <Compile Include="ApprovalDocServices\ApprovalDocAppService.cs" />
-    <Compile Include="ApprovalDocServices\IApprovalDocAppService.cs" />
     <Compile Include="CaacProgrammingServices\CaacProgrammingAppService.cs" />
     <Compile Include="CaacProgrammingServices\ICaacProgrammingAppService.cs" />
     <Compile Include="EnginePlanServices\EnginePlanAppService.cs" />
@@ -86,8 +84,6 @@
     <Compile Include="ProgrammingServices\IProgrammingAppService.cs" />
     <Compile Include="ProgrammingServices\ProgrammingAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestServices\IRequestAppService.cs" />
-    <Compile Include="RequestServices\RequestAppService.cs" />
     <Compile Include="SupplierServices\ISupplierAppService.cs" />
     <Compile Include="SupplierServices\SupplierAppService.cs" />
     <Compile Include="XmlConfigServices\IXmlConfigAppService.cs" />
