@@ -58,7 +58,6 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             CreditNotes = Service.CreateCollection<CreditNoteDTO>(_paymentData.CreditNotes);
             Service.RegisterCollectionView(CreditNotes); //注册查询集合。
-            CreditNotes.PropertyChanged += OnViewPropertyChanged;
 
             Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_paymentData, _paymentData.Currencies);
 

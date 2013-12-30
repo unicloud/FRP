@@ -61,11 +61,6 @@ namespace UniCloud.Presentation.Service
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
         }
 
-        protected void OnViewCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            HasChanges = true;
-        }
-
         #region IService 成员
 
         #region 属性
@@ -218,31 +213,24 @@ namespace UniCloud.Presentation.Service
         /// </summary>
         /// <typeparam name="TService">实体类型</typeparam>
         /// <param name="query">查询</param>
-        /// <param name="add">添加项的处理</param>
-        /// <param name="remove">移除项的处理</param>
+        /// <param name="changed">变更的处理</param>
         /// <param name="options">保存选项</param>
         /// <returns>数据集合</returns>
         public QueryableDataServiceCollectionView<TService> CreateCollection<TService>(
             DataServiceQuery<TService> query,
-            Action<IList, NotifyCollectionChangedEventHandler> add = null,
-            Action<IList, NotifyCollectionChangedEventHandler> remove = null,
+            Action<IList, PropertyChangedEventHandler, NotifyCollectionChangedEventHandler> changed = null,
             SaveChangesOptions options = SaveChangesOptions.Batch)
             where TService : class, INotifyPropertyChanged
         {
             var result = new QueryableDataServiceCollectionView<TService>(_context, query);
             result.SubmittingChanges += (o, e) => { e.SaveChangesOptions = options; };
-            result.LoadedData += (o, e) => { HasChanges = false; };
             result.PropertyChanged += (o, e) => { HasChanges = result.HasChanges; };
-            result.CollectionChanged += (o, e) =>
+            result.LoadedData += (o, e) =>
             {
-                if (e.NewItems != null && add != null)
-                {
-                    add(e.NewItems, OnViewCollectionChanged);
-                }
-                if (e.OldItems != null && remove != null)
-                {
-                    remove(e.OldItems, OnViewCollectionChanged);
-                }
+                HasChanges = false;
+                var collection = (o as QueryableDataServiceCollectionViewBase).AsQueryable().ToIList();
+                if (changed == null || collection.Count == 0) return;
+                changed(collection, (obj, handler) => HasChanges = true, (obj, handler) => HasChanges = true);
             };
 
             return result;
