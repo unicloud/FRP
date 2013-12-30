@@ -68,7 +68,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.RequestQueries
                 CaacDocumentName = p.CaacDocumentName,
                 AirlinesId = p.AirlinesId,
                 AirlinesName = dbAirline.FirstOrDefault(c=>c.Id==p.AirlinesId).CnShortName,
-                ApprovalHistorys = p.ApprovalHistories.Select(c=>new ApprovalHistoryDTO
+                ApprovalHistories = p.ApprovalHistories.Select(c=>new ApprovalHistoryDTO
                 {
                  Id  = c.Id,
                  IsApproved = c.IsApproved,
