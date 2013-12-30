@@ -18,7 +18,7 @@ using System.ComponentModel.Composition;
 
 #endregion
 
-<<<<<<< HEAD
+
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
     [Export(typeof(CountRegisteredFleetVm))]
@@ -40,14 +40,4 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #endregion
     }
 }
-=======
-namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
-{
-    [Export(typeof(CountRegisteredFleetVm))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public class CountRegisteredFleetVm
-    {
 
-    }
-}
->>>>>>> ee5538ede135fa2f031c35eb1043d8db02aee125
