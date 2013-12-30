@@ -1,0 +1,423 @@
+﻿<UserControl x:Class="UniCloud.Presentation.FleetPlan.Requests.Request"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance uc:RequestVM}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="White">
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False">
+            <telerik:RadSplitContainer>
+                <telerik:RadSplitContainer Orientation="Vertical"
+                                           telerik:ProportionalStackPanel.RelativeSize="600, 600">
+                    <telerik:RadPaneGroup>
+                        <telerik:RadPane Header="申请"
+                                         CanFloat="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         FontSize="{StaticResource TextFontSize}"
+                                         ContextMenuTemplate="{x:Null}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="30" />
+                                </Grid.RowDefinitions>
+                                <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                    Margin="0 0 0 -1">
+                                    <telerik:RadButton Margin="4,2,2,-2"
+                                                       Command="{Binding SaveCommand}"
+                                                       CommandParameter="{Binding RequestsView}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Save.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="保存" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                                                       Command="{Binding AbortCommand}"
+                                                       CommandParameter="{Binding RequestsView}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="放弃更改" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                                                       Command="{Binding AddRequestCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/New.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="创建申请" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                    <telerik:RadButton x:Name="Attachment"
+                                                       ToolTipService.ToolTip="添加附件"
+                                                       Command="{Binding AttachCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
+                                               Stretch="Fill" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                                                       Command="{Binding SubmitRequestCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Up.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="提交审核" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                                                       Command="{Binding ReviewRequestCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Check.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="审核" />
+                                    </telerik:RadButton>
+                                </telerik:RadToolBar>
+                                <Grid Row="1">
+                                    <telerik:RadGridView Name="EngineMaintainInvoiceList"
+                                                         CanUserSortColumns="True"
+                                                         CanUserFreezeColumns="False"
+                                                         IsFilteringAllowed="True"
+                                                         EditTriggers="CellClick"
+                                                         RowDetailsVisibilityMode="VisibleWhenSelected"
+                                                         FontSize="{StaticResource TextFontSize}"
+                                                         ItemsSource="{Binding RequestsView,Mode=TwoWay}"
+                                                         IsBusy="{Binding RequestsView.IsBusy}"
+                                                         SelectedItem="{Binding SelectedRequest,Mode=TwoWay}"
+                                                         ValidatesOnDataErrors="InEditMode">
+                                        <telerik:RadGridView.Columns>
+                                            <uc:DataPageSerialColumn Header="序号" />
+                                            <telerik:GridViewDataColumn Header="状态"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding Status,Mode=TwoWay}"
+                                                                        IsReadOnly="True" />
+                                            <telerik:GridViewDataColumn Header="申请标题"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding Title,Mode=TwoWay}"
+                                                                        EditTriggers="CellClick" />
+                                            <telerik:GridViewDataColumn Header="地方局申请文号"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding RaDocNumber,Mode=TwoWay}"
+                                                                        EditTriggers="CellClick" />
+                                            <telerik:GridViewDataColumn Header="监管局申请文号"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding SawsDocNumber,Mode=TwoWay}"
+                                                                        EditTriggers="CellClick" />
+                                            <telerik:GridViewColumn Header="地方局申请文档"
+                                                                    HeaderTextAlignment="Center"
+                                                                    IsReadOnly="True">
+                                                <telerik:GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <HyperlinkButton Content="{Binding RaDocumentName}"
+                                                                         Command="{Binding DataContext.ViewAttachCommand, 
+                                                        RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
+                                                                         CommandParameter="{Binding}" />
+                                                    </DataTemplate>
+                                                </telerik:GridViewColumn.CellTemplate>
+                                            </telerik:GridViewColumn>
+                                            <telerik:GridViewColumn Header="监管局申请文档"
+                                                                    HeaderTextAlignment="Center"
+                                                                    IsReadOnly="True">
+                                                <telerik:GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <HyperlinkButton Content="{Binding SawsDocumentName}"
+                                                                         Command="{Binding DataContext.ViewAttachCommand, 
+                                                        RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
+                                                                         CommandParameter="{Binding}" />
+                                                    </DataTemplate>
+                                                </telerik:GridViewColumn.CellTemplate>
+                                            </telerik:GridViewColumn>
+                                            <telerik:GridViewColumn Header="民航局申请文档"
+                                                                    HeaderTextAlignment="Center"
+                                                                    IsReadOnly="True">
+                                                <telerik:GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <HyperlinkButton Content="{Binding CaacDocumentName}"
+                                                                         Command="{Binding DataContext.ViewAttachCommand, 
+                                                        RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
+                                                                         CommandParameter="{Binding}" />
+                                                    </DataTemplate>
+                                                </telerik:GridViewColumn.CellTemplate>
+                                            </telerik:GridViewColumn>
+                                            <telerik:GridViewDataColumn Header="提交日期"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding SubmitDate,Mode=TwoWay}"
+                                                                        DataFormatString="{StaticResource DateStringFormat}"
+                                                                        IsReadOnly="True" />
+                                            <telerik:GridViewDataColumn Header="创建日期"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding CreateDate,Mode=TwoWay}"
+                                                                        DataFormatString="{StaticResource DateStringFormat}"
+                                                                        IsReadOnly="True" />
+                                        </telerik:RadGridView.Columns>
+                                        <telerik:RadGridView.RowDetailsTemplate>
+                                            <DataTemplate>
+                                                <telerik:RadTabControl>
+                                                    <telerik:RadTabItem Header="地方管理局审批意见">
+                                                        <telerik:GroupBox>
+                                                            <telerik:GridViewScrollViewer>
+                                                                <TextBox Text="{Binding RaNote,Mode=TwoWay}"
+                                                                         MinWidth="300"
+                                                                         MinHeight="200" />
+                                                            </telerik:GridViewScrollViewer>
+                                                        </telerik:GroupBox>
+                                                    </telerik:RadTabItem>
+                                                    <telerik:RadTabItem Header="监管局审批意见">
+                                                        <telerik:GroupBox>
+                                                            <telerik:GridViewScrollViewer>
+                                                                <TextBox Text="{Binding SawsNote,Mode=TwoWay}"
+                                                                         MinWidth="300" MinHeight="200" />
+                                                            </telerik:GridViewScrollViewer>
+                                                        </telerik:GroupBox>
+                                                    </telerik:RadTabItem>
+                                                    <telerik:RadTabItem Header="民航局审批意见">
+                                                        <telerik:GroupBox>
+                                                            <telerik:GridViewScrollViewer>
+                                                                <TextBox Text="{Binding CaacNote,Mode=TwoWay}"
+                                                                         MinWidth="300" MinHeight="200" />
+                                                            </telerik:GridViewScrollViewer>
+                                                        </telerik:GroupBox>
+                                                    </telerik:RadTabItem>
+                                                </telerik:RadTabControl>
+                                            </DataTemplate>
+                                        </telerik:RadGridView.RowDetailsTemplate>
+                                    </telerik:RadGridView>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <telerik:RadDataPager Name="RadPage"
+                                                          BorderThickness="1,0,1,1"
+                                                          AutoEllipsisMode="Both"
+                                                          DisplayMode="All"
+                                                          Source="{Binding RequestsView}" />
+                                </Grid>
+                            </Grid>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                    <telerik:RadPaneGroup>
+                        <telerik:RadPane Header="申请明细"
+                                         FontSize="{StaticResource TextFontSize}"
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanDockInDocumentHost="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         ContextMenuTemplate="{x:Null}">
+                            <telerik:RadGridView x:Name="RequestDetail"
+                                                 RowIndicatorVisibility="Visible"
+                                                 CanUserSortColumns="True"
+                                                 CanUserFreezeColumns="False"
+                                                 ShowGroupPanel="True"
+                                                 ItemsSource="{Binding ApprovalHistoryDataObjectList}"
+                                                 AutoGenerateColumns="False"
+                                                 ShowColumnFooters="True"
+                                                 EditTriggers="CellClick"
+                                                 RowStyle="{StaticResource DraggedRowStyle}">
+                                <uc:GridViewDoubleClick.Helper>
+                                    <uc:RequestDoubleClickHelper />
+                                </uc:GridViewDoubleClick.Helper>
+                                <telerik:GridViewDragDrop.Behavior>
+                                    <uc:RequestDragDrop />
+                                </telerik:GridViewDragDrop.Behavior>
+                                <telerik:GridViewDragDrop.DragVisualProvider>
+                                    <uc:RequestDragVisual />
+                                </telerik:GridViewDragDrop.DragVisualProvider>
+                                <telerik:RadGridView.Resources>
+                                    <DataTemplate x:Name="RequestDraggedItemTemplate">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock
+                                                Text="{Binding PlanAircraft.AircraftType.AircraftCategory.Regional}"
+                                                HorizontalAlignment="Center"
+                                                Margin="3,0" />
+                                            <TextBlock Text="{Binding PlanAircraft.AircraftType.Name}"
+                                                       HorizontalAlignment="Center"
+                                                       Margin="3,0" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </telerik:RadGridView.Resources>
+                                <telerik:RadGridView.Columns>
+                                    <uc:DataPageSerialColumn Header="序号" />
+                                    <telerik:GridViewDataColumn Header="座级"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                IsReadOnly="True"
+                                                                DataMemberBinding="{Binding PlanAircraft.AircraftType.AircraftCategory.Regional}" />
+                                    <telerik:GridViewComboBoxColumn Header="机型"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding PlanAircraft.AircraftType.Name}" />
+                                    <telerik:GridViewComboBoxColumn Header="引进方式"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsFilterable="True"
+                                                                    ItemsSource="{Binding DataContext.ActionCategoryDataObjectList,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                    DisplayMemberPath="ActionName"
+                                                                    DataMemberBinding="{Binding ImportCategoryID,Mode=TwoWay}"
+                                                                    SelectedValueMemberPath="ID"
+                                                                    EditTriggers="CellClick" />
+                                    <telerik:GridViewDataColumn Header="座位"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding SeatingCapacity}"
+                                                                EditTriggers="CellClick" />
+                                    <telerik:GridViewDataColumn Header="商载（吨）"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding CarryingCapacity}"
+                                                                EditTriggers="CellClick" />
+                                    <telerik:GridViewComboBoxColumn Header="执行年度"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    IsFilterable="True"
+                                                                    ItemsSource="{Binding DataContext.AnnualDataObjectList,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                    DisplayMemberPath="Year"
+                                                                    DataMemberBinding="{Binding RequestDeliverAnnualID}"
+                                                                    SelectedValueMemberPath="ID"
+                                                                    EditTriggers="CellClick" />
+                                    <telerik:GridViewComboBoxColumn Header="执行月份"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    EditTriggers="CellClick"
+                                                                    UniqueName="PerformMonth"
+                                                                    ItemsSource="{Binding DataContext.Months,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                    DataMemberBinding="{Binding RequestDeliverMonth}" />
+                                    <telerik:GridViewDataColumn Header="航空公司"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding AirlineName}"
+                                                                IsReadOnly="True" />
+
+                                    <telerik:GridViewDataColumn Header="备注"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding Note}"
+                                                                EditTriggers="CellClick" />
+                                </telerik:RadGridView.Columns>
+                            </telerik:RadGridView>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                </telerik:RadSplitContainer>
+                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="400, 600">
+                    <telerik:RadPaneGroup>
+                        <telerik:RadPane Header="当前计划明细"
+                                         FontSize="{StaticResource TextFontSize}"
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanDockInDocumentHost="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         ContextMenuTemplate="{x:Null}">
+                            <telerik:RadGridView x:Name="PlanDetail"
+                                                 ItemsSource="{Binding PlanHistoryDataObjectList}"
+                                                 AutoGenerateColumns="False"
+                                                 ShowGroupPanel="True"
+                                                 IsFilteringAllowed="True"
+                                                 IsReadOnly="True"
+                                                 CanUserSortColumns="True"
+                                                 CanUserFreezeColumns="False"
+                                                 RowIndicatorVisibility="Visible"
+                                                 AutoExpandGroups="True"
+                                                 RowStyle="{StaticResource DraggedRowStyle}">
+                                <uc:GridViewDoubleClick.Helper>
+                                    <uc:RequestPlanDoubleClickHelper />
+                                </uc:GridViewDoubleClick.Helper>
+                                <telerik:GridViewDragDrop.Behavior>
+                                    <uc:RequestPlanDragDrop />
+                                </telerik:GridViewDragDrop.Behavior>
+                                <telerik:GridViewDragDrop.DragVisualProvider>
+                                    <uc:RequestPlanDragVisual />
+                                </telerik:GridViewDragDrop.DragVisualProvider>
+                                <telerik:RadGridView.Resources>
+                                    <DataTemplate x:Name="PlanDraggedItemTemplate">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding AircraftType.AircraftCategory.Regional}"
+                                                       HorizontalAlignment="Center"
+                                                       Margin="3,0" />
+                                            <TextBlock Text="{Binding AircraftType.Name}"
+                                                       HorizontalAlignment="Center"
+                                                       Margin="3,0" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </telerik:RadGridView.Resources>
+                                <telerik:RadGridView.Columns>
+                                    <uc:DataPageSerialColumn Header="序号" />
+                                    <telerik:GridViewDataColumn Header="申请情况"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding CanRequest}" />
+                                    <telerik:GridViewCheckBoxColumn Header="是否有效"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    IsGroupable="False"
+                                                                    DataMemberBinding="{Binding IsValid}" />
+                                    <telerik:GridViewDataColumn Header="航空公司"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding Airlines.ShortName}" />
+                                    <telerik:GridViewDataColumn Header="座级"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding AircraftType.AircraftCategory.Regional}" />
+                                    <telerik:GridViewDataColumn Header="引进/退出"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding ActionCategory.ActionName}" />
+                                    <telerik:GridViewDataColumn Header="机型"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                UniqueName="AircraftType"
+                                                                DataMemberBinding="{Binding AircraftType.Name}" />
+                                    <telerik:GridViewDataColumn Header="引进/退出方式"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding TargetCategory.ActionName}" />
+                                    <telerik:GridViewDataColumn Header="执行时间"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                UniqueName="performTime"
+                                                                DataMemberBinding="{Binding PerformTime}" />
+                                    <telerik:GridViewDataColumn Header="净增座位"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding SeatingCapacity}" />
+                                    <telerik:GridViewDataColumn Header="净增商载（吨）"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding CarryingCapacity}" />
+                                    <telerik:GridViewDataColumn Header="净增客机"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding DeltaPnr}" />
+                                    <telerik:GridViewDataColumn Header="净增货机"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding DeltaCargo}" />
+                                    <telerik:GridViewDataColumn Header="管理状态"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding PlanAircraft.Status, ConverterParameter=ManageStatus, Converter={StaticResource EnumIntToStringConverter}}" />
+
+                                </telerik:RadGridView.Columns>
+                            </telerik:RadGridView>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                </telerik:RadSplitContainer>
+            </telerik:RadSplitContainer>
+        </telerik:RadDocking>
+    </Grid>
+</UserControl>

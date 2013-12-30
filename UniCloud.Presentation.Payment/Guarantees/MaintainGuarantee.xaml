@@ -46,6 +46,7 @@
                                            Stretch="Fill"
                                            ToolTipService.ToolTip="保存" />
                                 </telerik:RadButton>
+                                <telerik:RadToolBarSeparator />
                                 <telerik:RadButton Margin="2,2,2,-2"
                                                    Command="{Binding AbortCommand}"
                                                    CommandParameter="{Binding MaintainGuaranteesView}">
@@ -60,6 +61,7 @@
                                            Stretch="Fill"
                                            ToolTipService.ToolTip="创建租赁保证金" />
                                 </telerik:RadButton>
+                                <telerik:RadToolBarSeparator />
                                 <telerik:RadButton Margin="2,2,2,-2"
                                                    Command="{Binding DelGuaranteeCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
@@ -73,6 +75,7 @@
                                            Stretch="Fill"
                                            ToolTipService.ToolTip="提交审核" />
                                 </telerik:RadButton>
+                                <telerik:RadToolBarSeparator />
                                 <telerik:RadButton Margin="2,2,2,-2"
                                                    Command="{Binding ReviewGuaranteeCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/Check.png"

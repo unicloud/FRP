@@ -201,6 +201,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Approvals\Approval.xaml.cs">
+      <DependentUpon>Approval.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Approvals\ApprovalVM.cs" />
+    <Compile Include="Requests\RequestDoubleClickHelper.cs" />
+    <Compile Include="Requests\RequestDragDrop.cs" />
+    <Compile Include="Requests\RequestDragVisual.cs" />
     <Compile Include="FleetPlanModule.cs" />
     <Compile Include="PerformFleetPlan\FleetPlanDeliver.xaml.cs">
       <DependentUpon>FleetPlanDeliver.xaml</DependentUpon>
@@ -247,6 +254,13 @@
       <DependentUpon>FleetStructure.xaml</DependentUpon>
     </Compile>
     <Compile Include="QueryAnalyse\FleetStructureVm.cs" />
+    <Compile Include="Requests\Request.xaml.cs">
+      <DependentUpon>Request.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Requests\RequestPlanDoubleClickHelper.cs" />
+    <Compile Include="Requests\RequestPlanDragDrop.cs" />
+    <Compile Include="Requests\RequestPlanDragVisual.cs" />
+    <Compile Include="Requests\RequestVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -272,6 +286,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Approvals\Approval.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PerformFleetPlan\FleetPlanDeliver.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -313,6 +331,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="QueryAnalyse\FleetStructure.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Requests\Request.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

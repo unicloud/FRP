@@ -43,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApprovalDocServices\IApprovalDocAppService.cs" />
+    <Compile Include="ApprovalDocServices\ApprovalDocAppService.cs" />
+    <Compile Include="RequestServices\RequestAppService.cs" />
+    <Compile Include="RequestServices\IRequestAppService.cs" />
     <Compile Include="AircraftServices\AircraftAppService.cs" />
     <Compile Include="AircraftServices\IAircraftAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,6 +106,28 @@
     <Folder Include="ProgrammingServices\" />
     <Folder Include="RequestServices\" />
     <Folder Include="SupplierServices\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application.FleetPlanBC.DTO\Application.FleetPlanBC.DTO.csproj">
+      <Project>{6db639ca-9513-4c6a-90ef-74e9180997e7}</Project>
+      <Name>Application.FleetPlanBC.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.FleetPlanBC.Query\Application.FleetPlanBC.Query.csproj">
+      <Project>{4dbb73bb-9c82-4bf0-a668-ed99362c3156}</Project>
+      <Name>Application.FleetPlanBC.Query</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{c926e107-6971-4b5c-8e00-db7761eeac8e}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.FleetPlanBC\Domain.FleetPlanBC.csproj">
+      <Project>{eae70e2d-1c23-45c9-a9a9-695dff09b7ab}</Project>
+      <Name>Domain.FleetPlanBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
