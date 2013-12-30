@@ -45,7 +45,7 @@ namespace UniCloud.Application.FleetPlanBC.MailAddressServices
         ///     获取所有邮箱账号
         /// </summary>
         /// <returns></returns>
-        public IQueryable<MailAddressDTO> GetMailAddresss()
+        public IQueryable<MailAddressDTO> GetMailAddresses()
         {
             var queryBuilder =
                 new QueryBuilder<MailAddress>();

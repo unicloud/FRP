@@ -33,6 +33,6 @@ namespace UniCloud.Application.FleetPlanBC.MailAddressServices
         ///     获取所有邮箱账号
         /// </summary>
         /// <returns></returns>
-        IQueryable<MailAddressDTO> GetMailAddresss();
+        IQueryable<MailAddressDTO> GetMailAddresses();
     }
 }
