@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
+using UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg;
 using UniCloud.Domain.UberModel.Enums;
 
 #endregion
@@ -135,6 +136,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.RequestAgg
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        /// 批文
+        /// </summary>
+        public virtual ApprovalDoc ApprovalDoc { get; set; }
 
         /// <summary>
         /// 航空公司

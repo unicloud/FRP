@@ -70,7 +70,6 @@ namespace UniCloud.Presentation.Purchase.Reception
 
             EngineLeaseReceptions = Service.CreateCollection<EngineLeaseReceptionDTO>(PurchaseDataService.EngineLeaseReceptions.Expand(p => p.RelatedDocs));
             Service.RegisterCollectionView(EngineLeaseReceptions); //注册查询集合。
-            EngineLeaseReceptions.PropertyChanged += OnViewPropertyChanged;
         }
 
         /// <summary>

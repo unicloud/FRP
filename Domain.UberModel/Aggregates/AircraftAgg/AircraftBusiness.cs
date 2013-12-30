@@ -15,6 +15,8 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.UberModel.Enums;
 
 #endregion
@@ -88,6 +90,20 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        ///     机型
+        /// </summary>
+        public virtual AircraftType AircraftType { get; set; }
+
+        /// <summary>
+        ///     引进方式
+        /// </summary>
+        public virtual ActionCategory ImportCategory { get; set; }
+
+        #endregion
+
+        #region 操作
 
         /// <summary>
         ///     设置处理状态
@@ -177,10 +193,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
 
             ImportCategoryId = importCategoryId;
         }
-        #endregion
-
-        #region 操作
-
 
 
         #endregion

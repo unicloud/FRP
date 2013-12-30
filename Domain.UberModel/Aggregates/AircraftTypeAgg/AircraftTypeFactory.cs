@@ -33,11 +33,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg
         /// </summary>
         /// <param name="id">机型ID</param>
         /// <param name="name">机型名称</param>
+        /// <param name="manufacturerId">制造商</param>
+        /// <param name="aircraftCategoryId">座级</param>
         /// <returns></returns>
-        public static AircraftType CreateAircraftType(Guid id, string name)
+        public static AircraftType CreateAircraftType(Guid id, string name,Guid manufacturerId,Guid aircraftCategoryId)
         {
             var aircraftType = new AircraftType {Name = name};
             aircraftType.ChangeCurrentIdentity(id);
+            aircraftType.ManufacturerId = manufacturerId;
+            aircraftType.AircraftCategoryId = aircraftCategoryId;
 
             return aircraftType;
         }

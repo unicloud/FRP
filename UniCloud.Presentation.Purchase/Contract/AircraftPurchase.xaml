@@ -32,13 +32,11 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="0 0 0 -1">
-                                    <telerik:RadButton Margin="4,2,2,-2" Command="{Binding SaveCommand}"
-                                                       CommandParameter="{Binding ViewTradeDTO}">
+                                    <telerik:RadButton Margin="4,2,2,-2" Command="{Binding SaveCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png" Stretch="Fill"
                                                ToolTipService.ToolTip="保存" />
                                     </telerik:RadButton>
-                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AbortCommand}"
-                                                       CommandParameter="{Binding ViewTradeDTO}">
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AbortCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="放弃更改" />
@@ -101,18 +99,6 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="0 0 0 -1">
-                                    <telerik:RadButton Margin="4,2,2,-2" Command="{Binding SaveCommand}"
-                                                       CommandParameter="{Binding ViewAircraftPurchaseOrderDTO}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Save.png" Stretch="Fill"
-                                               ToolTipService.ToolTip="保存" />
-                                    </telerik:RadButton>
-                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AbortCommand}"
-                                                       CommandParameter="{Binding ViewAircraftPurchaseOrderDTO}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="放弃更改" />
-                                    </telerik:RadButton>
-                                    <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddOrderCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/New.png" Stretch="Fill"
                                                ToolTipService.ToolTip="创建新订单" />
@@ -130,7 +116,6 @@
                                         <Image Source="/UniCloud.Presentation;component/Images/RelatedDoc.png"
                                                Stretch="Fill" ToolTipService.ToolTip="添加关联文档" />
                                     </telerik:RadButton>
-                                    <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddOrderLineCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Add.png" Stretch="Fill"
                                                ToolTipService.ToolTip="增加订单行" />
@@ -138,6 +123,16 @@
                                     <telerik:RadButton Margin="2,2,2,-2" Command="{Binding RemoveOrderLineCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
                                                Stretch="Fill" ToolTipService.ToolTip="移除订单行" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding CommitCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Commit.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="提交审核" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding CheckCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Check.png"
+                                               Stretch="Fill" ToolTipService.ToolTip="审核" />
                                     </telerik:RadButton>
                                 </telerik:RadToolBar>
                                 <telerik:RadGridView Grid.Row="1" x:Name="Order"

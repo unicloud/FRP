@@ -59,7 +59,6 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             PrepaymentInvoices = Service.CreateCollection<PrepaymentInvoiceDTO>(_paymentData.PrepaymentInvoices);
             Service.RegisterCollectionView(PrepaymentInvoices); //注册查询集合。
-            PrepaymentInvoices.PropertyChanged += OnViewPropertyChanged;
 
             Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_paymentData, _paymentData.Currencies);
 
@@ -75,28 +74,22 @@ namespace UniCloud.Presentation.Payment.Invoice
 
             AcPaymentSchedules = Service.CreateCollection<AcPaymentScheduleDTO>(_paymentData.AcPaymentSchedules);
             Service.RegisterCollectionView(AcPaymentSchedules); //注册查询集合。
-            AcPaymentSchedules.PropertyChanged += OnViewPropertyChanged;
 
             EnginePaymentSchedules = Service.CreateCollection<EnginePaymentScheduleDTO>(_paymentData.EnginePaymentSchedules);
             Service.RegisterCollectionView(EnginePaymentSchedules); //注册查询集合。
-            EnginePaymentSchedules.PropertyChanged += OnViewPropertyChanged;
 
             StandardPaymentSchedules = Service.CreateCollection<StandardPaymentScheduleDTO>(_paymentData.StandardPaymentSchedules);
             Service.RegisterCollectionView(StandardPaymentSchedules); //注册查询集合。
-            StandardPaymentSchedules.PropertyChanged += OnViewPropertyChanged;
 
             var fd = new FilterDescriptor("ImportType", FilterOperator.Contains, "购买");
 
             ContractAircrafts = Service.CreateCollection<ContractAircraftDTO>(_paymentData.ContractAircrafts);
             ContractAircrafts.FilterDescriptors.Add(fd);
             Service.RegisterCollectionView(ContractAircrafts); //注册查询集合。
-            ContractAircrafts.PropertyChanged += OnViewPropertyChanged;
-
 
             ContractEngines = Service.CreateCollection<ContractEngineDTO>(_paymentData.ContractEngines);
             ContractEngines.FilterDescriptors.Add(fd);
             Service.RegisterCollectionView(ContractEngines); //注册查询集合。
-            ContractEngines.PropertyChanged += OnViewPropertyChanged;
         }
 
         /// <summary>

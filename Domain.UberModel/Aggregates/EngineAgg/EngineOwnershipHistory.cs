@@ -62,7 +62,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.EngineAgg
         /// <summary>
         ///     所有权人
         /// </summary>
-        public Guid SupplierId { get; private set; }
+        public int SupplierId { get; private set; }
 
         #endregion
 
@@ -99,9 +99,9 @@ namespace UniCloud.Domain.UberModel.Aggregates.EngineAgg
         ///     设置所有权人
         /// </summary>
         /// <param name="supplierId">所有权人</param>
-        public void SetSupplier(Guid supplierId)
+        public void SetSupplier(int supplierId)
         {
-            if (supplierId == null)
+            if (supplierId == 0)
             {
                 throw new ArgumentException("所有权人Id参数为空！");
             }

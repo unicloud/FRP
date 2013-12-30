@@ -58,7 +58,6 @@ namespace UniCloud.Presentation.Payment.Invoice
             // 创建并注册CollectionView
             ApuMaintainInvoices = Service.CreateCollection(PaymentDataService.APUMaintainInvoices);
             Service.RegisterCollectionView(ApuMaintainInvoices);
-            ApuMaintainInvoices.PropertyChanged += OnViewPropertyChanged;
             //ApuMaintainInvoices.PropertyChanged += (sender, e) =>
             //{
             //    if (e.PropertyName == "HasChanges")

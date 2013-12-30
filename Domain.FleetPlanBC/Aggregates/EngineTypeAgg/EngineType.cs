@@ -52,7 +52,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineTypeAgg
         /// <summary>
         ///    制造商
         /// </summary>
-        public Guid ManufacturerID { get; protected set; }
+        public Guid ManufacturerId { get; protected set; }
 
         #endregion
 

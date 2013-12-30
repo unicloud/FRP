@@ -14,13 +14,8 @@
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 
 #endregion
@@ -39,6 +34,22 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
+            Property(p => p.SeatingCapacity).HasColumnName("SeatingCapacity");
+            Property(p => p.CarryingCapacity).HasColumnName("CarryingCapacity");
+            Property(p => p.RequestDeliverAnnualId).HasColumnName("RequestDeliverAnnualId");
+            Property(p => p.RequestDeliverMonth).HasColumnName("RequestDeliverMonth");
+            Property(p => p.IsApproved).HasColumnName("IsApproved");
+            Property(p => p.Note).HasColumnName("Note");
+
+            Property(p => p.RequestId).HasColumnName("RequestId");
+            Property(p => p.PlanAircraftId).HasColumnName("PlanAircraftId");
+            Property(p => p.ImportCategoryId).HasColumnName("ImportCategoryId");
+            Property(p => p.AirlinesId).HasColumnName("AirlinesId");
+
+            HasRequired(o => o.Airlines).WithMany().HasForeignKey(o => o.AirlinesId);
+            HasRequired(o => o.PlanAircraft).WithMany().HasForeignKey(o => o.PlanAircraftId);
+            HasRequired(o => o.ImportCategory).WithMany().HasForeignKey(o => o.ImportCategoryId);
+            HasRequired(o => o.RequestDeliverAnnual).WithMany().HasForeignKey(o => o.RequestDeliverAnnualId);
 
         }
     }

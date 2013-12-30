@@ -49,11 +49,9 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             ContractAircrafts = Service.CreateCollection<ContractAircraftDTO>(_purchaseData.ContractAircrafts);
             Service.RegisterCollectionView(ContractAircrafts); //注册查询集合。
-            ContractAircrafts.PropertyChanged += OnViewPropertyChanged;
 
             PlanAircrafts = Service.CreateCollection<PlanAircraftDTO>(_purchaseData.PlanAircrafts);
             Service.RegisterCollectionView(PlanAircrafts); //注册查询集合。
-            PlanAircrafts.PropertyChanged += OnViewPropertyChanged;
         }
 
         private void InitializerCommand()

@@ -14,13 +14,8 @@
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg;
 
 #endregion
@@ -39,6 +34,22 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
+            Property(p => p.Title).HasColumnName("Title");
+            Property(p => p.DocNumber).HasColumnName("DocNumber");
+            Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
+            Property(p => p.VersionNumber).HasColumnName("VersionNumber");
+            Property(p => p.IsValid).HasColumnName("IsValid");
+            Property(p => p.IsFinished).HasColumnName("IsFinished");
+            Property(p => p.Status).HasColumnName("Status");
+            Property(p => p.Note).HasColumnName("Note");
+
+            Property(p => p.AirlinesId).HasColumnName("AirlinesId");
+            Property(p => p.AnnualId).HasColumnName("AnnualId");
+            Property(p => p.DocumentId).HasColumnName("DocumentId");
+
+            HasRequired(o => o.Airlines).WithMany().HasForeignKey(o => o.AirlinesId);
+            HasRequired(o => o.Annual).WithMany().HasForeignKey(o => o.AnnualId);
+            HasMany(o => o.EnginePlanHistories).WithRequired().HasForeignKey(o => o.EnginePlanId);
 
         }
     }

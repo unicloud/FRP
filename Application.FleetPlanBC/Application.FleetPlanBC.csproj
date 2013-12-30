@@ -47,9 +47,65 @@
     <Compile Include="ApprovalDocServices\ApprovalDocAppService.cs" />
     <Compile Include="RequestServices\RequestAppService.cs" />
     <Compile Include="RequestServices\IRequestAppService.cs" />
+    <Compile Include="AircraftServices\AircraftAppService.cs" />
+    <Compile Include="AircraftServices\IAircraftAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IFleetPlanAppService.cs" />
-    <Compile Include="Services\FleetPlanAppService.cs" />
+    <Compile Include="XmlConfigServices\IXmlConfigAppService.cs" />
+    <Compile Include="XmlConfigServices\XmlConfigAppService.cs" />
+    <Compile Include="XmlSettingServices\IXmlSettingAppService.cs" />
+    <Compile Include="XmlSettingServices\XmlSettingAppService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application.FleetPlanBC.DTO\Application.FleetPlanBC.DTO.csproj">
+      <Project>{6db639ca-9513-4c6a-90ef-74e9180997e7}</Project>
+      <Name>Application.FleetPlanBC.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.FleetPlanBC.Query\Application.FleetPlanBC.Query.csproj">
+      <Project>{4dbb73bb-9c82-4bf0-a668-ed99362c3156}</Project>
+      <Name>Application.FleetPlanBC.Query</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{c926e107-6971-4b5c-8e00-db7761eeac8e}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.FleetPlanBC\Domain.FleetPlanBC.csproj">
+      <Project>{eae70e2d-1c23-45c9-a9a9-695dff09b7ab}</Project>
+      <Name>Domain.FleetPlanBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Crosscutting\Infrastructure.Crosscutting.csproj">
+      <Project>{340e4cf3-f789-4ae1-bc04-96040995859c}</Project>
+      <Name>Infrastructure.Crosscutting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Utilities\Infrastructure.Utilities.csproj">
+      <Project>{34a8a0e1-3d4a-48ca-9e78-71f88e2d273d}</Project>
+      <Name>Infrastructure.Utilities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ActionCategoryServices\" />
+    <Folder Include="AircraftCategoryServices\" />
+    <Folder Include="AircraftPlanServices\" />
+    <Folder Include="AircraftTypeServices\" />
+    <Folder Include="AirlinesServices\" />
+    <Folder Include="AirProgrammingServices\" />
+    <Folder Include="AnnualServices\" />
+    <Folder Include="ApprovalDocServices\" />
+    <Folder Include="CaacProgrammingServices\" />
+    <Folder Include="EnginePlanServices\" />
+    <Folder Include="EngineServices\" />
+    <Folder Include="EngineTypeServices\" />
+    <Folder Include="MailAddressServices\" />
+    <Folder Include="ManagerServices\" />
+    <Folder Include="ManufactureServices\" />
+    <Folder Include="PlanAircraftServices\" />
+    <Folder Include="PlanEngineServices\" />
+    <Folder Include="ProgrammingServices\" />
+    <Folder Include="RequestServices\" />
+    <Folder Include="SupplierServices\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application.FleetPlanBC.DTO\Application.FleetPlanBC.DTO.csproj">

@@ -57,7 +57,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AnnualAgg
         /// <summary>
         ///     五年规划期间ID
         /// </summary>
-        public Guid ProgrammingID { get; set; }
+        public Guid ProgrammingId { get; set; }
 
         #endregion
 

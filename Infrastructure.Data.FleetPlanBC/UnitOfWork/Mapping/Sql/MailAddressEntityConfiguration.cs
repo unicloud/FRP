@@ -14,13 +14,8 @@
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg;
 
 #endregion
@@ -39,6 +34,18 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
+            Property(p => p.SmtpHost).HasColumnName("SmtpHost");
+            Property(p => p.Pop3Host).HasColumnName("Pop3Host");
+            Property(p => p.SendPort).HasColumnName("SendPort");
+            Property(p => p.ReceivePort).HasColumnName("ReceivePort");
+            Property(p => p.LoginUser).HasColumnName("LoginUser");
+            Property(p => p.LoginPassword).HasColumnName("LoginPassword");
+            Property(p => p.Address).HasColumnName("Address");
+            Property(p => p.DisplayName).HasColumnName("DisplayName");
+            Property(p => p.SendSSL).HasColumnName("SendSSL");
+            Property(p => p.StartTLS).HasColumnName("StartTLS");
+            Property(p => p.ReceiveSSL).HasColumnName("ReceiveSSL");
+            Property(p => p.ServerType).HasColumnName("ServerType");
 
         }
     }

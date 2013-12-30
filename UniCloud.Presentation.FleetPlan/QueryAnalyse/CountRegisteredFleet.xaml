@@ -107,8 +107,7 @@
                                                InputMode="DatePicker"
                                                FontSize="{StaticResource TextFontSize}"
                                                DateSelectionMode="Month"
-                                               Culture="zh-Hans">
-                    </telerik:RadDateTimePicker >
+                                               Culture="zh-Hans" />
                     <TextBlock Text="结束时间："
                                FontSize="{StaticResource TextFontSize}"
                                VerticalAlignment="Center"
@@ -124,8 +123,7 @@
                                                FontSize="{StaticResource TextFontSize}"
                                                InputMode="DatePicker"
                                                DateSelectionMode="Month"
-                                               Culture="zh-Hans">
-                    </telerik:RadDateTimePicker >
+                                               Culture="zh-Hans" />
                 </StackPanel>
 
             </Grid>
@@ -216,8 +214,7 @@
                                                   Margin="0,5,5,5"
                                                   VerticalScrollBarVisibility="Auto"
                                                   telerik:StyleManager.Theme="Windows8">
-                                        <StackPanel Style="{StaticResource LegendStyle}">
-                                        </StackPanel>
+                                        <StackPanel Style="{StaticResource LegendStyle}" />
                                     </ScrollViewer>
                                 </Grid>
                             </telerik:RadPane>
@@ -293,8 +290,7 @@
                                                   Margin="0,5,5,5"
                                                   VerticalScrollBarVisibility="Auto"
                                                   telerik:StyleManager.Theme="Windows8">
-                                        <StackPanel Style="{StaticResource LegendStyle}">
-                                        </StackPanel>
+                                        <StackPanel Style="{StaticResource LegendStyle}" />
                                     </ScrollViewer>
                                 </Grid>
                             </telerik:RadPane>

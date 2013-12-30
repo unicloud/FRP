@@ -636,7 +636,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         ///     保存前操作
         /// </summary>
         /// <param name="sender"></param>
-        protected override bool OnSaveExecuting(QueryableDataServiceCollectionViewBase sender)
+        protected override bool OnSaveExecuting(object sender)
         {
             if (SelectedStandardPaymentSchedule != null)
             {
@@ -674,7 +674,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// <summary>
         ///     刷新按钮状态
         /// </summary>
-        public override void RefreshCommandState()
+        protected override void RefreshCommandState()
         {
             SaveCommand.RaiseCanExecuteChanged();
             AbortCommand.RaiseCanExecuteChanged();

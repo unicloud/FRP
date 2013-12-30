@@ -34,6 +34,21 @@ namespace UniCloud.Application.FleetPlanBC.DTO.ProgrammingDTO
         /// </summary>
         public Guid Id { get; set; }
 
+        /// <summary>
+        ///     规划期间
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        ///     规划开始时间
+        /// </summary>
+        public DateTime StartDate { get; set; }
+
+
+        /// <summary>
+        ///     规划结束时间
+        /// </summary>
+        public DateTime EndDate { get; set; }
         #endregion
     }
 }

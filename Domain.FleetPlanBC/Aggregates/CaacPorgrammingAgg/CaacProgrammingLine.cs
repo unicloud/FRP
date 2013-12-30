@@ -15,10 +15,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
 
 #endregion
@@ -47,12 +43,12 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg
         /// <summary>
         ///     数量
         /// </summary>
-        public int Number { get; set; }
+        public int Number { get; private set; }
 
         /// <summary>
         ///     年份
         /// </summary>
-        public int Year { get; set; }
+        public int Year { get; private set; }
 
         #endregion
 
@@ -61,7 +57,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg
         /// <summary>
         ///     飞机类别（座机）
         /// </summary>
-        public Guid AircraftCategoryId { get; set; }
+        public Guid AircraftCategoryId { get; private set; }
 
         /// <summary>
         ///     民航局下发规划
@@ -76,6 +72,10 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg
         ///     飞机类别（座机）
         /// </summary>
         public virtual AircraftCategory AircraftCategory { get; set; }
+       
+        #endregion
+
+        #region 操作
 
         /// <summary>
         /// 设置规划内容
@@ -91,11 +91,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg
             Year = year;
             Number = number;
         }
-
-        #endregion
-
-        #region 操作
-
+        
         /// <summary>
         ///     设置飞机类别（座级范围）
         /// </summary>

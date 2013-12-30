@@ -50,35 +50,23 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         #region IDbSet成员
 
         private IDbSet<ActionCategory> _actionCategories;
-        private IDbSet<AircraftBusiness> _aircraftBusinesses;
         private IDbSet<AircraftCategory> _aircraftCategories;
         private IDbSet<Aircraft> _aircrafts;
         private IDbSet<AircraftType> _aircraftTypes;
         private IDbSet<Airlines> _airlineses;
         private IDbSet<AirProgramming> _airProgrammings;
-        private IDbSet<AirProgrammingLine> _airProgrammingLines; 
         private IDbSet<Annual> _annuals;
         private IDbSet<ApprovalDoc> _approvalDocs;
-        private IDbSet<ApprovalHistory> _approvalHistories;
         private IDbSet<CaacProgramming> _caacProgrammings;
-        private IDbSet<CaacProgrammingLine> _caacProgrammingLines;
-        private IDbSet<ChangePlan> _changePlans;
-        private IDbSet<EngineBusinessHistory> _engineBusinessHistories;
         private IDbSet<Engine> _engines;
-        private IDbSet<EngineOwnershipHistory> _engineOwnershipHistories;
         private IDbSet<EnginePlan> _enginePlans;
-        private IDbSet<EnginePlanHistory> _enginePlanHistories;
         private IDbSet<EngineType> _engineTypes;
         private IDbSet<MailAddress> _mailAddresses;
         private IDbSet<Manager> _managers;
         private IDbSet<Manufacturer> _manufacturers;
-        private IDbSet<OperationHistory> _operationHistories;
-        private IDbSet<OperationPlan> _operationPlans;
-        private IDbSet<OwnershipHistory> _ownershipHistories;
-        private IDbSet<Plan> _plan;
-        private IDbSet<PlanAircraft> _planAircraft;
+        private IDbSet<Plan> _plans;
+        private IDbSet<PlanAircraft> _planAircrafts;
         private IDbSet<PlanEngine> _planEngines;
-        private IDbSet<PlanHistory> _planHistories;
         private IDbSet<Programming> _programmings;
         private IDbSet<Request> _requests;
         private IDbSet<Supplier> _suppliers;
@@ -88,11 +76,6 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         public IDbSet<ActionCategory> ActionCategories
         {
             get { return _actionCategories ?? (_actionCategories = base.Set<ActionCategory>()); }
-        }
-
-        public IDbSet<AircraftBusiness> AircraftBusinesses
-        {
-            get { return _aircraftBusinesses ?? (_aircraftBusinesses = base.Set<AircraftBusiness>()); }
         }
 
         public IDbSet<AircraftCategory> AircraftCategories
@@ -120,11 +103,6 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
             get { return _airProgrammings ?? (_airProgrammings = base.Set<AirProgramming>()); }
         }
 
-        public IDbSet<AirProgrammingLine> AirProgrammingLines
-        {
-            get { return _airProgrammingLines ?? (_airProgrammingLines = base.Set<AirProgrammingLine>()); }
-        }
-
         public IDbSet<Annual> Annuals
         {
             get { return _annuals ?? (_annuals = base.Set<Annual>()); }
@@ -135,29 +113,9 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
             get { return _approvalDocs ?? (_approvalDocs = base.Set<ApprovalDoc>()); }
         }
 
-        public IDbSet<ApprovalHistory> ApprovalHistories
-        {
-            get { return _approvalHistories ?? (_approvalHistories = base.Set<ApprovalHistory>()); }
-        }
-
         public IDbSet<CaacProgramming> CaacProgrammings
         {
             get { return _caacProgrammings ?? (_caacProgrammings = base.Set<CaacProgramming>()); }
-        }
-
-        public IDbSet<CaacProgrammingLine> CaacProgrammingLines
-        {
-            get { return _caacProgrammingLines ?? (_caacProgrammingLines = base.Set<CaacProgrammingLine>()); }
-        }
-
-        public IDbSet<ChangePlan> ChangePlans
-        {
-            get { return _changePlans ?? (_changePlans = base.Set<ChangePlan>()); }
-        }
-
-        public IDbSet<EngineBusinessHistory> EngineBusinessHistories
-        {
-            get { return _engineBusinessHistories ?? (_engineBusinessHistories = base.Set<EngineBusinessHistory>()); }
         }
 
         public IDbSet<Engine> Engines
@@ -165,19 +123,9 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
             get { return _engines ?? (_engines = base.Set<Engine>()); }
         }
 
-        public IDbSet<EngineOwnershipHistory> EngineOwnershipHistories
-        {
-            get { return _engineOwnershipHistories ?? (_engineOwnershipHistories = base.Set<EngineOwnershipHistory>()); }
-        }
-
         public IDbSet<EnginePlan> EnginePlans
         {
             get { return _enginePlans ?? (_enginePlans = base.Set<EnginePlan>()); }
-        }
-
-        public IDbSet<EnginePlanHistory> EnginePlanHistories
-        {
-            get { return _enginePlanHistories ?? (_enginePlanHistories = base.Set<EnginePlanHistory>()); }
         }
 
         public IDbSet<EngineType> EngineTypes
@@ -200,39 +148,19 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
             get { return _manufacturers ?? (_manufacturers = base.Set<Manufacturer>()); }
         }
 
-        public IDbSet<OperationHistory> OperationHistories
-        {
-            get { return _operationHistories ?? (_operationHistories = base.Set<OperationHistory>()); }
-        }
-
-        public IDbSet<OperationPlan> OperationPlans
-        {
-            get { return _operationPlans ?? (_operationPlans = base.Set<OperationPlan>()); }
-        }
-
-        public IDbSet<OwnershipHistory> OwnershipHistories
-        {
-            get { return _ownershipHistories ?? (_ownershipHistories = base.Set<OwnershipHistory>()); }
-        }
-
         public IDbSet<Plan> Plans
         {
-            get { return _plan ?? (_plan = base.Set<Plan>()); }
+            get { return _plans ?? (_plans = base.Set<Plan>()); }
         }
 
         public IDbSet<PlanAircraft> PlanAircraft
         {
-            get { return _planAircraft ?? (_planAircraft = base.Set<PlanAircraft>()); }
+            get { return _planAircrafts ?? (_planAircrafts = base.Set<PlanAircraft>()); }
         }
 
         public IDbSet<PlanEngine> PlanEngines
         {
             get { return _planEngines ?? (_planEngines = base.Set<PlanEngine>()); }
-        }
-
-        public IDbSet<PlanHistory> PlanHistories
-        {
-            get { return _planHistories ?? (_planHistories = base.Set<PlanHistory>()); }
         }
 
         public IDbSet<Programming> Programmings
@@ -321,6 +249,8 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
 
                 .Add(new PlanEntityConfiguration())
                 .Add(new PlanHistoryEntityConfiguration())
+                .Add(new ChangePlanEntityConfiguration())
+                .Add(new OperationPlanEntityConfiguration())
 
                 #endregion
 
@@ -354,12 +284,6 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
 
                 #endregion
 
-                #region ApprovalHistoryAgg
-
-                .Add(new ApprovalHistoryEntityConfiguration())
-
-                #endregion
-
                 #region CaacProgrammingAgg
 
                 .Add(new CaacProgrammingEntityConfiguration())
@@ -367,20 +291,10 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
 
                 #endregion
 
-                #region EngineBusinessHistoryAgg
-
-                .Add(new EngineBusinessHistoryEntityConfiguration())
-
-                #endregion
-
                 #region EngineAgg
 
                 .Add(new EngineEntityConfiguration())
-
-                #endregion
-
-                #region EngineOwnershipHistoryAgg
-
+                .Add(new EngineBusinessHistoryEntityConfiguration())
                 .Add(new EngineOwnershipHistoryEntityConfiguration())
 
                 #endregion
@@ -388,11 +302,6 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
                 #region EnginePlanAgg
 
                 .Add(new EnginePlanEntityConfiguration())
-
-                #endregion
-
-                #region EnginePlanHistoryAgg
-
                 .Add(new EnginePlanHistoryEntityConfiguration())
 
                 #endregion
@@ -421,24 +330,6 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
 
                 #endregion
 
-                #region OperationHistoryAgg
-
-                .Add(new OperationHistoryEntityConfiguration())
-
-                #endregion
-
-                #region OperationPlanAgg
-
-                .Add(new OperationPlanEntityConfiguration())
-
-                #endregion
-
-                #region OwnershipHistoryAgg
-
-                .Add(new OwnershipHistoryEntityConfiguration())
-
-                #endregion
-
                 #region PlanAircraftAgg
 
                 .Add(new PlanAircraftEntityConfiguration())
@@ -451,12 +342,6 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
 
                 #endregion
 
-                #region PlanHistoryAgg
-
-                .Add(new PlanHistoryEntityConfiguration())
-
-                #endregion
-
                 #region ProgrammingAgg
 
                 .Add(new ProgrammingEntityConfiguration())
@@ -466,6 +351,7 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
                 #region RequestAgg
 
                 .Add(new RequestEntityConfiguration())
+                .Add(new ApprovalHistoryEntityConfiguration())
 
                 #endregion
 

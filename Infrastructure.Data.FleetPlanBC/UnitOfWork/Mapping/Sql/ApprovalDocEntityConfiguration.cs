@@ -14,13 +14,8 @@
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
 
 #endregion
@@ -39,6 +34,17 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
+            Property(p => p.ExamineDate).HasColumnName("ExamineDate").HasColumnType("datetime2");
+            Property(p => p.CaacApprovalNumber).HasColumnName("CaacApprovalNumber");
+            Property(p => p.NdrcApprovalNumber).HasColumnName("NdrcApprovalNumber");
+            Property(p => p.Status).HasColumnName("Status");
+            Property(p => p.Note).HasColumnName("Note");
+
+            Property(p => p.DispatchUnitId).HasColumnName("DispatchUnitId");
+            Property(p => p.CaacDocumentId).HasColumnName("CaacDocumentId");
+            Property(p => p.NdrcDocumentId).HasColumnName("NdrcDocumentId");
+
+            HasRequired(o => o.DispatchUnit).WithMany().HasForeignKey(o => o.DispatchUnitId);
 
         }
     }

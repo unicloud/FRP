@@ -39,6 +39,46 @@ namespace UniCloud.Application.FleetPlanBC.DTO.AirProgrammingDTO
         /// </summary>
         public Guid Id { get; set; }
 
+        /// <summary>
+        ///     年份
+        /// </summary>
+        public int Year { get; set; }
+
+        /// <summary>
+        ///     购买数量
+        /// </summary>
+        public int BuyNum { get; set; }
+
+        /// <summary>
+        ///     退出数量
+        /// </summary>
+        public int ExportNum { get; set; }
+
+        /// <summary>
+        ///     租赁数量
+        /// </summary>
+        public int LeaseNum { get; set; }
+
+
+        #endregion
+
+        #region 外键属性
+
+        /// <summary>
+        ///     飞机系列
+        /// </summary>
+        public Guid AcTypeId { get; set; }
+
+        /// <summary>
+        ///     飞机座级
+        /// </summary>
+        public Guid AircraftCategoryId { get; set; }
+
+        /// <summary>
+        ///     航空公司规划
+        /// </summary>
+        public Guid AirProgrammingId { get; set; }
+
         #endregion
     }
 }

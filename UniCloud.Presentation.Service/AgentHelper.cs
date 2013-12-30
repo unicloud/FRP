@@ -40,5 +40,14 @@ namespace UniCloud.Presentation.Service
                                UriKind.Absolute);
             }
         }
+
+        public static Uri FleetPlanServiceUri
+        {
+            get
+            {
+                return new Uri("http://localhost:20102/FleetPlanDataService.svc",
+                    UriKind.Absolute);
+            }
+        }
     }
 }

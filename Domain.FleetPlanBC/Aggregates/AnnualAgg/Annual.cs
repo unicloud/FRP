@@ -57,7 +57,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg
         /// <summary>
         ///     五年规划期间ID
         /// </summary>
-        public Guid ProgrammingID { get; protected set; }
+        public Guid ProgrammingId { get; protected set; }
 
         #endregion
 

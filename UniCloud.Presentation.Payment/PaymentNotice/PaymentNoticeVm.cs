@@ -56,7 +56,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             // 创建并注册CollectionView
             PaymentNotices = Service.CreateCollection(PaymentDataService.PaymentNotices);
             Service.RegisterCollectionView(PaymentNotices);
-            PaymentNotices.PropertyChanged += OnViewPropertyChanged;
             ViewReportCommand = new DelegateCommand<object>(OnViewReport);
         }
 

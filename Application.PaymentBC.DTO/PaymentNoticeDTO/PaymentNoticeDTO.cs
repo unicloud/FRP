@@ -60,7 +60,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         ///     币种
         /// </summary>
         public string CurrencyName { get; set; }
-       
+
         /// <summary>
         ///     银行账户
         /// </summary>
@@ -99,7 +99,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         ///     付款通知行
         /// </summary>
         private List<PaymentNoticeLineDTO> _paymentNoticeLines;
-        public virtual List<PaymentNoticeLineDTO> PaymentNoticeLines
+        public List<PaymentNoticeLineDTO> PaymentNoticeLines
         {
             get { return _paymentNoticeLines ?? new List<PaymentNoticeLineDTO>(); }
             set { _paymentNoticeLines = value; }

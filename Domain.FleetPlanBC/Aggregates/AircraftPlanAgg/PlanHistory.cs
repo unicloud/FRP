@@ -118,6 +118,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         #region 导航属性
 
         /// <summary>
+        /// 计划飞机
+        /// </summary>
+        public virtual PlanAircraft PlanAircraft { get; set; }
+
+        /// <summary>
         /// 活动类别：包括引进、退出、变更
         /// </summary>
         public virtual ActionCategory ActionCategory { get; set; }

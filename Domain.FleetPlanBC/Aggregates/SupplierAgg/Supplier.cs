@@ -24,7 +24,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg
     /// <summary>
     ///     供应商（所有权人）聚合根
     /// </summary>
-    public class Supplier : EntityGuid
+    public class Supplier : EntityInt
     {
         #region 构造函数
 

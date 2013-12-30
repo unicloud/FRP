@@ -54,7 +54,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
             // 创建并注册CollectionView
             PaymentNotices = new QueryableDataServiceCollectionView<PaymentNoticeDTO>(PaymentDataService, PaymentDataService.PaymentNotices);
-            PaymentNotices.PropertyChanged += OnViewPropertyChanged;
             PaymentNotices.LoadedData += (o, e) =>
             {
                 try

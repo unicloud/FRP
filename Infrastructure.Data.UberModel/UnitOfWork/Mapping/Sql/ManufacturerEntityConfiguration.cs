@@ -42,6 +42,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.CnShortName).HasColumnName("CnShortName");
             Property(p => p.EnShortName).HasColumnName("EnShortName");
             Property(p => p.Note).HasColumnName("Note");
+            Property(p => p.Type).HasColumnName("Type");
         }
     }
 }

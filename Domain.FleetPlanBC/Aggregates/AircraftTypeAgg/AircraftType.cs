@@ -16,6 +16,7 @@
 
 using System;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ManufacturerAgg;
 
 #endregion
@@ -59,12 +60,12 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg
         /// <summary>
         ///     制造商
         /// </summary>
-        public Guid ManufacturerID { get; protected set; }
+        public Guid ManufacturerId { get; protected set; }
 
         /// <summary>
         ///     飞机类别
         /// </summary>
-        public Guid AircraftCategoryID { get; protected set; }
+        public Guid AircraftCategoryId { get; protected set; }
 
         #endregion
 
@@ -77,7 +78,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg
         /// <summary>
         /// 飞机类别
         /// </summary>
-        public virtual ActionCategory ActionCategory { get; set; }
+        public virtual AircraftCategory AircraftCategory { get; set; }
 
         #endregion
 

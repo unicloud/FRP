@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Enums;
@@ -80,6 +81,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        /// 实际飞机
+        /// </summary>
+        public virtual Aircraft Aircraft { get; set; }
 
         /// <summary>
         /// 机型

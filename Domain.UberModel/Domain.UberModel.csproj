@@ -51,6 +51,7 @@
     <Compile Include="Aggregates\AircraftAgg\OperationHistory.cs" />
     <Compile Include="Aggregates\AircraftAgg\OwnershipHistory.cs" />
     <Compile Include="Aggregates\AircraftCategoryAgg\AircraftCategory.cs" />
+    <Compile Include="Aggregates\AircraftCategoryAgg\AircraftCategoryFactory.cs" />
     <Compile Include="Aggregates\AircraftPlanAgg\ChangePlan.cs" />
     <Compile Include="Aggregates\AircraftPlanAgg\OperationPlan.cs" />
     <Compile Include="Aggregates\AircraftPlanAgg\Plan.cs" />
@@ -58,9 +59,11 @@
     <Compile Include="Aggregates\AircraftTypeAgg\AircraftType.cs" />
     <Compile Include="Aggregates\AircraftTypeAgg\AircraftTypeFactory.cs" />
     <Compile Include="Aggregates\AirlinesAgg\Airlines.cs" />
+    <Compile Include="Aggregates\AirlinesAgg\AirlinesFactory.cs" />
     <Compile Include="Aggregates\AirProgrammingAgg\AirProgramming.cs" />
     <Compile Include="Aggregates\AirProgrammingAgg\AirProgrammingLine.cs" />
     <Compile Include="Aggregates\AnnualAgg\Annual.cs" />
+    <Compile Include="Aggregates\AnnualAgg\AnnualFactory.cs" />
     <Compile Include="Aggregates\ApprovalDocAgg\ApprovalDoc.cs" />
     <Compile Include="Aggregates\BankAccountAgg\BankAccount.cs" />
     <Compile Include="Aggregates\CaacPorgrammingAgg\CaacProgramming.cs" />
@@ -117,7 +120,9 @@
     <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoiceLine.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\UndercartMaintainInvoice.cs" />
     <Compile Include="Aggregates\ManagerAgg\Manager.cs" />
+    <Compile Include="Aggregates\ManagerAgg\ManagerFactory.cs" />
     <Compile Include="Aggregates\ManufacturerAgg\Manufacturer.cs" />
+    <Compile Include="Aggregates\ManufacturerAgg\ManufacturerFactory.cs" />
     <Compile Include="Aggregates\MaterialAgg\AircraftMaterial.cs" />
     <Compile Include="Aggregates\MaterialAgg\BFEMaterial.cs" />
     <Compile Include="Aggregates\MaterialAgg\EngineMaterial.cs" />
@@ -149,6 +154,7 @@
     <Compile Include="Aggregates\PlanAircraftAgg\PlanAircraft.cs" />
     <Compile Include="Aggregates\PlanEngineAgg\PlanEngine.cs" />
     <Compile Include="Aggregates\ProgrammingAgg\Programming.cs" />
+    <Compile Include="Aggregates\ProgrammingAgg\ProgrammingFactory.cs" />
     <Compile Include="Aggregates\ReceptionAgg\AircraftLeaseReception.cs" />
     <Compile Include="Aggregates\ReceptionAgg\AircraftLeaseReceptionLine.cs" />
     <Compile Include="Aggregates\ReceptionAgg\AircraftPurchaseReception.cs" />

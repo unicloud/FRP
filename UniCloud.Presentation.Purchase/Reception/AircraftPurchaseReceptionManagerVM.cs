@@ -57,7 +57,6 @@ namespace UniCloud.Presentation.Purchase.Reception
 
             AircraftPurchaseReceptions = Service.CreateCollection<AircraftPurchaseReceptionDTO>(PurchaseDataService.AircraftPurchaseReceptions.Expand(p => p.RelatedDocs));
             Service.RegisterCollectionView(AircraftPurchaseReceptions); //注册查询集合。
-            AircraftPurchaseReceptions.PropertyChanged += OnViewPropertyChanged;
         }
 
         /// <summary>

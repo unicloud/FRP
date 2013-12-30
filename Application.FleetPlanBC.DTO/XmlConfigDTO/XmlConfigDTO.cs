@@ -16,15 +16,16 @@
 
 using System;
 using System.Data.Services.Common;
+using System.Xml.Linq;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.XmlConfigDTO
+namespace UniCloud.Application.FleetPlanBC.DTO
 {
     /// <summary>
     /// 分析数据相关的xml
     /// </summary>
-    [DataServiceKey("Id")]
+    [DataServiceKey("XmlConfigId")]
     public class XmlConfigDTO
     {
         #region 属性
@@ -32,7 +33,17 @@ namespace UniCloud.Application.FleetPlanBC.DTO.XmlConfigDTO
         /// <summary>
         /// 主键
         /// </summary>
-        public Guid Id { get; set; }
+        public Guid XmlConfigId { get; set; }
+
+        public string ConfigType { get; set; }
+        public string ConfigContent { get; set; }
+        public int VersionNumber { get; set; }
+
+        public XElement XmlContent
+        {
+            get { return XElement.Parse(ConfigContent); }
+            set { ConfigContent = value.ToString(); }
+        }
 
         #endregion
     }

@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
 using UniCloud.Domain.UberModel.Aggregates.EngineTypeAgg;
+using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
 
 #endregion
 
@@ -92,7 +93,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.EngineAgg
         /// <summary>
         ///     发动机所有权人
         /// </summary>
-        public Guid? SupplierId { get; private set; }
+        public int? SupplierId { get; private set; }
 
         /// <summary>
         ///  航空公司外键
@@ -112,6 +113,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.EngineAgg
         /// 发动机型号
         /// </summary>
         public virtual EngineType EngineType { get; set; }
+
+        /// <summary>
+        ///     发动机所有权人
+        /// </summary>
+        public virtual Supplier Supplier { get; set; }
 
         /// <summary>
         /// 航空公司
@@ -215,7 +221,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.EngineAgg
         ///     设置发动机所有权人
         /// </summary>
         /// <param name="supplierId">发动机所有权人</param>
-        public void SetSupplier(Guid? supplierId)
+        public void SetSupplier(int? supplierId)
         {
             SupplierId = supplierId;
         }
