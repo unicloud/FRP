@@ -52,7 +52,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         public FleetAge CurrentFleetAge
         {
-            get { return ServiceLocator.Current.GetInstance<FleetAge>(); }
+            get { return ServiceLocator.Current.GetInstance<FleetAge>(); }   
         }
         private static readonly CommonMethod CommonMethod = new CommonMethod();
 

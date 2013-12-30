@@ -34,6 +34,40 @@ namespace UniCloud.Application.FleetPlanBC.DTO.PlanAircraftDTO
         /// </summary>
         public Guid Id { get; set; }
 
+        /// <summary>
+        ///     是否锁定，确定计划时锁定相关飞机。一旦锁定，对应的计划明细不能修改机型。
+        /// </summary>
+        public bool IsLock { get; set; }
+
+        /// <summary>
+        ///     是否自有，用以区分PlanAircraft，民航局均为False。
+        /// </summary>
+        public bool IsOwn { get; set; }
+
+        /// <summary>
+        ///     管理状态
+        /// </summary>
+        public int Status { get; set; }
+
+
+        #endregion
+
+        #region 外键属性
+
+        /// <summary>
+        ///     实际飞机外键
+        /// </summary>
+        public Guid? AircraftId { get; set; }
+
+        /// <summary>
+        ///     机型外键
+        /// </summary>
+        public Guid AircraftTypeId { get; set; }
+
+        /// <summary>
+        ///     航空公司外键
+        /// </summary>
+        public Guid AirlinesId { get; set; }
         #endregion
     }
 }

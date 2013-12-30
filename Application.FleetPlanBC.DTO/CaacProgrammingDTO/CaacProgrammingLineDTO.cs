@@ -39,6 +39,30 @@ namespace UniCloud.Application.FleetPlanBC.DTO.CaacProgrammingDTO
         /// </summary>
         public Guid Id { get; set; }
 
+        /// <summary>
+        ///     数量
+        /// </summary>
+        public int Number { get; set; }
+
+        /// <summary>
+        ///     年份
+        /// </summary>
+        public int Year { get; set; }
+
+        #endregion
+
+        #region 外键属性
+
+        /// <summary>
+        ///     飞机类别（座机）
+        /// </summary>
+        public Guid AircraftCategoryId { get; set; }
+
+        /// <summary>
+        ///     民航局下发规划
+        /// </summary>
+        public Guid CaacProgrammingId { get; set; }
+
         #endregion
     }
 }

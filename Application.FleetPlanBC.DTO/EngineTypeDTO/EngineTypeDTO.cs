@@ -34,6 +34,21 @@ namespace UniCloud.Application.FleetPlanBC.DTO.EngineTypeDTO
         /// </summary>
         public Guid Id { get; set; }
 
+
+        /// <summary>
+        ///     发动机型号名称
+        /// </summary>
+        public string Name { get; set; }
+
+        #endregion
+
+        #region 外键属性
+
+        /// <summary>
+        ///    制造商
+        /// </summary>
+        public Guid ManufacturerId { get; set; }
+
         #endregion
     }
 }

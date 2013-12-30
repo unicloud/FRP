@@ -1493,7 +1493,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public class FleetAircraftRegionalTrend
         {
             public FleetAircraftRegionalTrend()
-            {
+    {
                 Color = Commonmethod.GetRandomColor();
             }
             public string AircraftRegional { get; set; }//座级名称

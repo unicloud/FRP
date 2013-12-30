@@ -34,6 +34,20 @@ namespace UniCloud.Application.FleetPlanBC.DTO.PlanEngineDTO
         /// </summary>
         public Guid Id { get; set; }
 
+        /// <summary>
+        ///     实际发动机ID
+        /// </summary>
+        public Guid? EngineId { get; set; }
+
+        /// <summary>
+        ///     发动机型号外键
+        /// </summary>
+        public Guid EngineTypeId { get; set; }
+
+        /// <summary>
+        ///     航空公司外键
+        /// </summary>
+        public Guid AirlinesId { get; set; }
         #endregion
     }
 }

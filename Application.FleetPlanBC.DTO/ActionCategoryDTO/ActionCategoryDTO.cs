@@ -34,6 +34,25 @@ namespace UniCloud.Application.FleetPlanBC.DTO.ActionCategoryDTO
         /// </summary>
         public Guid Id { get; set; }
 
+        /// <summary>
+        ///     活动类型
+        /// </summary>
+        public string ActionType { get; set; }
+
+        /// <summary>
+        ///     活动类型名称
+        /// </summary>
+        public string ActionName { get; set; }
+
+        /// <summary>
+        ///     需要审批
+        /// </summary>
+        public bool NeedRequest { get; set; }
+
+        /// <summary>
+        /// 活动类型对应的净增量
+        /// </summary>
+        public int NetIncrement { get; set; }
         #endregion
     }
 }
