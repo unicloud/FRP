@@ -108,6 +108,10 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         /// </summary>
         public Guid? DocumentId { get; private set; }
 
+        /// <summary>
+        /// 文档名称
+        /// </summary>
+        public string DocName { get; private set; }
         #endregion
 
         #region 导航属性
@@ -225,7 +229,8 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         ///     设置计划文档
         /// </summary>
         /// <param name="documentId">计划文档</param>
-        public void SetDocument(Guid? documentId)
+        /// <param name="docName">文档名称</param>
+        public void SetDocument(Guid? documentId, string docName)
         {
             //if (documentId == null)
             //{
@@ -233,6 +238,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
             //}
 
             DocumentId = documentId;
+            DocName = docName;
         }
 
         /// <summary>

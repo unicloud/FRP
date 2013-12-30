@@ -82,11 +82,11 @@
     <Compile Include="Aggregates\ApprovalDocAgg\ApprovalDocFactory.cs" />
     <Compile Include="Aggregates\ApprovalDocAgg\ApprovalDocSpecifications.cs" />
     <Compile Include="Aggregates\ApprovalDocAgg\IApprovalDocRepository.cs" />
-    <Compile Include="Aggregates\CaacPorgrammingAgg\CaacProgramming.cs" />
-    <Compile Include="Aggregates\CaacPorgrammingAgg\CaacProgrammingFactory.cs" />
-    <Compile Include="Aggregates\CaacPorgrammingAgg\CaacProgrammingLine.cs" />
-    <Compile Include="Aggregates\CaacPorgrammingAgg\CaacProgrammingSpecifications.cs" />
-    <Compile Include="Aggregates\CaacPorgrammingAgg\ICaacProgrammingRepository.cs" />
+    <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgramming.cs" />
+    <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgrammingFactory.cs" />
+    <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgrammingLine.cs" />
+    <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgrammingSpecifications.cs" />
+    <Compile Include="Aggregates\CaacProgrammingAgg\ICaacProgrammingRepository.cs" />
     <Compile Include="Aggregates\EngineAgg\Engine.cs" />
     <Compile Include="Aggregates\EngineAgg\EngineBusinessHistory.cs" />
     <Compile Include="Aggregates\EngineAgg\EngineFactory.cs" />

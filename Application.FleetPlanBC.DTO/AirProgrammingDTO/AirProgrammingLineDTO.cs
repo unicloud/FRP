@@ -24,7 +24,7 @@ using System.Threading.Tasks;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.AirProgrammingDTO
+namespace UniCloud.Application.FleetPlanBC.DTO
 {
     /// <summary>
     /// 航空公司五年规划行

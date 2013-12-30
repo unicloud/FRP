@@ -19,7 +19,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
 
 #endregion
 
-namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg
+namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg
 {
     /// <summary>
     ///     民航局五年规划明细

@@ -205,6 +205,14 @@
       <DependentUpon>Approval.xaml</DependentUpon>
     </Compile>
     <Compile Include="Approvals\ApprovalVM.cs" />
+    <Compile Include="PrepareFleetPlan\AirProgramming.xaml.cs">
+      <DependentUpon>AirProgramming.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrepareFleetPlan\AirProgrammingVM.cs" />
+    <Compile Include="PrepareFleetPlan\CaacProgramming.xaml.cs">
+      <DependentUpon>CaacProgramming.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrepareFleetPlan\CaacProgrammingVM.cs" />
     <Compile Include="Requests\RequestDoubleClickHelper.cs" />
     <Compile Include="Requests\RequestDragDrop.cs" />
     <Compile Include="Requests\RequestDragVisual.cs" />
@@ -291,6 +299,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PerformFleetPlan\FleetPlanDeliver.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PrepareFleetPlan\AirProgramming.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PrepareFleetPlan\CaacProgramming.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -19,7 +19,7 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.AircraftPlanDTO
+namespace UniCloud.Application.FleetPlanBC.DTO
 {
     /// <summary>
     /// 运力增减计划明细
@@ -52,12 +52,12 @@ namespace UniCloud.Application.FleetPlanBC.DTO.AircraftPlanDTO
         /// <summary>
         ///     是否有效
         /// </summary>
-        public bool IsValid { get; internal set; }
+        public bool IsValid { get; set; }
 
         /// <summary>
         ///     是否提交
         /// </summary>
-        public bool IsSubmit { get; internal set; }
+        public bool IsSubmit { get; set; }
 
         /// <summary>
         /// 备注
@@ -114,7 +114,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO.AircraftPlanDTO
         /// <summary>
         /// 关联的Guid，运营计划时，记录OperationHistoryID，变更计划时记录为AircraftBusinessID
         /// </summary>
-        public Guid CoperGuid { get; set; }
+        public Guid? CoperGuid { get; set; }
 
         #endregion
     }

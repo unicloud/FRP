@@ -29,7 +29,7 @@ using UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg;
 using UniCloud.Domain.UberModel.Aggregates.AnnualAgg;
 using UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg;
 using UniCloud.Domain.UberModel.Aggregates.BankAccountAgg;
-using UniCloud.Domain.UberModel.Aggregates.CaacPorgrammingAgg;
+using UniCloud.Domain.UberModel.Aggregates.CaacProgrammingAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractAircraftBFEAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractEngineAgg;

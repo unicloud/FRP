@@ -29,6 +29,8 @@ namespace UniCloud.Presentation.FleetPlan
         private void RegisterView()
         {
             //编制运力规划
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(AirProgramming));
+            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(CaacProgramming));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FleetPlanPrepare));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FleetPlanLay));
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FleetPlanPublish));

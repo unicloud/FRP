@@ -50,15 +50,51 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionCategoryQueries\ActionCategoryQuery.cs" />
+    <Compile Include="ActionCategoryQueries\IActionCategoryQuery.cs" />
+    <Compile Include="AircraftCategoryQueries\AircraftCategoryQuery.cs" />
+    <Compile Include="AircraftCategoryQueries\IAircraftCategoryQuery.cs" />
+    <Compile Include="AircraftPlanQueries\IPlanQuery.cs" />
+    <Compile Include="AircraftPlanQueries\PlanQuery.cs" />
     <Compile Include="AircraftQueries\AircraftBusinessQuery.cs" />
     <Compile Include="AircraftQueries\AircraftQuery.cs" />
     <Compile Include="AircraftQueries\IAircraftBusinessQuery.cs" />
     <Compile Include="AircraftQueries\IAircraftQuery.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ApprovalDocQueries\IApprovalDocQuery.cs" />
+    <Compile Include="AircraftTypeQueries\AircraftTypeQuery.cs" />
+    <Compile Include="AircraftTypeQueries\IAircraftTypeQuery.cs" />
+    <Compile Include="AirlinesQueries\AirlinesQuery.cs" />
+    <Compile Include="AirlinesQueries\IAirlinesQuery.cs" />
+    <Compile Include="AirProgrammingQueries\AirProgrammingQuery.cs" />
+    <Compile Include="AirProgrammingQueries\IAirProgrammingQuery.cs" />
+    <Compile Include="AnnualQueries\AnnualQuery.cs" />
+    <Compile Include="AnnualQueries\IAnnualQuery.cs" />
     <Compile Include="ApprovalDocQueries\ApprovalDocQuery.cs" />
-    <Compile Include="RequestQueries\RequestQuery.cs" />
+    <Compile Include="ApprovalDocQueries\IApprovalDocQuery.cs" />
+    <Compile Include="CaacProgrammingQueries\CaacProgrammingQuery.cs" />
+    <Compile Include="CaacProgrammingQueries\ICaacProgrammingQuery.cs" />
+    <Compile Include="EnginePlanQueries\EnginePlanQuery.cs" />
+    <Compile Include="EnginePlanQueries\IEnginePlanQuery.cs" />
+    <Compile Include="EngineQueries\EngineQuery.cs" />
+    <Compile Include="EngineQueries\IEngineQuery.cs" />
+    <Compile Include="EngineTypeQueries\EngineTypeQuery.cs" />
+    <Compile Include="EngineTypeQueries\IEngineTypeQuery.cs" />
+    <Compile Include="MailAddressQueries\IMailAddressQuery.cs" />
+    <Compile Include="MailAddressQueries\MailAddressQuery.cs" />
+    <Compile Include="ManagerQueries\IManagerQuery.cs" />
+    <Compile Include="ManagerQueries\ManagerQuery.cs" />
+    <Compile Include="ManufacturerQueries\IManufacturerQuery.cs" />
+    <Compile Include="ManufacturerQueries\ManufacturerQuery.cs" />
+    <Compile Include="PlanAircraftQueries\IPlanAircraftQuery.cs" />
+    <Compile Include="PlanAircraftQueries\PlanAircraftQuery.cs" />
+    <Compile Include="PlanEngineQueries\IPlanEngineQuery.cs" />
+    <Compile Include="PlanEngineQueries\PlanEngineQuery.cs" />
+    <Compile Include="ProgrammingQueries\IProgrammingQuery.cs" />
+    <Compile Include="ProgrammingQueries\ProgrammingQuery.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestQueries\IRequestQuery.cs" />
+    <Compile Include="RequestQueries\RequestQuery.cs" />
+    <Compile Include="SupplierQueries\ISupplierQuery.cs" />
+    <Compile Include="SupplierQueries\SupplierQuery.cs" />
     <Compile Include="XmlConfigQueries\IXmlConfigQuery.cs" />
     <Compile Include="XmlConfigQueries\XmlConfigQuery.cs" />
     <Compile Include="XmlSettingQueries\IXmlSettingQuery.cs" />
@@ -94,28 +130,7 @@
       <Name>Infrastructure.Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ActionCategoryQueries\" />
-    <Folder Include="AircraftCategoryQueries\" />
-    <Folder Include="AircraftPlanQueries\" />
-    <Folder Include="AircraftTypeQueries\" />
-    <Folder Include="AirlinesQueries\" />
-    <Folder Include="AirProgrammingQueries\" />
-    <Folder Include="AnnualQueries\" />
-    <Folder Include="ApporvalDocQueries\" />
-    <Folder Include="CaacProgrammingQueries\" />
-    <Folder Include="EnginePlanQueries\" />
-    <Folder Include="EngineQueries\" />
-    <Folder Include="EngineTypeQueries\" />
-    <Folder Include="MailAddressQueries\" />
-    <Folder Include="ManagerQueries\" />
-    <Folder Include="ManufacturerQueries\" />
-    <Folder Include="PlanAircraftQueries\" />
-    <Folder Include="PlanEngineQueries\" />
-    <Folder Include="ProgrammingQueries\" />
-    <Folder Include="RequestQueries\" />
-    <Folder Include="SupplierQueries\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
