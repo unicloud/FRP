@@ -955,20 +955,20 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         {
                             var grid = scrollViewer.Parent as Grid;
                             if (grid != null && grid.Name.Equals("LineGrid", StringComparison.OrdinalIgnoreCase))
-                            {
+            {
                                 var radCartesianChart = _lineGrid.Children[0] as RadCartesianChart;
                                 if (radCartesianChart != null)
-                                {
+                {
                                     var firstOrDefault = radCartesianChart.Series.FirstOrDefault(p => p.DisplayName.Equals(checkBox.Content.ToString(), StringComparison.OrdinalIgnoreCase));
                                     if (firstOrDefault != null)
                                         firstOrDefault.Visibility = Visibility.Visible;
                                 }
-                            }
+                }
                             else if (grid != null && grid.Name.Equals("BarGrid", StringComparison.OrdinalIgnoreCase))
                             {
                                 var radCartesianChart = _barGrid.Children[0] as RadCartesianChart;
                                 if (radCartesianChart != null)
-                                {
+                {
                                     var firstOrDefault = radCartesianChart.Series.FirstOrDefault(p => p.DisplayName.Equals(checkBox.Content.ToString(), StringComparison.OrdinalIgnoreCase));
                                     if (firstOrDefault != null)
                                         firstOrDefault.Visibility = Visibility.Visible;
@@ -1509,7 +1509,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public class FleetAircraftRegionalTrend
         {
             public FleetAircraftRegionalTrend()
-            {
+    {
                 Color = Commonmethod.GetRandomColor();
             }
             public string AircraftRegional { get; set; }//座级名称

@@ -89,6 +89,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.EnginePlanAgg
         /// </summary>
         public string Note { get; private set; }
 
+        /// <summary>
+        /// 文档名称
+        /// </summary>
+        public string DocName { get; private set; }
         #endregion
 
         #region 外键属性
@@ -225,7 +229,8 @@ namespace UniCloud.Domain.UberModel.Aggregates.EnginePlanAgg
         ///     设置计划文档
         /// </summary>
         /// <param name="documentId">计划文档</param>
-        public void SetDocument(Guid? documentId)
+        /// <param name="docName">文档名称</param>
+        public void SetDocument(Guid? documentId,string docName)
         {
             //if (documentId == null)
             //{
@@ -233,6 +238,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.EnginePlanAgg
             //}
 
             DocumentId = documentId;
+            DocName = docName;
         }
 
         /// <summary>

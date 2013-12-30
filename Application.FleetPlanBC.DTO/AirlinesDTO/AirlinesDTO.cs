@@ -19,7 +19,7 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.AirlinesDTO
+namespace UniCloud.Application.FleetPlanBC.DTO
 {
     /// <summary>
     /// 航空公司
@@ -37,12 +37,12 @@ namespace UniCloud.Application.FleetPlanBC.DTO.AirlinesDTO
         /// <summary>
         ///     公司中文名称
         /// </summary>
-        public string CnName { get; protected set; }
+        public string CnName { get; set; }
 
         /// <summary>
         ///     公司中文简称
         /// </summary>
-        public string CnShortName { get; protected set; }
+        public string CnShortName { get; set; }
 
         #endregion
     }

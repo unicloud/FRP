@@ -52,7 +52,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         public FleetAge CurrentFleetAge
         {
-            get { return ServiceLocator.Current.GetInstance<FleetAge>(); }
+            get { return ServiceLocator.Current.GetInstance<FleetAge>(); }   
         }
         private static readonly CommonMethod CommonMethod = new CommonMethod();
 
@@ -590,11 +590,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     if (childStackPanel != null)
                     {
                         var rectangle = childStackPanel.Children[0] as Rectangle;
-                        if (rectangle != null)
-                        {
-                            rectangle.Width = 12;
-                            rectangle.Height = 12;
-                        }
+                    if (rectangle != null)
+                    {
+                        rectangle.Width = 12;
+                        rectangle.Height = 12;
+                    }
                     }
 
                     if (radChartBase.EmptyContent.ToString().Equals("机龄分布", StringComparison.OrdinalIgnoreCase))
@@ -821,10 +821,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     {
                         var scrollViewer = panel.Parent as ScrollViewer;
                         if (scrollViewer != null)
-                        {
+            {
                             var grid = scrollViewer.Parent as Grid;
-                            if (grid != null && grid.Name.Equals("LineGrid", StringComparison.OrdinalIgnoreCase))
-                            {
+                if (grid != null && grid.Name.Equals("LineGrid", StringComparison.OrdinalIgnoreCase))
+                {
                                 var radCartesianChart = _lineGrid.Children[0] as RadCartesianChart;
                                 if (radCartesianChart != null)
                                 {

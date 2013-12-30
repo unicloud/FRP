@@ -19,7 +19,7 @@ using UniCloud.Domain.UberModel.Aggregates.AircraftCategoryAgg;
 
 #endregion
 
-namespace UniCloud.Domain.UberModel.Aggregates.CaacPorgrammingAgg
+namespace UniCloud.Domain.UberModel.Aggregates.CaacProgrammingAgg
 {
     /// <summary>
     ///     民航局五年规划明细

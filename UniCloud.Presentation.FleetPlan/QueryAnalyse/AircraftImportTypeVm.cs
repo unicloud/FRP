@@ -718,19 +718,19 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                         {
                                             itemRectangle.Width = 15;
                                             itemRectangle.Height = 15;
-                                        }
-                                        else
-                                        {
+                                }
+                                else
+                                {
                                             itemRectangle.Width = 12;
                                             itemRectangle.Height = 12;
-                                        }
-                                    }
-                                    else
-                                    {
+                                }
+                            }
+                            else
+                            {
                                         itemRectangle.Width = 15;
                                         itemRectangle.Height = 15;
-                                    }
-                                }
+                            }
+                        }
                             }
                         }
 
@@ -747,7 +747,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                 var radPieChart = grid.Children[0] as RadPieChart;
                                 if (radPieChart != null)
                                     foreach (var item in radPieChart.Series[0].DataPoints)
-                                    {
+                                {
                                         var pieDataPoint = item;
                                         var fleetImportTypeComposition = pieDataPoint.DataItem as FleetImportTypeComposition;
                                         if (fleetImportTypeComposition != null && fleetImportTypeComposition.ImportType .Equals( shortName,StringComparison.OrdinalIgnoreCase))
@@ -757,26 +757,26 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                             {
                                                 if (radPieChart.EmptyContent.ToString() .Equals( "飞机引进方式分布",StringComparison.OrdinalIgnoreCase))
                                                 {
-                                                    //  GetGridViewDataSource(piedatapoint, _importTypeWindow, "飞机引进方式");
+                                    //  GetGridViewDataSource(piedatapoint, _importTypeWindow, "飞机引进方式");
                                                     ShowGridViewData(pieDataPoint, _importTypeWindow, "飞机引进方式");
-                                                }
-                                            }
-                                            else
-                                            {
+                                }
+                            }
+                            else
+                            {
                                                 if (radPieChart.EmptyContent.ToString().Equals("飞机引进方式分布", StringComparison.OrdinalIgnoreCase))
-                                                {
-                                                    _importTypeWindow.Close();
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            pieDataPoint.IsSelected = false; 
-                                        }
-                                    }
+                                {
+                                    _importTypeWindow.Close();
+                                }
                             }
                         }
+                        else
+                        {
+                                            pieDataPoint.IsSelected = false; 
+                        }
                     }
+                }
+            }
+        }
                 }
             }
         }
@@ -838,40 +838,40 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                             itemRectangle.Width = 15;
                             itemRectangle.Height = 15;
                         }
-                    }
+                }
 
-                    if (selectedPoint != null)
-                    {
+                if (selectedPoint != null)
+                {
                         var childStackPanel = stackPanelRoot.Children.FirstOrDefault(p =>
-                                            {
-                                                var stackPanel = p as StackPanel;
-                                                return stackPanel != null && (stackPanel.Children[1] as TextBlock).Text.Equals((selectedPoint.DataItem as FleetImportTypeComposition).ImportType, StringComparison.OrdinalIgnoreCase);
-                                            }) as StackPanel;
+                                                               {
+                                                                   var stackPanel = p as StackPanel;
+                                                                   return stackPanel != null && (stackPanel.Children[1] as TextBlock).Text.Equals((selectedPoint.DataItem as FleetImportTypeComposition).ImportType, StringComparison.OrdinalIgnoreCase);
+                                                               }) as StackPanel;
                         if (childStackPanel != null)
-                        {
+                    {
                             var rectangle = childStackPanel.Children[0] as System.Windows.Shapes.Rectangle;
-                            if (rectangle != null)
-                            {
-                                rectangle.Width = 12;
-                                rectangle.Height = 12;
-                            }
-                        }
-
-                        if (radChartBase.EmptyContent.ToString() .Equals( "飞机引进方式分布",StringComparison.OrdinalIgnoreCase))
+                        if (rectangle != null)
                         {
-                            //GetGridViewDataSource(SelectedPoint, _importTypeWindow, "飞机引进方式");
-                            ShowGridViewData(selectedPoint, _importTypeWindow, "飞机引进方式");
+                            rectangle.Width = 12;
+                            rectangle.Height = 12;
                         }
                     }
-                    else
-                    {
+
                         if (radChartBase.EmptyContent.ToString() .Equals( "飞机引进方式分布",StringComparison.OrdinalIgnoreCase))
-                        {
-                            _importTypeWindow.Close();
-                        }
+                    {
+                        //GetGridViewDataSource(SelectedPoint, _importTypeWindow, "飞机引进方式");
+                        ShowGridViewData(selectedPoint, _importTypeWindow, "飞机引进方式");
+                    }
+                }
+                else
+                {
+                        if (radChartBase.EmptyContent.ToString() .Equals( "飞机引进方式分布",StringComparison.OrdinalIgnoreCase))
+                    {
+                        _importTypeWindow.Close();
                     }
                 }
             }
+        }
         }
 
         /// <summary>
@@ -918,20 +918,20 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         {
                             var grid = scrollViewer.Parent as Grid;
                             if (grid != null && grid.Name .Equals( "LineGrid",StringComparison.OrdinalIgnoreCase))
-                            {
+            {
                                 var radCartesianChart = _lineGrid.Children[0] as RadCartesianChart;
                                 if (radCartesianChart != null)
-                                {
+                {
                                     var firstOrDefault = radCartesianChart.Series.FirstOrDefault(p => p.DisplayName .Equals( checkBox.Content.ToString(),StringComparison.OrdinalIgnoreCase));
                                     if (firstOrDefault != null)
                                         firstOrDefault.Visibility = Visibility.Visible;
                                 }
-                            }
+                }
                             else if (grid != null && grid.Name.Equals("BarGrid", StringComparison.OrdinalIgnoreCase))
                             {
                                 var radCartesianChart = _barGrid.Children[0] as RadCartesianChart;
                                 if (radCartesianChart != null)
-                                {
+                {
                                     var firstOrDefault = radCartesianChart.Series.FirstOrDefault(p => p.DisplayName .Equals( checkBox.Content.ToString(),StringComparison.OrdinalIgnoreCase));
                                     if (firstOrDefault != null)
                                         firstOrDefault.Visibility = Visibility.Visible;
@@ -964,20 +964,20 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         {
                             var grid = scrollViewer.Parent as Grid;
                             if (grid != null && grid.Name .Equals( "LineGrid",StringComparison.OrdinalIgnoreCase))
-                            {
+            {
                                 var radCartesianChart = _lineGrid.Children[0] as RadCartesianChart;
                                 if (radCartesianChart != null)
-                                {
+                {
                                     var firstOrDefault = radCartesianChart.Series.FirstOrDefault(p => p.DisplayName .Equals( checkBox.Content.ToString(),StringComparison.OrdinalIgnoreCase));
                                     if (firstOrDefault != null)
                                         firstOrDefault.Visibility = Visibility.Collapsed;
                                 }
-                            }
+                }
                             else if (grid != null && grid.Name .Equals( "BarGrid",StringComparison.OrdinalIgnoreCase))
                             {
                                 var radCartesianChart = _barGrid.Children[0] as RadCartesianChart;
                                 if (radCartesianChart != null)
-                                {
+                {
                                     var firstOrDefault = radCartesianChart.Series.FirstOrDefault(p => p.DisplayName.Equals(checkBox.Content.ToString(), StringComparison.OrdinalIgnoreCase));
                                     if (firstOrDefault != null)
                                         firstOrDefault.Visibility = Visibility.Collapsed;

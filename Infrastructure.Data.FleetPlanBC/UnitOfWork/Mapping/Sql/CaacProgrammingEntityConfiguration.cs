@@ -16,7 +16,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg;
 
 #endregion
 
@@ -39,6 +39,7 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             Property(p => p.IssuedDate).HasColumnName("IssuedDate").HasColumnType("datetime2");
             Property(p => p.DocNumber).HasColumnName("DocNumber");
             Property(p => p.Note).HasColumnName("Note");
+            Property(p => p.DocName).HasColumnName("DocName");
 
             Property(p => p.ProgrammingId).HasColumnName("ProgrammingId");
             Property(p => p.IssuedUnitId).HasColumnName("IssuedUnitId");

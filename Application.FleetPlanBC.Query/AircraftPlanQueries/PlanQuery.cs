@@ -1,0 +1,104 @@
+﻿#region 版本信息
+
+// ========================================================================
+// 版权所有 (C) 2013 UniCloud 
+//【本类功能概述】
+// 
+// 作者：HuangQibin 时间：2013/12/30，11:12
+// 文件名：PlanQuery.cs
+// 程序集：UniCloud.Application.FleetPlanBC.Query
+//
+// 修改者： 时间： 
+// 修改说明：
+// ========================================================================
+
+#endregion
+
+#region 命名空间
+
+using System.Linq;
+using UniCloud.Application.FleetPlanBC.DTO;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
+using UniCloud.Infrastructure.Data;
+
+#endregion
+
+namespace UniCloud.Application.FleetPlanBC.Query.PlanQueries
+{
+    public class PlanQuery : IPlanQuery
+    {
+        private readonly IQueryableUnitOfWork _unitOfWork;
+
+        public PlanQuery(IQueryableUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        /// <summary>
+        ///     运力增减计划查询。
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns>运力增减计划DTO集合。</returns>
+        public IQueryable<PlanDTO> PlanDTOQuery(
+            QueryBuilder<Plan> query)
+        {
+            return query.ApplyTo(_unitOfWork.CreateSet<Plan>()).Select(p => new PlanDTO
+            {
+                Id = p.Id,
+                Title = p.Title,
+                VersionNumber = p.VersionNumber,
+                IsValid = p.IsValid,
+                IsCurrentVersion = p.IsCurrentVersion,
+                SubmitDate = p.SubmitDate,
+                CreateDate = p.CreateDate,
+                DocNumber = p.DocNumber,
+                DocName = p.DocName,
+                IsFinished = p.IsFinished,
+                Status = (int)p.Status,
+                PublishStatus = (int)p.PublishStatus,
+                AirlinesId = p.AirlinesId,
+                AnnualId = p.AnnualId,
+                DocumentId = p.DocumentId,
+                PlanHistories = p.PlanHistories.OfType<OperationPlan>().Select(q => new PlanHistoryDTO
+                                {
+                                    Id=q.Id,
+                                    ActionCategoryId = q.ActionCategoryId,
+                                    AircraftTypeId = q.AircraftTypeId,
+                                    AirlinesId = q.AirlinesId,
+                                    CarryingCapacity = q.CarryingCapacity,
+                                    SeatingCapacity = q.SeatingCapacity,
+                                    CoperGuid = q.OperationHistoryId,
+                                    IsSubmit=q.IsSubmit,
+                                    IsValid = q.IsValid,
+                                    Note = q.Note,
+                                    PerformAnnualId = q.PerformAnnualId,
+                                    PerformMonth = q.PerformMonth,
+                                    PlanAircraftId = q.PlanAircraftId,
+                                    PlanId = q.PlanId,
+                                    PlanType = 1,
+                                    TargetCategoryId = q.TargetCategoryId,
+                                })
+                                .Union(p.PlanHistories.OfType<ChangePlan>().Select(q => new PlanHistoryDTO
+                                {
+                                    Id = q.Id,
+                                    ActionCategoryId = q.ActionCategoryId,
+                                    AircraftTypeId = q.AircraftTypeId,
+                                    AirlinesId = q.AirlinesId,
+                                    CarryingCapacity = q.CarryingCapacity,
+                                    SeatingCapacity = q.SeatingCapacity,
+                                    CoperGuid = q.AircraftBusinessId,
+                                    IsSubmit = q.IsSubmit,
+                                    IsValid = q.IsValid,
+                                    Note = q.Note,
+                                    PerformAnnualId = q.PerformAnnualId,
+                                    PerformMonth = q.PerformMonth,
+                                    PlanAircraftId = q.PlanAircraftId,
+                                    PlanId = q.PlanId,
+                                    PlanType = 2,
+                                    TargetCategoryId = q.TargetCategoryId,
+                                })
+                                ).ToList(),
+            });
+        }
+    }
+}

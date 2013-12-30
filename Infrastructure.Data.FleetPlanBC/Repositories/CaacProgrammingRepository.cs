@@ -14,7 +14,7 @@
 
 #region 命名空间
 
-using UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg;
 
 #endregion
 

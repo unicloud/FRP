@@ -16,7 +16,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.UberModel.Aggregates.CaacPorgrammingAgg;
+using UniCloud.Domain.UberModel.Aggregates.CaacProgrammingAgg;
 
 #endregion
 
