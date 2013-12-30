@@ -78,9 +78,46 @@
         <Property Name="XmlContent" Type="Edm.String" />
       </EntityType>
     </Schema>
+    <Schema Namespace="UniCloud.Application.FleetPlanBC.DTO.EngineDTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityType Name="EngineDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="FactoryDate" Type="Edm.DateTime" />
+        <Property Name="ImportDate" Type="Edm.DateTime" />
+        <Property Name="ExportDate" Type="Edm.DateTime" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="MaxThrust" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="EngineTypeId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" />
+        <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="EngineOwnerShipHistories" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.EngineDTO.EngineOwnershipHistoryDTO)" Nullable="false" />
+        <Property Name="EngineBusinessHistories" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.EngineDTO.EngineBusinessHistoryDTO)" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="EngineOwnershipHistoryDTO">
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="StartDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="EndDate" Type="Edm.DateTime" />
+        <Property Name="EngineId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
+      <ComplexType Name="EngineBusinessHistoryDTO">
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="StartDate" Type="Edm.DateTime" />
+        <Property Name="EndDate" Type="Edm.DateTime" />
+        <Property Name="MaxThrust" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="EngineId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="EngineTypeId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
+      </ComplexType>
+    </Schema>
     <Schema Namespace="UniCloud.DistributedServices.FleetPlan" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="FleetPlanData" m:IsDefaultEntityContainer="true">
         <EntitySet Name="Aircrafts" EntityType="UniCloud.Application.FleetPlanBC.DTO.AircraftDTO" />
+        <EntitySet Name="Engines" EntityType="UniCloud.Application.FleetPlanBC.DTO.EngineDTO.EngineDTO" />
         <EntitySet Name="XmlConfigs" EntityType="UniCloud.Application.FleetPlanBC.DTO.XmlConfigDTO" />
         <EntitySet Name="XmlSettings" EntityType="UniCloud.Application.FleetPlanBC.DTO.XmlSettingDTO" />
       </EntityContainer>
