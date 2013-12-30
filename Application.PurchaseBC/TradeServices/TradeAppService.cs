@@ -141,6 +141,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 // 更新当前记录
                 var supplier = _supplierRepository.Get(dto.SupplierId);
                 current.UpdateTrade(dto.Name, dto.Description, dto.StartDate);
+                current.SetStatus((TradeStatus)dto.Status);
                 current.SetSupplier(supplier);
 
                 _tradeRepository.Modify(current);
@@ -329,6 +330,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             order.SetLinkman(dto.LinkmanId);
             order.SetSourceGuid(dto.SourceGuid);
             order.SetName(dto.Name);
+            order.SetOrderStatus((OrderStatus)dto.Status);
             if (!string.IsNullOrWhiteSpace(dto.LogWriter))
             {
                 order.SetNote(dto.LogWriter);
@@ -342,10 +344,6 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             var importType =
                 _actionCategoryRepository.GetFiltered(a => a.ActionType == "引进" && a.ActionName == "购买")
                     .FirstOrDefault();
-
-            //// 修改交易状态
-            //var trade = _tradeRepository.Get(order.TradeId);
-            //trade.SetStatus(TradeStatus.进行中);
 
             // 处理订单行
             dto.AircraftPurchaseOrderLines.ToList()
@@ -373,6 +371,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
                 order.SetLinkman(dto.LinkmanId);
                 order.SetName(dto.Name);
                 order.SetOperatorName(dto.OperatorName);
+                order.SetOrderStatus((OrderStatus)dto.Status);
                 if (!string.IsNullOrWhiteSpace(dto.LogWriter))
                 {
                     order.SetNote(dto.LogWriter);
