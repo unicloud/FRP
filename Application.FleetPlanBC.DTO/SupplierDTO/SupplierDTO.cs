@@ -34,6 +34,54 @@ namespace UniCloud.Application.FleetPlanBC.DTO.SupplierDTO
         /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        ///     供应商类型
+        ///     <remarks>
+        ///         国外、国内
+        ///     </remarks>
+        /// </summary>
+        public int SupplierType { get; set; }
+
+        /// <summary>
+        ///     组织机构代码
+        /// </summary>
+        public string Code { get; set; }
+
+        /// <summary>
+        ///     供应商中文名称
+        /// </summary>
+        public string CnName { get; set; }
+
+        /// <summary>
+        ///     供应商英文名称
+        /// </summary>
+        public string EnName { get; set; }
+
+        /// <summary>
+        ///     供应商中文简称
+        /// </summary>
+        public string CnShortName { get; set; }
+
+        /// <summary>
+        ///     供应商英文简称
+        /// </summary>
+        public string EnShortName { get; set; }
+
+        /// <summary>
+        ///     是否有效
+        /// </summary>
+        public bool IsValid { get; set; }
+
+        /// <summary>
+        ///     备注
+        /// </summary>
+        public string Note { get; set; }
+
+        /// <summary>
+        /// 航空公司Guid
+        /// </summary>
+        public Guid? AirlineGuid { get; set; }
+
         #endregion
     }
 }

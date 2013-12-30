@@ -90,6 +90,28 @@
       <Name>Infrastructure.Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ActionCategoryQueries\" />
+    <Folder Include="AircraftCategoryQueries\" />
+    <Folder Include="AircraftPlanQueries\" />
+    <Folder Include="AircraftTypeQueries\" />
+    <Folder Include="AirlinesQueries\" />
+    <Folder Include="AirProgrammingQueries\" />
+    <Folder Include="AnnualQueries\" />
+    <Folder Include="ApporvalDocQueries\" />
+    <Folder Include="CaacProgrammingQueries\" />
+    <Folder Include="EnginePlanQueries\" />
+    <Folder Include="EngineQueries\" />
+    <Folder Include="EngineTypeQueries\" />
+    <Folder Include="MailAddressQueries\" />
+    <Folder Include="ManagerQueries\" />
+    <Folder Include="ManufacturerQueries\" />
+    <Folder Include="PlanAircraftQueries\" />
+    <Folder Include="PlanEngineQueries\" />
+    <Folder Include="ProgrammingQueries\" />
+    <Folder Include="RequestQueries\" />
+    <Folder Include="SupplierQueries\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

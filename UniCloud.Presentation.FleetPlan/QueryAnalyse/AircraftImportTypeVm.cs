@@ -11,17 +11,12 @@
 // 修改说明：
 // ========================================================================*/
 #endregion
-using System;
+
+#region 命名空间
+
 using System.ComponentModel.Composition;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+
+#endregion
 
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
@@ -29,6 +24,18 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AircraftImportTypeVm
     {
+        #region 声明、初始化
+        #endregion
 
+        #region 数据
+        #region 公共数据
+        #endregion
+
+        #region 加载数据
+        #endregion
+        #endregion
+
+        #region 操作
+        #endregion
     }
 }
