@@ -24,6 +24,18 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class CountRegisteredFleetVm
     {
+        #region 声明、初始化
+        #endregion
 
+        #region 数据
+        #region 公共数据
+        #endregion
+
+        #region 加载数据
+        #endregion
+        #endregion
+
+        #region 操作
+        #endregion
     }
 }

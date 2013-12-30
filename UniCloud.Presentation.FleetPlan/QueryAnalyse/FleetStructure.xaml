@@ -245,7 +245,7 @@
 													<i:Interaction.Triggers>
 														<i:EventTrigger EventName="SelectionChanged">
 															<ei:CallMethodAction TargetObject="{Binding}"
-																				 MethodName="ChartSelectionBehavior_SelectionChanged" />
+																				 MethodName="ChartSelectionBehaviorSelectionChanged" />
 														</i:EventTrigger>
 													</i:Interaction.Triggers>
 												</telerik:ChartSelectionBehavior>
@@ -303,7 +303,7 @@
 													<i:Interaction.Triggers>
 														<i:EventTrigger EventName="SelectionChanged">
 															<ei:CallMethodAction TargetObject="{Binding}"
-																				 MethodName="ChartSelectionBehavior_SelectionChanged" />
+																				 MethodName="ChartSelectionBehaviorSelectionChanged" />
 														</i:EventTrigger>
 													</i:Interaction.Triggers>
 												</telerik:ChartSelectionBehavior>
@@ -438,7 +438,7 @@
 												<i:Interaction.Triggers>
 													<i:EventTrigger EventName="SelectionChanged">
 														<ei:CallMethodAction TargetObject="{Binding}"
-																			 MethodName="RadPieChartSelectionBehavior_SelectionChanged" />
+																			 MethodName="RadPieChartSelectionBehaviorSelectionChanged" />
 													</i:EventTrigger>
 												</i:Interaction.Triggers>
 											</telerik:ChartSelectionBehavior>
@@ -534,7 +534,7 @@
 												<i:Interaction.Triggers>
 													<i:EventTrigger EventName="SelectionChanged">
 														<ei:CallMethodAction TargetObject="{Binding}"
-																			 MethodName="RadPieChartSelectionBehavior_SelectionChanged" />
+																			 MethodName="RadPieChartSelectionBehaviorSelectionChanged" />
 													</i:EventTrigger>
 												</i:Interaction.Triggers>
 											</telerik:ChartSelectionBehavior>
