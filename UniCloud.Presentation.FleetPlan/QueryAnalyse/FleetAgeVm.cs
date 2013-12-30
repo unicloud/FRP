@@ -11,6 +11,9 @@
 // 修改说明：
 // ========================================================================*/
 #endregion
+
+#region 命名空间
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
@@ -34,6 +37,8 @@ using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
+
+#endregion
 
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
@@ -63,6 +68,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private int _selectedIndex;//时间的统计方式
         private DateTime? _endDate = Convert.ToDateTime(DateTime.Now.ToString("yyyy/M"));//结束时间
         private DateTime? _startDate = new DateTime(DateTime.Now.AddYears(-1).Year, 1, 1);//开始时间
+        private bool _loadXmlConfig;
+        private bool _loadXmlSetting;
 
         public FleetAgeVm()
         {
@@ -86,10 +93,18 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             // 创建并注册CollectionView
             XmlConfigs = Service.CreateCollection(_fleetPlanDataService.XmlConfigs);
             Service.RegisterCollectionView(XmlConfigs);
-            XmlConfigs.LoadedData += (o, e) => { InitializeData(); };
+            XmlConfigs.LoadedData += (o, e) =>
+                                     {
+                                         _loadXmlConfig = true;
+                                         InitializeData();
+                                     };
             XmlSettings = Service.CreateCollection(_fleetPlanDataService.XmlSettings);
             Service.RegisterCollectionView(XmlSettings);
-            XmlSettings.LoadedData += (o, e) => { InitializeData(); };
+            XmlSettings.LoadedData += (o, e) =>
+                                      {
+                                          _loadXmlSetting = true;
+                                          InitializeData();
+                                      };
         }
         #endregion
 
@@ -1255,8 +1270,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// </summary>
         private void InitializeData()
         {
-            if (!IsBusy)
+            if (_loadXmlConfig && _loadXmlSetting)
             {
+                _loadXmlConfig = false;
+                _loadXmlSetting = false;
                 CreateFleetAgeTrendCollection();
             }
         }

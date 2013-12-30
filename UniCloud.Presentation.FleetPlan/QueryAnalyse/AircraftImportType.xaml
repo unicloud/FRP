@@ -115,8 +115,7 @@
                                                VerticalAlignment="Center"
                                                InputMode="DatePicker"
                                                DateSelectionMode="Month"
-                                               Culture="zh-Hans">
-                    </telerik:RadDateTimePicker >
+                                               Culture="zh-Hans" />
                     <TextBlock Text="结束时间："
                                VerticalAlignment="Center"
                                TextAlignment="Right"
@@ -131,8 +130,7 @@
                                                VerticalAlignment="Center"
                                                InputMode="DatePicker"
                                                DateSelectionMode="Month"
-                                               Culture="zh-Hans">
-                    </telerik:RadDateTimePicker >
+                                               Culture="zh-Hans" />
                 </StackPanel>
             </Grid>
             <Border BorderThickness="0"
@@ -226,7 +224,7 @@
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="SelectionChanged">
                                                             <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                 MethodName="ChartSelectionBehavior_SelectionChanged"></ei:CallMethodAction>
+                                                                                 MethodName="ChartSelectionBehavior_SelectionChanged" />
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </telerik:ChartSelectionBehavior>
@@ -263,8 +261,7 @@
                                                       Margin="0,5,5,5"
                                                       VerticalScrollBarVisibility="Auto"
                                                       telerik:StyleManager.Theme="Windows8">
-                                            <StackPanel Style="{StaticResource legendStyle}">
-                                            </StackPanel>
+                                            <StackPanel Style="{StaticResource legendStyle}" />
                                         </ScrollViewer>
                                     </Grid>
                                     <Grid Grid.Row="1"
@@ -286,7 +283,7 @@
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="SelectionChanged">
                                                             <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                 MethodName="ChartSelectionBehavior_SelectionChanged"></ei:CallMethodAction>
+                                                                                 MethodName="ChartSelectionBehavior_SelectionChanged" />
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </telerik:ChartSelectionBehavior>
@@ -419,7 +416,7 @@
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="SelectionChanged">
                                                         <ei:CallMethodAction TargetObject="{Binding}"
-                                                                             MethodName="RadPieChartSelectionBehavior_SelectionChanged"></ei:CallMethodAction>
+                                                                             MethodName="RadPieChartSelectionBehavior_SelectionChanged" />
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                             </telerik:ChartSelectionBehavior>
@@ -462,8 +459,7 @@
                                                   Margin="0,5,5,5"
                                                   VerticalScrollBarVisibility="Auto"
                                                   telerik:StyleManager.Theme="Windows8">
-                                        <StackPanel Style="{StaticResource legendStyle}">
-                                        </StackPanel>
+                                        <StackPanel Style="{StaticResource legendStyle}" />
                                     </ScrollViewer>
                                 </Grid>
                             </telerik:RadPane>
