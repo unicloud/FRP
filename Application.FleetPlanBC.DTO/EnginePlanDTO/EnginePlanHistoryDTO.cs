@@ -19,7 +19,7 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.EnginePlanDTO
+namespace UniCloud.Application.FleetPlanBC.DTO
 {
     /// <summary>
     /// 备发计划明细

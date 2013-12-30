@@ -19,7 +19,7 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.ManagerDTO
+namespace UniCloud.Application.FleetPlanBC.DTO
 {
     /// <summary>
     /// 管理者

@@ -21,7 +21,7 @@ using UniCloud.Domain.UberModel.Aggregates.ProgrammingAgg;
 
 #endregion
 
-namespace UniCloud.Domain.UberModel.Aggregates.CaacPorgrammingAgg
+namespace UniCloud.Domain.UberModel.Aggregates.CaacProgrammingAgg
 {
     /// <summary>
     ///     民航局五年规划聚合根
@@ -74,6 +74,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.CaacPorgrammingAgg
         /// </summary>
         public string Note { get; private set; }
 
+        /// <summary>
+        /// 文档名称
+        /// </summary>
+        public string DocName { get; private set; }
         #endregion
 
         #region 外键属性
@@ -179,7 +183,8 @@ namespace UniCloud.Domain.UberModel.Aggregates.CaacPorgrammingAgg
         ///     设置五年规划文档
         /// </summary>
         /// <param name="documentId">五年规划文档</param>
-        public void SetDocument(Guid documentId)
+        /// <param name="docName">规划文档名称</param>
+        public void SetDocument(Guid documentId, string docName)
         {
             if (documentId == null)
             {
@@ -187,6 +192,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.CaacPorgrammingAgg
             }
 
             DocumentId = documentId;
+            DocName = docName;
         }
 
         /// <summary>

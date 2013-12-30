@@ -19,7 +19,7 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.RequestDTO
+namespace UniCloud.Application.FleetPlanBC.DTO
 {
     /// <summary>
     /// 审批历史（计划明细）

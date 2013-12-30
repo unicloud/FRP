@@ -14,7 +14,7 @@
 
 using System;
 
-namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg
+namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg
 {
     /// <summary>
     ///     民航局五年规划工厂

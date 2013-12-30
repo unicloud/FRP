@@ -20,7 +20,7 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.AircraftPlanDTO
+namespace UniCloud.Application.FleetPlanBC.DTO
 {
     /// <summary>
     /// 运力增减计划
@@ -90,6 +90,10 @@ namespace UniCloud.Application.FleetPlanBC.DTO.AircraftPlanDTO
         /// </summary>
         public int PublishStatus { get; set; }
 
+        /// <summary>
+        /// 文档名称
+        /// </summary>
+        public string DocName { get; set; }
         #endregion
 
         #region 外键属性

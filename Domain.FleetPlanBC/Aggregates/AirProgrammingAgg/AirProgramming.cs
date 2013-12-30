@@ -69,7 +69,10 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
         /// </summary>
         public string Note { get; private set; }
 
-
+        /// <summary>
+        /// 文档名称
+        /// </summary>
+        public string DocName { get; private set; }
 
         #endregion
 
@@ -165,7 +168,8 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
         ///     设置五年规划文档
         /// </summary>
         /// <param name="documentId">五年规划文档</param>
-        public void SetDocument(Guid documentId)
+        /// <param name="docName">规划文档名称</param>
+        public void SetDocument(Guid documentId, string docName)
         {
             if (documentId == null)
             {
@@ -173,6 +177,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
             }
 
             DocumentId = documentId;
+            DocName = docName;
         }
 
         /// <summary>

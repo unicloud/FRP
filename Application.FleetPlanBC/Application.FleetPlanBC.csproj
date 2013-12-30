@@ -43,9 +43,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionCategoryServices\ActionCategoryAppService.cs" />
+    <Compile Include="ActionCategoryServices\IActionCategoryAppService.cs" />
+    <Compile Include="AircraftCategoryServices\AircraftCategoryAppService.cs" />
+    <Compile Include="AircraftCategoryServices\IAircraftCategoryAppService.cs" />
+    <Compile Include="AircraftPlanServices\IPlanAppService.cs" />
+    <Compile Include="AircraftPlanServices\PlanAppService.cs" />
     <Compile Include="AircraftServices\AircraftAppService.cs" />
     <Compile Include="AircraftServices\IAircraftAppService.cs" />
+    <Compile Include="AircraftTypeServices\AircraftTypeAppService.cs" />
+    <Compile Include="AircraftTypeServices\IAircraftTypeAppService.cs" />
+    <Compile Include="AirlinesServices\AirlinesAppService.cs" />
+    <Compile Include="AirlinesServices\IAirlinesAppService.cs" />
+    <Compile Include="AirProgrammingServices\AirProgrammingAppService.cs" />
+    <Compile Include="AirProgrammingServices\IAirProgrammingAppService.cs" />
+    <Compile Include="AnnualServices\AnnualAppService.cs" />
+    <Compile Include="AnnualServices\IAnnualAppService.cs" />
+    <Compile Include="ApprovalDocServices\ApprovalDocAppService.cs" />
+    <Compile Include="ApprovalDocServices\IApprovalDocAppService.cs" />
+    <Compile Include="CaacProgrammingServices\CaacProgrammingAppService.cs" />
+    <Compile Include="CaacProgrammingServices\ICaacProgrammingAppService.cs" />
+    <Compile Include="EnginePlanServices\EnginePlanAppService.cs" />
+    <Compile Include="EnginePlanServices\IEnginePlanAppService.cs" />
+    <Compile Include="EngineServices\EngineAppService.cs" />
+    <Compile Include="EngineServices\IEngineAppService.cs" />
+    <Compile Include="EngineTypeServices\EngineTypeAppService.cs" />
+    <Compile Include="EngineTypeServices\IEngineTypeAppService.cs" />
+    <Compile Include="MailAddressServices\IMailAddressAppService.cs" />
+    <Compile Include="MailAddressServices\MailAddressAppService.cs" />
+    <Compile Include="ManagerServices\IManagerAppService.cs" />
+    <Compile Include="ManagerServices\ManagerAppService.cs" />
+    <Compile Include="ManufacturerServices\IManufacturerAppService.cs" />
+    <Compile Include="ManufacturerServices\ManufacturerAppService.cs" />
+    <Compile Include="PlanAircraftServices\IPlanAircraftAppService.cs" />
+    <Compile Include="PlanAircraftServices\PlanAircraftAppService.cs" />
+    <Compile Include="PlanEngineServices\IPlanEngineAppService.cs" />
+    <Compile Include="PlanEngineServices\PlanEngineAppService.cs" />
+    <Compile Include="ProgrammingServices\IProgrammingAppService.cs" />
+    <Compile Include="ProgrammingServices\ProgrammingAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RequestServices\IRequestAppService.cs" />
+    <Compile Include="RequestServices\RequestAppService.cs" />
+    <Compile Include="SupplierServices\ISupplierAppService.cs" />
+    <Compile Include="SupplierServices\SupplierAppService.cs" />
     <Compile Include="XmlConfigServices\IXmlConfigAppService.cs" />
     <Compile Include="XmlConfigServices\XmlConfigAppService.cs" />
     <Compile Include="XmlSettingServices\IXmlSettingAppService.cs" />
@@ -81,28 +121,7 @@
       <Name>Infrastructure.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ActionCategoryServices\" />
-    <Folder Include="AircraftCategoryServices\" />
-    <Folder Include="AircraftPlanServices\" />
-    <Folder Include="AircraftTypeServices\" />
-    <Folder Include="AirlinesServices\" />
-    <Folder Include="AirProgrammingServices\" />
-    <Folder Include="AnnualServices\" />
-    <Folder Include="ApprovalDocServices\" />
-    <Folder Include="CaacProgrammingServices\" />
-    <Folder Include="EnginePlanServices\" />
-    <Folder Include="EngineServices\" />
-    <Folder Include="EngineTypeServices\" />
-    <Folder Include="MailAddressServices\" />
-    <Folder Include="ManagerServices\" />
-    <Folder Include="ManufactureServices\" />
-    <Folder Include="PlanAircraftServices\" />
-    <Folder Include="PlanEngineServices\" />
-    <Folder Include="ProgrammingServices\" />
-    <Folder Include="RequestServices\" />
-    <Folder Include="SupplierServices\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -15,11 +15,12 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.EnginePlanDTO
+namespace UniCloud.Application.FleetPlanBC.DTO
 {
     /// <summary>
     /// 备发计划
@@ -27,6 +28,12 @@ namespace UniCloud.Application.FleetPlanBC.DTO.EnginePlanDTO
     [DataServiceKey("Id")]
     public class EnginePlanDTO
     {
+        #region 私有字段
+
+        private List<EnginePlanHistoryDTO> _enginePlanHistories;
+
+        #endregion
+
         #region 属性
 
         /// <summary>
@@ -74,6 +81,10 @@ namespace UniCloud.Application.FleetPlanBC.DTO.EnginePlanDTO
         /// </summary>
         public string Note { get; set; }
 
+        /// <summary>
+        /// 文档名称
+        /// </summary>
+        public string DocName { get; set; }
         #endregion
 
         #region 外键属性
@@ -92,6 +103,20 @@ namespace UniCloud.Application.FleetPlanBC.DTO.EnginePlanDTO
         ///     文档Id
         /// </summary>
         public Guid? DocumentId { get; set; }
+
+        #endregion
+
+        #region 导航属性
+
+        /// <summary>
+        ///     备发计划明细
+        /// </summary>
+        public virtual List<EnginePlanHistoryDTO> EnginePlanHistories
+        {
+            get { return _enginePlanHistories ?? (_enginePlanHistories = new List<EnginePlanHistoryDTO>()); }
+            set { _enginePlanHistories = value; }
+        }
+
 
         #endregion
     }
