@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -47,6 +49,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         #endregion
 
         #region 属性
+
         /// <summary>
         ///     提交日期
         /// </summary>
@@ -88,26 +91,40 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         public RequestStatus Status { get; private set; }
 
         /// <summary>
-        /// 民航局审批意见
+        ///     民航局审批意见
         /// </summary>
         public string CaacNote { get; private set; }
 
         /// <summary>
-        /// 地方局审批意见
+        ///     地方局审批意见
         /// </summary>
         public string RaNote { get; private set; }
 
         /// <summary>
-        /// 监管局审批意见
+        ///     监管局审批意见
         /// </summary>
         public string SawsNote { get; private set; }
 
+              /// <summary>
+        ///     地方局批文文档名称
+        /// </summary>
+        public string RaDocumentName { get; private set; }
+
+        /// <summary>
+        ///     监管局申请文档名称
+        /// </summary>
+        public string SawsDocumentName { get; private set; }
+
+        /// <summary>
+        ///     民航局申请文档名称
+        /// </summary>
+        public string CaacDocumentName { get; private set; }
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        ///    民航局批文文档外键
+        ///     民航局批文文档外键
         /// </summary>
         public Guid? ApprovalDocId { get; private set; }
 
@@ -131,13 +148,14 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// </summary>
         public Guid AirlinesId { get; private set; }
 
+  
 
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        /// 航空公司
+        ///     航空公司
         /// </summary>
         public virtual Airlines Airlines { get; set; }
 
@@ -240,7 +258,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         }
 
         /// <summary>
-        /// 设置民航局审批意见
+        ///     设置民航局审批意见
         /// </summary>
         /// <param name="caacNote"></param>
         public void SetCaacNote(string caacNote)
@@ -254,7 +272,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         }
 
         /// <summary>
-        /// 设置地方局审批意见
+        ///     设置地方局审批意见
         /// </summary>
         /// <param name="raNote"></param>
         public void SetRaNote(string raNote)
@@ -268,7 +286,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         }
 
         /// <summary>
-        /// 设置监管局审批意见
+        ///     设置监管局审批意见
         /// </summary>
         /// <param name="sawsNote"></param>
         public void SetSawsNote(string sawsNote)
@@ -294,27 +312,33 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         ///     设置地方局申请文档
         /// </summary>
         /// <param name="raDocumentId">地方局申请文档</param>
-        public void SetRaDocument(Guid? raDocumentId)
+        /// <param name="raDocumentName">地方局申请文档名称</param>
+        public void SetRaDocument(Guid? raDocumentId, string raDocumentName)
         {
             RaDocumentId = raDocumentId;
+            RaDocumentName = raDocumentName;
         }
 
         /// <summary>
         ///     设置监管局申请文档
         /// </summary>
         /// <param name="sawsDocumentId">监管局申请文档</param>
-        public void SetSawsDocument(Guid? sawsDocumentId)
+        /// <param name="sawsDocumentName">监管局申请文档名称</param>
+        public void SetSawsDocument(Guid? sawsDocumentId, string sawsDocumentName)
         {
             SawsDocumentId = sawsDocumentId;
+            SawsDocumentName = sawsDocumentName;
         }
 
         /// <summary>
         ///     设置民航局申请文档
         /// </summary>
         /// <param name="caacDocumentId">民航局申请文档</param>
-        public void SetCaacDocument(Guid? caacDocumentId)
+        /// <param name="caacDocumentName">民航局申请文档名称</param>
+        public void SetCaacDocument(Guid? caacDocumentId, string caacDocumentName)
         {
             CaacDocumentId = caacDocumentId;
+            CaacDocumentName = caacDocumentName;
         }
 
         /// <summary>
@@ -332,7 +356,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         }
 
         /// <summary>
-        /// 新增审批历史（申请明细）
+        ///     新增审批历史（申请明细）
         /// </summary>
         /// <returns></returns>
         public ApprovalHistory AddNewApprovalHistory()
@@ -340,13 +364,21 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
             var approvalHistory = new ApprovalHistory
             {
                 RequestId = Id,
-                IsApproved = (Status==RequestStatus.已审批),
+                IsApproved = (Status == RequestStatus.已审批),
             };
 
             approvalHistory.GenerateNewIdentity();
             ApprovalHistories.Add(approvalHistory);
 
             return approvalHistory;
+        }
+
+        /// <summary>
+        /// 设置申请是否已完成申请
+        /// </summary>
+        public void SetIsFinished(bool isFinished)
+        {
+            IsFinished = isFinished;
         }
 
         #endregion

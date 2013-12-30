@@ -13,6 +13,7 @@
 #endregion
 
 using System;
+using UniCloud.Domain.FleetPlanBC.Enums;
 
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
 {
@@ -25,14 +26,27 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         ///     创建申请
         /// </summary>
         /// <returns>申请</returns>
-        public static Request CreateRequest(DateTime? submitDate)
+        public static Request CreateRequest(DateTime? submitDate, string title, string raDocNumber,
+                                            string sawsDocNumber, string caacDocNumber, int status, string caacNote, string raNote, 
+            string sawsNote, string raDocumentName, string sawsDocumentName, string caacDocumentName,
+          Guid? raDocumentId, Guid? sawsDocumentId, Guid? caacDocumentId, Guid airlinesId)
         {
             var request = new Request
             {
                 CreateDate = DateTime.Now,
                 SubmitDate = submitDate,
             };
-
+            request.SetTitle(title);
+            request.SetRaDocNumber(raDocNumber);
+            request.SetSawsDocNumber(sawsDocNumber);
+            request.SetCaacDocNumber(caacDocNumber);
+            request.SetRequestStatus((RequestStatus)status);
+            request.SetCaacNote(caacNote);
+            request.SetRaNote(raNote);
+            request.SetSawsNote(sawsNote);
+            request.SetRaDocument(raDocumentId,raDocumentName);
+            request.SetSawsDocument(sawsDocumentId,sawsDocumentName);
+            request.SetCaacDocument(caacDocumentId,caacDocumentName);
             return request;
         }
     }
