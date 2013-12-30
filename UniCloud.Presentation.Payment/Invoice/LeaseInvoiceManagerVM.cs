@@ -59,7 +59,6 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             LeaseInvoices = Service.CreateCollection<LeaseInvoiceDTO>(_paymentData.LeaseInvoices);
             Service.RegisterCollectionView(LeaseInvoices); //注册查询集合。
-            LeaseInvoices.PropertyChanged += OnViewPropertyChanged;
 
             Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_paymentData, _paymentData.Currencies);
 
@@ -73,11 +72,9 @@ namespace UniCloud.Presentation.Payment.Invoice
 
             AcPaymentSchedules = Service.CreateCollection<AcPaymentScheduleDTO>(_paymentData.AcPaymentSchedules);
             Service.RegisterCollectionView(AcPaymentSchedules); //注册查询集合。
-            AcPaymentSchedules.PropertyChanged += OnViewPropertyChanged;
 
             EnginePaymentSchedules = Service.CreateCollection<EnginePaymentScheduleDTO>(_paymentData.EnginePaymentSchedules);
             Service.RegisterCollectionView(EnginePaymentSchedules); //注册查询集合。
-            EnginePaymentSchedules.PropertyChanged += OnViewPropertyChanged;
 
             var fd = new FilterDescriptor("ImportType", FilterOperator.Contains, "引进");
             var fd2 = new FilterDescriptor("ImportType", FilterOperator.DoesNotContain, "购买");
@@ -86,14 +83,11 @@ namespace UniCloud.Presentation.Payment.Invoice
             ContractAircrafts.FilterDescriptors.Add(fd);
             ContractAircrafts.FilterDescriptors.Add(fd2);
             Service.RegisterCollectionView(ContractAircrafts); //注册查询集合。
-            ContractAircrafts.PropertyChanged += OnViewPropertyChanged;
-
 
             ContractEngines = Service.CreateCollection<ContractEngineDTO>(_paymentData.ContractEngines);
             ContractEngines.FilterDescriptors.Add(fd);
             ContractEngines.FilterDescriptors.Add(fd2);
             Service.RegisterCollectionView(ContractEngines); //注册查询集合。
-            ContractEngines.PropertyChanged += OnViewPropertyChanged;
         }
 
         /// <summary>

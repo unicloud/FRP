@@ -19,7 +19,6 @@
 
 using System;
 using System.ComponentModel.Composition;
-using System.Data.Services.Client;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
@@ -77,19 +76,27 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         private void InitializeVM()
         {
-            ViewTradeDTO = Service.CreateCollection<TradeDTO>(_context.Trades);
+            ViewTradeDTO = Service.CreateCollection(_context.Trades);
             _tradeDescriptor = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
             ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor);
             Service.RegisterCollectionView(ViewTradeDTO);
-            ViewTradeDTO.PropertyChanged += OnViewPropertyChanged;
 
-            ViewAircraftPurchaseOrderDTO =
-                Service.CreateCollection<AircraftPurchaseOrderDTO>(
-                    _context.AircraftPurchaseOrders.Expand(p => p.RelatedDocs));
+            ViewAircraftPurchaseOrderDTO = Service.CreateCollection(
+                _context.AircraftPurchaseOrders.Expand(p => p.RelatedDocs),
+                (o, p, c) =>
+                {
+                    foreach (var order in from object item in o select item as AircraftPurchaseOrderDTO)
+                    {
+                        order.AircraftPurchaseOrderLines.CollectionChanged += c;
+                        order.AircraftPurchaseOrderLines.ToList().ForEach(ol => ol.PropertyChanged += p);
+                        order.RelatedDocs.CollectionChanged += c;
+                        order.RelatedDocs.ToList().ForEach(doc => doc.PropertyChanged += p);
+                    }
+                });
             _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
             ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
             Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
-            ViewAircraftPurchaseOrderDTO.PropertyChanged += OnViewPropertyChanged;
+
 
             Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
             Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context, _context.Currencies);
@@ -447,7 +454,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 OrderDate = DateTime.Now,
                 TradeId = _selTradeDTO.Id,
                 SourceGuid = Guid.NewGuid(),
-                SupplierId=_selTradeDTO.SupplierId
+                SupplierId = _selTradeDTO.SupplierId
             };
             ViewAircraftPurchaseOrderDTO.AddNew(order);
             SelTradeDTO.Status = (int) TradeStatus.进行中;

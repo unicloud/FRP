@@ -118,9 +118,8 @@
 											   VerticalAlignment="Center"
 											   InputMode="DatePicker"
 											   DateSelectionMode="Month"
-											   Culture="zh-Hans">
-					</telerik:RadDateTimePicker >
-					<TextBlock Text="结束时间："
+											   Culture="zh-Hans" />
+				    <TextBlock Text="结束时间："
 							   FontSize="{StaticResource TextFontSize}"
 							   VerticalAlignment="Center"
 							   TextAlignment="Right"
@@ -135,9 +134,8 @@
 											   VerticalAlignment="Center"
 											   InputMode="DatePicker"
 											   DateSelectionMode="Month"
-											   Culture="zh-Hans">
-					</telerik:RadDateTimePicker >
-					<telerik:RadButton Content="饼图配置"
+											   Culture="zh-Hans" />
+				    <telerik:RadButton Content="饼图配置"
 									   FontSize="{StaticResource TextFontSize}"
 									   Margin="20,6"
 									   ToolTipService.ToolTip="饼图配置"
@@ -224,7 +222,7 @@
 												<i:Interaction.Triggers>
 													<i:EventTrigger EventName="SelectionChanged">
 														<ei:CallMethodAction TargetObject="{Binding}"
-																			 MethodName="ChartSelectionBehavior_SelectionChanged"></ei:CallMethodAction>
+																			 MethodName="ChartSelectionBehaviorSelectionChanged" />
 													</i:EventTrigger>
 												</i:Interaction.Triggers>
 											</telerik:ChartSelectionBehavior>
@@ -277,8 +275,7 @@
 												  Margin="0,5,5,5"
 												  VerticalScrollBarVisibility="Auto"
 												  telerik:StyleManager.Theme="Windows8">
-										<StackPanel Style="{StaticResource LegendStyle}">
-										</StackPanel>
+										<StackPanel Style="{StaticResource LegendStyle}" />
 									</ScrollViewer>
 								</Grid>
 							</telerik:RadPane>
@@ -332,7 +329,7 @@
 												<i:Interaction.Triggers>
 													<i:EventTrigger EventName="SelectionChanged">
 														<ei:CallMethodAction TargetObject="{Binding}"
-																			 MethodName="RadPieChartSelectionBehavior_SelectionChanged"></ei:CallMethodAction>
+																			 MethodName="RadPieChartSelectionBehaviorSelectionChanged" />
 													</i:EventTrigger>
 												</i:Interaction.Triggers>
 											</telerik:ChartSelectionBehavior>
@@ -375,8 +372,7 @@
 												  Margin="0,5,5,5"
 												  VerticalScrollBarVisibility="Auto"
 												  telerik:StyleManager.Theme="Windows8">
-										<StackPanel Style="{StaticResource LegendStyle}">
-										</StackPanel>
+										<StackPanel Style="{StaticResource LegendStyle}" />
 									</ScrollViewer>
 								</Grid>
 							</telerik:RadPane>

@@ -245,7 +245,7 @@
 													<i:Interaction.Triggers>
 														<i:EventTrigger EventName="SelectionChanged">
 															<ei:CallMethodAction TargetObject="{Binding}"
-																				 MethodName="ChartSelectionBehavior_SelectionChanged"></ei:CallMethodAction>
+																				 MethodName="ChartSelectionBehavior_SelectionChanged" />
 														</i:EventTrigger>
 													</i:Interaction.Triggers>
 												</telerik:ChartSelectionBehavior>
@@ -281,8 +281,7 @@
 													  Margin="0,5,5,5"
 													  VerticalScrollBarVisibility="Auto"
 													  telerik:StyleManager.Theme="Windows8">
-											<StackPanel Style="{StaticResource LegendStyle}">
-											</StackPanel>
+											<StackPanel Style="{StaticResource LegendStyle}" />
 										</ScrollViewer>
 									</Grid>
 									<Grid Grid.Row="1"
@@ -304,7 +303,7 @@
 													<i:Interaction.Triggers>
 														<i:EventTrigger EventName="SelectionChanged">
 															<ei:CallMethodAction TargetObject="{Binding}"
-																				 MethodName="ChartSelectionBehavior_SelectionChanged"></ei:CallMethodAction>
+																				 MethodName="ChartSelectionBehavior_SelectionChanged" />
 														</i:EventTrigger>
 													</i:Interaction.Triggers>
 												</telerik:ChartSelectionBehavior>
@@ -439,7 +438,7 @@
 												<i:Interaction.Triggers>
 													<i:EventTrigger EventName="SelectionChanged">
 														<ei:CallMethodAction TargetObject="{Binding}"
-																			 MethodName="RadPieChartSelectionBehavior_SelectionChanged"></ei:CallMethodAction>
+																			 MethodName="RadPieChartSelectionBehavior_SelectionChanged" />
 													</i:EventTrigger>
 												</i:Interaction.Triggers>
 											</telerik:ChartSelectionBehavior>
@@ -482,8 +481,7 @@
 												  Margin="0,5,5,5"
 												  VerticalScrollBarVisibility="Auto"
 												  telerik:StyleManager.Theme="Windows8">
-										<StackPanel Style="{StaticResource LegendStyle}">
-										</StackPanel>
+										<StackPanel Style="{StaticResource LegendStyle}" />
 									</ScrollViewer>
 								</Grid>
 							</telerik:RadPane>
@@ -536,7 +534,7 @@
 												<i:Interaction.Triggers>
 													<i:EventTrigger EventName="SelectionChanged">
 														<ei:CallMethodAction TargetObject="{Binding}"
-																			 MethodName="RadPieChartSelectionBehavior_SelectionChanged"></ei:CallMethodAction>
+																			 MethodName="RadPieChartSelectionBehavior_SelectionChanged" />
 													</i:EventTrigger>
 												</i:Interaction.Triggers>
 											</telerik:ChartSelectionBehavior>
@@ -579,8 +577,7 @@
 												  Margin="0,5,5,5"
 												  VerticalScrollBarVisibility="Auto"
 												  telerik:StyleManager.Theme="Windows8">
-										<StackPanel Style="{StaticResource LegendStyle}">
-										</StackPanel>
+										<StackPanel Style="{StaticResource LegendStyle}" />
 									</ScrollViewer>
 								</Grid>
 							</telerik:RadPane>

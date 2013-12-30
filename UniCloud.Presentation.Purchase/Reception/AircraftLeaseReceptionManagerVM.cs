@@ -58,7 +58,6 @@ namespace UniCloud.Presentation.Purchase.Reception
 
             AircraftLeaseReceptions = Service.CreateCollection<AircraftLeaseReceptionDTO>(PurchaseDataService.AircraftLeaseReceptions.Expand(p => p.RelatedDocs));
             Service.RegisterCollectionView(AircraftLeaseReceptions); //注册查询集合。
-            AircraftLeaseReceptions.PropertyChanged += OnViewPropertyChanged;
         }
 
         /// <summary>

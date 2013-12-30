@@ -636,7 +636,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         ///     保存前操作
         /// </summary>
         /// <param name="sender"></param>
-        protected override bool OnSaveExecuting(QueryableDataServiceCollectionViewBase sender)
+        protected override bool OnSaveExecuting(object sender)
         {
             if (SelectedAcPaymentSchedule != null)
             {

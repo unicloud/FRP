@@ -99,7 +99,6 @@ namespace UniCloud.Presentation.Payment.Guarantees
                 }
                 RefreshCommandState();
             };
-            LeaseGuaranteesView.PropertyChanged += OnViewPropertyChanged;
         }
 
         #endregion
@@ -395,7 +394,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
             AbortCommand.RaiseCanExecuteChanged();
         }
 
-        protected override bool OnSaveExecuting(QueryableDataServiceCollectionViewBase sender)
+        protected override bool OnSaveExecuting(object sender)
         {
             var canSave = true;
             foreach (var p in LeaseGuaranteesView.ToList())
