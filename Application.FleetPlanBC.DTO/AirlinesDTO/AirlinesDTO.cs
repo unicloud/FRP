@@ -34,6 +34,16 @@ namespace UniCloud.Application.FleetPlanBC.DTO.AirlinesDTO
         /// </summary>
         public Guid Id { get; set; }
 
+        /// <summary>
+        ///     公司中文名称
+        /// </summary>
+        public string CnName { get; protected set; }
+
+        /// <summary>
+        ///     公司中文简称
+        /// </summary>
+        public string CnShortName { get; protected set; }
+
         #endregion
     }
 }

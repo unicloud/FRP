@@ -34,6 +34,11 @@ namespace UniCloud.Application.FleetPlanBC.DTO.AircraftTypeDTO
         /// </summary>
         public Guid Id { get; set; }
 
+        /// <summary>
+        ///     机型名称
+        /// </summary>
+        public string Name { get; set; }
+
         #endregion
     }
 }

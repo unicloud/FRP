@@ -34,6 +34,25 @@ namespace UniCloud.Application.FleetPlanBC.DTO.AnnualDTO
         /// </summary>
         public Guid Id { get; set; }
 
+        /// <summary>
+        ///     年度
+        /// </summary>
+        public int Year { get; set; }
+
+        /// <summary>
+        ///     是否打开年度
+        /// </summary>
+        public bool IsOpen { get; set; }
+
+        #endregion
+
+        #region 外键属性
+
+        /// <summary>
+        ///     五年规划期间ID
+        /// </summary>
+        public Guid ProgrammingId { get; set; }
+
         #endregion
     }
 }
