@@ -116,7 +116,6 @@
                                         <Image Source="/UniCloud.Presentation;component/Images/RelatedDoc.png"
                                                Stretch="Fill" ToolTipService.ToolTip="添加关联文档" />
                                     </telerik:RadButton>
-                                    <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AddOrderLineCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Add.png" Stretch="Fill"
                                                ToolTipService.ToolTip="增加订单行" />
@@ -124,6 +123,16 @@
                                     <telerik:RadButton Margin="2,2,2,-2" Command="{Binding RemoveOrderLineCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
                                                Stretch="Fill" ToolTipService.ToolTip="移除订单行" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding CommitCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Commit.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="提交审核" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding CheckCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Check.png"
+                                               Stretch="Fill" ToolTipService.ToolTip="审核" />
                                     </telerik:RadButton>
                                 </telerik:RadToolBar>
                                 <telerik:RadGridView Grid.Row="1" x:Name="Order"

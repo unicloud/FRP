@@ -78,7 +78,6 @@ namespace UniCloud.Presentation.MVVM
                     RefreshCommandState();
                 });
             }
-            RefreshCommandState();
         }
 
         /// <summary>
@@ -136,7 +135,9 @@ namespace UniCloud.Presentation.MVVM
             }
             else
             {
+                OnAbortExecuting(sender);
                 Service.RejectChanges();
+                OnAbortExecuted(sender);
             }
         }
 
@@ -160,10 +161,8 @@ namespace UniCloud.Presentation.MVVM
         /// <summary>
         ///     刷新按钮状态
         /// </summary>
-        public virtual void RefreshCommandState()
+        protected virtual void RefreshCommandState()
         {
-            SaveCommand.RaiseCanExecuteChanged();
-            AbortCommand.RaiseCanExecuteChanged();
         }
 
         #endregion
