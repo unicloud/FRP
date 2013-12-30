@@ -44,12 +44,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\DependencyAgg\Dependency.cs" />
+    <Compile Include="Aggregates\DependencyAgg\DependencyFactory.cs" />
+    <Compile Include="Aggregates\DependencyAgg\DependencySpecifications.cs" />
+    <Compile Include="Aggregates\DependencyAgg\IDependencyRepository.cs" />
+    <Compile Include="Aggregates\EmployeeResourceAgg\EmployeeResource.cs" />
+    <Compile Include="Aggregates\EmployeeResourceAgg\EmployeeResourceFactory.cs" />
+    <Compile Include="Aggregates\EmployeeResourceAgg\EmployeeResourceSpecifications.cs" />
+    <Compile Include="Aggregates\EmployeeResourceAgg\IEmployeeResourceRepository.cs" />
+    <Compile Include="Aggregates\ScheduleTempAgg\IScheduleTempRepository.cs" />
+    <Compile Include="Aggregates\ScheduleTempAgg\ScheduleTemp.cs" />
+    <Compile Include="Aggregates\ScheduleTempAgg\ScheduleTempFactory.cs" />
+    <Compile Include="Aggregates\ScheduleTempAgg\ScheduleTempSpecifications.cs" />
+    <Compile Include="Enums\DependencyType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Aggregates\" />
-    <Folder Include="Enums\" />
-    <Folder Include="Resources\" />
+    <Folder Include="Aggregates\ProjectAgg\" />
+    <Folder Include="Aggregates\ProjectTempAgg\" />
     <Folder Include="Services\" />
     <Folder Include="ValueObjects\" />
   </ItemGroup>
