@@ -22,7 +22,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.Query.PlanQueries
+namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
 {
     public interface IPlanQuery
     {

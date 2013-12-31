@@ -94,12 +94,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
         /// <summary>
         ///     机型
         /// </summary>
-        public virtual AircraftType AircraftType { get; set; }
+        public virtual AircraftType AircraftType { get; private set; }
 
         /// <summary>
         ///     引进方式
         /// </summary>
-        public virtual ActionCategory ImportCategory { get; set; }
+        public virtual ActionCategory ImportCategory { get; private set; }
 
         #endregion
 
@@ -169,29 +169,31 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
         /// <summary>
         ///     设置机型
         /// </summary>
-        /// <param name="aircraftTypeId">机型</param>
-        public void SetAircraftType(Guid aircraftTypeId)
+        /// <param name="aircraftType">机型</param>
+        public void SetAircraftType(AircraftType aircraftType)
         {
-            if (aircraftTypeId == null)
+            if (aircraftType == null || aircraftType.IsTransient())
             {
-                throw new ArgumentException("机型Id参数为空！");
+                throw new ArgumentException("机型参数为空！");
             }
 
-            AircraftTypeId = aircraftTypeId;
+            AircraftType = aircraftType;
+            AircraftTypeId = aircraftType.Id;
         }
 
         /// <summary>
         ///     设置引进方式
         /// </summary>
-        /// <param name="importCategoryId">引进方式</param>
-        public void SetImportCategory(Guid importCategoryId)
+        /// <param name="importCategory">引进方式</param>
+        public void SetImportCategory(ActionCategory importCategory)
         {
-            if (importCategoryId == null)
+            if (importCategory == null || importCategory.IsTransient())
             {
-                throw new ArgumentException("引进方式Id参数为空！");
+                throw new ArgumentException("引进方式参数为空！");
             }
 
-            ImportCategoryId = importCategoryId;
+            ImportCategory = importCategory;
+            ImportCategoryId = importCategory.Id;
         }
 
 

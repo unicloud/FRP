@@ -85,17 +85,17 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg
         /// <summary>
         /// 实际飞机
         /// </summary>
-        public virtual Aircraft Aircraft { get; set; }
+        public virtual Aircraft Aircraft { get; private set; }
 
         /// <summary>
         /// 机型
         /// </summary>
-        public virtual AircraftType AircraftType { get; set; }
+        public virtual AircraftType AircraftType { get; private set; }
 
         /// <summary>
         /// 航空公司
         /// </summary>
-        public virtual Airlines Airlines { get; set; }
+        public virtual Airlines Airlines { get; private set; }
         #endregion
 
         #region 操作
@@ -165,43 +165,41 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg
         /// <summary>
         ///     设置实际飞机
         /// </summary>
-        /// <param name="aircraftID">实际飞机</param>
-        public void SetAircraft(Guid aircraftID)
+        /// <param name="aircraft">实际飞机</param>
+        public void SetAircraft(Aircraft aircraft)
         {
-            if (aircraftID == null)
-            {
-                throw new ArgumentException("实际飞机Id参数为空！");
-            }
-
-            AircraftId = aircraftID;
+            Aircraft = aircraft;
+            AircraftId = aircraft.Id;
         }
 
         /// <summary>
         ///     设置机型
         /// </summary>
-        /// <param name="aircraftTypeId">机型</param>
-        public void SetAircraftType(Guid aircraftTypeId)
+        /// <param name="aircraftType">机型</param>
+        public void SetAircraftType(AircraftType aircraftType)
         {
-            if (aircraftTypeId == null)
+            if (aircraftType == null || aircraftType.IsTransient())
             {
-                throw new ArgumentException("机型Id参数为空！");
+                throw new ArgumentException("机型参数为空！");
             }
 
-            AircraftTypeId = aircraftTypeId;
+            AircraftType = aircraftType;
+            AircraftTypeId = aircraftType.Id;
         }
 
         /// <summary>
         ///     设置航空公司
         /// </summary>
-        /// <param name="airlinesId">航空公司</param>
-        public void SetAirlines(Guid airlinesId)
+        /// <param name="airlines">航空公司</param>
+        public void SetAirlines(Airlines airlines)
         {
-            if (airlinesId == null)
+            if (airlines == null || airlines.IsTransient())
             {
-                throw new ArgumentException("航空公司Id参数为空！");
+                throw new ArgumentException("航空公司参数为空！");
             }
 
-            AirlinesId = airlinesId;
+            Airlines = airlines;
+            AirlinesId = airlines.Id;
         }
         #endregion
     }

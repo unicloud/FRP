@@ -87,7 +87,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
         /// <summary>
         /// 飞机座级
         /// </summary>
-        public virtual AircraftCategory AircraftCategory { get; set; }
+        public virtual AircraftCategory AircraftCategory { get; private set; }
 
         #endregion
 
@@ -137,15 +137,16 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
         /// <summary>
         ///     设置飞机座级
         /// </summary>
-        /// <param name="aircraftCategoryId">飞机座级</param>
-        public void SetAircraftCategory(Guid aircraftCategoryId)
+        /// <param name="aircraftCategory">飞机座级</param>
+        public void SetAircraftCategory(AircraftCategory aircraftCategory)
         {
-            if (aircraftCategoryId == null)
+            if (aircraftCategory == null)
             {
-                throw new ArgumentException("飞机座级Id参数为空！");
+                throw new ArgumentException("飞机座级参数为空！");
             }
 
-            AircraftCategoryId = aircraftCategoryId;
+            AircraftCategory = aircraftCategory;
+            AircraftCategoryId = aircraftCategory.Id;
         }
 
         #endregion

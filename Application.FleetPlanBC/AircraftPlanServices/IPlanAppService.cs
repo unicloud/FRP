@@ -22,7 +22,7 @@ using UniCloud.Application.FleetPlanBC.DTO;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.PlanServices
+namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
 {
     /// <summary>
     ///     运力增减计划服务接口。

@@ -102,7 +102,7 @@
         <Property Name="Note" Type="Edm.String" />
         <Property Name="DocName" Type="Edm.String" />
         <Property Name="ProgrammingId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="DocumentId" Type="Edm.Guid" />
+        <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
         <Property Name="IssuedUnitId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AirProgrammingLines" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.AirProgrammingLineDTO)" Nullable="false" />
       </EntityType>
@@ -138,7 +138,7 @@
         <Property Name="DocName" Type="Edm.String" />
         <Property Name="ProgrammingId" Type="Edm.Guid" Nullable="false" />
         <Property Name="IssuedUnitId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="DocumentId" Type="Edm.Guid" />
+        <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
         <Property Name="CaacProgrammingLines" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.CaacProgrammingLineDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="CaacProgrammingLineDTO">
@@ -198,7 +198,7 @@
         <Property Name="DocName" Type="Edm.String" />
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AnnualId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="DocumentId" Type="Edm.Guid" />
+        <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
         <Property Name="EnginePlanHistories" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.EnginePlanHistoryDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="EnginePlanHistoryDTO">
@@ -279,7 +279,7 @@
         <Property Name="DocName" Type="Edm.String" />
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AnnualId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="DocumentId" Type="Edm.Guid" />
+        <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
         <Property Name="PlanHistories" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.PlanHistoryDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="PlanHistoryDTO">

@@ -66,8 +66,8 @@
     <Compile Include="Aggregates\AnnualAgg\AnnualFactory.cs" />
     <Compile Include="Aggregates\ApprovalDocAgg\ApprovalDoc.cs" />
     <Compile Include="Aggregates\BankAccountAgg\BankAccount.cs" />
-    <Compile Include="Aggregates\CaacPorgrammingAgg\CaacProgramming.cs" />
-    <Compile Include="Aggregates\CaacPorgrammingAgg\CaacProgrammingLine.cs" />
+    <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgramming.cs" />
+    <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgrammingLine.cs" />
     <Compile Include="Aggregates\ContentTagAgg\ContentTag.cs" />
     <Compile Include="Aggregates\ContentTagAgg\ContentTagSpecifications.cs" />
     <Compile Include="Aggregates\ContentTagAgg\IContentTagRepository.cs" />

@@ -18,6 +18,17 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="EditComboBox"
+                   TargetType="telerik:RadComboBox">
+                <Setter Property="FontFamily"
+                        Value="Microsoft YaHei UI" />
+                <Setter Property="FontSize"
+                        Value="13" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="OpenDropDownOnFocus"
+                        Value="True" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -44,14 +55,14 @@
                                                     Margin="-1 -2 -1 0">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding SaveCommand}"
-                                                       CommandParameter="{Binding AircraftLeaseReceptions}">
+                                                       CommandParameter="{Binding AirProgrammings}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="保存" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding AbortCommand}"
-                                                       CommandParameter="{Binding AircraftLeaseReceptions}">
+                                                       CommandParameter="{Binding AirProgrammings}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="放弃更改" />
@@ -69,8 +80,14 @@
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="删除五年规划" />
                                     </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2"
+                                                       Command="{Binding AddAttachCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="添加规划文档" />
+                                    </telerik:RadButton>
                                 </telerik:RadToolBar>
-                                <telerik:RadGridView x:Name="Main1"
+                                <telerik:RadGridView x:Name="AirProgrammings"
                                                      Grid.Row="1"
                                                      AutoExpandGroups="True"
                                                      ShowGroupPanel="False"
@@ -81,17 +98,17 @@
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="False"
-                                                     ItemsSource="{Binding }"
-                                                     SelectedItem="{Binding }"
-                                                     IsBusy="{Binding }">
+                                                     ItemsSource="{Binding AirProgrammings}"
+                                                     SelectedItem="{Binding SelAirProgramming}"
+                                                     IsBusy="{Binding AirProgrammings.IsBusy}">
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
                                                                  Command="{Binding ExcelExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=AirProgrammings, Mode=OneWay}" />
                                             <telerik:RadMenuItem Header="导出Word"
                                                                  Command="{Binding WordExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=AirProgrammings, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
@@ -104,12 +121,15 @@
                                                                     IsFilterable="True"
                                                                     IsReadOnly="True"
                                                                     DataMemberBinding="{Binding Name}" />
-                                        <telerik:GridViewDataColumn Header="规划"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    HeaderTextAlignment="Center"
-                                                                    IsFilterable="True"
-                                                                    IsReadOnly="True"
-                                                                    DataMemberBinding="{Binding Programming.Name}" />
+                                        <telerik:GridViewComboBoxColumn Header="规划"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        IsFilterable="True"
+                                                                        ItemsSource="{Binding DataContext.Programmings, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        DisplayMemberPath="Name"
+                                                                        DataMemberBinding="{Binding ProgrammingId,Mode=TwoWay}"
+                                                                        SelectedValueMemberPath="Id"
+                                                                        EditorStyle="{StaticResource EditComboBox}" />
                                         <telerik:GridViewDataColumn Header="发文日期"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -124,29 +144,26 @@
                                                                     IsFilterable="True"
                                                                     IsReadOnly="True"
                                                                     DataMemberBinding="{Binding CreateDate, StringFormat={StaticResource DateStringFormat}}" />
-                                        <!--<telerik:GridViewDataColumn Header="附件"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        IsSortable="True"
-                                                                        IsFilterable="True"
-                                                                        IsReadOnly="True"
-                                                                        DataMemberBinding="{Binding}" />-->
+                                        <telerik:GridViewDataColumn Header="规划文档"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    TextAlignment="Right"
+                                                                    HeaderTextAlignment="Center"
+                                                                    IsReadOnly="True"
+                                                                    IsSortable="True"
+                                                                    DataMemberBinding="{Binding DocName}">
+                                            <telerik:GridViewDataColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <HyperlinkButton Content="{Binding DocName}"
+                                                                     Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}" />
+                                                </DataTemplate>
+                                            </telerik:GridViewDataColumn.CellTemplate>
+                                        </telerik:GridViewDataColumn>
                                         <telerik:GridViewColumn Header="操作"
                                                                 HeaderTextAlignment="Center"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 IsSortable="True"
                                                                 IsFilterable="True"
                                                                 IsReadOnly="True">
-                                            <telerik:GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <StackPanel Orientation="Horizontal"
-                                                                VerticalAlignment="Center">
-                                                        <telerik:RadButton Content="下载附件"
-                                                                           Command="{Binding DataContext.DownloadDocumentCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
-                                                                           CommandParameter="{Binding}" />
-                                                    </StackPanel>
-                                                </DataTemplate>
-                                            </telerik:GridViewColumn.CellTemplate>
                                         </telerik:GridViewColumn>
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>

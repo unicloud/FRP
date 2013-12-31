@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class database : DbMigration
     {
         public override void Up()
         {
@@ -267,8 +267,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         CreateDate = c.DateTime(precision: 7, storeType: "datetime2"),
                         IssuedDate = c.DateTime(precision: 7, storeType: "datetime2"),
                         Note = c.String(),
+                        DocName = c.String(),
                         ProgrammingId = c.Guid(nullable: false),
-                        DocumentId = c.Guid(),
+                        DocumentId = c.Guid(nullable: false),
                         IssuedUnitId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
@@ -361,9 +362,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         IssuedDate = c.DateTime(precision: 7, storeType: "datetime2"),
                         DocNumber = c.String(),
                         Note = c.String(),
+                        DocName = c.String(),
                         ProgrammingId = c.Guid(nullable: false),
                         IssuedUnitId = c.Guid(nullable: false),
-                        DocumentId = c.Guid(),
+                        DocumentId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.Manager", t => t.IssuedUnitId)
@@ -656,9 +658,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         IsFinished = c.Boolean(nullable: false),
                         Status = c.Int(nullable: false),
                         Note = c.String(),
+                        DocName = c.String(),
                         AirlinesId = c.Guid(nullable: false),
                         AnnualId = c.Guid(nullable: false),
-                        DocumentId = c.Guid(),
+                        DocumentId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.Airlines", t => t.AirlinesId)
@@ -1028,7 +1031,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .Index(t => t.SupplierId);
             
             CreateTable(
-                "FRP.Plan",
+                "FRP.AircraftPlan",
                 c => new
                     {
                         ID = c.Guid(nullable: false),
@@ -1042,9 +1045,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         IsFinished = c.Boolean(nullable: false),
                         Status = c.Int(nullable: false),
                         PublishStatus = c.Int(nullable: false),
+                        DocName = c.String(),
                         AirlinesId = c.Guid(nullable: false),
                         AnnualId = c.Guid(nullable: false),
-                        DocumentId = c.Guid(),
+                        DocumentId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.Airlines", t => t.AirlinesId)
@@ -1078,7 +1082,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .ForeignKey("FRP.Annual", t => t.PerformAnnualId)
                 .ForeignKey("FRP.PlanAircraft", t => t.PlanAircraftId)
                 .ForeignKey("FRP.ActionCategory", t => t.TargetCategoryId)
-                .ForeignKey("FRP.Plan", t => t.PlanId)
+                .ForeignKey("FRP.AircraftPlan", t => t.PlanId)
                 .Index(t => t.ActionCategoryId)
                 .Index(t => t.AircraftTypeId)
                 .Index(t => t.AirlinesId)
@@ -1928,15 +1932,15 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.Reception", "SupplierId", "FRP.Supplier");
             DropForeignKey("FRP.ReceptionSchedule", "ReceptionId", "FRP.Reception");
             DropForeignKey("FRP.ReceptionLine", "ReceptionId", "FRP.Reception");
-            DropForeignKey("FRP.PlanHistory", "PlanId", "FRP.Plan");
+            DropForeignKey("FRP.PlanHistory", "PlanId", "FRP.AircraftPlan");
             DropForeignKey("FRP.PlanHistory", "TargetCategoryId", "FRP.ActionCategory");
             DropForeignKey("FRP.PlanHistory", "PlanAircraftId", "FRP.PlanAircraft");
             DropForeignKey("FRP.PlanHistory", "PerformAnnualId", "FRP.Annual");
             DropForeignKey("FRP.PlanHistory", "AirlinesId", "FRP.Airlines");
             DropForeignKey("FRP.PlanHistory", "AircraftTypeId", "FRP.AircraftType");
             DropForeignKey("FRP.PlanHistory", "ActionCategoryId", "FRP.ActionCategory");
-            DropForeignKey("FRP.Plan", "AnnualId", "FRP.Annual");
-            DropForeignKey("FRP.Plan", "AirlinesId", "FRP.Airlines");
+            DropForeignKey("FRP.AircraftPlan", "AnnualId", "FRP.Annual");
+            DropForeignKey("FRP.AircraftPlan", "AirlinesId", "FRP.Airlines");
             DropForeignKey("FRP.PaymentSchedule", "SupplierId", "FRP.Supplier");
             DropForeignKey("FRP.PaymentScheduleLine", "PaymentScheduleId", "FRP.PaymentSchedule");
             DropForeignKey("FRP.PaymentScheduleLine", "InvoiceId", "FRP.Invoice");
@@ -2115,8 +2119,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.PlanHistory", new[] { "AirlinesId" });
             DropIndex("FRP.PlanHistory", new[] { "AircraftTypeId" });
             DropIndex("FRP.PlanHistory", new[] { "ActionCategoryId" });
-            DropIndex("FRP.Plan", new[] { "AnnualId" });
-            DropIndex("FRP.Plan", new[] { "AirlinesId" });
+            DropIndex("FRP.AircraftPlan", new[] { "AnnualId" });
+            DropIndex("FRP.AircraftPlan", new[] { "AirlinesId" });
             DropIndex("FRP.PaymentSchedule", new[] { "SupplierId" });
             DropIndex("FRP.PaymentScheduleLine", new[] { "PaymentScheduleId" });
             DropIndex("FRP.PaymentScheduleLine", new[] { "InvoiceId" });
@@ -2269,7 +2273,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.ReceptionSchedule");
             DropTable("FRP.ReceptionLine");
             DropTable("FRP.PlanHistory");
-            DropTable("FRP.Plan");
+            DropTable("FRP.AircraftPlan");
             DropTable("FRP.PaymentSchedule");
             DropTable("FRP.PaymentScheduleLine");
             DropTable("FRP.PaymentNoticeLine");
