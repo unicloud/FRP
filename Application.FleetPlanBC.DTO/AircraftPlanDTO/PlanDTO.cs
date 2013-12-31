@@ -20,7 +20,7 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.AircraftPlanDTO
+namespace UniCloud.Application.FleetPlanBC.DTO
 {
     /// <summary>
     /// 运力增减计划
@@ -33,6 +33,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO.AircraftPlanDTO
         private List<PlanHistoryDTO> _planHistories;
 
         #endregion
+
         #region 属性
 
         /// <summary>
@@ -90,6 +91,20 @@ namespace UniCloud.Application.FleetPlanBC.DTO.AircraftPlanDTO
         /// </summary>
         public int PublishStatus { get; set; }
 
+        /// <summary>
+        /// 文档名称
+        /// </summary>
+        public string DocName { get; set; }
+
+        /// <summary>
+        /// 航空公司名称
+        /// </summary>
+        public string AirlinesName { get; set; }
+
+        /// <summary>
+        /// 年度
+        /// </summary>
+        public int Year { get; set; }
         #endregion
 
         #region 外键属性
@@ -107,7 +122,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO.AircraftPlanDTO
         /// <summary>
         ///     文档Id
         /// </summary>
-        public Guid? DocumentId { get; set; }
+        public Guid DocumentId { get; set; }
 
         #endregion
 

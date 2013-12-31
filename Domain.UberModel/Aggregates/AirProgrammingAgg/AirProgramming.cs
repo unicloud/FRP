@@ -69,7 +69,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg
         /// </summary>
         public string Note { get; private set; }
 
-
+        /// <summary>
+        /// 文档名称
+        /// </summary>
+        public string DocName { get; private set; }
 
         #endregion
 
@@ -82,7 +85,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg
         /// <summary>
         ///     文档Id
         /// </summary>
-        public Guid? DocumentId { get; private set; }
+        public Guid DocumentId { get; private set; }
 
         /// <summary>
         ///   发文单位
@@ -95,12 +98,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg
         /// <summary>
         /// 规划期间
         /// </summary>
-        public virtual Programming Programming { get; set; }
+        public virtual Programming Programming { get; private set; }
 
         /// <summary>
         /// 发文单位
         /// </summary>
-        public virtual Manager IssuedUnit { get; set; }
+        public virtual Manager IssuedUnit { get; private set; }
 
         /// <summary>
         ///     航空公司五年规划明细
@@ -150,43 +153,47 @@ namespace UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg
         /// <summary>
         ///     设置规划期间
         /// </summary>
-        /// <param name="programmingId">规划期间</param>
-        public void SetProgramming(Guid programmingId)
+        /// <param name="programming">规划期间</param>
+        public void SetProgramming(Programming programming)
         {
-            if (programmingId == null)
+            if (programming == null || programming.IsTransient())
             {
-                throw new ArgumentException("规划期间Id参数为空！");
+                throw new ArgumentException("规划期间参数为空！");
             }
 
-            ProgrammingId = programmingId;
+            Programming = programming;
+            ProgrammingId = programming.Id;
         }
 
         /// <summary>
         ///     设置五年规划文档
         /// </summary>
         /// <param name="documentId">五年规划文档</param>
-        public void SetDocument(Guid documentId)
+        /// <param name="docName">规划文档名称</param>
+        public void SetDocument(Guid documentId,string docName)
         {
-            if (documentId == null)
-            {
-                throw new ArgumentException("五年规划文档Id参数为空！");
-            }
+            //if (documentId == Guid.Empty)
+            //{
+            //    throw new ArgumentException("五年规划文档Id参数为空！");
+            //}
 
             DocumentId = documentId;
+            DocName = docName;
         }
 
         /// <summary>
         ///     设置发文单位
         /// </summary>
-        /// <param name="issuedUnitId">发文单位</param>
-        public void SetIssuedUnit(Guid issuedUnitId)
+        /// <param name="issuedUnit">发文单位</param>
+        public void SetIssuedUnit(Manager issuedUnit)
         {
-            if (issuedUnitId == null)
+            if (issuedUnit == null || issuedUnit.IsTransient())
             {
-                throw new ArgumentException("发文单位Id参数为空！");
+                throw new ArgumentException("发文单位参数为空！");
             }
 
-            IssuedUnitId = issuedUnitId;
+            IssuedUnit = issuedUnit;
+            IssuedUnitId = issuedUnit.Id;
         }
 
         /// <summary>

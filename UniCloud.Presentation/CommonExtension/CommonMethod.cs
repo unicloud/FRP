@@ -17,11 +17,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Telerik.Windows.Controls;
 using UniCloud.Presentation.Input;
+using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 #endregion
 
@@ -110,40 +112,40 @@ namespace UniCloud.Presentation.CommonExtension
                             {
                                 Header = "运营权人",
                                 DataMemberBinding =
-                                    new System.Windows.Data.Binding("ThenAirlineName")
+                                    new System.Windows.Data.Binding("AirlinesName")
                             };
 
             var gvColumn3 = new GridViewDataColumn
                             {
                                 Header = "所有权人",
-                                DataMemberBinding = new System.Windows.Data.Binding("ThenOwnerName")
+                                DataMemberBinding = new System.Windows.Data.Binding("SupplierName")
                             };
 
             var gvColumn4 = new GridViewDataColumn
                             {
                                 Header = "制造商",
                                 DataMemberBinding =
-                                    new System.Windows.Data.Binding("AircraftType.Manufacturer.Name")
+                                    new System.Windows.Data.Binding("ManufacturerName")
                             };
 
             var gvColumn5 = new GridViewDataColumn
                             {
                                 Header = "座级",
-                                DataMemberBinding = new System.Windows.Data.Binding("ThenRegional")
+                                DataMemberBinding = new System.Windows.Data.Binding("Regional")
                             };
 
             var gvColumn6 = new GridViewDataColumn
                             {
                                 Header = "机型",
                                 DataMemberBinding =
-                                    new System.Windows.Data.Binding("ThenAircraftTypeName")
+                                    new System.Windows.Data.Binding("AircraftTypeName")
                             };
 
             var gvColumn7 = new GridViewDataColumn
                             {
                                 Header = "引进方式",
                                 DataMemberBinding =
-                                    new System.Windows.Data.Binding("ThenActionName")
+                                    new System.Windows.Data.Binding("ImportCategoryName")
                             };
 
             var gvColumn8 = new GridViewDataColumn { Header = "出厂日期" };
@@ -155,7 +157,7 @@ namespace UniCloud.Presentation.CommonExtension
                             {
                                 Header = "座位数(座)",
                                 DataMemberBinding =
-                                    new System.Windows.Data.Binding("ThenSeatingCapacity")
+                                    new System.Windows.Data.Binding("SeatingCapacity")
                             };
 
 
@@ -163,7 +165,7 @@ namespace UniCloud.Presentation.CommonExtension
                              {
                                  Header = "商载量(吨)",
                                  DataMemberBinding =
-                                     new System.Windows.Data.Binding("ThenCarryingCapacity")
+                                     new System.Windows.Data.Binding("CarryingCapacity")
                              };
             //System.Windows.Data.Binding bingding10 = new System.Windows.Data.Binding("AircraftBusinesses");
             //bingding10.Converter = new SelectedTimeConverter();
@@ -172,7 +174,7 @@ namespace UniCloud.Presentation.CommonExtension
 
             var gvColumn11 = new DataPageSerialColumn();
             var dictionary = new ResourceDictionary();
-            //dictionary.Source = new Uri("/UniCloud.Infrastructure.Common;component/Resources/CafmStyle.xaml", UriKind.Relative);
+            dictionary.Source = new Uri("/UniCloud.Presentation;component/Resources/UcStyles.xaml", UriKind.Relative);
             gvColumn11.Header = "序号";
             gvColumn11.CellStyle = (Style)dictionary["style"];
 
@@ -191,78 +193,69 @@ namespace UniCloud.Presentation.CommonExtension
             return rgView;
         }
 
-        ///// <summary>
-        ///// 获取指定时间点的当时飞机信息
-        ///// </summary>
-        ///// <param name="list"></param>
-        ///// <param name="selecttime"></param>
-        ///// <returns></returns>
-        //public List<AircraftDataObject> GetAircraftByTime(List<AircraftDataObject> list, DateTime selecttime)
-        //{
-        //    //    if (list == null)
-        //    //        return null;
+        /// <summary>
+        /// 获取指定时间点的当时飞机信息
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="selectTime"></param>
+        /// <returns></returns>
+        public List<AircraftDTO> GetAircraftByTime(List<AircraftDTO> list, DateTime selectTime)
+        {
+            if (list == null)
+                return null;
 
-        //    List<AircraftDataObject> AircraftList = new List<AircraftDataObject>();
-        //    //    foreach (var item in list)
-        //    //    {
-        //    //        //item.ThenSeatingCapacity = 0;
-        //    //        //item.ThenCarryingCapacity = 0;
-        //    //        //item.ThenRegional = string.Empty;
-        //    //        //item.ThenAircraftTypeName = string.Empty;
-        //    //        //item.ThenActionName = string.Empty;
-        //    //        //item.ThenAirlineName = string.Empty;
-        //    //        //item.ThenOwnerName = string.Empty;
-        //    //        item.SeatingCapacity = 0;
-        //    //        item.CarryingCapacity = 0;
-        //    //        item.RegNumber = string.Empty;
-        //    //        item.AircraftTypeID = Guid.Empty;
-        //    //        item.ImportCategoryID = Guid.Empty;
-        //    //        item.AirlinesID = Guid.Empty;
-        //    //        item.OwnerID = Guid.Empty;
+            var aircraftList = new List<AircraftDTO>();
+            foreach (var item in list)
+            {
+                item.SeatingCapacity = 0;
+                item.CarryingCapacity = 0;
+                item.RegNumber = string.Empty;
+                item.AircraftTypeId = Guid.Empty;
+                item.ImportCategoryId = Guid.Empty;
+                item.AirlinesId = Guid.Empty;
+                item.SupplierId = 0;
 
-        //    //        if (aircraftBusinessDataObjectList != null)
-        //    //        {
-        //    //        var aircraftbusiness = aircraftBusinessDataObjectList.
-        //    //        //AircraftBusiness aircraftbusiness = item.AircraftBusinesses.FirstOrDefault(p => p.StartDate <= selecttime && !(p.EndDate != null && p.EndDate < selecttime));
+                AircraftBusinessDTO aircraftbusiness = item.AircraftBusinesses.FirstOrDefault(p => p.StartDate <= selectTime && !(p.EndDate != null && p.EndDate < selectTime));
+                if (aircraftbusiness != null)
+                {
+                    //座位
+                    item.SeatingCapacity = aircraftbusiness.SeatingCapacity;
+                    //商载
+                    item.CarryingCapacity = aircraftbusiness.CarryingCapacity;
+                    //座级
+                    //item. = aircraftbusiness.AircraftType.AircraftCategory.Regional;
+                    //机型
+                    item.AircraftTypeId = aircraftbusiness.AircraftTypeId;
+                }
 
-        //    //            //座位
-        //    //            item.ThenSeatingCapacity = aircraftbusiness.SeatingCapacity;
-        //    //            //商载
-        //    //            item.ThenCarryingCapacity = aircraftbusiness.CarryingCapacity;
-        //    //            //座级
-        //    //            item.ThenRegional = aircraftbusiness.AircraftType.AircraftCategory.Regional;
-        //    //            //机型
-        //    //            item.ThenAircraftTypeName = aircraftbusiness.AircraftType.Name;
-        //    //        }
+                OperationHistoryDTO operationhistory = item.OperationHistories.FirstOrDefault(p => p.StartDate <= selectTime && !(p.EndDate != null && p.EndDate < selectTime));
+                if (operationhistory != null)
+                {
+                    //引进方式
+                    item.ImportCategoryId = operationhistory.ImportCategoryId;
 
-        //    //        OperationHistory operationhistory = item.OperationHistories.FirstOrDefault(p => p.StartDate <= selecttime && !(p.EndDate != null && p.EndDate < selecttime));
-        //    //        if (operationhistory != null)
-        //    //        {
-        //    //            //引进方式
-        //    //            item.ThenActionName = operationhistory.ImportCategory.ActionName;
+                    //运营权人名称
+                    //if (operationhistory.A != null && operationhistory.SubOperationCategorys.Any(p => p.StartDate <= selecttime && !(p.EndDate != null && p.EndDate < selecttime)))
+                    //{
+                    //    SubOperationHistory suboperationhistory = operationhistory.SubOperationCategorys.FirstOrDefault(p => p.StartDate <= selecttime && !(p.EndDate != null && p.EndDate < selecttime));
+                    //    item.ThenAirlineName = suboperationhistory.Airlines.Name;
+                    //}
+                    //else
+                    //{
+                    //    item.ThenAirlineName = operationhistory.Airlines.Name;
+                    //}
+                }
+                //所有权人
+                OwnershipHistoryDTO ownershiphistory = item.OwnershipHistories.FirstOrDefault(p => p.StartDate <= selectTime && !(p.EndDate != null && p.EndDate < selectTime));
+                if (ownershiphistory != null)
+                {
+                    //item.O = ownershiphistory..Name;
+                }
 
-        //    //            //运营权人名称
-        //    //            if (operationhistory.SubOperationCategorys != null && operationhistory.SubOperationCategorys.Any(p => p.StartDate <= selecttime && !(p.EndDate != null && p.EndDate < selecttime)))
-        //    //            {
-        //    //                SubOperationHistory suboperationhistory = operationhistory.SubOperationCategorys.FirstOrDefault(p => p.StartDate <= selecttime && !(p.EndDate != null && p.EndDate < selecttime));
-        //    //                item.ThenAirlineName = suboperationhistory.Airlines.Name;
-        //    //            }
-        //    //            else
-        //    //            {
-        //    //                item.ThenAirlineName = operationhistory.Airlines.Name;
-        //    //            }
-        //    //        }
-        //    //        //所有权人
-        //    //        OwnershipHistory ownershiphistory = item.OwnershipHistorys.FirstOrDefault(p => p.StartDate <= selecttime && !(p.EndDate != null && p.EndDate < selecttime));
-        //    //        if (ownershiphistory != null)
-        //    //        {
-        //    //            item.ThenOwnerName = ownershiphistory.Owner.Name;
-        //    //        }
-
-        //    //        AircraftList.Add(item);
-        //    //    }
-        //    return AircraftList;
-        //}
+                aircraftList.Add(item);
+            }
+            return aircraftList;
+        }
 
         /// <summary>
         /// 根据传入的名称创建Binding的对象

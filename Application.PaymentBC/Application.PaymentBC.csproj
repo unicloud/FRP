@@ -91,6 +91,10 @@
       <Project>{c926e107-6971-4b5c-8e00-db7761eeac8e}</Project>
       <Name>Application</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
+      <Project>{e48e84de-5a91-4d16-84e5-cffc4c7e7657}</Project>
+      <Name>Domain.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain.PaymentBC\Domain.PaymentBC.csproj">
       <Project>{d9aa0a25-5ee4-4ca0-ad0a-4cafed1e17a1}</Project>
       <Name>Domain.PaymentBC</Name>

@@ -254,6 +254,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonExtension\AxisCollection.cs" />
     <Compile Include="CommonExtension\CommonExtension.cs" />
     <Compile Include="CommonExtension\CommonMethod.cs" />
     <Compile Include="CommonExtension\RandomHelper.cs" />
@@ -370,6 +371,10 @@
     <ProjectReference Include="..\UniCloud.Presentation.Service.CommonService\Service.CommonService.csproj">
       <Project>{e182cb39-cb47-4a7a-bf2d-0094d38d24fe}</Project>
       <Name>Service.CommonService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.FleetPlan\Service.FleetPlan.csproj">
+      <Project>{b2d2a463-a571-4467-b552-338d89d322f8}</Project>
+      <Name>Service.FleetPlan</Name>
     </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service.Payment\Service.Payment.csproj">
       <Project>{8a34eaf1-0a35-4b80-bc53-f8bf11b626dc}</Project>

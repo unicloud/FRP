@@ -16,18 +16,16 @@
 
 using System;
 using System.ComponentModel.Composition;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+using System.Linq;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Data;
+using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
+using UniCloud.Presentation.Service.CommonService.Common;
+using UniCloud.Presentation.Service.FleetPlan;
+using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 #endregion
 
@@ -38,8 +36,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
     public class FleetPlanPublishVM : EditViewModelBase
     {
         #region 声明、初始化
+
         private readonly IRegionManager _regionManager;
-        //private FleetPlanData _fleetPlanData;
+        private FleetPlanData _context;
+        private DocumentDTO _document = new DocumentDTO();
+        private FilterDescriptor _planDescriptor;
+        [Import]
+        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
         public FleetPlanPublishVM(IRegionManager regionManager)
@@ -57,7 +60,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-
+            ViewPlans = Service.CreateCollection(_context.Plans);
+            _planDescriptor = new FilterDescriptor("Year", FilterOperator.IsEqualTo, DateTime.Now.Year);
+            ViewPlans.FilterDescriptors.Add(_planDescriptor);
+            Service.RegisterCollectionView(ViewPlans);
         }
 
         /// <summary>
@@ -65,6 +71,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializerCommand()
         {
+            CommitCommand = new DelegateCommand<object>(OnCommit, CanCommit);
+            ExamineCommand = new DelegateCommand<object>(OnExamine, CanExamine);
+            SendCommand = new DelegateCommand<object>(OnSend, CanSend);
+            RepealCommand = new DelegateCommand<object>(OnRepeal, CanRepeal);
         }
 
         /// <summary>
@@ -72,7 +82,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         protected override IService CreateService()
         {
-            return null;
+            _context = new FleetPlanData(AgentHelper.FleetPlanServiceUri);
+            return new FleetPlanService(_context);
         }
 
         #endregion
@@ -94,9 +105,43 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public override void LoadData()
         {
+            ViewPlans.Load(true);
         }
 
         #region 业务
+
+        #region 当前年度运力增减计划集合
+
+        /// <summary>
+        ///     当前年度运力增减计划集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PlanDTO> ViewPlans { get; set; }
+
+        #endregion
+
+        #region 选择的计划
+
+        private PlanDTO _selPlan;
+
+        /// <summary>
+        /// 选择的计划
+        /// </summary>
+        public PlanDTO SelPlan
+        {
+            get { return this._selPlan; }
+            private set
+            {
+                if (this._selPlan != value)
+                {
+                    _selPlan = value;
+                    this.RaisePropertyChanged(() => this.SelPlan);
+                    // 刷新按钮状态
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        #endregion
 
         #endregion
 
@@ -105,6 +150,107 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #endregion
 
         #region 操作
+
+        #region 刷新按钮状态
+
+        protected override void RefreshCommandState()
+        {
+            CommitCommand.RaiseCanExecuteChanged();
+            ExamineCommand.RaiseCanExecuteChanged();
+            SendCommand.RaiseCanExecuteChanged();
+            RepealCommand.RaiseCanExecuteChanged();
+        }
+
+        #endregion
+
+        #region 提交审核
+
+        /// <summary>
+        ///     提交审核
+        /// </summary>
+        public DelegateCommand<object> CommitCommand { get; private set; }
+
+        private void OnCommit(object obj)
+        {
+
+        }
+
+        private bool CanCommit(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 审核
+
+        /// <summary>
+        ///     审核
+        /// </summary>
+        public DelegateCommand<object> ExamineCommand { get; private set; }
+
+        private void OnExamine(object obj)
+        {
+
+        }
+
+        private bool CanExamine(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 发送
+
+        /// <summary>
+        ///     发送
+        /// </summary>
+        public DelegateCommand<object> SendCommand { get; private set; }
+
+        private void OnSend(object obj)
+        {
+        }
+
+        private bool CanSend(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 撤销发布
+
+        /// <summary>
+        ///     撤销发布
+        /// </summary>
+        public DelegateCommand<object> RepealCommand { get; private set; }
+
+        private void OnRepeal(object obj)
+        {
+        }
+
+        private bool CanRepeal(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 查看附件
+        protected override void OnViewAttach(object sender)
+        {
+            if (SelPlan == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+            DocumentView.ViewModel.InitData(true, _selPlan.DocumentId, null);
+            DocumentView.ShowDialog();
+
+        }
+        #endregion
+
         #endregion
     }
 }

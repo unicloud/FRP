@@ -99,6 +99,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
         /// </summary>
         public PlanPublishStatus PublishStatus { get; private set; }
 
+        /// <summary>
+        /// 文档名称
+        /// </summary>
+        public string DocName { get; private set; }
         #endregion
 
         #region 外键属性
@@ -116,7 +120,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     文档Id
         /// </summary>
-        public Guid? DocumentId { get; private set; }
+        public Guid DocumentId { get; private set; }
 
         #endregion
 
@@ -124,12 +128,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
         /// <summary>
         /// 航空公司
         /// </summary>
-        public virtual Airlines Airlines { get; set; }
+        public virtual Airlines Airlines { get; private set; }
 
         /// <summary>
         /// 计划年度
         /// </summary>
-        public virtual Annual Annual { get; set; }
+        public virtual Annual Annual { get; private set; }
 
         /// <summary>
         ///     飞机计划明细
@@ -234,43 +238,46 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     设置航空公司
         /// </summary>
-        /// <param name="airlinesId">航空公司</param>
-        public void SetAirlines(Guid airlinesId)
+        /// <param name="airlines">航空公司</param>
+        public void SetAirlines(Airlines airlines)
         {
-            if (airlinesId == null)
+            if (airlines == null || airlines.IsTransient())
             {
                 throw new ArgumentException("航空公司Id参数为空！");
             }
 
-            AirlinesId = airlinesId;
+            Airlines = airlines;
+            AirlinesId = airlines.Id;
         }
 
         /// <summary>
         ///     设置计划年度
         /// </summary>
-        /// <param name="annualId">计划年度</param>
-        public void SetAnnual(Guid annualId)
+        /// <param name="annual">计划年度</param>
+        public void SetAnnual(Annual annual)
         {
-            if (annualId == null)
+            if (annual == null || annual.IsTransient())
             {
-                throw new ArgumentException("计划年度Id参数为空！");
+                throw new ArgumentException("计划年度参数为空！");
             }
 
-            AnnualId = annualId;
+            Annual = annual;
+            AnnualId = annual.Id;
         }
-
         /// <summary>
         ///     设置计划文档
         /// </summary>
         /// <param name="documentId">计划文档</param>
-        public void SetDocument(Guid? documentId)
+        /// <param name="docName">文档名称</param>
+        public void SetDocument(Guid documentId,string docName)
         {
-            //if (documentId == null)
-            //{
-            //    throw new ArgumentException("计划文档Id参数为空！");
-            //}
+            if (documentId == Guid.Empty)
+            {
+                throw new ArgumentException("计划文档Id参数为空！");
+            }
 
             DocumentId = documentId;
+            DocName = docName;
         }
 
 

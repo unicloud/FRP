@@ -44,7 +44,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg
         #region 属性
 
         /// <summary>
-        ///     审批日期
+        ///     民航局审批日期
         /// </summary>
         public DateTime? CaacExamineDate { get; private set; }
 

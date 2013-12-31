@@ -112,22 +112,22 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         /// <summary>
         /// 发动机型号
         /// </summary>
-        public virtual EngineType EngineType { get; set; }
+        public virtual EngineType EngineType { get; private set; }
 
         /// <summary>
         ///     发动机所有权人
         /// </summary>
-        public virtual Supplier Supplier { get; set; }
+        public virtual Supplier Supplier { get; private set; }
 
         /// <summary>
         /// 航空公司
         /// </summary>
-        public virtual Airlines Airlines { get; set; }
+        public virtual Airlines Airlines { get; private set; }
 
         /// <summary>
         /// 引进方式
         /// </summary>
-        public virtual ActionCategory ImportCategory { get; set; }
+        public virtual ActionCategory ImportCategory { get; private set; }
 
 
         /// <summary>
@@ -206,52 +206,55 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         /// <summary>
         ///     设置发动机型号
         /// </summary>
-        /// <param name="engineTypeId">发动机型号</param>
-        public void SetEngineType(Guid engineTypeId)
+        /// <param name="engineType">发动机型号</param>
+        public void SetEngineType(EngineType engineType)
         {
-            if (engineTypeId == null)
+            if (engineType == null || engineType.IsTransient())
             {
-                throw new ArgumentException("发动机型号Id参数为空！");
+                throw new ArgumentException("发动机型号参数为空！");
             }
 
-            EngineTypeId = engineTypeId;
+            EngineType = engineType;
+            EngineTypeId = engineType.Id;
         }
 
         /// <summary>
         ///     设置发动机所有权人
         /// </summary>
-        /// <param name="supplierId">发动机所有权人</param>
-        public void SetSupplier(int? supplierId)
+        /// <param name="supplier">发动机所有权人</param>
+        public void SetSupplier(Supplier supplier)
         {
-            SupplierId = supplierId;
+            Supplier = supplier;
+            SupplierId = supplier.Id;
         }
 
         /// <summary>
         ///     设置航空公司
         /// </summary>
-        /// <param name="airlinesId">航空公司</param>
-        public void SetAirlines(Guid airlinesId)
+        /// <param name="airlines">航空公司</param>
+        public void SetAirlines(Airlines airlines)
         {
-            if (airlinesId == null)
+            if (airlines == null || airlines.IsTransient())
             {
-                throw new ArgumentException("航空公司Id参数为空！");
+                throw new ArgumentException("航空公司参数为空！");
             }
-
-            AirlinesId = airlinesId;
+            Airlines = airlines;
+            AirlinesId = airlines.Id;
         }
 
         /// <summary>
         ///     设置引进方式
         /// </summary>
-        /// <param name="importCategoryId">引进方式</param>
-        public void SetImportCategory(Guid importCategoryId)
+        /// <param name="importCategory">引进方式</param>
+        public void SetImportCategory(ActionCategory importCategory)
         {
-            if (importCategoryId == null)
+            if (importCategory == null || importCategory.IsTransient())
             {
-                throw new ArgumentException("引进方式Id参数为空！");
+                throw new ArgumentException("引进方式参数为空！");
             }
 
-            ImportCategoryId = importCategoryId;
+            ImportCategory = importCategory;
+            ImportCategoryId = importCategory.Id;
         }
 
 

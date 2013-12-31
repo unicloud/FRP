@@ -20,7 +20,7 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.CaacProgrammingDTO
+namespace UniCloud.Application.FleetPlanBC.DTO
 {
     /// <summary>
     /// 民航局五年规划
@@ -66,6 +66,10 @@ namespace UniCloud.Application.FleetPlanBC.DTO.CaacProgrammingDTO
         /// </summary>
         public string Note { get; set; }
 
+        /// <summary>
+        /// 文档名称
+        /// </summary>
+        public string DocName { get; set; }
         #endregion
 
         #region 外键属性
@@ -83,7 +87,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO.CaacProgrammingDTO
         /// <summary>
         ///     文档Id
         /// </summary>
-        public Guid? DocumentId { get; set; }
+        public Guid DocumentId { get; set; }
 
         #endregion
         #region 导航属性

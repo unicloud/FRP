@@ -18,7 +18,7 @@
 #region 命名空间
 
 using System;
-using UniCloud.Domain.PurchaseBC.ValueObjects;
+using UniCloud.Domain.Common.ValueObjects;
 
 #endregion
 
@@ -41,7 +41,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg
         /// <param name="sourceId">源Id</param>
         /// <returns></returns>
         public static Linkman CreateLinkman(string name, string telephone, string mobile, string fax, string email,
-            Address address,Guid sourceId)
+            Address address, Guid sourceId)
         {
             var linkman = new Linkman
             {

@@ -54,9 +54,15 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftQueries
                                      SeatingCapacity = p.SeatingCapacity,
                                      CarryingCapacity = p.CarryingCapacity,
                                      AircraftTypeId = p.AircraftTypeId,
+                                     AircraftTypeName = p.AircraftType.Name,
+                                     ManufacturerName = p.AircraftType.Manufacturer.CnName,
+                                     Regional = p.AircraftType.AircraftCategory.Regional,
                                      SupplierId = p.SupplierId,
+                                     SupplierName = p.Supplier.CnName,
                                      AirlinesId = p.AirlinesId,
+                                     AirlinesName = p.Airlines.CnName,
                                      ImportCategoryId = p.ImportCategoryId,
+                                     ImportCategoryName = p.ImportCategory.ActionType + ":" + p.ImportCategory.ActionName,
                                      OperationHistories = p.OperationHistories.Select(q => new OperationHistoryDTO
                                                                                            {
                                                                                                OperationHistoryId = q.Id,

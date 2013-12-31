@@ -412,11 +412,11 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #endregion
 
-
         #region 刷新按钮状态
 
         protected override void RefreshCommandState()
         {
+            AddAttachCommand.RaiseCanExecuteChanged();
             AddTradeCommand.RaiseCanExecuteChanged();
             RemoveTradeCommand.RaiseCanExecuteChanged();
             AddOrderCommand.RaiseCanExecuteChanged();
@@ -502,6 +502,48 @@ namespace UniCloud.Presentation.Purchase.Contract
                 ViewAircraftPurchaseOrderDTO.AddNew(order);
                 SelTradeDTO.Status = (int) TradeStatus.进行中;
             }
+            else
+            {
+                var order =
+                    ViewAircraftPurchaseOrderDTO.Where(o => o.TradeId == _selTradeDTO.Id)
+                        .OrderBy(o => o.Version)
+                        .LastOrDefault();
+                if (order == null) return;
+                var newOrder = new AircraftPurchaseOrderDTO
+                {
+                    Id = RandomHelper.Next(),
+                    OrderDate = DateTime.Now,
+                    TradeId = order.TradeId,
+                    Name = order.Name,
+                    CurrencyId = order.CurrencyId,
+                    LinkmanId = order.LinkmanId,
+                    SourceGuid = Guid.NewGuid(),
+                    SupplierId = order.SupplierId
+                };
+                ViewAircraftPurchaseOrderDTO.AddNew(newOrder);
+                order.AircraftPurchaseOrderLines.ToList().ForEach(line =>
+                {
+                    var newLine = new AircraftPurchaseOrderLineDTO
+                    {
+                        Id = RandomHelper.Next(),
+                        UnitPrice = line.UnitPrice,
+                        Amount = line.Amount,
+                        Discount = line.Discount,
+                        AirframePrice = line.AirframePrice,
+                        RefitCost = line.RefitCost,
+                        EnginePrice = line.EnginePrice,
+                        EstimateDeliveryDate = line.EstimateDeliveryDate,
+                        Note = line.Note,
+                        ContractAircraftId = line.ContractAircraftId,
+                        AircraftMaterialId = line.AircraftMaterialId,
+                        RankNumber = line.RankNumber,
+                        CSCNumber = line.CSCNumber,
+                        SerialNumber = line.SerialNumber,
+                        Status = line.Status
+                    };
+                    newOrder.AircraftPurchaseOrderLines.Add(newLine);
+                });
+            }
         }
 
         private bool CanAddOrder(object obj)
@@ -582,7 +624,8 @@ namespace UniCloud.Presentation.Purchase.Contract
             {
                 Id = RandomHelper.Next(),
                 Amount = 1,
-                EstimateDeliveryDate = DateTime.Now
+                EstimateDeliveryDate = DateTime.Now,
+                ContractAircraftId = RandomHelper.Next()
             };
 
             SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Add(orderLine);

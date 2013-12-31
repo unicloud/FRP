@@ -78,7 +78,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
         /// <summary>
         ///     所有权人
         /// </summary>
-        public virtual Supplier Supplier { get; set; }
+        public virtual Supplier Supplier { get; private set; }
 
         #endregion
 
@@ -130,15 +130,16 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
         /// <summary>
         ///     设置所有权人
         /// </summary>
-        /// <param name="supplierId">所有权人</param>
-        public void SetSupplier(int supplierId)
+        /// <param name="supplier">所有权人</param>
+        public void SetSupplier(Supplier supplier)
         {
-            if (supplierId == 0)
+            if (supplier == null || supplier.IsTransient())
             {
-                throw new ArgumentException("所有权人Id参数为空！");
+                throw new ArgumentException("所有权人参数为空！");
             }
 
-            SupplierId = supplierId;
+            Supplier = supplier;
+            SupplierId = supplier.Id;
         }
 
         #endregion

@@ -156,12 +156,12 @@ namespace UniCloud.Presentation.Shell
             var menu211 = new MenuItem
             {
                 Text = "民航五年规划",
-                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanPrepare"
+                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.CaacProgramming"
             };
             var menu212 = new MenuItem
             {
                 Text = "管理五年规划",
-                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanPrepare"
+                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.AirProgramming"
             };
             var menu213 = new MenuItem
             {
@@ -284,6 +284,7 @@ namespace UniCloud.Presentation.Shell
             var menu253 = new MenuItem
             {
                 Text = "分析客机运力趋势",
+                NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.PassengerAircraftTrend"
             };
             var menu254 = new MenuItem
             {

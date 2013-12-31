@@ -30,10 +30,14 @@ namespace UniCloud.Application.FleetPlanBC.DTO
     [DataServiceKey("Id")]
     public class RequestDTO
     {
+        #region 私有字段
+
         /// <summary>
         ///     申请行集合
         /// </summary>
-        private List<ApprovalHistoryDTO> _approvalHistorys;
+        private List<ApprovalHistoryDTO> _approvalHistories;
+
+        #endregion
 
         #region 属性
 
@@ -114,6 +118,8 @@ namespace UniCloud.Application.FleetPlanBC.DTO
 
         #endregion
 
+        #region 外键属性
+
         /// <summary>
         ///     监管局申请文档Id
         /// </summary>
@@ -144,10 +150,12 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public string AirlinesName { get; set; }
 
-        public virtual List<ApprovalHistoryDTO> ApprovalHistorys
+        public virtual List<ApprovalHistoryDTO> ApprovalHistories
         {
-            get { return _approvalHistorys ?? new List<ApprovalHistoryDTO>(); }
-            set { _approvalHistorys = value; }
+            get { return _approvalHistories ?? new List<ApprovalHistoryDTO>(); }
+            set { _approvalHistories = value; }
         }
+
+        #endregion
     }
 }

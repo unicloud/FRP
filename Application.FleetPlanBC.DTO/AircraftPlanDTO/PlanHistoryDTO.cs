@@ -19,7 +19,7 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.AircraftPlanDTO
+namespace UniCloud.Application.FleetPlanBC.DTO
 {
     /// <summary>
     /// 运力增减计划明细
@@ -52,21 +52,52 @@ namespace UniCloud.Application.FleetPlanBC.DTO.AircraftPlanDTO
         /// <summary>
         ///     是否有效
         /// </summary>
-        public bool IsValid { get; internal set; }
+        public bool IsValid { get; set; }
 
         /// <summary>
         ///     是否提交
         /// </summary>
-        public bool IsSubmit { get; internal set; }
+        public bool IsSubmit { get; set; }
 
         /// <summary>
         /// 备注
         /// </summary>
         public string Note { get; set; }
 
+        /// <summary>
+        /// 航空公司
+        /// </summary>
+        public string AirlinesName { get; set; }
+
+        /// <summary>
+        /// 座级
+        /// </summary>
+        public string Regional { get; set; }
+
+        /// <summary>
+        /// 机型
+        /// </summary>
+        public string AircraftTypeName { get; set; }
+
+        /// <summary>
+        /// 活动类型
+        /// </summary>
+        public string ActionType { get; set; }
+
+        /// <summary>
+        /// 引进/退出方式
+        /// </summary>
+        public string TargetType { get; set; }
+
+        /// <summary>
+        /// 执行时间
+        /// </summary>
+        public string PerformTime { get; set; }
+
         #endregion
 
         #region 外键属性
+
         /// <summary>
         ///     计划飞机外键
         /// </summary>
@@ -114,7 +145,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO.AircraftPlanDTO
         /// <summary>
         /// 关联的Guid，运营计划时，记录OperationHistoryID，变更计划时记录为AircraftBusinessID
         /// </summary>
-        public Guid CoperGuid { get; set; }
+        public Guid? CoperGuid { get; set; }
 
         #endregion
     }

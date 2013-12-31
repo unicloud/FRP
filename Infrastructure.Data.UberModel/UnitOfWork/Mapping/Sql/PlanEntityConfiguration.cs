@@ -29,7 +29,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
     {
         public PlanEntityConfiguration()
         {
-            ToTable("Plan", DbConfig.Schema);
+            ToTable("AircraftPlan", DbConfig.Schema);
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
@@ -44,6 +44,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.IsFinished).HasColumnName("IsFinished");
             Property(p => p.Status).HasColumnName("Status");
             Property(p => p.PublishStatus).HasColumnName("PublishStatus");
+            Property(p => p.DocName).HasColumnName("DocName");
 
             Property(p => p.AirlinesId).HasColumnName("AirlinesId");
             Property(p => p.AnnualId).HasColumnName("AnnualId");

@@ -29,7 +29,7 @@ using UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg;
 using UniCloud.Domain.UberModel.Aggregates.AnnualAgg;
 using UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg;
 using UniCloud.Domain.UberModel.Aggregates.BankAccountAgg;
-using UniCloud.Domain.UberModel.Aggregates.CaacPorgrammingAgg;
+using UniCloud.Domain.UberModel.Aggregates.CaacProgrammingAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractAircraftBFEAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractEngineAgg;
@@ -77,11 +77,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         #region IDbSet成员
 
         private IDbSet<ActionCategory> _actionCategories;
+        private IDbSet<AirProgramming> _airProgrammings;
         private IDbSet<AircraftCategory> _aircraftCategories;
         private IDbSet<AircraftType> _aircraftTypes;
         private IDbSet<Aircraft> _aircrafts;
         private IDbSet<Airlines> _airlineses;
-        private IDbSet<AirProgramming> _airProgrammings;
         private IDbSet<Annual> _annuals;
         private IDbSet<ApprovalDoc> _approvalDocs;
         private IDbSet<BankAccount> _bankAccounts;
@@ -92,9 +92,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Currency> _currencies;
         private IDbSet<DocumentPath> _documentPaths;
         private IDbSet<Document> _documents;
-        private IDbSet<Engine> _engines;
         private IDbSet<EnginePlan> _enginePlans;
         private IDbSet<EngineType> _engineTypes;
+        private IDbSet<Engine> _engines;
         private IDbSet<Forwarder> _forwarders;
         private IDbSet<Guarantee> _guarantees;
         private IDbSet<Invoice> _invoices;
@@ -109,9 +109,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Part> _parts;
         private IDbSet<PaymentNotice> _paymentNotices;
         private IDbSet<PaymentSchedule> _paymentSchedules;
-        private IDbSet<Plan> _plans;
         private IDbSet<PlanAircraft> _planAircrafts;
         private IDbSet<PlanEngine> _planEngines;
+        private IDbSet<Plan> _plans;
         private IDbSet<Programming> _programmings;
         private IDbSet<Reception> _receptions;
         private IDbSet<RelatedDoc> _relatedDocs;
@@ -754,6 +754,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new XmlSettingEntityConfiguration())
 
                 #endregion
+
                 .Add(new AddressConfiguration());
         }
 

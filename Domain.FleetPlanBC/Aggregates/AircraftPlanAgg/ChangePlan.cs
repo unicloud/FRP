@@ -45,7 +45,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     商业数据历史外键
         /// </summary>
-        public  Guid? AircraftBusinessId { get; private set; }
+        public Guid? AircraftBusinessId { get; private set; }
 
         #endregion
 
@@ -54,7 +54,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         /// 商业数据历史
         /// </summary>
-        public virtual AircraftBusiness AircraftBusiness { get; set; }
+        public virtual AircraftBusiness AircraftBusiness { get; private set; }
 
         #endregion
 
@@ -63,10 +63,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     设置商业数据历史
         /// </summary>
-        /// <param name="aircraftBusinessId">商业数据历史</param>
-        public void SetAircraftBusiness(Guid? aircraftBusinessId)
+        /// <param name="aircraftBusiness">商业数据历史</param>
+        public void SetAircraftBusiness(AircraftBusiness aircraftBusiness)
         {
-            AircraftBusinessId = aircraftBusinessId;
+            AircraftBusiness = aircraftBusiness;
+            AircraftBusinessId = aircraftBusiness.Id;
         }
 
 

@@ -22,15 +22,15 @@ namespace UniCloud.Presentation.FleetPlan.Requests
     {
         private FleetPlanData _context;
 
-          /// <summary>
+        /// <summary>
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
         public RequestVM()
-          {
-              InitialRequest();// 初始化申请信息。
-              InitialCommand();//初始化命令
-          }
+        {
+            InitialRequest(); // 初始化申请信息。
+            InitialCommand(); //初始化命令
+        }
 
         #region 加载申请
 
@@ -171,7 +171,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 MessageAlert("提示", "请选择需要删除的记录");
                 return;
             }
-            SelectedRequest.Status = (int)RequestStatus.待审核;
+            SelectedRequest.Status = (int) RequestStatus.待审核;
             RefreshCommandState();
         }
 
@@ -186,7 +186,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             {
                 return false;
             }
-            return SelectedRequest != null && SelectedRequest.Status < (int)RequestStatus.待审核;
+            return SelectedRequest != null && SelectedRequest.Status < (int) RequestStatus.待审核;
         }
 
         #endregion
@@ -206,7 +206,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 MessageAlert("提示", "请选择需要提交审核的记录");
                 return;
             }
-            SelectedRequest.Status = (int)RequestStatus.已审核;
+            SelectedRequest.Status = (int) RequestStatus.已审核;
             RefreshCommandState();
         }
 
@@ -221,8 +221,8 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             {
                 return false;
             }
-            return SelectedRequest != null && SelectedRequest.Status < (int)RequestStatus.已审核
-                   && SelectedRequest.Status > (int)RequestStatus.草稿;
+            return SelectedRequest != null && SelectedRequest.Status < (int) RequestStatus.已审核
+                   && SelectedRequest.Status > (int) RequestStatus.草稿;
         }
 
         #endregion
@@ -274,7 +274,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         protected override void RefreshCommandState()
         {
-         
+
         }
 
         protected override bool OnSaveExecuting(object sender)

@@ -205,6 +205,22 @@
       <DependentUpon>Approval.xaml</DependentUpon>
     </Compile>
     <Compile Include="Approvals\ApprovalVM.cs" />
+    <Compile Include="PrepareFleetPlan\AirProgramming.xaml.cs">
+      <DependentUpon>AirProgramming.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrepareFleetPlan\AirProgrammingVM.cs" />
+    <Compile Include="PrepareFleetPlan\CaacProgramming.xaml.cs">
+      <DependentUpon>CaacProgramming.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrepareFleetPlan\CaacProgrammingVM.cs" />
+    <Compile Include="QueryAnalyse\AgeDeploy.xaml.cs">
+      <DependentUpon>AgeDeploy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\AgeDeployVm.cs" />
+    <Compile Include="QueryAnalyse\PassengerAircraftTrend.xaml.cs">
+      <DependentUpon>PassengerAircraftTrend.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\PassengerAircraftTrendVm.cs" />
     <Compile Include="Requests\RequestDoubleClickHelper.cs" />
     <Compile Include="Requests\RequestDragDrop.cs" />
     <Compile Include="Requests\RequestDragVisual.cs" />
@@ -294,6 +310,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PrepareFleetPlan\AirProgramming.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PrepareFleetPlan\CaacProgramming.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PrepareFleetPlan\FleetPlanLay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -314,6 +338,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="QueryAnalyse\AgeDeploy.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="QueryAnalyse\AircraftImportType.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -331,6 +359,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="QueryAnalyse\FleetStructure.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QueryAnalyse\PassengerAircraftTrend.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -42,9 +44,14 @@ namespace UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg
         #region 属性
 
         /// <summary>
-        ///     审批日期
+        ///     民航局审批日期
         /// </summary>
-        public DateTime? ExamineDate { get; private set; }
+        public DateTime? CaacExamineDate { get; private set; }
+
+        /// <summary>
+        ///     发改委审批日期
+        /// </summary>
+        public DateTime? NdrcExamineDate { get; private set; }
 
         /// <summary>
         ///     民航局批文文号
@@ -85,20 +92,18 @@ namespace UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg
         /// </summary>
         public Guid? NdrcDocumentId { get; private set; }
 
-
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        /// 审批单位
+        ///     审批单位
         /// </summary>
         public virtual Manager DispatchUnit { get; set; }
 
         #endregion
 
         #region 操作
-
 
         /// <summary>
         ///     设置处理状态
@@ -126,12 +131,21 @@ namespace UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg
         }
 
         /// <summary>
-        ///     设置审批日期
+        ///     设置民航局审批日期
         /// </summary>
         /// <param name="date">审批日期</param>
-        public void SetExamineDate(DateTime? date)
+        public void SetCaacExamineDate(DateTime? date)
         {
-            ExamineDate = date;
+            CaacExamineDate = date;
+        }
+
+        /// <summary>
+        ///     设置发改委审批日期
+        /// </summary>
+        /// <param name="date">审批日期</param>
+        public void SetNdrcExamineDate(DateTime? date)
+        {
+            NdrcExamineDate = date;
         }
 
         /// <summary>
@@ -144,7 +158,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg
         }
 
         /// <summary>
-        /// 设置民航局批文文档
+        ///     设置民航局批文文档
         /// </summary>
         /// <param name="caacDocumentId"></param>
         /// <param name="caacApprovalNumber"></param>
@@ -159,7 +173,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg
         }
 
         /// <summary>
-        /// 设置发改委批文文档
+        ///     设置发改委批文文档
         /// </summary>
         /// <param name="ndrcDocumentId"></param>
         /// <param name="ndrcApprovalNumber"></param>
@@ -174,7 +188,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg
         }
 
         /// <summary>
-        /// 设置审批单位
+        ///     设置审批单位
         /// </summary>
         /// <param name="dispatchUnitId">审批单位</param>
         public void SetDispatchUnit(Guid dispatchUnitId)
@@ -185,6 +199,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg
             }
             DispatchUnitId = dispatchUnitId;
         }
+
         #endregion
     }
 }

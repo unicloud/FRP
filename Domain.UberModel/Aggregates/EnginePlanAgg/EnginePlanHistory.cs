@@ -100,22 +100,22 @@ namespace UniCloud.Domain.UberModel.Aggregates.EnginePlanAgg
         /// <summary>
         ///   发动机型号
         /// </summary>
-        public virtual EngineType EngineType { get; set; }
+        public virtual EngineType EngineType { get; private set; }
 
         /// <summary>
         /// 执行年度
         /// </summary>
-        public virtual Annual PerformAnnual { get; set; }
+        public virtual Annual PerformAnnual { get; private set; }
 
         /// <summary>
         /// 计划发动机
         /// </summary>
-        public virtual PlanEngine PlanEngine { get; set; }
+        public virtual PlanEngine PlanEngine { get; private set; }
 
         /// <summary>
         ///   活动类型
         /// </summary>
-        public virtual ActionCategory ActionCategory { get; set; }
+        public virtual ActionCategory ActionCategory { get; private set; }
 
         #endregion
 
@@ -150,15 +150,17 @@ namespace UniCloud.Domain.UberModel.Aggregates.EnginePlanAgg
         /// <summary>
         /// 设置执行时间
         /// </summary>
-        /// <param name="annualId"></param>
+        /// <param name="annual"></param>
         /// <param name="performMonth"></param>
-        public void SetPerformDate(Guid annualId, int performMonth)
+        public void SetPerformDate(Annual annual, int performMonth)
         {
-            if (annualId == null)
+            if (annual == null || annual.IsTransient())
             {
-                throw new ArgumentException("执行年度Id参数为空！");
+                throw new ArgumentException("执行年度参数为空！");
             }
-            PerformAnnualId = annualId;
+
+            PerformAnnual = annual;
+            PerformAnnualId = annual.Id;
             PerformMonth = performMonth;
         }
 
@@ -174,37 +176,40 @@ namespace UniCloud.Domain.UberModel.Aggregates.EnginePlanAgg
         /// <summary>
         ///     设置发动机型号
         /// </summary>
-        /// <param name="engineTypeId">发动机型号</param>
-        public void SetEngineType(Guid engineTypeId)
+        /// <param name="engineType">发动机型号</param>
+        public void SetEngineType(EngineType engineType)
         {
-            if (engineTypeId == null)
+            if (engineType == null || engineType.IsTransient())
             {
-                throw new ArgumentException("发动机型号Id参数为空！");
+                throw new ArgumentException("发动机型号参数为空！");
             }
 
-            EngineTypeId = engineTypeId;
+            EngineType = engineType;
+            EngineTypeId = engineType.Id;
         }
 
         /// <summary>
         ///     设置计划发动机
         /// </summary>
-        /// <param name="planEngineId">计划发动机</param>
-        public void SetPlanEngine(Guid? planEngineId)
+        /// <param name="planEngine">计划发动机</param>
+        public void SetPlanEngine(PlanEngine planEngine)
         {
-            PlanEngineId = planEngineId;
+            PlanEngine = planEngine;
+            PlanEngineId = planEngine.Id;
         }
 
         /// <summary>
         ///     设置活动类型
         /// </summary>
-        /// <param name="actionCategoryId">活动类型</param>
-        public void SetActionCategory(Guid actionCategoryId)
+        /// <param name="actionCategory">活动类型</param>
+        public void SetActionCategory(ActionCategory actionCategory)
         {
-            if (actionCategoryId == null)
+            if (actionCategory == null)
             {
                 throw new ArgumentException("活动类型Id参数为空！");
             }
-            ActionCategoryId = actionCategoryId;
+            ActionCategory = actionCategory;
+            ActionCategoryId = actionCategory.Id;
         }
         #endregion
     }

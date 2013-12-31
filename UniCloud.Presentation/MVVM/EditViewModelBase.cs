@@ -63,6 +63,11 @@ namespace UniCloud.Presentation.MVVM
                         MessageAlert("提示", "保存成功。");
                         OnSaveSuccess(collectionView);
                     }
+                    else
+                    {
+                        MessageAlert("提示","保存失败，请检查！");
+                        OnSaveFail(collectionView);
+                    }
                     RefreshCommandState();
                 });
             }
@@ -74,6 +79,11 @@ namespace UniCloud.Presentation.MVVM
                     {
                         MessageAlert("提示", "保存成功。");
                         OnSaveSuccess(sender);
+                    }
+                    else
+                    {
+                        MessageAlert("提示", "保存失败，请检查！");
+                        OnSaveFail(sender);
                     }
                     RefreshCommandState();
                 });

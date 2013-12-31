@@ -63,7 +63,7 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
                 request.RaDocumentName, request.SawsDocumentName, request.CaacDocumentName, request.RaDocumentId,
                 request.SawsDocumentId,
                 request.CaacDocumentId, Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"));
-            request.ApprovalHistorys.ToList().ForEach(p => newRequest.AddNewApprovalHistory(p.SeatingCapacity,
+            request.ApprovalHistories.ToList().ForEach(p => newRequest.AddNewApprovalHistory(p.SeatingCapacity,
                 p.CarryingCapacity,
                 p.RequestDeliverMonth, p.Note, p.RequestId,
                 p.PlanAircraftId, p.ImportCategoryId, p.RequestDeliverAnnualId,
@@ -136,7 +136,7 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
             {
                 pesistRequest.SetCaacDocument(request.CaacDocumentId, request.CaacDocumentName);
             }
-            DataHelper.DetailHandle(request.ApprovalHistorys.ToArray(), pesistRequest.ApprovalHistories.ToArray(),
+            DataHelper.DetailHandle(request.ApprovalHistories.ToArray(), pesistRequest.ApprovalHistories.ToArray(),
                 c => c.Id, c => c.Id, c => InsertApprovalHistory(pesistRequest, c), ModifyApprovalHistory,
                 DeleteApprovalHistory);
             _requestRepository.Modify(pesistRequest);

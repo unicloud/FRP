@@ -25,7 +25,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.CaacPorgrammingAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EngineTypeAgg;
