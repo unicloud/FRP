@@ -217,6 +217,10 @@
       <DependentUpon>AgeDeploy.xaml</DependentUpon>
     </Compile>
     <Compile Include="QueryAnalyse\AgeDeployVm.cs" />
+    <Compile Include="QueryAnalyse\PassengerAircraftTrend.xaml.cs">
+      <DependentUpon>PassengerAircraftTrend.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\PassengerAircraftTrendVm.cs" />
     <Compile Include="Requests\RequestDoubleClickHelper.cs" />
     <Compile Include="Requests\RequestDragDrop.cs" />
     <Compile Include="Requests\RequestDragVisual.cs" />
@@ -355,6 +359,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="QueryAnalyse\FleetStructure.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QueryAnalyse\PassengerAircraftTrend.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
