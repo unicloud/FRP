@@ -19,12 +19,12 @@
 
 using System.Linq;
 using UniCloud.Application.FleetPlanBC.DTO;
-using UniCloud.Application.FleetPlanBC.Query.PlanQueries;
+using UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.PlanServices
+namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
 {
     /// <summary>
     ///     实现运力增减计划服务接口。

@@ -18,7 +18,7 @@
 #region 命名空间
 
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.UberModel.ValueObjects;
+using UniCloud.Domain.Common.ValueObjects;
 
 #endregion
 

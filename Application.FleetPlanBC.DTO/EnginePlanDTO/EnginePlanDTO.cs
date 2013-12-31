@@ -102,7 +102,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// <summary>
         ///     文档Id
         /// </summary>
-        public Guid? DocumentId { get; set; }
+        public Guid DocumentId { get; set; }
 
         #endregion
 

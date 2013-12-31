@@ -95,7 +95,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg
         /// <summary>
         ///     文档Id
         /// </summary>
-        public Guid? DocumentId { get; private set; }
+        public Guid DocumentId { get; private set; }
 
         #endregion
 
@@ -104,12 +104,12 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg
         /// <summary>
         /// 规划期间
         /// </summary>
-        public virtual Programming Programming { get; set; }
+        public virtual Programming Programming { get; private set; }
 
         /// <summary>
         /// 发文单位
         /// </summary>
-        public virtual Manager IssuedUnit { get; set; }
+        public virtual Manager IssuedUnit { get; private set; }
 
         /// <summary>
         ///     民航局五年规划明细
@@ -168,15 +168,16 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg
         /// <summary>
         ///     设置规划期间
         /// </summary>
-        /// <param name="programmingId">规划期间</param>
-        public void SetProgramming(Guid programmingId)
+        /// <param name="programming">规划期间</param>
+        public void SetProgramming(Programming programming)
         {
-            if (programmingId == null)
+            if (programming == null || programming.IsTransient())
             {
-                throw new ArgumentException("规划期间Id参数为空！");
+                throw new ArgumentException("规划期间参数为空！");
             }
 
-            ProgrammingId = programmingId;
+            Programming = programming;
+            ProgrammingId = programming.Id;
         }
 
         /// <summary>
@@ -186,7 +187,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg
         /// <param name="docName">规划文档名称</param>
         public void SetDocument(Guid documentId, string docName)
         {
-            if (documentId == null)
+            if (documentId == Guid.Empty)
             {
                 throw new ArgumentException("五年规划文档Id参数为空！");
             }
@@ -198,15 +199,16 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg
         /// <summary>
         ///     设置发文单位
         /// </summary>
-        /// <param name="issuedUnitId">发文单位</param>
-        public void SetIssuedUnit(Guid issuedUnitId)
+        /// <param name="issuedUnit">发文单位</param>
+        public void SetIssuedUnit(Manager issuedUnit)
         {
-            if (issuedUnitId == null)
+            if (issuedUnit == null || issuedUnit.IsTransient())
             {
                 throw new ArgumentException("发文单位Id参数为空！");
             }
 
-            IssuedUnitId = issuedUnitId;
+            IssuedUnit = issuedUnit;
+            IssuedUnitId = issuedUnit.Id;
         }
 
         /// <summary>

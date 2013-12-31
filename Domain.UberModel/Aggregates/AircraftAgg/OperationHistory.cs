@@ -120,17 +120,17 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
         /// <summary>
         ///     运营权人
         /// </summary>
-        public virtual Airlines Airlines { get; set; }
+        public virtual Airlines Airlines { get; private set; }
 
         /// <summary>
         ///     实际引进方式
         /// </summary>
-        public virtual ActionCategory ImportCategory { get; set; }
+        public virtual ActionCategory ImportCategory { get; private set; }
 
         /// <summary>
         ///     实际退出方式
         /// </summary>
-        public virtual ActionCategory ExportCategory { get; set; }
+        public virtual ActionCategory ExportCategory { get; private set; }
 
         #endregion
 
@@ -229,43 +229,46 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
         /// <summary>
         ///     设置运营权人
         /// </summary>
-        /// <param name="airlinesId">运营权人</param>
-        public void SetAirlines(Guid airlinesId)
+        /// <param name="airlines">运营权人</param>
+        public void SetAirlines(Airlines airlines)
         {
-            if (airlinesId == null)
+            if (airlines == null || airlines.IsTransient())
             {
-                throw new ArgumentException("运营权人Id参数为空！");
+                throw new ArgumentException("运营权人参数为空！");
             }
 
-            AirlinesId = airlinesId;
+            Airlines = airlines;
+            AirlinesId = airlines.Id;
         }
 
         /// <summary>
         ///     设置实际引进方式
         /// </summary>
-        /// <param name="importCategoryId">实际引进方式</param>
-        public void SetImportCategory(Guid importCategoryId)
+        /// <param name="importCategory">实际引进方式</param>
+        public void SetImportCategory(ActionCategory importCategory)
         {
-            if (importCategoryId == null)
+            if (importCategory == null || importCategory.IsTransient())
             {
-                throw new ArgumentException("实际引进方式Id参数为空！");
+                throw new ArgumentException("引进方式参数为空！");
             }
 
-            ImportCategoryId = importCategoryId;
+            ImportCategory = importCategory;
+            ImportCategoryId = importCategory.Id;
         }
 
         /// <summary>
         ///     设置实际退出方式
         /// </summary>
-        /// <param name="exportCategoryId">实际退出方式</param>
-        public void SetExportCategoryID(Guid exportCategoryId)
+        /// <param name="exportCategory">实际退出方式</param>
+        public void SetExportCategoryID(ActionCategory exportCategory)
         {
-            if (exportCategoryId == null)
+            if (exportCategory == null || exportCategory.IsTransient())
             {
-                throw new ArgumentException("实际退出方式Id参数为空！");
+                throw new ArgumentException("退出方式参数为空！");
             }
 
-            ExportCategoryId = exportCategoryId;
+            ExportCategory = exportCategory;
+            ExportCategoryId = exportCategory.Id;
         }
 
         #endregion

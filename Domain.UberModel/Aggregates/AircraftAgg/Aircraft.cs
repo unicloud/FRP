@@ -129,22 +129,22 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
         /// <summary>
         ///     所有权人
         /// </summary>
-        public virtual Supplier Supplier { get; set; }
+        public virtual Supplier Supplier { get; private set; }
 
         /// <summary>
         ///     机型
         /// </summary>
-        public virtual AircraftType AircraftType { get; set; }
+        public virtual AircraftType AircraftType { get; private set; }
 
         /// <summary>
         ///     航空公司
         /// </summary>
-        public virtual Airlines Airlines { get; set; }
+        public virtual Airlines Airlines { get; private set; }
 
         /// <summary>
         ///     引进方式
         /// </summary>
-        public virtual ActionCategory ImportCategory { get; set; }
+        public virtual ActionCategory ImportCategory { get; private set; }
 
 
         /// <summary>
@@ -259,57 +259,61 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
         /// <summary>
         ///     设置所有权人
         /// </summary>
-        /// <param name="supplierId">所有权人</param>
-        public void SetSupplier(int supplierId)
+        /// <param name="supplier">所有权人</param>
+        public void SetSupplier(Supplier supplier)
         {
-            if (supplierId == 0)
+            if (supplier == null || supplier.IsTransient())
             {
-                throw new ArgumentException("所有权人Id参数为空！");
+                throw new ArgumentException("所有权人参数为空！");
             }
 
-            SupplierId = supplierId;
+            Supplier = supplier;
+            SupplierId = supplier.Id;
         }
 
         /// <summary>
         ///     设置机型
         /// </summary>
-        /// <param name="aircraftTypeId">机型</param>
-        public void SetAircraftType(Guid aircraftTypeId)
+        /// <param name="aircraftType">机型</param>
+        public void SetAircraftType(AircraftType aircraftType)
         {
-            if (aircraftTypeId == null)
+            if (aircraftType == null || aircraftType.IsTransient())
             {
-                throw new ArgumentException("机型Id参数为空！");
+                throw new ArgumentException("机型参数为空！");
             }
 
-            AircraftTypeId = aircraftTypeId;
+            AircraftType = aircraftType;
+            AircraftTypeId = aircraftType.Id;
         }
 
         /// <summary>
         ///     设置运营权人
         /// </summary>
-        /// <param name="airlinesId">运营权人</param>
-        public void SetAirlines(Guid airlinesId)
+        /// <param name="airlines">运营权人</param>
+        public void SetAirlines(Airlines airlines)
         {
-            if (airlinesId == null)
+            if (airlines == null || airlines.IsTransient())
             {
-                throw new ArgumentException("运营权人Id参数为空！");
+                throw new ArgumentException("运营权人参数为空！");
             }
 
-            AirlinesId = airlinesId;
+            Airlines = airlines;
+            AirlinesId = airlines.Id;
         }
 
         /// <summary>
         ///     设置引进方式
         /// </summary>
-        /// <param name="importCategoryId">引进方式</param>
-        public void SetImportCategory(Guid importCategoryId)
+        /// <param name="importCategory">引进方式</param>
+        public void SetImportCategory(ActionCategory importCategory)
         {
-            if (importCategoryId == null)
+            if (importCategory == null || importCategory.IsTransient())
             {
-                throw new ArgumentException("引进方式Id参数为空！");
+                throw new ArgumentException("引进方式参数为空！");
             }
 
-            ImportCategoryId = importCategoryId;
+            ImportCategory = importCategory;
+            ImportCategoryId = importCategory.Id;
         }
 
         /// <summary>

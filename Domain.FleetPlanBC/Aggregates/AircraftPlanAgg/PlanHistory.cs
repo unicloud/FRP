@@ -120,32 +120,32 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         /// 计划飞机
         /// </summary>
-        public virtual PlanAircraft PlanAircraft { get; set; }
+        public virtual PlanAircraft PlanAircraft { get; private set; }
 
         /// <summary>
         /// 活动类别：包括引进、退出、变更
         /// </summary>
-        public virtual ActionCategory ActionCategory { get; set; }
+        public virtual ActionCategory ActionCategory { get; private set; }
 
         /// <summary>
         /// 目标类别：具体的引进、退出方式
         /// </summary>
-        public virtual ActionCategory TargetCategory { get; set; }
+        public virtual ActionCategory TargetCategory { get; private set; }
 
         /// <summary>
         /// 机型
         /// </summary>
-        public virtual AircraftType AircraftType { get; set; }
+        public virtual AircraftType AircraftType { get; private set; }
 
         /// <summary>
         /// 航空公司
         /// </summary>
-        public virtual Airlines Airlines { get; set; }
+        public virtual Airlines Airlines { get; private set; }
 
         /// <summary>
         /// 执行年度
         /// </summary>
-        public virtual Annual PerformAnnual { get; set; }
+        public virtual Annual PerformAnnual { get; private set; }
 
         #endregion
 
@@ -172,15 +172,17 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         /// 设置执行时间
         /// </summary>
-        /// <param name="annualId"></param>
+        /// <param name="annual"></param>
         /// <param name="performMonth"></param>
-        public void SetPerformDate(Guid annualId, int performMonth)
+        public void SetPerformDate(Annual annual, int performMonth)
         {
-            if (annualId == null)
+            if (annual == null || annual.IsTransient())
             {
-                throw new ArgumentException("执行年度Id参数为空！");
+                throw new ArgumentException("执行年度参数为空！");
             }
-            PerformAnnualId = annualId;
+
+            PerformAnnualId = annual.Id;
+            PerformAnnual = annual;
             PerformMonth = performMonth;
         }
 
@@ -201,57 +203,65 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     设置计划飞机
         /// </summary>
-        /// <param name="planAircraftId">计划飞机</param>
-        public void SetPlanAircraft(Guid? planAircraftId)
+        /// <param name="planAircraft">计划飞机</param>
+        public void SetPlanAircraft(PlanAircraft planAircraft)
         {
-            PlanAircraftId = planAircraftId;
+            PlanAircraft = planAircraft;
+            PlanAircraftId = planAircraft.Id;
         }
 
         /// <summary>
         ///     设置活动类型
         /// </summary>
-        /// <param name="actionCategoryId">活动类型</param>
-        /// <param name="targetCategoryId">目标类别</param>
-        public void SetActionCategory(Guid actionCategoryId, Guid targetCategoryId)
+        /// <param name="actionCategory">活动类型</param>
+        /// <param name="targetCategory">目标类别</param>
+        public void SetActionCategory(ActionCategory actionCategory, ActionCategory targetCategory)
         {
-            if (actionCategoryId == null)
+            if (actionCategory == null || actionCategory.IsTransient())
             {
-                throw new ArgumentException("活动类型Id参数为空！");
+                throw new ArgumentException("活动类型参数为空！");
             }
-            if (targetCategoryId == null)
+
+            ActionCategory = actionCategory;
+            ActionCategoryId = actionCategory.Id;
+
+            if (targetCategory == null || targetCategory.IsTransient())
             {
-                throw new ArgumentException("目标类别Id参数为空！");
+                throw new ArgumentException("目标类别参数为空！");
             }
-            ActionCategoryId = actionCategoryId;
-            TargetCategoryId = targetCategoryId;
+
+            TargetCategory = targetCategory;
+            TargetCategoryId = targetCategory.Id;
         }
 
         /// <summary>
         ///     设置机型
         /// </summary>
-        /// <param name="aircraftTypeId">机型</param>
-        public void SetAircraftType(Guid aircraftTypeId)
+        /// <param name="aircraftType">机型</param>
+        public void SetAircraftType(AircraftType aircraftType)
         {
-            if (aircraftTypeId == null)
+            if (aircraftType == null || aircraftType.IsTransient())
             {
-                throw new ArgumentException("机型Id参数为空！");
+                throw new ArgumentException("机型参数为空！");
             }
 
-            AircraftTypeId = aircraftTypeId;
+            AircraftType = aircraftType;
+            AircraftTypeId = aircraftType.Id;
         }
 
         /// <summary>
         ///     设置航空公司
         /// </summary>
-        /// <param name="airlinesId">航空公司</param>
-        public void SetAirlines(Guid airlinesId)
+        /// <param name="airlines">航空公司</param>
+        public void SetAirlines(Airlines airlines)
         {
-            if (airlinesId == null)
+            if (airlines == null || airlines.IsTransient())
             {
-                throw new ArgumentException("航空公司Id参数为空！");
+                throw new ArgumentException("航空公司参数为空！");
             }
 
-            AirlinesId = airlinesId;
+            Airlines = airlines;
+            AirlinesId = airlines.Id;
         }
         #endregion
     }

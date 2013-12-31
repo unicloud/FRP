@@ -82,12 +82,12 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         /// <summary>
         /// 发动机型号
         /// </summary>
-        public virtual EngineType EngineType { get; set; }
+        public virtual EngineType EngineType { get; private set; }
 
         /// <summary>
         /// 引进方式
         /// </summary>
-        public virtual ActionCategory ImportCategory { get; set; }
+        public virtual ActionCategory ImportCategory { get; private set; }
 
         #endregion
 
@@ -124,29 +124,31 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
         /// <summary>
         ///     设置发动机型号
         /// </summary>
-        /// <param name="engineTypeId">发动机型号</param>
-        public void SetEngineType(Guid engineTypeId)
+        /// <param name="engineType">发动机型号</param>
+        public void SetEngineType(EngineType engineType)
         {
-            if (engineTypeId == null)
+            if (engineType == null || engineType.IsTransient())
             {
-                throw new ArgumentException("发动机型号Id参数为空！");
+                throw new ArgumentException("发动机型号参数为空！");
             }
 
-            EngineTypeId = engineTypeId;
+            EngineType = engineType;
+            EngineTypeId = engineType.Id;
         }
 
         /// <summary>
         ///     设置引进方式
         /// </summary>
-        /// <param name="importCategoryId">引进方式</param>
-        public void SetImportCategory(Guid importCategoryId)
+        /// <param name="importCategory">引进方式</param>
+        public void SetImportCategory(ActionCategory importCategory)
         {
-            if (importCategoryId == null)
+            if (importCategory == null || importCategory.IsTransient())
             {
                 throw new ArgumentException("引进方式Id参数为空！");
             }
 
-            ImportCategoryId = importCategoryId;
+            ImportCategory = importCategory;
+            ImportCategoryId = importCategory.Id;
         }
         #endregion
     }

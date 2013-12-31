@@ -29,7 +29,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
     {
         public PlanEntityConfiguration()
         {
-            ToTable("Plan", DbConfig.Schema);
+            ToTable("AircraftPlan", DbConfig.Schema);
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);

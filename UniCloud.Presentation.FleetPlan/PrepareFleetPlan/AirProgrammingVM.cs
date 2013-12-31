@@ -16,6 +16,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,9 +26,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls;
+using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
+using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service;
+using UniCloud.Presentation.Service.CommonService.Common;
+using UniCloud.Presentation.Service.FleetPlan;
+using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 #endregion
 
@@ -40,7 +49,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #region 声明、初始化
 
         private readonly IRegionManager _regionManager;
-        //private FleetPlanData _fleetPlanData;
+        private FleetPlanData _context;
+        private DocumentDTO _document = new DocumentDTO();
+
+        [Import]
+        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
         public AirProgrammingVM(IRegionManager regionManager)
@@ -58,7 +71,20 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
+            AirProgrammings = Service.CreateCollection(_context.AirProgrammings,
+                (o, p, c) =>
+                {
+                    foreach (var airProgramming in from object item in o select item as AirProgrammingDTO)
+                    {
+                        airProgramming.AirProgrammingLines.CollectionChanged += c;
+                        airProgramming.AirProgrammingLines.ToList().ForEach(ol => ol.PropertyChanged += p);
+                    }
+                });
+            Service.RegisterCollectionView(AirProgrammings);
 
+            Programmings = new QueryableDataServiceCollectionView<ProgrammingDTO>(_context, _context.Programmings);
+
+            //TODO:缺一个飞机序列集合
         }
 
         /// <summary>
@@ -66,6 +92,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializerCommand()
         {
+            NewCommand = new DelegateCommand<object>(OnNew, CanNew);
+            RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
+            AddEntityCommand = new DelegateCommand<object>(OnAddEntity, CanAddEntity);
+            RemoveEntityCommand = new DelegateCommand<object>(OnRemoveEntity, CanRemoveEntity);
         }
 
         /// <summary>
@@ -73,7 +103,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         protected override IService CreateService()
         {
-            return null;
+            _context = new FleetPlanData(AgentHelper.FleetPlanServiceUri);
+            return new FleetPlanService(_context);
         }
 
         #endregion
@@ -95,9 +126,73 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public override void LoadData()
         {
+            AirProgrammings.Load(true);
+            Programmings.Load(true);
         }
 
         #region 业务
+
+        #region 航空公司五年规划集合
+
+        /// <summary>
+        ///     航空公司五年规划集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<AirProgrammingDTO> AirProgrammings { get; set; }
+
+        #endregion
+
+        #region 规划期间集合
+
+        /// <summary>
+        ///     规划期间集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ProgrammingDTO> Programmings { get; set; }
+
+        #endregion
+
+        #region 选择的规划
+
+        private AirProgrammingDTO _selAirProgramming;
+
+        /// <summary>
+        /// 选择的规划
+        /// </summary>
+        public AirProgrammingDTO SelAirProgramming
+        {
+            get { return this._selAirProgramming; }
+            private set
+            {
+                if (this._selAirProgramming != value)
+                {
+                    _selAirProgramming = value;
+                    this.RaisePropertyChanged(() => this.SelAirProgramming);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 选择的规划明细
+
+        private AirProgrammingLineDTO _selAirProgrammingLine;
+
+        /// <summary>
+        /// 选择的规划明细
+        /// </summary>
+        public AirProgrammingLineDTO SelAirProgrammingLine
+        {
+            get { return this._selAirProgrammingLine; }
+            private set
+            {
+                if (this._selAirProgrammingLine != value)
+                {
+                    _selAirProgrammingLine = value;
+                    this.RaisePropertyChanged(() => this.SelAirProgrammingLine);
+                }
+            }
+        }
+
+        #endregion
 
         #endregion
 
@@ -106,6 +201,134 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #endregion
 
         #region 操作
+
+        #region 创建新规划
+
+        /// <summary>
+        ///     创建新规划
+        /// </summary>
+        public DelegateCommand<object> NewCommand { get; private set; }
+
+        private void OnNew(object obj)
+        {
+            var airProg = new AirProgrammingDTO
+            {
+                Id = new Guid(),
+                CreateDate = DateTime.Now,
+            };
+            AirProgrammings.AddNew(airProg);
+        }
+
+        private bool CanNew(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 删除规划
+
+        /// <summary>
+        ///     删除规划
+        /// </summary>
+        public DelegateCommand<object> RemoveCommand { get; private set; }
+
+        private void OnRemove(object obj)
+        {
+            if (_selAirProgramming != null)
+            {
+                AirProgrammings.Remove(_selAirProgramming);
+            }
+        }
+
+        private bool CanRemove(object obj)
+        {
+            return _selAirProgramming != null;
+        }
+
+        #endregion
+
+        #region 增加规划行
+
+        /// <summary>
+        ///     增加规划行
+        /// </summary>
+        public DelegateCommand<object> AddEntityCommand { get; private set; }
+
+        private void OnAddEntity(object obj)
+        {
+            var airProgLine = new AirProgrammingLineDTO
+            {
+                Id = new Guid(),
+                BuyNum = 1,
+                ExportNum = 1,
+                LeaseNum = 1,
+            };
+
+            SelAirProgramming.AirProgrammingLines.Add(airProgLine);
+        }
+
+        private bool CanAddEntity(object obj)
+        {
+            return _selAirProgramming != null;
+        }
+
+        #endregion
+
+        #region 移除规划行
+
+        /// <summary>
+        ///     移除规划行
+        /// </summary>
+        public DelegateCommand<object> RemoveEntityCommand { get; private set; }
+
+        private void OnRemoveEntity(object obj)
+        {
+            if (_selAirProgrammingLine != null)
+            {
+                SelAirProgramming.AirProgrammingLines.Remove(_selAirProgrammingLine);
+                //RemoveCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+        private bool CanRemoveEntity(object obj)
+        {
+            return _selAirProgrammingLine != null;
+        }
+
+        #endregion
+
+        #region 添加附件
+        protected override void OnAddAttach(object sender)
+        {
+            DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
+            DocumentView.ShowDialog();
+        }
+
+        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
+        {
+            if (DocumentView.Tag is DocumentDTO)
+            {
+                _document = DocumentView.Tag as DocumentDTO;
+                SelAirProgramming.DocumentId = _document.DocumentId;
+                SelAirProgramming.DocName = _document.Name;
+            }
+        }
+        #endregion
+
+        #region 查看附件
+        protected override void OnViewAttach(object sender)
+        {
+            if (SelAirProgramming == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+            DocumentView.ViewModel.InitData(true, _selAirProgramming.DocumentId, DocumentViewerClosed);
+            DocumentView.ShowDialog();
+
+        }
+        #endregion
 
         #endregion
     }

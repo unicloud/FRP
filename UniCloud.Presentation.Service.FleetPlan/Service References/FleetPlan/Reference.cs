@@ -2951,14 +2951,16 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// </summary>
         /// <param name="ID">Id 的初始值。</param>
         /// <param name="programmingId">ProgrammingId 的初始值。</param>
+        /// <param name="documentId">DocumentId 的初始值。</param>
         /// <param name="issuedUnitId">IssuedUnitId 的初始值。</param>
         /// <param name="airProgrammingLines">AirProgrammingLines 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static AirProgrammingDTO CreateAirProgrammingDTO(global::System.Guid ID, global::System.Guid programmingId, global::System.Guid issuedUnitId, global::System.Collections.ObjectModel.ObservableCollection<AirProgrammingLineDTO> airProgrammingLines)
+        public static AirProgrammingDTO CreateAirProgrammingDTO(global::System.Guid ID, global::System.Guid programmingId, global::System.Guid documentId, global::System.Guid issuedUnitId, global::System.Collections.ObjectModel.ObservableCollection<AirProgrammingLineDTO> airProgrammingLines)
         {
             AirProgrammingDTO airProgrammingDTO = new AirProgrammingDTO();
             airProgrammingDTO.Id = ID;
             airProgrammingDTO.ProgrammingId = programmingId;
+            airProgrammingDTO.DocumentId = documentId;
             airProgrammingDTO.IssuedUnitId = issuedUnitId;
             if ((airProgrammingLines == null))
             {
@@ -3125,7 +3127,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 架构中不存在属性 DocumentId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Nullable<global::System.Guid> DocumentId
+        public global::System.Guid DocumentId
         {
             get
             {
@@ -3140,8 +3142,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Nullable<global::System.Guid> _DocumentId;
-        partial void OnDocumentIdChanging(global::System.Nullable<global::System.Guid> value);
+        private global::System.Guid _DocumentId;
+        partial void OnDocumentIdChanging(global::System.Guid value);
         partial void OnDocumentIdChanged();
         /// <summary>
         /// 架构中不存在属性 IssuedUnitId 的注释。
@@ -3485,14 +3487,16 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <param name="ID">Id 的初始值。</param>
         /// <param name="programmingId">ProgrammingId 的初始值。</param>
         /// <param name="issuedUnitId">IssuedUnitId 的初始值。</param>
+        /// <param name="documentId">DocumentId 的初始值。</param>
         /// <param name="caacProgrammingLines">CaacProgrammingLines 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static CaacProgrammingDTO CreateCaacProgrammingDTO(global::System.Guid ID, global::System.Guid programmingId, global::System.Guid issuedUnitId, global::System.Collections.ObjectModel.ObservableCollection<CaacProgrammingLineDTO> caacProgrammingLines)
+        public static CaacProgrammingDTO CreateCaacProgrammingDTO(global::System.Guid ID, global::System.Guid programmingId, global::System.Guid issuedUnitId, global::System.Guid documentId, global::System.Collections.ObjectModel.ObservableCollection<CaacProgrammingLineDTO> caacProgrammingLines)
         {
             CaacProgrammingDTO caacProgrammingDTO = new CaacProgrammingDTO();
             caacProgrammingDTO.Id = ID;
             caacProgrammingDTO.ProgrammingId = programmingId;
             caacProgrammingDTO.IssuedUnitId = issuedUnitId;
+            caacProgrammingDTO.DocumentId = documentId;
             if ((caacProgrammingLines == null))
             {
                 throw new global::System.ArgumentNullException("caacProgrammingLines");
@@ -3702,7 +3706,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 架构中不存在属性 DocumentId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Nullable<global::System.Guid> DocumentId
+        public global::System.Guid DocumentId
         {
             get
             {
@@ -3717,8 +3721,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Nullable<global::System.Guid> _DocumentId;
-        partial void OnDocumentIdChanging(global::System.Nullable<global::System.Guid> value);
+        private global::System.Guid _DocumentId;
+        partial void OnDocumentIdChanging(global::System.Guid value);
         partial void OnDocumentIdChanged();
         /// <summary>
         /// 架构中不存在属性 CaacProgrammingLines 的注释。
@@ -4709,9 +4713,10 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <param name="status">Status 的初始值。</param>
         /// <param name="airlinesId">AirlinesId 的初始值。</param>
         /// <param name="annualId">AnnualId 的初始值。</param>
+        /// <param name="documentId">DocumentId 的初始值。</param>
         /// <param name="enginePlanHistories">EnginePlanHistories 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static EnginePlanDTO CreateEnginePlanDTO(global::System.Guid ID, global::System.DateTime createDate, bool isValid, int versionNumber, bool isFinished, int status, global::System.Guid airlinesId, global::System.Guid annualId, global::System.Collections.ObjectModel.ObservableCollection<EnginePlanHistoryDTO> enginePlanHistories)
+        public static EnginePlanDTO CreateEnginePlanDTO(global::System.Guid ID, global::System.DateTime createDate, bool isValid, int versionNumber, bool isFinished, int status, global::System.Guid airlinesId, global::System.Guid annualId, global::System.Guid documentId, global::System.Collections.ObjectModel.ObservableCollection<EnginePlanHistoryDTO> enginePlanHistories)
         {
             EnginePlanDTO enginePlanDTO = new EnginePlanDTO();
             enginePlanDTO.Id = ID;
@@ -4722,6 +4727,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             enginePlanDTO.Status = status;
             enginePlanDTO.AirlinesId = airlinesId;
             enginePlanDTO.AnnualId = annualId;
+            enginePlanDTO.DocumentId = documentId;
             if ((enginePlanHistories == null))
             {
                 throw new global::System.ArgumentNullException("enginePlanHistories");
@@ -4997,7 +5003,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 架构中不存在属性 DocumentId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Nullable<global::System.Guid> DocumentId
+        public global::System.Guid DocumentId
         {
             get
             {
@@ -5012,8 +5018,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Nullable<global::System.Guid> _DocumentId;
-        partial void OnDocumentIdChanging(global::System.Nullable<global::System.Guid> value);
+        private global::System.Guid _DocumentId;
+        partial void OnDocumentIdChanging(global::System.Guid value);
         partial void OnDocumentIdChanged();
         /// <summary>
         /// 架构中不存在属性 EnginePlanHistories 的注释。
@@ -6234,9 +6240,10 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <param name="publishStatus">PublishStatus 的初始值。</param>
         /// <param name="airlinesId">AirlinesId 的初始值。</param>
         /// <param name="annualId">AnnualId 的初始值。</param>
+        /// <param name="documentId">DocumentId 的初始值。</param>
         /// <param name="planHistories">PlanHistories 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static PlanDTO CreatePlanDTO(global::System.Guid ID, bool isValid, int versionNumber, bool isCurrentVersion, global::System.DateTime createDate, bool isFinished, int status, int publishStatus, global::System.Guid airlinesId, global::System.Guid annualId, global::System.Collections.ObjectModel.ObservableCollection<PlanHistoryDTO> planHistories)
+        public static PlanDTO CreatePlanDTO(global::System.Guid ID, bool isValid, int versionNumber, bool isCurrentVersion, global::System.DateTime createDate, bool isFinished, int status, int publishStatus, global::System.Guid airlinesId, global::System.Guid annualId, global::System.Guid documentId, global::System.Collections.ObjectModel.ObservableCollection<PlanHistoryDTO> planHistories)
         {
             PlanDTO planDTO = new PlanDTO();
             planDTO.Id = ID;
@@ -6249,6 +6256,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             planDTO.PublishStatus = publishStatus;
             planDTO.AirlinesId = airlinesId;
             planDTO.AnnualId = annualId;
+            planDTO.DocumentId = documentId;
             if ((planHistories == null))
             {
                 throw new global::System.ArgumentNullException("planHistories");
@@ -6568,7 +6576,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 架构中不存在属性 DocumentId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Nullable<global::System.Guid> DocumentId
+        public global::System.Guid DocumentId
         {
             get
             {
@@ -6583,8 +6591,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Nullable<global::System.Guid> _DocumentId;
-        partial void OnDocumentIdChanging(global::System.Nullable<global::System.Guid> value);
+        private global::System.Guid _DocumentId;
+        partial void OnDocumentIdChanging(global::System.Guid value);
         partial void OnDocumentIdChanged();
         /// <summary>
         /// 架构中不存在属性 PlanHistories 的注释。
