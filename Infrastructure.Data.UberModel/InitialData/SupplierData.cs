@@ -17,13 +17,13 @@
 
 #region 命名空间
 
+using UniCloud.Domain.Common.ValueObjects;
 using UniCloud.Domain.UberModel.Aggregates.BankAccountAgg;
 using UniCloud.Domain.UberModel.Aggregates.LinkmanAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierRoleAgg;
 using UniCloud.Domain.UberModel.Enums;
-using UniCloud.Domain.UberModel.ValueObjects;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
 
 #endregion
@@ -65,28 +65,28 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             Context.SupplierRoles.Add(engPurchaseSupplier);
             Context.SupplierRoles.Add(maintainSupplier);
             var banck = new BankAccount
-                {
-                    Account = "432222283746262",
-                    Address = "四川成都",
-                    Bank = "中国工商银行",
-                    Branch = "成都支行",
-                    Country = "中国",
-                    IsCurrent = true,
-                    Name = "XXX",
-                    SupplierId = supplier.Id,
-                };
+            {
+                Account = "432222283746262",
+                Address = "四川成都",
+                Bank = "中国工商银行",
+                Branch = "成都支行",
+                Country = "中国",
+                IsCurrent = true,
+                Name = "XXX",
+                SupplierId = supplier.Id,
+            };
             Context.BankAccounts.Add(banck);
             var linkman = new Linkman
-                {
-                    Name = "XXX",
-                    IsDefault = true,
-                    Address = new Address(null, null, "四川成都", null),
-                    Department = "售后服务部",
-                    Email = "1234567@163.com",
-                    Fax = "1234567",
-                    Mobile = "1234567",
-                    Note = "备注信息",
-                };
+            {
+                Name = "XXX",
+                IsDefault = true,
+                Address = new Address(null, null, "四川成都", null),
+                Department = "售后服务部",
+                Email = "1234567@163.com",
+                Fax = "1234567",
+                Mobile = "1234567",
+                Note = "备注信息",
+            };
             linkman.SetSourceId(supplier.SupplierCompany.LinkmanId);
             Context.Linkmen.Add(linkman);
         }

@@ -21,8 +21,8 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.ForwarderQueries;
+using UniCloud.Domain.Common.ValueObjects;
 using UniCloud.Domain.PurchaseBC.Aggregates.ForwarderAgg;
-using UniCloud.Domain.PurchaseBC.ValueObjects;
 
 #endregion
 

@@ -18,10 +18,10 @@
 #region 命名空间
 
 using System;
-using Microsoft.Practices.Unity;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UniCloud.Domain.Common.ValueObjects;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
-using UniCloud.Domain.PurchaseBC.ValueObjects;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
@@ -58,11 +58,24 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
             // Arrange
             var linkmanRep = DefaultContainer.Resolve<ILinkmanRepository>();
             var linkman = LinkmanFactory.CreateLinkman("DDD", "12345", "3333", null, "abc@3g",
-                new Address("成都", null, null, null),Guid.NewGuid());
+                new Address("成都", null, null, null), Guid.NewGuid());
 
             //// Act
             //linkmanRep.Add(linkman);
             //linkmanRep.UnitOfWork.Commit();
+        }
+
+        [TestMethod]
+        public void GetLinkman()
+        {
+            // Arrange
+            var service = DefaultContainer.Resolve<ILinkmanRepository>();
+
+            // Act
+            var result = service.GetAll().ToList();
+
+            // Assert
+            Assert.IsTrue(result.Any());
         }
     }
 }

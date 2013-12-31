@@ -45,43 +45,43 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
         {
             var dbSupplierRole = _unitOfWork.CreateSet<SupplierRole>();
             var suppliers = _unitOfWork.CreateSet<SupplierCompany>().Select(p => new SupplierCompanyDTO
-                {
-                    SupplierCompanyId = p.Id,
-                    LinkManId = p.LinkmanId,
-                    AircraftLeaseSupplier =
-                        dbSupplierRole.OfType<AircraftLeaseSupplier>()
-                                      .Any(c => c.SupplierCompanyId == p.Id),
-                    AircraftPurchaseSupplier =
-                        dbSupplierRole.OfType<AircraftPurchaseSupplier>()
-                                      .Any(
-                                          c =>
-                                          c.SupplierCompanyId == p.Id),
-                    EngineLeaseSupplier =
-                        dbSupplierRole.OfType<EngineLeaseSupplier>()
-                                      .Any(
-                                          c =>
-                                          c.SupplierCompanyId == p.Id),
-                    EnginePurchaseSupplier =
-                        dbSupplierRole.OfType<EnginePurchaseSupplier>()
-                                      .Any(
-                                          c =>
-                                          c.SupplierCompanyId == p.Id),
-                    BFEPurchaseSupplier =
-                        dbSupplierRole.OfType<BFEPurchaseSupplier>()
-                                      .Any(
-                                          c =>
-                                          c.SupplierCompanyId == p.Id),
-                    MaintainSupplier = dbSupplierRole.OfType<MaintainSupplier>()
-                                                     .Any(
-                                                         c =>
-                                                         c.SupplierCompanyId == p.Id),
-                    Code = p.Code,
-                    CreateDate = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).CreateDate,
-                    SupplierType =
-                        p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).SupplierType == 0 ? "国内" : "国外",
-                    Name = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).CnName,
-                    Note = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).Note,
-                });
+            {
+                SupplierCompanyId = p.Id,
+                LinkManId = p.LinkmanId,
+                AircraftLeaseSupplier =
+                    dbSupplierRole.OfType<AircraftLeaseSupplier>()
+                        .Any(c => c.SupplierCompanyId == p.Id),
+                AircraftPurchaseSupplier =
+                    dbSupplierRole.OfType<AircraftPurchaseSupplier>()
+                        .Any(
+                            c =>
+                                c.SupplierCompanyId == p.Id),
+                EngineLeaseSupplier =
+                    dbSupplierRole.OfType<EngineLeaseSupplier>()
+                        .Any(
+                            c =>
+                                c.SupplierCompanyId == p.Id),
+                EnginePurchaseSupplier =
+                    dbSupplierRole.OfType<EnginePurchaseSupplier>()
+                        .Any(
+                            c =>
+                                c.SupplierCompanyId == p.Id),
+                BFEPurchaseSupplier =
+                    dbSupplierRole.OfType<BFEPurchaseSupplier>()
+                        .Any(
+                            c =>
+                                c.SupplierCompanyId == p.Id),
+                MaintainSupplier = dbSupplierRole.OfType<MaintainSupplier>()
+                    .Any(
+                        c =>
+                            c.SupplierCompanyId == p.Id),
+                Code = p.Code,
+                CreateDate = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).CreateDate,
+                SupplierType =
+                    p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).SupplierType == 0 ? "国内" : "国外",
+                Name = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).CnName,
+                Note = p.Suppliers.FirstOrDefault(c => c.Code.Equals(p.Code)).Note,
+            });
 
 
             return suppliers;
@@ -93,72 +93,72 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
             var dbSupplierRole = _unitOfWork.CreateSet<SupplierRole>();
 
             return query.ApplyTo(_unitOfWork.CreateSet<Supplier>()).Select(p => new SupplierDTO
+            {
+                SupplierId = p.Id,
+                Name = p.CnName,
+                SupplierType = p.SupplierType == SupplierType.国外 ? "国外" : "国内",
+                CreateDate = p.CreateDate,
+                UpdateDate = p.UpdateDate,
+                Code = p.Code,
+                Note = p.Note,
+                SuppierCompanyId = p.SupplierCompanyId,
+                AircraftLeaseSupplier =
+                    dbSupplierRole.OfType<AircraftLeaseSupplier>()
+                        .Any(c => c.SupplierCompanyId == p.Id),
+                AircraftPurchaseSupplier =
+                    dbSupplierRole.OfType<AircraftPurchaseSupplier>()
+                        .Any(
+                            c =>
+                                c.SupplierCompanyId == p.Id),
+                EngineLeaseSupplier =
+                    dbSupplierRole.OfType<EngineLeaseSupplier>()
+                        .Any(
+                            c =>
+                                c.SupplierCompanyId == p.Id),
+                EnginePurchaseSupplier =
+                    dbSupplierRole.OfType<EnginePurchaseSupplier>()
+                        .Any(
+                            c =>
+                                c.SupplierCompanyId == p.Id),
+                BFEPurchaseSupplier =
+                    dbSupplierRole.OfType<BFEPurchaseSupplier>()
+                        .Any(
+                            c =>
+                                c.SupplierCompanyId == p.Id),
+                MaintainSupplier = dbSupplierRole.OfType<MaintainSupplier>()
+                    .Any(
+                        c =>
+                            c.SupplierCompanyId == p.Id),
+                BankAccounts = p.BankAccounts.Select(c => new BankAccountDTO
                 {
-                    SupplierId = p.Id,
-                    Name = p.CnName,
-                    SupplierType = p.SupplierType == SupplierType.国外 ? "国外" : "国内",
-                    CreateDate = p.CreateDate,
-                    UpdateDate = p.UpdateDate,
-                    Code = p.Code,
-                    Note = p.Note,
-                    SuppierCompanyId = p.SupplierCompanyId,
-                    AircraftLeaseSupplier =
-                        dbSupplierRole.OfType<AircraftLeaseSupplier>()
-                                      .Any(c => c.SupplierCompanyId == p.Id),
-                    AircraftPurchaseSupplier =
-                        dbSupplierRole.OfType<AircraftPurchaseSupplier>()
-                                      .Any(
-                                          c =>
-                                          c.SupplierCompanyId == p.Id),
-                    EngineLeaseSupplier =
-                        dbSupplierRole.OfType<EngineLeaseSupplier>()
-                                      .Any(
-                                          c =>
-                                          c.SupplierCompanyId == p.Id),
-                    EnginePurchaseSupplier =
-                        dbSupplierRole.OfType<EnginePurchaseSupplier>()
-                                      .Any(
-                                          c =>
-                                          c.SupplierCompanyId == p.Id),
-                    BFEPurchaseSupplier =
-                        dbSupplierRole.OfType<BFEPurchaseSupplier>()
-                                      .Any(
-                                          c =>
-                                          c.SupplierCompanyId == p.Id),
-                    MaintainSupplier = dbSupplierRole.OfType<MaintainSupplier>()
-                                                     .Any(
-                                                         c =>
-                                                         c.SupplierCompanyId == p.Id),
-                    BankAccounts = p.BankAccounts.Select(c => new BankAccountDTO
-                        {
-                            Account = c.Account,
-                            Address = c.Address,
-                            Bank = c.Bank,
-                            BankAccountId = c.Id,
-                            Branch = c.Bank,
-                            Country = c.Country,
-                            IsCurrent = c.IsCurrent,
-                            Name = c.Name,
-                            SupplierId = c.SupplierId
-                        }).ToList(),
-                });
+                    Account = c.Account,
+                    Address = c.Address,
+                    Bank = c.Bank,
+                    BankAccountId = c.Id,
+                    Branch = c.Bank,
+                    Country = c.Country,
+                    IsCurrent = c.IsCurrent,
+                    Name = c.Name,
+                    SupplierId = c.SupplierId
+                }).ToList(),
+            });
         }
 
         public IQueryable<LinkmanDTO> LinkmansQuery(
             QueryBuilder<Linkman> query)
         {
             return query.ApplyTo(_unitOfWork.CreateSet<Linkman>()).Select(p => new LinkmanDTO
-                {
-                    Address = p.Address.AddressLine1,
-                    Email = p.Email,
-                    IsDefault = p.IsDefault,
-                    LinkmanId = p.Id,
-                    Fax = p.Fax,
-                    Mobile = p.Mobile,
-                    Name = p.Name,
-                    Note = p.Note,
-                    SourceId = p.SourceId,
-                });
+            {
+                Address = p.Address.AddressLine1,
+                Email = p.Email,
+                IsDefault = p.IsDefault,
+                LinkmanId = p.Id,
+                Fax = p.Fax,
+                Mobile = p.Mobile,
+                Name = p.Name,
+                Note = p.Note,
+                SourceId = p.SourceId,
+            });
         }
 
         /// <summary>
@@ -172,16 +172,16 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
             var dbMaterial = _unitOfWork.CreateSet<Material>().OfType<AircraftMaterial>();
             var dbSupplierCompanyMaterial = _unitOfWork.CreateSet<SupplierCompanyMaterial>();
             return from t in dbMaterial
-                   from c in dbSupplierCompanyMaterial
-                   where t.Id == c.MaterialId
-                   select new SupplierCompanyAcMaterialDTO
-                       {
-                           SupplierCompanyMaterialId = c.Id,
-                           Name = t.Name,
-                           Description = t.Description,
-                           SupplierCompanyId = c.SupplierCompanyId,
-                           MaterialId = c.MaterialId
-                       };
+                from c in dbSupplierCompanyMaterial
+                where t.Id == c.MaterialId
+                select new SupplierCompanyAcMaterialDTO
+                {
+                    SupplierCompanyMaterialId = c.Id,
+                    Name = t.Name,
+                    Description = t.Description,
+                    SupplierCompanyId = c.SupplierCompanyId,
+                    MaterialId = c.MaterialId
+                };
         }
 
         /// <summary>
@@ -195,16 +195,16 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
             var dbMaterial = _unitOfWork.CreateSet<Material>().OfType<EngineMaterial>();
             var dbSupplierCompanyMaterial = _unitOfWork.CreateSet<SupplierCompanyMaterial>();
             return from t in dbMaterial
-                   from c in dbSupplierCompanyMaterial
-                   where t.Id == c.MaterialId
-                   select new SupplierCompanyEngineMaterialDTO
-                       {
-                           SupplierCompanyMaterialId = c.Id,
-                           Name = t.Name,
-                           Description = t.Description,
-                           SupplierCompanyId = c.SupplierCompanyId,
-                           MaterialId = c.MaterialId
-                       };
+                from c in dbSupplierCompanyMaterial
+                where t.Id == c.MaterialId
+                select new SupplierCompanyEngineMaterialDTO
+                {
+                    SupplierCompanyMaterialId = c.Id,
+                    Name = t.Name,
+                    Description = t.Description,
+                    SupplierCompanyId = c.SupplierCompanyId,
+                    MaterialId = c.MaterialId
+                };
         }
 
         /// <summary>
@@ -218,16 +218,16 @@ namespace UniCloud.Application.PurchaseBC.Query.SupplierQueries
             var dbMaterial = _unitOfWork.CreateSet<Material>().OfType<BFEMaterial>();
             var dbSupplierCompanyMaterial = _unitOfWork.CreateSet<SupplierCompanyMaterial>();
             return from t in dbMaterial
-                   from c in dbSupplierCompanyMaterial
-                   where t.Id == c.MaterialId
-                   select new SupplierCompanyBFEMaterialDTO
-                       {
-                           SupplierCompanyMaterialId = c.Id,
-                           Name = t.Name,
-                           Description = t.Description,
-                           SupplierCompanyId = c.SupplierCompanyId,
-                           MaterialId = c.MaterialId
-                       };
+                from c in dbSupplierCompanyMaterial
+                where t.Id == c.MaterialId
+                select new SupplierCompanyBFEMaterialDTO
+                {
+                    SupplierCompanyMaterialId = c.Id,
+                    Name = t.Name,
+                    Description = t.Description,
+                    SupplierCompanyId = c.SupplierCompanyId,
+                    MaterialId = c.MaterialId
+                };
         }
     }
 }

@@ -4,9 +4,9 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/11/06，21:11
+// 作者：丁志浩 时间：2013/12/31，10:12
 // 方案：FRP
-// 项目：Domain.UberModel
+// 项目：Domain.Common
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -15,7 +15,7 @@
 
 #endregion
 
-namespace UniCloud.Domain.UberModel.ValueObjects
+namespace UniCloud.Domain.Common.ValueObjects
 {
     /// <summary>
     ///     地址值对象

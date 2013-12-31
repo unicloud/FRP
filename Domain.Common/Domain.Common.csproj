@@ -4,17 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4D4558F2-9855-4962-8CDC-52BDB85182D4}</ProjectGuid>
+    <ProjectGuid>{E48E84DE-5A91-4D16-84E5-CFFC4C7E7657}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UniCloud.Domain.AircraftConfigBC</RootNamespace>
-    <AssemblyName>UniCloud.Domain.AircraftConfigBC</AssemblyName>
+    <RootNamespace>UniCloud.Domain.Common</RootNamespace>
+    <AssemblyName>UniCloud.Domain.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,7 +31,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,19 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aggregates\AircraftAgg\Aircraft.cs" />
-    <Compile Include="Aggregates\AircraftAgg\AircraftFactory.cs" />
-    <Compile Include="Aggregates\AircraftAgg\AircraftSpecifications.cs" />
-    <Compile Include="Aggregates\AircraftAgg\IAircraftRepository.cs" />
-    <Compile Include="Aggregates\AircraftTypeAgg\AircraftType.cs" />
-    <Compile Include="Aggregates\AircraftTypeAgg\AircraftTypeFactory.cs" />
-    <Compile Include="Aggregates\AircraftTypeAgg\AircraftTypeSpecifications.cs" />
-    <Compile Include="Aggregates\AircraftTypeAgg\IAircraftTypeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enums\" />
-    <Folder Include="Services\" />
+    <Compile Include="Entities\ScheduleBase.cs" />
+    <Compile Include="ValueObjects\Address.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
