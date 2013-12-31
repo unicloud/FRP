@@ -33,6 +33,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         private List<PlanHistoryDTO> _planHistories;
 
         #endregion
+
         #region 属性
 
         /// <summary>
@@ -94,6 +95,16 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// 文档名称
         /// </summary>
         public string DocName { get; set; }
+
+        /// <summary>
+        /// 航空公司名称
+        /// </summary>
+        public string AirlinesName { get; set; }
+
+        /// <summary>
+        /// 年度
+        /// </summary>
+        public int Year { get; set; }
         #endregion
 
         #region 外键属性

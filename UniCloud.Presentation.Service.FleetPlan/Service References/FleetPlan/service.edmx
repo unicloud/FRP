@@ -123,7 +123,9 @@
         <Property Name="Id" Type="Edm.Guid" Nullable="false" />
         <Property Name="Year" Type="Edm.Int32" Nullable="false" />
         <Property Name="IsOpen" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="ProgrammingName" Type="Edm.String" />
         <Property Name="ProgrammingId" Type="Edm.Guid" Nullable="false" />
+        <NavigationProperty Name="Plans" Relationship="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO_Plans" ToRole="Plans" FromRole="AnnualDTO" />
       </EntityType>
       <EntityType Name="CaacProgrammingDTO">
         <Key>
@@ -277,6 +279,8 @@
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="PublishStatus" Type="Edm.Int32" Nullable="false" />
         <Property Name="DocName" Type="Edm.String" />
+        <Property Name="AirlinesName" Type="Edm.String" />
+        <Property Name="Year" Type="Edm.Int32" Nullable="false" />
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AnnualId" Type="Edm.Guid" Nullable="false" />
         <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
@@ -290,6 +294,12 @@
         <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
         <Property Name="IsSubmit" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
+        <Property Name="AirlinesName" Type="Edm.String" />
+        <Property Name="Regional" Type="Edm.String" />
+        <Property Name="AircraftTypeName" Type="Edm.String" />
+        <Property Name="ActionType" Type="Edm.String" />
+        <Property Name="TargetType" Type="Edm.String" />
+        <Property Name="PerformTime" Type="Edm.String" />
         <Property Name="PlanAircraftId" Type="Edm.Guid" />
         <Property Name="PlanId" Type="Edm.Guid" Nullable="false" />
         <Property Name="ActionCategoryId" Type="Edm.Guid" Nullable="false" />
@@ -364,6 +374,10 @@
         <Property Name="SettingContent" Type="Edm.String" />
         <Property Name="XmlContent" Type="Edm.String" />
       </EntityType>
+      <Association Name="AnnualDTO_Plans">
+        <End Type="UniCloud.Application.FleetPlanBC.DTO.PlanDTO" Role="Plans" Multiplicity="*" />
+        <End Type="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO" Role="AnnualDTO" Multiplicity="*" />
+      </Association>
     </Schema>
     <Schema Namespace="UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityType Name="ApprovalDocDTO">
@@ -453,6 +467,10 @@
         <EntitySet Name="Suppliers" EntityType="UniCloud.Application.FleetPlanBC.DTO.SupplierDTO" />
         <EntitySet Name="XmlConfigs" EntityType="UniCloud.Application.FleetPlanBC.DTO.XmlConfigDTO" />
         <EntitySet Name="XmlSettings" EntityType="UniCloud.Application.FleetPlanBC.DTO.XmlSettingDTO" />
+        <AssociationSet Name="AnnualDTO_Plans" Association="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO_Plans">
+          <End Role="AnnualDTO" EntitySet="Annuals" />
+          <End Role="Plans" EntitySet="Plans" />
+        </AssociationSet>
       </EntityContainer>
     </Schema>
   </edmx:DataServices>
