@@ -63,7 +63,7 @@
                                     <telerik:RadToolBarSeparator />
                                     <telerik:RadButton x:Name="Attachment"
                                                        ToolTipService.ToolTip="添加附件"
-                                                       Command="{Binding AttachCommand}">
+                                                       Command="{Binding AddAttachCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
                                                Stretch="Fill" />
                                     </telerik:RadButton>

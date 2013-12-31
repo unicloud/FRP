@@ -34,7 +34,8 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
-            Property(p => p.ExamineDate).HasColumnName("ExamineDate").HasColumnType("datetime2");
+            Property(p => p.CaacExamineDate).HasColumnName("CaacExamineDate").HasColumnType("datetime2");
+            Property(p => p.NdrcExamineDate).HasColumnName("CaacExamineDate").HasColumnType("datetime2");
             Property(p => p.CaacApprovalNumber).HasColumnName("CaacApprovalNumber");
             Property(p => p.NdrcApprovalNumber).HasColumnName("NdrcApprovalNumber");
             Property(p => p.Status).HasColumnName("Status");

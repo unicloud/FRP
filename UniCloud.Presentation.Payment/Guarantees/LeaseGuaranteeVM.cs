@@ -272,7 +272,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
         {
             if (SelectedLeaseGuarantee == null)
             {
-                MessageAlert("提示", "请选择需要删除的记录");
+                MessageAlert("提示", "请选择需要提交审核的记录");
                 return;
             }
             SelectedLeaseGuarantee.Status = (int) GuaranteeStatus.待审核;
@@ -307,7 +307,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
         {
             if (SelectedLeaseGuarantee == null)
             {
-                MessageAlert("提示", "请选择需要删除的记录");
+                MessageAlert("提示", "请选择需要审核的记录");
                 return;
             }
             SelectedLeaseGuarantee.Status = (int) GuaranteeStatus.已审核;

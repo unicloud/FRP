@@ -18,7 +18,7 @@
 #region 命名空间
 
 using System.Linq;
-using UniCloud.Application.FleetPlanBC.DTO.RequestDTO;
+using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 
 #endregion

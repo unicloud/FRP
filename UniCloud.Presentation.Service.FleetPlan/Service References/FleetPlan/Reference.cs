@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2013/12/30 11:40:38
+// 生成日期: 2013/12/31 10:26:22
 namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
     
@@ -39,7 +39,13 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         protected global::System.Type ResolveTypeFromName(string typeName)
         {
-            global::System.Type resolvedType = this.DefaultResolveType(typeName, "UniCloud.Application.FleetPlanBC.DTO.EngineDTO", "UniCloud.Presentation.Service.FleetPlan.FleetPlan.UniCloud.Application.FleetPlanB" +
+            global::System.Type resolvedType = this.DefaultResolveType(typeName, "UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO", "UniCloud.Presentation.Service.FleetPlan.FleetPlan.UniCloud.Application.FleetPlanB" +
+                    "C.DTO.ApporvalDocDTO");
+            if ((resolvedType != null))
+            {
+                return resolvedType;
+            }
+            resolvedType = this.DefaultResolveType(typeName, "UniCloud.Application.FleetPlanBC.DTO.EngineDTO", "UniCloud.Presentation.Service.FleetPlan.FleetPlan.UniCloud.Application.FleetPlanB" +
                     "C.DTO.EngineDTO");
             if ((resolvedType != null))
             {
@@ -60,6 +66,11 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         protected string ResolveNameFromType(global::System.Type clientType)
         {
+            if (clientType.Namespace.Equals("UniCloud.Presentation.Service.FleetPlan.FleetPlan.UniCloud.Application.FleetPlanB" +
+                    "C.DTO.ApporvalDocDTO", global::System.StringComparison.Ordinal))
+            {
+                return string.Concat("UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO.", clientType.Name);
+            }
             if (clientType.Namespace.Equals("UniCloud.Presentation.Service.FleetPlan.FleetPlan.UniCloud.Application.FleetPlanB" +
                     "C.DTO.EngineDTO", global::System.StringComparison.Ordinal))
             {
@@ -140,6 +151,40 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<XmlSettingDTO> _XmlSettings;
         /// <summary>
+        /// 架构中不存在 Requests 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<RequestDTO> Requests
+        {
+            get
+            {
+                if ((this._Requests == null))
+                {
+                    this._Requests = base.CreateQuery<RequestDTO>("Requests");
+                }
+                return this._Requests;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<RequestDTO> _Requests;
+        /// <summary>
+        /// 架构中不存在 ApprovalDocs 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO.ApprovalDocDTO> ApprovalDocs
+        {
+            get
+            {
+                if ((this._ApprovalDocs == null))
+                {
+                    this._ApprovalDocs = base.CreateQuery<UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO.ApprovalDocDTO>("ApprovalDocs");
+                }
+                return this._ApprovalDocs;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO.ApprovalDocDTO> _ApprovalDocs;
+        /// <summary>
         /// 架构中不存在 Aircrafts 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -170,6 +215,22 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         public void AddToXmlSettings(XmlSettingDTO xmlSettingDTO)
         {
             base.AddObject("XmlSettings", xmlSettingDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 Requests 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToRequests(RequestDTO requestDTO)
+        {
+            base.AddObject("Requests", requestDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 ApprovalDocs 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToApprovalDocs(UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO.ApprovalDocDTO approvalDocDTO)
+        {
+            base.AddObject("ApprovalDocs", approvalDocDTO);
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private abstract class GeneratedEdmModel
@@ -230,43 +291,85 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 "tingId\" /></Key><Property Name=\"XmlSettingId\" Type=\"Edm.Guid\" Nullable=\"false\" /" +
                 "><Property Name=\"SettingType\" Type=\"Edm.String\" /><Property Name=\"SettingContent" +
                 "\" Type=\"Edm.String\" /><Property Name=\"XmlContent\" Type=\"Edm.String\" /></EntityTy" +
-                "pe></Schema><Schema Namespace=\"UniCloud.Application.FleetPlanBC.DTO.EngineDTO\" x" +
-                "mlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityType Name=\"EngineDTO\"" +
-                "><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullabl" +
-                "e=\"false\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><" +
-                "Property Name=\"FactoryDate\" Type=\"Edm.DateTime\" /><Property Name=\"ImportDate\" Ty" +
-                "pe=\"Edm.DateTime\" /><Property Name=\"ExportDate\" Type=\"Edm.DateTime\" /><Property " +
-                "Name=\"SerialNumber\" Type=\"Edm.String\" /><Property Name=\"MaxThrust\" Type=\"Edm.Dec" +
-                "imal\" Nullable=\"false\" /><Property Name=\"EngineTypeId\" Type=\"Edm.Guid\" Nullable=" +
-                "\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" /><Property Name=\"Airline" +
-                "sId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ImportCategoryId\" Type=\"" +
-                "Edm.Guid\" Nullable=\"false\" /><Property Name=\"EngineOwnerShipHistories\" Type=\"Col" +
-                "lection(UniCloud.Application.FleetPlanBC.DTO.EngineDTO.EngineOwnershipHistoryDTO" +
-                ")\" Nullable=\"false\" /><Property Name=\"EngineBusinessHistories\" Type=\"Collection(" +
-                "UniCloud.Application.FleetPlanBC.DTO.EngineDTO.EngineBusinessHistoryDTO)\" Nullab" +
-                "le=\"false\" /></EntityType><ComplexType Name=\"EngineOwnershipHistoryDTO\"><Propert" +
-                "y Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"StartDate\" Type=\"" +
-                "Edm.DateTime\" Nullable=\"false\" /><Property Name=\"EndDate\" Type=\"Edm.DateTime\" />" +
-                "<Property Name=\"EngineId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Sup" +
-                "plierId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><ComplexType Name=\"En" +
-                "gineBusinessHistoryDTO\"><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><" +
-                "Property Name=\"StartDate\" Type=\"Edm.DateTime\" /><Property Name=\"EndDate\" Type=\"E" +
-                "dm.DateTime\" /><Property Name=\"MaxThrust\" Type=\"Edm.Decimal\" Nullable=\"false\" />" +
-                "<Property Name=\"EngineId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Eng" +
-                "ineTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ImportCategoryId\" " +
-                "Type=\"Edm.Guid\" Nullable=\"false\" /></ComplexType></Schema><Schema Namespace=\"Uni" +
-                "Cloud.DistributedServices.FleetPlan\" xmlns=\"http://schemas.microsoft.com/ado/200" +
-                "9/11/edm\"><EntityContainer Name=\"FleetPlanData\" m:IsDefaultEntityContainer=\"true" +
-                "\"><EntitySet Name=\"Aircrafts\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.A" +
-                "ircraftDTO\" /><EntitySet Name=\"Engines\" EntityType=\"UniCloud.Application.FleetPl" +
-                "anBC.DTO.EngineDTO.EngineDTO\" /><EntitySet Name=\"XmlConfigs\" EntityType=\"UniClou" +
-                "d.Application.FleetPlanBC.DTO.XmlConfigDTO\" /><EntitySet Name=\"XmlSettings\" Enti" +
-                "tyType=\"UniCloud.Application.FleetPlanBC.DTO.XmlSettingDTO\" /></EntityContainer>" +
-                "</Schema></edmx:DataServices></edmx:Edmx>";
+                "pe><EntityType Name=\"RequestDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property N" +
+                "ame=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"SubmitDate\" Type=\"Ed" +
+                "m.DateTime\" /><Property Name=\"IsFinished\" Type=\"Edm.Boolean\" Nullable=\"false\" />" +
+                "<Property Name=\"Title\" Type=\"Edm.String\" /><Property Name=\"CreateDate\" Type=\"Edm" +
+                ".DateTime\" Nullable=\"false\" /><Property Name=\"RaDocNumber\" Type=\"Edm.String\" /><" +
+                "Property Name=\"SawsDocNumber\" Type=\"Edm.String\" /><Property Name=\"CaacDocNumber\"" +
+                " Type=\"Edm.String\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /" +
+                "><Property Name=\"CaacNote\" Type=\"Edm.String\" /><Property Name=\"RaNote\" Type=\"Edm" +
+                ".String\" /><Property Name=\"SawsNote\" Type=\"Edm.String\" /><Property Name=\"Approva" +
+                "lDocId\" Type=\"Edm.Guid\" /><Property Name=\"RaDocumentId\" Type=\"Edm.Guid\" /><Prope" +
+                "rty Name=\"RaDocumentName\" Type=\"Edm.String\" /><Property Name=\"SawsDocumentId\" Ty" +
+                "pe=\"Edm.Guid\" /><Property Name=\"SawsDocumentName\" Type=\"Edm.String\" /><Property " +
+                "Name=\"CaacDocumentId\" Type=\"Edm.Guid\" /><Property Name=\"CaacDocumentName\" Type=\"" +
+                "Edm.String\" /><Property Name=\"AirlinesId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"AirlinesName\" Type=\"Edm.String\" /><Property Name=\"ApprovalHistorys\"" +
+                " Type=\"Collection(UniCloud.Application.FleetPlanBC.DTO.ApprovalHistoryDTO)\" Null" +
+                "able=\"false\" /></EntityType><ComplexType Name=\"ApprovalHistoryDTO\"><Property Nam" +
+                "e=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"IsApproved\" Type=\"Edm." +
+                "Boolean\" Nullable=\"false\" /><Property Name=\"SeatingCapacity\" Type=\"Edm.Int32\" Nu" +
+                "llable=\"false\" /><Property Name=\"CarryingCapacity\" Type=\"Edm.Decimal\" Nullable=\"" +
+                "false\" /><Property Name=\"RequestDeliverMonth\" Type=\"Edm.Int32\" Nullable=\"false\" " +
+                "/><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"RequestId\" Type=\"Edm" +
+                ".Guid\" Nullable=\"false\" /><Property Name=\"PlanAircraftId\" Type=\"Edm.Guid\" Nullab" +
+                "le=\"false\" /><Property Name=\"ImportCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" " +
+                "/><Property Name=\"ImportCategoryName\" Type=\"Edm.String\" /><Property Name=\"Reques" +
+                "tDeliverAnnualId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"RequestDeli" +
+                "verAnnualName\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AirlinesId\" T" +
+                "ype=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AirlineName\" Type=\"Edm.String\"" +
+                " /></ComplexType></Schema><Schema Namespace=\"UniCloud.Application.FleetPlanBC.DT" +
+                "O.EngineDTO\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityType Na" +
+                "me=\"EngineDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm" +
+                ".Guid\" Nullable=\"false\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullab" +
+                "le=\"false\" /><Property Name=\"FactoryDate\" Type=\"Edm.DateTime\" /><Property Name=\"" +
+                "ImportDate\" Type=\"Edm.DateTime\" /><Property Name=\"ExportDate\" Type=\"Edm.DateTime" +
+                "\" /><Property Name=\"SerialNumber\" Type=\"Edm.String\" /><Property Name=\"MaxThrust\"" +
+                " Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"EngineTypeId\" Type=\"Edm.G" +
+                "uid\" Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" /><Property" +
+                " Name=\"AirlinesId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ImportCate" +
+                "goryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"EngineOwnerShipHistor" +
+                "ies\" Type=\"Collection(UniCloud.Application.FleetPlanBC.DTO.EngineDTO.EngineOwner" +
+                "shipHistoryDTO)\" Nullable=\"false\" /><Property Name=\"EngineB";
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+            private const string ModelPart1 = "usinessHistories\" Type=\"Collection(UniCloud.Application.FleetPlanBC.DTO.EngineDTO" +
+                ".EngineBusinessHistoryDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"E" +
+                "ngineOwnershipHistoryDTO\"><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /" +
+                "><Property Name=\"StartDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Nam" +
+                "e=\"EndDate\" Type=\"Edm.DateTime\" /><Property Name=\"EngineId\" Type=\"Edm.Guid\" Null" +
+                "able=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><" +
+                "/ComplexType><ComplexType Name=\"EngineBusinessHistoryDTO\"><Property Name=\"Id\" Ty" +
+                "pe=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"StartDate\" Type=\"Edm.DateTime\" " +
+                "/><Property Name=\"EndDate\" Type=\"Edm.DateTime\" /><Property Name=\"MaxThrust\" Type" +
+                "=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"EngineId\" Type=\"Edm.Guid\" Null" +
+                "able=\"false\" /><Property Name=\"EngineTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" />" +
+                "<Property Name=\"ImportCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /></ComplexTy" +
+                "pe></Schema><Schema Namespace=\"UniCloud.Application.FleetPlanBC.DTO.ApporvalDocD" +
+                "TO\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityType Name=\"Appro" +
+                "valDocDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Gui" +
+                "d\" Nullable=\"false\" /><Property Name=\"CaacExamineDate\" Type=\"Edm.DateTime\" /><Pr" +
+                "operty Name=\"NdrcExamineDate\" Type=\"Edm.DateTime\" /><Property Name=\"CaacApproval" +
+                "Number\" Type=\"Edm.String\" /><Property Name=\"NdrcApprovalNumber\" Type=\"Edm.String" +
+                "\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"" +
+                "Note\" Type=\"Edm.String\" /><Property Name=\"CaacDocumentName\" Type=\"Edm.String\" />" +
+                "<Property Name=\"NdrcDocumentName\" Type=\"Edm.String\" /><Property Name=\"CaacDocume" +
+                "ntId\" Type=\"Edm.Guid\" /><Property Name=\"NdrcDocumentId\" Type=\"Edm.Guid\" /></Enti" +
+                "tyType></Schema><Schema Namespace=\"UniCloud.DistributedServices.FleetPlan\" xmlns" +
+                "=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"FleetPlan" +
+                "Data\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"Aircrafts\" EntityType=\"" +
+                "UniCloud.Application.FleetPlanBC.DTO.AircraftDTO\" /><EntitySet Name=\"Engines\" En" +
+                "tityType=\"UniCloud.Application.FleetPlanBC.DTO.EngineDTO.EngineDTO\" /><EntitySet" +
+                " Name=\"XmlConfigs\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.XmlConfigDTO" +
+                "\" /><EntitySet Name=\"XmlSettings\" EntityType=\"UniCloud.Application.FleetPlanBC.D" +
+                "TO.XmlSettingDTO\" /><EntitySet Name=\"Requests\" EntityType=\"UniCloud.Application." +
+                "FleetPlanBC.DTO.RequestDTO\" /><EntitySet Name=\"ApprovalDocs\" EntityType=\"UniClou" +
+                "d.Application.FleetPlanBC.DTO.ApporvalDocDTO.ApprovalDocDTO\" /></EntityContainer" +
+                "></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
-                return string.Concat(ModelPart0);
+                return string.Concat(ModelPart0, ModelPart1);
             }
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             public static global::Microsoft.Data.Edm.IEdmModel GetInstance()
@@ -1747,9 +1850,894 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             }
         }
     }
+    /// <summary>
+    /// 架构中不存在 ComplexType UniCloud.Application.FleetPlanBC.DTO.ApprovalHistoryDTO 的注释。
+    /// </summary>
+    public partial class ApprovalHistoryDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 ApprovalHistoryDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        /// <param name="isApproved">IsApproved 的初始值。</param>
+        /// <param name="seatingCapacity">SeatingCapacity 的初始值。</param>
+        /// <param name="carryingCapacity">CarryingCapacity 的初始值。</param>
+        /// <param name="requestDeliverMonth">RequestDeliverMonth 的初始值。</param>
+        /// <param name="requestId">RequestId 的初始值。</param>
+        /// <param name="planAircraftId">PlanAircraftId 的初始值。</param>
+        /// <param name="importCategoryId">ImportCategoryId 的初始值。</param>
+        /// <param name="requestDeliverAnnualId">RequestDeliverAnnualId 的初始值。</param>
+        /// <param name="requestDeliverAnnualName">RequestDeliverAnnualName 的初始值。</param>
+        /// <param name="airlinesId">AirlinesId 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static ApprovalHistoryDTO CreateApprovalHistoryDTO(global::System.Guid ID, bool isApproved, int seatingCapacity, decimal carryingCapacity, int requestDeliverMonth, global::System.Guid requestId, global::System.Guid planAircraftId, global::System.Guid importCategoryId, global::System.Guid requestDeliverAnnualId, int requestDeliverAnnualName, global::System.Guid airlinesId)
+        {
+            ApprovalHistoryDTO approvalHistoryDTO = new ApprovalHistoryDTO();
+            approvalHistoryDTO.Id = ID;
+            approvalHistoryDTO.IsApproved = isApproved;
+            approvalHistoryDTO.SeatingCapacity = seatingCapacity;
+            approvalHistoryDTO.CarryingCapacity = carryingCapacity;
+            approvalHistoryDTO.RequestDeliverMonth = requestDeliverMonth;
+            approvalHistoryDTO.RequestId = requestId;
+            approvalHistoryDTO.PlanAircraftId = planAircraftId;
+            approvalHistoryDTO.ImportCategoryId = importCategoryId;
+            approvalHistoryDTO.RequestDeliverAnnualId = requestDeliverAnnualId;
+            approvalHistoryDTO.RequestDeliverAnnualName = requestDeliverAnnualName;
+            approvalHistoryDTO.AirlinesId = airlinesId;
+            return approvalHistoryDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsApproved 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsApproved
+        {
+            get
+            {
+                return this._IsApproved;
+            }
+            set
+            {
+                this.OnIsApprovedChanging(value);
+                this._IsApproved = value;
+                this.OnIsApprovedChanged();
+                this.OnPropertyChanged("IsApproved");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsApproved;
+        partial void OnIsApprovedChanging(bool value);
+        partial void OnIsApprovedChanged();
+        /// <summary>
+        /// 架构中不存在属性 SeatingCapacity 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int SeatingCapacity
+        {
+            get
+            {
+                return this._SeatingCapacity;
+            }
+            set
+            {
+                this.OnSeatingCapacityChanging(value);
+                this._SeatingCapacity = value;
+                this.OnSeatingCapacityChanged();
+                this.OnPropertyChanged("SeatingCapacity");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _SeatingCapacity;
+        partial void OnSeatingCapacityChanging(int value);
+        partial void OnSeatingCapacityChanged();
+        /// <summary>
+        /// 架构中不存在属性 CarryingCapacity 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal CarryingCapacity
+        {
+            get
+            {
+                return this._CarryingCapacity;
+            }
+            set
+            {
+                this.OnCarryingCapacityChanging(value);
+                this._CarryingCapacity = value;
+                this.OnCarryingCapacityChanged();
+                this.OnPropertyChanged("CarryingCapacity");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _CarryingCapacity;
+        partial void OnCarryingCapacityChanging(decimal value);
+        partial void OnCarryingCapacityChanged();
+        /// <summary>
+        /// 架构中不存在属性 RequestDeliverMonth 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int RequestDeliverMonth
+        {
+            get
+            {
+                return this._RequestDeliverMonth;
+            }
+            set
+            {
+                this.OnRequestDeliverMonthChanging(value);
+                this._RequestDeliverMonth = value;
+                this.OnRequestDeliverMonthChanged();
+                this.OnPropertyChanged("RequestDeliverMonth");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _RequestDeliverMonth;
+        partial void OnRequestDeliverMonthChanging(int value);
+        partial void OnRequestDeliverMonthChanged();
+        /// <summary>
+        /// 架构中不存在属性 Note 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Note
+        {
+            get
+            {
+                return this._Note;
+            }
+            set
+            {
+                this.OnNoteChanging(value);
+                this._Note = value;
+                this.OnNoteChanged();
+                this.OnPropertyChanged("Note");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Note;
+        partial void OnNoteChanging(string value);
+        partial void OnNoteChanged();
+        /// <summary>
+        /// 架构中不存在属性 RequestId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid RequestId
+        {
+            get
+            {
+                return this._RequestId;
+            }
+            set
+            {
+                this.OnRequestIdChanging(value);
+                this._RequestId = value;
+                this.OnRequestIdChanged();
+                this.OnPropertyChanged("RequestId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _RequestId;
+        partial void OnRequestIdChanging(global::System.Guid value);
+        partial void OnRequestIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 PlanAircraftId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid PlanAircraftId
+        {
+            get
+            {
+                return this._PlanAircraftId;
+            }
+            set
+            {
+                this.OnPlanAircraftIdChanging(value);
+                this._PlanAircraftId = value;
+                this.OnPlanAircraftIdChanged();
+                this.OnPropertyChanged("PlanAircraftId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _PlanAircraftId;
+        partial void OnPlanAircraftIdChanging(global::System.Guid value);
+        partial void OnPlanAircraftIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 ImportCategoryId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid ImportCategoryId
+        {
+            get
+            {
+                return this._ImportCategoryId;
+            }
+            set
+            {
+                this.OnImportCategoryIdChanging(value);
+                this._ImportCategoryId = value;
+                this.OnImportCategoryIdChanged();
+                this.OnPropertyChanged("ImportCategoryId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _ImportCategoryId;
+        partial void OnImportCategoryIdChanging(global::System.Guid value);
+        partial void OnImportCategoryIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 ImportCategoryName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ImportCategoryName
+        {
+            get
+            {
+                return this._ImportCategoryName;
+            }
+            set
+            {
+                this.OnImportCategoryNameChanging(value);
+                this._ImportCategoryName = value;
+                this.OnImportCategoryNameChanged();
+                this.OnPropertyChanged("ImportCategoryName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ImportCategoryName;
+        partial void OnImportCategoryNameChanging(string value);
+        partial void OnImportCategoryNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 RequestDeliverAnnualId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid RequestDeliverAnnualId
+        {
+            get
+            {
+                return this._RequestDeliverAnnualId;
+            }
+            set
+            {
+                this.OnRequestDeliverAnnualIdChanging(value);
+                this._RequestDeliverAnnualId = value;
+                this.OnRequestDeliverAnnualIdChanged();
+                this.OnPropertyChanged("RequestDeliverAnnualId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _RequestDeliverAnnualId;
+        partial void OnRequestDeliverAnnualIdChanging(global::System.Guid value);
+        partial void OnRequestDeliverAnnualIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 RequestDeliverAnnualName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int RequestDeliverAnnualName
+        {
+            get
+            {
+                return this._RequestDeliverAnnualName;
+            }
+            set
+            {
+                this.OnRequestDeliverAnnualNameChanging(value);
+                this._RequestDeliverAnnualName = value;
+                this.OnRequestDeliverAnnualNameChanged();
+                this.OnPropertyChanged("RequestDeliverAnnualName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _RequestDeliverAnnualName;
+        partial void OnRequestDeliverAnnualNameChanging(int value);
+        partial void OnRequestDeliverAnnualNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 AirlinesId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid AirlinesId
+        {
+            get
+            {
+                return this._AirlinesId;
+            }
+            set
+            {
+                this.OnAirlinesIdChanging(value);
+                this._AirlinesId = value;
+                this.OnAirlinesIdChanged();
+                this.OnPropertyChanged("AirlinesId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _AirlinesId;
+        partial void OnAirlinesIdChanging(global::System.Guid value);
+        partial void OnAirlinesIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 AirlineName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string AirlineName
+        {
+            get
+            {
+                return this._AirlineName;
+            }
+            set
+            {
+                this.OnAirlineNameChanging(value);
+                this._AirlineName = value;
+                this.OnAirlineNameChanged();
+                this.OnPropertyChanged("AirlineName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _AirlineName;
+        partial void OnAirlineNameChanging(string value);
+        partial void OnAirlineNameChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.FleetPlanBC.DTO.RequestDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("Requests")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class RequestDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 RequestDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        /// <param name="isFinished">IsFinished 的初始值。</param>
+        /// <param name="createDate">CreateDate 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
+        /// <param name="airlinesId">AirlinesId 的初始值。</param>
+        /// <param name="approvalHistorys">ApprovalHistorys 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static RequestDTO CreateRequestDTO(global::System.Guid ID, bool isFinished, global::System.DateTime createDate, int status, global::System.Guid airlinesId, global::System.Collections.ObjectModel.ObservableCollection<ApprovalHistoryDTO> approvalHistorys)
+        {
+            RequestDTO requestDTO = new RequestDTO();
+            requestDTO.Id = ID;
+            requestDTO.IsFinished = isFinished;
+            requestDTO.CreateDate = createDate;
+            requestDTO.Status = status;
+            requestDTO.AirlinesId = airlinesId;
+            if ((approvalHistorys == null))
+            {
+                throw new global::System.ArgumentNullException("approvalHistorys");
+            }
+            requestDTO.ApprovalHistorys = approvalHistorys;
+            return requestDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 SubmitDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.DateTime> SubmitDate
+        {
+            get
+            {
+                return this._SubmitDate;
+            }
+            set
+            {
+                this.OnSubmitDateChanging(value);
+                this._SubmitDate = value;
+                this.OnSubmitDateChanged();
+                this.OnPropertyChanged("SubmitDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.DateTime> _SubmitDate;
+        partial void OnSubmitDateChanging(global::System.Nullable<global::System.DateTime> value);
+        partial void OnSubmitDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsFinished 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsFinished
+        {
+            get
+            {
+                return this._IsFinished;
+            }
+            set
+            {
+                this.OnIsFinishedChanging(value);
+                this._IsFinished = value;
+                this.OnIsFinishedChanged();
+                this.OnPropertyChanged("IsFinished");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsFinished;
+        partial void OnIsFinishedChanging(bool value);
+        partial void OnIsFinishedChanged();
+        /// <summary>
+        /// 架构中不存在属性 Title 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Title
+        {
+            get
+            {
+                return this._Title;
+            }
+            set
+            {
+                this.OnTitleChanging(value);
+                this._Title = value;
+                this.OnTitleChanged();
+                this.OnPropertyChanged("Title");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Title;
+        partial void OnTitleChanging(string value);
+        partial void OnTitleChanged();
+        /// <summary>
+        /// 架构中不存在属性 CreateDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime CreateDate
+        {
+            get
+            {
+                return this._CreateDate;
+            }
+            set
+            {
+                this.OnCreateDateChanging(value);
+                this._CreateDate = value;
+                this.OnCreateDateChanged();
+                this.OnPropertyChanged("CreateDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _CreateDate;
+        partial void OnCreateDateChanging(global::System.DateTime value);
+        partial void OnCreateDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 RaDocNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string RaDocNumber
+        {
+            get
+            {
+                return this._RaDocNumber;
+            }
+            set
+            {
+                this.OnRaDocNumberChanging(value);
+                this._RaDocNumber = value;
+                this.OnRaDocNumberChanged();
+                this.OnPropertyChanged("RaDocNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _RaDocNumber;
+        partial void OnRaDocNumberChanging(string value);
+        partial void OnRaDocNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 SawsDocNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SawsDocNumber
+        {
+            get
+            {
+                return this._SawsDocNumber;
+            }
+            set
+            {
+                this.OnSawsDocNumberChanging(value);
+                this._SawsDocNumber = value;
+                this.OnSawsDocNumberChanged();
+                this.OnPropertyChanged("SawsDocNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SawsDocNumber;
+        partial void OnSawsDocNumberChanging(string value);
+        partial void OnSawsDocNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 CaacDocNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string CaacDocNumber
+        {
+            get
+            {
+                return this._CaacDocNumber;
+            }
+            set
+            {
+                this.OnCaacDocNumberChanging(value);
+                this._CaacDocNumber = value;
+                this.OnCaacDocNumberChanged();
+                this.OnPropertyChanged("CaacDocNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _CaacDocNumber;
+        partial void OnCaacDocNumberChanging(string value);
+        partial void OnCaacDocNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 CaacNote 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string CaacNote
+        {
+            get
+            {
+                return this._CaacNote;
+            }
+            set
+            {
+                this.OnCaacNoteChanging(value);
+                this._CaacNote = value;
+                this.OnCaacNoteChanged();
+                this.OnPropertyChanged("CaacNote");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _CaacNote;
+        partial void OnCaacNoteChanging(string value);
+        partial void OnCaacNoteChanged();
+        /// <summary>
+        /// 架构中不存在属性 RaNote 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string RaNote
+        {
+            get
+            {
+                return this._RaNote;
+            }
+            set
+            {
+                this.OnRaNoteChanging(value);
+                this._RaNote = value;
+                this.OnRaNoteChanged();
+                this.OnPropertyChanged("RaNote");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _RaNote;
+        partial void OnRaNoteChanging(string value);
+        partial void OnRaNoteChanged();
+        /// <summary>
+        /// 架构中不存在属性 SawsNote 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SawsNote
+        {
+            get
+            {
+                return this._SawsNote;
+            }
+            set
+            {
+                this.OnSawsNoteChanging(value);
+                this._SawsNote = value;
+                this.OnSawsNoteChanged();
+                this.OnPropertyChanged("SawsNote");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SawsNote;
+        partial void OnSawsNoteChanging(string value);
+        partial void OnSawsNoteChanged();
+        /// <summary>
+        /// 架构中不存在属性 ApprovalDocId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.Guid> ApprovalDocId
+        {
+            get
+            {
+                return this._ApprovalDocId;
+            }
+            set
+            {
+                this.OnApprovalDocIdChanging(value);
+                this._ApprovalDocId = value;
+                this.OnApprovalDocIdChanged();
+                this.OnPropertyChanged("ApprovalDocId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.Guid> _ApprovalDocId;
+        partial void OnApprovalDocIdChanging(global::System.Nullable<global::System.Guid> value);
+        partial void OnApprovalDocIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 RaDocumentId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.Guid> RaDocumentId
+        {
+            get
+            {
+                return this._RaDocumentId;
+            }
+            set
+            {
+                this.OnRaDocumentIdChanging(value);
+                this._RaDocumentId = value;
+                this.OnRaDocumentIdChanged();
+                this.OnPropertyChanged("RaDocumentId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.Guid> _RaDocumentId;
+        partial void OnRaDocumentIdChanging(global::System.Nullable<global::System.Guid> value);
+        partial void OnRaDocumentIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 RaDocumentName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string RaDocumentName
+        {
+            get
+            {
+                return this._RaDocumentName;
+            }
+            set
+            {
+                this.OnRaDocumentNameChanging(value);
+                this._RaDocumentName = value;
+                this.OnRaDocumentNameChanged();
+                this.OnPropertyChanged("RaDocumentName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _RaDocumentName;
+        partial void OnRaDocumentNameChanging(string value);
+        partial void OnRaDocumentNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 SawsDocumentId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.Guid> SawsDocumentId
+        {
+            get
+            {
+                return this._SawsDocumentId;
+            }
+            set
+            {
+                this.OnSawsDocumentIdChanging(value);
+                this._SawsDocumentId = value;
+                this.OnSawsDocumentIdChanged();
+                this.OnPropertyChanged("SawsDocumentId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.Guid> _SawsDocumentId;
+        partial void OnSawsDocumentIdChanging(global::System.Nullable<global::System.Guid> value);
+        partial void OnSawsDocumentIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 SawsDocumentName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SawsDocumentName
+        {
+            get
+            {
+                return this._SawsDocumentName;
+            }
+            set
+            {
+                this.OnSawsDocumentNameChanging(value);
+                this._SawsDocumentName = value;
+                this.OnSawsDocumentNameChanged();
+                this.OnPropertyChanged("SawsDocumentName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SawsDocumentName;
+        partial void OnSawsDocumentNameChanging(string value);
+        partial void OnSawsDocumentNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 CaacDocumentId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.Guid> CaacDocumentId
+        {
+            get
+            {
+                return this._CaacDocumentId;
+            }
+            set
+            {
+                this.OnCaacDocumentIdChanging(value);
+                this._CaacDocumentId = value;
+                this.OnCaacDocumentIdChanged();
+                this.OnPropertyChanged("CaacDocumentId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.Guid> _CaacDocumentId;
+        partial void OnCaacDocumentIdChanging(global::System.Nullable<global::System.Guid> value);
+        partial void OnCaacDocumentIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 CaacDocumentName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string CaacDocumentName
+        {
+            get
+            {
+                return this._CaacDocumentName;
+            }
+            set
+            {
+                this.OnCaacDocumentNameChanging(value);
+                this._CaacDocumentName = value;
+                this.OnCaacDocumentNameChanged();
+                this.OnPropertyChanged("CaacDocumentName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _CaacDocumentName;
+        partial void OnCaacDocumentNameChanging(string value);
+        partial void OnCaacDocumentNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 AirlinesId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid AirlinesId
+        {
+            get
+            {
+                return this._AirlinesId;
+            }
+            set
+            {
+                this.OnAirlinesIdChanging(value);
+                this._AirlinesId = value;
+                this.OnAirlinesIdChanged();
+                this.OnPropertyChanged("AirlinesId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _AirlinesId;
+        partial void OnAirlinesIdChanging(global::System.Guid value);
+        partial void OnAirlinesIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 AirlinesName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string AirlinesName
+        {
+            get
+            {
+                return this._AirlinesName;
+            }
+            set
+            {
+                this.OnAirlinesNameChanging(value);
+                this._AirlinesName = value;
+                this.OnAirlinesNameChanged();
+                this.OnPropertyChanged("AirlinesName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _AirlinesName;
+        partial void OnAirlinesNameChanging(string value);
+        partial void OnAirlinesNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 ApprovalHistorys 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<ApprovalHistoryDTO> ApprovalHistorys
+        {
+            get
+            {
+                return this._ApprovalHistorys;
+            }
+            set
+            {
+                this.OnApprovalHistorysChanging(value);
+                this._ApprovalHistorys = value;
+                this.OnApprovalHistorysChanged();
+                this.OnPropertyChanged("ApprovalHistorys");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<ApprovalHistoryDTO> _ApprovalHistorys = new global::System.Collections.ObjectModel.ObservableCollection<ApprovalHistoryDTO>();
+        partial void OnApprovalHistorysChanging(global::System.Collections.ObjectModel.ObservableCollection<ApprovalHistoryDTO> value);
+        partial void OnApprovalHistorysChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
 }
 // 原始文件名:
-// 生成日期: 2013/12/30 11:40:38
+// 生成日期: 2013/12/31 10:26:23
 namespace UniCloud.Application.FleetPlanBC.DTO.EngineDTO
 {
     
@@ -2414,6 +3402,288 @@ namespace UniCloud.Application.FleetPlanBC.DTO.EngineDTO
         private global::System.Collections.ObjectModel.ObservableCollection<EngineBusinessHistoryDTO> _EngineBusinessHistories = new global::System.Collections.ObjectModel.ObservableCollection<EngineBusinessHistoryDTO>();
         partial void OnEngineBusinessHistoriesChanging(global::System.Collections.ObjectModel.ObservableCollection<EngineBusinessHistoryDTO> value);
         partial void OnEngineBusinessHistoriesChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+}
+// 原始文件名:
+// 生成日期: 2013/12/31 10:26:23
+namespace UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO
+{
+    
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO.ApprovalDocDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("ApprovalDocs")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class ApprovalDocDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 ApprovalDocDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static ApprovalDocDTO CreateApprovalDocDTO(global::System.Guid ID, int status)
+        {
+            ApprovalDocDTO approvalDocDTO = new ApprovalDocDTO();
+            approvalDocDTO.Id = ID;
+            approvalDocDTO.Status = status;
+            return approvalDocDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 CaacExamineDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.DateTime> CaacExamineDate
+        {
+            get
+            {
+                return this._CaacExamineDate;
+            }
+            set
+            {
+                this.OnCaacExamineDateChanging(value);
+                this._CaacExamineDate = value;
+                this.OnCaacExamineDateChanged();
+                this.OnPropertyChanged("CaacExamineDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.DateTime> _CaacExamineDate;
+        partial void OnCaacExamineDateChanging(global::System.Nullable<global::System.DateTime> value);
+        partial void OnCaacExamineDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 NdrcExamineDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.DateTime> NdrcExamineDate
+        {
+            get
+            {
+                return this._NdrcExamineDate;
+            }
+            set
+            {
+                this.OnNdrcExamineDateChanging(value);
+                this._NdrcExamineDate = value;
+                this.OnNdrcExamineDateChanged();
+                this.OnPropertyChanged("NdrcExamineDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.DateTime> _NdrcExamineDate;
+        partial void OnNdrcExamineDateChanging(global::System.Nullable<global::System.DateTime> value);
+        partial void OnNdrcExamineDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 CaacApprovalNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string CaacApprovalNumber
+        {
+            get
+            {
+                return this._CaacApprovalNumber;
+            }
+            set
+            {
+                this.OnCaacApprovalNumberChanging(value);
+                this._CaacApprovalNumber = value;
+                this.OnCaacApprovalNumberChanged();
+                this.OnPropertyChanged("CaacApprovalNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _CaacApprovalNumber;
+        partial void OnCaacApprovalNumberChanging(string value);
+        partial void OnCaacApprovalNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 NdrcApprovalNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string NdrcApprovalNumber
+        {
+            get
+            {
+                return this._NdrcApprovalNumber;
+            }
+            set
+            {
+                this.OnNdrcApprovalNumberChanging(value);
+                this._NdrcApprovalNumber = value;
+                this.OnNdrcApprovalNumberChanged();
+                this.OnPropertyChanged("NdrcApprovalNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _NdrcApprovalNumber;
+        partial void OnNdrcApprovalNumberChanging(string value);
+        partial void OnNdrcApprovalNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 Note 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Note
+        {
+            get
+            {
+                return this._Note;
+            }
+            set
+            {
+                this.OnNoteChanging(value);
+                this._Note = value;
+                this.OnNoteChanged();
+                this.OnPropertyChanged("Note");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Note;
+        partial void OnNoteChanging(string value);
+        partial void OnNoteChanged();
+        /// <summary>
+        /// 架构中不存在属性 CaacDocumentName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string CaacDocumentName
+        {
+            get
+            {
+                return this._CaacDocumentName;
+            }
+            set
+            {
+                this.OnCaacDocumentNameChanging(value);
+                this._CaacDocumentName = value;
+                this.OnCaacDocumentNameChanged();
+                this.OnPropertyChanged("CaacDocumentName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _CaacDocumentName;
+        partial void OnCaacDocumentNameChanging(string value);
+        partial void OnCaacDocumentNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 NdrcDocumentName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string NdrcDocumentName
+        {
+            get
+            {
+                return this._NdrcDocumentName;
+            }
+            set
+            {
+                this.OnNdrcDocumentNameChanging(value);
+                this._NdrcDocumentName = value;
+                this.OnNdrcDocumentNameChanged();
+                this.OnPropertyChanged("NdrcDocumentName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _NdrcDocumentName;
+        partial void OnNdrcDocumentNameChanging(string value);
+        partial void OnNdrcDocumentNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 CaacDocumentId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.Guid> CaacDocumentId
+        {
+            get
+            {
+                return this._CaacDocumentId;
+            }
+            set
+            {
+                this.OnCaacDocumentIdChanging(value);
+                this._CaacDocumentId = value;
+                this.OnCaacDocumentIdChanged();
+                this.OnPropertyChanged("CaacDocumentId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.Guid> _CaacDocumentId;
+        partial void OnCaacDocumentIdChanging(global::System.Nullable<global::System.Guid> value);
+        partial void OnCaacDocumentIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 NdrcDocumentId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.Guid> NdrcDocumentId
+        {
+            get
+            {
+                return this._NdrcDocumentId;
+            }
+            set
+            {
+                this.OnNdrcDocumentIdChanging(value);
+                this._NdrcDocumentId = value;
+                this.OnNdrcDocumentIdChanged();
+                this.OnPropertyChanged("NdrcDocumentId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.Guid> _NdrcDocumentId;
+        partial void OnNdrcDocumentIdChanging(global::System.Nullable<global::System.Guid> value);
+        partial void OnNdrcDocumentIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

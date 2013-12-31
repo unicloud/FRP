@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FleetPlanService.cs" />
+    <Compile Include="FleetPlan\Enums\RequestStatus.cs" />
     <Compile Include="IFleetPlanService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\FleetPlan\Reference.cs">
