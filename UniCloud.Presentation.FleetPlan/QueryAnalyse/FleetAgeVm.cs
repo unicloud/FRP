@@ -1298,7 +1298,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             if (aircraftType.Equals("所有机型", StringComparison.OrdinalIgnoreCase))
             {
                 aircraft = Aircrafts.Where(p => p.FactoryDate != null)
-                   .Where(o => AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)) && o.FactoryDate <= time && !(o.ExportDate != null && o.ExportDate < time));
+                   .Where(o => /*AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)) &&*/ o.FactoryDate <= time && !(o.ExportDate != null && o.ExportDate < time));
             }
             else
             {
