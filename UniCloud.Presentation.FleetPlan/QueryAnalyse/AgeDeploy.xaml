@@ -44,11 +44,12 @@
 
             <Grid Margin="5">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="60" />
+                    <RowDefinition Height="50" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                    Margin="0">
+                                    Margin="0" 
+                                    OverflowButtonVisibility="Collapsed">
                     <Button x:Name="Save"
                             ToolTipService.ToolTip="保存"
                             Command="{Binding SaveCommand}">

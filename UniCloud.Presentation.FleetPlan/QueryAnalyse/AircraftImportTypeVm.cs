@@ -200,6 +200,38 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         }
         #endregion
 
+        #region ViewModel 属性 AircraftCollection --机龄饼图所对应的所有飞机数据（指定时间点）
+        private List<AircraftDTO> _aircraftCollection;//机龄饼图所对应的所有飞机数据（指定时间点）
+        /// <summary>
+        ///机龄饼图所对应的所有飞机数据（指定时间点）
+        /// </summary>
+        public List<AircraftDTO> AircraftCollection
+        {
+            get { return _aircraftCollection; }
+            set
+            {
+                _aircraftCollection = value;
+                RaisePropertyChanged("AircraftCollection");
+
+                if (!SelectedTime.Equals("所选时间", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (AircraftCollection == null || !AircraftCollection.Any())
+                    {
+                        AircraftCount = "飞机明细（0架）";
+                    }
+                    else
+                    {
+                        AircraftCount = "飞机明细（" + AircraftCollection.Count + "架）";
+                    }
+                }
+                else
+                {
+                    AircraftCount = "飞机明细";
+                }
+            }
+        }
+        #endregion
+
         #region ViewModel 属性 AircraftColor --期末飞机数的颜色
         private string _aircraftColor = Commonmethod.GetRandomColor();
         /// <summary>
@@ -1314,9 +1346,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// </summary>
         public void ChartSelectionBehaviorSelection(DateTime time)
         {
-            //            var aircraft = this.ViewAircraft
-            //                        .Where(o => o.OperationHistories.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)))
-            //                        .Where(o => o.OperationHistories.FirstOrDefault(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)).ImportCategory.ActionType .Equals( "引进");
+            var aircraft = Aircrafts
+                .Where( o => o.OperationHistories.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)));
+                                    //.Where(o => o.OperationHistories.FirstOrDefault(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)).ImportCategory.ActionType .Equals( "引进",StringComparison.OrdinalIgnoreCase));
 
             #region 飞机引进方式XML文件的读写
             var xmlConfig = XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("飞机引进方式", StringComparison.OrdinalIgnoreCase));
@@ -1366,7 +1398,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
             #endregion
 
-            //飞机详细数据
+            if (aircraft != null)
+            {
+                //飞机详细数据集合
+                AircraftCollection = Commonmethod.GetAircraftByTime(aircraft.ToList(), time);
+            }
         }
 
         /// <summary>
