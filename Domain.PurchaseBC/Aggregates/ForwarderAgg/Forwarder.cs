@@ -19,7 +19,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.PurchaseBC.ValueObjects;
+using UniCloud.Domain.Common.ValueObjects;
 
 #endregion
 

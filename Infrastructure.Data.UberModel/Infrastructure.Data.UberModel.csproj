@@ -204,6 +204,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
+      <Project>{E48E84DE-5A91-4D16-84E5-CFFC4C7E7657}</Project>
+      <Name>Domain.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain.UberModel\Domain.UberModel.csproj">
       <Project>{30fedfb0-53ca-4a9d-b917-5f6b8854d7c6}</Project>
       <Name>Domain.UberModel</Name>

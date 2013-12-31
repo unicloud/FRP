@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.Common.Entities;
 using UniCloud.Domain.UberModel.Aggregates.InvoiceAgg;
 using UniCloud.Domain.UberModel.Enums;
 

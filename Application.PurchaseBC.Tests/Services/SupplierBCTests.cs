@@ -19,8 +19,11 @@
 
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UniCloud.Application.PurchaseBC.Query.AircraftTypeQueries;
+using UniCloud.Application.PurchaseBC.Query.CurrencyQueries;
 using UniCloud.Application.PurchaseBC.Query.SupplierQueries;
 using UniCloud.Application.PurchaseBC.SupplierServices;
+using UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
@@ -46,16 +49,21 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
                 .CreateLog()
                 .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
 
-            #region 供应商相关配置，包括查询，应用服务，仓储注册
+                #region 供应商相关配置，包括查询，应用服务，仓储注册
 
-                         .Register<ISupplierQuery, SupplierQuery>()
-                         .Register<ISupplierAppService, SupplierAppService>()
-                         .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
-                         .Register<ISupplierRepository, SupplierRepository>()
-                         .Register<ILinkmanRepository, LinkmanRepository>()
-                         .Register<ISupplierRoleRepository, SupplierRoleRepository>()
-                         .Register<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>()
-            #endregion
+                .Register<ISupplierQuery, SupplierQuery>()
+                .Register<ISupplierAppService, SupplierAppService>()
+                .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
+                .Register<ISupplierRepository, SupplierRepository>()
+                .Register<ILinkmanRepository, LinkmanRepository>()
+                .Register<ISupplierRoleRepository, SupplierRoleRepository>()
+                .Register<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>()
+                .Register<IStaticLoad, StaticLoad>()
+                .Register<IAircraftTypeQuery, AircraftTypeQuery>()
+                .Register<ICurrencyRepository,CurrencyRepository>()
+                .Register<ICurrencyQuery,CurrencyQuery>()
+
+                #endregion
 
                 ;
         }
@@ -110,8 +118,10 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         {
             // Arrange
             var service = DefaultContainer.Resolve<ISupplierAppService>();
+
             // Act
             var result = service.GetLinkmans().ToList();
+
             // Assert
             Assert.IsTrue(result.Any());
         }
@@ -157,6 +167,5 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
             // Assert
             Assert.IsTrue(result.Any());
         }
-
     }
 }

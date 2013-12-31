@@ -76,14 +76,14 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
                 .Register<ISupplierAppService, SupplierAppService>()
                 .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
                 .Register<ISupplierRepository, SupplierRepository>();
+
+                #endregion
         }
 
         [TestCleanup]
         public void TestCleanup()
         {
         }
-
-        #endregion
 
         #endregion
 

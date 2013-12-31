@@ -15,10 +15,10 @@
 
 #endregion
 
-#region
+#region 命名空间
 
+using UniCloud.Domain.Common.ValueObjects;
 using UniCloud.Domain.UberModel.Aggregates.ForwarderAgg;
-using UniCloud.Domain.UberModel.ValueObjects;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
 
 #endregion
@@ -27,7 +27,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
 {
     public class ForwardData : InitialDataBase
     {
-
         public ForwardData(UberModelUnitOfWork context)
             : base(context)
         {
