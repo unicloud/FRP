@@ -9,7 +9,8 @@
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              d:DataContext="{d:DesignInstance uc:CountRegisteredFleetVm}"
              mc:Ignorable="d"
-    d:DesignHeight="300" d:DesignWidth="400">
+             d:DesignHeight="300"
+             d:DesignWidth="400">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -144,157 +145,161 @@
                                      telerik:StyleManager.Theme="Windows8"
                                      Margin="5"
                                      HasDocumentHost="False">
-                    <telerik:RadSplitContainer InitialPosition="DockedTop"
-                                               Orientation="Horizontal">
-                        <telerik:RadPaneGroup>
-                            <telerik:RadPane Header="月平均在册统计"
-                                             FontSize="{StaticResource TextFontSize}"
-                                             IsPinned="True"
-                                             CanFloat="False"
-                                             CanDockInDocumentHost="False"
-                                             CanUserClose="False"
-                                             CanUserPin="False"
-                                             ContextMenuTemplate="{x:Null}">
-                                <Grid Name="MonthGrid"
-                                      Background="White">
-                                    <telerik:RadContextMenu.ContextMenu>
-                                        <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="Opened">
-                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                         MethodName="ContextMenuOpened" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                            <telerik:RadMenuItem Name="MonthGridImage"
-                                                                 Header="导出图片"
-                                                                 Command="{Binding ExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=MonthGridImage}" />
-                                            <telerik:RadMenuItem Name="MonthGridData"
-                                                                 Header="导出源数据"
-                                                                 Command="{Binding ExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=MonthGridData}" />
-                                        </telerik:RadContextMenu>
-                                    </telerik:RadContextMenu.ContextMenu>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <telerik:RadCartesianChart Margin="10,0,10,0"
-                                                               Palette="Metro"
-                                                               EmptyContent="月平均在册变化趋势">
-                                        <telerik:RadCartesianChart.Behaviors>
-                                            <telerik:ChartTrackBallBehavior />
-                                            <telerik:ChartPanAndZoomBehavior />
-                                        </telerik:RadCartesianChart.Behaviors>
-                                        <telerik:RadCartesianChart.HorizontalAxis>
-                                            <telerik:CategoricalAxis Name="MonthCategoricalAxis"
-                                                                     Background="Black"
-                                                                     MajorTickInterval="3"
-                                                                     PlotMode="OnTicksPadded"
-                                                                     LabelStyle="{StaticResource LabelFontStyle}" />
-                                        </telerik:RadCartesianChart.HorizontalAxis>
-                                        <telerik:RadCartesianChart.VerticalAxis>
-                                            <telerik:LinearAxis Name="MonthLinearAxis"
-                                                                LabelInterval="2"
-                                                                Title="月平均在册飞机数(架)"
-                                                                LabelStyle="{StaticResource RightLabelStyle}" />
-                                        </telerik:RadCartesianChart.VerticalAxis>
-                                        <telerik:RadCartesianChart.Grid>
-                                            <telerik:CartesianChartGrid MajorLinesVisibility="X"
-                                                                        StripLinesVisibility="X">
-                                                <telerik:CartesianChartGrid.XStripeBrushes>
-                                                    <SolidColorBrush Color="#FFD7D7D7"
-                                                                     Opacity="0.15" />
-                                                    <SolidColorBrush Color="Transparent" />
-                                                </telerik:CartesianChartGrid.XStripeBrushes>
-                                            </telerik:CartesianChartGrid>
-                                        </telerik:RadCartesianChart.Grid>
-                                    </telerik:RadCartesianChart>
-                                    <ScrollViewer Grid.Column="1"
-                                                  Margin="0,5,5,5"
-                                                  VerticalScrollBarVisibility="Auto"
-                                                  telerik:StyleManager.Theme="Windows8">
-                                        <StackPanel Style="{StaticResource LegendStyle}" />
-                                    </ScrollViewer>
-                                </Grid>
-                            </telerik:RadPane>
-                        </telerik:RadPaneGroup>
-                    </telerik:RadSplitContainer>
+                    <telerik:RadSplitContainer Orientation="Vertical">
+                        <telerik:RadSplitContainer InitialPosition="DockedTop"
+                                                   Orientation="Horizontal"
+                                                   telerik:ProportionalStackPanel.RelativeSize="800, 600">
+                            <telerik:RadPaneGroup>
+                                <telerik:RadPane Header="月平均在册统计"
+                                                 FontSize="{StaticResource TextFontSize}"
+                                                 IsPinned="True"
+                                                 CanFloat="False"
+                                                 CanDockInDocumentHost="False"
+                                                 CanUserClose="False"
+                                                 CanUserPin="False"
+                                                 ContextMenuTemplate="{x:Null}">
+                                    <Grid Name="MonthGrid"
+                                          Background="White">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Opened">
+                                                        <ei:CallMethodAction TargetObject="{Binding}"
+                                                                             MethodName="ContextMenuOpened" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <telerik:RadMenuItem Name="MonthGridImage"
+                                                                     Header="导出图片"
+                                                                     Command="{Binding ExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=MonthGridImage}" />
+                                                <telerik:RadMenuItem Name="MonthGridData"
+                                                                     Header="导出源数据"
+                                                                     Command="{Binding ExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=MonthGridData}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <telerik:RadCartesianChart Margin="10,0,10,0"
+                                                                   Palette="Metro"
+                                                                   EmptyContent="月平均在册变化趋势">
+                                            <telerik:RadCartesianChart.Behaviors>
+                                                <telerik:ChartTrackBallBehavior />
+                                                <telerik:ChartPanAndZoomBehavior />
+                                            </telerik:RadCartesianChart.Behaviors>
+                                            <telerik:RadCartesianChart.HorizontalAxis>
+                                                <telerik:CategoricalAxis Name="MonthCategoricalAxis"
+                                                                         Background="Black"
+                                                                         MajorTickInterval="3"
+                                                                         PlotMode="OnTicksPadded"
+                                                                         LabelStyle="{StaticResource LabelFontStyle}" />
+                                            </telerik:RadCartesianChart.HorizontalAxis>
+                                            <telerik:RadCartesianChart.VerticalAxis>
+                                                <telerik:LinearAxis Name="MonthLinearAxis"
+                                                                    LabelInterval="2"
+                                                                    Title="月平均在册飞机数(架)"
+                                                                    LabelStyle="{StaticResource RightLabelStyle}" />
+                                            </telerik:RadCartesianChart.VerticalAxis>
+                                            <telerik:RadCartesianChart.Grid>
+                                                <telerik:CartesianChartGrid MajorLinesVisibility="X"
+                                                                            StripLinesVisibility="X">
+                                                    <telerik:CartesianChartGrid.XStripeBrushes>
+                                                        <SolidColorBrush Color="#FFD7D7D7"
+                                                                         Opacity="0.15" />
+                                                        <SolidColorBrush Color="Transparent" />
+                                                    </telerik:CartesianChartGrid.XStripeBrushes>
+                                                </telerik:CartesianChartGrid>
+                                            </telerik:RadCartesianChart.Grid>
+                                        </telerik:RadCartesianChart>
+                                        <ScrollViewer Grid.Column="1"
+                                                      Margin="0,5,5,5"
+                                                      VerticalScrollBarVisibility="Auto"
+                                                      telerik:StyleManager.Theme="Windows8">
+                                            <StackPanel Style="{StaticResource LegendStyle}" />
+                                        </ScrollViewer>
+                                    </Grid>
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
 
-                    <telerik:RadSplitContainer InitialPosition="DockedBottom">
-                        <telerik:RadPaneGroup>
-                            <telerik:RadPane Header="年平均在册统计"
-                                             FontSize="{StaticResource TextFontSize}"
-                                             IsPinned="True"
-                                             CanFloat="False"
-                                             CanDockInDocumentHost="False"
-                                             CanUserClose="False"
-                                             CanUserPin="False"
-                                             ContextMenuTemplate="{x:Null}">
-                                <Grid  Name="YearGrid"
-                                       Background="White">
-                                    <telerik:RadContextMenu.ContextMenu>
-                                        <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="Opened">
-                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                         MethodName="ContextMenuOpened" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                            <telerik:RadMenuItem Name="YearGridImage"
-                                                                 Header="导出图片"
-                                                                 Command="{Binding ExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=YearGridImage}" />
-                                            <telerik:RadMenuItem Name="YearGridData"
-                                                                 Header="导出源数据"
-                                                                 Command="{Binding ExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=YearGridData}" />
-                                        </telerik:RadContextMenu>
-                                    </telerik:RadContextMenu.ContextMenu>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <telerik:RadCartesianChart Margin="10,0,10,0"
-                                                               Palette="Metro"
-                                                               EmptyContent="年平均在册变化趋势">
-                                        <telerik:RadCartesianChart.Behaviors>
-                                            <telerik:ChartTrackBallBehavior />
-                                            <telerik:ChartPanAndZoomBehavior />
-                                        </telerik:RadCartesianChart.Behaviors>
-                                        <telerik:RadCartesianChart.HorizontalAxis>
-                                            <telerik:CategoricalAxis Name="YearCategoricalAxis"
-                                                                     Background="Black"
-                                                                     MajorTickInterval="3"
-                                                                     PlotMode="OnTicksPadded"
-                                                                     LabelStyle="{StaticResource LabelFontStyle}" />
-                                        </telerik:RadCartesianChart.HorizontalAxis>
-                                        <telerik:RadCartesianChart.VerticalAxis>
-                                            <telerik:LinearAxis Name="YearLinearAxis"
-                                                                LabelInterval="2"
-                                                                Title="年平均在册飞机数(架)"
-                                                                LabelStyle="{StaticResource RightLabelStyle}" />
-                                        </telerik:RadCartesianChart.VerticalAxis>
-                                        <telerik:RadCartesianChart.Grid>
-                                            <telerik:CartesianChartGrid MajorLinesVisibility="X"
-                                                                        StripLinesVisibility="X">
-                                                <telerik:CartesianChartGrid.XStripeBrushes>
-                                                    <SolidColorBrush Color="#FFD7D7D7"
-                                                                     Opacity="0.15" />
-                                                    <SolidColorBrush Color="Transparent" />
-                                                </telerik:CartesianChartGrid.XStripeBrushes>
-                                            </telerik:CartesianChartGrid>
-                                        </telerik:RadCartesianChart.Grid>
-                                    </telerik:RadCartesianChart>
-                                    <ScrollViewer Grid.Column="1"
-                                                  Margin="0,5,5,5"
-                                                  VerticalScrollBarVisibility="Auto"
-                                                  telerik:StyleManager.Theme="Windows8">
-                                        <StackPanel Style="{StaticResource LegendStyle}" />
-                                    </ScrollViewer>
-                                </Grid>
-                            </telerik:RadPane>
-                        </telerik:RadPaneGroup>
+                        <telerik:RadSplitContainer InitialPosition="DockedBottom"
+                                                   telerik:ProportionalStackPanel.RelativeSize="800, 600">
+                            <telerik:RadPaneGroup>
+                                <telerik:RadPane Header="年平均在册统计"
+                                                 FontSize="{StaticResource TextFontSize}"
+                                                 IsPinned="True"
+                                                 CanFloat="False"
+                                                 CanDockInDocumentHost="False"
+                                                 CanUserClose="False"
+                                                 CanUserPin="False"
+                                                 ContextMenuTemplate="{x:Null}">
+                                    <Grid  Name="YearGrid"
+                                           Background="White">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Opened">
+                                                        <ei:CallMethodAction TargetObject="{Binding}"
+                                                                             MethodName="ContextMenuOpened" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <telerik:RadMenuItem Name="YearGridImage"
+                                                                     Header="导出图片"
+                                                                     Command="{Binding ExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=YearGridImage}" />
+                                                <telerik:RadMenuItem Name="YearGridData"
+                                                                     Header="导出源数据"
+                                                                     Command="{Binding ExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=YearGridData}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <telerik:RadCartesianChart Margin="10,0,10,0"
+                                                                   Palette="Metro"
+                                                                   EmptyContent="年平均在册变化趋势">
+                                            <telerik:RadCartesianChart.Behaviors>
+                                                <telerik:ChartTrackBallBehavior />
+                                                <telerik:ChartPanAndZoomBehavior />
+                                            </telerik:RadCartesianChart.Behaviors>
+                                            <telerik:RadCartesianChart.HorizontalAxis>
+                                                <telerik:CategoricalAxis Name="YearCategoricalAxis"
+                                                                         Background="Black"
+                                                                         MajorTickInterval="3"
+                                                                         PlotMode="OnTicksPadded"
+                                                                         LabelStyle="{StaticResource LabelFontStyle}" />
+                                            </telerik:RadCartesianChart.HorizontalAxis>
+                                            <telerik:RadCartesianChart.VerticalAxis>
+                                                <telerik:LinearAxis Name="YearLinearAxis"
+                                                                    LabelInterval="2"
+                                                                    Title="年平均在册飞机数(架)"
+                                                                    LabelStyle="{StaticResource RightLabelStyle}" />
+                                            </telerik:RadCartesianChart.VerticalAxis>
+                                            <telerik:RadCartesianChart.Grid>
+                                                <telerik:CartesianChartGrid MajorLinesVisibility="X"
+                                                                            StripLinesVisibility="X">
+                                                    <telerik:CartesianChartGrid.XStripeBrushes>
+                                                        <SolidColorBrush Color="#FFD7D7D7"
+                                                                         Opacity="0.15" />
+                                                        <SolidColorBrush Color="Transparent" />
+                                                    </telerik:CartesianChartGrid.XStripeBrushes>
+                                                </telerik:CartesianChartGrid>
+                                            </telerik:RadCartesianChart.Grid>
+                                        </telerik:RadCartesianChart>
+                                        <ScrollViewer Grid.Column="1"
+                                                      Margin="0,5,5,5"
+                                                      VerticalScrollBarVisibility="Auto"
+                                                      telerik:StyleManager.Theme="Windows8">
+                                            <StackPanel Style="{StaticResource LegendStyle}" />
+                                        </ScrollViewer>
+                                    </Grid>
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
                     </telerik:RadSplitContainer>
                 </telerik:RadDocking>
             </Border>

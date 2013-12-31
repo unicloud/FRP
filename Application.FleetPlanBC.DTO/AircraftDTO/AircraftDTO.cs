@@ -81,6 +81,33 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public decimal CarryingCapacity { get; set; }
 
         /// <summary>
+        /// 所有权人
+        /// </summary>
+        public string SupplierName { get; set; }
+
+        /// <summary>
+        ///     机型
+        /// </summary>
+        public string AircraftTypeName { get; set; }
+
+        /// <summary>
+        ///     运营权人
+        /// </summary>
+        public string AirlinesName { get; set; }
+
+        /// <summary>
+        ///     引进方式
+        /// </summary>
+        public string ImportCategoryName { get; set; }
+        /// <summary>
+        /// 制造商
+        /// </summary>
+        public string ManufacturerName { get; set; }
+        /// <summary>
+        /// 座级
+        /// </summary>
+        public string Regional { get; set; }
+        /// <summary>
         ///     运营权历史
         /// </summary>
         private List<OperationHistoryDTO> _operationHistories;
@@ -129,7 +156,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public Guid AirlinesId { get; set; }
 
         /// <summary>
-        ///     引进方式
+        ///     引进方式外键
         /// </summary>
         public Guid ImportCategoryId { get; set; }
 

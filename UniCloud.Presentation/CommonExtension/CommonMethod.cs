@@ -112,40 +112,40 @@ namespace UniCloud.Presentation.CommonExtension
                             {
                                 Header = "运营权人",
                                 DataMemberBinding =
-                                    new System.Windows.Data.Binding("ThenAirlineName")
+                                    new System.Windows.Data.Binding("AirlinesName")
                             };
 
             var gvColumn3 = new GridViewDataColumn
                             {
                                 Header = "所有权人",
-                                DataMemberBinding = new System.Windows.Data.Binding("ThenOwnerName")
+                                DataMemberBinding = new System.Windows.Data.Binding("SupplierName")
                             };
 
             var gvColumn4 = new GridViewDataColumn
                             {
                                 Header = "制造商",
                                 DataMemberBinding =
-                                    new System.Windows.Data.Binding("AircraftType.Manufacturer.Name")
+                                    new System.Windows.Data.Binding("ManufacturerName")
                             };
 
             var gvColumn5 = new GridViewDataColumn
                             {
                                 Header = "座级",
-                                DataMemberBinding = new System.Windows.Data.Binding("ThenRegional")
+                                DataMemberBinding = new System.Windows.Data.Binding("Regional")
                             };
 
             var gvColumn6 = new GridViewDataColumn
                             {
                                 Header = "机型",
                                 DataMemberBinding =
-                                    new System.Windows.Data.Binding("ThenAircraftTypeName")
+                                    new System.Windows.Data.Binding("AircraftTypeName")
                             };
 
             var gvColumn7 = new GridViewDataColumn
                             {
                                 Header = "引进方式",
                                 DataMemberBinding =
-                                    new System.Windows.Data.Binding("ThenActionName")
+                                    new System.Windows.Data.Binding("ImportCategoryName")
                             };
 
             var gvColumn8 = new GridViewDataColumn { Header = "出厂日期" };
@@ -157,7 +157,7 @@ namespace UniCloud.Presentation.CommonExtension
                             {
                                 Header = "座位数(座)",
                                 DataMemberBinding =
-                                    new System.Windows.Data.Binding("ThenSeatingCapacity")
+                                    new System.Windows.Data.Binding("SeatingCapacity")
                             };
 
 
@@ -165,7 +165,7 @@ namespace UniCloud.Presentation.CommonExtension
                              {
                                  Header = "商载量(吨)",
                                  DataMemberBinding =
-                                     new System.Windows.Data.Binding("ThenCarryingCapacity")
+                                     new System.Windows.Data.Binding("CarryingCapacity")
                              };
             //System.Windows.Data.Binding bingding10 = new System.Windows.Data.Binding("AircraftBusinesses");
             //bingding10.Converter = new SelectedTimeConverter();

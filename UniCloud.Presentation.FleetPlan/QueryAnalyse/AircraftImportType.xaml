@@ -108,7 +108,7 @@
                                FontSize="{StaticResource TextFontSize}" />
                     <telerik:RadDateTimePicker Name="StartDateTimePicker"
                                                Margin="0 7"
-                                               Width="120" 
+                                               Width="120"
                                                DateTimeWatermarkContent=""
                                                SelectedValue="{Binding Path=StartDate,Mode=TwoWay}"
                                                DisplayDateEnd="{Binding Path=EndDate, Mode=TwoWay}"
@@ -147,148 +147,305 @@
                                      Padding="0"
                                      HasDocumentHost="False"
                                      Margin="5">
-
-                    <telerik:RadSplitContainer InitialPosition="DockedTop"
-                                               Orientation="Horizontal">
-                        <telerik:RadPaneGroup x:Name="RadPaneGroup">
-                            <telerik:RadPane Header="飞机引进方式统计分析"
-                                             FontSize="{StaticResource TextFontSize}"
-                                             CanDockInDocumentHost="False"
-                                             CanFloat="False"
-                                             CanUserClose="False"
-                                             CanUserPin="False"
-                                             ContextMenuTemplate="{x:Null}">
-                                <Grid Background="White">
-                                    <telerik:RadContextMenu.ContextMenu>
-                                        <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="Opened">
-                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                         MethodName="ContextMenuOpened" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                            <telerik:RadMenuItem Name="TrendGridImage"
-                                                                 Header="导出图片"
-                                                                 Command="{Binding ExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=TrendGridImage}" />
-                                            <telerik:RadMenuItem Name="TrendGridData"
-                                                                 Header="导出源数据"
-                                                                 Command="{Binding ExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=TrendGridData}" />
-                                        </telerik:RadContextMenu>
-                                    </telerik:RadContextMenu.ContextMenu>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="0.38*" />
-                                        <RowDefinition Height="0.22*" />
-                                    </Grid.RowDefinitions>
-                                    <Grid Grid.Row="0"
-                                          Name="LineGrid">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <telerik:RadCartesianChart Margin="10,0,10,0"
-                                                                   Palette="Metro"
-                                                                   Zoom="{Binding Zoom, Mode=TwoWay}"
-                                                                   PanOffset="{Binding PanOffset, Mode=TwoWay}"
-                                                                   EmptyContent="引进方式趋势变化趋势">
-                                            <telerik:RadCartesianChart.Resources>
-                                                <!--<DataTemplate x:Key="LinePointTemplate">
+                    <telerik:RadSplitContainer Orientation="Vertical">
+                        <telerik:RadSplitContainer InitialPosition="DockedTop"
+                                                   Orientation="Horizontal"
+                                                   telerik:ProportionalStackPanel.RelativeSize="800, 600">
+                            <telerik:RadPaneGroup x:Name="RadPaneGroup">
+                                <telerik:RadPane Header="飞机引进方式统计分析"
+                                                 FontSize="{StaticResource TextFontSize}"
+                                                 CanDockInDocumentHost="False"
+                                                 CanFloat="False"
+                                                 CanUserClose="False"
+                                                 CanUserPin="False"
+                                                 ContextMenuTemplate="{x:Null}">
+                                    <Grid Background="White">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Opened">
+                                                        <ei:CallMethodAction TargetObject="{Binding}"
+                                                                             MethodName="ContextMenuOpened" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <telerik:RadMenuItem Name="TrendGridImage"
+                                                                     Header="导出图片"
+                                                                     Command="{Binding ExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=TrendGridImage}" />
+                                                <telerik:RadMenuItem Name="TrendGridData"
+                                                                     Header="导出源数据"
+                                                                     Command="{Binding ExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=TrendGridData}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="0.38*" />
+                                            <RowDefinition Height="0.22*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Grid.Row="0"
+                                              Name="LineGrid">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <telerik:RadCartesianChart Margin="10,0,10,0"
+                                                                       Palette="Metro"
+                                                                       Zoom="{Binding Zoom, Mode=TwoWay}"
+                                                                       PanOffset="{Binding PanOffset, Mode=TwoWay}"
+                                                                       EmptyContent="引进方式趋势变化趋势">
+                                                <telerik:RadCartesianChart.Resources>
+                                                    <!--<DataTemplate x:Key="LinePointTemplate">
 													<example:CustomEllipse Width="10" Height="10" BorderBrush="#FF8EC441" Background="White" Foreground="#FF8EC441"/>
 												</DataTemplate>
 												<DataTemplate x:Key="LinePointTemplate1">
 													<Ellipse Height='8' Width='8' Fill='#FF8EC441'/>
 												</DataTemplate>
 												<example:PaletteExtractorConverter x:Key="paletteExtractor" />-->
-                                                <DataTemplate x:Key="LinePointTemplate">
-                                                    <Ellipse Height='8'
-                                                             Width='8'
-                                                             Fill="{Binding Path=DataItem.Color}" />
-                                                </DataTemplate>
-                                                <DataTemplate x:Key="LineTrackBallInfoTemplate">
-                                                    <StackPanel Background="Transparent">
-                                                        <TextBlock Text="{Binding Path=DataPoint.DataItem.ImportType, StringFormat='引进方式: {0}'}"
-                                                                   Foreground="{Binding Path=DataPoint.DataItem.Color}"
-                                                                   Margin="6,0"
-                                                                   FontFamily="Segoe UI" />
-                                                        <TextBlock Text="{Binding Path=DataPoint.DataItem.AirNum, StringFormat='飞机数: {0}架'}"
-                                                                   Foreground="{Binding Path=DataPoint.DataItem.Color}"
-                                                                   Margin="6,0"
-                                                                   FontFamily="Segoe UI" />
+                                                    <DataTemplate x:Key="LinePointTemplate">
+                                                        <Ellipse Height='8'
+                                                                 Width='8'
+                                                                 Fill="{Binding Path=DataItem.Color}" />
+                                                    </DataTemplate>
+                                                    <DataTemplate x:Key="LineTrackBallInfoTemplate">
+                                                        <StackPanel Background="Transparent">
+                                                            <TextBlock Text="{Binding Path=DataPoint.DataItem.ImportType, StringFormat='引进方式: {0}'}"
+                                                                       Foreground="{Binding Path=DataPoint.DataItem.Color}"
+                                                                       Margin="6,0"
+                                                                       FontFamily="Segoe UI" />
+                                                            <TextBlock Text="{Binding Path=DataPoint.DataItem.AirNum, StringFormat='飞机数: {0}架'}"
+                                                                       Foreground="{Binding Path=DataPoint.DataItem.Color}"
+                                                                       Margin="6,0"
+                                                                       FontFamily="Segoe UI" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </telerik:RadCartesianChart.Resources>
+                                                <telerik:RadCartesianChart.Behaviors>
+                                                    <telerik:ChartTooltipBehavior Placement="Top"
+                                                                                  HorizontalOffset="-6" />
+                                                    <telerik:ChartSelectionBehavior>
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="SelectionChanged">
+                                                                <ei:CallMethodAction TargetObject="{Binding}"
+                                                                                     MethodName="ChartSelectionBehaviorSelectionChanged" />
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </telerik:ChartSelectionBehavior>
+                                                </telerik:RadCartesianChart.Behaviors>
+                                                <telerik:RadCartesianChart.TooltipTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
+                                                                  Stretch="Fill"
+                                                                  Fill="White"
+                                                                  Stroke="Gray"
+                                                                  StrokeThickness="1" />
+                                                            <StackPanel Margin="5,3,5,10">
+                                                                <TextBlock Text="{Binding Path=DataItem.ImportType, StringFormat='引进方式: {0}'}"
+                                                                           Foreground="{Binding Path=DataItem.Color}"
+                                                                           FontFamily="Segoe UI"
+                                                                           FontSize="11" />
+                                                                <TextBlock Text="{Binding Path=DataItem.AirNum, StringFormat='飞机数: {0}架'}"
+                                                                           Foreground="{Binding Path=DataItem.Color}"
+                                                                           FontFamily="Segoe UI"
+                                                                           FontSize="11" />
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </telerik:RadCartesianChart.TooltipTemplate>
+                                                <telerik:RadCartesianChart.HorizontalAxis>
+                                                    <telerik:CategoricalAxis Name="LineCategoricalAxis"
+                                                                             ShowLabels="False"
+                                                                             Background="Black"
+                                                                             MajorTickInterval="3"
+                                                                             PlotMode="OnTicksPadded"
+                                                                             LabelStyle="{StaticResource LabelFontStyle}"
+                                                                             MajorTickStyle="{StaticResource TickStyle}" />
+                                                </telerik:RadCartesianChart.HorizontalAxis>
+                                                <telerik:RadCartesianChart.VerticalAxis>
+                                                    <telerik:LinearAxis Name="LineLinearAxis"
+                                                                        LabelInterval="2"
+                                                                        ElementBrush="{Binding AircraftColor, Mode=OneWay}"
+                                                                        Title="引进方式飞机数（架）"
+                                                                        LabelStyle="{StaticResource RightLabelStyle}" />
+                                                </telerik:RadCartesianChart.VerticalAxis>
+                                                <telerik:RadCartesianChart.Grid>
+                                                    <telerik:CartesianChartGrid MajorLinesVisibility="X"
+                                                                                StripLinesVisibility="X">
+                                                        <telerik:CartesianChartGrid.XStripeBrushes>
+                                                            <SolidColorBrush Color="#FFD7D7D7"
+                                                                             Opacity="0.15" />
+                                                            <SolidColorBrush Color="Transparent" />
+                                                        </telerik:CartesianChartGrid.XStripeBrushes>
+                                                    </telerik:CartesianChartGrid>
+                                                </telerik:RadCartesianChart.Grid>
+                                            </telerik:RadCartesianChart>
+                                            <ScrollViewer Grid.Column="1"
+                                                          Width="156"
+                                                          Margin="0,5,5,5"
+                                                          VerticalScrollBarVisibility="Auto"
+                                                          telerik:StyleManager.Theme="Windows8">
+                                                <StackPanel Style="{StaticResource legendStyle}" />
+                                            </ScrollViewer>
+                                        </Grid>
+                                        <Grid Grid.Row="1"
+                                              Name="BarGrid">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <telerik:RadCartesianChart Margin="10,0,10,0"
+                                                                       Palette="Metro"
+                                                                       Zoom="{Binding Zoom, Mode=TwoWay}"
+                                                                       PanOffset="{Binding PanOffset, Mode=TwoWay}"
+                                                                       EmptyContent="飞机变化趋势">
+                                                <telerik:RadCartesianChart.Behaviors>
+                                                    <telerik:ChartTooltipBehavior Placement="Top"
+                                                                                  HorizontalOffset="-6" />
+                                                    <telerik:ChartPanAndZoomBehavior ZoomMode="Horizontal" />
+                                                    <telerik:ChartSelectionBehavior>
+                                                        <i:Interaction.Triggers>
+                                                            <i:EventTrigger EventName="SelectionChanged">
+                                                                <ei:CallMethodAction TargetObject="{Binding}"
+                                                                                     MethodName="ChartSelectionBehaviorSelectionChanged" />
+                                                            </i:EventTrigger>
+                                                        </i:Interaction.Triggers>
+                                                    </telerik:ChartSelectionBehavior>
+                                                </telerik:RadCartesianChart.Behaviors>
+                                                <telerik:RadCartesianChart.TooltipTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
+                                                                  Stretch="Fill"
+                                                                  Fill="White"
+                                                                  Stroke="Gray"
+                                                                  StrokeThickness="1" />
+                                                            <StackPanel Margin="5,3,5,10">
+                                                                <TextBlock Text="{Binding Path=DataItem.DateTime, StringFormat='时间: {0}末'}"
+                                                                           Foreground="Black"
+                                                                           FontFamily="Segoe UI"
+                                                                           FontSize="11" />
+                                                                <TextBlock Text="{Binding Path=DataItem.Amount, StringFormat='飞机数: {0}架'}"
+                                                                           Foreground="{Binding Path=DataItem.Color}"
+                                                                           FontFamily="Segoe UI"
+                                                                           FontSize="11" />
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </telerik:RadCartesianChart.TooltipTemplate>
+                                                <telerik:RadCartesianChart.HorizontalAxis>
+                                                    <telerik:CategoricalAxis Name="BarCategoricalAxis"
+                                                                             MajorTickInterval="3"
+                                                                             PlotMode="OnTicksPadded"
+                                                                             LabelStyle="{StaticResource LabelFontStyle}" />
+                                                </telerik:RadCartesianChart.HorizontalAxis>
+                                                <telerik:RadCartesianChart.VerticalAxis>
+                                                    <telerik:LinearAxis Name="BarLinearAxis"
+                                                                        LabelInterval="2"
+                                                                        ElementBrush="{Binding AircraftColor, Mode=OneWay}"
+                                                                        HorizontalLocation="Left"
+                                                                        Title="飞机数（架）"
+                                                                        LabelStyle="{StaticResource RightLabelStyle}" />
+                                                </telerik:RadCartesianChart.VerticalAxis>
+                                                <telerik:RadCartesianChart.Grid>
+                                                    <telerik:CartesianChartGrid MajorLinesVisibility="X"
+                                                                                StripLinesVisibility="X">
+                                                        <telerik:CartesianChartGrid.XStripeBrushes>
+                                                            <SolidColorBrush Color="#FFD7D7D7"
+                                                                             Opacity="0.15" />
+                                                            <SolidColorBrush Color="Transparent" />
+                                                        </telerik:CartesianChartGrid.XStripeBrushes>
+                                                    </telerik:CartesianChartGrid>
+                                                </telerik:RadCartesianChart.Grid>
+                                                <telerik:RadCartesianChart.Series>
+                                                    <telerik:BarSeries DisplayName="期末飞机数"
+                                                                       ItemsSource="{Binding AircraftAmountCollection}"
+                                                                       ValueBinding="Amount"
+                                                                       CategoryBinding="DateTime">
+                                                        <telerik:BarSeries.PointTemplate>
+                                                            <DataTemplate>
+                                                                <Border Background="{Binding Path=DataItem.Color}" />
+                                                            </DataTemplate>
+                                                        </telerik:BarSeries.PointTemplate>
+                                                    </telerik:BarSeries>
+                                                </telerik:RadCartesianChart.Series>
+                                            </telerik:RadCartesianChart>
+                                            <ScrollViewer Grid.Column="1"
+                                                          Width="156"
+                                                          Margin="0,5,5,5"
+                                                          VerticalScrollBarVisibility="Auto"
+                                                          telerik:StyleManager.Theme="Windows8">
+                                                <StackPanel Style="{StaticResource legendStyle}">
+                                                    <StackPanel Orientation="Horizontal"
+                                                                Margin="5,5,5,5">
+                                                        <Rectangle Width="15"
+                                                                   Height="15"
+                                                                   Fill="{Binding AircraftColor,Mode=OneWay}"
+                                                                   Margin="0,0,10,0" />
+                                                        <TextBlock Text="期末飞机数"
+                                                                   Foreground="{Binding AircraftColor,Mode=OneWay}" />
                                                     </StackPanel>
-                                                </DataTemplate>
-                                            </telerik:RadCartesianChart.Resources>
-                                            <telerik:RadCartesianChart.Behaviors>
-                                                <telerik:ChartTrackBallBehavior />
-                                                <telerik:ChartSelectionBehavior>
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="SelectionChanged">
-                                                            <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                 MethodName="ChartSelectionBehaviorSelectionChanged" />
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
-                                                </telerik:ChartSelectionBehavior>
-                                            </telerik:RadCartesianChart.Behaviors>
-                                            <telerik:RadCartesianChart.HorizontalAxis>
-                                                <telerik:CategoricalAxis Name="LineCategoricalAxis"
-                                                                         ShowLabels="False"
-                                                                         Background="Black"
-                                                                         MajorTickInterval="3"
-                                                                         PlotMode="OnTicksPadded"
-                                                                         LabelStyle="{StaticResource LabelFontStyle}"
-                                                                         MajorTickStyle="{StaticResource TickStyle}" />
-                                            </telerik:RadCartesianChart.HorizontalAxis>
-                                            <telerik:RadCartesianChart.VerticalAxis>
-                                                <telerik:LinearAxis Name="LineLinearAxis"
-                                                                    LabelInterval="2"
-                                                                    ElementBrush="{Binding AircraftColor, Mode=OneWay}"
-                                                                    Title="引进方式飞机数（架）"
-                                                                    LabelStyle="{StaticResource RightLabelStyle}" />
-                                            </telerik:RadCartesianChart.VerticalAxis>
-                                            <telerik:RadCartesianChart.Grid>
-                                                <telerik:CartesianChartGrid MajorLinesVisibility="X"
-                                                                            StripLinesVisibility="X">
-                                                    <telerik:CartesianChartGrid.XStripeBrushes>
-                                                        <SolidColorBrush Color="#FFD7D7D7"
-                                                                         Opacity="0.15" />
-                                                        <SolidColorBrush Color="Transparent" />
-                                                    </telerik:CartesianChartGrid.XStripeBrushes>
-                                                </telerik:CartesianChartGrid>
-                                            </telerik:RadCartesianChart.Grid>
-                                        </telerik:RadCartesianChart>
-                                        <ScrollViewer Grid.Column="1"
-                                                      Width="156"
-                                                      Margin="0,5,5,5"
-                                                      VerticalScrollBarVisibility="Auto"
-                                                      telerik:StyleManager.Theme="Windows8">
-                                            <StackPanel Style="{StaticResource legendStyle}" />
-                                        </ScrollViewer>
+                                                </StackPanel>
+                                            </ScrollViewer>
+                                        </Grid>
                                     </Grid>
-                                    <Grid Grid.Row="1"
-                                          Name="BarGrid">
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
+
+                        <telerik:RadSplitContainer InitialPosition="DockedBottom"
+                                                   telerik:ProportionalStackPanel.RelativeSize="800, 400">
+                            <telerik:RadPaneGroup>
+                                <telerik:RadPane Header="{Binding SelectedTimeImportType}"
+                                                 FontSize="{StaticResource TextFontSize}"
+                                                 CanDockInDocumentHost="False"
+                                                 CanFloat="False"
+                                                 CanUserClose="False"
+                                                 CanUserPin="False"
+                                                 ContextMenuTemplate="{x:Null}">
+                                    <Grid Name="ImportTypePieGrid"
+                                          Cursor="Hand"
+                                          Background="White">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="Opened">
+                                                        <ei:CallMethodAction TargetObject="{Binding}"
+                                                                             MethodName="ContextMenuOpened" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                                <telerik:RadMenuItem Name="ImportTypePieGridImage"
+                                                                     Header="导出图片"
+                                                                     Command="{Binding ExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=ImportTypePieGridImage}" />
+                                                <telerik:RadMenuItem Name="ImportTypePieGridData"
+                                                                     Header="导出源数据"
+                                                                     Command="{Binding ExportCommand}"
+                                                                     CommandParameter="{Binding ElementName=ImportTypePieGridData}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <telerik:RadCartesianChart Margin="10,0,10,0"
-                                                                   Palette="Metro"
-                                                                   Zoom="{Binding Zoom, Mode=TwoWay}"
-                                                                   PanOffset="{Binding PanOffset, Mode=TwoWay}"
-                                                                   EmptyContent="飞机变化趋势">
-                                            <telerik:RadCartesianChart.Behaviors>
-                                                <telerik:ChartTooltipBehavior Placement="Top"
-                                                                              HorizontalOffset="-6" />
-                                                <telerik:ChartPanAndZoomBehavior ZoomMode="Horizontal" />
-                                                <telerik:ChartSelectionBehavior>
+                                        <telerik:RadPieChart Name="ImportTypeRadPieChart"
+                                                             Palette="Metro"
+                                                             Grid.Column="0"
+                                                             EmptyContent="引进方式分布">
+                                            <telerik:RadPieChart.Behaviors>
+                                                <telerik:ChartTooltipBehavior Placement="MousePoint"
+                                                                              PlacementTarget="{Binding  ElementName=ImportTypeRadPieChart}"
+                                                                              HorizontalOffset="-8"
+                                                                              VerticalOffset="-46" />
+                                                <telerik:ChartSelectionBehavior DataPointSelectionMode="Single">
                                                     <i:Interaction.Triggers>
                                                         <i:EventTrigger EventName="SelectionChanged">
                                                             <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                 MethodName="ChartSelectionBehaviorSelectionChanged" />
+                                                                                 MethodName="RadPieChartSelectionBehaviorSelectionChanged" />
                                                         </i:EventTrigger>
                                                     </i:Interaction.Triggers>
                                                 </telerik:ChartSelectionBehavior>
-                                            </telerik:RadCartesianChart.Behaviors>
-                                            <telerik:RadCartesianChart.TooltipTemplate>
+                                            </telerik:RadPieChart.Behaviors>
+                                            <telerik:RadPieChart.TooltipTemplate>
                                                 <DataTemplate>
                                                     <Grid>
                                                         <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
@@ -297,243 +454,112 @@
                                                               Stroke="Gray"
                                                               StrokeThickness="1" />
                                                         <StackPanel Margin="5,3,5,10">
-                                                            <TextBlock Text="{Binding Path=DataItem.DateTime, StringFormat='时间: {0}末'}"
-                                                                       Foreground="Black"
+                                                            <TextBlock Text="{Binding Path=DataItem.ImportType, StringFormat='引进方式: {0}'}"
+                                                                       Foreground="{Binding Path=DataItem.Color}"
                                                                        FontFamily="Segoe UI"
                                                                        FontSize="11" />
-                                                            <TextBlock Text="{Binding Path=DataItem.Amount, StringFormat='飞机数: {0}架'}"
+                                                            <TextBlock Text="{Binding Path=DataItem.AirNum, StringFormat='飞机数: {0}架'}"
                                                                        Foreground="{Binding Path=DataItem.Color}"
                                                                        FontFamily="Segoe UI"
                                                                        FontSize="11" />
                                                         </StackPanel>
                                                     </Grid>
                                                 </DataTemplate>
-                                            </telerik:RadCartesianChart.TooltipTemplate>
-                                            <telerik:RadCartesianChart.HorizontalAxis>
-                                                <telerik:CategoricalAxis Name="BarCategoricalAxis"
-                                                                         MajorTickInterval="3"
-                                                                         PlotMode="OnTicksPadded"
-                                                                         LabelStyle="{StaticResource LabelFontStyle}" />
-                                            </telerik:RadCartesianChart.HorizontalAxis>
-                                            <telerik:RadCartesianChart.VerticalAxis>
-                                                <telerik:LinearAxis Name="BarLinearAxis"
-                                                                    LabelInterval="2"
-                                                                    ElementBrush="{Binding AircraftColor, Mode=OneWay}"
-                                                                    HorizontalLocation="Left"
-                                                                    Title="飞机数（架）"
-                                                                    LabelStyle="{StaticResource RightLabelStyle}" />
-                                            </telerik:RadCartesianChart.VerticalAxis>
-                                            <telerik:RadCartesianChart.Grid>
-                                                <telerik:CartesianChartGrid MajorLinesVisibility="X"
-                                                                            StripLinesVisibility="X">
-                                                    <telerik:CartesianChartGrid.XStripeBrushes>
-                                                        <SolidColorBrush Color="#FFD7D7D7"
-                                                                         Opacity="0.15" />
-                                                        <SolidColorBrush Color="Transparent" />
-                                                    </telerik:CartesianChartGrid.XStripeBrushes>
-                                                </telerik:CartesianChartGrid>
-                                            </telerik:RadCartesianChart.Grid>
-                                            <telerik:RadCartesianChart.Series>
-                                                <telerik:BarSeries DisplayName="期末飞机数"
-                                                                   ItemsSource="{Binding AircraftAmountCollection}"
-                                                                   ValueBinding="Amount"
-                                                                   CategoryBinding="DateTime">
-                                                    <telerik:BarSeries.PointTemplate>
-                                                        <DataTemplate>
-                                                            <Border Background="{Binding Path=DataItem.Color}" />
-                                                        </DataTemplate>
-                                                    </telerik:BarSeries.PointTemplate>
-                                                </telerik:BarSeries>
-                                            </telerik:RadCartesianChart.Series>
-                                        </telerik:RadCartesianChart>
+                                            </telerik:RadPieChart.TooltipTemplate>
+                                            <telerik:PieSeries ValueBinding="AirNum"
+                                                               ItemsSource="{Binding FleetImportTypeCollection}"
+                                                               ShowLabels="False"
+                                                               RadiusFactor="0.7">
+                                                <telerik:PieSeries.LabelDefinitions>
+                                                    <telerik:ChartSeriesLabelDefinition Margin="-5,0,0,0" />
+                                                </telerik:PieSeries.LabelDefinitions>
+                                                <telerik:PieSeries.AngleRange>
+                                                    <telerik:AngleRange StartAngle="270"
+                                                                        SweepAngle="360" />
+                                                </telerik:PieSeries.AngleRange>
+                                            </telerik:PieSeries>
+                                        </telerik:RadPieChart>
                                         <ScrollViewer Grid.Column="1"
-                                                      Width="156"
                                                       Margin="0,5,5,5"
                                                       VerticalScrollBarVisibility="Auto"
                                                       telerik:StyleManager.Theme="Windows8">
-                                            <StackPanel Style="{StaticResource legendStyle}">
-                                                <StackPanel Orientation="Horizontal"
-                                                            Margin="5,5,5,5">
-                                                    <Rectangle Width="15"
-                                                               Height="15"
-                                                               Fill="{Binding AircraftColor,Mode=OneWay}"
-                                                               Margin="0,0,10,0" />
-                                                    <TextBlock Text="期末飞机数"
-                                                               Foreground="{Binding AircraftColor,Mode=OneWay}" />
-                                                </StackPanel>
-                                            </StackPanel>
+                                            <StackPanel Style="{StaticResource legendStyle}" />
                                         </ScrollViewer>
                                     </Grid>
-                                </Grid>
-                            </telerik:RadPane>
-                        </telerik:RadPaneGroup>
-                    </telerik:RadSplitContainer>
-
-                    <telerik:RadSplitContainer InitialPosition="DockedBottom">
-                        <telerik:RadPaneGroup>
-                            <telerik:RadPane Header="{Binding SelectedTimeImportType}"
-                                             FontSize="{StaticResource TextFontSize}"
-                                             CanDockInDocumentHost="False"
-                                             CanFloat="False"
-                                             CanUserClose="False"
-                                             CanUserPin="False"
-                                             ContextMenuTemplate="{x:Null}">
-                                <Grid Name="ImportTypePieGrid"
-                                      Cursor="Hand"
-                                      Background="White">
-                                    <telerik:RadContextMenu.ContextMenu>
-                                        <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="Opened">
-                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                         MethodName="ContextMenuOpened" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                            <telerik:RadMenuItem Name="ImportTypePieGridImage"
-                                                                 Header="导出图片"
-                                                                 Command="{Binding ExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=ImportTypePieGridImage}" />
-                                            <telerik:RadMenuItem Name="ImportTypePieGridData"
-                                                                 Header="导出源数据"
-                                                                 Command="{Binding ExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=ImportTypePieGridData}" />
-                                        </telerik:RadContextMenu>
-                                    </telerik:RadContextMenu.ContextMenu>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <telerik:RadPieChart Name="ImportTypeRadPieChart"
-                                                         Palette="Metro"
-                                                         Grid.Column="0"
-                                                         EmptyContent="引进方式分布">
-                                        <telerik:RadPieChart.Behaviors>
-                                            <telerik:ChartTooltipBehavior Placement="MousePoint"
-                                                                          PlacementTarget="{Binding  ElementName=ImportTypeRadPieChart}"
-                                                                          HorizontalOffset="-8"
-                                                                          VerticalOffset="-46" />
-                                            <telerik:ChartSelectionBehavior DataPointSelectionMode="Single">
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                            <telerik:RadPaneGroup>
+                                <telerik:RadPane Header="{Binding AircraftCount}"
+                                                 FontSize="13"
+                                                 CanDockInDocumentHost="False"
+                                                 CanFloat="False"
+                                                 CanUserClose="False"
+                                                 CanUserPin="False"
+                                                 ContextMenuTemplate="{x:Null}">
+                                    <telerik:RadGridView Name="AircraftDetail"
+                                                         FontSize="13"
+                                                         AutoExpandGroups="True"
+                                                         AutoGenerateColumns="False"
+                                                         CanUserFreezeColumns="False"
+                                                         ShowGroupPanel="True"
+                                                         RowIndicatorVisibility="Collapsed"
+                                                         IsReadOnly="True"
+                                                         ItemsSource="{Binding AircraftCollection}">
+                                        <telerik:RadContextMenu.ContextMenu>
+                                            <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
                                                 <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="SelectionChanged">
+                                                    <i:EventTrigger EventName="Opened">
                                                         <ei:CallMethodAction TargetObject="{Binding}"
-                                                                             MethodName="RadPieChartSelectionBehaviorSelectionChanged" />
+                                                                             MethodName="ContextMenuOpened" />
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
-                                            </telerik:ChartSelectionBehavior>
-                                        </telerik:RadPieChart.Behaviors>
-                                        <telerik:RadPieChart.TooltipTemplate>
-                                            <DataTemplate>
-                                                <Grid>
-                                                    <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
-                                                          Stretch="Fill"
-                                                          Fill="White"
-                                                          Stroke="Gray"
-                                                          StrokeThickness="1" />
-                                                    <StackPanel Margin="5,3,5,10">
-                                                        <TextBlock Text="{Binding Path=DataItem.ImportType, StringFormat='引进方式: {0}'}"
-                                                                   Foreground="{Binding Path=DataItem.Color}"
-                                                                   FontFamily="Segoe UI"
-                                                                   FontSize="11" />
-                                                        <TextBlock Text="{Binding Path=DataItem.AirNum, StringFormat='飞机数: {0}架'}"
-                                                                   Foreground="{Binding Path=DataItem.Color}"
-                                                                   FontFamily="Segoe UI"
-                                                                   FontSize="11" />
-                                                    </StackPanel>
-                                                </Grid>
-                                            </DataTemplate>
-                                        </telerik:RadPieChart.TooltipTemplate>
-                                        <telerik:PieSeries ValueBinding="AirNum"
-                                                           ItemsSource="{Binding FleetImportTypeCollection}"
-                                                           ShowLabels="False"
-                                                           RadiusFactor="0.7">
-                                            <telerik:PieSeries.LabelDefinitions>
-                                                <telerik:ChartSeriesLabelDefinition Margin="-5,0,0,0" />
-                                            </telerik:PieSeries.LabelDefinitions>
-                                            <telerik:PieSeries.AngleRange>
-                                                <telerik:AngleRange StartAngle="270"
-                                                                    SweepAngle="360" />
-                                            </telerik:PieSeries.AngleRange>
-                                        </telerik:PieSeries>
-                                    </telerik:RadPieChart>
-                                    <ScrollViewer Grid.Column="1"
-                                                  Margin="0,5,5,5"
-                                                  VerticalScrollBarVisibility="Auto"
-                                                  telerik:StyleManager.Theme="Windows8">
-                                        <StackPanel Style="{StaticResource legendStyle}" />
-                                    </ScrollViewer>
-                                </Grid>
-                            </telerik:RadPane>
-                        </telerik:RadPaneGroup>
-                        <telerik:RadPaneGroup>
-                            <telerik:RadPane Header="{Binding AircraftCount}"
-                                             FontSize="13"
-                                             CanDockInDocumentHost="False"
-                                             CanFloat="False"
-                                             CanUserClose="False"
-                                             CanUserPin="False"
-                                             ContextMenuTemplate="{x:Null}">
-                                <telerik:RadGridView Name="AircraftDetail"
-                                                     FontSize="13"
-                                                     AutoExpandGroups="True"
-                                                     AutoGenerateColumns="False"
-                                                     CanUserFreezeColumns="False"
-                                                     ShowGroupPanel="True"
-                                                     RowIndicatorVisibility="Collapsed"
-                                                     IsReadOnly="True"
-                                                     ItemsSource="{Binding AircraftCollection}">
-                                    <telerik:RadContextMenu.ContextMenu>
-                                        <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
-                                            <i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="Opened">
-                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                         MethodName="ContextMenuOpened" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>
-                                            <telerik:RadMenuItem x:Name="RadMenuItemExport"
-                                                                 Header="导出数据"
-                                                                 Command="{Binding ExportGridViewCommand}"
-                                                                 CommandParameter="{Binding ElementName=RadMenuItemExport}" />
-                                        </telerik:RadContextMenu>
-                                    </telerik:RadContextMenu.ContextMenu>
-                                    <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号" />
-                                        <telerik:GridViewDataColumn Header="注册号"
-                                                                    DataMemberBinding="{Binding RegNumber}">
-                                            <!--<telerik:GridViewDataColumn.AggregateFunctions>
-                                                <telerik:CountFunction Caption="{StaticResource AircraftCountFunction}" />
-                                            </telerik:GridViewDataColumn.AggregateFunctions>-->
+                                                <telerik:RadMenuItem x:Name="RadMenuItemExport"
+                                                                     Header="导出数据"
+                                                                     Command="{Binding ExportGridViewCommand}"
+                                                                     CommandParameter="{Binding ElementName=RadMenuItemExport}" />
+                                            </telerik:RadContextMenu>
+                                        </telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadGridView.Columns>
+                                            <uc:DataPageSerialColumn Header="序号" />
+                                            <telerik:GridViewDataColumn Header="注册号"
+                                                                        DataMemberBinding="{Binding RegNumber}">
+                                                <telerik:GridViewDataColumn.AggregateFunctions>
+                                                    <telerik:CountFunction Caption="总计(架)：" />
+                                                </telerik:GridViewDataColumn.AggregateFunctions>
+                                            </telerik:GridViewDataColumn>
+                                            <telerik:GridViewDataColumn Header="运营权人"
+                                                                        DataMemberBinding="{Binding AirlinesName}" />
+                                            <telerik:GridViewDataColumn Header="所有权人"
+                                                                        DataMemberBinding="{Binding SupplierName}" />
+                                            <telerik:GridViewDataColumn Header="制造商"
+                                                                        DataMemberBinding="{Binding ManufacturerName}" />
+                                            <telerik:GridViewDataColumn Header="座级"
+                                                                        DataMemberBinding="{Binding Regional}" />
+                                            <telerik:GridViewDataColumn Header="机型"
+                                                                        DataMemberBinding="{Binding AircraftTypeName}">
+                                                <telerik:GridViewDataColumn.AggregateFunctions>
+                                                    <telerik:CountFunction ResultFormatString="{}飞机数:{0}(架)" />
+                                                </telerik:GridViewDataColumn.AggregateFunctions>
 
-                                        </telerik:GridViewDataColumn>
-                                        <telerik:GridViewDataColumn Header="运营权人"
-                                                                    DataMemberBinding="{Binding ThenAirlineName}" />
-                                        <telerik:GridViewDataColumn Header="所有权人"
-                                                                    DataMemberBinding="{Binding ThenOwnerName}" />
-                                        <telerik:GridViewDataColumn Header="制造商"
-                                                                    DataMemberBinding="{Binding AircraftType.Manufacturer.Name}" />
-                                        <telerik:GridViewDataColumn Header="座级"
-                                                                    DataMemberBinding="{Binding ThenRegional}" />
-                                        <telerik:GridViewDataColumn Header="机型"
-                                                                    DataMemberBinding="{Binding ThenAircraftTypeName}">
-                                            <!--<telerik:GridViewDataColumn.AggregateFunctions>
-								<telerik:CountFunction ResultFormatString="{}飞机数:{0}(架)"/>
-							</telerik:GridViewDataColumn.AggregateFunctions>-->
-
-                                        </telerik:GridViewDataColumn>
-                                        <telerik:GridViewDataColumn Header="引进方式"
-                                                                    DataMemberBinding="{Binding ThenActionName}" />
-                                        <telerik:GridViewDataColumn Header="出厂日期"
-                                                                    DataMemberBinding="{Binding FactoryDate, StringFormat={StaticResource DateStringFormat}}" />
-                                        <telerik:GridViewDataColumn Header="座位数"
-                                                                    DataMemberBinding="{Binding ThenSeatingCapacity}" />
-                                        <telerik:GridViewDataColumn Header="商载（吨）"
-                                                                    DataMemberBinding="{Binding ThenCarryingCapacity}" />
-                                    </telerik:RadGridView.Columns>
-                                    <!--<telerik:RadGridView.GroupDescriptors>
-							<telerik:GroupDescriptor Member="ImportCategory.ActionType" SortDirection="Ascending" DisplayContent="引进方式" />
-						</telerik:RadGridView.GroupDescriptors>-->
-                                </telerik:RadGridView>
-                            </telerik:RadPane>
-                        </telerik:RadPaneGroup>
+                                            </telerik:GridViewDataColumn>
+                                            <telerik:GridViewDataColumn Header="引进方式"
+                                                                        DataMemberBinding="{Binding ImportCategoryName}" />
+                                            <telerik:GridViewDataColumn Header="出厂日期"
+                                                                        DataMemberBinding="{Binding FactoryDate, StringFormat={StaticResource DateStringFormat}}" />
+                                            <telerik:GridViewDataColumn Header="座位数"
+                                                                        DataMemberBinding="{Binding SeatingCapacity}" />
+                                            <telerik:GridViewDataColumn Header="商载（吨）"
+                                                                        DataMemberBinding="{Binding CarryingCapacity}" />
+                                        </telerik:RadGridView.Columns>
+                                        <telerik:RadGridView.GroupDescriptors>
+                                            <telerik:GroupDescriptor Member="ImportCategoryName"
+                                                                     SortDirection="Ascending"
+                                                                     DisplayContent="引进方式" />
+                                        </telerik:RadGridView.GroupDescriptors>
+                                    </telerik:RadGridView>
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
                     </telerik:RadSplitContainer>
                 </telerik:RadDocking>
             </Border>

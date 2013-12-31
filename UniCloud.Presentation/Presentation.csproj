@@ -254,6 +254,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonExtension\AxisCollection.cs" />
     <Compile Include="CommonExtension\CommonExtension.cs" />
     <Compile Include="CommonExtension\CommonMethod.cs" />
     <Compile Include="CommonExtension\RandomHelper.cs" />

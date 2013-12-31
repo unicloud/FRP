@@ -226,7 +226,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             get { return _fleetAircraftRegionalCollection; }
             set
             {
-                if (_fleetAircraftRegionalCollection != null && !Equals(_fleetAircraftRegionalCollection, value))
+                if ( !Equals(_fleetAircraftRegionalCollection, value))
                 {
                     _fleetAircraftRegionalCollection = value;
                     RaisePropertyChanged(() => FleetAircraftRegionalCollection);
@@ -1372,7 +1372,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             var aircraft = Aircrafts.
                         Where(o => o.OperationHistories.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time))
-                        && o.AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)));
+                       /*&& o.AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time))*/);
 
             #region 座级机型XML文件的读写
             var xmlConfig = XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("座级机型", StringComparison.OrdinalIgnoreCase));
