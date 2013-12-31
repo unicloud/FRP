@@ -115,7 +115,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             _startDateTimePicker.Culture.DateTimeFormat.ShortDatePattern = "yyyy/M";
             _endDateTimePicker.Culture.DateTimeFormat.ShortDatePattern = "yyyy/M";
 
-
             _lineGrid = CurrrentFleetStructure.LineGrid;
             _barGrid = CurrrentFleetStructure.BarGrid;
         }
@@ -609,15 +608,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 stackPanel.Children.Clear();
 
-                //StringBuilder CellETemp = new StringBuilder();
-                //CellETemp.Append("<DataTemplate ");
-                //CellETemp.Append("xmlns = 'http://schemas.microsoft.com/client/2007' ");
-                //CellETemp.Append("xmlns:x = 'http://schemas.microsoft.com/winfx/2006/xaml' ");
-                //CellETemp.Append("xmlns:local = 'clr-namespace:CAAC.CAFM.Views");
-                //CellETemp.Append(";assembly=YourAssembly'>");
-                //CellETemp.Append("<Ellipse Height='8' Width='8' Fill='{Binding Path=DataItem.Color}'/>");
-                //CellETemp.Append("</DataTemplate>");
-                //DataTemplate datatemplate=(DataTemplate)XamlReader.Load(CellETemp.ToString());
                 if (fleetAircraftTypeTrendCollection != null)
                 {
                     foreach (var groupItem in fleetAircraftTypeTrendCollection.GroupBy(p => p.AircraftRegional).ToList())
@@ -796,11 +786,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                 {
                                     if (radPieChart.EmptyContent.ToString().Equals("座级分布", StringComparison.OrdinalIgnoreCase))
                                     {
-                                        //GetGridViewDataSourse(piedatapoint, RegionalWindow, "座级");
+                                        GetGridViewDataSourse(pieDataPoint, _regionalWindow, "座级");
                                     }
                                     else if (radPieChart.EmptyContent.ToString().Equals("机型分布", StringComparison.OrdinalIgnoreCase))
                                     {
-                                        //  GetGridViewDataSourse(piedatapoint, TypeWindow, "机型");
+                                        GetGridViewDataSourse(pieDataPoint, _typeWindow, "机型");
                                     }
                                 }
                                 else
@@ -891,11 +881,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
                 if (radChartBase.EmptyContent.ToString().Equals("座级分布", StringComparison.OrdinalIgnoreCase))
                 {
-                    ShowGridViewData(selectedPoint, _regionalWindow, "座级");
+                    GetGridViewDataSourse(selectedPoint, _regionalWindow, "座级");
                 }
                 else if (radChartBase.EmptyContent.ToString().Equals("机型分布", StringComparison.OrdinalIgnoreCase))
                 {
-                    ShowGridViewData(selectedPoint, _typeWindow, "机型");
+                    GetGridViewDataSourse(selectedPoint, _typeWindow, "机型");
                 }
             }
             else
@@ -907,29 +897,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 else if (radChartBase.EmptyContent.ToString().Equals("机型分布", StringComparison.OrdinalIgnoreCase))
                 {
                     _typeWindow.Close();
-                }
-            }
-        }
-
-        /// <summary>
-        /// 根据选中饼图的航空公司弹出相应的数据列表窗体
-        /// </summary>
-        /// <param name="selectedItem"></param>
-        /// <param name="radwindow"></param>
-        /// <param name="header"></param>
-        public void ShowGridViewData(PieDataPoint selectedItem, RadWindow radwindow, string header)
-        {
-            if (selectedItem != null && radwindow != null)
-            {
-                var fleetAircraftTypeComposition = selectedItem.DataItem as FleetAircraftTypeComposition;
-                GetGridViewDataSourse(header);
-                //找到子窗体的RadGridView，并为其赋值
-                var rgv = radwindow.Content as RadGridView;
-                // rgv.ItemsSource = commonmethod.GetAircraftByTime(airlineAircrafts, time);
-                radwindow.Header = header + " " + fleetAircraftTypeComposition.AircraftRegional + "：" + fleetAircraftTypeComposition.AirTt;
-                if (!radwindow.IsOpen)
-                {
-                    Commonmethod.ShowRadWindow(radwindow);
                 }
             }
         }
@@ -955,20 +922,20 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         {
                             var grid = scrollViewer.Parent as Grid;
                             if (grid != null && grid.Name.Equals("LineGrid", StringComparison.OrdinalIgnoreCase))
-            {
+                            {
                                 var radCartesianChart = _lineGrid.Children[0] as RadCartesianChart;
                                 if (radCartesianChart != null)
-                {
+                                {
                                     var firstOrDefault = radCartesianChart.Series.FirstOrDefault(p => p.DisplayName.Equals(checkBox.Content.ToString(), StringComparison.OrdinalIgnoreCase));
                                     if (firstOrDefault != null)
                                         firstOrDefault.Visibility = Visibility.Visible;
                                 }
-                }
+                            }
                             else if (grid != null && grid.Name.Equals("BarGrid", StringComparison.OrdinalIgnoreCase))
                             {
                                 var radCartesianChart = _barGrid.Children[0] as RadCartesianChart;
                                 if (radCartesianChart != null)
-                {
+                                {
                                     var firstOrDefault = radCartesianChart.Series.FirstOrDefault(p => p.DisplayName.Equals(checkBox.Content.ToString(), StringComparison.OrdinalIgnoreCase));
                                     if (firstOrDefault != null)
                                         firstOrDefault.Visibility = Visibility.Visible;
@@ -1232,33 +1199,36 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// 根据选中饼图的航空公司弹出相应的数据列表窗体
         /// </summary>
         /// <param name="selectedItem">选中点</param>
-        /// <param name="radwindow">弹出窗体</param>
+        /// <param name="radWindow">弹出窗体</param>
         /// <param name="header">窗体标示</param>
-        protected void GetGridViewDataSourse(string header)
+        protected void GetGridViewDataSourse(PieDataPoint selectedItem, RadWindow radWindow, string header)
         {
-            //if (selectedItem != null && radwindow != null)
-            //{
-            //    FleetAircraftTypeComposition fleetaircrafttypecomposition = selectedItem.DataItem as FleetAircraftTypeComposition;
-            //    DateTime time = Convert.ToDateTime(SelectedTime).AddMonths(1).AddDays(-1);
-            //    var aircraft = this.AircraftDataObjectList.Where(o => o.OperationHistories.Any(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time))
-            //        && o.AircraftBusinesses.Any(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time)));
-            //    List<Aircraft> airlineAircrafts = new List<Aircraft>();
-            //    if (header .Equals(  "座级")
-            //    {
-            //        airlineAircrafts = aircraft.Where(p => p.AircraftBusinesses.FirstOrDefault(pp => pp.StartDate <= time
-            //            && !(pp.EndDate != null && pp.EndDate < time)).AircraftType.AircraftCategory.Regional .Equals(  fleetaircrafttypecomposition.AircraftRegional).ToList();
-            //    }
-            //    else if (header .Equals(  "机型")
-            //    {
-            //        airlineAircrafts =
-            //            aircraft.Where(p => p.AircraftBusinesses.FirstOrDefault(pp => pp.StartDate <= time
-            //                                                                          &&
-            //                                                                          !(pp.EndDate != null &&
-            //                                                                            pp.EndDate < time))
-            //                                 .AircraftType.Name .Equals(  fleetaircrafttypecomposition.AircraftRegional)
-            //                    .ToList();
-            //    }
-            //}
+            if (selectedItem != null && radWindow != null)
+            {
+                var fleetAircraftTypeComposition = selectedItem.DataItem as FleetAircraftTypeComposition;
+                DateTime time = Convert.ToDateTime(SelectedTime).AddMonths(1).AddDays(-1);
+                var aircraft = Aircrafts.Where(o => o.OperationHistories.Any(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time))
+                    && o.AircraftBusinesses.Any(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time)));
+                var airlineAircrafts = new List<AircraftDTO>();
+                if (header == "座级")
+                {
+                    //airlineAircrafts = aircraft.Where(p => p.AircraftBusinesses.FirstOrDefault(pp => pp.StartDate <= time
+                    //    && !(pp.EndDate != null && pp.EndDate < time)).AircraftType.AircraftCategory.Regional == fleetAircraftTypeComposition.AircraftRegional).ToList();
+                }
+                else if (header == "机型")
+                {
+                    //airlineAircrafts = aircraft.Where(p => p.AircraftBusinesses.FirstOrDefault(pp => pp.StartDate <= time
+                    //    && !(pp.EndDate != null && pp.EndDate < time)).AircraftType.Name == fleetAircraftTypeComposition.AircraftRegional).ToList();
+                }
+                //找到子窗体的RadGridView，并为其赋值
+                var rgv = radWindow.Content as RadGridView;
+                rgv.ItemsSource = Commonmethod.GetAircraftByTime(airlineAircrafts, time);
+                radWindow.Header = header + " " + fleetAircraftTypeComposition.AircraftRegional + "：" + fleetAircraftTypeComposition.AirTt;
+                if (!radWindow.IsOpen)
+                {
+                    Commonmethod.ShowRadWindow(radWindow);
+                }
+            }
         }
 
         /// <summary>
@@ -1481,7 +1451,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             #endregion
 
             //飞机详细数据
-            //AircraftCollection = Commonmethod.GetAircraftByTime(aircraft.ToList(), time);
+            AircraftCollection = Commonmethod.GetAircraftByTime(aircraft.ToList(), time);
         }
 
         #endregion
@@ -1509,7 +1479,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public class FleetAircraftRegionalTrend
         {
             public FleetAircraftRegionalTrend()
-    {
+            {
                 Color = Commonmethod.GetRandomColor();
             }
             public string AircraftRegional { get; set; }//座级名称

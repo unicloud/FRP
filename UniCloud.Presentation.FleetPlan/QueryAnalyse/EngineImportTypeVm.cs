@@ -750,8 +750,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                             {
                                 if (radPieChart.EmptyContent.ToString().Equals("发动机引进方式分布", StringComparison.OrdinalIgnoreCase))
                                 {
-                                    //  GetGridViewDataSource(piedatapoint, _importTypeWindow, "发动机引进方式");
-                                    //ShowGridViewData(piedatapoint, _importTypeWindow, "发动机引进方式");
+                                    GetGridViewDataSource(pieDataPoint, _importTypeWindow, "发动机引进方式");
                                 }
                             }
                             else
@@ -841,8 +840,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
                         if (radChartBase.EmptyContent.ToString().Equals("发动机引进方式分布", StringComparison.OrdinalIgnoreCase))
                         {
-                            //GetGridViewDataSource(SelectedPoint, _importTypeWindow, "发动机引进方式");
-                            ShowGridViewData(selectedPoint, _importTypeWindow, "发动机引进方式");
+                            GetGridViewDataSource(selectedPoint, _importTypeWindow, "发动机引进方式");
                         }
                     }
                     else
@@ -852,30 +850,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                             _importTypeWindow.Close();
                         }
                     }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 根据选中饼图的航空公司弹出相应的数据列表窗体
-        /// </summary>
-        /// <param name="selectedItem"></param>
-        /// <param name="radwindow"></param>
-        /// <param name="header"></param>
-        public void ShowGridViewData(PieDataPoint selectedItem, RadWindow radwindow, string header)
-        {
-            if (selectedItem != null && radwindow != null)
-            {
-                var fleetImportTypeComposition = selectedItem.DataItem as FleetImportTypeComposition;
-                GetGridViewDataSource(header);
-                //找到子窗体的RadGridView，并为其赋值
-                var rgv = radwindow.Content as RadGridView;
-                // rgv.ItemsSource = _commonmethod.GetEngineByTime(airlineEngines, time);
-                radwindow.Header = header + " " + fleetImportTypeComposition.ImportType + "：" +
-                                   fleetImportTypeComposition.AirTt;
-                if (!radwindow.IsOpen)
-                {
-                    Commonmethod.ShowRadWindow(radwindow);
                 }
             }
         }
@@ -1343,26 +1317,25 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// 根据选中饼图的航空公司弹出相应的数据列表窗体
         /// </summary>
         /// <param name="header">窗体标示</param>
-        protected void GetGridViewDataSource(string header)
+        protected void GetGridViewDataSource(PieDataPoint selectedItem, RadWindow radwindow, string header)
         {
-            /*            if (selectedItem != null && radwindow != null)
-                        {
-                            FleetImportTypeComposition fleetimporttTypecomposition = selectedItem.DataItem as FleetImportTypeComposition;
-                            DateTime time = Convert.ToDateTime(SelectedTime).AddMonths(1).AddDays(-1);
-                            var Engine = this.ViewEngine.Where(o => o.OperationHistories.Any(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time)))
-                                .Where(o => o.OperationHistories.FirstOrDefault(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time)).ImportCategory.ActionType .Equals( "引进");
-                            List<Engine> airlineEngines = Engine.Where(p => this.SameImportType(p.OperationHistories.
-                                FirstOrDefault(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time)).ImportCategory.ActionName, fleetimporttTypecomposition.ImportType)).ToList();
-                            //找到子窗体的RadGridView，并为其赋值
-                            RadGridView rgv = radwindow.Content as RadGridView;
-                            rgv.ItemsSource = _commonmethod.GetEngineByTime(airlineEngines, time);
-                            radwindow.Header = header + " " + fleetimporttTypecomposition.ImportType + "：" + fleetimporttTypecomposition.AirTt;
-                            if (!radwindow.IsOpen)
-                            {
-                                _commonmethod.ShowRadWindow(radwindow);
-                            }
-                        }
-             */
+            if (selectedItem != null && radwindow != null)
+            {
+                //var fleetImporttTypeComposition = selectedItem.DataItem as FleetImportTypeComposition;
+                //DateTime time = Convert.ToDateTime(SelectedTime).AddMonths(1).AddDays(-1);
+                //var engine = this.Engines.Where(o => o.OperationHistories.Any(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time)))
+                //    .Where(o => o.OperationHistories.FirstOrDefault(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time)).ImportCategory.ActionType .Equals( "引进");
+                //List<EngineDTO> engines = engine.Where(p => this.SameImportType(p.OperationHistories.
+                //    FirstOrDefault(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time)).ImportCategory.ActionName, fleetImporttTypeComposition.ImportType)).ToList();
+                ////找到子窗体的RadGridView，并为其赋值
+                //RadGridView rgv = radwindow.Content as RadGridView;
+                //rgv.ItemsSource = Commonmethod.GetEngineByTime(engines, time);
+                //radwindow.Header = header + " " + fleetImporttTypeComposition.ImportType + "：" + fleetImporttTypeComposition.AirTt;
+                //if (!radwindow.IsOpen)
+                //{
+                //    Commonmethod.ShowRadWindow(radwindow);
+                //}
+            }
         }
 
         #endregion

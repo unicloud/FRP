@@ -52,7 +52,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         public FleetAge CurrentFleetAge
         {
-            get { return ServiceLocator.Current.GetInstance<FleetAge>(); }   
+            get { return ServiceLocator.Current.GetInstance<FleetAge>(); }
         }
         private static readonly CommonMethod CommonMethod = new CommonMethod();
 
@@ -97,6 +97,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                           InitializeData();
                                       };
             Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_fleetPlanDataService, _fleetPlanDataService.Aircrafts);
+            //AircraftBusinesses=new QueryableDataServiceCollectionView<AircraftBusinessDTO>(_fleetPlanDataService,_fleetPlanDataService.aircr);
         }
         #endregion
 
@@ -107,6 +108,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public QueryableDataServiceCollectionView<XmlConfigDTO> XmlConfigs { get; set; }//XmlConfig集合
         public QueryableDataServiceCollectionView<XmlSettingDTO> XmlSettings { get; set; } //XmlSetting集合
         public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; } //飞机集合 
+        public QueryableDataServiceCollectionView<AircraftBusinessDTO> AircraftBusinesses { get; set; } //飞机商业数据
 
         public Dictionary<string, List<AircraftDTO>> AircraftByAgeDic = new Dictionary<string, List<AircraftDTO>>();//机龄饼图的飞机数据分布字典
 
@@ -126,6 +128,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             XmlConfigs.Load(true);
             XmlSettings.Load(true);
             Aircrafts.Load(true);
+            //AircraftBusinesses.Load(true);
         }
 
         #region 属性 AircraftDataObject
@@ -458,9 +461,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 var rgv = radwindow.Content as RadGridView;
                 if (fleetAgeComposition != null && (AircraftByAgeDic != null && AircraftByAgeDic.ContainsKey(fleetAgeComposition.AgeGroup)))
                 {
-                    //rgv.ItemsSource = commonMethod.GetAircraftByTime(AircraftByAgeDic[fleetagecomposition.AgeGroup], time);
+                    if (rgv != null)
+                        rgv.ItemsSource = CommonMethod.GetAircraftByTime(AircraftByAgeDic[fleetAgeComposition.AgeGroup], time);
                 }
-                _ageWindow.Header = fleetAgeComposition.AgeGroup + "的飞机数：" + fleetAgeComposition.ToolTip;
+                if (fleetAgeComposition != null)
+                    _ageWindow.Header = fleetAgeComposition.AgeGroup + "的飞机数：" + fleetAgeComposition.ToolTip;
                 if (!radwindow.IsOpen)
                 {
                     CommonMethod.ShowRadWindow(radwindow);
@@ -571,7 +576,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 stackPanel = ((ScrollViewer)_agePieGrid.Children[1]).Content as StackPanel;
             }
-
             if (stackPanel != null)
             {
                 foreach (var item in stackPanel.Children)
@@ -583,20 +587,18 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         itemRectangle.Height = 15;
                     }
                 }
-
                 if (selectedPoint != null)
                 {
                     var childStackPanel = stackPanel.Children.FirstOrDefault(p => ((TextBlock)((StackPanel)p).Children[1]).Text == ((FleetAgeComposition)selectedPoint.DataItem).AgeGroup) as StackPanel;
                     if (childStackPanel != null)
                     {
                         var rectangle = childStackPanel.Children[0] as Rectangle;
-                    if (rectangle != null)
-                    {
-                        rectangle.Width = 12;
-                        rectangle.Height = 12;
+                        if (rectangle != null)
+                        {
+                            rectangle.Width = 12;
+                            rectangle.Height = 12;
+                        }
                     }
-                    }
-
                     if (radChartBase.EmptyContent.ToString().Equals("机龄分布", StringComparison.OrdinalIgnoreCase))
                     {
                         GetGridViewDataSourse(selectedPoint, _ageWindow, "机龄");
@@ -792,7 +794,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         var firstOrDefault = chart.Series.FirstOrDefault(p => p.DisplayName == checkBox.Content.ToString());
                         if (firstOrDefault != null)
                             firstOrDefault.Visibility = Visibility.Visible;
-
                         var size = chart.Zoom;
                         chart.Zoom = new Size(size.Width + 0.01, size.Height);
                         chart.Zoom = size;
@@ -821,10 +822,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     {
                         var scrollViewer = panel.Parent as ScrollViewer;
                         if (scrollViewer != null)
-            {
+                        {
                             var grid = scrollViewer.Parent as Grid;
-                if (grid != null && grid.Name.Equals("LineGrid", StringComparison.OrdinalIgnoreCase))
-                {
+                            if (grid != null && grid.Name.Equals("LineGrid", StringComparison.OrdinalIgnoreCase))
+                            {
                                 var radCartesianChart = _lineGrid.Children[0] as RadCartesianChart;
                                 if (radCartesianChart != null)
                                 {
@@ -932,10 +933,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public DelegateCommand<object> PieDeployCommand { get; set; }
         private void OnPieDeploy(object obj)
         {
-            //var window = ServiceLocator.Current.GetInstance<Views.AgeDeployView>();
-            //window.WindowStartupLocation = Telerik.Windows.Controls.WindowStartupLocation.CenterScreen;
-            //window.Closed += WindowClosed;
-            //window.ShowDialog();
+            var window = ServiceLocator.Current.GetInstance<AgeDeploy>();
+            window.WindowStartupLocation = Telerik.Windows.Controls.WindowStartupLocation.CenterScreen;
+            window.Closed += WindowClosed;
+            window.ShowDialog();
         }
 
         /// <summary>
@@ -1296,14 +1297,14 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             IEnumerable<AircraftDTO> aircraft = null;
             if (aircraftType.Equals("所有机型", StringComparison.OrdinalIgnoreCase))
             {
-                //aircraft = this.AircraftDataObjectList.Where(p => p.FactoryDate != null)
-                //   .Where(o => AircraftBusinessDataObjectList.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)) && o.FactoryDate <= time && !(o.ExportDate != null && o.ExportDate < time));
+                aircraft = Aircrafts.Where(p => p.FactoryDate != null)
+                   .Where(o => AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)) && o.FactoryDate <= time && !(o.ExportDate != null && o.ExportDate < time));
             }
             else
             {
-                //aircraft = this.AircraftDataObjectList.Where(p => p.FactoryDate != null)
-                //    .Where(o => AircraftBusinessDataObjectList.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)) && o.FactoryDate <= time && !(o.ExportDate != null && o.ExportDate < time))
-                //    .Where(o => AircraftBusinessDataObjectList.FirstOrDefault(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)).AircraftType.Name == aircraftType);
+                //aircraft = this.Aircrafts.Where(p => p.FactoryDate != null)
+                //    .Where(o => AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)) && o.FactoryDate <= time && !(o.ExportDate != null && o.ExportDate < time))
+                //    .Where(o => AircraftBusinesses.FirstOrDefault(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)).AircraftType.Name == aircraftType);
             }
 
             var xmlConfig = XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("机龄配置", StringComparison.OrdinalIgnoreCase));
@@ -1314,30 +1315,35 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 ageColor = XElement.Parse(colorConfig.SettingContent).Descendants("Type").FirstOrDefault(p => p.Attribute("TypeName").Value.Equals("机龄", StringComparison.OrdinalIgnoreCase));
             }
-            if (xmlConfig != null && aircraft != null && aircraft.Count() > 0)
+            var aircraftDtos = aircraft as AircraftDTO[] ?? aircraft.ToArray();
+            if (xmlConfig != null && aircraft != null && aircraftDtos.Any())
             {
                 XElement xelement = XElement.Parse(xmlConfig.ConfigContent);
                 foreach (XElement item in xelement.Descendants("Item"))
                 {
-                    int StartYear = Convert.ToInt32(item.Attribute("Start").Value);
-                    int EndYear = Convert.ToInt32(item.Attribute("End").Value);
+                    int startYear = Convert.ToInt32(item.Attribute("Start").Value);
+                    int endYear = Convert.ToInt32(item.Attribute("End").Value);
                     //设置相应机龄范围的飞机数据，用于弹出窗体的数据显示
-                    var AircraftByAge = aircraft.Where(p =>
-                        EndYear * 12 > (time.Year - Convert.ToDateTime(p.FactoryDate).Year) * 12 + (time.Month - Convert.ToDateTime(p.FactoryDate).Month)
-                        && (time.Year - Convert.ToDateTime(p.FactoryDate).Year) * 12 + (time.Month - Convert.ToDateTime(p.FactoryDate).Month) >= StartYear * 12).ToList();
-                    if (AircraftByAge != null && AircraftByAge.Count() > 0)
+                    var aircraftByAge = aircraftDtos.Where(p =>
+                        endYear * 12 > (time.Year - Convert.ToDateTime(p.FactoryDate).Year) * 12 + (time.Month - Convert.ToDateTime(p.FactoryDate).Month)
+                        && (time.Year - Convert.ToDateTime(p.FactoryDate).Year) * 12 + (time.Month - Convert.ToDateTime(p.FactoryDate).Month) >= startYear * 12).ToList();
+                    if (aircraftByAge != null && aircraftByAge.Any())
                     {
-                        FleetAgeComposition AgeComposition = new FleetAgeComposition();
-                        AgeComposition.AgeGroup = item.Value;
-                        AgeComposition.GroupCount = AircraftByAge.Count();
-                        AgeComposition.ToolTip = AgeComposition.GroupCount + " 架，占" + (AircraftByAge.Count() * 100 / aircraft.Count()).ToString("##0") + "%";
+                        var ageComposition = new FleetAgeComposition
+                                             {
+                                                 AgeGroup = item.Value,
+                                                 GroupCount = aircraftByAge.Count()
+                                             };
+                        ageComposition.ToolTip = ageComposition.GroupCount + " 架，占" + (aircraftByAge.Count() * 100 / aircraft.Count()).ToString("##0") + "%";
                         if (ageColor != null)
                         {
-                            AgeComposition.Color = ageColor.Descendants("Item")
-                                .FirstOrDefault(p => p.Attribute("Name").Value == AgeComposition.AgeGroup).Attribute("Color").Value;
+                            var firstOrDefault = ageColor.Descendants("Item")
+                                .FirstOrDefault(p => p.Attribute("Name").Value.Equals(ageComposition.AgeGroup, StringComparison.OrdinalIgnoreCase));
+                            if (firstOrDefault != null)
+                                ageComposition.Color = firstOrDefault.Attribute("Color").Value;
                         }
-                        ageCompositionList.Add(AgeComposition);
-                        AircraftByAgeDic.Add(AgeComposition.AgeGroup, AircraftByAge);
+                        ageCompositionList.Add(ageComposition);
+                        AircraftByAgeDic.Add(ageComposition.AgeGroup, aircraftByAge);
                     }
                 }
             }
@@ -1346,7 +1352,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             if (aircraft != null)
             {
                 //飞机详细数据集合
-                //    AircraftCollection = commonmethod.GetAircraftByTime(aircraft.ToList(), time);
+                AircraftCollection = CommonMethod.GetAircraftByTime(aircraft.ToList(), time);
             }
         }
         #endregion

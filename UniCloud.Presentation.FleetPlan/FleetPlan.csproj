@@ -213,6 +213,10 @@
       <DependentUpon>CaacProgramming.xaml</DependentUpon>
     </Compile>
     <Compile Include="PrepareFleetPlan\CaacProgrammingVM.cs" />
+    <Compile Include="QueryAnalyse\AgeDeploy.xaml.cs">
+      <DependentUpon>AgeDeploy.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\AgeDeployVm.cs" />
     <Compile Include="Requests\RequestDoubleClickHelper.cs" />
     <Compile Include="Requests\RequestDragDrop.cs" />
     <Compile Include="Requests\RequestDragVisual.cs" />
@@ -327,6 +331,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PrepareFleetPlan\SpareEnginePlanLay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QueryAnalyse\AgeDeploy.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
