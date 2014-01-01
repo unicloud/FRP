@@ -98,8 +98,8 @@
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="False"
-                                                     ItemsSource="{Binding AirProgrammings}"
-                                                     SelectedItem="{Binding SelAirProgramming}"
+                                                     ItemsSource="{Binding AirProgrammings,Mode=TwoWay}"
+                                                     SelectedItem="{Binding SelAirProgramming,Mode=TwoWay}"
                                                      IsBusy="{Binding AirProgrammings.IsBusy}">
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
@@ -115,41 +115,25 @@
                                         <input:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="规划名称"
-                                                                    HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    IsSortable="True"
-                                                                    IsFilterable="True"
-                                                                    IsReadOnly="True"
                                                                     DataMemberBinding="{Binding Name}" />
                                         <telerik:GridViewComboBoxColumn Header="规划"
-                                                                        HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        IsFilterable="True"
                                                                         ItemsSource="{Binding DataContext.Programmings, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                                                         DisplayMemberPath="Name"
                                                                         DataMemberBinding="{Binding ProgrammingId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"
                                                                         EditorStyle="{StaticResource EditComboBox}" />
                                         <telerik:GridViewDataColumn Header="发文日期"
-                                                                    HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    IsSortable="True"
-                                                                    IsFilterable="True"
-                                                                    IsReadOnly="True"
                                                                     DataMemberBinding="{Binding IssuedDate, StringFormat={StaticResource DateStringFormat}}" />
                                         <telerik:GridViewDataColumn Header="创建日期"
-                                                                    HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    IsSortable="True"
-                                                                    IsFilterable="True"
-                                                                    IsReadOnly="True"
                                                                     DataMemberBinding="{Binding CreateDate, StringFormat={StaticResource DateStringFormat}}" />
                                         <telerik:GridViewDataColumn Header="规划文档"
+                                                                    IsReadOnly="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     TextAlignment="Right"
-                                                                    HeaderTextAlignment="Center"
-                                                                    IsReadOnly="True"
-                                                                    IsSortable="True"
                                                                     DataMemberBinding="{Binding DocName}">
                                             <telerik:GridViewDataColumn.CellTemplate>
                                                 <DataTemplate>
@@ -158,13 +142,6 @@
                                                 </DataTemplate>
                                             </telerik:GridViewDataColumn.CellTemplate>
                                         </telerik:GridViewDataColumn>
-                                        <telerik:GridViewColumn Header="操作"
-                                                                HeaderTextAlignment="Center"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                IsSortable="True"
-                                                                IsFilterable="True"
-                                                                IsReadOnly="True">
-                                        </telerik:GridViewColumn>
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
                             </Grid>
@@ -200,50 +177,38 @@
                                 <telerik:RadGridView x:Name="Lines"
                                                      ShowGroupPanel="False"
                                                      AutoExpandGroups="True"
-                                                     IsReadOnly="False"
                                                      Grid.Row="1"
                                                      CanUserFreezeColumns="False"
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="False"
-                                                     ItemsSource="{Binding }"
-                                                     SelectedItem="{Binding }"
-                                                     IsBusy="{Binding }"
+                                                     ItemsSource="{Binding SelAirProgramming.AirProgrammingLines,Mode=TwoWay}"
+                                                     SelectedItem="{Binding SelAirProgrammingLine,Mode=TwoWay}"
+                                                     IsBusy="{Binding AirProgrammings.IsBusy}"
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True">
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
                                                                  Command="{Binding ExcelExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=SelAircraftLeaseReception.ReceptionLines, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=SelAirProgramming.AirProgrammingLines, Mode=OneWay}" />
                                             <telerik:RadMenuItem Header="导出Word"
                                                                  Command="{Binding WordExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=SelAircraftLeaseReception.ReceptionLines, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=SelAirProgramming.AirProgrammingLines, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
                                         <input:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="年份"
-                                                                    HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    IsSortable="True"
-                                                                    IsFilterable="True"
-                                                                    IsReadOnly="True"
                                                                     DataMemberBinding="{Binding Year}" />
                                         <telerik:GridViewDataColumn Header="系列"
-                                                                    HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    IsSortable="True"
-                                                                    IsFilterable="True"
                                                                     IsReadOnly="True">
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="购买数量"
-                                                                    HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    IsSortable="True"
-                                                                    IsFilterable="True"
-                                                                    IsReadOnly="True"
                                                                     DataMemberBinding="{Binding BuyNum}">
                                             <telerik:GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -255,11 +220,7 @@
                                             </telerik:GridViewColumn.CellTemplate>
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="租赁数量"
-                                                                    HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    IsSortable="True"
-                                                                    IsFilterable="True"
-                                                                    IsReadOnly="True"
                                                                     DataMemberBinding="{Binding LeaseNum}">
                                             <telerik:GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -271,11 +232,7 @@
                                             </telerik:GridViewColumn.CellTemplate>
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="退出数量"
-                                                                    HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    IsSortable="True"
-                                                                    IsFilterable="True"
-                                                                    IsReadOnly="True"
                                                                     DataMemberBinding="{Binding ExportNum}">
                                             <telerik:GridViewColumn.CellTemplate>
                                                 <DataTemplate>
@@ -287,11 +244,7 @@
                                             </telerik:GridViewColumn.CellTemplate>
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="净增"
-                                                                    HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    IsSortable="True"
-                                                                    IsFilterable="True"
-                                                                    IsReadOnly="True"
                                                                     DataMemberBinding="{Binding NetIncrease}">
                                             <telerik:GridViewColumn.CellTemplate>
                                                 <DataTemplate>

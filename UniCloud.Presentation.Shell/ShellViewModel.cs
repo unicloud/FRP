@@ -284,6 +284,7 @@ namespace UniCloud.Presentation.Shell
             var menu253 = new MenuItem
             {
                 Text = "分析客机运力趋势",
+                NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.PassengerAircraftTrend"
             };
             var menu254 = new MenuItem
             {

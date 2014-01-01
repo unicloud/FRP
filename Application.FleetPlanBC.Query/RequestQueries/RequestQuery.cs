@@ -15,13 +15,10 @@
 
 #endregion
 
-
-
 #region 命名空间
 
-using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
-using UniCloud.Application.FleetPlanBC.DTO.RequestDTO;
+using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
@@ -35,6 +32,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.RequestQueries
     public class RequestQuery : IRequestQuery
     {
         private readonly IQueryableUnitOfWork _unitOfWork;
+
         public RequestQuery(IQueryableUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -42,10 +40,10 @@ namespace UniCloud.Application.FleetPlanBC.Query.RequestQueries
 
         public IQueryable<RequestDTO> RequestsQuery(QueryBuilder<Request> query)
         {
-           var dbAirline = _unitOfWork.CreateSet<Airlines>();
-           var dbImportCategory = _unitOfWork.CreateSet<ActionCategory>();
+            var dbAirline = _unitOfWork.CreateSet<Airlines>();
+            var dbImportCategory = _unitOfWork.CreateSet<ActionCategory>();
             var dbAnnaul = _unitOfWork.CreateSet<Annual>();
-          return   _unitOfWork.CreateSet<Request>().Select(p => new RequestDTO
+            return _unitOfWork.CreateSet<Request>().Select(p => new RequestDTO
             {
                 Id = p.Id,
                 SubmitDate = p.SubmitDate,
@@ -55,8 +53,8 @@ namespace UniCloud.Application.FleetPlanBC.Query.RequestQueries
                 RaDocNumber = p.RaDocNumber,
                 SawsDocNumber = p.SawsDocNumber,
                 CaacDocNumber = p.CaacDocNumber,
-                Status =(int)p.Status,
-                CaacNote=p.CaacNote,
+                Status = (int) p.Status,
+                CaacNote = p.CaacNote,
                 RaNote = p.RaNote,
                 SawsNote = p.SawsNote,
                 ApprovalDocId = p.ApprovalDocId,
@@ -67,26 +65,26 @@ namespace UniCloud.Application.FleetPlanBC.Query.RequestQueries
                 CaacDocumentId = p.CaacDocumentId,
                 CaacDocumentName = p.CaacDocumentName,
                 AirlinesId = p.AirlinesId,
-                AirlinesName = dbAirline.FirstOrDefault(c=>c.Id==p.AirlinesId).CnShortName,
+                AirlinesName = dbAirline.FirstOrDefault(c => c.Id == p.AirlinesId).CnShortName,
                 ApprovalHistories = p.ApprovalHistories.Select(c=>new ApprovalHistoryDTO
                 {
-                 Id  = c.Id,
-                 IsApproved = c.IsApproved,
-                 SeatingCapacity = c.SeatingCapacity,
-                 CarryingCapacity = c.CarryingCapacity,
-                 RequestDeliverMonth = c.RequestDeliverMonth,
-                 Note = c.Note,
-                 RequestId = c.RequestId,
-                 PlanAircraftId = c.PlanAircraftId,
-                 ImportCategoryId = c.ImportCategoryId,
-                 ImportCategoryName = dbImportCategory.FirstOrDefault(a=>a.Id==c.ImportCategoryId).ActionType+"-"
-                 + dbImportCategory.FirstOrDefault(a => a.Id == c.ImportCategoryId).ActionName,
-                 RequestDeliverAnnualId =c.RequestDeliverAnnualId,
-                 RequestDeliverAnnualName = dbAnnaul.FirstOrDefault(a=>a.Id==c.RequestDeliverAnnualId).Year,
-                 AirlinesId =c.AirlinesId,
-                 AirlineName = dbAirline.FirstOrDefault(a => a.Id == c.AirlinesId).CnShortName,
+                    Id = c.Id,
+                    IsApproved = c.IsApproved,
+                    SeatingCapacity = c.SeatingCapacity,
+                    CarryingCapacity = c.CarryingCapacity,
+                    RequestDeliverMonth = c.RequestDeliverMonth,
+                    Note = c.Note,
+                    RequestId = c.RequestId,
+                    PlanAircraftId = c.PlanAircraftId,
+                    ImportCategoryId = c.ImportCategoryId,
+                    ImportCategoryName =
+                        dbImportCategory.FirstOrDefault(a => a.Id == c.ImportCategoryId).ActionType + "-"
+                        + dbImportCategory.FirstOrDefault(a => a.Id == c.ImportCategoryId).ActionName,
+                    RequestDeliverAnnualId = c.RequestDeliverAnnualId,
+                    RequestDeliverAnnualName = dbAnnaul.FirstOrDefault(a => a.Id == c.RequestDeliverAnnualId).Year,
+                    AirlinesId = c.AirlinesId,
+                    AirlineName = dbAirline.FirstOrDefault(a => a.Id == c.AirlinesId).CnShortName,
                 }).ToList()
-
             });
         }
     }

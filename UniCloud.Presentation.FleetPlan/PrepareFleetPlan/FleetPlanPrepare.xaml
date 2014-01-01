@@ -42,14 +42,14 @@
                                                     Margin="-1 -2 -1 0">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding SaveCommand}"
-                                                       CommandParameter="{Binding }">
+                                                       CommandParameter="{Binding Annuals}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="保存" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding AbortCommand}"
-                                                       CommandParameter="{Binding }">
+                                                       CommandParameter="{Binding Annuals}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="放弃更改" />
@@ -62,31 +62,30 @@
                                                ToolTipService.ToolTip="准备新的年度计划" />
                                     </telerik:RadButton>
                                 </telerik:RadToolBar>
-                                <telerik:RadGridView x:Name="Annual"
+                                <telerik:RadGridView x:Name="Annuals"
                                                      Grid.Row="1"
                                                      AutoExpandGroups="True"
                                                      ShowGroupPanel="False"
                                                      AutoGenerateColumns="False"
                                                      CanUserSortColumns="True"
-                                                     ItemsSource="{Binding }"
-                                                     SelectedItem="{Binding }"
+                                                     ItemsSource="{Binding Annuals,Mode=TwoWay}"
+                                                     SelectedItem="{Binding SelAnnual,Mode=TwoWay}"
                                                      CanUserFreezeColumns="False"
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
-                                                     IsReadOnly="False"
-                                                     IsBusy="{Binding }">
+                                                     IsReadOnly="True"
+                                                     IsBusy="{Binding Annuals.IsBusy}">
                                     <telerik:RadGridView.GroupDescriptors>
-                                        <telerik:GroupDescriptor Member="Programming.Name"
+                                        <telerik:GroupDescriptor Member="ProgrammingName"
                                                                  SortDirection="Descending">
                                         </telerik:GroupDescriptor>
                                     </telerik:RadGridView.GroupDescriptors>
                                     <telerik:RadGridView.Columns>
                                         <telerik:GridViewDataColumn Header="年度"
-                                                                    DataMemberBinding="{Binding Year}"
-                                                                    SortingState="Descending" />
+                                                                    DataMemberBinding="{Binding Year}"/>
                                         <telerik:GridViewDataColumn Header="打开/关闭"
-                                                                    DataMemberBinding="{Binding IsOpen}"
+                                                                    DataMemberBinding="{Binding OpenState}"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
@@ -103,8 +102,8 @@
                                          CanUserPin="False"
                                          FontSize="{StaticResource TextFontSize}"
                                          ContextMenuTemplate="{x:Null}">
-                            <telerik:RadGridView x:Name="Plan"
-                                                 ItemsSource="{Binding ViewPlan}"
+                            <telerik:RadGridView x:Name="Plans"
+                                                 ItemsSource="{Binding SelAnnual.Plans}"
                                                  IsReadOnly="True"
                                                  ShowGroupPanel="False"
                                                  IsFilteringAllowed="False"
@@ -113,10 +112,10 @@
                                     <telerik:RadContextMenu>
                                         <telerik:RadMenuItem Header="导出Excel"
                                                              Command="{Binding ExcelExportCommand}"
-                                                             CommandParameter="{Binding ElementName=Plan, Mode=OneWay}" />
+                                                             CommandParameter="{Binding ElementName=SelAnnual.Plans, Mode=OneWay}" />
                                         <telerik:RadMenuItem Header="导出Word"
                                                              Command="{Binding WordExportCommand}"
-                                                             CommandParameter="{Binding ElementName=Plan, Mode=OneWay}" />
+                                                             CommandParameter="{Binding ElementName=SelAnnual.Plans, Mode=OneWay}" />
                                     </telerik:RadContextMenu>
                                 </telerik:RadContextMenu.ContextMenu>
                                 <telerik:RadGridView.Columns>
@@ -125,17 +124,6 @@
                                     <telerik:GridViewDataColumn Header="计划文号"
                                                                 DataMemberBinding="{Binding DocNumber}"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}" />
-                                    <telerik:GridViewColumn Header="计划文档"
-                                                            MinWidth="{StaticResource GridViewColumnsWidth}">
-                                        <telerik:GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <HyperlinkButton Content="{Binding Document.FileName}"
-                                                                 VerticalAlignment="Center"
-                                                                 Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
-                                                                 CommandParameter="{Binding}" />
-                                            </DataTemplate>
-                                        </telerik:GridViewColumn.CellTemplate>
-                                    </telerik:GridViewColumn>
                                     <telerik:GridViewDataColumn Header="版本"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding VersionNumber}" />
@@ -166,8 +154,7 @@
                                          ContextMenuTemplate="{x:Null}">
                             <telerik:RadGridView d:LayoutOverrides="Height"
                                                  x:Name="PlanDetail"
-                                                 Grid.Row="2"
-                                                 ItemsSource="{Binding ViewPlanHistory}"
+                                                 ItemsSource="{Binding SelPlan.PlanHistories,Mode=TwoWay}"
                                                  IsReadOnly="True"
                                                  ShowGroupPanel="True"
                                                  ShowColumnFooters="True">
@@ -186,31 +173,31 @@
                                                                 HeaderTextAlignment="Center" />
                                     <telerik:GridViewDataColumn Header="航空公司"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding Airlines.ShortName}">
+                                                                DataMemberBinding="{Binding AirlinesName}">
                                         <telerik:GridViewDataColumn.AggregateFunctions>
                                             <telerik:CountFunction ResultFormatString="总计：{0}项" />
                                         </telerik:GridViewDataColumn.AggregateFunctions>
                                     </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="座级"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding AircraftType.AircraftCategory.Regional}">
+                                                                DataMemberBinding="{Binding Regional}">
                                     </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="机型"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding AircraftType.Name}" />
+                                                                DataMemberBinding="{Binding AircraftTypeName}" />
                                     <telerik:GridViewDataColumn Header="活动类别"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding ActionCategoryOperation}" />
+                                                                DataMemberBinding="{Binding ActionType}" />
                                     <telerik:GridViewDataColumn Header="引进/退出方式"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding TargetCategory.ActionName}" />
+                                                                DataMemberBinding="{Binding TargetType}" />
                                     <telerik:GridViewDataColumn Header="执行时间"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding PerformTime}" 
                                                                 DataFormatString="{StaticResource DateStringFormat}"/>
                                     <telerik:GridViewDataColumn Header="净增客机"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding DeltaPnr}">
+                                                                DataMemberBinding="{Binding }">
                                         <telerik:GridViewDataColumn.AggregateFunctions>
                                             <telerik:SumFunction ResultFormatString="总计：{0}架" />
                                         </telerik:GridViewDataColumn.AggregateFunctions>
@@ -231,14 +218,14 @@
                                     </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="净增货机"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding DeltaCargo}">
+                                                                DataMemberBinding="{Binding }">
                                         <telerik:GridViewDataColumn.AggregateFunctions>
                                             <telerik:SumFunction ResultFormatString="总计：{0}架" />
                                         </telerik:GridViewDataColumn.AggregateFunctions>
                                     </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="管理状态"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding PlanAircraft.Status}" />
+                                                                DataMemberBinding="{Binding }" />
                                     <telerik:GridViewDataColumn Header="备注"
                                                                 DataMemberBinding="{Binding Note}" />
                                 </telerik:RadGridView.Columns>

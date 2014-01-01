@@ -64,9 +64,40 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public string Note { get; set; }
 
+        /// <summary>
+        /// 航空公司
+        /// </summary>
+        public string AirlinesName { get; set; }
+
+        /// <summary>
+        /// 座级
+        /// </summary>
+        public string Regional { get; set; }
+
+        /// <summary>
+        /// 机型
+        /// </summary>
+        public string AircraftTypeName { get; set; }
+
+        /// <summary>
+        /// 活动类型
+        /// </summary>
+        public string ActionType { get; set; }
+
+        /// <summary>
+        /// 引进/退出方式
+        /// </summary>
+        public string TargetType { get; set; }
+
+        /// <summary>
+        /// 执行时间
+        /// </summary>
+        public string PerformTime { get; set; }
+
         #endregion
 
         #region 外键属性
+
         /// <summary>
         ///     计划飞机外键
         /// </summary>

@@ -22,7 +22,7 @@ using System.Data.Services.Common;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.DTO.RequestDTO
+namespace UniCloud.Application.FleetPlanBC.DTO
 {
     /// <summary>
     ///     申请
@@ -102,15 +102,6 @@ namespace UniCloud.Application.FleetPlanBC.DTO.RequestDTO
         public string SawsNote { get; set; }
 
         /// <summary>
-        ///     地方局批文文档名称
-        /// </summary>
-        public string RaDocumentName { get; set; }
-
-        #endregion
-
-        #region 外键属性
-
-        /// <summary>
         ///     民航局批文文档外键
         /// </summary>
         public Guid? ApprovalDocId { get; set; }
@@ -119,6 +110,15 @@ namespace UniCloud.Application.FleetPlanBC.DTO.RequestDTO
         ///     地方局申请文档Id
         /// </summary>
         public Guid? RaDocumentId { get; set; }
+
+        /// <summary>
+        ///     地方局批文文档名称
+        /// </summary>
+        public string RaDocumentName { get; set; }
+
+        #endregion
+
+        #region 外键属性
 
         /// <summary>
         ///     监管局申请文档Id
@@ -150,16 +150,9 @@ namespace UniCloud.Application.FleetPlanBC.DTO.RequestDTO
         /// </summary>
         public string AirlinesName { get; set; }
 
-        #endregion
-
-        #region 导航属性
-
-        /// <summary>
-        ///     审批历史集合（申请明细集合）
-        /// </summary>
         public virtual List<ApprovalHistoryDTO> ApprovalHistories
         {
-            get { return _approvalHistories ?? (_approvalHistories = new List<ApprovalHistoryDTO>()); }
+            get { return _approvalHistories ?? new List<ApprovalHistoryDTO>(); }
             set { _approvalHistories = value; }
         }
 

@@ -14,8 +14,11 @@
 
 #region 命名空间
 
+using System;
+using System.Linq;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
-
+using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork;
+using System.Data.Entity;
 #endregion
 
 namespace UniCloud.Infrastructure.Data.FleetPlanBC.Repositories
@@ -31,6 +34,28 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.Repositories
         }
 
         #region 方法重载
+
+        public override Request Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<Request>();
+            return set.Include(t => t.ApprovalHistories).FirstOrDefault(p => p.Id == (Guid)id);
+        }
+
+        /// <summary>
+        /// 删除批文历史
+        /// </summary>
+        /// <param name="approvalHistory">批文历史</param>
+        public void DelApprovalHistory(ApprovalHistory approvalHistory)
+        {
+            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
+            if (currentUnitOfWork != null)
+            {
+                var set = currentUnitOfWork.CreateSet<ApprovalHistory>();
+                set.Remove(approvalHistory);
+            }
+        }
 
         #endregion
     }
