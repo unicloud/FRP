@@ -245,10 +245,10 @@ namespace UniCloud.Presentation.Service
                 HasChanges = false;
                 var collectionView = o as QueryableDataServiceCollectionView<TService>;
                 if (collectionView == null) return;
-                foreach (var item in collectionView)
+                foreach (TService item in collectionView)
                 {
                     var master = item;
-                    foreach (var details in changed.Select(c => c((TService) master)))
+                    foreach (var details in changed.Select(c => c(master)))
                     {
                         var collection = details as INotifyCollectionChanged;
                         if (collection == null) return;
