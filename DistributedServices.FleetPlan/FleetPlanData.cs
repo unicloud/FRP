@@ -15,7 +15,6 @@ using UniCloud.Application.FleetPlanBC.ApprovalDocServices;
 using UniCloud.Application.FleetPlanBC.CaacProgrammingServices;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO;
-using UniCloud.Application.FleetPlanBC.DTO.RequestDTO;
 using UniCloud.Application.FleetPlanBC.EnginePlanServices;
 using UniCloud.Application.FleetPlanBC.EngineServices;
 using UniCloud.Application.FleetPlanBC.EngineTypeServices;
@@ -58,12 +57,11 @@ namespace UniCloud.DistributedServices.FleetPlan
         private readonly IPlanAircraftAppService _planAircraftAppService;
         private readonly IPlanEngineAppService _planEngineAppService;
         private readonly IProgrammingAppService _programmingAppService;
-        private readonly IRequestAppService _requestAppService;
         private readonly IStaticLoad _staticLoad;
         private readonly ISupplierAppService _supplierAppService;
         private readonly IXmlConfigAppService _xmlConfigAppService;
         private readonly IXmlSettingAppService _xmlSettingAppService;
-
+        private readonly IRequestAppService _requestAppService;
         public FleetPlanData()
             : base("UniCloud.Application.FleetPlanBC.DTO")
         {
@@ -91,6 +89,8 @@ namespace UniCloud.DistributedServices.FleetPlan
             _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();
             _xmlConfigAppService = DefaultContainer.Resolve<IXmlConfigAppService>();
             _xmlSettingAppService = DefaultContainer.Resolve<IXmlSettingAppService>();
+            _requestAppService = DefaultContainer.Resolve<IRequestAppService>();
+            _approvalDocAppService = DefaultContainer.Resolve<IApprovalDocAppService>();
         }
         #region 活动类型
         /// <summary>

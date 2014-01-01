@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,10 +11,15 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
+
+#region 命名空间
 
 using System;
 using UniCloud.Domain.FleetPlanBC.Enums;
+
+#endregion
 
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
 {
@@ -25,11 +31,27 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// <summary>
         ///     创建申请
         /// </summary>
-        /// <returns>申请</returns>
+        /// <param name="submitDate">提交日期</param>
+        /// <param name="title">标题</param>
+        /// <param name="raDocNumber">地方管理局申请文号</param>
+        /// <param name="sawsDocNumber">监管局申请文号</param>
+        /// <param name="caacDocNumber">民航局申请文号</param>
+        /// <param name="status">状态</param>
+        /// <param name="caacNote">民航局审批意见</param>
+        /// <param name="raNote">地方管理局审批意见</param>
+        /// <param name="sawsNote">监管局审批意见</param>
+        /// <param name="raDocumentName">地方管理局文档名称</param>
+        /// <param name="sawsDocumentName">监管局文档名称</param>
+        /// <param name="caacDocumentName">民航局文档名称</param>
+        /// <param name="raDocumentId">地方管理局文档主键</param>
+        /// <param name="sawsDocumentId">监管局文档主键</param>
+        /// <param name="caacDocumentId">民航局文档主键</param>
+        /// <param name="airlinesId"></param>
+        /// <returns></returns>
         public static Request CreateRequest(DateTime? submitDate, string title, string raDocNumber,
-                                            string sawsDocNumber, string caacDocNumber, int status, string caacNote, string raNote, 
+            string sawsDocNumber, string caacDocNumber, int status, string caacNote, string raNote,
             string sawsNote, string raDocumentName, string sawsDocumentName, string caacDocumentName,
-          Guid? raDocumentId, Guid? sawsDocumentId, Guid? caacDocumentId, Guid airlinesId)
+            Guid? raDocumentId, Guid? sawsDocumentId, Guid? caacDocumentId, Guid airlinesId)
         {
             var request = new Request
             {
@@ -40,13 +62,13 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
             request.SetRaDocNumber(raDocNumber);
             request.SetSawsDocNumber(sawsDocNumber);
             request.SetCaacDocNumber(caacDocNumber);
-            request.SetRequestStatus((RequestStatus)status);
+            request.SetRequestStatus((RequestStatus) status);
             request.SetCaacNote(caacNote);
             request.SetRaNote(raNote);
             request.SetSawsNote(sawsNote);
-            request.SetRaDocument(raDocumentId,raDocumentName);
-            request.SetSawsDocument(sawsDocumentId,sawsDocumentName);
-            request.SetCaacDocument(caacDocumentId,caacDocumentName);
+            request.SetRaDocument(raDocumentId, raDocumentName);
+            request.SetSawsDocument(sawsDocumentId, sawsDocumentName);
+            request.SetCaacDocument(caacDocumentId, caacDocumentName);
             return request;
         }
     }

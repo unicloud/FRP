@@ -12,6 +12,8 @@
 // ========================================================================*/
 #endregion
 
+using System;
+
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
 {
     /// <summary>
@@ -20,5 +22,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
     /// </summary>
     public interface IRequestRepository : IRepository<Request>
     {
+        /// <summary>
+        /// 删除批文历史
+        /// </summary>
+        /// <param name="approvalHistory">批文历史</param>
+        void DelApprovalHistory(ApprovalHistory approvalHistory);
+
     }
 }

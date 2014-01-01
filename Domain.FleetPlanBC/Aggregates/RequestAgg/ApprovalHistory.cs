@@ -159,6 +159,29 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         }
 
         /// <summary>
+        /// 设置申请交付时间
+        /// </summary>
+        /// <param name="year"></param>
+        public void SetDeliverDate(Guid year)
+        {
+            if (year == null)
+            {
+                throw new ArgumentException("交付年度Id参数为空！");
+            }
+            RequestDeliverAnnualId = year;
+        }
+
+        /// <summary>
+        /// 设置申请交付时间
+        /// </summary>
+        /// <param name="month"></param>
+        public void SetDeliverDate(int month)
+        {
+            RequestDeliverMonth = month;
+
+        }
+
+        /// <summary>
         ///     设置备注
         /// </summary>
         /// <param name="note">备注</param>
