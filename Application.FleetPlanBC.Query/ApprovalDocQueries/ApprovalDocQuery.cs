@@ -18,14 +18,8 @@
 #region 命名空间
 
 using System.Linq;
-using UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO;
-using UniCloud.Application.FleetPlanBC.DTO.RequestDTO;
-using UniCloud.Application.FleetPlanBC.Query.RequestQueries;
-using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
+using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
@@ -35,6 +29,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.ApprovalDocQueries
     public class ApprovalDocQuery : IApprovalDocQuery
     {
         private readonly IQueryableUnitOfWork _unitOfWork;
+
         public ApprovalDocQuery(IQueryableUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -49,7 +44,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.ApprovalDocQueries
                 NdrcExamineDate = p.NdrcExamineDate,
                 CaacApprovalNumber = p.CaacApprovalNumber,
                 NdrcApprovalNumber = p.NdrcApprovalNumber,
-                Status = (int)p.Status,
+                Status = (int) p.Status,
                 Note = p.Note,
                 CaacDocumentId = p.CaacDocumentId,
                 NdrcDocumentId = p.NdrcDocumentId,

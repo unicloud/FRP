@@ -366,17 +366,22 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         ///     新增审批历史（申请明细）
         /// </summary>
         /// <returns></returns>
-        public ApprovalHistory AddNewApprovalHistory()
+        public ApprovalHistory AddNewApprovalHistory(int seatingCapacity, decimal carryingCapacity,
+            int requestDeliverMonth, string note,
+            Guid requestId, Guid planAircraftId, Guid importCategoryId, Guid requestDeliverAnnualId, Guid airlinesId)
         {
-            var approvalHistory = new ApprovalHistory
-            {
-                RequestId = Id,
-                IsApproved = (Status == RequestStatus.已审批),
-            };
-
+            var approvalHistory = new ApprovalHistory();
+            approvalHistory.SetSeatingCapacity(seatingCapacity);
+            approvalHistory.SetCarryingCapacity(carryingCapacity);
+            approvalHistory.SetRequest(requestId);
+            approvalHistory.SetNote(note);
+            approvalHistory.SetDeliverDate(requestDeliverAnnualId, requestDeliverMonth);
+            approvalHistory.SetRequest(requestId);
+            approvalHistory.SetPlanAircraft(planAircraftId);
+            approvalHistory.SetImportCategory(importCategoryId);
+            approvalHistory.SetAirlines(airlinesId);
             approvalHistory.GenerateNewIdentity();
             ApprovalHistories.Add(approvalHistory);
-
             return approvalHistory;
         }
 
@@ -386,6 +391,15 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         public void SetIsFinished(bool isFinished)
         {
             IsFinished = isFinished;
+        }
+
+        /// <summary>
+        /// 设置提交日期
+        /// </summary>
+        /// <param name="submitDate">申请提交日期</param>
+        public void SetSubmitDate(DateTime? submitDate)
+        {
+            SubmitDate = submitDate;
         }
 
         #endregion

@@ -85,18 +85,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
             ViewAircraftPurchaseOrderDTO = Service.CreateCollection(
                 _context.AircraftPurchaseOrders.Expand(p => p.RelatedDocs),
-                (o, p, c) =>
-                {
-                    foreach (var order in from object item in o select item as AircraftPurchaseOrderDTO)
-                    {
-                        order.AircraftPurchaseOrderLines.CollectionChanged += c;
-                        order.AircraftPurchaseOrderLines.ToList().ForEach(ol => ol.PropertyChanged += p);
-                        order.RelatedDocs.CollectionChanged += c;
-                        order.RelatedDocs.ToList().ForEach(doc => doc.PropertyChanged += p);
-                        order.ContractContents.CollectionChanged += c;
-                        order.ContractContents.ToList().ForEach(content => content.PropertyChanged += p);
-                    }
-                });
+                o => o.AircraftPurchaseOrderLines, o => o.RelatedDocs, o => o.ContractContents);
             _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
             ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
             Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);

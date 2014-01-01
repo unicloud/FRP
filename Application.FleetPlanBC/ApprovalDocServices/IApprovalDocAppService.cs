@@ -19,7 +19,7 @@
 #region 命名空间
 
 using System.Linq;
-using UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO;
+using UniCloud.Application.FleetPlanBC.DTO;
 
 #endregion
 

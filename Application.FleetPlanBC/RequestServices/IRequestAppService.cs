@@ -19,7 +19,7 @@
 #region 命名空间
 
 using System.Linq;
-using UniCloud.Application.FleetPlanBC.DTO.RequestDTO;
+using UniCloud.Application.FleetPlanBC.DTO;
 
 #endregion
 
@@ -33,5 +33,23 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
         /// </summary>
         /// <returns></returns>
         IQueryable<RequestDTO> GetRequests();
+
+        /// <summary>
+        /// 新增申请
+        /// </summary>
+        /// <param name="request">申请</param>
+        void InsertRequest(RequestDTO request);
+
+        /// <summary>
+        /// 修改申请
+        /// </summary>
+        /// <param name="request"></param>
+        void ModifyRequest(RequestDTO request);
+
+        /// <summary>
+        /// 删除申请
+        /// </summary>
+        /// <param name="request"></param>
+        void DeleteRequest(RequestDTO request);
     }
 }

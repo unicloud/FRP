@@ -129,7 +129,25 @@
         <Property Name="Id" Type="Edm.Guid" Nullable="false" />
         <Property Name="Year" Type="Edm.Int32" Nullable="false" />
         <Property Name="IsOpen" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="ProgrammingName" Type="Edm.String" />
         <Property Name="ProgrammingId" Type="Edm.Guid" Nullable="false" />
+        <NavigationProperty Name="Plans" Relationship="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO_Plans" ToRole="Plans" FromRole="AnnualDTO" />
+      </EntityType>
+      <EntityType Name="ApprovalDocDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="CaacExamineDate" Type="Edm.DateTime" />
+        <Property Name="NdrcExamineDate" Type="Edm.DateTime" />
+        <Property Name="CaacApprovalNumber" Type="Edm.String" />
+        <Property Name="NdrcApprovalNumber" Type="Edm.String" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Note" Type="Edm.String" />
+        <Property Name="CaacDocumentName" Type="Edm.String" />
+        <Property Name="NdrcDocumentName" Type="Edm.String" />
+        <Property Name="CaacDocumentId" Type="Edm.Guid" />
+        <Property Name="NdrcDocumentId" Type="Edm.Guid" />
       </EntityType>
       <EntityType Name="CaacProgrammingDTO">
         <Key>
@@ -283,6 +301,8 @@
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="PublishStatus" Type="Edm.Int32" Nullable="false" />
         <Property Name="DocName" Type="Edm.String" />
+        <Property Name="AirlinesName" Type="Edm.String" />
+        <Property Name="Year" Type="Edm.Int32" Nullable="false" />
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AnnualId" Type="Edm.Guid" Nullable="false" />
         <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
@@ -296,6 +316,12 @@
         <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
         <Property Name="IsSubmit" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
+        <Property Name="AirlinesName" Type="Edm.String" />
+        <Property Name="Regional" Type="Edm.String" />
+        <Property Name="AircraftTypeName" Type="Edm.String" />
+        <Property Name="ActionType" Type="Edm.String" />
+        <Property Name="TargetType" Type="Edm.String" />
+        <Property Name="Year" Type="Edm.Int32" Nullable="false" />
         <Property Name="PlanAircraftId" Type="Edm.Guid" />
         <Property Name="PlanId" Type="Edm.Guid" Nullable="false" />
         <Property Name="ActionCategoryId" Type="Edm.Guid" Nullable="false" />
@@ -336,6 +362,49 @@
         <Property Name="StartDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="EndDate" Type="Edm.DateTime" Nullable="false" />
       </EntityType>
+      <EntityType Name="RequestDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="SubmitDate" Type="Edm.DateTime" />
+        <Property Name="IsFinished" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Title" Type="Edm.String" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="RaDocNumber" Type="Edm.String" />
+        <Property Name="SawsDocNumber" Type="Edm.String" />
+        <Property Name="CaacDocNumber" Type="Edm.String" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CaacNote" Type="Edm.String" />
+        <Property Name="RaNote" Type="Edm.String" />
+        <Property Name="SawsNote" Type="Edm.String" />
+        <Property Name="ApprovalDocId" Type="Edm.Guid" />
+        <Property Name="RaDocumentId" Type="Edm.Guid" />
+        <Property Name="RaDocumentName" Type="Edm.String" />
+        <Property Name="SawsDocumentId" Type="Edm.Guid" />
+        <Property Name="SawsDocumentName" Type="Edm.String" />
+        <Property Name="CaacDocumentId" Type="Edm.Guid" />
+        <Property Name="CaacDocumentName" Type="Edm.String" />
+        <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AirlinesName" Type="Edm.String" />
+        <Property Name="ApprovalHistories" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.ApprovalHistoryDTO)" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="ApprovalHistoryDTO">
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="IsApproved" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="SeatingCapacity" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CarryingCapacity" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="RequestDeliverMonth" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Note" Type="Edm.String" />
+        <Property Name="RequestId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="PlanAircraftId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ImportCategoryName" Type="Edm.String" />
+        <Property Name="RequestDeliverAnnualId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="RequestDeliverAnnualName" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AirlineName" Type="Edm.String" />
+      </ComplexType>
       <EntityType Name="SupplierDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -370,69 +439,10 @@
         <Property Name="SettingContent" Type="Edm.String" />
         <Property Name="XmlContent" Type="Edm.String" />
       </EntityType>
-    </Schema>
-    <Schema Namespace="UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-      <EntityType Name="ApprovalDocDTO">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
-        <Property Name="CaacExamineDate" Type="Edm.DateTime" />
-        <Property Name="NdrcExamineDate" Type="Edm.DateTime" />
-        <Property Name="CaacApprovalNumber" Type="Edm.String" />
-        <Property Name="NdrcApprovalNumber" Type="Edm.String" />
-        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Note" Type="Edm.String" />
-        <Property Name="CaacDocumentName" Type="Edm.String" />
-        <Property Name="NdrcDocumentName" Type="Edm.String" />
-        <Property Name="CaacDocumentId" Type="Edm.Guid" />
-        <Property Name="NdrcDocumentId" Type="Edm.Guid" />
-      </EntityType>
-    </Schema>
-    <Schema Namespace="UniCloud.Application.FleetPlanBC.DTO.RequestDTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-      <EntityType Name="RequestDTO">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
-        <Property Name="SubmitDate" Type="Edm.DateTime" />
-        <Property Name="IsFinished" Type="Edm.Boolean" Nullable="false" />
-        <Property Name="Title" Type="Edm.String" />
-        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
-        <Property Name="RaDocNumber" Type="Edm.String" />
-        <Property Name="SawsDocNumber" Type="Edm.String" />
-        <Property Name="CaacDocNumber" Type="Edm.String" />
-        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
-        <Property Name="CaacNote" Type="Edm.String" />
-        <Property Name="RaNote" Type="Edm.String" />
-        <Property Name="SawsNote" Type="Edm.String" />
-        <Property Name="RaDocumentName" Type="Edm.String" />
-        <Property Name="ApprovalDocId" Type="Edm.Guid" />
-        <Property Name="RaDocumentId" Type="Edm.Guid" />
-        <Property Name="SawsDocumentId" Type="Edm.Guid" />
-        <Property Name="SawsDocumentName" Type="Edm.String" />
-        <Property Name="CaacDocumentId" Type="Edm.Guid" />
-        <Property Name="CaacDocumentName" Type="Edm.String" />
-        <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="AirlinesName" Type="Edm.String" />
-        <Property Name="ApprovalHistories" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.RequestDTO.ApprovalHistoryDTO)" Nullable="false" />
-      </EntityType>
-      <ComplexType Name="ApprovalHistoryDTO">
-        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
-        <Property Name="IsApproved" Type="Edm.Boolean" Nullable="false" />
-        <Property Name="SeatingCapacity" Type="Edm.Int32" Nullable="false" />
-        <Property Name="CarryingCapacity" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="RequestDeliverMonth" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Note" Type="Edm.String" />
-        <Property Name="RequestId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="PlanAircraftId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="ImportCategoryName" Type="Edm.String" />
-        <Property Name="RequestDeliverAnnualId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="RequestDeliverAnnualName" Type="Edm.Int32" Nullable="false" />
-        <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="AirlineName" Type="Edm.String" />
-      </ComplexType>
+      <Association Name="AnnualDTO_Plans">
+        <End Type="UniCloud.Application.FleetPlanBC.DTO.PlanDTO" Role="Plans" Multiplicity="*" />
+        <End Type="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO" Role="AnnualDTO" Multiplicity="*" />
+      </Association>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.FleetPlan" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="FleetPlanData" m:IsDefaultEntityContainer="true">
@@ -443,7 +453,7 @@
         <EntitySet Name="Airlineses" EntityType="UniCloud.Application.FleetPlanBC.DTO.AirlinesDTO" />
         <EntitySet Name="AirProgrammings" EntityType="UniCloud.Application.FleetPlanBC.DTO.AirProgrammingDTO" />
         <EntitySet Name="Annuals" EntityType="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO" />
-        <EntitySet Name="ApprovalDocs" EntityType="UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO.ApprovalDocDTO" />
+        <EntitySet Name="ApprovalDocs" EntityType="UniCloud.Application.FleetPlanBC.DTO.ApprovalDocDTO" />
         <EntitySet Name="CaacProgrammings" EntityType="UniCloud.Application.FleetPlanBC.DTO.CaacProgrammingDTO" />
         <EntitySet Name="Engines" EntityType="UniCloud.Application.FleetPlanBC.DTO.EngineDTO" />
         <EntitySet Name="EnginePlans" EntityType="UniCloud.Application.FleetPlanBC.DTO.EnginePlanDTO" />
@@ -455,10 +465,14 @@
         <EntitySet Name="PlanAircrafts" EntityType="UniCloud.Application.FleetPlanBC.DTO.PlanAircraftDTO" />
         <EntitySet Name="PlanEngines" EntityType="UniCloud.Application.FleetPlanBC.DTO.PlanEngineDTO" />
         <EntitySet Name="Programmings" EntityType="UniCloud.Application.FleetPlanBC.DTO.ProgrammingDTO" />
-        <EntitySet Name="Requests" EntityType="UniCloud.Application.FleetPlanBC.DTO.RequestDTO.RequestDTO" />
+        <EntitySet Name="Requests" EntityType="UniCloud.Application.FleetPlanBC.DTO.RequestDTO" />
         <EntitySet Name="Suppliers" EntityType="UniCloud.Application.FleetPlanBC.DTO.SupplierDTO" />
         <EntitySet Name="XmlConfigs" EntityType="UniCloud.Application.FleetPlanBC.DTO.XmlConfigDTO" />
         <EntitySet Name="XmlSettings" EntityType="UniCloud.Application.FleetPlanBC.DTO.XmlSettingDTO" />
+        <AssociationSet Name="AnnualDTO_Plans" Association="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO_Plans">
+          <End Role="AnnualDTO" EntitySet="Annuals" />
+          <End Role="Plans" EntitySet="Plans" />
+        </AssociationSet>
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

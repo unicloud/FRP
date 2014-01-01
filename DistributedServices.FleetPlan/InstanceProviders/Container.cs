@@ -2,6 +2,7 @@
 // 
 //------------------------------------------------------------------------------
 
+using UniCloud.Application.FleetPlanBC;
 using UniCloud.Application.FleetPlanBC.ActionCategoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftCategoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftServices;
@@ -79,7 +80,7 @@ using UniCloud.Infrastructure.Utilities.Container;
 namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
 {
     /// <summary>
-    /// DI 容器
+    ///     DI 容器
     /// </summary>
     public static class Container
     {
@@ -92,6 +93,7 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 //.UserCaching()
                 .CreateLog()
                 .Register<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IStaticLoad,StaticLoad>()
 
                 #region 活动类型相关配置，包括查询，应用服务，仓储注册
 
@@ -254,10 +256,23 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 .Register<IXmlSettingRepository, XmlSettingRepository>()
                 #endregion
 
+                #region 申请相关配置，包括查询，应用服务，仓储注册
+
+                .Register<IRequestQuery, RequestQuery>()
+                .Register<IRequestAppService, RequestAppService>()
+                .Register<IRequestRepository, RequestRepository>()
+                #endregion
+
+                #region 批文相关配置，包括查询，应用服务，仓储注册
+
+                .Register<IApprovalDocQuery, ApprovalDocQuery>()
+                .Register<IApprovalDocAppService, ApprovalDocAppService>()
+                .Register<IApprovalDocRepository, ApprovalDocRepository>()
+                #endregion
+
                 ;
         }
 
         #endregion
-
     }
 }

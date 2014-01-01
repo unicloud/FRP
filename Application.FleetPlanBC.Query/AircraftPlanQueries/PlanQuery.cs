@@ -59,6 +59,8 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                 AirlinesId = p.AirlinesId,
                 AnnualId = p.AnnualId,
                 DocumentId = p.DocumentId,
+                AirlinesName = p.Airlines.CnName,
+                Year = p.Annual.Year,
                 PlanHistories = p.PlanHistories.OfType<OperationPlan>().Select(q => new PlanHistoryDTO
                                 {
                                     Id=q.Id,
@@ -77,6 +79,12 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                                     PlanId = q.PlanId,
                                     PlanType = 1,
                                     TargetCategoryId = q.TargetCategoryId,
+                                    AirlinesName=q.Airlines.CnName,
+                                    Regional=q.AircraftType.AircraftCategory.Regional,
+                                    AircraftTypeName=q.AircraftType.Name,
+                                    ActionType=q.ActionCategory.ActionType+":"+q.ActionCategory.ActionName,
+                                    TargetType = q.TargetCategory.ActionName,
+                                    Year = q.PerformAnnual.Year,
                                 })
                                 .Union(p.PlanHistories.OfType<ChangePlan>().Select(q => new PlanHistoryDTO
                                 {
@@ -96,6 +104,12 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                                     PlanId = q.PlanId,
                                     PlanType = 2,
                                     TargetCategoryId = q.TargetCategoryId,
+                                    AirlinesName = q.Airlines.CnName,
+                                    Regional = q.AircraftType.AircraftCategory.Regional,
+                                    AircraftTypeName = q.AircraftType.Name,
+                                    ActionType = q.ActionCategory.ActionType + ":" + q.ActionCategory.ActionName,
+                                    TargetType = q.TargetCategory.ActionName,
+                                    Year = q.PerformAnnual.Year,
                                 })
                                 ).ToList(),
             });
