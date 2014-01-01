@@ -45,7 +45,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AnnualQueries
             QueryBuilder<Annual> query)
         {
             var plans = _unitOfWork.CreateSet<Plan>();
-            return query.ApplyTo(_unitOfWork.CreateSet<Annual>()).Select(p => new AnnualDTO
+            var result = query.ApplyTo(_unitOfWork.CreateSet<Annual>()).Select(p => new AnnualDTO
             {
                 Id = p.Id,
                 IsOpen = p.IsOpen,
@@ -94,7 +94,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AnnualQueries
                         AircraftTypeName = q.AircraftType.Name,
                         ActionType = q.ActionCategory.ActionType + ":" + q.ActionCategory.ActionName,
                         TargetType = q.TargetCategory.ActionName,
-                        PerformTime = q.PerformAnnual.Year + "/" + q.PerformMonth,
+                        Year = q.PerformAnnual.Year,
                     })
                      .Union(r.PlanHistories.OfType<ChangePlan>().Select(q => new PlanHistoryDTO
                     {
@@ -119,10 +119,11 @@ namespace UniCloud.Application.FleetPlanBC.Query.AnnualQueries
                         AircraftTypeName = q.AircraftType.Name,
                         ActionType = q.ActionCategory.ActionType + ":" + q.ActionCategory.ActionName,
                         TargetType = q.TargetCategory.ActionName,
-                        PerformTime = q.PerformAnnual.Year + "/" + q.PerformMonth,
+                        Year = q.PerformAnnual.Year,
                     })).ToList(),
                 }).ToList()
             });
+            return result.OrderByDescending(p=>p.Year);
         }
     }
 }

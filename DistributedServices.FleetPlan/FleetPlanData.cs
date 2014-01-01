@@ -3,6 +3,7 @@
 //------------------------------------------------------------------------------
 
 using System.Linq;
+using UniCloud.Application.FleetPlanBC;
 using UniCloud.Application.FleetPlanBC.ActionCategoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftCategoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftServices;
@@ -58,6 +59,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         private readonly IPlanEngineAppService _planEngineAppService;
         private readonly IProgrammingAppService _programmingAppService;
         private readonly IRequestAppService _requestAppService;
+        private readonly IStaticLoad _staticLoad;
         private readonly ISupplierAppService _supplierAppService;
         private readonly IXmlConfigAppService _xmlConfigAppService;
         private readonly IXmlSettingAppService _xmlSettingAppService;
@@ -85,6 +87,7 @@ namespace UniCloud.DistributedServices.FleetPlan
             _planEngineAppService = DefaultContainer.Resolve<IPlanEngineAppService>();
             _programmingAppService = DefaultContainer.Resolve<IProgrammingAppService>();
             _requestAppService = DefaultContainer.Resolve<IRequestAppService>();
+            _staticLoad = DefaultContainer.Resolve<IStaticLoad>();
             _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();
             _xmlConfigAppService = DefaultContainer.Resolve<IXmlConfigAppService>();
             _xmlSettingAppService = DefaultContainer.Resolve<IXmlSettingAppService>();
@@ -95,7 +98,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// </summary>
         public IQueryable<ActionCategoryDTO> ActionCategories
         {
-            get { return _actionCategoryAppService.GetActionCategories(); }
+            get { return _staticLoad.GetActionCategories(); }
         }
         #endregion
 
@@ -105,7 +108,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// </summary>
         public IQueryable<AircraftCategoryDTO> AircraftCategories
         {
-            get { return _aircraftCategoryAppService.GetAircraftCategories(); }
+            get { return _staticLoad.GetAircraftCategories(); }
         }
         #endregion
 
@@ -125,7 +128,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// </summary>
         public IQueryable<AircraftTypeDTO> AircraftTypes
         {
-            get { return _aircraftTypeAppService.GetAircraftTypes(); }
+            get { return _staticLoad.GetAircraftTypes(); }
         }
         #endregion
 
@@ -135,7 +138,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// </summary>
         public IQueryable<AirlinesDTO> Airlineses
         {
-            get { return _airlinesAppService.GetAirlineses(); }
+            get { return _staticLoad.GetAirlineses(); }
         }
         #endregion
 
@@ -208,7 +211,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// </summary>
         public IQueryable<EngineTypeDTO> EngineTypes
         {
-            get { return _engineTypeAppService.GetEngineTypes(); }
+            get { return _staticLoad.GetEngineTypes(); }
         }
         #endregion
 
@@ -228,7 +231,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// </summary>
         public IQueryable<ManagerDTO> Managers
         {
-            get { return _managerAppService.GetManagers(); }
+            get { return _staticLoad.GetManagers(); }
         }
         #endregion
 
@@ -238,7 +241,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// </summary>
         public IQueryable<ManufacturerDTO> Manufacturers
         {
-            get { return _manufacturerAppService.GetManufacturers(); }
+            get { return _staticLoad.GetManufacturers(); }
         }
         #endregion
 
@@ -278,7 +281,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// </summary>
         public IQueryable<ProgrammingDTO> Programmings
         {
-            get { return _programmingAppService.GetProgrammings(); }
+            get { return _staticLoad.GetProgrammings(); }
         }
         #endregion
 
@@ -298,7 +301,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// </summary>
         public IQueryable<SupplierDTO> Suppliers
         {
-            get { return _supplierAppService.GetSuppliers(); }
+            get { return _staticLoad.GetSuppliers(); }
         }
         #endregion
 

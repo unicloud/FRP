@@ -48,7 +48,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.ProgrammingQueries
                 EndDate = p.EndDate,
                 Name = p.Name,
                 StartDate = p.StartDate,
-            });
+            }).OrderBy(p=>p.StartDate);
         }
     }
 }

@@ -51,6 +51,7 @@
     <Compile Include="AircraftPlanServices\PlanAppService.cs" />
     <Compile Include="ApprovalDocServices\IApprovalDocAppService.cs" />
     <Compile Include="ApprovalDocServices\ApprovalDocAppService.cs" />
+    <Compile Include="IStaticLoad.cs" />
     <Compile Include="RequestServices\RequestAppService.cs" />
     <Compile Include="RequestServices\IRequestAppService.cs" />
     <Compile Include="AircraftServices\AircraftAppService.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="ProgrammingServices\IProgrammingAppService.cs" />
     <Compile Include="ProgrammingServices\ProgrammingAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StaticLoad.cs" />
     <Compile Include="SupplierServices\ISupplierAppService.cs" />
     <Compile Include="SupplierServices\SupplierAppService.cs" />
     <Compile Include="XmlConfigServices\IXmlConfigAppService.cs" />
@@ -122,28 +124,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="ActionCategoryServices\" />
-    <Folder Include="AircraftCategoryServices\" />
-    <Folder Include="AircraftPlanServices\" />
-    <Folder Include="AircraftTypeServices\" />
-    <Folder Include="AirlinesServices\" />
-    <Folder Include="AirProgrammingServices\" />
-    <Folder Include="AnnualServices\" />
-    <Folder Include="ApprovalDocServices\" />
-    <Folder Include="CaacProgrammingServices\" />
-    <Folder Include="EnginePlanServices\" />
-    <Folder Include="EngineServices\" />
-    <Folder Include="EngineTypeServices\" />
-    <Folder Include="MailAddressServices\" />
-    <Folder Include="ManagerServices\" />
-    <Folder Include="ManufactureServices\" />
-    <Folder Include="PlanAircraftServices\" />
-    <Folder Include="PlanEngineServices\" />
-    <Folder Include="ProgrammingServices\" />
-    <Folder Include="RequestServices\" />
-    <Folder Include="SupplierServices\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Application.FleetPlanBC.DTO\Application.FleetPlanBC.DTO.csproj">
       <Project>{6db639ca-9513-4c6a-90ef-74e9180997e7}</Project>

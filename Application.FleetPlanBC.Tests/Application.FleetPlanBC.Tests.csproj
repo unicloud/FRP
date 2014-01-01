@@ -72,6 +72,7 @@
     <Compile Include="Services\AircraftBCTests.cs" />
     <Compile Include="Services\ActionCategoryBCTest.cs" />
     <Compile Include="Services\AnnualBCTest.cs" />
+    <Compile Include="Services\ProgrammingBCTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
