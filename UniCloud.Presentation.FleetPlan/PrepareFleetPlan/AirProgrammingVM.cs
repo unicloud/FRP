@@ -71,15 +71,15 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            AirProgrammings = Service.CreateCollection(_context.AirProgrammings,
-                (o, p, c) =>
-                {
-                    foreach (var airProgramming in from object item in o select item as AirProgrammingDTO)
-                    {
-                        airProgramming.AirProgrammingLines.CollectionChanged += c;
-                        airProgramming.AirProgrammingLines.ToList().ForEach(ol => ol.PropertyChanged += p);
-                    }
-                });
+            //AirProgrammings = Service.CreateCollection(_context.AirProgrammings,
+            //    (o, p, c) =>
+            //    {
+            //        foreach (var airProgramming in from object item in o select item as AirProgrammingDTO)
+            //        {
+            //            airProgramming.AirProgrammingLines.CollectionChanged += c;
+            //            airProgramming.AirProgrammingLines.ToList().ForEach(ol => ol.PropertyChanged += p);
+            //        }
+            //    });
             Service.RegisterCollectionView(AirProgrammings);
 
             Programmings = new QueryableDataServiceCollectionView<ProgrammingDTO>(_context, _context.Programmings);
