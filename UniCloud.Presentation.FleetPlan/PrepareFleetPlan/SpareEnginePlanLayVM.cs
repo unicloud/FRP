@@ -70,15 +70,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            EnginePlans = Service.CreateCollection(_context.EnginePlans,
-                         (o, p, c) =>
-                         {
-                             foreach (var enginePlan in from object item in o select item as EnginePlanDTO)
-                             {
-                                 enginePlan.EnginePlanHistories.CollectionChanged += c;
-                                 enginePlan.EnginePlanHistories.ToList().ForEach(ol => ol.PropertyChanged += p);
-                             }
-                         });
+            EnginePlans = Service.CreateCollection(_context.EnginePlans, o => o.EnginePlanHistories);
             Service.RegisterCollectionView(EnginePlans);
 
         }

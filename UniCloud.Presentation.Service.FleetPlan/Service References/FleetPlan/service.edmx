@@ -133,6 +133,22 @@
         <Property Name="ProgrammingId" Type="Edm.Guid" Nullable="false" />
         <NavigationProperty Name="Plans" Relationship="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO_Plans" ToRole="Plans" FromRole="AnnualDTO" />
       </EntityType>
+      <EntityType Name="ApprovalDocDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="CaacExamineDate" Type="Edm.DateTime" />
+        <Property Name="NdrcExamineDate" Type="Edm.DateTime" />
+        <Property Name="CaacApprovalNumber" Type="Edm.String" />
+        <Property Name="NdrcApprovalNumber" Type="Edm.String" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Note" Type="Edm.String" />
+        <Property Name="CaacDocumentName" Type="Edm.String" />
+        <Property Name="NdrcDocumentName" Type="Edm.String" />
+        <Property Name="CaacDocumentId" Type="Edm.Guid" />
+        <Property Name="NdrcDocumentId" Type="Edm.Guid" />
+      </EntityType>
       <EntityType Name="CaacProgrammingDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -428,24 +444,6 @@
         <End Type="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO" Role="AnnualDTO" Multiplicity="*" />
       </Association>
     </Schema>
-    <Schema Namespace="UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-      <EntityType Name="ApprovalDocDTO">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
-        <Property Name="CaacExamineDate" Type="Edm.DateTime" />
-        <Property Name="NdrcExamineDate" Type="Edm.DateTime" />
-        <Property Name="CaacApprovalNumber" Type="Edm.String" />
-        <Property Name="NdrcApprovalNumber" Type="Edm.String" />
-        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Note" Type="Edm.String" />
-        <Property Name="CaacDocumentName" Type="Edm.String" />
-        <Property Name="NdrcDocumentName" Type="Edm.String" />
-        <Property Name="CaacDocumentId" Type="Edm.Guid" />
-        <Property Name="NdrcDocumentId" Type="Edm.Guid" />
-      </EntityType>
-    </Schema>
     <Schema Namespace="UniCloud.DistributedServices.FleetPlan" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="FleetPlanData" m:IsDefaultEntityContainer="true">
         <EntitySet Name="ActionCategories" EntityType="UniCloud.Application.FleetPlanBC.DTO.ActionCategoryDTO" />
@@ -455,7 +453,7 @@
         <EntitySet Name="Airlineses" EntityType="UniCloud.Application.FleetPlanBC.DTO.AirlinesDTO" />
         <EntitySet Name="AirProgrammings" EntityType="UniCloud.Application.FleetPlanBC.DTO.AirProgrammingDTO" />
         <EntitySet Name="Annuals" EntityType="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO" />
-        <EntitySet Name="ApprovalDocs" EntityType="UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO.ApprovalDocDTO" />
+        <EntitySet Name="ApprovalDocs" EntityType="UniCloud.Application.FleetPlanBC.DTO.ApprovalDocDTO" />
         <EntitySet Name="CaacProgrammings" EntityType="UniCloud.Application.FleetPlanBC.DTO.CaacProgrammingDTO" />
         <EntitySet Name="Engines" EntityType="UniCloud.Application.FleetPlanBC.DTO.EngineDTO" />
         <EntitySet Name="EnginePlans" EntityType="UniCloud.Application.FleetPlanBC.DTO.EnginePlanDTO" />
