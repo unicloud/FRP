@@ -49,6 +49,10 @@ namespace UniCloud.Presentation.Service
             _dataServiceCollectionViews = new List<QueryableDataServiceCollectionViewBase>();
         }
 
+        /// <summary>
+        ///     通知属性变更
+        /// </summary>
+        /// <param name="e">属性变更事件参数</param>
         protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
         {
             if (PropertyChanged == null)
@@ -56,22 +60,38 @@ namespace UniCloud.Presentation.Service
             PropertyChanged(this, e);
         }
 
+        /// <summary>
+        ///     通知属性变更
+        /// </summary>
+        /// <param name="propertyName">属性名称</param>
         protected void OnPropertyChanged(string propertyName)
         {
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        ///     获取静态数据
+        /// </summary>
+        /// <typeparam name="T">DTO类型</typeparam>
+        /// <param name="staticData">静态数据集合</param>
+        /// <param name="loaded">回调</param>
+        /// <param name="query">查询</param>
+        /// <returns>静态数据集合</returns>
+        protected QueryableDataServiceCollectionView<T> GetStaticData<T>(
+            QueryableDataServiceCollectionView<T> staticData, Action loaded, DataServiceQuery<T> query)
+            where T : class, INotifyPropertyChanged
+        {
+            if (staticData == null)
+            {
+                staticData = new QueryableDataServiceCollectionView<T>(_context, query) {AutoLoad = true};
+                staticData.LoadedData += (o, e) => loaded();
+            }
+            return staticData;
+        }
+
         #region IService 成员
 
         #region 属性
-
-        /// <summary>
-        ///     域上下文对象
-        /// </summary>
-        public DataServiceContext Context
-        {
-            get { return _context; }
-        }
 
         /// <summary>
         ///     是否有变化
@@ -174,7 +194,7 @@ namespace UniCloud.Presentation.Service
                         callback(result);
                     }
                 });
-            }, Context);
+            }, _context);
         }
 
         /// <summary>

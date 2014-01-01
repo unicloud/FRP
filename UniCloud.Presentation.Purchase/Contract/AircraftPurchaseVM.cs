@@ -53,6 +53,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         [ImportingConstructor]
         public AircraftPurchaseVM(IRegionManager regionManager)
         {
+            //_context = Service.Context;
             _regionManager = regionManager;
 
             AddTradeCommand = new DelegateCommand<object>(OnAddTrade, CanAddTrade);
@@ -68,6 +69,14 @@ namespace UniCloud.Presentation.Purchase.Contract
             CheckCommand = new DelegateCommand<object>(OnCheck, CanCheck);
 
             InitializeVM();
+        }
+
+        /// <summary>
+        ///     隐藏基类属性，用以扩展
+        /// </summary>
+        private new IPurchaseService Service
+        {
+            get { return base.Service as IPurchaseService; }
         }
 
         /// <summary>
@@ -91,11 +100,11 @@ namespace UniCloud.Presentation.Purchase.Contract
             Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
 
 
-            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
-            Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context, _context.Currencies);
-            Linkmen = new QueryableDataServiceCollectionView<LinkmanDTO>(_context, _context.Linkmans);
-            AircraftMaterials = new QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO>(_context,
-                _context.SupplierCompanyAcMaterials);
+            //Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
+            //Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context, _context.Currencies);
+            //Linkmen = new QueryableDataServiceCollectionView<LinkmanDTO>(_context, _context.Linkmans);
+            //AircraftMaterials = new QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO>(_context,
+            //    _context.SupplierCompanyAcMaterials);
         }
 
         /// <summary>
@@ -170,10 +179,10 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             ViewTradeDTO.AutoLoad = true;
 
-            Suppliers.Load();
-            Currencies.Load();
-            Linkmen.Load();
-            AircraftMaterials.Load();
+            Suppliers = Service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
+            Currencies = Service.GetCurrency(() => RaisePropertyChanged(() => Currencies));
+            Linkmen = Service.GetLinkman(() => RaisePropertyChanged(() => Linkmen));
+            AircraftMaterials = Service.GetAircraftMaterial(() => RaisePropertyChanged(() => AircraftMaterials));
         }
 
         #region 交易

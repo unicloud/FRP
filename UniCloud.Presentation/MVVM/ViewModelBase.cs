@@ -97,7 +97,7 @@ namespace UniCloud.Presentation.MVVM
         /// <summary>
         ///     创建服务。
         /// </summary>
-        public IService Service
+        protected IService Service
         {
             get { return _service; }
         }
