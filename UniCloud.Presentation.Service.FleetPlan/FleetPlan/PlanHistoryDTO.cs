@@ -1,10 +1,10 @@
 ﻿#region 版本信息
 /* ========================================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2013/12/31 17:46:24
-// 文件名：AnnualDTO
+// 作者：HuangQiBin 时间：2014/1/1 8:50:48
+// 文件名：PlanHistoryDTO
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -15,7 +15,6 @@
 #region 命名空间
 
 using System;
-using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -30,20 +29,22 @@ using System.Windows.Shapes;
 
 namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
-    public partial class AnnualDTO
+    public partial class PlanHistoryDTO
     {
-        partial void OnIsOpenChanged()
+        partial void OnYearChanged()
         {
-            OnPropertyChanged("OpenState");
+            OnPropertyChanged("PerformTime");
         }
 
-        public string OpenState
+        partial void OnPerformMonthChanged()
+        {
+            OnPropertyChanged("PerformTime");
+        }
+        public string PerformTime
         {
             get
             {
-                if (IsOpen && Plans.Any()) return "打开";
-                else if (IsOpen==false && Plans.Any()) return "关闭";
-                return "";
+                return (Year + "/" + PerformMonth);
             }
         }
     }

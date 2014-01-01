@@ -90,9 +90,9 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public string TargetType { get; set; }
 
         /// <summary>
-        /// 执行时间
+        /// 执行年度
         /// </summary>
-        public string PerformTime { get; set; }
+        public int Year { get; set; }
 
         #endregion
 

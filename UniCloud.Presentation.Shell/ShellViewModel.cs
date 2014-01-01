@@ -280,6 +280,7 @@ namespace UniCloud.Presentation.Shell
             var menu252 = new MenuItem
             {
                 Text = "分析运力趋势",
+                NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.FleetTrend"
             };
             var menu253 = new MenuItem
             {

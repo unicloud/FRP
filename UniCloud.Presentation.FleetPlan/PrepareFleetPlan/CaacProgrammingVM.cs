@@ -61,15 +61,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            CaacProgrammings = Service.CreateCollection(_context.CaacProgrammings,
-                (o, p, c) =>
-                {
-                    foreach (var caacProgramming in from object item in o select item as CaacProgrammingDTO)
-                    {
-                        caacProgramming.CaacProgrammingLines.CollectionChanged += c;
-                        caacProgramming.CaacProgrammingLines.ToList().ForEach(ol => ol.PropertyChanged += p);
-                    }
-                });
+            CaacProgrammings = Service.CreateCollection(_context.CaacProgrammings,o => o.CaacProgrammingLines);
             Service.RegisterCollectionView(CaacProgrammings);
 
             Programmings = new QueryableDataServiceCollectionView<ProgrammingDTO>(_context, _context.Programmings);
