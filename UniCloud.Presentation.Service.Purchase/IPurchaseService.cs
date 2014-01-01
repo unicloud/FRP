@@ -38,50 +38,60 @@ namespace UniCloud.Presentation.Service.Purchase
         ///     获取供应商
         /// </summary>
         /// <param name="loaded">回调</param>
+        /// <param name="forceLoad">是否强制加载</param>
         /// <returns>供应商集合</returns>
-        QueryableDataServiceCollectionView<SupplierDTO> GetSupplier(Action loaded);
+        QueryableDataServiceCollectionView<SupplierDTO> GetSupplier(Action loaded, bool forceLoad = false);
 
         /// <summary>
         ///     获取机型
         /// </summary>
         /// <param name="loaded">回调</param>
+        /// <param name="forceLoad">是否强制加载</param>
         /// <returns>机型集合</returns>
-        QueryableDataServiceCollectionView<AircraftTypeDTO> GetAircraftType(Action loaded);
+        QueryableDataServiceCollectionView<AircraftTypeDTO> GetAircraftType(Action loaded, bool forceLoad = false);
 
         /// <summary>
         ///     获取币种
         /// </summary>
         /// <param name="loaded">回调</param>
+        /// <param name="forceLoad">是否强制加载</param>
         /// <returns>币种集合</returns>
-        QueryableDataServiceCollectionView<CurrencyDTO> GetCurrency(Action loaded);
+        QueryableDataServiceCollectionView<CurrencyDTO> GetCurrency(Action loaded, bool forceLoad = false);
 
         /// <summary>
         ///     获取联系人
         /// </summary>
         /// <param name="loaded">回调</param>
+        /// <param name="forceLoad">是否强制加载</param>
         /// <returns>联系人集合</returns>
-        QueryableDataServiceCollectionView<LinkmanDTO> GetLinkman(Action loaded);
+        QueryableDataServiceCollectionView<LinkmanDTO> GetLinkman(Action loaded, bool forceLoad = false);
 
         /// <summary>
         ///     获取飞机物料
         /// </summary>
         /// <param name="loaded">回调</param>
+        /// <param name="forceLoad">是否强制加载</param>
         /// <returns>飞机物料集合</returns>
-        QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO> GetAircraftMaterial(Action loaded);
+        QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO> GetAircraftMaterial(Action loaded,
+            bool forceLoad = false);
 
         /// <summary>
         ///     获取发动机物料
         /// </summary>
         /// <param name="loaded">回调</param>
+        /// <param name="forceLoad">是否强制加载</param>
         /// <returns>发动机物料集合</returns>
-        QueryableDataServiceCollectionView<SupplierCompanyEngineMaterialDTO> GetEngineMaterial(Action loaded);
+        QueryableDataServiceCollectionView<SupplierCompanyEngineMaterialDTO> GetEngineMaterial(Action loaded,
+            bool forceLoad = false);
 
         /// <summary>
         ///     获取BFE物料
         /// </summary>
         /// <param name="loaded">回调</param>
+        /// <param name="forceLoad">是否强制加载</param>
         /// <returns>BFE物料集合</returns>
-        QueryableDataServiceCollectionView<SupplierCompanyBFEMaterialDTO> GetBfeMaterial(Action loaded);
+        QueryableDataServiceCollectionView<SupplierCompanyBFEMaterialDTO> GetBfeMaterial(Action loaded,
+            bool forceLoad = false);
 
         #endregion
     }

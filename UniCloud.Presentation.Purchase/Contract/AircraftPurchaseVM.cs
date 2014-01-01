@@ -43,8 +43,8 @@ namespace UniCloud.Presentation.Purchase.Contract
     {
         #region 声明、初始化
 
+        private readonly PurchaseData _context;
         private readonly IRegionManager _regionManager;
-        private PurchaseData _context;
         private DocumentDTO _document = new DocumentDTO();
         private bool _isAttach;
         private FilterDescriptor _orderDescriptor;
@@ -53,7 +53,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         [ImportingConstructor]
         public AircraftPurchaseVM(IRegionManager regionManager)
         {
-            //_context = Service.Context;
+            _context = Service.Context;
             _regionManager = regionManager;
 
             AddTradeCommand = new DelegateCommand<object>(OnAddTrade, CanAddTrade);
@@ -98,13 +98,6 @@ namespace UniCloud.Presentation.Purchase.Contract
             _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
             ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
             Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
-
-
-            //Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
-            //Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context, _context.Currencies);
-            //Linkmen = new QueryableDataServiceCollectionView<LinkmanDTO>(_context, _context.Linkmans);
-            //AircraftMaterials = new QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO>(_context,
-            //    _context.SupplierCompanyAcMaterials);
         }
 
         /// <summary>
@@ -112,8 +105,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         protected override IService CreateService()
         {
-            _context = new PurchaseData(AgentHelper.PurchaseUri);
-            return new PurchaseService(_context);
+            return new PurchaseService();
         }
 
         #endregion
