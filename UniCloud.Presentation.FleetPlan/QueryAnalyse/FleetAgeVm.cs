@@ -108,7 +108,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public QueryableDataServiceCollectionView<XmlConfigDTO> XmlConfigs { get; set; }//XmlConfig集合
         public QueryableDataServiceCollectionView<XmlSettingDTO> XmlSettings { get; set; } //XmlSetting集合
         public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; } //飞机集合 
-        public QueryableDataServiceCollectionView<AircraftBusinessDTO> AircraftBusinesses { get; set; } //飞机商业数据
 
         public Dictionary<string, List<AircraftDTO>> AircraftByAgeDic = new Dictionary<string, List<AircraftDTO>>();//机龄饼图的飞机数据分布字典
 
@@ -128,7 +127,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             XmlConfigs.Load(true);
             XmlSettings.Load(true);
             Aircrafts.Load(true);
-            //AircraftBusinesses.Load(true);
         }
 
         #region 属性 AircraftDataObject
