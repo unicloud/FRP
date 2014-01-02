@@ -48,7 +48,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AnnualAgg
         /// <summary>
         ///     是否打开年度
         /// </summary>
-        public bool IsOpen { get; internal set; }
+        public bool IsOpen { get; private set; }
 
         #endregion
 
@@ -72,7 +72,14 @@ namespace UniCloud.Domain.UberModel.Aggregates.AnnualAgg
 
         #region 操作
 
-
+        /// <summary>
+        /// 设置年度打开/关闭
+        /// </summary>
+        /// <param name="isOpen"></param>
+        public void SetIsOpen(bool isOpen)
+        {
+            IsOpen = isOpen;
+        }
 
         #endregion
     }

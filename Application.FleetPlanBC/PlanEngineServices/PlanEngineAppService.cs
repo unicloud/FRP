@@ -17,9 +17,14 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.PlanEngineQueries;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.EngineTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanEngineAgg;
 
 #endregion
@@ -33,10 +38,20 @@ namespace UniCloud.Application.FleetPlanBC.PlanEngineServices
     public class PlanEngineAppService : IPlanEngineAppService
     {
         private readonly IPlanEngineQuery _planEngineQuery;
+        private readonly IAirlinesRepository _airlinesRepository;
+        private readonly IEngineRepository _engineRepository;
+        private readonly IEngineTypeRepository _engineTypeRepository;
+        private readonly IPlanEngineRepository _planEngineRepository;
 
-        public PlanEngineAppService(IPlanEngineQuery planEngineQuery)
+        public PlanEngineAppService(IPlanEngineQuery planEngineQuery,
+            IAirlinesRepository airlinesRepository,IEngineRepository engineRepository,
+            IEngineTypeRepository engineTypeRepository,IPlanEngineRepository planEngineRepository)
         {
             _planEngineQuery = planEngineQuery;
+            _airlinesRepository = airlinesRepository;
+            _engineRepository = engineRepository;
+            _engineTypeRepository = engineTypeRepository;
+            _planEngineRepository = planEngineRepository;
         }
 
         #region PlanEngineDTO
@@ -52,6 +67,67 @@ namespace UniCloud.Application.FleetPlanBC.PlanEngineServices
             return _planEngineQuery.PlanEngineDTOQuery(queryBuilder);
         }
 
+
+        /// <summary>
+        ///     新增计划发动机。
+        /// </summary>
+        /// <param name="dto">计划发动机DTO。</param>
+        [Insert(typeof(PlanEngineDTO))]
+        public void InsertPlanEngine(PlanEngineDTO dto)
+        {
+            var engineType = _engineTypeRepository.Get(dto.EngineTypeId);
+            var airlines = _airlinesRepository.Get(dto.AirlinesId);
+
+            //创建计划发动机
+            var newPlanEngine = PlanEngineFactory.CreatePlanEngine();
+            newPlanEngine.SetEngineType(engineType);
+            newPlanEngine.SetAirlines(airlines);
+
+            _planEngineRepository.Add(newPlanEngine);
+        }
+
+        /// <summary>
+        ///     更新计划发动机。
+        /// </summary>
+        /// <param name="dto">计划发动机DTO。</param>
+        [Update(typeof(PlanEngineDTO))]
+        public void ModifyPlanEngine(PlanEngineDTO dto)
+        {
+            var engine = _engineRepository.Get(dto.EngineId);
+            var engineType = _engineTypeRepository.Get(dto.EngineTypeId);
+            var airlines = _airlinesRepository.Get(dto.AirlinesId);
+
+            //获取需要更新的对象
+            var updatePlanEngine = _planEngineRepository.Get(dto.Id);
+
+            if (updatePlanEngine != null)
+            {
+                //更新主表：
+                updatePlanEngine.SetEngine(engine);
+                updatePlanEngine.SetEngineType(engineType);
+                updatePlanEngine.SetAirlines(airlines);
+            }
+            _planEngineRepository.Modify(updatePlanEngine);
+        }
+
+        /// <summary>
+        ///     删除计划发动机。
+        /// </summary>
+        /// <param name="dto">计划发动机DTO。</param>
+        [Delete(typeof(PlanEngineDTO))]
+        public void DeletePlanEngine(PlanEngineDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+            var delPlanEngine = _planEngineRepository.Get(dto.Id);
+            //获取需要删除的对象。
+            if (delPlanEngine != null)
+            {
+                _planEngineRepository.Remove(delPlanEngine); //删除计划发动机。
+            }
+        }
         #endregion
     }
 }

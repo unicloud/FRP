@@ -30,6 +30,17 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
     /// </summary>
     public static class MailAddressFactory
     {
+        /// <summary>
+        ///     创建邮箱账号
+        /// </summary>
+        /// <returns>邮箱账号</returns>
+        public static MailAddress CreateMailAddress()
+        {
+            var mailAddress = new MailAddress
+            {
+            };
 
+            return mailAddress;
+        }
     }
 }

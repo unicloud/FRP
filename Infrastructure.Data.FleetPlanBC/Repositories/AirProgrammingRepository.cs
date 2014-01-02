@@ -15,6 +15,7 @@
 #region 命名空间
 
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg;
+using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork;
 
 #endregion
 
@@ -31,6 +32,31 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.Repositories
         }
 
         #region 方法重载
+
+        /// <summary>
+        /// 删除航空公司五年规划
+        /// </summary>
+        /// <param name="airProgramming"></param>
+        public void DeleteAirProgramming(AirProgramming airProgramming)
+        {
+            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            var dbAirProgrammingLines = currentUnitOfWork.CreateSet<AirProgrammingLine>();
+            var dbAirProgrammings = currentUnitOfWork.CreateSet<AirProgramming>();
+            dbAirProgrammingLines.RemoveRange(airProgramming.AirProgrammingLines);
+            dbAirProgrammings.Remove(airProgramming);
+        }
+
+        /// <summary>
+        /// 移除规划行
+        /// </summary>
+        /// <param name="line"></param>
+        public void RemoveAirProgrammingLine(AirProgrammingLine line)
+        {
+            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            currentUnitOfWork.CreateSet<AirProgrammingLine>().Remove(line);
+        }
 
         #endregion
     }

@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System.Linq;
+using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.AnnualQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
@@ -33,10 +34,11 @@ namespace UniCloud.Application.FleetPlanBC.AnnualServices
     public class AnnualAppService : IAnnualAppService
     {
         private readonly IAnnualQuery _annualQuery;
-
-        public AnnualAppService(IAnnualQuery annualQuery)
+        private readonly IAnnualRepository _annualRepository;
+        public AnnualAppService(IAnnualQuery annualQuery,IAnnualRepository annualRepository)
         {
             _annualQuery = annualQuery;
+            _annualRepository = annualRepository;
         }
 
         #region AnnualDTO
@@ -52,6 +54,41 @@ namespace UniCloud.Application.FleetPlanBC.AnnualServices
             return _annualQuery.AnnualDTOQuery(queryBuilder);
         }
 
+        /// <summary>
+        ///     新增计划年度。
+        /// </summary>
+        /// <param name="dto">计划年度DTO。</param>
+        [Insert(typeof(AnnualDTO))]
+        public void InsertAnnual(AnnualDTO dto)
+        {
+        }
+
+        /// <summary>
+        ///     更新计划年度。
+        /// </summary>
+        /// <param name="dto">计划年度DTO。</param>
+        [Update(typeof(AnnualDTO))]
+        public void ModifyAnnual(AnnualDTO dto)
+        {
+            //获取需要更新的对象
+            var updateAnnual = _annualRepository.Get(dto.Id);
+
+            if (updateAnnual != null)
+            {
+                //更新主表：
+                updateAnnual.SetIsOpen(dto.IsOpen);
+            }
+            _annualRepository.Modify(updateAnnual);
+        }
+
+        /// <summary>
+        ///     删除计划年度。
+        /// </summary>
+        /// <param name="dto">计划年度DTO。</param>
+        [Delete(typeof(AirProgrammingDTO))]
+        public void DeleteAirProgramming(AirProgrammingDTO dto)
+        {
+        }
         #endregion
     }
 }
