@@ -97,7 +97,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                           InitializeData();
                                       };
             Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_fleetPlanDataService, _fleetPlanDataService.Aircrafts);
-            //AircraftBusinesses=new QueryableDataServiceCollectionView<AircraftBusinessDTO>(_fleetPlanDataService,_fleetPlanDataService.aircr);
         }
         #endregion
 
@@ -1296,13 +1295,13 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             if (aircraftType.Equals("所有机型", StringComparison.OrdinalIgnoreCase))
             {
                 aircraft = Aircrafts.Where(p => p.FactoryDate != null)
-                   .Where(o => /*AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)) &&*/ o.FactoryDate <= time && !(o.ExportDate != null && o.ExportDate < time));
+                   .Where(o => o.AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)) && o.FactoryDate <= time && !(o.ExportDate != null && o.ExportDate < time));
             }
             else
             {
-                //aircraft = this.Aircrafts.Where(p => p.FactoryDate != null)
-                //    .Where(o => AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)) && o.FactoryDate <= time && !(o.ExportDate != null && o.ExportDate < time))
-                //    .Where(o => AircraftBusinesses.FirstOrDefault(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)).AircraftType.Name == aircraftType);
+                aircraft = Aircrafts.Where(p => p.FactoryDate != null)
+                    .Where(o => o.AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)) && o.FactoryDate <= time && !(o.ExportDate != null && o.ExportDate < time))
+                    .Where(o => o.AircraftBusinesses.FirstOrDefault(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)).AircraftTypeName == aircraftType);
             }
 
             var xmlConfig = XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("机龄配置", StringComparison.OrdinalIgnoreCase));

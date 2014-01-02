@@ -241,7 +241,7 @@ namespace UniCloud.Presentation.CommonExtension
                     //商载
                     item.CarryingCapacity = aircraftbusiness.CarryingCapacity;
                     //座级
-                    //item. = aircraftbusiness.AircraftType.AircraftCategory.Regional;
+                    item.Regional = aircraftbusiness.Regional;
                     //机型
                     item.AircraftTypeId = aircraftbusiness.AircraftTypeId;
                 }
