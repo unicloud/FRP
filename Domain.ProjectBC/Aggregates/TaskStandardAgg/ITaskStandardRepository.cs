@@ -1,10 +1,10 @@
 ﻿#region 版本信息
 
 // =====================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/12/30，20:54
+// 作者：丁志浩 时间：2014/01/02，21:02
 // 方案：FRP
 // 项目：Domain.ProjectBC
 // 版本：V1.0.0
@@ -15,12 +15,13 @@
 
 #endregion
 
-namespace UniCloud.Domain.ProjectBC.Aggregates.EmployeeResourceAgg
+namespace UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg
 {
     /// <summary>
-    ///     员工资源工厂
+    ///     任务标准仓储接口
+    ///     <see cref="UniCloud.Domain.IRepository{TaskStandard}" />
     /// </summary>
-    public static class EmployeeResourceFactory
+    public interface ITaskStandardRepository : IRepository<TaskStandard>
     {
     }
 }

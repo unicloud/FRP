@@ -48,20 +48,63 @@
     <Compile Include="Aggregates\DependencyAgg\DependencyFactory.cs" />
     <Compile Include="Aggregates\DependencyAgg\DependencySpecifications.cs" />
     <Compile Include="Aggregates\DependencyAgg\IDependencyRepository.cs" />
-    <Compile Include="Aggregates\EmployeeResourceAgg\EmployeeResource.cs" />
-    <Compile Include="Aggregates\EmployeeResourceAgg\EmployeeResourceFactory.cs" />
-    <Compile Include="Aggregates\EmployeeResourceAgg\EmployeeResourceSpecifications.cs" />
-    <Compile Include="Aggregates\EmployeeResourceAgg\IEmployeeResourceRepository.cs" />
-    <Compile Include="Aggregates\ScheduleTempAgg\IScheduleTempRepository.cs" />
-    <Compile Include="Aggregates\ScheduleTempAgg\ScheduleTemp.cs" />
-    <Compile Include="Aggregates\ScheduleTempAgg\ScheduleTempFactory.cs" />
-    <Compile Include="Aggregates\ScheduleTempAgg\ScheduleTempSpecifications.cs" />
+    <Compile Include="Aggregates\ProjectAgg\IProjectRepository.cs" />
+    <Compile Include="Aggregates\ProjectAgg\Project.cs" />
+    <Compile Include="Aggregates\ProjectAgg\ProjectFactory.cs" />
+    <Compile Include="Aggregates\ProjectAgg\ProjectSpecifications.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Aggregates\ProjectTempAgg\IProjectTempRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Aggregates\ProjectTempAgg\ProjectTemp.cs" />
+    <Compile Include="Aggregates\ProjectTempAgg\ProjectTempFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Aggregates\ProjectTempAgg\ProjectTempSpecifications.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Aggregates\RelatedDocAgg\IRelatedDocRepository.cs" />
+    <Compile Include="Aggregates\RelatedDocAgg\RelatedDoc.cs" />
+    <Compile Include="Aggregates\RelatedDocAgg\RelatedDocFactory.cs" />
+    <Compile Include="Aggregates\RelatedDocAgg\RelatedDocSpecifications.cs" />
+    <Compile Include="Aggregates\TaskStandardAgg\TaskCase.cs" />
+    <Compile Include="Aggregates\TaskStandardAgg\ITaskStandardRepository.cs" />
+    <Compile Include="Aggregates\TaskStandardAgg\TaskStandard.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Aggregates\TaskStandardAgg\TaskStandardFactory.cs" />
+    <Compile Include="Aggregates\TaskStandardAgg\TaskStandardSpecifications.cs" />
+    <Compile Include="Aggregates\ProjectTempAgg\TaskTemp.cs" />
+    <Compile Include="Aggregates\UserAgg\IUserRepository.cs" />
+    <Compile Include="Aggregates\UserAgg\User.cs" />
+    <Compile Include="Aggregates\UserAgg\UserSpecifications.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Aggregates\WorkGroupAgg\IWorkGroupRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Aggregates\WorkGroupAgg\Member.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Aggregates\WorkGroupAgg\WorkGroup.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Aggregates\WorkGroupAgg\WorkGroupFactory.cs" />
+    <Compile Include="Aggregates\WorkGroupAgg\WorkGroupSpecifications.cs" />
     <Compile Include="Enums\DependencyType.cs" />
+    <Compile Include="Enums\ProjectStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Enums\ProjectTempStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Enums\TaskType.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Aggregates\ProjectAgg\" />
-    <Folder Include="Aggregates\ProjectTempAgg\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>

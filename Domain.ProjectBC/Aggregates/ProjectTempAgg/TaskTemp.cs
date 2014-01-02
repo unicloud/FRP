@@ -20,20 +20,20 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.Common.Entities;
 
 #endregion
 
-namespace UniCloud.Domain.ProjectBC.Aggregates.ScheduleTempAgg
+namespace UniCloud.Domain.ProjectBC.Aggregates.ProjectTempAgg
 {
     /// <summary>
-    ///     任务模板聚合根
+    ///     项目模板聚合根
+    ///     任务模板
     /// </summary>
-    public class ScheduleTemp : ScheduleBase, IValidatableObject
+    public class TaskTemp : EntityInt, IValidatableObject
     {
         #region 私有字段
 
-        private HashSet<ScheduleTemp> _children;
+        private HashSet<TaskTemp> _children;
 
         #endregion
 
@@ -43,7 +43,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ScheduleTempAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal ScheduleTemp()
+        internal TaskTemp()
         {
         }
 
@@ -52,14 +52,19 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ScheduleTempAgg
         #region 属性
 
         /// <summary>
-        ///     期限
+        ///     主题
         /// </summary>
-        public DateTime? DeadLine { get; set; }
+        public string Subject { get; private set; }
 
         /// <summary>
-        ///     工期
+        ///     开始偏移量
         /// </summary>
-        public TimeSpan Duration { get; set; }
+        public TimeSpan Start { get; set; }
+
+        /// <summary>
+        ///     结束偏移量
+        /// </summary>
+        public TimeSpan End { get; set; }
 
         /// <summary>
         ///     是否里程碑
@@ -67,37 +72,28 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ScheduleTempAgg
         public bool IsMileStone { get; set; }
 
         /// <summary>
-        ///     时区ID
+        ///     是否摘要任务
         /// </summary>
-        public string TimeZoneId { get; set; }
-
-        /// <summary>
-        ///     成员
-        /// </summary>
-        public string Member { get; set; }
-
-        /// <summary>
-        ///     乐观时间
-        /// </summary>
-        public TimeSpan OptimisticTime { get; set; }
-
-        /// <summary>
-        ///     悲观时间
-        /// </summary>
-        public TimeSpan PessimisticTime { get; set; }
-
-        /// <summary>
-        ///     正常时间
-        /// </summary>
-        public TimeSpan NormalTime { get; set; }
+        public bool IsSummary { get; set; }
 
         #endregion
 
         #region 外键属性
 
         /// <summary>
+        ///     任务标准ID
+        /// </summary>
+        public int? TaskStandardId { get; set; }
+
+        /// <summary>
+        ///     父项ID
         /// </summary>
         public int? ParentId { get; set; }
+
+        /// <summary>
+        ///     项目模板ID
+        /// </summary>
+        public int ProjectTempId { get; set; }
 
         #endregion
 
@@ -106,15 +102,15 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ScheduleTempAgg
         /// <summary>
         ///     父节点
         /// </summary>
-        public virtual ScheduleTemp Parent { get; set; }
+        public virtual TaskTemp Parent { get; set; }
 
         /// <summary>
         ///     子集
         /// </summary>
-        public virtual ICollection<ScheduleTemp> Children
+        public virtual ICollection<TaskTemp> Children
         {
-            get { return _children ?? (_children = new HashSet<ScheduleTemp>()); }
-            set { _children = new HashSet<ScheduleTemp>(value); }
+            get { return _children ?? (_children = new HashSet<TaskTemp>()); }
+            set { _children = new HashSet<TaskTemp>(value); }
         }
 
         #endregion
