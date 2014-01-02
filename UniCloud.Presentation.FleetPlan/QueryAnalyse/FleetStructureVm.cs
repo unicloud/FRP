@@ -680,20 +680,20 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         if (fleetAircraftRegionalTrend != null)
                         {
                             var line = new LineSeries
-                            {
-                                StrokeThickness = 3,
-                                DisplayName = groupItem.Key,
-                                Stroke = new SolidColorBrush(Commonmethod.GetColor(fleetAircraftRegionalTrend.Color)),
-                                CategoryBinding = Commonmethod.CreateBinding("DateTime"),
-                                ValueBinding = Commonmethod.CreateBinding("AirNum"),
-                                ItemsSource = groupItem.ToList(),
+                                {
+                                    StrokeThickness = 3,
+                                    DisplayName = groupItem.Key,
+                                    Stroke = new SolidColorBrush(Commonmethod.GetColor(fleetAircraftRegionalTrend.Color)),
+                                    CategoryBinding = Commonmethod.CreateBinding("DateTime"),
+                                    ValueBinding = Commonmethod.CreateBinding("AirNum"),
+                                    ItemsSource = groupItem.ToList(),
                                 PointTemplate =
                                     ((RadCartesianChart) _lineGrid.Children[0]).Resources["LinePointTemplate"] as
                                         DataTemplate,
                                 TrackBallInfoTemplate =
                                     ((RadCartesianChart) _lineGrid.Children[0]).Resources["LineTrackBallInfoTemplate"]
                                         as DataTemplate
-                            };
+                                };
                             if (radCartesianChart != null) radCartesianChart.Series.Add(line);
                         }
 
@@ -1331,13 +1331,13 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 var airlineAircrafts = new List<AircraftDTO>();
                 if (header == "座级")
                 {
-                    //airlineAircrafts = aircraft.Where(p => p.AircraftBusinesses.FirstOrDefault(pp => pp.StartDate <= time
-                    //    && !(pp.EndDate != null && pp.EndDate < time)).AircraftType.AircraftCategory.Regional == fleetAircraftTypeComposition.AircraftRegional).ToList();
+                    airlineAircrafts = aircraft.Where(p => p.AircraftBusinesses.FirstOrDefault(pp => pp.StartDate <= time
+                        && !(pp.EndDate != null && pp.EndDate < time)).Regional == fleetAircraftTypeComposition.AircraftRegional).ToList();
                 }
                 else if (header == "机型")
                 {
-                    //airlineAircrafts = aircraft.Where(p => p.AircraftBusinesses.FirstOrDefault(pp => pp.StartDate <= time
-                    //    && !(pp.EndDate != null && pp.EndDate < time)).AircraftType.Name == fleetAircraftTypeComposition.AircraftRegional).ToList();
+                    airlineAircrafts = aircraft.Where(p => p.AircraftBusinesses.FirstOrDefault(pp => pp.StartDate <= time
+                        && !(pp.EndDate != null && pp.EndDate < time)).AircraftTypeName == fleetAircraftTypeComposition.AircraftRegional).ToList();
                 }
                 //找到子窗体的RadGridView，并为其赋值
                 var rgv = radWindow.Content as RadGridView;

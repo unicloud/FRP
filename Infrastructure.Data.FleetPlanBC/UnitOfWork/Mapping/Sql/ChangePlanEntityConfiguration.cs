@@ -36,8 +36,6 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
 
             Property(p => p.AircraftBusinessId).HasColumnName("AircraftBusinessId");
 
-            HasOptional(o => o.AircraftBusiness).WithMany().HasForeignKey(o => o.AircraftBusinessId);
-
         }
     }
 }

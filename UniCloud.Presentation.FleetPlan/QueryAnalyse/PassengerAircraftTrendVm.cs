@@ -93,7 +93,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             get { return ServiceLocator.Current.GetInstance<PassengerAircraftTrend>(); }
         }
 
-        /// <summary>
+         /// <summary>
         ///     初始化ViewModel
         ///     <remarks>
         ///         统一在此处创建并注册CollectionView集合。
@@ -105,22 +105,22 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             XmlConfigs = new QueryableDataServiceCollectionView<XmlConfigDTO>(_fleetPlanDataService,
                 _fleetPlanDataService.XmlConfigs);
             XmlConfigs.LoadedData += (o, e) =>
-            {
-                _loadXmlConfig = true;
-                InitializeData();
-            };
+                                     {
+                                         _loadXmlConfig = true;
+                                         InitializeData();
+                                     };
             XmlSettings = new QueryableDataServiceCollectionView<XmlSettingDTO>(_fleetPlanDataService,
                 _fleetPlanDataService.XmlSettings);
             XmlSettings.LoadedData += (o, e) =>
-            {
-                _loadXmlSetting = true;
-                InitializeData();
-            };
+                                      {
+                                          _loadXmlSetting = true;
+                                          InitializeData();
+                                      };
             Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_fleetPlanDataService,
                 _fleetPlanDataService.Aircrafts);
         }
 
-        /// <summary>
+         /// <summary>
         ///     以View的实例初始化ViewModel相关字段、属性
         /// </summary>
         public void ViewModelInitializer()
@@ -138,7 +138,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             _endDateTimePicker.Culture.DateTimeFormat.ShortDatePattern = "yyyy/M";
         }
 
-        /// <summary>
+         /// <summary>
         ///     初始化ViewModel控件属性，飞机数据以及相应图表
         /// </summary>
         public void InitializeData()
@@ -161,7 +161,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         public QueryableDataServiceCollectionView<XmlConfigDTO> XmlConfigs { get; set; } //XmlConfig集合
         public QueryableDataServiceCollectionView<XmlSettingDTO> XmlSettings { get; set; } //XmlSetting集合
-        public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; }
+        public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; } //飞机集合 
+        public AirlinesDTO CurrentAirlines { get; set; }
 
         #region  属性 SelectedTime --所选的时间点
 
@@ -853,7 +854,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #endregion
 
         #region 操作
-
+        
         /// <summary>
         ///     获取趋势图的颜色配置
         /// </summary>
@@ -1287,186 +1288,188 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         private void OnExport(object sender)
         {
-            //var radMenuItem = sender as RadMenuItem;
-            //IsContextMenuOpen = false;
-            //if (radMenuItem != null && radMenuItem.Header.ToString().Equals("导出源数据", StringComparison.OrdinalIgnoreCase))
+            var radMenuItem = sender as RadMenuItem;
+            IsContextMenuOpen = false;
+            if (radMenuItem != null && radMenuItem.Header.ToString().Equals("导出源数据", StringComparison.OrdinalIgnoreCase))
+            {
+                if (radMenuItem.Name.Equals("LineGridData", StringComparison.OrdinalIgnoreCase))
+                {
+                    //if (CurrentAirlines.SubAirlines != null && CurrentAirlines.SubAirlines.Any(p => p.SubType == 1))
             //{
-            //    if (radMenuItem.Name.Equals("LineGridData", StringComparison.OrdinalIgnoreCase))
+                    //    //当包含子公司时
+                    //    var columnsList = new Dictionary<string, string>
+                    //                      {
+                    //                          {"DateTime", "时间点"},
+                    //                          {"AircraftAmount", "期末客机数(子)"},
+                    //                          {"AircraftAmount1", "期末客机数"},
+                    //                          {"SeatAmount", "期末座位数(子)"},
+                    //                          {"SeatAmount1", "期末座位数"},
+                    //                          {"LoadAmount", "期末商载量(子)"},
+                    //                          {"LoadAmount1", "期末商载量"}
+                    //                      };
+                    //    _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAircraftTrendLineCollection, "SubFleetTrendPnr");
+                    //}
+                    //else
+                    //{
+                    //    //创建RadGridView
+                    //    var columnsList = new Dictionary<string, string>
+                    //                      {
+                    //                          {"DateTime", "时间点"},
+                    //                          {"AircraftAmount1", "期末客机数"},
+                    //                          {"SeatAmount1", "期末座位数"},
+                    //                          {"LoadAmount1", "期末商载量"}
+                    //                      };
+                    //    _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAircraftTrendLineCollection, "FleetTrendPnr");
+                    //}
+                    //_i = 1;
+                    //_exportRadGridView.ElementExporting -= ElementExporting;
+                    //_exportRadGridView.ElementExporting += ElementExporting;
+                    //using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc"))
+                    //{
+                    //    if (stream != null)
             //    {
-            //        if (_service.CurrentAirlines.SubAirlines != null && _service.CurrentAirlines.SubAirlines.Any(p => p.SubType == 1))
-            //        {
-            //            //当包含子公司时
-            //            Dictionary<string, string> columnsList = new Dictionary<string, string>();
-            //            columnsList.Add("DateTime", "时间点");
-            //            columnsList.Add("AircraftAmount", "期末客机数(子)");
-            //            columnsList.Add("AircraftAmount1", "期末客机数");
-            //            columnsList.Add("SeatAmount", "期末座位数(子)");
-            //            columnsList.Add("SeatAmount1", "期末座位数");
-            //            columnsList.Add("LoadAmount", "期末商载量(子)");
-            //            columnsList.Add("LoadAmount1", "期末商载量");
-            //            _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAircraftTrendLineCollection, "SubFleetTrendPnr");
-            //        }
-            //        else
-            //        {
-            //            //创建RadGridView
-            //            var columnsList = new Dictionary<string, string>();
-            //            columnsList.Add("DateTime", "时间点");
-            //            columnsList.Add("AircraftAmount1", "期末客机数");
-            //            columnsList.Add("SeatAmount1", "期末座位数");
-            //            columnsList.Add("LoadAmount1", "期末商载量");
-            //            _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAircraftTrendLineCollection, "FleetTrendPnr");
-            //        }
-            //        _i = 1;
-            //        _exportRadGridView.ElementExporting -= ElementExporting;
-            //        _exportRadGridView.ElementExporting += new EventHandler<GridViewElementExportingEventArgs>(ElementExporting);
-            //        using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc"))
-            //        {
-            //            if (stream != null)
-            //            {
-            //                _exportRadGridView.Export(stream, ImageAndGridOperation.SetGridViewExportOptions());
-            //            }
-            //        }
+                    //        _exportRadGridView.Export(stream, ImageAndGridOperation.SetGridViewExportOptions());
             //    }
-            //    else if (radMenuItem.Name.Equals("BarGridData", StringComparison.OrdinalIgnoreCase))
-            //    {
-            //        if (_service.CurrentAirlines.SubAirlines != null && _service.CurrentAirlines.SubAirlines.Any(p => p.SubType == 1))
-            //        {
-            //            //当包含子公司时
-            //            var columnsList = new Dictionary<string, string>();
-            //            columnsList.Add("DateTime", "时间点");
-            //            columnsList.Add("AircraftAmount", "客机净增数(子)");
-            //            columnsList.Add("AircraftAmount1", "客机净增数(子)");
-            //            columnsList.Add("SeatAmount", "座位净增数(子)");
-            //            columnsList.Add("SeatAmount1", "座位净增数");
-            //            columnsList.Add("LoadAmount", "商载净增量(子)");
-            //            columnsList.Add("LoadAmount1", "商载净增量");
-            //            _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAircraftTrendBarCollection, "SubFleetTrendPnr");
-            //        }
-            //        else
-            //        {
-            //            //创建RadGridView
-            //            var columnsList = new Dictionary<string, string>();
-            //            columnsList.Add("DateTime", "时间点");
-            //            columnsList.Add("AircraftAmount1", "客机净增数");
-            //            columnsList.Add("SeatAmount1", "座位净增数");
-            //            columnsList.Add("LoadAmount1", "商载净增量");
-            //            _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAircraftTrendBarCollection, "FleetTrendPnr");
-            //        }
-            //        _i = 1;
-            //        _exportRadGridView.ElementExporting -= ElementExporting;
-            //        _exportRadGridView.ElementExporting += ElementExporting;
-            //        using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc"))
-            //        {
-            //            if (stream != null)
-            //            {
-            //                _exportRadGridView.Export(stream, ImageAndGridOperation.SetGridViewExportOptions());
-            //            }
-            //        }
-            //    }
-            //    else if (radMenuItem.Name.Equals("AircraftPieGridData", StringComparison.OrdinalIgnoreCase))
-            //    {
-            //        if (FleetAircraftCollection == null || !FleetAircraftCollection.Any())
-            //        {
-            //            return;
-            //        }
+                    //}
+                }
+                else if (radMenuItem.Name.Equals("BarGridData", StringComparison.OrdinalIgnoreCase))
+                {
+                    //if (CurrentAirlines.SubAirlines != null && CurrentAirlines.SubAirlines.Any(p => p.SubType == 1))
+                    //{
+                    //    //当包含子公司时
+                    //    var columnsList = new Dictionary<string, string>
+                    //                      {
+                    //                          {"DateTime", "时间点"},
+                    //                          {"AircraftAmount", "客机净增数(子)"},
+                    //                          {"AircraftAmount1", "客机净增数(子)"},
+                    //                          {"SeatAmount", "座位净增数(子)"},
+                    //                          {"SeatAmount1", "座位净增数"},
+                    //                          {"LoadAmount", "商载净增量(子)"},
+                    //                          {"LoadAmount1", "商载净增量"}
+                    //                      };
+                    //    _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAircraftTrendBarCollection, "SubFleetTrendPnr");
+                    //}
+                    //else
+                    //{
+                    //    //创建RadGridView
+                    //    var columnsList = new Dictionary<string, string>
+                    //                      {
+                    //                          {"DateTime", "时间点"},
+                    //                          {"AircraftAmount1", "客机净增数"},
+                    //                          {"SeatAmount1", "座位净增数"},
+                    //                          {"LoadAmount1", "商载净增量"}
+                    //                      };
+                    //    _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAircraftTrendBarCollection, "FleetTrendPnr");
+                    //}
+                    _i = 1;
+                    _exportRadGridView.ElementExporting -= ElementExporting;
+                    _exportRadGridView.ElementExporting += ElementExporting;
+                    using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc"))
+                    {
+                        if (stream != null)
+                        {
+                            _exportRadGridView.Export(stream, ImageAndGridOperation.SetGridViewExportOptions());
+                        }
+                    }
+                }
+                else if (radMenuItem.Name.Equals("AircraftPieGridData", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (FleetAircraftCollection == null || !FleetAircraftCollection.Any())
+                    {
+                        return;
+                    }
 
-            //        //创建RadGridView
-            //        var columnsList = new Dictionary<string, string>();
-            //        columnsList.Add("Aircraft", "航空公司");
-            //        columnsList.Add("Amount", "飞机数（架）");
-            //        _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAircraftCollection, "PieFleetTrend");
+                    //创建RadGridView
+                    var columnsList = new Dictionary<string, string> {{"Aircraft", "航空公司"}, {"Amount", "飞机数（架）"}};
+                    _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAircraftCollection, "PieFleetTrend");
 
-            //        _i = 1;
-            //        _exportRadGridView.ElementExporting -= ElementExporting;
-            //        _exportRadGridView.ElementExporting += ElementExporting;
-            //        using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.xlsx)|*.xlsx|文档文件(*.doc)|*.doc"))
-            //        {
-            //            if (stream != null)
-            //            {
-            //                _exportRadGridView.Export(stream, ImageAndGridOperation.SetGridViewExportOptions());
-            //            }
-            //        }
-            //    }
-            //    else if (radMenuItem.Name.Equals("SeatPieGridData", StringComparison.OrdinalIgnoreCase))
-            //    {
-            //        if (FleetSeatCollection == null || !FleetSeatCollection.Any())
-            //        {
-            //            return;
-            //        }
+                    _i = 1;
+                    _exportRadGridView.ElementExporting -= ElementExporting;
+                    _exportRadGridView.ElementExporting += ElementExporting;
+                    using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.xlsx)|*.xlsx|文档文件(*.doc)|*.doc"))
+                    {
+                        if (stream != null)
+                        {
+                            _exportRadGridView.Export(stream, ImageAndGridOperation.SetGridViewExportOptions());
+                        }
+                    }
+                }
+                else if (radMenuItem.Name.Equals("SeatPieGridData", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (FleetSeatCollection == null || !FleetSeatCollection.Any())
+                    {
+                        return;
+                    }
 
-            //        //创建RadGridView
-            //        var columnsList = new Dictionary<string, string>();
-            //        columnsList.Add("Aircraft", "航空公司");
-            //        columnsList.Add("Amount", "座位数");
-            //        _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetSeatCollection, "PieFleetTrend");
+                    //创建RadGridView
+                    var columnsList = new Dictionary<string, string> {{"Aircraft", "航空公司"}, {"Amount", "座位数"}};
+                    _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetSeatCollection, "PieFleetTrend");
 
-            //        _i = 1;
-            //        _exportRadGridView.ElementExporting -= ElementExporting;
-            //        _exportRadGridView.ElementExporting += ElementExporting;
-            //        using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc"))
-            //        {
-            //            if (stream != null)
-            //            {
-            //                _exportRadGridView.Export(stream, ImageAndGridOperation.SetGridViewExportOptions());
-            //            }
-            //        }
-            //    }
-            //    else if (radMenuItem.Name.Equals("LoadPieGridData", StringComparison.OrdinalIgnoreCase))
-            //    {
-            //        if (FleetLoadCollection == null || !FleetLoadCollection.Any())
-            //        {
-            //            return;
-            //        }
+                    _i = 1;
+                    _exportRadGridView.ElementExporting -= ElementExporting;
+                    _exportRadGridView.ElementExporting += ElementExporting;
+                    using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc"))
+                    {
+                        if (stream != null)
+                        {
+                            _exportRadGridView.Export(stream, ImageAndGridOperation.SetGridViewExportOptions());
+                        }
+                    }
+                }
+                else if (radMenuItem.Name.Equals("LoadPieGridData", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (FleetLoadCollection == null || !FleetLoadCollection.Any())
+                    {
+                        return;
+                    }
 
-            //        //创建RadGridView
-            //        var columnsList = new Dictionary<string, string>();
-            //        columnsList.Add("Aircraft", "航空公司");
-            //        columnsList.Add("Amount", "商载量（吨）");
-            //        _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetLoadCollection, "PieFleetTrend");
+                    //创建RadGridView
+                    var columnsList = new Dictionary<string, string> {{"Aircraft", "航空公司"}, {"Amount", "商载量（吨）"}};
+                    _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetLoadCollection, "PieFleetTrend");
 
-            //        _i = 1;
-            //        _exportRadGridView.ElementExporting -= ElementExporting;
-            //        _exportRadGridView.ElementExporting += ElementExporting;
-            //        using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc"))
-            //        {
-            //            if (stream != null)
-            //            {
-            //                _exportRadGridView.Export(stream, ImageAndGridOperation.SetGridViewExportOptions());
-            //            }
-            //        }
-            //    }
-            //}
-            //else if (radMenuItem != null && radMenuItem.Header.ToString().Equals("导出图片", StringComparison.OrdinalIgnoreCase))
-            //{
-            //    switch (radMenuItem.Name)
-            //    {
-            //        case "LineGridImage":
-            //        case "BarGridImage":
-            //            if (_lineGrid != null)
-            //            {
-            //                _commonMethod.ExportToImage(_lineGrid.Parent as Grid);
-            //            }
-            //            break;
-            //        case "AircraftPieGridImage":
-            //            if (_aircraftPieGrid != null)
-            //            {
-            //                _commonMethod.ExportToImage(_aircraftPieGrid);
-            //            }
-            //            break;
-            //        case "SeatPieGridImage":
-            //            if (_seatPieGrid != null)
-            //            {
-            //                _commonMethod.ExportToImage(_seatPieGrid);
-            //            }
-            //            break;
-            //        case "LoadPieGridImage":
-            //            if (_loadPieGrid != null)
-            //            {
-            //                _commonMethod.ExportToImage(_loadPieGrid);
-            //            }
-            //            break;
-            //    }
-            //}
+                    _i = 1;
+                    _exportRadGridView.ElementExporting -= ElementExporting;
+                    _exportRadGridView.ElementExporting += ElementExporting;
+                    using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc"))
+                    {
+                        if (stream != null)
+                        {
+                            _exportRadGridView.Export(stream, ImageAndGridOperation.SetGridViewExportOptions());
+                        }
+                    }
+                }
+            }
+            else if (radMenuItem != null && radMenuItem.Header.ToString().Equals("导出图片", StringComparison.OrdinalIgnoreCase))
+            {
+                switch (radMenuItem.Name)
+                {
+                    case "LineGridImage":
+                    case "BarGridImage":
+                        if (_lineGrid != null)
+                        {
+                            _commonMethod.ExportToImage(_lineGrid.Parent as Grid);
+                        }
+                        break;
+                    case "AircraftPieGridImage":
+                        if (_aircraftPieGrid != null)
+                        {
+                            _commonMethod.ExportToImage(_aircraftPieGrid);
+                        }
+                        break;
+                    case "SeatPieGridImage":
+                        if (_seatPieGrid != null)
+                        {
+                            _commonMethod.ExportToImage(_seatPieGrid);
+                        }
+                        break;
+                    case "LoadPieGridImage":
+                        if (_loadPieGrid != null)
+                        {
+                            _commonMethod.ExportToImage(_loadPieGrid);
+                        }
+                        break;
+                }
+            }
         }
 
         /// <summary>
@@ -1586,7 +1589,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
         }
 
-        private bool CanExportGridView(object sender)
+        private const bool _canExportGridView = true;
+
+        bool CanExportGridView(object sender)
         {
             return _canExportGridView;
         }
@@ -1621,9 +1626,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         }
                         foreach (var item in ienumerable)
                         {
-                            var setter = new Setter();
-                            setter.Property = Shape.FillProperty;
-                            setter.Value = item.Color;
+                            var setter = new Setter {Property = Shape.FillProperty, Value = item.Color};
                             var style = new Style {TargetType = typeof (System.Windows.Shapes.Path)};
                             style.Setters.Add(setter);
                             radPieChart.Series[0].SliceStyles.Add(style);
@@ -1632,19 +1635,19 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                             barPanel.MouseLeftButtonDown += PiePanelMouseLeftButtonDown;
                             barPanel.Orientation = Orientation.Horizontal;
                             var rectangle = new Rectangle
-                            {
-                                Width = 15,
-                                Height = 15,
-                                Fill =
-                                    new SolidColorBrush(_commonMethod.GetColor(item.Color))
-                            };
+                                            {
+                                                Width = 15,
+                                                Height = 15,
+                                                Fill =
+                                                    new SolidColorBrush(_commonMethod.GetColor(item.Color))
+                                            };
                             var textBlock = new TextBlock
-                            {
-                                Text = item.Aircraft,
+                                            {
+                                                Text = item.Aircraft,
                                 Style = CurrentPassengerAircraftTrend.Resources.FirstOrDefault(
                                     p => p.Key.ToString().Equals("legendItemStyle", StringComparison.OrdinalIgnoreCase))
                                     .Value as Style
-                            };
+                                            };
                             barPanel.Children.Add(rectangle);
                             barPanel.Children.Add(textBlock);
                             stackPanel.Children.Add(barPanel);
@@ -1830,10 +1833,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             if (chartSelectionBehavior != null)
             {
                 DataPoint selectedPoint = chartSelectionBehavior.Chart.SelectedPoints.FirstOrDefault(point =>
-                {
-                    var categoricalSeries = point.Presenter as CategoricalSeries;
-                    return categoricalSeries != null && categoricalSeries.Visibility == Visibility.Visible;
-                });
+                                                                                                     {
+                                                                                                         var categoricalSeries = point.Presenter as CategoricalSeries;
+                                                                                                         return categoricalSeries != null && categoricalSeries.Visibility == Visibility.Visible;
+                                                                                                     });
                 if (selectedPoint != null)
                 {
                     var fleetAircraftTrend = selectedPoint.DataItem as FleetAircraftTrend;
@@ -1911,11 +1914,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                         foreach (XElement item in type.Descendants("Item"))
                                         {
                                             var fleetAircraft = new FleetAircraft
-                                            {
+                                                                {
                                                 Aircraft = item.Attribute("Name").Value,
                                                 Amount = Convert.ToDecimal(item.Value),
                                                 ToolTip = item.Value + " 架,占 " + item.Attribute("Percent").Value
-                                            };
+                                                                };
                                             if (airlineColor != null)
                                             {
                                                 var firstOrDefault =
@@ -1941,11 +1944,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                         foreach (XElement item in type.Descendants("Item"))
                                         {
                                             var fleetAircraft = new FleetAircraft
-                                            {
-                                                Aircraft = item.Attribute("Name").Value,
-                                                Amount = Convert.ToDecimal(item.Value),
+                                                                {
+                                                                    Aircraft = item.Attribute("Name").Value,
+                                                                    Amount = Convert.ToDecimal(item.Value),
                                                 ToolTip = item.Value + " 座,占 " + item.Attribute("Percent").Value
-                                            };
+                                                                };
                                             if (airlineColor != null)
                                             {
                                                 var firstOrDefault =
@@ -1971,11 +1974,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                         foreach (XElement item in type.Descendants("Item"))
                                         {
                                             var fleetAircraft = new FleetAircraft
-                                            {
+                                                                {
                                                 Aircraft = item.Attribute("Name").Value,
                                                 Amount = Convert.ToDecimal(item.Value),
                                                 ToolTip = item.Value + " 吨,占 " + item.Attribute("Percent").Value
-                                            };
+                                                                };
                                             if (airlineColor != null)
                                             {
                                                 var firstOrDefault =
@@ -2141,8 +2144,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                         }
                                         else if (itemRectangle != null)
                                         {
-                                            itemRectangle.Width = 12;
-                                            itemRectangle.Height = 12;
+                                                itemRectangle.Width = 12;
+                                                itemRectangle.Height = 12;
                                         }
                                     }
                                     else if (itemRectangle != null)
@@ -2347,9 +2350,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public class FleetAircraft
         {
             public FleetAircraft()
-            {
+        {
                 Color = new CommonMethod().GetRandomColor();
-            }
+        }
 
             public string Aircraft { get; set; } //航空公司的名称
             public decimal Amount { get; set; } //分布的计数
@@ -2361,7 +2364,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         ///     趋势图的对象
         /// </summary>
         public class FleetAircraftTrend
-        {
+            {
             public string Aircraft { get; set; } //飞机相关的名称
             public string DateTime { get; set; } //时间点
             public int AircraftAmount { get; set; } //飞机数的总数（子）

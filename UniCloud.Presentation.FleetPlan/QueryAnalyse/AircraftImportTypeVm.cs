@@ -502,7 +502,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             IsBusy = true;
             XmlConfigs.Load(true);
             XmlSettings.Load(true);
-            //Aircrafts.Load(true);
+            Aircrafts.Load(true);
         }
 
         #region ViewModel 属性 Zoom --滚动条的对应
@@ -598,10 +598,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                             if (radCartesianChartRoot != null) radCartesianChartRoot.Series.Add(line);
 
                             var panel = new StackPanel
-                            {
-                                Margin = new Thickness(5, 5, 5, 5),
-                                Orientation = Orientation.Horizontal
-                            };
+                                {
+                                    Margin = new Thickness(5, 5, 5, 5),
+                                    Orientation = Orientation.Horizontal
+                                };
                             var importTypeTrend = groupItem.FirstOrDefault();
                             if (importTypeTrend != null)
                                 panel.Background = new SolidColorBrush(Commonmethod.GetColor(importTypeTrend.Color));
@@ -675,21 +675,21 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                             barPanel.MouseLeftButtonDown += PiePanelMouseLeftButtonDown;
                             barPanel.Orientation = Orientation.Horizontal;
                             var rectangle = new Rectangle
-                            {
-                                Width = 15,
-                                Height = 15,
-                                Fill = new SolidColorBrush(Commonmethod.GetColor(item.Color))
-                            };
+                                            {
+                                                Width = 15,
+                                                Height = 15,
+                                                Fill = new SolidColorBrush(Commonmethod.GetColor(item.Color))
+                                            };
                             var textblock = new TextBlock
-                            {
-                                Text = item.ImportType,
+                                            {
+                                                Text = item.ImportType,
                                 Style =
                                     CurrentAircraftImportType.Resources.FirstOrDefault(
                                         p =>
                                             p.Key.ToString()
                                                 .Equals("legendItemStyle", StringComparison.OrdinalIgnoreCase)).Value as
                                         Style
-                            };
+                                            };
                             barPanel.Children.Add(rectangle);
                             barPanel.Children.Add(textblock);
                             stackPanel.Children.Add(barPanel);
@@ -949,13 +949,13 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     if (selectedPoint != null)
                     {
                         var childStackPanel = stackPanelRoot.Children.FirstOrDefault(p =>
-                        {
-                            var stackPanel = p as StackPanel;
+                                                               {
+                                                                   var stackPanel = p as StackPanel;
                             return stackPanel != null &&
                                    (stackPanel.Children[1] as TextBlock).Text.Equals(
                                        (selectedPoint.DataItem as FleetImportTypeComposition).ImportType,
                                        StringComparison.OrdinalIgnoreCase);
-                        }) as StackPanel;
+                                                               }) as StackPanel;
                         if (childStackPanel != null)
                         {
                             var rectangle = childStackPanel.Children[0] as Rectangle;
@@ -1112,12 +1112,12 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 {
                     //创建RadGridView
                     var columnsList = new Dictionary<string, string>
-                    {
-                        {"DateTime", "时间点"},
-                        {"ImportType", "飞机引进方式"},
-                        {"AirNum", "飞机数"},
-                        {"Amount", "期末飞机数"}
-                    };
+                                      {
+                                          {"DateTime", "时间点"},
+                                          {"ImportType", "飞机引进方式"},
+                                          {"AirNum", "飞机数"},
+                                          {"Amount", "期末飞机数"}
+                                      };
                     _exportRadgridview = ImageAndGridOperation.CreatDataGridView(columnsList,
                         FleetImportTypeTrendCollection, "LineImportType");
 
@@ -1462,13 +1462,13 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 return importType1.Contains(importType2);
             }
-            int index2 = importType2.IndexOf("续租", StringComparison.OrdinalIgnoreCase);
-            if (index2 >= -1)
-            {
-                return importType2.Contains(importType1);
-            }
-            return importType1.Equals(importType2, StringComparison.OrdinalIgnoreCase);
-        }
+                int index2 = importType2.IndexOf("续租", StringComparison.OrdinalIgnoreCase);
+                if (index2 >= -1)
+                {
+                    return importType2.Contains(importType1);
+                }
+                    return importType1.Equals(importType2, StringComparison.OrdinalIgnoreCase);
+                }
 
         /// <summary>
         ///     趋势图的选择点事件数据源
@@ -1476,9 +1476,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public void ChartSelectionBehaviorSelection(DateTime time)
         {
             var aircraft = Aircrafts
-                .Where(
-                    o => o.OperationHistories.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)));
-            //.Where(o => o.OperationHistories.FirstOrDefault(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)).ImportCategory.ActionType .Equals( "引进",StringComparison.OrdinalIgnoreCase));
+                .Where(o => o.OperationHistories.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)))
+                                    .Where(o => o.OperationHistories.FirstOrDefault(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)).ImportActionType.Equals("引进", StringComparison.OrdinalIgnoreCase));
 
             #region 飞机引进方式XML文件的读写
 
@@ -1561,20 +1560,20 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             if (selectedItem != null && radwindow != null)
             {
-                //var fleetImporttTypeComposition = selectedItem.DataItem as FleetImportTypeComposition;
-                //DateTime time = Convert.ToDateTime(SelectedTime).AddMonths(1).AddDays(-1);
-                //var aircraft = this.Aircrafts.Where(o => o.OperationHistories.Any(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time)))
-                //    .Where(o => o.OperationHistories.FirstOrDefault(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time)).ImportCategory.ActionType .Equals( "引进",StringComparison.OrdinalIgnoreCase));
-                //var airlineAircrafts = aircraft.Where(p => this.SameImportType(p.OperationHistories.
-                //    FirstOrDefault(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time)).ImportCategory.ActionName, fleetImporttTypeComposition.ImportType)).ToList();
-                ////找到子窗体的RadGridView，并为其赋值
-                //var rgv = radwindow.Content as RadGridView;
-                //rgv.ItemsSource = Commonmethod.GetAircraftByTime(airlineAircrafts, time);
-                //radwindow.Header = header + " " + fleetImporttTypeComposition.ImportType + "：" + fleetImporttTypeComposition.AirTt;
-                //if (!radwindow.IsOpen)
-                //{
-                //    Commonmethod.ShowRadWindow(radwindow);
-                //}
+                var fleetImporttTypeComposition = selectedItem.DataItem as FleetImportTypeComposition;
+                DateTime time = Convert.ToDateTime(SelectedTime).AddMonths(1).AddDays(-1);
+                var aircraft = Aircrafts.Where(o => o.OperationHistories.Any(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time)))
+                    .Where(o => o.OperationHistories.FirstOrDefault(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time)).ImportActionType.Equals("引进", StringComparison.OrdinalIgnoreCase));
+                var airlineAircrafts = aircraft.Where(p => SameImportType(p.OperationHistories.
+                    FirstOrDefault(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time)).ImportActionType, fleetImporttTypeComposition.ImportType)).ToList();
+                //找到子窗体的RadGridView，并为其赋值
+                var rgv = radwindow.Content as RadGridView;
+                rgv.ItemsSource = Commonmethod.GetAircraftByTime(airlineAircrafts, time);
+                radwindow.Header = header + " " + fleetImporttTypeComposition.ImportType + "：" + fleetImporttTypeComposition.AirTt;
+                if (!radwindow.IsOpen)
+                {
+                    Commonmethod.ShowRadWindow(radwindow);
+                }
             }
         }
 

@@ -55,11 +55,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
 
         #region 导航属性
 
-        /// <summary>
-        /// 商业数据历史
-        /// </summary>
-        public virtual AircraftBusiness AircraftBusiness { get; private set; }
-
         #endregion
 
         #region 操作
@@ -67,11 +62,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     设置商业数据历史
         /// </summary>
-        /// <param name="aircraftBusiness">商业数据历史</param>
-        public void SetAircraftBusiness(AircraftBusiness aircraftBusiness)
+        /// <param name="aircraftBusinessId">商业数据历史</param>
+        public void SetAircraftBusiness(Guid aircraftBusinessId)
         {
-            AircraftBusiness = aircraftBusiness;
-            AircraftBusinessId = aircraftBusiness.Id;
+            AircraftBusinessId = aircraftBusinessId;
         }
 
 

@@ -20,7 +20,6 @@ using System.Linq;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
-using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion

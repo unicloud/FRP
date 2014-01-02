@@ -98,17 +98,17 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             XmlConfigs = new QueryableDataServiceCollectionView<XmlConfigDTO>(_fleetPlanDataService,
                 _fleetPlanDataService.XmlConfigs);
             XmlConfigs.LoadedData += (o, e) =>
-            {
-                _loadXmlConfig = true;
-                InitializeData();
-            };
+                                     {
+                                         _loadXmlConfig = true;
+                                         InitializeData();
+                                     };
             XmlSettings = new QueryableDataServiceCollectionView<XmlSettingDTO>(_fleetPlanDataService,
                 _fleetPlanDataService.XmlSettings);
             XmlSettings.LoadedData += (o, e) =>
-            {
-                _loadXmlSetting = true;
-                InitializeData();
-            };
+                                      {
+                                          _loadXmlSetting = true;
+                                          InitializeData();
+                                      };
             Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_fleetPlanDataService,
                 _fleetPlanDataService.Aircrafts);
             //AircraftBusinesses=new QueryableDataServiceCollectionView<AircraftBusinessDTO>(_fleetPlanDataService,_fleetPlanDataService.aircr);
@@ -182,7 +182,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 _canPieDeploy = value;
                 RaisePropertyChanged(() => CanPieDeployBase);
-            }
+        }
         }
 
         #endregion
@@ -198,7 +198,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 _canExport = value;
                 RaisePropertyChanged(() => CanExportBase);
-            }
+        }
         }
 
         #endregion
@@ -214,7 +214,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 _canExportGridView = value;
                 RaisePropertyChanged(() => CanExportGridViewBase);
-            }
+        }
         }
 
         #endregion
@@ -795,9 +795,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                 Background = new SolidColorBrush(CommonMethod.GetColor(firstOrDefault.Color))
                             };
                             var checkBox = new CheckBox
-                            {
-                                IsChecked = line.DisplayName.Equals("所有机型", StringComparison.OrdinalIgnoreCase)
-                            };
+                                           {
+                                               IsChecked = line.DisplayName.Equals("所有机型", StringComparison.OrdinalIgnoreCase)
+                                           };
                             checkBox.Checked += CheckboxChecked;
                             checkBox.Unchecked += CheckboxUnchecked;
                             checkBox.Content = groupItem.Key;
@@ -1095,11 +1095,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     }
                     //创建RadGridView
                     var columnsList = new Dictionary<string, string>
-                    {
-                        {"DateTime", "时间点"},
-                        {"AircraftType", "机型"},
-                        {"AverageAge", "机型平均机龄"}
-                    };
+                        {
+                            {"DateTime", "时间点"},
+                            {"AircraftType", "机型"},
+                            {"AverageAge", "机型平均机龄"}
+                        };
                     _exportRadgridview = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAgeTrendCollection,
                         "LineAge");
                 }
@@ -1365,10 +1365,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         foreach (XElement type in datetime.Descendants("Type"))
                         {
                             var fleetageTrend = new FleetAgeTrend
-                            {
-                                AircraftType = type.Attribute("TypeName").Value,
-                                AverageAge = Math.Round(Convert.ToDouble(type.Attribute("Amount").Value), 4),
-                                DateTime = currentTime
+                                                {
+                                                    AircraftType = type.Attribute("TypeName").Value,
+                                                    AverageAge = Math.Round(Convert.ToDouble(type.Attribute("Amount").Value), 4),
+                                                    DateTime = currentTime
                             }; //折线图的总数对象
                             if (fleetageTrend.AircraftType.Equals("所有机型", StringComparison.OrdinalIgnoreCase))
                             {
@@ -1472,7 +1472,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         .FirstOrDefault(
                             p => p.Attribute("TypeName").Value.Equals("机龄", StringComparison.OrdinalIgnoreCase));
             }
-            var aircraftDtos = aircraft as AircraftDTO[] ?? aircraft.ToArray();
+            var aircraftDtos = aircraft.ToList();
             if (xmlConfig != null && aircraft != null && aircraftDtos.Any())
             {
                 XElement xelement = XElement.Parse(xmlConfig.ConfigContent);
@@ -1491,10 +1491,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     if (aircraftByAge != null && aircraftByAge.Any())
                     {
                         var ageComposition = new FleetAgeComposition
-                        {
-                            AgeGroup = item.Value,
-                            GroupCount = aircraftByAge.Count()
-                        };
+                                             {
+                                                 AgeGroup = item.Value,
+                                                 GroupCount = aircraftByAge.Count()
+                                             };
                         ageComposition.ToolTip = ageComposition.GroupCount + " 架，占" +
                                                  (aircraftByAge.Count()*100/aircraft.Count()).ToString("##0") + "%";
                         if (ageColor != null)
