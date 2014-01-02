@@ -166,8 +166,10 @@
                                     telerik:StyleManager.Theme="Windows8"
                                     Margin="5"
                                     HasDocumentHost="False">
+                    <telerik:RadSplitContainer Orientation="Vertical">
                     <telerik:RadSplitContainer InitialPosition="DockedTop"
-                                               Orientation="Horizontal">
+                                               Orientation="Horizontal"
+                                                   telerik:ProportionalStackPanel.RelativeSize="800, 600">
                         <telerik:RadPaneGroup>
                             <telerik:RadPane Header="机龄统计分析"
                                              FontSize="{StaticResource TextFontSize}"
@@ -282,7 +284,8 @@
                             </telerik:RadPane>
                         </telerik:RadPaneGroup>
                     </telerik:RadSplitContainer>
-                    <telerik:RadSplitContainer InitialPosition="DockedBottom">
+                    <telerik:RadSplitContainer InitialPosition="DockedBottom"
+                                                   telerik:ProportionalStackPanel.RelativeSize="800, 400">
                         <telerik:RadPaneGroup>
                             <telerik:RadPane Header="{Binding SelectedTimeAge}"
                                              FontSize="{StaticResource TextFontSize}"
@@ -413,32 +416,52 @@
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号" />
                                         <telerik:GridViewDataColumn Header="注册号"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding RegNumber}">
                                             <telerik:GridViewDataColumn.AggregateFunctions>
                                                 <telerik:CountFunction Caption="总计(架)：" />
 											</telerik:GridViewDataColumn.AggregateFunctions>
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="运营权人"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding AirlinesName}" />
                                         <telerik:GridViewDataColumn Header="所有权人"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding SupplierName}" />
                                         <telerik:GridViewDataColumn Header="制造商"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding ManufacturerName}" />
                                         <telerik:GridViewDataColumn Header="座级"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding Regional}" />
                                         <telerik:GridViewDataColumn Header="机型"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding AircraftTypeName}">
                                             <telerik:GridViewDataColumn.AggregateFunctions>
                                                 <telerik:CountFunction ResultFormatString="{}飞机数:{0}(架)" />
                                             </telerik:GridViewDataColumn.AggregateFunctions>
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="引进方式"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding ImportCategoryName}" />
                                         <telerik:GridViewDataColumn Header="出厂日期"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding FactoryDate, StringFormat={StaticResource DateStringFormat}}" />
                                         <telerik:GridViewDataColumn Header="座位数"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding SeatingCapacity}" />
                                         <telerik:GridViewDataColumn Header="商载（吨）"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
                                                                     DataMemberBinding="{Binding CarryingCapacity}" />
                                     </telerik:RadGridView.Columns>
                                     <telerik:RadGridView.GroupDescriptors>
@@ -449,6 +472,7 @@
                                 </telerik:RadGridView>
                             </telerik:RadPane>
                         </telerik:RadPaneGroup>
+                    </telerik:RadSplitContainer>
                     </telerik:RadSplitContainer>
                 </telerik:RadDocking>
             </Border>

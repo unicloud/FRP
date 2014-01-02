@@ -2,6 +2,7 @@
 // 
 //------------------------------------------------------------------------------
 
+using UniCloud.Application.FleetPlanBC;
 using UniCloud.Application.FleetPlanBC.ActionCategoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftCategoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftServices;
@@ -92,6 +93,7 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 //.UserCaching()
                 .CreateLog()
                 .Register<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .Register<IStaticLoad,StaticLoad>()
 
                 #region 活动类型相关配置，包括查询，应用服务，仓储注册
 

@@ -19,6 +19,7 @@
 
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Controls.DataServices;
+using UniCloud.Presentation.Service;
 
 #endregion
 
@@ -26,13 +27,16 @@ namespace UniCloud.Presentation.MVVM
 {
     public abstract class EditViewModelBase : ViewModelBase
     {
-        protected EditViewModelBase()
+        private readonly IService _service;
+
+        protected EditViewModelBase(IService service)
         {
+            _service = service;
             SaveCommand = new DelegateCommand<object>(OnSave, CanSave);
             AbortCommand = new DelegateCommand<object>(OnAbort, CanAbort);
-            if (Service != null)
+            if (_service != null)
             {
-                Service.PropertyChanged += (o, e) =>
+                _service.PropertyChanged += (o, e) =>
                 {
                     if (e.PropertyName == "HasChanges")
                     {
@@ -56,7 +60,7 @@ namespace UniCloud.Presentation.MVVM
                 {
                     return;
                 }
-                Service.SubmitChanges(collectionView, sm =>
+                _service.SubmitChanges(collectionView, sm =>
                 {
                     if (sm.Error == null)
                     {
@@ -65,7 +69,7 @@ namespace UniCloud.Presentation.MVVM
                     }
                     else
                     {
-                        MessageAlert("提示","保存失败，请检查！");
+                        MessageAlert("提示", "保存失败，请检查！");
                         OnSaveFail(collectionView);
                     }
                     RefreshCommandState();
@@ -73,7 +77,7 @@ namespace UniCloud.Presentation.MVVM
             }
             else
             {
-                Service.SubmitChanges(sm =>
+                _service.SubmitChanges(sm =>
                 {
                     if (sm.Error == null)
                     {
@@ -117,7 +121,7 @@ namespace UniCloud.Presentation.MVVM
 
         private bool CanSave(object sender)
         {
-            return Service != null && Service.HasChanges;
+            return _service != null && _service.HasChanges;
         }
 
         #endregion
@@ -140,13 +144,13 @@ namespace UniCloud.Presentation.MVVM
             {
                 var collectionView = sender as QueryableDataServiceCollectionViewBase;
                 OnAbortExecuting(collectionView); //取消前。
-                Service.RejectChanges(collectionView); //取消。
+                _service.RejectChanges(collectionView); //取消。
                 OnAbortExecuted(collectionView); //取消后。
             }
             else
             {
                 OnAbortExecuting(sender);
-                Service.RejectChanges();
+                _service.RejectChanges();
                 OnAbortExecuted(sender);
             }
         }
@@ -161,7 +165,7 @@ namespace UniCloud.Presentation.MVVM
 
         private bool CanAbort(object sender)
         {
-            return Service != null && Service.HasChanges;
+            return _service != null && _service.HasChanges;
         }
 
         #endregion

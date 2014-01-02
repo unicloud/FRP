@@ -17,10 +17,16 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.PlanAircraftQueries;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
+using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
 
@@ -33,10 +39,22 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
     public class PlanAircraftAppService : IPlanAircraftAppService
     {
         private readonly IPlanAircraftQuery _planAircraftQuery;
+        private readonly IAircraftRepository _aircraftRepository;
+        private readonly IAircraftTypeRepository _aircraftTypeRepository;
+        private readonly IAirlinesRepository _airlinesRepository;
+        private readonly IPlanAircraftRepository _planAircraftRepository;
 
-        public PlanAircraftAppService(IPlanAircraftQuery planAircraftQuery)
+        public PlanAircraftAppService(IPlanAircraftQuery planAircraftQuery,
+            IAircraftRepository aircraftRepository,
+            IAircraftTypeRepository aircraftTypeRepository,
+            IAirlinesRepository airlinesRepository,
+            IPlanAircraftRepository planAircraftRepository)
         {
             _planAircraftQuery = planAircraftQuery;
+            _aircraftRepository = aircraftRepository;
+            _aircraftTypeRepository = aircraftTypeRepository;
+            _airlinesRepository = airlinesRepository;
+            _planAircraftRepository = planAircraftRepository;
         }
 
         #region PlanAircraftDTO
@@ -52,6 +70,72 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
             return _planAircraftQuery.PlanAircraftDTOQuery(queryBuilder);
         }
 
+        /// <summary>
+        ///     新增计划飞机。
+        /// </summary>
+        /// <param name="dto">计划飞机DTO。</param>
+        [Insert(typeof(PlanAircraftDTO))]
+        public void InsertPlanAircraft(PlanAircraftDTO dto)
+        {
+            var aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId);
+            var airlines = _airlinesRepository.Get(dto.AirlinesId);
+
+            //创建计划飞机
+            var newPlanAircraft = PlanAircraftFactory.CreatePlanAircraft();
+            newPlanAircraft.SetAircraftType(aircraftType);
+            newPlanAircraft.SetAirlines(airlines);
+            newPlanAircraft.SetLock();
+            newPlanAircraft.SetOwn();
+            newPlanAircraft.SetManageStatus(ManageStatus.草稿);
+
+            _planAircraftRepository.Add(newPlanAircraft);
+        }
+
+        /// <summary>
+        ///     更新计划飞机。
+        /// </summary>
+        /// <param name="dto">计划飞机DTO。</param>
+        [Update(typeof(PlanAircraftDTO))]
+        public void ModifyPlanAircraft(PlanAircraftDTO dto)
+        {
+            var aircraft = _aircraftRepository.Get(dto.AircraftId);
+            var aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId);
+            var airlines = _airlinesRepository.Get(dto.AirlinesId);
+
+            //获取需要更新的对象
+            var updatePlanAircraft = _planAircraftRepository.Get(dto.Id);
+
+            if (updatePlanAircraft != null)
+            {
+                //更新主表：
+                updatePlanAircraft.SetAircraft(aircraft);
+                updatePlanAircraft.SetAircraftType(aircraftType);
+                updatePlanAircraft.SetAirlines(airlines);
+                updatePlanAircraft.SetLock();
+                updatePlanAircraft.SetOwn();
+                updatePlanAircraft.SetManageStatus((ManageStatus)dto.Status);
+            }
+            _planAircraftRepository.Modify(updatePlanAircraft);
+        }
+
+        /// <summary>
+        ///     删除计划飞机。
+        /// </summary>
+        /// <param name="dto">计划飞机DTO。</param>
+        [Delete(typeof(PlanAircraftDTO))]
+        public void DeletePlanAircraft(PlanAircraftDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+            var delPlanAircraft = _planAircraftRepository.Get(dto.Id);
+            //获取需要删除的对象。
+            if (delPlanAircraft != null)
+            {
+                _planAircraftRepository.Remove(delPlanAircraft); //删除计划飞机。
+            }
+        }
         #endregion
     }
 }

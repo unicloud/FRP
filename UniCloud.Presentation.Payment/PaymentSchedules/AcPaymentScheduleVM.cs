@@ -25,13 +25,11 @@ using System.Linq;
 using System.Windows;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Controls;
-using Telerik.Windows.Controls.DataServices;
 using Telerik.Windows.Controls.ScheduleView;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtension;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 
@@ -43,14 +41,17 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AcPaymentScheduleVM : EditViewModelBase
     {
-        private PaymentData _context;
+        private readonly PaymentData _context;
+        private readonly IPaymentService _service;
 
         /// <summary>
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public AcPaymentScheduleVM()
+        public AcPaymentScheduleVM(IPaymentService service) : base(service)
         {
+            _service = service;
+            _context = _service.Context;
             InitialContractAircraft(); // 初始化合同飞机信息。
             InitialAcPaymentSchedule(); //初始化付款计划
             InitialCommand(); //初始化命令
@@ -91,7 +92,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialContractAircraft()
         {
-            ContractAircraftsView = Service.CreateCollection(_context.ContractAircrafts);
+            ContractAircraftsView = _service.CreateCollection(_context.ContractAircrafts);
             ContractAircraftsView.PageSize = 20;
             ContractAircraftsView.LoadedData += (sender, e) =>
             {
@@ -154,7 +155,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         private void InitialAcPaymentSchedule()
         {
             AcPaymentSchedulesView =
-                Service.CreateCollection(_context.AcPaymentSchedules.Expand(p => p.PaymentScheduleLines));
+                _service.CreateCollection(_context.AcPaymentSchedules.Expand(p => p.PaymentScheduleLines));
             _paymnetFilterOperator = new FilterDescriptor("ContractAcId", FilterOperator.IsEqualTo, 0);
             AcPaymentSchedulesView.FilterDescriptors.Add(_paymnetFilterOperator);
             AcPaymentSchedulesView.LoadedData += (sender, e) =>
@@ -167,10 +168,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                 SelectedAcPaymentSchedule = e.Entities.Cast<AcPaymentScheduleDTO>().FirstOrDefault();
                 RefreshCommandState(); //刷新按钮状态
             };
-            AcPaymentSchedulesView.PropertyChanged += (s, o) =>
-            {
-                
-            };
+            AcPaymentSchedulesView.PropertyChanged += (s, o) => { };
         }
 
         /// <summary>
@@ -218,7 +216,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialCurrency()
         {
-            CurrencysView = Service.CreateCollection(_context.Currencies);
+            CurrencysView = _service.CreateCollection(_context.Currencies);
             CurrencysView.LoadedData += (sender, e) =>
             {
                 if (e.HasError)
@@ -600,7 +598,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                 if (appointment.RecurrenceRule != null)
                 {
                     var occurrenceAppointment = appointment.RecurrenceRule.Pattern.GetOccurrences(appointment.Start);
-                        //循环时间集合
+                    //循环时间集合
                     var occurrenceDateTiems = occurrenceAppointment as DateTime[] ?? occurrenceAppointment.ToArray();
                     var allPaymentAppointments = AppointmentConvertHelper.GetOccurrences(appointment,
                         occurrenceDateTiems); //所有循环的Appointment，包括当前Appointment
@@ -617,7 +615,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                 AppointmentToPaymentLineConvert(convertToPaymentLines);
                 RaisePropertyChanged(() => PaymentAppointmentCollection);
             }
-            RaisePropertyChanged(()=>SelectedAcPaymentSchedule.PaymentScheduleLines);
+            RaisePropertyChanged(() => SelectedAcPaymentSchedule.PaymentScheduleLines);
         }
 
         public void PaymentScheduleView_OnLoaded(object sender, RoutedEventArgs e)
@@ -651,12 +649,6 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         #endregion
 
         #region 重载基类服务
-
-        protected override IService CreateService()
-        {
-            _context = new PaymentData(AgentHelper.PaymentUri);
-            return new PaymentService(_context);
-        }
 
         public override void LoadData()
         {

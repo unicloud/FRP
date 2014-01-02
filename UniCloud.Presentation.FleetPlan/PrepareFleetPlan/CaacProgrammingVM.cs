@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,20 +11,19 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
 using System.ComponentModel.Composition;
-using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
@@ -32,23 +32,24 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof(CaacProgrammingVM))]
+    [Export(typeof (CaacProgrammingVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class CaacProgrammingVM : EditViewModelBase
     {
         #region 声明、初始化
 
+        private readonly FleetPlanData _context;
         private readonly IRegionManager _regionManager;
-        private FleetPlanData _context;
+        private readonly IFleetPlanService _service;
+        [Import] public DocumentViewer DocumentView;
         private DocumentDTO _document = new DocumentDTO();
 
-        [Import]
-        public DocumentViewer DocumentView;
-
         [ImportingConstructor]
-        public CaacProgrammingVM(IRegionManager regionManager)
+        public CaacProgrammingVM(IRegionManager regionManager, IFleetPlanService service) : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
             InitializeVM();
             InitializerCommand();
         }
@@ -61,23 +62,15 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            CaacProgrammings = Service.CreateCollection(_context.CaacProgrammings,
-                (o, p, c) =>
-                {
-                    foreach (var caacProgramming in from object item in o select item as CaacProgrammingDTO)
-                    {
-                        caacProgramming.CaacProgrammingLines.CollectionChanged += c;
-                        caacProgramming.CaacProgrammingLines.ToList().ForEach(ol => ol.PropertyChanged += p);
-                    }
-                });
-            Service.RegisterCollectionView(CaacProgrammings);
+            CaacProgrammings = _service.CreateCollection(_context.CaacProgrammings, o => o.CaacProgrammingLines);
+            _service.RegisterCollectionView(CaacProgrammings);
 
             Programmings = new QueryableDataServiceCollectionView<ProgrammingDTO>(_context, _context.Programmings);
 
-            AircraftCategories = new QueryableDataServiceCollectionView<AircraftCategoryDTO>(_context, _context.AircraftCategories);
-            
-            Managers = new QueryableDataServiceCollectionView<ManagerDTO>(_context, _context.Managers);
+            AircraftCategories = new QueryableDataServiceCollectionView<AircraftCategoryDTO>(_context,
+                _context.AircraftCategories);
 
+            Managers = new QueryableDataServiceCollectionView<ManagerDTO>(_context, _context.Managers);
         }
 
         /// <summary>
@@ -89,15 +82,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
             AddEntityCommand = new DelegateCommand<object>(OnAddEntity, CanAddEntity);
             RemoveEntityCommand = new DelegateCommand<object>(OnRemoveEntity, CanRemoveEntity);
-        }
-
-        /// <summary>
-        ///     创建服务实例
-        /// </summary>
-        protected override IService CreateService()
-        {
-            _context = new FleetPlanData(AgentHelper.FleetPlanServiceUri);
-            return new FleetPlanService(_context);
         }
 
         #endregion
@@ -168,17 +152,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private CaacProgrammingDTO _selCaacProgramming;
 
         /// <summary>
-        /// 选择的规划
+        ///     选择的规划
         /// </summary>
         public CaacProgrammingDTO SelCaacProgramming
         {
-            get { return this._selCaacProgramming; }
+            get { return _selCaacProgramming; }
             private set
             {
-                if (this._selCaacProgramming != value)
+                if (_selCaacProgramming != value)
                 {
                     _selCaacProgramming = value;
-                    this.RaisePropertyChanged(() => this.SelCaacProgramming);
+                    RaisePropertyChanged(() => SelCaacProgramming);
                     // 刷新按钮状态
                     RefreshCommandState();
                 }
@@ -192,17 +176,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private CaacProgrammingLineDTO _selCaacProgrammingLine;
 
         /// <summary>
-        /// 选择的规划明细
+        ///     选择的规划明细
         /// </summary>
         public CaacProgrammingLineDTO SelCaacProgrammingLine
         {
-            get { return this._selCaacProgrammingLine; }
+            get { return _selCaacProgrammingLine; }
             private set
             {
-                if (this._selCaacProgrammingLine != value)
+                if (_selCaacProgrammingLine != value)
                 {
                     _selCaacProgrammingLine = value;
-                    this.RaisePropertyChanged(() => this.SelCaacProgrammingLine);
+                    RaisePropertyChanged(() => SelCaacProgrammingLine);
 
                     // 刷新按钮状态
                     RefreshCommandState();
@@ -327,6 +311,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #endregion
 
         #region 添加附件
+
         protected override void OnAddAttach(object sender)
         {
             DocumentView.ViewModel.InitData(false, _selCaacProgramming.DocumentId, DocumentViewerClosed);
@@ -347,9 +332,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 SelCaacProgramming.DocName = _document.Name;
             }
         }
+
         #endregion
 
         #region 查看附件
+
         protected override void OnViewAttach(object sender)
         {
             if (SelCaacProgramming == null)
@@ -359,11 +346,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             }
             DocumentView.ViewModel.InitData(true, _selCaacProgramming.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
-
         }
+
         #endregion
 
         #endregion
     }
-
 }

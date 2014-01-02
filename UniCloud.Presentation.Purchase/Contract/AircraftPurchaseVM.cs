@@ -27,7 +27,6 @@ using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
@@ -43,17 +42,20 @@ namespace UniCloud.Presentation.Purchase.Contract
     {
         #region 声明、初始化
 
+        private readonly PurchaseData _context;
         private readonly IRegionManager _regionManager;
-        private PurchaseData _context;
+        private readonly IPurchaseService _service;
         private DocumentDTO _document = new DocumentDTO();
         private bool _isAttach;
         private FilterDescriptor _orderDescriptor;
         private FilterDescriptor _tradeDescriptor;
 
         [ImportingConstructor]
-        public AircraftPurchaseVM(IRegionManager regionManager)
+        public AircraftPurchaseVM(IRegionManager regionManager, IPurchaseService service) : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
 
             AddTradeCommand = new DelegateCommand<object>(OnAddTrade, CanAddTrade);
             RemoveTradeCommand = new DelegateCommand<object>(OnRemoveTrade, CanRemoveTrade);
@@ -78,44 +80,17 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         private void InitializeVM()
         {
-            ViewTradeDTO = Service.CreateCollection(_context.Trades);
+            ViewTradeDTO = _service.CreateCollection(_context.Trades);
             _tradeDescriptor = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
             ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor);
-            Service.RegisterCollectionView(ViewTradeDTO);
+            _service.RegisterCollectionView(ViewTradeDTO);
 
-            ViewAircraftPurchaseOrderDTO = Service.CreateCollection(
+            ViewAircraftPurchaseOrderDTO = _service.CreateCollection(
                 _context.AircraftPurchaseOrders.Expand(p => p.RelatedDocs),
-                (o, p, c) =>
-                {
-                    foreach (var order in from object item in o select item as AircraftPurchaseOrderDTO)
-                    {
-                        order.AircraftPurchaseOrderLines.CollectionChanged += c;
-                        order.AircraftPurchaseOrderLines.ToList().ForEach(ol => ol.PropertyChanged += p);
-                        order.RelatedDocs.CollectionChanged += c;
-                        order.RelatedDocs.ToList().ForEach(doc => doc.PropertyChanged += p);
-                        order.ContractContents.CollectionChanged += c;
-                        order.ContractContents.ToList().ForEach(content => content.PropertyChanged += p);
-                    }
-                });
+                o => o.AircraftPurchaseOrderLines, o => o.RelatedDocs, o => o.ContractContents);
             _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
             ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
-            Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
-
-
-            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
-            Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context, _context.Currencies);
-            Linkmen = new QueryableDataServiceCollectionView<LinkmanDTO>(_context, _context.Linkmans);
-            AircraftMaterials = new QueryableDataServiceCollectionView<SupplierCompanyAcMaterialDTO>(_context,
-                _context.SupplierCompanyAcMaterials);
-        }
-
-        /// <summary>
-        ///     创建服务实例
-        /// </summary>
-        protected override IService CreateService()
-        {
-            _context = new PurchaseData(AgentHelper.PurchaseUri);
-            return new PurchaseService(_context);
+            _service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
         }
 
         #endregion
@@ -181,10 +156,10 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             ViewTradeDTO.AutoLoad = true;
 
-            Suppliers.Load();
-            Currencies.Load();
-            Linkmen.Load();
-            AircraftMaterials.Load();
+            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
+            Currencies = _service.GetCurrency(() => RaisePropertyChanged(() => Currencies));
+            Linkmen = _service.GetLinkman(() => RaisePropertyChanged(() => Linkmen));
+            AircraftMaterials = _service.GetAircraftMaterial(() => RaisePropertyChanged(() => AircraftMaterials));
         }
 
         #region 交易

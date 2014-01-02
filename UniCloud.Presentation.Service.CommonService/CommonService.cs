@@ -15,20 +15,31 @@
 
 #endregion
 
-
 #region 命名空间
 
-using System.Data.Services.Client;
+using System.ComponentModel.Composition;
+using UniCloud.Presentation.Service.CommonService.Common;
 
 #endregion
 
 namespace UniCloud.Presentation.Service.CommonService
 {
+    [Export(typeof (ICommonService))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class CommonService : ServiceBase, ICommonService
     {
-        public CommonService(DataServiceContext context)
-            : base(context)
+        public CommonService()
         {
+            context = new CommonServiceData(AgentHelper.CommonServiceUri);
         }
+
+        #region ICommonService 成员
+
+        public CommonServiceData Context
+        {
+            get { return context as CommonServiceData; }
+        }
+
+        #endregion
     }
 }

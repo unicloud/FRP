@@ -1,21 +1,16 @@
 ﻿#region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media;
-using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ScheduleView;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
-using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
@@ -24,22 +19,25 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export(typeof(AircraftPurchaseReceptionManagerVM))]
+    [Export(typeof (AircraftPurchaseReceptionManagerVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AircraftPurchaseReceptionManagerVM : ReceptionVm
     {
         #region 声明、初始化
 
-        private readonly IRegionManager _regionManager;
+        private readonly PurchaseData _context;
         private readonly DocumentDTO _document = new DocumentDTO();
-
-        [Import]
-        public DocumentViewer DocumentView;
+        private readonly IRegionManager _regionManager;
+        private readonly IPurchaseService _service;
+        [Import] public DocumentViewer DocumentView;
 
         [ImportingConstructor]
-        public AircraftPurchaseReceptionManagerVM(IRegionManager regionManager)
+        public AircraftPurchaseReceptionManagerVM(IRegionManager regionManager, IPurchaseService service)
+            : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
             InitializeVM();
             InitializerCommand();
         }
@@ -52,11 +50,14 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         private void InitializeVM()
         {
+            PurchaseContractAircrafts =
+                new QueryableDataServiceCollectionView<PurchaseContractAircraftDTO>(_context,
+                    _context.PurchaseContractAircrafts);
 
-            PurchaseContractAircrafts = new QueryableDataServiceCollectionView<PurchaseContractAircraftDTO>(PurchaseDataService, PurchaseDataService.PurchaseContractAircrafts);
-
-            AircraftPurchaseReceptions = Service.CreateCollection<AircraftPurchaseReceptionDTO>(PurchaseDataService.AircraftPurchaseReceptions.Expand(p => p.RelatedDocs));
-            Service.RegisterCollectionView(AircraftPurchaseReceptions); //注册查询集合。
+            AircraftPurchaseReceptions =
+                _service.CreateCollection<AircraftPurchaseReceptionDTO>(
+                    _context.AircraftPurchaseReceptions.Expand(p => p.RelatedDocs));
+            _service.RegisterCollectionView(AircraftPurchaseReceptions); //注册查询集合。
         }
 
         /// <summary>
@@ -77,17 +78,17 @@ namespace UniCloud.Presentation.Purchase.Reception
         private bool _canEdit = true;
 
         /// <summary>
-        /// Rank号是否可编辑
+        ///     Rank号是否可编辑
         /// </summary>
         public bool CanEdit
         {
-            get { return this._canEdit; }
+            get { return _canEdit; }
             private set
             {
-                if (this._canEdit != value)
+                if (_canEdit != value)
                 {
                     _canEdit = value;
-                    this.RaisePropertyChanged(() => this.CanEdit);
+                    RaisePropertyChanged(() => CanEdit);
                 }
             }
         }
@@ -115,6 +116,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         #region 业务
 
         #region 购买飞机接收项目集合
+
         /// <summary>
         ///     购买飞机接收项目集合
         /// </summary>
@@ -123,29 +125,31 @@ namespace UniCloud.Presentation.Purchase.Reception
         #endregion
 
         #region 购买合同飞机集合
+
+        private ObservableCollection<PurchaseContractAircraftDTO> _viewContractAircrafts =
+            new ObservableCollection<PurchaseContractAircraftDTO>();
+
         /// <summary>
         ///     所有购买合同飞机集合
         /// </summary>
         public QueryableDataServiceCollectionView<PurchaseContractAircraftDTO> PurchaseContractAircrafts { get; set; }
 
-
-        private ObservableCollection<PurchaseContractAircraftDTO> _viewContractAircrafts = new ObservableCollection<PurchaseContractAircraftDTO>();
-
         /// <summary>
-        /// 购买合同飞机集合,用于界面绑定
+        ///     购买合同飞机集合,用于界面绑定
         /// </summary>
         public ObservableCollection<PurchaseContractAircraftDTO> ViewPurchaseContractAircrafts
         {
-            get { return this._viewContractAircrafts; }
+            get { return _viewContractAircrafts; }
             set
             {
-                if (this._viewContractAircrafts != value)
+                if (_viewContractAircrafts != value)
                 {
                     _viewContractAircrafts = value;
-                    this.RaisePropertyChanged(() => this.ViewPurchaseContractAircrafts);
+                    RaisePropertyChanged(() => ViewPurchaseContractAircrafts);
                 }
             }
         }
+
         #endregion
 
         #region 选择的接收项目
@@ -165,7 +169,10 @@ namespace UniCloud.Presentation.Purchase.Reception
                     _selAircraftPurchaseReception = value;
                     RaisePropertyChanged(() => SelAircraftPurchaseReception);
 
-                    var viewPurchaseContractAircrafts = PurchaseContractAircrafts.Where(p => p.SupplierId == SelAircraftPurchaseReception.SupplierId && p.SerialNumber != null).ToList();
+                    var viewPurchaseContractAircrafts =
+                        PurchaseContractAircrafts.Where(
+                            p => p.SupplierId == SelAircraftPurchaseReception.SupplierId && p.SerialNumber != null)
+                            .ToList();
                     ViewPurchaseContractAircrafts.Clear();
                     foreach (var lca in viewPurchaseContractAircrafts)
                     {
@@ -225,7 +232,7 @@ namespace UniCloud.Presentation.Purchase.Reception
             get { return _appointments; }
             set
             {
-                if (this._appointments != value)
+                if (_appointments != value)
                 {
                     _appointments = value;
                     RaisePropertyChanged(() => Appointments);
@@ -290,15 +297,17 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             return _selAircraftPurchaseReception != null;
         }
+
         #endregion
 
         #region 新增接收行
+
         /// <summary>
         ///     新增接收行
         /// </summary>
         protected override void OnAddEntity(object obj)
         {
-            var receptionLine = new AircraftPurchaseReceptionLineDTO()
+            var receptionLine = new AircraftPurchaseReceptionLineDTO
             {
                 AircraftPurchaseReceptionLineId = RandomHelper.Next(),
                 ReceivedAmount = 1,
@@ -313,6 +322,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             return SelAircraftPurchaseReception != null;
         }
+
         #endregion
 
         #region 删除接收行
@@ -332,9 +342,11 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             return _selAircraftPurchaseReceptionLine != null;
         }
+
         #endregion
 
         #region 添加附件
+
         /// <summary>
         ///     添加附件
         /// </summary>
@@ -348,7 +360,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             if (DocumentView.Tag is DocumentDTO)
             {
-                var relatedDoc = new RelatedDocDTO()
+                var relatedDoc = new RelatedDocDTO
                 {
                     Id = RandomHelper.Next(),
                     SourceId = SelAircraftPurchaseReception.SourceId,
@@ -359,9 +371,11 @@ namespace UniCloud.Presentation.Purchase.Reception
                 SelAircraftPurchaseReception.RelatedDocs.Add(relatedDoc);
             }
         }
+
         #endregion
 
         #region 移除附件
+
         /// <summary>
         ///     移除附件
         /// </summary>
@@ -380,6 +394,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         #endregion
 
         #region 查看附件
+
         protected override void OnViewAttach(object sender)
         {
             var currentItem = sender as RelatedDocDTO;
@@ -391,11 +406,13 @@ namespace UniCloud.Presentation.Purchase.Reception
             DocumentView.ViewModel.InitData(true, currentItem.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
         }
+
         #endregion
 
         #region GridView单元格变更处理
+
         /// <summary>
-        /// GridView单元格变更处理
+        ///     GridView单元格变更处理
         /// </summary>
         /// <param name="sender"></param>
         protected override void OnCellEditEnd(object sender)
@@ -406,7 +423,10 @@ namespace UniCloud.Presentation.Purchase.Reception
                 var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "Supplier"))
                 {
-                    var viewPurchaseContractAircrafts = PurchaseContractAircrafts.Where(p => p.SupplierId == SelAircraftPurchaseReception.SupplierId && p.SerialNumber != null).ToList();
+                    var viewPurchaseContractAircrafts =
+                        PurchaseContractAircrafts.Where(
+                            p => p.SupplierId == SelAircraftPurchaseReception.SupplierId && p.SerialNumber != null)
+                            .ToList();
                     ViewPurchaseContractAircrafts.Clear();
                     foreach (var lca in viewPurchaseContractAircrafts)
                     {
@@ -429,7 +449,6 @@ namespace UniCloud.Presentation.Purchase.Reception
                 }
             }
         }
-
 
         #endregion
 
@@ -491,7 +510,6 @@ namespace UniCloud.Presentation.Purchase.Reception
                     }
                 }
             }
-
         }
 
         #endregion

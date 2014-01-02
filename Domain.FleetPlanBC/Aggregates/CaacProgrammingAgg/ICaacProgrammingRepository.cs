@@ -21,5 +21,16 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg
     /// </summary>
     public interface ICaacProgrammingRepository : IRepository<CaacProgramming>
     {
+        /// <summary>
+        /// 删除民航局五年规划
+        /// </summary>
+        /// <param name="caacProgramming"></param>
+        void DeleteCaacProgramming(CaacProgramming caacProgramming);
+
+        /// <summary>
+        /// 移除规划行
+        /// </summary>
+        /// <param name="line"></param>
+        void RemoveCaacProgrammingLine(CaacProgrammingLine line);
     }
 }

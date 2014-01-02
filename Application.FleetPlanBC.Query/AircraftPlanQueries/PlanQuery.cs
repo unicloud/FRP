@@ -84,7 +84,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                                     AircraftTypeName=q.AircraftType.Name,
                                     ActionType=q.ActionCategory.ActionType+":"+q.ActionCategory.ActionName,
                                     TargetType = q.TargetCategory.ActionName,
-                                    PerformTime=q.PerformAnnual.Year+"/"+q.PerformMonth,
+                                    Year = q.PerformAnnual.Year,
                                 })
                                 .Union(p.PlanHistories.OfType<ChangePlan>().Select(q => new PlanHistoryDTO
                                 {
@@ -109,7 +109,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                                     AircraftTypeName = q.AircraftType.Name,
                                     ActionType = q.ActionCategory.ActionType + ":" + q.ActionCategory.ActionName,
                                     TargetType = q.TargetCategory.ActionName,
-                                    PerformTime = q.PerformAnnual.Year + "/" + q.PerformMonth,
+                                    Year = q.PerformAnnual.Year,
                                 })
                                 ).ToList(),
             });

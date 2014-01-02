@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -23,7 +25,6 @@ using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
@@ -32,22 +33,24 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
-    [Export(typeof(ApuMaintainVm))]
+    [Export(typeof (ApuMaintainVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class ApuMaintainVm : EditViewModelBase
     {
         #region 声明、初始化
 
+        private readonly PurchaseData _context;
         private readonly IRegionManager _regionManager;
-        private PurchaseData _purchaseData;
+        private readonly IPurchaseService _service;
+        [Import] public DocumentViewer DocumentView;
         private DocumentDTO _document = new DocumentDTO();
-        [Import]
-        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
-        public ApuMaintainVm(IRegionManager regionManager)
+        public ApuMaintainVm(IRegionManager regionManager, IPurchaseService service) : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
             InitializeVm();
         }
 
@@ -60,8 +63,8 @@ namespace UniCloud.Presentation.Purchase.Contract
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            ApuMaintainContracts = Service.CreateCollection(_purchaseData.APUMaintainContracts);
-            Service.RegisterCollectionView(ApuMaintainContracts);
+            ApuMaintainContracts = _service.CreateCollection(_context.APUMaintainContracts);
+            _service.RegisterCollectionView(ApuMaintainContracts);
             ApuMaintainContracts.PropertyChanged += (sender, e) =>
             {
                 if (e.PropertyName == "IsAddingNew")
@@ -83,16 +86,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 }
             };
 
-            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_purchaseData, _purchaseData.Suppliers);
-        }
-
-        /// <summary>
-        ///     创建服务实例
-        /// </summary>
-        protected override IService CreateService()
-        {
-            _purchaseData = new PurchaseData(AgentHelper.PurchaseUri);
-            return new PurchaseService(_purchaseData);
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
         }
 
         #endregion
@@ -100,15 +94,17 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 数据
 
         #region 公共属性
+
+        /// <summary>
+        ///     文档名称
+        /// </summary>
+        private string _documentName;
+
         /// <summary>
         ///     供应商
         /// </summary>
         public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
 
-        /// <summary>
-        /// 文档名称
-        /// </summary>
-        private string _documentName;
         public string DocumentName
         {
             get { return _documentName; }
@@ -118,6 +114,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 RaisePropertyChanged("DocumentName");
             }
         }
+
         #endregion
 
         #region 加载数据
@@ -137,16 +134,19 @@ namespace UniCloud.Presentation.Purchase.Contract
             Suppliers.Load(true);
         }
 
-
         #region APU维修合同
+
+        private APUMaintainContractDTO _apuMaintainContract;
+
+        private bool _canSelectApuMaintain = true;
+
         /// <summary>
-        /// APU维修合同集合
+        ///     APU维修合同集合
         /// </summary>
         public QueryableDataServiceCollectionView<APUMaintainContractDTO> ApuMaintainContracts { get; set; }
 
-        private APUMaintainContractDTO _apuMaintainContract;
         /// <summary>
-        /// 选中的APU维修合同
+        ///     选中的APU维修合同
         /// </summary>
         public APUMaintainContractDTO ApuMaintainContract
         {
@@ -175,7 +175,6 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
         }
 
-        private bool _canSelectApuMaintain = true;
         //用户能否选择
         public bool CanSelectApuMaintain
         {
@@ -189,12 +188,15 @@ namespace UniCloud.Presentation.Purchase.Contract
                 }
             }
         }
+
         #endregion
 
         #region 签约对象
+
         private SupplierDTO _supplier;
+
         /// <summary>
-        /// 选中的签约对象
+        ///     选中的签约对象
         /// </summary>
         public SupplierDTO Supplier
         {
@@ -209,6 +211,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 }
             }
         }
+
         #endregion
 
         #endregion
@@ -218,6 +221,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 操作
 
         #region 添加附件
+
         protected override void OnAddAttach(object sender)
         {
             DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
@@ -234,18 +238,20 @@ namespace UniCloud.Presentation.Purchase.Contract
                 DocumentName = _document.Name;
             }
         }
+
         #endregion
 
         #region 查看附件
+
         protected override void OnViewAttach(object sender)
         {
             DocumentView.ViewModel.InitData(true, _document.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
         }
+
         #endregion
 
         #region 重载操作
-
 
         #endregion
 

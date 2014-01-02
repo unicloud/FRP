@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,26 +11,22 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
-using System.Windows.Media;
-using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ScheduleView;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
-using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
@@ -38,22 +35,24 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export(typeof(EngineLeaseReceptionManagerVM))]
+    [Export(typeof (EngineLeaseReceptionManagerVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class EngineLeaseReceptionManagerVM : ReceptionVm
     {
         #region 声明、初始化
 
-        private readonly IRegionManager _regionManager;
+        private readonly PurchaseData _context;
         private readonly DocumentDTO _document = new DocumentDTO();
-
-        [Import]
-        public DocumentViewer DocumentView;
+        private readonly IRegionManager _regionManager;
+        private readonly IPurchaseService _service;
+        [Import] public DocumentViewer DocumentView;
 
         [ImportingConstructor]
-        public EngineLeaseReceptionManagerVM(IRegionManager regionManager)
+        public EngineLeaseReceptionManagerVM(IRegionManager regionManager, IPurchaseService service) : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
             InitializeVM();
             InitializerCommand();
         }
@@ -66,10 +65,13 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         private void InitializeVM()
         {
-            LeaseContractEngines = new QueryableDataServiceCollectionView<LeaseContractEngineDTO>(PurchaseDataService, PurchaseDataService.LeaseContractEngines);
+            LeaseContractEngines = new QueryableDataServiceCollectionView<LeaseContractEngineDTO>(_context,
+                _context.LeaseContractEngines);
 
-            EngineLeaseReceptions = Service.CreateCollection<EngineLeaseReceptionDTO>(PurchaseDataService.EngineLeaseReceptions.Expand(p => p.RelatedDocs));
-            Service.RegisterCollectionView(EngineLeaseReceptions); //注册查询集合。
+            EngineLeaseReceptions =
+                _service.CreateCollection<EngineLeaseReceptionDTO>(
+                    _context.EngineLeaseReceptions.Expand(p => p.RelatedDocs));
+            _service.RegisterCollectionView(EngineLeaseReceptions); //注册查询集合。
         }
 
         /// <summary>
@@ -90,17 +92,17 @@ namespace UniCloud.Presentation.Purchase.Reception
         private bool _canEdit = true;
 
         /// <summary>
-        /// Rank号是否可编辑
+        ///     Rank号是否可编辑
         /// </summary>
         public bool CanEdit
         {
-            get { return this._canEdit; }
+            get { return _canEdit; }
             private set
             {
-                if (this._canEdit != value)
+                if (_canEdit != value)
                 {
                     _canEdit = value;
-                    this.RaisePropertyChanged(() => this.CanEdit);
+                    RaisePropertyChanged(() => CanEdit);
                 }
             }
         }
@@ -128,6 +130,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         #region 业务
 
         #region 租赁发动机接收项目集合
+
         /// <summary>
         ///     租赁发动机接收项目集合
         /// </summary>
@@ -136,29 +139,31 @@ namespace UniCloud.Presentation.Purchase.Reception
         #endregion
 
         #region 租赁合同发动机集合
+
+        private ObservableCollection<LeaseContractEngineDTO> _viewContractEngines =
+            new ObservableCollection<LeaseContractEngineDTO>();
+
         /// <summary>
         ///     所有租赁合同发动机集合
         /// </summary>
         public QueryableDataServiceCollectionView<LeaseContractEngineDTO> LeaseContractEngines { get; set; }
 
-
-        private ObservableCollection<LeaseContractEngineDTO> _viewContractEngines = new ObservableCollection<LeaseContractEngineDTO>();
-
         /// <summary>
-        /// 租赁合同发动机集合,用于界面绑定
+        ///     租赁合同发动机集合,用于界面绑定
         /// </summary>
         public ObservableCollection<LeaseContractEngineDTO> ViewLeaseContractEngines
         {
-            get { return this._viewContractEngines; }
+            get { return _viewContractEngines; }
             set
             {
-                if (this._viewContractEngines != value)
+                if (_viewContractEngines != value)
                 {
                     _viewContractEngines = value;
-                    this.RaisePropertyChanged(() => this.ViewLeaseContractEngines);
+                    RaisePropertyChanged(() => ViewLeaseContractEngines);
                 }
             }
         }
+
         #endregion
 
         #region 选择的接收项目
@@ -178,7 +183,9 @@ namespace UniCloud.Presentation.Purchase.Reception
                     _selEngineLeaseReception = value;
                     RaisePropertyChanged(() => SelEngineLeaseReception);
 
-                    var viewLeaseContractEngines = LeaseContractEngines.Where(p => p.SupplierId == SelEngineLeaseReception.SupplierId && p.SerialNumber != null).ToList();
+                    var viewLeaseContractEngines =
+                        LeaseContractEngines.Where(
+                            p => p.SupplierId == SelEngineLeaseReception.SupplierId && p.SerialNumber != null).ToList();
                     ViewLeaseContractEngines.Clear();
                     foreach (var lca in viewLeaseContractEngines)
                     {
@@ -237,7 +244,7 @@ namespace UniCloud.Presentation.Purchase.Reception
             get { return _appointments; }
             set
             {
-                if (this._appointments != value)
+                if (_appointments != value)
                 {
                     _appointments = value;
                     RaisePropertyChanged(() => Appointments);
@@ -302,15 +309,17 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             return _selEngineLeaseReception != null;
         }
+
         #endregion
 
         #region 新增接收行
+
         /// <summary>
         ///     新增接收行
         /// </summary>
         protected override void OnAddEntity(object obj)
         {
-            var receptionLine = new EngineLeaseReceptionLineDTO()
+            var receptionLine = new EngineLeaseReceptionLineDTO
             {
                 EngineLeaseReceptionLineId = RandomHelper.Next(),
                 ReceivedAmount = 1,
@@ -325,6 +334,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             return SelEngineLeaseReception != null;
         }
+
         #endregion
 
         #region 删除接收行
@@ -344,6 +354,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             return _selEngineLeaseReceptionLine != null;
         }
+
         #endregion
 
         #region 添加附件
@@ -364,7 +375,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             if (DocumentView.Tag is DocumentDTO)
             {
-                var relatedDoc = new RelatedDocDTO()
+                var relatedDoc = new RelatedDocDTO
                 {
                     Id = RandomHelper.Next(),
                     SourceId = SelEngineLeaseReception.SourceId,
@@ -375,9 +386,11 @@ namespace UniCloud.Presentation.Purchase.Reception
                 SelEngineLeaseReception.RelatedDocs.Add(relatedDoc);
             }
         }
+
         #endregion
 
         #region 移除附件
+
         /// <summary>
         ///     移除附件
         /// </summary>
@@ -396,6 +409,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         #endregion
 
         #region 查看附件
+
         protected override void OnViewAttach(object sender)
         {
             var currentItem = sender as RelatedDocDTO;
@@ -407,11 +421,13 @@ namespace UniCloud.Presentation.Purchase.Reception
             DocumentView.ViewModel.InitData(true, currentItem.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
         }
+
         #endregion
 
         #region GridView单元格变更处理
+
         /// <summary>
-        /// GridView单元格变更处理
+        ///     GridView单元格变更处理
         /// </summary>
         /// <param name="sender"></param>
         protected override void OnCellEditEnd(object sender)
@@ -422,7 +438,9 @@ namespace UniCloud.Presentation.Purchase.Reception
                 var cell = gridView.CurrentCell;
                 if (string.Equals(cell.Column.UniqueName, "Supplier"))
                 {
-                    var viewLeaseContractEngines = LeaseContractEngines.Where(p => p.SupplierId == SelEngineLeaseReception.SupplierId && p.SerialNumber != null).ToList();
+                    var viewLeaseContractEngines =
+                        LeaseContractEngines.Where(
+                            p => p.SupplierId == SelEngineLeaseReception.SupplierId && p.SerialNumber != null).ToList();
                     ViewLeaseContractEngines.Clear();
                     foreach (var lca in viewLeaseContractEngines)
                     {
@@ -444,7 +462,6 @@ namespace UniCloud.Presentation.Purchase.Reception
                 }
             }
         }
-
 
         #endregion
 
@@ -506,10 +523,10 @@ namespace UniCloud.Presentation.Purchase.Reception
                     }
                 }
             }
-
         }
 
         #endregion
+
         #endregion
     }
 }

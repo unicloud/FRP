@@ -90,9 +90,9 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public string TargetType { get; set; }
 
         /// <summary>
-        /// 执行时间
+        /// 执行年度
         /// </summary>
-        public string PerformTime { get; set; }
+        public int Year { get; set; }
 
         #endregion
 
@@ -145,7 +145,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// <summary>
         /// 关联的Guid，运营计划时，记录OperationHistoryID，变更计划时记录为AircraftBusinessID
         /// </summary>
-        public Guid? CoperGuid { get; set; }
+        public Guid CoperGuid { get; set; }
 
         #endregion
     }

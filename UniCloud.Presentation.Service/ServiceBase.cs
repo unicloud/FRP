@@ -34,21 +34,24 @@ namespace UniCloud.Presentation.Service
 {
     /// <summary>
     ///     服务基类
-    ///     实现IService接口。
+    ///     实现IService接口
     /// </summary>
     public abstract class ServiceBase : IService
     {
-        private readonly DataServiceContext _context;
         private readonly List<QueryableDataServiceCollectionViewBase> _dataServiceCollectionViews;
         private bool _hasChanges;
         private EventHandler<DataServiceSubmittedChangesEventArgs> _submitChanges;
+        protected DataServiceContext context;
 
-        protected ServiceBase(DataServiceContext context)
+        protected ServiceBase()
         {
-            _context = context;
             _dataServiceCollectionViews = new List<QueryableDataServiceCollectionViewBase>();
         }
 
+        /// <summary>
+        ///     通知属性变更
+        /// </summary>
+        /// <param name="e">属性变更事件参数</param>
         protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
         {
             if (PropertyChanged == null)
@@ -56,22 +59,44 @@ namespace UniCloud.Presentation.Service
             PropertyChanged(this, e);
         }
 
+        /// <summary>
+        ///     通知属性变更
+        /// </summary>
+        /// <param name="propertyName">属性名称</param>
         protected void OnPropertyChanged(string propertyName)
         {
             OnPropertyChanged(new PropertyChangedEventArgs(propertyName));
         }
 
+        /// <summary>
+        ///     获取静态数据
+        /// </summary>
+        /// <typeparam name="T">DTO类型</typeparam>
+        /// <param name="staticData">静态数据集合</param>
+        /// <param name="loaded">回调</param>
+        /// <param name="query">查询</param>
+        /// <param name="forceLoad">是否强制加载</param>
+        /// <returns>静态数据集合</returns>
+        protected QueryableDataServiceCollectionView<T> GetStaticData<T>(
+            QueryableDataServiceCollectionView<T> staticData, Action loaded, DataServiceQuery<T> query,
+            bool forceLoad = false)
+            where T : class, INotifyPropertyChanged
+        {
+            if (staticData == null)
+            {
+                staticData = new QueryableDataServiceCollectionView<T>(context, query);
+                staticData.LoadedData += (o, e) => loaded();
+                staticData.Load(true);
+                return staticData;
+            }
+            if (forceLoad)
+                staticData.Load(true);
+            return staticData;
+        }
+
         #region IService 成员
 
         #region 属性
-
-        /// <summary>
-        ///     域上下文对象
-        /// </summary>
-        public DataServiceContext Context
-        {
-            get { return _context; }
-        }
 
         /// <summary>
         ///     是否有变化
@@ -149,14 +174,14 @@ namespace UniCloud.Presentation.Service
         public void SubmitChanges(Action<SubmitChangesResult> callback, object state = null,
             SaveChangesOptions saveChangesOptions = SaveChangesOptions.Batch)
         {
-            _context.BeginSaveChanges(saveChangesOptions, p =>
+            context.BeginSaveChanges(saveChangesOptions, p =>
             {
                 var result = new SubmitChangesResult();
                 Deployment.Current.Dispatcher.BeginInvoke(() =>
                 {
                     try
                     {
-                        var response = _context.EndSaveChanges(p);
+                        var response = context.EndSaveChanges(p);
                         foreach (var changeResponse in response)
                         {
                             result.Headers = changeResponse.Headers;
@@ -174,7 +199,7 @@ namespace UniCloud.Presentation.Service
                         callback(result);
                     }
                 });
-            }, Context);
+            }, context);
         }
 
         /// <summary>
@@ -214,23 +239,53 @@ namespace UniCloud.Presentation.Service
         /// <typeparam name="TService">实体类型</typeparam>
         /// <param name="query">查询</param>
         /// <param name="changed">变更的处理</param>
+        /// <returns>数据集合</returns>
+        public QueryableDataServiceCollectionView<TService> CreateCollection<TService>(
+            DataServiceQuery<TService> query,
+            params Func<TService, object>[] changed)
+            where TService : class, INotifyPropertyChanged
+        {
+            return CreateCollection(query, SaveChangesOptions.Batch, changed);
+        }
+
+        /// <summary>
+        ///     创建数据集合
+        /// </summary>
+        /// <typeparam name="TService">实体类型</typeparam>
+        /// <param name="query">查询</param>
+        /// <param name="changed">变更的处理</param>
         /// <param name="options">保存选项</param>
         /// <returns>数据集合</returns>
         public QueryableDataServiceCollectionView<TService> CreateCollection<TService>(
             DataServiceQuery<TService> query,
-            Action<IList, PropertyChangedEventHandler, NotifyCollectionChangedEventHandler> changed = null,
-            SaveChangesOptions options = SaveChangesOptions.Batch)
+            SaveChangesOptions options,
+            params Func<TService, object>[] changed)
             where TService : class, INotifyPropertyChanged
         {
-            var result = new QueryableDataServiceCollectionView<TService>(_context, query);
+            var result = new QueryableDataServiceCollectionView<TService>(context, query);
             result.SubmittingChanges += (o, e) => { e.SaveChangesOptions = options; };
             result.PropertyChanged += (o, e) => { HasChanges = result.HasChanges; };
             result.LoadedData += (o, e) =>
             {
                 HasChanges = false;
-                var collection = (o as QueryableDataServiceCollectionViewBase).AsQueryable().ToIList();
-                if (changed == null || collection.Count == 0) return;
-                changed(collection, (obj, handler) => HasChanges = true, (obj, handler) => HasChanges = true);
+                var collectionView = o as QueryableDataServiceCollectionView<TService>;
+                if (collectionView == null) return;
+                foreach (TService item in collectionView)
+                {
+                    var master = item;
+                    foreach (var details in changed.Select(c => c(master)))
+                    {
+                        var collection = details as INotifyCollectionChanged;
+                        if (collection == null) return;
+                        collection.CollectionChanged += (obj, handler) => HasChanges = true;
+                        var detailList = details as IList;
+                        if (detailList == null) return;
+                        foreach (var entity in from object d in detailList select d as INotifyPropertyChanged)
+                        {
+                            entity.PropertyChanged += (obj, handler) => HasChanges = true;
+                        }
+                    }
+                }
             };
 
             return result;

@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -24,7 +26,6 @@ using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 
@@ -32,18 +33,22 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(CreditNoteManagerVM))]
+    [Export(typeof (CreditNoteManagerVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class CreditNoteManagerVM : EditViewModelBase
     {
         #region 声明、初始化
+
+        private readonly PaymentData _context;
         private readonly IRegionManager _regionManager;
-        private PaymentData _paymentData;
+        private readonly IPaymentService _service;
 
         [ImportingConstructor]
-        public CreditNoteManagerVM(IRegionManager regionManager)
+        public CreditNoteManagerVM(IRegionManager regionManager, IPaymentService service) : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
             InitializeVM();
             InitializerCommand();
         }
@@ -56,14 +61,15 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         private void InitializeVM()
         {
-            CreditNotes = Service.CreateCollection<CreditNoteDTO>(_paymentData.CreditNotes);
-            Service.RegisterCollectionView(CreditNotes); //注册查询集合。
+            CreditNotes = _service.CreateCollection<CreditNoteDTO>(_context.CreditNotes);
+            _service.RegisterCollectionView(CreditNotes); //注册查询集合。
 
-            Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_paymentData, _paymentData.Currencies);
+            Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context, _context.Currencies);
 
-            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_paymentData, _paymentData.Suppliers);
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
 
-            PurchaseOrders = new QueryableDataServiceCollectionView<PurchaseOrderDTO>(_paymentData, _paymentData.PurchaseOrders);
+            PurchaseOrders = new QueryableDataServiceCollectionView<PurchaseOrderDTO>(_context,
+                _context.PurchaseOrders);
         }
 
         /// <summary>
@@ -82,15 +88,6 @@ namespace UniCloud.Presentation.Payment.Invoice
             CheckCommand = new DelegateCommand<object>(OnCheck, CanCheck);
         }
 
-        /// <summary>
-        ///     创建服务实例
-        /// </summary>
-        protected override IService CreateService()
-        {
-            _paymentData = new PaymentData(AgentHelper.PaymentUri);
-            return new PaymentService(_paymentData);
-        }
-
         #endregion
 
         #region 数据
@@ -102,22 +99,23 @@ namespace UniCloud.Presentation.Payment.Invoice
         private bool _isSubmited;
 
         /// <summary>
-        ///  是否已提交审核
+        ///     是否已提交审核
         /// </summary>
         public bool IsSubmited
         {
-            get { return this._isSubmited; }
+            get { return _isSubmited; }
             private set
             {
-                if (this._isSubmited != value)
+                if (_isSubmited != value)
                 {
                     _isSubmited = value;
-                    this.RaisePropertyChanged(() => this.IsSubmited);
+                    RaisePropertyChanged(() => IsSubmited);
                 }
             }
         }
 
         #endregion
+
         #endregion
 
         #region 加载数据
@@ -141,6 +139,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 业务
 
         #region 贷项单集合
+
         /// <summary>
         ///     贷项单集合
         /// </summary>
@@ -222,6 +221,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         #endregion
 
         #region 币种集合
+
         /// <summary>
         ///     币种集合
         /// </summary>
@@ -230,6 +230,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         #endregion
 
         #region 供应商集合
+
         /// <summary>
         ///     供应商集合
         /// </summary>
@@ -239,7 +240,10 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 关联的采购订单
 
-        private ObservableCollection<PurchaseOrderDTO> _relatedPurchaseOrders = new ObservableCollection<PurchaseOrderDTO>();
+        private PurchaseOrderDTO _relatedOrder;
+
+        private ObservableCollection<PurchaseOrderDTO> _relatedPurchaseOrders =
+            new ObservableCollection<PurchaseOrderDTO>();
 
         /// <summary>
         ///     关联的采购订单集合
@@ -256,8 +260,6 @@ namespace UniCloud.Presentation.Payment.Invoice
                 }
             }
         }
-
-        private PurchaseOrderDTO _relatedOrder;
 
         /// <summary>
         ///     关联的订单行
@@ -276,7 +278,6 @@ namespace UniCloud.Presentation.Payment.Invoice
         }
 
         #endregion
-
 
         #endregion
 
@@ -328,9 +329,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 新增贷项单行
+
         /// <summary>
         ///     新增贷项单行
         /// </summary>
@@ -351,6 +354,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 删除贷项单行
@@ -370,6 +374,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 提交审核
@@ -388,6 +393,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 审核
@@ -407,13 +413,15 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region GridView单元格变更处理
+
         public DelegateCommand<object> CellEditEndCommand { set; get; }
 
         /// <summary>
-        /// GridView单元格变更处理
+        ///     GridView单元格变更处理
         /// </summary>
         /// <param name="sender"></param>
         public void OnCellEditEnd(object sender)
@@ -430,21 +438,21 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
         }
 
-
         #endregion
 
         #endregion
 
         #region 子窗体相关操作
-        [Import]
-        public PurchaseOrderChildView PurchaseOrderChildView; //初始化子窗体
+
+        [Import] public PurchaseOrderChildView PurchaseOrderChildView; //初始化子窗体
 
         #region 采购订单集合
 
         /// <summary>
-        ///    采购订单集合
+        ///     采购订单集合
         /// </summary>
         public QueryableDataServiceCollectionView<PurchaseOrderDTO> PurchaseOrders { get; set; }
+
         #endregion
 
         #region 选择的采购订单
@@ -466,6 +474,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 }
             }
         }
+
         #endregion
 
         #region 命令
@@ -511,7 +520,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
             else
             {
-                var creditNote = new CreditNoteDTO()
+                var creditNote = new CreditNoteDTO
                 {
                     CreditNoteId = RandomHelper.Next(),
                     CreateDate = DateTime.Now,
@@ -524,7 +533,6 @@ namespace UniCloud.Presentation.Payment.Invoice
                 CreditNotes.AddNew(creditNote);
                 PurchaseOrderChildView.Close();
             }
-
         }
 
 

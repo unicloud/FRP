@@ -215,7 +215,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.CaacProgrammingAgg
         /// 新增民航局五年规划行
         /// </summary>
         /// <returns></returns>
-        public CaacProgrammingLine AddNewAirProgrammingLine()
+        public CaacProgrammingLine AddNewCaacProgrammingLine()
         {
             var caacProgrammingLine = new CaacProgrammingLine
             {

@@ -46,7 +46,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
     public class CountRegisteredFleetVm : ViewModelBase
     {
         #region 声明、初始化
-        private FleetPlanData _fleetPlanDataService;
+
+        private readonly FleetPlanData _fleetPlanContext;
+        private readonly IFleetPlanService _service;
         public CountRegisteredFleet CurrentCountRegisteredFleet
         {
             get { return ServiceLocator.Current.GetInstance<CountRegisteredFleet>(); }
@@ -61,8 +63,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private bool _loadXmlConfig;
         private bool _loadXmlSetting;
 
-        public CountRegisteredFleetVm()
+        [ImportingConstructor]
+        public CountRegisteredFleetVm(IFleetPlanService service)
         {
+            _service = service;
+            _fleetPlanContext = _service.Context;
             ExportCommand = new DelegateCommand<object>(OnExport, CanExport);//导出图表源数据（Source data）
             ViewModelInitializer();
             InitializeVm();
@@ -77,13 +82,13 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public void InitializeVm()
         {
             // 创建并注册CollectionView
-            XmlConfigs = new QueryableDataServiceCollectionView<XmlConfigDTO>(_fleetPlanDataService, _fleetPlanDataService.XmlConfigs);
+            XmlConfigs = new QueryableDataServiceCollectionView<XmlConfigDTO>(_fleetPlanContext, _fleetPlanContext.XmlConfigs);
             XmlConfigs.LoadedData += (o, e) =>
             {
                 _loadXmlConfig = true;
                 InitializeData();
             };
-            XmlSettings = new QueryableDataServiceCollectionView<XmlSettingDTO>(_fleetPlanDataService, _fleetPlanDataService.XmlSettings);
+            XmlSettings = new QueryableDataServiceCollectionView<XmlSettingDTO>(_fleetPlanContext, _fleetPlanContext.XmlSettings);
             XmlSettings.LoadedData += (o, e) =>
             {
                 _loadXmlSetting = true;
@@ -235,11 +240,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #endregion
 
         #region 加载数据
-        protected override IService CreateService()
-        {
-            _fleetPlanDataService = new FleetPlanData(AgentHelper.FleetPlanServiceUri);
-            return new FleetPlanService(_fleetPlanDataService);
-        }
 
         public override void LoadData()
         {

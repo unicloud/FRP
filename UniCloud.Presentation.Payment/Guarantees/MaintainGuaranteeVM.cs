@@ -21,11 +21,9 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Telerik.Windows.Controls.DataServices;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
@@ -39,14 +37,17 @@ namespace UniCloud.Presentation.Payment.Guarantees
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class MaintainGuaranteeVM : EditViewModelBase
     {
-        private PaymentData _context;
+        private readonly PaymentData _context;
+        private readonly IPaymentService _service;
 
         /// <summary>
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public MaintainGuaranteeVM()
+        public MaintainGuaranteeVM(IPaymentService service) : base(service)
         {
+            _service = service;
+            _context = _service.Context;
             InitialMaintainGuarantee(); //初始化大修保证金
             InitialCurrency(); //初始币种
             InitialMaintainOrder(); //初始化大修订单
@@ -84,7 +85,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
         /// </summary>
         private void InitialMaintainGuarantee()
         {
-            MaintainGuaranteesView = Service.CreateCollection(_context.MaintainGuarantees);
+            MaintainGuaranteesView = _service.CreateCollection(_context.MaintainGuarantees);
             MaintainGuaranteesView.PageSize = 20;
             MaintainGuaranteesView.LoadedData += (sender, e) =>
             {
@@ -136,7 +137,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
         /// </summary>
         private void InitialMaintainOrder()
         {
-            MaintainContractView = Service.CreateCollection(_context.MaintainContracts);
+            MaintainContractView = _service.CreateCollection(_context.MaintainContracts);
             MaintainContractView.LoadedData += (sender, e) =>
             {
                 if (e.HasError)
@@ -176,7 +177,7 @@ namespace UniCloud.Presentation.Payment.Guarantees
         /// </summary>
         private void InitialCurrency()
         {
-            CurrencysView = Service.CreateCollection(_context.Currencies);
+            CurrencysView = _service.CreateCollection(_context.Currencies);
             CurrencysView.LoadedData += (sender, e) =>
             {
                 if (e.HasError)
@@ -363,12 +364,6 @@ namespace UniCloud.Presentation.Payment.Guarantees
         #endregion
 
         #region 重载基类服务
-
-        protected override IService CreateService()
-        {
-            _context = new PaymentData(AgentHelper.PaymentUri);
-            return new PaymentService(_context);
-        }
 
         public override void LoadData()
         {

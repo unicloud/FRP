@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2013/12/25 15:07:05
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -22,6 +24,7 @@ using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Payment.Invoice;
+using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
@@ -29,17 +32,21 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.PaymentNotice
 {
-
     public class PaymentNoticeEditVm : InvoiceVm
     {
         #region 声明、初始化
 
+        private readonly PaymentData _context;
+        private readonly IPaymentService _service;
         public PaymentNoticeEdit CurrenPaymentNoticeEdit;
         private int _currentPaymentNoticeId;
+
         [ImportingConstructor]
-        public PaymentNoticeEditVm(PaymentNoticeEdit payeNoticeEdit)
+        public PaymentNoticeEditVm(PaymentNoticeEdit payeNoticeEdit, IPaymentService service) : base(service)
         {
             CurrenPaymentNoticeEdit = payeNoticeEdit;
+            _service = service;
+            _context = _service.Context;
             InitializeVm();
         }
 
@@ -53,12 +60,15 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         {
             CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
             // 创建并注册CollectionView
-            PaymentNotices = new QueryableDataServiceCollectionView<PaymentNoticeDTO>(PaymentDataService, PaymentDataService.PaymentNotices);
+            PaymentNotices = new QueryableDataServiceCollectionView<PaymentNoticeDTO>(_context,
+                _context.PaymentNotices);
             PaymentNotices.LoadedData += (o, e) =>
             {
                 try
                 {
-                    var result = (o as QueryableDataServiceCollectionView<PaymentNoticeDTO>).FirstOrDefault(p => p.PaymentNoticeId == _currentPaymentNoticeId);
+                    var result =
+                        (o as QueryableDataServiceCollectionView<PaymentNoticeDTO>).FirstOrDefault(
+                            p => p.PaymentNoticeId == _currentPaymentNoticeId);
                     if (result != null)
                     {
                         PaymentNotice = result;
@@ -70,10 +80,10 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                 }
             };
             PaymentNotices.SubmittedChanges += (o, e) =>
-                                               {
-                                                   if (e.Error == null)
-                                                       CurrenPaymentNoticeEdit.Close();
-                                               };
+            {
+                if (e.Error == null)
+                    CurrenPaymentNoticeEdit.Close();
+            };
         }
 
         #endregion
@@ -81,18 +91,25 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         #region 数据
 
         #region 公共属性
+
         /// <summary>
-        /// 发票类型
+        ///     选中银行账号
+        /// </summary>
+        private BankAccountDTO _bankAccount;
+
+        /// <summary>
+        ///     选中供应商
+        /// </summary>
+        private SupplierDTO _supplier;
+
+        /// <summary>
+        ///     发票类型
         /// </summary>
         public Array InvoiceTypes
         {
-            get { return Enum.GetValues(typeof(InvoiceType)); }
+            get { return Enum.GetValues(typeof (InvoiceType)); }
         }
 
-        /// <summary>
-        /// 选中供应商
-        /// </summary>
-        private SupplierDTO _supplier;
         public SupplierDTO Supplier
         {
             get { return _supplier; }
@@ -108,10 +125,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             }
         }
 
-        /// <summary>
-        /// 选中银行账号
-        /// </summary>
-        private BankAccountDTO _bankAccount;
         public BankAccountDTO BankAccount
         {
             get { return _bankAccount; }
@@ -142,13 +155,13 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             if (paymentNoticeId == 0)
             {
                 PaymentNotice = new PaymentNoticeDTO
-                                {
-                                    PaymentNoticeId = RandomHelper.Next(),
-                                    CreateDate = DateTime.Now,
-                                    DeadLine = DateTime.Now,
-                                    Status = 0,
-                                    StatusString = PaymentNoticeStatus.草稿.ToString()
-                                };
+                {
+                    PaymentNoticeId = RandomHelper.Next(),
+                    CreateDate = DateTime.Now,
+                    DeadLine = DateTime.Now,
+                    Status = 0,
+                    StatusString = PaymentNoticeStatus.草稿.ToString()
+                };
                 PaymentNotices.AddNew(PaymentNotice);
             }
             else
@@ -159,14 +172,18 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         }
 
         #region 付款通知
+
+        private PaymentNoticeDTO _paymentNotice;
+
+        private PaymentNoticeLineDTO _paymentNoticeLine;
+
         /// <summary>
-        /// 付款通知集合
+        ///     付款通知集合
         /// </summary>
         public QueryableDataServiceCollectionView<PaymentNoticeDTO> PaymentNotices { get; set; }
 
-        private PaymentNoticeDTO _paymentNotice;
         /// <summary>
-        /// 选中的付款通知
+        ///     选中的付款通知
         /// </summary>
         public PaymentNoticeDTO PaymentNotice
         {
@@ -181,9 +198,8 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             }
         }
 
-        private PaymentNoticeLineDTO _paymentNoticeLine;
         /// <summary>
-        /// 选中的付款通知行
+        ///     选中的付款通知行
         /// </summary>
         public PaymentNoticeLineDTO PaymentNoticeLine
         {
@@ -207,14 +223,15 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         #region 操作
 
         #region 创建新付款通知
+
         protected override void OnAddInvoice(object obj)
         {
             var paymentNotice = new PaymentNoticeDTO
-                                  {
-                                      PaymentNoticeId = RandomHelper.Next(),
-                                      CreateDate = DateTime.Now,
-                                      DeadLine = DateTime.Now
-                                  };
+            {
+                PaymentNoticeId = RandomHelper.Next(),
+                CreateDate = DateTime.Now,
+                DeadLine = DateTime.Now
+            };
             PaymentNotices.AddNew(paymentNotice);
         }
 
@@ -222,9 +239,11 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         {
             return true;
         }
+
         #endregion
 
         #region 删除付款通知
+
         protected override void OnRemoveInvoice(object obj)
         {
             if (PaymentNotice == null)
@@ -233,19 +252,21 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                PaymentNotices.Remove(_paymentNotice);
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                PaymentNotices.Remove(_paymentNotice);
+            });
         }
 
         protected override bool CanRemoveInvoice(object obj)
         {
             return true;
         }
+
         #endregion
 
         #region 增加付款通知行
+
         protected override void OnAddInvoiceLine(object obj)
         {
             if (PaymentNotice == null)
@@ -265,9 +286,11 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         {
             return true;
         }
+
         #endregion
 
         #region 移除付款通知行
+
         protected override void OnRemoveInvoiceLine(object obj)
         {
             if (PaymentNoticeLine == null)
@@ -276,25 +299,29 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                PaymentNotice.PaymentNoticeLines.Remove(PaymentNoticeLine);
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                PaymentNotice.PaymentNoticeLines.Remove(PaymentNoticeLine);
+            });
         }
 
         protected override bool CanRemoveInvoiceLine(object obj)
         {
             return true;
         }
+
         #endregion
 
         #region
+
         public DelegateCommand<object> CellEditEndCommand { get; set; }
+
         public void CellEditEnd(object sender)
         {
-            
         }
+
         #endregion
+
         #endregion
     }
 }

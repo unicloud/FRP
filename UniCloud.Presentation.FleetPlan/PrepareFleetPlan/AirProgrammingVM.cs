@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,20 +11,19 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
 using System.ComponentModel.Composition;
-using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
@@ -32,23 +32,24 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof(AirProgrammingVM))]
+    [Export(typeof (AirProgrammingVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AirProgrammingVM : EditViewModelBase
     {
         #region 声明、初始化
 
+        private readonly FleetPlanData _context;
         private readonly IRegionManager _regionManager;
-        private FleetPlanData _context;
+        private readonly IFleetPlanService _service;
+        [Import] public DocumentViewer DocumentView;
         private DocumentDTO _document = new DocumentDTO();
 
-        [Import]
-        public DocumentViewer DocumentView;
-
         [ImportingConstructor]
-        public AirProgrammingVM(IRegionManager regionManager)
+        public AirProgrammingVM(IRegionManager regionManager, IFleetPlanService service) : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
             InitializeVM();
             InitializerCommand();
         }
@@ -61,16 +62,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            AirProgrammings = Service.CreateCollection(_context.AirProgrammings,
-                (o, p, c) =>
-                {
-                    foreach (var airProgramming in from object item in o select item as AirProgrammingDTO)
-                    {
-                        airProgramming.AirProgrammingLines.CollectionChanged += c;
-                        airProgramming.AirProgrammingLines.ToList().ForEach(ol => ol.PropertyChanged += p);
-                    }
-                });
-            Service.RegisterCollectionView(AirProgrammings);
+            AirProgrammings = _service.CreateCollection(_context.AirProgrammings, o => o.AirProgrammingLines);
+            _service.RegisterCollectionView(AirProgrammings);
 
             Programmings = new QueryableDataServiceCollectionView<ProgrammingDTO>(_context, _context.Programmings);
 
@@ -86,15 +79,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
             AddEntityCommand = new DelegateCommand<object>(OnAddEntity, CanAddEntity);
             RemoveEntityCommand = new DelegateCommand<object>(OnRemoveEntity, CanRemoveEntity);
-        }
-
-        /// <summary>
-        ///     创建服务实例
-        /// </summary>
-        protected override IService CreateService()
-        {
-            _context = new FleetPlanData(AgentHelper.FleetPlanServiceUri);
-            return new FleetPlanService(_context);
         }
 
         #endregion
@@ -145,17 +129,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private AirProgrammingDTO _selAirProgramming;
 
         /// <summary>
-        /// 选择的规划
+        ///     选择的规划
         /// </summary>
         public AirProgrammingDTO SelAirProgramming
         {
-            get { return this._selAirProgramming; }
+            get { return _selAirProgramming; }
             private set
             {
-                if (this._selAirProgramming != value)
+                if (_selAirProgramming != value)
                 {
                     _selAirProgramming = value;
-                    this.RaisePropertyChanged(() => this.SelAirProgramming);
+                    RaisePropertyChanged(() => SelAirProgramming);
                     // 刷新按钮状态
                     RefreshCommandState();
                 }
@@ -169,17 +153,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private AirProgrammingLineDTO _selAirProgrammingLine;
 
         /// <summary>
-        /// 选择的规划明细
+        ///     选择的规划明细
         /// </summary>
         public AirProgrammingLineDTO SelAirProgrammingLine
         {
-            get { return this._selAirProgrammingLine; }
+            get { return _selAirProgrammingLine; }
             private set
             {
-                if (this._selAirProgrammingLine != value)
+                if (_selAirProgrammingLine != value)
                 {
                     _selAirProgrammingLine = value;
-                    this.RaisePropertyChanged(() => this.SelAirProgrammingLine);
+                    RaisePropertyChanged(() => SelAirProgrammingLine);
 
                     // 刷新按钮状态
                     RefreshCommandState();
@@ -307,6 +291,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #endregion
 
         #region 添加附件
+
         protected override void OnAddAttach(object sender)
         {
             DocumentView.ViewModel.InitData(false, _selAirProgramming.DocumentId, DocumentViewerClosed);
@@ -317,6 +302,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             return _selAirProgramming != null;
         }
+
         private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {
             if (DocumentView.Tag is DocumentDTO)
@@ -326,9 +312,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 SelAirProgramming.DocName = _document.Name;
             }
         }
+
         #endregion
 
         #region 查看附件
+
         protected override void OnViewAttach(object sender)
         {
             if (SelAirProgramming == null)
@@ -338,11 +326,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             }
             DocumentView.ViewModel.InitData(true, _selAirProgramming.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
-
         }
+
         #endregion
 
         #endregion
     }
-
 }

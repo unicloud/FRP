@@ -24,7 +24,6 @@ using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
@@ -36,15 +35,18 @@ namespace UniCloud.Presentation.Purchase.Supplier
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class LinkManManagerVM : EditViewModelBase
     {
+        private readonly PurchaseData _context;
+        private readonly IPurchaseService _service;
         private FilterDescriptor _linkManFilter; //查找联系人配置。
-        private PurchaseData _purchaseData;
 
         [ImportingConstructor]
-        public LinkManManagerVM()
+        public LinkManManagerVM(IPurchaseService service) : base(service)
         {
+            _service = service;
+            _context = _service.Context;
             InitialSupplierCompany(); //初始化合作公司。
             InitialLinkMan(); //初始化联系人。
-            InitialLinkManCommand();//初始化联系人相关命令。
+            InitialLinkManCommand(); //初始化联系人相关命令。
         }
 
         #region SupplierCompany相关信息
@@ -79,17 +81,18 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// </summary>
         private void InitialSupplierCompany()
         {
-            SupplierCompanysView = Service.CreateCollection(_purchaseData.SupplierCompanys);
+            SupplierCompanysView = _service.CreateCollection(_context.SupplierCompanys);
             SupplierCompanysView.LoadedData += (sender, e) =>
+            {
+                if (e.HasError)
                 {
-                    if (e.HasError)
-                    {
-                        e.MarkErrorAsHandled();
-                        return;
-                    }
-                    SelSupplierCompany = e.Entities.Cast<SupplierCompanyDTO>().FirstOrDefault();
-                };
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                SelSupplierCompany = e.Entities.Cast<SupplierCompanyDTO>().FirstOrDefault();
+            };
         }
+
         #endregion
 
         #region LinkMan相关信息
@@ -104,7 +107,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
             get { return _selectedLinkMan; }
             set
             {
-                if (_selectedLinkMan!=value)
+                if (_selectedLinkMan != value)
                 {
                     _selectedLinkMan = value;
                     DelLinkManCommand.RaiseCanExecuteChanged();
@@ -123,34 +126,34 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// </summary>
         private void InitialLinkMan()
         {
-            LinkmansView = Service.CreateCollection(_purchaseData.Linkmans);
+            LinkmansView = _service.CreateCollection(_context.Linkmans);
             _linkManFilter = new FilterDescriptor("SourceId", FilterOperator.IsEqualTo, Guid.Empty);
             LinkmansView.FilterDescriptors.Add(_linkManFilter);
             LinkmansView.LoadedData += (sender, e) =>
+            {
+                if (e.HasError)
                 {
-                    if (e.HasError)
-                    {
-                        e.MarkErrorAsHandled();
-                        return;
-                    }
-                    SelLinkMan = e.Entities.Cast<LinkmanDTO>().FirstOrDefault();
-                };
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                SelLinkMan = e.Entities.Cast<LinkmanDTO>().FirstOrDefault();
+            };
             LinkmansView.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == "HasChanges")
                 {
-                    if (e.PropertyName == "HasChanges")
-                    {
-                        SaveCommand.RaiseCanExecuteChanged();
-                        AbortCommand.RaiseCanExecuteChanged();
-                    }
-                    if (e.PropertyName=="IsEditingItem")
-                    {
-                        RefreshAddAndDelButtonState();
-                    }
-                    if (e.PropertyName == "IsAddingNew")
-                    {
-                        RefreshAddAndDelButtonState();
-                    }
-                };
+                    SaveCommand.RaiseCanExecuteChanged();
+                    AbortCommand.RaiseCanExecuteChanged();
+                }
+                if (e.PropertyName == "IsEditingItem")
+                {
+                    RefreshAddAndDelButtonState();
+                }
+                if (e.PropertyName == "IsAddingNew")
+                {
+                    RefreshAddAndDelButtonState();
+                }
+            };
         }
 
         /// <summary>
@@ -188,10 +191,10 @@ namespace UniCloud.Presentation.Purchase.Supplier
                 return;
             }
             var newLiankMan = new LinkmanDTO
-                {
-                    LinkmanId = RandomHelper.Next(),
-                    SourceId = SelSupplierCompany.LinkManId
-                };
+            {
+                LinkmanId = RandomHelper.Next(),
+                SourceId = SelSupplierCompany.LinkManId
+            };
             LinkmansView.AddNewItem(newLiankMan);
         }
 
@@ -223,7 +226,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// <param name="sender"></param>
         public void OnDelLinkManExecute(object sender)
         {
-            if (SelLinkMan==null)
+            if (SelLinkMan == null)
             {
                 MessageAlert("提示", "请选择需要删除的记录");
                 return;
@@ -250,16 +253,16 @@ namespace UniCloud.Presentation.Purchase.Supplier
         #endregion
 
         /// <summary>
-        /// 刷新按钮状态
+        ///     刷新按钮状态
         /// </summary>
         private void RefreshAddAndDelButtonState()
         {
-           AddLinkManCommand.RaiseCanExecuteChanged();
-           DelLinkManCommand.RaiseCanExecuteChanged();
+            AddLinkManCommand.RaiseCanExecuteChanged();
+            DelLinkManCommand.RaiseCanExecuteChanged();
         }
 
         /// <summary>
-        /// 初始化联系人命令
+        ///     初始化联系人命令
         /// </summary>
         private void InitialLinkManCommand()
         {
@@ -284,16 +287,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
             {
                 SupplierCompanysView.Load(true);
             }
-        }
-
-        /// <summary>
-        ///     创建服务。
-        /// </summary>
-        /// <returns></returns>
-        protected override IService CreateService()
-        {
-            _purchaseData = new PurchaseData(AgentHelper.PurchaseUri);
-            return new PurchaseService(_purchaseData);
         }
 
         #endregion

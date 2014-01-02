@@ -21,5 +21,16 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
     /// </summary>
     public interface IAirProgrammingRepository : IRepository<AirProgramming>
     {
+        /// <summary>
+        /// 删除航空公司五年规划
+        /// </summary>
+        /// <param name="airProgramming"></param>
+        void DeleteAirProgramming(AirProgramming airProgramming);
+
+        /// <summary>
+        /// 移除规划行
+        /// </summary>
+        /// <param name="line"></param>
+        void RemoveAirProgrammingLine(AirProgrammingLine line);
     }
 }

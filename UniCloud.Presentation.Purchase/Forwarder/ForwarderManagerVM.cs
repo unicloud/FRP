@@ -9,7 +9,6 @@ using System.Linq;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
@@ -21,14 +20,17 @@ namespace UniCloud.Presentation.Purchase.Forwarder
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class ForwarderManagerVM : EditViewModelBase
     {
-        private PurchaseData _purchaseData;
+        private readonly PurchaseData _context;
+        private readonly IPurchaseService _service;
 
         /// <summary>
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public ForwarderManagerVM()
+        public ForwarderManagerVM(IPurchaseService service) : base(service)
         {
+            _service = service;
+            _context = _service.Context;
             InitialForward();
         }
 
@@ -74,8 +76,8 @@ namespace UniCloud.Presentation.Purchase.Forwarder
         /// </summary>
         private void InitialForward()
         {
-            ForwardersView = Service.CreateCollection(_purchaseData.Forwarders);
-            Service.RegisterCollectionView(ForwardersView); //注册查询集合。
+            ForwardersView = _service.CreateCollection(_context.Forwarders);
+            _service.RegisterCollectionView(ForwardersView); //注册查询集合。
             ForwardersView.LoadedData += (sender, e) =>
             {
                 if (e.HasError)
@@ -83,7 +85,7 @@ namespace UniCloud.Presentation.Purchase.Forwarder
                     e.MarkErrorAsHandled();
                     return;
                 }
-                if (SelForwarder==null)
+                if (SelForwarder == null)
                 {
                     SelForwarder = e.Entities.Cast<ForwarderDTO>().FirstOrDefault();
                 }
@@ -112,12 +114,6 @@ namespace UniCloud.Presentation.Purchase.Forwarder
         public override void LoadData()
         {
             ForwardersView.AutoLoad = true; //加载数据。
-        }
-
-        protected override IService CreateService()
-        {
-            _purchaseData = new PurchaseData(AgentHelper.PurchaseUri);
-            return new PurchaseService(_purchaseData);
         }
     }
 }

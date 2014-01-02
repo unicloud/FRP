@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2013/12/13 9:44:59
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -22,6 +24,7 @@ using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.Service.CommonService.Common;
+using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
@@ -29,20 +32,23 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(EngineMaintainVm))]
+    [Export(typeof (EngineMaintainVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class EngineMaintainVm: InvoiceVm
+    public class EngineMaintainVm : InvoiceVm
     {
         #region 声明、初始化
 
+        private readonly PaymentData _context;
         private readonly IRegionManager _regionManager;
-        [Import]
-        public DocumentViewer DocumentView;
+        private readonly IPaymentService _service;
+        [Import] public DocumentViewer DocumentView;
 
         [ImportingConstructor]
-        public EngineMaintainVm(IRegionManager regionManager)
+        public EngineMaintainVm(IRegionManager regionManager, IPaymentService service) : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
 
             InitializeVm();
         }
@@ -56,8 +62,8 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            EngineMaintainInvoices = Service.CreateCollection(PaymentDataService.EngineMaintainInvoices);
-            Service.RegisterCollectionView(EngineMaintainInvoices);
+            EngineMaintainInvoices = _service.CreateCollection(_context.EngineMaintainInvoices);
+            _service.RegisterCollectionView(EngineMaintainInvoices);
             //ApuMaintainInvoices.PropertyChanged += (sender, e) =>
             //{
             //    if (e.PropertyName == "HasChanges")
@@ -94,14 +100,18 @@ namespace UniCloud.Presentation.Payment.Invoice
         }
 
         #region 发动机维修发票
+
+        private EngineMaintainInvoiceDTO _engineMaintainInvoice;
+
+        private MaintainInvoiceLineDTO _engineMaintainInvoiceLine;
+
         /// <summary>
-        /// 发动机维修发票集合
+        ///     发动机维修发票集合
         /// </summary>
         public QueryableDataServiceCollectionView<EngineMaintainInvoiceDTO> EngineMaintainInvoices { get; set; }
 
-        private EngineMaintainInvoiceDTO _engineMaintainInvoice;
         /// <summary>
-        /// 选中的发动机维修发票
+        ///     选中的发动机维修发票
         /// </summary>
         public EngineMaintainInvoiceDTO EngineMaintainInvoice
         {
@@ -116,9 +126,8 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
         }
 
-        private MaintainInvoiceLineDTO _engineMaintainInvoiceLine;
         /// <summary>
-        /// 选中的APU维修发票
+        ///     选中的APU维修发票
         /// </summary>
         public MaintainInvoiceLineDTO EngineMaintainInvoiceLine
         {
@@ -142,14 +151,15 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 操作
 
         #region 创建新维修发票
+
         protected override void OnAddInvoice(object obj)
         {
             var maintainInvoice = new EngineMaintainInvoiceDTO
-                                  {
-                                      EngineMaintainInvoiceId = RandomHelper.Next(),
-                                      CreateDate = DateTime.Now,
-                                      InvoiceDate = DateTime.Now
-                                  };
+            {
+                EngineMaintainInvoiceId = RandomHelper.Next(),
+                CreateDate = DateTime.Now,
+                InvoiceDate = DateTime.Now
+            };
             EngineMaintainInvoices.AddNew(maintainInvoice);
         }
 
@@ -157,9 +167,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 删除维修发票
+
         protected override void OnRemoveInvoice(object obj)
         {
             if (EngineMaintainInvoice == null)
@@ -168,19 +180,21 @@ namespace UniCloud.Presentation.Payment.Invoice
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                EngineMaintainInvoices.Remove(_engineMaintainInvoice);
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                EngineMaintainInvoices.Remove(_engineMaintainInvoice);
+            });
         }
 
         protected override bool CanRemoveInvoice(object obj)
         {
             return true;
         }
+
         #endregion
 
         #region 增加维修发票行
+
         protected override void OnAddInvoiceLine(object obj)
         {
             if (EngineMaintainInvoice == null)
@@ -200,9 +214,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 移除维修发票行
+
         protected override void OnRemoveInvoiceLine(object obj)
         {
             if (EngineMaintainInvoiceLine == null)
@@ -211,19 +227,21 @@ namespace UniCloud.Presentation.Payment.Invoice
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                EngineMaintainInvoice.MaintainInvoiceLines.Remove(EngineMaintainInvoiceLine);
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                EngineMaintainInvoice.MaintainInvoiceLines.Remove(EngineMaintainInvoiceLine);
+            });
         }
 
         protected override bool CanRemoveInvoiceLine(object obj)
         {
             return true;
         }
+
         #endregion
 
         #region 提交发票
+
         protected override void OnSubmitInvoice(object obj)
         {
             if (EngineMaintainInvoice == null)
@@ -231,16 +249,18 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            EngineMaintainInvoice.Status = (int)InvoiceStatus.待审核;
+            EngineMaintainInvoice.Status = (int) InvoiceStatus.待审核;
         }
 
         protected override bool CanSubmitInvoice(object obj)
         {
             return true;
         }
+
         #endregion
 
         #region 审核发票
+
         protected override void OnReviewInvoice(object obj)
         {
             if (EngineMaintainInvoice == null)
@@ -248,7 +268,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            EngineMaintainInvoice.Status = (int)InvoiceStatus.已审核;
+            EngineMaintainInvoice.Status = (int) InvoiceStatus.已审核;
             EngineMaintainInvoice.Reviewer = "admin";
             EngineMaintainInvoice.ReviewDate = DateTime.Now;
             EngineMaintainInvoice.IsValid = true;
@@ -258,9 +278,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 添加附件
+
         protected override void OnAddAttach(object sender)
         {
             if (EngineMaintainInvoice == null)
@@ -281,9 +303,11 @@ namespace UniCloud.Presentation.Payment.Invoice
                 EngineMaintainInvoice.DocumentName = document.Name;
             }
         }
+
         #endregion
 
         #region 查看附件
+
         protected override void OnViewAttach(object sender)
         {
             if (EngineMaintainInvoice == null)
@@ -294,6 +318,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             DocumentView.ViewModel.InitData(true, EngineMaintainInvoice.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
         }
+
         #endregion
 
         #region Combobox SelectedChanged
@@ -305,7 +330,9 @@ namespace UniCloud.Presentation.Payment.Invoice
                 EngineMaintainInvoice.SupplierName = (comboboxSelectedItem as SupplierDTO).Name;
             }
         }
+
         #endregion
+
         #endregion
     }
 }

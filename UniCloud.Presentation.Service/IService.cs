@@ -18,9 +18,7 @@
 #region 命名空间
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data.Services.Client;
 using Telerik.Windows.Controls.DataServices;
@@ -34,13 +32,8 @@ namespace UniCloud.Presentation.Service
     ///     服务接口
     ///     用于域上下文处理。
     /// </summary>
-    public interface IService
+    public interface IService : INotifyPropertyChanged
     {
-        /// <summary>
-        ///     数据服务上下文
-        /// </summary>
-        DataServiceContext Context { get; }
-
         /// <summary>
         ///     是否有变化
         /// </summary>
@@ -50,11 +43,6 @@ namespace UniCloud.Presentation.Service
         ///     DataServiceCollectionView集合
         /// </summary>
         List<QueryableDataServiceCollectionViewBase> DataServiceCollectionViews { get; }
-
-        /// <summary>
-        ///     属性变化事件
-        /// </summary>
-        event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         ///     保存实体变化
@@ -97,12 +85,24 @@ namespace UniCloud.Presentation.Service
         /// <typeparam name="TService">实体类型</typeparam>
         /// <param name="query">查询</param>
         /// <param name="changed">变更的处理</param>
-        /// <param name="options">保存选项</param>
         /// <returns>数据集合</returns>
         QueryableDataServiceCollectionView<TService> CreateCollection<TService>(
             DataServiceQuery<TService> query,
-            Action<IList, PropertyChangedEventHandler, NotifyCollectionChangedEventHandler> changed = null,
-            SaveChangesOptions options = SaveChangesOptions.Batch)
+            params Func<TService, object>[] changed)
+            where TService : class, INotifyPropertyChanged;
+
+        /// <summary>
+        ///     创建数据集合
+        /// </summary>
+        /// <typeparam name="TService">实体类型</typeparam>
+        /// <param name="query">查询</param>
+        /// <param name="options">保存选项</param>
+        /// <param name="changed">变更的处理</param>
+        /// <returns>数据集合</returns>
+        QueryableDataServiceCollectionView<TService> CreateCollection<TService>(
+            DataServiceQuery<TService> query,
+            SaveChangesOptions options,
+            params Func<TService, object>[] changed)
             where TService : class, INotifyPropertyChanged;
 
         /// <summary>

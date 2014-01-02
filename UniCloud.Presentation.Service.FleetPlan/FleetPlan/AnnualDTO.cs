@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,8 +41,9 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         {
             get
             {
-                if (IsOpen) return "打开";
-                return "关闭";
+                if (IsOpen && Plans.Any()) return "打开";
+                else if (IsOpen==false && Plans.Any()) return "关闭";
+                return "";
             }
         }
     }

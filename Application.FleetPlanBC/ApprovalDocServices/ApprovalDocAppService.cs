@@ -20,7 +20,7 @@
 using System;
 using System.Linq;
 using UniCloud.Application.ApplicationExtension;
-using UniCloud.Application.FleetPlanBC.DTO.ApporvalDocDTO;
+using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.ApprovalDocQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
 using UniCloud.Domain.FleetPlanBC.Enums;

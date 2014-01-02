@@ -25,7 +25,6 @@ using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
@@ -34,22 +33,24 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
-    [Export(typeof(UndercartMaintainVm))]
+    [Export(typeof (UndercartMaintainVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class UndercartMaintainVm : EditViewModelBase
     {
         #region 声明、初始化
 
+        private readonly PurchaseData _context;
         private readonly IRegionManager _regionManager;
-        private PurchaseData _purchaseData;
+        private readonly IPurchaseService _service;
+        [Import] public DocumentViewer DocumentView;
         private DocumentDTO _document = new DocumentDTO();
-        [Import]
-        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
-        public UndercartMaintainVm(IRegionManager regionManager)
+        public UndercartMaintainVm(IRegionManager regionManager, IPurchaseService service) : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
             InitializeVm();
         }
 
@@ -62,43 +63,34 @@ namespace UniCloud.Presentation.Purchase.Contract
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            UndercartMaintainContracts = Service.CreateCollection(_purchaseData.UndercartMaintainContracts);
-            Service.RegisterCollectionView(UndercartMaintainContracts);
+            UndercartMaintainContracts = _service.CreateCollection(_context.UndercartMaintainContracts);
+            _service.RegisterCollectionView(UndercartMaintainContracts);
             UndercartMaintainContracts.PropertyChanged += (sender, e) =>
-                                                          {
-                                                              if (e.PropertyName == "IsAddingNew")
-                                                              {
-                                                                  var newItem =
-                                                                      UndercartMaintainContracts.CurrentAddItem as
-                                                                          UndercartMaintainContractDTO;
-                                                                  if (newItem != null)
-                                                                  {
-                                                                      newItem.UndercartMaintainContractId =
-                                                                          RandomHelper.Next();
-                                                                      newItem.SignDate = DateTime.Now;
-                                                                      newItem.CreateDate = DateTime.Now;
-                                                                      DocumentName = "添加附件";
-                                                                      _document.DocumentId = new Guid();
-                                                                      _document.Name = string.Empty;
-                                                                  }
-                                                              }
-                                                              else if (e.PropertyName == "HasChanges")
-                                                              {
-                                                                  CanSelectUndercartMaintain =
-                                                                      !UndercartMaintainContracts.HasChanges;
-                                                              }
-                                                          };
+            {
+                if (e.PropertyName == "IsAddingNew")
+                {
+                    var newItem =
+                        UndercartMaintainContracts.CurrentAddItem as
+                            UndercartMaintainContractDTO;
+                    if (newItem != null)
+                    {
+                        newItem.UndercartMaintainContractId =
+                            RandomHelper.Next();
+                        newItem.SignDate = DateTime.Now;
+                        newItem.CreateDate = DateTime.Now;
+                        DocumentName = "添加附件";
+                        _document.DocumentId = new Guid();
+                        _document.Name = string.Empty;
+                    }
+                }
+                else if (e.PropertyName == "HasChanges")
+                {
+                    CanSelectUndercartMaintain =
+                        !UndercartMaintainContracts.HasChanges;
+                }
+            };
 
-            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_purchaseData, _purchaseData.Suppliers);
-        }
-
-        /// <summary>
-        ///     创建服务实例
-        /// </summary>
-        protected override IService CreateService()
-        {
-            _purchaseData = new PurchaseData(AgentHelper.PurchaseUri);
-            return new PurchaseService(_purchaseData);
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
         }
 
         #endregion
@@ -108,14 +100,15 @@ namespace UniCloud.Presentation.Purchase.Contract
         #region 公共属性
 
         /// <summary>
+        ///     文档名称
+        /// </summary>
+        private string _documentName;
+
+        /// <summary>
         ///     供应商
         /// </summary>
         public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
 
-        /// <summary>
-        /// 文档名称
-        /// </summary>
-        private string _documentName;
         public string DocumentName
         {
             get { return _documentName; }
@@ -125,6 +118,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 RaisePropertyChanged("DocumentName");
             }
         }
+
         #endregion
 
         #region 加载数据
@@ -146,6 +140,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 起落架维修合同
 
+        private bool _canSelectUndercartMaintain = true;
         private UndercartMaintainContractDTO _undercartMaintainContract;
 
         /// <summary>
@@ -184,7 +179,6 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
         }
 
-        private bool _canSelectUndercartMaintain = true;
         //用户能否选择
         public bool CanSelectUndercartMaintain
         {
@@ -262,7 +256,6 @@ namespace UniCloud.Presentation.Purchase.Contract
         #endregion
 
         #region 重载操作
-
 
         #endregion
 

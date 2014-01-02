@@ -15,13 +15,22 @@
 
 #endregion
 
+#region 命名空间
+
+using UniCloud.Presentation.Service.CommonService.Common;
+
+#endregion
 
 namespace UniCloud.Presentation.Service.CommonService
 {
     /// <summary>
-    /// 通用领域服务
+    ///     通用领域服务
     /// </summary>
-    public interface ICommonService
+    public interface ICommonService : IService
     {
+        /// <summary>
+        ///     数据服务上下文
+        /// </summary>
+        CommonServiceData Context { get; }
     }
 }
