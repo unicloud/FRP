@@ -214,7 +214,8 @@
                                                                    PanOffset="{Binding PanOffset, Mode=TwoWay}"
                                                                    EmptyContent="座级变化趋势"
                                                                    Grid.Column="1">
-                                            <telerik:RadCartesianChart.Resources>
+                                                
+                                                <telerik:RadCartesianChart.Resources>
                                                 <!--<DataTemplate x:Key="LinePointTemplate">
 													<example:CustomEllipse Width="10" Height="10" BorderBrush="#FF8EC441" Background="White" Foreground="#FF8EC441"/>
 												</DataTemplate>
