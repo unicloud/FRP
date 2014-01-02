@@ -121,7 +121,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public QueryableDataServiceCollectionView<XmlConfigDTO> XmlConfigs { get; set; }//XmlConfig集合
         public QueryableDataServiceCollectionView<XmlSettingDTO> XmlSettings { get; set; } //XmlSetting集合
         public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; } //飞机集合 
-
+        public AirlinesDTO CurrentAirlines { get; set; }
         #region  属性 SelectedTime --所选的时间点
         private string _selectedTime = "所选时间";
         /// <summary>
@@ -532,7 +532,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             XmlSettings.Load(true);
             Aircrafts.Load(true);
 
-            //if (_service.CurrentAirlines != null && _service.CurrentAirlines.SubAirlines != null && _service.CurrentAirlines.SubAirlines.Any(p => p.SubType .Equals( 0 || p.SubType .Equals( 2))
+            //if (CurrentAirlines != null && CurrentAirlines.SubAirlines != null && CurrentAirlines.SubAirlines.Any(p => p.SubType == 0 || p.SubType == 2))
             //{
             //    IsHidden = false;
             //}
@@ -542,14 +542,14 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             //}
 
 
-            //if (_service.CurrentAirlines != null && _service.CurrentAirlines.SubAirlines != null && _service.CurrentAirlines.SubAirlines.Any(p => p.SubType .Equals( 1))
+            //if (CurrentAirlines!= null && CurrentAirlines.SubAirlines != null && CurrentAirlines.SubAirlines.Any(p => p.SubType ==1))
             //{
-            //    Visibility = System.Windows.Visibility.Visible;
+            //    Visibility = Visibility.Visible;
             //    (BarGrid.Children[0] as RadCartesianChart).TooltipTemplate = CurrentFleetTrend.Resources["TooltipTemplateChild"] as DataTemplate;
             //}
             //else
             //{
-            //    Visibility = System.Windows.Visibility.Collapsed;
+            //    Visibility = Visibility.Collapsed;
             //    (BarGrid.Children[0] as RadCartesianChart).TooltipTemplate = CurrentFleetTrend.Resources["TooltipTemplate"] as DataTemplate;
             //}
         }
@@ -569,20 +569,20 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             //if (selectedItem != null && radwindow != null)
             //{
-            //    var fleetaircraft = selectedItem.DataItem as FleetAircraft;
+            //    var fleetAircraft = selectedItem.DataItem as FleetAircraft;
             //    DateTime time = Convert.ToDateTime(SelectedTime).AddMonths(1).AddDays(-1);
             //    var aircraft = Aircrafts.Where(o => o.OperationHistories.Any(a =>
-            //        (a.Airlines.ShortName .Equals( _service.CurrentAirlines.ShortName || a.Airlines.SubType .Equals( 2)
+            //        (a.Airlines.ShortName .Equals( CurrentAirlines.ShortName,StringComparison.OrdinalIgnoreCase) || a.Airlines.SubType ==2)
             //        && a.StartDate <= time && !(a.EndDate != null && a.EndDate < time))
-            //        && o.AircraftBusinesses.Any(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time)));
+            //        && o.AircraftBusinesses.Any(t => t.StartDate <= time && !(t.EndDate != null && t.EndDate < time)));
 
             //    var airlineAircrafts = new List<AircraftDTO>();
-            //    if (fleetaircraft.Aircraft .Equals( _service.CurrentAirlines.ShortName)
+            //    if (fleetAircraft.Aircraft .Equals( CurrentAirlines.ShortName,StringComparison.OrdinalIgnoreCase))
             //    {
             //        airlineAircrafts = aircraft.Where(p =>
             //        {
-            //            var operationHistory = p.OperationHistories.FirstOrDefault(pp => pp.Airlines.ShortName .Equals( _service.CurrentAirlines.ShortName && pp.StartDate <= time && !(pp.EndDate != null && pp.EndDate < time));
-            //            if (operationHistory .Equals( null)
+            //            var operationHistory = p.OperationHistories.FirstOrDefault(pp => pp.Airlines.ShortName .Equals( CurrentAirlines.ShortName,StringComparison.OrdinalIgnoreCase) && pp.StartDate <= time && !(pp.EndDate != null && pp.EndDate < time));
+            //            if (operationHistory ==null)
             //            {
             //                return false;
             //            }
@@ -593,8 +593,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             //            else
             //            {
             //                var suboperationCategory = operationHistory.SubOperationHistories.Where(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time));
-            //                if (suboperationCategory .Equals( null || suboperationCategory.Count() .Equals( 0) return true;
-            //                return suboperationCategory.Any(a => a.Airlines.ShortName .Equals( _service.CurrentAirlines.ShortName);
+            //                if (suboperationCategory == null || suboperationCategory.Count() == 0) return true;
+            //                return suboperationCategory.Any(a => a.Airlines.ShortName .Equals( CurrentAirlines.ShortName,StringComparison.OrdinalIgnoreCase));
 
             //            }
             //        }).ToList();
@@ -606,15 +606,15 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             //        var aircraftSubCompany = aircraft.Where(p =>
             //                                                p.OperationHistories.Any(
             //                                                    pp =>
-            //                                                    pp.Airlines.ShortName .Equals( fleetaircraft.Aircraft &&
-            //                                                    pp.Airlines.SubType .Equals( 2
+            //                                                    pp.Airlines.ShortName .Equals( fleetAircraft.Aircraft &&
+            //                                                    pp.Airlines.SubType== 2
             //                                                    && pp.StartDate <= time &&
             //                                           !(pp.EndDate != null && pp.EndDate < time))).ToList();
             //        //分公司的筛选     
             //        var aircraftFiliale = aircraft.Where(p =>
             //        {
-            //            var operationHistory = p.OperationHistories.FirstOrDefault(pp => pp.Airlines.ShortName .Equals( _service.CurrentAirlines.ShortName && pp.StartDate <= time && !(pp.EndDate != null && pp.EndDate < time));
-            //            if (operationHistory .Equals( null ||
+            //            var operationHistory = p.OperationHistories.FirstOrDefault(pp => pp.Airlines.ShortName .Equals( CurrentAirlines.ShortName,StringComparison.OrdinalIgnoreCase) && pp.StartDate <= time && !(pp.EndDate != null && pp.EndDate < time));
+            //            if (operationHistory ==null ||
             //                operationHistory.SubOperationHistories.Count <= 0)
             //            {
             //                return false;
@@ -622,12 +622,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             //            else
             //            {
             //                return
-            //                    operationHistory.SubOperationHistories.Any(
-            //                        a =>
-            //                        a.Airlines.ShortName .Equals(
-            //                        fleetaircraft.Aircraft &&
-            //                        a.StartDate <= time &&
-            //                        !(a.EndDate != null && a.EndDate < time));
+            //                    operationHistory.SubOperationHistories.Any(a =>
+            //                        a.Airlines.ShortName .Equals(fleetAircraft.Aircraft,StringComparison.OrdinalIgnoreCase) &&
+            //                        a.StartDate <= time &&!(a.EndDate != null && a.EndDate < time));
 
             //            }
             //        }).ToList();
@@ -635,11 +632,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             //    }
             //    //找到子窗体的RadGridView，并为其赋值
             //    var rgv = radwindow.Content as RadGridView;
-            //    rgv.ItemsSource = commonmethod.GetAircraftByTime(airlineAircrafts, time);
-            //    radwindow.Header = fleetaircraft.Aircraft + header + "：" + fleetaircraft.ToolTip;
+            //    rgv.ItemsSource = _commonMethod.GetAircraftByTime(airlineAircrafts, time);
+            //    radwindow.Header = fleetAircraft.Aircraft + header + "：" + fleetAircraft.ToolTip;
             //    if (!radwindow.IsOpen)
             //    {
-            //        commonmethod.ShowRadWindow(radwindow);
+            //        _commonMethod.ShowRadWindow(radwindow);
             //    }
             //}
         }
@@ -721,7 +718,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 if (menu.Name.Equals("LineGridData",StringComparison.OrdinalIgnoreCase))
                 {
-                    //if (_service.CurrentAirlines.SubAirlines != null && _service.CurrentAirlines.SubAirlines.Any(p => p.SubType .Equals( 1))
+                    //if (CurrentAirlines.SubAirlines != null && CurrentAirlines.SubAirlines.Any(p => p.SubType == 1))
                     //{
                     //    //当包含子公司时
                     //    var columnsList = new Dictionary<string, string>
@@ -755,7 +752,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
                 else if (menu.Name .Equals( "BarGridData",StringComparison.OrdinalIgnoreCase))
                 {
-                    //if (_service.CurrentAirlines.SubAirlines != null && _service.CurrentAirlines.SubAirlines.Any(p => p.SubType .Equals( 1))
+                    //if (CurrentAirlines.SubAirlines != null && CurrentAirlines.SubAirlines.Any(p => p.SubType == 1))
                     //{
                     //    //当包含子公司时
                     //    var columnsList = new Dictionary<string, string>
@@ -1091,7 +1088,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     SelectedTime = fleetAircraftTrend.DateTime;
 
                     DateTime time = Convert.ToDateTime(fleetAircraftTrend.DateTime).AddMonths(1).AddDays(-1);
-                    //var aircraftListRoot = Aircrafts.Where(o => o.OperationHistories.Any(a => (a.Airlines.ShortName .Equals( _service.CurrentAirlines.ShortName,StringComparison.OrdinalIgnoreCase) || a.Airlines.SubType == 2)
+                    //var aircraftListRoot = Aircrafts.Where(o => o.OperationHistories.Any(a => (a.Airlines.ShortName.Equals(CurrentAirlines.ShortName, StringComparison.OrdinalIgnoreCase) || a.Airlines.SubType == 2)
                     //        && a.StartDate <= time && !(a.EndDate != null && a.EndDate < time))
                     //        && o.AircraftBusinesses.Any(a => a.StartDate <= time && !(a.EndDate != null && a.EndDate < time))).ToList();
                     //AircraftCollection = _commonMethod.GetAircraftByTime(aircraftListRoot, time);
