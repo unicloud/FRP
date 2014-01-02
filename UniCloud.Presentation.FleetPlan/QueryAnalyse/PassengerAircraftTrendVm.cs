@@ -1589,8 +1589,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
         }
 
-        private const bool _canExportGridView = true;
-
         bool CanExportGridView(object sender)
         {
             return _canExportGridView;
