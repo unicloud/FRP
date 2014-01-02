@@ -1517,8 +1517,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public void ChartSelectionBehaviorSelection(DateTime time)
         {
             var aircraft = Aircrafts.
-                Where(
-                    o => o.OperationHistories.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time))
+                Where(o => o.OperationHistories.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time))
                 /*&& o.AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time))*/);
 
             #region 座级机型XML文件的读写
@@ -1537,8 +1536,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 regionalColor =
                     XElement.Parse(colorConfig.SettingContent)
                         .Descendants("Type")
-                        .FirstOrDefault(
-                            p => p.Attribute("TypeName").Value.Equals("座级", StringComparison.OrdinalIgnoreCase));
+                        .FirstOrDefault( p => p.Attribute("TypeName").Value.Equals("座级", StringComparison.OrdinalIgnoreCase));
             }
             XElement typeColor = null;
             if (colorConfig != null &&
