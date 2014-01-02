@@ -35,11 +35,6 @@ namespace UniCloud.Presentation.Service
     public interface IService : INotifyPropertyChanged
     {
         /// <summary>
-        ///     数据服务上下文
-        /// </summary>
-        DataServiceContext Context { get; }
-
-        /// <summary>
         ///     是否有变化
         /// </summary>
         bool HasChanges { get; }

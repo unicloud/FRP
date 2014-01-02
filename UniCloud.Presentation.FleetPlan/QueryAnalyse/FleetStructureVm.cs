@@ -226,7 +226,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             get { return _fleetAircraftRegionalCollection; }
             set
             {
-                if ( !Equals(_fleetAircraftRegionalCollection, value))
+                if (!Equals(_fleetAircraftRegionalCollection, value))
                 {
                     _fleetAircraftRegionalCollection = value;
                     RaisePropertyChanged(() => FleetAircraftRegionalCollection);
@@ -1212,13 +1212,13 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 var airlineAircrafts = new List<AircraftDTO>();
                 if (header == "座级")
                 {
-                    //airlineAircrafts = aircraft.Where(p => p.AircraftBusinesses.FirstOrDefault(pp => pp.StartDate <= time
-                    //    && !(pp.EndDate != null && pp.EndDate < time)).AircraftType.AircraftCategory.Regional == fleetAircraftTypeComposition.AircraftRegional).ToList();
+                    airlineAircrafts = aircraft.Where(p => p.AircraftBusinesses.FirstOrDefault(pp => pp.StartDate <= time
+                        && !(pp.EndDate != null && pp.EndDate < time)).Regional == fleetAircraftTypeComposition.AircraftRegional).ToList();
                 }
                 else if (header == "机型")
                 {
-                    //airlineAircrafts = aircraft.Where(p => p.AircraftBusinesses.FirstOrDefault(pp => pp.StartDate <= time
-                    //    && !(pp.EndDate != null && pp.EndDate < time)).AircraftType.Name == fleetAircraftTypeComposition.AircraftRegional).ToList();
+                    airlineAircrafts = aircraft.Where(p => p.AircraftBusinesses.FirstOrDefault(pp => pp.StartDate <= time
+                        && !(pp.EndDate != null && pp.EndDate < time)).AircraftTypeName == fleetAircraftTypeComposition.AircraftRegional).ToList();
                 }
                 //找到子窗体的RadGridView，并为其赋值
                 var rgv = radWindow.Content as RadGridView;
@@ -1372,7 +1372,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             var aircraft = Aircrafts.
                         Where(o => o.OperationHistories.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time))
-                       /*&& o.AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time))*/);
+                       && o.AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)));
 
             #region 座级机型XML文件的读写
             var xmlConfig = XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("座级机型", StringComparison.OrdinalIgnoreCase));

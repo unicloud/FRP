@@ -495,20 +495,32 @@
 									<telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号" />
 										<telerik:GridViewDataColumn Header="注册号"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
 																	DataMemberBinding="{Binding RegNumber}">
 											<!--<telerik:GridViewDataColumn.AggregateFunctions>
 												<telerik:CountFunction Caption="{StaticResource AircraftCountFunction}" />
 											</telerik:GridViewDataColumn.AggregateFunctions>-->
 										</telerik:GridViewDataColumn>
 										<telerik:GridViewDataColumn Header="运营权人"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
 																	DataMemberBinding="{Binding ThenAirlineName}" />
 										<telerik:GridViewDataColumn Header="所有权人"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
 																	DataMemberBinding="{Binding ThenOwnerName}" />
 										<telerik:GridViewDataColumn Header="制造商"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
 																	DataMemberBinding="{Binding EngineType.Manufacturer.Name}" />
 										<telerik:GridViewDataColumn Header="座级"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
 																	DataMemberBinding="{Binding ThenRegional}" />
 										<telerik:GridViewDataColumn Header="机型"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
 																	DataMemberBinding="{Binding ThenEngineTypeName}">
 											<!--<telerik:GridViewDataColumn.AggregateFunctions>
 								<telerik:CountFunction ResultFormatString="{}发动机数:{0}(架)"/>
@@ -516,12 +528,20 @@
 
 										</telerik:GridViewDataColumn>
 										<telerik:GridViewDataColumn Header="引进方式"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
 																	DataMemberBinding="{Binding ThenActionName}" />
 										<telerik:GridViewDataColumn Header="出厂日期"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
 																	DataMemberBinding="{Binding FactoryDate, StringFormat={StaticResource DateStringFormat}}" />
 										<telerik:GridViewDataColumn Header="座位数"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
 																	DataMemberBinding="{Binding ThenSeatingCapacity}" />
 										<telerik:GridViewDataColumn Header="商载（吨）"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    HeaderTextAlignment="Center"
 																	DataMemberBinding="{Binding ThenCarryingCapacity}" />
 									</telerik:RadGridView.Columns>
 									<!--<telerik:RadGridView.GroupDescriptors>

@@ -83,15 +83,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.PaymentNoticeAgg
 
         #endregion
 
-        #region 导航属性
-
-        /// <summary>
-        ///     发票
-        /// </summary>
-        public virtual Invoice Invoice { get; private set; }
-
-        #endregion
-
         #region 操作
 
         /// <summary>
@@ -100,26 +91,26 @@ namespace UniCloud.Domain.UberModel.Aggregates.PaymentNoticeAgg
         /// <param name="invoice">发票</param>
         public void SetInvoice(Invoice invoice)
         {
-            if (invoice == null || invoice.IsTransient())
-            {
-                throw new ArgumentException("发票参数为空！");
-            }
+            //if (invoice == null || invoice.IsTransient())
+            //{
+            //    throw new ArgumentException("发票参数为空！");
+            //}
 
-            Invoice = invoice;
-            InvoiceId = invoice.Id;
-            InvoiceNumber = invoice.InvoiceNumber;
-            if (invoice is PurchaseInvoice)
-            {
-                InvoiceType = InvoiceType.采购发票;
-            }
-            else if (invoice is PrepaymentInvoice)
-            {
-                InvoiceType = InvoiceType.预付款发票;
-            }
-            else if (invoice is LeaseInvoice)
-            {
-                InvoiceType = InvoiceType.租赁发票;
-            }
+            //Invoice = invoice;
+            //InvoiceId = invoice.Id;
+            //InvoiceNumber = invoice.InvoiceNumber;
+            //if (invoice is PurchaseInvoice)
+            //{
+            //    InvoiceType = InvoiceType.采购发票;
+            //}
+            //else if (invoice is PrepaymentInvoice)
+            //{
+            //    InvoiceType = InvoiceType.预付款发票;
+            //}
+            //else if (invoice is LeaseInvoice)
+            //{
+            //    InvoiceType = InvoiceType.租赁发票;
+            //}
         }
 
         #endregion

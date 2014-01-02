@@ -97,7 +97,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                           InitializeData();
                                       };
             Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_fleetPlanDataService, _fleetPlanDataService.Aircrafts);
-            //AircraftBusinesses=new QueryableDataServiceCollectionView<AircraftBusinessDTO>(_fleetPlanDataService,_fleetPlanDataService.aircr);
         }
         #endregion
 
@@ -108,7 +107,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public QueryableDataServiceCollectionView<XmlConfigDTO> XmlConfigs { get; set; }//XmlConfig集合
         public QueryableDataServiceCollectionView<XmlSettingDTO> XmlSettings { get; set; } //XmlSetting集合
         public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; } //飞机集合 
-        public QueryableDataServiceCollectionView<AircraftBusinessDTO> AircraftBusinesses { get; set; } //飞机商业数据
 
         public Dictionary<string, List<AircraftDTO>> AircraftByAgeDic = new Dictionary<string, List<AircraftDTO>>();//机龄饼图的飞机数据分布字典
 
@@ -128,7 +126,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             XmlConfigs.Load(true);
             XmlSettings.Load(true);
             Aircrafts.Load(true);
-            //AircraftBusinesses.Load(true);
         }
 
         #region 属性 AircraftDataObject
@@ -1298,13 +1295,13 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             if (aircraftType.Equals("所有机型", StringComparison.OrdinalIgnoreCase))
             {
                 aircraft = Aircrafts.Where(p => p.FactoryDate != null)
-                   .Where(o => /*AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)) &&*/ o.FactoryDate <= time && !(o.ExportDate != null && o.ExportDate < time));
+                   .Where(o => o.AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)) && o.FactoryDate <= time && !(o.ExportDate != null && o.ExportDate < time));
             }
             else
             {
-                //aircraft = this.Aircrafts.Where(p => p.FactoryDate != null)
-                //    .Where(o => AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)) && o.FactoryDate <= time && !(o.ExportDate != null && o.ExportDate < time))
-                //    .Where(o => AircraftBusinesses.FirstOrDefault(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)).AircraftType.Name == aircraftType);
+                aircraft = Aircrafts.Where(p => p.FactoryDate != null)
+                    .Where(o => o.AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)) && o.FactoryDate <= time && !(o.ExportDate != null && o.ExportDate < time))
+                    .Where(o => o.AircraftBusinesses.FirstOrDefault(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)).AircraftTypeName == aircraftType);
             }
 
             var xmlConfig = XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("机龄配置", StringComparison.OrdinalIgnoreCase));
@@ -1315,7 +1312,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 ageColor = XElement.Parse(colorConfig.SettingContent).Descendants("Type").FirstOrDefault(p => p.Attribute("TypeName").Value.Equals("机龄", StringComparison.OrdinalIgnoreCase));
             }
-            var aircraftDtos = aircraft as AircraftDTO[] ?? aircraft.ToArray();
+            var aircraftDtos = aircraft.ToList();
             if (xmlConfig != null && aircraft != null && aircraftDtos.Any())
             {
                 XElement xelement = XElement.Parse(xmlConfig.ConfigContent);
