@@ -51,7 +51,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
     {
         #region 声明、初始化
 
-        private readonly FleetPlanData _context;
+        private readonly FleetPlanData _fleetPlanContext;
         private static readonly CommonMethod CommonMethod = new CommonMethod();
         private readonly RadWindow _ageWindow = new RadWindow(); //用于单击机龄饼状图的用户提示
         private readonly IFleetPlanService _service;
@@ -60,7 +60,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private RadGridView _aircraftDetail; //初始化RadGridView
         private RadDateTimePicker _endDateTimePicker; //开始时间控件，结束时间控件
         private RadGridView _exportRadgridview; //初始化RadGridView
-        private FleetPlanData _fleetPlanDataService;
         private int _i; //导出数据源格式判断
         private Grid _lineGrid; //趋势折线图区域， 机龄饼图区域
         private bool _loadXmlConfig;
@@ -71,7 +70,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public FleetAgeVm(IFleetPlanService service)
         {
             _service = service;
-            _context = _service.Context;
+            _fleetPlanContext = _service.Context;
             PieDeployCommand = new DelegateCommand<object>(OnPieDeploy, CanPieDeploy); //机龄饼图的配置
             ExportCommand = new DelegateCommand<object>(OnExport, CanExport); //导出图表源数据（Source data）
             ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView, CanExportGridView); //导出视图的数据
@@ -95,23 +94,22 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public void InitializeVm()
         {
             // 创建并注册CollectionView
-            XmlConfigs = new QueryableDataServiceCollectionView<XmlConfigDTO>(_fleetPlanDataService,
-                _fleetPlanDataService.XmlConfigs);
+            XmlConfigs = new QueryableDataServiceCollectionView<XmlConfigDTO>(_fleetPlanContext,
+                _fleetPlanContext.XmlConfigs);
             XmlConfigs.LoadedData += (o, e) =>
                                      {
                                          _loadXmlConfig = true;
                                          InitializeData();
                                      };
-            XmlSettings = new QueryableDataServiceCollectionView<XmlSettingDTO>(_fleetPlanDataService,
-                _fleetPlanDataService.XmlSettings);
+            XmlSettings = new QueryableDataServiceCollectionView<XmlSettingDTO>(_fleetPlanContext,
+                _fleetPlanContext.XmlSettings);
             XmlSettings.LoadedData += (o, e) =>
                                       {
                                           _loadXmlSetting = true;
                                           InitializeData();
                                       };
-            Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_fleetPlanDataService,
-                _fleetPlanDataService.Aircrafts);
-            //AircraftBusinesses=new QueryableDataServiceCollectionView<AircraftBusinessDTO>(_fleetPlanDataService,_fleetPlanDataService.aircr);
+            Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_fleetPlanContext,
+                _fleetPlanContext.Aircrafts);
         }
 
         #endregion
@@ -882,8 +880,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     var chart = _lineGrid.Children[0] as RadCartesianChart;
                     if (chart != null)
                     {
-                        var firstOrDefault =
-                            chart.Series.FirstOrDefault(p => p.DisplayName == checkBox.Content.ToString());
+                        var firstOrDefault = chart.Series.FirstOrDefault(p => p.DisplayName == checkBox.Content.ToString());
                         if (firstOrDefault != null)
                             firstOrDefault.Visibility = Visibility.Visible;
                         var size = chart.Zoom;

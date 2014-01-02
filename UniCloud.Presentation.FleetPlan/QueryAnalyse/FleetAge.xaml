@@ -166,8 +166,10 @@
                                     telerik:StyleManager.Theme="Windows8"
                                     Margin="5"
                                     HasDocumentHost="False">
+                    <telerik:RadSplitContainer Orientation="Vertical">
                     <telerik:RadSplitContainer InitialPosition="DockedTop"
-                                               Orientation="Horizontal">
+                                               Orientation="Horizontal"
+                                                   telerik:ProportionalStackPanel.RelativeSize="800, 600">
                         <telerik:RadPaneGroup>
                             <telerik:RadPane Header="机龄统计分析"
                                              FontSize="{StaticResource TextFontSize}"
@@ -282,7 +284,8 @@
                             </telerik:RadPane>
                         </telerik:RadPaneGroup>
                     </telerik:RadSplitContainer>
-                    <telerik:RadSplitContainer InitialPosition="DockedBottom">
+                    <telerik:RadSplitContainer InitialPosition="DockedBottom"
+                                                   telerik:ProportionalStackPanel.RelativeSize="800, 400">
                         <telerik:RadPaneGroup>
                             <telerik:RadPane Header="{Binding SelectedTimeAge}"
                                              FontSize="{StaticResource TextFontSize}"
@@ -469,6 +472,7 @@
                                 </telerik:RadGridView>
                             </telerik:RadPane>
                         </telerik:RadPaneGroup>
+                    </telerik:RadSplitContainer>
                     </telerik:RadSplitContainer>
                 </telerik:RadDocking>
             </Border>

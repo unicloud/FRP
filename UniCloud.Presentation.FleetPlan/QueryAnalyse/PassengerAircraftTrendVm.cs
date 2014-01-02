@@ -50,7 +50,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
     {
         #region 声明、初始化
 
-        private readonly FleetPlanData _context;
+        private readonly FleetPlanData _fleetPlanContext;
         private readonly RadWindow _aircraftWindow = new RadWindow(); //用于单击飞机数饼状图的用户提示
         private readonly CommonMethod _commonMethod = new CommonMethod();
         private readonly RadWindow _loadWindow = new RadWindow(); //用于单击商载量饼状图的用户提示
@@ -61,7 +61,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private Grid _barGrid; //飞机数饼图区域， 座位数饼图区域， 商载量区域
         private RadDateTimePicker _endDateTimePicker; //开始时间控件， 结束时间控件
         private RadGridView _exportRadGridView; //初始化RadGridView
-        private FleetPlanData _fleetPlanDataService;
         private int _i; //导出数据源格式判断
         private Grid _lineGrid; //飞机数饼图区域， 座位数饼图区域， 商载量区域
         private Grid _loadPieGrid; //飞机数饼图区域， 座位数饼图区域， 商载量区域
@@ -74,7 +73,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public PassengerAircraftTrendVm(IFleetPlanService service)
         {
             _service = service;
-            _context = _service.Context;
+            _fleetPlanContext = _service.Context;
             ExportCommand = new DelegateCommand<object>(OnExport, CanExport); //导出图表源数据（Source data）
             ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView, CanExportGridView);
             ViewModelInitializer();
@@ -102,22 +101,22 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public void InitializeVm()
         {
             // 创建并注册CollectionView
-            XmlConfigs = new QueryableDataServiceCollectionView<XmlConfigDTO>(_fleetPlanDataService,
-                _fleetPlanDataService.XmlConfigs);
+            XmlConfigs = new QueryableDataServiceCollectionView<XmlConfigDTO>(_fleetPlanContext,
+                _fleetPlanContext.XmlConfigs);
             XmlConfigs.LoadedData += (o, e) =>
                                      {
                                          _loadXmlConfig = true;
                                          InitializeData();
                                      };
-            XmlSettings = new QueryableDataServiceCollectionView<XmlSettingDTO>(_fleetPlanDataService,
-                _fleetPlanDataService.XmlSettings);
+            XmlSettings = new QueryableDataServiceCollectionView<XmlSettingDTO>(_fleetPlanContext,
+                _fleetPlanContext.XmlSettings);
             XmlSettings.LoadedData += (o, e) =>
                                       {
                                           _loadXmlSetting = true;
                                           InitializeData();
                                       };
-            Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_fleetPlanDataService,
-                _fleetPlanDataService.Aircrafts);
+            Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_fleetPlanContext,
+                _fleetPlanContext.Aircrafts);
         }
 
          /// <summary>
