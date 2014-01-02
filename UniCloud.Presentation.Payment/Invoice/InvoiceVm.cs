@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,27 +11,40 @@
 // 修改者：linxw 时间：2013/12/17 21:07:04
 // 修改说明：
 // ========================================================================*/
+
 #endregion
+
+#region 命名空间
+
 using System;
+using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
+
+#endregion
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
     public class InvoiceVm : EditViewModelBase
     {
         #region 声明、初始化
-        protected PaymentData PaymentDataService;
 
-        public InvoiceVm()
+        private readonly PaymentData _context;
+        private readonly IPaymentService _service;
+
+        [ImportingConstructor]
+        public InvoiceVm(IPaymentService service) : base(service)
         {
-            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(PaymentDataService, PaymentDataService.Suppliers);
-            Currencies=new QueryableDataServiceCollectionView<CurrencyDTO>(PaymentDataService,PaymentDataService.Currencies);
+            _service = service;
+            _context = _service.Context;
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context,
+                _context.Suppliers);
+            Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context,
+                _context.Currencies);
 
             AddInvoiceCommand = new DelegateCommand<object>(OnAddInvoice, CanAddInvoice);
             RemoveInvoiceCommand = new DelegateCommand<object>(OnRemoveInvoice, CanRemoveInvoice);
@@ -39,37 +53,41 @@ namespace UniCloud.Presentation.Payment.Invoice
             RemoveInvoiceLineCommand = new DelegateCommand<object>(OnRemoveInvoiceLine, CanRemoveInvoiceLine);
             SubmitInvoiceCommand = new DelegateCommand<object>(OnSubmitInvoice, CanSubmitInvoice);
             ReviewInvoiceCommand = new DelegateCommand<object>(OnReviewInvoice, CanReviewInvoice);
-
         }
+
         #endregion
 
         #region 公共属性
+
         /// <summary>
-        /// 供应商
+        ///     供应商
         /// </summary>
         public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
 
         /// <summary>
-        /// 币种
+        ///     币种
         /// </summary>
         public QueryableDataServiceCollectionView<CurrencyDTO> Currencies { get; set; }
 
         /// <summary>
-        /// 维修发票维修项
+        ///     维修发票维修项
         /// </summary>
         public Array MaintainItems
         {
-            get { return Enum.GetValues(typeof(MaintainItem)); }
+            get { return Enum.GetValues(typeof (MaintainItem)); }
         }
+
         #endregion
 
         #region 操作
 
         #region 创建新发票
+
         /// <summary>
-        ///  创建新发票
+        ///     创建新发票
         /// </summary>
         public DelegateCommand<object> AddInvoiceCommand { get; set; }
+
         protected virtual void OnAddInvoice(object obj)
         {
         }
@@ -78,13 +96,16 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 修改发票
+
         /// <summary>
-        ///  修改发票
+        ///     修改发票
         /// </summary>
         public DelegateCommand<object> EditInvoiceCommand { get; set; }
+
         protected virtual void OnEditInvoice(object obj)
         {
         }
@@ -93,9 +114,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 删除发票
+
         /// <summary>
         ///     删除发票
         /// </summary>
@@ -109,9 +132,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 增加维修发票行
+
         /// <summary>
         ///     增加维修发票行
         /// </summary>
@@ -125,9 +150,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 移除维修发票行
+
         /// <summary>
         ///     移除维修发票行
         /// </summary>
@@ -141,13 +168,16 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 提交发票
+
         /// <summary>
-        ///  提交发票
+        ///     提交发票
         /// </summary>
         public DelegateCommand<object> SubmitInvoiceCommand { get; set; }
+
         protected virtual void OnSubmitInvoice(object obj)
         {
         }
@@ -156,11 +186,13 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 审核发票
+
         /// <summary>
-        ///  审核发票
+        ///     审核发票
         /// </summary>
         public DelegateCommand<object> ReviewInvoiceCommand { get; set; }
 
@@ -172,17 +204,13 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
-        #endregion
 
-        protected override IService CreateService()
-        {
-            PaymentDataService = new PaymentData(AgentHelper.PaymentUri);
-            return new PaymentService(PaymentDataService);
-        }
+        #endregion
 
         public override void LoadData()
         {
         }
+
         #endregion
     }
 }

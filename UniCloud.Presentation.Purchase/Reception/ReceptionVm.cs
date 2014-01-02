@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,26 +11,16 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
-using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
@@ -40,14 +31,20 @@ namespace UniCloud.Presentation.Purchase.Reception
     public class ReceptionVm : EditViewModelBase
     {
         #region 声明、初始化
-        protected PurchaseData PurchaseDataService;
-        private CategoryCollection _categories;
-        private ResourceTypeCollection _workGroups;
-        protected SchdeuleExtension.ControlExtension ScheduleExtension;
 
-        public ReceptionVm()
+        private readonly IPurchaseService _service;
+        protected SchdeuleExtension.ControlExtension ScheduleExtension;
+        private CategoryCollection _categories;
+        private PurchaseData _context;
+        private ResourceTypeCollection _workGroups;
+
+        public ReceptionVm(IPurchaseService service) : base(service)
         {
-            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(PurchaseDataService, PurchaseDataService.Suppliers);
+            _service = service;
+            _context = _service.Context;
+
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context,
+                _context.Suppliers);
 
             ScheduleExtension = new SchdeuleExtension.ControlExtension();
 
@@ -65,26 +62,18 @@ namespace UniCloud.Presentation.Purchase.Reception
             DelCommand = new DelegateCommand<object>(OnDeleted);
         }
 
-        /// <summary>
-        ///     创建服务实例
-        /// </summary>
-        protected override IService CreateService()
-        {
-            PurchaseDataService = new PurchaseData(AgentHelper.PurchaseUri);
-            return new PurchaseService(PurchaseDataService);
-        }
-
         #endregion
 
         #region 数据
 
         public override void LoadData()
         {
-
         }
+
         #region 公共属性
+
         /// <summary>
-        /// 供应商
+        ///     供应商
         /// </summary>
         public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
 
@@ -92,16 +81,16 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             get
             {
-                if (this._categories == null)
+                if (_categories == null)
                 {
-                    this._categories = new CategoryCollection
+                    _categories = new CategoryCollection
                     {
                         new Category("未启动", new SolidColorBrush(Colors.Gray)),
                         new Category("正在进行中…", new SolidColorBrush(Colors.Brown)),
                         new Category("已完成", new SolidColorBrush(Colors.Green)),
                     };
                 }
-                return this._categories;
+                return _categories;
             }
         }
 
@@ -109,9 +98,9 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             get
             {
-                if (this._workGroups == null)
+                if (_workGroups == null)
                 {
-                    _workGroups=new ResourceTypeCollection();
+                    _workGroups = new ResourceTypeCollection();
                     var reType = new ResourceType();
                     reType.Resources.Add(new Resource("机务组", "工作组"));
                     reType.Resources.Add(new Resource("机队管理组", "工作组"));
@@ -122,6 +111,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                 return _workGroups;
             }
         }
+
         #endregion
 
         #endregion
@@ -137,7 +127,6 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         protected virtual void OnNew(object obj)
         {
-
         }
 
         protected virtual bool CanNew(object obj)
@@ -162,9 +151,11 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             return true;
         }
+
         #endregion
 
         #region 新增接收行
+
         /// <summary>
         ///     新增接收行
         /// </summary>
@@ -178,6 +169,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             return true;
         }
+
         #endregion
 
         #region 删除接收行
@@ -195,6 +187,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         {
             return true;
         }
+
         #endregion
 
         #region 移除附件
@@ -212,20 +205,21 @@ namespace UniCloud.Presentation.Purchase.Reception
         #endregion
 
         #region GridView单元格变更处理
+
         public DelegateCommand<object> CellEditEndCommand { set; get; }
 
         /// <summary>
-        /// GridView单元格变更处理
+        ///     GridView单元格变更处理
         /// </summary>
         /// <param name="sender"></param>
         protected virtual void OnCellEditEnd(object sender)
         {
         }
 
-
         #endregion
 
         #region ScheduleView新增处理
+
         public DelegateCommand<object> CreateCommand { set; get; }
 
         protected virtual void OnCreated(object sender)
@@ -235,6 +229,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         #endregion
 
         #region ScheduleView删除处理
+
         public DelegateCommand<object> DelCommand { set; get; }
 
         protected virtual void OnDeleted(object sender)
@@ -244,15 +239,14 @@ namespace UniCloud.Presentation.Purchase.Reception
         #endregion
 
         #region ScheduleView编辑处理
+
         public DelegateCommand<object> EditCommand { set; get; }
 
         protected virtual void OnEdited(object sender)
         {
-
         }
 
         #endregion
-
 
         #endregion
     }

@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.ComponentModel.Composition;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
@@ -25,6 +26,8 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Service.Purchase
 {
+    [Export(typeof (IPurchaseService))]
+    [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PurchaseService : ServiceBase, IPurchaseService
     {
         private static QueryableDataServiceCollectionView<SupplierDTO> _supplier;
@@ -38,11 +41,6 @@ namespace UniCloud.Presentation.Service.Purchase
         public PurchaseService()
         {
             context = new PurchaseData(AgentHelper.PurchaseUri);
-        }
-
-        public PurchaseService(PurchaseData context)
-            : base(context)
-        {
         }
 
         #region IPurchaseService 成员

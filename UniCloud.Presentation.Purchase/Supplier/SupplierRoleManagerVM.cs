@@ -21,7 +21,6 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
@@ -33,13 +32,17 @@ namespace UniCloud.Presentation.Purchase.Supplier
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class SupplierRoleManagerVM : EditViewModelBase
     {
-        private PurchaseData _purchaseData;
+        private readonly PurchaseData _context;
+        private readonly IPurchaseService _service;
+
         /// <summary>
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public SupplierRoleManagerVM()
+        public SupplierRoleManagerVM(IPurchaseService service) : base(service)
         {
+            _service = service;
+            _context = _service.Context;
             InitialSupplierCompany(); //初始化合作公司。
         }
 
@@ -74,20 +77,20 @@ namespace UniCloud.Presentation.Purchase.Supplier
         /// </summary>
         private void InitialSupplierCompany()
         {
-            SupplierCompanysView = Service.CreateCollection(_purchaseData.SupplierCompanys);
-            Service.RegisterCollectionView(SupplierCompanysView); //注册查询集合。
+            SupplierCompanysView = _service.CreateCollection(_context.SupplierCompanys);
+            _service.RegisterCollectionView(SupplierCompanysView); //注册查询集合。
             SupplierCompanysView.LoadedData += (sender, e) =>
+            {
+                if (e.HasError)
                 {
-                    if (e.HasError)
-                    {
-                        e.MarkErrorAsHandled();
-                        return;
-                    }
-                    if (SelSupplierCompany==null)
-                    {
-                        SelSupplierCompany = e.Entities.Cast<SupplierCompanyDTO>().FirstOrDefault();
-                    }
-                };
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                if (SelSupplierCompany == null)
+                {
+                    SelSupplierCompany = e.Entities.Cast<SupplierCompanyDTO>().FirstOrDefault();
+                }
+            };
         }
 
         #endregion
@@ -101,17 +104,6 @@ namespace UniCloud.Presentation.Purchase.Supplier
         {
             SupplierCompanysView.AutoLoad = true; //加载数据。
         }
-
-        /// <summary>
-        ///     创建服务。
-        /// </summary>
-        /// <returns></returns>
-        protected override IService CreateService()
-        {
-            _purchaseData = new PurchaseData(AgentHelper.PurchaseUri);
-            return new PurchaseService(_purchaseData);
-        }
-
 
         #endregion
     }

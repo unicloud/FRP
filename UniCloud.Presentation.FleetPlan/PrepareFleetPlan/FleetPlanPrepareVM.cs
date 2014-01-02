@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -18,22 +20,10 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
-using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
@@ -41,19 +31,22 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof(FleetPlanPrepareVM))]
+    [Export(typeof (FleetPlanPrepareVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class FleetPlanPrepareVM : EditViewModelBase
     {
         #region 声明、初始化
 
+        private readonly FleetPlanData _context;
         private readonly IRegionManager _regionManager;
-        private FleetPlanData _context;
+        private readonly IFleetPlanService _service;
 
         [ImportingConstructor]
-        public FleetPlanPrepareVM(IRegionManager regionManager)
+        public FleetPlanPrepareVM(IRegionManager regionManager, IFleetPlanService service) : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
             InitializeVM();
             InitializerCommand();
         }
@@ -66,8 +59,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            Annuals = Service.CreateCollection(_context.Annuals.Expand(p=>p.Plans));
-            Service.RegisterCollectionView(Annuals);
+            Annuals = _service.CreateCollection(_context.Annuals.Expand(p => p.Plans));
+            _service.RegisterCollectionView(Annuals);
         }
 
         /// <summary>
@@ -76,15 +69,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private void InitializerCommand()
         {
             UnlockCommand = new DelegateCommand<object>(OnUnLock, CanUnLock);
-        }
-
-        /// <summary>
-        ///     创建服务实例
-        /// </summary>
-        protected override IService CreateService()
-        {
-            _context = new FleetPlanData(AgentHelper.FleetPlanServiceUri);
-            return new FleetPlanService(_context);
         }
 
         #endregion
@@ -125,17 +109,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private AnnualDTO _selAnnual;
 
         /// <summary>
-        /// 选择的规划
+        ///     选择的规划
         /// </summary>
         public AnnualDTO SelAnnual
         {
-            get { return this._selAnnual; }
+            get { return _selAnnual; }
             private set
             {
-                if (this._selAnnual != value)
+                if (_selAnnual != value)
                 {
                     _selAnnual = value;
-                    this.RaisePropertyChanged(() => this.SelAnnual);
+                    RaisePropertyChanged(() => SelAnnual);
                     _selPlan = value.Plans.FirstOrDefault();
                     // 刷新按钮状态
                     RefreshCommandState();
@@ -150,17 +134,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private PlanDTO _selPlan;
 
         /// <summary>
-        /// 选择的规划明细
+        ///     选择的规划明细
         /// </summary>
         public PlanDTO SelPlan
         {
-            get { return this._selPlan; }
+            get { return _selPlan; }
             private set
             {
-                if (this._selPlan != value)
+                if (_selPlan != value)
                 {
                     _selPlan = value;
-                    this.RaisePropertyChanged(() => this.SelPlan);
+                    RaisePropertyChanged(() => SelPlan);
                 }
             }
         }

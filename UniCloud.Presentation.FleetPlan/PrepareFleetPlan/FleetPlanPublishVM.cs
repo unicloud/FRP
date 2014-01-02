@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,19 +11,18 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
 using System.ComponentModel.Composition;
-using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
@@ -31,23 +31,25 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof(FleetPlanPublishVM))]
+    [Export(typeof (FleetPlanPublishVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class FleetPlanPublishVM : EditViewModelBase
     {
         #region 声明、初始化
 
+        private readonly FleetPlanData _context;
         private readonly IRegionManager _regionManager;
-        private FleetPlanData _context;
+        private readonly IFleetPlanService _service;
+        [Import] public DocumentViewer DocumentView;
         private DocumentDTO _document = new DocumentDTO();
         private FilterDescriptor _planDescriptor;
-        [Import]
-        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
-        public FleetPlanPublishVM(IRegionManager regionManager)
+        public FleetPlanPublishVM(IRegionManager regionManager, IFleetPlanService service) : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
             InitializeVM();
             InitializerCommand();
         }
@@ -60,10 +62,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            ViewPlans = Service.CreateCollection(_context.Plans);
+            ViewPlans = _service.CreateCollection(_context.Plans);
             _planDescriptor = new FilterDescriptor("Year", FilterOperator.IsEqualTo, DateTime.Now.Year);
             ViewPlans.FilterDescriptors.Add(_planDescriptor);
-            Service.RegisterCollectionView(ViewPlans);
+            _service.RegisterCollectionView(ViewPlans);
         }
 
         /// <summary>
@@ -75,15 +77,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             ExamineCommand = new DelegateCommand<object>(OnExamine, CanExamine);
             SendCommand = new DelegateCommand<object>(OnSend, CanSend);
             RepealCommand = new DelegateCommand<object>(OnRepeal, CanRepeal);
-        }
-
-        /// <summary>
-        ///     创建服务实例
-        /// </summary>
-        protected override IService CreateService()
-        {
-            _context = new FleetPlanData(AgentHelper.FleetPlanServiceUri);
-            return new FleetPlanService(_context);
         }
 
         #endregion
@@ -124,17 +117,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private PlanDTO _selPlan;
 
         /// <summary>
-        /// 选择的计划
+        ///     选择的计划
         /// </summary>
         public PlanDTO SelPlan
         {
-            get { return this._selPlan; }
+            get { return _selPlan; }
             private set
             {
-                if (this._selPlan != value)
+                if (_selPlan != value)
                 {
                     _selPlan = value;
-                    this.RaisePropertyChanged(() => this.SelPlan);
+                    RaisePropertyChanged(() => SelPlan);
                     // 刷新按钮状态
                     RefreshCommandState();
                 }
@@ -172,7 +165,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnCommit(object obj)
         {
-
         }
 
         private bool CanCommit(object obj)
@@ -191,7 +183,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnExamine(object obj)
         {
-
         }
 
         private bool CanExamine(object obj)
@@ -238,6 +229,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #endregion
 
         #region 查看附件
+
         protected override void OnViewAttach(object sender)
         {
             if (SelPlan == null)
@@ -247,8 +239,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             }
             DocumentView.ViewModel.InitData(true, _selPlan.DocumentId, null);
             DocumentView.ShowDialog();
-
         }
+
         #endregion
 
         #endregion

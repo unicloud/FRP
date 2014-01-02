@@ -48,12 +48,6 @@ namespace UniCloud.Presentation.Service
             _dataServiceCollectionViews = new List<QueryableDataServiceCollectionViewBase>();
         }
 
-        protected ServiceBase(DataServiceContext context)
-        {
-            this.context = context;
-            _dataServiceCollectionViews = new List<QueryableDataServiceCollectionViewBase>();
-        }
-
         /// <summary>
         ///     通知属性变更
         /// </summary>

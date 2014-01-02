@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -18,14 +20,12 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Windows;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 
@@ -38,13 +38,17 @@ namespace UniCloud.Presentation.Payment.Invoice
     public class LeaseInvoiceManagerVM : EditViewModelBase
     {
         #region 声明、初始化
+
+        private readonly PaymentData _context;
         private readonly IRegionManager _regionManager;
-        private PaymentData _paymentData;
+        private readonly IPaymentService _service;
 
         [ImportingConstructor]
-        public LeaseInvoiceManagerVM(IRegionManager regionManager)
+        public LeaseInvoiceManagerVM(IRegionManager regionManager, IPaymentService service) : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
             InitializeVM();
             InitializerCommand();
         }
@@ -57,37 +61,41 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         private void InitializeVM()
         {
-            LeaseInvoices = Service.CreateCollection<LeaseInvoiceDTO>(_paymentData.LeaseInvoices);
-            Service.RegisterCollectionView(LeaseInvoices); //注册查询集合。
+            LeaseInvoices = _service.CreateCollection<LeaseInvoiceDTO>(_context.LeaseInvoices);
+            _service.RegisterCollectionView(LeaseInvoices); //注册查询集合。
 
-            Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_paymentData, _paymentData.Currencies);
+            Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context, _context.Currencies);
 
-            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_paymentData, _paymentData.Suppliers);
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
 
-            AircraftLeaseOrders = new QueryableDataServiceCollectionView<AircraftLeaseOrderDTO>(_paymentData, _paymentData.AircraftLeaseOrders);
+            AircraftLeaseOrders = new QueryableDataServiceCollectionView<AircraftLeaseOrderDTO>(_context,
+                _context.AircraftLeaseOrders);
 
-            EngineLeaseOrders = new QueryableDataServiceCollectionView<EngineLeaseOrderDTO>(_paymentData, _paymentData.EngineLeaseOrders);
+            EngineLeaseOrders = new QueryableDataServiceCollectionView<EngineLeaseOrderDTO>(_context,
+                _context.EngineLeaseOrders);
 
-            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_paymentData, _paymentData.PaymentSchedules);
+            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context,
+                _context.PaymentSchedules);
 
-            AcPaymentSchedules = Service.CreateCollection<AcPaymentScheduleDTO>(_paymentData.AcPaymentSchedules);
-            Service.RegisterCollectionView(AcPaymentSchedules); //注册查询集合。
+            AcPaymentSchedules = _service.CreateCollection<AcPaymentScheduleDTO>(_context.AcPaymentSchedules);
+            _service.RegisterCollectionView(AcPaymentSchedules); //注册查询集合。
 
-            EnginePaymentSchedules = Service.CreateCollection<EnginePaymentScheduleDTO>(_paymentData.EnginePaymentSchedules);
-            Service.RegisterCollectionView(EnginePaymentSchedules); //注册查询集合。
+            EnginePaymentSchedules =
+                _service.CreateCollection<EnginePaymentScheduleDTO>(_context.EnginePaymentSchedules);
+            _service.RegisterCollectionView(EnginePaymentSchedules); //注册查询集合。
 
             var fd = new FilterDescriptor("ImportType", FilterOperator.Contains, "引进");
             var fd2 = new FilterDescriptor("ImportType", FilterOperator.DoesNotContain, "购买");
 
-            ContractAircrafts = Service.CreateCollection<ContractAircraftDTO>(_paymentData.ContractAircrafts);
+            ContractAircrafts = _service.CreateCollection<ContractAircraftDTO>(_context.ContractAircrafts);
             ContractAircrafts.FilterDescriptors.Add(fd);
             ContractAircrafts.FilterDescriptors.Add(fd2);
-            Service.RegisterCollectionView(ContractAircrafts); //注册查询集合。
+            _service.RegisterCollectionView(ContractAircrafts); //注册查询集合。
 
-            ContractEngines = Service.CreateCollection<ContractEngineDTO>(_paymentData.ContractEngines);
+            ContractEngines = _service.CreateCollection<ContractEngineDTO>(_context.ContractEngines);
             ContractEngines.FilterDescriptors.Add(fd);
             ContractEngines.FilterDescriptors.Add(fd2);
-            Service.RegisterCollectionView(ContractEngines); //注册查询集合。
+            _service.RegisterCollectionView(ContractEngines); //注册查询集合。
         }
 
         /// <summary>
@@ -103,16 +111,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             CancelCommand = new DelegateCommand<object>(OnCancelExecute, CanCancelExecute);
             CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
             SubmitCommand = new DelegateCommand<object>(OnSubmit, CanSubmit);
-            CheckCommand = new DelegateCommand<object>(OnCheck,CanCheck);
-        }
-
-        /// <summary>
-        ///     创建服务实例
-        /// </summary>
-        protected override IService CreateService()
-        {
-            _paymentData = new PaymentData(AgentHelper.PaymentUri);
-            return new PaymentService(_paymentData);
+            CheckCommand = new DelegateCommand<object>(OnCheck, CanCheck);
         }
 
         #endregion
@@ -126,22 +125,23 @@ namespace UniCloud.Presentation.Payment.Invoice
         private bool _isSubmited;
 
         /// <summary>
-        ///  是否已提交审核
+        ///     是否已提交审核
         /// </summary>
         public bool IsSubmited
         {
-            get { return this._isSubmited; }
+            get { return _isSubmited; }
             private set
             {
-                if (this._isSubmited != value)
+                if (_isSubmited != value)
                 {
                     _isSubmited = value;
-                    this.RaisePropertyChanged(() => this.IsSubmited);
+                    RaisePropertyChanged(() => IsSubmited);
                 }
             }
         }
 
         #endregion
+
         #endregion
 
         #region 加载数据
@@ -170,6 +170,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 业务
 
         #region 租赁发票集合
+
         /// <summary>
         ///     租赁发票集合
         /// </summary>
@@ -268,6 +269,10 @@ namespace UniCloud.Presentation.Payment.Invoice
         private ObservableCollection<PaymentScheduleDTO> _relatedPaymentSchedule =
             new ObservableCollection<PaymentScheduleDTO>();
 
+        private PaymentScheduleLineDTO _relatedPaymentScheduleLine;
+
+        private PaymentScheduleDTO _selPaymentSchedule;
+
         /// <summary>
         ///     关联的付款计划
         /// </summary>
@@ -283,7 +288,6 @@ namespace UniCloud.Presentation.Payment.Invoice
                 }
             }
         }
-        private PaymentScheduleDTO _selPaymentSchedule;
 
         /// <summary>
         ///     关联的付款计划
@@ -300,8 +304,6 @@ namespace UniCloud.Presentation.Payment.Invoice
                 }
             }
         }
-
-        private PaymentScheduleLineDTO _relatedPaymentScheduleLine;
 
         /// <summary>
         ///     选择的付款计划行
@@ -322,6 +324,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         #endregion
 
         #region 币种集合
+
         /// <summary>
         ///     币种集合
         /// </summary>
@@ -330,6 +333,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         #endregion
 
         #region 供应商集合
+
         /// <summary>
         ///     供应商集合
         /// </summary>
@@ -407,9 +411,11 @@ namespace UniCloud.Presentation.Payment.Invoice
             else canRemove = false;
             return canRemove;
         }
+
         #endregion
 
         #region 新增租赁发票行
+
         /// <summary>
         ///     新增租赁发票行
         /// </summary>
@@ -430,6 +436,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 删除租赁发票行
@@ -449,6 +456,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 提交审核
@@ -464,9 +472,10 @@ namespace UniCloud.Presentation.Payment.Invoice
         }
 
         private bool CanSubmit(object obj)
-        {   
+        {
             return true;
         }
+
         #endregion
 
         #region 审核
@@ -486,13 +495,15 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region GridView单元格变更处理
+
         public DelegateCommand<object> CellEditEndCommand { set; get; }
 
         /// <summary>
-        /// GridView单元格变更处理
+        ///     GridView单元格变更处理
         /// </summary>
         /// <param name="sender"></param>
         public void OnCellEditEnd(object sender)
@@ -509,18 +520,18 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
         }
 
-
         #endregion
+
         #endregion
 
         #region 子窗体相关操作
-        [Import]
-        public LeasePayscheduleChildView LeasePayscheduleChildView; //初始化子窗体
+
+        [Import] public LeasePayscheduleChildView LeasePayscheduleChildView; //初始化子窗体
 
         #region 付款计划集合
 
         /// <summary>
-        ///    所有付款计划集合
+        ///     所有付款计划集合
         /// </summary>
         public QueryableDataServiceCollectionView<PaymentScheduleDTO> PaymentSchedules { get; set; }
 
@@ -543,12 +554,12 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 合同飞机集合
 
+        private ContractAircraftDTO _selContractAircraft;
+
         /// <summary>
         ///     合同飞机集合
         /// </summary>
         public QueryableDataServiceCollectionView<ContractAircraftDTO> ContractAircrafts { get; set; }
-
-        private ContractAircraftDTO _selContractAircraft;
 
         /// <summary>
         ///     选择的合同飞机
@@ -574,12 +585,12 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 合同发动机集合
 
+        private ContractEngineDTO _selContractEngine;
+
         /// <summary>
         ///     合同发动机集合
         /// </summary>
         public QueryableDataServiceCollectionView<ContractEngineDTO> ContractEngines { get; set; }
-
-        private ContractEngineDTO _selContractEngine;
 
         /// <summary>
         ///     选择的合同发动机
@@ -610,7 +621,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             new ObservableCollection<AcPaymentScheduleDTO>();
 
         /// <summary>
-        /// 与选择合同飞机关联的飞机付款计划
+        ///     与选择合同飞机关联的飞机付款计划
         /// </summary>
         public ObservableCollection<AcPaymentScheduleDTO> CurAcPaymentSchedule
         {
@@ -633,7 +644,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             new ObservableCollection<EnginePaymentScheduleDTO>();
 
         /// <summary>
-        /// 与选择合同发动机关联的发动机付款计划
+        ///     与选择合同发动机关联的发动机付款计划
         /// </summary>
         public ObservableCollection<EnginePaymentScheduleDTO> CurEnginePaymentSchedule
         {
@@ -654,6 +665,10 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         private AcPaymentScheduleDTO _selAcPaymentSchedule;
 
+        private EnginePaymentScheduleDTO _selEnginePaymentSchedule;
+
+        private PaymentScheduleLineDTO _selPaymentScheduleLine;
+
         /// <summary>
         ///     选择的飞机付款计划
         /// </summary>
@@ -670,8 +685,6 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
         }
 
-        private EnginePaymentScheduleDTO _selEnginePaymentSchedule;
-
         /// <summary>
         ///     选择的发动机付款计划
         /// </summary>
@@ -687,8 +700,6 @@ namespace UniCloud.Presentation.Payment.Invoice
                 }
             }
         }
-
-        private PaymentScheduleLineDTO _selPaymentScheduleLine;
 
         /// <summary>
         ///     选择的付款计划行
@@ -751,7 +762,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 CreateDate = DateTime.Now,
                 InvoiceDate = DateTime.Now,
             };
-            string selectedPane = this.LeasePayscheduleChildView.PaneGroups.SelectedPane.Title.ToString();
+            string selectedPane = LeasePayscheduleChildView.PaneGroups.SelectedPane.Title.ToString();
             if (selectedPane == "租赁的飞机对应的付款计划")
             {
                 if (SelContractAircraft == null)
@@ -795,7 +806,6 @@ namespace UniCloud.Presentation.Payment.Invoice
                         invoice.InvoiceLines.Add(invoiceLine);
                         LeaseInvoices.AddNew(invoice);
                         LeasePayscheduleChildView.Close();
-
                     }
                 }
             }

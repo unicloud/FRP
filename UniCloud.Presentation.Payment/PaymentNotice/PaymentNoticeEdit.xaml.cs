@@ -5,7 +5,7 @@
         public PaymentNoticeEdit()
         {
             InitializeComponent();
-            ViewModel = new PaymentNoticeEditVm(this);
+            //ViewModel = new PaymentNoticeEditVm(this);
         }
 
         public PaymentNoticeEditVm ViewModel

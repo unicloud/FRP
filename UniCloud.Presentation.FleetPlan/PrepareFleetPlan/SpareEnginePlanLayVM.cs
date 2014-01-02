@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,29 +11,18 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
 using System.ComponentModel.Composition;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
@@ -41,23 +31,24 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof(SpareEnginePlanLayVM))]
+    [Export(typeof (SpareEnginePlanLayVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class SpareEnginePlanLayVM : EditViewModelBase
     {
         #region 声明、初始化
 
+        private readonly FleetPlanData _context;
         private readonly IRegionManager _regionManager;
-        private FleetPlanData _context;
+        private readonly IFleetPlanService _service;
+        [Import] public DocumentViewer DocumentView;
         private DocumentDTO _document = new DocumentDTO();
 
-        [Import]
-        public DocumentViewer DocumentView;
-
         [ImportingConstructor]
-        public SpareEnginePlanLayVM(IRegionManager regionManager)
+        public SpareEnginePlanLayVM(IRegionManager regionManager, IFleetPlanService service) : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
             InitializeVM();
             InitializerCommand();
         }
@@ -70,9 +61,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            EnginePlans = Service.CreateCollection(_context.EnginePlans, o => o.EnginePlanHistories);
-            Service.RegisterCollectionView(EnginePlans);
-
+            EnginePlans = _service.CreateCollection(_context.EnginePlans, o => o.EnginePlanHistories);
+            _service.RegisterCollectionView(EnginePlans);
         }
 
         /// <summary>
@@ -86,15 +76,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             CheckCommand = new DelegateCommand<object>(OnCheck, CanCheck);
             AddEntityCommand = new DelegateCommand<object>(OnAddEntity, CanAddEntity);
             RemoveEntityCommand = new DelegateCommand<object>(OnRemoveEntity, CanRemoveEntity);
-        }
-
-        /// <summary>
-        ///     创建服务实例
-        /// </summary>
-        protected override IService CreateService()
-        {
-            _context = new FleetPlanData(AgentHelper.FleetPlanServiceUri);
-            return new FleetPlanService(_context);
         }
 
         #endregion
@@ -116,7 +97,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public override void LoadData()
         {
-
         }
 
         #region 业务
@@ -135,17 +115,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private EnginePlanDTO _selEnginePlan;
 
         /// <summary>
-        /// 选择的备发计划
+        ///     选择的备发计划
         /// </summary>
         public EnginePlanDTO SelEnginePlan
         {
-            get { return this._selEnginePlan; }
+            get { return _selEnginePlan; }
             private set
             {
-                if (this._selEnginePlan != value)
+                if (_selEnginePlan != value)
                 {
                     _selEnginePlan = value;
-                    this.RaisePropertyChanged(() => this.SelEnginePlan);
+                    RaisePropertyChanged(() => SelEnginePlan);
                     // 刷新按钮状态
                     RefreshCommandState();
                 }
@@ -159,17 +139,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private EnginePlanHistoryDTO _selEnginePlanHistory;
 
         /// <summary>
-        /// 选择的备发计划明细
+        ///     选择的备发计划明细
         /// </summary>
         public EnginePlanHistoryDTO SelEnginePlanHistory
         {
-            get { return this._selEnginePlanHistory; }
+            get { return _selEnginePlanHistory; }
             private set
             {
-                if (this._selEnginePlanHistory != value)
+                if (_selEnginePlanHistory != value)
                 {
                     _selEnginePlanHistory = value;
-                    this.RaisePropertyChanged(() => this.SelEnginePlanHistory);
+                    RaisePropertyChanged(() => SelEnginePlanHistory);
 
                     // 刷新按钮状态
                     RefreshCommandState();
@@ -211,7 +191,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnNew(object obj)
         {
-
         }
 
         private bool CanNew(object obj)
@@ -230,7 +209,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnRemove(object obj)
         {
-
         }
 
         private bool CanRemove(object obj)
@@ -249,7 +227,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnCommit(object obj)
         {
-
         }
 
         private bool CanCommit(object obj)
@@ -268,7 +245,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnCheck(object obj)
         {
-
         }
 
         private bool CanCheck(object obj)
@@ -287,7 +263,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnAddEntity(object obj)
         {
-
         }
 
         private bool CanAddEntity(object obj)
@@ -320,6 +295,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #endregion
 
         #region 添加附件
+
         protected override void OnAddAttach(object sender)
         {
             DocumentView.ViewModel.InitData(false, _selEnginePlan.DocumentId, DocumentViewerClosed);
@@ -330,6 +306,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             return _selEnginePlan != null;
         }
+
         private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {
             if (DocumentView.Tag is DocumentDTO)
@@ -339,9 +316,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 SelEnginePlan.DocName = _document.Name;
             }
         }
+
         #endregion
 
         #region 查看附件
+
         protected override void OnViewAttach(object sender)
         {
             if (SelEnginePlan == null)
@@ -351,8 +330,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             }
             DocumentView.ViewModel.InitData(true, _selEnginePlan.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
-
         }
+
         #endregion
 
         #endregion

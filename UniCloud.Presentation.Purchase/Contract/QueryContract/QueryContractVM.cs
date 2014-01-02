@@ -29,7 +29,6 @@ using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.DocumentExtension;
 using UniCloud.Presentation.Service.Purchase.Purchase;
@@ -42,15 +41,18 @@ namespace UniCloud.Presentation.Purchase.Contract
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class QueryContractVM : ViewModelBase
     {
+        private readonly PurchaseData _context; //域上下文
         private readonly IRegionManager _regionManager;
+        private readonly IPurchaseService _service;
         [Import] public DocumentViewer DocumentView;
-        private PurchaseData _context; //域上下文
         private string _loadType; //加载子项文件夹方式方式，1、DoubleClick 双击,2、SearchText 搜索框
 
         [ImportingConstructor]
-        public QueryContractVM(IRegionManager regionManager)
+        public QueryContractVM(IRegionManager regionManager, IPurchaseService service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
             InitialDocumentPath(); //初始化文档路径
             InitialCommad(); //初始化命令
             InitialAddFolder();
@@ -71,30 +73,30 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         private void InitialDocumentPath()
         {
-            DocumentPathsView = Service.CreateCollection(_context.DocumentPaths.Expand(p => p.SubDocumentPaths));
+            DocumentPathsView = _service.CreateCollection(_context.DocumentPaths.Expand(p => p.SubDocumentPaths));
             _pathFilterDes = new FilterDescriptor("ParentId", FilterOperator.IsEqualTo, null);
             var pathType = new FilterDescriptor("PathSource", FilterOperator.IsEqualTo, 0); //路径类型
             DocumentPathsView.FilterDescriptors.Add(_pathFilterDes);
             DocumentPathsView.FilterDescriptors.Add(pathType);
             DocumentPathsView.LoadedData += (sender, e) =>
+            {
+                if (e.HasError)
                 {
-                    if (e.HasError)
-                    {
-                        e.MarkErrorAsHandled();
-                        return;
-                    }
-                    GetListBoxDocumentItem();
-                };
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                GetListBoxDocumentItem();
+            };
             DocumentPathsView.SubmittedChanges += (o, e) =>
+            {
+                if (e.HasError)
                 {
-                    if (e.HasError)
-                    {
-                        e.MarkErrorAsHandled();
-                        MessageAlert("提示", "保存失败，请检查");
-                        return;
-                    }
-                    AddDocumentPathChildView.Close();
-                };
+                    e.MarkErrorAsHandled();
+                    MessageAlert("提示", "保存失败，请检查");
+                    return;
+                }
+                AddDocumentPathChildView.Close();
+            };
         }
 
         #endregion
@@ -219,7 +221,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             {
                 //获取顶层文件夹文档          
                 RootPath = ListBoxItemHelper.TransformToRootListBoxItem(DocumentPathsView
-                                                                            .FirstOrDefault(p => p.ParentId == null));
+                    .FirstOrDefault(p => p.ParentId == null));
                 //为Treeview集合
                 _listBoxDocumentItems.Clear();
                 _listBoxDocumentItems.Add(RootPath);
@@ -320,7 +322,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             return new Uri(string.Format("AddDocPath?name='{0}'&isLeaf='{1}'" +
                                          "&documentId='{2}'&parentId={3}" +
                                          "&pathSource={4}", name, isLeaf, documentId, parentId, pathSource),
-                           UriKind.Relative);
+                UriKind.Relative);
         }
 
         /// <summary>
@@ -331,7 +333,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         private Uri DelDocumentPathQuery(int docPathId)
         {
             return new Uri(string.Format("DelDocPath?docPathId={0}", docPathId),
-                           UriKind.Relative);
+                UriKind.Relative);
         }
 
         #endregion
@@ -429,6 +431,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         ///     删除文档通过右击ToolBar的删除文件按钮触发的事件
         /// </summary>
         public DelegateCommand<object> DelDocumentPathToolBarCommand { get; private set; }
+
         /// <summary>
         ///     删除文档通过单击ToolBar的删除文件按钮触发的事件
         /// </summary>
@@ -440,15 +443,16 @@ namespace UniCloud.Presentation.Purchase.Contract
                 return;
             }
             MessageConfirm("提示", "确定删除此文件", (o, e) =>
+            {
+                if (e.DialogResult == true)
                 {
-                    if (e.DialogResult == true)
-                    {
-                        DelDocPath();
-                    }
-                });
+                    DelDocPath();
+                }
+            });
         }
+
         /// <summary>
-        /// 删除文档通过右击ListBox的删除文件按钮触发的事件
+        ///     删除文档通过右击ListBox的删除文件按钮触发的事件
         /// </summary>
         /// <param name="sender"></param>
         private void DelDocumentPathListBox(object sender)
@@ -476,9 +480,9 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             var delDocPath = DelDocumentPathQuery(SelDocumentPath.DocumentPathId);
             _context.BeginExecute<string>(delDocPath,
-                                          p =>
-                                          Deployment.Current.Dispatcher.BeginInvoke(() => DocumentPathsView.Load(true)),
-                                          null);
+                p =>
+                    Deployment.Current.Dispatcher.BeginInvoke(() => DocumentPathsView.Load(true)),
+                null);
         }
 
         /// <summary>
@@ -504,14 +508,17 @@ namespace UniCloud.Presentation.Purchase.Contract
             OpenDocPathListBoxCommand = new DelegateCommand<object>(OnOPen, CanOpenListBox);
             OpenDocPathToolBarCommand = new DelegateCommand<object>(OnOPen, CanOpenToolBar);
             CreateDocumentPathCommand = new DelegateCommand<object>(CreateDocumentPath, CanCreateDocumentPath);
-            DelDocumentPathToolBarCommand = new DelegateCommand<object>(DelDocumentPathToolBar, CanDelDocumentPathToolBar);
-            DelDocumentPathListBoxCommand = new DelegateCommand<object>(DelDocumentPathListBox, CanDelDocumentPathListBox);
+            DelDocumentPathToolBarCommand = new DelegateCommand<object>(DelDocumentPathToolBar,
+                CanDelDocumentPathToolBar);
+            DelDocumentPathListBoxCommand = new DelegateCommand<object>(DelDocumentPathListBox,
+                CanDelDocumentPathListBox);
         }
 
         #endregion
 
         #region 子窗体相关
 
+        private bool _documentChildIsBusy;
         private string _documentName;
         private OrderDocumentDTO _selOrderDocument; //选中的订单文档
 
@@ -520,7 +527,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             get
             {
                 return ServiceLocator.Current.
-                                      GetInstance<AddDocumentPathChild>();
+                    GetInstance<AddDocumentPathChild>();
             }
         }
 
@@ -532,7 +539,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             get
             {
                 return ServiceLocator.Current.
-                                      GetInstance<AddDocumetChild>();
+                    GetInstance<AddDocumetChild>();
             }
         }
 
@@ -552,9 +559,9 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
         }
 
-      /// <summary>
-      /// 选中订单文档
-      /// </summary>
+        /// <summary>
+        ///     选中订单文档
+        /// </summary>
         public OrderDocumentDTO SelOrderDocument
         {
             get { return _selOrderDocument; }
@@ -568,9 +575,8 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
         }
 
-        private bool _documentChildIsBusy;
         /// <summary>
-        /// 子窗体是否正在处理中
+        ///     子窗体是否正在处理中
         /// </summary>
         public bool DocumentChildIsBusy
         {
@@ -664,17 +670,17 @@ namespace UniCloud.Presentation.Purchase.Contract
                 return;
             }
             var newDocPath = CreateDocumentPathQuery(DocumentName, false, null,
-                                                     CurrentPathItem.DocumentPathId, 0);
+                CurrentPathItem.DocumentPathId, 0);
 
             _context.BeginExecute<string>(newDocPath, p => Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                DocumentPathsView.Load(true);
+                if (AddDocumentPathChildView.IsOpen)
                 {
-                    DocumentPathsView.Load(true);
-                    if (AddDocumentPathChildView.IsOpen)
-                    {
-                        AddDocumentPathChildView.Close();
-                    }
-                    DocumentChildIsBusy = false;
-                }), null);
+                    AddDocumentPathChildView.Close();
+                }
+                DocumentChildIsBusy = false;
+            }), null);
         }
 
         /// <summary>
@@ -695,17 +701,17 @@ namespace UniCloud.Presentation.Purchase.Contract
                 return;
             }
             var newDocPath = CreateDocumentPathQuery(SelOrderDocument.ContractName, true,
-                                                     SelOrderDocument.ContractDocGuid.ToString(),
-                                                     CurrentPathItem.DocumentPathId, 0);
+                SelOrderDocument.ContractDocGuid.ToString(),
+                CurrentPathItem.DocumentPathId, 0);
             _context.BeginExecute<string>(newDocPath, p => Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                DocumentPathsView.Load(true);
+                if (AddDocumetChildView.IsOpen)
                 {
-                    DocumentPathsView.Load(true);
-                    if (AddDocumetChildView.IsOpen)
-                    {
-                        AddDocumetChildView.Close();
-                    }
-                    DocumentChildIsBusy = false;
-                }), null);
+                    AddDocumetChildView.Close();
+                }
+                DocumentChildIsBusy = false;
+            }), null);
         }
 
         /// <summary>
@@ -736,20 +742,20 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         private void InitialOrderDocument()
         {
-            OrderDocumentView = Service.CreateCollection(_context.OrderDocuments);
+            OrderDocumentView = _service.CreateCollection(_context.OrderDocuments);
             OrderDocumentView.PageSize = 20;
             OrderDocumentView.LoadedData += (sender, e) =>
+            {
+                if (e.HasError)
                 {
-                    if (e.HasError)
-                    {
-                        e.MarkErrorAsHandled();
-                        return;
-                    }
-                    if (e.Entities.Cast<OrderDocumentDTO>().FirstOrDefault() != null)
-                    {
-                        SelOrderDocument = (e.Entities.Cast<OrderDocumentDTO>().FirstOrDefault());
-                    }
-                };
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                if (e.Entities.Cast<OrderDocumentDTO>().FirstOrDefault() != null)
+                {
+                    SelOrderDocument = (e.Entities.Cast<OrderDocumentDTO>().FirstOrDefault());
+                }
+            };
         }
 
         #endregion
@@ -780,16 +786,6 @@ namespace UniCloud.Presentation.Purchase.Contract
             {
                 DocumentPathsView.Load(true);
             }
-        }
-
-        /// <summary>
-        ///     创建服务。
-        /// </summary>
-        /// <returns></returns>
-        protected override IService CreateService()
-        {
-            _context = new PurchaseData(AgentHelper.PurchaseUri);
-            return new PurchaseService(_context);
         }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -17,21 +19,11 @@
 using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
@@ -40,24 +32,25 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof(FleetPlanSendVM))]
+    [Export(typeof (FleetPlanSendVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class FleetPlanSendVM : EditViewModelBase
     {
         #region 声明、初始化
 
+        private readonly FleetPlanData _context;
         private readonly IRegionManager _regionManager;
-        private FleetPlanData _context;
+        private readonly IFleetPlanService _service;
+        [Import] public DocumentViewer DocumentView;
         private DocumentDTO _document = new DocumentDTO();
         private FilterDescriptor _planDescriptor;
 
-        [Import]
-        public DocumentViewer DocumentView;
-
         [ImportingConstructor]
-        public FleetPlanSendVM(IRegionManager regionManager)
+        public FleetPlanSendVM(IRegionManager regionManager, IFleetPlanService service) : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
             InitializeVM();
             InitializerCommand();
         }
@@ -70,10 +63,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            ViewPlans = Service.CreateCollection(_context.Plans);
+            ViewPlans = _service.CreateCollection(_context.Plans);
             _planDescriptor = new FilterDescriptor("Year", FilterOperator.IsEqualTo, DateTime.Now.Year);
             ViewPlans.FilterDescriptors.Add(_planDescriptor);
-            Service.RegisterCollectionView(ViewPlans);
+            _service.RegisterCollectionView(ViewPlans);
         }
 
         /// <summary>
@@ -83,15 +76,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             AttachCommand = new DelegateCommand<object>(OnAttach, CanAttach);
             SendCommand = new DelegateCommand<object>(OnSend, CanSend);
-        }
-
-        /// <summary>
-        ///     创建服务实例
-        /// </summary>
-        protected override IService CreateService()
-        {
-            _context = new FleetPlanData(AgentHelper.FleetPlanServiceUri);
-            return new FleetPlanService(_context);
         }
 
         #endregion
@@ -116,7 +100,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             ViewPlans.Load(true);
 
             //获取当前计划
-            var plan = ViewPlans.FirstOrDefault(p => p.IsCurrentVersion == true);
+            var plan = ViewPlans.FirstOrDefault(p => p.IsCurrentVersion);
             _curPlan.Clear();
             CurPlan.Add(plan);
         }
@@ -133,20 +117,21 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #endregion
 
         #region 当前运力增减计划
-        private ObservableItemCollection<PlanDTO> _curPlan=new ObservableItemCollection<PlanDTO>();
+
+        private ObservableItemCollection<PlanDTO> _curPlan = new ObservableItemCollection<PlanDTO>();
 
         /// <summary>
         ///     当前运力增减计划
         /// </summary>
         public ObservableItemCollection<PlanDTO> CurPlan
         {
-            get { return this._curPlan; }
+            get { return _curPlan; }
             private set
             {
-                if (this._curPlan != value)
+                if (_curPlan != value)
                 {
                     _curPlan = value;
-                    this.RaisePropertyChanged(() => this.CurPlan);
+                    RaisePropertyChanged(() => CurPlan);
                 }
             }
         }
@@ -158,17 +143,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private PlanDTO _selPlan;
 
         /// <summary>
-        /// 选择的计划
+        ///     选择的计划
         /// </summary>
         public PlanDTO SelPlan
         {
-            get { return this._selPlan; }
+            get { return _selPlan; }
             private set
             {
-                if (this._selPlan != value)
+                if (_selPlan != value)
                 {
                     _selPlan = value;
-                    this.RaisePropertyChanged(() => this.SelPlan);
+                    RaisePropertyChanged(() => SelPlan);
                     // 刷新按钮状态
                     RefreshCommandState();
                 }
@@ -204,7 +189,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnAttach(object obj)
         {
-
         }
 
         private bool CanAttach(object obj)
@@ -233,6 +217,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #endregion
 
         #region 查看附件
+
         protected override void OnViewAttach(object sender)
         {
             if (SelPlan == null)
@@ -242,8 +227,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             }
             DocumentView.ViewModel.InitData(true, _selPlan.DocumentId, null);
             DocumentView.ShowDialog();
-
         }
+
         #endregion
 
         #endregion

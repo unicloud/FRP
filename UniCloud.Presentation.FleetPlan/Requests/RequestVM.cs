@@ -5,9 +5,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
@@ -20,14 +18,17 @@ namespace UniCloud.Presentation.FleetPlan.Requests
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class RequestVM : EditViewModelBase
     {
-        private FleetPlanData _context;
+        private readonly FleetPlanData _context;
+        private readonly IFleetPlanService _service;
 
         /// <summary>
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public RequestVM()
+        public RequestVM(IFleetPlanService service) : base(service)
         {
+            _service = service;
+            _context = _service.Context;
             InitialRequest(); // 初始化申请信息。
             InitialCommand(); //初始化命令
         }
@@ -63,7 +64,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// </summary>
         private void InitialRequest()
         {
-            RequestsView = Service.CreateCollection(_context.Requests);
+            RequestsView = _service.CreateCollection(_context.Requests);
             RequestsView.PageSize = 20;
             RequestsView.LoadedData += (sender, e) =>
             {
@@ -82,48 +83,6 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         #endregion
 
-        //#region 方法
-        ///// <summary>
-        ///// 创建新的申请明细
-        ///// </summary>
-        ///// <param name="planHistory"></param>
-        //internal void AddNewRequestDetail(pl planHistory)
-        //{
-        //    var sawsApproveHistory = new ApprovalHistoryDTO
-        //    {
-        //        PlanAircraftId = planHistory.PlanAircraft.ID,
-        //        AirlinesID = planHistory.AirlinesID,
-        //        SAWSRequestID = _currentRequestDataObject.ID,
-        //        ImportCategoryID = planHistory.ActionCategoryID,
-        //        RequestDeliverAnnualID = planHistory.PerformAnnualID,
-        //        RequestDeliverMonth = planHistory.PerformMonth,
-        //        SeatingCapacity = planHistory.SeatingCapacity,
-        //        CarryingCapacity = planHistory.CarryingCapacity
-        //    };
-        //    var sawsApproveHistories = new SAWSApprovalHistoryDataObjectList();
-        //    sawsApproveHistories.Add(sawsApproveHistory);
-        //    // 把申请明细赋给关联的计划明细
-        //    // planHistory.ApprovalHistory = sawsApproveHistories;
-        //    //sawsApproveHistory.PlanAircraft.Status = (int)ManageStatus.Request;
-        //    ApprovalHistoryDataObjectList.Add(sawsApproveHistory);
-        //    CurrentRequestDataObject.SAWSApprovalHistories = ApprovalHistoryDataObjectList;
-        //}
-
-        ///// <summary>
-        ///// 移除申请明细
-        ///// </summary>
-        ///// <param name="requestDetail"></param>
-        //internal void RemoveRequestDetail(SAWSApprovalHistoryDataObject requestDetail)
-        //{
-        //    ApprovalHistoryDataObjectList.Remove(requestDetail);
-        //    // 相关计划飞机的管理状态改为计划
-        //    //requestDetail.PlanAircraft.Status = (int)ManageStatus.Plan;
-        //    //RegisterModified(requestDetail.PlanAircraft.ID, requestDetail.PlanAircraft);
-        //    RegisterModified(CurrentRequestDataObject.ID, CurrentRequestDataObject);
-        //}
-
-        //#endregion
-
         #region 命令
 
         #region 新增申请命令
@@ -136,7 +95,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// <param name="sender"></param>
         public void OndAddRequest(object sender)
         {
-            var request = new RequestDTO()
+            var request = new RequestDTO
             {
                 Id = Guid.NewGuid(),
                 CreateDate = DateTime.Now,
@@ -254,12 +213,6 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         #region 重载基类服务
 
-        protected override IService CreateService()
-        {
-            _context = new FleetPlanData(AgentHelper.PaymentUri);
-            return new FleetPlanService(_context);
-        }
-
         public override void LoadData()
         {
             if (!RequestsView.AutoLoad)
@@ -274,7 +227,6 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         protected override void RefreshCommandState()
         {
-
         }
 
         protected override bool OnSaveExecuting(object sender)
@@ -284,5 +236,46 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         #endregion
 
+        //#region 方法
+        ///// <summary>
+        ///// 创建新的申请明细
+        ///// </summary>
+        ///// <param name="planHistory"></param>
+        //internal void AddNewRequestDetail(pl planHistory)
+        //{
+        //    var sawsApproveHistory = new ApprovalHistoryDTO
+        //    {
+        //        PlanAircraftId = planHistory.PlanAircraft.ID,
+        //        AirlinesID = planHistory.AirlinesID,
+        //        SAWSRequestID = _currentRequestDataObject.ID,
+        //        ImportCategoryID = planHistory.ActionCategoryID,
+        //        RequestDeliverAnnualID = planHistory.PerformAnnualID,
+        //        RequestDeliverMonth = planHistory.PerformMonth,
+        //        SeatingCapacity = planHistory.SeatingCapacity,
+        //        CarryingCapacity = planHistory.CarryingCapacity
+        //    };
+        //    var sawsApproveHistories = new SAWSApprovalHistoryDataObjectList();
+        //    sawsApproveHistories.Add(sawsApproveHistory);
+        //    // 把申请明细赋给关联的计划明细
+        //    // planHistory.ApprovalHistory = sawsApproveHistories;
+        //    //sawsApproveHistory.PlanAircraft.Status = (int)ManageStatus.Request;
+        //    ApprovalHistoryDataObjectList.Add(sawsApproveHistory);
+        //    CurrentRequestDataObject.SAWSApprovalHistories = ApprovalHistoryDataObjectList;
+        //}
+
+        ///// <summary>
+        ///// 移除申请明细
+        ///// </summary>
+        ///// <param name="requestDetail"></param>
+        //internal void RemoveRequestDetail(SAWSApprovalHistoryDataObject requestDetail)
+        //{
+        //    ApprovalHistoryDataObjectList.Remove(requestDetail);
+        //    // 相关计划飞机的管理状态改为计划
+        //    //requestDetail.PlanAircraft.Status = (int)ManageStatus.Plan;
+        //    //RegisterModified(requestDetail.PlanAircraft.ID, requestDetail.PlanAircraft);
+        //    RegisterModified(CurrentRequestDataObject.ID, CurrentRequestDataObject);
+        //}
+
+        //#endregion
     }
 }

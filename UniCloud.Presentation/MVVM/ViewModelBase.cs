@@ -22,7 +22,6 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Prism.ViewModel;
 using Telerik.Windows.Controls;
-using UniCloud.Presentation.Service;
 
 #endregion
 
@@ -43,7 +42,6 @@ namespace UniCloud.Presentation.MVVM
             WordExportCommand = new DelegateCommand<object>(OnWordExport);
             ChartExportCommand = new DelegateCommand<object>(OnChartExport);
             ChartDataExportCommand = new DelegateCommand<object>(OnChartDataExport);
-            _service = CreateDataService(); //创建服务。
         }
 
         #endregion
@@ -75,7 +73,6 @@ namespace UniCloud.Presentation.MVVM
 
         #region Protected Properties
 
-        private readonly IService _service;
         private bool _isBusy;
 
         /// <summary>
@@ -93,28 +90,6 @@ namespace UniCloud.Presentation.MVVM
                 }
             }
         }
-
-        /// <summary>
-        ///     创建服务。
-        /// </summary>
-        protected IService Service
-        {
-            get { return _service; }
-        }
-
-        /// <summary>
-        ///     创建服务。
-        /// </summary>
-        /// <returns></returns>
-        private IService CreateDataService()
-        {
-            return CreateService();
-        }
-
-        /// <summary>
-        ///     创建表示层服务实例,可有具体派生类实现。
-        /// </summary>
-        protected abstract IService CreateService();
 
         #endregion
 

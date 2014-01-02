@@ -1,5 +1,4 @@
-
-﻿#region 版本信息
+#region 版本信息
 
 // ========================================================================
 // 版权所有 (C) 2013 UniCloud 
@@ -26,13 +25,11 @@ using System.Linq;
 using System.Windows;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Controls;
-using Telerik.Windows.Controls.DataServices;
 using Telerik.Windows.Controls.ScheduleView;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Payment.PaymentSchedules.PaymentScheduleExtension;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 
@@ -44,14 +41,17 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class StandardPaymentScheduleVM : EditViewModelBase
     {
-        private PaymentData _context;
+        private readonly PaymentData _context;
+        private readonly IPaymentService _service;
 
         /// <summary>
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-        public StandardPaymentScheduleVM()
+        public StandardPaymentScheduleVM(IPaymentService service) : base(service)
         {
+            _service = service;
+            _context = _service.Context;
             InitialStandardOrder(); // 初始化标准订单信息。
             InitialStandardPaymentSchedule(); //初始化付款计划
             InitialCommand(); //初始化命令
@@ -92,7 +92,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialStandardOrder()
         {
-            StandardOrdersView = Service.CreateCollection(_context.StandardOrders);
+            StandardOrdersView = _service.CreateCollection(_context.StandardOrders);
             StandardOrdersView.PageSize = 20;
             StandardOrdersView.LoadedData += (sender, e) =>
             {
@@ -155,7 +155,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialStandardPaymentSchedule()
         {
-            StandardPaymentSchedulesView = Service.CreateCollection(_context.StandardPaymentSchedules);
+            StandardPaymentSchedulesView = _service.CreateCollection(_context.StandardPaymentSchedules);
             _paymnetFilterOperator = new FilterDescriptor("OrderId", FilterOperator.IsEqualTo, 0);
             StandardPaymentSchedulesView.FilterDescriptors.Add(_paymnetFilterOperator);
             StandardPaymentSchedulesView.LoadedData += (sender, e) =>
@@ -215,7 +215,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialCurrency()
         {
-            CurrencysView = Service.CreateCollection(_context.Currencies);
+            CurrencysView = _service.CreateCollection(_context.Currencies);
             CurrencysView.LoadedData += (sender, e) =>
             {
                 if (e.HasError)
@@ -233,7 +233,6 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
 
         #endregion
 
-        
         #region 命令
 
         #region 新增标准付款计划命令
@@ -601,7 +600,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                 if (appointment.RecurrenceRule != null)
                 {
                     var occurrenceAppointment = appointment.RecurrenceRule.Pattern.GetOccurrences(appointment.Start);
-                        //循环时间集合
+                    //循环时间集合
                     var occurrenceDateTiems = occurrenceAppointment as DateTime[] ?? occurrenceAppointment.ToArray();
                     var allPaymentAppointments = AppointmentConvertHelper.GetOccurrences(appointment,
                         occurrenceDateTiems); //所有循环的Appointment，包括当前Appointment
@@ -652,12 +651,6 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
 
         #region 重载基类服务
 
-        protected override IService CreateService()
-        {
-            _context = new PaymentData(AgentHelper.PaymentUri);
-            return new PaymentService(_context);
-        }
-
         public override void LoadData()
         {
             if (!StandardOrdersView.AutoLoad)
@@ -686,5 +679,4 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
 
         #endregion
     }
-
 }

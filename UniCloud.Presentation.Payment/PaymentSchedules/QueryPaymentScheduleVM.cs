@@ -15,35 +15,40 @@
 
 #endregion
 
+#region 命名空间
+
 using System.ComponentModel.Composition;
 using System.Linq;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 
+#endregion
+
 namespace UniCloud.Presentation.Payment.PaymentSchedules
 {
-    [Export(typeof(QueryPaymentScheduleVM))]
+    [Export(typeof (QueryPaymentScheduleVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-
-    public class QueryPaymentScheduleVM: EditViewModelBase
+    public class QueryPaymentScheduleVM : EditViewModelBase
     {
-         private PaymentData _context;
+        private readonly PaymentData _context;
+        private readonly IPaymentService _service;
 
         /// <summary>
         ///     构造函数。
         /// </summary>
         [ImportingConstructor]
-         public QueryPaymentScheduleVM()
+        public QueryPaymentScheduleVM(IPaymentService service) : base(service)
         {
+            _service = service;
+            _context = _service.Context;
             InitialContractAircraft(); // 初始化合同飞机信息。
-            InitialAcPaymentSchedule();//初始化飞机付款计划
-            InitialStandardOrder();//初始化标准订单
-            InitialStandardPaymentSchedule();//初始化标准付款计划
-            InitialContractEngine();//初始化合同发动机
-            InitialEnginePaymentSchedule();//初始化发动机付款计划
+            InitialAcPaymentSchedule(); //初始化飞机付款计划
+            InitialStandardOrder(); //初始化标准订单
+            InitialStandardPaymentSchedule(); //初始化标准付款计划
+            InitialContractEngine(); //初始化合同发动机
+            InitialEnginePaymentSchedule(); //初始化发动机付款计划
         }
 
         #region 加载合同飞机
@@ -80,27 +85,27 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialContractAircraft()
         {
-            ContractAircraftsView = Service.CreateCollection(_context.ContractAircrafts);
+            ContractAircraftsView = _service.CreateCollection(_context.ContractAircrafts);
             ContractAircraftsView.PageSize = 20;
             ContractAircraftsView.LoadedData += (sender, e) =>
+            {
+                if (e.HasError)
                 {
-                    if (e.HasError)
-                    {
-                        e.MarkErrorAsHandled();
-                        return;
-                    }
-                    if (SelectedContractAircraft == null)
-                    {
-                        SelectedContractAircraft = e.Entities.Cast<ContractAircraftDTO>().FirstOrDefault();
-                    }
-                };
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                if (SelectedContractAircraft == null)
+                {
+                    SelectedContractAircraft = e.Entities.Cast<ContractAircraftDTO>().FirstOrDefault();
+                }
+            };
         }
 
         #endregion
 
         #region 加载合同飞机下的付款计划
 
-        private FilterDescriptor _paymnetFilterOperator;//付款计划查询
+        private FilterDescriptor _paymnetFilterOperator; //付款计划查询
 
         private AcPaymentScheduleDTO _selectedAcPaymentSchedule;
 
@@ -112,7 +117,6 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             get { return _selectedAcPaymentSchedule; }
             set
             {
-
                 _selectedAcPaymentSchedule = value;
                 RaisePropertyChanged(() => SelectedAcPaymentSchedule);
             }
@@ -128,7 +132,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialAcPaymentSchedule()
         {
-            AcPaymentSchedulesView = Service.CreateCollection(_context.AcPaymentSchedules);
+            AcPaymentSchedulesView = _service.CreateCollection(_context.AcPaymentSchedules);
             _paymnetFilterOperator = new FilterDescriptor("ContractAcId", FilterOperator.IsEqualTo, 0);
             AcPaymentSchedulesView.FilterDescriptors.Add(_paymnetFilterOperator);
             AcPaymentSchedulesView.LoadedData += (sender, e) =>
@@ -139,11 +143,12 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                     return;
                 }
                 SelectedAcPaymentSchedule = e.Entities.Cast<AcPaymentScheduleDTO>().FirstOrDefault();
-                RefreshCommandState();//刷新按钮状态
+                RefreshCommandState(); //刷新按钮状态
             };
         }
+
         /// <summary>
-        ///根据合同飞机Id查询付款计划
+        ///     根据合同飞机Id查询付款计划
         /// </summary>
         private void LoadAcPaymentScheduleByContractAcId()
         {
@@ -157,6 +162,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                 AcPaymentSchedulesView.Load(true);
             }
         }
+
         #endregion
 
         #region 加载合同发动机
@@ -193,7 +199,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialContractEngine()
         {
-            ContractEnginesView = Service.CreateCollection(_context.ContractEngines);
+            ContractEnginesView = _service.CreateCollection(_context.ContractEngines);
             ContractEnginesView.PageSize = 20;
             ContractEnginesView.LoadedData += (sender, e) =>
             {
@@ -213,7 +219,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
 
         #region 加载合同发动机下的付款计划
 
-        private FilterDescriptor _enginePaymnetFilterOperator;//付款计划查询
+        private FilterDescriptor _enginePaymnetFilterOperator; //付款计划查询
 
         private EnginePaymentScheduleDTO _selectedEnginePaymentSchedule;
 
@@ -225,7 +231,6 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             get { return _selectedEnginePaymentSchedule; }
             set
             {
-
                 _selectedEnginePaymentSchedule = value;
                 RaisePropertyChanged(() => SelectedEnginePaymentSchedule);
             }
@@ -241,7 +246,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialEnginePaymentSchedule()
         {
-            EnginePaymentSchedulesView = Service.CreateCollection(_context.EnginePaymentSchedules);
+            EnginePaymentSchedulesView = _service.CreateCollection(_context.EnginePaymentSchedules);
             _enginePaymnetFilterOperator = new FilterDescriptor("ContractEngineId", FilterOperator.IsEqualTo, 0);
             EnginePaymentSchedulesView.FilterDescriptors.Add(_enginePaymnetFilterOperator);
             EnginePaymentSchedulesView.LoadedData += (sender, e) =>
@@ -252,11 +257,12 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                     return;
                 }
                 SelectedEnginePaymentSchedule = e.Entities.Cast<EnginePaymentScheduleDTO>().FirstOrDefault();
-                RefreshCommandState();//刷新按钮状态
+                RefreshCommandState(); //刷新按钮状态
             };
         }
+
         /// <summary>
-        ///根据合同发动机Id查询付款计划
+        ///     根据合同发动机Id查询付款计划
         /// </summary>
         private void LoadEnginePaymentScheduleByContractEngineId()
         {
@@ -270,6 +276,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                 EnginePaymentSchedulesView.Load(true);
             }
         }
+
         #endregion
 
         #region 加载标准订单
@@ -306,7 +313,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialStandardOrder()
         {
-            StandardOrdersView = Service.CreateCollection(_context.StandardOrders);
+            StandardOrdersView = _service.CreateCollection(_context.StandardOrders);
             StandardOrdersView.PageSize = 20;
             StandardOrdersView.LoadedData += (sender, e) =>
             {
@@ -326,9 +333,8 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
 
         #region 加载标准订单下的付款计划
 
-        private FilterDescriptor _standardpaymnetFilterOperator;//付款计划查询
-
         private StandardPaymentScheduleDTO _selectedStandardPaymentSchedule;
+        private FilterDescriptor _standardpaymnetFilterOperator; //付款计划查询
 
         /// <summary>
         ///     选择标准付款计划
@@ -338,7 +344,6 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             get { return _selectedStandardPaymentSchedule; }
             set
             {
-
                 _selectedStandardPaymentSchedule = value;
                 RaisePropertyChanged(() => SelectedStandardPaymentSchedule);
             }
@@ -354,7 +359,7 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
         /// </summary>
         private void InitialStandardPaymentSchedule()
         {
-            StandardPaymentSchedulesView = Service.CreateCollection(_context.StandardPaymentSchedules);
+            StandardPaymentSchedulesView = _service.CreateCollection(_context.StandardPaymentSchedules);
             _standardpaymnetFilterOperator = new FilterDescriptor("OrderId", FilterOperator.IsEqualTo, 0);
             StandardPaymentSchedulesView.FilterDescriptors.Add(_standardpaymnetFilterOperator);
             StandardPaymentSchedulesView.LoadedData += (sender, e) =>
@@ -367,8 +372,9 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                 SelectedStandardPaymentSchedule = e.Entities.Cast<StandardPaymentScheduleDTO>().FirstOrDefault();
             };
         }
+
         /// <summary>
-        ///根据标准订单Id查询付款计划
+        ///     根据标准订单Id查询付款计划
         /// </summary>
         private void LoadStandardPaymentScheduleByOrderId()
         {
@@ -382,15 +388,10 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
                 StandardPaymentSchedulesView.Load(true);
             }
         }
+
         #endregion
 
         #region 重载基类服务
-
-        protected override IService CreateService()
-        {
-            _context = new PaymentData(AgentHelper.PaymentUri);
-            return new PaymentService(_context);
-        }
 
         public override void LoadData()
         {
@@ -423,8 +424,6 @@ namespace UniCloud.Presentation.Payment.PaymentSchedules
             }
         }
 
-
         #endregion
-
     }
 }

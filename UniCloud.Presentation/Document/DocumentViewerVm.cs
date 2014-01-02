@@ -287,10 +287,6 @@ namespace UniCloud.Presentation.Document
             }
         }
         #endregion
-        protected override IService CreateService()
-        {
-            return null;
-        }
 
         public override void LoadData()
         {

@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,42 +11,37 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
 using System.ComponentModel.Composition;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Practices.Prism.Regions;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
+using UniCloud.Presentation.Service.FleetPlan;
+using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 #endregion
 
 namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 {
-    [Export(typeof(FleetPlanDeliverVM))]
+    [Export(typeof (FleetPlanDeliverVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class FleetPlanDeliverVM : EditViewModelBase
     {
         #region 声明、初始化
 
+        private readonly FleetPlanData _context;
         private readonly IRegionManager _regionManager;
-        //private FleetPlanData _fleetPlanData;
+        private readonly IFleetPlanService _service;
 
         [ImportingConstructor]
-        public FleetPlanDeliverVM(IRegionManager regionManager)
+        public FleetPlanDeliverVM(IRegionManager regionManager, IFleetPlanService service) : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
             InitializeVM();
             InitializerCommand();
         }
@@ -58,7 +54,6 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-
         }
 
         /// <summary>
@@ -66,14 +61,6 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         /// </summary>
         private void InitializerCommand()
         {
-        }
-
-        /// <summary>
-        ///     创建服务实例
-        /// </summary>
-        protected override IService CreateService()
-        {
-            return null;
         }
 
         #endregion

@@ -27,7 +27,6 @@ using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
@@ -45,16 +44,18 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private readonly PurchaseData _context;
         private readonly IRegionManager _regionManager;
+        private readonly IPurchaseService _service;
         private DocumentDTO _document = new DocumentDTO();
         private bool _isAttach;
         private FilterDescriptor _orderDescriptor;
         private FilterDescriptor _tradeDescriptor;
 
         [ImportingConstructor]
-        public AircraftPurchaseVM(IRegionManager regionManager)
+        public AircraftPurchaseVM(IRegionManager regionManager, IPurchaseService service) : base(service)
         {
-            _context = Service.Context;
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
 
             AddTradeCommand = new DelegateCommand<object>(OnAddTrade, CanAddTrade);
             RemoveTradeCommand = new DelegateCommand<object>(OnRemoveTrade, CanRemoveTrade);
@@ -72,14 +73,6 @@ namespace UniCloud.Presentation.Purchase.Contract
         }
 
         /// <summary>
-        ///     隐藏基类属性，用以扩展
-        /// </summary>
-        private new IPurchaseService Service
-        {
-            get { return base.Service as IPurchaseService; }
-        }
-
-        /// <summary>
         ///     初始化ViewModel
         ///     <remarks>
         ///         统一在此处创建并注册CollectionView集合。
@@ -87,25 +80,17 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         private void InitializeVM()
         {
-            ViewTradeDTO = Service.CreateCollection(_context.Trades);
+            ViewTradeDTO = _service.CreateCollection(_context.Trades);
             _tradeDescriptor = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
             ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor);
-            Service.RegisterCollectionView(ViewTradeDTO);
+            _service.RegisterCollectionView(ViewTradeDTO);
 
-            ViewAircraftPurchaseOrderDTO = Service.CreateCollection(
+            ViewAircraftPurchaseOrderDTO = _service.CreateCollection(
                 _context.AircraftPurchaseOrders.Expand(p => p.RelatedDocs),
                 o => o.AircraftPurchaseOrderLines, o => o.RelatedDocs, o => o.ContractContents);
             _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
             ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
-            Service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
-        }
-
-        /// <summary>
-        ///     创建服务实例
-        /// </summary>
-        protected override IService CreateService()
-        {
-            return new PurchaseService();
+            _service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
         }
 
         #endregion
@@ -171,10 +156,10 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             ViewTradeDTO.AutoLoad = true;
 
-            Suppliers = Service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
-            Currencies = Service.GetCurrency(() => RaisePropertyChanged(() => Currencies));
-            Linkmen = Service.GetLinkman(() => RaisePropertyChanged(() => Linkmen));
-            AircraftMaterials = Service.GetAircraftMaterial(() => RaisePropertyChanged(() => AircraftMaterials));
+            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
+            Currencies = _service.GetCurrency(() => RaisePropertyChanged(() => Currencies));
+            Linkmen = _service.GetLinkman(() => RaisePropertyChanged(() => Linkmen));
+            AircraftMaterials = _service.GetAircraftMaterial(() => RaisePropertyChanged(() => AircraftMaterials));
         }
 
         #region 交易

@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2013/12/13 9:45:49
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -22,6 +24,7 @@ using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.Service.CommonService.Common;
+using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
@@ -29,20 +32,23 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof(APUMaintainVm))]
+    [Export(typeof (APUMaintainVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class APUMaintainVm : InvoiceVm
     {
         #region 声明、初始化
 
+        private readonly PaymentData _context;
         private readonly IRegionManager _regionManager;
-        [Import]
-        public DocumentViewer DocumentView;
+        private readonly IPaymentService _service;
+        [Import] public DocumentViewer DocumentView;
 
         [ImportingConstructor]
-        public APUMaintainVm(IRegionManager regionManager)
+        public APUMaintainVm(IRegionManager regionManager, IPaymentService service) : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
 
             InitializeVm();
         }
@@ -56,8 +62,8 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            ApuMaintainInvoices = Service.CreateCollection(PaymentDataService.APUMaintainInvoices);
-            Service.RegisterCollectionView(ApuMaintainInvoices);
+            ApuMaintainInvoices = _service.CreateCollection(_context.APUMaintainInvoices);
+            _service.RegisterCollectionView(ApuMaintainInvoices);
             //ApuMaintainInvoices.PropertyChanged += (sender, e) =>
             //{
             //    if (e.PropertyName == "HasChanges")
@@ -94,14 +100,18 @@ namespace UniCloud.Presentation.Payment.Invoice
         }
 
         #region APU维修发票
+
+        private APUMaintainInvoiceDTO _apuMaintainInvoice;
+
+        private MaintainInvoiceLineDTO _apuMaintainInvoiceLine;
+
         /// <summary>
-        /// APU维修发票集合
+        ///     APU维修发票集合
         /// </summary>
         public QueryableDataServiceCollectionView<APUMaintainInvoiceDTO> ApuMaintainInvoices { get; set; }
 
-        private APUMaintainInvoiceDTO _apuMaintainInvoice;
         /// <summary>
-        /// 选中的APU维修发票
+        ///     选中的APU维修发票
         /// </summary>
         public APUMaintainInvoiceDTO ApuMaintainInvoice
         {
@@ -116,9 +126,8 @@ namespace UniCloud.Presentation.Payment.Invoice
             }
         }
 
-        private MaintainInvoiceLineDTO _apuMaintainInvoiceLine;
         /// <summary>
-        /// 选中的APU维修发票
+        ///     选中的APU维修发票
         /// </summary>
         public MaintainInvoiceLineDTO ApuMaintainInvoiceLine
         {
@@ -142,14 +151,15 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 操作
 
         #region 创建新维修发票
+
         protected override void OnAddInvoice(object obj)
         {
             var maintainInvoice = new APUMaintainInvoiceDTO
-                                  {
-                                      APUMaintainInvoiceId = RandomHelper.Next(),
-                                      CreateDate = DateTime.Now,
-                                      InvoiceDate = DateTime.Now
-                                  };
+            {
+                APUMaintainInvoiceId = RandomHelper.Next(),
+                CreateDate = DateTime.Now,
+                InvoiceDate = DateTime.Now
+            };
             ApuMaintainInvoices.AddNew(maintainInvoice);
         }
 
@@ -157,9 +167,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 删除维修发票
+
         protected override void OnRemoveInvoice(object obj)
         {
             if (ApuMaintainInvoice == null)
@@ -168,19 +180,21 @@ namespace UniCloud.Presentation.Payment.Invoice
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                ApuMaintainInvoices.Remove(_apuMaintainInvoice);
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                ApuMaintainInvoices.Remove(_apuMaintainInvoice);
+            });
         }
 
         protected override bool CanRemoveInvoice(object obj)
         {
             return true;
         }
+
         #endregion
 
         #region 增加维修发票行
+
         protected override void OnAddInvoiceLine(object obj)
         {
             if (ApuMaintainInvoice == null)
@@ -200,9 +214,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 移除维修发票行
+
         protected override void OnRemoveInvoiceLine(object obj)
         {
             if (ApuMaintainInvoiceLine == null)
@@ -211,19 +227,21 @@ namespace UniCloud.Presentation.Payment.Invoice
                 return;
             }
             MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-                                            {
-                                                if (arg.DialogResult != true) return;
-                                                ApuMaintainInvoice.MaintainInvoiceLines.Remove(ApuMaintainInvoiceLine);
-                                            });
+            {
+                if (arg.DialogResult != true) return;
+                ApuMaintainInvoice.MaintainInvoiceLines.Remove(ApuMaintainInvoiceLine);
+            });
         }
 
         protected override bool CanRemoveInvoiceLine(object obj)
         {
             return true;
         }
+
         #endregion
 
         #region 提交发票
+
         protected override void OnSubmitInvoice(object obj)
         {
             if (ApuMaintainInvoice == null)
@@ -231,16 +249,18 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            ApuMaintainInvoice.Status = (int)InvoiceStatus.待审核;
+            ApuMaintainInvoice.Status = (int) InvoiceStatus.待审核;
         }
 
         protected override bool CanSubmitInvoice(object obj)
         {
             return true;
         }
+
         #endregion
 
         #region 审核发票
+
         protected override void OnReviewInvoice(object obj)
         {
             if (ApuMaintainInvoice == null)
@@ -248,7 +268,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            ApuMaintainInvoice.Status = (int)InvoiceStatus.已审核;
+            ApuMaintainInvoice.Status = (int) InvoiceStatus.已审核;
             ApuMaintainInvoice.Reviewer = "admin";
             ApuMaintainInvoice.ReviewDate = DateTime.Now;
             ApuMaintainInvoice.IsValid = true;
@@ -258,9 +278,11 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             return true;
         }
+
         #endregion
 
         #region 添加附件
+
         protected override void OnAddAttach(object sender)
         {
             if (ApuMaintainInvoice == null)
@@ -281,9 +303,11 @@ namespace UniCloud.Presentation.Payment.Invoice
                 ApuMaintainInvoice.DocumentName = document.Name;
             }
         }
+
         #endregion
 
         #region 查看附件
+
         protected override void OnViewAttach(object sender)
         {
             if (ApuMaintainInvoice == null)
@@ -294,6 +318,7 @@ namespace UniCloud.Presentation.Payment.Invoice
             DocumentView.ViewModel.InitData(true, ApuMaintainInvoice.DocumentId, DocumentViewerClosed);
             DocumentView.ShowDialog();
         }
+
         #endregion
 
         #region Combobox SelectedChanged
@@ -305,7 +330,9 @@ namespace UniCloud.Presentation.Payment.Invoice
                 ApuMaintainInvoice.SupplierName = (comboboxSelectedItem as SupplierDTO).Name;
             }
         }
+
         #endregion
+
         #endregion
     }
 }

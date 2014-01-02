@@ -46,6 +46,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
     public class CountRegisteredFleetVm : ViewModelBase
     {
         #region 声明、初始化
+
+        private readonly FleetPlanData _context;
+        private readonly IFleetPlanService _service;
         private FleetPlanData _fleetPlanDataService;
         public CountRegisteredFleet CurrentCountRegisteredFleet
         {
@@ -61,8 +64,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private bool _loadXmlConfig;
         private bool _loadXmlSetting;
 
-        public CountRegisteredFleetVm()
+        [ImportingConstructor]
+        public CountRegisteredFleetVm(IFleetPlanService service)
         {
+            _service = service;
+            _context = _service.Context;
             ExportCommand = new DelegateCommand<object>(OnExport, CanExport);//导出图表源数据（Source data）
             ViewModelInitializer();
             InitializeVm();
@@ -235,11 +241,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #endregion
 
         #region 加载数据
-        protected override IService CreateService()
-        {
-            _fleetPlanDataService = new FleetPlanData(AgentHelper.FleetPlanServiceUri);
-            return new FleetPlanService(_fleetPlanDataService);
-        }
 
         public override void LoadData()
         {

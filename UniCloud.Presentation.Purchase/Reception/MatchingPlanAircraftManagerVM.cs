@@ -1,25 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region 命名空间
+
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
-using Telerik.Windows.Controls.GridView.Cells;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.Purchase;
+
+#endregion
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
@@ -28,13 +19,15 @@ namespace UniCloud.Presentation.Purchase.Reception
     {
         #region 声明、初始化
 
+        private readonly PurchaseData _context;
         private readonly IRegionManager _regionManager;
-        private PurchaseData _purchaseData;
-
+        private readonly IPurchaseService _service;
         [ImportingConstructor]
-        public MatchingPlanAircraftManagerVM(IRegionManager regionManager)
+        public MatchingPlanAircraftManagerVM(IRegionManager regionManager, IPurchaseService service) : base(service)
         {
             _regionManager = regionManager;
+            _service = service;
+            _context = _service.Context;
             InitializeVM();
             InitializerCommand();
         }
@@ -47,11 +40,11 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         private void InitializeVM()
         {
-            ContractAircrafts = Service.CreateCollection<ContractAircraftDTO>(_purchaseData.ContractAircrafts);
-            Service.RegisterCollectionView(ContractAircrafts); //注册查询集合。
+            ContractAircrafts = _service.CreateCollection<ContractAircraftDTO>(_context.ContractAircrafts);
+            _service.RegisterCollectionView(ContractAircrafts); //注册查询集合。
 
-            PlanAircrafts = Service.CreateCollection<PlanAircraftDTO>(_purchaseData.PlanAircrafts);
-            Service.RegisterCollectionView(PlanAircrafts); //注册查询集合。
+            PlanAircrafts = _service.CreateCollection<PlanAircraftDTO>(_context.PlanAircrafts);
+            _service.RegisterCollectionView(PlanAircrafts); //注册查询集合。
         }
 
         private void InitializerCommand()
@@ -60,15 +53,6 @@ namespace UniCloud.Presentation.Purchase.Reception
             CommitCommand = new DelegateCommand<object>(OnCommitExecute, CanCommitExecute);
             RejectCommand = new DelegateCommand<object>(OnRejectExecute);
             RepickCommand = new DelegateCommand<object>(OnRepickExecute);
-        }
-
-        /// <summary>
-        ///     创建服务实例
-        /// </summary>
-        protected override IService CreateService()
-        {
-            _purchaseData = new PurchaseData(AgentHelper.PurchaseUri);
-            return new PurchaseService(_purchaseData);
         }
 
         #endregion
@@ -106,7 +90,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         #region 未匹配的合同飞机集合
 
         /// <summary>
-        /// 未匹配的合同飞机集合
+        ///     未匹配的合同飞机集合
         /// </summary>
         public ObservableCollection<ContractAircraftDTO> NotMatchContractAircrafts
         {
@@ -127,7 +111,7 @@ namespace UniCloud.Presentation.Purchase.Reception
         #region 已匹配的合同飞机集合
 
         /// <summary>
-        /// 已匹配的合同飞机集合
+        ///     已匹配的合同飞机集合
         /// </summary>
         public ObservableCollection<ContractAircraftDTO> MatchedContractAircrafts
         {
@@ -152,17 +136,17 @@ namespace UniCloud.Presentation.Purchase.Reception
         private ContractAircraftDTO _selContractAircraft;
 
         /// <summary>
-        /// 选择的合同飞机
+        ///     选择的合同飞机
         /// </summary>
         public ContractAircraftDTO SelContractAircraft
         {
-            get { return this._selContractAircraft; }
+            get { return _selContractAircraft; }
             private set
             {
-                if (this._selContractAircraft != value)
+                if (_selContractAircraft != value)
                 {
                     _selContractAircraft = value;
-                    this.RaisePropertyChanged(() => this.SelContractAircraft);
+                    RaisePropertyChanged(() => SelContractAircraft);
                 }
             }
         }
@@ -193,16 +177,16 @@ namespace UniCloud.Presentation.Purchase.Reception
             if (currentItem != null && currentItem.PlanAircraftID != null)
             {
                 var contractAircraft = ContractAircrafts.FirstOrDefault(p =>
-                       p.ContractNumber == currentItem.ContractNumber &&
-                       p.RankNumber == currentItem.RankNumber);
+                    p.ContractNumber == currentItem.ContractNumber &&
+                    p.RankNumber == currentItem.RankNumber);
                 if (contractAircraft != null)
                 {
                     contractAircraft.PlanAircraftID = null;
                     contractAircraft.PlanAircraft = null;
                 }
                 ContractAircrafts.SubmitChanges();
-                RaisePropertyChanged(() => this.NotMatchContractAircrafts);
-                RaisePropertyChanged(() => this.MatchedContractAircrafts);
+                RaisePropertyChanged(() => NotMatchContractAircrafts);
+                RaisePropertyChanged(() => MatchedContractAircrafts);
             }
         }
 
@@ -219,10 +203,10 @@ namespace UniCloud.Presentation.Purchase.Reception
         public void OnRepickExecute(object sender)
         {
             var currentItem = sender as ContractAircraftDTO;
-            if (currentItem!=null)
-            SelContractAircraft =
-                MatchedContractAircrafts.FirstOrDefault(
-                    p => p.ContractNumber == currentItem.ContractNumber && p.RankNumber == currentItem.RankNumber);
+            if (currentItem != null)
+                SelContractAircraft =
+                    MatchedContractAircrafts.FirstOrDefault(
+                        p => p.ContractNumber == currentItem.ContractNumber && p.RankNumber == currentItem.RankNumber);
             PlanAircraftChildView.ShowDialog();
         }
 
@@ -233,8 +217,8 @@ namespace UniCloud.Presentation.Purchase.Reception
         #endregion
 
         #region 子窗体相关操作
-        [Import]
-        public PlanAircraftChildView PlanAircraftChildView; //初始化子窗体
+
+        [Import] public PlanAircraftChildView PlanAircraftChildView; //初始化子窗体
 
         #region 计划飞机集合
 
@@ -250,17 +234,17 @@ namespace UniCloud.Presentation.Purchase.Reception
         private PlanAircraftDTO _selPlanAircraft;
 
         /// <summary>
-        /// 合同飞机
+        ///     合同飞机
         /// </summary>
         public PlanAircraftDTO SelPlanAircraft
         {
-            get { return this._selPlanAircraft; }
+            get { return _selPlanAircraft; }
             private set
             {
-                if (this._selPlanAircraft != value)
+                if (_selPlanAircraft != value)
                 {
                     _selPlanAircraft = value;
-                    this.RaisePropertyChanged(() => this.SelPlanAircraft);
+                    RaisePropertyChanged(() => SelPlanAircraft);
                 }
             }
         }
@@ -307,13 +291,13 @@ namespace UniCloud.Presentation.Purchase.Reception
             if (SelContractAircraft != null && SelPlanAircraft != null)
             {
                 var contractAircraft = ContractAircrafts.FirstOrDefault(p =>
-                        p.ContractNumber == SelContractAircraft.ContractNumber &&
-                        p.RankNumber == SelContractAircraft.RankNumber);
+                    p.ContractNumber == SelContractAircraft.ContractNumber &&
+                    p.RankNumber == SelContractAircraft.RankNumber);
                 if (contractAircraft != null)
                     contractAircraft.PlanAircraftID = SelPlanAircraft.Id;
                 ContractAircrafts.SubmitChanges();
-                RaisePropertyChanged(() => this.NotMatchContractAircrafts);
-                RaisePropertyChanged(() => this.MatchedContractAircrafts);
+                RaisePropertyChanged(() => NotMatchContractAircrafts);
+                RaisePropertyChanged(() => MatchedContractAircrafts);
                 PlanAircraftChildView.Close();
             }
         }
