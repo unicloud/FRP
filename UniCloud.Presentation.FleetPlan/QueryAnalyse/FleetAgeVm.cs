@@ -1313,7 +1313,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 ageColor = XElement.Parse(colorConfig.SettingContent).Descendants("Type").FirstOrDefault(p => p.Attribute("TypeName").Value.Equals("机龄", StringComparison.OrdinalIgnoreCase));
             }
-            var aircraftDtos = aircraft as AircraftDTO[] ?? aircraft.ToArray();
+            var aircraftDtos = aircraft.ToList();
             if (xmlConfig != null && aircraft != null && aircraftDtos.Any())
             {
                 XElement xelement = XElement.Parse(xmlConfig.ConfigContent);

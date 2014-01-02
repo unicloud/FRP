@@ -104,7 +104,6 @@
     <Compile Include="DocumentExtension\ImagePathHelper.cs" />
     <Compile Include="DocumentExtension\ListBoxDocumentItem.cs" />
     <Compile Include="DocumentExtension\ListBoxItemHelper.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="PurchaseServiceHelper.cs" />
     <Compile Include="IPurchaseService.cs" />
     <Compile Include="Purchase\AircraftLeaseReceptionLineDTO.cs" />

@@ -104,6 +104,8 @@ namespace UniCloud.Presentation.CommonExtension
             var gvColumn1 = new GridViewDataColumn
                             {
                                 Header = "注册号",
+                                HeaderTextAlignment = TextAlignment.Center,
+                                MinWidth = 80,
                                 DataMemberBinding = new System.Windows.Data.Binding("RegNumber")
                             };
 
@@ -111,6 +113,8 @@ namespace UniCloud.Presentation.CommonExtension
             var gvColumn2 = new GridViewDataColumn
                             {
                                 Header = "运营权人",
+                                HeaderTextAlignment = TextAlignment.Center,
+                                MinWidth = 80,
                                 DataMemberBinding =
                                     new System.Windows.Data.Binding("AirlinesName")
                             };
@@ -118,12 +122,16 @@ namespace UniCloud.Presentation.CommonExtension
             var gvColumn3 = new GridViewDataColumn
                             {
                                 Header = "所有权人",
+                                HeaderTextAlignment = TextAlignment.Center,
+                                MinWidth = 80,
                                 DataMemberBinding = new System.Windows.Data.Binding("SupplierName")
                             };
 
             var gvColumn4 = new GridViewDataColumn
                             {
                                 Header = "制造商",
+                                HeaderTextAlignment = TextAlignment.Center,
+                                MinWidth = 80,
                                 DataMemberBinding =
                                     new System.Windows.Data.Binding("ManufacturerName")
                             };
@@ -131,12 +139,16 @@ namespace UniCloud.Presentation.CommonExtension
             var gvColumn5 = new GridViewDataColumn
                             {
                                 Header = "座级",
+                                HeaderTextAlignment = TextAlignment.Center,
+                                MinWidth = 80,
                                 DataMemberBinding = new System.Windows.Data.Binding("Regional")
                             };
 
             var gvColumn6 = new GridViewDataColumn
                             {
                                 Header = "机型",
+                                HeaderTextAlignment = TextAlignment.Center,
+                                MinWidth = 80,
                                 DataMemberBinding =
                                     new System.Windows.Data.Binding("AircraftTypeName")
                             };
@@ -144,11 +156,14 @@ namespace UniCloud.Presentation.CommonExtension
             var gvColumn7 = new GridViewDataColumn
                             {
                                 Header = "引进方式",
+                                HeaderTextAlignment = TextAlignment.Center,
+                                MinWidth = 80,
                                 DataMemberBinding =
                                     new System.Windows.Data.Binding("ImportCategoryName")
                             };
 
-            var gvColumn8 = new GridViewDataColumn { Header = "出厂日期" };
+            var gvColumn8 = new GridViewDataColumn { Header = "出厂日期", HeaderTextAlignment = TextAlignment.Center,
+                                MinWidth = 80, };
             var bingding8 = new System.Windows.Data.Binding("FactoryDate") { StringFormat = "yyyy/M/d" };
             gvColumn8.DataMemberBinding = bingding8;
 
@@ -156,6 +171,8 @@ namespace UniCloud.Presentation.CommonExtension
             var gvColumn9 = new GridViewDataColumn
                             {
                                 Header = "座位数(座)",
+                                HeaderTextAlignment = TextAlignment.Center,
+                                MinWidth = 80,
                                 DataMemberBinding =
                                     new System.Windows.Data.Binding("SeatingCapacity")
                             };
@@ -164,6 +181,8 @@ namespace UniCloud.Presentation.CommonExtension
             var gvColumn10 = new GridViewDataColumn
                              {
                                  Header = "商载量(吨)",
+                                 HeaderTextAlignment = TextAlignment.Center,
+                                 MinWidth = 80,
                                  DataMemberBinding =
                                      new System.Windows.Data.Binding("CarryingCapacity")
                              };
@@ -209,7 +228,6 @@ namespace UniCloud.Presentation.CommonExtension
             {
                 item.SeatingCapacity = 0;
                 item.CarryingCapacity = 0;
-                item.RegNumber = string.Empty;
                 item.AircraftTypeId = Guid.Empty;
                 item.ImportCategoryId = Guid.Empty;
                 item.AirlinesId = Guid.Empty;
