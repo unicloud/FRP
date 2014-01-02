@@ -36,8 +36,6 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
 
             Property(p => p.OperationHistoryId).HasColumnName("OperationHistoryId");
 
-            HasOptional(o => o.OperationHistory).WithMany().HasForeignKey(o => o.OperationHistoryId);
-
         }
     }
 }

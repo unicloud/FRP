@@ -17,7 +17,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.MailAddressQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg;
@@ -33,10 +35,13 @@ namespace UniCloud.Application.FleetPlanBC.MailAddressServices
     public class MailAddressAppService : IMailAddressAppService
     {
         private readonly IMailAddressQuery _mailAddressQuery;
+        private readonly IMailAddressRepository _mailAddressRepository;
 
-        public MailAddressAppService(IMailAddressQuery mailAddressQuery)
+        public MailAddressAppService(IMailAddressQuery mailAddressQuery,
+            IMailAddressRepository mailAddressRepository)
         {
             _mailAddressQuery = mailAddressQuery;
+            _mailAddressRepository = mailAddressRepository;
         }
 
         #region MailAddressDTO
@@ -52,6 +57,78 @@ namespace UniCloud.Application.FleetPlanBC.MailAddressServices
             return _mailAddressQuery.MailAddressDTOQuery(queryBuilder);
         }
 
+        /// <summary>
+        ///     新增邮箱账号。
+        /// </summary>
+        /// <param name="dto">邮箱账号DTO。</param>
+        [Insert(typeof(MailAddressDTO))]
+        public void InsertMailAddress(MailAddressDTO dto)
+        {
+            //创建邮箱账号
+            var newMailAddress = MailAddressFactory.CreateMailAddress();
+            newMailAddress.SetAddress(dto.Address);
+            newMailAddress.SetDisplayName(dto.DisplayName);
+            newMailAddress.SetLoginPassword(dto.LoginPassword);
+            newMailAddress.SetLoginUser(dto.LoginUser);
+            newMailAddress.SetPop3Host(dto.Pop3Host);
+            newMailAddress.SetReceivePort(dto.ReceivePort);
+            newMailAddress.SetReceiveSSL(dto.ReceiveSSL);
+            newMailAddress.SetSendPort(dto.SendPort);
+            newMailAddress.SetSendSSL(dto.SendSSL);
+            newMailAddress.SetServerType(dto.ServerType);
+            newMailAddress.SetSmtpHost(dto.SmtpHost);
+            newMailAddress.SetStartTLS(dto.StartTLS);
+
+            _mailAddressRepository.Add(newMailAddress);
+        }
+
+        /// <summary>
+        ///     更新邮箱账号。
+        /// </summary>
+        /// <param name="dto">邮箱账号DTO。</param>
+        [Update(typeof(MailAddressDTO))]
+        public void ModifyMailAddress(MailAddressDTO dto)
+        {
+            //获取需要更新的对象
+            var updateMailAddress = _mailAddressRepository.Get(dto.Id);
+
+            if (updateMailAddress != null)
+            {
+                //更新主表：
+                updateMailAddress.SetAddress(dto.Address);
+                updateMailAddress.SetDisplayName(dto.DisplayName);
+                updateMailAddress.SetLoginPassword(dto.LoginPassword);
+                updateMailAddress.SetLoginUser(dto.LoginUser);
+                updateMailAddress.SetPop3Host(dto.Pop3Host);
+                updateMailAddress.SetReceivePort(dto.ReceivePort);
+                updateMailAddress.SetReceiveSSL(dto.ReceiveSSL);
+                updateMailAddress.SetSendPort(dto.SendPort);
+                updateMailAddress.SetSendSSL(dto.SendSSL);
+                updateMailAddress.SetServerType(dto.ServerType);
+                updateMailAddress.SetSmtpHost(dto.SmtpHost);
+                updateMailAddress.SetStartTLS(dto.StartTLS);
+            }
+            _mailAddressRepository.Modify(updateMailAddress);
+        }
+
+        /// <summary>
+        ///     删除邮箱账号。
+        /// </summary>
+        /// <param name="dto">邮箱账号DTO。</param>
+        [Delete(typeof(MailAddressDTO))]
+        public void DeleteMailAddress(MailAddressDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+            var delMailAddress = _mailAddressRepository.Get(dto.Id);
+            //获取需要删除的对象。
+            if (delMailAddress != null)
+            {
+                _mailAddressRepository.Remove(delMailAddress); //删除邮箱账号。
+            }
+        }
         #endregion
     }
 }
