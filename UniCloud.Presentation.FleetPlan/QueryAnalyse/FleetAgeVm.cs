@@ -507,12 +507,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 var fleetAgeComposition = selectedItem.DataItem as FleetAgeComposition;
                 //找到子窗体的RadGridView，并为其赋值
                 var rgv = radwindow.Content as RadGridView;
-                if (fleetAgeComposition != null &&
-                    (AircraftByAgeDic != null && AircraftByAgeDic.ContainsKey(fleetAgeComposition.AgeGroup)))
+                if (fleetAgeComposition != null &&(AircraftByAgeDic != null && AircraftByAgeDic.ContainsKey(fleetAgeComposition.AgeGroup)))
                 {
                     if (rgv != null)
-                        rgv.ItemsSource = CommonMethod.GetAircraftByTime(
-                            AircraftByAgeDic[fleetAgeComposition.AgeGroup], time);
+                        rgv.ItemsSource = CommonMethod.GetAircraftByTime(AircraftByAgeDic[fleetAgeComposition.AgeGroup], time);
                 }
                 if (fleetAgeComposition != null)
                     _ageWindow.Header = fleetAgeComposition.AgeGroup + "的飞机数：" + fleetAgeComposition.ToolTip;

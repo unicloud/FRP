@@ -19,7 +19,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export(typeof (AircraftPurchaseReceptionManagerVM))]
+    [Export(typeof(AircraftPurchaseReceptionManagerVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AircraftPurchaseReceptionManagerVM : ReceptionVm
     {
@@ -29,7 +29,8 @@ namespace UniCloud.Presentation.Purchase.Reception
         private readonly DocumentDTO _document = new DocumentDTO();
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
-        [Import] public DocumentViewer DocumentView;
+        [Import]
+        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
         public AircraftPurchaseReceptionManagerVM(IRegionManager regionManager, IPurchaseService service)
@@ -50,13 +51,11 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         private void InitializeVM()
         {
-            PurchaseContractAircrafts =
-                new QueryableDataServiceCollectionView<PurchaseContractAircraftDTO>(_context,
+            PurchaseContractAircrafts = new QueryableDataServiceCollectionView<PurchaseContractAircraftDTO>(_context,
                     _context.PurchaseContractAircrafts);
 
-            AircraftPurchaseReceptions =
-                _service.CreateCollection<AircraftPurchaseReceptionDTO>(
-                    _context.AircraftPurchaseReceptions.Expand(p => p.RelatedDocs));
+            AircraftPurchaseReceptions = _service.CreateCollection(_context.AircraftPurchaseReceptions.Expand(p => p.RelatedDocs),
+                o => o.ReceptionLines, o => o.ReceptionSchedules, o => o.RelatedDocs);
             _service.RegisterCollectionView(AircraftPurchaseReceptions); //注册查询集合。
         }
 
@@ -109,8 +108,9 @@ namespace UniCloud.Presentation.Purchase.Reception
         public override void LoadData()
         {
             PurchaseContractAircrafts.Load(true);
-            Suppliers.Load(true);
             AircraftPurchaseReceptions.Load(true);
+
+            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
         }
 
         #region 业务

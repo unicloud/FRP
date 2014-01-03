@@ -32,7 +32,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof (FleetPlanSendVM))]
+    [Export(typeof(FleetPlanSendVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class FleetPlanSendVM : EditViewModelBase
     {
@@ -41,12 +41,14 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private readonly FleetPlanData _context;
         private readonly IRegionManager _regionManager;
         private readonly IFleetPlanService _service;
-        [Import] public DocumentViewer DocumentView;
+        [Import]
+        public DocumentViewer DocumentView;
         private DocumentDTO _document = new DocumentDTO();
         private FilterDescriptor _planDescriptor;
 
         [ImportingConstructor]
-        public FleetPlanSendVM(IRegionManager regionManager, IFleetPlanService service) : base(service)
+        public FleetPlanSendVM(IRegionManager regionManager, IFleetPlanService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -63,10 +65,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            ViewPlans = _service.CreateCollection(_context.Plans);
+            ViewPlans = _service.CreateCollection(_context.Plans, o => o.PlanHistories);
             _planDescriptor = new FilterDescriptor("Year", FilterOperator.IsEqualTo, DateTime.Now.Year);
             ViewPlans.FilterDescriptors.Add(_planDescriptor);
-            _service.RegisterCollectionView(ViewPlans);
+            _service.RegisterCollectionView(ViewPlans);//注册查询集合
         }
 
         /// <summary>
