@@ -62,30 +62,6 @@
                 <Setter Property="Background"
                         Value="#EEF1EB" />
             </Style>
-            <DataTemplate x:Key="TooltipTemplateChild">
-                <Grid>
-                    <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
-                          Stretch="Fill"
-                          Fill="White"
-                          Stroke="Gray"
-                          StrokeThickness="1" />
-                    <StackPanel Margin="5,3,5,15"
-                                Name="BarStackPanel">
-                        <TextBlock Text="{Binding Path=DataItem.DateTime, StringFormat='时间: {0}末'}"
-                                   Foreground="Black"
-                                   FontFamily="Segoe UI"
-                                   FontSize="11" />
-                        <TextBlock Text="{Binding Path=DataItem.AircraftAmount, StringFormat='飞机净增（子）: {0}架'}"
-                                   Foreground="{Binding Path=DataItem.AircraftColor}"
-                                   FontFamily="Segoe UI"
-                                   FontSize="11" />
-                        <TextBlock Text="{Binding Path=DataItem.AircraftAmount1, StringFormat='飞机净增: {0}架'}"
-                                   Foreground="{Binding Path=DataItem.AircraftColor1}"
-                                   FontFamily="Segoe UI"
-                                   FontSize="11" />
-                    </StackPanel>
-                </Grid>
-            </DataTemplate>
             <DataTemplate x:Key="TooltipTemplate">
                 <Grid>
                     <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
@@ -99,8 +75,8 @@
                                    Foreground="Black"
                                    FontFamily="Segoe UI"
                                    FontSize="11" />
-                        <TextBlock Text="{Binding Path=DataItem.AircraftAmount1, StringFormat='飞机净增: {0}架'}"
-                                   Foreground="{Binding Path=DataItem.AircraftColor1}"
+                        <TextBlock Text="{Binding Path=DataItem.AircraftAmount, StringFormat='飞机净增: {0}架'}"
+                                   Foreground="{Binding Path=DataItem.AircraftColor}"
                                    FontFamily="Segoe UI"
                                    FontSize="11" />
                     </StackPanel>
@@ -212,7 +188,8 @@
                                             <RowDefinition Height="0.22*" />
                                         </Grid.RowDefinitions>
                                         <Grid Grid.Row="0"
-                                              Name="LineGrid">
+                                              Name="LineGrid"
+                                              Margin="0,0,0,24">
                                             <telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
                                                     <i:Interaction.Triggers>
@@ -231,10 +208,6 @@
                                                                          CommandParameter="{Binding ElementName=LineGridData}" />
                                                 </telerik:RadContextMenu>
                                             </telerik:RadContextMenu.ContextMenu>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
                                             <telerik:RadCartesianChart Margin="10,0,10,0"
                                                                        Zoom="{Binding Zoom, Mode=TwoWay}"
                                                                        PanOffset="{Binding PanOffset, Mode=TwoWay}"
@@ -277,9 +250,8 @@
                                                     </telerik:CartesianChartGrid>
                                                 </telerik:RadCartesianChart.Grid>
                                                 <telerik:RadCartesianChart.Series>
-                                                    <telerik:LineSeries DisplayName="期末飞机数（子）"
+                                                    <telerik:LineSeries DisplayName="期末飞机数"
                                                                         ItemsSource="{Binding FleetAircraftTrendLineCollection}"
-                                                                        Visibility="{Binding Visibility, Mode=OneWay}"
                                                                         VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[0]}"
                                                                         ValueBinding="AircraftAmount"
                                                                         CategoryBinding="DateTime">
@@ -293,31 +265,8 @@
                                                         <telerik:LineSeries.TrackBallInfoTemplate>
                                                             <DataTemplate>
                                                                 <StackPanel Background="Transparent">
-                                                                    <TextBlock Text="{Binding Path=DataPoint.DataItem.AircraftAmount, StringFormat='飞机数（子）: {0}架'}"
+                                                                    <TextBlock Text="{Binding Path=DataPoint.DataItem.AircraftAmount, StringFormat='飞机数: {0}架'}"
                                                                                Foreground="{Binding Path=DataPoint.DataItem.AircraftColor}"
-                                                                               Margin="6,0"
-                                                                               FontFamily="Segoe UI" />
-                                                                </StackPanel>
-                                                            </DataTemplate>
-                                                        </telerik:LineSeries.TrackBallInfoTemplate>
-                                                    </telerik:LineSeries>
-                                                    <telerik:LineSeries DisplayName="期末飞机数"
-                                                                        ItemsSource="{Binding FleetAircraftTrendLineCollection}"
-                                                                        VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[0]}"
-                                                                        ValueBinding="AircraftAmount1"
-                                                                        CategoryBinding="DateTime">
-                                                        <telerik:LineSeries.PointTemplate>
-                                                            <DataTemplate>
-                                                                <Ellipse Height='8'
-                                                                         Width='8'
-                                                                         Fill="{Binding Path=DataItem.AircraftColor1}" />
-                                                            </DataTemplate>
-                                                        </telerik:LineSeries.PointTemplate>
-                                                        <telerik:LineSeries.TrackBallInfoTemplate>
-                                                            <DataTemplate>
-                                                                <StackPanel Background="Transparent">
-                                                                    <TextBlock Text="{Binding Path=DataPoint.DataItem.AircraftAmount1, StringFormat='飞机数: {0}架'}"
-                                                                               Foreground="{Binding Path=DataPoint.DataItem.AircraftColor1}"
                                                                                Margin="6,0"
                                                                                FontFamily="Segoe UI" />
                                                                 </StackPanel>
@@ -326,30 +275,9 @@
                                                     </telerik:LineSeries>
                                                 </telerik:RadCartesianChart.Series>
                                             </telerik:RadCartesianChart>
-                                            <ScrollViewer Grid.Column="1"
-                                                          Width="164"
-                                                          Margin="0,5,5,5"
-                                                          VerticalScrollBarVisibility="Auto"
-                                                          telerik:StyleManager.Theme="Windows8">
-                                                <StackPanel Style="{StaticResource LegendStyle}">
-                                                    <StackPanel Orientation="Horizontal"
-                                                                Margin="5,5,5,5">
-                                                        <telerik:RadToggleButton  Name="AirNumButton"
-                                                                                  Content="期末飞机数"
-                                                                                  Tag="期末飞机数"
-                                                                                  BorderThickness="1"
-                                                                                  Background="Gray"
-                                                                                  BorderBrush="Gray"
-                                                                                  Command="{Binding ToggleButtonCommand}"
-                                                                                  CommandParameter="{Binding ElementName=AirNumButton}">
-
-                                                        </telerik:RadToggleButton>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </ScrollViewer>
                                         </Grid>
-                                        <Grid Grid.Row="1"
-                                              Name="BarGrid">
+                                        <Grid Name="BarGrid"
+                                              Margin="0,148,0,0" Grid.RowSpan="2">
                                             <telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
                                                     <i:Interaction.Triggers>
@@ -368,11 +296,7 @@
                                                                          CommandParameter="{Binding ElementName=BarGridData}" />
                                                 </telerik:RadContextMenu>
                                             </telerik:RadContextMenu.ContextMenu>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <telerik:RadCartesianChart Margin="10,0,10,0"
+                                            <telerik:RadCartesianChart Margin="10,0"
                                                                        Palette="Metro"
                                                                        Zoom="{Binding Zoom, Mode=TwoWay}"
                                                                        PanOffset="{Binding PanOffset, Mode=TwoWay}"
@@ -418,9 +342,8 @@
                                                     </telerik:CartesianChartGrid>
                                                 </telerik:RadCartesianChart.Grid>
                                                 <telerik:RadCartesianChart.Series>
-                                                    <telerik:BarSeries DisplayName="飞机净增数（子）"
+                                                    <telerik:BarSeries DisplayName="飞机净增数"
                                                                        ItemsSource="{Binding FleetAircraftTrendBarCollection}"
-                                                                       Visibility="{Binding Visibility, Mode=OneWay}"
                                                                        VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[0]}"
                                                                        ValueBinding="AircraftAmount"
                                                                        CategoryBinding="DateTime">
@@ -430,37 +353,8 @@
                                                             </DataTemplate>
                                                         </telerik:BarSeries.PointTemplate>
                                                     </telerik:BarSeries>
-                                                    <telerik:BarSeries DisplayName="飞机净增数"
-                                                                       ItemsSource="{Binding FleetAircraftTrendBarCollection}"
-                                                                       VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[0]}"
-                                                                       ValueBinding="AircraftAmount1"
-                                                                       CategoryBinding="DateTime">
-                                                        <telerik:BarSeries.PointTemplate>
-                                                            <DataTemplate>
-                                                                <Border Background="{Binding Path=DataItem.AircraftColor1}" />
-                                                            </DataTemplate>
-                                                        </telerik:BarSeries.PointTemplate>
-                                                    </telerik:BarSeries>
                                                 </telerik:RadCartesianChart.Series>
                                             </telerik:RadCartesianChart>
-                                            <ScrollViewer Grid.Column="1"
-                                                          Width="164"
-                                                          Margin="0,5,5,5"
-                                                          VerticalScrollBarVisibility="Auto"
-                                                          telerik:StyleManager.Theme="Windows8">
-                                                <StackPanel Style="{StaticResource LegendStyle}">
-                                                    <StackPanel Orientation="Horizontal"
-                                                                Margin="5,5,5,5">
-                                                        <telerik:RadToggleButton  Content="飞机净增数"
-                                                                                  Tag="飞机净增数"
-                                                                                  BorderThickness="1"
-                                                                                  Background="Gray"
-                                                                                  BorderBrush="Gray">
-
-                                                        </telerik:RadToggleButton>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </ScrollViewer>
                                         </Grid>
                                     </Grid>
                                 </telerik:RadPane>

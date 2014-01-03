@@ -70,10 +70,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             _service = service;
             _fleetPlanContext = _service.Context;
-            PieDeployCommand = new DelegateCommand<object>(OnPieDeploy, CanPieDeploy); //机龄饼图的配置
-            ExportCommand = new DelegateCommand<object>(OnExport, CanExport); //导出图表源数据（Source data）
-            ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView, CanExportGridView); //导出视图的数据
-            ToggleButtonCommand=new DelegateCommand<object>(ToggleButtonCheck);
+            
             ViewModelInitializer();
             InitalizerRadWindows(_ageWindow, "Age", 220);
             AddRadMenu(_ageWindow);
@@ -531,6 +528,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// </summary>
         private void ViewModelInitializer()
         {
+            PieDeployCommand = new DelegateCommand<object>(OnPieDeploy, CanPieDeploy); //机龄饼图的配置
+            ExportCommand = new DelegateCommand<object>(OnExport, CanExport); //导出图表源数据（Source data）
+            ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView, CanExportGridView); //导出视图的数据
+            ToggleButtonCommand = new DelegateCommand<object>(ToggleButtonCheck);
             _lineGrid = CurrentFleetAge.LineGrid;
             _agePieGrid = CurrentFleetAge.AgePieGrid;
             _aircraftDetail = CurrentFleetAge.AircraftDetail;

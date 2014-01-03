@@ -71,9 +71,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             _service = service;
             _fleetPlanContext = _service.Context;
-            ExportCommand = new DelegateCommand<object>(OnExport, CanExport); //导出图表源数据（Source data）
-            ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView, CanExportGridView);
-            ToggleButtonCommand = new DelegateCommand<object>(ToggleButtonCheck);
+           
             ViewModelInitializer();
             InitalizerRadWindows(_regionalWindow, "Regional", 220);
             InitalizerRadWindows(_typeWindow, "Type", 240);
@@ -119,15 +117,15 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// </summary>
         private void ViewModelInitializer()
         {
+            ExportCommand = new DelegateCommand<object>(OnExport, CanExport); //导出图表源数据（Source data）
+            ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView, CanExportGridView);
+            ToggleButtonCommand = new DelegateCommand<object>(ToggleButtonCheck);
             _lineGrid = CurrrentFleetStructure.LineGrid;
             _barGrid = CurrrentFleetStructure.BarGrid;
             _regionalPieGrid = CurrrentFleetStructure.RegionalPieGrid;
             _typePieGrid = CurrrentFleetStructure.TypePieGrid;
 
             _aircraftDetail = CurrrentFleetStructure.AircraftDetail;
-
-            _lineGrid = CurrrentFleetStructure.LineGrid;
-            _barGrid = CurrrentFleetStructure.BarGrid;
         }
 
         #endregion

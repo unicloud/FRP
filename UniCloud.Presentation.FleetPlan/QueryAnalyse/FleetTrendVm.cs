@@ -56,23 +56,19 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private readonly IFleetPlanService _service;
         private Grid _aircraftPieGrid; //折线趋势图区域，柱状趋势图区域， 飞机数饼图区域
         private Grid _barGrid; //折线趋势图区域，柱状趋势图区域， 飞机数饼图区域
-        private RadDateTimePicker _endDateTimePicker; //开始时间控件， 结束时间控件
         private RadGridView _exportRadgridview; //初始化RadGridView
         private int _i; //导出数据源格式判断
         private Grid _lineGrid; //折线趋势图区域，柱状趋势图区域， 飞机数饼图区域
         private bool _loadXmlConfig;
         private bool _loadXmlSetting;
         private RadGridView _planDetailGridview; //初始化RadGridView
-        private RadDateTimePicker _startDateTimePicker; //开始时间控件， 结束时间控件
 
         [ImportingConstructor]
         public FleetTrendVm(IFleetPlanService service)
         {
             _service = service;
             _fleetPlanContext = _service.Context;
-            ExportCommand = new DelegateCommand<object>(OnExport, CanExport); //导出图表源数据（Source data）
-            ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView, CanExportGridView); //导出数据表数据
-            ToggleButtonCommand = new DelegateCommand<object>(ToggleButtonCheck);
+            
             ViewModelInitializer();
             InitalizerRadWindows(_aircraftWindow, "Aircraft", 200);
             AddRadMenu(_aircraftWindow);
@@ -116,15 +112,12 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// </summary>
         private void ViewModelInitializer()
         {
+            ExportCommand = new DelegateCommand<object>(OnExport, CanExport); //导出图表源数据（Source data）
+            ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView, CanExportGridView); //导出数据表数据
             _lineGrid = CurrentFleetTrend.LineGrid;
             _barGrid = CurrentFleetTrend.BarGrid;
             _aircraftPieGrid = CurrentFleetTrend.AircraftPieGrid;
-            //控制界面起止时间控件的字符串格式化
             _planDetailGridview = CurrentFleetTrend.PlanDetailGridview;
-            _startDateTimePicker = CurrentFleetTrend.StartDateTimePicker;
-            _endDateTimePicker = CurrentFleetTrend.EndDateTimePicker;
-            _startDateTimePicker.Culture.DateTimeFormat.ShortDatePattern = "yyyy/M";
-            _endDateTimePicker.Culture.DateTimeFormat.ShortDatePattern = "yyyy/M";
         }
 
         #endregion
@@ -431,11 +424,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 if (EndDate != value)
                 {
-                    if (value == null)
-                    {
-                        _endDateTimePicker.SelectedValue = _endDate;
-                        return;
-                    }
                     _endDate = value;
                     RaisePropertyChanged(() => EndDate);
                     CreatFleetAircraftTrendCollection();
@@ -459,11 +447,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 if (StartDate != value)
                 {
-                    if (value == null)
-                    {
-                        _startDateTimePicker.SelectedValue = _startDate;
-                        return;
-                    }
                     _startDate = value;
                     RaisePropertyChanged(() => StartDate);
                     CreatFleetAircraftTrendCollection();
@@ -1039,9 +1022,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
             else
             {
-                colorDictionary.Add("飞机数（子）", _commonMethod.GetRandomColor());
-                colorDictionary.Add("座位数（子）", _commonMethod.GetRandomColor());
-                colorDictionary.Add("商载量（子）", _commonMethod.GetRandomColor());
                 colorDictionary.Add("飞机数", _commonMethod.GetRandomColor());
                 colorDictionary.Add("座位数", _commonMethod.GetRandomColor());
                 colorDictionary.Add("商载量", _commonMethod.GetRandomColor());
@@ -1070,12 +1050,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 {
                     //记录上一个时间点的总数，便于统计净增数据
                     int lastAircraftAmount = 0;
-                    int lastAircraftAmount1 = 0;
 
                     foreach (XElement datetime in xelement.Descendants("DateTime"))
                     {
-                        string currentTime =
-                            Convert.ToDateTime(datetime.Attribute("EndOfMonth").Value).ToString("yyyy/M");
+                        string currentTime =Convert.ToDateTime(datetime.Attribute("EndOfMonth").Value).ToString("yyyy/M");
                         if (SelectedIndex == 1) //按半年统计
                         {
                             if (Convert.ToDateTime(currentTime).Month != 6 &&
@@ -1095,31 +1073,18 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         var fleetAircraftTrenBar = new FleetAircraftTrend { DateTime = currentTime }; //柱状图的净增数对象
                         foreach (XElement type in datetime.Descendants("Type"))
                         {
-                            if (type.Attribute("TypeName").Value.Equals("飞机数（子）", StringComparison.OrdinalIgnoreCase))
+                             if (type.Attribute("TypeName").Value.Equals("飞机数", StringComparison.OrdinalIgnoreCase))
                             {
                                 fleetAircraftTrenLine.AircraftAmount = Convert.ToInt32(type.Attribute("Amount").Value);
                                 //飞机净增数
-                                fleetAircraftTrenBar.AircraftAmount = fleetAircraftTrenLine.AircraftAmount -
-                                                                      lastAircraftAmount;
+                                fleetAircraftTrenBar.AircraftAmount = fleetAircraftTrenLine.AircraftAmount -lastAircraftAmount;
 
-                                fleetAircraftTrenLine.AircraftColor =
-                                    fleetAircraftTrenBar.AircraftColor = colordictionary["飞机数（子）"];
-                            }
-                            else if (type.Attribute("TypeName").Value.Equals("飞机数", StringComparison.OrdinalIgnoreCase))
-                            {
-                                fleetAircraftTrenLine.AircraftAmount1 = Convert.ToInt32(type.Attribute("Amount").Value);
-                                //飞机净增数
-                                fleetAircraftTrenBar.AircraftAmount1 = fleetAircraftTrenLine.AircraftAmount1 -
-                                                                       lastAircraftAmount1;
-
-                                fleetAircraftTrenLine.AircraftColor1 =
-                                    fleetAircraftTrenBar.AircraftColor1 = colordictionary["飞机数"];
+                                fleetAircraftTrenLine.AircraftColor =fleetAircraftTrenBar.AircraftColor = colordictionary["飞机数"];
                             }
                         }
 
                         //将当前总数赋值做为下一次计算净增量。
                         lastAircraftAmount = fleetAircraftTrenLine.AircraftAmount;
-                        lastAircraftAmount1 = fleetAircraftTrenLine.AircraftAmount1;
 
                         //注：放于此为了正确统计净增量
                         //早于开始时间时执行下一个
@@ -1398,10 +1363,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             Dictionary<string, string> colorDictionary = GetColorDictionary();
             //控制折线趋势图的Y轴颜色
-            foreach (
-                var item in
-                    ((_lineGrid.Children[0] as RadCartesianChart).Resources["AdditionalVerticalAxis"] as AxisCollection)
-                )
+            foreach (var item in
+                    ((_lineGrid.Children[1] as RadCartesianChart).Resources["AdditionalVerticalAxis"] as AxisCollection))
             {
                 var linearAxis = item as LinearAxis;
                 if (linearAxis != null &&
@@ -1411,15 +1374,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
             //控制折线趋势图的线条颜色
-            foreach (var item in ((_lineGrid.Children[0] as RadCartesianChart).Series))
+            foreach (var item in ((_lineGrid.Children[1] as RadCartesianChart).Series))
             {
                 var linearSeries = item as LineSeries;
                 if (linearSeries != null)
                 {
-                    if (linearSeries.DisplayName.Equals("期末飞机数（子）", StringComparison.OrdinalIgnoreCase))
-                    {
-                        linearSeries.Stroke = new SolidColorBrush(_commonMethod.GetColor(colorDictionary["飞机数（子）"]));
-                    }
                     if (linearSeries.DisplayName.Equals("期末飞机数", StringComparison.OrdinalIgnoreCase))
                     {
                         linearSeries.Stroke = new SolidColorBrush(_commonMethod.GetColor(colorDictionary["飞机数"]));
@@ -1427,57 +1386,16 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
 
-            //控制折线趋势图的标签颜色
-            foreach (var item in ((_lineGrid.Children[1] as ScrollViewer).Content as StackPanel).Children)
-            {
-                var stackPanel = item as StackPanel;
-                if (stackPanel != null)
-                {
-                    var checkBox = stackPanel.Children[0] as CheckBox;
-                    if (checkBox != null)
-                    {
-                        if (checkBox.Content.ToString().Equals("期末飞机数（子）", StringComparison.OrdinalIgnoreCase))
-                        {
-                            stackPanel.Background =
-                                new SolidColorBrush(_commonMethod.GetColor(colorDictionary["飞机数（子）"]));
-                        }
-                        if (checkBox.Content.ToString().Equals("期末飞机数", StringComparison.OrdinalIgnoreCase))
-                        {
-                            stackPanel.Background = new SolidColorBrush(_commonMethod.GetColor(colorDictionary["飞机数"]));
-                        }
-                    }
-                }
-            }
-
 
             //控制柱状趋势图的Y轴颜色
-            foreach (
-                var item in
-                    ((_barGrid.Children[0] as RadCartesianChart).Resources["AdditionalVerticalAxis"] as AxisCollection))
+            foreach (var item in
+                    ((_barGrid.Children[1] as RadCartesianChart).Resources["AdditionalVerticalAxis"] as AxisCollection))
             {
                 var linearAxis = item as LinearAxis;
                 if (linearAxis != null &&
                     linearAxis.Title.ToString().Equals("飞机净增（架）", StringComparison.OrdinalIgnoreCase))
                 {
                     linearAxis.ElementBrush = new SolidColorBrush(_commonMethod.GetColor(colorDictionary["飞机数"]));
-                }
-            }
-
-            //控制柱状趋势图的标签颜色
-            foreach (var item in ((_barGrid.Children[1] as ScrollViewer).Content as StackPanel).Children)
-            {
-                var stackPanel = item as StackPanel;
-                var checkBox = stackPanel.Children[0] as CheckBox;
-                if (checkBox != null)
-                {
-                    if (checkBox.Content.ToString().Equals("飞机净增数（子）", StringComparison.OrdinalIgnoreCase))
-                    {
-                        stackPanel.Background = new SolidColorBrush(_commonMethod.GetColor(colorDictionary["飞机数（子）"]));
-                    }
-                    if (checkBox.Content.ToString().Equals("飞机净增数", StringComparison.OrdinalIgnoreCase))
-                    {
-                        stackPanel.Background = new SolidColorBrush(_commonMethod.GetColor(colorDictionary["飞机数"]));
-                    }
                 }
             }
         }
@@ -1578,11 +1496,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
         }
 
-        public DelegateCommand<object> ToggleButtonCommand { get; set; }
-        private void ToggleButtonCheck(object sender)
-        {
-
-        }
         /// <summary>
         ///     控制趋势图中折线（饼状）的隐藏
         /// </summary>
@@ -1642,10 +1555,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             public string Aircraft { get; set; } //飞机相关的名称
             public string DateTime { get; set; } //时间点
-            public int AircraftAmount { get; set; } //飞机数的总数（子）
-            public int AircraftAmount1 { get; set; } //飞机数的总数
-            public string AircraftColor { get; set; } //飞机数的颜色（子）
-            public string AircraftColor1 { get; set; } //飞机数的颜色
+            public int AircraftAmount { get; set; } //飞机数的总数
+            public string AircraftColor { get; set; } //飞机数的颜色
         }
 
         #endregion

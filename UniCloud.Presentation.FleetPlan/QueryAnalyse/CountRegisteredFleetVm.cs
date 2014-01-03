@@ -65,8 +65,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             _service = service;
             _fleetPlanContext = _service.Context;
-            ExportCommand = new DelegateCommand<object>(OnExport, CanExport);//导出图表源数据（Source data）
-            ToggleButtonCommand = new DelegateCommand<object>(ToggleButtonCheck);
+            
             ViewModelInitializer();
             InitializeVm();
         }
@@ -99,6 +98,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// </summary>
         private void ViewModelInitializer()
         {
+            ExportCommand = new DelegateCommand<object>(OnExport, CanExport);//导出图表源数据（Source data）
+            ToggleButtonCommand = new DelegateCommand<object>(ToggleButtonCheck);
             _monthGrid = CurrentCountRegisteredFleet.MonthGrid;
             _yearGrid = CurrentCountRegisteredFleet.YearGrid;
         }

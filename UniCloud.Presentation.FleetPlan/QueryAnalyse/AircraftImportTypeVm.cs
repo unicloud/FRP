@@ -58,23 +58,19 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private RadGridView _aircraftDetail; //初始化RadGridView
 
         private Grid _barGrid; //趋势折线图区域，趋势柱状图区域， 飞机引进方式饼图区域
-        private RadDateTimePicker _endDateTimePicker; //开始时间控件， 结束时间控件
         private RadGridView _exportRadgridview; //初始化RadGridView
         private int _i; //导出数据源格式判断
         private Grid _importTypePieGrid; //趋势折线图区域，趋势柱状图区域， 飞机引进方式饼图区域
         private Grid _lineGrid; //趋势折线图区域，趋势柱状图区域， 飞机引进方式饼图区域
         private bool _loadXmlConfig;
         private bool _loadXmlSetting;
-        private RadDateTimePicker _startDateTimePicker; //开始时间控件， 结束时间控件
 
         [ImportingConstructor]
         public AircraftImportTypeVm(IFleetPlanService service)
         {
             _service = service;
             _fleetPlanContext = _service.Context;
-            ExportCommand = new DelegateCommand<object>(OnExport, CanExport); //导出图表源数据（Source data）
-            ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView, CanExportGridView);
-            ToggleButtonCommand = new DelegateCommand<object>(ToggleButtonCheck);
+            
             ViewModelInitializer();
             InitalizerRadWindows(_importTypeWindow, "ImportType", 220);
             AddRadMenu(_importTypeWindow);
@@ -118,16 +114,14 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// </summary>
         private void ViewModelInitializer()
         {
+            ExportCommand = new DelegateCommand<object>(OnExport, CanExport); //导出图表源数据（Source data）
+            ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView, CanExportGridView);
+            ToggleButtonCommand = new DelegateCommand<object>(ToggleButtonCheck);
+
             _lineGrid = CurrentAircraftImportType.LineGrid;
             _barGrid = CurrentAircraftImportType.BarGrid;
             _importTypePieGrid = CurrentAircraftImportType.ImportTypePieGrid;
             _aircraftDetail = CurrentAircraftImportType.AircraftDetail;
-
-            //控制界面起止时间控件的字符串格式化
-            _startDateTimePicker = CurrentAircraftImportType.StartDateTimePicker;
-            _endDateTimePicker = CurrentAircraftImportType.EndDateTimePicker;
-            _startDateTimePicker.Culture.DateTimeFormat.ShortDatePattern = "yyyy/M";
-            _endDateTimePicker.Culture.DateTimeFormat.ShortDatePattern = "yyyy/M";
         }
 
         #endregion
@@ -431,11 +425,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 if (StartDate != value)
                 {
-                    if (value == null)
-                    {
-                        SelectedStartValueChange(_startDate);
-                        return;
-                    }
                     _startDate = value;
                     RaisePropertyChanged(() => StartDate);
                     CreateFleetImportTypeTrendCollection();
@@ -459,11 +448,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 if (EndDate != value)
                 {
-                    if (value == null)
-                    {
-                        SelectedEndValueChange(_endDate);
-                        return;
-                    }
                     _endDate = value;
                     RaisePropertyChanged(() => EndDate);
                     CreateFleetImportTypeTrendCollection();
@@ -677,24 +661,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     }
                 }
             }
-        }
-
-        /// <summary>
-        ///     选择开始时间时
-        /// </summary>
-        /// <param name="dataTimeStart"></param>
-        public void SelectedStartValueChange(DateTime? dataTimeStart)
-        {
-            _startDateTimePicker.SelectedValue = dataTimeStart;
-        }
-
-        /// <summary>
-        ///     选择结束时间时
-        /// </summary>
-        /// <param name="dataTimeEnd"></param>
-        public void SelectedEndValueChange(DateTime? dataTimeEnd)
-        {
-            _endDateTimePicker.SelectedValue = dataTimeEnd;
         }
 
         /// <summary>
