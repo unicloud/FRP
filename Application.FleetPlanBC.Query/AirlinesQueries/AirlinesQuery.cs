@@ -47,6 +47,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AirlinesQueries
                 Id = p.Id,
                 CnName = p.CnName,
                 CnShortName = p.CnShortName,
+                IsCurrent = p.IsCurrent,
             });
         }
     }

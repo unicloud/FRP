@@ -44,6 +44,10 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public string CnShortName { get; set; }
 
+        /// <summary>
+        /// 是否当前航空公司
+        /// </summary>
+        public bool IsCurrent { get; set; }
         #endregion
     }
 }

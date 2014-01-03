@@ -63,7 +63,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private void InitializeVM()
         {
             CaacProgrammings = _service.CreateCollection(_context.CaacProgrammings, o => o.CaacProgrammingLines);
-            _service.RegisterCollectionView(CaacProgrammings);
+            _service.RegisterCollectionView(CaacProgrammings);//注册查询集合
 
             Programmings = new QueryableDataServiceCollectionView<ProgrammingDTO>(_context, _context.Programmings);
 

@@ -35,7 +35,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export(typeof (EngineLeaseReceptionManagerVM))]
+    [Export(typeof(EngineLeaseReceptionManagerVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class EngineLeaseReceptionManagerVM : ReceptionVm
     {
@@ -45,10 +45,12 @@ namespace UniCloud.Presentation.Purchase.Reception
         private readonly DocumentDTO _document = new DocumentDTO();
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
-        [Import] public DocumentViewer DocumentView;
+        [Import]
+        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
-        public EngineLeaseReceptionManagerVM(IRegionManager regionManager, IPurchaseService service) : base(service)
+        public EngineLeaseReceptionManagerVM(IRegionManager regionManager, IPurchaseService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -68,9 +70,8 @@ namespace UniCloud.Presentation.Purchase.Reception
             LeaseContractEngines = new QueryableDataServiceCollectionView<LeaseContractEngineDTO>(_context,
                 _context.LeaseContractEngines);
 
-            EngineLeaseReceptions =
-                _service.CreateCollection<EngineLeaseReceptionDTO>(
-                    _context.EngineLeaseReceptions.Expand(p => p.RelatedDocs));
+            EngineLeaseReceptions = _service.CreateCollection(_context.EngineLeaseReceptions.Expand(p => p.RelatedDocs),
+                o => o.ReceptionLines, o => o.ReceptionSchedules, o => o.RelatedDocs);
             _service.RegisterCollectionView(EngineLeaseReceptions); //注册查询集合。
         }
 
@@ -123,8 +124,9 @@ namespace UniCloud.Presentation.Purchase.Reception
         public override void LoadData()
         {
             LeaseContractEngines.Load(true);
-            Suppliers.Load(true);
             EngineLeaseReceptions.Load(true);
+
+            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
         }
 
         #region 业务

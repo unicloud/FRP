@@ -61,15 +61,10 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         private void InitializeVM()
         {
-            CreditNotes = _service.CreateCollection<CreditNoteDTO>(_context.CreditNotes);
+            CreditNotes = _service.CreateCollection(_context.CreditNotes,o=>o.InvoiceLines);
             _service.RegisterCollectionView(CreditNotes); //注册查询集合。
 
-            Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context, _context.Currencies);
-
-            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
-
-            PurchaseOrders = new QueryableDataServiceCollectionView<PurchaseOrderDTO>(_context,
-                _context.PurchaseOrders);
+            PurchaseOrders = new QueryableDataServiceCollectionView<PurchaseOrderDTO>(_context,_context.PurchaseOrders);
         }
 
         /// <summary>
@@ -93,6 +88,65 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 数据
 
         #region 公共属性
+
+        #region 币种集合
+
+        /// <summary>
+        ///     币种集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<CurrencyDTO> Currencies { get; set; }
+
+        #endregion
+
+        #region 供应商集合
+
+        /// <summary>
+        ///     供应商集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
+
+        #endregion
+
+        #region 关联的采购订单
+
+        private PurchaseOrderDTO _relatedOrder;
+
+        private ObservableCollection<PurchaseOrderDTO> _relatedPurchaseOrders =
+            new ObservableCollection<PurchaseOrderDTO>();
+
+        /// <summary>
+        ///     关联的采购订单集合
+        /// </summary>
+        public ObservableCollection<PurchaseOrderDTO> RelatedPurchaseOrders
+        {
+            get { return _relatedPurchaseOrders; }
+            set
+            {
+                if (_relatedPurchaseOrders != value)
+                {
+                    _relatedPurchaseOrders = value;
+                    RaisePropertyChanged(() => RelatedPurchaseOrders);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     关联的订单行
+        /// </summary>
+        public PurchaseOrderDTO RelatedOrder
+        {
+            get { return _relatedOrder; }
+            set
+            {
+                if (_relatedOrder != value)
+                {
+                    _relatedOrder = value;
+                    RaisePropertyChanged(() => RelatedOrder);
+                }
+            }
+        }
+
+        #endregion
 
         #region 是否已提交审核
 
@@ -131,8 +185,8 @@ namespace UniCloud.Presentation.Payment.Invoice
         {
             CreditNotes.AutoLoad = true;
 
-            Currencies.Load(true);
-            Suppliers.Load(true);
+            Currencies = _service.GetCurrency(() => RaisePropertyChanged(() => Currencies));
+            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
             PurchaseOrders.Load(true);
         }
 
@@ -214,65 +268,6 @@ namespace UniCloud.Presentation.Payment.Invoice
                 {
                     _selInvoiceLine = value;
                     RaisePropertyChanged(() => SelInvoiceLine);
-                }
-            }
-        }
-
-        #endregion
-
-        #region 币种集合
-
-        /// <summary>
-        ///     币种集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<CurrencyDTO> Currencies { get; set; }
-
-        #endregion
-
-        #region 供应商集合
-
-        /// <summary>
-        ///     供应商集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
-
-        #endregion
-
-        #region 关联的采购订单
-
-        private PurchaseOrderDTO _relatedOrder;
-
-        private ObservableCollection<PurchaseOrderDTO> _relatedPurchaseOrders =
-            new ObservableCollection<PurchaseOrderDTO>();
-
-        /// <summary>
-        ///     关联的采购订单集合
-        /// </summary>
-        public ObservableCollection<PurchaseOrderDTO> RelatedPurchaseOrders
-        {
-            get { return _relatedPurchaseOrders; }
-            set
-            {
-                if (_relatedPurchaseOrders != value)
-                {
-                    _relatedPurchaseOrders = value;
-                    RaisePropertyChanged(() => RelatedPurchaseOrders);
-                }
-            }
-        }
-
-        /// <summary>
-        ///     关联的订单行
-        /// </summary>
-        public PurchaseOrderDTO RelatedOrder
-        {
-            get { return _relatedOrder; }
-            set
-            {
-                if (_relatedOrder != value)
-                {
-                    _relatedOrder = value;
-                    RaisePropertyChanged(() => RelatedOrder);
                 }
             }
         }

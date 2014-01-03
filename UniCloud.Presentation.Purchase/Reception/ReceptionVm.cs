@@ -43,9 +43,6 @@ namespace UniCloud.Presentation.Purchase.Reception
             _service = service;
             _context = _service.Context;
 
-            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context,
-                _context.Suppliers);
-
             ScheduleExtension = new SchdeuleExtension.ControlExtension();
 
             NewCommand = new DelegateCommand<object>(OnNew, CanNew);

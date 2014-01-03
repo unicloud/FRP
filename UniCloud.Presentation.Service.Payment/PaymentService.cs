@@ -16,7 +16,9 @@
 
 #region 命名空间
 
+using System;
 using System.ComponentModel.Composition;
+using Telerik.Windows.Data;
 using UniCloud.Presentation.Service.Payment.Payment;
 
 #endregion
@@ -27,6 +29,9 @@ namespace UniCloud.Presentation.Service.Payment
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class PaymentService : ServiceBase, IPaymentService
     {
+        private static QueryableDataServiceCollectionView<SupplierDTO> _supplier;
+        private static QueryableDataServiceCollectionView<CurrencyDTO> _currency;
+
         public PaymentService()
         {
             context = new PaymentData(AgentHelper.PaymentUri);
@@ -38,6 +43,20 @@ namespace UniCloud.Presentation.Service.Payment
         {
             get { return context as PaymentData; }
         }
+
+        #region 获取静态数据
+
+        public QueryableDataServiceCollectionView<SupplierDTO> GetSupplier(Action loaded, bool forceLoad = false)
+        {
+            return GetStaticData(_supplier, loaded, Context.Suppliers);
+        }
+
+        public QueryableDataServiceCollectionView<CurrencyDTO> GetCurrency(Action loaded, bool forceLoad = false)
+        {
+            return GetStaticData(_currency, loaded, Context.Currencies);
+        }
+
+        #endregion
 
         #endregion
     }
