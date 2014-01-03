@@ -17,6 +17,9 @@
 
 namespace UniCloud.Domain.Common.Enums
 {
+    /// <summary>
+    ///     索引状态
+    /// </summary>
     public enum IndexStatus
     {
         未建 = 0,

@@ -17,6 +17,9 @@
 
 namespace UniCloud.Domain.Common.Enums
 {
+    /// <summary>
+    ///     付款计划控制状态
+    /// </summary>
     public enum ControlStatus
     {
         正常支付 = 0,

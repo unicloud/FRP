@@ -17,6 +17,9 @@
 
 namespace UniCloud.Domain.Common.Enums
 {
+    /// <summary>
+    ///     项目模板状态
+    /// </summary>
     public enum ProjectTempStatus
     {
         草稿 = 0,

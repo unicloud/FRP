@@ -17,6 +17,9 @@
 
 namespace UniCloud.Domain.Common.Enums
 {
+    /// <summary>
+    ///     任务依赖类型
+    /// </summary>
     public enum DependencyType
     {
         完成开始 = 0,

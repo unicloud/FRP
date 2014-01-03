@@ -17,6 +17,9 @@
 
 namespace UniCloud.Domain.Common.Enums
 {
+    /// <summary>
+    ///     路径源
+    /// </summary>
     public enum PathSource
     {
         采购合同 = 0

@@ -17,6 +17,12 @@
 
 namespace UniCloud.Domain.Common.Enums
 {
+    /// <summary>
+    ///     任务类型
+    ///     <remarks>
+    ///         用于检索到具体的任务，如订单
+    ///     </remarks>
+    /// </summary>
     public enum TaskType
     {
         订单 = 0,
