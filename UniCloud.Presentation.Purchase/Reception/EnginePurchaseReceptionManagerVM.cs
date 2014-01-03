@@ -35,7 +35,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export(typeof (EnginePurchaseReceptionManagerVM))]
+    [Export(typeof(EnginePurchaseReceptionManagerVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class EnginePurchaseReceptionManagerVM : ReceptionVm
     {
@@ -45,10 +45,12 @@ namespace UniCloud.Presentation.Purchase.Reception
         private readonly DocumentDTO _document = new DocumentDTO();
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
-        [Import] public DocumentViewer DocumentView;
+        [Import]
+        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
-        public EnginePurchaseReceptionManagerVM(IRegionManager regionManager, IPurchaseService service) : base(service)
+        public EnginePurchaseReceptionManagerVM(IRegionManager regionManager, IPurchaseService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -69,9 +71,8 @@ namespace UniCloud.Presentation.Purchase.Reception
                 new QueryableDataServiceCollectionView<PurchaseContractEngineDTO>(_context,
                     _context.PurchaseContractEngines);
 
-            EnginePurchaseReceptions =
-                _service.CreateCollection<EnginePurchaseReceptionDTO>(
-                    _context.EnginePurchaseReceptions.Expand(p => p.RelatedDocs));
+            EnginePurchaseReceptions = _service.CreateCollection(_context.EnginePurchaseReceptions.Expand(p => p.RelatedDocs),
+                o => o.ReceptionLines, o => o.ReceptionSchedules, o => o.RelatedDocs);
             _service.RegisterCollectionView(EnginePurchaseReceptions); //注册查询集合。
         }
 
@@ -126,6 +127,8 @@ namespace UniCloud.Presentation.Purchase.Reception
             PurchaseContractEngines.Load(true);
             Suppliers.Load(true);
             EnginePurchaseReceptions.Load(true);
+
+            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
         }
 
         #region 业务

@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="IPaymentService.cs" />
     <Compile Include="PaymentService.cs" />
+    <Compile Include="PaymentServiceHelper.cs" />
     <Compile Include="Payment\EnginePaymentScheduleDTO.cs" />
     <Compile Include="Payment\Enums\GuaranteeStatus.cs" />
     <Compile Include="Payment\Enums\InvoiceType.cs" />

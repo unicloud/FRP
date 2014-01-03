@@ -1,10 +1,10 @@
 ﻿#region 版本信息
 
 // =====================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/12/30，17:55
+// 作者：丁志浩 时间：2014/01/02，20:50
 // 方案：FRP
 // 项目：Domain.ProjectBC
 // 版本：V1.0.0
@@ -20,20 +20,20 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.Common.Entities;
+using UniCloud.Domain.ProjectBC.Enums;
 
 #endregion
 
-namespace UniCloud.Domain.ProjectBC.Aggregates.ScheduleTempAgg
+namespace UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg
 {
     /// <summary>
-    ///     任务模板聚合根
+    ///     任务标准聚合根
     /// </summary>
-    public class ScheduleTemp : ScheduleBase, IValidatableObject
+    public class TaskStandard : EntityInt, IValidatableObject
     {
         #region 私有字段
 
-        private HashSet<ScheduleTemp> _children;
+        private HashSet<TaskCase> _taskCases;
 
         #endregion
 
@@ -43,7 +43,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ScheduleTempAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal ScheduleTemp()
+        internal TaskStandard()
         {
         }
 
@@ -52,29 +52,14 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ScheduleTempAgg
         #region 属性
 
         /// <summary>
-        ///     期限
+        ///     名称
         /// </summary>
-        public DateTime? DeadLine { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
-        ///     工期
+        ///     描述
         /// </summary>
-        public TimeSpan Duration { get; set; }
-
-        /// <summary>
-        ///     是否里程碑
-        /// </summary>
-        public bool IsMileStone { get; set; }
-
-        /// <summary>
-        ///     时区ID
-        /// </summary>
-        public string TimeZoneId { get; set; }
-
-        /// <summary>
-        ///     成员
-        /// </summary>
-        public string Member { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         ///     乐观时间
@@ -91,35 +76,47 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ScheduleTempAgg
         /// </summary>
         public TimeSpan NormalTime { get; set; }
 
+        /// <summary>
+        ///     源GUID
+        /// </summary>
+        public Guid SourceGuid { get; private set; }
+
+        /// <summary>
+        ///     任务类型
+        /// </summary>
+        public TaskType TaskType { get; set; }
+
         #endregion
 
         #region 外键属性
-
-        /// <summary>
-        /// </summary>
-        public int? ParentId { get; set; }
 
         #endregion
 
         #region 导航属性
 
-        /// <summary>
-        ///     父节点
-        /// </summary>
-        public virtual ScheduleTemp Parent { get; set; }
-
-        /// <summary>
-        ///     子集
-        /// </summary>
-        public virtual ICollection<ScheduleTemp> Children
+        public virtual ICollection<TaskCase> TaskCases
         {
-            get { return _children ?? (_children = new HashSet<ScheduleTemp>()); }
-            set { _children = new HashSet<ScheduleTemp>(value); }
+            get { return _taskCases ?? (_taskCases = new HashSet<TaskCase>()); }
+            set { _taskCases = new HashSet<TaskCase>(value); }
         }
 
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置源GUID
+        /// </summary>
+        /// <param name="id">源GUID</param>
+        public void SetSourceGuid(Guid id)
+        {
+            if (id == null || id == Guid.Empty)
+            {
+                throw new ArgumentException("源GUID参数为空！");
+            }
+
+            SourceGuid = id;
+        }
 
         #endregion
 

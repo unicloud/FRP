@@ -1,10 +1,10 @@
 ﻿#region 版本信息
 
 // =====================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/12/30，21:50
+// 作者：丁志浩 时间：2014/01/02，22:35
 // 方案：FRP
 // 项目：Domain.ProjectBC
 // 版本：V1.0.0
@@ -15,12 +15,12 @@
 
 #endregion
 
-namespace UniCloud.Domain.ProjectBC.Aggregates.ScheduleTempAgg
+namespace UniCloud.Domain.ProjectBC.Enums
 {
-    /// <summary>
-    ///     任务模板规约集合
-    /// </summary>
-    public static class ScheduleTempSpecifications
+    public enum ProjectTempStatus
     {
+        草稿 = 0,
+        待审核 = 1,
+        已审核 = 2
     }
 }

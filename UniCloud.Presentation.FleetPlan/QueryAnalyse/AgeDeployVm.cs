@@ -40,11 +40,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
     {
         #region 声明、初始化
 
-        private readonly FleetPlanData _context;
+        private readonly FleetPlanData _fleetPlanContext;
         private static readonly CommonMethod CommonMethod = new CommonMethod();
         private readonly IFleetPlanService _service;
         private RadGridView _ageDeployGridView; //机龄配置列表
-        private FleetPlanData _fleetPlanDataService;
         private bool _loadXmlConfig;
         private bool _loadXmlSetting;
 
@@ -52,7 +51,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public AgeDeployVm(IFleetPlanService service)
         {
             _service = service;
-            _context = _service.Context;
+            _fleetPlanContext = _service.Context;
             ViewModelInitializer();
             SaveCommand = new DelegateCommand<object>(OnSave, CanSave);
             AddCommand = new DelegateCommand<object>(OnAdd, CanAdd);
@@ -76,15 +75,15 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public void InitializeVm()
         {
             // 创建并注册CollectionView
-            XmlConfigs = new QueryableDataServiceCollectionView<XmlConfigDTO>(_fleetPlanDataService,
-                _fleetPlanDataService.XmlConfigs);
+            XmlConfigs = new QueryableDataServiceCollectionView<XmlConfigDTO>(_fleetPlanContext,
+                _fleetPlanContext.XmlConfigs);
             XmlConfigs.LoadedData += (o, e) =>
             {
                 _loadXmlConfig = true;
                 CreatAgeDeployCollection(); //将机龄配置XML转换成机龄配置对象的集合
             };
-            XmlSettings = new QueryableDataServiceCollectionView<XmlSettingDTO>(_fleetPlanDataService,
-                _fleetPlanDataService.XmlSettings);
+            XmlSettings = new QueryableDataServiceCollectionView<XmlSettingDTO>(_fleetPlanContext,
+                _fleetPlanContext.XmlSettings);
             XmlSettings.LoadedData += (o, e) =>
             {
                 _loadXmlSetting = true;

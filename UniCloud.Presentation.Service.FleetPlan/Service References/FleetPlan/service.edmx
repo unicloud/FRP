@@ -96,6 +96,7 @@
         <Property Name="Id" Type="Edm.Guid" Nullable="false" />
         <Property Name="CnName" Type="Edm.String" />
         <Property Name="CnShortName" Type="Edm.String" />
+        <Property Name="IsCurrent" Type="Edm.Boolean" Nullable="false" />
       </EntityType>
       <EntityType Name="AirProgrammingDTO">
         <Key>
@@ -330,7 +331,7 @@
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
         <Property Name="PerformAnnualId" Type="Edm.Guid" Nullable="false" />
         <Property Name="PlanType" Type="Edm.Int32" Nullable="false" />
-        <Property Name="CoperGuid" Type="Edm.Guid" />
+        <Property Name="CoperGuid" Type="Edm.Guid" Nullable="false" />
       </ComplexType>
       <EntityType Name="PlanAircraftDTO">
         <Key>

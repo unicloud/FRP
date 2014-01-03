@@ -1,10 +1,10 @@
 ﻿#region 版本信息
 
 // =====================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/12/30，20:43
+// 作者：丁志浩 时间：2014/01/02，22:13
 // 方案：FRP
 // 项目：Domain.ProjectBC
 // 版本：V1.0.0
@@ -19,23 +19,30 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.ProjectBC.Enums;
 
 #endregion
 
-namespace UniCloud.Domain.ProjectBC.Aggregates.EmployeeResourceAgg
+namespace UniCloud.Domain.ProjectBC.Aggregates.ProjectTempAgg
 {
     /// <summary>
-    ///     员工资源聚合根
+    ///     项目模板聚合根
     /// </summary>
-    public class EmployeeResource : EntityInt, IValidatableObject
+    public class ProjectTemp : EntityInt, IValidatableObject
     {
+        #region 私有字段
+
+        private HashSet<TaskTemp> _taskTemps;
+
+        #endregion
+
         #region 构造函数
 
         /// <summary>
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal EmployeeResource()
+        internal ProjectTemp()
         {
         }
 
@@ -49,24 +56,14 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.EmployeeResourceAgg
         public string Name { get; set; }
 
         /// <summary>
-        ///     标题
+        ///     描述
         /// </summary>
-        public string Title { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
-        ///     显示名称
+        ///     项目模板状态
         /// </summary>
-        public string DisplayName { get; set; }
-
-        /// <summary>
-        ///     资源名称
-        /// </summary>
-        public string ResourceName { get; set; }
-
-        /// <summary>
-        ///     资源类型
-        /// </summary>
-        public string ResourceType { get; set; }
+        public ProjectTempStatus Status { get; set; }
 
         #endregion
 
@@ -75,6 +72,15 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.EmployeeResourceAgg
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        ///     任务模板集合
+        /// </summary>
+        public virtual ICollection<TaskTemp> TaskTemps
+        {
+            get { return _taskTemps ?? (_taskTemps = new HashSet<TaskTemp>()); }
+            set { _taskTemps = new HashSet<TaskTemp>(value); }
+        }
 
         #endregion
 
