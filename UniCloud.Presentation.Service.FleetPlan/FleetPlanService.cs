@@ -16,7 +16,10 @@
 
 #region 命名空间
 
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.Linq;
+using Telerik.Windows.Data;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 #endregion
@@ -30,6 +33,9 @@ namespace UniCloud.Presentation.Service.FleetPlan
         public FleetPlanService()
         {
             context = new FleetPlanData(AgentHelper.FleetPlanServiceUri);
+
+            SetCurrentAnnual();
+            GetCurrentAirlines();
         }
 
         #region IFleetPlanService 成员
@@ -38,6 +44,178 @@ namespace UniCloud.Presentation.Service.FleetPlan
         {
             get { return context as FleetPlanData; }
         }
+
+        #region 获取静态数据
+       
+        #endregion
+
+        #region 公共属性
+
+        /// <summary>
+        /// 民航局ID
+        /// </summary>
+        public string Caacid
+        {
+            get
+            {
+                return "31A9DE51-C207-4A73-919C-21521F17FEF9";
+            }
+        }
+
+        /// <summary>
+        /// 当前航空公司
+        /// </summary>
+        public AirlinesDTO CurrentAirlines { get; private set; }
+
+        /// <summary>
+        /// 当前年度
+        /// </summary>
+        public AnnualDTO CurrentAnnual { get; private set; }
+
+        #endregion
+
+        #region 业务逻辑
+
+        #region 计划
+
+        /// <summary>
+        /// 设置当前年度
+        /// </summary>
+        public AnnualDTO SetCurrentAnnual()
+        {
+            if (CurrentAnnual == null)
+            {
+            }
+            return CurrentAnnual;
+        }
+
+
+        /// <summary>
+        /// 设置当前航空公司
+        /// </summary>
+        public AirlinesDTO GetCurrentAirlines()
+        {
+            if (CurrentAirlines == null)
+            {
+            }
+            return CurrentAirlines;
+        }
+
+
+        /// <summary>
+        /// 创建新年度的初始化计划
+        /// </summary>
+        /// <param name="title"><see cref="IFleetPlanService"/></param>
+        /// <returns><see cref="IFleetPlanService"/></returns>
+        public PlanDTO CreateNewYearPlan(string title)
+        {
+            using (var pb = new FleetPlanServiceHelper())
+            {
+                return pb.CreateNewYearPlan(title, this);
+            }
+        }
+
+        /// <summary>
+        /// 创建新版本的运力增减计划
+        /// </summary>
+        /// <param name="title"><see cref="IFleetPlanService"/></param>
+        /// <returns><see cref="IFleetPlanService"/></returns>
+        public PlanDTO CreateNewVersionPlan(string title)
+        {
+            using (var pb = new FleetPlanServiceHelper())
+            {
+                return pb.CreateNewVersionPlan(title, this);
+            }
+        }
+
+        /// <summary>
+        /// 创建运力增减计划明细
+        /// </summary>
+        /// <param name="plan"><see cref="IFleetPlanService"/></param>
+        /// <param name="planAircraft"><see cref="IFleetPlanService"/></param>
+        /// <param name="actionType"><see cref="IFleetPlanService"/></param>
+        /// <returns><see cref="IFleetPlanService"/></returns>
+        public PlanHistoryDTO CreatePlanHistory(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType)
+        {
+            using (var pb = new FleetPlanServiceHelper())
+            {
+                return pb.CreateOperationPlan(plan, planAircraft, actionType, this);
+            }
+        }
+
+        /// <summary>
+        ///  移除运力增减计划明细
+        /// </summary>
+        /// <param name="planDetail"><see cref="IFleetPlanService"/></param>
+        public void RemovePlanDetail(PlanHistoryDTO planDetail)
+        {
+            using (var pb = new FleetPlanServiceHelper())
+            {
+                pb.RemovePlanDetail(planDetail, this);
+            }
+        }
+
+        /// <summary>
+        /// 完成运力增减计划
+        /// </summary>
+        /// <param name="planDetail"><see cref="IFleetPlanService"/></param>
+        /// <returns><see cref="IFleetPlanService"/></returns>
+        public AircraftDTO CompletePlan(PlanHistoryDTO planDetail)
+        {
+            using (var pb = new FleetPlanServiceHelper())
+            {
+                return pb.CompletePlan(planDetail, this);
+            }
+        }
+
+        /// <summary>
+        /// 获取所有有效的计划
+        /// </summary>
+        /// <returns><see cref="IFleetPlanService"/></returns>
+        public ObservableCollection<PlanDTO> GetAllValidPlan()
+        {
+            using (var pb = new FleetPlanServiceHelper())
+            {
+                return pb.GetAllValidPlan(this);
+            }
+        }
+
+        #endregion
+
+        #region 批文管理
+
+        #endregion
+
+        #region 运营管理
+
+        /// <summary>
+        /// 创建所有权历史
+        /// </summary>
+        /// <param name="aircraft"><see cref="IFleetPlanService"/></param>
+        /// <returns><see cref="IFleetPlanService"/></returns>
+        public OwnershipHistoryDTO CreateNewOwnership(AircraftDTO aircraft)
+        {
+            using (var pb = new FleetPlanServiceHelper())
+            {
+                return pb.CreateNewOwnership(aircraft, this);
+            }
+        }
+
+        /// <summary>
+        /// 移除所有权历史
+        /// </summary>
+        /// <param name="ownership"><see cref="IFleetPlanService"/></param>
+        public void RemoveOwnership(OwnershipHistoryDTO ownership)
+        {
+            using (var pb = new FleetPlanServiceHelper())
+            {
+                pb.RemoveOwnership(ownership, this);
+            }
+        }
+
+        #endregion
+
+        #endregion
 
         #endregion
     }

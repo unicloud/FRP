@@ -19,7 +19,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export(typeof (AircraftLeaseReceptionManagerVM))]
+    [Export(typeof(AircraftLeaseReceptionManagerVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AircraftLeaseReceptionManagerVM : ReceptionVm
     {
@@ -30,10 +30,12 @@ namespace UniCloud.Presentation.Purchase.Reception
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
 
-        [Import] public DocumentViewer DocumentView;
+        [Import]
+        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
-        public AircraftLeaseReceptionManagerVM(IRegionManager regionManager, IPurchaseService service) : base(service)
+        public AircraftLeaseReceptionManagerVM(IRegionManager regionManager, IPurchaseService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -50,13 +52,11 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         private void InitializeVM()
         {
-            LeaseContractAircrafts =
-                new QueryableDataServiceCollectionView<LeaseContractAircraftDTO>(_context,
+            LeaseContractAircrafts = new QueryableDataServiceCollectionView<LeaseContractAircraftDTO>(_context,
                     _context.LeaseContractAircrafts);
 
-            AircraftLeaseReceptions =
-                _service.CreateCollection<AircraftLeaseReceptionDTO>(
-                    _context.AircraftLeaseReceptions.Expand(p => p.RelatedDocs));
+            AircraftLeaseReceptions = _service.CreateCollection(_context.AircraftLeaseReceptions.Expand(p => p.RelatedDocs),
+                o=>o.ReceptionLines,o=>o.ReceptionSchedules,o=>o.RelatedDocs);
             _service.RegisterCollectionView(AircraftLeaseReceptions); //注册查询集合。
         }
 
@@ -109,8 +109,9 @@ namespace UniCloud.Presentation.Purchase.Reception
         public override void LoadData()
         {
             LeaseContractAircrafts.Load(true);
-            Suppliers.Load(true);
             AircraftLeaseReceptions.Load(true);
+
+            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
         }
 
         #region 业务

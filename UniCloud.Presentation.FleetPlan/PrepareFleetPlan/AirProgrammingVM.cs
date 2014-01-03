@@ -32,7 +32,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof (AirProgrammingVM))]
+    [Export(typeof(AirProgrammingVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AirProgrammingVM : EditViewModelBase
     {
@@ -41,11 +41,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private readonly FleetPlanData _context;
         private readonly IRegionManager _regionManager;
         private readonly IFleetPlanService _service;
-        [Import] public DocumentViewer DocumentView;
+        [Import]
+        public DocumentViewer DocumentView;
         private DocumentDTO _document = new DocumentDTO();
 
         [ImportingConstructor]
-        public AirProgrammingVM(IRegionManager regionManager, IFleetPlanService service) : base(service)
+        public AirProgrammingVM(IRegionManager regionManager, IFleetPlanService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -63,7 +65,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private void InitializeVM()
         {
             AirProgrammings = _service.CreateCollection(_context.AirProgrammings, o => o.AirProgrammingLines);
-            _service.RegisterCollectionView(AirProgrammings);
+            _service.RegisterCollectionView(AirProgrammings);//注册查询集合
 
             Programmings = new QueryableDataServiceCollectionView<ProgrammingDTO>(_context, _context.Programmings);
 

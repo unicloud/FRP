@@ -31,7 +31,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof (FleetPlanPrepareVM))]
+    [Export(typeof(FleetPlanPrepareVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class FleetPlanPrepareVM : EditViewModelBase
     {
@@ -42,7 +42,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private readonly IFleetPlanService _service;
 
         [ImportingConstructor]
-        public FleetPlanPrepareVM(IRegionManager regionManager, IFleetPlanService service) : base(service)
+        public FleetPlanPrepareVM(IRegionManager regionManager, IFleetPlanService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -59,8 +60,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            Annuals = _service.CreateCollection(_context.Annuals.Expand(p => p.Plans));
-            _service.RegisterCollectionView(Annuals);
+            ViewAnnuals = _service.CreateCollection(_context.Annuals.Expand(p => p.Plans));
+            _service.RegisterCollectionView(ViewAnnuals);//注册查询集合
         }
 
         /// <summary>
@@ -90,7 +91,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public override void LoadData()
         {
-            Annuals.Load(true);
+            ViewAnnuals.Load(true);
         }
 
         #region 业务
@@ -100,7 +101,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// <summary>
         ///     计划年度集合
         /// </summary>
-        public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
+        public QueryableDataServiceCollectionView<AnnualDTO> ViewAnnuals { get; set; }
 
         #endregion
 

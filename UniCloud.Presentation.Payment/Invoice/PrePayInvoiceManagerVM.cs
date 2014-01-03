@@ -34,7 +34,7 @@ using UniCloud.Presentation.Service.Payment.Payment;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof (PrePayInvoiceManagerVM))]
+    [Export(typeof(PrePayInvoiceManagerVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class PrePayInvoiceManagerVM : EditViewModelBase
     {
@@ -45,7 +45,8 @@ namespace UniCloud.Presentation.Payment.Invoice
         private readonly IPaymentService _service;
 
         [ImportingConstructor]
-        public PrePayInvoiceManagerVM(IRegionManager regionManager, IPaymentService service) : base(service)
+        public PrePayInvoiceManagerVM(IRegionManager regionManager, IPaymentService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -62,45 +63,33 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         private void InitializeVM()
         {
-            PrepaymentInvoices = _service.CreateCollection<PrepaymentInvoiceDTO>(_context.PrepaymentInvoices);
+            PrepaymentInvoices = _service.CreateCollection(_context.PrepaymentInvoices, o => o.InvoiceLines);
             _service.RegisterCollectionView(PrepaymentInvoices); //注册查询集合。
 
-            Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(_context, _context.Currencies);
-
-            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(_context, _context.Suppliers);
-
-            AircraftPurchaseOrders = new QueryableDataServiceCollectionView<AircraftPurchaseOrderDTO>(_context,
-                _context.AircraftPurchaseOrders);
-
-            EnginePurchaseOrders = new QueryableDataServiceCollectionView<EnginePurchaseOrderDTO>(_context,
-                _context.EnginePurchaseOrders);
-
-            BFEPurchaseOrders = new QueryableDataServiceCollectionView<BFEPurchaseOrderDTO>(_context,
-                _context.BFEPurchaseOrders);
-
-            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context,
-                _context.PaymentSchedules);
-
-            AcPaymentSchedules = _service.CreateCollection<AcPaymentScheduleDTO>(_context.AcPaymentSchedules);
+            AcPaymentSchedules = _service.CreateCollection(_context.AcPaymentSchedules, o => o.PaymentScheduleLines);
             _service.RegisterCollectionView(AcPaymentSchedules); //注册查询集合。
 
-            EnginePaymentSchedules =
-                _service.CreateCollection<EnginePaymentScheduleDTO>(_context.EnginePaymentSchedules);
+            EnginePaymentSchedules = _service.CreateCollection(_context.EnginePaymentSchedules, o => o.PaymentScheduleLines);
             _service.RegisterCollectionView(EnginePaymentSchedules); //注册查询集合。
 
-            StandardPaymentSchedules =
-                _service.CreateCollection<StandardPaymentScheduleDTO>(_context.StandardPaymentSchedules);
+            StandardPaymentSchedules = _service.CreateCollection(_context.StandardPaymentSchedules, o => o.PaymentScheduleLines);
             _service.RegisterCollectionView(StandardPaymentSchedules); //注册查询集合。
+
+            AircraftPurchaseOrders = new QueryableDataServiceCollectionView<AircraftPurchaseOrderDTO>(_context, _context.AircraftPurchaseOrders);
+
+            EnginePurchaseOrders = new QueryableDataServiceCollectionView<EnginePurchaseOrderDTO>(_context, _context.EnginePurchaseOrders);
+
+            BFEPurchaseOrders = new QueryableDataServiceCollectionView<BFEPurchaseOrderDTO>(_context, _context.BFEPurchaseOrders);
+
+            PaymentSchedules = new QueryableDataServiceCollectionView<PaymentScheduleDTO>(_context, _context.PaymentSchedules);
 
             var fd = new FilterDescriptor("ImportType", FilterOperator.Contains, "购买");
 
-            ContractAircrafts = _service.CreateCollection<ContractAircraftDTO>(_context.ContractAircrafts);
+            ContractAircrafts = _service.CreateCollection(_context.ContractAircrafts);
             ContractAircrafts.FilterDescriptors.Add(fd);
-            _service.RegisterCollectionView(ContractAircrafts); //注册查询集合。
 
-            ContractEngines = _service.CreateCollection<ContractEngineDTO>(_context.ContractEngines);
+            ContractEngines = _service.CreateCollection(_context.ContractEngines);
             ContractEngines.FilterDescriptors.Add(fd);
-            _service.RegisterCollectionView(ContractEngines); //注册查询集合。
         }
 
         /// <summary>
@@ -124,6 +113,43 @@ namespace UniCloud.Presentation.Payment.Invoice
         #region 数据
 
         #region 公共属性
+
+        #region 币种集合
+
+        /// <summary>
+        ///     币种集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<CurrencyDTO> Currencies { get; set; }
+
+        #endregion
+
+        #region 供应商集合
+
+        /// <summary>
+        ///     供应商集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
+
+        #endregion
+
+        #region 订单集合
+
+        /// <summary>
+        ///     飞机采购订单集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftPurchaseOrderDTO> AircraftPurchaseOrders { get; set; }
+
+        /// <summary>
+        ///     发动机采购订单集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<EnginePurchaseOrderDTO> EnginePurchaseOrders { get; set; }
+
+        /// <summary>
+        ///     BFE订单集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<BFEPurchaseOrderDTO> BFEPurchaseOrders { get; set; }
+
+        #endregion
 
         #region 是否已提交审核
 
@@ -160,8 +186,8 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// </summary>
         public override void LoadData()
         {
-            Currencies.Load(true);
-            Suppliers.Load(true);
+            Currencies = _service.GetCurrency(() => RaisePropertyChanged(() => Currencies));
+            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
             PrepaymentInvoices.Load(true);
             AircraftPurchaseOrders.Load(true);
             EnginePurchaseOrders.Load(true);
@@ -328,43 +354,6 @@ namespace UniCloud.Presentation.Payment.Invoice
                 }
             }
         }
-
-        #endregion
-
-        #region 币种集合
-
-        /// <summary>
-        ///     币种集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<CurrencyDTO> Currencies { get; set; }
-
-        #endregion
-
-        #region 供应商集合
-
-        /// <summary>
-        ///     供应商集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
-
-        #endregion
-
-        #region 订单集合
-
-        /// <summary>
-        ///     飞机采购订单集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<AircraftPurchaseOrderDTO> AircraftPurchaseOrders { get; set; }
-
-        /// <summary>
-        ///     发动机采购订单集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<EnginePurchaseOrderDTO> EnginePurchaseOrders { get; set; }
-
-        /// <summary>
-        ///     BFE订单集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<BFEPurchaseOrderDTO> BFEPurchaseOrders { get; set; }
 
         #endregion
 
@@ -539,7 +528,8 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #region 子窗体相关操作
 
-        [Import] public PrepayPayscheduleChildView PrepayPayscheduleChildView; //初始化子窗体
+        [Import]
+        public PrepayPayscheduleChildView PrepayPayscheduleChildView; //初始化子窗体
 
         #region 付款计划集合
 
@@ -911,7 +901,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 }
                 else
                 {
-                    MessageBox.Show("未选中航材付款计划！");
+                    MessageAlert("未选中航材付款计划！");
                 }
             }
         }
