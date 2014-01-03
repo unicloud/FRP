@@ -345,11 +345,10 @@
                                                 </telerik:RadCartesianChart.Series>
                                             </telerik:RadCartesianChart>
                                             <ScrollViewer Grid.Column="1"
-                                                          Width="176"
-                                                          Margin="0,5,5,5"
+                                                          Width="125"
                                                           VerticalScrollBarVisibility="Auto"
                                                           telerik:StyleManager.Theme="Windows8">
-                                                <StackPanel Style="{StaticResource LegendStyle}">
+                                                <StackPanel>
                                                     <StackPanel Orientation="Horizontal"
                                                                 Margin="5,5,5,5">
                                                         <telerik:RadToggleButton Name="AircraftNumToggleButton"
@@ -511,11 +510,10 @@
                                                 </telerik:RadCartesianChart.Series>
                                             </telerik:RadCartesianChart>
                                             <ScrollViewer Grid.Column="1"
-                                                          Width="176"
-                                                          Margin="0,5,5,5"
+                                                          Width="125"
                                                           VerticalScrollBarVisibility="Auto"
                                                           telerik:StyleManager.Theme="Windows8">
-                                                <StackPanel Style="{StaticResource LegendStyle}">
+                                                <StackPanel>
                                                     <StackPanel Orientation="Horizontal"
                                                                 Margin="5,5,5,5">
                                                         <telerik:RadToggleButton Name="AircraftAddedNumToggleButton"

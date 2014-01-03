@@ -114,8 +114,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// </summary>
         private void ViewModelInitializer()
         {
-            ExportCommand = new DelegateCommand<object>(OnExport, CanExport); //导出图表源数据（Source data）
-            ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView, CanExportGridView);
+            ExportCommand = new DelegateCommand<object>(OnExport); //导出图表源数据（Source data）
+            ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView);
             ToggleButtonCommand = new DelegateCommand<object>(ToggleButtonCheck);
 
             _lineGrid = CurrentAircraftImportType.LineGrid;
@@ -969,8 +969,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #region Command
 
         #region ViewModel 命令 --导出图表
-
-        private bool _canExport = true;
         public DelegateCommand<object> ExportCommand { get; set; }
 
         private void OnExport(object sender)
@@ -1071,17 +1069,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
             _i++;
         }
-
-        private bool CanExport(object sender)
-        {
-            return _canExport;
-        }
-
         #endregion
 
         #region ViewModel 命令 --导出数据aircraftDetail
-
-        private bool _canExportGridView = true;
         public DelegateCommand<object> ExportGridViewCommand { get; set; }
 
         private void OnExportGridView(object sender)
@@ -1103,12 +1093,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
-        private bool CanExportGridView(object sender)
-        {
-            return _canExportGridView;
-        }
-
         #endregion
 
         #region  增加子窗体的右键导出功能

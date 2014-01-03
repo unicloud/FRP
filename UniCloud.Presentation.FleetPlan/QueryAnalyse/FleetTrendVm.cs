@@ -112,8 +112,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// </summary>
         private void ViewModelInitializer()
         {
-            ExportCommand = new DelegateCommand<object>(OnExport, CanExport); //导出图表源数据（Source data）
-            ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView, CanExportGridView); //导出数据表数据
+            ExportCommand = new DelegateCommand<object>(OnExport); //导出图表源数据（Source data）
+            ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView); //导出数据表数据
             _lineGrid = CurrentFleetTrend.LineGrid;
             _barGrid = CurrentFleetTrend.BarGrid;
             _aircraftPieGrid = CurrentFleetTrend.AircraftPieGrid;
@@ -747,7 +747,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 _loadXmlSetting = false;
                 IsBusy = false;
                 CreatFleetAircraftTrendCollection();
-                SetRadCartesianChartColor();
             }
         }
 
@@ -908,12 +907,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
             _i++;
         }
-
-        private bool CanExport(object sender)
-        {
-            return true;
-        }
-
         #endregion
 
         #region ViewModel 命令 --导出数据planDetail
@@ -939,12 +932,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
-        private bool CanExportGridView(object sender)
-        {
-            return true;
-        }
-
         #endregion
 
         #region  增加子窗体的右键导出功能
@@ -1357,50 +1344,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         }
 
         /// <summary>
-        ///     控制趋势图的Y轴和折线及标签颜色
-        /// </summary>
-        private void SetRadCartesianChartColor()
-        {
-            Dictionary<string, string> colorDictionary = GetColorDictionary();
-            //控制折线趋势图的Y轴颜色
-            foreach (var item in
-                    ((_lineGrid.Children[1] as RadCartesianChart).Resources["AdditionalVerticalAxis"] as AxisCollection))
-            {
-                var linearAxis = item as LinearAxis;
-                if (linearAxis != null &&
-                    linearAxis.Title.ToString().Equals("飞机数（架）", StringComparison.OrdinalIgnoreCase))
-                {
-                    linearAxis.ElementBrush = new SolidColorBrush(_commonMethod.GetColor(colorDictionary["飞机数"]));
-                }
-            }
-            //控制折线趋势图的线条颜色
-            foreach (var item in ((_lineGrid.Children[1] as RadCartesianChart).Series))
-            {
-                var linearSeries = item as LineSeries;
-                if (linearSeries != null)
-                {
-                    if (linearSeries.DisplayName.Equals("期末飞机数", StringComparison.OrdinalIgnoreCase))
-                    {
-                        linearSeries.Stroke = new SolidColorBrush(_commonMethod.GetColor(colorDictionary["飞机数"]));
-                    }
-                }
-            }
-
-
-            //控制柱状趋势图的Y轴颜色
-            foreach (var item in
-                    ((_barGrid.Children[1] as RadCartesianChart).Resources["AdditionalVerticalAxis"] as AxisCollection))
-            {
-                var linearAxis = item as LinearAxis;
-                if (linearAxis != null &&
-                    linearAxis.Title.ToString().Equals("飞机净增（架）", StringComparison.OrdinalIgnoreCase))
-                {
-                    linearAxis.ElementBrush = new SolidColorBrush(_commonMethod.GetColor(colorDictionary["飞机数"]));
-                }
-            }
-        }
-
-        /// <summary>
         ///     饼状图标签的选择事件
         /// </summary>
         /// <param name="sender"></param>
@@ -1465,60 +1408,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 else
                 {
                     pieDataPoint.IsSelected = false;
-                }
-            }
-        }
-
-        /// <summary>
-        ///     控制趋势图中折线（饼状）的显示
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void CheckboxChecked(object sender, RoutedEventArgs e)
-        {
-            var checkBox = sender as CheckBox;
-            if (checkBox != null)
-            {
-                var grid =
-                    (((checkBox.Parent as StackPanel).Parent as StackPanel).Parent as ScrollViewer).Parent as Grid;
-                if (grid.Name.Equals("LineGrid", StringComparison.OrdinalIgnoreCase))
-                {
-                    (_lineGrid.Children[0] as RadCartesianChart).Series.FirstOrDefault(
-                        p => p.DisplayName.Equals(checkBox.Content.ToString(), StringComparison.OrdinalIgnoreCase))
-                        .Visibility = Visibility.Visible;
-                }
-                else if (grid.Name.Equals("BarGrid", StringComparison.OrdinalIgnoreCase))
-                {
-                    (_barGrid.Children[0] as RadCartesianChart).Series.FirstOrDefault(
-                        p => p.DisplayName.Equals(checkBox.Content.ToString(), StringComparison.OrdinalIgnoreCase))
-                        .Visibility = Visibility.Visible;
-                }
-            }
-        }
-
-        /// <summary>
-        ///     控制趋势图中折线（饼状）的隐藏
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void CheckboxUnchecked(object sender, RoutedEventArgs e)
-        {
-            var checkBox = sender as CheckBox;
-            if (checkBox != null)
-            {
-                var grid =
-                    (((checkBox.Parent as StackPanel).Parent as StackPanel).Parent as ScrollViewer).Parent as Grid;
-                if (grid.Name.Equals("LineGrid", StringComparison.OrdinalIgnoreCase))
-                {
-                    (_lineGrid.Children[0] as RadCartesianChart).Series.FirstOrDefault(
-                        p => p.DisplayName.Equals(checkBox.Content.ToString(), StringComparison.OrdinalIgnoreCase))
-                        .Visibility = Visibility.Collapsed;
-                }
-                else if (grid.Name.Equals("BarGrid", StringComparison.OrdinalIgnoreCase))
-                {
-                    (_barGrid.Children[0] as RadCartesianChart).Series.FirstOrDefault(
-                        p => p.DisplayName.Equals(checkBox.Content.ToString(), StringComparison.OrdinalIgnoreCase))
-                        .Visibility = Visibility.Collapsed;
                 }
             }
         }

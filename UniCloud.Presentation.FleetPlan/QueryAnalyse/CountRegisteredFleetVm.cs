@@ -98,7 +98,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// </summary>
         private void ViewModelInitializer()
         {
-            ExportCommand = new DelegateCommand<object>(OnExport, CanExport);//导出图表源数据（Source data）
+            ExportCommand = new DelegateCommand<object>(OnExport);//导出图表源数据（Source data）
             ToggleButtonCommand = new DelegateCommand<object>(ToggleButtonCheck);
             _monthGrid = CurrentCountRegisteredFleet.MonthGrid;
             _yearGrid = CurrentCountRegisteredFleet.YearGrid;
@@ -115,18 +115,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private ObservableCollection<FleetData> StaticYearFleetDatas { get; set; }
         public ObservableCollection<FleetRegisteredTrend> AircraftTypes { get; set; }
 
-        #region ViewModel 属性  CanExportData
-        private bool _canExport = true;//数据是否可导出
-        public bool CanExportData
-        {
-            get { return _canExport; }
-            set
-            {
-                _canExport = value;
-                RaisePropertyChanged(() => CanExportData);
-            }
-        }
-        #endregion
 
         #region ViewModel 属性 EndDate --结束时间
         private DateTime? _endDate = Convert.ToDateTime(DateTime.Now.ToString("yyyy/M"));
@@ -497,16 +485,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
             _i++;
-        }
-
-        /// <summary>
-        /// 右键数据导出是否可使用
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns></returns>
-        bool CanExport(object sender)
-        {
-            return CanExportData;
         }
         #endregion
 

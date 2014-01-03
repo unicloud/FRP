@@ -221,7 +221,8 @@
                                                     </uc:AxisCollection>
                                                 </telerik:RadCartesianChart.Resources>
                                                 <telerik:RadCartesianChart.Behaviors>
-                                                    <telerik:ChartTrackBallBehavior />
+                                                    <telerik:ChartTooltipBehavior Placement="Top"
+                                                                                  HorizontalOffset="-6" />
                                                     <telerik:ChartSelectionBehavior>
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="SelectionChanged">
@@ -231,6 +232,23 @@
                                                         </i:Interaction.Triggers>
                                                     </telerik:ChartSelectionBehavior>
                                                 </telerik:RadCartesianChart.Behaviors>
+                                                <telerik:RadCartesianChart.TooltipTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
+                                                                  Stretch="Fill"
+                                                                  Fill="White"
+                                                                  Stroke="Gray"
+                                                                  StrokeThickness="1" />
+                                                            <StackPanel Margin="5,3,5,10">
+                                                                <TextBlock Text="{Binding Path=DataItem.AircraftAmount, StringFormat='飞机数: {0}架'}"
+                                                                           Foreground="{Binding Path=DataItem.AircraftColor}"
+                                                                           FontFamily="Segoe UI"
+                                                                           FontSize="11" />
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </telerik:RadCartesianChart.TooltipTemplate>
                                                 <telerik:RadCartesianChart.HorizontalAxis>
                                                     <telerik:CategoricalAxis Name="LineCategoricalAxis"
                                                                              MajorTickInterval="10"
@@ -254,7 +272,8 @@
                                                                         ItemsSource="{Binding FleetAircraftTrendLineCollection}"
                                                                         VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[0]}"
                                                                         ValueBinding="AircraftAmount"
-                                                                        CategoryBinding="DateTime">
+                                                                        CategoryBinding="DateTime"
+                                                                        Stroke="Gray">
                                                         <telerik:LineSeries.PointTemplate>
                                                             <DataTemplate>
                                                                 <Ellipse Height='8'
@@ -262,16 +281,6 @@
                                                                          Fill="{Binding Path=DataItem.AircraftColor}" />
                                                             </DataTemplate>
                                                         </telerik:LineSeries.PointTemplate>
-                                                        <telerik:LineSeries.TrackBallInfoTemplate>
-                                                            <DataTemplate>
-                                                                <StackPanel Background="Transparent">
-                                                                    <TextBlock Text="{Binding Path=DataPoint.DataItem.AircraftAmount, StringFormat='飞机数: {0}架'}"
-                                                                               Foreground="{Binding Path=DataPoint.DataItem.AircraftColor}"
-                                                                               Margin="6,0"
-                                                                               FontFamily="Segoe UI" />
-                                                                </StackPanel>
-                                                            </DataTemplate>
-                                                        </telerik:LineSeries.TrackBallInfoTemplate>
                                                     </telerik:LineSeries>
                                                 </telerik:RadCartesianChart.Series>
                                             </telerik:RadCartesianChart>
