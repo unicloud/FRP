@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,24 +11,20 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.Data.Services.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 #endregion
 
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    ///    订单行DTO
+    ///     订单行DTO
     /// </summary>
     [DataServiceKey("Id")]
     public class OrderLineDTO
@@ -74,7 +71,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         public decimal TotalLine { get; set; }
 
         /// <summary>
-        ///   物料名称
+        ///     物料名称
         /// </summary>
         public string MaterialName { get; set; }
 
@@ -82,6 +79,5 @@ namespace UniCloud.Application.PaymentBC.DTO
         ///     订单Id
         /// </summary>
         public int OrderId { get; set; }
-
     }
 }

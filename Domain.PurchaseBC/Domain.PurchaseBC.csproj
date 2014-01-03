@@ -177,15 +177,6 @@
     <Compile Include="Aggregates\OrderAgg\Order.cs" />
     <Compile Include="Aggregates\TradeAgg\TradeFactory.cs" />
     <Compile Include="Aggregates\TradeAgg\TradeSpecifications.cs" />
-    <Compile Include="Enums\BFEStatus.cs" />
-    <Compile Include="Enums\ContractAircraftStatus.cs" />
-    <Compile Include="Enums\ContractEngineStatus.cs" />
-    <Compile Include="Enums\IndexStatus.cs" />
-    <Compile Include="Enums\OrderStatus.cs" />
-    <Compile Include="Enums\PathSource.cs" />
-    <Compile Include="Enums\ReceptionStatus.cs" />
-    <Compile Include="Enums\SupplierType.cs" />
-    <Compile Include="Enums\TradeStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

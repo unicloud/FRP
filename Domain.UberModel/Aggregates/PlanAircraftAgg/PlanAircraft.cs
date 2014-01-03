@@ -16,10 +16,10 @@
 #endregion
 
 using System;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
-using UniCloud.Domain.UberModel.Enums;
 
 namespace UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg
 {

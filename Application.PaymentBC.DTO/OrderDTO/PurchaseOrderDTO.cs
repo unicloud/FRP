@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -17,17 +19,13 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 #endregion
 
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    ///    采购订单DTO，包含飞机采购订单、发动机采购订单、BFE采购订单
+    ///     采购订单DTO，包含飞机采购订单、发动机采购订单、BFE采购订单
     /// </summary>
     [DataServiceKey("Id")]
     public class PurchaseOrderDTO
@@ -36,6 +34,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         {
             OrderLines = new List<OrderLineDTO>();
         }
+
         /// <summary>
         ///     订单ID
         /// </summary>

@@ -17,7 +17,7 @@
 #region 命名空间
 
 using System;
-using UniCloud.Domain.FleetPlanBC.Enums;
+using UniCloud.Domain.Common.Enums;
 
 #endregion
 

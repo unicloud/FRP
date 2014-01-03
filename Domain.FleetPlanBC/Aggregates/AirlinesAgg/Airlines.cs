@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,9 +11,8 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
-#endregion
 
-using System;
+#endregion
 
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg
 {
@@ -70,24 +70,17 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg
         /// </summary>
         public bool IsCurrent { get; protected set; }
 
-
         #endregion
 
         #region 外键属性
-
-
 
         #endregion
 
         #region 导航属性
 
-
-
         #endregion
 
         #region 操作
-
-
 
         #endregion
     }

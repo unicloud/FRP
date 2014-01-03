@@ -16,7 +16,7 @@
 #endregion
 
 using System;
-using UniCloud.Domain.UberModel.Enums;
+using UniCloud.Domain.Common.Enums;
 
 namespace UniCloud.Domain.UberModel.Aggregates.DocumentPathAgg
 {

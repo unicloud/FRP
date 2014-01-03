@@ -19,10 +19,10 @@
 
 using System;
 using System.Collections.Generic;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.TradeAgg;
-using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 

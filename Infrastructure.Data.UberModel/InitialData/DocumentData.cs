@@ -19,9 +19,9 @@
 
 using System;
 using System.Collections.Generic;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.UberModel.Aggregates.DocumentAgg;
 using UniCloud.Domain.UberModel.Aggregates.DocumentPathAgg;
-using UniCloud.Domain.UberModel.Enums;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
 
 #endregion

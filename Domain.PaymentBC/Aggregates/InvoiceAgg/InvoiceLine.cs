@@ -17,7 +17,6 @@
 
 #region 命名空间
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;

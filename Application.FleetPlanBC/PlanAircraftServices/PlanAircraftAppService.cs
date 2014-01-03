@@ -22,11 +22,11 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.PlanAircraftQueries;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
-using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
 
@@ -38,10 +38,10 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
     /// </summary>
     public class PlanAircraftAppService : IPlanAircraftAppService
     {
-        private readonly IPlanAircraftQuery _planAircraftQuery;
         private readonly IAircraftRepository _aircraftRepository;
         private readonly IAircraftTypeRepository _aircraftTypeRepository;
         private readonly IAirlinesRepository _airlinesRepository;
+        private readonly IPlanAircraftQuery _planAircraftQuery;
         private readonly IPlanAircraftRepository _planAircraftRepository;
 
         public PlanAircraftAppService(IPlanAircraftQuery planAircraftQuery,
@@ -74,7 +74,7 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
         ///     新增计划飞机。
         /// </summary>
         /// <param name="dto">计划飞机DTO。</param>
-        [Insert(typeof(PlanAircraftDTO))]
+        [Insert(typeof (PlanAircraftDTO))]
         public void InsertPlanAircraft(PlanAircraftDTO dto)
         {
             var aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId);
@@ -95,7 +95,7 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
         ///     更新计划飞机。
         /// </summary>
         /// <param name="dto">计划飞机DTO。</param>
-        [Update(typeof(PlanAircraftDTO))]
+        [Update(typeof (PlanAircraftDTO))]
         public void ModifyPlanAircraft(PlanAircraftDTO dto)
         {
             var aircraft = _aircraftRepository.Get(dto.AircraftId);
@@ -113,7 +113,7 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
                 updatePlanAircraft.SetAirlines(airlines);
                 updatePlanAircraft.SetLock();
                 updatePlanAircraft.SetOwn();
-                updatePlanAircraft.SetManageStatus((ManageStatus)dto.Status);
+                updatePlanAircraft.SetManageStatus((ManageStatus) dto.Status);
             }
             _planAircraftRepository.Modify(updatePlanAircraft);
         }
@@ -122,7 +122,7 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
         ///     删除计划飞机。
         /// </summary>
         /// <param name="dto">计划飞机DTO。</param>
-        [Delete(typeof(PlanAircraftDTO))]
+        [Delete(typeof (PlanAircraftDTO))]
         public void DeletePlanAircraft(PlanAircraftDTO dto)
         {
             if (dto == null)
@@ -136,6 +136,7 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
                 _planAircraftRepository.Remove(delPlanAircraft); //删除计划飞机。
             }
         }
+
         #endregion
     }
 }

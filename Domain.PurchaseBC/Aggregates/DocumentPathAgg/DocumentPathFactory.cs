@@ -15,8 +15,12 @@
 
 #endregion
 
+#region 命名空间
+
 using System;
-using UniCloud.Domain.PurchaseBC.Enums;
+using UniCloud.Domain.Common.Enums;
+
+#endregion
 
 namespace UniCloud.Domain.PurchaseBC.Aggregates.DocumentPathAgg
 {
@@ -26,7 +30,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.DocumentPathAgg
     public static class DocumentPathFactory
     {
         /// <summary>
-        /// 创建文档路径
+        ///     创建文档路径
         /// </summary>
         /// <param name="name">名称</param>
         /// <param name="isLeaf">是否是叶子节点，叶子节点，表示具体的文档</param>
@@ -36,7 +40,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.DocumentPathAgg
         /// <param name="pathSource">路径类型</param>
         /// <returns>文档路径</returns>
         public static DocumentPath CreateDocumentPath(string name, bool isLeaf, string extension,
-                        Guid? documentId, int? parentId, PathSource pathSource)
+            Guid? documentId, int? parentId, PathSource pathSource)
         {
             return new DocumentPath
             {
@@ -48,6 +52,5 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.DocumentPathAgg
                 PathSource = pathSource,
             };
         }
-
     }
 }

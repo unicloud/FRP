@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanEngineAgg
@@ -25,9 +27,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanEngineAgg
         /// <returns>计划发动机</returns>
         public static PlanEngine CreatePlanEngine()
         {
-            var planEngine = new PlanEngine
-            {
-            };
+            var planEngine = new PlanEngine();
 
             return planEngine;
         }

@@ -20,9 +20,9 @@
 using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
-using UniCloud.Domain.PurchaseBC.Enums;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;

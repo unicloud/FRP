@@ -17,9 +17,7 @@
 
 #region 命名空间
 
-using System;
 using System.Linq;
-using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.SupplierQueries;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
@@ -35,6 +33,7 @@ namespace UniCloud.Application.PaymentBC.SupplierServices
     public class SupplierAppService : ISupplierAppService
     {
         private readonly ISupplierQuery _supplierQuery;
+
         public SupplierAppService(ISupplierQuery supplierQuery)
         {
             _supplierQuery = supplierQuery;
@@ -52,6 +51,7 @@ namespace UniCloud.Application.PaymentBC.SupplierServices
                 new QueryBuilder<Supplier>();
             return _supplierQuery.SuppliersQuery(queryBuilder);
         }
+
         #endregion
     }
 }

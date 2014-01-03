@@ -17,7 +17,7 @@
 
 #region 命名空间
 
-using UniCloud.Domain.ProjectBC.Enums;
+using UniCloud.Domain.Common.Enums;
 
 #endregion
 

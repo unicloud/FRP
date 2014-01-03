@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,9 +11,8 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
-#endregion
 
-using System;
+#endregion
 
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
 {
@@ -23,10 +23,9 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
     public interface IRequestRepository : IRepository<Request>
     {
         /// <summary>
-        /// 删除批文历史
+        ///     删除批文历史
         /// </summary>
         /// <param name="approvalHistory">批文历史</param>
         void DelApprovalHistory(ApprovalHistory approvalHistory);
-
     }
 }

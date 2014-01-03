@@ -58,14 +58,16 @@
     <Compile Include="Aggregates\RelatedDocAgg\RelatedDoc.cs" />
     <Compile Include="Aggregates\RelatedDocAgg\RelatedDocFactory.cs" />
     <Compile Include="Aggregates\RelatedDocAgg\RelatedDocSpecifications.cs" />
-    <Compile Include="Enums\IndexStatus.cs" />
-    <Compile Include="Enums\PathSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
+      <Project>{E48E84DE-5A91-4D16-84E5-CFFC4C7E7657}</Project>
+      <Name>Domain.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
       <Name>Domain</Name>

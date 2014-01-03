@@ -17,7 +17,7 @@
 
 #region 命名空间
 
-using UniCloud.Domain.PaymentBC.Enums;
+using UniCloud.Domain.Common.Enums;
 
 #endregion
 

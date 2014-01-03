@@ -21,8 +21,8 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.Common.Entities;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
-using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 

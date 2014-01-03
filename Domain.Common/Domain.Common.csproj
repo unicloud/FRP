@@ -39,6 +39,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\BFEStatus.cs" />
+    <Compile Include="Enums\ContractAircraftStatus.cs" />
+    <Compile Include="Enums\ContractEngineStatus.cs" />
+    <Compile Include="Enums\ControlStatus.cs" />
+    <Compile Include="Enums\DependencyType.cs" />
+    <Compile Include="Enums\EnginePlanDeliverStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Enums\EnginePlanStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Enums\GuaranteeStatus.cs" />
+    <Compile Include="Enums\IndexStatus.cs" />
+    <Compile Include="Enums\InvoiceStatus.cs" />
+    <Compile Include="Enums\InvoiceType.cs" />
+    <Compile Include="Enums\MaintainItem.cs" />
+    <Compile Include="Enums\ManageStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Enums\OperationStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Enums\OrderStatus.cs" />
+    <Compile Include="Enums\PathSource.cs" />
+    <Compile Include="Enums\PaymentNoticeStatus.cs" />
+    <Compile Include="Enums\PlanPublishStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Enums\PlanStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Enums\ProjectStatus.cs" />
+    <Compile Include="Enums\ProjectTempStatus.cs" />
+    <Compile Include="Enums\ReceptionStatus.cs" />
+    <Compile Include="Enums\RequestStatus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Enums\SupplierType.cs" />
+    <Compile Include="Enums\TaskType.cs" />
+    <Compile Include="Enums\TradeStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\ScheduleBase.cs" />
     <Compile Include="ValueObjects\Address.cs" />
@@ -49,6 +89,7 @@
       <Name>Domain</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

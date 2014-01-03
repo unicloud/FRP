@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,16 +11,17 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EngineTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanEngineAgg;
-using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
 
@@ -63,7 +65,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         ///     最大推力
         /// </summary>
         public decimal MaxThrust { get; private set; }
-        
+
         #endregion
 
         #region 外键属性
@@ -98,22 +100,22 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         #region 导航属性
 
         /// <summary>
-        ///   发动机型号
+        ///     发动机型号
         /// </summary>
         public virtual EngineType EngineType { get; private set; }
 
         /// <summary>
-        /// 执行年度
+        ///     执行年度
         /// </summary>
         public virtual Annual PerformAnnual { get; private set; }
 
         /// <summary>
-        /// 计划发动机
+        ///     计划发动机
         /// </summary>
         public virtual PlanEngine PlanEngine { get; private set; }
 
         /// <summary>
-        ///   活动类型
+        ///     活动类型
         /// </summary>
         public virtual ActionCategory ActionCategory { get; private set; }
 
@@ -148,7 +150,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         }
 
         /// <summary>
-        /// 设置执行时间
+        ///     设置执行时间
         /// </summary>
         /// <param name="annual"></param>
         /// <param name="performMonth"></param>
@@ -165,14 +167,14 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         }
 
         /// <summary>
-        /// 设置发动机最大推力
+        ///     设置发动机最大推力
         /// </summary>
         /// <param name="maxThrust"></param>
         public void SetMaxThrust(decimal maxThrust)
         {
             MaxThrust = maxThrust;
         }
-        
+
         /// <summary>
         ///     设置发动机型号
         /// </summary>
@@ -211,6 +213,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
             ActionCategory = actionCategory;
             ActionCategoryId = actionCategory.Id;
         }
+
         #endregion
     }
 }

@@ -19,13 +19,13 @@
 
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg;
-using UniCloud.Domain.PurchaseBC.Enums;
 using UniCloud.Infrastructure.Data;
 
 #endregion

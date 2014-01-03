@@ -20,8 +20,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.PurchaseBC.Enums;
 
 #endregion
 
@@ -36,6 +36,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
 
         private HashSet<ReceptionLine> _lines;
         private HashSet<ReceptionSchedule> _schedules;
+
         #endregion
 
         #region 构造函数
@@ -96,6 +97,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg
         ///     源Id
         /// </summary>
         public Guid SourceId { get; set; }
+
         #endregion
 
         #region 外键属性

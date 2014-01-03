@@ -19,10 +19,10 @@
 
 using System;
 using System.Linq;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 
@@ -137,10 +137,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         /// <param name="paymentScheduleLineId">付款计划行ID</param>
         /// <param name="status">发票状态</param>
         /// <returns>发票</returns>
-        public static void SetInvoice(Invoice invoice,string invoideCode,DateTime invoiceDate,string operatorName,string invoiceNumber,Supplier supplier,Order order,
+        public static void SetInvoice(Invoice invoice, string invoideCode, DateTime invoiceDate, string operatorName,
+            string invoiceNumber, Supplier supplier, Order order,
             decimal paidAmount, Currency currency, int? paymentScheduleLineId, int status)
         {
-            invoice.InvoideCode=invoideCode;
+            invoice.InvoideCode = invoideCode;
             invoice.InvoiceDate = invoiceDate;
             invoice.SetOperator(operatorName);
             invoice.SetInvoiceNumber(invoiceNumber);
@@ -149,7 +150,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
             invoice.SetPaidAmount(paidAmount);
             invoice.SetCurrency(currency);
             invoice.SetPaymentScheduleLine(paymentScheduleLineId);
-            invoice.SetInvoiceStatus((InvoiceStatus)status);
+            invoice.SetInvoiceStatus((InvoiceStatus) status);
         }
 
         /// <summary>
@@ -161,7 +162,8 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg
         /// <param name="order">订单</param>
         /// <param name="orderLineId">订单行Id</param>
         /// <param name="note">备注</param>
-        public static void SetInvoiceLine(InvoiceLine invoiceLine, string itemName, decimal amount, Order order,int orderLineId,string note)
+        public static void SetInvoiceLine(InvoiceLine invoiceLine, string itemName, decimal amount, Order order,
+            int orderLineId, string note)
         {
             if (order != null)
             {

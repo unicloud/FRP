@@ -21,7 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
-using UniCloud.Domain.UberModel.Enums;
+using UniCloud.Domain.Common.Enums;
 
 #endregion
 

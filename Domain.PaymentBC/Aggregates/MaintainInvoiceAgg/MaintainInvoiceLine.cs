@@ -20,8 +20,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.PartAgg;
-using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 

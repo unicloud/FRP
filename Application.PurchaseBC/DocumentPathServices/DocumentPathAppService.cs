@@ -21,8 +21,9 @@ using System;
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.DocumentQueries;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PurchaseBC.Aggregates.DocumentPathAgg;
-using UniCloud.Domain.PurchaseBC.Enums;
+
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.DocumentPathServices
@@ -34,8 +35,10 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
     public class DocumentPathAppService : IDocumentPathAppService
     {
         private readonly IDocumentPathQuery _documentPathQuery;
-        private readonly IDocumentPathRepository _documentPathRepository;//文档路径仓储
-        public DocumentPathAppService(IDocumentPathQuery documentPathQuery, IDocumentPathRepository documentPathRepository)
+        private readonly IDocumentPathRepository _documentPathRepository; //文档路径仓储
+
+        public DocumentPathAppService(IDocumentPathQuery documentPathQuery,
+            IDocumentPathRepository documentPathRepository)
         {
             _documentPathQuery = documentPathQuery;
             _documentPathRepository = documentPathRepository;
@@ -49,18 +52,17 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
         }
 
         /// <summary>
-        /// 删除文档路径
+        ///     删除文档路径
         /// </summary>
         /// <param name="documentPathId"></param>
         public void DelDocPath(int documentPathId)
         {
-           var docPath= _documentPathRepository.Get(documentPathId);
+            var docPath = _documentPathRepository.Get(documentPathId);
             DelSubDocumentPath(docPath);
         }
 
         public void AddDocPath(string name, string isLeaf, string documentId, int parentId, int pathSource)
         {
-
             if (string.IsNullOrEmpty(name))
             {
                 throw new Exception("文件路径名称不能为空");
@@ -69,23 +71,23 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
             string extension = null;
             if (docPathIsLeaf)
             {
-                extension = name.Substring(name.LastIndexOf('.')+1); //如果是文件，获取文件夹名称
+                extension = name.Substring(name.LastIndexOf('.') + 1); //如果是文件，获取文件夹名称
             }
-            Guid? docPathId=null;
+            Guid? docPathId = null;
             if (!string.IsNullOrEmpty(documentId))
             {
                 docPathId = Guid.Parse(documentId);
             }
-           
+
             var newDocumentPath = DocumentPathFactory.CreateDocumentPath(name, docPathIsLeaf, extension,
-                                      docPathId, parentId,
-                                       (PathSource)pathSource);
+                docPathId, parentId,
+                (PathSource) pathSource);
             _documentPathRepository.Add(newDocumentPath);
             _documentPathRepository.UnitOfWork.Commit();
         }
 
         /// <summary>
-        /// 删除子项文档
+        ///     删除子项文档
         /// </summary>
         private void DelSubDocumentPath(DocumentPath documentPath)
         {

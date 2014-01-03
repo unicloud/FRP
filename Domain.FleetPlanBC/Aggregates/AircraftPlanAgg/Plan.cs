@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,15 +11,16 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
 using System.Collections.Generic;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
-using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
 
@@ -98,9 +100,9 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         ///     发布计划处理状态
         /// </summary>
         public PlanPublishStatus PublishStatus { get; private set; }
-        
+
         /// <summary>
-        /// 文档名称
+        ///     文档名称
         /// </summary>
         public string DocName { get; private set; }
 
@@ -128,12 +130,12 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         #region 导航属性
 
         /// <summary>
-        ///  航空公司
+        ///     航空公司
         /// </summary>
         public virtual Airlines Airlines { get; private set; }
 
         /// <summary>
-        /// 计划年度
+        ///     计划年度
         /// </summary>
         public virtual Annual Annual { get; private set; }
 
@@ -145,7 +147,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
             get { return _planHistories ?? (_planHistories = new HashSet<PlanHistory>()); }
             set { _planHistories = new HashSet<PlanHistory>(value); }
         }
-
 
         #endregion
 
@@ -180,7 +181,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
             }
         }
 
-        
+
         /// <summary>
         ///     设置发布计划处理状态
         /// </summary>
@@ -243,7 +244,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <param name="airlines">航空公司</param>
         public void SetAirlines(Airlines airlines)
         {
-            if (airlines == null|| airlines.IsTransient())
+            if (airlines == null || airlines.IsTransient())
             {
                 throw new ArgumentException("航空公司Id参数为空！");
             }
@@ -284,7 +285,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
 
 
         /// <summary>
-        /// 新增飞机变更计划明细
+        ///     新增飞机变更计划明细
         /// </summary>
         /// <returns></returns>
         public PlanHistory AddNewChangePlan()
@@ -293,7 +294,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
             {
                 PlanId = Id,
                 IsValid = IsValid,
-                IsSubmit = (SubmitDate==null),
+                IsSubmit = (SubmitDate == null),
             };
 
             changePlan.GenerateNewIdentity();
@@ -303,7 +304,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         }
 
         /// <summary>
-        /// 新增飞机运营计划明细
+        ///     新增飞机运营计划明细
         /// </summary>
         /// <returns></returns>
         public PlanHistory AddNewOperationPlan()
@@ -320,6 +321,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
 
             return operationPlan;
         }
+
         #endregion
     }
 }

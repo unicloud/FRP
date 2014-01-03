@@ -21,9 +21,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 
@@ -133,7 +133,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentScheduleAgg
 
             paymentScheduleLine.GenerateNewIdentity();
             paymentScheduleLine.SetControlStatus(ControlStatus.正常支付);
-            paymentScheduleLine.SetSchedule(subject,body,importance,tempo,start,end,isAllDay);
+            paymentScheduleLine.SetSchedule(subject, body, importance, tempo, start, end, isAllDay);
             PaymentScheduleLines.Add(paymentScheduleLine);
             return paymentScheduleLine;
         }

@@ -19,7 +19,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftBFEAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ForwarderAgg;
