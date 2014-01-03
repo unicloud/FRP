@@ -18,7 +18,7 @@
 #region 命名空间
 
 using System;
-using UniCloud.Domain.PaymentBC.Enums;
+using UniCloud.Domain.Common.Enums;
 
 #endregion
 
@@ -30,7 +30,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg
     public static class GuaranteeFactory
     {
         /// <summary>
-        /// 新建租赁保证金
+        ///     新建租赁保证金
         /// </summary>
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
@@ -46,7 +46,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg
         public static LeaseGuarantee CreateLeaseGuarantee(DateTime startDate, DateTime endDate, decimal amount,
             string supplierName,
             string operatorName,
-            int supplierId, int currencyId, int orderId,int status,string reviewer)
+            int supplierId, int currencyId, int orderId, int status, string reviewer)
         {
             var newLeaseGuarantee = new LeaseGuarantee
             {
@@ -58,7 +58,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg
             newLeaseGuarantee.SetSupplier(supplierId, supplierName);
             newLeaseGuarantee.SetOperator(operatorName);
             newLeaseGuarantee.SetCurrency(currencyId);
-            newLeaseGuarantee.SetGuaranteeStatus((GuaranteeStatus)status);
+            newLeaseGuarantee.SetGuaranteeStatus((GuaranteeStatus) status);
             newLeaseGuarantee.SetOrderId(orderId);
             if (!string.IsNullOrEmpty(reviewer))
             {
@@ -68,7 +68,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg
         }
 
         /// <summary>
-        /// 新建维修保证金
+        ///     新建维修保证金
         /// </summary>
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
@@ -96,7 +96,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg
             newMaintainGuarantee.SetSupplier(supplierId, supplierName);
             newMaintainGuarantee.SetOperator(operatorName);
             newMaintainGuarantee.SetCurrency(currencyId);
-            newMaintainGuarantee.SetGuaranteeStatus((GuaranteeStatus)status);
+            newMaintainGuarantee.SetGuaranteeStatus((GuaranteeStatus) status);
             newMaintainGuarantee.SetMaintainContractId(maintainContractId);
             if (!string.IsNullOrEmpty(reviewer))
             {

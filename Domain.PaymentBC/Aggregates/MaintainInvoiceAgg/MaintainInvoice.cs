@@ -20,9 +20,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 
@@ -124,15 +124,16 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
         public InvoiceStatus Status { get; private set; }
 
         /// <summary>
-        ///  文档名称
+        ///     文档名称
         /// </summary>
         public string DocumentName { get; set; }
+
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        ///  文档ID
+        ///     文档ID
         /// </summary>
         public Guid DocumentId { get; set; }
 

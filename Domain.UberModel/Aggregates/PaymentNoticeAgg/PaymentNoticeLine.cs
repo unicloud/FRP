@@ -17,11 +17,10 @@
 
 #region 命名空间
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.UberModel.Aggregates.InvoiceAgg;
-using UniCloud.Domain.UberModel.Enums;
 
 #endregion
 

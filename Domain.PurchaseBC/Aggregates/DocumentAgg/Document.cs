@@ -18,7 +18,7 @@
 #region 命名空间
 
 using System;
-using UniCloud.Domain.PurchaseBC.Enums;
+using UniCloud.Domain.Common.Enums;
 
 #endregion
 

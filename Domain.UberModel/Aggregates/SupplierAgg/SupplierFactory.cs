@@ -18,8 +18,7 @@
 #region 命名空间
 
 using System;
-using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyAgg;
-using UniCloud.Domain.UberModel.Enums;
+using UniCloud.Domain.Common.Enums;
 
 #endregion
 

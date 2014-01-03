@@ -15,8 +15,12 @@
 
 #endregion
 
+#region 命名空间
+
 using System;
-using UniCloud.Domain.PaymentBC.Enums;
+using UniCloud.Domain.Common.Enums;
+
+#endregion
 
 namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
 {
@@ -52,13 +56,14 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
         /// <param name="status">付款通知状态</param>
         /// <param name="currencyId">币种ID</param>
         /// <param name="bankAccountId">银行账户ID</param>
-        public static void SetPaymentNotice(PaymentNotice paymentNotice, DateTime deadLine, string supplierName, int supplierId, string operatorName,
+        public static void SetPaymentNotice(PaymentNotice paymentNotice, DateTime deadLine, string supplierName,
+            int supplierId, string operatorName,
             string reviewer, int status, int currencyId, int bankAccountId)
         {
             paymentNotice.DeadLine = deadLine;
             paymentNotice.SetSupplier(supplierId, supplierName);
             paymentNotice.SetOperator(operatorName);
-            paymentNotice.SetPaymentNoticeStatus((PaymentNoticeStatus)status);
+            paymentNotice.SetPaymentNoticeStatus((PaymentNoticeStatus) status);
             paymentNotice.SetCurrency(currencyId);
             paymentNotice.SetBankAccount(bankAccountId);
             if (!string.IsNullOrEmpty(reviewer))
@@ -87,9 +92,10 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
         /// <param name="invoiceNumber">发票编号</param>
         /// <param name="amount">数量</param>
         /// <param name="note">备注</param>
-        public static void SetPaymentNoticeLine(PaymentNoticeLine paymentNoticeLine, int invoiceType, int invoiceId,string invoiceNumber,  decimal amount, string note)
+        public static void SetPaymentNoticeLine(PaymentNoticeLine paymentNoticeLine, int invoiceType, int invoiceId,
+            string invoiceNumber, decimal amount, string note)
         {
-            paymentNoticeLine.SetInvoice(invoiceId, invoiceNumber,(InvoiceType)invoiceType);
+            paymentNoticeLine.SetInvoice(invoiceId, invoiceNumber, (InvoiceType) invoiceType);
             paymentNoticeLine.Amount = amount;
             paymentNoticeLine.Note = note;
         }

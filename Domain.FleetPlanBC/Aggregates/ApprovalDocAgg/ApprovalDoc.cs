@@ -17,8 +17,8 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ManagerAgg;
-using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
 
@@ -150,7 +150,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg
         }
 
         /// <summary>
-        /// 设置发改委审批日期
+        ///     设置发改委审批日期
         /// </summary>
         /// <param name="date">审批日期</param>
         public void SetNdrcExamineDate(DateTime? date)

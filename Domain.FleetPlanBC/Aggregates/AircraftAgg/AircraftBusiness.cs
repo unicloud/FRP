@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,14 +11,15 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
-using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
 
@@ -86,11 +88,10 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// </summary>
         public Guid ImportCategoryId { get; private set; }
 
-
         #endregion
 
         #region 导航属性
-        
+
         /// <summary>
         ///     机型
         /// </summary>
@@ -104,6 +105,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         #endregion
 
         #region 操作
+
         /// <summary>
         ///     设置处理状态
         /// </summary>
@@ -130,7 +132,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         }
 
         /// <summary>
-        /// 设置座位数
+        ///     设置座位数
         /// </summary>
         /// <param name="seatingCapacity"></param>
         public void SetSeatingCapacity(int seatingCapacity)
@@ -139,7 +141,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         }
 
         /// <summary>
-        /// 设置商载量
+        ///     设置商载量
         /// </summary>
         /// <param name="carryingCapacity"></param>
         public void SetCarryingCapacity(decimal carryingCapacity)

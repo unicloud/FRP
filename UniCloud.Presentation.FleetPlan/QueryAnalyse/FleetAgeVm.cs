@@ -70,9 +70,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             _service = service;
             _fleetPlanContext = _service.Context;
-            PieDeployCommand = new DelegateCommand<object>(OnPieDeploy, CanPieDeploy); //机龄饼图的配置
-            ExportCommand = new DelegateCommand<object>(OnExport, CanExport); //导出图表源数据（Source data）
-            ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView, CanExportGridView); //导出视图的数据
+            
             ViewModelInitializer();
             InitalizerRadWindows(_ageWindow, "Age", 220);
             AddRadMenu(_ageWindow);
@@ -165,54 +163,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 _xmlConfigDataObjectAircraft = value;
                 RaisePropertyChanged("XmlConfigDataObjectAircraft");
-            }
-        }
-
-        #endregion
-
-        #region 属性 CanPieDeployBase
-
-        private bool _canPieDeploy = true; //机龄饼图点击可用
-
-        public bool CanPieDeployBase
-        {
-            get { return _canPieDeploy; }
-            set
-            {
-                _canPieDeploy = value;
-                RaisePropertyChanged(() => CanPieDeployBase);
-            }
-        }
-
-        #endregion
-
-        #region 属性 CanExportBase
-
-        private bool _canExport = true; //导出样式的按钮可用
-
-        public bool CanExportBase
-        {
-            get { return _canExport; }
-            set
-            {
-                _canExport = value;
-                RaisePropertyChanged(() => CanExportBase);
-            }
-        }
-
-        #endregion
-
-        #region 属性 CanExportGridViewBase
-
-        private bool _canExportGridView = true; //导出数据aircraftDetail可用
-
-        public bool CanExportGridViewBase
-        {
-            get { return _canExportGridView; }
-            set
-            {
-                _canExportGridView = value;
-                RaisePropertyChanged(() => CanExportGridViewBase);
             }
         }
 
@@ -530,6 +480,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// </summary>
         private void ViewModelInitializer()
         {
+            PieDeployCommand = new DelegateCommand<object>(OnPieDeploy); //机龄饼图的配置
+            ExportCommand = new DelegateCommand<object>(OnExport); //导出图表源数据（Source data）
+            ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView); //导出视图的数据
+            ToggleButtonCommand = new DelegateCommand<object>(ToggleButtonCheck);
             _lineGrid = CurrentFleetAge.LineGrid;
             _agePieGrid = CurrentFleetAge.AgePieGrid;
             _aircraftDetail = CurrentFleetAge.AircraftDetail;
@@ -787,51 +741,38 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         #endregion
 
-        #region 控制趋势图中折线（饼状）的显示
+        public DelegateCommand<object> ToggleButtonCommand { get; set; }
         /// <summary>
-        ///     控制趋势图中折线（饼状）的显示
+        /// 控制趋势图中折线（饼状）的显示/隐藏
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void ToggleButtonChecked(object sender, RoutedEventArgs e)
+        private void ToggleButtonCheck(object sender)
         {
             var button = sender as RadToggleButton;
             if (button != null)
             {
-                var temp = StaticFleetDatas.FirstOrDefault(p => p.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase));
-                if (!FleetDatas.Any(p => p.AircraftTypeName.Equals(temp.AircraftTypeName, StringComparison.OrdinalIgnoreCase)))
+                if ((bool)button.IsChecked)
                 {
-                    FleetDatas.Add(temp);
-                }
-            }
-        }
-
-        #endregion
-
-        #region 控制趋势图中折线（饼状）的隐藏
-        /// <summary>
-        ///     控制趋势图中折线（饼状）的隐藏
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void ToggleButtonUnchecked(object sender, RoutedEventArgs e)
-        {
-            var button = sender as RadToggleButton;
-            if (button != null)
-            {
-                for (int i = FleetDatas.Count - 1; i > -1; i--)
-                {
-                    var temp = FleetDatas[i];
-                    if (temp.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase))
+                    var temp = StaticFleetDatas.FirstOrDefault(p => p.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase));
+                    if (!FleetDatas.Any(p => p.AircraftTypeName.Equals(temp.AircraftTypeName, StringComparison.OrdinalIgnoreCase)))
                     {
-                        FleetDatas.Remove(temp);
-                        break;
+                        FleetDatas.Add(temp);
+                    }
+                }
+                else
+                {
+                    for (int i = FleetDatas.Count - 1; i > -1; i--)
+                    {
+                        var temp = FleetDatas[i];
+                        if (temp.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase))
+                        {
+                            FleetDatas.Remove(temp);
+                            break;
+                        }
                     }
                 }
             }
         }
-
-        #endregion
 
         #region 饼状图标签的选择事件
 
@@ -959,17 +900,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 window.Tag = false;
             }
         }
-
-        /// <summary>
-        ///     机龄饼图配置可用
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public bool CanPieDeploy(object obj)
-        {
-            return CanPieDeployBase;
-        }
-
         #endregion
 
         #region ViewModel 命令 --导出图表
@@ -1064,17 +994,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
             _i++;
         }
-
-        /// <summary>
-        ///     设置到处样式的按钮可用
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns></returns>
-        private bool CanExport(object sender)
-        {
-            return CanExportBase;
-        }
-
         #endregion
 
         #endregion
@@ -1102,17 +1021,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
-        /// <summary>
-        ///     导出数据aircraftDetail可用
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns></returns>
-        private bool CanExportGridView(object sender)
-        {
-            return CanExportGridViewBase;
-        }
-
         #endregion
 
         #region  增加子窗体的右键导出功能

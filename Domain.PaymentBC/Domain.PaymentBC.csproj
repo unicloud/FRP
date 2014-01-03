@@ -135,17 +135,6 @@
     <Compile Include="Aggregates\TradeAgg\ITradeRepository.cs" />
     <Compile Include="Aggregates\TradeAgg\Trade.cs" />
     <Compile Include="Aggregates\TradeAgg\TradeSpecifications.cs" />
-    <Compile Include="Enums\BFEStatus.cs" />
-    <Compile Include="Enums\ContractAircraftStatus.cs" />
-    <Compile Include="Enums\ContractEngineStatus.cs" />
-    <Compile Include="Enums\ControlStatus.cs" />
-    <Compile Include="Enums\GuaranteeStatus.cs" />
-    <Compile Include="Enums\InvoiceStatus.cs" />
-    <Compile Include="Enums\InvoiceType.cs" />
-    <Compile Include="Enums\MaintainItem.cs" />
-    <Compile Include="Enums\OrderStatus.cs" />
-    <Compile Include="Enums\PaymentNoticeStatus.cs" />
-    <Compile Include="Enums\TradeStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

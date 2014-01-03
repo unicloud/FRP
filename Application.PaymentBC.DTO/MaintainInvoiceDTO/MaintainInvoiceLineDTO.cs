@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,24 +11,29 @@
 // 修改者：linxw 时间：2013/12/16 9:55:20
 // 修改说明：
 // ========================================================================*/
+
 #endregion
+
+#region 命名空间
 
 using System;
 using System.Data.Services.Common;
-using UniCloud.Domain.PaymentBC.Enums;
+using UniCloud.Domain.Common.Enums;
+
+#endregion
 
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    /// 维修发票行基类
+    ///     维修发票行基类
     /// </summary>
-   [DataServiceKey("MaintainInvoiceLineId")]
+    [DataServiceKey("MaintainInvoiceLineId")]
     public class MaintainInvoiceLineDTO
     {
         #region 属性
 
         /// <summary>
-        /// 维修发票行主键
+        ///     维修发票行主键
         /// </summary>
         public int MaintainInvoiceLineId { get; set; }
 
@@ -42,7 +48,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         public string MaintainItemString
         {
             get { return ((MaintainItem) MaintainItem).ToString(); }
-            set { MaintainItem =(int)(MaintainItem)Enum.Parse(typeof (MaintainItem), value, true); }
+            set { MaintainItem = (int) (MaintainItem) Enum.Parse(typeof (MaintainItem), value, true); }
         }
 
         /// <summary>

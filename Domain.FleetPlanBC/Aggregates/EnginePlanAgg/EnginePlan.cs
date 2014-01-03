@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,15 +11,16 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
 using System.Collections.Generic;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
-using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
 
@@ -85,7 +87,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         public EnginePlanStatus Status { get; private set; }
 
         /// <summary>
-        /// 备注
+        ///     备注
         /// </summary>
         public string Note { get; private set; }
 
@@ -99,7 +101,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         public Guid AirlinesId { get; private set; }
 
         /// <summary>
-        /// 年度外键
+        ///     年度外键
         /// </summary>
         public Guid AnnualId { get; private set; }
 
@@ -109,19 +111,21 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         public Guid DocumentId { get; private set; }
 
         /// <summary>
-        /// 文档名称
+        ///     文档名称
         /// </summary>
         public string DocName { get; private set; }
+
         #endregion
 
         #region 导航属性
+
         /// <summary>
-        ///   航空公司
+        ///     航空公司
         /// </summary>
         public virtual Airlines Airlines { get; private set; }
 
         /// <summary>
-        /// 年度
+        ///     年度
         /// </summary>
         public virtual Annual Annual { get; private set; }
 
@@ -133,9 +137,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
             get { return _enginePlanHistories ?? (_enginePlanHistories = new HashSet<EnginePlanHistory>()); }
             set { _enginePlanHistories = new HashSet<EnginePlanHistory>(value); }
         }
+
         #endregion
 
         #region 操作
+
         /// <summary>
         ///     设置计划编辑处理状态
         /// </summary>
@@ -239,7 +245,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         }
 
         /// <summary>
-        /// 新增备发计划明细
+        ///     新增备发计划明细
         /// </summary>
         /// <returns></returns>
         public EnginePlanHistory AddNewEnginePlanHistory()

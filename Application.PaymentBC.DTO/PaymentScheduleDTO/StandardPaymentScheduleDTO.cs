@@ -15,15 +15,18 @@
 
 #endregion
 
+#region 命名空间
+
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Common;
 
+#endregion
 
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    /// 标准付款计划
+    ///     标准付款计划
     /// </summary>
     [DataServiceKey("StandardPaymentScheduleId")]
     public class StandardPaymentScheduleDTO
@@ -32,13 +35,14 @@ namespace UniCloud.Application.PaymentBC.DTO
         {
             PaymentScheduleLines = new List<PaymentScheduleLineDTO>();
         }
+
         /// <summary>
-        /// 主键
+        ///     主键
         /// </summary>
         public int StandardPaymentScheduleId { get; set; }
 
         /// <summary>
-        ///  创建时间
+        ///     创建时间
         /// </summary>
         public DateTime CreateDate { get; set; }
 
@@ -55,10 +59,10 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// <summary>
         ///     币种ID
         /// </summary>
-        public int CurrencyId { get;  set; }
+        public int CurrencyId { get; set; }
 
         /// <summary>
-        /// 币种名称
+        ///     币种名称
         /// </summary>
         public string CurrencyName { get; set; }
 
@@ -68,7 +72,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         public int SupplierId { get; set; }
 
         /// <summary>
-        /// 合同发动机主键
+        ///     合同发动机主键
         /// </summary>
         public int OrderId { get; set; }
 

@@ -20,9 +20,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 
@@ -138,6 +138,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg
             Currency = currency;
             CurrencyId = currency.Id;
         }
+
         /// <summary>
         ///     设置币种
         /// </summary>
@@ -172,7 +173,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.GuaranteeAgg
         /// </summary>
         /// <param name="supplierId"></param>
         /// <param name="supplierName"></param>
-        public void SetSupplier(int supplierId,string supplierName)
+        public void SetSupplier(int supplierId, string supplierName)
         {
             if (supplierId == 0)
             {

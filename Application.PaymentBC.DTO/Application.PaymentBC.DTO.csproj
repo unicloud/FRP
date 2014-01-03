@@ -60,17 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Domain.PaymentBC\Enums\InvoiceType.cs">
-      <Link>PaymentNoticeDTO\InvoiceType.cs</Link>
-    </Compile>
-    <Compile Include="..\Domain.PaymentBC\Enums\MaintainItem.cs">
-      <Link>MaintainInvoiceDTO\MaintainItem.cs</Link>
-    </Compile>
     <Compile Include="GuaranteeDTO\LeaseGuaranteeDTO.cs" />
     <Compile Include="GuaranteeDTO\MaintainGuaranteeDTO.cs" />
-    <Compile Include="..\Domain.PaymentBC\Enums\PaymentNoticeStatus.cs">
-      <Link>PaymentNoticeDTO\PaymentNoticeStatus.cs</Link>
-    </Compile>
     <Compile Include="InvoiceDTO\CreditNoteDTO.cs" />
     <Compile Include="ContractAircraftDTO\ContractAircraftDTO.cs" />
     <Compile Include="ContractEngineDTO\ContractEngineDTO.cs" />
@@ -112,7 +103,12 @@
     <Compile Include="SupplierDTO\BankAccountDTO.cs" />
     <Compile Include="SupplierDTO\SupplierDTO.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
+      <Project>{E48E84DE-5A91-4D16-84E5-CFFC4C7E7657}</Project>
+      <Name>Domain.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

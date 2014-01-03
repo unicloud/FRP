@@ -10,7 +10,8 @@
              d:DataContext="{d:DesignInstance uc:AircraftImportTypeVm}"
              mc:Ignorable="d"
              d:DesignHeight="300"
-             d:DesignWidth="400">
+             d:DesignWidth="400"
+             Name="AircraftImportTypeView">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -194,13 +195,6 @@
                                                                        PanOffset="{Binding PanOffset, Mode=TwoWay}"
                                                                        EmptyContent="引进方式趋势变化趋势">
                                                 <telerik:RadCartesianChart.Resources>
-                                                    <!--<DataTemplate x:Key="LinePointTemplate">
-													<example:CustomEllipse Width="10" Height="10" BorderBrush="#FF8EC441" Background="White" Foreground="#FF8EC441"/>
-												</DataTemplate>
-												<DataTemplate x:Key="LinePointTemplate1">
-													<Ellipse Height='8' Width='8' Fill='#FF8EC441'/>
-												</DataTemplate>
-												<example:PaletteExtractorConverter x:Key="paletteExtractor" />-->
                                                     <DataTemplate x:Key="LinePointTemplate">
                                                         <Ellipse Height='8'
                                                                  Width='8'
@@ -231,6 +225,28 @@
                                                         </i:Interaction.Triggers>
                                                     </telerik:ChartSelectionBehavior>
                                                 </telerik:RadCartesianChart.Behaviors>
+                                                <telerik:RadCartesianChart.SeriesProvider>
+                                                    <telerik:ChartSeriesProvider Source="{Binding FleetDatas}">
+                                                        <telerik:ChartSeriesProvider.SeriesDescriptors>
+                                                            <telerik:CategoricalSeriesDescriptor ItemsSourcePath="Data"
+                                                                                                 ValuePath="AirNum"
+                                                                                                 CategoryPath="DateTime">
+                                                                <telerik:CategoricalSeriesDescriptor.Style>
+                                                                    <Style TargetType="telerik:LineSeries">
+                                                                        <Setter Property="StrokeThickness"
+                                                                                Value="3" />
+                                                                        <Setter Property="IsHitTestVisible"
+                                                                                Value="True" />
+                                                                        <Setter Property="PointTemplate"
+                                                                                Value="{StaticResource LinePointTemplate}" />
+                                                                        <Setter Property="TrackBallInfoTemplate"
+                                                                                Value="{StaticResource LineTrackBallInfoTemplate}" />
+                                                                    </Style>
+                                                                </telerik:CategoricalSeriesDescriptor.Style>
+                                                            </telerik:CategoricalSeriesDescriptor>
+                                                        </telerik:ChartSeriesProvider.SeriesDescriptors>
+                                                    </telerik:ChartSeriesProvider>
+                                                </telerik:RadCartesianChart.SeriesProvider>
                                                 <telerik:RadCartesianChart.TooltipTemplate>
                                                     <DataTemplate>
                                                         <Grid>
@@ -280,11 +296,29 @@
                                                 </telerik:RadCartesianChart.Grid>
                                             </telerik:RadCartesianChart>
                                             <ScrollViewer Grid.Column="1"
-                                                          Width="156"
-                                                          Margin="0,5,5,5"
-                                                          VerticalScrollBarVisibility="Auto"
-                                                          telerik:StyleManager.Theme="Windows8">
-                                                <StackPanel Style="{StaticResource legendStyle}" />
+                                                          telerik:StyleManager.Theme="Windows8"
+                                                          VerticalScrollBarVisibility="Auto">
+                                                <StackPanel>
+                                                    <ItemsControl ItemsSource="{Binding ImportTypes}">
+                                                        <ItemsControl.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <StackPanel Orientation="Vertical" />
+                                                            </ItemsPanelTemplate>
+                                                        </ItemsControl.ItemsPanel>
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <telerik:RadToggleButton x:Name="ImportTypeToggleButton"
+                                                                                         Content="{Binding ImportType}"
+                                                                                         Tag="{Binding ImportType}"
+                                                                                         BorderThickness="1"
+                                                                                         Background="{Binding Color}"
+                                                                                         BorderBrush="{Binding Color}"
+                                                                                         Command="{Binding DataContext.ToggleButtonCommand,ElementName=AircraftImportTypeView}"
+                                                                                         CommandParameter="{Binding ElementName=ImportTypeToggleButton}" />
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+                                                </StackPanel>
                                             </ScrollViewer>
                                         </Grid>
                                         <Grid Grid.Row="1"

@@ -18,9 +18,9 @@
 
 using System;
 using System.Collections.Generic;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
-using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
 
@@ -120,6 +120,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         ///     民航局申请文档名称
         /// </summary>
         public string CaacDocumentName { get; private set; }
+
         #endregion
 
         #region 外键属性
@@ -149,20 +150,18 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// </summary>
         public Guid AirlinesId { get; private set; }
 
-
-
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        /// 批文
+        ///     批文
         /// </summary>
         public virtual ApprovalDoc ApprovalDoc { get; set; }
 
 
         /// <summary>
-        /// 航空公司
+        ///     航空公司
         /// </summary>
         public virtual Airlines Airlines { get; set; }
 
@@ -386,7 +385,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         }
 
         /// <summary>
-        /// 设置申请是否已完成申请
+        ///     设置申请是否已完成申请
         /// </summary>
         public void SetIsFinished(bool isFinished)
         {
@@ -394,7 +393,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         }
 
         /// <summary>
-        /// 设置提交日期
+        ///     设置提交日期
         /// </summary>
         /// <param name="submitDate">申请提交日期</param>
         public void SetSubmitDate(DateTime? submitDate)
