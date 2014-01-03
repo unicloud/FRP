@@ -21,5 +21,15 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             get { return DataContext as AircraftImportTypeVm; }
             set { DataContext = value; }
         }
+
+        private void ImportTypeToggleButton_Unchecked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ViewModel.ToggleButtonUnchecked(sender, e);
+        }
+
+        private void ImportTypeToggleButton_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ViewModel.ToggleButtonChecked(sender, e);
+        }
     }
 }

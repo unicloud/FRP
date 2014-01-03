@@ -58,14 +58,12 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private readonly RadWindow _typeWindow = new RadWindow(); //用于单击机型饼状图的用户提示
         private RadGridView _aircraftDetail; //初始化RadGridView
         private Grid _barGrid; //趋势折线图区域，趋势柱状图区域， 座级饼图区域，机型饼图区域
-        private RadDateTimePicker _endDateTimePicker; //开始时间控件， 结束时间控件
         private RadGridView _exportRadgridview; //初始化RadGridView
         private int _i; //导出数据源格式判断
         private Grid _lineGrid; //趋势折线图区域，趋势柱状图区域， 座级饼图区域，机型饼图区域
         private bool _loadXmlConfig;
         private bool _loadXmlSetting;
         private Grid _regionalPieGrid; //趋势折线图区域，趋势柱状图区域， 座级饼图区域，机型饼图区域
-        private RadDateTimePicker _startDateTimePicker; //开始时间控件， 结束时间控件
         private Grid _typePieGrid; //趋势折线图区域，趋势柱状图区域， 座级饼图区域，机型饼图区域
 
         [ImportingConstructor]
@@ -126,11 +124,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             _typePieGrid = CurrrentFleetStructure.TypePieGrid;
 
             _aircraftDetail = CurrrentFleetStructure.AircraftDetail;
-            //控制界面起止时间控件的字符串格式化
-            _startDateTimePicker = CurrrentFleetStructure.StartDateTimePicker;
-            _endDateTimePicker = CurrrentFleetStructure.EndDateTimePicker;
-            _startDateTimePicker.Culture.DateTimeFormat.ShortDatePattern = "yyyy/M";
-            _endDateTimePicker.Culture.DateTimeFormat.ShortDatePattern = "yyyy/M";
 
             _lineGrid = CurrrentFleetStructure.LineGrid;
             _barGrid = CurrrentFleetStructure.BarGrid;
@@ -429,11 +422,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 if (EndDate != value)
                 {
-                    if (value == null)
-                    {
-                        SelectedEndValueChange(_endDate);
-                        return;
-                    }
                     _endDate = value;
                     RaisePropertyChanged(() => EndDate);
                     CreateFleetAircraftTypeTrendCollection();
@@ -457,11 +445,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 if (StartDate != value)
                 {
-                    if (value == null)
-                    {
-                        SelectedStartValueChange(_startDate);
-                        return;
-                    }
                     _startDate = value;
                     RaisePropertyChanged(() => StartDate);
                     CreateFleetAircraftTypeTrendCollection();
@@ -582,15 +565,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #region Method
 
         /// <summary>
-        ///     选择开始时间
-        /// </summary>
-        /// <param name="dataTimeStart"></param>
-        public void SelectedStartValueChange(DateTime? dataTimeStart)
-        {
-            _startDateTimePicker.SelectedValue = dataTimeStart;
-        }
-
-        /// <summary>
         ///     根据相应的饼图数据生成饼图标签
         /// </summary>
         public void SetPieMark(IEnumerable<FleetAircraftTypeComposition> ienumerable, string regionGrid)
@@ -673,13 +647,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             var result = new ObservableCollection<FleetData>();
             var regionaleResult = new ObservableCollection<FleetAircraftRegionalTrend>();
 
-            //var radCartesianChart = _lineGrid.Children[0] as RadCartesianChart;
-            //var stackPanel = ((ScrollViewer) _lineGrid.Children[1]).Content as StackPanel;
-            //if (radCartesianChart != null) radCartesianChart.Series.Clear();
-            //if (stackPanel != null)
-            //{
-            //    stackPanel.Children.Clear();
-
             if (fleetAircraftTypeTrendCollection != null)
             {
                 foreach (var groupItem in fleetAircraftTypeTrendCollection.GroupBy(p => p.AircraftRegional).ToList())
@@ -695,47 +662,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         groupItem.ToList().ForEach(tempData.Data.Add);
                         result.Add(tempData);
                         regionaleResult.Add(fleetAircraftRegionalTrend);
-
-                        //var line = new LineSeries
-                        //    {
-                        //        StrokeThickness = 3,
-                        //        DisplayName = groupItem.Key,
-                        //        Stroke = new SolidColorBrush(Commonmethod.GetColor(fleetAircraftRegionalTrend.Color)),
-                        //        CategoryBinding = Commonmethod.CreateBinding("DateTime"),
-                        //        ValueBinding = Commonmethod.CreateBinding("AirNum"),
-                        //        ItemsSource = groupItem.ToList(),
-                        //    PointTemplate =
-                        //        ((RadCartesianChart) _lineGrid.Children[0]).Resources["LinePointTemplate"] as
-                        //            DataTemplate,
-                        //    TrackBallInfoTemplate =
-                        //        ((RadCartesianChart) _lineGrid.Children[0]).Resources["LineTrackBallInfoTemplate"]
-                        //            as DataTemplate
-                        //    };
-                        //if (radCartesianChart != null) radCartesianChart.Series.Add(line);
                     }
-
-                    //var aircraftRegionalTrend = groupItem.FirstOrDefault();
-                    //if (aircraftRegionalTrend != null)
-                    //{
-                    //    var panel = new StackPanel
-                    //    {
-                    //        Margin = new Thickness(5, 5, 5, 5),
-                    //        Orientation = Orientation.Horizontal,
-                    //        Background = new SolidColorBrush(Commonmethod.GetColor(aircraftRegionalTrend.Color))
-                    //    };
-                    //    var checkBox = new CheckBox {IsChecked = true};
-                    //    checkBox.Checked += CheckboxChecked;
-                    //    checkBox.Unchecked += CheckboxUnchecked;
-                    //    checkBox.Content = groupItem.Key;
-                    //    checkBox.Foreground = new SolidColorBrush(Colors.White);
-                    //    checkBox.VerticalAlignment = VerticalAlignment.Center;
-                    //    checkBox.Style = CurrrentFleetStructure.Resources["LegengCheckBoxStyle"] as Style;
-                    //    panel.Children.Add(checkBox);
-                    //    stackPanel.Children.Add(panel);
-                    //}
                 }
             }
-            //}
 
             result.ToList().ForEach(FleetDatas.Add);
             result.ToList().ForEach(StaticFleetDatas.Add);
@@ -757,15 +686,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public void ZoomInit()
         {
             Zoom = new Size(1, 1);
-        }
-
-        /// <summary>
-        ///     选择结束时间
-        /// </summary>
-        /// <param name="dataTimeEnd"></param>
-        public void SelectedEndValueChange(DateTime? dataTimeEnd)
-        {
-            _endDateTimePicker.SelectedValue = dataTimeEnd;
         }
 
         /// <summary>
