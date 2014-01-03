@@ -31,6 +31,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             _context = _service.Context;
             InitialRequest(); // 初始化申请信息。
             InitialCommand(); //初始化命令
+            InitialAircraftType();//初始化机型
         }
 
         #region 加载申请
@@ -78,6 +79,54 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                     SelectedRequest = e.Entities.Cast<RequestDTO>().FirstOrDefault();
                 }
                 RefreshCommandState();
+            };
+        }
+
+        #endregion
+
+        #region 加载机型
+
+        private AircraftTypeDTO _selectedAircraftType;
+
+        /// <summary>
+        ///     选择机型。
+        /// </summary>
+        public AircraftTypeDTO SelectedAircraftType
+        {
+            get { return _selectedAircraftType; }
+            set
+            {
+                if (_selectedAircraftType != value)
+                {
+                    _selectedAircraftType = value;
+                    RaisePropertyChanged(() => SelectedAircraftType);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     获取所有机型信息。
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftTypeDTO> AircraftTypesView { get; set; }
+
+        /// <summary>
+        ///     初始化机型信息。
+        /// </summary>
+        private void InitialAircraftType()
+        {
+            AircraftTypesView = _service.CreateCollection(_context.AircraftTypes);
+            AircraftTypesView.LoadedData += (sender, e) =>
+            {
+                if (e.HasError)
+                {
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                if (SelectedAircraftType == null)
+                {
+                    SelectedAircraftType = e.Entities.Cast<AircraftTypeDTO>().FirstOrDefault();
+                }
+               
             };
         }
 
@@ -223,6 +272,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             {
                 RequestsView.Load(true);
             }
+            AircraftTypesView.AutoLoad = true;//加载机型
         }
 
         protected override void RefreshCommandState()
