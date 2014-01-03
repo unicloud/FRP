@@ -214,10 +214,30 @@
                                             </telerik:RadCartesianChart.Grid>
                                         </telerik:RadCartesianChart>
                                         <ScrollViewer Grid.Column="1"
-                                                      Margin="0,5,5,5"
-                                                      VerticalScrollBarVisibility="Auto"
-                                                      telerik:StyleManager.Theme="Windows8">
-                                            <StackPanel Style="{StaticResource LegendStyle}" />
+                                                      telerik:StyleManager.Theme="Windows8"
+                                                      VerticalScrollBarVisibility="Auto">
+                                            <StackPanel>
+                                                <ItemsControl ItemsSource="{Binding AircraftTypes}">
+                                                    <ItemsControl.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <StackPanel Orientation="Vertical" />
+                                                        </ItemsPanelTemplate>
+                                                    </ItemsControl.ItemsPanel>
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <telerik:RadToggleButton x:Name="MonthToggleButton"
+                                                                                     Content="{Binding AircraftType}"
+                                                                                     Tag="{Binding AircraftType}"
+                                                                                     BorderThickness="1"
+                                                                                     Background="{Binding Color}"
+                                                                                     BorderBrush="{Binding Color}"
+                                                                                     Checked="AircraftTypeToggleButton_Checked"
+                                                                                     Unchecked="AircraftTypeToggleButton_Unchecked">
+                                                            </telerik:RadToggleButton>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
                                         </ScrollViewer>
                                     </Grid>
                                 </telerik:RadPane>
@@ -266,6 +286,28 @@
                                                 <telerik:ChartTrackBallBehavior />
                                                 <telerik:ChartPanAndZoomBehavior />
                                             </telerik:RadCartesianChart.Behaviors>
+                                            <telerik:RadCartesianChart.SeriesProvider>
+                                                <telerik:ChartSeriesProvider Source="{Binding YearFleetDatas}">
+                                                    <telerik:ChartSeriesProvider.SeriesDescriptors>
+                                                        <telerik:CategoricalSeriesDescriptor ItemsSourcePath="Data"
+                                                                                             ValuePath="RegisteredCount"
+                                                                                             CategoryPath="DateTime">
+                                                            <telerik:CategoricalSeriesDescriptor.Style>
+                                                                <Style TargetType="telerik:LineSeries">
+                                                                    <Setter Property="StrokeThickness"
+                                                                            Value="3" />
+                                                                    <Setter Property="IsHitTestVisible"
+                                                                            Value="True" />
+                                                                    <Setter Property="PointTemplate"
+                                                                            Value="{StaticResource PointTemplate}" />
+                                                                    <Setter Property="TrackBallInfoTemplate"
+                                                                            Value="{StaticResource TrackBallInfoTemplate}"/>
+                                                                </Style>
+                                                            </telerik:CategoricalSeriesDescriptor.Style>
+                                                        </telerik:CategoricalSeriesDescriptor>
+                                                    </telerik:ChartSeriesProvider.SeriesDescriptors>
+                                                </telerik:ChartSeriesProvider>
+                                            </telerik:RadCartesianChart.SeriesProvider>
                                             <telerik:RadCartesianChart.HorizontalAxis>
                                                 <telerik:CategoricalAxis Name="YearCategoricalAxis"
                                                                          Background="Black"
@@ -291,10 +333,30 @@
                                             </telerik:RadCartesianChart.Grid>
                                         </telerik:RadCartesianChart>
                                         <ScrollViewer Grid.Column="1"
-                                                      Margin="0,5,5,5"
-                                                      VerticalScrollBarVisibility="Auto"
-                                                      telerik:StyleManager.Theme="Windows8">
-                                            <StackPanel Style="{StaticResource LegendStyle}" />
+                                                      telerik:StyleManager.Theme="Windows8"
+                                                      VerticalScrollBarVisibility="Auto">
+                                            <StackPanel>
+                                                <ItemsControl ItemsSource="{Binding AircraftTypes}">
+                                                    <ItemsControl.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <StackPanel Orientation="Vertical" />
+                                                        </ItemsPanelTemplate>
+                                                    </ItemsControl.ItemsPanel>
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <telerik:RadToggleButton x:Name="YearToggleButton"
+                                                                                     Content="{Binding AircraftType}"
+                                                                                     Tag="{Binding AircraftType}"
+                                                                                     BorderThickness="1"
+                                                                                     Background="{Binding Color}"
+                                                                                     BorderBrush="{Binding Color}"
+                                                                                     Checked="AircraftTypeToggleButton_Checked"
+                                                                                     Unchecked="AircraftTypeToggleButton_Unchecked">
+                                                            </telerik:RadToggleButton>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
                                         </ScrollViewer>
                                     </Grid>
                                 </telerik:RadPane>
