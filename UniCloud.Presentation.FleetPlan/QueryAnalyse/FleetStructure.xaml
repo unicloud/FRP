@@ -253,7 +253,29 @@
                                                     </i:Interaction.Triggers>
                                                 </telerik:ChartSelectionBehavior>
                                             </telerik:RadCartesianChart.Behaviors>
-                                            <telerik:RadCartesianChart.TooltipTemplate>
+                                                <telerik:RadCartesianChart.SeriesProvider>
+                                                    <telerik:ChartSeriesProvider Source="{Binding FleetDatas}">
+                                                        <telerik:ChartSeriesProvider.SeriesDescriptors>
+                                                            <telerik:CategoricalSeriesDescriptor ItemsSourcePath="Data"
+                                                                                                 ValuePath="AirNum"
+                                                                                                 CategoryPath="DateTime">
+                                                                <telerik:CategoricalSeriesDescriptor.Style>
+                                                                    <Style TargetType="telerik:LineSeries">
+                                                                        <Setter Property="StrokeThickness"
+                                                                                Value="3" />
+                                                                        <Setter Property="IsHitTestVisible"
+                                                                                Value="True" />
+                                                                        <Setter Property="PointTemplate"
+                                                                                Value="{StaticResource LinePointTemplate}" />
+                                                                        <Setter Property="TrackBallInfoTemplate"
+                                                                                Value="{StaticResource LineTrackBallInfoTemplate}"/>
+                                                                    </Style>
+                                                                </telerik:CategoricalSeriesDescriptor.Style>
+                                                            </telerik:CategoricalSeriesDescriptor>
+                                                        </telerik:ChartSeriesProvider.SeriesDescriptors>
+                                                    </telerik:ChartSeriesProvider>
+                                                </telerik:RadCartesianChart.SeriesProvider>
+                                                <telerik:RadCartesianChart.TooltipTemplate>
                                                 <DataTemplate>
                                                     <Grid>
                                                         <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
@@ -300,14 +322,33 @@
                                                 </telerik:CartesianChartGrid>
                                             </telerik:RadCartesianChart.Grid>
                                         </telerik:RadCartesianChart>
-                                        <ScrollViewer Grid.Column="2"
-                                                      Width="156"
-                                                      Margin="0,5,5,5"
-                                                      VerticalScrollBarVisibility="Auto"
-                                                      telerik:StyleManager.Theme="Windows8">
-                                            <StackPanel Style="{StaticResource LegendStyle}" />
-                                        </ScrollViewer>
-                                    </Grid>
+                                            <ScrollViewer Grid.Column="2"
+                                                          telerik:StyleManager.Theme="Windows8"
+                                                          VerticalScrollBarVisibility="Auto">
+                                                <StackPanel>
+                                                    <ItemsControl ItemsSource="{Binding Regionals}">
+                                                        <ItemsControl.ItemsPanel>
+                                                            <ItemsPanelTemplate>
+                                                                <StackPanel Orientation="Vertical" />
+                                                            </ItemsPanelTemplate>
+                                                        </ItemsControl.ItemsPanel>
+                                                        <ItemsControl.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <telerik:RadToggleButton x:Name="RegionalToggleButton"
+                                                                                         Content="{Binding AircraftRegional}"
+                                                                                         Tag="{Binding AircraftRegional}"
+                                                                                         BorderThickness="1"
+                                                                                         Background="{Binding Color}"
+                                                                                         BorderBrush="{Binding Color}"
+                                                                                         Checked="RegionalToggleButton_Checked"
+                                                                                         Unchecked="RegionalToggleButton_Unchecked">
+                                                                </telerik:RadToggleButton>
+                                                            </DataTemplate>
+                                                        </ItemsControl.ItemTemplate>
+                                                    </ItemsControl>
+                                                </StackPanel>
+                                            </ScrollViewer>
+                                        </Grid>
                                     <Grid Grid.Row="1"
                                           Name="BarGrid">
                                         <Grid.ColumnDefinitions>

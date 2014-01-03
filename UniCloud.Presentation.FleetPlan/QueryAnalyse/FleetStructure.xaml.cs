@@ -21,5 +21,15 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             get { return DataContext as FleetStructureVm; }
             set { DataContext = value; }
         }
+
+        private void RegionalToggleButton_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ViewModel.ToggleButtonChecked(sender, e);
+        }
+
+        private void RegionalToggleButton_Unchecked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ViewModel.ToggleButtonUnchecked(sender, e);
+        }
     }
 }
