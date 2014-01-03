@@ -209,10 +209,12 @@ namespace UniCloud.Presentation.Shell
             var menu221 = new MenuItem
             {
                 Text = "维护申请",
+                NavUri = "UniCloud.Presentation.FleetPlan.Requests.Request"
             };
             var menu222 = new MenuItem
             {
                 Text = "维护批文",
+                NavUri = "UniCloud.Presentation.FleetPlan.Requests.Approval"
             };
             var menu223 = new MenuItem
             {
