@@ -54,6 +54,7 @@
     <Compile Include="Aggregates\ProjectAgg\ProjectSpecifications.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Aggregates\ProjectAgg\Task.cs" />
     <Compile Include="Aggregates\ProjectTempAgg\IProjectTempRepository.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -92,16 +93,6 @@
     </Compile>
     <Compile Include="Aggregates\WorkGroupAgg\WorkGroupFactory.cs" />
     <Compile Include="Aggregates\WorkGroupAgg\WorkGroupSpecifications.cs" />
-    <Compile Include="Enums\DependencyType.cs" />
-    <Compile Include="Enums\ProjectStatus.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Enums\ProjectTempStatus.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Enums\TaskType.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -17,11 +17,10 @@
 
 #region 命名空间
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
-using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 
@@ -82,11 +81,11 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
         public int InvoiceId { get; private set; }
 
         #endregion
-    
+
         #region 操作
 
         /// <summary>
-        /// 设置发票
+        ///     设置发票
         /// </summary>
         /// <param name="invoice">发票</param>
         public void SetInvoice(Invoice invoice)
@@ -125,6 +124,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.PaymentNoticeAgg
             InvoiceNumber = invoiceNumber;
             InvoiceType = invoiceType;
         }
+
         #endregion
 
         #region IValidatableObject 成员

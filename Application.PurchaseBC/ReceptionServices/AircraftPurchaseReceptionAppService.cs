@@ -17,15 +17,14 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.ReceptionQueries;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.PurchaseBC.Enums;
 
 #endregion
 
@@ -36,10 +35,10 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
     /// </summary>
     public class AircraftPurchaseReceptionAppService : IAircraftPurchaseReceptionAppService
     {
+        private readonly IContractAircraftRepository _contractAircraftRepository;
         private readonly IAircraftPurchaseReceptionQuery _dtoQuery;
         private readonly IReceptionRepository _receptionRepository;
         private readonly ISupplierRepository _supplierRepository;
-        private readonly IContractAircraftRepository _contractAircraftRepository;
 
         public AircraftPurchaseReceptionAppService(IAircraftPurchaseReceptionQuery dtoQuery,
             IReceptionRepository receptionRepository,
@@ -69,14 +68,15 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         ///     新增购买飞机接收项目。
         /// </summary>
         /// <param name="dto">购买飞机接收项目DTO。</param>
-        [Insert(typeof(AircraftPurchaseReceptionDTO))]
+        [Insert(typeof (AircraftPurchaseReceptionDTO))]
         public void InsertAircraftPurchaseReception(AircraftPurchaseReceptionDTO dto)
         {
             //获取供应商
             var supplier = _supplierRepository.Get(dto.SupplierId);
 
             //创建接机项目
-            var newReception = ReceptionFactory.CreateAircraftPurchaseReception(dto.StartDate, dto.EndDate, dto.SourceId, dto.Description);
+            var newReception = ReceptionFactory.CreateAircraftPurchaseReception(dto.StartDate, dto.EndDate, dto.SourceId,
+                dto.Description);
 
             // TODO:设置接机编号,如果当天的记录被删除过，流水号seq可能会重复
             var date = DateTime.Now.Date;
@@ -101,7 +101,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         ///     更新购买飞机接收项目。
         /// </summary>
         /// <param name="dto">购买飞机接收项目DTO。</param>
-        [Update(typeof(AircraftPurchaseReceptionDTO))]
+        [Update(typeof (AircraftPurchaseReceptionDTO))]
         public void ModifyAircraftPurchaseReception(AircraftPurchaseReceptionDTO dto)
         {
             //获取供应商
@@ -118,7 +118,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
                 updateReception.StartDate = dto.StartDate;
                 updateReception.EndDate = dto.EndDate;
                 updateReception.SetSupplier(supplier);
-                updateReception.SetStatus((ReceptionStatus)dto.Status);
+                updateReception.SetStatus((ReceptionStatus) dto.Status);
                 updateReception.SourceId = dto.SourceId;
 
                 //更新接机行：
@@ -147,7 +147,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         ///     删除购买飞机接收项目。
         /// </summary>
         /// <param name="dto">购买飞机接收项目DTO。</param>
-        [Delete(typeof(AircraftPurchaseReceptionDTO))]
+        [Delete(typeof (AircraftPurchaseReceptionDTO))]
         public void DeleteAircraftPurchaseReception(AircraftPurchaseReceptionDTO dto)
         {
             if (dto == null)
@@ -158,12 +158,12 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             //获取需要删除的对象。
             if (delAircraftPurchaseReception != null)
             {
-                _receptionRepository.DeleteReception(delAircraftPurchaseReception);//删除租赁飞机接收项目。
+                _receptionRepository.DeleteReception(delAircraftPurchaseReception); //删除租赁飞机接收项目。
             }
         }
 
-
         #region 处理接机行
+
         /// <summary>
         ///     插入新接机行
         /// </summary>
@@ -173,7 +173,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         {
             //获取合同飞机
             var purchaseConAc = _contractAircraftRepository.GetFiltered(p => p.Id == line.ContractAircraftId)
-                    .OfType<PurchaseContractAircraft>().FirstOrDefault();
+                .OfType<PurchaseContractAircraft>().FirstOrDefault();
 
             // 添加接机行
             var newRecepitonLine =
@@ -193,11 +193,12 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         /// </summary>
         /// <param name="line">接机行DTO</param>
         /// <param name="receptionLine">接机行</param>
-        private void UpdateReceptionLine(AircraftPurchaseReceptionLineDTO line, AircraftPurchaseReceptionLine receptionLine)
+        private void UpdateReceptionLine(AircraftPurchaseReceptionLineDTO line,
+            AircraftPurchaseReceptionLine receptionLine)
         {
             //获取合同飞机
             var purchaseConAc = _contractAircraftRepository.GetFiltered(p => p.Id == line.ContractAircraftId)
-                    .OfType<PurchaseContractAircraft>().FirstOrDefault();
+                .OfType<PurchaseContractAircraft>().FirstOrDefault();
 
 
             // 更新订单行
@@ -210,12 +211,12 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             receptionLine.FlightNumber = line.FlightNumber;
             receptionLine.SetContractAircraft(purchaseConAc);
             receptionLine.Note = line.Note;
-
         }
 
         #endregion
 
         #region 处理接机日程
+
         /// <summary>
         ///     插入新接机日程
         /// </summary>
@@ -239,7 +240,8 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         private void UpdateReceptionSchedule(ReceptionScheduleDTO schedule, ReceptionSchedule receptionSchedule)
         {
             // 更新订单行
-            receptionSchedule.SetSchedule(schedule.Subject, schedule.Body, schedule.Importance, schedule.Tempo, schedule.Start,
+            receptionSchedule.SetSchedule(schedule.Subject, schedule.Body, schedule.Importance, schedule.Tempo,
+                schedule.Start,
                 schedule.End, schedule.IsAllDayEvent);
             receptionSchedule.Group = schedule.Group;
         }

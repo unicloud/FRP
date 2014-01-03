@@ -54,7 +54,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
         /// <summary>
         ///     工作组名称
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get;internal set; }
 
         #endregion
 
@@ -63,7 +63,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
         /// <summary>
         ///     工作组管理者ID
         /// </summary>
-        public int ManagerUserId { get; private set; }
+        public int ManagerUserId { get; internal set; }
 
         #endregion
 
@@ -72,7 +72,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
         /// <summary>
         ///     工作组管理者
         /// </summary>
-        public virtual User User { get; private set; }
+        public virtual User ManagerUser { get; private set; }
 
         /// <summary>
         ///     工作组成员集合
@@ -99,7 +99,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
                 throw new ArgumentException("工作组管理者参数为空！");
             }
 
-            User = user;
+            ManagerUser = user;
             ManagerUserId = user.Id;
         }
 

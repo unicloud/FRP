@@ -19,9 +19,9 @@
 
 using System;
 using System.Collections.Generic;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 

@@ -18,7 +18,7 @@
 #region 命名空间
 
 using System;
-using UniCloud.Domain.PaymentBC.Enums;
+using UniCloud.Domain.Common.Enums;
 
 #endregion
 
@@ -106,9 +106,10 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
         /// <param name="currencyId">币种ID</param>
         /// <param name="documentName">文档名称</param>
         /// <param name="documentId">文档ID</param>
-        public static void SetMaintainInvoice(MaintainInvoice maintainInvoice, string serialNumber, string invoideCode, 
-            DateTime invoiceDate, string supplierName, int supplierId, decimal invoiceValue, decimal paidAmount, string operatorName,
-            string reviewer, int status, int currencyId,string documentName,Guid documentId)
+        public static void SetMaintainInvoice(MaintainInvoice maintainInvoice, string serialNumber, string invoideCode,
+            DateTime invoiceDate, string supplierName, int supplierId, decimal invoiceValue, decimal paidAmount,
+            string operatorName,
+            string reviewer, int status, int currencyId, string documentName, Guid documentId)
         {
             maintainInvoice.SetSerialNumber(serialNumber);
             maintainInvoice.InvoideCode = invoideCode;
@@ -116,7 +117,7 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
             maintainInvoice.SetInvoiceValue(invoiceValue);
             maintainInvoice.SetPaidAmount(paidAmount);
             maintainInvoice.SetOperator(operatorName);
-            maintainInvoice.SetInvoiceStatus((InvoiceStatus)status);
+            maintainInvoice.SetInvoiceStatus((InvoiceStatus) status);
             maintainInvoice.SetSupplier(supplierId, supplierName);
             maintainInvoice.SetCurrency(currencyId);
             maintainInvoice.DocumentName = documentName;
@@ -159,9 +160,10 @@ namespace UniCloud.Domain.PaymentBC.Aggregates.MaintainInvoiceAgg
         /// <param name="unitPrice">单价</param>
         /// <param name="amount">数量</param>
         /// <param name="note">备注</param>
-        public static void SetMaintainInvoiceLine(MaintainInvoiceLine maintainInvoiceLine, int maintainItem, string itemName, decimal unitPrice, decimal amount, string note)
+        public static void SetMaintainInvoiceLine(MaintainInvoiceLine maintainInvoiceLine, int maintainItem,
+            string itemName, decimal unitPrice, decimal amount, string note)
         {
-            maintainInvoiceLine.SetMaintainItem((MaintainItem)maintainItem);
+            maintainInvoiceLine.SetMaintainItem((MaintainItem) maintainItem);
             maintainInvoiceLine.ItemName = itemName;
             maintainInvoiceLine.UnitPrice = unitPrice;
             maintainInvoiceLine.Amount = amount;

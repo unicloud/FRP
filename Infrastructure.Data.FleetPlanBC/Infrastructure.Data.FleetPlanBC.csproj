@@ -119,6 +119,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
+      <Project>{E48E84DE-5A91-4D16-84E5-CFFC4C7E7657}</Project>
+      <Name>Domain.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain.FleetPlanBC\Domain.FleetPlanBC.csproj">
       <Project>{eae70e2d-1c23-45c9-a9a9-695dff09b7ab}</Project>
       <Name>Domain.FleetPlanBC</Name>

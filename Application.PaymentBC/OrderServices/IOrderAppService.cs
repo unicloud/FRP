@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,15 +11,12 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UniCloud.Application.PaymentBC.DTO;
 
 #endregion
@@ -26,7 +24,7 @@ using UniCloud.Application.PaymentBC.DTO;
 namespace UniCloud.Application.PaymentBC.OrderServices
 {
     /// <summary>
-    /// 查询订单服务接口
+    ///     查询订单服务接口
     /// </summary>
     public interface IOrderAppService
     {
@@ -77,12 +75,11 @@ namespace UniCloud.Application.PaymentBC.OrderServices
         /// </summary>
         /// <returns></returns>
         IQueryable<BFEPurchaseOrderDTO> GetBFEPurchaseOrders();
-      
+
         /// <summary>
         ///     获取标准采购订单集合
         /// </summary>
         /// <returns></returns>
         IQueryable<StandardOrderDTO> GetStandardOrders();
-      
     }
 }

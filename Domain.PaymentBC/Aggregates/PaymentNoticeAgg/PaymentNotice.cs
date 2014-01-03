@@ -20,11 +20,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PaymentBC.Aggregates.BankAccountAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.InvoiceAgg;
 using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.PaymentBC.Enums;
 
 #endregion
 

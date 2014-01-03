@@ -22,8 +22,8 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.RequestQueries;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
-using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
 

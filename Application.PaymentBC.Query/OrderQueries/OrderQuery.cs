@@ -20,8 +20,8 @@
 using System.Linq;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
-using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.PaymentBC.Aggregates.TradeAgg;using UniCloud.Infrastructure.Data;
+using UniCloud.Domain.PaymentBC.Aggregates.TradeAgg;
+using UniCloud.Infrastructure.Data;
 
 #endregion
 
@@ -31,6 +31,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IQueryableUnitOfWork _unitOfWork;
+
         public OrderQuery(IQueryableUnitOfWork unitOfWork, IOrderRepository orderRepository)
         {
             _unitOfWork = unitOfWork;
@@ -51,7 +52,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
         public IQueryable<OrderDTO> OrderDTOQuery(QueryBuilder<Order> query)
         {
             var trades = _unitOfWork.CreateSet<Trade>();
-            var result = query.ApplyTo(_orderRepository.GetAll().Where(p => p.IsValid == true))
+            var result = query.ApplyTo(_orderRepository.GetAll().Where(p => p.IsValid))
                 .Select(o => new OrderDTO
                 {
                     Id = o.Id,
@@ -60,11 +61,11 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     CurrencyId = o.Currency.Id,
                     OperatorName = o.OperatorName,
                     OrderDate = o.OrderDate,
-                    Status = (int)o.Status,
+                    Status = (int) o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
                     SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
-                    OrderLines = 
+                    OrderLines =
                         o.OrderLines.OfType<AircraftLeaseOrderLine>().Select(l => new OrderLineDTO
                         {
                             Id = l.Id,
@@ -75,58 +76,57 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                             Note = l.Note,
                             MaterialName = l.LeaseContractAircraft.SerialNumber,
                             OrderId = l.OrderId,
-                            TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
+                            TotalLine = (l.UnitPrice*l.Amount)*(1 - (l.Discount/100M)),
                         })
-                        .Union(o.OrderLines.OfType<AircraftPurchaseOrderLine>().Select(l => new OrderLineDTO
-                        {
-                            Id = l.Id,
-                            UnitPrice = l.UnitPrice,
-                            Amount = l.Amount,
-                            Discount = l.Discount,
-                            EstimateDeliveryDate = l.EstimateDeliveryDate,
-                            Note = l.Note,
-                            MaterialName = l.PurchaseContractAircraft.SerialNumber,
-                            OrderId = l.OrderId,
-                            TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
-                        }))
-                        .Union(o.OrderLines.OfType<EnginePurchaseOrderLine>().Select(l => new OrderLineDTO
-                        {
-                            Id = l.Id,
-                            UnitPrice = l.UnitPrice,
-                            Amount = l.Amount,
-                            Discount = l.Discount,
-                            EstimateDeliveryDate = l.EstimateDeliveryDate,
-                            Note = l.Note,
-                            MaterialName = l.PurchaseContractEngine.SerialNumber,
-                            OrderId = l.OrderId,
-                            TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
-                        }))
-                        .Union(o.OrderLines.OfType<EngineLeaseOrderLine>().Select(l => new OrderLineDTO
-                        {
-                            Id = l.Id,
-                            UnitPrice = l.UnitPrice,
-                            Amount = l.Amount,
-                            Discount = l.Discount,
-                            EstimateDeliveryDate = l.EstimateDeliveryDate,
-                            Note = l.Note,
-                            MaterialName = l.LeaseContractEngine.SerialNumber,
-                            OrderId = l.OrderId,
-                            TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
-                        }))
-                        .Union(o.OrderLines.OfType<BFEPurchaseOrderLine>().Select(l => new OrderLineDTO
-                        {
-                            Id = l.Id,
-                            UnitPrice = l.UnitPrice,
-                            Amount = l.Amount,
-                            Discount = l.Discount,
-                            EstimateDeliveryDate = l.EstimateDeliveryDate,
-                            Note = l.Note,
-                            MaterialName = "",
-                            OrderId = l.OrderId,
-                            TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
-                        })
-                        ).ToList(),
-
+                            .Union(o.OrderLines.OfType<AircraftPurchaseOrderLine>().Select(l => new OrderLineDTO
+                            {
+                                Id = l.Id,
+                                UnitPrice = l.UnitPrice,
+                                Amount = l.Amount,
+                                Discount = l.Discount,
+                                EstimateDeliveryDate = l.EstimateDeliveryDate,
+                                Note = l.Note,
+                                MaterialName = l.PurchaseContractAircraft.SerialNumber,
+                                OrderId = l.OrderId,
+                                TotalLine = (l.UnitPrice*l.Amount)*(1 - (l.Discount/100M)),
+                            }))
+                            .Union(o.OrderLines.OfType<EnginePurchaseOrderLine>().Select(l => new OrderLineDTO
+                            {
+                                Id = l.Id,
+                                UnitPrice = l.UnitPrice,
+                                Amount = l.Amount,
+                                Discount = l.Discount,
+                                EstimateDeliveryDate = l.EstimateDeliveryDate,
+                                Note = l.Note,
+                                MaterialName = l.PurchaseContractEngine.SerialNumber,
+                                OrderId = l.OrderId,
+                                TotalLine = (l.UnitPrice*l.Amount)*(1 - (l.Discount/100M)),
+                            }))
+                            .Union(o.OrderLines.OfType<EngineLeaseOrderLine>().Select(l => new OrderLineDTO
+                            {
+                                Id = l.Id,
+                                UnitPrice = l.UnitPrice,
+                                Amount = l.Amount,
+                                Discount = l.Discount,
+                                EstimateDeliveryDate = l.EstimateDeliveryDate,
+                                Note = l.Note,
+                                MaterialName = l.LeaseContractEngine.SerialNumber,
+                                OrderId = l.OrderId,
+                                TotalLine = (l.UnitPrice*l.Amount)*(1 - (l.Discount/100M)),
+                            }))
+                            .Union(o.OrderLines.OfType<BFEPurchaseOrderLine>().Select(l => new OrderLineDTO
+                            {
+                                Id = l.Id,
+                                UnitPrice = l.UnitPrice,
+                                Amount = l.Amount,
+                                Discount = l.Discount,
+                                EstimateDeliveryDate = l.EstimateDeliveryDate,
+                                Note = l.Note,
+                                MaterialName = "",
+                                OrderId = l.OrderId,
+                                TotalLine = (l.UnitPrice*l.Amount)*(1 - (l.Discount/100M)),
+                            })
+                            ).ToList(),
                 });
             return result;
         }
@@ -152,7 +152,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     CurrencyId = o.Currency.Id,
                     OperatorName = o.OperatorName,
                     OrderDate = o.OrderDate,
-                    Status = (int)o.Status,
+                    Status = (int) o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
                     SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
@@ -167,36 +167,36 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                             Note = l.Note,
                             MaterialName = l.PurchaseContractAircraft.SerialNumber,
                             OrderId = l.OrderId,
-                            TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
+                            TotalLine = (l.UnitPrice*l.Amount)*(1 - (l.Discount/100M)),
                         }).ToList(),
                 });
             var engineResult = query.ApplyTo(_orderRepository.GetAll().OfType<EnginePurchaseOrder>())
-            .Select(o => new PurchaseOrderDTO
-            {
-                Id = o.Id,
-                Name = o.Name,
-                Version = o.Version,
-                CurrencyId = o.Currency.Id,
-                OperatorName = o.OperatorName,
-                OrderDate = o.OrderDate,
-                Status = (int)o.Status,
-                Note = o.Note,
-                SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
-                SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
-                OrderLines =
-                    o.OrderLines.OfType<EnginePurchaseOrderLine>().Select(l => new OrderLineDTO
-                    {
-                        Id = l.Id,
-                        UnitPrice = l.UnitPrice,
-                        Amount = l.Amount,
-                        Discount = l.Discount,
-                        EstimateDeliveryDate = l.EstimateDeliveryDate,
-                        Note = l.Note,
-                        MaterialName = l.PurchaseContractEngine.SerialNumber,
-                        OrderId = l.OrderId,
-                        TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
-                    }).ToList(),
-            });
+                .Select(o => new PurchaseOrderDTO
+                {
+                    Id = o.Id,
+                    Name = o.Name,
+                    Version = o.Version,
+                    CurrencyId = o.Currency.Id,
+                    OperatorName = o.OperatorName,
+                    OrderDate = o.OrderDate,
+                    Status = (int) o.Status,
+                    Note = o.Note,
+                    SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
+                    SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
+                    OrderLines =
+                        o.OrderLines.OfType<EnginePurchaseOrderLine>().Select(l => new OrderLineDTO
+                        {
+                            Id = l.Id,
+                            UnitPrice = l.UnitPrice,
+                            Amount = l.Amount,
+                            Discount = l.Discount,
+                            EstimateDeliveryDate = l.EstimateDeliveryDate,
+                            Note = l.Note,
+                            MaterialName = l.PurchaseContractEngine.SerialNumber,
+                            OrderId = l.OrderId,
+                            TotalLine = (l.UnitPrice*l.Amount)*(1 - (l.Discount/100M)),
+                        }).ToList(),
+                });
             var bfeResult = query.ApplyTo(_orderRepository.GetAll().OfType<BFEPurchaseOrder>())
                 .Select(o => new PurchaseOrderDTO
                 {
@@ -206,7 +206,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     CurrencyId = o.Currency.Id,
                     OperatorName = o.OperatorName,
                     OrderDate = o.OrderDate,
-                    Status = (int)o.Status,
+                    Status = (int) o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
                     SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
@@ -221,10 +221,12 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                             Note = l.Note,
                             MaterialName = "",
                             OrderId = l.OrderId,
-                            TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
+                            TotalLine = (l.UnitPrice*l.Amount)*(1 - (l.Discount/100M)),
                         }).ToList(),
                 });
-            var result = acResult.AsEnumerable().Union(engineResult.AsEnumerable(), null).Union(bfeResult.AsEnumerable(), null);
+            var result = acResult.AsEnumerable()
+                .Union(engineResult.AsEnumerable(), null)
+                .Union(bfeResult.AsEnumerable(), null);
             return result.AsQueryable();
         }
 
@@ -249,12 +251,12 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     CurrencyId = o.Currency.Id,
                     OperatorName = o.OperatorName,
                     OrderDate = o.OrderDate,
-                    Status = (int)o.Status,
+                    Status = (int) o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
                     SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
                 });
-                var engineResult = query.ApplyTo(_orderRepository.GetAll().OfType<EngineLeaseOrder>())
+            var engineResult = query.ApplyTo(_orderRepository.GetAll().OfType<EngineLeaseOrder>())
                 .Select(o => new LeaseOrderDTO
                 {
                     Id = o.Id,
@@ -263,12 +265,12 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     CurrencyId = o.Currency.Id,
                     OperatorName = o.OperatorName,
                     OrderDate = o.OrderDate,
-                    Status = (int)o.Status,
+                    Status = (int) o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
                     SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
                 });
-                var result = acResult.AsEnumerable().Union(engineResult.AsEnumerable(), null);
+            var result = acResult.AsEnumerable().Union(engineResult.AsEnumerable(), null);
             return result.AsQueryable();
         }
 
@@ -284,7 +286,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
         public IQueryable<AircraftLeaseOrderDTO> AircraftLeaseOrderQuery(QueryBuilder<Order> query)
         {
             var trades = _unitOfWork.CreateSet<Trade>();
-            var result = query.ApplyTo(_orderRepository.GetAll().OfType<AircraftLeaseOrder>().Where(p => p.IsValid == true))
+            var result = query.ApplyTo(_orderRepository.GetAll().OfType<AircraftLeaseOrder>().Where(p => p.IsValid))
                 .Select(o => new AircraftLeaseOrderDTO
                 {
                     Id = o.Id,
@@ -293,7 +295,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     CurrencyId = o.Currency.Id,
                     OperatorName = o.OperatorName,
                     OrderDate = o.OrderDate,
-                    Status = (int)o.Status,
+                    Status = (int) o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
                     SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
@@ -308,7 +310,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                             Note = l.Note,
                             ContractAircraftId = l.ContractAircraftId,
                             OrderId = l.OrderId,
-                            TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
+                            TotalLine = (l.UnitPrice*l.Amount)*(1 - (l.Discount/100M)),
                         }).ToList(),
                 });
             return result;
@@ -326,7 +328,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
         public IQueryable<AircraftPurchaseOrderDTO> AircraftPurchaseOrderQuery(QueryBuilder<Order> query)
         {
             var trades = _unitOfWork.CreateSet<Trade>();
-            var result = query.ApplyTo(_orderRepository.GetAll().OfType<AircraftPurchaseOrder>().Where(p => p.IsValid == true))
+            var result = query.ApplyTo(_orderRepository.GetAll().OfType<AircraftPurchaseOrder>().Where(p => p.IsValid))
                 .Select(o => new AircraftPurchaseOrderDTO
                 {
                     Id = o.Id,
@@ -335,7 +337,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     CurrencyId = o.Currency.Id,
                     OperatorName = o.OperatorName,
                     OrderDate = o.OrderDate,
-                    Status = (int)o.Status,
+                    Status = (int) o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
                     SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
@@ -353,7 +355,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                             Note = l.Note,
                             ContractAircraftId = l.ContractAircraftId,
                             OrderId = l.OrderId,
-                            TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
+                            TotalLine = (l.UnitPrice*l.Amount)*(1 - (l.Discount/100M)),
                         }).ToList(),
                 });
             return result;
@@ -371,7 +373,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
         public IQueryable<EngineLeaseOrderDTO> EngineLeaseOrderQuery(QueryBuilder<Order> query)
         {
             var trades = _unitOfWork.CreateSet<Trade>();
-            var result = query.ApplyTo(_orderRepository.GetAll().OfType<EngineLeaseOrder>().Where(p => p.IsValid == true))
+            var result = query.ApplyTo(_orderRepository.GetAll().OfType<EngineLeaseOrder>().Where(p => p.IsValid))
                 .Select(o => new EngineLeaseOrderDTO
                 {
                     Id = o.Id,
@@ -381,7 +383,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     OperatorName = o.OperatorName,
                     LinkmanId = o.Linkman.Id,
                     OrderDate = o.OrderDate,
-                    Status = (int)o.Status,
+                    Status = (int) o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
                     SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
@@ -396,7 +398,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                             Note = l.Note,
                             ContractEngineId = l.ContractEngineId,
                             OrderId = l.OrderId,
-                            TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
+                            TotalLine = (l.UnitPrice*l.Amount)*(1 - (l.Discount/100M)),
                         }).ToList(),
                 });
             return result;
@@ -414,7 +416,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
         public IQueryable<EnginePurchaseOrderDTO> EnginePurchaseOrderQuery(QueryBuilder<Order> query)
         {
             var trades = _unitOfWork.CreateSet<Trade>();
-            var result = query.ApplyTo(_orderRepository.GetAll().OfType<EnginePurchaseOrder>().Where(p => p.IsValid == true))
+            var result = query.ApplyTo(_orderRepository.GetAll().OfType<EnginePurchaseOrder>().Where(p => p.IsValid))
                 .Select(o => new EnginePurchaseOrderDTO
                 {
                     Id = o.Id,
@@ -423,7 +425,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     CurrencyId = o.Currency.Id,
                     OperatorName = o.OperatorName,
                     OrderDate = o.OrderDate,
-                    Status = (int)o.Status,
+                    Status = (int) o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
                     SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
@@ -438,7 +440,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                             Note = l.Note,
                             ContractEngineId = l.ContractEngineId,
                             OrderId = l.OrderId,
-                            TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
+                            TotalLine = (l.UnitPrice*l.Amount)*(1 - (l.Discount/100M)),
                         }).ToList(),
                 });
             return result;
@@ -456,7 +458,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
         public IQueryable<BFEPurchaseOrderDTO> BFEPurchaseOrderQuery(QueryBuilder<Order> query)
         {
             var trades = _unitOfWork.CreateSet<Trade>();
-            var result = query.ApplyTo(_orderRepository.GetAll().OfType<BFEPurchaseOrder>().Where(p => p.IsValid == true))
+            var result = query.ApplyTo(_orderRepository.GetAll().OfType<BFEPurchaseOrder>().Where(p => p.IsValid))
                 .Select(o => new BFEPurchaseOrderDTO
                 {
                     Id = o.Id,
@@ -465,7 +467,7 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                     CurrencyId = o.Currency.Id,
                     OperatorName = o.OperatorName,
                     OrderDate = o.OrderDate,
-                    Status = (int)o.Status,
+                    Status = (int) o.Status,
                     Note = o.Note,
                     SupplierId = trades.FirstOrDefault(p => p.Id == o.TradeId).SupplierId,
                     SupplierName = trades.FirstOrDefault(p => p.Id == o.TradeId).Supplier.CnName,
@@ -480,31 +482,31 @@ namespace UniCloud.Application.PaymentBC.Query.OrderQueries
                             Note = l.Note,
                             BFEMaterialId = l.BFEMaterialId,
                             OrderId = l.OrderId,
-                            TotalLine = (l.UnitPrice * l.Amount) * (1 - (l.Discount / 100M)),
+                            TotalLine = (l.UnitPrice*l.Amount)*(1 - (l.Discount/100M)),
                         }).ToList(),
                 });
             return result;
         }
+
         /// <summary>
-        /// 查询标准订单
+        ///     查询标准订单
         /// </summary>
         /// <param name="query"></param>
         /// <returns></returns>
         public IQueryable<StandardOrderDTO> StandardOrderQuery(QueryBuilder<Order> query)
         {
             var dbTrade = _unitOfWork.CreateSet<Trade>();
-            var result = query.ApplyTo(_orderRepository.GetAll().OfType<BFEPurchaseOrder>().Where(p => p.IsValid == true))
-               .Select(o => new StandardOrderDTO
-               {
-                   StandardOrderId = o.Id,
-                   Name = o.Name,
-                   ContractNumber = o.ContractNumber,
-                   CurrencyId = o.Currency.Id,
-                   SupplierId = dbTrade.FirstOrDefault(c=>c.SupplierId==o.TradeId).SupplierId,
-                   SupplierName = dbTrade.FirstOrDefault(c => c.SupplierId == o.TradeId).Supplier.CnName,
-                   Note = o.Note,
-               
-               });
+            var result = query.ApplyTo(_orderRepository.GetAll().OfType<BFEPurchaseOrder>().Where(p => p.IsValid))
+                .Select(o => new StandardOrderDTO
+                {
+                    StandardOrderId = o.Id,
+                    Name = o.Name,
+                    ContractNumber = o.ContractNumber,
+                    CurrencyId = o.Currency.Id,
+                    SupplierId = dbTrade.FirstOrDefault(c => c.SupplierId == o.TradeId).SupplierId,
+                    SupplierName = dbTrade.FirstOrDefault(c => c.SupplierId == o.TradeId).Supplier.CnName,
+                    Note = o.Note,
+                });
             return result;
         }
 

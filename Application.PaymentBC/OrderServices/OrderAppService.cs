@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,27 +11,22 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.OrderQueries;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
-using UniCloud.Domain.PaymentBC.Aggregates.SupplierAgg;
 
 #endregion
 
 namespace UniCloud.Application.PaymentBC.OrderServices
 {
     /// <summary>
-    /// 查询订单服务实现
+    ///     查询订单服务实现
     /// </summary>
     public class OrderAppService : IOrderAppService
     {

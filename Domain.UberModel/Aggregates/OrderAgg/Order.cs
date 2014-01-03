@@ -20,11 +20,11 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.UberModel.Aggregates.CurrencyAgg;
 using UniCloud.Domain.UberModel.Aggregates.DocumentAgg;
 using UniCloud.Domain.UberModel.Aggregates.LinkmanAgg;
 using UniCloud.Domain.UberModel.Aggregates.TradeAgg;
-using UniCloud.Domain.UberModel.Enums;
 
 #endregion
 

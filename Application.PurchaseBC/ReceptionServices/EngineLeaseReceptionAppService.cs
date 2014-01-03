@@ -17,15 +17,14 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.ReceptionQueries;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ReceptionAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.PurchaseBC.Enums;
 
 #endregion
 
@@ -36,10 +35,10 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
     /// </summary>
     public class EngineLeaseReceptionAppService : IEngineLeaseReceptionAppService
     {
+        private readonly IContractEngineRepository _contractEngineRepository;
         private readonly IEngineLeaseReceptionQuery _dtoQuery;
         private readonly IReceptionRepository _receptionRepository;
         private readonly ISupplierRepository _supplierRepository;
-        private readonly IContractEngineRepository _contractEngineRepository;
 
         public EngineLeaseReceptionAppService(IEngineLeaseReceptionQuery dtoQuery,
             IReceptionRepository receptionRepository,
@@ -69,14 +68,15 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         ///     新增租赁发动机接收项目。
         /// </summary>
         /// <param name="dto">租赁发动机接收项目DTO。</param>
-        [Insert(typeof(EngineLeaseReceptionDTO))]
+        [Insert(typeof (EngineLeaseReceptionDTO))]
         public void InsertEngineLeaseReception(EngineLeaseReceptionDTO dto)
         {
             //获取供应商
             var supplier = _supplierRepository.Get(dto.SupplierId);
 
             //创建接机项目
-            var newReception = ReceptionFactory.CreateEngineLeaseReception(dto.StartDate, dto.EndDate, dto.SourceId, dto.Description);
+            var newReception = ReceptionFactory.CreateEngineLeaseReception(dto.StartDate, dto.EndDate, dto.SourceId,
+                dto.Description);
 
             // TODO:设置接机编号,如果当天的记录被删除过，流水号seq可能会重复
             var date = DateTime.Now.Date;
@@ -101,7 +101,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         ///     更新租赁发动机接收项目。
         /// </summary>
         /// <param name="dto">租赁发动机接收项目DTO。</param>
-        [Update(typeof(EngineLeaseReceptionDTO))]
+        [Update(typeof (EngineLeaseReceptionDTO))]
         public void ModifyEngineLeaseReception(EngineLeaseReceptionDTO dto)
         {
             //获取供应商
@@ -118,7 +118,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
                 updateReception.StartDate = dto.StartDate;
                 updateReception.EndDate = dto.EndDate;
                 updateReception.SetSupplier(supplier);
-                updateReception.SetStatus((ReceptionStatus)dto.Status);
+                updateReception.SetStatus((ReceptionStatus) dto.Status);
                 updateReception.SourceId = dto.SourceId;
 
                 //更新接机行：
@@ -141,14 +141,13 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
                     d => _receptionRepository.RemoveReceptionSchedule(d));
             }
             _receptionRepository.Modify(updateReception);
-
         }
 
         /// <summary>
         ///     删除租赁发动机接收项目。
         /// </summary>
         /// <param name="dto">租赁发动机接收项目DTO。</param>
-        [Delete(typeof(EngineLeaseReceptionDTO))]
+        [Delete(typeof (EngineLeaseReceptionDTO))]
         public void DeleteEngineLeaseReception(EngineLeaseReceptionDTO dto)
         {
             if (dto == null)
@@ -159,13 +158,12 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             //获取需要删除的对象。
             if (delEngineLeaseReception != null)
             {
-                _receptionRepository.DeleteReception(delEngineLeaseReception);//删除租赁飞机接收项目。
+                _receptionRepository.DeleteReception(delEngineLeaseReception); //删除租赁飞机接收项目。
             }
         }
 
-
-
         #region 处理接机行
+
         /// <summary>
         ///     插入新接机行
         /// </summary>
@@ -175,7 +173,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         {
             //获取合同发动机
             var leaseConEngine = _contractEngineRepository.GetFiltered(p => p.Id == line.ContractEngineId)
-                    .OfType<LeaseContractEngine>().FirstOrDefault();
+                .OfType<LeaseContractEngine>().FirstOrDefault();
 
             // 添加接机行
             var newRecepitonLine =
@@ -197,7 +195,7 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         {
             //获取合同发动机
             var leaseConEngine = _contractEngineRepository.GetFiltered(p => p.Id == line.ContractEngineId)
-                    .OfType<LeaseContractEngine>().FirstOrDefault();
+                .OfType<LeaseContractEngine>().FirstOrDefault();
 
 
             // 更新订单行
@@ -208,12 +206,12 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
             receptionLine.DeliverPlace = line.DeliverPlace;
             receptionLine.SetContractEngine(leaseConEngine);
             receptionLine.Note = line.Note;
-
         }
 
         #endregion
 
         #region 处理接机日程
+
         /// <summary>
         ///     插入新接机日程
         /// </summary>
@@ -237,12 +235,14 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
         private void UpdateReceptionSchedule(ReceptionScheduleDTO schedule, ReceptionSchedule receptionSchedule)
         {
             // 更新订单行
-            receptionSchedule.SetSchedule(schedule.Subject, schedule.Body, schedule.Importance, schedule.Tempo, schedule.Start,
+            receptionSchedule.SetSchedule(schedule.Subject, schedule.Body, schedule.Importance, schedule.Tempo,
+                schedule.Start,
                 schedule.End, schedule.IsAllDayEvent);
             receptionSchedule.Group = schedule.Group;
         }
 
         #endregion
+
         #endregion
     }
 }

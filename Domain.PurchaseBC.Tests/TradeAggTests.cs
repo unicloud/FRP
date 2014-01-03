@@ -19,10 +19,10 @@
 
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
-using UniCloud.Domain.PurchaseBC.Enums;
 
 #endregion
 

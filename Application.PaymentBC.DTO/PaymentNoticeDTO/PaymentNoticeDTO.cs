@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2013/12/20 10:33:46
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -17,14 +19,14 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Common;
-using UniCloud.Domain.PaymentBC.Enums;
+using UniCloud.Domain.Common.Enums;
 
 #endregion
 
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    ///  付款通知
+    ///     付款通知
     /// </summary>
     [DataServiceKey("PaymentNoticeId")]
     public class PaymentNoticeDTO
@@ -32,7 +34,12 @@ namespace UniCloud.Application.PaymentBC.DTO
         #region 属性
 
         /// <summary>
-        /// 付款通知主键
+        ///     付款通知行
+        /// </summary>
+        private List<PaymentNoticeLineDTO> _paymentNoticeLines;
+
+        /// <summary>
+        ///     付款通知主键
         /// </summary>
         public int PaymentNoticeId { get; set; }
 
@@ -91,19 +98,16 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// </summary>
         public string StatusString
         {
-            get { return ((PaymentNoticeStatus)Status).ToString(); }
-            set { Status = (int)(PaymentNoticeStatus)Enum.Parse(typeof(PaymentNoticeStatus), value, true); }
+            get { return ((PaymentNoticeStatus) Status).ToString(); }
+            set { Status = (int) (PaymentNoticeStatus) Enum.Parse(typeof (PaymentNoticeStatus), value, true); }
         }
 
-        /// <summary>
-        ///     付款通知行
-        /// </summary>
-        private List<PaymentNoticeLineDTO> _paymentNoticeLines;
         public List<PaymentNoticeLineDTO> PaymentNoticeLines
         {
             get { return _paymentNoticeLines ?? new List<PaymentNoticeLineDTO>(); }
             set { _paymentNoticeLines = value; }
         }
+
         #endregion
 
         #region 外键属性
@@ -122,6 +126,7 @@ namespace UniCloud.Application.PaymentBC.DTO
         ///     银行账户ID
         /// </summary>
         public int BankAccountId { get; set; }
+
         #endregion
     }
 }

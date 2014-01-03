@@ -20,9 +20,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PurchaseBC.Aggregates.BankAccountAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
-using UniCloud.Domain.PurchaseBC.Enums;
 
 #endregion
 

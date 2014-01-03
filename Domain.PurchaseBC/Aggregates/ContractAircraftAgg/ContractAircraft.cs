@@ -20,12 +20,12 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftBFEAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.PurchaseBC.Enums;
 
 #endregion
 

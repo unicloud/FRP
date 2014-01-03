@@ -15,28 +15,32 @@
 
 #endregion
 
+#region 命名空间
+
 using System.Data.Services.Common;
+
+#endregion
 
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    /// 标准订单，目前只做BFE
+    ///     标准订单，目前只做BFE
     /// </summary>
     [DataServiceKey("StandardOrderId")]
     public class StandardOrderDTO
-    { 
+    {
         /// <summary>
-        /// 主键
+        ///     主键
         /// </summary>
         public int StandardOrderId { get; set; }
-  
+
         /// <summary>
         ///     合同名称
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 合同编号
+        ///     合同编号
         /// </summary>
         public string ContractNumber { get; set; }
 
@@ -46,12 +50,12 @@ namespace UniCloud.Application.PaymentBC.DTO
         public int CurrencyId { get; set; }
 
         /// <summary>
-        /// 供应商Id
+        ///     供应商Id
         /// </summary>
         public int SupplierId { get; set; }
 
         /// <summary>
-        /// 供应商名称
+        ///     供应商名称
         /// </summary>
         public string SupplierName { get; set; }
 

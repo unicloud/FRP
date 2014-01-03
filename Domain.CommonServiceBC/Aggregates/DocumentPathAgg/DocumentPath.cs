@@ -20,7 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.CommonServiceBC.Enums;
+using UniCloud.Domain.Common.Enums;
 
 #endregion
 
@@ -103,7 +103,7 @@ namespace UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg
         #region 操作
 
         /// <summary>
-        /// 修改文档路径
+        ///     修改文档路径
         /// </summary>
         /// <param name="name">名称</param>
         /// <param name="isLeaf">是否是叶子节点，叶子节点，表示具体的文档</param>
@@ -113,7 +113,7 @@ namespace UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg
         /// <param name="pathSource">路径类型</param>
         /// <returns>文档路径</returns>
         public void Update(string name, bool isLeaf, string extension,
-                           Guid? documentId, int? parentId, PathSource pathSource)
+            Guid? documentId, int? parentId, PathSource pathSource)
         {
             Name = name;
             IsLeaf = isLeaf;
@@ -122,6 +122,7 @@ namespace UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg
             ParentId = parentId;
             PathSource = pathSource;
         }
+
         #endregion
 
         #region IValidatableObject 成员
