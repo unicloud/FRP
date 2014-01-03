@@ -73,6 +73,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             PieDeployCommand = new DelegateCommand<object>(OnPieDeploy, CanPieDeploy); //机龄饼图的配置
             ExportCommand = new DelegateCommand<object>(OnExport, CanExport); //导出图表源数据（Source data）
             ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView, CanExportGridView); //导出视图的数据
+            ToggleButtonCommand=new DelegateCommand<object>(ToggleButtonCheck);
             ViewModelInitializer();
             InitalizerRadWindows(_ageWindow, "Age", 220);
             AddRadMenu(_ageWindow);
@@ -787,51 +788,38 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         #endregion
 
-        #region 控制趋势图中折线（饼状）的显示
+        public DelegateCommand<object> ToggleButtonCommand { get; set; }
         /// <summary>
-        ///     控制趋势图中折线（饼状）的显示
+        /// 控制趋势图中折线（饼状）的显示/隐藏
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void ToggleButtonChecked(object sender, RoutedEventArgs e)
+        private void ToggleButtonCheck(object sender)
         {
             var button = sender as RadToggleButton;
             if (button != null)
             {
-                var temp = StaticFleetDatas.FirstOrDefault(p => p.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase));
-                if (!FleetDatas.Any(p => p.AircraftTypeName.Equals(temp.AircraftTypeName, StringComparison.OrdinalIgnoreCase)))
+                if ((bool)button.IsChecked)
                 {
-                    FleetDatas.Add(temp);
-                }
-            }
-        }
-
-        #endregion
-
-        #region 控制趋势图中折线（饼状）的隐藏
-        /// <summary>
-        ///     控制趋势图中折线（饼状）的隐藏
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void ToggleButtonUnchecked(object sender, RoutedEventArgs e)
-        {
-            var button = sender as RadToggleButton;
-            if (button != null)
-            {
-                for (int i = FleetDatas.Count - 1; i > -1; i--)
-                {
-                    var temp = FleetDatas[i];
-                    if (temp.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase))
+                    var temp = StaticFleetDatas.FirstOrDefault(p => p.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase));
+                    if (!FleetDatas.Any(p => p.AircraftTypeName.Equals(temp.AircraftTypeName, StringComparison.OrdinalIgnoreCase)))
                     {
-                        FleetDatas.Remove(temp);
-                        break;
+                        FleetDatas.Add(temp);
+                    }
+                }
+                else
+                {
+                    for (int i = FleetDatas.Count - 1; i > -1; i--)
+                    {
+                        var temp = FleetDatas[i];
+                        if (temp.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase))
+                        {
+                            FleetDatas.Remove(temp);
+                            break;
+                        }
                     }
                 }
             }
         }
-
-        #endregion
 
         #region 饼状图标签的选择事件
 

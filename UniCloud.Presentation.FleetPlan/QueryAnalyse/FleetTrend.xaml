@@ -333,39 +333,17 @@
                                                           telerik:StyleManager.Theme="Windows8">
                                                 <StackPanel Style="{StaticResource LegendStyle}">
                                                     <StackPanel Orientation="Horizontal"
-                                                                Margin="5,5,5,5"
-                                                                Visibility="{Binding Visibility, Mode=OneWay}">
-                                                        <CheckBox Content="期末飞机数（子）"
-                                                                  IsChecked="true"
-                                                                  VerticalAlignment="Center">
-                                                            <i:Interaction.Triggers>
-                                                                <i:EventTrigger EventName="Checked">
-                                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                         MethodName="CheckboxChecked"></ei:CallMethodAction>
-                                                                </i:EventTrigger>
-                                                                <i:EventTrigger EventName="Unchecked">
-                                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                         MethodName="CheckboxUnchecked"></ei:CallMethodAction>
-                                                                </i:EventTrigger>
-                                                            </i:Interaction.Triggers>
-                                                        </CheckBox>
-                                                    </StackPanel>
-                                                    <StackPanel Orientation="Horizontal"
                                                                 Margin="5,5,5,5">
-                                                        <CheckBox Content="期末飞机数"
-                                                                  IsChecked="true"
-                                                                  VerticalAlignment="Center">
-                                                            <i:Interaction.Triggers>
-                                                                <i:EventTrigger EventName="Checked">
-                                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                         MethodName="CheckboxChecked"></ei:CallMethodAction>
-                                                                </i:EventTrigger>
-                                                                <i:EventTrigger EventName="Unchecked">
-                                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                         MethodName="CheckboxUnchecked"></ei:CallMethodAction>
-                                                                </i:EventTrigger>
-                                                            </i:Interaction.Triggers>
-                                                        </CheckBox>
+                                                        <telerik:RadToggleButton  Name="AirNumButton"
+                                                                                  Content="期末飞机数"
+                                                                                  Tag="期末飞机数"
+                                                                                  BorderThickness="1"
+                                                                                  Background="Gray"
+                                                                                  BorderBrush="Gray"
+                                                                                  Command="{Binding ToggleButtonCommand}"
+                                                                                  CommandParameter="{Binding ElementName=AirNumButton}">
+
+                                                        </telerik:RadToggleButton>
                                                     </StackPanel>
                                                 </StackPanel>
                                             </ScrollViewer>
@@ -472,39 +450,14 @@
                                                           telerik:StyleManager.Theme="Windows8">
                                                 <StackPanel Style="{StaticResource LegendStyle}">
                                                     <StackPanel Orientation="Horizontal"
-                                                                Margin="5,5,5,5"
-                                                                Visibility="{Binding Visibility, Mode=OneWay}">
-                                                        <CheckBox Content="飞机净增数（子）"
-                                                                  IsChecked="true"
-                                                                  VerticalAlignment="Center">
-                                                            <i:Interaction.Triggers>
-                                                                <i:EventTrigger EventName="Checked">
-                                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                         MethodName="CheckboxChecked"></ei:CallMethodAction>
-                                                                </i:EventTrigger>
-                                                                <i:EventTrigger EventName="Unchecked">
-                                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                         MethodName="CheckboxUnchecked"></ei:CallMethodAction>
-                                                                </i:EventTrigger>
-                                                            </i:Interaction.Triggers>
-                                                        </CheckBox>
-                                                    </StackPanel>
-                                                    <StackPanel Orientation="Horizontal"
                                                                 Margin="5,5,5,5">
-                                                        <CheckBox Content="飞机净增数"
-                                                                  IsChecked="true"
-                                                                  VerticalAlignment="Center">
-                                                            <i:Interaction.Triggers>
-                                                                <i:EventTrigger EventName="Checked">
-                                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                         MethodName="CheckboxChecked"></ei:CallMethodAction>
-                                                                </i:EventTrigger>
-                                                                <i:EventTrigger EventName="Unchecked">
-                                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                         MethodName="CheckboxUnchecked"></ei:CallMethodAction>
-                                                                </i:EventTrigger>
-                                                            </i:Interaction.Triggers>
-                                                        </CheckBox>
+                                                        <telerik:RadToggleButton  Content="飞机净增数"
+                                                                                  Tag="飞机净增数"
+                                                                                  BorderThickness="1"
+                                                                                  Background="Gray"
+                                                                                  BorderBrush="Gray">
+
+                                                        </telerik:RadToggleButton>
                                                     </StackPanel>
                                                 </StackPanel>
                                             </ScrollViewer>

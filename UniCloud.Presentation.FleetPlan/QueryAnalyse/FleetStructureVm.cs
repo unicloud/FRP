@@ -73,6 +73,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             _fleetPlanContext = _service.Context;
             ExportCommand = new DelegateCommand<object>(OnExport, CanExport); //导出图表源数据（Source data）
             ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView, CanExportGridView);
+            ToggleButtonCommand = new DelegateCommand<object>(ToggleButtonCheck);
             ViewModelInitializer();
             InitalizerRadWindows(_regionalWindow, "Regional", 220);
             InitalizerRadWindows(_typeWindow, "Type", 240);
@@ -924,125 +925,43 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
         }
 
+        public DelegateCommand<object> ToggleButtonCommand { get; set; }
         /// <summary>
-        ///     控制趋势图中折线（饼状）的显示
+        /// 控制趋势图中折线（饼状）的显示/隐藏
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void CheckboxChecked(object sender, RoutedEventArgs e)
+        private void ToggleButtonCheck(object sender)
         {
-            var checkBox = sender as CheckBox;
-            if (checkBox != null)
+            var button = sender as RadToggleButton;
+            if (button != null)
             {
-                var stackPanel = checkBox.Parent as StackPanel;
-                if (stackPanel != null)
+                if ((bool)button.IsChecked)
                 {
-                    var panel = stackPanel.Parent as StackPanel;
-                    if (panel != null)
+                    var temp = StaticFleetDatas.FirstOrDefault(p => p.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase));
+                    if (!FleetDatas.Any(p => p.AircraftTypeName.Equals(temp.AircraftTypeName, StringComparison.OrdinalIgnoreCase)))
                     {
-                        var scrollViewer = panel.Parent as ScrollViewer;
-                        if (scrollViewer != null)
+                        FleetDatas.Add(temp);
+                    }
+                }
+                else
+                {
+                    for (int i = FleetDatas.Count - 1; i > -1; i--)
+                    {
+                        var temp = FleetDatas[i];
+                        if (temp.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase))
                         {
-                            var grid = scrollViewer.Parent as Grid;
-                            if (grid != null && grid.Name.Equals("LineGrid", StringComparison.OrdinalIgnoreCase))
-                            {
-                                var radCartesianChart = _lineGrid.Children[0] as RadCartesianChart;
-                                if (radCartesianChart != null)
-                                {
-                                    var firstOrDefault =
-                                        radCartesianChart.Series.FirstOrDefault(
-                                            p =>
-                                                p.DisplayName.Equals(checkBox.Content.ToString(),
-                                                    StringComparison.OrdinalIgnoreCase));
-                                    if (firstOrDefault != null)
-                                        firstOrDefault.Visibility = Visibility.Visible;
-                                }
-                            }
-                            else if (grid != null && grid.Name.Equals("BarGrid", StringComparison.OrdinalIgnoreCase))
-                            {
-                                var radCartesianChart = _barGrid.Children[0] as RadCartesianChart;
-                                if (radCartesianChart != null)
-                                {
-                                    var firstOrDefault =
-                                        radCartesianChart.Series.FirstOrDefault(
-                                            p =>
-                                                p.DisplayName.Equals(checkBox.Content.ToString(),
-                                                    StringComparison.OrdinalIgnoreCase));
-                                    if (firstOrDefault != null)
-                                        firstOrDefault.Visibility = Visibility.Visible;
-                                }
-                            }
+                            FleetDatas.Remove(temp);
+                            break;
                         }
                     }
                 }
             }
         }
-
-        public void ToggleButtonChecked(object sender, RoutedEventArgs e)
-        {
-            var button = sender as RadToggleButton;
-            if (button != null)
-            {
-                var temp = StaticFleetDatas.FirstOrDefault(p => p.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase));
-                if (!FleetDatas.Any(p => p.AircraftTypeName.Equals(temp.AircraftTypeName, StringComparison.OrdinalIgnoreCase)))
-                {
-                    FleetDatas.Add(temp);
-                }
-            }
-        }
-
         /// <summary>
-        ///     控制趋势图中折线（饼状）的隐藏
+        ///     控制趋势图中折线（饼状）的显示
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void CheckboxUnchecked(object sender, RoutedEventArgs e)
-        {
-            var checkBox = sender as CheckBox;
-            if (checkBox != null)
-            {
-                var stackPanel = ((StackPanel)checkBox.Parent).Parent as StackPanel;
-                if (stackPanel != null)
-                {
-                    var grid = ((ScrollViewer)stackPanel.Parent).Parent as Grid;
-                    if (grid != null && grid.Name.Equals("LineGrid", StringComparison.OrdinalIgnoreCase))
-                    {
-                        var firstOrDefault =
-                            ((RadCartesianChart)_lineGrid.Children[0]).Series.FirstOrDefault(
-                                p =>
-                                    p.DisplayName.Equals(checkBox.Content.ToString(), StringComparison.OrdinalIgnoreCase));
-                        if (firstOrDefault != null)
-                            firstOrDefault.Visibility = Visibility.Collapsed;
-                    }
-                    else if (grid != null && grid.Name.Equals("BarGrid", StringComparison.OrdinalIgnoreCase))
-                    {
-                        var firstOrDefault =
-                            ((RadCartesianChart)_barGrid.Children[0]).Series.FirstOrDefault(
-                                p =>
-                                    p.DisplayName.Equals(checkBox.Content.ToString(), StringComparison.OrdinalIgnoreCase));
-                        if (firstOrDefault != null)
-                            firstOrDefault.Visibility = Visibility.Collapsed;
-                    }
-                }
-            }
-        }
-
-        public void ToggleButtonUnchecked(object sender, RoutedEventArgs e)
-        {
-            var button = sender as RadToggleButton;
-            if (button != null)
-            {
-                for (int i = FleetDatas.Count - 1; i > -1; i--)
-                {
-                    var temp = FleetDatas[i];
-                    if (temp.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase))
-                    {
-                        FleetDatas.Remove(temp);
-                        break;
-                    }
-                }
-            }
-        }
 
         public void ContextMenuOpened(object sender, RoutedEventArgs e)
         {

@@ -10,7 +10,8 @@
              d:DataContext="{d:DesignInstance uc:AircraftImportTypeVm}"
              mc:Ignorable="d"
              d:DesignHeight="300"
-             d:DesignWidth="400">
+             d:DesignWidth="400"
+             Name="AircraftImportTypeView">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -312,9 +313,8 @@
                                                                                          BorderThickness="1"
                                                                                          Background="{Binding Color}"
                                                                                          BorderBrush="{Binding Color}"
-                                                                                         Unchecked="ImportTypeToggleButton_Unchecked"
-                                                                                         Checked="ImportTypeToggleButton_Checked">
-                                                                </telerik:RadToggleButton>
+                                                                                         Command="{Binding DataContext.ToggleButtonCommand,ElementName=AircraftImportTypeView}"
+                                                                                         CommandParameter="{Binding ElementName=ImportTypeToggleButton}" />
                                                             </DataTemplate>
                                                         </ItemsControl.ItemTemplate>
                                                     </ItemsControl>
