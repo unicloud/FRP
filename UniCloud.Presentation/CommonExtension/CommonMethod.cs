@@ -38,6 +38,7 @@ namespace UniCloud.Presentation.CommonExtension
         public void ShowRadWindow(RadWindow radwindow)
         {
             radwindow.WindowState = WindowState.Normal;
+            radwindow.WindowStartupLocation = Telerik.Windows.Controls.WindowStartupLocation.CenterScreen;
             radwindow.Show();
         }
 

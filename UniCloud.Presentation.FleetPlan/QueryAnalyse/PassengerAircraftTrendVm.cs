@@ -33,6 +33,7 @@ using Telerik.Charting;
 using Telerik.Windows;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.ChartView;
+using Telerik.Windows.Controls.Legend;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Export;
@@ -391,7 +392,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 {
                     _fleetAircraftCollection = value;
                     RaisePropertyChanged("FleetAircraftCollection");
-                    SetPieMark(FleetAircraftCollection, _aircraftPieGrid);
                 }
             }
         }
@@ -414,7 +414,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 {
                     _fleetSeatCollection = value;
                     RaisePropertyChanged("FleetSeatCollection");
-                    SetPieMark(FleetSeatCollection, _seatPieGrid);
                 }
             }
         }
@@ -437,7 +436,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 {
                     _fleetLoadCollection = value;
                     RaisePropertyChanged("FleetLoadCollection");
-                    SetPieMark(FleetLoadCollection, _loadPieGrid);
                 }
             }
         }
@@ -1383,62 +1381,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #endregion
 
         #region Methods
-
-        /// <summary>
-        ///     根据相应的饼图数据生成饼图标签
-        /// </summary>
-        /// <param name="ienumerable">饼图数据集合</param>
-        private void SetPieMark(IEnumerable<FleetAircraft> ienumerable, Grid grid)
-        {
-            var radPieChart = grid.Children[0] as RadPieChart;
-            var scrollViewer = grid.Children[1] as ScrollViewer;
-            if (scrollViewer != null)
-            {
-                var stackPanel = scrollViewer.Content as StackPanel;
-
-                if (radPieChart != null)
-                {
-                    radPieChart.Series[0].SliceStyles.Clear();
-                    if (stackPanel != null)
-                    {
-                        stackPanel.Children.Clear();
-                        if (ienumerable == null)
-                        {
-                            return;
-                        }
-                        foreach (var item in ienumerable)
-                        {
-                            var setter = new Setter { Property = Shape.FillProperty, Value = item.Color };
-                            var style = new Style { TargetType = typeof(System.Windows.Shapes.Path) };
-                            style.Setters.Add(setter);
-                            radPieChart.Series[0].SliceStyles.Add(style);
-
-                            var barPanel = new StackPanel();
-                            barPanel.MouseLeftButtonDown += PiePanelMouseLeftButtonDown;
-                            barPanel.Orientation = Orientation.Horizontal;
-                            var rectangle = new Rectangle
-                                            {
-                                                Width = 15,
-                                                Height = 15,
-                                                Fill =
-                                                    new SolidColorBrush(_commonMethod.GetColor(item.Color))
-                                            };
-                            var textBlock = new TextBlock
-                                            {
-                                                Text = item.Aircraft,
-                                                Style = CurrentPassengerAircraftTrend.Resources.FirstOrDefault(
-                                                    p => p.Key.ToString().Equals("legendItemStyle", StringComparison.OrdinalIgnoreCase))
-                                                    .Value as Style
-                                            };
-                            barPanel.Children.Add(rectangle);
-                            barPanel.Children.Add(textBlock);
-                            stackPanel.Children.Add(barPanel);
-                        }
-                    }
-                }
-            }
-        }
-
         /// <summary>
         ///     根据选中饼图的航空公司弹出相应的数据列表窗体
         /// </summary>
@@ -1570,22 +1512,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     item.IsSelected = false;
                 }
             //更改对应饼图的标签大小
-            var scrollViewer = grid.Children[1] as ScrollViewer;
-            if (scrollViewer != null)
-            {
-                var stackPanel = scrollViewer.Content as StackPanel;
-                if (stackPanel != null)
-                    foreach (var item in stackPanel.Children)
-                    {
-                        var panel = item as StackPanel;
-                        if (panel != null)
-                        {
-                            var rectangle = panel.Children[0] as Rectangle;
-                            rectangle.Width = 15;
-                            rectangle.Height = 15;
-                        }
-                    }
-            }
+            ((RadLegend)grid.Children[1]).Items.ToList().ForEach(p => p.IsHovered = false);
         }
 
         /// <summary>
@@ -1806,205 +1733,61 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 RadChartBase radChartBase = chartSelectionBehavior.Chart;
                 var selectedPoint = radChartBase.SelectedPoints.FirstOrDefault() as PieDataPoint;
-
-                var stackPanel = new StackPanel();
+                var items = new LegendItemCollection();
                 switch (radChartBase.EmptyContent.ToString())
                 {
                     case "飞机数分布":
-                        stackPanel = (_aircraftPieGrid.Children[1] as ScrollViewer).Content as StackPanel;
+                        items = ((RadLegend)_aircraftPieGrid.Children[1]).Items;
                         break;
                     case "座位数分布":
-                        stackPanel = (_seatPieGrid.Children[1] as ScrollViewer).Content as StackPanel;
+                        items = ((RadLegend)_seatPieGrid.Children[1]).Items;
                         break;
                     case "商载量分布":
-                        stackPanel = (_loadPieGrid.Children[1] as ScrollViewer).Content as StackPanel;
+                        items = ((RadLegend)_loadPieGrid.Children[1]).Items;
                         break;
                 }
 
-                if (stackPanel != null)
+                if (selectedPoint != null)
                 {
-                    foreach (var item in stackPanel.Children)
+                    items.ToList().ForEach(p => p.IsHovered = false);
+                    foreach (var item in items)
                     {
-                        var panel = item as StackPanel;
-                        if (panel != null)
+                        if (item.Title.Equals(((FleetAircraft)selectedPoint.DataItem).Aircraft, StringComparison.OrdinalIgnoreCase))
                         {
-                            var itemRectangle = panel.Children[0] as Rectangle;
-                            if (itemRectangle != null)
-                            {
-                                itemRectangle.Width = 15;
-                                itemRectangle.Height = 15;
-                            }
+                            item.IsHovered = true;
+                            break;
                         }
                     }
 
-                    if (selectedPoint != null)
+                    switch (radChartBase.EmptyContent.ToString())
                     {
-                        var childStackPanel = stackPanel.Children
-                            .FirstOrDefault(
-                                panel =>
-                                    ((panel as StackPanel).Children[1] as TextBlock).Text.Equals(
-                                        (selectedPoint.DataItem as FleetAircraft).Aircraft,
-                                        StringComparison.OrdinalIgnoreCase)) as StackPanel;
-                        if (childStackPanel != null)
-                        {
-                            var rectangle = childStackPanel.Children[0] as Rectangle;
-                            if (rectangle != null)
-                            {
-                                rectangle.Width = 12;
-                                rectangle.Height = 12;
-                            }
-                        }
-
-                        switch (radChartBase.EmptyContent.ToString())
-                        {
-                            case "飞机数分布":
-                                GetGridViewDataSourse(selectedPoint, _aircraftWindow, "飞机数");
-                                break;
-                            case "座位数分布":
-                                GetGridViewDataSourse(selectedPoint, _seatWindow, "座位数");
-                                break;
-                            case "商载量分布":
-                                GetGridViewDataSourse(selectedPoint, _loadWindow, "商载量");
-                                break;
-                        }
+                        case "飞机数分布":
+                            GetGridViewDataSourse(selectedPoint, _aircraftWindow, "飞机数");
+                            break;
+                        case "座位数分布":
+                            GetGridViewDataSourse(selectedPoint, _seatWindow, "座位数");
+                            break;
+                        case "商载量分布":
+                            GetGridViewDataSourse(selectedPoint, _loadWindow, "商载量");
+                            break;
                     }
-                    else
+                }
+                else
+                {
+                    switch (radChartBase.EmptyContent.ToString())
                     {
-                        switch (radChartBase.EmptyContent.ToString())
-                        {
-                            case "飞机数分布":
-                                _aircraftWindow.Close();
-                                break;
-                            case "座位数分布":
-                                _seatWindow.Close();
-                                break;
-                            case "商载量分布":
-                                _loadWindow.Close();
-                                break;
-                        }
+                        case "飞机数分布":
+                            _aircraftWindow.Close();
+                            break;
+                        case "座位数分布":
+                            _seatWindow.Close();
+                            break;
+                        case "商载量分布":
+                            _loadWindow.Close();
+                            break;
                     }
                 }
             }
-        }
-
-
-        /// <summary>
-        ///     饼状图标签的选择事件
-        /// </summary>
-        /// <param name="sender"></param>
-        public void PiePanelMouseLeftButtonDown(object sender, MouseButtonEventArgs mouseButtonEventArgs)
-        {
-            //选中航空公司的名称
-            var stackPanel = sender as StackPanel;
-            if (stackPanel != null)
-            {
-                var block = stackPanel.Children[1] as TextBlock;
-                if (block != null)
-                {
-                    string shortName = block.Text;
-
-                    #region 修改饼图标签中的突出显示
-
-                    var panel = stackPanel.Parent as StackPanel;
-                    if (panel != null)
-                        foreach (var item in panel.Children)
-                        {
-                            var childStackPanel = item as StackPanel;
-                            if (childStackPanel != null)
-                            {
-                                var itemRectangle = childStackPanel.Children[0] as Rectangle;
-                                var textBlock = childStackPanel.Children[1] as TextBlock;
-                                if (textBlock != null)
-                                {
-                                    string itemShortName = textBlock.Text;
-                                    if (itemShortName.Equals(shortName, StringComparison.OrdinalIgnoreCase))
-                                    {
-                                        if (itemRectangle != null && itemRectangle.Width == 12)
-                                        {
-                                            itemRectangle.Width = 15;
-                                            itemRectangle.Height = 15;
-                                        }
-                                        else if (itemRectangle != null)
-                                        {
-                                            itemRectangle.Width = 12;
-                                            itemRectangle.Height = 12;
-                                        }
-                                    }
-                                    else if (itemRectangle != null)
-                                    {
-                                        itemRectangle.Width = 15;
-                                        itemRectangle.Height = 15;
-                                    }
-                                }
-                            }
-                        }
-
-                    #endregion
-
-                    #region 修改对应饼图块状的突出显示
-
-                    var stackPanel1 = stackPanel.Parent as StackPanel;
-                    if (stackPanel1 != null)
-                    {
-                        var scrollViewer = stackPanel1.Parent as ScrollViewer;
-                        if (scrollViewer != null)
-                        {
-                            var grid = scrollViewer.Parent as Grid;
-                            if (grid != null)
-                            {
-                                var radPieChart = grid.Children[0] as RadPieChart;
-                                if (radPieChart != null)
-                                    foreach (var item in radPieChart.Series[0].DataPoints)
-                                    {
-                                        PieDataPoint pieDataPoint = item;
-                                        var fleetAircraft = pieDataPoint.DataItem as FleetAircraft;
-                                        if (fleetAircraft != null &&
-                                            fleetAircraft.Aircraft.Equals(shortName, StringComparison.OrdinalIgnoreCase))
-                                        {
-                                            pieDataPoint.IsSelected = !pieDataPoint.IsSelected;
-                                            if (pieDataPoint.IsSelected)
-                                            {
-                                                switch (radPieChart.EmptyContent.ToString())
-                                                {
-                                                    case "飞机数分布":
-                                                        GetGridViewDataSourse(pieDataPoint, _aircraftWindow, "飞机数");
-                                                        break;
-                                                    case "座位数分布":
-                                                        GetGridViewDataSourse(pieDataPoint, _seatWindow, "座位数");
-                                                        break;
-                                                    case "商载量分布":
-                                                        GetGridViewDataSourse(pieDataPoint, _loadWindow, "商载量");
-                                                        break;
-                                                }
-                                            }
-                                            else
-                                            {
-                                                switch (radPieChart.EmptyContent.ToString())
-                                                {
-                                                    case "飞机数分布":
-                                                        _aircraftWindow.Close();
-                                                        break;
-                                                    case "座位数分布":
-                                                        _seatWindow.Close();
-                                                        break;
-                                                    case "商载量分布":
-                                                        _loadWindow.Close();
-                                                        break;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            pieDataPoint.IsSelected = false;
-                                        }
-                                    }
-                            }
-                        }
-                    }
-                }
-            }
-
-                    #endregion
         }
 
         public DelegateCommand<object> ToggleButtonCommand { get; set; }
