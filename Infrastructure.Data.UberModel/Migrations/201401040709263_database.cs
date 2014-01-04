@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initializer : DbMigration
+    public partial class database : DbMigration
     {
         public override void Up()
         {
