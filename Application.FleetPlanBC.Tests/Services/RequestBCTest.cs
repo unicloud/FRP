@@ -9,7 +9,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.FleetPlanBC.Repositories;
 using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 #endregion
 
 namespace UniCloud.Application.FleetPlanBC.Tests.Services
@@ -22,19 +22,16 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            Configuration.Create()
-                .UseAutofac()
-                //.UserCaching()
-                .CreateLog()
-                .Register<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
 
       
 
                 #region 申请相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IRequestQuery, RequestQuery>()
-                .Register<IRequestAppService, RequestAppService>()
-                .Register<IRequestRepository, RequestRepository>()
+                .RegisterType<IRequestQuery, RequestQuery>()
+                .RegisterType<IRequestAppService, RequestAppService>()
+                .RegisterType<IRequestRepository, RequestRepository>()
                 #endregion
 
                 ;

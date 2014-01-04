@@ -61,7 +61,6 @@
     <Compile Include="Caching\CachingMethod.cs" />
     <Compile Include="Caching\DefaultCacheProvider.cs" />
     <Compile Include="Caching\ICacheProvider.cs" />
-    <Compile Include="ContainerExtension\ConfigurationExtension.cs" />
     <Compile Include="InterceptionBehaviors\CachingBehavior.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\ILoggerFactory.cs" />

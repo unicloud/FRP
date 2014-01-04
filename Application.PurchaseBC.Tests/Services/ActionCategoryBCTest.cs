@@ -23,7 +23,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -36,13 +36,11 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            Configuration.Create()
-                .UseAutofac()
-                .CreateLog()
-                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IActionCategoryRepository, ActionCategoryRepository>()
-                .Register<IActionCategoryAppService, ActionCategoryAppService>()
-                .Register<IActionCategoryQuery, ActionCategoryQuery>();
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
+                .RegisterType<IActionCategoryAppService, ActionCategoryAppService>()
+                .RegisterType<IActionCategoryQuery, ActionCategoryQuery>();
 
         }
 

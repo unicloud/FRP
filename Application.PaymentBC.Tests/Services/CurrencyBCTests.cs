@@ -24,7 +24,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 namespace UniCloud.Application.PaymentBC.Tests.Services
 {
      [TestClass]
@@ -35,17 +35,15 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            Configuration.Create()
-                .UseAutofac()
-                .CreateLog()
-                .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<ICurrencyRepository, CurrencyRepository>()
-                .Register<ICurrencyAppService, CurrencyAppService>()
-                .Register<ICurrencyQuery, CurrencyQuery>()
-                 .Register<ISupplierRepository, SupplierRepository>()
-                .Register<ISupplierAppService, SupplierAppService>()
-                .Register<ISupplierQuery, SupplierQuery>()
-                .Register<IStaticLoad, StaticLoad>();
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .RegisterType<ICurrencyRepository, CurrencyRepository>()
+                .RegisterType<ICurrencyAppService, CurrencyAppService>()
+                .RegisterType<ICurrencyQuery, CurrencyQuery>()
+                 .RegisterType<ISupplierRepository, SupplierRepository>()
+                .RegisterType<ISupplierAppService, SupplierAppService>()
+                .RegisterType<ISupplierQuery, SupplierQuery>()
+                .RegisterType<IStaticLoad, StaticLoad>();
         }
 
         [TestCleanup]
