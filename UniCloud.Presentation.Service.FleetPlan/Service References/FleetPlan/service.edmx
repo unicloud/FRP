@@ -399,6 +399,8 @@
         <Property Name="Note" Type="Edm.String" />
         <Property Name="RequestId" Type="Edm.Guid" Nullable="false" />
         <Property Name="PlanAircraftId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftRegional" Type="Edm.String" />
+        <Property Name="AircraftType" Type="Edm.String" />
         <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
         <Property Name="ImportCategoryName" Type="Edm.String" />
         <Property Name="RequestDeliverAnnualId" Type="Edm.Guid" Nullable="false" />

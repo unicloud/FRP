@@ -222,7 +222,7 @@
                                                  CanUserSortColumns="True"
                                                  CanUserFreezeColumns="False"
                                                  ShowGroupPanel="True"
-                                                 ItemsSource="{Binding ApprovalHistoryDataObjectList}"
+                                                 ItemsSource="{Binding SelectedRequest.ApprovalHistories}"
                                                  AutoGenerateColumns="False"
                                                  ShowColumnFooters="True"
                                                  EditTriggers="CellClick"
@@ -240,10 +240,10 @@
                                     <DataTemplate x:Name="RequestDraggedItemTemplate">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock
-                                                Text="{Binding PlanAircraft.AircraftType.AircraftCategory.Regional}"
+                                                Text="{Binding AircraftRegional}"
                                                 HorizontalAlignment="Center"
                                                 Margin="3,0" />
-                                            <TextBlock Text="{Binding PlanAircraft.AircraftType.Name}"
+                                            <TextBlock Text="{Binding AircraftType}"
                                                        HorizontalAlignment="Center"
                                                        Margin="3,0" />
                                         </StackPanel>
@@ -255,19 +255,19 @@
                                                                 HeaderTextAlignment="Center"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 IsReadOnly="True"
-                                                                DataMemberBinding="{Binding PlanAircraft.AircraftType.AircraftCategory.Regional}" />
+                                                                DataMemberBinding="{Binding AircraftRegional}" />
                                     <telerik:GridViewComboBoxColumn Header="机型"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsReadOnly="True"
-                                                                    DataMemberBinding="{Binding PlanAircraft.AircraftType.Name}" />
+                                                                    DataMemberBinding="{Binding AircraftType}" />
                                     <telerik:GridViewComboBoxColumn Header="引进方式"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsFilterable="True"
-                                                                    ItemsSource="{Binding DataContext.ActionCategoryDataObjectList,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                    ItemsSource="{Binding DataContext.ActionCategoriesView,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
                                                                     DisplayMemberPath="ActionName"
-                                                                    DataMemberBinding="{Binding ImportCategoryID,Mode=TwoWay}"
+                                                                    DataMemberBinding="{Binding ImportCategoryId,Mode=TwoWay}"
                                                                     SelectedValueMemberPath="ID"
                                                                     EditTriggers="CellClick" />
                                     <telerik:GridViewDataColumn Header="座位"
@@ -284,9 +284,9 @@
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     HeaderTextAlignment="Center"
                                                                     IsFilterable="True"
-                                                                    ItemsSource="{Binding DataContext.AnnualDataObjectList,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                    ItemsSource="{Binding DataContext.AnnualsView,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
                                                                     DisplayMemberPath="Year"
-                                                                    DataMemberBinding="{Binding RequestDeliverAnnualID}"
+                                                                    DataMemberBinding="{Binding RequestDeliverAnnualId}"
                                                                     SelectedValueMemberPath="ID"
                                                                     EditTriggers="CellClick" />
                                     <telerik:GridViewComboBoxColumn Header="执行月份"
@@ -294,14 +294,8 @@
                                                                     HeaderTextAlignment="Center"
                                                                     EditTriggers="CellClick"
                                                                     UniqueName="PerformMonth"
-                                                                    ItemsSource="{Binding DataContext.Months,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                    ItemsSource="{Binding DataContext.Months,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
                                                                     DataMemberBinding="{Binding RequestDeliverMonth}" />
-                                    <telerik:GridViewDataColumn Header="航空公司"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                HeaderTextAlignment="Center"
-                                                                DataMemberBinding="{Binding AirlineName}"
-                                                                IsReadOnly="True" />
-
                                     <telerik:GridViewDataColumn Header="备注"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 HeaderTextAlignment="Center"
@@ -323,7 +317,8 @@
                                          CanUserPin="False"
                                          ContextMenuTemplate="{x:Null}">
                             <telerik:RadGridView x:Name="PlanDetail"
-                                                 ItemsSource="{Binding PlanHistoryDataObjectList}"
+                                                 ItemsSource="{Binding SelectedPlan.PlanHistories}"
+                                                 IsBusy="{Binding PlansView.IsBusy}"
                                                  AutoGenerateColumns="False"
                                                  ShowGroupPanel="True"
                                                  IsFilteringAllowed="True"
@@ -348,7 +343,7 @@
                                             <TextBlock Text="{Binding AircraftType.AircraftCategory.Regional}"
                                                        HorizontalAlignment="Center"
                                                        Margin="3,0" />
-                                            <TextBlock Text="{Binding AircraftType.Name}"
+                                            <TextBlock Text="{Binding }"
                                                        HorizontalAlignment="Center"
                                                        Margin="3,0" />
                                         </StackPanel>
@@ -365,27 +360,23 @@
                                                                     HeaderTextAlignment="Center"
                                                                     IsGroupable="False"
                                                                     DataMemberBinding="{Binding IsValid}" />
-                                    <telerik:GridViewDataColumn Header="航空公司"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                HeaderTextAlignment="Center"
-                                                                DataMemberBinding="{Binding Airlines.ShortName}" />
                                     <telerik:GridViewDataColumn Header="座级"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 HeaderTextAlignment="Center"
-                                                                DataMemberBinding="{Binding AircraftType.AircraftCategory.Regional}" />
+                                                                DataMemberBinding="{Binding Regional}" />
                                     <telerik:GridViewDataColumn Header="引进/退出"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 HeaderTextAlignment="Center"
-                                                                DataMemberBinding="{Binding ActionCategory.ActionName}" />
+                                                                DataMemberBinding="{Binding ActionType}" />
+                                    <telerik:GridViewDataColumn Header="引进/退出方式"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                HeaderTextAlignment="Center"
+                                                                DataMemberBinding="{Binding TargetType}" />
                                     <telerik:GridViewDataColumn Header="机型"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 HeaderTextAlignment="Center"
                                                                 UniqueName="AircraftType"
-                                                                DataMemberBinding="{Binding AircraftType.Name}" />
-                                    <telerik:GridViewDataColumn Header="引进/退出方式"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                HeaderTextAlignment="Center"
-                                                                DataMemberBinding="{Binding TargetCategory.ActionName}" />
+                                                                DataMemberBinding="{Binding AircraftTypeName}" />
                                     <telerik:GridViewDataColumn Header="执行时间"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 HeaderTextAlignment="Center"
@@ -399,19 +390,6 @@
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 HeaderTextAlignment="Center"
                                                                 DataMemberBinding="{Binding CarryingCapacity}" />
-                                    <telerik:GridViewDataColumn Header="净增客机"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                HeaderTextAlignment="Center"
-                                                                DataMemberBinding="{Binding DeltaPnr}" />
-                                    <telerik:GridViewDataColumn Header="净增货机"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                HeaderTextAlignment="Center"
-                                                                DataMemberBinding="{Binding DeltaCargo}" />
-                                    <telerik:GridViewDataColumn Header="管理状态"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                HeaderTextAlignment="Center"
-                                                                DataMemberBinding="{Binding PlanAircraft.Status, ConverterParameter=ManageStatus, Converter={StaticResource EnumIntToStringConverter}}" />
-
                                 </telerik:RadGridView.Columns>
                             </telerik:RadGridView>
                         </telerik:RadPane>
