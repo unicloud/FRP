@@ -189,6 +189,7 @@
     <Compile Include="Aggregates\TradeAgg\Trade.cs" />
     <Compile Include="Aggregates\TradeAgg\TradeFactory.cs" />
     <Compile Include="Aggregates\XmlConfigAgg\XmlConfig.cs" />
+    <Compile Include="Aggregates\XmlConfigAgg\XmlConfigFactory.cs" />
     <Compile Include="Aggregates\XmlSettingAgg\XmlSetting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

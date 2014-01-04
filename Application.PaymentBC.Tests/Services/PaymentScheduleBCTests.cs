@@ -28,7 +28,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 #endregion
 
 namespace UniCloud.Application.PaymentBC.Tests.Services
@@ -41,22 +41,18 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            Configuration.Create()
-                .UseAutofac()
-                .UserCaching()
-                .CreateLog()
-                .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IPaymentScheduleRepository, PaymentScheduleRepository>()
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .RegisterType<IPaymentScheduleRepository, PaymentScheduleRepository>()
                 #region   付款计划相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IPaymentScheduleQuery, PaymentScheduleQuery>()
-                .Register<IPaymentScheduleAppService, PaymentScheduleAppService>(null,
-                    new Interceptor<InterfaceInterceptor>(), new InterceptionBehavior<CachingBehavior>())
-                .Register<IPaymentScheduleRepository, PaymentScheduleRepository>()
+                .RegisterType<IPaymentScheduleQuery, PaymentScheduleQuery>()
+                .RegisterType<IPaymentScheduleAppService, PaymentScheduleAppService>()
+                .RegisterType<IPaymentScheduleRepository, PaymentScheduleRepository>()
 
                 #endregion
 
-                .Register<IPaymentScheduleQuery, PaymentScheduleQuery>();
+                .RegisterType<IPaymentScheduleQuery, PaymentScheduleQuery>();
         }
 
         [TestCleanup]

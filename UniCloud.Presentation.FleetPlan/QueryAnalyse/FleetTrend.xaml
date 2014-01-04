@@ -62,30 +62,6 @@
                 <Setter Property="Background"
                         Value="#EEF1EB" />
             </Style>
-            <DataTemplate x:Key="TooltipTemplateChild">
-                <Grid>
-                    <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
-                          Stretch="Fill"
-                          Fill="White"
-                          Stroke="Gray"
-                          StrokeThickness="1" />
-                    <StackPanel Margin="5,3,5,15"
-                                Name="BarStackPanel">
-                        <TextBlock Text="{Binding Path=DataItem.DateTime, StringFormat='时间: {0}末'}"
-                                   Foreground="Black"
-                                   FontFamily="Segoe UI"
-                                   FontSize="11" />
-                        <TextBlock Text="{Binding Path=DataItem.AircraftAmount, StringFormat='飞机净增（子）: {0}架'}"
-                                   Foreground="{Binding Path=DataItem.AircraftColor}"
-                                   FontFamily="Segoe UI"
-                                   FontSize="11" />
-                        <TextBlock Text="{Binding Path=DataItem.AircraftAmount1, StringFormat='飞机净增: {0}架'}"
-                                   Foreground="{Binding Path=DataItem.AircraftColor1}"
-                                   FontFamily="Segoe UI"
-                                   FontSize="11" />
-                    </StackPanel>
-                </Grid>
-            </DataTemplate>
             <DataTemplate x:Key="TooltipTemplate">
                 <Grid>
                     <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
@@ -99,8 +75,8 @@
                                    Foreground="Black"
                                    FontFamily="Segoe UI"
                                    FontSize="11" />
-                        <TextBlock Text="{Binding Path=DataItem.AircraftAmount1, StringFormat='飞机净增: {0}架'}"
-                                   Foreground="{Binding Path=DataItem.AircraftColor1}"
+                        <TextBlock Text="{Binding Path=DataItem.AircraftAmount, StringFormat='飞机净增: {0}架'}"
+                                   Foreground="{Binding Path=DataItem.AircraftColor}"
                                    FontFamily="Segoe UI"
                                    FontSize="11" />
                     </StackPanel>
@@ -212,7 +188,8 @@
                                             <RowDefinition Height="0.22*" />
                                         </Grid.RowDefinitions>
                                         <Grid Grid.Row="0"
-                                              Name="LineGrid">
+                                              Name="LineGrid"
+                                              Margin="0,0,0,24">
                                             <telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
                                                     <i:Interaction.Triggers>
@@ -231,10 +208,6 @@
                                                                          CommandParameter="{Binding ElementName=LineGridData}" />
                                                 </telerik:RadContextMenu>
                                             </telerik:RadContextMenu.ContextMenu>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
                                             <telerik:RadCartesianChart Margin="10,0,10,0"
                                                                        Zoom="{Binding Zoom, Mode=TwoWay}"
                                                                        PanOffset="{Binding PanOffset, Mode=TwoWay}"
@@ -248,7 +221,8 @@
                                                     </uc:AxisCollection>
                                                 </telerik:RadCartesianChart.Resources>
                                                 <telerik:RadCartesianChart.Behaviors>
-                                                    <telerik:ChartTrackBallBehavior />
+                                                    <telerik:ChartTooltipBehavior Placement="Top"
+                                                                                  HorizontalOffset="-6" />
                                                     <telerik:ChartSelectionBehavior>
                                                         <i:Interaction.Triggers>
                                                             <i:EventTrigger EventName="SelectionChanged">
@@ -258,6 +232,23 @@
                                                         </i:Interaction.Triggers>
                                                     </telerik:ChartSelectionBehavior>
                                                 </telerik:RadCartesianChart.Behaviors>
+                                                <telerik:RadCartesianChart.TooltipTemplate>
+                                                    <DataTemplate>
+                                                        <Grid>
+                                                            <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
+                                                                  Stretch="Fill"
+                                                                  Fill="White"
+                                                                  Stroke="Gray"
+                                                                  StrokeThickness="1" />
+                                                            <StackPanel Margin="5,3,5,10">
+                                                                <TextBlock Text="{Binding Path=DataItem.AircraftAmount, StringFormat='飞机数: {0}架'}"
+                                                                           Foreground="{Binding Path=DataItem.AircraftColor}"
+                                                                           FontFamily="Segoe UI"
+                                                                           FontSize="11" />
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </telerik:RadCartesianChart.TooltipTemplate>
                                                 <telerik:RadCartesianChart.HorizontalAxis>
                                                     <telerik:CategoricalAxis Name="LineCategoricalAxis"
                                                                              MajorTickInterval="10"
@@ -277,12 +268,12 @@
                                                     </telerik:CartesianChartGrid>
                                                 </telerik:RadCartesianChart.Grid>
                                                 <telerik:RadCartesianChart.Series>
-                                                    <telerik:LineSeries DisplayName="期末飞机数（子）"
+                                                    <telerik:LineSeries DisplayName="期末飞机数"
                                                                         ItemsSource="{Binding FleetAircraftTrendLineCollection}"
-                                                                        Visibility="{Binding Visibility, Mode=OneWay}"
                                                                         VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[0]}"
                                                                         ValueBinding="AircraftAmount"
-                                                                        CategoryBinding="DateTime">
+                                                                        CategoryBinding="DateTime"
+                                                                        Stroke="Gray">
                                                         <telerik:LineSeries.PointTemplate>
                                                             <DataTemplate>
                                                                 <Ellipse Height='8'
@@ -290,88 +281,12 @@
                                                                          Fill="{Binding Path=DataItem.AircraftColor}" />
                                                             </DataTemplate>
                                                         </telerik:LineSeries.PointTemplate>
-                                                        <telerik:LineSeries.TrackBallInfoTemplate>
-                                                            <DataTemplate>
-                                                                <StackPanel Background="Transparent">
-                                                                    <TextBlock Text="{Binding Path=DataPoint.DataItem.AircraftAmount, StringFormat='飞机数（子）: {0}架'}"
-                                                                               Foreground="{Binding Path=DataPoint.DataItem.AircraftColor}"
-                                                                               Margin="6,0"
-                                                                               FontFamily="Segoe UI" />
-                                                                </StackPanel>
-                                                            </DataTemplate>
-                                                        </telerik:LineSeries.TrackBallInfoTemplate>
-                                                    </telerik:LineSeries>
-                                                    <telerik:LineSeries DisplayName="期末飞机数"
-                                                                        ItemsSource="{Binding FleetAircraftTrendLineCollection}"
-                                                                        VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[0]}"
-                                                                        ValueBinding="AircraftAmount1"
-                                                                        CategoryBinding="DateTime">
-                                                        <telerik:LineSeries.PointTemplate>
-                                                            <DataTemplate>
-                                                                <Ellipse Height='8'
-                                                                         Width='8'
-                                                                         Fill="{Binding Path=DataItem.AircraftColor1}" />
-                                                            </DataTemplate>
-                                                        </telerik:LineSeries.PointTemplate>
-                                                        <telerik:LineSeries.TrackBallInfoTemplate>
-                                                            <DataTemplate>
-                                                                <StackPanel Background="Transparent">
-                                                                    <TextBlock Text="{Binding Path=DataPoint.DataItem.AircraftAmount1, StringFormat='飞机数: {0}架'}"
-                                                                               Foreground="{Binding Path=DataPoint.DataItem.AircraftColor1}"
-                                                                               Margin="6,0"
-                                                                               FontFamily="Segoe UI" />
-                                                                </StackPanel>
-                                                            </DataTemplate>
-                                                        </telerik:LineSeries.TrackBallInfoTemplate>
                                                     </telerik:LineSeries>
                                                 </telerik:RadCartesianChart.Series>
                                             </telerik:RadCartesianChart>
-                                            <ScrollViewer Grid.Column="1"
-                                                          Width="164"
-                                                          Margin="0,5,5,5"
-                                                          VerticalScrollBarVisibility="Auto"
-                                                          telerik:StyleManager.Theme="Windows8">
-                                                <StackPanel Style="{StaticResource LegendStyle}">
-                                                    <StackPanel Orientation="Horizontal"
-                                                                Margin="5,5,5,5"
-                                                                Visibility="{Binding Visibility, Mode=OneWay}">
-                                                        <CheckBox Content="期末飞机数（子）"
-                                                                  IsChecked="true"
-                                                                  VerticalAlignment="Center">
-                                                            <i:Interaction.Triggers>
-                                                                <i:EventTrigger EventName="Checked">
-                                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                         MethodName="CheckboxChecked"></ei:CallMethodAction>
-                                                                </i:EventTrigger>
-                                                                <i:EventTrigger EventName="Unchecked">
-                                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                         MethodName="CheckboxUnchecked"></ei:CallMethodAction>
-                                                                </i:EventTrigger>
-                                                            </i:Interaction.Triggers>
-                                                        </CheckBox>
-                                                    </StackPanel>
-                                                    <StackPanel Orientation="Horizontal"
-                                                                Margin="5,5,5,5">
-                                                        <CheckBox Content="期末飞机数"
-                                                                  IsChecked="true"
-                                                                  VerticalAlignment="Center">
-                                                            <i:Interaction.Triggers>
-                                                                <i:EventTrigger EventName="Checked">
-                                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                         MethodName="CheckboxChecked"></ei:CallMethodAction>
-                                                                </i:EventTrigger>
-                                                                <i:EventTrigger EventName="Unchecked">
-                                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                         MethodName="CheckboxUnchecked"></ei:CallMethodAction>
-                                                                </i:EventTrigger>
-                                                            </i:Interaction.Triggers>
-                                                        </CheckBox>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </ScrollViewer>
                                         </Grid>
-                                        <Grid Grid.Row="1"
-                                              Name="BarGrid">
+                                        <Grid Name="BarGrid"
+                                              Margin="0,148,0,0" Grid.RowSpan="2">
                                             <telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
                                                     <i:Interaction.Triggers>
@@ -390,11 +305,7 @@
                                                                          CommandParameter="{Binding ElementName=BarGridData}" />
                                                 </telerik:RadContextMenu>
                                             </telerik:RadContextMenu.ContextMenu>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <telerik:RadCartesianChart Margin="10,0,10,0"
+                                            <telerik:RadCartesianChart Margin="10,0"
                                                                        Palette="Metro"
                                                                        Zoom="{Binding Zoom, Mode=TwoWay}"
                                                                        PanOffset="{Binding PanOffset, Mode=TwoWay}"
@@ -440,9 +351,8 @@
                                                     </telerik:CartesianChartGrid>
                                                 </telerik:RadCartesianChart.Grid>
                                                 <telerik:RadCartesianChart.Series>
-                                                    <telerik:BarSeries DisplayName="飞机净增数（子）"
+                                                    <telerik:BarSeries DisplayName="飞机净增数"
                                                                        ItemsSource="{Binding FleetAircraftTrendBarCollection}"
-                                                                       Visibility="{Binding Visibility, Mode=OneWay}"
                                                                        VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[0]}"
                                                                        ValueBinding="AircraftAmount"
                                                                        CategoryBinding="DateTime">
@@ -452,62 +362,8 @@
                                                             </DataTemplate>
                                                         </telerik:BarSeries.PointTemplate>
                                                     </telerik:BarSeries>
-                                                    <telerik:BarSeries DisplayName="飞机净增数"
-                                                                       ItemsSource="{Binding FleetAircraftTrendBarCollection}"
-                                                                       VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[0]}"
-                                                                       ValueBinding="AircraftAmount1"
-                                                                       CategoryBinding="DateTime">
-                                                        <telerik:BarSeries.PointTemplate>
-                                                            <DataTemplate>
-                                                                <Border Background="{Binding Path=DataItem.AircraftColor1}" />
-                                                            </DataTemplate>
-                                                        </telerik:BarSeries.PointTemplate>
-                                                    </telerik:BarSeries>
                                                 </telerik:RadCartesianChart.Series>
                                             </telerik:RadCartesianChart>
-                                            <ScrollViewer Grid.Column="1"
-                                                          Width="164"
-                                                          Margin="0,5,5,5"
-                                                          VerticalScrollBarVisibility="Auto"
-                                                          telerik:StyleManager.Theme="Windows8">
-                                                <StackPanel Style="{StaticResource LegendStyle}">
-                                                    <StackPanel Orientation="Horizontal"
-                                                                Margin="5,5,5,5"
-                                                                Visibility="{Binding Visibility, Mode=OneWay}">
-                                                        <CheckBox Content="飞机净增数（子）"
-                                                                  IsChecked="true"
-                                                                  VerticalAlignment="Center">
-                                                            <i:Interaction.Triggers>
-                                                                <i:EventTrigger EventName="Checked">
-                                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                         MethodName="CheckboxChecked"></ei:CallMethodAction>
-                                                                </i:EventTrigger>
-                                                                <i:EventTrigger EventName="Unchecked">
-                                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                         MethodName="CheckboxUnchecked"></ei:CallMethodAction>
-                                                                </i:EventTrigger>
-                                                            </i:Interaction.Triggers>
-                                                        </CheckBox>
-                                                    </StackPanel>
-                                                    <StackPanel Orientation="Horizontal"
-                                                                Margin="5,5,5,5">
-                                                        <CheckBox Content="飞机净增数"
-                                                                  IsChecked="true"
-                                                                  VerticalAlignment="Center">
-                                                            <i:Interaction.Triggers>
-                                                                <i:EventTrigger EventName="Checked">
-                                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                         MethodName="CheckboxChecked"></ei:CallMethodAction>
-                                                                </i:EventTrigger>
-                                                                <i:EventTrigger EventName="Unchecked">
-                                                                    <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                         MethodName="CheckboxUnchecked"></ei:CallMethodAction>
-                                                                </i:EventTrigger>
-                                                            </i:Interaction.Triggers>
-                                                        </CheckBox>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </ScrollViewer>
                                         </Grid>
                                     </Grid>
                                 </telerik:RadPane>
@@ -598,19 +454,27 @@
                                                 <telerik:PieSeries.LabelDefinitions>
                                                     <telerik:ChartSeriesLabelDefinition Margin="-5,0,0,0" />
                                                 </telerik:PieSeries.LabelDefinitions>
+                                                <telerik:PieSeries.LegendSettings>
+                                                    <telerik:DataPointLegendSettings TitleBinding="Aircraft" />
+                                                </telerik:PieSeries.LegendSettings>
                                                 <telerik:PieSeries.AngleRange>
                                                     <telerik:AngleRange StartAngle="270"
                                                                         SweepAngle="360" />
                                                 </telerik:PieSeries.AngleRange>
                                             </telerik:PieSeries>
                                         </telerik:RadPieChart>
-                                        <ScrollViewer Grid.Column="1"
-                                                      Margin="0,5,5,5"
-                                                      VerticalScrollBarVisibility="Auto"
-                                                      telerik:StyleManager.Theme="Windows8">
-                                            <StackPanel Style="{StaticResource LegendStyle}">
-                                            </StackPanel>
-                                        </ScrollViewer>
+                                        <telerik:RadLegend Name="PieLegend"
+                                                           Margin="0,0,10,0"
+                                                           Items="{Binding LegendItems, ElementName=AircraftRadPieChart}"
+                                                           Grid.Column="1"
+                                                           HoverMode="FadeOtherItems">
+                                            <!--<i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                    <i:InvokeCommandAction Command="{Binding PieLegendKeyDownCommand}"
+                                                                           CommandParameter="{Binding ElementName=PieLegend}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>-->
+                                        </telerik:RadLegend>
                                     </Grid>
                                 </telerik:RadPane>
                             </telerik:RadPaneGroup>

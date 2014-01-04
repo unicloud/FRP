@@ -1,6 +1,7 @@
 ﻿#region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
@@ -29,9 +30,13 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         {
             _service = service;
             _context = _service.Context;
-            InitialRequest(); // 初始化申请信息。
+            InitialRequest(); // 初始化申请信息
             InitialCommand(); //初始化命令
-            InitialAircraftType();//初始化机型
+            InitialAircraftType(); //初始化机型
+            InitialPlan(); // 初始化计划历史信息
+            InitialAircraftCategory(); //初始化座级
+            InitialActionCategory(); //初始化活动类型历史信息
+            InitialAnnual(); //执行年度
         }
 
         #region 加载申请
@@ -126,8 +131,211 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 {
                     SelectedAircraftType = e.Entities.Cast<AircraftTypeDTO>().FirstOrDefault();
                 }
-               
             };
+        }
+
+        #endregion
+
+        #region 加载座级
+
+        private AircraftCategoryDTO _selectedAircraftCategory;
+
+        /// <summary>
+        ///     选择座级。
+        /// </summary>
+        public AircraftCategoryDTO SelectedAircraftCategory
+        {
+            get { return _selectedAircraftCategory; }
+            set
+            {
+                if (_selectedAircraftCategory != value)
+                {
+                    _selectedAircraftCategory = value;
+                    RaisePropertyChanged(() => SelectedAircraftCategory);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     获取所有座级信息。
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftCategoryDTO> AircraftCategoriesView { get; set; }
+
+        /// <summary>
+        ///     初始化座级信息。
+        /// </summary>
+        private void InitialAircraftCategory()
+        {
+            AircraftCategoriesView = _service.CreateCollection(_context.AircraftCategories);
+            AircraftCategoriesView.LoadedData += (sender, e) =>
+            {
+                if (e.HasError)
+                {
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                if (SelectedAircraftCategory == null)
+                {
+                    SelectedAircraftCategory = e.Entities.Cast<AircraftCategoryDTO>().FirstOrDefault();
+                }
+            };
+        }
+
+        #endregion
+
+        #region 加载计划
+
+        private PlanDTO _selectedPlan;
+
+        /// <summary>
+        ///     选择计划历史。
+        /// </summary>
+        public PlanDTO SelectedPlan
+        {
+            get { return _selectedPlan; }
+            set
+            {
+                if (_selectedPlan != value)
+                {
+                    _selectedPlan = value;
+                    RaisePropertyChanged(() => SelectedPlan);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     获取所有计划历史信息。
+        /// </summary>
+        public QueryableDataServiceCollectionView<PlanDTO> PlansView { get; set; }
+
+        /// <summary>
+        ///     初始化计划历史信息。
+        /// </summary>
+        private void InitialPlan()
+        {
+            PlansView = _service.CreateCollection(_context.Plans);
+            PlansView.LoadedData += (sender, e) =>
+            {
+                if (e.HasError)
+                {
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                if (SelectedPlan == null)
+                {
+                    SelectedPlan = e.Entities.Cast<PlanDTO>().FirstOrDefault();
+                }
+            };
+        }
+
+        #endregion
+
+        #region 加载执行年度
+
+        private AnnualDTO _selectedAnnual;
+
+        /// <summary>
+        ///     选择执行年度历史。
+        /// </summary>
+        public AnnualDTO SelectedAnnual
+        {
+            get { return _selectedAnnual; }
+            set
+            {
+                if (_selectedAnnual != value)
+                {
+                    _selectedAnnual = value;
+                    RaisePropertyChanged(() => SelectedAnnual);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     获取所有执行年度历史信息。
+        /// </summary>
+        public QueryableDataServiceCollectionView<AnnualDTO> AnnualsView { get; set; }
+
+        /// <summary>
+        ///     初始化执行年度历史信息。
+        /// </summary>
+        private void InitialAnnual()
+        {
+            AnnualsView = _service.CreateCollection(_context.Annuals);
+            AnnualsView.LoadedData += (sender, e) =>
+            {
+                if (e.HasError)
+                {
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                if (SelectedAnnual == null)
+                {
+                    SelectedAnnual = e.Entities.Cast<AnnualDTO>().FirstOrDefault();
+                }
+            };
+        }
+
+        #endregion
+
+        #region 加载活动类型
+
+        private ActionCategoryDTO _selectedActionCategory;
+
+        /// <summary>
+        ///     选择活动类型历史。
+        /// </summary>
+        public ActionCategoryDTO SelectedActionCategory
+        {
+            get { return _selectedActionCategory; }
+            set
+            {
+                if (_selectedActionCategory != value)
+                {
+                    _selectedActionCategory = value;
+                    RaisePropertyChanged(() => SelectedActionCategory);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     获取所有活动类型历史信息。
+        /// </summary>
+        public QueryableDataServiceCollectionView<ActionCategoryDTO> ActionCategoriesView { get; set; }
+
+        /// <summary>
+        ///     初始化活动类型历史信息。
+        /// </summary>
+        private void InitialActionCategory()
+        {
+            ActionCategoriesView = _service.CreateCollection(_context.ActionCategories);
+            ActionCategoriesView.FilterDescriptors.Add(new FilterDescriptor("ActionType", FilterOperator.IsEqualTo, "引进"));
+            ActionCategoriesView.LoadedData += (sender, e) =>
+            {
+                if (e.HasError)
+                {
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                if (SelectedActionCategory == null)
+                {
+                    SelectedActionCategory = e.Entities.Cast<ActionCategoryDTO>().FirstOrDefault();
+                }
+            };
+        }
+
+        #endregion
+
+        #region 获取月份集合
+        /// <summary>
+        /// 设置月份
+        /// </summary>
+        public List<int> Months
+        {
+            get
+            {
+                return new List<int>
+                {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+            }
         }
 
         #endregion
@@ -264,6 +472,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         public override void LoadData()
         {
+            //加载申请
             if (!RequestsView.AutoLoad)
             {
                 RequestsView.AutoLoad = true;
@@ -272,7 +481,21 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             {
                 RequestsView.Load(true);
             }
-            AircraftTypesView.AutoLoad = true;//加载机型
+
+            //加载计划
+            if (!PlansView.AutoLoad)
+            {
+                PlansView.AutoLoad = true;
+            }
+            else
+            {
+                PlansView.Load(true);
+            }
+
+            AircraftTypesView.AutoLoad = true; //加载机型
+            AircraftCategoriesView.AutoLoad = true; //加载座级
+            //AnnualsView.AutoLoad = true; //加载执行年度
+            ActionCategoriesView.AutoLoad = true; //加载操作类型
         }
 
         protected override void RefreshCommandState()

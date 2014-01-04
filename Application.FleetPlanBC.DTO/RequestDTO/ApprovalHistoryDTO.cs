@@ -70,6 +70,16 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public Guid PlanAircraftId { get; set; }
 
         /// <summary>
+        /// 座级
+        /// </summary>
+        public string AircraftRegional { get; set; }
+
+        /// <summary>
+        /// 机型
+        /// </summary>
+        public string AircraftType { get; set; }
+
+        /// <summary>
         ///     引进方式
         /// </summary>
         public Guid ImportCategoryId { get; set; }

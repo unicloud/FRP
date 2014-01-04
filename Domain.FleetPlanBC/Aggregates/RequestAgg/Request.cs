@@ -106,7 +106,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// </summary>
         public string SawsNote { get; private set; }
 
-        /// <summary>
+              /// <summary>
         ///     地方局批文文档名称
         /// </summary>
         public string RaDocumentName { get; private set; }

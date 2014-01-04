@@ -77,6 +77,8 @@ namespace UniCloud.Application.FleetPlanBC.Query.RequestQueries
                     RequestId = c.RequestId,
                     PlanAircraftId = c.PlanAircraftId,
                     ImportCategoryId = c.ImportCategoryId,
+                    AircraftRegional = c.PlanAircraft.AircraftType.AircraftCategory.Regional,
+                    AircraftType = c.PlanAircraft.AircraftType.Name,
                     ImportCategoryName =
                         dbImportCategory.FirstOrDefault(a => a.Id == c.ImportCategoryId).ActionType + "-"
                         + dbImportCategory.FirstOrDefault(a => a.Id == c.ImportCategoryId).ActionName,

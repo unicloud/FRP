@@ -10,7 +10,8 @@
              d:DataContext="{d:DesignInstance uc:AircraftImportTypeVm}"
              mc:Ignorable="d"
              d:DesignHeight="300"
-             d:DesignWidth="400">
+             d:DesignWidth="400"
+             Name="AircraftImportTypeView">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -312,9 +313,8 @@
                                                                                          BorderThickness="1"
                                                                                          Background="{Binding Color}"
                                                                                          BorderBrush="{Binding Color}"
-                                                                                         Unchecked="ImportTypeToggleButton_Unchecked"
-                                                                                         Checked="ImportTypeToggleButton_Checked">
-                                                                </telerik:RadToggleButton>
+                                                                                         Command="{Binding DataContext.ToggleButtonCommand,ElementName=AircraftImportTypeView}"
+                                                                                         CommandParameter="{Binding ElementName=ImportTypeToggleButton}" />
                                                             </DataTemplate>
                                                         </ItemsControl.ItemTemplate>
                                                     </ItemsControl>
@@ -507,18 +507,27 @@
                                                 <telerik:PieSeries.LabelDefinitions>
                                                     <telerik:ChartSeriesLabelDefinition Margin="-5,0,0,0" />
                                                 </telerik:PieSeries.LabelDefinitions>
+                                                <telerik:PieSeries.LegendSettings>
+                                                    <telerik:DataPointLegendSettings TitleBinding="ImportType" />
+                                                </telerik:PieSeries.LegendSettings>
                                                 <telerik:PieSeries.AngleRange>
                                                     <telerik:AngleRange StartAngle="270"
                                                                         SweepAngle="360" />
                                                 </telerik:PieSeries.AngleRange>
                                             </telerik:PieSeries>
                                         </telerik:RadPieChart>
-                                        <ScrollViewer Grid.Column="1"
-                                                      Margin="0,5,5,5"
-                                                      VerticalScrollBarVisibility="Auto"
-                                                      telerik:StyleManager.Theme="Windows8">
-                                            <StackPanel Style="{StaticResource legendStyle}" />
-                                        </ScrollViewer>
+                                        <telerik:RadLegend Name="PieLegend"
+                                                           Margin="0,0,10,0"
+                                                           Items="{Binding LegendItems, ElementName=ImportTypeRadPieChart}"
+                                                           Grid.Column="1"
+                                                           HoverMode="FadeOtherItems">
+                                            <!--<i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                    <i:InvokeCommandAction Command="{Binding PieLegendKeyDownCommand}"
+                                                                           CommandParameter="{Binding ElementName=PieLegend}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>-->
+                                        </telerik:RadLegend>
                                     </Grid>
                                 </telerik:RadPane>
                             </telerik:RadPaneGroup>
