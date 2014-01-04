@@ -21,6 +21,5 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             get { return DataContext as FleetAgeVm; }
             set { DataContext = value; }
         }
-
     }
 }

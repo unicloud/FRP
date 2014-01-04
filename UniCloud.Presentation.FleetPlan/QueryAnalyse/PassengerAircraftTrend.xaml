@@ -345,7 +345,7 @@
                                                 </telerik:RadCartesianChart.Series>
                                             </telerik:RadCartesianChart>
                                             <ScrollViewer Grid.Column="1"
-                                                          Width="125"
+                                                          Width="115"
                                                           VerticalScrollBarVisibility="Auto"
                                                           telerik:StyleManager.Theme="Windows8">
                                                 <StackPanel>
@@ -510,7 +510,7 @@
                                                 </telerik:RadCartesianChart.Series>
                                             </telerik:RadCartesianChart>
                                             <ScrollViewer Grid.Column="1"
-                                                          Width="125"
+                                                          Width="115"
                                                           VerticalScrollBarVisibility="Auto"
                                                           telerik:StyleManager.Theme="Windows8">
                                                 <StackPanel>
@@ -642,19 +642,27 @@
                                                 <telerik:PieSeries.LabelDefinitions>
                                                     <telerik:ChartSeriesLabelDefinition Margin="-5,0,0,0" />
                                                 </telerik:PieSeries.LabelDefinitions>
+                                                <telerik:PieSeries.LegendSettings>
+                                                    <telerik:DataPointLegendSettings TitleBinding="Aircraft" />
+                                                </telerik:PieSeries.LegendSettings>
                                                 <telerik:PieSeries.AngleRange>
                                                     <telerik:AngleRange StartAngle="270"
                                                                         SweepAngle="360" />
                                                 </telerik:PieSeries.AngleRange>
                                             </telerik:PieSeries>
                                         </telerik:RadPieChart>
-                                        <ScrollViewer Grid.Column="1"
-                                                      Margin="0,5,5,5"
-                                                      VerticalScrollBarVisibility="Auto"
-                                                      telerik:StyleManager.Theme="Windows8">
-                                            <StackPanel Style="{StaticResource LegendStyle}">
-                                            </StackPanel>
-                                        </ScrollViewer>
+                                        <telerik:RadLegend Name="AircraftPieLegend"
+                                                           Margin="0,0,10,0"
+                                                           Items="{Binding LegendItems, ElementName=AircraftRadPieChart}"
+                                                           Grid.Column="1"
+                                                           HoverMode="FadeOtherItems">
+                                            <!--<i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                    <i:InvokeCommandAction Command="{Binding PieLegendKeyDownCommand}"
+                                                                           CommandParameter="{Binding ElementName=PieLegend}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>-->
+                                        </telerik:RadLegend>
                                     </Grid>
                                 </telerik:RadPane>
                             </telerik:RadPaneGroup>
@@ -737,19 +745,27 @@
                                                 <telerik:PieSeries.LabelDefinitions>
                                                     <telerik:ChartSeriesLabelDefinition Margin="-5,0,0,0" />
                                                 </telerik:PieSeries.LabelDefinitions>
+                                                <telerik:PieSeries.LegendSettings>
+                                                    <telerik:DataPointLegendSettings TitleBinding="Aircraft" />
+                                                </telerik:PieSeries.LegendSettings>
                                                 <telerik:PieSeries.AngleRange>
                                                     <telerik:AngleRange StartAngle="270"
                                                                         SweepAngle="360" />
                                                 </telerik:PieSeries.AngleRange>
                                             </telerik:PieSeries>
                                         </telerik:RadPieChart>
-                                        <ScrollViewer Grid.Column="1"
-                                                      Margin="0,5,5,5"
-                                                      VerticalScrollBarVisibility="Auto"
-                                                      telerik:StyleManager.Theme="Windows8">
-                                            <StackPanel Style="{StaticResource LegendStyle}">
-                                            </StackPanel>
-                                        </ScrollViewer>
+                                        <telerik:RadLegend Name="SeatPieLegend"
+                                                           Margin="0,0,10,0"
+                                                           Items="{Binding LegendItems, ElementName=SeatRadPieChart}"
+                                                           Grid.Column="1"
+                                                           HoverMode="FadeOtherItems">
+                                            <!--<i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                    <i:InvokeCommandAction Command="{Binding PieLegendKeyDownCommand}"
+                                                                           CommandParameter="{Binding ElementName=PieLegend}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>-->
+                                        </telerik:RadLegend>
                                     </Grid>
                                 </telerik:RadPane>
                             </telerik:RadPaneGroup>
@@ -833,19 +849,27 @@
                                                 <telerik:PieSeries.LabelDefinitions>
                                                     <telerik:ChartSeriesLabelDefinition Margin="-5,0,0,0" />
                                                 </telerik:PieSeries.LabelDefinitions>
+                                                <telerik:PieSeries.LegendSettings>
+                                                    <telerik:DataPointLegendSettings TitleBinding="Aircraft" />
+                                                </telerik:PieSeries.LegendSettings>
                                                 <telerik:PieSeries.AngleRange>
                                                     <telerik:AngleRange StartAngle="270"
                                                                         SweepAngle="360" />
                                                 </telerik:PieSeries.AngleRange>
                                             </telerik:PieSeries>
                                         </telerik:RadPieChart>
-                                        <ScrollViewer Grid.Column="1"
-                                                      Margin="0,5,5,5"
-                                                      VerticalScrollBarVisibility="Auto"
-                                                      telerik:StyleManager.Theme="Windows8">
-                                            <StackPanel Style="{StaticResource LegendStyle}">
-                                            </StackPanel>
-                                        </ScrollViewer>
+                                        <telerik:RadLegend Name="LoadPieLegend"
+                                                           Margin="0,0,10,0"
+                                                           Items="{Binding LegendItems, ElementName=LoadRadPieChart}"
+                                                           Grid.Column="1"
+                                                           HoverMode="FadeOtherItems">
+                                            <!--<i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                    <i:InvokeCommandAction Command="{Binding PieLegendKeyDownCommand}"
+                                                                           CommandParameter="{Binding ElementName=PieLegend}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>-->
+                                        </telerik:RadLegend>
                                     </Grid>
                                 </telerik:RadPane>
                             </telerik:RadPaneGroup>
