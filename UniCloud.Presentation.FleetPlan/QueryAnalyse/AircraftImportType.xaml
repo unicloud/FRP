@@ -311,6 +311,7 @@
                                                                                          Content="{Binding ImportType}"
                                                                                          Tag="{Binding ImportType}"
                                                                                          BorderThickness="1"
+                                                                                         IsChecked="True"
                                                                                          Background="{Binding Color}"
                                                                                          BorderBrush="{Binding Color}"
                                                                                          Command="{Binding DataContext.ToggleButtonCommand,ElementName=AircraftImportTypeView}"
@@ -404,20 +405,18 @@
                                                 </telerik:RadCartesianChart.Series>
                                             </telerik:RadCartesianChart>
                                             <ScrollViewer Grid.Column="1"
-                                                          Width="156"
-                                                          Margin="0,5,5,5"
                                                           VerticalScrollBarVisibility="Auto"
-                                                          telerik:StyleManager.Theme="Windows8">
-                                                <StackPanel Style="{StaticResource legendStyle}">
-                                                    <StackPanel Orientation="Horizontal"
-                                                                Margin="5,5,5,5">
-                                                        <Rectangle Width="15"
-                                                                   Height="15"
-                                                                   Fill="{Binding AircraftColor,Mode=OneWay}"
-                                                                   Margin="0,0,10,0" />
-                                                        <TextBlock Text="期末飞机数"
-                                                                   Foreground="{Binding AircraftColor,Mode=OneWay}" />
-                                                    </StackPanel>
+                                                          telerik:StyleManager.Theme="Windows8"
+                                                          Margin="19,0,0,0">
+                                                <StackPanel Orientation="Horizontal"
+                                                            Width="100">
+                                                    <Rectangle Width="15"
+                                                               Height="15"
+                                                               Fill="{Binding AircraftColor,Mode=OneWay}"
+                                                               Margin="0,0,10,0" />
+                                                    <TextBlock Text="期末飞机数"
+                                                               VerticalAlignment="Center"
+                                                               Foreground="{Binding AircraftColor,Mode=OneWay}" />
                                                 </StackPanel>
                                             </ScrollViewer>
                                         </Grid>
@@ -464,7 +463,7 @@
                                         <telerik:RadPieChart Name="ImportTypeRadPieChart"
                                                              Palette="Metro"
                                                              Grid.Column="0"
-                                                             EmptyContent="引进方式分布">
+                                                             EmptyContent="飞机引进方式分布">
                                             <telerik:RadPieChart.Behaviors>
                                                 <telerik:ChartTooltipBehavior Placement="MousePoint"
                                                                               PlacementTarget="{Binding  ElementName=ImportTypeRadPieChart}"

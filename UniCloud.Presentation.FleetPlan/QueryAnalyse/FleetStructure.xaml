@@ -340,6 +340,7 @@
                                                                                          Content="{Binding AircraftRegional}"
                                                                                          Tag="{Binding AircraftRegional}"
                                                                                          BorderThickness="1"
+                                                                                         IsChecked="True"
                                                                                          Background="{Binding Color}"
                                                                                          BorderBrush="{Binding Color}"
                                                                                          Command="{Binding DataContext.ToggleButtonCommand,ElementName=FleetStructureView}"
