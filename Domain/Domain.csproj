@@ -59,6 +59,7 @@
     <Compile Include="Events\DispatcherEventSubscription.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Events\DomainEvent.cs" />
     <Compile Include="Events\EventAggregator.cs">
       <SubType>Code</SubType>
     </Compile>

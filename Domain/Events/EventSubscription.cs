@@ -142,7 +142,7 @@ namespace UniCloud.Domain.Events
         }
 
         /// <summary>
-        ///     没重写是以异步方式调用<see cref="T:System.Action`1" />。
+        ///     没重写是以同步方式调用<see cref="T:System.Action`1" />。
         /// </summary>
         /// <param name="action">被执行的调用</param>
         /// <param name="argument">调用时传给<paramref name="action" />的参数。</param>
