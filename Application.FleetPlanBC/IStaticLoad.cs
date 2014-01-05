@@ -33,6 +33,11 @@ namespace UniCloud.Application.FleetPlanBC
         void RefreshActionCategory();
 
         /// <summary>
+        /// 设置刷新飞机系列集合
+        /// </summary>
+        void RefreshAcType();
+
+        /// <summary>
         /// 设置刷新机型集合
         /// </summary>
         void RefreshAircraftType();
@@ -77,6 +82,12 @@ namespace UniCloud.Application.FleetPlanBC
         /// </summary>
         /// <returns>活动类型静态集合</returns>
         IQueryable<ActionCategoryDTO> GetActionCategories();
+
+        /// <summary>
+        ///     获取飞机系列静态集合
+        /// </summary>
+        /// <returns>飞机系列静态集合</returns>
+        IQueryable<AcTypeDTO> GetAcTypes();
 
         /// <summary>
         ///     获取机型静态集合

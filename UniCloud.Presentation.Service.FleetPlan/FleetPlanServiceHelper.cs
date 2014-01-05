@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,120 +43,77 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <summary>
         /// 创建新年度计划
         /// </summary>
-        /// <param name="title"></param>
-        /// <param name="service"></param>
+        /// <param name="lastPlan"></param>
+        /// <param name="newAnnual"></param>
+        /// <param name="newYear"></param>
+        /// <param name="curAirlineId"></param>
         /// <returns></returns>
-        internal PlanDTO CreateNewYearPlan(string title, IFleetPlanService service)
+        internal PlanDTO CreateNewYearPlan(PlanDTO lastPlan,Guid newAnnual,int newYear,Guid curAirlineId)
         {
-            // 打开新年度
-            //var newAnnual =
-            //    service.EntityContainer.GetEntitySet<Annual>()
-            //           .FirstOrDefault(a => a.Year == service.CurrentAnnual.Year + 1);
-            //if (newAnnual == null)
-            //{
-            //    RadWindow.Alert(new DialogParameters
-            //    {
-            //        Header = "提醒",
-            //        OkButtonContent = "确认",
-            //        Content = new TextBlock
-            //        {
-            //            Text = "新年度不能为空！",
-            //            FontFamily = new FontFamily("Microsoft YaHei UI"),
-            //            FontSize = 13,
-            //            TextWrapping = TextWrapping.Wrap,
-            //            Width = 250,
-            //        },
-            //    });
-            //    return null;
-            //}
-            //service.CurrentAnnual.IsOpen = false;
-            //newAnnual.IsOpen = true;
-            //service.SetCurrentAnnual();
-            //// 获取当前计划
-            //var curPlan = service.CurrentPlan;
-            //// 从当前计划复制生成新年度计划
-            //var planNew = new Plan
-            //{
-            //    PlanID = Guid.NewGuid(),
-            //    Title = title,
-            //    CreateDate = DateTime.Now,
-            //    Annual = newAnnual,
-            //    Airlines = curPlan.Airlines,
-            //    VersionNumber = 1,
-            //    Status = (int)PlanStatus.Draft,
-            //    PublishStatus = (int)PlanPublishStatus.Draft,
-            //};
-            ////获取需要滚动到下一年度的计划明细项
-            //var planHistories = (curPlan == null || curPlan.PlanHistories == null) ? null
-            //                            : curPlan.PlanHistories.Where(o => o.PlanAircraft == null ||
-            //                               (o.PlanAircraft != null && (o.PlanAircraft.Status != (int)ManageStatus.Prepare
-            //                                                           && o.PlanAircraft.Status != (int)ManageStatus.Operation
-            //                                                           && o.PlanAircraft.Status != (int)ManageStatus.Retired)));
-
-            //// 从当前计划往新版本计划复制运营计划
-            //var operationPlans = planHistories.OfType<OperationPlan>()
-            //                            .Where(op => op.OperationHistory == null || op.OperationHistory.EndDate == null)
-            //                            .Select(op => new OperationPlan
-            //                            {
-            //                                Plan = planNew,
-            //                                PlanHistoryID = Guid.NewGuid(),
-            //                                PlanAircraft = op.PlanAircraft,
-            //                                Airlines = op.Airlines,
-            //                                AircraftType = op.AircraftType,
-            //                                ApprovalHistory = op.ApprovalHistory,
-            //                                IsSubmit = op.IsSubmit,
-            //                                IsValid = op.IsValid,
-            //                                ActionCategory = op.ActionCategory,
-            //                                TargetCategory = op.TargetCategory,
-            //                                Annual = op.Annual,
-            //                                PerformMonth = op.PerformMonth,
-            //                                SeatingCapacity = op.SeatingCapacity,
-            //                                CarryingCapacity = op.CarryingCapacity,
-            //                                OperationHistory = op.OperationHistory,
-            //                            }).ToList();
-            //operationPlans.ForEach(op => planNew.PlanHistories.Add(op));
-            //// 从当前计划往新版本计划复制变更计划
-            //var changePlans = planHistories.OfType<ChangePlan>()
-            //                         .Where(cp => cp.AircraftBusiness == null || cp.AircraftBusiness.EndDate == null)
-            //                         .Select(cp => new ChangePlan
-            //                         {
-            //                             PlanID = planNew.PlanID,
-            //                             PlanHistoryID = Guid.NewGuid(),
-            //                             PlanAircraft = cp.PlanAircraft,
-            //                             Airlines = cp.Airlines,
-            //                             AircraftType = cp.AircraftType,
-            //                             ApprovalHistory = cp.ApprovalHistory,
-            //                             IsSubmit = cp.IsSubmit,
-            //                             IsValid = cp.IsValid,
-            //                             ActionCategory = cp.ActionCategory,
-            //                             TargetCategory = cp.TargetCategory,
-            //                             Annual = cp.Annual,
-            //                             PerformMonth = cp.PerformMonth,
-            //                             SeatingCapacity = cp.SeatingCapacity,
-            //                             CarryingCapacity = cp.CarryingCapacity,
-            //                             AircraftBusiness = cp.AircraftBusiness,
-            //                         }).ToList();
-            //changePlans.ForEach(cp => planNew.PlanHistories.Add(cp));
-            //service.EntityContainer.GetEntitySet<Plan>().Add(planNew);
-            //service.SetCurrentPlan();
-            //return planNew;
-            return null;
+            var title = newYear + "年度运力规划";
+            // 从当前计划复制生成新年度计划
+            var planNew = new PlanDTO
+            {
+                Id = Guid.NewGuid(),
+                Title = title,
+                CreateDate = DateTime.Now,
+                AnnualId = newAnnual,
+                AirlinesId = curAirlineId,
+                VersionNumber = 1,
+                Status = 0,
+                PublishStatus = 0,
+            };
+            // 获取需要滚动到下一年度的计划明细项
+            var planHistories = (lastPlan == null || lastPlan.PlanHistories == null) ? null
+                                        : lastPlan.PlanHistories.Where(o => o.PlanAircraftId == null ||
+                                           (o.PlanAircraftId != null && (o.ManageStatus != 1
+                                                                       && o.ManageStatus != 7
+                                                                       && o.ManageStatus != 10)));
+            if(planHistories!=null)
+            // 从当前计划往新版本计划复制运营计划
+            planHistories.Where(ph => ph.RelatedGuid == Guid.Empty && ph.RelatedEndDate == null)
+                                        .Select(q => new PlanHistoryDTO
+                                        {
+                                            PlanId = planNew.Id,
+                                            Id = Guid.NewGuid(),
+                                            ActionCategoryId = q.ActionCategoryId,
+                                            AircraftTypeId = q.AircraftTypeId,
+                                            AirlinesId = q.AirlinesId,
+                                            CarryingCapacity = q.CarryingCapacity,
+                                            SeatingCapacity = q.SeatingCapacity,
+                                            RelatedGuid = q.RelatedGuid,
+                                            RelatedEndDate = q.RelatedEndDate,
+                                            IsSubmit = q.IsSubmit,
+                                            IsValid = q.IsValid,
+                                            Note = q.Note,
+                                            PerformAnnualId = q.PerformAnnualId,
+                                            PerformMonth = q.PerformMonth,
+                                            PlanAircraftId = q.PlanAircraftId,
+                                            PlanType = 1,
+                                            TargetCategoryId = q.TargetCategoryId,
+                                            AirlinesName = q.AirlinesName,
+                                            Regional = q.Regional,
+                                            AircraftTypeName = q.AircraftTypeName,
+                                            ActionType = q.ActionType,
+                                            TargetType = q.TargetType,
+                                            Year = q.Year,
+                                            ManageStatus = q.ManageStatus,
+                                        }).ToList().ForEach(ph => planNew.PlanHistories.Add(ph));
+            return planNew;
         }
 
         /// <summary>
         /// 创建当前新版本计划
         /// </summary>
-        /// <param name="title"></param>
-        /// <param name="service"></param>
+        /// <param name="lastPlan"></param>
         /// <returns></returns>
-        internal PlanDTO CreateNewVersionPlan(string title, IFleetPlanService service)
+        internal PlanDTO CreateNewVersionPlan(PlanDTO lastPlan)
         {
-            //// 获取当前计划
-            //var curPlan = service.CurrentPlan;
+
             //// 从当前计划复制生成新版本计划
-            //var planNew = new Plan
+            //var planNew = new PlanDTO
             //{
-            //    PlanID = Guid.NewGuid(),
+            //    Id = Guid.NewGuid(),
             //    Title = title,
             //    CreateDate = DateTime.Now,
             //    Annual = curPlan.Annual,

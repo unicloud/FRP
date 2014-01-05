@@ -20,5 +20,28 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
     /// </summary>
     public interface IAircraftRepository : IRepository<Aircraft>
     {
+        /// <summary>
+        /// 删除飞机
+        /// </summary>
+        /// <param name="aircraft"></param>
+        void DeleteAircraft(Aircraft aircraft);
+
+        /// <summary>
+        /// 移除商业数据历史
+        /// </summary>
+        /// <param name="ab"></param>
+        void RemoveAircraftBusiness(AircraftBusiness ab);
+
+        /// <summary>
+        /// 移除运营权历史
+        /// </summary>
+        /// <param name="oh"></param>
+        void RemoveOperationHistory(OperationHistory oh);
+
+        /// <summary>
+        /// 移除所有权历史
+        /// </summary>
+        /// <param name="oh"></param>
+        void RemoveOwnershipHistory(OwnershipHistory oh);
     }
 }

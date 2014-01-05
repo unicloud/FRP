@@ -29,6 +29,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanEngineAgg
             {
             };
 
+            planEngine.GenerateNewIdentity();
             return planEngine;
         }
     }

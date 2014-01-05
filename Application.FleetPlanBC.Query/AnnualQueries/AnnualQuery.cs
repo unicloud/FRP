@@ -18,6 +18,7 @@
 
 using System.Linq;
 using UniCloud.Application.FleetPlanBC.DTO;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
 using UniCloud.Infrastructure.Data;
@@ -44,6 +45,8 @@ namespace UniCloud.Application.FleetPlanBC.Query.AnnualQueries
             QueryBuilder<Annual> query)
         {
             var plans = _unitOfWork.CreateSet<Plan>();
+            var aircraftBusinesses = _unitOfWork.CreateSet<AircraftBusiness>();
+            var operationHistories = _unitOfWork.CreateSet<OperationHistory>();
             var result = query.ApplyTo(_unitOfWork.CreateSet<Annual>()).Select(p => new AnnualDTO
             {
                 Id = p.Id,
@@ -78,7 +81,8 @@ namespace UniCloud.Application.FleetPlanBC.Query.AnnualQueries
                         AirlinesId = q.AirlinesId,
                         CarryingCapacity = q.CarryingCapacity,
                         SeatingCapacity = q.SeatingCapacity,
-                        CoperGuid = q.OperationHistoryId,
+                        RelatedGuid = q.OperationHistoryId,
+                        //RelatedEndDate = operationHistories.FirstOrDefault(o=>o.Id==q.OperationHistoryId).EndDate,
                         IsSubmit = q.IsSubmit,
                         IsValid = q.IsValid,
                         Note = q.Note,
@@ -94,6 +98,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AnnualQueries
                         ActionType = q.ActionCategory.ActionType + ":" + q.ActionCategory.ActionName,
                         TargetType = q.TargetCategory.ActionName,
                         Year = q.PerformAnnual.Year,
+                        ManageStatus = (int)q.PlanAircraft.Status,
                     })
                      .Union(r.PlanHistories.OfType<ChangePlan>().Select(q => new PlanHistoryDTO
                     {
@@ -103,7 +108,8 @@ namespace UniCloud.Application.FleetPlanBC.Query.AnnualQueries
                         AirlinesId = q.AirlinesId,
                         CarryingCapacity = q.CarryingCapacity,
                         SeatingCapacity = q.SeatingCapacity,
-                        CoperGuid = q.AircraftBusinessId,
+                        RelatedGuid = q.AircraftBusinessId,
+                        //RelatedEndDate = aircraftBusinesses.FirstOrDefault(o=>o.Id==q.AircraftBusinessId).EndDate,
                         IsSubmit = q.IsSubmit,
                         IsValid = q.IsValid,
                         Note = q.Note,
@@ -119,6 +125,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AnnualQueries
                         ActionType = q.ActionCategory.ActionType + ":" + q.ActionCategory.ActionName,
                         TargetType = q.TargetCategory.ActionName,
                         Year = q.PerformAnnual.Year,
+                        ManageStatus = (int)q.PlanAircraft.Status,
                     })).ToList(),
                 }).ToList()
             });

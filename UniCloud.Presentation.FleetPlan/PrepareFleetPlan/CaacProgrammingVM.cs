@@ -276,6 +276,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             {
                 Id = new Guid(),
                 Number = 1,
+                CaacProgrammingId = SelCaacProgramming.Id,
             };
 
             SelCaacProgramming.CaacProgrammingLines.Add(caacProgLine);

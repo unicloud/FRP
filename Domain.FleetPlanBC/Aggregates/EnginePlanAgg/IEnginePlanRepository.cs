@@ -20,5 +20,16 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
     /// </summary>
     public interface IEnginePlanRepository : IRepository<EnginePlan>
     {
+        /// <summary>
+        /// 删除备发计划
+        /// </summary>
+        /// <param name="enginePlan"></param>
+        void DeleteEnginePlan(EnginePlan enginePlan);
+
+        /// <summary>
+        /// 移除备发计划明细    
+        /// </summary>
+        /// <param name="eph"></param>
+        void RemoveEnginePlanHistory(EnginePlanHistory eph);
     }
 }

@@ -94,6 +94,10 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public int Year { get; set; }
 
+        /// <summary>
+        /// 计划明细的状态（取自关联的计划飞机的管理状态）
+        /// </summary>
+        public int ManageStatus { get; set; }
         #endregion
 
         #region 外键属性
@@ -133,7 +137,6 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public Guid PerformAnnualId { get; set; }
 
-
         #endregion
 
         #region 外加属性,用于处理运营计划\变更计划
@@ -145,7 +148,13 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// <summary>
         /// 关联的Guid，运营计划时，记录OperationHistoryID，变更计划时记录为AircraftBusinessID
         /// </summary>
-        public Guid CoperGuid { get; set; }
+        public Guid? RelatedGuid { get; set; }
+
+        /// <summary>
+        ///  关联的运营计划历史或商业数据历史的结束日期
+        ///  在创建新年度计划时，用于判断是否需要复制此计划明细
+        /// </summary>
+        public DateTime? RelatedEndDate { get; set; }
 
         #endregion
     }

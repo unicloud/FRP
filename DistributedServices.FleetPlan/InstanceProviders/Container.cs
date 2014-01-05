@@ -4,6 +4,7 @@
 
 using UniCloud.Application.FleetPlanBC;
 using UniCloud.Application.FleetPlanBC.ActionCategoryServices;
+using UniCloud.Application.FleetPlanBC.AcTypeServices;
 using UniCloud.Application.FleetPlanBC.AircraftCategoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftServices;
 using UniCloud.Application.FleetPlanBC.AircraftTypeServices;
@@ -23,6 +24,7 @@ using UniCloud.Application.FleetPlanBC.PlanEngineServices;
 using UniCloud.Application.FleetPlanBC.AircraftPlanServices;
 using UniCloud.Application.FleetPlanBC.ProgrammingServices;
 using UniCloud.Application.FleetPlanBC.Query.ActionCategoryQueries;
+using UniCloud.Application.FleetPlanBC.Query.AcTypeQueries;
 using UniCloud.Application.FleetPlanBC.Query.AircraftCategoryQueries;
 using UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries;
 using UniCloud.Application.FleetPlanBC.Query.AircraftQueries;
@@ -50,6 +52,7 @@ using UniCloud.Application.FleetPlanBC.SupplierServices;
 using UniCloud.Application.FleetPlanBC.XmlConfigServices;
 using UniCloud.Application.FleetPlanBC.XmlSettingServices;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AcTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
@@ -100,6 +103,13 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 .Register<IActionCategoryQuery, ActionCategoryQuery>()
                 .Register<IActionCategoryAppService, ActionCategoryAppService>()
                 .Register<IActionCategoryRepository, ActionCategoryRepository>()
+                #endregion
+
+                #region 飞机系列相关配置，包括查询，应用服务，仓储注册
+
+                .Register<IAcTypeQuery, AcTypeQuery>()
+                .Register<IAcTypeAppService, AcTypeAppService>()
+                .Register<IAcTypeRepository, AcTypeRepository>()
                 #endregion
 
                 #region 实际飞机相关配置，包括查询，应用服务，仓储注册

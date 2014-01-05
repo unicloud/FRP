@@ -101,6 +101,16 @@ namespace UniCloud.DistributedServices.FleetPlan
         }
         #endregion
 
+        #region 飞机系列集合
+        /// <summary>
+        ///     活动类型集合
+        /// </summary>
+        public IQueryable<AcTypeDTO> AcTypes
+        {
+            get { return _staticLoad.GetAcTypes(); }
+        }
+        #endregion
+
         #region 座级
         /// <summary>
         ///     座级集合

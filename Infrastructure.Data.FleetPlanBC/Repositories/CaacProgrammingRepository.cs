@@ -14,6 +14,9 @@
 
 #region 命名空间
 
+using System;
+using System.Linq;
+using System.Data.Entity;
 using UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg;
 using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork;
 
@@ -32,6 +35,15 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.Repositories
         }
 
         #region 方法重载
+
+        public override CaacProgramming Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<CaacProgramming>();
+
+            return set.Include(p => p.CaacProgrammingLines).SingleOrDefault(l => l.Id == (Guid)id);
+        }
 
         /// <summary>
         /// 删除民航局五年规划

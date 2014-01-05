@@ -18,6 +18,17 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="EditComboBox"
+                   TargetType="telerik:RadComboBox">
+                <Setter Property="FontFamily"
+                        Value="Microsoft YaHei UI" />
+                <Setter Property="FontSize"
+                        Value="13" />
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="OpenDropDownOnFocus"
+                        Value="True" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -109,14 +120,14 @@
                                 <telerik:RadGridView.Columns>
                                     <input:DataPageSerialColumn Header="序号"
                                                                 HeaderTextAlignment="Center" />
-                                    <telerik:GridViewDataColumn Header="年度"
-                                                                HeaderTextAlignment="Center"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                IsSortable="True"
-                                                                IsFilterable="True"
-                                                                IsReadOnly="True"
-                                                                DataMemberBinding="{Binding Annual.Year}" />
-                                    <telerik:GridViewDataColumn Header="版本号"
+                                    <telerik:GridViewComboBoxColumn Header="年度"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    ItemsSource="{Binding DataContext.Annuals, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                    DisplayMemberPath="Year"
+                                                                    DataMemberBinding="{Binding AnnualId,Mode=TwoWay}"
+                                                                    SelectedValueMemberPath="Id"
+                                                                    EditorStyle="{StaticResource EditComboBox}" />
+                                    <!--<telerik:GridViewDataColumn Header="版本号"
                                                                 HeaderTextAlignment="Center"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 IsSortable="True"
@@ -131,7 +142,7 @@
                                                 </StackPanel>
                                             </DataTemplate>
                                         </telerik:GridViewColumn.CellTemplate>
-                                    </telerik:GridViewDataColumn>
+                                    </telerik:GridViewDataColumn>-->
                                     <telerik:GridViewCheckBoxColumn Header="是否有效"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding IsValid}">
@@ -184,9 +195,9 @@
                                                  RowIndicatorVisibility="Collapsed"
                                                  CanUserResizeColumns="False"
                                                  IsFilteringAllowed="False"
-                                                 ItemsSource="{Binding }"
-                                                 SelectedItem="{Binding }"
-                                                 IsBusy="{Binding }"
+                                                 ItemsSource="{Binding SelEnginePlan.EnginePlanHistories,Mode=TwoWay}"
+                                                 SelectedItem="{Binding SelEnginePlanHistory,Mode=TwoWay}"
+                                                 IsBusy="{Binding EnginePlans.IsBusy}"
                                                  AutoGenerateColumns="False"
                                                  ShowColumnFooters="True">
                                 <telerik:RadContextMenu.ContextMenu>
@@ -202,27 +213,36 @@
                                 <telerik:RadGridView.Columns>
                                     <input:DataPageSerialColumn Header="序号"
                                                                 HeaderTextAlignment="Center" />
-                                    <telerik:GridViewDataColumn Header="发动机型号"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding EngineType.Name}">
-                                    </telerik:GridViewDataColumn>
-                                    <telerik:GridViewDataColumn Header="活动类别"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding ActionCategoryOperation}" />
+                                    <telerik:GridViewComboBoxColumn Header="发动机型号"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    ItemsSource="{Binding DataContext.EngineTypes, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                    DisplayMemberPath="Name"
+                                                                    DataMemberBinding="{Binding EngineTypeId,Mode=TwoWay}"
+                                                                    SelectedValueMemberPath="Id"
+                                                                    EditorStyle="{StaticResource EditComboBox}" />
+                                    <telerik:GridViewComboBoxColumn Header="活动类别"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    ItemsSource="{Binding DataContext.ActionCategories, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                    DisplayMemberPath="ActionName"
+                                                                    DataMemberBinding="{Binding ActionCategoryId,Mode=TwoWay}"
+                                                                    SelectedValueMemberPath="Id"
+                                                                    EditorStyle="{StaticResource EditComboBox}" />
                                     <telerik:GridViewDataColumn Header="引进/退出方式"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding ActionCategory.ActionName}" />
-                                    <telerik:GridViewDataColumn Header="执行年度"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                UniqueName="PerformAnnual"
-                                                                DataMemberBinding="{Binding PerformAnnual.Year}"/>
-                                    <telerik:GridViewDataColumn Header="执行月份"
+                                    <telerik:GridViewComboBoxColumn Header="执行年度"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    ItemsSource="{Binding DataContext.Annuals, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                    DisplayMemberPath="Year"
+                                                                    DataMemberBinding="{Binding PerformAnnualId,Mode=TwoWay}"
+                                                                    SelectedValueMemberPath="Id"
+                                                                    EditorStyle="{StaticResource EditComboBox}" />                                    <telerik:GridViewDataColumn Header="执行月份"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 UniqueName="PerformMonth"
                                                                 DataMemberBinding="{Binding PerformMonth}"/>
                                     <telerik:GridViewDataColumn Header="最大推力"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding MAXThrust}" />
+                                                                DataMemberBinding="{Binding MaxThrust}" />
                                     <telerik:GridViewDataColumn Header="管理状态"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding Status}" />

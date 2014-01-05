@@ -49,7 +49,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     运营历史外键
         /// </summary>
-        public Guid OperationHistoryId { get; private set; }
+        public Guid? OperationHistoryId { get; private set; }
 
         #endregion
 
@@ -63,7 +63,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         ///     设置运营权历史
         /// </summary>
         /// <param name="operationHistoryId">运营权历史</param>
-        public void SetOperationHistory(Guid operationHistoryId)
+        public void SetOperationHistory(Guid? operationHistoryId)
         {
             OperationHistoryId = operationHistoryId;
         }
