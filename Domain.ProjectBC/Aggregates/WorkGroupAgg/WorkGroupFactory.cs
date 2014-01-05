@@ -24,7 +24,10 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
     {
         public static WorkGroup CreateWorkGroup()
         {
-            var workGroup = new WorkGroup();
+            var workGroup = new WorkGroup
+            {
+
+            };
 
             return workGroup;
         }

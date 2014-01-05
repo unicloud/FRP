@@ -25,7 +25,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 #endregion
 
 namespace UniCloud.Application.PaymentBC.Tests.Services
@@ -38,13 +38,11 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            Configuration.Create()
-                .UseAutofac()
-                .CreateLog()
-                .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IMaintainInvoiceRepository, MaintainInvoiceRepository>()
-                .Register<IMaintainInvoiceAppService, MaintainInvoiceAppService>()
-                .Register<IMaintainInvoiceQuery, MaintainInvoiceQuery>();
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .RegisterType<IMaintainInvoiceRepository, MaintainInvoiceRepository>()
+                .RegisterType<IMaintainInvoiceAppService, MaintainInvoiceAppService>()
+                .RegisterType<IMaintainInvoiceQuery, MaintainInvoiceQuery>();
         }
 
         [TestCleanup]

@@ -33,7 +33,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -44,24 +44,22 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void Initialize()
         {
-            Configuration.Create()
-                .UseAutofac()
-                .CreateLog()
-                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
 
                 #region 供应商相关配置，包括查询，应用服务，仓储注册
 
-                .Register<ISupplierQuery, SupplierQuery>()
-                .Register<ISupplierAppService, SupplierAppService>()
-                .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
-                .Register<ISupplierRepository, SupplierRepository>()
-                .Register<ILinkmanRepository, LinkmanRepository>()
-                .Register<ISupplierRoleRepository, SupplierRoleRepository>()
-                .Register<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>()
-                .Register<IStaticLoad, StaticLoad>()
-                .Register<IAircraftTypeQuery, AircraftTypeQuery>()
-                .Register<ICurrencyRepository,CurrencyRepository>()
-                .Register<ICurrencyQuery,CurrencyQuery>()
+                .RegisterType<ISupplierQuery, SupplierQuery>()
+                .RegisterType<ISupplierAppService, SupplierAppService>()
+                .RegisterType<ISupplierCompanyRepository, SupplierCompanyRepository>()
+                .RegisterType<ISupplierRepository, SupplierRepository>()
+                .RegisterType<ILinkmanRepository, LinkmanRepository>()
+                .RegisterType<ISupplierRoleRepository, SupplierRoleRepository>()
+                .RegisterType<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>()
+                .RegisterType<IStaticLoad, StaticLoad>()
+                .RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
+                .RegisterType<ICurrencyRepository,CurrencyRepository>()
+                .RegisterType<ICurrencyQuery,CurrencyQuery>()
 
                 #endregion
 

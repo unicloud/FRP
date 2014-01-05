@@ -10,7 +10,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.CommonServiceBC.Repositories;
 using UniCloud.Infrastructure.Data.CommonServiceBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 #endregion
 
 namespace UniCloud.Application.CommonServiceBC.Tests
@@ -23,16 +23,14 @@ namespace UniCloud.Application.CommonServiceBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            Configuration.Create()
-                         .UseAutofac()
-                         .CreateLog()
-                         .Register<IQueryableUnitOfWork, CommonServiceBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+            DefaultContainer.CreateContainer()
+                         .RegisterType<IQueryableUnitOfWork, CommonServiceBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 #region 文档相关配置，包括查询，应用服务，仓储注册
 
-                         .Register<IDocumentAppService, DocumentAppService>()
-                         .Register<IDocumentQuery, DocumentQuery>()
-                         .Register<IDocumentPathRepository, DocumentPathRepository>()
-                         .Register<IDocumentRepository, DocumentRepository>()
+                         .RegisterType<IDocumentAppService, DocumentAppService>()
+                         .RegisterType<IDocumentQuery, DocumentQuery>()
+                         .RegisterType<IDocumentPathRepository, DocumentPathRepository>()
+                         .RegisterType<IDocumentRepository, DocumentRepository>()
                 #endregion
 
                 ;

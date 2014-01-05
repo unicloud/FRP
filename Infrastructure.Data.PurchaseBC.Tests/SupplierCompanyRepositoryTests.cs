@@ -27,7 +27,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
@@ -40,14 +40,12 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            Configuration.Create()
-                .UseAutofac()
-                .CreateLog()
-                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IAircraftTypeRepository, AircraftTypeRepository>()
-                .Register<IMaterialRepository, MaterialRepository>()
-                .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
-                .Register<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>();
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
+                .RegisterType<IMaterialRepository, MaterialRepository>()
+                .RegisterType<ISupplierCompanyRepository, SupplierCompanyRepository>()
+                .RegisterType<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>();
         }
 
         [TestCleanup]

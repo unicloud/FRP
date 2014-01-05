@@ -9,7 +9,7 @@ using UniCloud.Domain.PaymentBC.Aggregates.ContractEngineAgg;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 namespace UniCloud.Infrastructure.Data.PaymentBC.Tests
 {
     [TestClass]
@@ -20,11 +20,9 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            Configuration.Create()
-                .UseAutofac()
-                .CreateLog()
-                .Register<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IContractEngineRepository, ContractEngineRepository>();
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .RegisterType<IContractEngineRepository, ContractEngineRepository>();
         }
 
         [TestCleanup]

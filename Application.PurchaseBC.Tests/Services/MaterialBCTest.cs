@@ -9,7 +9,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -22,16 +22,14 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            Configuration.Create()
-                         .UseAutofac()
-                         .CreateLog()
-                         .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>
+            DefaultContainer.CreateContainer()
+                         .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>
                 (new WcfPerRequestLifetimeManager())
                 #region 物料相关配置，包括查询，应用服务，仓储注册
 
-                         .Register<IMaterialQuery, MaterialQuery>()
-                         .Register<IMaterialAppService, MaterialAppService>()
-                         .Register<IMaterialRepository, MaterialRepository>()
+                         .RegisterType<IMaterialQuery, MaterialQuery>()
+                         .RegisterType<IMaterialAppService, MaterialAppService>()
+                         .RegisterType<IMaterialRepository, MaterialRepository>()
                 #endregion
 
                 ;

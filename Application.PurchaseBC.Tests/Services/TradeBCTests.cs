@@ -37,7 +37,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -50,32 +50,30 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            Configuration.Create()
-                .UseAutofac()
-                .CreateLog()
-                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
 
                 #region 交易相关配置，包括查询，应用服务，仓储注册
 
-                .Register<ITradeQuery, TradeQuery>()
-                .Register<IOrderQuery, OrderQuery>()
-                .Register<ITradeAppService, TradeAppService>()
-                .Register<ITradeRepository, TradeRepository>()
-                .Register<IOrderRepository, OrderRepository>()
-                .Register<IMaterialRepository, MaterialRepository>()
-                .Register<IActionCategoryRepository, ActionCategoryRepository>()
-                .Register<IRelatedDocRepository, RelatedDocRepository>()
-                .Register<IContractAircraftRepository,ContractAircraftRepository>()
-                .Register<IContractEngineRepository,ContractEngineRepository>()
+                .RegisterType<ITradeQuery, TradeQuery>()
+                .RegisterType<IOrderQuery, OrderQuery>()
+                .RegisterType<ITradeAppService, TradeAppService>()
+                .RegisterType<ITradeRepository, TradeRepository>()
+                .RegisterType<IOrderRepository, OrderRepository>()
+                .RegisterType<IMaterialRepository, MaterialRepository>()
+                .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
+                .RegisterType<IRelatedDocRepository, RelatedDocRepository>()
+                .RegisterType<IContractAircraftRepository,ContractAircraftRepository>()
+                .RegisterType<IContractEngineRepository,ContractEngineRepository>()
 
                 #endregion
 
                 #region 供应商相关配置，包括查询，应用服务，仓储注册
 
-                .Register<ISupplierQuery, SupplierQuery>()
-                .Register<ISupplierAppService, SupplierAppService>()
-                .Register<ISupplierCompanyRepository, SupplierCompanyRepository>()
-                .Register<ISupplierRepository, SupplierRepository>();
+                .RegisterType<ISupplierQuery, SupplierQuery>()
+                .RegisterType<ISupplierAppService, SupplierAppService>()
+                .RegisterType<ISupplierCompanyRepository, SupplierCompanyRepository>()
+                .RegisterType<ISupplierRepository, SupplierRepository>();
 
                 #endregion
         }
