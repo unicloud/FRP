@@ -56,7 +56,7 @@ namespace UniCloud.Domain.Events
         }
 
         /// <summary>
-        ///     在特定的<see cref="T:System.Windows.Threading.Dispatcher" />线程异步调用<see cref="T:System.Action`1" />。
+        ///     在特定的<see cref="T:System.Windows.Threading.Dispatcher" />线程同步调用<see cref="T:System.Action`1" />。
         /// </summary>
         /// <param name="action">执行的Action</param>
         /// <param name="argument">调用<paramref name="action" />时传输的参数</param>

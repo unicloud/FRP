@@ -140,7 +140,7 @@ namespace UniCloud.Domain.Events
         {
             var actionReference = (IDelegateReference) new DelegateReference(action, keepSubscriberReferenceAlive);
             var filterReference = filter == null
-                ? new DelegateReference((Func<bool>) (() => true), true)
+                ? new DelegateReference(new Predicate<TPayload>(t=>true), true)
                 : (IDelegateReference) new DelegateReference(filter, keepSubscriberReferenceAlive);
             EventSubscription<TPayload> eventSubscription;
             switch (threadOption)
