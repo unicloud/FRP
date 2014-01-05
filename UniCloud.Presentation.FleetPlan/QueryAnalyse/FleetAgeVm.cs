@@ -24,9 +24,6 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using System.Xml.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.ServiceLocation;
@@ -121,9 +118,29 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public QueryableDataServiceCollectionView<XmlConfigDTO> XmlConfigs { get; set; } //XmlConfig集合
         public QueryableDataServiceCollectionView<XmlSettingDTO> XmlSettings { get; set; } //XmlSetting集合
         public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; } //飞机集合 
-        public ObservableCollection<FleetData> FleetDatas { get; set; }
+
+        private ObservableCollection<FleetData> _fleetDatas;
+        public ObservableCollection<FleetData> FleetDatas
+        {
+            get { return _fleetDatas; }
+            set
+            {
+                _fleetDatas = value;
+                RaisePropertyChanged("FleetDatas");
+            }
+        }
         private ObservableCollection<FleetData> StaticFleetDatas { get; set; }
-        public ObservableCollection<FleetAgeTrend> AircraftTypes { get; set; }
+
+        private ObservableCollection<FleetAgeTrend> _aircraftTypes;
+        public ObservableCollection<FleetAgeTrend> AircraftTypes
+        {
+            get { return _aircraftTypes; }
+            set
+            {
+                _aircraftTypes = value;
+                RaisePropertyChanged("AircraftTypes");
+            }
+        }
         #endregion
 
         #region 加载数据

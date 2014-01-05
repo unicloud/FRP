@@ -65,7 +65,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             _service = service;
             _fleetPlanContext = _service.Context;
-            
+
             ViewModelInitializer();
             InitializeVm();
         }
@@ -109,11 +109,51 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #region 公共数据
         public QueryableDataServiceCollectionView<XmlConfigDTO> XmlConfigs { get; set; }//XmlConfig集合
         public QueryableDataServiceCollectionView<XmlSettingDTO> XmlSettings { get; set; } //XmlSetting集合
-        public ObservableCollection<FleetData> MonthFleetDatas { get; set; }
+
+        private ObservableCollection<FleetData> _monthFleetDatas;
+        public ObservableCollection<FleetData> MonthFleetDatas
+        {
+            get { return _monthFleetDatas; }
+            set
+            {
+                _monthFleetDatas = value;
+                RaisePropertyChanged("MonthFleetDatas");
+            }
+        }
         private ObservableCollection<FleetData> StaticMonthFleetDatas { get; set; }
-        public ObservableCollection<FleetData> YearFleetDatas { get; set; }
+        private ObservableCollection<FleetRegisteredTrend> _monthAircraftTypes;
+        public ObservableCollection<FleetRegisteredTrend> MonthAircraftTypes
+        {
+            get { return _monthAircraftTypes; }
+            set
+            {
+                _monthAircraftTypes = value;
+                RaisePropertyChanged("MonthAircraftTypes");
+            }
+        }
+
+        private ObservableCollection<FleetData> _yearFleetDatas;
+        public ObservableCollection<FleetData> YearFleetDatas
+        {
+            get { return _yearFleetDatas; }
+            set
+            {
+                _yearFleetDatas = value;
+                RaisePropertyChanged("YearFleetDatas");
+            }
+        }
         private ObservableCollection<FleetData> StaticYearFleetDatas { get; set; }
-        public ObservableCollection<FleetRegisteredTrend> AircraftTypes { get; set; }
+
+        private ObservableCollection<FleetRegisteredTrend> _yearAircraftTypes;
+        public ObservableCollection<FleetRegisteredTrend> YearAircraftTypes
+        {
+            get { return _yearAircraftTypes; }
+            set
+            {
+                _yearAircraftTypes = value;
+                RaisePropertyChanged("YearAircraftTypes");
+            }
+        }
 
 
         #region ViewModel 属性 EndDate --结束时间
@@ -280,7 +320,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
             YearFleetDatas.Add(result.FirstOrDefault(p => p.AircraftTypeName.Equals("所有机型", StringComparison.OrdinalIgnoreCase)));
             result.ToList().ForEach(StaticYearFleetDatas.Add);
-            AircraftTypes = aircraftTypeResult;
+            YearAircraftTypes = aircraftTypeResult;
             //控制趋势图的滚动条
             int dateTimeCount = FleetRegisteredTrendYearCollection.Select(p => p.DateTime).Distinct().Count();
             if (FleetRegisteredTrendYearCollection != null && dateTimeCount >= 12)
@@ -324,7 +364,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
             MonthFleetDatas.Add(result.FirstOrDefault(p => p.AircraftTypeName.Equals("所有机型", StringComparison.OrdinalIgnoreCase)));
             result.ToList().ForEach(StaticMonthFleetDatas.Add);
-            AircraftTypes = aircraftTypeResult;
+            MonthAircraftTypes = aircraftTypeResult;
             //控制趋势图的滚动条
             int dateTimeCount = FleetRegisteredTrendMonthCollection.Select(p => p.DateTime).Distinct().Count();
             if (FleetRegisteredTrendMonthCollection != null && dateTimeCount >= 12)

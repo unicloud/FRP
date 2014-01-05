@@ -54,7 +54,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private readonly RadWindow _aircraftWindow = new RadWindow(); //用于单击飞机数饼状图的用户提示
         private readonly CommonMethod _commonMethod = new CommonMethod();
         private readonly IFleetPlanService _service;
-        private Grid _aircraftPieGrid; //折线趋势图区域，柱状趋势图区域， 飞机数饼图区域
         private Grid _barGrid; //折线趋势图区域，柱状趋势图区域， 飞机数饼图区域
         private RadGridView _exportRadgridview; //初始化RadGridView
         private int _i; //导出数据源格式判断
@@ -70,7 +69,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             _fleetPlanContext = _service.Context;
 
             ViewModelInitializer();
-            InitalizerRadWindows(_aircraftWindow, "Aircraft", 200);
             AddRadMenu(_aircraftWindow);
             InitializeVm();
         }
@@ -116,7 +114,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView); //导出数据表数据
             _lineGrid = CurrentFleetTrend.LineGrid;
             _barGrid = CurrentFleetTrend.BarGrid;
-            _aircraftPieGrid = CurrentFleetTrend.AircraftPieGrid;
             _planDetailGridview = CurrentFleetTrend.PlanDetailGridview;
         }
 
@@ -455,28 +452,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         #endregion
 
-        #region ViewModel 属性 IsHidden --控制是否含分公司的饼图区域显示
-
-        private bool _isHidden = true;
-
-        /// <summary>
-        ///     控制是否含分公司的饼图区域显示
-        /// </summary>
-        public bool IsHidden
-        {
-            get { return _isHidden; }
-            set
-            {
-                if (IsHidden != value)
-                {
-                    _isHidden = value;
-                    RaisePropertyChanged(() => IsHidden);
-                }
-            }
-        }
-
-        #endregion
-
         #region ViewModel 属性 Zoom --滚动条的对应
 
         private Size _zoom = new Size(1, 1);
@@ -521,28 +496,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         #endregion
 
-        #region ViewModel 属性 Visibility --控制是否含分公司的趋势图数据显示
-
-        private Visibility _visibility = Visibility.Collapsed;
-
-        /// <summary>
-        ///     控制是否含分公司的饼图区域显示
-        /// </summary>
-        public Visibility Visibility
-        {
-            get { return _visibility; }
-            set
-            {
-                if (Visibility != value)
-                {
-                    _visibility = value;
-                    RaisePropertyChanged(() => Visibility);
-                }
-            }
-        }
-
-        #endregion
-
         #region ViewModel 属性 IsContextMenuOpen --控制右键菜单的打开
 
         private bool _isContextMenuOpen = true;
@@ -577,27 +530,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             XmlConfigs.Load(true);
             XmlSettings.Load(true);
             Aircrafts.Load(true);
-
-            //if (CurrentAirlines != null && CurrentAirlines.SubAirlines != null && CurrentAirlines.SubAirlines.Any(p => p.SubType == 0 || p.SubType == 2))
-            //{
-            //    IsHidden = false;
-            //}
-            //else
-            //{
-            //    IsHidden = true;
-            //}
-
-
-            //if (CurrentAirlines!= null && CurrentAirlines.SubAirlines != null && CurrentAirlines.SubAirlines.Any(p => p.SubType ==1))
-            //{
-            //    Visibility = Visibility.Visible;
-            //    (BarGrid.Children[0] as RadCartesianChart).TooltipTemplate = CurrentFleetTrend.Resources["TooltipTemplateChild"] as DataTemplate;
-            //}
-            //else
-            //{
-            //    Visibility = Visibility.Collapsed;
-            //    (BarGrid.Children[0] as RadCartesianChart).TooltipTemplate = CurrentFleetTrend.Resources["TooltipTemplate"] as DataTemplate;
-            //}
         }
 
         #endregion
@@ -686,45 +618,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             //        _commonMethod.ShowRadWindow(radwindow);
             //    }
             //}
-        }
-
-        /// <summary>
-        ///     初始化子窗体
-        /// </summary>
-        public void InitalizerRadWindows(RadWindow radwindow, string windowsName, int length)
-        {
-            //运营计划子窗体的设置
-            radwindow.Name = windowsName;
-            radwindow.Top = length;
-            radwindow.Left = length;
-            radwindow.Height = 250;
-            radwindow.Width = 500;
-            radwindow.ResizeMode = ResizeMode.CanResize;
-            radwindow.Content = _commonMethod.CreatOperationGridView();
-            radwindow.Closed += RadwindowClosed;
-        }
-
-        /// <summary>
-        ///     弹出窗体关闭时，取消相应饼图的弹出项
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void RadwindowClosed(object sender, WindowClosedEventArgs e)
-        {
-            var radWindow = sender as RadWindow;
-            var grid = new Grid();
-            if (radWindow != null && radWindow.Name.Equals("Aircraft", StringComparison.OrdinalIgnoreCase))
-            {
-                grid = _aircraftPieGrid;
-            }
-
-            //更改对应饼图的突出显示
-            foreach (var item in (grid.Children[0] as RadPieChart).Series[0].DataPoints)
-            {
-                item.IsSelected = false;
-            }
-            //更改对应饼图的标签大小
-            ((RadLegend)grid.Children[1]).Items.ToList().ForEach(p => p.IsHovered = false);
         }
 
         /// <summary>
@@ -862,14 +755,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     if (_lineGrid != null)
                     {
                         _commonMethod.ExportToImage(_lineGrid.Parent as Grid);
-                    }
-                }
-                else if (menu.Name.Equals("AircraftPieGridImage", StringComparison.OrdinalIgnoreCase))
-                {
-                    //导出图片
-                    if (_aircraftPieGrid != null)
-                    {
-                        _commonMethod.ExportToImage(_aircraftPieGrid);
                     }
                 }
             }
@@ -1204,46 +1089,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     }
 
                     #endregion
-                }
-            }
-        }
-
-        /// <summary>
-        ///     飞机饼状图的选择点事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void RadPieChartSelectionBehaviorSelectionChanged(object sender, ChartSelectionChangedEventArgs e)
-        {
-            var chartSelectionBehavior = sender as ChartSelectionBehavior;
-            if (chartSelectionBehavior != null)
-            {
-                RadChartBase radChartBase = chartSelectionBehavior.Chart;
-                var selectedPoint = radChartBase.SelectedPoints.FirstOrDefault() as PieDataPoint;
-
-                if (selectedPoint != null)
-                {
-                    var items = ((RadLegend)_aircraftPieGrid.Children[1]).Items;
-                    items.ToList().ForEach(p => p.IsHovered = false);
-                    foreach (var item in items)
-                    {
-                        if (item.Title.Equals(((FleetAircraft)selectedPoint.DataItem).Aircraft, StringComparison.OrdinalIgnoreCase))
-                        {
-                            item.IsHovered = true;
-                            break;
-                        }
-                    }
-                    if (radChartBase.EmptyContent.ToString().Equals("飞机数分布", StringComparison.OrdinalIgnoreCase))
-                    {
-                        GetGridViewDataSourse(selectedPoint, _aircraftWindow, "飞机数");
-                    }
-                }
-                else
-                {
-                    if (radChartBase.EmptyContent.ToString().Equals("飞机数分布", StringComparison.OrdinalIgnoreCase))
-                    {
-                        _aircraftWindow.Close();
-                    }
                 }
             }
         }

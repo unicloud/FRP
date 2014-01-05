@@ -269,7 +269,7 @@
                                                 </telerik:RadCartesianChart.Grid>
                                                 <telerik:RadCartesianChart.Series>
                                                     <telerik:LineSeries DisplayName="期末飞机数"
-                                                                        ItemsSource="{Binding FleetAircraftTrendLineCollection}"
+                                                                        ItemsSource="{Binding FleetAircraftTrendLineCollection,Mode=TwoWay}"
                                                                         VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[0]}"
                                                                         ValueBinding="AircraftAmount"
                                                                         CategoryBinding="DateTime"
@@ -352,7 +352,7 @@
                                                 </telerik:RadCartesianChart.Grid>
                                                 <telerik:RadCartesianChart.Series>
                                                     <telerik:BarSeries DisplayName="飞机净增数"
-                                                                       ItemsSource="{Binding FleetAircraftTrendBarCollection}"
+                                                                       ItemsSource="{Binding FleetAircraftTrendBarCollection,Mode=TwoWay}"
                                                                        VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[0]}"
                                                                        ValueBinding="AircraftAmount"
                                                                        CategoryBinding="DateTime">
@@ -372,112 +372,6 @@
 
                         <telerik:RadSplitContainer InitialPosition="DockedBottom"
                                                    telerik:ProportionalStackPanel.RelativeSize="800, 400">
-                            <telerik:RadPaneGroup>
-                                <telerik:RadPane Header="{Binding SelectedTimeAircraft}"
-                                                 FontSize="{StaticResource TextFontSize}"
-                                                 CanDockInDocumentHost="False"
-                                                 CanFloat="False"
-                                                 CanUserClose="False"
-                                                 IsHidden="{Binding IsHidden,Mode=TwoWay}"
-                                                 CanUserPin="False"
-                                                 ContextMenuTemplate="{x:Null}">
-                                    <Grid Name="AircraftPieGrid"
-                                          Cursor="Hand"
-                                          Background="White">
-                                        <telerik:RadContextMenu.ContextMenu>
-                                            <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
-                                                <i:Interaction.Triggers>
-                                                    <i:EventTrigger EventName="Opened">
-                                                        <ei:CallMethodAction TargetObject="{Binding}"
-                                                                             MethodName="ContextMenuOpened" />
-                                                    </i:EventTrigger>
-                                                </i:Interaction.Triggers>
-                                                <telerik:RadMenuItem Name="AircraftPieGridImage"
-                                                                     Header="导出图片"
-                                                                     Command="{Binding ExportCommand}"
-                                                                     CommandParameter="{Binding ElementName=AircraftPieGridImage}" />
-                                                <telerik:RadMenuItem Name="AircraftPieGridData"
-                                                                     Header="导出源数据"
-                                                                     Command="{Binding ExportCommand}"
-                                                                     CommandParameter="{Binding ElementName=AircraftPieGridData}" />
-                                            </telerik:RadContextMenu>
-                                        </telerik:RadContextMenu.ContextMenu>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <telerik:RadPieChart Name="AircraftRadPieChart"
-                                                             Palette="Metro"
-                                                             Grid.Column="0"
-                                                             EmptyContent="飞机数分布">
-                                            <telerik:RadPieChart.Behaviors>
-                                                <telerik:ChartTooltipBehavior Placement="MousePoint"
-                                                                              PlacementTarget="{Binding  ElementName=AircraftRadPieChart}"
-                                                                              HorizontalOffset="-8"
-                                                                              VerticalOffset="-46" />
-                                                <telerik:ChartSelectionBehavior DataPointSelectionMode="Single">
-                                                    <i:Interaction.Triggers>
-                                                        <i:EventTrigger EventName="SelectionChanged">
-                                                            <ei:CallMethodAction TargetObject="{Binding}"
-                                                                                 MethodName="RadPieChartSelectionBehaviorSelectionChanged"></ei:CallMethodAction>
-                                                        </i:EventTrigger>
-                                                    </i:Interaction.Triggers>
-                                                </telerik:ChartSelectionBehavior>
-                                            </telerik:RadPieChart.Behaviors>
-                                            <telerik:RadPieChart.TooltipTemplate>
-                                                <DataTemplate>
-                                                    <Grid>
-                                                        <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
-                                                              Stretch="Fill"
-                                                              Fill="White"
-                                                              Stroke="Gray"
-                                                              StrokeThickness="1" />
-                                                        <StackPanel Margin="5,3,5,10">
-                                                            <TextBlock Text="{Binding Path=DataItem.Aircraft, StringFormat='公司名称: {0}'}"
-                                                                       Foreground="{Binding Path=DataItem.Color}"
-                                                                       FontFamily="Segoe UI"
-                                                                       FontSize="11" />
-                                                            <TextBlock Text="{Binding Path=DataItem.Amount, StringFormat='飞机数: {0}架'}"
-                                                                       Foreground="{Binding Path=DataItem.Color}"
-                                                                       FontFamily="Segoe UI"
-                                                                       FontSize="11" />
-                                                        </StackPanel>
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </telerik:RadPieChart.TooltipTemplate>
-                                            <telerik:PieSeries Name="PieSeries"
-                                                               ValueBinding="Amount"
-                                                               ItemsSource="{Binding FleetAircraftCollection}"
-                                                               ShowLabels="False"
-                                                               RadiusFactor="0.7"
-                                                               ToolTipService.Placement="Mouse">
-                                                <telerik:PieSeries.LabelDefinitions>
-                                                    <telerik:ChartSeriesLabelDefinition Margin="-5,0,0,0" />
-                                                </telerik:PieSeries.LabelDefinitions>
-                                                <telerik:PieSeries.LegendSettings>
-                                                    <telerik:DataPointLegendSettings TitleBinding="Aircraft" />
-                                                </telerik:PieSeries.LegendSettings>
-                                                <telerik:PieSeries.AngleRange>
-                                                    <telerik:AngleRange StartAngle="270"
-                                                                        SweepAngle="360" />
-                                                </telerik:PieSeries.AngleRange>
-                                            </telerik:PieSeries>
-                                        </telerik:RadPieChart>
-                                        <telerik:RadLegend Name="PieLegend"
-                                                           Margin="0,0,10,0"
-                                                           Items="{Binding LegendItems, ElementName=AircraftRadPieChart}"
-                                                           Grid.Column="1"
-                                                           HoverMode="FadeOtherItems">
-                                            <!--<i:Interaction.Triggers>
-                                                <i:EventTrigger EventName="MouseLeftButtonDown">
-                                                    <i:InvokeCommandAction Command="{Binding PieLegendKeyDownCommand}"
-                                                                           CommandParameter="{Binding ElementName=PieLegend}" />
-                                                </i:EventTrigger>
-                                            </i:Interaction.Triggers>-->
-                                        </telerik:RadLegend>
-                                    </Grid>
-                                </telerik:RadPane>
-                            </telerik:RadPaneGroup>
                             <telerik:RadPaneGroup>
                                 <telerik:RadPane Header="{Binding SelectedTimeAircraftList}"
                                                  FontSize="{StaticResource TextFontSize}"

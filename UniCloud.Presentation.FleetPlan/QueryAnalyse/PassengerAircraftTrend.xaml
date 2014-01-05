@@ -272,7 +272,7 @@
                                                 <telerik:RadCartesianChart.Series>
                                                     <telerik:LineSeries DisplayName="期末飞机数"
                                                                         Name="期末飞机数"
-                                                                        ItemsSource="{Binding FleetAircraftTrendLineCollection}"
+                                                                        ItemsSource="{Binding FleetAircraftTrendLineCollection,Mode=TwoWay}"
                                                                         VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[0]}"
                                                                         ValueBinding="AircraftAmount"
                                                                         CategoryBinding="DateTime">
@@ -296,7 +296,7 @@
                                                     </telerik:LineSeries>
                                                     <telerik:LineSeries DisplayName="期末座位数"
                                                                         Name="期末座位数"
-                                                                        ItemsSource="{Binding FleetAircraftTrendLineCollection}"
+                                                                        ItemsSource="{Binding FleetAircraftTrendLineCollection,Mode=TwoWay}"
                                                                         VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[1]}"
                                                                         ValueBinding="SeatAmount"
                                                                         CategoryBinding="DateTime">
@@ -320,7 +320,7 @@
                                                     </telerik:LineSeries>
                                                     <telerik:LineSeries DisplayName="期末商载量"
                                                                         Name="期末商载量"
-                                                                        ItemsSource="{Binding FleetAircraftTrendLineCollection}"
+                                                                        ItemsSource="{Binding FleetAircraftTrendLineCollection,Mode=TwoWay}"
                                                                         VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[2]}"
                                                                         ValueBinding="LoadAmount"
                                                                         CategoryBinding="DateTime">
@@ -473,7 +473,7 @@
                                                 <telerik:RadCartesianChart.Series>
                                                     <telerik:BarSeries DisplayName="飞机净增数"
                                                                        Name="飞机净增数"
-                                                                       ItemsSource="{Binding FleetAircraftTrendBarCollection}"
+                                                                       ItemsSource="{Binding FleetAircraftTrendBarCollection,Mode=TwoWay}"
                                                                        VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[0]}"
                                                                        ValueBinding="AircraftAmount"
                                                                        CategoryBinding="DateTime">
@@ -485,7 +485,7 @@
                                                     </telerik:BarSeries>
                                                     <telerik:BarSeries DisplayName="座位净增数"
                                                                        Name="座位净增数"
-                                                                       ItemsSource="{Binding FleetAircraftTrendBarCollection}"
+                                                                       ItemsSource="{Binding FleetAircraftTrendBarCollection,Mode=TwoWay}"
                                                                        VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[1]}"
                                                                        ValueBinding="SeatAmount"
                                                                        CategoryBinding="DateTime">
@@ -497,7 +497,7 @@
                                                     </telerik:BarSeries>
                                                     <telerik:BarSeries DisplayName="商载净增量"
                                                                        Name="商载净增量"
-                                                                       ItemsSource="{Binding FleetAircraftTrendBarCollection}"
+                                                                       ItemsSource="{Binding FleetAircraftTrendBarCollection,Mode=TwoWay}"
                                                                        VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[2]}"
                                                                        ValueBinding="LoadAmount"
                                                                        CategoryBinding="DateTime">
