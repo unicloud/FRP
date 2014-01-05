@@ -16,9 +16,9 @@
 
 using System;
 using System.Collections.Generic;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
 using UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg;
-using UniCloud.Domain.UberModel.Enums;
 
 #endregion
 

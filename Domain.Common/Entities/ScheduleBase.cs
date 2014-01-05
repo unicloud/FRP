@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.Common.Enums;
 
 #endregion
 
@@ -33,37 +34,47 @@ namespace UniCloud.Domain.Common.Entities
         /// <summary>
         ///     主题
         /// </summary>
-        public string Subject { get; protected set; }
+        public string Subject { get; private set; }
 
         /// <summary>
         ///     内容
         /// </summary>
-        public string Body { get; protected set; }
+        public string Body { get; private set; }
 
         /// <summary>
         ///     重要性级别
         /// </summary>
-        public string Importance { get; protected set; }
+        public string Importance { get; private set; }
 
         /// <summary>
         ///     进度
         /// </summary>
-        public string Tempo { get; protected set; }
+        public string Tempo { get; private set; }
 
         /// <summary>
         ///     开始时间
         /// </summary>
-        public DateTime Start { get; protected set; }
+        public DateTime Start { get; private set; }
 
         /// <summary>
         ///     结束时间
         /// </summary>
-        public DateTime End { get; protected set; }
+        public DateTime End { get; private set; }
 
         /// <summary>
         ///     是否全天事件
         /// </summary>
-        public bool IsAllDayEvent { get; protected set; }
+        public bool IsAllDayEvent { get; private set; }
+
+        /// <summary>
+        ///     是否完成
+        /// </summary>
+        public bool IsCompleted { get; private set; }
+
+        /// <summary>
+        ///     任务状态
+        /// </summary>
+        public TaskStatus Status { get; private set; }
 
         #endregion
 
@@ -89,6 +100,29 @@ namespace UniCloud.Domain.Common.Entities
             Start = start;
             End = end;
             IsAllDayEvent = isAllDay;
+        }
+
+        /// <summary>
+        ///     设置任务状态
+        /// </summary>
+        /// <param name="status">任务状态</param>
+        public void SetTaskStatus(TaskStatus status)
+        {
+            switch (status)
+            {
+                case TaskStatus.未开始:
+                    Status = TaskStatus.未开始;
+                    break;
+                case TaskStatus.进行中:
+                    Status = TaskStatus.进行中;
+                    break;
+                case TaskStatus.已完成:
+                    Status = TaskStatus.已完成;
+                    IsCompleted = true;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
         }
 
         #endregion

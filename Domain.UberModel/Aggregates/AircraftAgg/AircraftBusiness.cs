@@ -15,9 +15,9 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
-using UniCloud.Domain.UberModel.Enums;
 
 #endregion
 

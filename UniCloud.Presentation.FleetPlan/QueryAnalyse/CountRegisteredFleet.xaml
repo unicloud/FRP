@@ -10,7 +10,8 @@
              d:DataContext="{d:DesignInstance uc:CountRegisteredFleetVm}"
              mc:Ignorable="d"
              d:DesignHeight="300"
-             d:DesignWidth="400">
+             d:DesignWidth="400"
+             Name="CountRegisteredFleetView">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -189,6 +190,28 @@
                                                 <telerik:ChartTrackBallBehavior />
                                                 <telerik:ChartPanAndZoomBehavior />
                                             </telerik:RadCartesianChart.Behaviors>
+                                            <telerik:RadCartesianChart.SeriesProvider>
+                                                <telerik:ChartSeriesProvider Source="{Binding MonthFleetDatas,Mode=TwoWay}">
+                                                    <telerik:ChartSeriesProvider.SeriesDescriptors>
+                                                        <telerik:CategoricalSeriesDescriptor ItemsSourcePath="Data"
+                                                                                             ValuePath="RegisteredCount"
+                                                                                             CategoryPath="DateTime">
+                                                            <telerik:CategoricalSeriesDescriptor.Style>
+                                                                <Style TargetType="telerik:LineSeries">
+                                                                    <Setter Property="StrokeThickness"
+                                                                            Value="3" />
+                                                                    <Setter Property="IsHitTestVisible"
+                                                                            Value="True" />
+                                                                    <Setter Property="PointTemplate"
+                                                                            Value="{StaticResource PointTemplate}" />
+                                                                    <Setter Property="TrackBallInfoTemplate"
+                                                                            Value="{StaticResource TrackBallInfoTemplate}" />
+                                                                </Style>
+                                                            </telerik:CategoricalSeriesDescriptor.Style>
+                                                        </telerik:CategoricalSeriesDescriptor>
+                                                    </telerik:ChartSeriesProvider.SeriesDescriptors>
+                                                </telerik:ChartSeriesProvider>
+                                            </telerik:RadCartesianChart.SeriesProvider>
                                             <telerik:RadCartesianChart.HorizontalAxis>
                                                 <telerik:CategoricalAxis Name="MonthCategoricalAxis"
                                                                          Background="Black"
@@ -217,7 +240,7 @@
                                                       telerik:StyleManager.Theme="Windows8"
                                                       VerticalScrollBarVisibility="Auto">
                                             <StackPanel>
-                                                <ItemsControl ItemsSource="{Binding AircraftTypes}">
+                                                <ItemsControl ItemsSource="{Binding MonthAircraftTypes,Mode=TwoWay}">
                                                     <ItemsControl.ItemsPanel>
                                                         <ItemsPanelTemplate>
                                                             <StackPanel Orientation="Vertical" />
@@ -231,9 +254,8 @@
                                                                                      BorderThickness="1"
                                                                                      Background="{Binding Color}"
                                                                                      BorderBrush="{Binding Color}"
-                                                                                     Checked="AircraftTypeToggleButton_Checked"
-                                                                                     Unchecked="AircraftTypeToggleButton_Unchecked">
-                                                            </telerik:RadToggleButton>
+                                                                                     Command="{Binding DataContext.ToggleButtonCommand,ElementName=CountRegisteredFleetView}"
+                                                                                     CommandParameter="{Binding ElementName=MonthToggleButton}" />
                                                         </DataTemplate>
                                                     </ItemsControl.ItemTemplate>
                                                 </ItemsControl>
@@ -287,7 +309,7 @@
                                                 <telerik:ChartPanAndZoomBehavior />
                                             </telerik:RadCartesianChart.Behaviors>
                                             <telerik:RadCartesianChart.SeriesProvider>
-                                                <telerik:ChartSeriesProvider Source="{Binding YearFleetDatas}">
+                                                <telerik:ChartSeriesProvider Source="{Binding YearFleetDatas,Mode=TwoWay}">
                                                     <telerik:ChartSeriesProvider.SeriesDescriptors>
                                                         <telerik:CategoricalSeriesDescriptor ItemsSourcePath="Data"
                                                                                              ValuePath="RegisteredCount"
@@ -336,7 +358,7 @@
                                                       telerik:StyleManager.Theme="Windows8"
                                                       VerticalScrollBarVisibility="Auto">
                                             <StackPanel>
-                                                <ItemsControl ItemsSource="{Binding AircraftTypes}">
+                                                <ItemsControl ItemsSource="{Binding YearAircraftTypes,Mode=TwoWay}">
                                                     <ItemsControl.ItemsPanel>
                                                         <ItemsPanelTemplate>
                                                             <StackPanel Orientation="Vertical" />
@@ -350,9 +372,8 @@
                                                                                      BorderThickness="1"
                                                                                      Background="{Binding Color}"
                                                                                      BorderBrush="{Binding Color}"
-                                                                                     Checked="AircraftTypeToggleButton_Checked"
-                                                                                     Unchecked="AircraftTypeToggleButton_Unchecked">
-                                                            </telerik:RadToggleButton>
+                                                                                     Command="{Binding DataContext.ToggleButtonCommand,ElementName=CountRegisteredFleetView}"
+                                                                                     CommandParameter="{Binding ElementName=YearToggleButton}"/>
                                                         </DataTemplate>
                                                     </ItemsControl.ItemTemplate>
                                                 </ItemsControl>

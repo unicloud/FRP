@@ -28,7 +28,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -41,17 +41,15 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            Configuration.Create()
-                .UseAutofac()
-                .CreateLog()
-                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IContractAircraftRepository, ContractAircraftRepository>()
-                .Register<IContractAircraftAppService, ContractAircraftAppService>()
-                .Register<ILeaseContractAircraftAppService, LeaseContractAircraftAppService>()
-                .Register<IPurchaseContractAircraftAppService, PurchaseContractAircraftAppService>()
-                .Register<IContractAircraftQuery, ContractAircraftQuery>()
-                .Register<ILeaseContractAircraftQuery, LeaseContractAircraftQuery>()
-                .Register<IPurchaseContractAircraftQuery, PurchaseContractAircraftQuery>();
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .RegisterType<IContractAircraftRepository, ContractAircraftRepository>()
+                .RegisterType<IContractAircraftAppService, ContractAircraftAppService>()
+                .RegisterType<ILeaseContractAircraftAppService, LeaseContractAircraftAppService>()
+                .RegisterType<IPurchaseContractAircraftAppService, PurchaseContractAircraftAppService>()
+                .RegisterType<IContractAircraftQuery, ContractAircraftQuery>()
+                .RegisterType<ILeaseContractAircraftQuery, LeaseContractAircraftQuery>()
+                .RegisterType<IPurchaseContractAircraftQuery, PurchaseContractAircraftQuery>();
 
         }
 

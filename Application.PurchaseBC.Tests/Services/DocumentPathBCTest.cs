@@ -27,7 +27,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -40,16 +40,14 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            Configuration.Create()
-                         .UseAutofac()
-                         .CreateLog()
-                         .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+            DefaultContainer.CreateContainer()
+                         .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
 
                 #region 文档相关配置，包括查询，应用服务，仓储注册
 
-                         .Register<IDocumentPathAppService, DocumentPathAppService>()
-                         .Register<IDocumentPathRepository, DocumentPathRepository>()
-                         .Register<IDocumentPathQuery, DocumentPathQuery>()
+                         .RegisterType<IDocumentPathAppService, DocumentPathAppService>()
+                         .RegisterType<IDocumentPathRepository, DocumentPathRepository>()
+                         .RegisterType<IDocumentPathQuery, DocumentPathQuery>()
                 #endregion
 
                 ;

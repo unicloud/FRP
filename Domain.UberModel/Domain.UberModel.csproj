@@ -191,29 +191,8 @@
     <Compile Include="Aggregates\TradeAgg\Trade.cs" />
     <Compile Include="Aggregates\TradeAgg\TradeFactory.cs" />
     <Compile Include="Aggregates\XmlConfigAgg\XmlConfig.cs" />
+    <Compile Include="Aggregates\XmlConfigAgg\XmlConfigFactory.cs" />
     <Compile Include="Aggregates\XmlSettingAgg\XmlSetting.cs" />
-    <Compile Include="Enums\BFEStatus.cs" />
-    <Compile Include="Enums\ContractAircraftStatus.cs" />
-    <Compile Include="Enums\ContractEngineStatus.cs" />
-    <Compile Include="Enums\ControlStatus.cs" />
-    <Compile Include="Enums\EnginePlanDeliverStatus.cs" />
-    <Compile Include="Enums\EnginePlanStatus.cs" />
-    <Compile Include="Enums\GuaranteeStatus.cs" />
-    <Compile Include="Enums\IndexStatus.cs" />
-    <Compile Include="Enums\InvoiceStatus.cs" />
-    <Compile Include="Enums\InvoiceType.cs" />
-    <Compile Include="Enums\MaintainItem.cs" />
-    <Compile Include="Enums\ManageStatus.cs" />
-    <Compile Include="Enums\OperationStatus.cs" />
-    <Compile Include="Enums\OrderStatus.cs" />
-    <Compile Include="Enums\PathSource.cs" />
-    <Compile Include="Enums\PaymentNoticeStatus.cs" />
-    <Compile Include="Enums\PlanPublishStatus.cs" />
-    <Compile Include="Enums\PlanStatus.cs" />
-    <Compile Include="Enums\ReceptionStatus.cs" />
-    <Compile Include="Enums\RequestStatus.cs" />
-    <Compile Include="Enums\SupplierType.cs" />
-    <Compile Include="Enums\TradeStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,9 +11,14 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
+#region 命名空间
+
 using System;
+
+#endregion
 
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
 {
@@ -36,32 +42,32 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
         #region 属性
 
         /// <summary>
-        /// 发送服务器
+        ///     发送服务器
         /// </summary>
         public string SmtpHost { get; private set; }
 
         /// <summary>
-        /// 接收服务器
+        ///     接收服务器
         /// </summary>
         public string Pop3Host { get; private set; }
 
         /// <summary>
-        /// 发送端口
+        ///     发送端口
         /// </summary>
         public int SendPort { get; private set; }
 
         /// <summary>
-        /// 接收端口
+        ///     接收端口
         /// </summary>
         public int ReceivePort { get; private set; }
 
         /// <summary>
-        /// 邮箱登陆名
+        ///     邮箱登陆名
         /// </summary>
         public string LoginUser { get; private set; }
 
         /// <summary>
-        /// 邮箱密码
+        ///     邮箱密码
         /// </summary>
         public string LoginPassword { get; private set; }
 
@@ -71,7 +77,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
         public string Address { get; private set; }
 
         /// <summary>
-        /// 账号显示名称
+        ///     账号显示名称
         /// </summary>
         public string DisplayName { get; private set; }
 
@@ -108,7 +114,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
         #region 操作
 
         /// <summary>
-        ///   设置发送服务器
+        ///     设置发送服务器
         /// </summary>
         /// <param name="smtpHost">发送服务器</param>
         public void SetSmtpHost(string smtpHost)
@@ -122,7 +128,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
         }
 
         /// <summary>
-        ///   设置接收服务器
+        ///     设置接收服务器
         /// </summary>
         /// <param name="pop3Host">接收服务器</param>
         public void SetPop3Host(string pop3Host)
@@ -136,7 +142,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
         }
 
         /// <summary>
-        ///   设置发送端口
+        ///     设置发送端口
         /// </summary>
         /// <param name="sendPort">发送端口</param>
         public void SetSendPort(int sendPort)
@@ -145,7 +151,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
         }
 
         /// <summary>
-        ///   设置接收端口
+        ///     设置接收端口
         /// </summary>
         /// <param name="receivePort">接收端口</param>
         public void SetReceivePort(int receivePort)
@@ -154,7 +160,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
         }
 
         /// <summary>
-        ///   设置邮箱登陆名
+        ///     设置邮箱登陆名
         /// </summary>
         /// <param name="loginUser">邮箱登陆名</param>
         public void SetLoginUser(string loginUser)
@@ -168,7 +174,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
         }
 
         /// <summary>
-        ///   设置邮箱密码
+        ///     设置邮箱密码
         /// </summary>
         /// <param name="loginPassword">邮箱密码</param>
         public void SetLoginPassword(string loginPassword)
@@ -182,7 +188,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
         }
 
         /// <summary>
-        ///   设置电子邮件地址
+        ///     设置电子邮件地址
         /// </summary>
         /// <param name="address">电子邮件地址</param>
         public void SetAddress(string address)
@@ -196,7 +202,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
         }
 
         /// <summary>
-        ///   设置账号显示名称
+        ///     设置账号显示名称
         /// </summary>
         /// <param name="displayName">账号显示名称</param>
         public void SetDisplayName(string displayName)
@@ -210,7 +216,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
         }
 
         /// <summary>
-        ///   设置发送要求安全连接
+        ///     设置发送要求安全连接
         /// </summary>
         /// <param name="sendSSL">发送要求安全连接</param>
         public void SetSendSSL(bool sendSSL)
@@ -219,7 +225,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
         }
 
         /// <summary>
-        ///   设置使用 StartTLS加密传输
+        ///     设置使用 StartTLS加密传输
         /// </summary>
         /// <param name="startTLS">使用 StartTLS加密传输</param>
         public void SetStartTLS(bool startTLS)
@@ -228,7 +234,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
         }
 
         /// <summary>
-        ///   设置接收要求安全连接
+        ///     设置接收要求安全连接
         /// </summary>
         /// <param name="receiveSSL">接收要求安全连接</param>
         public void SetReceiveSSL(bool receiveSSL)
@@ -237,7 +243,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
         }
 
         /// <summary>
-        ///   设置服务器类型
+        ///     设置服务器类型
         /// </summary>
         /// <param name="serverType">服务器类型</param>
         public void SetServerType(int serverType)

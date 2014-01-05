@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,15 +11,16 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
-using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
 
@@ -58,7 +60,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg
         /// </summary>
         public ManageStatus Status { get; private set; }
 
-
         #endregion
 
         #region 外键属性
@@ -83,19 +84,20 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg
         #region 导航属性
 
         /// <summary>
-        /// 实际飞机
+        ///     实际飞机
         /// </summary>
         public virtual Aircraft Aircraft { get; private set; }
 
         /// <summary>
-        /// 机型
+        ///     机型
         /// </summary>
         public virtual AircraftType AircraftType { get; private set; }
 
         /// <summary>
-        /// 航空公司
+        ///     航空公司
         /// </summary>
         public virtual Airlines Airlines { get; private set; }
+
         #endregion
 
         #region 操作
@@ -147,7 +149,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg
         }
 
         /// <summary>
-        /// 锁定
+        ///     锁定
         /// </summary>
         public void SetLock()
         {
@@ -155,7 +157,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg
         }
 
         /// <summary>
-        /// 设置为自有
+        ///     设置为自有
         /// </summary>
         public void SetOwn()
         {
@@ -201,6 +203,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg
             Airlines = airlines;
             AirlinesId = airlines.Id;
         }
+
         #endregion
     }
 }

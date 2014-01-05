@@ -23,7 +23,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.ForwarderAgg;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
@@ -36,11 +36,9 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            Configuration.Create()
-                .UseAutofac()
-                .CreateLog()
-                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IForwarderRepository, ForwarderRepository>();
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .RegisterType<IForwarderRepository, ForwarderRepository>();
         }
 
         [TestCleanup]

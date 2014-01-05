@@ -15,8 +15,12 @@
 
 #endregion
 
+#region 命名空间
+
 using System;
-using UniCloud.Domain.CommonServiceBC.Enums;
+using UniCloud.Domain.Common.Enums;
+
+#endregion
 
 namespace UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg
 {
@@ -26,7 +30,7 @@ namespace UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg
     public static class DocumentFactory
     {
         /// <summary>
-        /// 新增标准文档
+        ///     新增标准文档
         /// </summary>
         /// <param name="docId">文档主键</param>
         /// <param name="fileName">名称</param>
@@ -38,27 +42,27 @@ namespace UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg
         /// <param name="stream">字节数组</param>
         /// <returns>标准文档</returns>
         public static StandardDocument CreateStandardDocument(Guid docId, string fileName, string extension,
-                                        string abstractInfo, string note, string uploader, bool isValid,
-                                        byte[] stream)
+            string abstractInfo, string note, string uploader, bool isValid,
+            byte[] stream)
         {
             var doc = new StandardDocument
-                {
-                    FileName = fileName,
-                    Extension = extension,
-                    Abstract = abstractInfo,
-                    Note = note,
-                    Uploader = uploader,
-                    IsValid = isValid,
-                    CreateTime = DateTime.Now,
-                    FileStorage = stream
-                };
+            {
+                FileName = fileName,
+                Extension = extension,
+                Abstract = abstractInfo,
+                Note = note,
+                Uploader = uploader,
+                IsValid = isValid,
+                CreateTime = DateTime.Now,
+                FileStorage = stream
+            };
             doc.ChangeCurrentIdentity(docId);
             doc.SetIndexStatus(IndexStatus.未建);
             return doc;
         }
 
         /// <summary>
-        /// 新增标准文档
+        ///     新增标准文档
         /// </summary>
         /// <param name="document">文档</param>
         /// <param name="fileName">名称</param>
@@ -69,11 +73,10 @@ namespace UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg
         /// <param name="isValid">是否有效</param>
         /// <param name="stream">字节数组</param>
         /// <returns>标准文档</returns>
-        public static void UpdateDocument(Document document,string fileName, string extension,
-                                        string abstractInfo, string note, string uploader, bool isValid,
-                                        byte[] stream)
+        public static void UpdateDocument(Document document, string fileName, string extension,
+            string abstractInfo, string note, string uploader, bool isValid,
+            byte[] stream)
         {
-
             document.FileName = fileName;
             document.Extension = extension;
             document.Abstract = abstractInfo;

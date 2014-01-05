@@ -36,9 +36,9 @@ namespace UniCloud.Domain.UberModel.Aggregates.XmlConfigAgg
 
         #region 属性
 
-        public string ConfigType { get; protected set; }
-        public string ConfigContent { get; protected set; }
-        public int VersionNumber { get; protected set; }
+        public string ConfigType { get; internal set; }
+        public string ConfigContent { get; internal set; }
+        public int VersionNumber { get; internal set; }
 
         public XElement XmlContent
         {

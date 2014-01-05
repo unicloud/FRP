@@ -27,7 +27,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.FleetPlanBC.Repositories;
 using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 #endregion
 
 namespace UniCloud.Application.FleetPlanBC.Tests.Services
@@ -40,13 +40,11 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            Configuration.Create()
-                .UseAutofac()
-                .CreateLog()
-                .Register<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IAnnualRepository, AnnualRepository>()
-                .Register<IAnnualAppService, AnnualAppService>()
-                .Register<IAnnualQuery, AnnualQuery>();
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .RegisterType<IAnnualRepository, AnnualRepository>()
+                .RegisterType<IAnnualAppService, AnnualAppService>()
+                .RegisterType<IAnnualQuery, AnnualQuery>();
 
         }
 

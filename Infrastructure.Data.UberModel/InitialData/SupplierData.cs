@@ -17,13 +17,13 @@
 
 #region 命名空间
 
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.Common.ValueObjects;
 using UniCloud.Domain.UberModel.Aggregates.BankAccountAgg;
 using UniCloud.Domain.UberModel.Aggregates.LinkmanAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierRoleAgg;
-using UniCloud.Domain.UberModel.Enums;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
 
 #endregion

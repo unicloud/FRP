@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,11 +11,11 @@
 // 修改者：linxw 时间：2013/12/16 10:01:18
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System.Collections.Generic;
 using System.Data.Services.Common;
 
 #endregion
@@ -22,14 +23,15 @@ using System.Data.Services.Common;
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    ///  发动机维修发票DTO
+    ///     发动机维修发票DTO
     /// </summary>
     [DataServiceKey("EngineMaintainInvoiceId")]
     public class EngineMaintainInvoiceDTO : MaintainInvoiceDTO
     {
         #region 属性
+
         /// <summary>
-        /// 发动机维修发票主键
+        ///     发动机维修发票主键
         /// </summary>
         public int EngineMaintainInvoiceId { get; set; }
 

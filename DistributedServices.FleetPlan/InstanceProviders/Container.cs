@@ -79,7 +79,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.FleetPlanBC.Repositories;
 using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
 {
     /// <summary>
@@ -91,18 +91,17 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
 
         public static void ConfigureContainer()
         {
-            Configuration.Create()
-                .UseAutofac()
-                //.UserCaching()
-                .CreateLog()
-                .Register<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IStaticLoad,StaticLoad>()
+           
+              
+               DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .RegisterType<IStaticLoad, StaticLoad>()
 
                 #region 活动类型相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IActionCategoryQuery, ActionCategoryQuery>()
-                .Register<IActionCategoryAppService, ActionCategoryAppService>()
-                .Register<IActionCategoryRepository, ActionCategoryRepository>()
+                .RegisterType<IActionCategoryQuery, ActionCategoryQuery>()
+                .RegisterType<IActionCategoryAppService, ActionCategoryAppService>()
+                .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
                 #endregion
 
                 #region 飞机系列相关配置，包括查询，应用服务，仓储注册
@@ -114,170 +113,170 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
 
                 #region 实际飞机相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IAircraftQuery, AircraftQuery>()
-                .Register<IAircraftAppService, AircraftAppService>()
-                .Register<IAircraftRepository, AircraftRepository>()
+                .RegisterType<IAircraftQuery, AircraftQuery>()
+                .RegisterType<IAircraftAppService, AircraftAppService>()
+                .RegisterType<IAircraftRepository, AircraftRepository>()
                 #endregion
 
                 #region 座级相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IAircraftCategoryQuery, AircraftCategoryQuery>()
-                .Register<IAircraftCategoryAppService, AircraftCategoryAppService>()
-                .Register<IAircraftCategoryRepository, AircraftCategoryRepository>()
+                .RegisterType<IAircraftCategoryQuery, AircraftCategoryQuery>()
+                .RegisterType<IAircraftCategoryAppService, AircraftCategoryAppService>()
+                .RegisterType<IAircraftCategoryRepository, AircraftCategoryRepository>()
                 #endregion
 
                 #region 飞机计划相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IPlanQuery, PlanQuery>()
-                .Register<IPlanAppService, PlanAppService>()
-                .Register<IPlanRepository, PlanRepository>()
+                .RegisterType<IPlanQuery, PlanQuery>()
+                .RegisterType<IPlanAppService, PlanAppService>()
+                .RegisterType<IPlanRepository, PlanRepository>()
                 #endregion
 
                 #region 机型相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IAircraftTypeQuery, AircraftTypeQuery>()
-                .Register<IAircraftTypeAppService, AircraftTypeAppService>()
-                .Register<IAircraftTypeRepository, AircraftTypeRepository>()
+                .RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
+                .RegisterType<IAircraftTypeAppService, AircraftTypeAppService>()
+                .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
                 #endregion
 
                 #region 航空公司相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IAirlinesQuery, AirlinesQuery>()
-                .Register<IAirlinesAppService, AirlinesAppService>()
-                .Register<IAirlinesRepository, AirlinesRepository>()
+                .RegisterType<IAirlinesQuery, AirlinesQuery>()
+                .RegisterType<IAirlinesAppService, AirlinesAppService>()
+                .RegisterType<IAirlinesRepository, AirlinesRepository>()
                 #endregion
 
                 #region 航空公司五年规划相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IAirProgrammingQuery, AirProgrammingQuery>()
-                .Register<IAirProgrammingAppService, AirProgrammingAppService>()
-                .Register<IAirProgrammingRepository, AirProgrammingRepository>()
+                .RegisterType<IAirProgrammingQuery, AirProgrammingQuery>()
+                .RegisterType<IAirProgrammingAppService, AirProgrammingAppService>()
+                .RegisterType<IAirProgrammingRepository, AirProgrammingRepository>()
                 #endregion
 
                 #region 计划年度相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IAnnualQuery, AnnualQuery>()
-                .Register<IAnnualAppService, AnnualAppService>()
-                .Register<IAnnualRepository, AnnualRepository>()
+                .RegisterType<IAnnualQuery, AnnualQuery>()
+                .RegisterType<IAnnualAppService, AnnualAppService>()
+                .RegisterType<IAnnualRepository, AnnualRepository>()
                 #endregion
                 
                 #region 批文相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IApprovalDocQuery, ApprovalDocQuery>()
-                .Register<IApprovalDocAppService, ApprovalDocAppService>()
-                .Register<IApprovalDocRepository, ApprovalDocRepository>()
+                .RegisterType<IApprovalDocQuery, ApprovalDocQuery>()
+                .RegisterType<IApprovalDocAppService, ApprovalDocAppService>()
+                .RegisterType<IApprovalDocRepository, ApprovalDocRepository>()
                 #endregion
 
                 #region 民航局五年规划相关配置，包括查询，应用服务，仓储注册
 
-                .Register<ICaacProgrammingQuery, CaacProgrammingQuery>()
-                .Register<ICaacProgrammingAppService, CaacProgrammingAppService>()
-                .Register<ICaacProgrammingRepository, CaacProgrammingRepository>()
+                .RegisterType<ICaacProgrammingQuery, CaacProgrammingQuery>()
+                .RegisterType<ICaacProgrammingAppService, CaacProgrammingAppService>()
+                .RegisterType<ICaacProgrammingRepository, CaacProgrammingRepository>()
                 #endregion
 
                 #region 备发计划相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IEnginePlanQuery, EnginePlanQuery>()
-                .Register<IEnginePlanAppService, EnginePlanAppService>()
-                .Register<IEnginePlanRepository, EnginePlanRepository>()
+                .RegisterType<IEnginePlanQuery, EnginePlanQuery>()
+                .RegisterType<IEnginePlanAppService, EnginePlanAppService>()
+                .RegisterType<IEnginePlanRepository, EnginePlanRepository>()
                 #endregion
 
                 #region 发动机相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IEngineQuery, EngineQuery>()
-                .Register<IEngineAppService, EngineAppService>()
-                .Register<IEngineRepository, EngineRepository>()
+                .RegisterType<IEngineQuery, EngineQuery>()
+                .RegisterType<IEngineAppService, EngineAppService>()
+                .RegisterType<IEngineRepository, EngineRepository>()
                 #endregion
 
                 #region 发动机类型相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IEngineTypeQuery, EngineTypeQuery>()
-                .Register<IEngineTypeAppService, EngineTypeAppService>()
-                .Register<IEngineTypeRepository, EngineTypeRepository>()
+                .RegisterType<IEngineTypeQuery, EngineTypeQuery>()
+                .RegisterType<IEngineTypeAppService, EngineTypeAppService>()
+                .RegisterType<IEngineTypeRepository, EngineTypeRepository>()
                 #endregion
 
                 #region 邮箱账号相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IMailAddressQuery, MailAddressQuery>()
-                .Register<IMailAddressAppService, MailAddressAppService>()
-                .Register<IMailAddressRepository, MailAddressRepository>()
+                .RegisterType<IMailAddressQuery, MailAddressQuery>()
+                .RegisterType<IMailAddressAppService, MailAddressAppService>()
+                .RegisterType<IMailAddressRepository, MailAddressRepository>()
                 #endregion
 
                 #region 管理者相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IManagerQuery, ManagerQuery>()
-                .Register<IManagerAppService, ManagerAppService>()
-                .Register<IManagerRepository, ManagerRepository>()
+                .RegisterType<IManagerQuery, ManagerQuery>()
+                .RegisterType<IManagerAppService, ManagerAppService>()
+                .RegisterType<IManagerRepository, ManagerRepository>()
                 #endregion
 
                 #region 制造商相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IManufacturerQuery, ManufacturerQuery>()
-                .Register<IManufacturerAppService, ManufacturerAppService>()
-                .Register<IManufacturerRepository, ManufacturerRepository>()
+                .RegisterType<IManufacturerQuery, ManufacturerQuery>()
+                .RegisterType<IManufacturerAppService, ManufacturerAppService>()
+                .RegisterType<IManufacturerRepository, ManufacturerRepository>()
                 #endregion
 
                 #region 计划飞相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IPlanAircraftQuery, PlanAircraftQuery>()
-                .Register<IPlanAircraftAppService, PlanAircraftAppService>()
-                .Register<IPlanAircraftRepository, PlanAircraftRepository>()
+                .RegisterType<IPlanAircraftQuery, PlanAircraftQuery>()
+                .RegisterType<IPlanAircraftAppService, PlanAircraftAppService>()
+                .RegisterType<IPlanAircraftRepository, PlanAircraftRepository>()
                 #endregion
 
                 #region 计划发动机相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IPlanEngineQuery, PlanEngineQuery>()
-                .Register<IPlanEngineAppService, PlanEngineAppService>()
-                .Register<IPlanEngineRepository, PlanEngineRepository>()
+                .RegisterType<IPlanEngineQuery, PlanEngineQuery>()
+                .RegisterType<IPlanEngineAppService, PlanEngineAppService>()
+                .RegisterType<IPlanEngineRepository, PlanEngineRepository>()
                 #endregion
 
                 #region 规划期间相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IProgrammingQuery, ProgrammingQuery>()
-                .Register<IProgrammingAppService, ProgrammingAppService>()
-                .Register<IProgrammingRepository, ProgrammingRepository>()
+                .RegisterType<IProgrammingQuery, ProgrammingQuery>()
+                .RegisterType<IProgrammingAppService, ProgrammingAppService>()
+                .RegisterType<IProgrammingRepository, ProgrammingRepository>()
                 #endregion
 
                 #region 申请相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IRequestQuery, RequestQuery>()
-                .Register<IRequestAppService, RequestAppService>()
-                .Register<IRequestRepository, RequestRepository>()
+                .RegisterType<IRequestQuery, RequestQuery>()
+                .RegisterType<IRequestAppService, RequestAppService>()
+                .RegisterType<IRequestRepository, RequestRepository>()
                 #endregion
 
                 #region 供应商相关配置，包括查询，应用服务，仓储注册
 
-                .Register<ISupplierQuery, SupplierQuery>()
-                .Register<ISupplierAppService, SupplierAppService>()
-                .Register<ISupplierRepository, SupplierRepository>()
+                .RegisterType<ISupplierQuery, SupplierQuery>()
+                .RegisterType<ISupplierAppService, SupplierAppService>()
+                .RegisterType<ISupplierRepository, SupplierRepository>()
                 #endregion
 
                 #region 分析数据相关的xml相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IXmlConfigQuery, XmlConfigQuery>()
-                .Register<IXmlConfigAppService, XmlConfigAppService>()
-                .Register<IXmlConfigRepository, XmlConfigRepository>()
+                .RegisterType<IXmlConfigQuery, XmlConfigQuery>()
+                .RegisterType<IXmlConfigAppService, XmlConfigAppService>()
+                .RegisterType<IXmlConfigRepository, XmlConfigRepository>()
                 #endregion
 
                 #region 配置相关的xml相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IXmlSettingQuery, XmlSettingQuery>()
-                .Register<IXmlSettingAppService, XmlSettingAppService>()
-                .Register<IXmlSettingRepository, XmlSettingRepository>()
+                .RegisterType<IXmlSettingQuery, XmlSettingQuery>()
+                .RegisterType<IXmlSettingAppService, XmlSettingAppService>()
+                .RegisterType<IXmlSettingRepository, XmlSettingRepository>()
                 #endregion
 
                 #region 申请相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IRequestQuery, RequestQuery>()
-                .Register<IRequestAppService, RequestAppService>()
-                .Register<IRequestRepository, RequestRepository>()
+                .RegisterType<IRequestQuery, RequestQuery>()
+                .RegisterType<IRequestAppService, RequestAppService>()
+                .RegisterType<IRequestRepository, RequestRepository>()
                 #endregion
 
                 #region 批文相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IApprovalDocQuery, ApprovalDocQuery>()
-                .Register<IApprovalDocAppService, ApprovalDocAppService>()
-                .Register<IApprovalDocRepository, ApprovalDocRepository>()
+                .RegisterType<IApprovalDocQuery, ApprovalDocQuery>()
+                .RegisterType<IApprovalDocAppService, ApprovalDocAppService>()
+                .RegisterType<IApprovalDocRepository, ApprovalDocRepository>()
                 #endregion
 
                 ;

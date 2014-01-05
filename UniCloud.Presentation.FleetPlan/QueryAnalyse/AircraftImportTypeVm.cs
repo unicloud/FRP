@@ -18,14 +18,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using System.Xml.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.ServiceLocation;
@@ -44,7 +42,7 @@ using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
-    [Export(typeof (AircraftImportTypeVm))]
+    [Export(typeof(AircraftImportTypeVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AircraftImportTypeVm : ViewModelBase
     {
@@ -57,22 +55,19 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private RadGridView _aircraftDetail; //初始化RadGridView
 
         private Grid _barGrid; //趋势折线图区域，趋势柱状图区域， 飞机引进方式饼图区域
-        private RadDateTimePicker _endDateTimePicker; //开始时间控件， 结束时间控件
         private RadGridView _exportRadgridview; //初始化RadGridView
         private int _i; //导出数据源格式判断
         private Grid _importTypePieGrid; //趋势折线图区域，趋势柱状图区域， 飞机引进方式饼图区域
         private Grid _lineGrid; //趋势折线图区域，趋势柱状图区域， 飞机引进方式饼图区域
         private bool _loadXmlConfig;
         private bool _loadXmlSetting;
-        private RadDateTimePicker _startDateTimePicker; //开始时间控件， 结束时间控件
 
         [ImportingConstructor]
         public AircraftImportTypeVm(IFleetPlanService service)
         {
             _service = service;
             _fleetPlanContext = _service.Context;
-            ExportCommand = new DelegateCommand<object>(OnExport, CanExport); //导出图表源数据（Source data）
-            ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView, CanExportGridView);
+
             ViewModelInitializer();
             InitalizerRadWindows(_importTypeWindow, "ImportType", 220);
             AddRadMenu(_importTypeWindow);
@@ -116,16 +111,14 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// </summary>
         private void ViewModelInitializer()
         {
+            ExportCommand = new DelegateCommand<object>(OnExport); //导出图表源数据（Source data）
+            ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView);
+            ToggleButtonCommand = new DelegateCommand<object>(ToggleButtonCheck);
+
             _lineGrid = CurrentAircraftImportType.LineGrid;
             _barGrid = CurrentAircraftImportType.BarGrid;
             _importTypePieGrid = CurrentAircraftImportType.ImportTypePieGrid;
             _aircraftDetail = CurrentAircraftImportType.AircraftDetail;
-
-            //控制界面起止时间控件的字符串格式化
-            _startDateTimePicker = CurrentAircraftImportType.StartDateTimePicker;
-            _endDateTimePicker = CurrentAircraftImportType.EndDateTimePicker;
-            _startDateTimePicker.Culture.DateTimeFormat.ShortDatePattern = "yyyy/M";
-            _endDateTimePicker.Culture.DateTimeFormat.ShortDatePattern = "yyyy/M";
         }
 
         #endregion
@@ -138,6 +131,28 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public QueryableDataServiceCollectionView<XmlSettingDTO> XmlSettings { get; set; } //XmlSetting集合
         public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; }
 
+        private ObservableCollection<FleetData> _fleetDatas;
+        public ObservableCollection<FleetData> FleetDatas 
+        { 
+            get { return _fleetDatas; }
+            set
+            {
+                _fleetDatas = value;
+                RaisePropertyChanged("FleetDatas");
+            }
+        }
+        private ObservableCollection<FleetData> StaticFleetDatas { get; set; }
+
+        private ObservableCollection<FleetImportTypeTrend> _importTypes;
+        public ObservableCollection<FleetImportTypeTrend> ImportTypes
+        {
+            get { return _importTypes; }
+            set
+            {
+                _importTypes = value;
+                RaisePropertyChanged("ImportTypes");
+            }
+        }
         #region 属性 AircraftDTO
 
         private AircraftDTO _aircraft; //飞机实体数据
@@ -351,7 +366,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 {
                     _fleetImportTypeCollection = value;
                     RaisePropertyChanged(() => FleetImportTypeCollection);
-                    SetPieMark(FleetImportTypeCollection, "ImportTypePieGrid");
                 }
             }
         }
@@ -426,11 +440,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 if (StartDate != value)
                 {
-                    if (value == null)
-                    {
-                        SelectedStartValueChange(_startDate);
-                        return;
-                    }
                     _startDate = value;
                     RaisePropertyChanged(() => StartDate);
                     CreateFleetImportTypeTrendCollection();
@@ -454,11 +463,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 if (EndDate != value)
                 {
-                    if (value == null)
-                    {
-                        SelectedEndValueChange(_endDate);
-                        return;
-                    }
                     _endDate = value;
                     RaisePropertyChanged(() => EndDate);
                     CreateFleetImportTypeTrendCollection();
@@ -567,56 +571,32 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// </summary>
         public void ImportTypeTrendInitialize(List<FleetImportTypeTrend> fleetImportTypeTrendCollection)
         {
-            var radCartesianChartRoot = _lineGrid.Children[0] as RadCartesianChart;
-            var scrollViewer = _lineGrid.Children[1] as ScrollViewer;
-            if (scrollViewer != null)
-            {
-                var stackPanel = scrollViewer.Content as StackPanel;
-                if (radCartesianChartRoot != null) radCartesianChartRoot.Series.Clear();
-                if (stackPanel != null)
-                {
-                    stackPanel.Children.Clear();
-                    if (FleetImportTypeTrendCollection != null)
-                    {
-                        foreach (var groupItem in FleetImportTypeTrendCollection.GroupBy(p => p.ImportType).ToList())
-                        {
-                            var line = new LineSeries {StrokeThickness = 3, DisplayName = groupItem.Key};
-                            var fleetImportTypeTrend = groupItem.FirstOrDefault();
-                            if (fleetImportTypeTrend != null)
-                                line.Stroke = new SolidColorBrush(Commonmethod.GetColor(fleetImportTypeTrend.Color));
-                            line.CategoryBinding = Commonmethod.CreateBinding("DateTime");
-                            line.ValueBinding = Commonmethod.CreateBinding("AirNum");
-                            line.ItemsSource = groupItem.ToList();
-                            var radCartesianChart = _lineGrid.Children[0] as RadCartesianChart;
-                            if (radCartesianChart != null)
-                                line.PointTemplate = radCartesianChart.Resources["LinePointTemplate"] as DataTemplate;
-                            var cartesianChart = _lineGrid.Children[0] as RadCartesianChart;
-                            if (cartesianChart != null)
-                                line.TrackBallInfoTemplate =
-                                    cartesianChart.Resources["LineTrackBallInfoTemplate"] as DataTemplate;
-                            if (radCartesianChartRoot != null) radCartesianChartRoot.Series.Add(line);
+            FleetDatas = new ObservableCollection<FleetData>();
+            StaticFleetDatas = new ObservableCollection<FleetData>();
+            var result = new ObservableCollection<FleetData>();
+            var importTypeResult = new ObservableCollection<FleetImportTypeTrend>();
 
-                            var panel = new StackPanel
-                                {
-                                    Margin = new Thickness(5, 5, 5, 5),
-                                    Orientation = Orientation.Horizontal
-                                };
-                            var importTypeTrend = groupItem.FirstOrDefault();
-                            if (importTypeTrend != null)
-                                panel.Background = new SolidColorBrush(Commonmethod.GetColor(importTypeTrend.Color));
-                            var checkBox = new CheckBox {IsChecked = true};
-                            checkBox.Checked += CheckboxChecked;
-                            checkBox.Unchecked += CheckboxUnchecked;
-                            checkBox.Content = groupItem.Key;
-                            checkBox.Foreground = new SolidColorBrush(Colors.White);
-                            checkBox.VerticalAlignment = VerticalAlignment.Center;
-                            checkBox.Style = CurrentAircraftImportType.Resources["LegengCheckBoxStyle"] as Style;
-                            panel.Children.Add(checkBox);
-                            stackPanel.Children.Add(panel);
-                        }
+            if (FleetImportTypeTrendCollection != null)
+            {
+                foreach (var groupItem in FleetImportTypeTrendCollection.GroupBy(p => p.ImportType).ToList())
+                {
+                    var fleetImportTypeTrend = groupItem.FirstOrDefault();
+                    if (fleetImportTypeTrend != null)
+                    {
+                        var tempData = new FleetData
+                        {
+                            ImportTypeName = groupItem.Key,
+                            Data = new ObservableCollection<FleetImportTypeTrend>()
+                        };
+                        groupItem.ToList().ForEach(tempData.Data.Add);
+                        result.Add(tempData);
+                        importTypeResult.Add(fleetImportTypeTrend);
                     }
                 }
             }
+            result.ToList().ForEach(FleetDatas.Add);
+            result.ToList().ForEach(StaticFleetDatas.Add);
+            ImportTypes = importTypeResult;
         }
 
         /// <summary>
@@ -628,92 +608,14 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             //控制趋势图的滚动条
             if (AircraftAmountCollection != null && AircraftAmountCollection.Count() >= 12)
             {
-                CurrentAircraftImportType.LineCategoricalAxis.MajorTickInterval = AircraftAmountCollection.Count()/6;
-                CurrentAircraftImportType.BarCategoricalAxis.MajorTickInterval = AircraftAmountCollection.Count()/6;
+                CurrentAircraftImportType.LineCategoricalAxis.MajorTickInterval = AircraftAmountCollection.Count() / 6;
+                CurrentAircraftImportType.BarCategoricalAxis.MajorTickInterval = AircraftAmountCollection.Count() / 6;
             }
             else
             {
                 CurrentAircraftImportType.LineCategoricalAxis.MajorTickInterval = 1;
                 CurrentAircraftImportType.BarCategoricalAxis.MajorTickInterval = 1;
             }
-        }
-
-        /// <summary>
-        ///     根据相应的饼图数据生成饼图标签
-        /// </summary>
-        /// <param name="fleetImportTypeCollection">饼图数据集合</param>
-        public void SetPieMark(IEnumerable<FleetImportTypeComposition> fleetImportTypeCollection, string regionGrid)
-        {
-            if (regionGrid != "ImportTypePieGrid")
-            {
-                return;
-            }
-            var radPieChart = _importTypePieGrid.Children[0] as RadPieChart;
-            var scrollViewer = _importTypePieGrid.Children[1] as ScrollViewer;
-            if (scrollViewer != null)
-            {
-                var stackPanel = scrollViewer.Content as StackPanel;
-                if (radPieChart != null)
-                {
-                    radPieChart.Series[0].SliceStyles.Clear();
-                    if (stackPanel != null)
-                    {
-                        stackPanel.Children.Clear();
-                        if (fleetImportTypeCollection == null)
-                        {
-                            return;
-                        }
-                        foreach (var item in fleetImportTypeCollection)
-                        {
-                            var setter = new Setter {Property = Shape.FillProperty, Value = item.Color};
-                            var style = new Style {TargetType = typeof (System.Windows.Shapes.Path)};
-                            style.Setters.Add(setter);
-                            radPieChart.Series[0].SliceStyles.Add(style);
-
-                            var barPanel = new StackPanel();
-                            barPanel.MouseLeftButtonDown += PiePanelMouseLeftButtonDown;
-                            barPanel.Orientation = Orientation.Horizontal;
-                            var rectangle = new Rectangle
-                                            {
-                                                Width = 15,
-                                                Height = 15,
-                                                Fill = new SolidColorBrush(Commonmethod.GetColor(item.Color))
-                                            };
-                            var textblock = new TextBlock
-                                            {
-                                                Text = item.ImportType,
-                                Style =
-                                    CurrentAircraftImportType.Resources.FirstOrDefault(
-                                        p =>
-                                            p.Key.ToString()
-                                                .Equals("legendItemStyle", StringComparison.OrdinalIgnoreCase)).Value as
-                                        Style
-                                            };
-                            barPanel.Children.Add(rectangle);
-                            barPanel.Children.Add(textblock);
-                            stackPanel.Children.Add(barPanel);
-                        }
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        ///     选择开始时间时
-        /// </summary>
-        /// <param name="dataTimeStart"></param>
-        public void SelectedStartValueChange(DateTime? dataTimeStart)
-        {
-            _startDateTimePicker.SelectedValue = dataTimeStart;
-        }
-
-        /// <summary>
-        ///     选择结束时间时
-        /// </summary>
-        /// <param name="dataTimeEnd"></param>
-        public void SelectedEndValueChange(DateTime? dataTimeEnd)
-        {
-            _endDateTimePicker.SelectedValue = dataTimeEnd;
         }
 
         /// <summary>
@@ -746,25 +648,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     item.IsSelected = false;
                 }
             //更改对应饼图的标签大小
-            var scrollViewer = grid.Children[1] as ScrollViewer;
-            if (scrollViewer != null)
-            {
-                var stackPanel = scrollViewer.Content as StackPanel;
-                if (stackPanel != null)
-                    foreach (var item in stackPanel.Children)
-                    {
-                        var panel = item as StackPanel;
-                        if (panel != null)
-                        {
-                            var rectangle = panel.Children[0] as Rectangle;
-                            if (rectangle != null)
-                            {
-                                rectangle.Width = 15;
-                                rectangle.Height = 15;
-                            }
-                        }
-                    }
-            }
+            ((RadLegend)grid.Children[1]).Items.ToList().ForEach(p => p.IsHovered = false);
         }
 
         /// <summary>
@@ -781,107 +665,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             radwindow.ResizeMode = ResizeMode.CanResize;
             radwindow.Content = Commonmethod.CreatOperationGridView();
             radwindow.Closed += RadwindowClosed;
-        }
-
-        /// <summary>
-        ///     饼状图标签的选择事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void PiePanelMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //选中航空公司的名称
-            var stackPanelRoot = sender as StackPanel;
-            if (stackPanelRoot != null)
-            {
-                var textBlock = stackPanelRoot.Children[1] as TextBlock;
-                if (textBlock != null)
-                {
-                    string shortName = textBlock.Text;
-                    //修改饼图标签中的突出显示
-                    var stackPanel = stackPanelRoot.Parent as StackPanel;
-                    if (stackPanel != null)
-                        foreach (var item in stackPanel.Children)
-                        {
-                            var childStackPanel = item as StackPanel;
-                            if (childStackPanel != null)
-                            {
-                                var itemRectangle = childStackPanel.Children[0] as Rectangle;
-                                var block = childStackPanel.Children[1] as TextBlock;
-                                if (block != null)
-                                {
-                                    string itemShortName = block.Text;
-                                    if (itemShortName.Equals(shortName, StringComparison.OrdinalIgnoreCase))
-                                    {
-                                        if (itemRectangle.Width == 12)
-                                        {
-                                            itemRectangle.Width = 15;
-                                            itemRectangle.Height = 15;
-                                        }
-                                        else
-                                        {
-                                            itemRectangle.Width = 12;
-                                            itemRectangle.Height = 12;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        itemRectangle.Width = 15;
-                                        itemRectangle.Height = 15;
-                                    }
-                                }
-                            }
-                        }
-
-                    //修改对应饼图块状的突出显示
-                    var panel = stackPanelRoot.Parent as StackPanel;
-                    if (panel != null)
-                    {
-                        var scrollViewer = panel.Parent as ScrollViewer;
-                        if (scrollViewer != null)
-                        {
-                            var grid = scrollViewer.Parent as Grid;
-                            if (grid != null)
-                            {
-                                var radPieChart = grid.Children[0] as RadPieChart;
-                                if (radPieChart != null)
-                                    foreach (var item in radPieChart.Series[0].DataPoints)
-                                    {
-                                        var pieDataPoint = item;
-                                        var fleetImportTypeComposition =
-                                            pieDataPoint.DataItem as FleetImportTypeComposition;
-                                        if (fleetImportTypeComposition != null &&
-                                            fleetImportTypeComposition.ImportType.Equals(shortName,
-                                                StringComparison.OrdinalIgnoreCase))
-                                        {
-                                            pieDataPoint.IsSelected = !pieDataPoint.IsSelected;
-                                            if (pieDataPoint.IsSelected)
-                                            {
-                                                if (radPieChart.EmptyContent.ToString()
-                                                    .Equals("飞机引进方式分布", StringComparison.OrdinalIgnoreCase))
-                                                {
-                                                    GetGridViewDataSource(pieDataPoint, _importTypeWindow, "飞机引进方式");
-                                                }
-                                            }
-                                            else
-                                            {
-                                                if (radPieChart.EmptyContent.ToString()
-                                                    .Equals("飞机引进方式分布", StringComparison.OrdinalIgnoreCase))
-                                                {
-                                                    _importTypeWindow.Close();
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            pieDataPoint.IsSelected = false;
-                                        }
-                                    }
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         /// <summary>
@@ -924,165 +707,60 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 RadChartBase radChartBase = chartSelectionBehavior.Chart;
                 var selectedPoint = radChartBase.SelectedPoints.FirstOrDefault() as PieDataPoint;
 
-                var stackPanelRoot = new StackPanel();
-                if (radChartBase.EmptyContent.ToString().Equals("飞机引进方式分布", StringComparison.OrdinalIgnoreCase))
+                if (selectedPoint != null)
                 {
-                    var scrollViewer = _importTypePieGrid.Children[1] as ScrollViewer;
-                    if (scrollViewer != null)
-                        stackPanelRoot = scrollViewer.Content as StackPanel;
+                    var items = ((RadLegend)_importTypePieGrid.Children[1]).Items;
+                    items.ToList().ForEach(p => p.IsHovered = false);
+                    foreach (var item in items)
+                    {
+                        if (item.Title.Equals(((FleetImportTypeComposition)selectedPoint.DataItem).ImportType, StringComparison.OrdinalIgnoreCase))
+                        {
+                            item.IsHovered = true;
+                            break;
+                        }
+                    }
+                    if (radChartBase.EmptyContent.ToString().Equals("飞机引进方式分布", StringComparison.OrdinalIgnoreCase))
+                    {
+                        GetGridViewDataSource(selectedPoint, _importTypeWindow, "飞机引进方式");
+                    }
                 }
-
-                if (stackPanelRoot != null)
+                else
                 {
-                    foreach (var item in stackPanelRoot.Children)
+                    if (radChartBase.EmptyContent.ToString().Equals("飞机引进方式分布", StringComparison.OrdinalIgnoreCase))
                     {
-                        var stackPanel = item as StackPanel;
-                        if (stackPanel != null)
-                        {
-                            var itemRectangle = stackPanel.Children[0] as Rectangle;
-                            itemRectangle.Width = 15;
-                            itemRectangle.Height = 15;
-                        }
-                    }
-
-                    if (selectedPoint != null)
-                    {
-                        var childStackPanel = stackPanelRoot.Children.FirstOrDefault(p =>
-                                                               {
-                                                                   var stackPanel = p as StackPanel;
-                            return stackPanel != null &&
-                                   (stackPanel.Children[1] as TextBlock).Text.Equals(
-                                       (selectedPoint.DataItem as FleetImportTypeComposition).ImportType,
-                                       StringComparison.OrdinalIgnoreCase);
-                                                               }) as StackPanel;
-                        if (childStackPanel != null)
-                        {
-                            var rectangle = childStackPanel.Children[0] as Rectangle;
-                            if (rectangle != null)
-                            {
-                                rectangle.Width = 12;
-                                rectangle.Height = 12;
-                            }
-                        }
-
-                        if (radChartBase.EmptyContent.ToString().Equals("飞机引进方式分布", StringComparison.OrdinalIgnoreCase))
-                        {
-                            GetGridViewDataSource(selectedPoint, _importTypeWindow, "飞机引进方式");
-                        }
-                    }
-                    else
-                    {
-                        if (radChartBase.EmptyContent.ToString().Equals("飞机引进方式分布", StringComparison.OrdinalIgnoreCase))
-                        {
-                            _importTypeWindow.Close();
-                        }
+                        _importTypeWindow.Close();
                     }
                 }
             }
         }
 
+        public DelegateCommand<object> ToggleButtonCommand { get; set; }
         /// <summary>
-        ///     控制趋势图中折线（饼状）的显示
+        /// 控制趋势图中折线（饼状）的显示/隐藏
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void CheckboxChecked(object sender, RoutedEventArgs e)
+        private void ToggleButtonCheck(object sender)
         {
-            var checkBox = sender as CheckBox;
-            if (checkBox != null)
+            var button = sender as RadToggleButton;
+            if (button != null)
             {
-                var stackPanel = checkBox.Parent as StackPanel;
-                if (stackPanel != null)
+                if ((bool)button.IsChecked)
                 {
-                    var panel = stackPanel.Parent as StackPanel;
-                    if (panel != null)
+                    var temp = StaticFleetDatas.FirstOrDefault(p => p.ImportTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase));
+                    if (temp != null && !FleetDatas.Any(p => p.ImportTypeName.Equals(temp.ImportTypeName, StringComparison.OrdinalIgnoreCase)))
                     {
-                        var scrollViewer = panel.Parent as ScrollViewer;
-                        if (scrollViewer != null)
-                        {
-                            var grid = scrollViewer.Parent as Grid;
-                            if (grid != null && grid.Name.Equals("LineGrid", StringComparison.OrdinalIgnoreCase))
-                            {
-                                var radCartesianChart = _lineGrid.Children[0] as RadCartesianChart;
-                                if (radCartesianChart != null)
-                                {
-                                    var firstOrDefault =
-                                        radCartesianChart.Series.FirstOrDefault(
-                                            p =>
-                                                p.DisplayName.Equals(checkBox.Content.ToString(),
-                                                    StringComparison.OrdinalIgnoreCase));
-                                    if (firstOrDefault != null)
-                                        firstOrDefault.Visibility = Visibility.Visible;
-                                }
-                            }
-                            else if (grid != null && grid.Name.Equals("BarGrid", StringComparison.OrdinalIgnoreCase))
-                            {
-                                var radCartesianChart = _barGrid.Children[0] as RadCartesianChart;
-                                if (radCartesianChart != null)
-                                {
-                                    var firstOrDefault =
-                                        radCartesianChart.Series.FirstOrDefault(
-                                            p =>
-                                                p.DisplayName.Equals(checkBox.Content.ToString(),
-                                                    StringComparison.OrdinalIgnoreCase));
-                                    if (firstOrDefault != null)
-                                        firstOrDefault.Visibility = Visibility.Visible;
-                                }
-                            }
-                        }
+                        FleetDatas.Add(temp);
                     }
                 }
-            }
-        }
-
-        /// <summary>
-        ///     控制趋势图中折线（饼状）的隐藏
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void CheckboxUnchecked(object sender, RoutedEventArgs e)
-        {
-            var checkBox = sender as CheckBox;
-            if (checkBox != null)
-            {
-                var stackPanel = checkBox.Parent as StackPanel;
-                if (stackPanel != null)
+                else
                 {
-                    var panel = stackPanel.Parent as StackPanel;
-                    if (panel != null)
+                    for (int i = FleetDatas.Count - 1; i > -1; i--)
                     {
-                        var scrollViewer = panel.Parent as ScrollViewer;
-                        if (scrollViewer != null)
+                        var temp = FleetDatas[i];
+                        if (temp.ImportTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase))
                         {
-                            var grid = scrollViewer.Parent as Grid;
-                            if (grid != null && grid.Name.Equals("LineGrid", StringComparison.OrdinalIgnoreCase))
-                            {
-                                var radCartesianChart = _lineGrid.Children[0] as RadCartesianChart;
-                                if (radCartesianChart != null)
-                                {
-                                    var firstOrDefault =
-                                        radCartesianChart.Series.FirstOrDefault(
-                                            p =>
-                                                p.DisplayName.Equals(checkBox.Content.ToString(),
-                                                    StringComparison.OrdinalIgnoreCase));
-                                    if (firstOrDefault != null)
-                                        firstOrDefault.Visibility = Visibility.Collapsed;
-                                }
-                            }
-                            else if (grid != null && grid.Name.Equals("BarGrid", StringComparison.OrdinalIgnoreCase))
-                            {
-                                var radCartesianChart = _barGrid.Children[0] as RadCartesianChart;
-                                if (radCartesianChart != null)
-                                {
-                                    var firstOrDefault =
-                                        radCartesianChart.Series.FirstOrDefault(
-                                            p =>
-                                                p.DisplayName.Equals(checkBox.Content.ToString(),
-                                                    StringComparison.OrdinalIgnoreCase));
-                                    if (firstOrDefault != null)
-                                        firstOrDefault.Visibility = Visibility.Collapsed;
-                                }
-                            }
+                            FleetDatas.Remove(temp);
+                            break;
                         }
                     }
                 }
@@ -1097,8 +775,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #region Command
 
         #region ViewModel 命令 --导出图表
-
-        private bool _canExport = true;
         public DelegateCommand<object> ExportCommand { get; set; }
 
         private void OnExport(object sender)
@@ -1141,7 +817,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     }
 
                     //创建RadGridView
-                    var columnsList = new Dictionary<string, string> {{"ImportType", "飞机引进方式"}, {"AirNum", "飞机数（架）"}};
+                    var columnsList = new Dictionary<string, string> { { "ImportType", "飞机引进方式" }, { "AirNum", "飞机数（架）" } };
                     _exportRadgridview = ImageAndGridOperation.CreatDataGridView(columnsList, FleetImportTypeCollection,
                         "PieImportType");
 
@@ -1191,7 +867,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 var radGridView = sender as RadGridView;
                 if (radGridView != null &&
-                    (_i%5 == 3 && _i >= 8 &&
+                    (_i % 5 == 3 && _i >= 8 &&
                      radGridView.Name.Equals("LineImportType", StringComparison.OrdinalIgnoreCase)))
                 {
                     e.Value = DateTime.Parse(e.Value.ToString()).AddMonths(1).AddDays(-1).ToString("yyyy/M/d");
@@ -1199,17 +875,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
             _i++;
         }
-
-        private bool CanExport(object sender)
-        {
-            return _canExport;
-        }
-
         #endregion
 
         #region ViewModel 命令 --导出数据aircraftDetail
-
-        private bool _canExportGridView = true;
         public DelegateCommand<object> ExportGridViewCommand { get; set; }
 
         private void OnExportGridView(object sender)
@@ -1231,12 +899,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
-        private bool CanExportGridView(object sender)
-        {
-            return _canExportGridView;
-        }
-
         #endregion
 
         #region  增加子窗体的右键导出功能
@@ -1245,7 +907,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             var radcm = new RadContextMenu(); //新建右键菜单
             radcm.Opened += radcm_Opened;
-            var rmi = new RadMenuItem {Header = "导出表格"}; //新建右键菜单项
+            var rmi = new RadMenuItem { Header = "导出表格" }; //新建右键菜单项
             rmi.Click += MenuItemClick; //为菜单项注册事件
             rmi.DataContext = rwindow.Name;
             radcm.Items.Add(rmi);
@@ -1461,13 +1123,13 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 return importType1.Contains(importType2);
             }
-                int index2 = importType2.IndexOf("续租", StringComparison.OrdinalIgnoreCase);
-                if (index2 >= -1)
-                {
-                    return importType2.Contains(importType1);
-                }
-                    return importType1.Equals(importType2, StringComparison.OrdinalIgnoreCase);
-                }
+            int index2 = importType2.IndexOf("续租", StringComparison.OrdinalIgnoreCase);
+            if (index2 >= -1)
+            {
+                return importType2.Contains(importType1);
+            }
+            return importType1.Equals(importType2, StringComparison.OrdinalIgnoreCase);
+        }
 
         /// <summary>
         ///     趋势图的选择点事件数据源
@@ -1617,6 +1279,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             public string Color { get; set; } //引进的颜色
         }
 
+        public class FleetData
+        {
+            public string ImportTypeName { get; set; }
+            public ObservableCollection<FleetImportTypeTrend> Data { get; set; }
+        }
         #endregion
     }
 }

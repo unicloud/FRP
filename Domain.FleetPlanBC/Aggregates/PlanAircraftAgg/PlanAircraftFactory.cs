@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg
@@ -25,9 +27,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg
         /// <returns>计划飞机</returns>
         public static PlanAircraft CreatePlanAircraft()
         {
-            var planAircraft = new PlanAircraft
-            {
-            };
+            var planAircraft = new PlanAircraft();
 
             planAircraft.GenerateNewIdentity();
             return planAircraft;

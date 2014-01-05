@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -17,17 +19,13 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 
 #endregion
 
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    /// 采购发票
+    ///     采购发票
     /// </summary>
     [DataServiceKey("PurchaseInvoiceId")]
     public class PurchaseInvoiceDTO
@@ -39,8 +37,9 @@ namespace UniCloud.Application.PaymentBC.DTO
         #endregion
 
         #region 属性
+
         /// <summary>
-        /// 采购发票主键
+        ///     采购发票主键
         /// </summary>
         public int PurchaseInvoiceId { get; set; }
 
@@ -138,13 +137,14 @@ namespace UniCloud.Application.PaymentBC.DTO
         #region 导航属性
 
         /// <summary>
-        ///    发票行集合
+        ///     发票行集合
         /// </summary>
         public List<InvoiceLineDTO> InvoiceLines
         {
             get { return _lines ?? (_lines = new List<InvoiceLineDTO>()); }
             set { _lines = value; }
         }
+
         #endregion
     }
 }

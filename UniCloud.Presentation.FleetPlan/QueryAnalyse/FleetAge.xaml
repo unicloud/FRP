@@ -13,7 +13,8 @@
              d:DataContext="{d:DesignInstance uc:FleetAgeVm}"
              mc:Ignorable="d"
              d:DesignHeight="300"
-             d:DesignWidth="400">
+             d:DesignWidth="400"
+             Name="FleetAgeView">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -214,7 +215,7 @@
                                                 </DataTemplate>
                                             </telerik:RadCartesianChart.Resources>
                                             <telerik:RadCartesianChart.SeriesProvider>
-                                                <telerik:ChartSeriesProvider Source="{Binding FleetDatas}">
+                                                <telerik:ChartSeriesProvider Source="{Binding FleetDatas,Mode=TwoWay}">
                                                     <telerik:ChartSeriesProvider.SeriesDescriptors>
                                                         <telerik:CategoricalSeriesDescriptor ItemsSourcePath="Data"
                                                                                              ValuePath="AverageAge"
@@ -294,7 +295,7 @@
                                                       telerik:StyleManager.Theme="Windows8"
                                                       VerticalScrollBarVisibility="Auto">
                                             <StackPanel>
-                                                <ItemsControl ItemsSource="{Binding AircraftTypes}">
+                                                <ItemsControl ItemsSource="{Binding AircraftTypes,Mode=TwoWay}">
                                                     <ItemsControl.ItemsPanel>
                                                         <ItemsPanelTemplate>
                                                             <StackPanel Orientation="Vertical" />
@@ -308,9 +309,8 @@
                                                                                      BorderThickness="1"
                                                                                      Background="{Binding Color}"
                                                                                      BorderBrush="{Binding Color}"
-                                                                                     Checked="AircraftTypeToggleButton_Checked"
-                                                                                     Unchecked="AircraftTypeToggleButton_Unchecked">
-                                                            </telerik:RadToggleButton>
+                                                                                     Command="{Binding DataContext.ToggleButtonCommand,ElementName=FleetAgeView}"
+                                                                                     CommandParameter="{Binding ElementName=AircraftTypeToggleButton}" />
                                                         </DataTemplate>
                                                     </ItemsControl.ItemTemplate>
                                                 </ItemsControl>
@@ -402,18 +402,27 @@
                                                 <ChartView:PieSeries.LabelDefinitions>
                                                     <ChartView:ChartSeriesLabelDefinition Margin="-5,0,0,0" />
                                                 </ChartView:PieSeries.LabelDefinitions>
+                                                <telerik:PieSeries.LegendSettings>
+                                                    <telerik:DataPointLegendSettings TitleBinding="AgeGroup" />
+                                                </telerik:PieSeries.LegendSettings>
                                                 <ChartView:PieSeries.AngleRange>
                                                     <Charting:AngleRange StartAngle="270"
                                                                          SweepAngle="360" />
                                                 </ChartView:PieSeries.AngleRange>
                                             </ChartView:PieSeries>
                                         </Chart:RadPieChart>
-                                        <ScrollViewer Grid.Column="1"
-                                                      Margin="0,5,5,5"
-                                                      VerticalScrollBarVisibility="Auto"
-                                                      telerik:StyleManager.Theme="Windows8">
-                                            <StackPanel Style="{StaticResource LegendStyle}" />
-                                        </ScrollViewer>
+                                        <telerik:RadLegend Name="PieLegend"
+                                                           Margin="0,0,10,0"
+                                                           Items="{Binding LegendItems, ElementName=AgeRadPieChart}"
+                                                           Grid.Column="1"
+                                                           HoverMode="FadeOtherItems">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                                    <i:InvokeCommandAction Command="{Binding PieLegendKeyDownCommand}"
+                                                                           CommandParameter="{Binding ElementName=PieLegend}" />
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </telerik:RadLegend>
                                     </Grid>
                                 </telerik:RadPane>
                             </telerik:RadPaneGroup>

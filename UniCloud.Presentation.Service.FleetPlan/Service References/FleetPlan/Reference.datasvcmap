@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="41793ad9-e7ca-4a70-91f9-c18e90068787" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="2d22de1b-e3fd-410f-8905-14db3580f571" xmlns="urn:schemas-microsoft-com:xml-dataservicemap">
   <MetadataSources>
     <MetadataSource Address="http://localhost:20102/FleetPlanDataService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="5d50989c-c49c-4d33-8688-5e76416b2c63" SourceId="1" SourceUrl="http://localhost:20102/FleetPlanDataService.svc" />
+    <MetadataFile FileName="service.edmx" MetadataType="Edmx" ID="b5b00586-3629-4fe3-92c5-25639ef0d2f5" SourceId="1" SourceUrl="http://localhost:20102/FleetPlanDataService.svc" />
   </Metadata>
   <Extensions />
   <Parameters>

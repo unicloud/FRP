@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,13 +11,14 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg;
-using UniCloud.Domain.FleetPlanBC.Enums;
 
 #endregion
 
@@ -56,10 +58,10 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// </summary>
         public OperationStatus Status { get; private set; }
 
-
         #endregion
 
         #region 外键属性
+
         /// <summary>
         ///     飞机外键
         /// </summary>
@@ -70,7 +72,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// </summary>
         public int SupplierId { get; private set; }
 
-
         #endregion
 
         #region 导航属性
@@ -79,7 +80,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         ///     所有权人
         /// </summary>
         public virtual Supplier Supplier { get; private set; }
-
 
         #endregion
 

@@ -15,40 +15,40 @@
 
 #endregion
 
+#region 命名空间
 
-using System;
 using System.Data.Services.Common;
+
+#endregion
 
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    /// 维修合同基类
+    ///     维修合同基类
     /// </summary>
-       [DataServiceKey("MaintainContractId")]
-
+    [DataServiceKey("MaintainContractId")]
     public class MaintainContractDTO
     {
         public int MaintainContractId { get; set; }
 
         /// <summary>
-        /// 合同号
+        ///     合同号
         /// </summary>
         public string Number { get; set; }
 
         /// <summary>
-        /// 合同名称
+        ///     合同名称
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// 签约对象
+        ///     签约对象
         /// </summary>
         public string Signatory { get; set; }
 
         /// <summary>
-        /// 签约对象ID
+        ///     签约对象ID
         /// </summary>
         public int SignatoryId { get; set; }
-
     }
 }

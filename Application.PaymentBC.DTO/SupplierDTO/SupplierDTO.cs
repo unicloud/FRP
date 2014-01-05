@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2013/12/17 9:32:20
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -22,35 +24,37 @@ using System.Data.Services.Common;
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    ///  供应商
+    ///     供应商
     /// </summary>
     [DataServiceKey("SupplierId")]
     public class SupplierDTO
     {
         #region 属性
+
         /// <summary>
-        ///  供应商主键
+        ///     供应商主键
         /// </summary>
         public int SupplierId { get; set; }
+
         /// <summary>
         ///     组织机构代码
         /// </summary>
-        public string Code { get;  set; }
+        public string Code { get; set; }
 
         /// <summary>
         ///     名称
         /// </summary>
-        public string Name { get;  set; }
+        public string Name { get; set; }
 
         /// <summary>
         ///     是否有效
         /// </summary>
-        public bool IsValid { get;  set; }
+        public bool IsValid { get; set; }
 
         /// <summary>
         ///     备注
         /// </summary>
-        public string Note { get;  set; }
+        public string Note { get; set; }
 
         #endregion
 

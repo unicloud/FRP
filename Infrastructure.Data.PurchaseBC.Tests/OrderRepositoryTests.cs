@@ -33,7 +33,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
@@ -46,19 +46,17 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
-            Configuration.Create()
-                .UseAutofac()
-                .CreateLog()
-                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IOrderRepository, OrderRepository>()
-                .Register<ICurrencyRepository, CurrencyRepository>()
-                .Register<ITradeRepository, TradeRepository>()
-                .Register<IContractAircraftRepository, ContractAircraftRepository>()
-                .Register<IContractAircraftBFERepository, ContractAircraftBFERepository>()
-                .Register<IAircraftTypeRepository, AircraftTypeRepository>()
-                .Register<IActionCategoryRepository, ActionCategoryRepository>()
-                .Register<IRelatedDocRepository, RelatedDocRepository>()
-                .Register<ILinkmanRepository, LinkmanRepository>();
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .RegisterType<IOrderRepository, OrderRepository>()
+                .RegisterType<ICurrencyRepository, CurrencyRepository>()
+                .RegisterType<ITradeRepository, TradeRepository>()
+                .RegisterType<IContractAircraftRepository, ContractAircraftRepository>()
+                .RegisterType<IContractAircraftBFERepository, ContractAircraftBFERepository>()
+                .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
+                .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
+                .RegisterType<IRelatedDocRepository, RelatedDocRepository>()
+                .RegisterType<ILinkmanRepository, LinkmanRepository>();
         }
 
         [TestCleanup]

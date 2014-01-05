@@ -21,16 +21,5 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             get { return DataContext as FleetAgeVm; }
             set { DataContext = value; }
         }
-
-        private void AircraftTypeToggleButton_Checked(object sender, System.Windows.RoutedEventArgs e)
-        {
-            ViewModel.ToggleButtonChecked(sender,e);
-        }
-
-        private void AircraftTypeToggleButton_Unchecked(object sender, System.Windows.RoutedEventArgs e)
-        {
-            ViewModel.ToggleButtonUnchecked(sender, e);
-        }
-
     }
 }

@@ -30,7 +30,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-
+using Microsoft.Practices.Unity;
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -43,21 +43,19 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         [TestInitialize]
         public void TestInitialize()
         {
-            Configuration.Create()
-                .UseAutofac()
-                .CreateLog()
-                .Register<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .Register<IReceptionRepository, ReceptionRepository>()
-                .Register<ISupplierRepository, SupplierRepository>()
-                .Register<IContractAircraftRepository, ContractAircraftRepository>()
-                .Register<IAircraftLeaseReceptionAppService, AircraftLeaseReceptionAppService>()
-                .Register<IAircraftPurchaseReceptionAppService, AircraftPurchaseReceptionAppService>()
-                .Register<IEngineLeaseReceptionAppService, EngineLeaseReceptionAppService>()
-                .Register<IEnginePurchaseReceptionAppService, EnginePurchaseReceptionAppService>()
-                .Register<IAircraftLeaseReceptionQuery, AircraftLeaseReceptionQuery>()
-                .Register<IAircraftPurchaseReceptionQuery, AircraftPurchaseReceptionQuery>()
-                .Register<IEngineLeaseReceptionQuery, EngineLeaseReceptionQuery>()
-                .Register<IEnginePurchaseReceptionQuery, EnginePurchaseReceptionQuery>();
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .RegisterType<IReceptionRepository, ReceptionRepository>()
+                .RegisterType<ISupplierRepository, SupplierRepository>()
+                .RegisterType<IContractAircraftRepository, ContractAircraftRepository>()
+                .RegisterType<IAircraftLeaseReceptionAppService, AircraftLeaseReceptionAppService>()
+                .RegisterType<IAircraftPurchaseReceptionAppService, AircraftPurchaseReceptionAppService>()
+                .RegisterType<IEngineLeaseReceptionAppService, EngineLeaseReceptionAppService>()
+                .RegisterType<IEnginePurchaseReceptionAppService, EnginePurchaseReceptionAppService>()
+                .RegisterType<IAircraftLeaseReceptionQuery, AircraftLeaseReceptionQuery>()
+                .RegisterType<IAircraftPurchaseReceptionQuery, AircraftPurchaseReceptionQuery>()
+                .RegisterType<IEngineLeaseReceptionQuery, EngineLeaseReceptionQuery>()
+                .RegisterType<IEnginePurchaseReceptionQuery, EnginePurchaseReceptionQuery>();
         }
 
         [TestCleanup]

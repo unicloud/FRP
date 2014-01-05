@@ -65,7 +65,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             _service = service;
             _fleetPlanContext = _service.Context;
-            ExportCommand = new DelegateCommand<object>(OnExport, CanExport);//导出图表源数据（Source data）
+
             ViewModelInitializer();
             InitializeVm();
         }
@@ -98,6 +98,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// </summary>
         private void ViewModelInitializer()
         {
+            ExportCommand = new DelegateCommand<object>(OnExport);//导出图表源数据（Source data）
+            ToggleButtonCommand = new DelegateCommand<object>(ToggleButtonCheck);
             _monthGrid = CurrentCountRegisteredFleet.MonthGrid;
             _yearGrid = CurrentCountRegisteredFleet.YearGrid;
         }
@@ -107,24 +109,52 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #region 公共数据
         public QueryableDataServiceCollectionView<XmlConfigDTO> XmlConfigs { get; set; }//XmlConfig集合
         public QueryableDataServiceCollectionView<XmlSettingDTO> XmlSettings { get; set; } //XmlSetting集合
-        public ObservableCollection<FleetData> MonthFleetDatas { get; set; }
-        private ObservableCollection<FleetData> StaticMonthFleetDatas { get; set; }
-        public ObservableCollection<FleetData> YearFleetDatas { get; set; }
-        private ObservableCollection<FleetData> StaticYearFleetDatas { get; set; }
-        public ObservableCollection<FleetRegisteredTrend> AircraftTypes { get; set; }
 
-        #region ViewModel 属性  CanExportData
-        private bool _canExport = true;//数据是否可导出
-        public bool CanExportData
+        private ObservableCollection<FleetData> _monthFleetDatas;
+        public ObservableCollection<FleetData> MonthFleetDatas
         {
-            get { return _canExport; }
+            get { return _monthFleetDatas; }
             set
             {
-                _canExport = value;
-                RaisePropertyChanged(() => CanExportData);
+                _monthFleetDatas = value;
+                RaisePropertyChanged("MonthFleetDatas");
             }
         }
-        #endregion
+        private ObservableCollection<FleetData> StaticMonthFleetDatas { get; set; }
+        private ObservableCollection<FleetRegisteredTrend> _monthAircraftTypes;
+        public ObservableCollection<FleetRegisteredTrend> MonthAircraftTypes
+        {
+            get { return _monthAircraftTypes; }
+            set
+            {
+                _monthAircraftTypes = value;
+                RaisePropertyChanged("MonthAircraftTypes");
+            }
+        }
+
+        private ObservableCollection<FleetData> _yearFleetDatas;
+        public ObservableCollection<FleetData> YearFleetDatas
+        {
+            get { return _yearFleetDatas; }
+            set
+            {
+                _yearFleetDatas = value;
+                RaisePropertyChanged("YearFleetDatas");
+            }
+        }
+        private ObservableCollection<FleetData> StaticYearFleetDatas { get; set; }
+
+        private ObservableCollection<FleetRegisteredTrend> _yearAircraftTypes;
+        public ObservableCollection<FleetRegisteredTrend> YearAircraftTypes
+        {
+            get { return _yearAircraftTypes; }
+            set
+            {
+                _yearAircraftTypes = value;
+                RaisePropertyChanged("YearAircraftTypes");
+            }
+        }
+
 
         #region ViewModel 属性 EndDate --结束时间
         private DateTime? _endDate = Convert.ToDateTime(DateTime.Now.ToString("yyyy/M"));
@@ -290,7 +320,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
             YearFleetDatas.Add(result.FirstOrDefault(p => p.AircraftTypeName.Equals("所有机型", StringComparison.OrdinalIgnoreCase)));
             result.ToList().ForEach(StaticYearFleetDatas.Add);
-            AircraftTypes = aircraftTypeResult;
+            YearAircraftTypes = aircraftTypeResult;
             //控制趋势图的滚动条
             int dateTimeCount = FleetRegisteredTrendYearCollection.Select(p => p.DateTime).Distinct().Count();
             if (FleetRegisteredTrendYearCollection != null && dateTimeCount >= 12)
@@ -334,7 +364,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
             MonthFleetDatas.Add(result.FirstOrDefault(p => p.AircraftTypeName.Equals("所有机型", StringComparison.OrdinalIgnoreCase)));
             result.ToList().ForEach(StaticMonthFleetDatas.Add);
-            AircraftTypes = aircraftTypeResult;
+            MonthAircraftTypes = aircraftTypeResult;
             //控制趋势图的滚动条
             int dateTimeCount = FleetRegisteredTrendMonthCollection.Select(p => p.DateTime).Distinct().Count();
             if (FleetRegisteredTrendMonthCollection != null && dateTimeCount >= 12)
@@ -347,71 +377,65 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
         }
 
+        public DelegateCommand<object> ToggleButtonCommand { get; set; }
         /// <summary>
-        /// 控制趋势图中折线（饼状）的显示
+        /// 控制趋势图中折线（饼状）的显示/隐藏
         /// </summary>
         /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void ToggleButtonChecked(object sender, RoutedEventArgs e)
+        private void ToggleButtonCheck(object sender)
         {
             var button = sender as RadToggleButton;
             if (button != null)
             {
-                if ("YearToggleButton".Equals(button.Name, StringComparison.OrdinalIgnoreCase))
+                if ((bool)button.IsChecked)
                 {
-                    var temp = StaticYearFleetDatas.FirstOrDefault(p => p.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase));
-                    if (temp != null && !YearFleetDatas.Any(p => p.AircraftTypeName.Equals(temp.AircraftTypeName, StringComparison.OrdinalIgnoreCase)))
+                    if ("YearToggleButton".Equals(button.Name, StringComparison.OrdinalIgnoreCase))
                     {
-                        YearFleetDatas.Add(temp);
+                        var temp = StaticYearFleetDatas.FirstOrDefault(p => p.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase));
+                        if (temp != null && !YearFleetDatas.Any(p => p.AircraftTypeName.Equals(temp.AircraftTypeName, StringComparison.OrdinalIgnoreCase)))
+                        {
+                            YearFleetDatas.Add(temp);
+                        }
+                    }
+                    else
+                    {
+                        var temp = StaticMonthFleetDatas.FirstOrDefault(p => p.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase));
+                        if (temp != null && !MonthFleetDatas.Any(p => p.AircraftTypeName.Equals(temp.AircraftTypeName, StringComparison.OrdinalIgnoreCase)))
+                        {
+                            MonthFleetDatas.Add(temp);
+                        }
                     }
                 }
                 else
                 {
-                    var temp = StaticMonthFleetDatas.FirstOrDefault(p => p.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase));
-                    if (temp != null && !MonthFleetDatas.Any(p => p.AircraftTypeName.Equals(temp.AircraftTypeName, StringComparison.OrdinalIgnoreCase)))
+                    if ("YearToggleButton".Equals(button.Name, StringComparison.OrdinalIgnoreCase))
                     {
-                        MonthFleetDatas.Add(temp);
+                        for (int i = YearFleetDatas.Count - 1; i > -1; i--)
+                        {
+                            var temp = YearFleetDatas[i];
+                            if (temp.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase))
+                            {
+                                YearFleetDatas.Remove(temp);
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        for (int i = MonthFleetDatas.Count - 1; i > -1; i--)
+                        {
+                            var temp = MonthFleetDatas[i];
+                            if (temp.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase))
+                            {
+                                MonthFleetDatas.Remove(temp);
+                                break;
+                            }
+                        }
                     }
                 }
             }
         }
 
-        /// <summary>
-        /// 控制趋势图中折线（饼状）的隐藏
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public void ToggleButtonUnchecked(object sender, RoutedEventArgs e)
-        {
-            var button = sender as RadToggleButton;
-            if (button != null)
-            {
-                if ("YearToggleButton".Equals(button.Name, StringComparison.OrdinalIgnoreCase))
-                {
-                    for (int i = YearFleetDatas.Count - 1; i > -1; i--)
-                    {
-                        var temp = YearFleetDatas[i];
-                        if (temp.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase))
-                        {
-                            YearFleetDatas.Remove(temp);
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    for (int i = MonthFleetDatas.Count - 1; i > -1; i--)
-                    {
-                        var temp = MonthFleetDatas[i];
-                        if (temp.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase))
-                        {
-                            MonthFleetDatas.Remove(temp);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
         /// <summary>
         /// 控制右键的打开
         /// </summary>
@@ -501,16 +525,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
             _i++;
-        }
-
-        /// <summary>
-        /// 右键数据导出是否可使用
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns></returns>
-        bool CanExport(object sender)
-        {
-            return CanExportData;
         }
         #endregion
 
