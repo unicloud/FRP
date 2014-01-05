@@ -106,9 +106,9 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
 
                 #region 飞机系列相关配置，包括查询，应用服务，仓储注册
 
-                .Register<IAcTypeQuery, AcTypeQuery>()
-                .Register<IAcTypeAppService, AcTypeAppService>()
-                .Register<IAcTypeRepository, AcTypeRepository>()
+                .RegisterType<IAcTypeQuery, AcTypeQuery>()
+                .RegisterType<IAcTypeAppService, AcTypeAppService>()
+                .RegisterType<IAcTypeRepository, AcTypeRepository>()
                 #endregion
 
                 #region 实际飞机相关配置，包括查询，应用服务，仓储注册
