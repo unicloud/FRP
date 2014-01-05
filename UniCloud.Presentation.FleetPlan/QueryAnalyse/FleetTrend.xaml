@@ -269,7 +269,7 @@
                                                 </telerik:RadCartesianChart.Grid>
                                                 <telerik:RadCartesianChart.Series>
                                                     <telerik:LineSeries DisplayName="期末飞机数"
-                                                                        ItemsSource="{Binding FleetAircraftTrendLineCollection}"
+                                                                        ItemsSource="{Binding FleetAircraftTrendLineCollection,Mode=TwoWay}"
                                                                         VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[0]}"
                                                                         ValueBinding="AircraftAmount"
                                                                         CategoryBinding="DateTime"
@@ -352,7 +352,7 @@
                                                 </telerik:RadCartesianChart.Grid>
                                                 <telerik:RadCartesianChart.Series>
                                                     <telerik:BarSeries DisplayName="飞机净增数"
-                                                                       ItemsSource="{Binding FleetAircraftTrendBarCollection}"
+                                                                       ItemsSource="{Binding FleetAircraftTrendBarCollection,Mode=TwoWay}"
                                                                        VerticalAxis="{Binding Source={StaticResource AdditionalVerticalAxis}, Path=[0]}"
                                                                        ValueBinding="AircraftAmount"
                                                                        CategoryBinding="DateTime">

@@ -134,9 +134,28 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public QueryableDataServiceCollectionView<XmlSettingDTO> XmlSettings { get; set; } //XmlSetting集合
         public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; }
 
-        public ObservableCollection<FleetData> FleetDatas { get; set; }
+        private ObservableCollection<FleetData> _fleetDatas;
+        public ObservableCollection<FleetData> FleetDatas 
+        { 
+            get { return _fleetDatas; }
+            set
+            {
+                _fleetDatas = value;
+                RaisePropertyChanged("FleetDatas");
+            }
+        }
         private ObservableCollection<FleetData> StaticFleetDatas { get; set; }
-        public ObservableCollection<FleetImportTypeTrend> ImportTypes { get; set; }
+
+        private ObservableCollection<FleetImportTypeTrend> _importTypes;
+        public ObservableCollection<FleetImportTypeTrend> ImportTypes
+        {
+            get { return _importTypes; }
+            set
+            {
+                _importTypes = value;
+                RaisePropertyChanged("ImportTypes");
+            }
+        }
         #region 属性 AircraftDTO
 
         private AircraftDTO _aircraft; //飞机实体数据

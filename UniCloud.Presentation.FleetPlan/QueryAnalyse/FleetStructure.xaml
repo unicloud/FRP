@@ -255,7 +255,7 @@
                                                     </telerik:ChartSelectionBehavior>
                                                 </telerik:RadCartesianChart.Behaviors>
                                                 <telerik:RadCartesianChart.SeriesProvider>
-                                                    <telerik:ChartSeriesProvider Source="{Binding FleetDatas}">
+                                                    <telerik:ChartSeriesProvider Source="{Binding FleetDatas,Mode=TwoWay}">
                                                         <telerik:ChartSeriesProvider.SeriesDescriptors>
                                                             <telerik:CategoricalSeriesDescriptor ItemsSourcePath="Data"
                                                                                                  ValuePath="AirNum"
@@ -327,7 +327,7 @@
                                                           telerik:StyleManager.Theme="Windows8"
                                                           VerticalScrollBarVisibility="Auto">
                                                 <StackPanel>
-                                                    <ItemsControl ItemsSource="{Binding Regionals}"
+                                                    <ItemsControl ItemsSource="{Binding Regionals,Mode=TwoWay}"
                                                                   Margin="0,5,5,0">
                                                         <ItemsControl.ItemsPanel>
                                                             <ItemsPanelTemplate>
