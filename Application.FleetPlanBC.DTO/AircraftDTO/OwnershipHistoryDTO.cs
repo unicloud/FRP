@@ -49,6 +49,10 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public int Status { get; set; }
 
+        /// <summary>
+        ///     所有权人
+        /// </summary>
+        public string SupplierName { get; set; }
         #endregion
 
         #region 外键属性

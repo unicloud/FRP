@@ -310,7 +310,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #endregion
 
         #region ViewModel 属性 StartDate --开始时间
-        private DateTime? _startDate = new DateTime(DateTime.Now.AddYears(-1).Year, 1, 1); //开始时间
+        private DateTime? _startDate = new DateTime(2000, 1, 1); //开始时间
         /// <summary>
         ///     开始时间
         /// </summary>
@@ -1019,15 +1019,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                             {
                                 if (typeColor != null)
                                 {
-                                    var firstOrDefault =
-                                        typeColor.Descendants("Item")
-                                            .FirstOrDefault(
-                                                p =>
-                                                    p.Attribute("Name")
-                                                        .Value.Equals(fleetageTrend.AircraftType,
-                                                            StringComparison.OrdinalIgnoreCase));
-                                    if (firstOrDefault !=
-                                        null)
+                                    var firstOrDefault =typeColor.Descendants("Item").FirstOrDefault(
+                                                p => p.Attribute("Name").Value.Equals(fleetageTrend.AircraftType,StringComparison.OrdinalIgnoreCase));
+                                    if (firstOrDefault !=null)
                                         fleetageTrend.Color = firstOrDefault.Attribute("Color").Value;
                                 }
                             }

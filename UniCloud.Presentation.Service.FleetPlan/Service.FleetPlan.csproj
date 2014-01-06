@@ -106,6 +106,9 @@
     <Compile Include="FleetPlan\OperationHistoryDTO.cs" />
     <Compile Include="FleetPlan\PlanAircraftDTO.cs" />
     <Compile Include="FleetPlan\PlanDTO.cs" />
+    <Compile Include="FleetPlan\Enums\PlanStatus.cs" />
+    <Compile Include="FleetPlan\Enums\RequestStatus.cs" />
+    <Compile Include="FleetPlan\AnnualDTO.cs" />
     <Compile Include="FleetPlan\PlanHistoryDTO.cs" />
     <Compile Include="IFleetPlanService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
