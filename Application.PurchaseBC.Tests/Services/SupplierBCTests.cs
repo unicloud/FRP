@@ -56,7 +56,6 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
                 .RegisterType<ILinkmanRepository, LinkmanRepository>()
                 .RegisterType<ISupplierRoleRepository, SupplierRoleRepository>()
                 .RegisterType<ISupplierCompanyMaterialRepository, SupplierCompanyMaterialRepository>()
-                .RegisterType<IStaticLoad, StaticLoad>()
                 .RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
                 .RegisterType<ICurrencyRepository,CurrencyRepository>()
                 .RegisterType<ICurrencyQuery,CurrencyQuery>()

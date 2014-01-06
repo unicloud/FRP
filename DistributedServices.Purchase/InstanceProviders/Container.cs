@@ -18,7 +18,6 @@
 #region 命名空间
 
 using Microsoft.Practices.Unity;
-using UniCloud.Application.PurchaseBC;
 using UniCloud.Application.PurchaseBC.ActionCategoryServices;
 using UniCloud.Application.PurchaseBC.AircraftTypeServices;
 using UniCloud.Application.PurchaseBC.ContractAircraftServices;
@@ -93,7 +92,6 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 .RegisterType<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IStaticLoad, StaticLoad>()
 
                 #region 领域事件相关配置
 

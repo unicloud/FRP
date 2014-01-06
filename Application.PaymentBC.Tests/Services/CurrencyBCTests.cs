@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,9 +11,12 @@
 // 修改者：linxw 时间：2013/12/18 9:41:20
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
-using System.Linq;
+#region 命名空间
+
+using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.PaymentBC.CurrencyServices;
 using UniCloud.Application.PaymentBC.Query.CurrencyQueries;
@@ -24,10 +28,12 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
+#endregion
+
 namespace UniCloud.Application.PaymentBC.Tests.Services
 {
-     [TestClass]
+    [TestClass]
     public class CurrencyBCTests
     {
         #region 基础配置
@@ -40,10 +46,9 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
                 .RegisterType<ICurrencyRepository, CurrencyRepository>()
                 .RegisterType<ICurrencyAppService, CurrencyAppService>()
                 .RegisterType<ICurrencyQuery, CurrencyQuery>()
-                 .RegisterType<ISupplierRepository, SupplierRepository>()
+                .RegisterType<ISupplierRepository, SupplierRepository>()
                 .RegisterType<ISupplierAppService, SupplierAppService>()
-                .RegisterType<ISupplierQuery, SupplierQuery>()
-                .RegisterType<IStaticLoad, StaticLoad>();
+                .RegisterType<ISupplierQuery, SupplierQuery>();
         }
 
         [TestCleanup]
@@ -52,18 +57,5 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
         }
 
         #endregion
-
-        [TestMethod]
-        public void GetApuCurrencys()
-        {
-            // Arrange
-            var service = DefaultContainer.Resolve<IStaticLoad>();
-
-            // Act
-            var result = service.GetCurrencies().ToList();
-           
-            // Assert
-            //Assert.IsTrue(result.Any());
-        }
     }
 }
