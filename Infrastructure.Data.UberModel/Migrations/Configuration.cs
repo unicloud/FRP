@@ -34,6 +34,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .Register(new PartData(context))
                 .Register(new ActionCategoryData(context))
                 .Register(new DocumentData(context))
-                .InitialData();        }
+                .InitialData();        
+        }
     }
 }

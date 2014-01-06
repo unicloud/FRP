@@ -32,9 +32,8 @@ namespace UniCloud.Presentation.Service.FleetPlan
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class FleetPlanService : ServiceBase, IFleetPlanService
     {
-        private static QueryableDataServiceCollectionView<AnnualDTO> _annual;
-        private static QueryableDataServiceCollectionView<AirlinesDTO> _airlines;
-
+        private static AirlinesDTO _curAirlines;
+        private static AnnualDTO _curAnnual;
         public FleetPlanService()
         {
             context = new FleetPlanData(AgentHelper.FleetPlanServiceUri);
@@ -48,15 +47,6 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         #region 获取静态数据
-
-        /// <summary>
-        /// 所有航空公司
-        /// </summary>
-        public QueryableDataServiceCollectionView<AirlinesDTO> GetAirlineses(bool forceLoad = false)
-        {
-            Action loaded = () => { };
-            return GetStaticData(_airlines, loaded, Context.Airlineses);
-        }
 
         #endregion
 
@@ -79,7 +69,8 @@ namespace UniCloud.Presentation.Service.FleetPlan
         public AirlinesDTO CurrentAirlines(bool forceLoad = false)
         {
             Action loaded = () => { };
-            return GetStaticData(_airlines, loaded, Context.Airlineses).SingleOrDefault();
+            var airlinesDescriptor = new FilterDescriptor("IsCurrent", FilterOperator.IsEqualTo, true);
+            return GetStaticData(_curAirlines, loaded, Context.Airlineses, airlinesDescriptor);
         }
 
         /// <summary>
@@ -88,7 +79,8 @@ namespace UniCloud.Presentation.Service.FleetPlan
         public AnnualDTO CurrentAnnual(bool forceLoad = false)
         {
             Action loaded = () => { };
-            return GetStaticData(_annual, loaded, Context.Annuals).AsQueryable().SingleOrDefault(p => p.IsOpen);
+            var annualDescriptor = new FilterDescriptor("IsOpen", FilterOperator.IsEqualTo, true);
+            return GetStaticData(_curAnnual, loaded, Context.Annuals, annualDescriptor);
         }
 
         #endregion
@@ -103,13 +95,13 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="lastPlan"></param>
         /// <param name="newAnnual"></param>
         /// <param name="newYear"></param>
-        /// <param name="curAirlinesId"></param>
+        /// <param name="curAirlines"></param>
         /// <returns><see cref="IFleetPlanService"/></returns>
-        public PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual,int newYear,Guid curAirlinesId)
+        public PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual,int newYear,AirlinesDTO curAirlines)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                return pb.CreateNewYearPlan(lastPlan, newAnnual, newYear, curAirlinesId);
+                return pb.CreateNewYearPlan(lastPlan, newAnnual, newYear, curAirlines);
             }
         }
 

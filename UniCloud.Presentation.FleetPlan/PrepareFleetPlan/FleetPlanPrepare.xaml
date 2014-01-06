@@ -122,6 +122,9 @@
                                 <telerik:RadGridView.Columns>
                                     <input:DataPageSerialColumn Header="序号"
                                                                 HeaderTextAlignment="Center" />
+                                    <telerik:GridViewDataColumn Header="计划标题"
+                                                                DataMemberBinding="{Binding Title}"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}" />
                                     <telerik:GridViewDataColumn Header="计划文号"
                                                                 DataMemberBinding="{Binding DocNumber}"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}" />

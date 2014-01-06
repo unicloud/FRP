@@ -35,11 +35,6 @@ namespace UniCloud.Presentation.Service.FleetPlan
 
         #region 获取静态数据
 
-        /// <summary>
-        /// 所有航空公司
-        /// </summary>
-        QueryableDataServiceCollectionView<AirlinesDTO> GetAirlineses(bool forceLoad = false);
-
         #endregion
 
         #region 公共属性
@@ -71,9 +66,9 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="lastPlan"></param>
         /// <param name="newAnnual"></param>
         /// <param name="newYear"></param>
-        /// <param name="curAirlinesId"></param>
+        /// <param name="curAirlines"></param>
         /// <returns><see cref="IFleetPlanService"/></returns>
-        PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual, int newYear, Guid curAirlinesId);
+        PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual, int newYear, AirlinesDTO curAirlines);
 
         /// <summary>
         /// 创建新版本的运力增减计划

@@ -40,7 +40,7 @@
                 <telerik:RadSplitContainer Orientation="Vertical"
                                            telerik:ProportionalStackPanel.RelativeSize="500, 600">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="制定规划"
+                        <telerik:RadPane Header="制定计划"
                                          IsPinned="True"
                                          CanFloat="False"
                                          CanUserClose="False"
@@ -72,19 +72,19 @@
                                                        Command="{Binding NewCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/New.png"
                                                Stretch="Fill"
-                                               ToolTipService.ToolTip="新增规划" />
+                                               ToolTipService.ToolTip="新增计划" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AddCommand}">
+                                                       Command="{Binding AddEntityCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Add.png"
                                                Stretch="Fill"
-                                               ToolTipService.ToolTip="新增规划项" />
+                                               ToolTipService.ToolTip="新增计划项" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding RemoveCommand}">
+                                                       Command="{Binding RemoveEntityCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
                                                Stretch="Fill"
-                                               ToolTipService.ToolTip="删除规划项" />
+                                               ToolTipService.ToolTip="删除计划项" />
                                     </telerik:RadButton>
                                     <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="2,2,2,-2"
@@ -94,13 +94,13 @@
                                                ToolTipService.ToolTip="提交审核" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding ExamineCommand}">
+                                                       Command="{Binding CheckCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Check.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="审核" />
                                     </telerik:RadButton>
                                 </telerik:RadToolBar>
-                                <telerik:RadGridView x:Name="编制规划"
+                                <telerik:RadGridView x:Name="编制计划"
                                                      Grid.Row="1"
                                                      AutoExpandGroups="True"
                                                      ShowGroupPanel="False"

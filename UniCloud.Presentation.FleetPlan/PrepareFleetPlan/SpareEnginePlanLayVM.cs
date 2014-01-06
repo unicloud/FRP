@@ -345,10 +345,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #endregion
 
-        #region 移除规划行
+        #region 移除计划行
 
         /// <summary>
-        ///     移除规划行
+        ///     移除计划行
         /// </summary>
         public DelegateCommand<object> RemoveEntityCommand { get; private set; }
 

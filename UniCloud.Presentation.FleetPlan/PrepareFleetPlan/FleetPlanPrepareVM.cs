@@ -100,7 +100,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public override void LoadData()
         {
             ViewAnnuals.AutoLoad = true;
-            Airlineses = _service.GetAirlineses();
+            _curAnnual = _service.CurrentAnnual();
+            _curAirlines = _service.CurrentAirlines();
             RefreshCommandState();
         }
 
@@ -114,11 +115,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public QueryableDataServiceCollectionView<AnnualDTO> ViewAnnuals { get; set; }
 
         #endregion
-
-        /// <summary>
-        ///     所有航空公司集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<AirlinesDTO> Airlineses { get; set; }
 
         #region 选择年度内的计划集合
         private ObservableCollection<PlanDTO> _viewPlans = new ObservableCollection<PlanDTO>();
@@ -156,15 +152,15 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 if (_selAnnual != value)
                 {
                     _selAnnual = value;
-                    RaisePropertyChanged(() => SelAnnual);
-                    _curAnnual = ViewAnnuals.FirstOrDefault(p => p.IsOpen);
-                    _curAirlines = Airlineses.FirstOrDefault(p => p.IsCurrent);
                     _viewPlans.Clear();
                     foreach (var plan in value.Plans)
                     {
                         _viewPlans.Add(plan);
                     }
                     _selPlan = ViewPlans.FirstOrDefault();
+
+                    RaisePropertyChanged(() => SelAnnual);
+                    RaisePropertyChanged(() => SelPlan);
                     // 刷新按钮状态
                     RefreshCommandState();
                 }
@@ -178,7 +174,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private PlanDTO _selPlan;
 
         /// <summary>
-        ///     选择的规划明细
+        ///     选择的计划
         /// </summary>
         public PlanDTO SelPlan
         {
@@ -236,10 +232,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             currentAnnual.IsOpen = false;
 
             //刷新_service中的静态属性CurrentAnnual
-            _curAnnual = ViewAnnuals.SingleOrDefault(p => p.IsOpen);
+            _curAnnual = _service.CurrentAnnual(true);
 
             //创建新年度的第一版本计划
-            newAnnual.Plans.Add(_service.CreateNewYearPlan(lastPlan, newAnnual.Id, newAnnual.Year, _curAirlines.Id));
+            newAnnual.Plans.Add(_service.CreateNewYearPlan(lastPlan, newAnnual.Id, newAnnual.Year, _curAirlines));
 
             RefreshCommandState();
         }
