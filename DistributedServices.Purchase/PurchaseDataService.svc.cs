@@ -17,12 +17,10 @@
 
 #region 命名空间
 
-using System;
 using System.Data.Services;
 using System.Data.Services.Common;
 using System.ServiceModel.Web;
 using System.Web;
-using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.DocumentPathServices;
 using UniCloud.Infrastructure.Utilities.Container;
 
@@ -44,7 +42,6 @@ namespace UniCloud.DistributedServices.Purchase
 
             #endregion
 
-
             #region 服务操作访问控制
 
             // config.SetServiceOperationAccessRule("MyServiceOperation", ServiceOperationRights.All);
@@ -60,7 +57,7 @@ namespace UniCloud.DistributedServices.Purchase
         #region 服务操作
 
         /// <summary>
-        /// 控制生成的服务是否需要缓存
+        ///     控制生成的服务是否需要缓存
         /// </summary>
         /// <param name="args"></param>
         protected override void OnStartProcessingRequest(ProcessRequestArgs args)
@@ -84,12 +81,12 @@ namespace UniCloud.DistributedServices.Purchase
             cachePolicy.SetValidUntilExpires(true);
         }
 
-
         #endregion
 
         #region 文档路径增加、删除
+
         /// <summary>
-        /// 添加文档路径
+        ///     添加文档路径
         /// </summary>
         /// <param name="name"></param>
         /// <param name="isLeaf"></param>
@@ -102,8 +99,9 @@ namespace UniCloud.DistributedServices.Purchase
             var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
             documentPathAppService.AddDocPath(name, isLeaf, documentId, parentId, pathSource);
         }
+
         /// <summary>
-        /// 删除文档路径
+        ///     删除文档路径
         /// </summary>
         /// <param name="docPathId"></param>
         [WebGet]
@@ -112,7 +110,6 @@ namespace UniCloud.DistributedServices.Purchase
             var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
             documentPathAppService.DelDocPath(docPathId);
         }
-
 
         #endregion
     }

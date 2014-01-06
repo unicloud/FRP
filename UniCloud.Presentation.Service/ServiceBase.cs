@@ -106,7 +106,7 @@ namespace UniCloud.Presentation.Service
         /// <param name="forceLoad">是否强制加载</param>
         /// <returns>静态属性</returns>
         protected TEntity GetStaticData<TEntity>(
-            TEntity staticData, Action loaded, DataServiceQuery<TEntity> query,FilterDescriptor filterDescriptor,
+            TEntity staticData, Action loaded, DataServiceQuery<TEntity> query, FilterDescriptor filterDescriptor,
             bool forceLoad = false)
             where TEntity : class, INotifyPropertyChanged
         {
@@ -122,6 +122,7 @@ namespace UniCloud.Presentation.Service
                 staticDatas.Load(true);
             return staticDatas.FirstOrDefault();
         }
+
         #region IService 成员
 
         #region 属性
@@ -235,6 +236,13 @@ namespace UniCloud.Presentation.Service
         /// </summary>
         public void RejectChanges()
         {
+            // 移除链接
+            context.Links.ToList().ForEach(l =>
+            {
+                if (l.State != EntityStates.Unchanged && l.State != EntityStates.Detached)
+                    context.Detach(l.Target);
+            });
+            // 遍历ServiceCollectionViews并撤销更改
             _dataServiceCollectionViews.ForEach(RejectChanges);
         }
 
@@ -291,8 +299,9 @@ namespace UniCloud.Presentation.Service
             where TService : class, INotifyPropertyChanged
         {
             var result = new QueryableDataServiceCollectionView<TService>(context, query);
-            result.SubmittingChanges += (o, e) => { e.SaveChangesOptions = options; };
-            result.PropertyChanged += (o, e) => { HasChanges = result.HasChanges; };
+            result.SubmittingChanges += (o, e) =>
+                e.SaveChangesOptions = options;
+            result.PropertyChanged += (o, e) => { if (result.HasChanges) HasChanges = true; };
             result.LoadedData += (o, e) =>
             {
                 HasChanges = false;

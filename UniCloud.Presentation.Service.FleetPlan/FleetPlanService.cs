@@ -88,7 +88,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <summary>
         /// 当前航空公司
         /// </summary>
-        public AirlinesDTO CurrentAirlines(bool forceLoad = false)
+        public AirlinesDTO CurrentAirlines(Action loaded, bool forceLoad = false)
         {
             return GetAirlineses(forceLoad).FirstOrDefault(p => p.IsCurrent);
         }
@@ -96,11 +96,11 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <summary>
         /// 当前年度
         /// </summary>
-        public AnnualDTO CurrentAnnual(bool forceLoad = false)
+        public AnnualDTO CurrentAnnual(Action loaded, bool forceLoad = false)
         {
-            Action loaded = () => { };
+            Action loaded1 = () => { };
             var annualDescriptor = new FilterDescriptor("IsOpen", FilterOperator.IsEqualTo, true);
-            return GetStaticData(_curAnnual, loaded, Context.Annuals, annualDescriptor);
+            return GetStaticData(_curAnnual, loaded1, Context.Annuals, annualDescriptor);
         }
 
         #endregion
