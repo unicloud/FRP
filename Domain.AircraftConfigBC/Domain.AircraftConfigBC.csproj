@@ -44,6 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\AcTypeAgg\AcType.cs" />
+    <Compile Include="Aggregates\AcTypeAgg\AcTypeFactory.cs" />
+    <Compile Include="Aggregates\AcTypeAgg\AcTypeSpecifications.cs" />
+    <Compile Include="Aggregates\AcTypeAgg\IAcTypeRepository.cs" />
     <Compile Include="Aggregates\AircraftAgg\Aircraft.cs" />
     <Compile Include="Aggregates\AircraftAgg\AircraftFactory.cs" />
     <Compile Include="Aggregates\AircraftAgg\AircraftSpecifications.cs" />
@@ -55,6 +59,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Events\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>

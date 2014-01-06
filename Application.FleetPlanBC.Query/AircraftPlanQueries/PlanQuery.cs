@@ -18,6 +18,7 @@
 
 using System.Linq;
 using UniCloud.Application.FleetPlanBC.DTO;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
 using UniCloud.Infrastructure.Data;
 
@@ -42,6 +43,9 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
         public IQueryable<PlanDTO> PlanDTOQuery(
             QueryBuilder<Plan> query)
         {
+            var aircraftBusinesses = _unitOfWork.CreateSet<AircraftBusiness>();
+            var operationHistories = _unitOfWork.CreateSet<OperationHistory>();
+
             return query.ApplyTo(_unitOfWork.CreateSet<Plan>()).Select(p => new PlanDTO
             {
                 Id = p.Id,
@@ -63,13 +67,14 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                 Year = p.Annual.Year,
                 PlanHistories = p.PlanHistories.OfType<OperationPlan>().Select(q => new PlanHistoryDTO
                                 {
-                                    Id = q.Id,
+                                    Id=q.Id,
                                     ActionCategoryId = q.ActionCategoryId,
                                     AircraftTypeId = q.AircraftTypeId,
                                     AirlinesId = q.AirlinesId,
                                     CarryingCapacity = q.CarryingCapacity,
                                     SeatingCapacity = q.SeatingCapacity,
-                                    //CoperGuid = q.OperationHistoryId,
+                                    RelatedGuid = q.OperationHistoryId,
+                                    RelatedEndDate = operationHistories.FirstOrDefault(o => o.Id == q.OperationHistoryId).EndDate,
                                     IsSubmit = q.IsSubmit,
                                     IsValid = q.IsValid,
                                     Note = q.Note,
@@ -79,39 +84,42 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                                     PlanId = q.PlanId,
                                     PlanType = 1,
                                     TargetCategoryId = q.TargetCategoryId,
+                                    AirlinesName=q.Airlines.CnName,
+                                    Regional=q.AircraftType.AircraftCategory.Regional,
+                                    AircraftTypeName=q.AircraftType.Name,
+                                    ActionType=q.ActionCategory.ActionType+":"+q.ActionCategory.ActionName,
+                                    TargetType = q.TargetCategory.ActionName,
+                                    Year = q.PerformAnnual.Year,
+                                    ManageStatus = (int)q.PlanAircraft.Status,
+                                })
+                                .Union(p.PlanHistories.OfType<ChangePlan>().Select(q => new PlanHistoryDTO
+                                {
+                                    Id = q.Id,
+                                    ActionCategoryId = q.ActionCategoryId,
+                                    AircraftTypeId = q.AircraftTypeId,
+                                    AirlinesId = q.AirlinesId,
+                                    CarryingCapacity = q.CarryingCapacity,
+                                    SeatingCapacity = q.SeatingCapacity,
+                                    RelatedGuid = q.AircraftBusinessId,
+                                    RelatedEndDate = aircraftBusinesses.FirstOrDefault(o => o.Id == q.AircraftBusinessId).EndDate,
+                                    IsSubmit = q.IsSubmit,
+                                    IsValid = q.IsValid,
+                                    Note = q.Note,
+                                    PerformAnnualId = q.PerformAnnualId,
+                                    PerformMonth = q.PerformMonth,
+                                    PlanAircraftId = q.PlanAircraftId,
+                                    PlanId = q.PlanId,
+                                    PlanType = 2,
+                                    TargetCategoryId = q.TargetCategoryId,
                                     AirlinesName = q.Airlines.CnName,
                                     Regional = q.AircraftType.AircraftCategory.Regional,
                                     AircraftTypeName = q.AircraftType.Name,
                                     ActionType = q.ActionCategory.ActionType + ":" + q.ActionCategory.ActionName,
                                     TargetType = q.TargetCategory.ActionName,
                                     Year = q.PerformAnnual.Year,
+                                    ManageStatus = (int)q.PlanAircraft.Status,
                                 })
-                    .Union(p.PlanHistories.OfType<ChangePlan>().Select(q => new PlanHistoryDTO
-                    {
-                        Id = q.Id,
-                        ActionCategoryId = q.ActionCategoryId,
-                        AircraftTypeId = q.AircraftTypeId,
-                        AirlinesId = q.AirlinesId,
-                        CarryingCapacity = q.CarryingCapacity,
-                        SeatingCapacity = q.SeatingCapacity,
-                        //CoperGuid = q.AircraftBusinessId,
-                        IsSubmit = q.IsSubmit,
-                        IsValid = q.IsValid,
-                        Note = q.Note,
-                        PerformAnnualId = q.PerformAnnualId,
-                        PerformMonth = q.PerformMonth,
-                        PlanAircraftId = q.PlanAircraftId,
-                        PlanId = q.PlanId,
-                        PlanType = 2,
-                        TargetCategoryId = q.TargetCategoryId,
-                        AirlinesName = q.Airlines.CnName,
-                        Regional = q.AircraftType.AircraftCategory.Regional,
-                        AircraftTypeName = q.AircraftType.Name,
-                        ActionType = q.ActionCategory.ActionType + ":" + q.ActionCategory.ActionName,
-                        TargetType = q.TargetCategory.ActionName,
-                        Year = q.PerformAnnual.Year,
-                    }))
-                                .ToList(),
+                                ).ToList(),
             });
         }
     }

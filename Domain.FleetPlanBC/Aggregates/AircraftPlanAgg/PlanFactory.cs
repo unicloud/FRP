@@ -36,6 +36,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
                 SubmitDate = submitDate,
             };
 
+            plan.GenerateNewIdentity();
             return plan;
         }
     }

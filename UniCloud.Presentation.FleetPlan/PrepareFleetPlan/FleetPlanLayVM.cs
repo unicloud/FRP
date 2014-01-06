@@ -34,7 +34,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private readonly FleetPlanData _context;
         private readonly IRegionManager _regionManager;
-        //private FleetPlanData _fleetPlanData;
         private readonly IFleetPlanService _service;
 
         [ImportingConstructor]

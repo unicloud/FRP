@@ -93,6 +93,9 @@
     </Compile>
     <Compile Include="Aggregates\WorkGroupAgg\WorkGroupFactory.cs" />
     <Compile Include="Aggregates\WorkGroupAgg\WorkGroupSpecifications.cs" />
+    <Compile Include="Events\FulfilTaskEvent.cs" />
+    <Compile Include="Events\IProjectEvent.cs" />
+    <Compile Include="Events\ProjectEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

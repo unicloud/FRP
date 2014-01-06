@@ -11,6 +11,13 @@
         <Property Name="NeedRequest" Type="Edm.Boolean" Nullable="false" />
         <Property Name="NetIncrement" Type="Edm.Int32" Nullable="false" />
       </EntityType>
+      <EntityType Name="AcTypeDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+      </EntityType>
       <EntityType Name="AircraftCategoryDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -323,6 +330,7 @@
         <Property Name="ActionType" Type="Edm.String" />
         <Property Name="TargetType" Type="Edm.String" />
         <Property Name="Year" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ManageStatus" Type="Edm.Int32" Nullable="false" />
         <Property Name="PlanAircraftId" Type="Edm.Guid" />
         <Property Name="PlanId" Type="Edm.Guid" Nullable="false" />
         <Property Name="ActionCategoryId" Type="Edm.Guid" Nullable="false" />
@@ -331,7 +339,8 @@
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
         <Property Name="PerformAnnualId" Type="Edm.Guid" Nullable="false" />
         <Property Name="PlanType" Type="Edm.Int32" Nullable="false" />
-        <Property Name="CoperGuid" Type="Edm.Guid" Nullable="false" />
+        <Property Name="RelatedGuid" Type="Edm.Guid" />
+        <Property Name="RelatedEndDate" Type="Edm.DateTime" />
       </ComplexType>
       <EntityType Name="PlanAircraftDTO">
         <Key>
@@ -450,6 +459,7 @@
     <Schema Namespace="UniCloud.DistributedServices.FleetPlan" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="FleetPlanData" m:IsDefaultEntityContainer="true">
         <EntitySet Name="ActionCategories" EntityType="UniCloud.Application.FleetPlanBC.DTO.ActionCategoryDTO" />
+        <EntitySet Name="AcTypes" EntityType="UniCloud.Application.FleetPlanBC.DTO.AcTypeDTO" />
         <EntitySet Name="AircraftCategories" EntityType="UniCloud.Application.FleetPlanBC.DTO.AircraftCategoryDTO" />
         <EntitySet Name="Aircrafts" EntityType="UniCloud.Application.FleetPlanBC.DTO.AircraftDTO" />
         <EntitySet Name="AircraftTypes" EntityType="UniCloud.Application.FleetPlanBC.DTO.AircraftTypeDTO" />

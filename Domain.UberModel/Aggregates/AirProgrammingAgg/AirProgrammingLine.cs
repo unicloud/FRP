@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.UberModel.Aggregates.AcTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftCategoryAgg;
 
 #endregion
@@ -85,6 +86,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg
         #region 导航属性
 
         /// <summary>
+        /// 飞机系列
+        /// </summary>
+        public virtual AcType AcType { get; private set; }
+
+        /// <summary>
         /// 飞机座级
         /// </summary>
         public virtual AircraftCategory AircraftCategory { get; private set; }
@@ -123,15 +129,16 @@ namespace UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg
         /// <summary>
         ///     设置飞机系列
         /// </summary>
-        /// <param name="acTypeId">飞机系列</param>
-        public void SetAcType(Guid acTypeId)
+        /// <param name="acType">飞机系列</param>
+        public void SetAcType(AcType acType)
         {
-            if (acTypeId == null)
+            if (acType == null)
             {
-                throw new ArgumentException("飞机系列Id参数为空！");
+                throw new ArgumentException("飞机系列参数为空！");
             }
 
-            AcTypeId = acTypeId;
+            AcType = acType;
+            AcTypeId = acType.Id;
         }
 
         /// <summary>

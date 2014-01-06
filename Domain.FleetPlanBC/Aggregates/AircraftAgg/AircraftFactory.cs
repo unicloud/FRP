@@ -32,6 +32,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
                 CreateDate = DateTime.Now,
             };
 
+            aircraft.GenerateNewIdentity();
             return aircraft;
         }
 

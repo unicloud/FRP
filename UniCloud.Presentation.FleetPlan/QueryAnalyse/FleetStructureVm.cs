@@ -139,9 +139,28 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public QueryableDataServiceCollectionView<XmlSettingDTO> XmlSettings { get; set; } //XmlSetting集合
         public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; }
 
-        public ObservableCollection<FleetData> FleetDatas { get; set; }
+        private ObservableCollection<FleetData> _fleetDatas;
+        public ObservableCollection<FleetData> FleetDatas
+        {
+            get { return _fleetDatas; }
+            set
+            {
+                _fleetDatas = value;
+                RaisePropertyChanged("FleetDatas");
+            }
+        }
         private ObservableCollection<FleetData> StaticFleetDatas { get; set; }
-        public ObservableCollection<FleetAircraftRegionalTrend> Regionals { get; set; }
+
+        private ObservableCollection<FleetAircraftRegionalTrend> _regionals;
+        public ObservableCollection<FleetAircraftRegionalTrend> Regionals
+        {
+            get { return _regionals; }
+            set
+            {
+                _regionals = value;
+                RaisePropertyChanged("Regionals");
+            }
+        }
 
         #region 属性 AircraftDTO
 

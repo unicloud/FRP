@@ -16,6 +16,8 @@
 
 #region 命名空间
 
+using System;
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -26,16 +28,16 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.Service.FleetPlan
 {
-    [Export(typeof (IFleetPlanService))]
+    [Export(typeof(IFleetPlanService))]
     [PartCreationPolicy(CreationPolicy.NonShared)]
     public class FleetPlanService : ServiceBase, IFleetPlanService
     {
+        private static QueryableDataServiceCollectionView<AnnualDTO> _annual;
+        private static QueryableDataServiceCollectionView<AirlinesDTO> _airlines;
+
         public FleetPlanService()
         {
             context = new FleetPlanData(AgentHelper.FleetPlanServiceUri);
-
-            SetCurrentAnnual();
-            GetCurrentAirlines();
         }
 
         #region IFleetPlanService 成员
@@ -46,7 +48,16 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         #region 获取静态数据
-       
+
+        /// <summary>
+        /// 所有航空公司
+        /// </summary>
+        public QueryableDataServiceCollectionView<AirlinesDTO> GetAirlineses(bool forceLoad = false)
+        {
+            Action loaded = () => { };
+            return GetStaticData(_airlines, loaded, Context.Airlineses);
+        }
+
         #endregion
 
         #region 公共属性
@@ -65,12 +76,20 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <summary>
         /// 当前航空公司
         /// </summary>
-        public AirlinesDTO CurrentAirlines { get; private set; }
+        public AirlinesDTO CurrentAirlines(bool forceLoad = false)
+        {
+            Action loaded = () => { };
+            return GetStaticData(_airlines, loaded, Context.Airlineses).SingleOrDefault();
+        }
 
         /// <summary>
         /// 当前年度
         /// </summary>
-        public AnnualDTO CurrentAnnual { get; private set; }
+        public AnnualDTO CurrentAnnual(bool forceLoad = false)
+        {
+            Action loaded = () => { };
+            return GetStaticData(_annual, loaded, Context.Annuals).AsQueryable().SingleOrDefault(p => p.IsOpen);
+        }
 
         #endregion
 
@@ -79,52 +98,31 @@ namespace UniCloud.Presentation.Service.FleetPlan
         #region 计划
 
         /// <summary>
-        /// 设置当前年度
-        /// </summary>
-        public AnnualDTO SetCurrentAnnual()
-        {
-            if (CurrentAnnual == null)
-            {
-            }
-            return CurrentAnnual;
-        }
-
-
-        /// <summary>
-        /// 设置当前航空公司
-        /// </summary>
-        public AirlinesDTO GetCurrentAirlines()
-        {
-            if (CurrentAirlines == null)
-            {
-            }
-            return CurrentAirlines;
-        }
-
-
-        /// <summary>
         /// 创建新年度的初始化计划
         /// </summary>
-        /// <param name="title"><see cref="IFleetPlanService"/></param>
+        /// <param name="lastPlan"></param>
+        /// <param name="newAnnual"></param>
+        /// <param name="newYear"></param>
+        /// <param name="curAirlinesId"></param>
         /// <returns><see cref="IFleetPlanService"/></returns>
-        public PlanDTO CreateNewYearPlan(string title)
+        public PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual,int newYear,Guid curAirlinesId)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                return pb.CreateNewYearPlan(title, this);
+                return pb.CreateNewYearPlan(lastPlan, newAnnual, newYear, curAirlinesId);
             }
         }
 
         /// <summary>
         /// 创建新版本的运力增减计划
         /// </summary>
-        /// <param name="title"><see cref="IFleetPlanService"/></param>
+        /// <param name="lastPlan"></param>
         /// <returns><see cref="IFleetPlanService"/></returns>
-        public PlanDTO CreateNewVersionPlan(string title)
+        public PlanDTO CreateNewVersionPlan(PlanDTO lastPlan)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                return pb.CreateNewVersionPlan(title, this);
+                return pb.CreateNewVersionPlan(lastPlan);
             }
         }
 

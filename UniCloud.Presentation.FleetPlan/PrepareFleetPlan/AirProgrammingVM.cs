@@ -69,7 +69,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
             Programmings = new QueryableDataServiceCollectionView<ProgrammingDTO>(_context, _context.Programmings);
 
-            //TODO:缺一个飞机序列集合
+            AcTypes=new QueryableDataServiceCollectionView<AcTypeDTO>(_context,_context.AcTypes);
         }
 
         /// <summary>
@@ -104,6 +104,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             AirProgrammings.Load(true);
             Programmings.Load(true);
+            AcTypes.Load(true);
         }
 
         #region 业务
@@ -125,6 +126,16 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public QueryableDataServiceCollectionView<ProgrammingDTO> Programmings { get; set; }
 
         #endregion
+
+        #region 飞机系列集合
+
+        /// <summary>
+        ///     飞机系列集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<AcTypeDTO> AcTypes { get; set; }
+
+        #endregion
+
 
         #region 选择的规划
 

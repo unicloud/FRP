@@ -43,6 +43,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
             Property(p => p.AircraftCategoryId).HasColumnName("AircraftCategoryId");
             Property(p => p.AirProgrammingId).HasColumnName("AirProgrammingId");
 
+            HasRequired(o => o.AcType).WithMany().HasForeignKey(o => o.AcTypeId);
             HasRequired(o => o.AircraftCategory).WithMany().HasForeignKey(o => o.AircraftCategoryId);
 
         }

@@ -29,6 +29,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.MailAddressAgg
         {
             var mailAddress = new MailAddress();
 
+            mailAddress.GenerateNewIdentity();
             return mailAddress;
         }
     }

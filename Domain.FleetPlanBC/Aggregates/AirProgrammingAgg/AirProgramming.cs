@@ -187,13 +187,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
         /// <param name="issuedUnit">发文单位</param>
         public void SetIssuedUnit(Manager issuedUnit)
         {
-            if (issuedUnit == null || issuedUnit.IsTransient())
-            {
-                throw new ArgumentException("发文单位参数为空！");
-            }
-
-            IssuedUnit = issuedUnit;
-            IssuedUnitId = issuedUnit.Id;
+            IssuedUnitId = Guid.Parse("31A9DE51-C207-4A73-919C-21521F17FEF9");
         }
 
         /// <summary>

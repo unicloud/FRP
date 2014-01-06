@@ -19,11 +19,13 @@
 
 using System;
 using System.Linq;
+using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.PurchaseBC.Query.SupplierQueries;
 using UniCloud.Application.PurchaseBC.Query.TradeQueries;
 using UniCloud.Application.PurchaseBC.SupplierServices;
 using UniCloud.Application.PurchaseBC.TradeServices;
+using UniCloud.Domain.Events;
 using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg;
@@ -33,11 +35,12 @@ using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
+using UniCloud.Domain.PurchaseBC.Events;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Application.PurchaseBC.Tests.Services
@@ -52,6 +55,8 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         {
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .RegisterType<IEventAggregator,EventAggregator>(new WcfPerRequestLifetimeManager())
+                .RegisterType<IPurchaseEvent, PurchaseEvent>(new WcfPerRequestLifetimeManager())
 
                 #region 交易相关配置，包括查询，应用服务，仓储注册
 
@@ -63,8 +68,8 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
                 .RegisterType<IMaterialRepository, MaterialRepository>()
                 .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
                 .RegisterType<IRelatedDocRepository, RelatedDocRepository>()
-                .RegisterType<IContractAircraftRepository,ContractAircraftRepository>()
-                .RegisterType<IContractEngineRepository,ContractEngineRepository>()
+                .RegisterType<IContractAircraftRepository, ContractAircraftRepository>()
+                .RegisterType<IContractEngineRepository, ContractEngineRepository>()
 
                 #endregion
 
@@ -75,7 +80,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
                 .RegisterType<ISupplierCompanyRepository, SupplierCompanyRepository>()
                 .RegisterType<ISupplierRepository, SupplierRepository>();
 
-                #endregion
+            #endregion
         }
 
         [TestCleanup]
@@ -162,6 +167,18 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
             tradeRep.Add(trade2);
             tradeRep.Add(trade3);
             tradeRep.UnitOfWork.Commit();
+        }
+
+        [TestMethod]
+        public void FulfilOrderEventTest()
+        {
+            // Arrange
+            var service = DefaultContainer.Resolve<IOrderRepository>();
+            DefaultContainer.Resolve<IPurchaseEvent>();
+            var order = service.GetAll().FirstOrDefault();
+
+            // Act
+            DomainEvent.Publish<FulfilOrderEvent, Order>(order);
         }
     }
 }

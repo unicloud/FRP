@@ -47,10 +47,56 @@
     <Compile Include="EntityGuid.cs" />
     <Compile Include="EntityInt.cs" />
     <Compile Include="EntityString.cs" />
+    <Compile Include="Events\BackgroundEventSubscription.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\CompositeEvent.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\DelegateReference.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\DispatcherEventSubscription.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\DomainEvent.cs" />
+    <Compile Include="Events\EventAggregator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\EventBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\EventSubscription.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\IDelegateReference.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\IDispatcherFacade.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\IEventAggregator.cs" />
+    <Compile Include="Events\IEventSubscription.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\SubscriptionToken.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\ThreadOption.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Events\WeakDelegatesManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="IdentityGenerator.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Property\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Specification\AndSpecification.cs" />
     <Compile Include="Specification\CompositeSpecification.cs" />
     <Compile Include="Specification\DirectSpecification.cs" />
@@ -63,7 +109,12 @@
     <Compile Include="Specification\TrueSpecification.cs" />
     <Compile Include="ValueObject.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Property\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
