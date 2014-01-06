@@ -448,6 +448,7 @@
                                                          ShowGroupPanel="True"
                                                          RowIndicatorVisibility="Collapsed"
                                                          IsReadOnly="True"
+                                                         ShowColumnFooters="True"
                                                          ItemsSource="{Binding AircraftCollection}">
                                         <telerik:RadContextMenu.ContextMenu>
                                             <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">

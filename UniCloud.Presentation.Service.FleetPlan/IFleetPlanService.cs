@@ -40,6 +40,10 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// </summary>
         QueryableDataServiceCollectionView<AirlinesDTO> GetAirlineses(bool forceLoad = false);
 
+        /// <summary>
+        /// 所有机型
+        /// </summary>
+        QueryableDataServiceCollectionView<AircraftTypeDTO> GetAircraftTypes(bool forceLoad = false);
         #endregion
 
         #region 公共属性

@@ -17,7 +17,6 @@
 #region 命名空间
 
 using System;
-using System.Collections;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -34,6 +33,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
     {
         private static QueryableDataServiceCollectionView<AnnualDTO> _annual;
         private static QueryableDataServiceCollectionView<AirlinesDTO> _airlines;
+        private static QueryableDataServiceCollectionView<AircraftTypeDTO> _aircraftTypes;
 
         public FleetPlanService()
         {
@@ -56,6 +56,15 @@ namespace UniCloud.Presentation.Service.FleetPlan
         {
             Action loaded = () => { };
             return GetStaticData(_airlines, loaded, Context.Airlineses);
+        }
+
+        /// <summary>
+        /// 所有机型
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftTypeDTO> GetAircraftTypes(bool forceLoad = false)
+        {
+            Action loaded = () => { };
+            return GetStaticData(_aircraftTypes, loaded, Context.AircraftTypes);
         }
 
         #endregion
@@ -105,7 +114,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="newYear"></param>
         /// <param name="curAirlinesId"></param>
         /// <returns><see cref="IFleetPlanService"/></returns>
-        public PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual,int newYear,Guid curAirlinesId)
+        public PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual, int newYear, Guid curAirlinesId)
         {
             using (var pb = new FleetPlanServiceHelper())
             {

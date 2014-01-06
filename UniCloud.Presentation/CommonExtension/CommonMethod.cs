@@ -247,28 +247,20 @@ namespace UniCloud.Presentation.CommonExtension
                     item.AircraftTypeId = aircraftbusiness.AircraftTypeId;
                 }
 
-                OperationHistoryDTO operationhistory = item.OperationHistories.FirstOrDefault(p => p.StartDate <= selectTime && !(p.EndDate != null && p.EndDate < selectTime));
-                if (operationhistory != null)
+                OperationHistoryDTO operationHistory = item.OperationHistories.FirstOrDefault(p => p.StartDate <= selectTime && !(p.EndDate != null && p.EndDate < selectTime));
+                if (operationHistory != null)
                 {
                     //引进方式
-                    item.ImportCategoryId = operationhistory.ImportCategoryId;
+                    item.ImportCategoryId = operationHistory.ImportCategoryId;
 
                     //运营权人名称
-                    //if (operationhistory.A != null && operationhistory.SubOperationCategorys.Any(p => p.StartDate <= selecttime && !(p.EndDate != null && p.EndDate < selecttime)))
-                    //{
-                    //    SubOperationHistory suboperationhistory = operationhistory.SubOperationCategorys.FirstOrDefault(p => p.StartDate <= selecttime && !(p.EndDate != null && p.EndDate < selecttime));
-                    //    item.ThenAirlineName = suboperationhistory.Airlines.Name;
-                    //}
-                    //else
-                    //{
-                    //    item.ThenAirlineName = operationhistory.Airlines.Name;
-                    //}
+                    item.AirlinesName = operationHistory.AirlinesName;
                 }
                 //所有权人
                 OwnershipHistoryDTO ownershiphistory = item.OwnershipHistories.FirstOrDefault(p => p.StartDate <= selectTime && !(p.EndDate != null && p.EndDate < selectTime));
                 if (ownershiphistory != null)
                 {
-                    //item.O = ownershiphistory..Name;
+                    item.SupplierName = ownershiphistory.SupplierName;
                 }
 
                 aircraftList.Add(item);
