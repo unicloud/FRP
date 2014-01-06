@@ -77,7 +77,9 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftQueries
                                                                                                Note = q.Note,
                                                                                                AircraftId = q.AircraftId,
                                                                                                AirlinesId = q.AirlinesId,
+                                                                                               AirlinesName = q.Airlines.CnName,
                                                                                                ImportCategoryId = q.ImportCategoryId,
+                                                                                               ImportActionType = q.ImportCategory.ActionName,
                                                                                                ExportCategoryId = q.ExportCategoryId,
                                                                                            }).ToList(),
                                      OwnershipHistories = p.OwnershipHistories.Select(q => new OwnershipHistoryDTO
@@ -87,6 +89,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftQueries
                                                                                                EndDate = q.EndDate,
                                                                                                Status = (int)q.Status,
                                                                                                SupplierId = q.SupplierId,
+                                                                                               SupplierName = q.Supplier.CnName,
                                                                                                AircraftId = q.AircraftId,
                                                                                            }).ToList(),
                                      AircraftBusinesses = p.AircraftBusinesses.Select(q => new AircraftBusinessDTO
@@ -99,6 +102,8 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftQueries
                                                                                                Status = (int)q.Status,
                                                                                                AircraftId = q.AircraftId,
                                                                                                AircraftTypeId = q.AircraftTypeId,
+                                                                                               AircraftTypeName = q.AircraftType.Name,
+                                                                                               Regional = q.AircraftType.AircraftCategory.Regional,
                                                                                                ImportCategoryId = q.ImportCategoryId,
                                                                                            }).ToList()
                                  });

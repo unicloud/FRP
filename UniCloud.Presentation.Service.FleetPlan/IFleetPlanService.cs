@@ -35,6 +35,15 @@ namespace UniCloud.Presentation.Service.FleetPlan
 
         #region 获取静态数据
 
+        /// <summary>
+        /// 所有航空公司
+        /// </summary>
+        QueryableDataServiceCollectionView<AirlinesDTO> GetAirlineses(bool forceLoad = false);
+
+        /// <summary>
+        /// 所有机型
+        /// </summary>
+        QueryableDataServiceCollectionView<AircraftTypeDTO> GetAircraftTypes(bool forceLoad = false);
         #endregion
 
         #region 公共属性

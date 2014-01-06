@@ -65,6 +65,8 @@
         <Property Name="OnHireDate" Type="Edm.DateTime" />
         <Property Name="EndDate" Type="Edm.DateTime" />
         <Property Name="Note" Type="Edm.String" />
+        <Property Name="ImportActionType" Type="Edm.String" />
+        <Property Name="AirlinesName" Type="Edm.String" />
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
         <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
@@ -75,6 +77,7 @@
         <Property Name="StartDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="EndDate" Type="Edm.DateTime" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SupplierName" Type="Edm.String" />
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
         <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
@@ -85,6 +88,8 @@
         <Property Name="StartDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="EndDate" Type="Edm.DateTime" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AircraftTypeName" Type="Edm.String" />
+        <Property Name="Regional" Type="Edm.String" />
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
         <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
@@ -140,6 +145,16 @@
         <Property Name="ProgrammingName" Type="Edm.String" />
         <Property Name="ProgrammingId" Type="Edm.Guid" Nullable="false" />
         <NavigationProperty Name="Plans" Relationship="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO_Plans" ToRole="Plans" FromRole="AnnualDTO" />
+      </EntityType>
+      <EntityType Name="PlanYearDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Year" Type="Edm.Int32" Nullable="false" />
+        <Property Name="IsOpen" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="ProgrammingName" Type="Edm.String" />
+        <Property Name="ProgrammingId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
       <EntityType Name="ApprovalDocDTO">
         <Key>
@@ -466,6 +481,7 @@
         <EntitySet Name="Airlineses" EntityType="UniCloud.Application.FleetPlanBC.DTO.AirlinesDTO" />
         <EntitySet Name="AirProgrammings" EntityType="UniCloud.Application.FleetPlanBC.DTO.AirProgrammingDTO" />
         <EntitySet Name="Annuals" EntityType="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO" />
+        <EntitySet Name="PlanYears" EntityType="UniCloud.Application.FleetPlanBC.DTO.PlanYearDTO" />
         <EntitySet Name="ApprovalDocs" EntityType="UniCloud.Application.FleetPlanBC.DTO.ApprovalDocDTO" />
         <EntitySet Name="CaacProgrammings" EntityType="UniCloud.Application.FleetPlanBC.DTO.CaacProgrammingDTO" />
         <EntitySet Name="Engines" EntityType="UniCloud.Application.FleetPlanBC.DTO.EngineDTO" />
