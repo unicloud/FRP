@@ -149,9 +149,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public override void LoadData()
         {
             IsBusy = true;
-            XmlConfigs.Load(true);
-            XmlSettings.Load(true);
-            Aircrafts.Load(true);
+            XmlConfigs.AutoLoad = true;
+            XmlSettings.AutoLoad = true;
+            Aircrafts.AutoLoad = true;
         }
 
         #region 属性 SelectedTime --所选的时间点

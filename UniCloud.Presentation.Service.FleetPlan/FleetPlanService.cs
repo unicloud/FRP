@@ -72,7 +72,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         public string Caacid
         {
             get { return "31A9DE51-C207-4A73-919C-21521F17FEF9"; }
-        }
+            }
 
         /// <summary>
         ///     当前航空公司

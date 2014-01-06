@@ -66,6 +66,10 @@
             </DataTemplate>
             <DataTemplate x:Key="TrackBallInfoTemplate">
                 <StackPanel Background="Transparent">
+                    <TextBlock Text="{Binding Path=DataPoint.DataItem.DateTime, StringFormat='时间: {0}'}"
+                               Foreground="{Binding Path=DataPoint.DataItem.Color}"
+                               Margin="6,0"
+                               FontFamily="Segoe UI" />
                     <TextBlock Text="{Binding Path=DataPoint.DataItem.AircraftType, StringFormat='机型名称: {0}'}"
                                Foreground="{Binding Path=DataPoint.DataItem.Color}"
                                Margin="6,0"

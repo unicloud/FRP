@@ -285,6 +285,10 @@
                                                                   Stroke="Gray"
                                                                   StrokeThickness="1" />
                                                             <StackPanel Margin="5,3,5,10">
+                                                                <TextBlock Text="{Binding Path=DataItem.DateTime, StringFormat='时间: {0}末'}"
+                                                                           Foreground="{Binding Path=DataItem.Color}"
+                                                                           FontFamily="Segoe UI"
+                                                                           FontSize="11" />
                                                                 <TextBlock Text="{Binding Path=DataItem.AircraftRegional, StringFormat='座级名称: {0}'}"
                                                                            Foreground="{Binding Path=DataItem.Color}"
                                                                            FontFamily="Segoe UI"
@@ -698,7 +702,8 @@
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
-                                            <uc:DataPageSerialColumn Header="序号" />
+                                            <uc:DataPageSerialColumn Header="序号"
+                                                                     HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="注册号"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
