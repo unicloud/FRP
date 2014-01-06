@@ -103,6 +103,20 @@ namespace UniCloud.Domain.UberModel.Aggregates.RequestAgg
         /// </summary>
         public string SawsNote { get; private set; }
 
+        /// <summary>
+        ///     地方局批文文档名称
+        /// </summary>
+        public string RaDocumentName { get; private set; }
+
+        /// <summary>
+        ///     监管局申请文档名称
+        /// </summary>
+        public string SawsDocumentName { get; private set; }
+
+        /// <summary>
+        ///     民航局申请文档名称
+        /// </summary>
+        public string CaacDocumentName { get; private set; }
         #endregion
 
         #region 外键属性

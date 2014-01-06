@@ -175,7 +175,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
 
         #region 命令
 
-        #region 新增飞机物料命令
+        #region 新增命令
 
         public DelegateCommand<object> AddLinkManCommand { get; private set; }
 
@@ -216,7 +216,7 @@ namespace UniCloud.Presentation.Purchase.Supplier
 
         #endregion
 
-        #region 删除飞机物料命令
+        #region 删除命令
 
         public DelegateCommand<object> DelLinkManCommand { get; private set; }
 

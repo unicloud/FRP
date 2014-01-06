@@ -74,7 +74,7 @@ namespace UniCloud.Domain.Common.Entities
         /// <summary>
         ///     任务状态
         /// </summary>
-        public TaskStatus Status { get; private set; }
+        public TaskStatus TaskStatus { get; private set; }
 
         #endregion
 
@@ -111,13 +111,13 @@ namespace UniCloud.Domain.Common.Entities
             switch (status)
             {
                 case TaskStatus.未开始:
-                    Status = TaskStatus.未开始;
+                    TaskStatus = TaskStatus.未开始;
                     break;
                 case TaskStatus.进行中:
-                    Status = TaskStatus.进行中;
+                    TaskStatus = TaskStatus.进行中;
                     break;
                 case TaskStatus.已完成:
-                    Status = TaskStatus.已完成;
+                    TaskStatus = TaskStatus.已完成;
                     IsCompleted = true;
                     break;
                 default:

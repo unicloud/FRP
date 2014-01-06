@@ -59,6 +59,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private RadGridView _exportRadgridview; //初始化RadGridView
         private int _i; //导出数据源格式判断
         private Grid _lineGrid; //趋势折线图区域， 机龄饼图区域
+        private string _selectedType; //所选的机型
         private bool _loadXmlConfig;
         private bool _loadXmlSetting;
 
@@ -154,9 +155,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         }
 
         #region 属性 SelectedTime --所选的时间点
-
         private string _selectedTime = "所选时间"; //所选的时间点
-
         /// <summary>
         ///     所选的时间点
         /// </summary>
@@ -168,46 +167,21 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 if (SelectedTime != value)
                 {
                     _selectedTime = value;
-                    //   AgeWindow.Close();
                     if (SelectedTime.Equals("所选时间", StringComparison.OrdinalIgnoreCase))
                     {
                         SelectedTimeAge = "所选时间和机型的机龄分布图";
                     }
                     else
                     {
-                        SelectedTimeAge = SelectedTime + " 机型：" + SelectedType + "的机龄分布图";
+                        SelectedTimeAge = SelectedTime + " 机型：" + _selectedType + "的机龄分布图";
                     }
                 }
             }
         }
-
-        #endregion
-
-        #region 属性 SelectedType --所选的机型
-
-        private string _selectedType = string.Empty; //所选的机型
-
-        /// <summary>
-        ///     所选的时间点
-        /// </summary>
-        public string SelectedType
-        {
-            get { return _selectedType; }
-            set
-            {
-                if (SelectedType != value)
-                {
-                    _selectedType = value;
-                }
-            }
-        }
-
         #endregion
 
         #region ViewModel 属性 FleetAgeCollection--机龄饼图的数据集合（指定时间点）
-
         private List<FleetAgeComposition> _fleetAgeCollection;
-
         /// <summary>
         ///     平均机龄饼图饼图的数据集合（指定时间点）
         /// </summary>
@@ -223,13 +197,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 AircraftCollection --机龄饼图所对应的所有飞机数据（指定时间点）
-
         private List<AircraftDTO> _aircraftCollection; //机龄饼图所对应的所有飞机数据（指定时间点）
-
         /// <summary>
         ///     机龄饼图所对应的所有飞机数据（指定时间点）
         /// </summary>
@@ -258,13 +229,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 AircraftCount --飞机详细列表的标识栏提示
-
         private string _aircraftCount = "飞机明细"; //飞机详细列表的标识栏提示
-
         /// <summary>
         ///     飞机详细列表的标识栏提示
         /// </summary>
@@ -280,13 +248,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 SelectedTimeAge --机龄饼图的标识提示
-
         private string _selectedTimeAge = "所选时间和机型的机龄分布图"; //机龄饼图的标识提示
-
         /// <summary>
         ///     机龄饼图的标识提示
         /// </summary>
@@ -302,13 +267,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 SelectedIndex --时间的统计方式
-
         private int _selectedIndex; //时间的统计方式
-
         /// <summary>
         ///     时间的统计方式
         /// </summary>
@@ -325,13 +287,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 EndDate --结束时间
-
         private DateTime? _endDate = Convert.ToDateTime(DateTime.Now.ToString("yyyy/M")); //结束时间
-
         /// <summary>
         ///     结束时间
         /// </summary>
@@ -348,13 +307,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 StartDate --开始时间
-
         private DateTime? _startDate = new DateTime(DateTime.Now.AddYears(-1).Year, 1, 1); //开始时间
-
         /// <summary>
         ///     开始时间
         /// </summary>
@@ -371,13 +327,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 IsContextMenuOpen --控制右键菜单的打开
-
         private bool _isContextMenuOpen = true; //控制右键菜单的打开
-
         /// <summary>
         ///     控制右键菜单的打开
         /// </summary>
@@ -393,13 +346,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 FleetManufacturerTrendCollection --平均机龄趋势图的数据源集合
-
         private List<FleetAgeTrend> _fleetAgeTrendCollection; //平均机龄趋势图的数据源集合
-
         /// <summary>
         ///     平均机龄趋势图的数据源集合
         /// </summary>
@@ -416,9 +366,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
-
         #endregion
 
         #endregion
@@ -511,17 +459,16 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             if (selectedPoint != null)
             {
                 var fleetAgeTrend = selectedPoint.DataItem as FleetAgeTrend;
-                if (fleetAgeTrend != null &&
-                    (!SelectedTime.Equals(fleetAgeTrend.DateTime, StringComparison.OrdinalIgnoreCase) ||
-                     !SelectedType.Equals(fleetAgeTrend.AircraftType, StringComparison.OrdinalIgnoreCase)))
+                if (fleetAgeTrend != null && (!SelectedTime.Equals(fleetAgeTrend.DateTime, StringComparison.OrdinalIgnoreCase) ||
+                     !_selectedType.Equals(fleetAgeTrend.AircraftType, StringComparison.OrdinalIgnoreCase)))
                 {
                     //选中机型
-                    SelectedType = fleetAgeTrend.AircraftType;
+                    _selectedType = fleetAgeTrend.AircraftType;
                     //选中时间点
                     SelectedTime = fleetAgeTrend.DateTime;
 
                     DateTime time = Convert.ToDateTime(fleetAgeTrend.DateTime).AddMonths(1).AddDays(-1);
-                    CreateFleetAgeCollection(SelectedType, time);
+                    CreateFleetAgeCollection(_selectedType, time);
                 }
             }
         }
@@ -529,7 +476,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #endregion
 
         #region 飞机饼状图的选择点事件
-
         /// <summary>
         ///     飞机饼状图的选择点事件
         /// </summary>
@@ -654,7 +600,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #endregion
 
         #region 平均机龄趋势图的数据源集合集合改变时
-
         /// <summary>
         ///     平均机龄趋势图的数据源集合集合改变时
         /// </summary>
@@ -702,7 +647,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #endregion
 
         #region 弹出窗体关闭时，取消相应饼图的弹出项
-
         /// <summary>
         ///     弹出窗体关闭时，取消相应饼图的弹出项
         /// </summary>
@@ -724,7 +668,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
             ((RadLegend)grid.Children[1]).Items.ToList().ForEach(p => p.IsHovered = false);
         }
-
         #endregion
 
         public DelegateCommand<object> ToggleButtonCommand { get; set; }
@@ -737,10 +680,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             var button = sender as RadToggleButton;
             if (button != null)
             {
-                if ((bool)button.IsChecked)
+                if (button.IsChecked != null && (bool)button.IsChecked)
                 {
                     var temp = StaticFleetDatas.FirstOrDefault(p => p.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase));
-                    if (!FleetDatas.Any(p => p.AircraftTypeName.Equals(temp.AircraftTypeName, StringComparison.OrdinalIgnoreCase)))
+                    if (temp != null && !FleetDatas.Any(p => p.AircraftTypeName.Equals(temp.AircraftTypeName, StringComparison.OrdinalIgnoreCase)))
                     {
                         FleetDatas.Add(temp);
                     }
@@ -761,7 +704,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         }
 
         #region 右键导出可用
-
         public void ContextMenuOpened(object sender, RoutedEventArgs e)
         {
             IsContextMenuOpen = true;
@@ -772,9 +714,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #endregion
 
         #region Command
-
         #region ViewModel 命令 PieDeployCommand --机龄饼图的配置
-
         // 机龄饼图的配置
         public DelegateCommand<object> PieDeployCommand { get; set; }
 
@@ -800,7 +740,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 {
                     _ageWindow.Close();
                     DateTime time = Convert.ToDateTime(SelectedTime).AddMonths(1).AddDays(-1);
-                    CreateFleetAgeCollection(SelectedType, time);
+                    CreateFleetAgeCollection(_selectedType, time);
                 }
                 window.Tag = false;
             }
@@ -808,7 +748,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #endregion
 
         #region ViewModel 命令 --导出图表
-
         public DelegateCommand<object> ExportCommand { get; set; }
 
         private void OnExport(object sender)
@@ -879,7 +818,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         }
 
         #region 设置导出样式
-
         /// <summary>
         ///     设置导出样式
         /// </summary>
@@ -887,6 +825,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// <param name="e"></param>
         private void ElementExporting(object sender, GridViewElementExportingEventArgs e)
         {
+            // ReSharper disable once CSharpWarnings::CS0618
             e.Width = 120;
             if (e.Element == ExportElement.Cell &&
                 e.Value != null)
@@ -904,7 +843,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #endregion
 
         #region ViewModel 命令 --导出数据aircraftDetail
-
         public DelegateCommand<object> ExportGridViewCommand { get; set; }
 
         private void OnExportGridView(object sender)
@@ -916,8 +854,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 _aircraftDetail.ElementExporting -= ElementExporting;
                 _aircraftDetail.ElementExporting += ElementExporting;
-                using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
-                    )
+                using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc"))
                 {
                     if (stream != null)
                     {
@@ -929,7 +866,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #endregion
 
         #region  增加子窗体的右键导出功能
-
         public void AddRadMenu(RadWindow rwindow)
         {
             var radcm = new RadContextMenu(); //新建右键菜单
@@ -973,15 +909,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
-
         #endregion
 
         #region Methods
-
         #region 获取平均机龄趋势图的数据源集合
-
         /// <summary>
         ///     获取平均机龄趋势图的数据源集合
         /// </summary>
@@ -991,7 +923,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             var collection = new List<FleetAgeTrend>();
 
             #region 平均机龄XML文件的读写
-
             var xmlConfig =
                 XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("机龄分析", StringComparison.OrdinalIgnoreCase));
             string aircraftColor = string.Empty;
@@ -1106,10 +1037,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     }
                 }
             }
-
             #endregion
 
-            SelectedType = string.Empty;
+            _selectedType = string.Empty;
             SelectedTime = "所选时间";
             //对界面数据集合进行重新初始化
             FleetAgeCollection = null;
@@ -1121,7 +1051,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #endregion
 
         #region 初始化数据
-
         /// <summary>
         ///     初始化数据
         /// </summary>
@@ -1135,11 +1064,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 CreateFleetAgeTrendCollection();
             }
         }
-
         #endregion
 
         #region 根据选中时间和机型生成相应的饼图和飞机数据
-
         /// <summary>
         ///     根据选中时间和机型生成相应的饼图和飞机数据
         /// </summary>
@@ -1156,23 +1083,20 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             if (aircraftType.Equals("所有机型", StringComparison.OrdinalIgnoreCase))
             {
                 aircraft = Aircrafts.Where(p => p.FactoryDate != null)
-                    .Where(o =>/*AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)) &&*/
+                    .Where(o => o.AircraftBusinesses.Any(p => p.StartDate <= time && !(p.EndDate != null && p.EndDate < time)) &&
                             o.FactoryDate <= time && !(o.ExportDate != null && o.ExportDate < time));
             }
 
-            var xmlConfig =
-                XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("机龄配置", StringComparison.OrdinalIgnoreCase));
+            var xmlConfig = XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("机龄配置", StringComparison.OrdinalIgnoreCase));
 
             XElement ageColor = null;
-            XmlSettingDTO colorConfig =
-                XmlSettings.FirstOrDefault(p => p.SettingType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));
+            XmlSettingDTO colorConfig = XmlSettings.FirstOrDefault(p => p.SettingType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));
             if (colorConfig != null &&
                 XElement.Parse(colorConfig.SettingContent)
                     .Descendants("Type")
                     .Any(p => p.Attribute("TypeName").Value.Equals("机龄", StringComparison.OrdinalIgnoreCase)))
             {
-                ageColor =
-                    XElement.Parse(colorConfig.SettingContent)
+                ageColor = XElement.Parse(colorConfig.SettingContent)
                         .Descendants("Type")
                         .FirstOrDefault(p => p.Attribute("TypeName").Value.Equals("机龄", StringComparison.OrdinalIgnoreCase));
             }
@@ -1186,12 +1110,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     int startYear = Convert.ToInt32(item.Attribute("Start").Value);
                     int endYear = Convert.ToInt32(item.Attribute("End").Value);
                     //设置相应机龄范围的飞机数据，用于弹出窗体的数据显示
-                    var aircraftByAge = aircraftDtos.Where(p =>
-                        endYear * 12 >
+                    var aircraftByAge = aircraftDtos.Where(p => endYear * 12 >
                         (time.Year - Convert.ToDateTime(p.FactoryDate).Year) * 12 +
                         (time.Month - Convert.ToDateTime(p.FactoryDate).Month)
-                        &&
-                        (time.Year - Convert.ToDateTime(p.FactoryDate).Year) * 12 +
+                        && (time.Year - Convert.ToDateTime(p.FactoryDate).Year) * 12 +
                         (time.Month - Convert.ToDateTime(p.FactoryDate).Month) >= startYear * 12).ToList();
                     if (aircraftByAge != null && aircraftByAge.Any())
                     {
@@ -1205,9 +1127,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         if (ageColor != null)
                         {
                             var firstOrDefault = ageColor.Descendants("Item")
-                                .FirstOrDefault(
-                                    p =>
-                                        p.Attribute("Name")
+                                .FirstOrDefault(p => p.Attribute("Name")
                                             .Value.Equals(ageComposition.AgeGroup, StringComparison.OrdinalIgnoreCase));
                             if (firstOrDefault != null)
                                 ageComposition.Color = firstOrDefault.Attribute("Color").Value;
@@ -1221,17 +1141,12 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 AircraftCollection = CommonMethod.GetAircraftByTime(aircraftDtos.ToList(), time);
             }
         }
-
         #endregion
-
         #endregion
-
         #endregion
 
         #region Classes
-
         #region 机龄饼图的分布对象
-
         /// <summary>
         ///     机龄饼图的分布对象
         /// </summary>
@@ -1247,11 +1162,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             public string ToolTip { get; set; }
             public string Color { get; set; }
         }
-
         #endregion
 
         #region 平均机龄趋势对象
-
         /// <summary>
         ///     平均机龄趋势对象
         /// </summary>
@@ -1261,13 +1174,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 Color = CommonMethod.GetRandomColor();
             }
-
             public string AircraftType { get; set; } //机型名称
             public double AverageAge { get; set; } //机型的平均年龄
             public string DateTime { get; set; } //时间点
             public string Color { get; set; } //机型的颜色
         }
-
         #endregion
 
         public class FleetData

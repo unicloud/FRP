@@ -58,7 +58,6 @@
     <Compile Include="InvoiceServices\LeaseInvoiceAppService.cs" />
     <Compile Include="InvoiceServices\PrepaymentInvoiceAppService.cs" />
     <Compile Include="InvoiceServices\PurchaseInvoiceAppService.cs" />
-    <Compile Include="IStaticLoad.cs" />
     <Compile Include="MaintainContractServices\IMaintainContractAppService.cs" />
     <Compile Include="MaintainContractServices\MaintainContractAppService.cs" />
     <Compile Include="MaintainInvoiceServices\IMaintainInvoiceAppService.cs" />
@@ -74,7 +73,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IPaymentAppService.cs" />
     <Compile Include="Services\PaymentAppService.cs" />
-    <Compile Include="StaticLoad.cs" />
     <Compile Include="SupplierServices\ISupplierAppService.cs" />
     <Compile Include="SupplierServices\SupplierAppService.cs" />
   </ItemGroup>

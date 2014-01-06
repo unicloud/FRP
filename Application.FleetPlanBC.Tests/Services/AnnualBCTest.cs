@@ -67,6 +67,19 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
             // Assert
             Assert.IsTrue(result.Any());
         }
+
+        [TestMethod]
+        public void TestGetPlanYears()
+        {
+            // Arrange
+            var service = DefaultContainer.Resolve<IAnnualAppService>();
+
+            // Act
+            var result = service.GetPlanYears().ToList();
+
+            // Assert
+            Assert.IsTrue(result.Any());
+        }
     }
 
 }

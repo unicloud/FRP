@@ -93,6 +93,7 @@
     <Compile Include="FleetPlanService.cs" />
     <Compile Include="FleetPlanServiceHelper.cs" />
     <Compile Include="FleetPlan\AircraftBusinessDTO.cs" />
+    <Compile Include="FleetPlan\Enums\PlanStatus.cs" />
     <Compile Include="FleetPlan\Enums\RequestStatus.cs" />
     <Compile Include="FleetPlan\AnnualDTO.cs" />
     <Compile Include="FleetPlan\OperationHistoryDTO.cs" />

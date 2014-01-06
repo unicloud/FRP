@@ -131,5 +131,18 @@ namespace UniCloud.Application.FleetPlanBC.Query.AnnualQueries
             });
             return result.OrderByDescending(p=>p.Year);
         }
+
+        public IQueryable<PlanYearDTO> PlanYearDTOQuery(QueryBuilder<Annual> query)
+        {
+            var result = query.ApplyTo(_unitOfWork.CreateSet<Annual>()).Select(p => new PlanYearDTO
+            {
+                Id = p.Id,
+                IsOpen = p.IsOpen,
+                ProgrammingId = p.ProgrammingId,
+                Year = p.Year,
+                ProgrammingName = p.Programming.Name,
+            });
+            return result.OrderByDescending(p=>p.Year);
+        }
     }
 }

@@ -32,8 +32,12 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             //return true;
             var viewModel = ServiceLocator.Current.GetInstance<RequestVM>();
             var items = (from object item in state.DraggedItems select item).ToList();
+            if (items.Count<1)
+            {
+                return false;
+            }
             // 选中申请还未审核通过，且拖动的是可申请的计划明细，才允许开始拖放。
-            return true;
+            return viewModel.DragPlanHistory(items[0]);
             //planDetail != null && viewModel.CurrentRequestDataObject != null &&
             //viewModel.CurrentRequestDataObject.Status < (int)ReqStatus.Checked && planDetail.CanRequest == "1：可申请";
         }

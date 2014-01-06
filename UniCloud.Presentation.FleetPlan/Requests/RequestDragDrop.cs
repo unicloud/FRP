@@ -39,8 +39,8 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         public override bool CanDrop(GridViewDragDropState state)
         {
             //拖动的是计划明细时，才可以释放。
-            var items = (from object item in state.DraggedItems select item).ToList();
-            return items[0] is ApprovalHistoryDTO;
+            //var items = (from object item in state.DraggedItems select item).ToList();
+            return true;
         }
 
         public override void Drop(GridViewDragDropState state)

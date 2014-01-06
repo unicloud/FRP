@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Data.Services;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Caching;
 using System.Runtime.Serialization;
 using Microsoft.Practices.ObjectBuilder2;
 using Microsoft.Practices.Unity;
@@ -41,6 +42,7 @@ namespace UniCloud.DistributedServices.ExposeData
         /// </summary>
         protected ExposeData(string dtoAsseblies)
         {
+            Initialize();
             _localNewCollection.Clear();
             _localModifiedCollection.Clear();
             _localDeletedCollection.Clear();
@@ -141,8 +143,8 @@ namespace UniCloud.DistributedServices.ExposeData
         {
             //获取集合类型属性
             var property = targetResource.GetType()
-                                         .GetProperties()
-                                         .Single(p => p.Name == propertyName);
+                .GetProperties()
+                .Single(p => p.Name == propertyName);
             if (property.PropertyType.GetInterface("IEnumerable", true) != null
                 && property.PropertyType.IsGenericType)
             {
@@ -232,7 +234,7 @@ namespace UniCloud.DistributedServices.ExposeData
         public virtual
             void AddReferenceToCollection
             (object targetResource, string propertyName,
-             object resourceToBeAdded)
+                object resourceToBeAdded)
         {
             var pi = targetResource.GetType().GetProperty(propertyName);
             if (pi.IsNull())
@@ -250,7 +252,7 @@ namespace UniCloud.DistributedServices.ExposeData
         public virtual
             void RemoveReferenceFromCollection
             (object targetResource, string propertyName,
-             object resourceToBeRemoved)
+                object resourceToBeRemoved)
         {
             var pi = targetResource.GetType().GetProperty(propertyName);
             if (pi.IsNull())
@@ -266,7 +268,7 @@ namespace UniCloud.DistributedServices.ExposeData
         public virtual
             void DeleteResource
             (object
-                 targetResource)
+                targetResource)
         {
             if (targetResource.IsNull()) throw new ArgumentNullException("targetResource");
             _localDeletedCollection.Add(targetResource);
@@ -293,7 +295,7 @@ namespace UniCloud.DistributedServices.ExposeData
         public virtual
             object ResolveResource
             (object
-                 resource)
+                resource)
         {
             return resource;
         }
@@ -318,20 +320,20 @@ namespace UniCloud.DistributedServices.ExposeData
         private
             void DeleteObject
             (object
-                 obj)
+                obj)
         {
-            EnumerableExtensions.ForEach(_unityContainer.Registrations, p =>
+            _unityContainer.Registrations.ForEach(p =>
+            {
+                var objInstance = _unityContainer.Resolve(p.RegisteredType);
+                foreach (var mInfo in objInstance.GetType().GetMethods())
                 {
-                    var objInstance = _unityContainer.Resolve(p.RegisteredType);
-                    foreach (var mInfo in objInstance.GetType().GetMethods())
+                    var attr = mInfo.GetCustomAttributes(typeof (DeleteAttribute), false).SingleOrDefault();
+                    if (!attr.IsNull() && ((DeleteAttribute) (attr)).Type == obj.GetType())
                     {
-                        var attr = mInfo.GetCustomAttributes(typeof (DeleteAttribute), false).SingleOrDefault();
-                        if (!attr.IsNull() && ((DeleteAttribute) (attr)).Type == obj.GetType())
-                        {
-                            mInfo.Invoke(objInstance, new[] {obj});
-                        }
+                        mInfo.Invoke(objInstance, new[] {obj});
                     }
-                });
+                }
+            });
         }
 
         /// <summary>
@@ -341,22 +343,22 @@ namespace UniCloud.DistributedServices.ExposeData
         private
             void AddObject
             (object
-                 obj)
+                obj)
         {
-            EnumerableExtensions.ForEach(_unityContainer.Registrations, p =>
+            _unityContainer.Registrations.ForEach(p =>
+            {
+                var objInstance = _unityContainer.Resolve(p.RegisteredType);
+                foreach (var mInfo in objInstance.GetType().GetMethods())
                 {
-                    var objInstance = _unityContainer.Resolve(p.RegisteredType);
-                    foreach (var mInfo in objInstance.GetType().GetMethods())
-                    {
-                        var attr = mInfo.GetCustomAttributes(typeof (InsertAttribute), false).SingleOrDefault();
+                    var attr = mInfo.GetCustomAttributes(typeof (InsertAttribute), false).SingleOrDefault();
 
-                        if (!attr.IsNull() &&
-                            ((InsertAttribute) (attr)).Type.ToString().Equals(obj.GetType().ToString()))
-                        {
-                            mInfo.Invoke(objInstance, new[] {obj});
-                        }
+                    if (!attr.IsNull() &&
+                        ((InsertAttribute) (attr)).Type.ToString().Equals(obj.GetType().ToString()))
+                    {
+                        mInfo.Invoke(objInstance, new[] {obj});
                     }
-                });
+                }
+            });
         }
 
         /// <summary>
@@ -366,23 +368,77 @@ namespace UniCloud.DistributedServices.ExposeData
         private
             void UpdateObject
             (object
-                 obj)
+                obj)
         {
-            EnumerableExtensions.ForEach(_unityContainer.Registrations, p =>
+            _unityContainer.Registrations.ForEach(p =>
+            {
+                var objInstance = _unityContainer.Resolve(p.RegisteredType);
+                foreach (var mInfo in objInstance.GetType().GetMethods())
                 {
-                    var objInstance = _unityContainer.Resolve(p.RegisteredType);
-                    foreach (var mInfo in objInstance.GetType().GetMethods())
+                    var attr = mInfo.GetCustomAttributes(typeof (UpdateAttribute), false).SingleOrDefault();
+                    if (!attr.IsNull() && ((UpdateAttribute) (attr)).Type == obj.GetType())
                     {
-                        var attr = mInfo.GetCustomAttributes(typeof (UpdateAttribute), false).SingleOrDefault();
-                        if (!attr.IsNull() && ((UpdateAttribute) (attr)).Type == obj.GetType())
-                        {
-                            mInfo.Invoke(objInstance, new[] {obj});
-                        }
+                        mInfo.Invoke(objInstance, new[] {obj});
                     }
-                });
+                }
+            });
         }
 
         #endregion
 
+        #region 缓存管理
+
+        private TimeSpan _expiration;
+        protected ObjectCache cache;
+
+        /// <summary>
+        ///     初始化缓存
+        /// </summary>
+        /// <param name="cacheExpiration">过期时间间隔</param>
+        private void Initialize(TimeSpan? cacheExpiration = null)
+        {
+            cache = MemoryCache.Default;
+            _expiration = cacheExpiration ?? new TimeSpan(2, 0, 0);
+        }
+
+        /// <summary>
+        ///     获取过期策略
+        /// </summary>
+        /// <returns>过期策略</returns>
+        private CacheItemPolicy GetExpiration()
+        {
+            var policy = new CacheItemPolicy();
+
+            if (_expiration > TimeSpan.Zero &&
+                _expiration < TimeSpan.MaxValue)
+            {
+                policy.AbsoluteExpiration = DateTimeOffset.UtcNow.Add(_expiration);
+            }
+
+            return policy;
+        }
+
+        /// <summary>
+        ///     获取静态数据
+        /// </summary>
+        /// <typeparam name="TDTO">DTO类型</typeparam>
+        /// <param name="key">缓存键值</param>
+        /// <param name="getData">获取数据委托</param>
+        /// <returns>数据集合对象</returns>
+        protected IQueryable<TDTO> GetStaticData<TDTO>(string key, Func<IQueryable<TDTO>> getData) where TDTO : class
+        {
+            var result = cache.Get(key) as IQueryable<TDTO>;
+            if (result == null)
+            {
+                result = getData();
+                if (result != null)
+                {
+                    cache.Add(key, result, GetExpiration());
+                }
+            }
+            return result;
+        }
+
+        #endregion
     }
 }

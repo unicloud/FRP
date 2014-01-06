@@ -40,7 +40,6 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
     public class SupplierAppService : ISupplierAppService
     {
         private readonly ILinkmanRepository _linkmanRepository;
-        private readonly IStaticLoad _staticLoad;
         private readonly ISupplierCompanyMaterialRepository _supplierCompanyMaterialRepository;
         private readonly ISupplierCompanyRepository _supplierCompanyRepository;
         private readonly ISupplierQuery _supplierQuery;
@@ -48,14 +47,13 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
 
         public SupplierAppService(ISupplierQuery supplierQuery, ISupplierRoleRepository supplierRoleRepository,
             ISupplierCompanyRepository supplierCompanyRepository, ILinkmanRepository linkmanRepository,
-            ISupplierCompanyMaterialRepository supplierCompanyMaterialRepository, IStaticLoad staticLoad)
+            ISupplierCompanyMaterialRepository supplierCompanyMaterialRepository)
         {
             _supplierQuery = supplierQuery;
             _supplierRoleRepository = supplierRoleRepository;
             _supplierCompanyRepository = supplierCompanyRepository;
             _linkmanRepository = linkmanRepository;
             _supplierCompanyMaterialRepository = supplierCompanyMaterialRepository;
-            _staticLoad = staticLoad;
         }
 
         #region 合作公司相关操作
@@ -349,7 +347,6 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         [Insert(typeof (SupplierCompanyAcMaterialDTO))]
         public void InsertSupplierCompanyAcMaterial(SupplierCompanyAcMaterialDTO supplierCompanyAcMaterial)
         {
-            _staticLoad.RefreshSupplierMaterial();
             //判断增加的物料是否存在
             var supplierCompanyMaterial = _supplierCompanyMaterialRepository.GetAll()
                 .FirstOrDefault(
@@ -373,7 +370,6 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         [Delete(typeof (SupplierCompanyAcMaterialDTO))]
         public void DeleteSupplierCompanyAcMaterial(SupplierCompanyAcMaterialDTO supplierCompanyAcMaterial)
         {
-            _staticLoad.RefreshSupplierMaterial();
             var supplierMaterial =
                 _supplierCompanyMaterialRepository.Get(supplierCompanyAcMaterial.SupplierCompanyMaterialId);
             DelSupplierCompanyMaterial(supplierMaterial);
@@ -386,7 +382,6 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         [Insert(typeof (SupplierCompanyEngineMaterialDTO))]
         public void InsertSupplierCompanyEngineMaterial(SupplierCompanyEngineMaterialDTO supplierCompanyEngineMaterial)
         {
-            _staticLoad.RefreshSupplierMaterial();
             //判断增加的物料是否存在
             var supplierCompanyMaterial = _supplierCompanyMaterialRepository.GetAll()
                 .FirstOrDefault(
@@ -411,7 +406,6 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         [Delete(typeof (SupplierCompanyEngineMaterialDTO))]
         public void DeleteSupplierCompanyEngineMaterial(SupplierCompanyEngineMaterialDTO supplierCompanyEngineMaterial)
         {
-            _staticLoad.RefreshSupplierMaterial();
             var supplierMaterial =
                 _supplierCompanyMaterialRepository.Get(supplierCompanyEngineMaterial.SupplierCompanyMaterialId);
             DelSupplierCompanyMaterial(supplierMaterial);
@@ -424,7 +418,6 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         [Insert(typeof (SupplierCompanyBFEMaterialDTO))]
         public void InsertSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBFEMaterial)
         {
-            _staticLoad.RefreshSupplierMaterial();
             //判断增加的物料是否存在
             var supplierCompanyMaterial = _supplierCompanyMaterialRepository.GetAll()
                 .FirstOrDefault(
@@ -449,7 +442,6 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         [Delete(typeof (SupplierCompanyBFEMaterialDTO))]
         public void DeleteSupplierCompanyBFEMaterial(SupplierCompanyBFEMaterialDTO supplierCompanyBFEMaterial)
         {
-            _staticLoad.RefreshSupplierMaterial();
             var supplierMaterial =
                 _supplierCompanyMaterialRepository.Get(supplierCompanyBFEMaterial.SupplierCompanyMaterialId);
             DelSupplierCompanyMaterial(supplierMaterial);
@@ -461,7 +453,6 @@ namespace UniCloud.Application.PurchaseBC.SupplierServices
         /// <param name="supplierCompanyBFEMaterial"></param>
         private void DelSupplierCompanyMaterial(SupplierCompanyMaterial supplierCompanyBFEMaterial)
         {
-            _staticLoad.RefreshSupplierMaterial();
             _supplierCompanyMaterialRepository.Remove(supplierCompanyBFEMaterial);
         }
 

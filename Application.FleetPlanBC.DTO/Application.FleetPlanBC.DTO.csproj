@@ -71,6 +71,7 @@
     <Compile Include="AirProgrammingDTO\AirProgrammingDTO.cs" />
     <Compile Include="AirProgrammingDTO\AirProgrammingLineDTO.cs" />
     <Compile Include="AnnualDTO\AnnualDTO.cs" />
+    <Compile Include="AnnualDTO\AnnualYearDTO.cs" />
     <Compile Include="ApporvalDocDTO\ApprovalDocDTO.cs" />
     <Compile Include="CaacProgrammingDTO\CaacProgrammingDTO.cs" />
     <Compile Include="CaacProgrammingDTO\CaacProgrammingLineDTO.cs" />

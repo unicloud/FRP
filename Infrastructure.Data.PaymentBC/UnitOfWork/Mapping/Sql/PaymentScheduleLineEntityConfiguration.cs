@@ -46,6 +46,7 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
             Property(p => p.IsAllDayEvent).HasColumnName("IsAllDayEvent");
             Property(p => p.ScheduleDate).HasColumnName("ScheduleDate").HasColumnType("datetime2");
             Property(p => p.Amount).HasColumnName("Amount");
+            Property(p => p.TaskStatus).HasColumnName("TaskStatus");
             Property(p => p.Status).HasColumnName("Status");
 
             Property(p => p.PaymentScheduleId).HasColumnName("PaymentScheduleId");
