@@ -51,6 +51,7 @@ using UniCloud.Application.PurchaseBC.ReceptionServices;
 using UniCloud.Application.PurchaseBC.RelatedDocServices;
 using UniCloud.Application.PurchaseBC.SupplierServices;
 using UniCloud.Application.PurchaseBC.TradeServices;
+using UniCloud.Domain.Events;
 using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
@@ -70,10 +71,12 @@ using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierCompanyMaterialAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierRoleAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
+using UniCloud.Domain.PurchaseBC.Events;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
+
 #endregion
 
 namespace UniCloud.DistributedServices.Purchase.InstanceProviders
@@ -89,7 +92,14 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
         {
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                .RegisterType<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager())
                 .RegisterType<IStaticLoad, StaticLoad>()
+
+                #region 领域事件相关配置
+
+                .RegisterType<IPurchaseEvent, PurchaseEvent>(new WcfPerRequestLifetimeManager())
+
+                #endregion
 
                 #region 承运人相关配置，包括查询，应用服务，仓储注册
 

@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Aggregates\" />
+    <Folder Include="Events\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>

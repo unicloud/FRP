@@ -33,5 +33,13 @@ namespace UniCloud.Application.FleetPlanBC.Query.AnnualQueries
         /// <returns>计划年度DTO集合</returns>
         IQueryable<AnnualDTO> AnnualDTOQuery(
             QueryBuilder<Annual> query);
+
+        /// <summary>
+        ///     计划年度查询,不包括年度中的计划
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        /// <returns>计划年度DTO集合</returns>
+        IQueryable<PlanYearDTO> PlanYearDTOQuery(
+            QueryBuilder<Annual> query);
     }
 }

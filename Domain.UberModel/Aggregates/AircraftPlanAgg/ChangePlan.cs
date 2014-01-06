@@ -63,7 +63,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
         ///     设置商业数据历史
         /// </summary>
         /// <param name="aircraftBusinessId">商业数据历史</param>
-        public void SetAircraftBusiness(Guid aircraftBusinessId)
+        public void SetAircraftBusiness(Guid? aircraftBusinessId)
         {
             AircraftBusinessId = aircraftBusinessId;
         }

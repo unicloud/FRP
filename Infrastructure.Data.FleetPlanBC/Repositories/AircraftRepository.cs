@@ -14,7 +14,12 @@
 
 #region 命名空间
 
+using System;
+using System.Data.Entity;
+using System.Linq;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg;
+using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork;
 
 #endregion
 
@@ -31,7 +36,65 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.Repositories
         }
 
         #region 方法重载
+        public override Aircraft Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<Aircraft>();
 
+            return set.Include(p => p.AircraftBusinesses).Include(p=>p.OperationHistories).Include(p=>p.OwnershipHistories).SingleOrDefault(l => l.Id == (Guid)id);
+        }
+
+        /// <summary>
+        /// 删除飞机
+        /// </summary>
+        /// <param name="aircraft"></param>
+        public void DeleteAircraft(Aircraft aircraft)
+        {
+            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            var dbAircraftBusinesses = currentUnitOfWork.CreateSet<AircraftBusiness>();
+            var dbOperationHistories = currentUnitOfWork.CreateSet<OperationHistory>();
+            var dbOwnershipHistories = currentUnitOfWork.CreateSet<OwnershipHistory>();
+            var dbAircrafts = currentUnitOfWork.CreateSet<Aircraft>();
+            dbAircraftBusinesses.RemoveRange(aircraft.AircraftBusinesses);
+            dbOperationHistories.RemoveRange(aircraft.OperationHistories);
+            dbOwnershipHistories.RemoveRange(aircraft.OwnershipHistories);
+            dbAircrafts.Remove(aircraft);
+        }
+
+        /// <summary>
+        /// 移除商业数据历史
+        /// </summary>
+        /// <param name="ab"></param>
+        public void RemoveAircraftBusiness(AircraftBusiness ab)
+        {
+            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            currentUnitOfWork.CreateSet<AircraftBusiness>().Remove(ab);
+        }
+
+        /// <summary>
+        /// 移除运营权历史
+        /// </summary>
+        /// <param name="oh"></param>
+        public void RemoveOperationHistory(OperationHistory oh)
+        {
+            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            currentUnitOfWork.CreateSet<OperationHistory>().Remove(oh);
+        }
+
+        /// <summary>
+        /// 移除所有权历史
+        /// </summary>
+        /// <param name="oh"></param>
+        public void RemoveOwnershipHistory(OwnershipHistory oh)
+        {
+            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            currentUnitOfWork.CreateSet<OwnershipHistory>().Remove(oh);
+        }
         #endregion
     }
 }

@@ -16,7 +16,9 @@
 
 #region 命名空间
 
+using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
@@ -65,6 +67,12 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             EnginePlans = _service.CreateCollection(_context.EnginePlans, o => o.EnginePlanHistories);
             _service.RegisterCollectionView(EnginePlans);//注册查询集合
+
+            Annuals=new QueryableDataServiceCollectionView<AnnualDTO>(_context,_context.Annuals);
+
+            EngineTypes=new QueryableDataServiceCollectionView<EngineTypeDTO>(_context,_context.EngineTypes);
+
+            ActionCategories=new QueryableDataServiceCollectionView<ActionCategoryDTO>(_context,_context.ActionCategories);
         }
 
         /// <summary>
@@ -86,6 +94,33 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #region 公共属性
 
+        #region 计划年度集合
+
+        /// <summary>
+        ///     计划年度集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
+
+        #endregion
+
+        #region 发动机型号集合
+
+        /// <summary>
+        ///     发动机型号集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<EngineTypeDTO> EngineTypes { get; set; }
+
+        #endregion
+
+        #region 活动类型集合
+
+        /// <summary>
+        ///     活动类型集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ActionCategoryDTO> ActionCategories { get; set; }
+
+        #endregion
+
         #endregion
 
         #region 加载数据
@@ -99,6 +134,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public override void LoadData()
         {
+            EnginePlans.Load(true);
+            Annuals.Load(true);
+            EngineTypes.Load(true);
+            ActionCategories.Load(true);
         }
 
         #region 业务
@@ -193,11 +232,30 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnNew(object obj)
         {
+            var newEnginePlan = new EnginePlanDTO()
+            {
+                Id = new Guid(),
+                CreateDate = DateTime.Now,
+                VersionNumber = 1,
+            };
+            //如果有上个版本的备发计划，将未执行完的计划明细复制到新的计划中
+            var enginePlan = EnginePlans.OrderBy(p => p.CreateDate).LastOrDefault();
+            if (enginePlan != null)
+            {
+                foreach (var ph in enginePlan.EnginePlanHistories)
+                {
+                    if(ph.Status ==0)
+                        newEnginePlan.EnginePlanHistories.Add(ph);
+                }
+            }
+            EnginePlans.AddNew(newEnginePlan);
+
         }
 
         private bool CanNew(object obj)
         {
-            return true;
+            if (!EnginePlans.Any()) return true;
+            return !(EnginePlans.ToList().Any(p => p.Status < 2));
         }
 
         #endregion
@@ -211,11 +269,15 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnRemove(object obj)
         {
+            if (_selEnginePlan != null)
+            {
+                EnginePlans.Remove(_selEnginePlan);
+            }
         }
 
         private bool CanRemove(object obj)
         {
-            return _selEnginePlan != null;
+            return _selEnginePlan != null && _selEnginePlan.Status == 0;
         }
 
         #endregion
@@ -229,11 +291,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnCommit(object obj)
         {
+            _selEnginePlan.Status = 1; //待审核
+            RefreshCommandState();
         }
 
         private bool CanCommit(object obj)
         {
-            return true;
+            return _selEnginePlan != null && _selEnginePlan.Status == 0;
         }
 
         #endregion
@@ -247,11 +311,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnCheck(object obj)
         {
+            _selEnginePlan.Status = 2; //已审核
+            RefreshCommandState();
         }
 
         private bool CanCheck(object obj)
         {
-            return true;
+            return _selEnginePlan != null && _selEnginePlan.Status == 1;
         }
 
         #endregion
@@ -265,11 +331,16 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnAddEntity(object obj)
         {
+            var enginePh = new EnginePlanHistoryDTO
+            {
+                Id = new Guid(),
+            };
+            _selEnginePlan.EnginePlanHistories.Add(enginePh);
         }
 
         private bool CanAddEntity(object obj)
         {
-            return _selEnginePlan != null;
+            return _selEnginePlan != null && _selEnginePlan.Status == 0;
         }
 
         #endregion
@@ -291,7 +362,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private bool CanRemoveEntity(object obj)
         {
-            return _selEnginePlanHistory != null;
+            return _selEnginePlan != null && _selEnginePlan.Status == 0 && _selEnginePlanHistory != null && _selEnginePlanHistory.Status < 2;
         }
 
         #endregion

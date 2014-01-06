@@ -63,7 +63,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
         ///     设置运营权历史
         /// </summary>
         /// <param name="operationHistoryId">运营权历史</param>
-        public void SetOperationHistory(Guid operationHistoryId)
+        public void SetOperationHistory(Guid? operationHistoryId)
         {
             OperationHistoryId = operationHistoryId;
         }

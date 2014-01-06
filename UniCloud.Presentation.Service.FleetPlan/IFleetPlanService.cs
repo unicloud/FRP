@@ -16,7 +16,9 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.ObjectModel;
+using Telerik.Windows.Data;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 #endregion
@@ -33,6 +35,11 @@ namespace UniCloud.Presentation.Service.FleetPlan
 
         #region 获取静态数据
 
+        /// <summary>
+        /// 所有航空公司
+        /// </summary>
+        QueryableDataServiceCollectionView<AirlinesDTO> GetAirlineses(bool forceLoad = false);
+
         #endregion
 
         #region 公共属性
@@ -45,12 +52,12 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <summary>
         /// 当前航空公司
         /// </summary>
-        AirlinesDTO CurrentAirlines { get; }
+        AirlinesDTO CurrentAirlines(bool forceLoad = false);
 
         /// <summary>
         /// 当前年度
         /// </summary>
-        AnnualDTO CurrentAnnual { get; }
+        AnnualDTO CurrentAnnual(bool forceLoad = false);
 
         #endregion
 
@@ -59,28 +66,21 @@ namespace UniCloud.Presentation.Service.FleetPlan
         #region 计划
 
         /// <summary>
-        /// 设置当前年度
-        /// </summary>
-        AnnualDTO SetCurrentAnnual();
-
-        /// <summary>
-        /// 设置当前航空公司
-        /// </summary>
-        AirlinesDTO GetCurrentAirlines();
-
-        /// <summary>
         /// 创建新年度的初始化计划
         /// </summary>
-        /// <param name="title"><see cref="IFleetPlanService"/></param>
+        /// <param name="lastPlan"></param>
+        /// <param name="newAnnual"></param>
+        /// <param name="newYear"></param>
+        /// <param name="curAirlinesId"></param>
         /// <returns><see cref="IFleetPlanService"/></returns>
-        PlanDTO CreateNewYearPlan(string title);
+        PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual, int newYear, Guid curAirlinesId);
 
         /// <summary>
         /// 创建新版本的运力增减计划
         /// </summary>
-        /// <param name="title"><see cref="IFleetPlanService"/></param>
+        /// <param name="lastPlan"></param>
         /// <returns><see cref="IFleetPlanService"/></returns>
-        PlanDTO CreateNewVersionPlan(string title);
+        PlanDTO CreateNewVersionPlan(PlanDTO lastPlan);
 
         /// <summary>
         /// 创建运力增减计划明细

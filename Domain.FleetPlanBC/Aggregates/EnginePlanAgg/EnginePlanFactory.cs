@@ -34,6 +34,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
                 CreateDate = DateTime.Now,
             };
 
+            enginePlan.GenerateNewIdentity();
             return enginePlan;
         }
     }

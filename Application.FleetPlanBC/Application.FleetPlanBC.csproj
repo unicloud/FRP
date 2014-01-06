@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="ActionCategoryServices\ActionCategoryAppService.cs" />
     <Compile Include="ActionCategoryServices\IActionCategoryAppService.cs" />
+    <Compile Include="AcTypeServices\AcTypeAppService.cs" />
+    <Compile Include="AcTypeServices\IAcTypeAppService.cs" />
     <Compile Include="AircraftCategoryServices\AircraftCategoryAppService.cs" />
     <Compile Include="AircraftCategoryServices\IAircraftCategoryAppService.cs" />
     <Compile Include="AircraftPlanServices\IPlanAppService.cs" />

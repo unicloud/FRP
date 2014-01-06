@@ -177,6 +177,9 @@
     <Compile Include="Aggregates\OrderAgg\Order.cs" />
     <Compile Include="Aggregates\TradeAgg\TradeFactory.cs" />
     <Compile Include="Aggregates\TradeAgg\TradeSpecifications.cs" />
+    <Compile Include="Events\FulfilOrderEvent.cs" />
+    <Compile Include="Events\IPurchaseEvent.cs" />
+    <Compile Include="Events\PurchaseEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -203,10 +203,13 @@
                                         <telerik:GridViewDataColumn Header="年份"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding Year}" />
-                                        <telerik:GridViewDataColumn Header="系列"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    IsReadOnly="True">
-                                        </telerik:GridViewDataColumn>
+                                        <telerik:GridViewComboBoxColumn Header="系列"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSource="{Binding DataContext.AcTypes, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        DisplayMemberPath="Name"
+                                                                        DataMemberBinding="{Binding AcTypeId,Mode=TwoWay}"
+                                                                        SelectedValueMemberPath="Id"
+                                                                        EditorStyle="{StaticResource EditComboBox}" />
                                         <telerik:GridViewDataColumn Header="购买数量"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding BuyNum}">
