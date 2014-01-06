@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class database : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -1004,6 +1004,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         Start = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         End = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         IsAllDayEvent = c.Boolean(nullable: false),
+                        IsCompleted = c.Boolean(nullable: false),
+                        TaskStatus = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.Invoice", t => t.InvoiceId)
@@ -1120,6 +1122,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         Start = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         End = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         IsAllDayEvent = c.Boolean(nullable: false),
+                        IsCompleted = c.Boolean(nullable: false),
+                        TaskStatus = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.Reception", t => t.ReceptionId)

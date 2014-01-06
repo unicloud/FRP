@@ -20,9 +20,11 @@
 using System.Linq;
 using UniCloud.Application.PurchaseBC;
 using UniCloud.Application.PurchaseBC.ActionCategoryServices;
+using UniCloud.Application.PurchaseBC.AircraftTypeServices;
 using UniCloud.Application.PurchaseBC.ContractAircraftServices;
 using UniCloud.Application.PurchaseBC.ContractEngineServices;
 using UniCloud.Application.PurchaseBC.ContractServices;
+using UniCloud.Application.PurchaseBC.CurrencyServices;
 using UniCloud.Application.PurchaseBC.DocumentPathServices;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
@@ -48,9 +50,11 @@ namespace UniCloud.DistributedServices.Purchase
         private readonly IActionCategoryAppService _actionCategoryAppService;
         private readonly IAircraftLeaseReceptionAppService _aircraftLeaseReceptionAppService;
         private readonly IAircraftPurchaseReceptionAppService _aircraftPurchaseReceptionAppService;
+        private readonly IAircraftTypeAppService _aircraftTypeAppService;
         private readonly IContractAircraftAppService _contractAircraftAppService;
         private readonly IContractDocumentAppService _contractDocumentAppService;
         private readonly IContractEngineAppService _contractEngineAppService;
+        private readonly ICurrencyAppService _currencyAppService;
         private readonly IDocumentPathAppService _documentPathAppService;
         private readonly IEngineLeaseReceptionAppService _engineLeaseReceptionAppService;
         private readonly IEnginePurchaseReceptionAppService _enginePurchaseReceptionAppService;
@@ -74,6 +78,7 @@ namespace UniCloud.DistributedServices.Purchase
             _staticLoad = DefaultContainer.Resolve<IStaticLoad>();
             _actionCategoryAppService = DefaultContainer.Resolve<IActionCategoryAppService>();
             _contractAircraftAppService = DefaultContainer.Resolve<IContractAircraftAppService>();
+            _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
             _contractEngineAppService = DefaultContainer.Resolve<IContractEngineAppService>();
             _forwarderAppService = DefaultContainer.Resolve<IForwarderAppService>();
             _maintainContractAppService = DefaultContainer.Resolve<IMaintainContractAppService>();
@@ -93,6 +98,7 @@ namespace UniCloud.DistributedServices.Purchase
             _relatedDocAppService = DefaultContainer.Resolve<IRelatedDocAppService>();
             _documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
             _contractDocumentAppService = DefaultContainer.Resolve<IContractDocumentAppService>();
+            _currencyAppService = DefaultContainer.Resolve<ICurrencyAppService>();
         }
 
         #region 合作公司相关集合
@@ -112,7 +118,7 @@ namespace UniCloud.DistributedServices.Purchase
         public IQueryable<SupplierDTO> Suppliers
         {
             get { return _staticLoad.GetSuppliers(); }
-            }
+        }
 
         /// <summary>
         ///     供应商公司信息。
@@ -129,7 +135,7 @@ namespace UniCloud.DistributedServices.Purchase
         public IQueryable<LinkmanDTO> Linkmans
         {
             get { return _staticLoad.GetLinkMen(); }
-                }
+        }
 
         /// <summary>
         ///     合作公司下的飞机物料
@@ -164,7 +170,7 @@ namespace UniCloud.DistributedServices.Purchase
         /// </summary>
         public IQueryable<AircraftTypeDTO> AircraftTypes
         {
-            get { return _staticLoad.GetAircraftTypes(); }
+            get { return _aircraftTypeAppService.GetAircraftTypes(); }
         }
 
         #endregion
@@ -424,7 +430,7 @@ namespace UniCloud.DistributedServices.Purchase
         /// </summary>
         public IQueryable<CurrencyDTO> Currencies
         {
-            get { return _staticLoad.GetCurrencies(); }
+            get { return GetStaticData("currencies", () => _currencyAppService.GetCurrencies()); }
         }
 
         #endregion
