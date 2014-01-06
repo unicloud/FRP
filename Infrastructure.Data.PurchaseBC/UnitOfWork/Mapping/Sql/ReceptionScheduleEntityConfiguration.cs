@@ -47,6 +47,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
             Property(p => p.End).HasColumnName("End").HasColumnType("datetime2");
             Property(p => p.IsAllDayEvent).HasColumnName("IsAllDayEvent"); 
             Property(p => p.Group).HasColumnName("Group");
+            Property(p => p.TaskStatus).HasColumnName("TaskStatus");
 
             Property(p => p.ReceptionId).HasColumnName("ReceptionId");
         }
