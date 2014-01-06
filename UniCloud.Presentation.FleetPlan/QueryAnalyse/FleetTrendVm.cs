@@ -51,7 +51,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private readonly RadWindow _aircraftWindow = new RadWindow(); //用于单击飞机数饼状图的用户提示
         private readonly CommonMethod _commonMethod = new CommonMethod();
         private readonly IFleetPlanService _service;
-        private Grid _barGrid; //折线趋势图区域，柱状趋势图区域， 飞机数饼图区域
         private RadGridView _exportRadgridview; //初始化RadGridView
         private int _i; //导出数据源格式判断
         private Grid _lineGrid; //折线趋势图区域，柱状趋势图区域， 飞机数饼图区域
@@ -110,7 +109,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             ExportCommand = new DelegateCommand<object>(OnExport); //导出图表源数据（Source data）
             ExportGridViewCommand = new DelegateCommand<object>(OnExportGridView); //导出数据表数据
             _lineGrid = CurrentFleetTrend.LineGrid;
-            _barGrid = CurrentFleetTrend.BarGrid;
             _planDetailGridview = CurrentFleetTrend.PlanDetailGridview;
         }
 

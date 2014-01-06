@@ -56,7 +56,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <summary>
         /// 当前航空公司
         /// </summary>
-        AirlinesDTO CurrentAirlines(Action loaded, bool forceLoad = false);
+        AirlinesDTO CurrentAirlines( bool forceLoad = false);
 
         /// <summary>
         /// 当前年度

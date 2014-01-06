@@ -89,7 +89,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <summary>
         /// 当前航空公司
         /// </summary>
-        public AirlinesDTO CurrentAirlines(Action loaded, bool forceLoad = false)
+        public AirlinesDTO CurrentAirlines(bool forceLoad = false)
         {
             return GetAirlineses(forceLoad).FirstOrDefault(p => p.IsCurrent);
         }
