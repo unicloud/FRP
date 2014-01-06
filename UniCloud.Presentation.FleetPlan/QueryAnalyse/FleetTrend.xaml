@@ -241,6 +241,10 @@
                                                                   Stroke="Gray"
                                                                   StrokeThickness="1" />
                                                             <StackPanel Margin="5,3,5,10">
+                                                                <TextBlock Text="{Binding Path=DataItem.DateTime, StringFormat='时间: {0}'}"
+                                                                           Foreground="{Binding Path=DataItem.AircraftColor}"
+                                                                           FontFamily="Segoe UI"
+                                                                           FontSize="11" />
                                                                 <TextBlock Text="{Binding Path=DataItem.AircraftAmount, StringFormat='飞机数: {0}架'}"
                                                                            Foreground="{Binding Path=DataItem.AircraftColor}"
                                                                            FontFamily="Segoe UI"
@@ -286,7 +290,7 @@
                                             </telerik:RadCartesianChart>
                                         </Grid>
                                         <Grid Name="BarGrid"
-                                              Margin="0,148,0,0" Grid.RowSpan="2">
+                                              Grid.Row="1" >
                                             <telerik:RadContextMenu.ContextMenu>
                                                 <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
                                                     <i:Interaction.Triggers>
@@ -407,9 +411,7 @@
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="序号"
-                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                     HeaderTextAlignment="Center"
-                                                                     CellStyle="{StaticResource Style}" />
+                                                                     HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="注册号"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"

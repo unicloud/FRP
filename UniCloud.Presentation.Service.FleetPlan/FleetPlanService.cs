@@ -57,7 +57,8 @@ namespace UniCloud.Presentation.Service.FleetPlan
         public QueryableDataServiceCollectionView<AirlinesDTO> GetAirlineses(bool forceLoad = false)
         {
             Action loaded = () => { };
-            return GetStaticData(_airlines, loaded, Context.Airlineses);
+            return GetStaticData( _airlines, loaded, Context.Airlineses);
+            //return _airlines;
         }
 
         /// <summary>
@@ -89,9 +90,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// </summary>
         public AirlinesDTO CurrentAirlines(bool forceLoad = false)
         {
-            Action loaded = () => { };
-            var airlinesDescriptor = new FilterDescriptor("IsCurrent", FilterOperator.IsEqualTo, true);
-            return GetStaticData(_curAirlines, loaded, Context.Airlineses, airlinesDescriptor);
+            return GetAirlineses(forceLoad).FirstOrDefault(p => p.IsCurrent);
         }
 
         /// <summary>
@@ -118,7 +117,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="newYear"></param>
         /// <param name="curAirlines"></param>
         /// <returns><see cref="IFleetPlanService"/></returns>
-        public PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual,int newYear,AirlinesDTO curAirlines)
+        public PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual, int newYear, AirlinesDTO curAirlines)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
