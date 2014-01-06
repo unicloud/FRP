@@ -44,9 +44,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
     public class CountRegisteredFleetVm : ViewModelBase
     {
         #region 声明、初始化
-
         private readonly FleetPlanData _fleetPlanContext;
-        private readonly IFleetPlanService _service;
         public CountRegisteredFleet CurrentCountRegisteredFleet
         {
             get { return ServiceLocator.Current.GetInstance<CountRegisteredFleet>(); }
@@ -63,8 +61,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         [ImportingConstructor]
         public CountRegisteredFleetVm(IFleetPlanService service)
         {
-            _service = service;
-            _fleetPlanContext = _service.Context;
+            _fleetPlanContext = service.Context;
 
             ViewModelInitializer();
             InitializeVm();
@@ -387,7 +384,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             var button = sender as RadToggleButton;
             if (button != null)
             {
-                if ((bool)button.IsChecked)
+                if (button.IsChecked != null && (bool)button.IsChecked)
                 {
                     if ("YearToggleButton".Equals(button.Name, StringComparison.OrdinalIgnoreCase))
                     {
@@ -512,6 +509,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// <param name="e"></param>
         void ElementExporting(object sender, GridViewElementExportingEventArgs e)
         {
+// ReSharper disable once CSharpWarnings::CS0618
             e.Width = 120;
             if (e.Element == ExportElement.Cell && e.Value != null)
             {
@@ -761,13 +759,17 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
 
                 fleetRegisteredTrendMonthList.GroupBy(p => p.AircraftType).ToList().ForEach(p =>
-                    fleetRegisteredTrendYearList.AddRange(p.GroupBy(pp => Convert.ToDateTime(pp.DateTime).Year).Select(o => new FleetRegisteredTrend
-                    {
-                        DateTime = o.Key.ToString(CultureInfo.InvariantCulture),
-                        AircraftType = p.Key,
-                        RegisteredCount = Math.Round(o.Sum(a => a.RegisteredCount * Convert.ToDateTime(a.DateTime).AddMonths(1).AddDays(-1).Day) / (new DateTime(o.Key + 1, 1, 1) - new DateTime(o.Key, 1, 1)).TotalDays, 4),
-                        Color = p.FirstOrDefault().Color
-                    }))
+                    fleetRegisteredTrendYearList.AddRange(p.GroupBy(pp => Convert.ToDateTime(pp.DateTime).Year).Select(o =>
+                                                                                                                       {
+                                                                                                                           var orDefault = p.FirstOrDefault();
+                                                                                                                           return orDefault != null ? new FleetRegisteredTrend
+                                                                                                                                                           {
+                                                                                                                                                               DateTime = o.Key.ToString(CultureInfo.InvariantCulture),
+                                                                                                                                                               AircraftType = p.Key,
+                                                                                                                                                               RegisteredCount = Math.Round(o.Sum(a => a.RegisteredCount * Convert.ToDateTime(a.DateTime).AddMonths(1).AddDays(-1).Day) / (new DateTime(o.Key + 1, 1, 1) - new DateTime(o.Key, 1, 1)).TotalDays, 4),
+                                                                                                                                                               Color = orDefault.Color
+                                                                                                                                                           } : null;
+                                                                                                                       }))
                 );
             }
 
