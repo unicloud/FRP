@@ -75,9 +75,9 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="lastPlan"></param>
         /// <param name="newAnnual"></param>
         /// <param name="newYear"></param>
-        /// <param name="curAirlinesId"></param>
+        /// <param name="curAirlines"></param>
         /// <returns><see cref="IFleetPlanService"/></returns>
-        PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual, int newYear, Guid curAirlinesId);
+        PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual, int newYear, AirlinesDTO curAirlines);
 
         /// <summary>
         /// 创建新版本的运力增减计划

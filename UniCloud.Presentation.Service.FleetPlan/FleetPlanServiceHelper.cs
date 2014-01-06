@@ -46,9 +46,9 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="lastPlan"></param>
         /// <param name="newAnnual"></param>
         /// <param name="newYear"></param>
-        /// <param name="curAirlineId"></param>
+        /// <param name="curAirline"></param>
         /// <returns></returns>
-        internal PlanDTO CreateNewYearPlan(PlanDTO lastPlan,Guid newAnnual,int newYear,Guid curAirlineId)
+        internal PlanDTO CreateNewYearPlan(PlanDTO lastPlan,Guid newAnnual,int newYear,AirlinesDTO curAirline)
         {
             var title = newYear + "年度运力规划";
             // 从当前计划复制生成新年度计划
@@ -58,9 +58,14 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 Title = title,
                 CreateDate = DateTime.Now,
                 AnnualId = newAnnual,
-                AirlinesId = curAirlineId,
+                Year = newYear,
+                AirlinesId = curAirline.Id,
+                AirlinesName = curAirline.CnName,
                 VersionNumber = 1,
                 Status = 0,
+                IsValid = false,
+                IsCurrentVersion = false,
+                IsFinished = false,
                 PublishStatus = 0,
             };
             // 获取需要滚动到下一年度的计划明细项

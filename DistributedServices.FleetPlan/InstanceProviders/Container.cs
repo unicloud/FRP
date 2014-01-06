@@ -2,10 +2,13 @@
 // 
 //------------------------------------------------------------------------------
 
-using UniCloud.Application.FleetPlanBC;
+#region 命名空间
+
+using Microsoft.Practices.Unity;
 using UniCloud.Application.FleetPlanBC.ActionCategoryServices;
 using UniCloud.Application.FleetPlanBC.AcTypeServices;
 using UniCloud.Application.FleetPlanBC.AircraftCategoryServices;
+using UniCloud.Application.FleetPlanBC.AircraftPlanServices;
 using UniCloud.Application.FleetPlanBC.AircraftServices;
 using UniCloud.Application.FleetPlanBC.AircraftTypeServices;
 using UniCloud.Application.FleetPlanBC.AirlinesServices;
@@ -21,7 +24,6 @@ using UniCloud.Application.FleetPlanBC.ManagerServices;
 using UniCloud.Application.FleetPlanBC.ManufacturerServices;
 using UniCloud.Application.FleetPlanBC.PlanAircraftServices;
 using UniCloud.Application.FleetPlanBC.PlanEngineServices;
-using UniCloud.Application.FleetPlanBC.AircraftPlanServices;
 using UniCloud.Application.FleetPlanBC.ProgrammingServices;
 using UniCloud.Application.FleetPlanBC.Query.ActionCategoryQueries;
 using UniCloud.Application.FleetPlanBC.Query.AcTypeQueries;
@@ -79,7 +81,9 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.FleetPlanBC.Repositories;
 using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
+#endregion
+
 namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
 {
     /// <summary>
@@ -91,11 +95,8 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
 
         public static void ConfigureContainer()
         {
-           
-              
-               DefaultContainer.CreateContainer()
+            DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IStaticLoad, StaticLoad>()
 
                 #region 活动类型相关配置，包括查询，应用服务，仓储注册
 

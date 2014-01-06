@@ -92,8 +92,8 @@ namespace UniCloud.Application.FleetPlanBC.AnnualServices
         ///     删除计划年度。
         /// </summary>
         /// <param name="dto">计划年度DTO。</param>
-        [Delete(typeof(AirProgrammingDTO))]
-        public void DeleteAirProgramming(AirProgrammingDTO dto)
+        [Delete(typeof(AnnualDTO))]
+        public void DeleteAirProgramming(AnnualDTO dto)
         {
         }
         #endregion

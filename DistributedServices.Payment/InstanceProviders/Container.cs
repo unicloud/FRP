@@ -4,7 +4,7 @@
 
 #region 命名空间
 
-using UniCloud.Application.PaymentBC;
+using Microsoft.Practices.Unity;
 using UniCloud.Application.PaymentBC.ContractAircraftServices;
 using UniCloud.Application.PaymentBC.ContractEngineServices;
 using UniCloud.Application.PaymentBC.CurrencyServices;
@@ -39,7 +39,7 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PaymentBC.Repositories;
 using UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.DistributedServices.Payment.InstanceProviders
@@ -55,7 +55,6 @@ namespace UniCloud.DistributedServices.Payment.InstanceProviders
         {
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, PaymentBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IStaticLoad, StaticLoad>()
 
                 #region 发票相关配置，包括查询，应用服务，仓储注册
 
