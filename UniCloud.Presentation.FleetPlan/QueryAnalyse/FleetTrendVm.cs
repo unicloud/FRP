@@ -62,7 +62,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public FleetTrendVm(IFleetPlanService service)
         {
             _service = service;
-            _service.GetAirlineses();
+            _service.GetAirlineses(null);
             _fleetPlanContext = _service.Context;
             ViewModelInitializer();
             AddRadMenu(_aircraftWindow);

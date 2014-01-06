@@ -75,7 +75,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             _service = service;
             _fleetPlanContext = _service.Context;
-            _service.GetAirlineses();
+            _service.GetAirlineses(null);
             ViewModelInitializer();
 
             InitalizerRadWindows(_aircraftWindow, "Aircraft", 200);
