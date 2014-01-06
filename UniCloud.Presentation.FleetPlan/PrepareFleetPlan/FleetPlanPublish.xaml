@@ -42,15 +42,13 @@
                             <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                 Margin="-1 -2 -1 0">
                                 <telerik:RadButton Margin="4,2,2,-2"
-                                                   Command="{Binding SaveCommand}"
-                                                   CommandParameter="{Binding ViewPlans}">
+                                                   Command="{Binding SaveCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                            Stretch="Fill"
                                            ToolTipService.ToolTip="保存" />
                                 </telerik:RadButton>
                                 <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding AbortCommand}"
-                                                   CommandParameter="{Binding ViewPlans}">
+                                                   Command="{Binding AbortCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                            Stretch="Fill"
                                            ToolTipService.ToolTip="放弃更改" />
@@ -93,9 +91,9 @@
                                                  CanUserResizeColumns="False"
                                                  IsFilteringAllowed="True"
                                                  IsReadOnly="True"
-                                                 ItemsSource="{Binding ViewPlans,Mode=TwoWay}"
+                                                 ItemsSource="{Binding Plans,Mode=TwoWay}"
                                                  SelectedItem="{Binding SelPlan,Mode=TwoWay}"
-                                                 IsBusy="{Binding ViewPlans.IsBusy}">
+                                                 IsBusy="{Binding CurAnnuals.IsBusy}">
                                 <telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadContextMenu>
                                         <telerik:RadMenuItem Header="导出Excel"
@@ -129,10 +127,10 @@
                                                                 DataMemberBinding="{Binding VersionNumber}" />
                                     <telerik:GridViewDataColumn Header="编制状态"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding Status}" />
+                                                                DataMemberBinding="{Binding PlanStatus}" />
                                     <telerik:GridViewDataColumn Header="发布状态"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding PublishStatus}" />
+                                                                DataMemberBinding="{Binding PlanPublishStatus}" />
                                     <telerik:GridViewDataColumn Header="创建日期"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding CreateDate, StringFormat={StaticResource DateStringFormat}}"
@@ -163,7 +161,7 @@
                                                  CanUserResizeColumns="False"
                                                  IsFilteringAllowed="False"
                                                  ItemsSource="{Binding SelPlan.PlanHistories}"
-                                                 IsBusy="{Binding ViewPlans.IsBusy}"
+                                                 IsBusy="{Binding CurAnnuals.IsBusy}"
                                                  AutoGenerateColumns="False"
                                                  ShowColumnFooters="True">
                                 <telerik:RadContextMenu.ContextMenu>
@@ -237,7 +235,7 @@
                                     </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="管理状态"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding }" />
+                                                                DataMemberBinding="{Binding ManaStatus}" />
                                     <telerik:GridViewDataColumn Header="备注"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding Note}" />

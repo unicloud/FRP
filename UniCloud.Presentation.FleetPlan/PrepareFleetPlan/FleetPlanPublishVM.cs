@@ -17,7 +17,9 @@
 #region 命名空间
 
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
@@ -43,7 +45,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         [Import]
         public DocumentViewer DocumentView;
         private DocumentDTO _document = new DocumentDTO();
-        private FilterDescriptor _planDescriptor;
+        private FilterDescriptor _annualDescriptor;
 
         [ImportingConstructor]
         public FleetPlanPublishVM(IRegionManager regionManager, IFleetPlanService service)
@@ -64,10 +66,26 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            ViewPlans = _service.CreateCollection(_context.Plans, o => o.PlanHistories);
-            _planDescriptor = new FilterDescriptor("Year", FilterOperator.IsEqualTo, DateTime.Now.Year);
-            ViewPlans.FilterDescriptors.Add(_planDescriptor);
-            _service.RegisterCollectionView(ViewPlans);//注册查询集合
+            CurAnnuals = _service.CreateCollection(_context.Annuals.Expand(p => p.Plans), o => o.Plans);
+            _annualDescriptor = new FilterDescriptor("IsOpen", FilterOperator.IsEqualTo, true);
+            CurAnnuals.FilterDescriptors.Add(_annualDescriptor);
+            CurAnnuals.LoadedData += (sender, e) =>
+            {
+                if (e.HasError)
+                {
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                if (CurAnnuals.Count != 0)
+                {
+                    _plans.Clear();
+                    Plans = e.Entities.Cast<AnnualDTO>().First().Plans;
+                    _curPlan.Clear();
+                    CurPlan.Add(e.Entities.Cast<AnnualDTO>().First().Plans.OrderBy(p => p.VersionNumber).FirstOrDefault());
+                }
+                RefreshCommandState();
+            };
+            _service.RegisterCollectionView(CurAnnuals);//注册查询集合
         }
 
         /// <summary>
@@ -100,17 +118,60 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public override void LoadData()
         {
-            ViewPlans.Load(true);
+            CurAnnuals.AutoLoad = true;
         }
 
         #region 业务
 
-        #region 当前年度运力增减计划集合
+        #region 当前计划年度
 
         /// <summary>
-        ///     当前年度运力增减计划集合
+        ///     当前计划年度
         /// </summary>
-        public QueryableDataServiceCollectionView<PlanDTO> ViewPlans { get; set; }
+        public QueryableDataServiceCollectionView<AnnualDTO> CurAnnuals { get; set; }
+
+        #endregion
+
+        #region 当前年度运力增减计划集合
+
+        private ObservableCollection<PlanDTO> _plans = new ObservableCollection<PlanDTO>();
+
+        /// <summary>
+        /// 当前年度运力增减计划集合
+        /// </summary>
+        public ObservableCollection<PlanDTO> Plans
+        {
+            get { return this._plans; }
+            private set
+            {
+                if (this._plans != value)
+                {
+                    _plans = value;
+                    this.RaisePropertyChanged(() => this.Plans);
+                }
+            }
+        }
+        #endregion
+
+        #region 当前运力增减计划
+
+        private ObservableItemCollection<PlanDTO> _curPlan = new ObservableItemCollection<PlanDTO>();
+
+        /// <summary>
+        ///     当前运力增减计划
+        /// </summary>
+        public ObservableItemCollection<PlanDTO> CurPlan
+        {
+            get { return _curPlan; }
+            private set
+            {
+                if (_curPlan != value)
+                {
+                    _curPlan = value;
+                    RaisePropertyChanged(() => CurPlan);
+                }
+            }
+        }
 
         #endregion
 

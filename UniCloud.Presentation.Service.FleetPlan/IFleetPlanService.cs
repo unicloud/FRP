@@ -47,12 +47,12 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <summary>
         /// 当前航空公司
         /// </summary>
-        AirlinesDTO CurrentAirlines(bool forceLoad = false);
+        AirlinesDTO CurrentAirlines(Action loaded, bool forceLoad = false);
 
         /// <summary>
         /// 当前年度
         /// </summary>
-        AnnualDTO CurrentAnnual(bool forceLoad = false);
+        AnnualDTO CurrentAnnual(Action loaded, bool forceLoad = false);
 
         #endregion
 

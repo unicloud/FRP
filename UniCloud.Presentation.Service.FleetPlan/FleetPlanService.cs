@@ -66,21 +66,22 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <summary>
         /// 当前航空公司
         /// </summary>
-        public AirlinesDTO CurrentAirlines(bool forceLoad = false)
+        public AirlinesDTO CurrentAirlines(Action loaded, bool forceLoad = false)
         {
-            Action loaded = () => { };
+            Action loaded1 = () => { };
             var airlinesDescriptor = new FilterDescriptor("IsCurrent", FilterOperator.IsEqualTo, true);
-            return GetStaticData(_curAirlines, loaded, Context.Airlineses, airlinesDescriptor);
+            var airlines= GetStaticData(_curAirlines, loaded1, Context.Airlineses, airlinesDescriptor);
+            return airlines;
         }
 
         /// <summary>
         /// 当前年度
         /// </summary>
-        public AnnualDTO CurrentAnnual(bool forceLoad = false)
+        public AnnualDTO CurrentAnnual(Action loaded, bool forceLoad = false)
         {
-            Action loaded = () => { };
+            Action loaded1 = () => { };
             var annualDescriptor = new FilterDescriptor("IsOpen", FilterOperator.IsEqualTo, true);
-            return GetStaticData(_curAnnual, loaded, Context.Annuals, annualDescriptor);
+            return GetStaticData(_curAnnual, loaded1, Context.Annuals, annualDescriptor);
         }
 
         #endregion
@@ -97,7 +98,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="newYear"></param>
         /// <param name="curAirlines"></param>
         /// <returns><see cref="IFleetPlanService"/></returns>
-        public PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual,int newYear,AirlinesDTO curAirlines)
+        public PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual, int newYear, AirlinesDTO curAirlines)
         {
             using (var pb = new FleetPlanServiceHelper())
             {

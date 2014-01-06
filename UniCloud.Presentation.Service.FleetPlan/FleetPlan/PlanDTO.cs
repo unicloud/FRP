@@ -3,8 +3,8 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2014/1/1 8:50:48
-// 文件名：PlanHistoryDTO
+// 作者：HuangQiBin 时间：2014/1/6 15:45:05
+// 文件名：PlanDTO
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -30,35 +30,25 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
-    public partial class PlanHistoryDTO
+    public partial class PlanDTO
     {
         #region 属性
+        /// <summary>
+        ///     计划编制状态
+        /// </summary>
+        public PlanStatus PlanStatus
+        {
+            get { return (PlanStatus)Status; }
+        }
 
         /// <summary>
-        ///     管理状态
+        ///     发布状态
         /// </summary>
-        public ManageStatus ManaStatus
+        public PlanPublishStatus PlanPublishStatus
         {
-            get { return (ManageStatus)ManageStatus; }
+            get { return (PlanPublishStatus)PublishStatus; }
         }
 
         #endregion
-
-        partial void OnYearChanged()
-        {
-            OnPropertyChanged("PerformTime");
-        }
-
-        partial void OnPerformMonthChanged()
-        {
-            OnPropertyChanged("PerformTime");
-        }
-        public string PerformTime
-        {
-            get
-            {
-                return (Year + "/" + PerformMonth);
-            }
-        }
     }
 }
