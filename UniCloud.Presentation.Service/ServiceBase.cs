@@ -96,34 +96,6 @@ namespace UniCloud.Presentation.Service
             return _staticCollectionView[type] as QueryableDataServiceCollectionView<T>;
         }
 
-        /// <summary>
-        ///     获取静态属性
-        /// </summary>
-        /// <typeparam name="TEntity">DTO类型</typeparam>
-        /// <param name="staticData">静态属性</param>
-        /// <param name="loaded">回调</param>
-        /// <param name="query">查询</param>
-        /// <param name="filterDescriptor">查询条件</param>
-        /// <param name="forceLoad">是否强制加载</param>
-        /// <returns>静态属性</returns>
-        protected TEntity GetStaticData<TEntity>(
-            TEntity staticData, Action loaded, DataServiceQuery<TEntity> query, FilterDescriptor filterDescriptor,
-            bool forceLoad = false)
-            where TEntity : class, INotifyPropertyChanged
-        {
-            var staticDatas = new QueryableDataServiceCollectionView<TEntity>(context, query);
-            if (staticData == null)
-            {
-                staticDatas.FilterDescriptors.Add(filterDescriptor);
-                staticDatas.LoadedData += (o, e) => loaded();
-                staticDatas.Load(true);
-                return staticDatas.FirstOrDefault();
-            }
-            if (forceLoad)
-                staticDatas.Load(true);
-            return staticDatas.FirstOrDefault();
-        }
-
         #region IService 成员
 
         #region 属性
