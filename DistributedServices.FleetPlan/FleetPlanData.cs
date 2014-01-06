@@ -160,6 +160,14 @@ namespace UniCloud.DistributedServices.FleetPlan
         {
             get { return _annualAppService.GetAnnuals(); }
         }
+
+        /// <summary>
+        ///     计划年度集合
+        /// </summary>
+        public IQueryable<PlanYearDTO> PlanYears
+        {
+            get { return _annualAppService.GetPlanYears(); }
+        }
         #endregion
 
         #region 批文

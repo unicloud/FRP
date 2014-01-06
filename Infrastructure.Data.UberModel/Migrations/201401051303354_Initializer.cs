@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class database : DbMigration
+    public partial class Initializer : DbMigration
     {
         public override void Up()
         {
@@ -1172,6 +1172,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         CaacNote = c.String(),
                         RaNote = c.String(),
                         SawsNote = c.String(),
+                        RaDocumentName = c.String(),
+                        SawsDocumentName = c.String(),
+                        CaacDocumentName = c.String(),
                         ApprovalDocId = c.Guid(),
                         RaDocumentId = c.Guid(),
                         SawsDocumentId = c.Guid(),
