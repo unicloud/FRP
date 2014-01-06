@@ -57,8 +57,8 @@ namespace UniCloud.Presentation.Service.FleetPlan
         public QueryableDataServiceCollectionView<AirlinesDTO> GetAirlineses(bool forceLoad = false)
         {
             Action loaded = () => { };
-            return GetStaticData( _airlines, loaded, Context.Airlineses);
-            //return _airlines;
+            _airlines = GetStaticData(_airlines, loaded, Context.Airlineses);
+            return _airlines;
         }
 
         /// <summary>
@@ -67,7 +67,8 @@ namespace UniCloud.Presentation.Service.FleetPlan
         public QueryableDataServiceCollectionView<AircraftTypeDTO> GetAircraftTypes(bool forceLoad = false)
         {
             Action loaded = () => { };
-            return GetStaticData(_aircraftTypes, loaded, Context.AircraftTypes);
+            _aircraftTypes = GetStaticData(_aircraftTypes, loaded, Context.AircraftTypes);
+            return _aircraftTypes;
         }
 
         #endregion
