@@ -75,22 +75,13 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// <summary>
         ///     初始化ViewModel
         ///     <remarks>
-        ///         统一在此处创建并注册CollectionView集合。
+        ///         统一在此处访问创建并注册CollectionView集合的方法。
         ///     </remarks>
         /// </summary>
         private void InitializeVM()
         {
-            ViewTradeDTO = _service.CreateCollection(_context.Trades);
-            _tradeDescriptor = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
-            ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor);
-            _service.RegisterCollectionView(ViewTradeDTO);
-
-            ViewAircraftPurchaseOrderDTO = _service.CreateCollection(
-                _context.AircraftPurchaseOrders.Expand(p => p.RelatedDocs),
-                o => o.AircraftPurchaseOrderLines, o => o.RelatedDocs, o => o.ContractContents);
-            _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
-            ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
-            _service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
+            InitializeViewTradeDTO();
+            InitializeViewAircraftPurchaseOrderDTO();
         }
 
         #endregion
@@ -202,6 +193,17 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
         }
 
+        /// <summary>
+        ///     初始化交易集合
+        /// </summary>
+        private void InitializeViewTradeDTO()
+        {
+            ViewTradeDTO = _service.CreateCollection(_context.Trades);
+            _tradeDescriptor = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
+            ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor);
+            _service.RegisterCollectionView(ViewTradeDTO);
+        }
+
         #endregion
 
         #region 购买飞机订单
@@ -229,6 +231,19 @@ namespace UniCloud.Presentation.Purchase.Contract
                     RefreshCommandState();
                 }
             }
+        }
+
+        /// <summary>
+        ///     初始化购买飞机订单集合
+        /// </summary>
+        private void InitializeViewAircraftPurchaseOrderDTO()
+        {
+            ViewAircraftPurchaseOrderDTO = _service.CreateCollection(
+                _context.AircraftPurchaseOrders.Expand(p => p.RelatedDocs),
+                o => o.AircraftPurchaseOrderLines, o => o.RelatedDocs, o => o.ContractContents);
+            _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
+            ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
+            _service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
         }
 
         #endregion

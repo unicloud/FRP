@@ -78,14 +78,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                             Note = l.Note,
                             ContractAircraftId = l.ContractAircraftId,
                             AircraftMaterialId = l.AircraftMaterialId
-                        }).ToList(),
-                    RelatedDocs = relatedDocs.Where(r => r.SourceId == o.SourceGuid).Select(r => new RelatedDocDTO
-                    {
-                        Id = r.Id,
-                        SourceId = r.SourceId,
-                        DocumentId = r.DocumentId,
-                        DocumentName = r.DocumentName
-                    }).ToList()
+                        }).ToList()
                 });
             return result;
         }
