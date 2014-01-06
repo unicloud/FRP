@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.ActionCategoryQueries;
+using UniCloud.Application.FleetPlanBC.Query.AcTypeQueries;
 using UniCloud.Application.FleetPlanBC.Query.AircraftCategoryQueries;
 using UniCloud.Application.FleetPlanBC.Query.AircraftTypeQueries;
 using UniCloud.Application.FleetPlanBC.Query.AirlinesQueries;
@@ -27,6 +28,7 @@ using UniCloud.Application.FleetPlanBC.Query.ManufacturerQueries;
 using UniCloud.Application.FleetPlanBC.Query.ProgrammingQueries;
 using UniCloud.Application.FleetPlanBC.Query.SupplierQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AcTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
@@ -45,6 +47,7 @@ namespace UniCloud.Application.FleetPlanBC
     public class StaticLoad : IStaticLoad
     {
         private static bool _refreshActionCategory;
+        private static bool _refreshAcType; 
         private static bool _refreshAircraftType;
         private static bool _refreshAircraftCategory;
         private static bool _refreshAirlines;
@@ -56,6 +59,7 @@ namespace UniCloud.Application.FleetPlanBC
 
 
         private static IList<ActionCategoryDTO> _actionCategories;
+        private static IList<AcTypeDTO> _acTypes;
         private static IList<AircraftTypeDTO> _aircraftTypes;
         private static IList<AircraftCategoryDTO> _aircraftCategories;
         private static IList<AirlinesDTO> _aiurAirlineses;
@@ -66,6 +70,7 @@ namespace UniCloud.Application.FleetPlanBC
         private static IList<SupplierDTO> _suppliers;
 
         private readonly IActionCategoryQuery _actionCategoryQuery;
+        private readonly IAcTypeQuery _acTypeQuery;
         private readonly IAircraftTypeQuery _aircraftTypeQuery;
         private readonly IAircraftCategoryQuery _aircraftCategoryQuery;
         private readonly IAirlinesQuery _airlinesQuery;
@@ -75,13 +80,14 @@ namespace UniCloud.Application.FleetPlanBC
         private readonly IProgrammingQuery _programmingQuery;
         private readonly ISupplierQuery _supplierQuery;
 
-        public StaticLoad(IActionCategoryQuery actionCategoryQuery,
+        public StaticLoad(IActionCategoryQuery actionCategoryQuery,IAcTypeQuery acTypeQuery,
             IAircraftTypeQuery aircraftTypeQuery,IAircraftCategoryQuery aircraftCategoryQuery,
             IAirlinesQuery airlinesQuery,IEngineTypeQuery engineTypeQuery,
             IManagerQuery managerQuery,IManufacturerQuery manufacturerQuery,
             IProgrammingQuery programmingQuery,ISupplierQuery supplierQuery)
         {
             _actionCategoryQuery = actionCategoryQuery;
+            _acTypeQuery = acTypeQuery;
             _aircraftTypeQuery = aircraftTypeQuery;
             _aircraftCategoryQuery = aircraftCategoryQuery;
             _airlinesQuery = airlinesQuery;
@@ -100,6 +106,14 @@ namespace UniCloud.Application.FleetPlanBC
         public void RefreshActionCategory()
         {
             _refreshActionCategory = true;
+        }
+
+        /// <summary>
+        /// 设置刷新飞机系列集合
+        /// </summary>
+        public void RefreshAcType()
+        {
+            _refreshAcType = true;
         }
 
         /// <summary>
@@ -179,6 +193,21 @@ namespace UniCloud.Application.FleetPlanBC
                 _refreshActionCategory = false;
             }
             return _actionCategories.AsQueryable();
+        }
+
+        /// <summary>
+        ///     获取飞机系列静态集合
+        /// </summary>
+        /// <returns>飞机系列静态集合</returns>
+        public IQueryable<AcTypeDTO> GetAcTypes()
+        {
+            if (_acTypes == null || _refreshAcType)
+            {
+                var query = new QueryBuilder<AcType>();
+                _acTypes = _acTypeQuery.AcTypeDTOQuery(query).ToList();
+                _refreshAcType = false;
+            }
+            return _acTypes.AsQueryable();
         }
 
         /// <summary>

@@ -256,6 +256,10 @@
                                                               Stroke="Gray"
                                                               StrokeThickness="1" />
                                                         <StackPanel Margin="5,3,5,10">
+                                                            <TextBlock Text="{Binding Path=DataItem.DateTime, StringFormat='时间: {0}'}"
+                                                                       Foreground="{Binding Path=DataItem.Color}"
+                                                                       FontFamily="Segoe UI"
+                                                                       FontSize="11" />
                                                             <TextBlock Text="{Binding Path=DataItem.AircraftType, StringFormat='机型名称: {0}'}"
                                                                        Foreground="{Binding Path=DataItem.Color}"
                                                                        FontFamily="Segoe UI"
@@ -306,6 +310,7 @@
                                                             <telerik:RadToggleButton x:Name="AircraftTypeToggleButton"
                                                                                      Content="{Binding AircraftType}"
                                                                                      Tag="{Binding AircraftType}"
+                                                                                     IsChecked="{Binding AircraftType,ConverterParameter=AircraftType, Converter={StaticResource BoolToVisibilityConverter}}"
                                                                                      BorderThickness="1"
                                                                                      Background="{Binding Color}"
                                                                                      BorderBrush="{Binding Color}"

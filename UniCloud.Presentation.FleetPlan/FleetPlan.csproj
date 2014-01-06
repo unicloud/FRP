@@ -280,6 +280,7 @@
     <Compile Include="Requests\RequestPlanDoubleClickHelper.cs" />
     <Compile Include="Requests\RequestPlanDragDrop.cs" />
     <Compile Include="Requests\RequestPlanDragVisual.cs" />
+    <Compile Include="Requests\RequestStatusConvert.cs" />
     <Compile Include="Requests\RequestVM.cs" />
   </ItemGroup>
   <ItemGroup>

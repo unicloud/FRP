@@ -32,6 +32,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg
                 CreateDate = DateTime.Now,
             };
 
+            caacProgramming.GenerateNewIdentity();
             return caacProgramming;
         }
     }

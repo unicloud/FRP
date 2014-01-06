@@ -17,6 +17,7 @@
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AcTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
@@ -50,6 +51,7 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         #region IDbSet成员
 
         private IDbSet<ActionCategory> _actionCategories;
+        private IDbSet<AcType> _acTypes;
         private IDbSet<AircraftCategory> _aircraftCategories;
         private IDbSet<Aircraft> _aircrafts;
         private IDbSet<AircraftType> _aircraftTypes;
@@ -76,6 +78,11 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         public IDbSet<ActionCategory> ActionCategories
         {
             get { return _actionCategories ?? (_actionCategories = base.Set<ActionCategory>()); }
+        }
+
+        public IDbSet<AcType> AcTypes
+        {
+            get { return _acTypes ?? (_acTypes = base.Set<AcType>()); }
         }
 
         public IDbSet<AircraftCategory> AircraftCategories
@@ -153,7 +160,7 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
             get { return _plans ?? (_plans = base.Set<Plan>()); }
         }
 
-        public IDbSet<PlanAircraft> PlanAircraft
+        public IDbSet<PlanAircraft> PlanAircrafts
         {
             get { return _planAircrafts ?? (_planAircrafts = base.Set<PlanAircraft>()); }
         }
@@ -227,6 +234,12 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
                 #region ActionCategoryAgg
 
                 .Add(new ActionCategoryEntityConfiguration())
+
+                #endregion
+
+                #region AcTypeAgg
+
+                .Add(new AcTypeEntityConfiguration())
 
                 #endregion
 

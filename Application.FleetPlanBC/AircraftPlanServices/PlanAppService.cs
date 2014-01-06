@@ -226,7 +226,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 planHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
                 var operationPlan = planHistory as OperationPlan;
                 if (operationPlan != null)
-                    operationPlan.SetOperationHistory(planHistoryDto.CoperGuid);
+                    operationPlan.SetOperationHistory(planHistoryDto.RelatedGuid);
             }
             else if (planHistoryDto.PlanType == 2)
             {
@@ -240,7 +240,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 planHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
                 var changePlan = planHistory as ChangePlan;
                 if (changePlan != null)
-                    changePlan.SetAircraftBusiness(planHistoryDto.CoperGuid);
+                    changePlan.SetAircraftBusiness(planHistoryDto.RelatedGuid);
             }
         }
 

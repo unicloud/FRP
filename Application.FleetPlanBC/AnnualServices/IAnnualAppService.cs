@@ -34,5 +34,11 @@ namespace UniCloud.Application.FleetPlanBC.AnnualServices
         /// </summary>
         /// <returns></returns>
         IQueryable<AnnualDTO> GetAnnuals();
+
+        /// <summary>
+        ///     获取所有计划年度,不包括计划
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<PlanYearDTO> GetPlanYears();
     }
 }

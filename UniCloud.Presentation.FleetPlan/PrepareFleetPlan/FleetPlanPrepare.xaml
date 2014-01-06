@@ -42,14 +42,14 @@
                                                     Margin="-1 -2 -1 0">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding SaveCommand}"
-                                                       CommandParameter="{Binding Annuals}">
+                                                       CommandParameter="{Binding ViewAnnuals}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="保存" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding AbortCommand}"
-                                                       CommandParameter="{Binding Annuals}">
+                                                       CommandParameter="{Binding ViewAnnuals}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="放弃更改" />
@@ -68,22 +68,23 @@
                                                      ShowGroupPanel="False"
                                                      AutoGenerateColumns="False"
                                                      CanUserSortColumns="True"
-                                                     ItemsSource="{Binding Annuals,Mode=TwoWay}"
+                                                     ItemsSource="{Binding ViewAnnuals,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelAnnual,Mode=TwoWay}"
                                                      CanUserFreezeColumns="False"
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="True"
-                                                     IsBusy="{Binding Annuals.IsBusy}">
-                                    <telerik:RadGridView.GroupDescriptors>
+                                                     IsBusy="{Binding ViewAnnuals.IsBusy}">
+                                    <!--<telerik:RadGridView.GroupDescriptors>
                                         <telerik:GroupDescriptor Member="ProgrammingName"
                                                                  SortDirection="Descending">
                                         </telerik:GroupDescriptor>
-                                    </telerik:RadGridView.GroupDescriptors>
+                                    </telerik:RadGridView.GroupDescriptors>-->
                                     <telerik:RadGridView.Columns>
                                         <telerik:GridViewDataColumn Header="年度"
-                                                                    DataMemberBinding="{Binding Year}"/>
+                                                                    DataMemberBinding="{Binding Year}"
+                                                                    SortingState="Descending"/>
                                         <telerik:GridViewDataColumn Header="打开/关闭"
                                                                     DataMemberBinding="{Binding OpenState}"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}" />
@@ -103,7 +104,7 @@
                                          FontSize="{StaticResource TextFontSize}"
                                          ContextMenuTemplate="{x:Null}">
                             <telerik:RadGridView x:Name="Plans"
-                                                 ItemsSource="{Binding SelAnnual.Plans}"
+                                                 ItemsSource="{Binding ViewPlans,Mode=TwoWay}"
                                                  IsReadOnly="True"
                                                  ShowGroupPanel="False"
                                                  IsFilteringAllowed="False"
