@@ -50,6 +50,7 @@
     <Compile Include="Aggregates\AcTypeAgg\AcTypeFactory.cs" />
     <Compile Include="Aggregates\AircraftAgg\Aircraft.cs" />
     <Compile Include="Aggregates\AircraftAgg\AircraftBusiness.cs" />
+    <Compile Include="Aggregates\AircraftAgg\AircraftFactory.cs" />
     <Compile Include="Aggregates\AircraftAgg\OperationHistory.cs" />
     <Compile Include="Aggregates\AircraftAgg\OwnershipHistory.cs" />
     <Compile Include="Aggregates\AircraftCategoryAgg\AircraftCategory.cs" />

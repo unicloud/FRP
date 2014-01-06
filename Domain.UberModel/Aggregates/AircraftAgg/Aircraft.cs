@@ -270,6 +270,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
             Supplier = supplier;
             SupplierId = supplier.Id;
         }
+        public void SetSupplier(int? supplierId)
+        {
+            SupplierId = supplierId;
+        }
 
         /// <summary>
         ///     设置机型
@@ -284,6 +288,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
 
             AircraftType = aircraftType;
             AircraftTypeId = aircraftType.Id;
+        }
+        public void SetAircraftType(Guid aircraftTypeId)
+        {
+            AircraftTypeId = aircraftTypeId;
         }
 
         /// <summary>
@@ -300,6 +308,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
             Airlines = airlines;
             AirlinesId = airlines.Id;
         }
+        public void SetAirlines(Guid airlinesId)
+        {
+            AirlinesId = airlinesId;
+        }
 
         /// <summary>
         ///     设置引进方式
@@ -314,6 +326,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
 
             ImportCategory = importCategory;
             ImportCategoryId = importCategory.Id;
+        }
+        public void SetImportCategory(Guid importCategoryId)
+        {
+            ImportCategoryId = importCategoryId;
         }
 
         /// <summary>
