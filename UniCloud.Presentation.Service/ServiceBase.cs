@@ -299,8 +299,9 @@ namespace UniCloud.Presentation.Service
             where TService : class, INotifyPropertyChanged
         {
             var result = new QueryableDataServiceCollectionView<TService>(context, query);
-            result.SubmittingChanges += (o, e) => { e.SaveChangesOptions = options; };
-            result.PropertyChanged += (o, e) => { HasChanges = result.HasChanges; };
+            result.SubmittingChanges += (o, e) =>
+                e.SaveChangesOptions = options;
+            result.PropertyChanged += (o, e) => { if (result.HasChanges) HasChanges = true; };
             result.LoadedData += (o, e) =>
             {
                 HasChanges = false;
