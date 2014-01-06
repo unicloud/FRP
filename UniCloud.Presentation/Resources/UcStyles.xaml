@@ -222,4 +222,5 @@
     </Style>
     
     <valueConverts:EnumToStringConverter x:Key="EnumToStringConverter" />
+    <valueConverts:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 </ResourceDictionary>
