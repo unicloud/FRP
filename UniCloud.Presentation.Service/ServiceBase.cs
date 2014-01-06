@@ -38,6 +38,7 @@ namespace UniCloud.Presentation.Service
     /// </summary>
     public abstract class ServiceBase : IService
     {
+        private static Dictionary<string, QueryableDataServiceCollectionViewBase> _staticCollectionView;
         private readonly List<QueryableDataServiceCollectionViewBase> _dataServiceCollectionViews;
         private bool _hasChanges;
         private EventHandler<DataServiceSubmittedChangesEventArgs> _submitChanges;
@@ -46,6 +47,8 @@ namespace UniCloud.Presentation.Service
         protected ServiceBase()
         {
             _dataServiceCollectionViews = new List<QueryableDataServiceCollectionViewBase>();
+            if (_staticCollectionView == null)
+                _staticCollectionView = new Dictionary<string, QueryableDataServiceCollectionViewBase>();
         }
 
         /// <summary>
@@ -72,28 +75,26 @@ namespace UniCloud.Presentation.Service
         ///     获取静态数据
         /// </summary>
         /// <typeparam name="T">DTO类型</typeparam>
-        /// <param name="staticData">静态数据集合</param>
         /// <param name="loaded">回调</param>
         /// <param name="query">查询</param>
         /// <param name="forceLoad">是否强制加载</param>
         /// <returns>静态数据集合</returns>
         protected QueryableDataServiceCollectionView<T> GetStaticData<T>(
-            QueryableDataServiceCollectionView<T> staticData, Action loaded, DataServiceQuery<T> query,
-            bool forceLoad = false)
+            DataServiceQuery<T> query, Action loaded = null, bool forceLoad = false)
             where T : class, INotifyPropertyChanged
         {
-            if (staticData == null)
+            var type = typeof (T).ToString();
+            if (!_staticCollectionView.ContainsKey(type))
             {
-                staticData = new QueryableDataServiceCollectionView<T>(context, query);
-                staticData.LoadedData += (o, e) => loaded();
-                staticData.Load(true);
-                return staticData;
+                _staticCollectionView.Add(type, new QueryableDataServiceCollectionView<T>(context, query));
+                _staticCollectionView[type].LoadedData += (o, e) => { if (loaded != null) loaded(); };
+                _staticCollectionView[type].Load(true);
+                return _staticCollectionView[type] as QueryableDataServiceCollectionView<T>;
             }
             if (forceLoad)
-                staticData.Load(true);
-            return staticData;
+                _staticCollectionView[type].Load(true);
+            return _staticCollectionView[type] as QueryableDataServiceCollectionView<T>;
         }
-
 
         /// <summary>
         ///     获取静态属性

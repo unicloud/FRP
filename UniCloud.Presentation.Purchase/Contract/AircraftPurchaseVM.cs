@@ -151,6 +151,8 @@ namespace UniCloud.Presentation.Purchase.Contract
             Currencies = _service.GetCurrency(() => RaisePropertyChanged(() => Currencies));
             Linkmen = _service.GetLinkman(() => RaisePropertyChanged(() => Linkmen));
             AircraftMaterials = _service.GetAircraftMaterial(() => RaisePropertyChanged(() => AircraftMaterials));
+            var q = Currencies.FirstOrDefault();
+            var q1 = 1;
         }
 
         #region 交易
@@ -184,6 +186,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     }
                     if (!ViewAircraftPurchaseOrderDTO.AutoLoad)
                     {
+                        ViewAircraftPurchaseOrderDTO.Load(true);
                         ViewAircraftPurchaseOrderDTO.AutoLoad = true;
                     }
                     RaisePropertyChanged(() => SelTradeDTO);
