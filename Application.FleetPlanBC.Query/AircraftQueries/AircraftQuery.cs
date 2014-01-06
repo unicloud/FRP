@@ -104,6 +104,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftQueries
                                                                                                AircraftTypeId = q.AircraftTypeId,
                                                                                                AircraftTypeName = q.AircraftType.Name,
                                                                                                Regional = q.AircraftType.AircraftCategory.Regional,
+                                                                                               Category = q.AircraftType.AircraftCategory.Category,
                                                                                                ImportCategoryId = q.ImportCategoryId,
                                                                                            }).ToList()
                                  });
