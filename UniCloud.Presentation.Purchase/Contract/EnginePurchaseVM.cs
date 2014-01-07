@@ -42,13 +42,15 @@ namespace UniCloud.Presentation.Purchase.Contract
     {
         #region 声明、初始化
 
+        private const string TradeType = "购买发动机";
         private readonly PurchaseData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
         private DocumentDTO _document = new DocumentDTO();
         private bool _isAttach;
         private FilterDescriptor _orderDescriptor;
-        private FilterDescriptor _tradeDescriptor;
+        private FilterDescriptor _tradeDescriptor1;
+        private FilterDescriptor _tradeDescriptor2;
 
         [ImportingConstructor]
         public EnginePurchaseVM(IRegionManager regionManager, IPurchaseService service) : base(service)
@@ -147,10 +149,10 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             ViewTradeDTO.AutoLoad = true;
 
-            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
-            Currencies = _service.GetCurrency(() => RaisePropertyChanged(() => Currencies));
-            Linkmen = _service.GetLinkman(() => RaisePropertyChanged(() => Linkmen));
-            EngineMaterials = _service.GetEngineMaterial(() => RaisePropertyChanged(() => EngineMaterials));
+            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers), true);
+            Currencies = _service.GetCurrency(() => RaisePropertyChanged(() => Currencies), true);
+            Linkmen = _service.GetLinkman(() => RaisePropertyChanged(() => Linkmen), true);
+            EngineMaterials = _service.GetEngineMaterial(() => RaisePropertyChanged(() => EngineMaterials), true);
         }
 
         #region 交易
@@ -202,8 +204,10 @@ namespace UniCloud.Presentation.Purchase.Contract
         private void InitializeViewTradeDTO()
         {
             ViewTradeDTO = _service.CreateCollection(_context.Trades);
-            _tradeDescriptor = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
-            ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor);
+            _tradeDescriptor1 = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
+            _tradeDescriptor2 = new FilterDescriptor("TradeType", FilterOperator.IsEqualTo, TradeType);
+            ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor1);
+            ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor2);
             _service.RegisterCollectionView(ViewTradeDTO);
         }
 
@@ -439,6 +443,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             var trade = new TradeDTO
             {
                 Id = RandomHelper.Next(),
+                TradeType = TradeType,
                 StartDate = DateTime.Now,
             };
             ViewTradeDTO.AddNew(trade);

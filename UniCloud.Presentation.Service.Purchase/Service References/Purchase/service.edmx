@@ -514,6 +514,7 @@
           <PropertyRef Name="Id" />
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TradeType" Type="Edm.String" />
         <Property Name="TradeNumber" Type="Edm.String" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
