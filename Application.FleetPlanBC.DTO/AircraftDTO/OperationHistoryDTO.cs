@@ -85,6 +85,11 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public string ImportActionType { get; set; }
 
         /// <summary>
+        ///     引进方式
+        /// </summary>
+        public string ImportActionName { get; set; }
+
+        /// <summary>
         ///    运营权人
         /// </summary>
         public string AirlinesName { get; set; }

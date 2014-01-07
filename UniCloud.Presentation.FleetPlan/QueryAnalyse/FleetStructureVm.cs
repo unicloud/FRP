@@ -453,10 +453,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         public override void LoadData()
         {
-            IsBusy = true;
             XmlConfigs.AutoLoad = true;
             XmlSettings.AutoLoad = true;
             Aircrafts.AutoLoad = true;
+            IsBusy = XmlConfigs.IsBusy && XmlSettings.IsBusy && Aircrafts.IsBusy;
         }
 
         #region ViewModel 属性 Zoom --滚动条的对应
@@ -581,8 +581,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             radwindow.Name = windowsName;
             radwindow.Top = length;
             radwindow.Left = length;
-            radwindow.Height = 250;
-            radwindow.Width = 500;
+            radwindow.Height = 300;
+            radwindow.Width = 600;
             radwindow.ResizeMode = ResizeMode.CanResize;
             radwindow.Content = Commonmethod.CreatOperationGridView();
             radwindow.Closed += RadwindowClosed;

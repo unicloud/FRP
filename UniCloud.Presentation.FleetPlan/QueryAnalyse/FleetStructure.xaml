@@ -215,7 +215,6 @@
                                                                        PanOffset="{Binding PanOffset, Mode=TwoWay}"
                                                                        EmptyContent="座级变化趋势"
                                                                        Grid.Column="1">
-
                                                 <telerik:RadCartesianChart.Resources>
                                                     <!--<DataTemplate x:Key="LinePointTemplate">
 													<example:CustomEllipse Width="10" Height="10" BorderBrush="#FF8EC441" Background="White" Foreground="#FF8EC441"/>
@@ -313,7 +312,6 @@
                                                 <telerik:RadCartesianChart.VerticalAxis>
                                                     <telerik:LinearAxis LabelInterval="2"
                                                                         LabelStyle="{StaticResource RightLabelStyle1}"
-                                                                        ElementBrush="{Binding AircraftColor, Mode=OneWay}"
                                                                         Title="座级飞机数（架）" />
                                                 </telerik:RadCartesianChart.VerticalAxis>
                                                 <telerik:RadCartesianChart.Grid>
@@ -408,7 +406,6 @@
                                                 </telerik:RadCartesianChart.HorizontalAxis>
                                                 <telerik:RadCartesianChart.VerticalAxis>
                                                     <telerik:LinearAxis LabelInterval="2"
-                                                                        ElementBrush="{Binding AircraftColor, Mode=OneWay}"
                                                                         HorizontalLocation="Left"
                                                                         Title="飞机数（架）"
                                                                         LabelStyle="{StaticResource RightLabelStyle}" />

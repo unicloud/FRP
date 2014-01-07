@@ -472,10 +472,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         public override void LoadData()
         {
-            IsBusy = true;
             XmlConfigs.AutoLoad = true;
             XmlSettings.AutoLoad = true;
             Aircrafts.AutoLoad = true;
+            IsBusy = XmlConfigs.IsBusy && XmlSettings.IsBusy && Aircrafts.IsBusy;
         }
 
         #endregion

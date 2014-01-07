@@ -18,9 +18,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <SolidColorBrush x:Key="AirNumColor"
+            <!--<SolidColorBrush x:Key="AirNumColor"
                              Color="#FF25A0DA" />
-            <Style x:Key="legendStyle"
+            <Style x:Key="LegendStyle"
                    TargetType="StackPanel">
                 <Setter Property="Margin"
                         Value="10,6,10,0" />
@@ -35,7 +35,7 @@
                         Value="#FF767676" />
                 <Setter Property="Margin"
                         Value="4,2,4,2" />
-            </Style>
+            </Style>-->
             <Style x:Key="TickStyle"
                    TargetType="FrameworkElement">
                 <Setter Property="Visibility"
@@ -65,7 +65,6 @@
     <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
                               FontSize="{StaticResource TextFontSize}"
                               BusyContent="加载中，请稍候…">
-
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -85,7 +84,7 @@
                     </LinearGradientBrush>
                 </Rectangle.Fill>
             </Rectangle>
-            <Grid Height="50">
+            <Grid Grid.Row="0" Height="50">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="时间的统计方式："
                                TextAlignment="Right"
@@ -256,6 +255,10 @@
                                                                   Stroke="Gray"
                                                                   StrokeThickness="1" />
                                                             <StackPanel Margin="5,3,5,10">
+                                                                <TextBlock Text="{Binding Path=DataItem.DateTime, StringFormat='时间: {0}'}"
+                                                                           Foreground="{Binding Path=DataItem.Color}"
+                                                                           FontFamily="Segoe UI"
+                                                                           FontSize="11" />
                                                                 <TextBlock Text="{Binding Path=DataItem.ImportType, StringFormat='引进方式: {0}'}"
                                                                            Foreground="{Binding Path=DataItem.Color}"
                                                                            FontFamily="Segoe UI"
@@ -280,7 +283,6 @@
                                                 <telerik:RadCartesianChart.VerticalAxis>
                                                     <telerik:LinearAxis Name="LineLinearAxis"
                                                                         LabelInterval="2"
-                                                                        ElementBrush="{Binding AircraftColor, Mode=OneWay}"
                                                                         Title="引进方式飞机数（架）"
                                                                         LabelStyle="{StaticResource RightLabelStyle}" />
                                                 </telerik:RadCartesianChart.VerticalAxis>
@@ -376,7 +378,6 @@
                                                 <telerik:RadCartesianChart.VerticalAxis>
                                                     <telerik:LinearAxis Name="BarLinearAxis"
                                                                         LabelInterval="2"
-                                                                        ElementBrush="{Binding AircraftColor, Mode=OneWay}"
                                                                         HorizontalLocation="Left"
                                                                         Title="飞机数（架）"
                                                                         LabelStyle="{StaticResource RightLabelStyle}" />
@@ -546,6 +547,7 @@
                                                          ShowGroupPanel="True"
                                                          RowIndicatorVisibility="Collapsed"
                                                          IsReadOnly="True"
+                                                         ShowColumnFooters="True"
                                                          ItemsSource="{Binding AircraftCollection}">
                                         <telerik:RadContextMenu.ContextMenu>
                                             <telerik:RadContextMenu StaysOpen="{Binding IsContextMenuOpen}">
@@ -563,7 +565,6 @@
                                         </telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="序号"
-                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                      HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="注册号"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"

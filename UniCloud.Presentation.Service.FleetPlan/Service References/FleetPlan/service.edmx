@@ -66,6 +66,7 @@
         <Property Name="EndDate" Type="Edm.DateTime" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="ImportActionType" Type="Edm.String" />
+        <Property Name="ImportActionName" Type="Edm.String" />
         <Property Name="AirlinesName" Type="Edm.String" />
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
