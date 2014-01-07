@@ -54,6 +54,14 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg
         #region 属性
 
         /// <summary>
+        ///     交易类型
+        ///     <remarks>
+        ///         包括购买飞机、租赁飞机、购买发动机、租赁发动机、购买BFE
+        ///     </remarks>
+        /// </summary>
+        public string TradeType { get; internal set; }
+
+        /// <summary>
         ///     交易编号
         /// </summary>
         public string TradeNumber { get; private set; }

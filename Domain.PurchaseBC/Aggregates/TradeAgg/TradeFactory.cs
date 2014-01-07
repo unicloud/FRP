@@ -34,15 +34,23 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg
         /// <param name="name">名称</param>
         /// <param name="description">描述</param>
         /// <param name="startDate">开始日期</param>
+        /// <param name="tradeType">交易类型</param>
         /// <returns>创建的交易</returns>
-        public static Trade CreateTrade(string name, string description, DateTime startDate)
+        public static Trade CreateTrade(string name, string description, DateTime startDate, string tradeType)
         {
+            const string tradeTypes = "购买飞机、租赁飞机、购买发动机、租赁发动机、购买BFE";
+            if (!tradeTypes.Contains(tradeType))
+            {
+                throw new ArgumentException("交易类型错误！");
+            }
+
             var trade = new Trade
             {
                 Name = name,
                 Description = description,
                 CreateDate = DateTime.Now,
-                StartDate = startDate
+                StartDate = startDate,
+                TradeType = tradeType
             };
 
             return trade;
