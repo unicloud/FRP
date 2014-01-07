@@ -17,22 +17,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="LegendStyle"
-                   TargetType="StackPanel">
-                <Setter Property="Margin"
-                        Value="10,6,10,0" />
-            </Style>
-            <Style x:Key="LegendItemStyle"
-                   TargetType="TextBlock">
-                <Setter Property="FontFamily"
-                        Value="Segoe UI" />
-                <Setter Property="FontSize"
-                        Value="12" />
-                <Setter Property="Foreground"
-                        Value="#FF767676" />
-                <Setter Property="Margin"
-                        Value="4,2,4,2" />
-            </Style>
             <Style x:Key="TickStyle"
                    TargetType="FrameworkElement">
                 <Setter Property="Visibility"

@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="GuaranteeDTO\LeaseGuaranteeDTO.cs" />
     <Compile Include="GuaranteeDTO\MaintainGuaranteeDTO.cs" />
+    <Compile Include="InvoiceDTO\BaseInvoiceDTO.cs" />
     <Compile Include="InvoiceDTO\CreditNoteDTO.cs" />
     <Compile Include="ContractAircraftDTO\ContractAircraftDTO.cs" />
     <Compile Include="ContractEngineDTO\ContractEngineDTO.cs" />
