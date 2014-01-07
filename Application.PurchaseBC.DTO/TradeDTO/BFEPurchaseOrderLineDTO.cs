@@ -19,6 +19,7 @@
 
 using System;
 using System.Data.Services.Common;
+using UniCloud.Domain.Common.Enums;
 
 #endregion
 
@@ -70,5 +71,10 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     BFE物料ID
         /// </summary>
         public int BFEMaterialId { get; set; }
+
+        /// <summary>
+        ///     交易状态
+        /// </summary>
+        public BFEStatus Status { get;  set; }
     }
 }
