@@ -698,10 +698,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         public override void LoadData()
         {
-            IsBusy = true;
-            XmlConfigs.Load(true);
-            XmlSettings.Load(true);
-            Aircrafts.Load(true);
+            XmlConfigs.AutoLoad = true;
+            XmlSettings.AutoLoad = true;
+            Aircrafts.AutoLoad = true;
+            IsBusy = XmlConfigs.IsBusy && XmlSettings.IsBusy && Aircrafts.IsBusy;
         }
 
         #endregion
@@ -830,8 +830,43 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
                     if (fleetAircraftTrendBarList.Count > 0)
                     {
+                        AircraftMaxValue = fleetAircraftTrendBarList.Max(p => p.AircraftAmount);
+                        AircraftMinValue = fleetAircraftTrendBarList.Min(p => p.AircraftAmount);
+                        if (AircraftMinValue >= 0)
+                        {
+                            AircraftMinValue = 0;
+                            // ReSharper disable once CompareOfFloatsByEqualityOperator
+                            if (AircraftMaxValue == 0)
+                            {
+                                AircraftMaxValue = 5;
+                            }
+                        }
                         AircraftStep = Convert.ToInt32(AircraftMaxValue / 2);
+
+                        SeatMaxValue = fleetAircraftTrendBarList.Max(p => p.SeatAmount);
+                        SeatMinValue = fleetAircraftTrendBarList.Min(p => p.SeatAmount);
+                        if (SeatMinValue >= 0)
+                        {
+                            SeatMinValue = 0;
+                            // ReSharper disable once CompareOfFloatsByEqualityOperator
+                            if (SeatMaxValue == 0.0)
+                            {
+                                SeatMaxValue = 410;
+                            }
+                        }
                         SeatStep = Convert.ToInt32(SeatMaxValue / 2);
+
+                        LoadMaxValue = fleetAircraftTrendBarList.Max(p => p.LoadAmount);
+                        LoadMinValue = fleetAircraftTrendBarList.Min(p => p.LoadAmount);
+                        if (LoadMinValue >= 0)
+                        {
+                            LoadMinValue = 0;
+                            // ReSharper disable once CompareOfFloatsByEqualityOperator
+                            if (LoadMaxValue == 0)
+                            {
+                                LoadMaxValue = 70;
+                            }
+                        }
                         LoadStep = Convert.ToInt32(LoadMaxValue / 2);
                     }
                 }
@@ -1303,8 +1338,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             radWindow.Name = windowsName;
             radWindow.Top = length;
             radWindow.Left = length;
-            radWindow.Height = 250;
-            radWindow.Width = 500;
+            radWindow.Height = 300;
+            radWindow.Width = 600;
             radWindow.ResizeMode = ResizeMode.CanResize;
             radWindow.Content = _commonMethod.CreatOperationGridView();
             radWindow.Closed += RadwindowClosed;
