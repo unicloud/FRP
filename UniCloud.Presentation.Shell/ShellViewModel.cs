@@ -710,7 +710,7 @@ namespace UniCloud.Presentation.Shell
         private void OnHome(object obj)
         {
             // TODO：根据角色获取门户并导航
-            var uri = new Uri("UniCloud.Presentation.Portal.Plan.PlanPortal", UriKind.Relative);
+            var uri = new Uri("UniCloud.Presentation.Portal.Manager.ManagerPortal", UriKind.Relative);
             regionManager.RequestNavigate(RegionNames.MainRegion, uri);
         }
 
