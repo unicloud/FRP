@@ -75,6 +75,6 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     交易状态
         /// </summary>
-        public BFEStatus Status { get;  set; }
+        public int Status { get;  set; }
     }
 }

@@ -341,7 +341,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
                             EstimateDeliveryDate = l.EstimateDeliveryDate,
                             Note = l.Note,
                             BFEMaterialId = l.BFEMaterialId,
-                            Status = l.Status
+                            Status = (int) l.Status
                         }).ToList(),
                     ContractContents = o.ContractContents.Select(c => new ContractContentDTO
                     {
