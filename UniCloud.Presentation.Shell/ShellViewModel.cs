@@ -322,7 +322,7 @@ namespace UniCloud.Presentation.Shell
             menu25.Items.Add(menu255);
             menu25.Items.Add(menu256);
             menu25.Items.Add(menu257);
-            menu25.Items.Add(menu258);
+            //menu25.Items.Add(menu258);
             menu2.Items.Add(menu25);
 
             #endregion
