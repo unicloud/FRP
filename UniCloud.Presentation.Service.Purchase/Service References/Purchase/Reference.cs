@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/1/6 14:36:51
+// 生成日期: 2014/1/7 11:24:35
 namespace UniCloud.Presentation.Service.Purchase.Purchase
 {
     
@@ -1328,290 +1328,319 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
                 "<Property Name=\"Version\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Cur" +
                 "rencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OperatorName\" Type=" +
                 "\"Edm.String\" /><Property Name=\"LinkmanId\" Type=\"Edm.Int32\" Nullable=\"false\" /><P" +
-                "roperty Name=\"OrderDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"" +
-                "Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ContractName\" Type=\"" +
-                "Edm.String\" /><Property Name=\"ContractDocGuid\" Type=\"Edm.Guid\" Nullable=\"false\" " +
-                "/><Property Name=\"SourceGuid\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=" +
-                "\"LogWriter\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Prope" +
-                "rty Name=\"AircraftLeaseOrderLines\" Type=\"Collection(UniCloud.Application.Purchas" +
-                "eBC.DTO.AircraftLeaseOrderLineDTO)\" Nullable=\"false\" /><NavigationProperty Name=" +
-                "\"RelatedDocs\" Relationship=\"UniCloud.Application.PurchaseBC.DTO.AircraftLeaseOrd" +
-                "erDTO_RelatedDocs\" ToRole=\"RelatedDocs\" FromRole=\"AircraftLeaseOrderDTO\" /></Ent" +
-                "ityType><ComplexType Name=\"AircraftLeaseOrderLineDTO\"><Property Name=\"Id\" Type=\"" +
-                "Edm.Int32\" Nullable=\"false\" /><Property Name=\"UnitPrice\" Type=\"Edm.Decimal\" Null" +
-                "able=\"false\" /><Property Name=\"Amount\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prop" +
-                "erty Name=\"Discount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Estim" +
-                "ateDeliveryDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Note\" Ty" +
-                "pe=\"Edm.String\" /><Property Name=\"ContractAircraftId\" Type=\"Edm.Int32\" Nullable=" +
-                "\"false\" /><Property Name=\"AircraftMaterialId\" Type=\"Edm.Int32\" Nullable=\"false\" " +
-                "/></ComplexType><EntityType Name=\"AircraftPurchaseOrderDTO\"><Key><PropertyRef Na" +
-                "me=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Propert" +
-                "y Name=\"TradeId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type=" +
-                "\"Edm.String\" /><Property Name=\"Version\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pro" +
-                "perty Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Oper" +
-                "atorName\" Type=\"Edm.String\" /><Property Name=\"LinkmanId\" Type=\"Edm.Int32\" Nullab" +
-                "le=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pr" +
-                "operty Name=\"OrderDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"S" +
-                "tatus\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ContractName\" Type=\"E" +
-                "dm.String\" /><Property Name=\"ContractDocGuid\" Type=\"Edm.Guid\" Nullable=\"false\" /" +
-                "><Property Name=\"SourceGuid\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"" +
-                "LogWriter\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Proper" +
-                "ty Name=\"AircraftPurchaseOrderLines\" Type=\"Collection(UniCloud.Application.Purch" +
-                "aseBC.DTO.AircraftPurchaseOrderLineDTO)\" Nullable=\"false\" /><Property Name=\"Cont" +
-                "ractContents\" Type=\"Collection(UniCloud.Application.PurchaseBC.DTO.ContractConte" +
-                "ntDTO)\" Nullable=\"false\" /><NavigationProperty Name=\"RelatedDocs\" Relationship=\"" +
-                "UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseOrderDTO_RelatedDocs\" ToRole" +
-                "=\"RelatedDocs\" FromRole=\"AircraftPurchaseOrderDTO\" /></EntityType><ComplexType N" +
-                "ame=\"AircraftPurchaseOrderLineDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable" +
-                "=\"false\" /><Property Name=\"UnitPrice\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Pro" +
-                "perty Name=\"Amount\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Discount" +
-                "\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AirframePrice\" Type=\"Edm" +
-                ".Decimal\" Nullable=\"false\" /><Property Name=\"RefitCost\" Type=\"Edm.Decimal\" Nulla" +
-                "ble=\"false\" /><Property Name=\"EnginePrice\" Type=\"Edm.Decimal\" Nullable=\"false\" /" +
-                "><Property Name=\"EstimateDeliveryDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><P" +
-                "roperty Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"Con";
+                "roperty Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Or" +
+                "derDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Ed" +
+                "m.Int32\" Nullable=\"false\" /><Property Name=\"ContractName\" Type=\"Edm.String\" /><P" +
+                "roperty Name=\"ContractDocGuid\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name" +
+                "=\"SourceGuid\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"LogWriter\" Type" +
+                "=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"Aircra" +
+                "ftLeaseOrderLines\" Type=\"Collection(UniCloud.Application.PurchaseBC.DTO.Aircraft" +
+                "LeaseOrderLineDTO)\" Nullable=\"false\" /><Property Name=\"ContractContents\" Type=\"C" +
+                "ollection(UniCloud.Application.PurchaseBC.DTO.ContractContentDTO)\" Nullable=\"fal" +
+                "se\" /><NavigationProperty Name=\"RelatedDocs\" Relationship=\"UniCloud.Application." +
+                "PurchaseBC.DTO.AircraftLeaseOrderDTO_RelatedDocs\" ToRole=\"RelatedDocs\" FromRole=" +
+                "\"AircraftLeaseOrderDTO\" /></EntityType><ComplexType Name=\"AircraftLeaseOrderLine" +
+                "DTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Uni" +
+                "tPrice\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Amount\" Type=\"Edm." +
+                "Int32\" Nullable=\"false\" /><Property Name=\"Discount\" Type=\"Edm.Decimal\" Nullable=" +
+                "\"false\" /><Property Name=\"EstimateDeliveryDate\" Type=\"Edm.DateTime\" Nullable=\"fa" +
+                "lse\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"ContractAircraf" +
+                "tId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AircraftMaterialId\" Typ" +
+                "e=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"RankNumber\" Type=\"Edm.String\" /" +
+                "><Property Name=\"CSCNumber\" Type=\"Edm.String\" /><Property Name=\"SerialNumber\" Ty" +
+                "pe=\"Edm.String\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /></" +
+                "ComplexType><ComplexType Name=\"ContractContentDTO\"><Property Name=\"Id\" Type=\"Edm" +
+                ".Int32\" Nullable=\"false\" /><Property Name=\"ContentTags\" Type=\"Edm.String\" /><Pro" +
+                "perty Name=\"Description\" Type=\"Edm.String\" /><Property Name=\"ContentDoc\" Type=\"E" +
+                "dm.Binary\" /></ComplexType><EntityType Name=\"AircraftPurchaseOrderDTO\"><Key><Pro" +
+                "pertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\"" +
+                " /><Property Name=\"TradeId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"" +
+                "Name\" Type=\"Edm.String\" /><Property Name=\"Version\" Type=\"Edm.Int32\" Nullable=\"fa" +
+                "lse\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property" +
+                " Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"LinkmanId\" Type=\"Edm.In" +
+                "t32\" Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"f" +
+                "alse\" /><Property Name=\"OrderDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ContractNa" +
+                "me\" Type=\"Edm.String\" /><Property Name=\"ContractDocGuid\" Type=\"Edm.Guid\" Nullabl" +
+                "e=\"false\" /><Property Name=\"SourceGuid\" Type=\"Edm.Guid\" Nullable=\"false\" /><Prop" +
+                "erty Name=\"LogWriter\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String" +
+                "\" /><Property Name=\"AircraftPurchaseOrderLines\" Type=\"Collection(UniCloud.Applic" +
+                "ation.PurchaseBC.DTO.AircraftPurchaseOrderLineDTO)\" Nullable=\"false\" /><Property" +
+                " Name=\"ContractContents\" Type=\"Collection(UniCloud.Application.PurchaseBC.DTO.Co" +
+                "ntractContentDTO)\" Nullable=\"false\" /><NavigationProperty Name=\"RelatedDocs\" Rel" +
+                "ationship=\"UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseOrderDTO_RelatedD" +
+                "ocs\" ToRole=\"RelatedDocs\" FromRole=\"AircraftPurchaseOrderDT";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart4 = "tractAircraftId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AircraftMate" +
-                "rialId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"RankNumber\" Type=\"Ed" +
-                "m.String\" /><Property Name=\"CSCNumber\" Type=\"Edm.String\" /><Property Name=\"Seria" +
-                "lNumber\" Type=\"Edm.String\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"" +
-                "false\" /></ComplexType><ComplexType Name=\"ContractContentDTO\"><Property Name=\"Id" +
-                "\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ContentTags\" Type=\"Edm.Str" +
-                "ing\" /><Property Name=\"Description\" Type=\"Edm.String\" /><Property Name=\"ContentD" +
-                "oc\" Type=\"Edm.Binary\" /></ComplexType><EntityType Name=\"EngineLeaseOrderDTO\"><Ke" +
-                "y><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"" +
-                "false\" /><Property Name=\"TradeId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property " +
-                "Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Version\" Type=\"Edm.Int32\" Nullab" +
-                "le=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pr" +
-                "operty Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"LinkmanId\" Type=\"" +
-                "Edm.Int32\" Nullable=\"false\" /><Property Name=\"OrderDate\" Type=\"Edm.DateTime\" Nul" +
-                "lable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pro" +
-                "perty Name=\"ContractName\" Type=\"Edm.String\" /><Property Name=\"ContractDocGuid\" T" +
-                "ype=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"SourceGuid\" Type=\"Edm.Guid\" Nu" +
-                "llable=\"false\" /><Property Name=\"LogWriter\" Type=\"Edm.String\" /><Property Name=\"" +
-                "Note\" Type=\"Edm.String\" /><Property Name=\"EngineLeaseOrderLines\" Type=\"Collectio" +
-                "n(UniCloud.Application.PurchaseBC.DTO.EngineLeaseOrderLineDTO)\" Nullable=\"false\"" +
-                " /><NavigationProperty Name=\"RelatedDocs\" Relationship=\"UniCloud.Application.Pur" +
-                "chaseBC.DTO.EngineLeaseOrderDTO_RelatedDocs\" ToRole=\"RelatedDocs\" FromRole=\"Engi" +
-                "neLeaseOrderDTO\" /></EntityType><ComplexType Name=\"EngineLeaseOrderLineDTO\"><Pro" +
-                "perty Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"UnitPrice\" T" +
-                "ype=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Amount\" Type=\"Edm.Int32\" Nu" +
-                "llable=\"false\" /><Property Name=\"Discount\" Type=\"Edm.Decimal\" Nullable=\"false\" /" +
-                "><Property Name=\"EstimateDeliveryDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><P" +
-                "roperty Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"EngineMaterialId\" Type=\"" +
-                "Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"EnginePurchaseOrde" +
-                "rDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" N" +
-                "ullable=\"false\" /><Property Name=\"TradeId\" Type=\"Edm.Int32\" Nullable=\"false\" /><" +
-                "Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Version\" Type=\"Edm.Int3" +
-                "2\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"fal" +
-                "se\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"LinkmanI" +
-                "d\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OrderDate\" Type=\"Edm.Date" +
-                "Time\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"fals" +
-                "e\" /><Property Name=\"ContractName\" Type=\"Edm.String\" /><Property Name=\"ContractD" +
-                "ocGuid\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"SourceGuid\" Type=\"Edm" +
-                ".Guid\" Nullable=\"false\" /><Property Name=\"LogWriter\" Type=\"Edm.String\" /><Proper" +
-                "ty Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"EnginePurchaseOrderLines\" Typ" +
-                "e=\"Collection(UniCloud.Application.PurchaseBC.DTO.EnginePurchaseOrderLineDTO)\" N" +
-                "ullable=\"false\" /><NavigationProperty Name=\"RelatedDocs\" Relationship=\"UniCloud." +
-                "Application.PurchaseBC.DTO.EnginePurchaseOrderDTO_RelatedDocs\" ToRole=\"RelatedDo" +
-                "cs\" FromRole=\"EnginePurchaseOrderDTO\" /></EntityType><ComplexType Name=\"EnginePu" +
-                "rchaseOrderLineDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pro" +
-                "perty Name=\"UnitPrice\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Amo" +
-                "unt\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Discount\" Type=\"Edm.Dec" +
-                "imal\" Nullable=\"false\" /><Property Name=\"EstimateDeliveryDate\" Type=\"Edm.DateTim" +
-                "e\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"" +
-                "EngineMaterialId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType " +
-                "Name=\"BFEPurchaseOrderDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"I" +
-                "d\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"TradeId\" Type=\"Edm.Int32\"" +
-                " Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Ve" +
-                "rsion\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm" +
-                ".Int32\" Nullable=\"false\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /><Pr" +
-                "operty Name=\"LinkmanId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Orde" +
-                "rDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm." +
-                "Int32\" Nullable=\"false\" /><Property Name=\"ContractName\" Type=\"Edm.String\" /><Pro" +
-                "perty Name=\"ContractDocGuid\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"" +
-                "SourceGuid\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"LogWriter\" Type=\"" +
-                "Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"BFEPurch" +
-                "aseOrderLines\" Type=\"Collection(UniCloud.Application.PurchaseBC.DTO.BFEPurchaseO" +
-                "rderLineDTO)\" Nullable=\"false\" /><NavigationProperty Name=\"RelatedDocs\" Relation" +
-                "ship=\"UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO_RelatedDocs\" ToRol" +
-                "e=\"RelatedDocs\" FromRole=\"BFEPurchaseOrderDTO\" /></EntityType><ComplexType Name=" +
-                "\"BFEPurchaseOrderLineDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" " +
-                "/><Property Name=\"UnitPrice\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Nam" +
-                "e=\"Amount\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Discount\" Type=\"E" +
-                "dm.Decimal\" Nullable=\"false\" /><Property Name=\"EstimateDeliveryDate\" Type=\"Edm.D" +
-                "ateTime\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property " +
-                "Name=\"BFEMaterialId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityTy" +
-                "pe Name=\"CurrencyDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Ty" +
-                "pe=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /></En" +
-                "tityType><EntityType Name=\"DocumentPathDTO\"><Key><PropertyRef Name=\"DocumentPath" +
-                "Id\" /></Key><Property Name=\"DocumentPathId\" Type=\"Edm.Int32\" Nullable=\"false\" />" +
-                "<Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"IsLeaf\" Type=\"Edm.Bool" +
-                "ean\" Nullable=\"false\" /><Property Name=\"Extension\" Type=\"Edm.String\" /><Property" +
-                " Name=\"DocumentGuid\" Type=\"Edm.Guid\" /><Property Name=\"PathSource\" Type=\"Edm.Int" +
-                "32\" Nullable=\"false\" /><Property Name=\"ParentId\" Type=\"Edm.Int32\" /><Property Na" +
-                "me=\"SubDocumentPaths\" Type=\"Collection(UniCloud.Application.PurchaseBC.DTO.SubDo" +
-                "cumentPathDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"SubDocumentPa" +
-                "thDTO\"><Property Name=\"SubDocumentPathId\" Type=\"Edm.Int32\" Nullable=\"false\" /><P" +
-                "roperty Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"IsLeaf\" Type=\"Edm.Boolea" +
-                "n\" Nullable=\"false\" /><Property Name=\"Extension\" Type=\"Edm.String\" /><Property N" +
-                "ame=\"DocumentGuid\" Type=\"Edm.Guid\" /><Property Name=\"PathSource\" Type=\"Edm.Int32" +
-                "\" Nullable=\"false\" /><Property Name=\"ParentId\" Type=\"Edm.Int32\" /></ComplexType>" +
-                "<EntityType Name=\"OrderDocumentDTO\"><Key><PropertyRef Name=\"OrderDocumentId\" /><" +
-                "/Key><Property Name=\"OrderDocumentId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prope" +
-                "rty Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"ContractNumber\" Type=\"Edm.St" +
-                "ring\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"Contra" +
-                "ctName\" Type=\"Edm.String\" /><Property Name=\"ContractDocGuid\" Type=\"Edm.Guid\" Nul" +
-                "lable=\"false\" /></EntityType><Association Name=\"ContractAircraftDTO_BFEPurchaseO" +
-                "rders\"><End Type=\"UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO\" Role=" +
-                "\"ContractAircraftDTO\" Multiplicity=\"*\" /><End Type=\"UniClou";
+            private const string ModelPart4 = "O\" /></EntityType><ComplexType Name=\"AircraftPurchaseOrderLineDTO\"><Property Name" +
+                "=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"UnitPrice\" Type=\"Edm.D" +
+                "ecimal\" Nullable=\"false\" /><Property Name=\"Amount\" Type=\"Edm.Int32\" Nullable=\"fa" +
+                "lse\" /><Property Name=\"Discount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property" +
+                " Name=\"AirframePrice\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Refi" +
+                "tCost\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"EnginePrice\" Type=\"" +
+                "Edm.Decimal\" Nullable=\"false\" /><Property Name=\"EstimateDeliveryDate\" Type=\"Edm." +
+                "DateTime\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property" +
+                " Name=\"ContractAircraftId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"A" +
+                "ircraftMaterialId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"RankNumbe" +
+                "r\" Type=\"Edm.String\" /><Property Name=\"CSCNumber\" Type=\"Edm.String\" /><Property " +
+                "Name=\"SerialNumber\" Type=\"Edm.String\" /><Property Name=\"Status\" Type=\"Edm.Int32\"" +
+                " Nullable=\"false\" /></ComplexType><EntityType Name=\"EngineLeaseOrderDTO\"><Key><P" +
+                "ropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"fals" +
+                "e\" /><Property Name=\"TradeId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name" +
+                "=\"Name\" Type=\"Edm.String\" /><Property Name=\"Version\" Type=\"Edm.Int32\" Nullable=\"" +
+                "false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Proper" +
+                "ty Name=\"OperatorName\" Type=\"Edm.String\" /><Property Name=\"LinkmanId\" Type=\"Edm." +
+                "Int32\" Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=" +
+                "\"false\" /><Property Name=\"OrderDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Pro" +
+                "perty Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Contract" +
+                "Name\" Type=\"Edm.String\" /><Property Name=\"ContractDocGuid\" Type=\"Edm.Guid\" Nulla" +
+                "ble=\"false\" /><Property Name=\"SourceGuid\" Type=\"Edm.Guid\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"LogWriter\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.Stri" +
+                "ng\" /><Property Name=\"EngineLeaseOrderLines\" Type=\"Collection(UniCloud.Applicati" +
+                "on.PurchaseBC.DTO.EngineLeaseOrderLineDTO)\" Nullable=\"false\" /><Property Name=\"C" +
+                "ontractContents\" Type=\"Collection(UniCloud.Application.PurchaseBC.DTO.ContractCo" +
+                "ntentDTO)\" Nullable=\"false\" /><NavigationProperty Name=\"RelatedDocs\" Relationshi" +
+                "p=\"UniCloud.Application.PurchaseBC.DTO.EngineLeaseOrderDTO_RelatedDocs\" ToRole=\"" +
+                "RelatedDocs\" FromRole=\"EngineLeaseOrderDTO\" /></EntityType><ComplexType Name=\"En" +
+                "gineLeaseOrderLineDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><" +
+                "Property Name=\"UnitPrice\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"" +
+                "Amount\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Discount\" Type=\"Edm." +
+                "Decimal\" Nullable=\"false\" /><Property Name=\"EstimateDeliveryDate\" Type=\"Edm.Date" +
+                "Time\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Nam" +
+                "e=\"ContractEngineId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"EngineM" +
+                "aterialId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"RankNumber\" Type=" +
+                "\"Edm.String\" /><Property Name=\"SerialNumber\" Type=\"Edm.String\" /><Property Name=" +
+                "\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"Eng" +
+                "inePurchaseOrderDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Typ" +
+                "e=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"TradeId\" Type=\"Edm.Int32\" Nulla" +
+                "ble=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Version\"" +
+                " Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CurrencyId\" Type=\"Edm.Int32" +
+                "\" Nullable=\"false\" /><Property Name=\"OperatorName\" Type=\"Edm.String\" /><Property" +
+                " Name=\"LinkmanId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierId" +
+                "\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OrderDate\" Type=\"Edm.DateT" +
+                "ime\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false" +
+                "\" /><Property Name=\"ContractName\" Type=\"Edm.String\" /><Property Name=\"ContractDo" +
+                "cGuid\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"SourceGuid\" Type=\"Edm." +
+                "Guid\" Nullable=\"false\" /><Property Name=\"LogWriter\" Type=\"Edm.String\" /><Propert" +
+                "y Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"EnginePurchaseOrderLines\" Type" +
+                "=\"Collection(UniCloud.Application.PurchaseBC.DTO.EnginePurchaseOrderLineDTO)\" Nu" +
+                "llable=\"false\" /><Property Name=\"ContractContents\" Type=\"Collection(UniCloud.App" +
+                "lication.PurchaseBC.DTO.ContractContentDTO)\" Nullable=\"false\" /><NavigationPrope" +
+                "rty Name=\"RelatedDocs\" Relationship=\"UniCloud.Application.PurchaseBC.DTO.EngineP" +
+                "urchaseOrderDTO_RelatedDocs\" ToRole=\"RelatedDocs\" FromRole=\"EnginePurchaseOrderD" +
+                "TO\" /></EntityType><ComplexType Name=\"EnginePurchaseOrderLineDTO\"><Property Name" +
+                "=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"UnitPrice\" Type=\"Edm.D" +
+                "ecimal\" Nullable=\"false\" /><Property Name=\"Amount\" Type=\"Edm.Int32\" Nullable=\"fa" +
+                "lse\" /><Property Name=\"Discount\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property" +
+                " Name=\"EstimateDeliveryDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Na" +
+                "me=\"Note\" Type=\"Edm.String\" /><Property Name=\"ContractEngineId\" Type=\"Edm.Int32\"" +
+                " Nullable=\"false\" /><Property Name=\"EngineMaterialId\" Type=\"Edm.Int32\" Nullable=" +
+                "\"false\" /><Property Name=\"RankNumber\" Type=\"Edm.String\" /><Property Name=\"Serial" +
+                "Number\" Type=\"Edm.String\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"f" +
+                "alse\" /></ComplexType><EntityType Name=\"BFEPurchaseOrderDTO\"><Key><PropertyRef N" +
+                "ame=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Proper" +
+                "ty Name=\"TradeId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type" +
+                "=\"Edm.String\" /><Property Name=\"Version\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"CurrencyId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Ope" +
+                "ratorName\" Type=\"Edm.String\" /><Property Name=\"LinkmanId\" Type=\"Edm.Int32\" Nulla" +
+                "ble=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"false\" /><P" +
+                "roperty Name=\"ForwarderId\" Type=\"Edm.Int32\" /><Property Name=\"OrderDate\" Type=\"E" +
+                "dm.DateTime\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullabl" +
+                "e=\"false\" /><Property Name=\"ContractName\" Type=\"Edm.String\" /><Property Name=\"Co" +
+                "ntractDocGuid\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"SourceGuid\" Ty" +
+                "pe=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"LogWriter\" Type=\"Edm.String\" />" +
+                "<Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"BFEPurchaseOrderLines\"" +
+                " Type=\"Collection(UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderLineDTO)\" " +
+                "Nullable=\"false\" /><Property Name=\"ContractContents\" Type=\"Collection(UniCloud.A" +
+                "pplication.PurchaseBC.DTO.ContractContentDTO)\" Nullable=\"false\" /><NavigationPro" +
+                "perty Name=\"RelatedDocs\" Relationship=\"UniCloud.Application.PurchaseBC.DTO.BFEPu" +
+                "rchaseOrderDTO_RelatedDocs\" ToRole=\"RelatedDocs\" FromRole=\"BFEPurchaseOrderDTO\" " +
+                "/><NavigationProperty Name=\"ContractAircrafts\" Relationship=\"UniCloud.Applicatio" +
+                "n.PurchaseBC.DTO.BFEPurchaseOrderDTO_ContractAircrafts\" ToRole=\"ContractAircraft" +
+                "s\" FromRole=\"BFEPurchaseOrderDTO\" /></EntityType><ComplexType Name=\"BFEPurchaseO" +
+                "rderLineDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property N" +
+                "ame=\"UnitPrice\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Amount\" Ty" +
+                "pe=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Discount\" Type=\"Edm.Decimal\" N" +
+                "ullable=\"false\" /><Property Name=\"EstimateDeliveryDate\" Type=\"Edm.DateTime\" Null" +
+                "able=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"BFEMate" +
+                "rialId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.In" +
+                "t32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"CurrencyDTO\"><Key><Prope" +
+                "rtyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int3";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart5 = "d.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO\" Role=\"BFEPurchaseOrders\" Multip" +
-                "licity=\"*\" /></Association><Association Name=\"LeaseContractAircraftDTO_BFEPurcha" +
-                "seOrders\"><End Type=\"UniCloud.Application.PurchaseBC.DTO.LeaseContractAircraftDT" +
-                "O\" Role=\"LeaseContractAircraftDTO\" Multiplicity=\"*\" /><End Type=\"UniCloud.Applic" +
-                "ation.PurchaseBC.DTO.BFEPurchaseOrderDTO\" Role=\"BFEPurchaseOrders\" Multiplicity=" +
-                "\"*\" /></Association><Association Name=\"PurchaseContractAircraftDTO_BFEPurchaseOr" +
-                "ders\"><End Type=\"UniCloud.Application.PurchaseBC.DTO.PurchaseContractAircraftDTO" +
-                "\" Role=\"PurchaseContractAircraftDTO\" Multiplicity=\"*\" /><End Type=\"UniCloud.Appl" +
-                "ication.PurchaseBC.DTO.BFEPurchaseOrderDTO\" Role=\"BFEPurchaseOrders\" Multiplicit" +
-                "y=\"*\" /></Association><Association Name=\"AircraftLeaseReceptionDTO_RelatedDocs\">" +
-                "<End Type=\"UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO\" Role=\"RelatedDocs\"" +
-                " Multiplicity=\"*\" /><End Type=\"UniCloud.Application.PurchaseBC.DTO.AircraftLease" +
-                "ReceptionDTO\" Role=\"AircraftLeaseReceptionDTO\" Multiplicity=\"*\" /></Association>" +
-                "<Association Name=\"AircraftPurchaseReceptionDTO_RelatedDocs\"><End Type=\"UniCloud" +
-                ".Application.PurchaseBC.DTO.RelatedDocDTO\" Role=\"RelatedDocs\" Multiplicity=\"*\" /" +
-                "><End Type=\"UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseReceptionDTO\" Ro" +
-                "le=\"AircraftPurchaseReceptionDTO\" Multiplicity=\"*\" /></Association><Association " +
-                "Name=\"EngineLeaseReceptionDTO_RelatedDocs\"><End Type=\"UniCloud.Application.Purch" +
-                "aseBC.DTO.RelatedDocDTO\" Role=\"RelatedDocs\" Multiplicity=\"*\" /><End Type=\"UniClo" +
-                "ud.Application.PurchaseBC.DTO.EngineLeaseReceptionDTO\" Role=\"EngineLeaseReceptio" +
-                "nDTO\" Multiplicity=\"*\" /></Association><Association Name=\"EnginePurchaseReceptio" +
-                "nDTO_RelatedDocs\"><End Type=\"UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO\" " +
-                "Role=\"RelatedDocs\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.PurchaseBC" +
-                ".DTO.EnginePurchaseReceptionDTO\" Role=\"EnginePurchaseReceptionDTO\" Multiplicity=" +
-                "\"*\" /></Association><Association Name=\"AircraftLeaseOrderDTO_RelatedDocs\"><End T" +
-                "ype=\"UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO\" Role=\"RelatedDocs\" Multi" +
-                "plicity=\"*\" /><End Type=\"UniCloud.Application.PurchaseBC.DTO.AircraftLeaseOrderD" +
-                "TO\" Role=\"AircraftLeaseOrderDTO\" Multiplicity=\"*\" /></Association><Association N" +
-                "ame=\"AircraftPurchaseOrderDTO_RelatedDocs\"><End Type=\"UniCloud.Application.Purch" +
-                "aseBC.DTO.RelatedDocDTO\" Role=\"RelatedDocs\" Multiplicity=\"*\" /><End Type=\"UniClo" +
-                "ud.Application.PurchaseBC.DTO.AircraftPurchaseOrderDTO\" Role=\"AircraftPurchaseOr" +
-                "derDTO\" Multiplicity=\"*\" /></Association><Association Name=\"EngineLeaseOrderDTO_" +
-                "RelatedDocs\"><End Type=\"UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO\" Role=" +
-                "\"RelatedDocs\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.PurchaseBC.DTO." +
-                "EngineLeaseOrderDTO\" Role=\"EngineLeaseOrderDTO\" Multiplicity=\"*\" /></Association" +
-                "><Association Name=\"EnginePurchaseOrderDTO_RelatedDocs\"><End Type=\"UniCloud.Appl" +
-                "ication.PurchaseBC.DTO.RelatedDocDTO\" Role=\"RelatedDocs\" Multiplicity=\"*\" /><End" +
-                " Type=\"UniCloud.Application.PurchaseBC.DTO.EnginePurchaseOrderDTO\" Role=\"EngineP" +
-                "urchaseOrderDTO\" Multiplicity=\"*\" /></Association><Association Name=\"BFEPurchase" +
-                "OrderDTO_RelatedDocs\"><End Type=\"UniCloud.Application.PurchaseBC.DTO.RelatedDocD" +
-                "TO\" Role=\"RelatedDocs\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.Purcha" +
-                "seBC.DTO.BFEPurchaseOrderDTO\" Role=\"BFEPurchaseOrderDTO\" Multiplicity=\"*\" /></As" +
-                "sociation></Schema><Schema Namespace=\"UniCloud.DistributedServices.Purchase\" xml" +
-                "ns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"Purchas" +
-                "eData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"Forwarders\" EntityType" +
-                "=\"UniCloud.Application.PurchaseBC.DTO.ForwarderDTO\" /><EntitySet Name=\"Suppliers" +
-                "\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.SupplierDTO\" /><EntitySet Name" +
-                "=\"SupplierCompanys\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.SupplierComp" +
-                "anyDTO\" /><EntitySet Name=\"Linkmans\" EntityType=\"UniCloud.Application.PurchaseBC" +
-                ".DTO.LinkmanDTO\" /><EntitySet Name=\"SupplierCompanyAcMaterials\" EntityType=\"UniC" +
-                "loud.Application.PurchaseBC.DTO.SupplierCompanyAcMaterialDTO\" /><EntitySet Name=" +
-                "\"SupplierCompanyEngineMaterials\" EntityType=\"UniCloud.Application.PurchaseBC.DTO" +
-                ".SupplierCompanyEngineMaterialDTO\" /><EntitySet Name=\"SupplierCompanyBFEMaterial" +
-                "s\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.SupplierCompanyBFEMaterialDTO" +
-                "\" /><EntitySet Name=\"AircraftTypes\" EntityType=\"UniCloud.Application.PurchaseBC." +
-                "DTO.AircraftTypeDTO\" /><EntitySet Name=\"ActionCategories\" EntityType=\"UniCloud.A" +
-                "pplication.PurchaseBC.DTO.ActionCategoryDTO\" /><EntitySet Name=\"PlanAircrafts\" E" +
-                "ntityType=\"UniCloud.Application.PurchaseBC.DTO.PlanAircraftDTO\" /><EntitySet Nam" +
-                "e=\"ContractAircrafts\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.ContractAi" +
-                "rcraftDTO\" /><EntitySet Name=\"LeaseContractAircrafts\" EntityType=\"UniCloud.Appli" +
-                "cation.PurchaseBC.DTO.LeaseContractAircraftDTO\" /><EntitySet Name=\"PurchaseContr" +
-                "actAircrafts\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.PurchaseContractAi" +
-                "rcraftDTO\" /><EntitySet Name=\"ContractEngines\" EntityType=\"UniCloud.Application." +
-                "PurchaseBC.DTO.ContractEngineDTO\" /><EntitySet Name=\"LeaseContractEngines\" Entit" +
-                "yType=\"UniCloud.Application.PurchaseBC.DTO.LeaseContractEngineDTO\" /><EntitySet " +
-                "Name=\"PurchaseContractEngines\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.P" +
-                "urchaseContractEngineDTO\" /><EntitySet Name=\"AircraftMaterias\" EntityType=\"UniCl" +
-                "oud.Application.PurchaseBC.DTO.AircraftMaterialDTO\" /><EntitySet Name=\"BFEMateri" +
-                "als\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.BFEMaterialDTO\" /><EntitySe" +
-                "t Name=\"EngineMaterials\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.EngineM" +
-                "aterialDTO\" /><EntitySet Name=\"Parts\" EntityType=\"UniCloud.Application.PurchaseB" +
-                "C.DTO.PartDTO\" /><EntitySet Name=\"EngineMaintainContracts\" EntityType=\"UniCloud." +
-                "Application.PurchaseBC.DTO.EngineMaintainContractDTO\" /><EntitySet Name=\"APUMain" +
-                "tainContracts\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.APUMaintainContra" +
-                "ctDTO\" /><EntitySet Name=\"UndercartMaintainContracts\" EntityType=\"UniCloud.Appli" +
-                "cation.PurchaseBC.DTO.UndercartMaintainContractDTO\" /><EntitySet Name=\"AircraftL" +
-                "easeReceptions\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.AircraftLeaseRec" +
-                "eptionDTO\" /><EntitySet Name=\"AircraftPurchaseReceptions\" EntityType=\"UniCloud.A" +
-                "pplication.PurchaseBC.DTO.AircraftPurchaseReceptionDTO\" /><EntitySet Name=\"Engin" +
-                "eLeaseReceptions\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.EngineLeaseRec" +
-                "eptionDTO\" /><EntitySet Name=\"EnginePurchaseReceptions\" EntityType=\"UniCloud.App" +
-                "lication.PurchaseBC.DTO.EnginePurchaseReceptionDTO\" /><EntitySet Name=\"RelatedDo" +
-                "cs\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO\" /><EntitySet " +
-                "Name=\"Trades\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.TradeDTO\" /><Entit" +
-                "ySet Name=\"AircraftLeaseOrders\" EntityType=\"UniCloud.Application.PurchaseBC.DTO." +
-                "AircraftLeaseOrderDTO\" /><EntitySet Name=\"AircraftPurchaseOrders\" EntityType=\"Un" +
-                "iCloud.Application.PurchaseBC.DTO.AircraftPurchaseOrderDTO\" /><EntitySet Name=\"E" +
-                "ngineLeaseOrders\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.EngineLeaseOrd" +
-                "erDTO\" /><EntitySet Name=\"EnginePurchaseOrders\" EntityType=\"UniCloud.Application" +
-                ".PurchaseBC.DTO.EnginePurchaseOrderDTO\" /><EntitySet Name=\"BFEPurchaseOrders\" En" +
-                "tityType=\"UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO\" /><EntitySet " +
-                "Name=\"Currencies\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.CurrencyDTO\" /" +
-                "><EntitySet Name=\"DocumentPaths\" EntityType=\"UniCloud.Application.PurchaseBC.DTO" +
-                ".DocumentPathDTO\" /><EntitySet Name=\"OrderDocuments\" Entity";
+            private const string ModelPart5 = "2\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /></EntityType><Ent" +
+                "ityType Name=\"DocumentPathDTO\"><Key><PropertyRef Name=\"DocumentPathId\" /></Key><" +
+                "Property Name=\"DocumentPathId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Nam" +
+                "e=\"Name\" Type=\"Edm.String\" /><Property Name=\"IsLeaf\" Type=\"Edm.Boolean\" Nullable" +
+                "=\"false\" /><Property Name=\"Extension\" Type=\"Edm.String\" /><Property Name=\"Docume" +
+                "ntGuid\" Type=\"Edm.Guid\" /><Property Name=\"PathSource\" Type=\"Edm.Int32\" Nullable=" +
+                "\"false\" /><Property Name=\"ParentId\" Type=\"Edm.Int32\" /><Property Name=\"SubDocume" +
+                "ntPaths\" Type=\"Collection(UniCloud.Application.PurchaseBC.DTO.SubDocumentPathDTO" +
+                ")\" Nullable=\"false\" /></EntityType><ComplexType Name=\"SubDocumentPathDTO\"><Prope" +
+                "rty Name=\"SubDocumentPathId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=" +
+                "\"Name\" Type=\"Edm.String\" /><Property Name=\"IsLeaf\" Type=\"Edm.Boolean\" Nullable=\"" +
+                "false\" /><Property Name=\"Extension\" Type=\"Edm.String\" /><Property Name=\"Document" +
+                "Guid\" Type=\"Edm.Guid\" /><Property Name=\"PathSource\" Type=\"Edm.Int32\" Nullable=\"f" +
+                "alse\" /><Property Name=\"ParentId\" Type=\"Edm.Int32\" /></ComplexType><EntityType N" +
+                "ame=\"OrderDocumentDTO\"><Key><PropertyRef Name=\"OrderDocumentId\" /></Key><Propert" +
+                "y Name=\"OrderDocumentId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Nam" +
+                "e\" Type=\"Edm.String\" /><Property Name=\"ContractNumber\" Type=\"Edm.String\" /><Prop" +
+                "erty Name=\"SupplierName\" Type=\"Edm.String\" /><Property Name=\"ContractName\" Type=" +
+                "\"Edm.String\" /><Property Name=\"ContractDocGuid\" Type=\"Edm.Guid\" Nullable=\"false\"" +
+                " /></EntityType><Association Name=\"ContractAircraftDTO_BFEPurchaseOrders\"><End T" +
+                "ype=\"UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO\" Role=\"ContractAirc" +
+                "raftDTO\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.PurchaseBC.DTO.BFEPu" +
+                "rchaseOrderDTO\" Role=\"BFEPurchaseOrders\" Multiplicity=\"*\" /></Association><Assoc" +
+                "iation Name=\"LeaseContractAircraftDTO_BFEPurchaseOrders\"><End Type=\"UniCloud.App" +
+                "lication.PurchaseBC.DTO.LeaseContractAircraftDTO\" Role=\"LeaseContractAircraftDTO" +
+                "\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.PurchaseBC.DTO.BFEPurchaseO" +
+                "rderDTO\" Role=\"BFEPurchaseOrders\" Multiplicity=\"*\" /></Association><Association " +
+                "Name=\"PurchaseContractAircraftDTO_BFEPurchaseOrders\"><End Type=\"UniCloud.Applica" +
+                "tion.PurchaseBC.DTO.PurchaseContractAircraftDTO\" Role=\"PurchaseContractAircraftD" +
+                "TO\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.PurchaseBC.DTO.BFEPurchas" +
+                "eOrderDTO\" Role=\"BFEPurchaseOrders\" Multiplicity=\"*\" /></Association><Associatio" +
+                "n Name=\"AircraftLeaseReceptionDTO_RelatedDocs\"><End Type=\"UniCloud.Application.P" +
+                "urchaseBC.DTO.RelatedDocDTO\" Role=\"RelatedDocs\" Multiplicity=\"*\" /><End Type=\"Un" +
+                "iCloud.Application.PurchaseBC.DTO.AircraftLeaseReceptionDTO\" Role=\"AircraftLease" +
+                "ReceptionDTO\" Multiplicity=\"*\" /></Association><Association Name=\"AircraftPurcha" +
+                "seReceptionDTO_RelatedDocs\"><End Type=\"UniCloud.Application.PurchaseBC.DTO.Relat" +
+                "edDocDTO\" Role=\"RelatedDocs\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application." +
+                "PurchaseBC.DTO.AircraftPurchaseReceptionDTO\" Role=\"AircraftPurchaseReceptionDTO\"" +
+                " Multiplicity=\"*\" /></Association><Association Name=\"EngineLeaseReceptionDTO_Rel" +
+                "atedDocs\"><End Type=\"UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO\" Role=\"Re" +
+                "latedDocs\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.PurchaseBC.DTO.Eng" +
+                "ineLeaseReceptionDTO\" Role=\"EngineLeaseReceptionDTO\" Multiplicity=\"*\" /></Associ" +
+                "ation><Association Name=\"EnginePurchaseReceptionDTO_RelatedDocs\"><End Type=\"UniC" +
+                "loud.Application.PurchaseBC.DTO.RelatedDocDTO\" Role=\"RelatedDocs\" Multiplicity=\"" +
+                "*\" /><End Type=\"UniCloud.Application.PurchaseBC.DTO.EnginePurchaseReceptionDTO\" " +
+                "Role=\"EnginePurchaseReceptionDTO\" Multiplicity=\"*\" /></Association><Association " +
+                "Name=\"AircraftLeaseOrderDTO_RelatedDocs\"><End Type=\"UniCloud.Application.Purchas" +
+                "eBC.DTO.RelatedDocDTO\" Role=\"RelatedDocs\" Multiplicity=\"*\" /><End Type=\"UniCloud" +
+                ".Application.PurchaseBC.DTO.AircraftLeaseOrderDTO\" Role=\"AircraftLeaseOrderDTO\" " +
+                "Multiplicity=\"*\" /></Association><Association Name=\"AircraftPurchaseOrderDTO_Rel" +
+                "atedDocs\"><End Type=\"UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO\" Role=\"Re" +
+                "latedDocs\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.PurchaseBC.DTO.Air" +
+                "craftPurchaseOrderDTO\" Role=\"AircraftPurchaseOrderDTO\" Multiplicity=\"*\" /></Asso" +
+                "ciation><Association Name=\"EngineLeaseOrderDTO_RelatedDocs\"><End Type=\"UniCloud." +
+                "Application.PurchaseBC.DTO.RelatedDocDTO\" Role=\"RelatedDocs\" Multiplicity=\"*\" />" +
+                "<End Type=\"UniCloud.Application.PurchaseBC.DTO.EngineLeaseOrderDTO\" Role=\"Engine" +
+                "LeaseOrderDTO\" Multiplicity=\"*\" /></Association><Association Name=\"EnginePurchas" +
+                "eOrderDTO_RelatedDocs\"><End Type=\"UniCloud.Application.PurchaseBC.DTO.RelatedDoc" +
+                "DTO\" Role=\"RelatedDocs\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.Purch" +
+                "aseBC.DTO.EnginePurchaseOrderDTO\" Role=\"EnginePurchaseOrderDTO\" Multiplicity=\"*\"" +
+                " /></Association><Association Name=\"BFEPurchaseOrderDTO_RelatedDocs\"><End Type=\"" +
+                "UniCloud.Application.PurchaseBC.DTO.RelatedDocDTO\" Role=\"RelatedDocs\" Multiplici" +
+                "ty=\"*\" /><End Type=\"UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO\" Rol" +
+                "e=\"BFEPurchaseOrderDTO\" Multiplicity=\"*\" /></Association><Association Name=\"BFEP" +
+                "urchaseOrderDTO_ContractAircrafts\"><End Type=\"UniCloud.Application.PurchaseBC.DT" +
+                "O.ContractAircraftDTO\" Role=\"ContractAircrafts\" Multiplicity=\"*\" /><End Type=\"Un" +
+                "iCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO\" Role=\"BFEPurchaseOrderDTO" +
+                "\" Multiplicity=\"*\" /></Association></Schema><Schema Namespace=\"UniCloud.Distribu" +
+                "tedServices.Purchase\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><Enti" +
+                "tyContainer Name=\"PurchaseData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Nam" +
+                "e=\"Forwarders\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.ForwarderDTO\" /><" +
+                "EntitySet Name=\"Suppliers\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.Suppl" +
+                "ierDTO\" /><EntitySet Name=\"SupplierCompanys\" EntityType=\"UniCloud.Application.Pu" +
+                "rchaseBC.DTO.SupplierCompanyDTO\" /><EntitySet Name=\"Linkmans\" EntityType=\"UniClo" +
+                "ud.Application.PurchaseBC.DTO.LinkmanDTO\" /><EntitySet Name=\"SupplierCompanyAcMa" +
+                "terials\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.SupplierCompanyAcMateri" +
+                "alDTO\" /><EntitySet Name=\"SupplierCompanyEngineMaterials\" EntityType=\"UniCloud.A" +
+                "pplication.PurchaseBC.DTO.SupplierCompanyEngineMaterialDTO\" /><EntitySet Name=\"S" +
+                "upplierCompanyBFEMaterials\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.Supp" +
+                "lierCompanyBFEMaterialDTO\" /><EntitySet Name=\"AircraftTypes\" EntityType=\"UniClou" +
+                "d.Application.PurchaseBC.DTO.AircraftTypeDTO\" /><EntitySet Name=\"ActionCategorie" +
+                "s\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.ActionCategoryDTO\" /><EntityS" +
+                "et Name=\"PlanAircrafts\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.PlanAirc" +
+                "raftDTO\" /><EntitySet Name=\"ContractAircrafts\" EntityType=\"UniCloud.Application." +
+                "PurchaseBC.DTO.ContractAircraftDTO\" /><EntitySet Name=\"LeaseContractAircrafts\" E" +
+                "ntityType=\"UniCloud.Application.PurchaseBC.DTO.LeaseContractAircraftDTO\" /><Enti" +
+                "tySet Name=\"PurchaseContractAircrafts\" EntityType=\"UniCloud.Application.Purchase" +
+                "BC.DTO.PurchaseContractAircraftDTO\" /><EntitySet Name=\"ContractEngines\" EntityTy" +
+                "pe=\"UniCloud.Application.PurchaseBC.DTO.ContractEngineDTO\" /><EntitySet Name=\"Le" +
+                "aseContractEngines\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.LeaseContrac" +
+                "tEngineDTO\" /><EntitySet Name=\"PurchaseContractEngines\" EntityType=\"UniCloud.App" +
+                "lication.PurchaseBC.DTO.PurchaseContractEngineDTO\" /><EntitySet Name=\"AircraftMa" +
+                "terias\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.AircraftMaterialDTO\" /><" +
+                "EntitySet Name=\"BFEMaterials\" EntityType=\"UniCloud.Applicat";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart6 = "Type=\"UniCloud.Application.PurchaseBC.DTO.OrderDocumentDTO\" /><FunctionImport Nam" +
-                "e=\"AddDocPath\" m:HttpMethod=\"GET\"><Parameter Name=\"name\" Type=\"Edm.String\" /><Pa" +
-                "rameter Name=\"isLeaf\" Type=\"Edm.String\" /><Parameter Name=\"documentId\" Type=\"Edm" +
-                ".String\" /><Parameter Name=\"parentId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Param" +
-                "eter Name=\"pathSource\" Type=\"Edm.Int32\" Nullable=\"false\" /></FunctionImport><Fun" +
-                "ctionImport Name=\"DelDocPath\" m:HttpMethod=\"GET\"><Parameter Name=\"docPathId\" Typ" +
-                "e=\"Edm.Int32\" Nullable=\"false\" /></FunctionImport><AssociationSet Name=\"Contract" +
-                "AircraftDTO_BFEPurchaseOrders\" Association=\"UniCloud.Application.PurchaseBC.DTO." +
-                "ContractAircraftDTO_BFEPurchaseOrders\"><End Role=\"ContractAircraftDTO\" EntitySet" +
-                "=\"ContractAircrafts\" /><End Role=\"BFEPurchaseOrders\" EntitySet=\"BFEPurchaseOrder" +
-                "s\" /></AssociationSet><AssociationSet Name=\"LeaseContractAircraftDTO_BFEPurchase" +
-                "Orders\" Association=\"UniCloud.Application.PurchaseBC.DTO.LeaseContractAircraftDT" +
-                "O_BFEPurchaseOrders\"><End Role=\"LeaseContractAircraftDTO\" EntitySet=\"LeaseContra" +
-                "ctAircrafts\" /><End Role=\"BFEPurchaseOrders\" EntitySet=\"BFEPurchaseOrders\" /></A" +
-                "ssociationSet><AssociationSet Name=\"PurchaseContractAircraftDTO_BFEPurchaseOrder" +
-                "s\" Association=\"UniCloud.Application.PurchaseBC.DTO.PurchaseContractAircraftDTO_" +
-                "BFEPurchaseOrders\"><End Role=\"PurchaseContractAircraftDTO\" EntitySet=\"PurchaseCo" +
-                "ntractAircrafts\" /><End Role=\"BFEPurchaseOrders\" EntitySet=\"BFEPurchaseOrders\" /" +
-                "></AssociationSet><AssociationSet Name=\"AircraftLeaseReceptionDTO_RelatedDocs\" A" +
-                "ssociation=\"UniCloud.Application.PurchaseBC.DTO.AircraftLeaseReceptionDTO_Relate" +
-                "dDocs\"><End Role=\"AircraftLeaseReceptionDTO\" EntitySet=\"AircraftLeaseReceptions\"" +
-                " /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /></AssociationSet><Associati" +
-                "onSet Name=\"AircraftPurchaseReceptionDTO_RelatedDocs\" Association=\"UniCloud.Appl" +
-                "ication.PurchaseBC.DTO.AircraftPurchaseReceptionDTO_RelatedDocs\"><End Role=\"Airc" +
-                "raftPurchaseReceptionDTO\" EntitySet=\"AircraftPurchaseReceptions\" /><End Role=\"Re" +
-                "latedDocs\" EntitySet=\"RelatedDocs\" /></AssociationSet><AssociationSet Name=\"Engi" +
-                "neLeaseReceptionDTO_RelatedDocs\" Association=\"UniCloud.Application.PurchaseBC.DT" +
-                "O.EngineLeaseReceptionDTO_RelatedDocs\"><End Role=\"EngineLeaseReceptionDTO\" Entit" +
-                "ySet=\"EngineLeaseReceptions\" /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /" +
-                "></AssociationSet><AssociationSet Name=\"EnginePurchaseReceptionDTO_RelatedDocs\" " +
-                "Association=\"UniCloud.Application.PurchaseBC.DTO.EnginePurchaseReceptionDTO_Rela" +
-                "tedDocs\"><End Role=\"EnginePurchaseReceptionDTO\" EntitySet=\"EnginePurchaseRecepti" +
-                "ons\" /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /></AssociationSet><Assoc" +
-                "iationSet Name=\"AircraftLeaseOrderDTO_RelatedDocs\" Association=\"UniCloud.Applica" +
-                "tion.PurchaseBC.DTO.AircraftLeaseOrderDTO_RelatedDocs\"><End Role=\"AircraftLeaseO" +
-                "rderDTO\" EntitySet=\"AircraftLeaseOrders\" /><End Role=\"RelatedDocs\" EntitySet=\"Re" +
-                "latedDocs\" /></AssociationSet><AssociationSet Name=\"AircraftPurchaseOrderDTO_Rel" +
-                "atedDocs\" Association=\"UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseOrder" +
-                "DTO_RelatedDocs\"><End Role=\"AircraftPurchaseOrderDTO\" EntitySet=\"AircraftPurchas" +
-                "eOrders\" /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /></AssociationSet><A" +
-                "ssociationSet Name=\"EngineLeaseOrderDTO_RelatedDocs\" Association=\"UniCloud.Appli" +
-                "cation.PurchaseBC.DTO.EngineLeaseOrderDTO_RelatedDocs\"><End Role=\"EngineLeaseOrd" +
-                "erDTO\" EntitySet=\"EngineLeaseOrders\" /><End Role=\"RelatedDocs\" EntitySet=\"Relate" +
-                "dDocs\" /></AssociationSet><AssociationSet Name=\"EnginePurchaseOrderDTO_RelatedDo" +
-                "cs\" Association=\"UniCloud.Application.PurchaseBC.DTO.EnginePurchaseOrderDTO_Rela" +
-                "tedDocs\"><End Role=\"EnginePurchaseOrderDTO\" EntitySet=\"EnginePurchaseOrders\" /><" +
-                "End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /></AssociationSet><AssociationSe" +
-                "t Name=\"BFEPurchaseOrderDTO_RelatedDocs\" Association=\"UniCloud.Application.Purch" +
-                "aseBC.DTO.BFEPurchaseOrderDTO_RelatedDocs\"><End Role=\"BFEPurchaseOrderDTO\" Entit" +
-                "ySet=\"BFEPurchaseOrders\" /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /></A" +
-                "ssociationSet></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
+            private const string ModelPart6 = "ion.PurchaseBC.DTO.BFEMaterialDTO\" /><EntitySet Name=\"EngineMaterials\" EntityType" +
+                "=\"UniCloud.Application.PurchaseBC.DTO.EngineMaterialDTO\" /><EntitySet Name=\"Part" +
+                "s\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.PartDTO\" /><EntitySet Name=\"E" +
+                "ngineMaintainContracts\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.EngineMa" +
+                "intainContractDTO\" /><EntitySet Name=\"APUMaintainContracts\" EntityType=\"UniCloud" +
+                ".Application.PurchaseBC.DTO.APUMaintainContractDTO\" /><EntitySet Name=\"Undercart" +
+                "MaintainContracts\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.UndercartMain" +
+                "tainContractDTO\" /><EntitySet Name=\"AircraftLeaseReceptions\" EntityType=\"UniClou" +
+                "d.Application.PurchaseBC.DTO.AircraftLeaseReceptionDTO\" /><EntitySet Name=\"Aircr" +
+                "aftPurchaseReceptions\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.AircraftP" +
+                "urchaseReceptionDTO\" /><EntitySet Name=\"EngineLeaseReceptions\" EntityType=\"UniCl" +
+                "oud.Application.PurchaseBC.DTO.EngineLeaseReceptionDTO\" /><EntitySet Name=\"Engin" +
+                "ePurchaseReceptions\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.EnginePurch" +
+                "aseReceptionDTO\" /><EntitySet Name=\"RelatedDocs\" EntityType=\"UniCloud.Applicatio" +
+                "n.PurchaseBC.DTO.RelatedDocDTO\" /><EntitySet Name=\"Trades\" EntityType=\"UniCloud." +
+                "Application.PurchaseBC.DTO.TradeDTO\" /><EntitySet Name=\"AircraftLeaseOrders\" Ent" +
+                "ityType=\"UniCloud.Application.PurchaseBC.DTO.AircraftLeaseOrderDTO\" /><EntitySet" +
+                " Name=\"AircraftPurchaseOrders\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.A" +
+                "ircraftPurchaseOrderDTO\" /><EntitySet Name=\"EngineLeaseOrders\" EntityType=\"UniCl" +
+                "oud.Application.PurchaseBC.DTO.EngineLeaseOrderDTO\" /><EntitySet Name=\"EnginePur" +
+                "chaseOrders\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.EnginePurchaseOrder" +
+                "DTO\" /><EntitySet Name=\"BFEPurchaseOrders\" EntityType=\"UniCloud.Application.Purc" +
+                "haseBC.DTO.BFEPurchaseOrderDTO\" /><EntitySet Name=\"Currencies\" EntityType=\"UniCl" +
+                "oud.Application.PurchaseBC.DTO.CurrencyDTO\" /><EntitySet Name=\"DocumentPaths\" En" +
+                "tityType=\"UniCloud.Application.PurchaseBC.DTO.DocumentPathDTO\" /><EntitySet Name" +
+                "=\"OrderDocuments\" EntityType=\"UniCloud.Application.PurchaseBC.DTO.OrderDocumentD" +
+                "TO\" /><FunctionImport Name=\"AddDocPath\" m:HttpMethod=\"GET\"><Parameter Name=\"name" +
+                "\" Type=\"Edm.String\" /><Parameter Name=\"isLeaf\" Type=\"Edm.String\" /><Parameter Na" +
+                "me=\"documentId\" Type=\"Edm.String\" /><Parameter Name=\"parentId\" Type=\"Edm.Int32\" " +
+                "Nullable=\"false\" /><Parameter Name=\"pathSource\" Type=\"Edm.Int32\" Nullable=\"false" +
+                "\" /></FunctionImport><FunctionImport Name=\"DelDocPath\" m:HttpMethod=\"GET\"><Param" +
+                "eter Name=\"docPathId\" Type=\"Edm.Int32\" Nullable=\"false\" /></FunctionImport><Asso" +
+                "ciationSet Name=\"ContractAircraftDTO_BFEPurchaseOrders\" Association=\"UniCloud.Ap" +
+                "plication.PurchaseBC.DTO.ContractAircraftDTO_BFEPurchaseOrders\"><End Role=\"Contr" +
+                "actAircraftDTO\" EntitySet=\"ContractAircrafts\" /><End Role=\"BFEPurchaseOrders\" En" +
+                "titySet=\"BFEPurchaseOrders\" /></AssociationSet><AssociationSet Name=\"LeaseContra" +
+                "ctAircraftDTO_BFEPurchaseOrders\" Association=\"UniCloud.Application.PurchaseBC.DT" +
+                "O.LeaseContractAircraftDTO_BFEPurchaseOrders\"><End Role=\"LeaseContractAircraftDT" +
+                "O\" EntitySet=\"LeaseContractAircrafts\" /><End Role=\"BFEPurchaseOrders\" EntitySet=" +
+                "\"BFEPurchaseOrders\" /></AssociationSet><AssociationSet Name=\"PurchaseContractAir" +
+                "craftDTO_BFEPurchaseOrders\" Association=\"UniCloud.Application.PurchaseBC.DTO.Pur" +
+                "chaseContractAircraftDTO_BFEPurchaseOrders\"><End Role=\"PurchaseContractAircraftD" +
+                "TO\" EntitySet=\"PurchaseContractAircrafts\" /><End Role=\"BFEPurchaseOrders\" Entity" +
+                "Set=\"BFEPurchaseOrders\" /></AssociationSet><AssociationSet Name=\"AircraftLeaseRe" +
+                "ceptionDTO_RelatedDocs\" Association=\"UniCloud.Application.PurchaseBC.DTO.Aircraf" +
+                "tLeaseReceptionDTO_RelatedDocs\"><End Role=\"AircraftLeaseReceptionDTO\" EntitySet=" +
+                "\"AircraftLeaseReceptions\" /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /></" +
+                "AssociationSet><AssociationSet Name=\"AircraftPurchaseReceptionDTO_RelatedDocs\" A" +
+                "ssociation=\"UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseReceptionDTO_Rel" +
+                "atedDocs\"><End Role=\"AircraftPurchaseReceptionDTO\" EntitySet=\"AircraftPurchaseRe" +
+                "ceptions\" /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /></AssociationSet><" +
+                "AssociationSet Name=\"EngineLeaseReceptionDTO_RelatedDocs\" Association=\"UniCloud." +
+                "Application.PurchaseBC.DTO.EngineLeaseReceptionDTO_RelatedDocs\"><End Role=\"Engin" +
+                "eLeaseReceptionDTO\" EntitySet=\"EngineLeaseReceptions\" /><End Role=\"RelatedDocs\" " +
+                "EntitySet=\"RelatedDocs\" /></AssociationSet><AssociationSet Name=\"EnginePurchaseR" +
+                "eceptionDTO_RelatedDocs\" Association=\"UniCloud.Application.PurchaseBC.DTO.Engine" +
+                "PurchaseReceptionDTO_RelatedDocs\"><End Role=\"EnginePurchaseReceptionDTO\" EntityS" +
+                "et=\"EnginePurchaseReceptions\" /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" " +
+                "/></AssociationSet><AssociationSet Name=\"AircraftLeaseOrderDTO_RelatedDocs\" Asso" +
+                "ciation=\"UniCloud.Application.PurchaseBC.DTO.AircraftLeaseOrderDTO_RelatedDocs\">" +
+                "<End Role=\"AircraftLeaseOrderDTO\" EntitySet=\"AircraftLeaseOrders\" /><End Role=\"R" +
+                "elatedDocs\" EntitySet=\"RelatedDocs\" /></AssociationSet><AssociationSet Name=\"Air" +
+                "craftPurchaseOrderDTO_RelatedDocs\" Association=\"UniCloud.Application.PurchaseBC." +
+                "DTO.AircraftPurchaseOrderDTO_RelatedDocs\"><End Role=\"AircraftPurchaseOrderDTO\" E" +
+                "ntitySet=\"AircraftPurchaseOrders\" /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDo" +
+                "cs\" /></AssociationSet><AssociationSet Name=\"EngineLeaseOrderDTO_RelatedDocs\" As" +
+                "sociation=\"UniCloud.Application.PurchaseBC.DTO.EngineLeaseOrderDTO_RelatedDocs\">" +
+                "<End Role=\"EngineLeaseOrderDTO\" EntitySet=\"EngineLeaseOrders\" /><End Role=\"Relat" +
+                "edDocs\" EntitySet=\"RelatedDocs\" /></AssociationSet><AssociationSet Name=\"EngineP" +
+                "urchaseOrderDTO_RelatedDocs\" Association=\"UniCloud.Application.PurchaseBC.DTO.En" +
+                "ginePurchaseOrderDTO_RelatedDocs\"><End Role=\"EnginePurchaseOrderDTO\" EntitySet=\"" +
+                "EnginePurchaseOrders\" /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /></Asso" +
+                "ciationSet><AssociationSet Name=\"BFEPurchaseOrderDTO_RelatedDocs\" Association=\"U" +
+                "niCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO_RelatedDocs\"><End Role=\"B" +
+                "FEPurchaseOrderDTO\" EntitySet=\"BFEPurchaseOrders\" /><End Role=\"RelatedDocs\" Enti" +
+                "tySet=\"RelatedDocs\" /></AssociationSet><AssociationSet Name=\"BFEPurchaseOrderDTO" +
+                "_ContractAircrafts\" Association=\"UniCloud.Application.PurchaseBC.DTO.BFEPurchase" +
+                "OrderDTO_ContractAircrafts\"><End Role=\"BFEPurchaseOrderDTO\" EntitySet=\"BFEPurcha" +
+                "seOrders\" /><End Role=\"ContractAircrafts\" EntitySet=\"ContractAircrafts\" /></Asso" +
+                "ciationSet></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -11024,8 +11053,9 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         /// <param name="estimateDeliveryDate">EstimateDeliveryDate 的初始值。</param>
         /// <param name="contractAircraftId">ContractAircraftId 的初始值。</param>
         /// <param name="aircraftMaterialId">AircraftMaterialId 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static AircraftLeaseOrderLineDTO CreateAircraftLeaseOrderLineDTO(int ID, decimal unitPrice, int amount, decimal discount, global::System.DateTime estimateDeliveryDate, int contractAircraftId, int aircraftMaterialId)
+        public static AircraftLeaseOrderLineDTO CreateAircraftLeaseOrderLineDTO(int ID, decimal unitPrice, int amount, decimal discount, global::System.DateTime estimateDeliveryDate, int contractAircraftId, int aircraftMaterialId, int status)
         {
             AircraftLeaseOrderLineDTO aircraftLeaseOrderLineDTO = new AircraftLeaseOrderLineDTO();
             aircraftLeaseOrderLineDTO.Id = ID;
@@ -11035,6 +11065,7 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
             aircraftLeaseOrderLineDTO.EstimateDeliveryDate = estimateDeliveryDate;
             aircraftLeaseOrderLineDTO.ContractAircraftId = contractAircraftId;
             aircraftLeaseOrderLineDTO.AircraftMaterialId = aircraftMaterialId;
+            aircraftLeaseOrderLineDTO.Status = status;
             return aircraftLeaseOrderLineDTO;
         }
         /// <summary>
@@ -11213,6 +11244,216 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         private int _AircraftMaterialId;
         partial void OnAircraftMaterialIdChanging(int value);
         partial void OnAircraftMaterialIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 RankNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string RankNumber
+        {
+            get
+            {
+                return this._RankNumber;
+            }
+            set
+            {
+                this.OnRankNumberChanging(value);
+                this._RankNumber = value;
+                this.OnRankNumberChanged();
+                this.OnPropertyChanged("RankNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _RankNumber;
+        partial void OnRankNumberChanging(string value);
+        partial void OnRankNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 CSCNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string CSCNumber
+        {
+            get
+            {
+                return this._CSCNumber;
+            }
+            set
+            {
+                this.OnCSCNumberChanging(value);
+                this._CSCNumber = value;
+                this.OnCSCNumberChanged();
+                this.OnPropertyChanged("CSCNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _CSCNumber;
+        partial void OnCSCNumberChanging(string value);
+        partial void OnCSCNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 SerialNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SerialNumber
+        {
+            get
+            {
+                return this._SerialNumber;
+            }
+            set
+            {
+                this.OnSerialNumberChanging(value);
+                this._SerialNumber = value;
+                this.OnSerialNumberChanged();
+                this.OnPropertyChanged("SerialNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SerialNumber;
+        partial void OnSerialNumberChanging(string value);
+        partial void OnSerialNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 ComplexType UniCloud.Application.PurchaseBC.DTO.ContractContentDTO 的注释。
+    /// </summary>
+    public partial class ContractContentDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 ContractContentDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static ContractContentDTO CreateContractContentDTO(int ID)
+        {
+            ContractContentDTO contractContentDTO = new ContractContentDTO();
+            contractContentDTO.Id = ID;
+            return contractContentDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 ContentTags 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ContentTags
+        {
+            get
+            {
+                return this._ContentTags;
+            }
+            set
+            {
+                this.OnContentTagsChanging(value);
+                this._ContentTags = value;
+                this.OnContentTagsChanged();
+                this.OnPropertyChanged("ContentTags");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ContentTags;
+        partial void OnContentTagsChanging(string value);
+        partial void OnContentTagsChanged();
+        /// <summary>
+        /// 架构中不存在属性 Description 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Description
+        {
+            get
+            {
+                return this._Description;
+            }
+            set
+            {
+                this.OnDescriptionChanging(value);
+                this._Description = value;
+                this.OnDescriptionChanged();
+                this.OnPropertyChanged("Description");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Description;
+        partial void OnDescriptionChanging(string value);
+        partial void OnDescriptionChanged();
+        /// <summary>
+        /// 架构中不存在属性 ContentDoc 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public byte[] ContentDoc
+        {
+            get
+            {
+                if ((this._ContentDoc != null))
+                {
+                    return ((byte[])(this._ContentDoc.Clone()));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                this.OnContentDocChanging(value);
+                this._ContentDoc = value;
+                this.OnContentDocChanged();
+                this.OnPropertyChanged("ContentDoc");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private byte[] _ContentDoc;
+        partial void OnContentDocChanging(byte[] value);
+        partial void OnContentDocChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -11242,13 +11483,15 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         /// <param name="version">Version 的初始值。</param>
         /// <param name="currencyId">CurrencyId 的初始值。</param>
         /// <param name="linkmanId">LinkmanId 的初始值。</param>
+        /// <param name="supplierId">SupplierId 的初始值。</param>
         /// <param name="orderDate">OrderDate 的初始值。</param>
         /// <param name="status">Status 的初始值。</param>
         /// <param name="contractDocGuid">ContractDocGuid 的初始值。</param>
         /// <param name="sourceGuid">SourceGuid 的初始值。</param>
         /// <param name="aircraftLeaseOrderLines">AircraftLeaseOrderLines 的初始值。</param>
+        /// <param name="contractContents">ContractContents 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static AircraftLeaseOrderDTO CreateAircraftLeaseOrderDTO(int ID, int tradeId, int version, int currencyId, int linkmanId, global::System.DateTime orderDate, int status, global::System.Guid contractDocGuid, global::System.Guid sourceGuid, global::System.Collections.ObjectModel.ObservableCollection<AircraftLeaseOrderLineDTO> aircraftLeaseOrderLines)
+        public static AircraftLeaseOrderDTO CreateAircraftLeaseOrderDTO(int ID, int tradeId, int version, int currencyId, int linkmanId, int supplierId, global::System.DateTime orderDate, int status, global::System.Guid contractDocGuid, global::System.Guid sourceGuid, global::System.Collections.ObjectModel.ObservableCollection<AircraftLeaseOrderLineDTO> aircraftLeaseOrderLines, global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO> contractContents)
         {
             AircraftLeaseOrderDTO aircraftLeaseOrderDTO = new AircraftLeaseOrderDTO();
             aircraftLeaseOrderDTO.Id = ID;
@@ -11256,6 +11499,7 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
             aircraftLeaseOrderDTO.Version = version;
             aircraftLeaseOrderDTO.CurrencyId = currencyId;
             aircraftLeaseOrderDTO.LinkmanId = linkmanId;
+            aircraftLeaseOrderDTO.SupplierId = supplierId;
             aircraftLeaseOrderDTO.OrderDate = orderDate;
             aircraftLeaseOrderDTO.Status = status;
             aircraftLeaseOrderDTO.ContractDocGuid = contractDocGuid;
@@ -11265,6 +11509,11 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
                 throw new global::System.ArgumentNullException("aircraftLeaseOrderLines");
             }
             aircraftLeaseOrderDTO.AircraftLeaseOrderLines = aircraftLeaseOrderLines;
+            if ((contractContents == null))
+            {
+                throw new global::System.ArgumentNullException("contractContents");
+            }
+            aircraftLeaseOrderDTO.ContractContents = contractContents;
             return aircraftLeaseOrderDTO;
         }
         /// <summary>
@@ -11421,6 +11670,28 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         private int _LinkmanId;
         partial void OnLinkmanIdChanging(int value);
         partial void OnLinkmanIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int SupplierId
+        {
+            get
+            {
+                return this._SupplierId;
+            }
+            set
+            {
+                this.OnSupplierIdChanging(value);
+                this._SupplierId = value;
+                this.OnSupplierIdChanged();
+                this.OnPropertyChanged("SupplierId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _SupplierId;
+        partial void OnSupplierIdChanging(int value);
+        partial void OnSupplierIdChanged();
         /// <summary>
         /// 架构中不存在属性 OrderDate 的注释。
         /// </summary>
@@ -11597,6 +11868,28 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         private global::System.Collections.ObjectModel.ObservableCollection<AircraftLeaseOrderLineDTO> _AircraftLeaseOrderLines = new global::System.Collections.ObjectModel.ObservableCollection<AircraftLeaseOrderLineDTO>();
         partial void OnAircraftLeaseOrderLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<AircraftLeaseOrderLineDTO> value);
         partial void OnAircraftLeaseOrderLinesChanged();
+        /// <summary>
+        /// 架构中不存在属性 ContractContents 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO> ContractContents
+        {
+            get
+            {
+                return this._ContractContents;
+            }
+            set
+            {
+                this.OnContractContentsChanging(value);
+                this._ContractContents = value;
+                this.OnContractContentsChanged();
+                this.OnPropertyChanged("ContractContents");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO> _ContractContents = new global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO>();
+        partial void OnContractContentsChanging(global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO> value);
+        partial void OnContractContentsChanged();
         /// <summary>
         /// 架构中不存在 RelatedDocs 的注释。
         /// </summary>
@@ -11992,128 +12285,6 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         private int _Status;
         partial void OnStatusChanging(int value);
         partial void OnStatusChanged();
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        protected virtual void OnPropertyChanged(string property)
-        {
-            if ((this.PropertyChanged != null))
-            {
-                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
-            }
-        }
-    }
-    /// <summary>
-    /// 架构中不存在 ComplexType UniCloud.Application.PurchaseBC.DTO.ContractContentDTO 的注释。
-    /// </summary>
-    public partial class ContractContentDTO : global::System.ComponentModel.INotifyPropertyChanged
-    {
-        /// <summary>
-        /// 创建新的 ContractContentDTO 对象。
-        /// </summary>
-        /// <param name="ID">Id 的初始值。</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static ContractContentDTO CreateContractContentDTO(int ID)
-        {
-            ContractContentDTO contractContentDTO = new ContractContentDTO();
-            contractContentDTO.Id = ID;
-            return contractContentDTO;
-        }
-        /// <summary>
-        /// 架构中不存在属性 Id 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int Id
-        {
-            get
-            {
-                return this._Id;
-            }
-            set
-            {
-                this.OnIdChanging(value);
-                this._Id = value;
-                this.OnIdChanged();
-                this.OnPropertyChanged("Id");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _Id;
-        partial void OnIdChanging(int value);
-        partial void OnIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 ContentTags 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string ContentTags
-        {
-            get
-            {
-                return this._ContentTags;
-            }
-            set
-            {
-                this.OnContentTagsChanging(value);
-                this._ContentTags = value;
-                this.OnContentTagsChanged();
-                this.OnPropertyChanged("ContentTags");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _ContentTags;
-        partial void OnContentTagsChanging(string value);
-        partial void OnContentTagsChanged();
-        /// <summary>
-        /// 架构中不存在属性 Description 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string Description
-        {
-            get
-            {
-                return this._Description;
-            }
-            set
-            {
-                this.OnDescriptionChanging(value);
-                this._Description = value;
-                this.OnDescriptionChanged();
-                this.OnPropertyChanged("Description");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _Description;
-        partial void OnDescriptionChanging(string value);
-        partial void OnDescriptionChanged();
-        /// <summary>
-        /// 架构中不存在属性 ContentDoc 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public byte[] ContentDoc
-        {
-            get
-            {
-                if ((this._ContentDoc != null))
-                {
-                    return ((byte[])(this._ContentDoc.Clone()));
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            set
-            {
-                this.OnContentDocChanging(value);
-                this._ContentDoc = value;
-                this.OnContentDocChanged();
-                this.OnPropertyChanged("ContentDoc");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private byte[] _ContentDoc;
-        partial void OnContentDocChanging(byte[] value);
-        partial void OnContentDocChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -12592,9 +12763,11 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         /// <param name="amount">Amount 的初始值。</param>
         /// <param name="discount">Discount 的初始值。</param>
         /// <param name="estimateDeliveryDate">EstimateDeliveryDate 的初始值。</param>
+        /// <param name="contractEngineId">ContractEngineId 的初始值。</param>
         /// <param name="engineMaterialId">EngineMaterialId 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static EngineLeaseOrderLineDTO CreateEngineLeaseOrderLineDTO(int ID, decimal unitPrice, int amount, decimal discount, global::System.DateTime estimateDeliveryDate, int engineMaterialId)
+        public static EngineLeaseOrderLineDTO CreateEngineLeaseOrderLineDTO(int ID, decimal unitPrice, int amount, decimal discount, global::System.DateTime estimateDeliveryDate, int contractEngineId, int engineMaterialId, int status)
         {
             EngineLeaseOrderLineDTO engineLeaseOrderLineDTO = new EngineLeaseOrderLineDTO();
             engineLeaseOrderLineDTO.Id = ID;
@@ -12602,7 +12775,9 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
             engineLeaseOrderLineDTO.Amount = amount;
             engineLeaseOrderLineDTO.Discount = discount;
             engineLeaseOrderLineDTO.EstimateDeliveryDate = estimateDeliveryDate;
+            engineLeaseOrderLineDTO.ContractEngineId = contractEngineId;
             engineLeaseOrderLineDTO.EngineMaterialId = engineMaterialId;
+            engineLeaseOrderLineDTO.Status = status;
             return engineLeaseOrderLineDTO;
         }
         /// <summary>
@@ -12738,6 +12913,28 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         partial void OnNoteChanging(string value);
         partial void OnNoteChanged();
         /// <summary>
+        /// 架构中不存在属性 ContractEngineId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int ContractEngineId
+        {
+            get
+            {
+                return this._ContractEngineId;
+            }
+            set
+            {
+                this.OnContractEngineIdChanging(value);
+                this._ContractEngineId = value;
+                this.OnContractEngineIdChanged();
+                this.OnPropertyChanged("ContractEngineId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _ContractEngineId;
+        partial void OnContractEngineIdChanging(int value);
+        partial void OnContractEngineIdChanged();
+        /// <summary>
         /// 架构中不存在属性 EngineMaterialId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -12759,6 +12956,72 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         private int _EngineMaterialId;
         partial void OnEngineMaterialIdChanging(int value);
         partial void OnEngineMaterialIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 RankNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string RankNumber
+        {
+            get
+            {
+                return this._RankNumber;
+            }
+            set
+            {
+                this.OnRankNumberChanging(value);
+                this._RankNumber = value;
+                this.OnRankNumberChanged();
+                this.OnPropertyChanged("RankNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _RankNumber;
+        partial void OnRankNumberChanging(string value);
+        partial void OnRankNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 SerialNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SerialNumber
+        {
+            get
+            {
+                return this._SerialNumber;
+            }
+            set
+            {
+                this.OnSerialNumberChanging(value);
+                this._SerialNumber = value;
+                this.OnSerialNumberChanged();
+                this.OnPropertyChanged("SerialNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SerialNumber;
+        partial void OnSerialNumberChanging(string value);
+        partial void OnSerialNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -12788,13 +13051,15 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         /// <param name="version">Version 的初始值。</param>
         /// <param name="currencyId">CurrencyId 的初始值。</param>
         /// <param name="linkmanId">LinkmanId 的初始值。</param>
+        /// <param name="supplierId">SupplierId 的初始值。</param>
         /// <param name="orderDate">OrderDate 的初始值。</param>
         /// <param name="status">Status 的初始值。</param>
         /// <param name="contractDocGuid">ContractDocGuid 的初始值。</param>
         /// <param name="sourceGuid">SourceGuid 的初始值。</param>
         /// <param name="engineLeaseOrderLines">EngineLeaseOrderLines 的初始值。</param>
+        /// <param name="contractContents">ContractContents 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static EngineLeaseOrderDTO CreateEngineLeaseOrderDTO(int ID, int tradeId, int version, int currencyId, int linkmanId, global::System.DateTime orderDate, int status, global::System.Guid contractDocGuid, global::System.Guid sourceGuid, global::System.Collections.ObjectModel.ObservableCollection<EngineLeaseOrderLineDTO> engineLeaseOrderLines)
+        public static EngineLeaseOrderDTO CreateEngineLeaseOrderDTO(int ID, int tradeId, int version, int currencyId, int linkmanId, int supplierId, global::System.DateTime orderDate, int status, global::System.Guid contractDocGuid, global::System.Guid sourceGuid, global::System.Collections.ObjectModel.ObservableCollection<EngineLeaseOrderLineDTO> engineLeaseOrderLines, global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO> contractContents)
         {
             EngineLeaseOrderDTO engineLeaseOrderDTO = new EngineLeaseOrderDTO();
             engineLeaseOrderDTO.Id = ID;
@@ -12802,6 +13067,7 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
             engineLeaseOrderDTO.Version = version;
             engineLeaseOrderDTO.CurrencyId = currencyId;
             engineLeaseOrderDTO.LinkmanId = linkmanId;
+            engineLeaseOrderDTO.SupplierId = supplierId;
             engineLeaseOrderDTO.OrderDate = orderDate;
             engineLeaseOrderDTO.Status = status;
             engineLeaseOrderDTO.ContractDocGuid = contractDocGuid;
@@ -12811,6 +13077,11 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
                 throw new global::System.ArgumentNullException("engineLeaseOrderLines");
             }
             engineLeaseOrderDTO.EngineLeaseOrderLines = engineLeaseOrderLines;
+            if ((contractContents == null))
+            {
+                throw new global::System.ArgumentNullException("contractContents");
+            }
+            engineLeaseOrderDTO.ContractContents = contractContents;
             return engineLeaseOrderDTO;
         }
         /// <summary>
@@ -12967,6 +13238,28 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         private int _LinkmanId;
         partial void OnLinkmanIdChanging(int value);
         partial void OnLinkmanIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int SupplierId
+        {
+            get
+            {
+                return this._SupplierId;
+            }
+            set
+            {
+                this.OnSupplierIdChanging(value);
+                this._SupplierId = value;
+                this.OnSupplierIdChanged();
+                this.OnPropertyChanged("SupplierId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _SupplierId;
+        partial void OnSupplierIdChanging(int value);
+        partial void OnSupplierIdChanged();
         /// <summary>
         /// 架构中不存在属性 OrderDate 的注释。
         /// </summary>
@@ -13144,6 +13437,28 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         partial void OnEngineLeaseOrderLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<EngineLeaseOrderLineDTO> value);
         partial void OnEngineLeaseOrderLinesChanged();
         /// <summary>
+        /// 架构中不存在属性 ContractContents 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO> ContractContents
+        {
+            get
+            {
+                return this._ContractContents;
+            }
+            set
+            {
+                this.OnContractContentsChanging(value);
+                this._ContractContents = value;
+                this.OnContractContentsChanged();
+                this.OnPropertyChanged("ContractContents");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO> _ContractContents = new global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO>();
+        partial void OnContractContentsChanging(global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO> value);
+        partial void OnContractContentsChanged();
+        /// <summary>
         /// 架构中不存在 RelatedDocs 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -13185,9 +13500,11 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         /// <param name="amount">Amount 的初始值。</param>
         /// <param name="discount">Discount 的初始值。</param>
         /// <param name="estimateDeliveryDate">EstimateDeliveryDate 的初始值。</param>
+        /// <param name="contractEngineId">ContractEngineId 的初始值。</param>
         /// <param name="engineMaterialId">EngineMaterialId 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static EnginePurchaseOrderLineDTO CreateEnginePurchaseOrderLineDTO(int ID, decimal unitPrice, int amount, decimal discount, global::System.DateTime estimateDeliveryDate, int engineMaterialId)
+        public static EnginePurchaseOrderLineDTO CreateEnginePurchaseOrderLineDTO(int ID, decimal unitPrice, int amount, decimal discount, global::System.DateTime estimateDeliveryDate, int contractEngineId, int engineMaterialId, int status)
         {
             EnginePurchaseOrderLineDTO enginePurchaseOrderLineDTO = new EnginePurchaseOrderLineDTO();
             enginePurchaseOrderLineDTO.Id = ID;
@@ -13195,7 +13512,9 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
             enginePurchaseOrderLineDTO.Amount = amount;
             enginePurchaseOrderLineDTO.Discount = discount;
             enginePurchaseOrderLineDTO.EstimateDeliveryDate = estimateDeliveryDate;
+            enginePurchaseOrderLineDTO.ContractEngineId = contractEngineId;
             enginePurchaseOrderLineDTO.EngineMaterialId = engineMaterialId;
+            enginePurchaseOrderLineDTO.Status = status;
             return enginePurchaseOrderLineDTO;
         }
         /// <summary>
@@ -13331,6 +13650,28 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         partial void OnNoteChanging(string value);
         partial void OnNoteChanged();
         /// <summary>
+        /// 架构中不存在属性 ContractEngineId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int ContractEngineId
+        {
+            get
+            {
+                return this._ContractEngineId;
+            }
+            set
+            {
+                this.OnContractEngineIdChanging(value);
+                this._ContractEngineId = value;
+                this.OnContractEngineIdChanged();
+                this.OnPropertyChanged("ContractEngineId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _ContractEngineId;
+        partial void OnContractEngineIdChanging(int value);
+        partial void OnContractEngineIdChanged();
+        /// <summary>
         /// 架构中不存在属性 EngineMaterialId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -13352,6 +13693,72 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         private int _EngineMaterialId;
         partial void OnEngineMaterialIdChanging(int value);
         partial void OnEngineMaterialIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 RankNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string RankNumber
+        {
+            get
+            {
+                return this._RankNumber;
+            }
+            set
+            {
+                this.OnRankNumberChanging(value);
+                this._RankNumber = value;
+                this.OnRankNumberChanged();
+                this.OnPropertyChanged("RankNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _RankNumber;
+        partial void OnRankNumberChanging(string value);
+        partial void OnRankNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 SerialNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SerialNumber
+        {
+            get
+            {
+                return this._SerialNumber;
+            }
+            set
+            {
+                this.OnSerialNumberChanging(value);
+                this._SerialNumber = value;
+                this.OnSerialNumberChanged();
+                this.OnPropertyChanged("SerialNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SerialNumber;
+        partial void OnSerialNumberChanging(string value);
+        partial void OnSerialNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -13381,13 +13788,15 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         /// <param name="version">Version 的初始值。</param>
         /// <param name="currencyId">CurrencyId 的初始值。</param>
         /// <param name="linkmanId">LinkmanId 的初始值。</param>
+        /// <param name="supplierId">SupplierId 的初始值。</param>
         /// <param name="orderDate">OrderDate 的初始值。</param>
         /// <param name="status">Status 的初始值。</param>
         /// <param name="contractDocGuid">ContractDocGuid 的初始值。</param>
         /// <param name="sourceGuid">SourceGuid 的初始值。</param>
         /// <param name="enginePurchaseOrderLines">EnginePurchaseOrderLines 的初始值。</param>
+        /// <param name="contractContents">ContractContents 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static EnginePurchaseOrderDTO CreateEnginePurchaseOrderDTO(int ID, int tradeId, int version, int currencyId, int linkmanId, global::System.DateTime orderDate, int status, global::System.Guid contractDocGuid, global::System.Guid sourceGuid, global::System.Collections.ObjectModel.ObservableCollection<EnginePurchaseOrderLineDTO> enginePurchaseOrderLines)
+        public static EnginePurchaseOrderDTO CreateEnginePurchaseOrderDTO(int ID, int tradeId, int version, int currencyId, int linkmanId, int supplierId, global::System.DateTime orderDate, int status, global::System.Guid contractDocGuid, global::System.Guid sourceGuid, global::System.Collections.ObjectModel.ObservableCollection<EnginePurchaseOrderLineDTO> enginePurchaseOrderLines, global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO> contractContents)
         {
             EnginePurchaseOrderDTO enginePurchaseOrderDTO = new EnginePurchaseOrderDTO();
             enginePurchaseOrderDTO.Id = ID;
@@ -13395,6 +13804,7 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
             enginePurchaseOrderDTO.Version = version;
             enginePurchaseOrderDTO.CurrencyId = currencyId;
             enginePurchaseOrderDTO.LinkmanId = linkmanId;
+            enginePurchaseOrderDTO.SupplierId = supplierId;
             enginePurchaseOrderDTO.OrderDate = orderDate;
             enginePurchaseOrderDTO.Status = status;
             enginePurchaseOrderDTO.ContractDocGuid = contractDocGuid;
@@ -13404,6 +13814,11 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
                 throw new global::System.ArgumentNullException("enginePurchaseOrderLines");
             }
             enginePurchaseOrderDTO.EnginePurchaseOrderLines = enginePurchaseOrderLines;
+            if ((contractContents == null))
+            {
+                throw new global::System.ArgumentNullException("contractContents");
+            }
+            enginePurchaseOrderDTO.ContractContents = contractContents;
             return enginePurchaseOrderDTO;
         }
         /// <summary>
@@ -13560,6 +13975,28 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         private int _LinkmanId;
         partial void OnLinkmanIdChanging(int value);
         partial void OnLinkmanIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int SupplierId
+        {
+            get
+            {
+                return this._SupplierId;
+            }
+            set
+            {
+                this.OnSupplierIdChanging(value);
+                this._SupplierId = value;
+                this.OnSupplierIdChanged();
+                this.OnPropertyChanged("SupplierId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _SupplierId;
+        partial void OnSupplierIdChanging(int value);
+        partial void OnSupplierIdChanged();
         /// <summary>
         /// 架构中不存在属性 OrderDate 的注释。
         /// </summary>
@@ -13737,6 +14174,28 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         partial void OnEnginePurchaseOrderLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<EnginePurchaseOrderLineDTO> value);
         partial void OnEnginePurchaseOrderLinesChanged();
         /// <summary>
+        /// 架构中不存在属性 ContractContents 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO> ContractContents
+        {
+            get
+            {
+                return this._ContractContents;
+            }
+            set
+            {
+                this.OnContractContentsChanging(value);
+                this._ContractContents = value;
+                this.OnContractContentsChanged();
+                this.OnPropertyChanged("ContractContents");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO> _ContractContents = new global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO>();
+        partial void OnContractContentsChanging(global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO> value);
+        partial void OnContractContentsChanged();
+        /// <summary>
         /// 架构中不存在 RelatedDocs 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -13779,8 +14238,9 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         /// <param name="discount">Discount 的初始值。</param>
         /// <param name="estimateDeliveryDate">EstimateDeliveryDate 的初始值。</param>
         /// <param name="bFEMaterialId">BFEMaterialId 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static BFEPurchaseOrderLineDTO CreateBFEPurchaseOrderLineDTO(int ID, decimal unitPrice, int amount, decimal discount, global::System.DateTime estimateDeliveryDate, int bFEMaterialId)
+        public static BFEPurchaseOrderLineDTO CreateBFEPurchaseOrderLineDTO(int ID, decimal unitPrice, int amount, decimal discount, global::System.DateTime estimateDeliveryDate, int bFEMaterialId, int status)
         {
             BFEPurchaseOrderLineDTO bFEPurchaseOrderLineDTO = new BFEPurchaseOrderLineDTO();
             bFEPurchaseOrderLineDTO.Id = ID;
@@ -13789,6 +14249,7 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
             bFEPurchaseOrderLineDTO.Discount = discount;
             bFEPurchaseOrderLineDTO.EstimateDeliveryDate = estimateDeliveryDate;
             bFEPurchaseOrderLineDTO.BFEMaterialId = bFEMaterialId;
+            bFEPurchaseOrderLineDTO.Status = status;
             return bFEPurchaseOrderLineDTO;
         }
         /// <summary>
@@ -13945,6 +14406,28 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         private int _BFEMaterialId;
         partial void OnBFEMaterialIdChanging(int value);
         partial void OnBFEMaterialIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -13974,13 +14457,15 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         /// <param name="version">Version 的初始值。</param>
         /// <param name="currencyId">CurrencyId 的初始值。</param>
         /// <param name="linkmanId">LinkmanId 的初始值。</param>
+        /// <param name="supplierId">SupplierId 的初始值。</param>
         /// <param name="orderDate">OrderDate 的初始值。</param>
         /// <param name="status">Status 的初始值。</param>
         /// <param name="contractDocGuid">ContractDocGuid 的初始值。</param>
         /// <param name="sourceGuid">SourceGuid 的初始值。</param>
         /// <param name="bFEPurchaseOrderLines">BFEPurchaseOrderLines 的初始值。</param>
+        /// <param name="contractContents">ContractContents 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static BFEPurchaseOrderDTO CreateBFEPurchaseOrderDTO(int ID, int tradeId, int version, int currencyId, int linkmanId, global::System.DateTime orderDate, int status, global::System.Guid contractDocGuid, global::System.Guid sourceGuid, global::System.Collections.ObjectModel.ObservableCollection<BFEPurchaseOrderLineDTO> bFEPurchaseOrderLines)
+        public static BFEPurchaseOrderDTO CreateBFEPurchaseOrderDTO(int ID, int tradeId, int version, int currencyId, int linkmanId, int supplierId, global::System.DateTime orderDate, int status, global::System.Guid contractDocGuid, global::System.Guid sourceGuid, global::System.Collections.ObjectModel.ObservableCollection<BFEPurchaseOrderLineDTO> bFEPurchaseOrderLines, global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO> contractContents)
         {
             BFEPurchaseOrderDTO bFEPurchaseOrderDTO = new BFEPurchaseOrderDTO();
             bFEPurchaseOrderDTO.Id = ID;
@@ -13988,6 +14473,7 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
             bFEPurchaseOrderDTO.Version = version;
             bFEPurchaseOrderDTO.CurrencyId = currencyId;
             bFEPurchaseOrderDTO.LinkmanId = linkmanId;
+            bFEPurchaseOrderDTO.SupplierId = supplierId;
             bFEPurchaseOrderDTO.OrderDate = orderDate;
             bFEPurchaseOrderDTO.Status = status;
             bFEPurchaseOrderDTO.ContractDocGuid = contractDocGuid;
@@ -13997,6 +14483,11 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
                 throw new global::System.ArgumentNullException("bFEPurchaseOrderLines");
             }
             bFEPurchaseOrderDTO.BFEPurchaseOrderLines = bFEPurchaseOrderLines;
+            if ((contractContents == null))
+            {
+                throw new global::System.ArgumentNullException("contractContents");
+            }
+            bFEPurchaseOrderDTO.ContractContents = contractContents;
             return bFEPurchaseOrderDTO;
         }
         /// <summary>
@@ -14153,6 +14644,50 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         private int _LinkmanId;
         partial void OnLinkmanIdChanging(int value);
         partial void OnLinkmanIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int SupplierId
+        {
+            get
+            {
+                return this._SupplierId;
+            }
+            set
+            {
+                this.OnSupplierIdChanging(value);
+                this._SupplierId = value;
+                this.OnSupplierIdChanged();
+                this.OnPropertyChanged("SupplierId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _SupplierId;
+        partial void OnSupplierIdChanging(int value);
+        partial void OnSupplierIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 ForwarderId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<int> ForwarderId
+        {
+            get
+            {
+                return this._ForwarderId;
+            }
+            set
+            {
+                this.OnForwarderIdChanging(value);
+                this._ForwarderId = value;
+                this.OnForwarderIdChanged();
+                this.OnPropertyChanged("ForwarderId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<int> _ForwarderId;
+        partial void OnForwarderIdChanging(global::System.Nullable<int> value);
+        partial void OnForwarderIdChanged();
         /// <summary>
         /// 架构中不存在属性 OrderDate 的注释。
         /// </summary>
@@ -14330,6 +14865,28 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         partial void OnBFEPurchaseOrderLinesChanging(global::System.Collections.ObjectModel.ObservableCollection<BFEPurchaseOrderLineDTO> value);
         partial void OnBFEPurchaseOrderLinesChanged();
         /// <summary>
+        /// 架构中不存在属性 ContractContents 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO> ContractContents
+        {
+            get
+            {
+                return this._ContractContents;
+            }
+            set
+            {
+                this.OnContractContentsChanging(value);
+                this._ContractContents = value;
+                this.OnContractContentsChanged();
+                this.OnPropertyChanged("ContractContents");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO> _ContractContents = new global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO>();
+        partial void OnContractContentsChanging(global::System.Collections.ObjectModel.ObservableCollection<ContractContentDTO> value);
+        partial void OnContractContentsChanged();
+        /// <summary>
         /// 架构中不存在 RelatedDocs 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -14347,6 +14904,24 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceCollection<RelatedDocDTO> _RelatedDocs = new global::System.Data.Services.Client.DataServiceCollection<RelatedDocDTO>(null, global::System.Data.Services.Client.TrackingMode.None);
+        /// <summary>
+        /// 架构中不存在 ContractAircrafts 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceCollection<ContractAircraftDTO> ContractAircrafts
+        {
+            get
+            {
+                return this._ContractAircrafts;
+            }
+            set
+            {
+                this._ContractAircrafts = value;
+                this.OnPropertyChanged("ContractAircrafts");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceCollection<ContractAircraftDTO> _ContractAircrafts = new global::System.Data.Services.Client.DataServiceCollection<ContractAircraftDTO>(null, global::System.Data.Services.Client.TrackingMode.None);
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

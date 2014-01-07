@@ -31,12 +31,9 @@ namespace UniCloud.Application.PurchaseBC.DTO
     [DataServiceKey("Id")]
     public class EngineLeaseOrderDTO
     {
-        #region 私有字段
-
-        private HashSet<EngineLeaseOrderLineDTO> _lines;
-        private HashSet<RelatedDocDTO> _relatedDocs;
-
-        #endregion
+        private List<ContractContentDTO> _contractContents;
+        private List<EngineLeaseOrderLineDTO> _orderLines;
+        private List<RelatedDocDTO> _relatedDocs;
 
         /// <summary>
         ///     订单ID
@@ -72,6 +69,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     联系人ID
         /// </summary>
         public int LinkmanId { get; set; }
+
+        /// <summary>
+        ///     供应商ID
+        /// </summary>
+        public int SupplierId { get; set; }
 
         /// <summary>
         ///     生效日期
@@ -111,19 +113,28 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     租赁发动机订单行集合
         /// </summary>
-        public virtual ICollection<EngineLeaseOrderLineDTO> EngineLeaseOrderLines
+        public virtual List<EngineLeaseOrderLineDTO> EngineLeaseOrderLines
         {
-            get { return _lines ?? (_lines = new HashSet<EngineLeaseOrderLineDTO>()); }
-            set { _lines = new HashSet<EngineLeaseOrderLineDTO>(value); }
+            get { return _orderLines ?? (_orderLines = new List<EngineLeaseOrderLineDTO>()); }
+            set { _orderLines = value; }
+        }
+
+        /// <summary>
+        ///     租赁发动机合同内容集合
+        /// </summary>
+        public virtual List<ContractContentDTO> ContractContents
+        {
+            get { return _contractContents ?? (_contractContents = new List<ContractContentDTO>()); }
+            set { _contractContents = value; }
         }
 
         /// <summary>
         ///     关联文档集合
         /// </summary>
-        public virtual ICollection<RelatedDocDTO> RelatedDocs
+        public virtual List<RelatedDocDTO> RelatedDocs
         {
-            get { return _relatedDocs ?? (_relatedDocs = new HashSet<RelatedDocDTO>()); }
-            set { _relatedDocs = new HashSet<RelatedDocDTO>(value); }
+            get { return _relatedDocs ?? (_relatedDocs = new List<RelatedDocDTO>()); }
+            set { _relatedDocs = value; }
         }
     }
 }

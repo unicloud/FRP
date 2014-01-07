@@ -204,6 +204,15 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg
         }
 
         /// <summary>
+        ///     设置RANK号
+        /// </summary>
+        /// <param name="rankNumber">RANK号</param>
+        public void SetRankNumber(string rankNumber)
+        {
+            RankNumber = rankNumber;
+        }
+
+        /// <summary>
         ///     设置序列号
         /// </summary>
         /// <param name="serialNumber">序列号</param>
