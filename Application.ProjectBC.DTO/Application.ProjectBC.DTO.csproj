@@ -64,12 +64,6 @@
     <Compile Include="TaskStandardDTO.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
-      <Project>{e48e84de-5a91-4d16-84e5-cffc4c7e7657}</Project>
-      <Name>Domain.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
