@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d"
              d:DesignHeight="300"
              d:DesignWidth="400"
@@ -76,17 +78,243 @@
                              Color="#FFCCCCCC" />
             <SolidColorBrush x:Key="TargetBrush"
                              Color="#FF1B9DDE" />
-            <Style x:Key="TextBlockLegendStyle"
-                   TargetType="TextBlock">
-                <Setter Property="FontFamily"
-                        Value="Segoe UI" />
-                <Setter Property="FontSize"
-                        Value="12" />
-                <Setter Property="Foreground"
-                        Value="#FF767676" />
-                <Setter Property="Margin"
-                        Value="4,2,4,2" />
+            <DataTemplate x:Key="EventTemplate">
+                <StackPanel Orientation="Vertical"
+                            Width="281"
+                            HorizontalAlignment="Left">
+                    <TextBlock x:Name="EventDate"
+                               TextWrapping="Wrap"
+                               Foreground="#FF000000"
+                               FontWeight="Bold"
+                               FontSize="11"
+                               Text="{Binding FormatedDate}" />
+                    <TextBlock x:Name="EventCompanyBranch"
+                               TextWrapping="Wrap"
+                               Foreground="#FF686868"
+                               FontSize="11"
+                               Text="{Binding Company}" />
+                    <TextBlock x:Name="EventTitle"
+                               TextWrapping="Wrap"
+                               Margin="0,4"
+                               FontSize="11"
+                               Text="{Binding Title}" />
+                    <TextBlock x:Name="EventDetails"
+                               TextWrapping="Wrap"
+                               FontSize="11"
+                               Text="{Binding Description}" />
+                </StackPanel>
+            </DataTemplate>
+            <Style x:Key="ListBoxStyle"
+                   TargetType="ListBox">
+                <Setter Property="ItemTemplate"
+                        Value="{StaticResource EventTemplate}" />
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Padding"
+                                    Value="10 3" />
+                            <Setter Property="Margin"
+                                    Value="3 3 3 1" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border Background="#FFEBEBEB">
+                                            <ContentPresenter Margin="{TemplateBinding Padding}" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBox">
+                            <ScrollViewer>
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
+            <uc:EventsCollection x:Key="EventsList">
+                <uc:Event Day="2"
+                          Title="The Future Of Web Development"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Tom Black; Start Time - 11.15 AM" />
+                <uc:Event Day="2"
+                          Title="Blend For Silverlight Developers"
+                          Company="Telerik Inc - Texas, USA"
+                          Description="Speaker: Tom Black; Start Time - 4.00 PM" />
+                <uc:Event Day="2"
+                          Title="Integrating WPF and WCF"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Tom Wildermuth; Start Time - 1.00 PM" />
+
+                <uc:Event Day="3"
+                          Title="What's new in WCF 4"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Grace Becerra; Start Time - 10.00 AM" />
+                <uc:Event Day="3"
+                          Title="The Future Of Web Development"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Tom Black; Start Time - 11.15 AM" />
+                <uc:Event Day="3"
+                          Title="Blend For Silverlight Developers"
+                          Company="Telerik Inc - Texas, USA"
+                          Description="Speaker: Tom Black; Start Time - 4.00 PM" />
+
+                <uc:Event Day="4"
+                          Title="What's new in WCF 4"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Grace Becerra; Start Time - 10.00 AM" />
+                <uc:Event Day="4"
+                          Title="Multimedia in Silverlight 4"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Jeremy Boatner; Start Time - 12.00 PM" />
+
+                <uc:Event Day="5"
+                          Title="The Future Of Web Development"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Tom Black; Start Time - 11.15 AM" />
+                <uc:Event Day="5"
+                          Title="Multimedia in Silverlight 4"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Jeremy Boatner; Start Time - 2.00 PM" />
+                <uc:Event Day="5"
+                          Title="Blend For Silverlight Developers"
+                          Company="Telerik Inc - Texas, USA"
+                          Description="Speaker: Tom Black; Start Time - 4.00 PM" />
+
+                <uc:Event Day="8"
+                          Title="Integrating WPF and WCF"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Tom Wildermuth; Start Time - 9:45 AM" />
+                <uc:Event Day="8"
+                          Title="Blend For Silverlight Developers"
+                          Company="Telerik Inc - Texas, USA"
+                          Description="Speaker: Tom Black; Start Time - 2.00 PM" />
+                <uc:Event Day="8"
+                          Title="Multimedia in Silverlight 4"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Jeremy Boatner; Start Time - 4.00 PM" />
+
+                <uc:Event Day="11"
+                          Title="The Future Of Web Development"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Tom Black; Start Time - 11.15 AM" />
+                <uc:Event Day="11"
+                          Title="Blend For Silverlight Developers"
+                          Company="Telerik Inc - Texas, USA"
+                          Description="Speaker: Tom Black; Start Time - 4.00 PM" />
+
+                <uc:Event Day="14"
+                          Title="Integrating WPF and WCF"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Tom Wildermuth; Start Time - 11.45 PM" />
+
+                <uc:Event Day="14"
+                          Title="The Future Of Web Development"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Tom Black; Start Time - 1.15 PM" />
+                <uc:Event Day="14"
+                          Title="Multimedia in Silverlight 4"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Jeremy Boatner; Start Time - 3.00 PM" />
+
+
+                <uc:Event Day="15"
+                          Title=" Windows Phone 7 Development"
+                          Company="Telerik Inc - Texas, USA"
+                          Description="Speaker: Brenda Smith; Start Time - 12:00 AM" />
+                <uc:Event Day="15"
+                          Title="Integrating WPF and WCF"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Tom Wildermuth; Start Time - 1.00 PM" />
+
+                <uc:Event Day="17"
+                          Title="The Future Of Web Development"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Tom Black; Start Time - 11.15 AM" />
+                <uc:Event Day="17"
+                          Title="Blend For Silverlight Developers"
+                          Company="Telerik Inc - Texas, USA"
+                          Description="Speaker: Tom Black; Start Time - 1:30 PM" />
+                <uc:Event Day="17"
+                          Title="What's new in WCF 4"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Grace Becerra; Start Time - 3.00 PM" />
+
+                <uc:Event Day="24"
+                          Title="Integrating WPF and WCF"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Tom Wildermuth; Start Time - 12.00 AM" />
+                <uc:Event Day="24"
+                          Title="The Future Of Web Development"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Tom Black; Start Time - 2.15 PM" />
+                <uc:Event Day="24"
+                          Title=" Windows Phone 7 Development"
+                          Company="Telerik Inc - Texas, USA"
+                          Description="Speaker: Brenda Smith; Start Time - 5:00 PM" />
+
+                <uc:Event Day="25"
+                          Title="Blend For Silverlight Developers"
+                          Company="Telerik Inc - Texas, USA"
+                          Description="Speaker: Tom Black; Start Time - 10.00 AM" />
+                <uc:Event Day="25"
+                          Title="Integrating WPF and WCF"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Tom Wildermuth; Start Time - 1.00 PM" />
+                <uc:Event Day="25"
+                          Title=" Windows Phone 7 Development"
+                          Company="Telerik Inc - Texas, USA"
+                          Description="Speaker: Brenda Smith; Start Time - 3:00 PM" />
+
+                <uc:Event Day="27"
+                          Title="What's new in WCF 4"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Grace Becerra; Start Time - 10.00 AM" />
+                <uc:Event Day="27"
+                          Title="Blend For Silverlight Developers"
+                          Company="Telerik Inc - Texas, USA"
+                          Description="Speaker: Tom Black; Start Time - 2.00 PM" />
+
+                <uc:Event Day="28"
+                          Title="Integrating WPF and WCF"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Tom Wildermuth; Start Time - 1.00 PM"/>
+                <uc:Event Day="28"
+                          Title="The Future Of Web Development"
+                          Company="Telerik Inc - Boston, USA"
+                          Description="Speaker: Tom Black; Start Time - 2:00 PM"/>
+                <uc:Event Day="28"
+                          Title=" Windows Phone 7 Development"
+                          Company="Telerik Inc - Texas, USA"
+                          Description="Speaker: Brenda Smith; Start Time - 4:00 PM" />
+
+            </uc:EventsCollection>
+
+            <CollectionViewSource x:Key="EventsView"
+                                  x:Name="EventsList"
+                                  Filter="EventsListFilter"
+                                  Source="{Binding Calendars,Mode=TwoWay}" />
+
+            <uc:EventDayTemplateSelector x:Key="EventDayTemplateSelector"
+                                         EventsCollection="{StaticResource EventsList}">
+                <uc:EventDayTemplateSelector.DefaultTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Text}" />
+                    </DataTemplate>
+                </uc:EventDayTemplateSelector.DefaultTemplate>
+                <uc:EventDayTemplateSelector.EventTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Text}"
+                                   Foreground="Black"
+                                   FontWeight="Bold" />
+                    </DataTemplate>
+                </uc:EventDayTemplateSelector.EventTemplate>
+            </uc:EventDayTemplateSelector>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -105,10 +333,68 @@
                                      RestoredHeight="62"
                                      MinimizedHeight="164"
                                      RestoredWidth="18">
-                <TextBlock Foreground="#333333"
-                           FontSize="12"
-                           FontFamily="Segoe UI"
-                           Text="审核发票等" />
+                <Grid Name="TypePieGrid"
+                      Cursor="Hand"
+                      Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <telerik:RadPieChart Name="TypeRadPieChart"
+                                         Palette="Metro"
+                                         Grid.Column="0"
+                                         EmptyContent="机型分布">
+                        <telerik:RadPieChart.Behaviors>
+                            <telerik:ChartTooltipBehavior Placement="MousePoint"
+                                                          PlacementTarget="{Binding  ElementName=TypeRadPieChart}"
+                                                          HorizontalOffset="-8"
+                                                          VerticalOffset="-46" />
+                        </telerik:RadPieChart.Behaviors>
+                        <telerik:RadPieChart.TooltipTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
+                                          Stretch="Fill"
+                                          Fill="White"
+                                          Stroke="Gray"
+                                          StrokeThickness="1" />
+                                    <StackPanel Margin="5,3,5,10">
+                                        <TextBlock Text="{Binding Path=DataItem.AircraftRegional, StringFormat='机型名称: {0}'}"
+                                                   Foreground="{Binding Path=DataItem.Color}"
+                                                   FontFamily="Segoe UI"
+                                                   FontSize="11" />
+                                        <TextBlock Text="{Binding Path=DataItem.AirNum, StringFormat='飞机数: {0}架'}"
+                                                   Foreground="{Binding Path=DataItem.Color}"
+                                                   FontFamily="Segoe UI"
+                                                   FontSize="11" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </telerik:RadPieChart.TooltipTemplate>
+                        <telerik:PieSeries ValueBinding="AirNum"
+                                           ItemsSource="{Binding FleetAircraftTypeCollection}"
+                                           ShowLabels="False"
+                                           RadiusFactor="0.7">
+                            <telerik:PieSeries.LabelDefinitions>
+                                <telerik:ChartSeriesLabelDefinition Margin="-5,0,0,0" />
+                            </telerik:PieSeries.LabelDefinitions>
+                            <telerik:PieSeries.LegendSettings>
+                                <telerik:DataPointLegendSettings TitleBinding="AircraftRegional" />
+                            </telerik:PieSeries.LegendSettings>
+                            <telerik:PieSeries.AngleRange>
+                                <telerik:AngleRange StartAngle="270"
+                                                    SweepAngle="360" />
+                            </telerik:PieSeries.AngleRange>
+                        </telerik:PieSeries>
+                    </telerik:RadPieChart>
+                    <telerik:RadLegend Name="TypePieLegend"
+                                       Margin="0,0,10,0"
+                                       Items="{Binding LegendItems, ElementName=TypeRadPieChart}"
+                                       Foreground="Black"
+                                       Grid.Column="1"
+                                       HoverMode="FadeOtherItems">
+                    </telerik:RadLegend>
+                </Grid>
             </telerik:RadTileViewItem>
 
             <telerik:RadTileViewItem Header="飞机成本统计"
@@ -143,54 +429,29 @@
                         <ColumnDefinition MinWidth="218" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <telerik:RadCalendar x:Name="MyCalandar"
-                                         Margin="7" />
-                    <Grid Grid.Column="1"
-                          Margin="7">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition Height="7" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid Background="#15aca9">
-                            <StackPanel Margin="10">
-                                <TextBlock Foreground="#ffffff"
-                                           FontSize="16"
-                                           Margin="0 0 0 2"
-                                           FontFamily="Segoe UI"
-                                           Text="{Binding ElementName=MyCalandar, Path=SelectedDate, Mode=TwoWay}" />
-                                <TextBlock Foreground="#ffffff"
-                                           FontSize="10"
-                                           Margin="0 0 0 5"
-                                           FontWeight="Bold"
-                                           FontFamily="Segoe UI"
-                                           Text="Telerik INC - Boston; Start Time - 3.00 pm" />
-                                <TextBlock Foreground="#333333"
-                                           FontSize="12"
-                                           FontFamily="Segoe UI"
-                                           Text="显示当前要执行的事项以不同颜色标记" />
-                            </StackPanel>
-                        </Grid>
-                        <Grid Grid.Row="2"
-                              Background="#15aca9">
-                            <StackPanel Margin="10">
-                                <TextBlock Foreground="#ffffff"
-                                           FontSize="16"
-                                           Margin="0 0 0 2"
-                                           FontFamily="Segoe UI"
-                                           Text="{Binding ElementName=MyCalandar, Path=SelectedDate, Mode=TwoWay}" />
-                                <TextBlock Foreground="#ffffff"
-                                           FontSize="10"
-                                           Margin="0 0 0 5"
-                                           FontWeight="Bold"
-                                           FontFamily="Segoe UI"
-                                           Text="Telerik INC - Boston; Start Time - 3.00 pm" />
-                                <TextBlock Foreground="#333333"
-                                           FontSize="12"
-                                           FontFamily="Segoe UI"
-                                           Text="Things Every ASP.NET Developer" />
-                            </StackPanel>
-                        </Grid>
+                    <telerik:RadCalendar x:Name="Calendar"
+                                         SelectionMode="Extended"
+                                         IsTodayHighlighted="True"
+                                         ViewsHeaderVisibility="Collapsed"
+                                         DayTemplateSelector="{StaticResource EventDayTemplateSelector}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <ei:CallMethodAction TargetObject="{Binding}"
+                                                     MethodName="CalendarSelectionChanged" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </telerik:RadCalendar>
+                    <Grid Grid.Column="1">
+                        <ListBox x:Name="Width"
+                                 Style="{StaticResource ListBoxStyle}"
+                                 ItemsSource="{Binding Source={StaticResource EventsView}}" />
+                        <TextBlock x:Name="EmptyContent"
+                                   Margin="20"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   Text="无事项安排。"
+                                   Foreground="#FF666666" 
+                                   Visibility="Collapsed"/>
                     </Grid>
                 </Grid>
             </telerik:RadTileViewItem>
