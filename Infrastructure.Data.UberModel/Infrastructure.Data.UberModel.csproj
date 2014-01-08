@@ -162,6 +162,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ManagerEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ManufacturerEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaterialEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\MemberEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OfficialDocumentEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OperationHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OperationPlanEntityConfiguration.cs" />
@@ -179,6 +180,8 @@
     <Compile Include="UnitOfWork\Mapping\Sql\PlanHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PrepaymentInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ProgrammingEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ProjectEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ProjectTempEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseContractAircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseContractEngineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseInvoiceEntityConfiguration.cs" />
