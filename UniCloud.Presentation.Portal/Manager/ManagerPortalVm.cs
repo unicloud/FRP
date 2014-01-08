@@ -47,12 +47,67 @@ namespace UniCloud.Presentation.Portal.Manager
 
         public ManagerPortalVm()
         {
+            InitAircraftCostData();
             InitStructureDate();
             InitCalendarData();
             InitProjectData();
         }
 
-        #region 机队结构
+        #region 飞机引进成本
+        private Size _zoom = new Size(1, 1);//滚动条的对应
+        public Size Zoom
+        {
+            get { return _zoom; }
+            set
+            {
+                if (Zoom != value)
+                {
+                    _zoom = value;
+                    RaisePropertyChanged("Zoom");
+                }
+            }
+        }
+
+        private Point _panOffset; //滚动条的滑动
+        public Point PanOffset
+        {
+            get { return _panOffset; }
+            set
+            {
+                if (PanOffset != value)
+                {
+                    _panOffset = value;
+                    RaisePropertyChanged("PanOffset");
+                }
+            }
+        }
+
+        private List<AircraftCost> _aircraftCosts;
+        public List<AircraftCost> AircraftCosts
+        {
+            get { return _aircraftCosts; }
+            set
+            {
+                if (_aircraftCosts != value)
+                {
+                    _aircraftCosts = value;
+                    RaisePropertyChanged("AircraftCosts");
+                }
+            }
+        }
+        private void InitAircraftCostData()
+        {
+            AircraftCosts = new List<AircraftCost>
+                          {
+                              new AircraftCost{DateTime =new DateTime(2011,1,1),Purchase=20000000,Lease=10000000 },
+                              new AircraftCost{DateTime =new DateTime(2012,6,7),Purchase=40000000,Lease=20000000 },
+                              new AircraftCost{DateTime =new DateTime(2013,11,11),Purchase=50000000,Lease=40000000 },
+                              new AircraftCost{DateTime =new DateTime(2014,9,1),Purchase=90000000,Lease=60000000 },
+                          };
+        }
+        #endregion
+
+        #region 机队分析
         private IEnumerable<FleetAircraftTypeComposition> _fleetAircraftTypeCollection;
         /// <summary>
         ///     机型饼图的数据集合（指定时间点）
@@ -68,6 +123,20 @@ namespace UniCloud.Presentation.Portal.Manager
             }
         }
 
+        private IEnumerable<FleetAircraftTypeComposition> _fleetAircraftImportTypeCollection;
+        /// <summary>
+        ///     机型饼图的数据集合（指定时间点）
+        /// </summary>
+        public IEnumerable<FleetAircraftTypeComposition> FleetAircraftImportTypeCollection
+        {
+            get { return _fleetAircraftImportTypeCollection; }
+            set
+            {
+                if (Equals(_fleetAircraftImportTypeCollection, value)) return;
+                _fleetAircraftImportTypeCollection = value;
+                RaisePropertyChanged(() => FleetAircraftImportTypeCollection);
+            }
+        }
         private void InitStructureDate()
         {
             var types = new List<FleetAircraftTypeComposition>
@@ -102,6 +171,25 @@ namespace UniCloud.Presentation.Portal.Manager
                             },
                         };
             FleetAircraftTypeCollection = types;
+
+            types = new List<FleetAircraftTypeComposition>
+                        {
+                             new FleetAircraftTypeComposition
+                            {
+                                AircraftRegional="购买",
+                                AirNum=24,
+                                AirTt="24架，占46%",
+                                Color = "#FF339933"
+                            },
+                            new FleetAircraftTypeComposition
+                            {
+                                AircraftRegional="租赁",
+                                AirNum=28,
+                                AirTt="28架，占54%",
+                                Color = "#FF8CBF26"
+                            },
+                        };
+            FleetAircraftImportTypeCollection = types;
         }
         #endregion
 
@@ -390,11 +478,6 @@ namespace UniCloud.Presentation.Portal.Manager
                                 Description = "Speaker: Brenda Smith; Start Time - 4:00 PM"
                             },
                         };
-            //var c = (CurrentManagerPortal.Resources["EventsList"] as EventsCollection);
-            //if (c != null)
-            //{
-            //    c = Calendars;
-            //}
             EventDayTemplateSelector.Events = Calendars;
         }
 
@@ -437,6 +520,19 @@ namespace UniCloud.Presentation.Portal.Manager
         }
         #endregion
     }
+    #region 飞机成本
+    public class AircraftCost
+    {
+        public string Aircraft { get; set; } //飞机相关的名称
+        public DateTime DateTime { get; set; } //时间点
+        public decimal Purchase { get; set; } //采购
+        public decimal Lease { get; set; } //租赁
+        public decimal Maintain { get; set; } //维修
+        public string AircraftColor { get; set; } //飞机数的颜色
+        public string SeatColor { get; set; } //座位数的颜色
+        public string LoadColor { get; set; } //商载量的颜色
+    }
+    #endregion
 
     #region 机队结构
     public class FleetAircraftTypeComposition
@@ -620,7 +716,7 @@ namespace UniCloud.Presentation.Portal.Manager
         public EventsCollection EventsCollection
         {
             get { return Events; }
-            set{}
+            set { }
         }
         public DataTemplate DefaultTemplate { get; set; }
         public DataTemplate EventTemplate { get; set; }
