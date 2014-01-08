@@ -22,12 +22,18 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
     /// </summary>
     public static class WorkGroupFactory
     {
-        public static WorkGroup CreateWorkGroup()
+        /// <summary>
+        ///     创建工作组
+        /// </summary>
+        /// <param name="name">工作组名称</param>
+        /// <returns>工作组</returns>
+        public static WorkGroup CreateWorkGroup(string name)
         {
             var workGroup = new WorkGroup
             {
-
+                Name = name
             };
+            workGroup.GenerateNewIdentity();
 
             return workGroup;
         }
