@@ -92,9 +92,6 @@
   <ItemGroup>
     <Compile Include="FleetPlanService.cs" />
     <Compile Include="FleetPlanServiceHelper.cs" />
-    <Compile Include="FleetPlan\AircraftBusinessDTO.cs" />
-    <Compile Include="FleetPlan\Enums\ManageStatus.cs" />
-    <Compile Include="FleetPlan\Enums\OperationStatus.cs" />
     <Compile Include="FleetPlan\EnginePlanDTO.cs" />
     <Compile Include="FleetPlan\EnginePlanHistoryDTO.cs" />
     <Compile Include="FleetPlan\Enums\EnginePlanDeliverStatus.cs" />
