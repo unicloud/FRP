@@ -130,170 +130,14 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListBox">
-                            <ScrollViewer>
+                            <ScrollViewer telerik:StyleManager.Theme="Windows8">
                                 <ItemsPresenter />
                             </ScrollViewer>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
-            <uc:EventsCollection x:Key="EventsList">
-                <uc:Event Day="2"
-                          Title="The Future Of Web Development"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Tom Black; Start Time - 11.15 AM" />
-                <uc:Event Day="2"
-                          Title="Blend For Silverlight Developers"
-                          Company="Telerik Inc - Texas, USA"
-                          Description="Speaker: Tom Black; Start Time - 4.00 PM" />
-                <uc:Event Day="2"
-                          Title="Integrating WPF and WCF"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Tom Wildermuth; Start Time - 1.00 PM" />
-
-                <uc:Event Day="3"
-                          Title="What's new in WCF 4"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Grace Becerra; Start Time - 10.00 AM" />
-                <uc:Event Day="3"
-                          Title="The Future Of Web Development"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Tom Black; Start Time - 11.15 AM" />
-                <uc:Event Day="3"
-                          Title="Blend For Silverlight Developers"
-                          Company="Telerik Inc - Texas, USA"
-                          Description="Speaker: Tom Black; Start Time - 4.00 PM" />
-
-                <uc:Event Day="4"
-                          Title="What's new in WCF 4"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Grace Becerra; Start Time - 10.00 AM" />
-                <uc:Event Day="4"
-                          Title="Multimedia in Silverlight 4"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Jeremy Boatner; Start Time - 12.00 PM" />
-
-                <uc:Event Day="5"
-                          Title="The Future Of Web Development"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Tom Black; Start Time - 11.15 AM" />
-                <uc:Event Day="5"
-                          Title="Multimedia in Silverlight 4"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Jeremy Boatner; Start Time - 2.00 PM" />
-                <uc:Event Day="5"
-                          Title="Blend For Silverlight Developers"
-                          Company="Telerik Inc - Texas, USA"
-                          Description="Speaker: Tom Black; Start Time - 4.00 PM" />
-
-                <uc:Event Day="8"
-                          Title="Integrating WPF and WCF"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Tom Wildermuth; Start Time - 9:45 AM" />
-                <uc:Event Day="8"
-                          Title="Blend For Silverlight Developers"
-                          Company="Telerik Inc - Texas, USA"
-                          Description="Speaker: Tom Black; Start Time - 2.00 PM" />
-                <uc:Event Day="8"
-                          Title="Multimedia in Silverlight 4"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Jeremy Boatner; Start Time - 4.00 PM" />
-
-                <uc:Event Day="11"
-                          Title="The Future Of Web Development"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Tom Black; Start Time - 11.15 AM" />
-                <uc:Event Day="11"
-                          Title="Blend For Silverlight Developers"
-                          Company="Telerik Inc - Texas, USA"
-                          Description="Speaker: Tom Black; Start Time - 4.00 PM" />
-
-                <uc:Event Day="14"
-                          Title="Integrating WPF and WCF"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Tom Wildermuth; Start Time - 11.45 PM" />
-
-                <uc:Event Day="14"
-                          Title="The Future Of Web Development"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Tom Black; Start Time - 1.15 PM" />
-                <uc:Event Day="14"
-                          Title="Multimedia in Silverlight 4"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Jeremy Boatner; Start Time - 3.00 PM" />
-
-
-                <uc:Event Day="15"
-                          Title=" Windows Phone 7 Development"
-                          Company="Telerik Inc - Texas, USA"
-                          Description="Speaker: Brenda Smith; Start Time - 12:00 AM" />
-                <uc:Event Day="15"
-                          Title="Integrating WPF and WCF"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Tom Wildermuth; Start Time - 1.00 PM" />
-
-                <uc:Event Day="17"
-                          Title="The Future Of Web Development"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Tom Black; Start Time - 11.15 AM" />
-                <uc:Event Day="17"
-                          Title="Blend For Silverlight Developers"
-                          Company="Telerik Inc - Texas, USA"
-                          Description="Speaker: Tom Black; Start Time - 1:30 PM" />
-                <uc:Event Day="17"
-                          Title="What's new in WCF 4"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Grace Becerra; Start Time - 3.00 PM" />
-
-                <uc:Event Day="24"
-                          Title="Integrating WPF and WCF"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Tom Wildermuth; Start Time - 12.00 AM" />
-                <uc:Event Day="24"
-                          Title="The Future Of Web Development"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Tom Black; Start Time - 2.15 PM" />
-                <uc:Event Day="24"
-                          Title=" Windows Phone 7 Development"
-                          Company="Telerik Inc - Texas, USA"
-                          Description="Speaker: Brenda Smith; Start Time - 5:00 PM" />
-
-                <uc:Event Day="25"
-                          Title="Blend For Silverlight Developers"
-                          Company="Telerik Inc - Texas, USA"
-                          Description="Speaker: Tom Black; Start Time - 10.00 AM" />
-                <uc:Event Day="25"
-                          Title="Integrating WPF and WCF"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Tom Wildermuth; Start Time - 1.00 PM" />
-                <uc:Event Day="25"
-                          Title=" Windows Phone 7 Development"
-                          Company="Telerik Inc - Texas, USA"
-                          Description="Speaker: Brenda Smith; Start Time - 3:00 PM" />
-
-                <uc:Event Day="27"
-                          Title="What's new in WCF 4"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Grace Becerra; Start Time - 10.00 AM" />
-                <uc:Event Day="27"
-                          Title="Blend For Silverlight Developers"
-                          Company="Telerik Inc - Texas, USA"
-                          Description="Speaker: Tom Black; Start Time - 2.00 PM" />
-
-                <uc:Event Day="28"
-                          Title="Integrating WPF and WCF"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Tom Wildermuth; Start Time - 1.00 PM"/>
-                <uc:Event Day="28"
-                          Title="The Future Of Web Development"
-                          Company="Telerik Inc - Boston, USA"
-                          Description="Speaker: Tom Black; Start Time - 2:00 PM"/>
-                <uc:Event Day="28"
-                          Title=" Windows Phone 7 Development"
-                          Company="Telerik Inc - Texas, USA"
-                          Description="Speaker: Brenda Smith; Start Time - 4:00 PM" />
-
-            </uc:EventsCollection>
+            <uc:EventsCollection x:Key="EventsList"/>
 
             <CollectionViewSource x:Key="EventsView"
                                   x:Name="EventsList"
@@ -314,6 +158,13 @@
                                    FontWeight="Bold" />
                     </DataTemplate>
                 </uc:EventDayTemplateSelector.EventTemplate>
+                <uc:EventDayTemplateSelector.ImportantTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Text}"
+                                   Foreground="Red"
+                                   FontWeight="Bold" />
+                    </DataTemplate>
+                </uc:EventDayTemplateSelector.ImportantTemplate>
             </uc:EventDayTemplateSelector>
         </ResourceDictionary>
     </UserControl.Resources>

@@ -122,6 +122,7 @@ namespace UniCloud.Presentation.Portal.Manager
                 }
             }
         }
+
         private void InitCalendarData()
         {
             Calendars = new EventsCollection
@@ -132,7 +133,7 @@ namespace UniCloud.Presentation.Portal.Manager
                                 Title = "The Future Of Web Development",
                                 Company = "Telerik Inc - Boston, USA",
                                 Description = "Speaker: Tom Black; Start Time - 11.15 AM",
-                                Color="#FFF90202"
+                                Important=true
                             },
                             new Event
                             {
@@ -140,7 +141,6 @@ namespace UniCloud.Presentation.Portal.Manager
                                 Title = "Blend For Silverlight Developers",
                                 Company = "Telerik Inc - Texas, USA",
                                 Description = "Speaker: Tom Black; Start Time - 4.00 PM",
-                                Color="#FFF90202"
                             },
                             new Event
                             {
@@ -259,7 +259,8 @@ namespace UniCloud.Presentation.Portal.Manager
                                 Day = 14,
                                 Title = "The Future Of Web Development",
                                 Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Tom Black; Start Time - 1.15 PM"
+                                Description = "Speaker: Tom Black; Start Time - 1.15 PM",
+                                Important = true
                             },
                             new Event
                             {
@@ -334,7 +335,8 @@ namespace UniCloud.Presentation.Portal.Manager
                                 Day = 25,
                                 Title = "Blend For Silverlight Developers",
                                 Company = "Telerik Inc - Texas, USA",
-                                Description = "Speaker: Tom Black; Start Time - 10.00 AM"
+                                Description = "Speaker: Tom Black; Start Time - 10.00 AM",
+                                Important = true
                             },
                             new Event
                             {
@@ -387,10 +389,13 @@ namespace UniCloud.Presentation.Portal.Manager
                                 Company = "Telerik Inc - Texas, USA",
                                 Description = "Speaker: Brenda Smith; Start Time - 4:00 PM"
                             },
-
                         };
-
-
+            //var c = (CurrentManagerPortal.Resources["EventsList"] as EventsCollection);
+            //if (c != null)
+            //{
+            //    c = Calendars;
+            //}
+            EventDayTemplateSelector.Events = Calendars;
         }
 
         public void CalendarSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -564,16 +569,16 @@ namespace UniCloud.Presentation.Portal.Manager
             }
         }
 
-        private string _color;
-        public string Color
+        private bool _important;
+        public bool Important
         {
-            get { return _color; }
+            get { return _important; }
             set
             {
-                if (_color != value)
+                if (_important != value)
                 {
-                    _color = value;
-                    OnPropertyChanged("Color");
+                    _important = value;
+                    OnPropertyChanged("Important");
                 }
             }
         }
@@ -601,14 +606,25 @@ namespace UniCloud.Presentation.Portal.Manager
             //Some days are special.
             if (EventsCollection.Any(e => content != null && e.Date == content.Date))
             {
+                if (EventsCollection.Any(e => content != null && e.Date == content.Date && e.Important))
+                {
+                    return ImportantTemplate;
+                }
                 return EventTemplate;
             }
 
             return DefaultTemplate;
         }
-        public EventsCollection EventsCollection { get; set; }
+
+        public static EventsCollection Events;
+        public EventsCollection EventsCollection
+        {
+            get { return Events; }
+            set{}
+        }
         public DataTemplate DefaultTemplate { get; set; }
         public DataTemplate EventTemplate { get; set; }
+        public DataTemplate ImportantTemplate { get; set; }
     }
 
     #endregion
