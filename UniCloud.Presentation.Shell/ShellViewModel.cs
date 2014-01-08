@@ -687,6 +687,23 @@ namespace UniCloud.Presentation.Shell
                 Text = "项目管理",
                 IsEnabled = false,
             };
+
+            var menu51 = new MenuItem
+            {
+                Text = "配置任务模板"
+            };
+            var menu52 = new MenuItem
+            {
+                Text = "配置项目模板"
+            };
+            var menu53 = new MenuItem
+            {
+                Text = "管理项目计划"
+            };
+            menu5.Items.Add(menu51);
+            menu5.Items.Add(menu52);
+            menu5.Items.Add(menu53);
+
             _items.Add(menu5);
 
             #endregion
