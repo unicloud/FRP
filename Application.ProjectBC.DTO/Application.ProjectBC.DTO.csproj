@@ -59,9 +59,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MemberDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelatedDocDTO.cs" />
     <Compile Include="TaskCaseDTO.cs" />
     <Compile Include="TaskStandardDTO.cs" />
+    <Compile Include="WorkGroupDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
