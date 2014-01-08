@@ -22,6 +22,7 @@ using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Infrastructure.Data;
 
@@ -43,6 +44,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.RequestQueries
             var dbAirline = _unitOfWork.CreateSet<Airlines>();
             var dbImportCategory = _unitOfWork.CreateSet<ActionCategory>();
             var dbAnnaul = _unitOfWork.CreateSet<Annual>();
+            var dbPlanAircraft = _unitOfWork.CreateSet<PlanAircraft>();
             return _unitOfWork.CreateSet<Request>().Select(p => new RequestDTO
             {
                 Id = p.Id,
@@ -86,6 +88,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.RequestQueries
                     RequestDeliverAnnualName = dbAnnaul.FirstOrDefault(a => a.Id == c.RequestDeliverAnnualId).Year,
                     AirlinesId = c.AirlinesId,
                     AirlineName = dbAirline.FirstOrDefault(a => a.Id == c.AirlinesId).CnShortName,
+                    PlanAircraftStatus = (int)dbPlanAircraft.FirstOrDefault(a=>a.Id==c.PlanAircraftId).Status,
                 }).ToList()
             });
         }

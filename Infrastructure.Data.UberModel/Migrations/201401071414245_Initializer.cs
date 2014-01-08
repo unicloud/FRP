@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initial : DbMigration
+    public partial class Initializer : DbMigration
     {
         public override void Up()
         {
@@ -362,6 +362,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         NdrcApprovalNumber = c.String(),
                         Status = c.Int(nullable: false),
                         Note = c.String(),
+                        CaacDocumentName = c.String(),
+                        NdrcDocumentName = c.String(),
                         DispatchUnitId = c.Guid(nullable: false),
                         CaacDocumentId = c.Guid(),
                         NdrcDocumentId = c.Guid(),

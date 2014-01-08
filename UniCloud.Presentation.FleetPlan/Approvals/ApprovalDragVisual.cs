@@ -4,8 +4,8 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：陈春勇 时间：2013/12/30，11:12
-// 文件名：RequestPlanDragVisual.cs
+// 作者：陈春勇 时间：2014/01/07，13:01
+// 文件名：ApprovalDragVisual.cs
 // 程序集：UniCloud.Presentation.FleetPlan
 // 版本：V1.0.0
 //
@@ -19,29 +19,24 @@
 
 using System.Linq;
 using System.Windows;
-using Microsoft.Practices.ServiceLocation;
-using Telerik.Windows.Controls.GridView;
 using Telerik.Windows.DragDrop;
 using Telerik.Windows.DragDrop.Behaviors;
-using UniCloud.Presentation.Input;
 
 #endregion
 
-namespace UniCloud.Presentation.FleetPlan.Requests
+namespace UniCloud.Presentation.FleetPlan.Approvals
 {
     /// <summary>
     ///     拖放展示
     /// </summary>
-    public class RequestPlanDragVisual : IDragVisualProvider
+    public class ApprovalDragVisual : IDragVisualProvider
     {
-        public bool UseDefaultCursors { get; set; }
-
         public FrameworkElement CreateDragVisual(DragVisualProviderState state)
         {
             var visual = new DragVisual
             {
                 Content = state.DraggedItems.OfType<object>().FirstOrDefault(),
-                ContentTemplate = state.Host.Resources["PlanDraggedItemTemplate"] as DataTemplate
+                ContentTemplate = state.Host.Resources["RequestDraggedItemTemplate"] as DataTemplate
             };
             return visual;
         }
@@ -50,5 +45,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         {
             return state.RelativeStartPoint;
         }
+
+        public bool UseDefaultCursors { get; set; }
     }
 }

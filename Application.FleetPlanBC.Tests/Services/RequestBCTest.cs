@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.FleetPlanBC.Query.RequestQueries;
 using UniCloud.Application.FleetPlanBC.RequestServices;
+using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.FleetPlanBC.Repositories;
@@ -32,6 +33,7 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
                 .RegisterType<IRequestQuery, RequestQuery>()
                 .RegisterType<IRequestAppService, RequestAppService>()
                 .RegisterType<IRequestRepository, RequestRepository>()
+                .RegisterType<IPlanAircraftRepository, PlanAircraftRepository>()
                 #endregion
 
                 ;

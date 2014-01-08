@@ -23,6 +23,7 @@ using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.RequestQueries;
 using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 
 #endregion
@@ -33,11 +34,12 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
     {
         private readonly IRequestQuery _requestQuery;
         private readonly IRequestRepository _requestRepository;
-
-        public RequestAppService(IRequestQuery requestQuery, IRequestRepository requestRepository)
+        private readonly IPlanAircraftRepository _planAircraftRepository;
+        public RequestAppService(IRequestQuery requestQuery, IRequestRepository requestRepository, IPlanAircraftRepository planAircraftRepository)
         {
             _requestQuery = requestQuery;
             _requestRepository = requestRepository;
+            _planAircraftRepository = planAircraftRepository;
         }
 
         public IQueryable<RequestDTO> GetRequests()
@@ -136,6 +138,10 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
             {
                 pesistRequest.SetCaacDocument(request.CaacDocumentId, request.CaacDocumentName);
             }
+            if (pesistRequest.ApprovalDocId != request.ApprovalDocId)
+            {
+                pesistRequest.SetApprovalDoc(request.ApprovalDocId);
+            }
             DataHelper.DetailHandle(request.ApprovalHistories.ToArray(), pesistRequest.ApprovalHistories.ToArray(),
                 c => c.Id, c => c.Id, c => InsertApprovalHistory(pesistRequest, c), ModifyApprovalHistory,
                 DeleteApprovalHistory);
@@ -218,6 +224,27 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
             {
                 pesistApprovalHistory.SetDeliverDate(approvalHistory.RequestDeliverAnnualId);
             }
+            if (pesistApprovalHistory.IsApproved != approvalHistory.IsApproved)
+            {
+                pesistApprovalHistory.SetIsApproved(approvalHistory.IsApproved);
+            }
+            var persistPlanAircraft = _planAircraftRepository.Get(approvalHistory.PlanAircraftId);
+            if (persistPlanAircraft.Status != (ManageStatus)approvalHistory.PlanAircraftStatus)
+            {
+                if (pesistApprovalHistory.PlanAircraft.Status==ManageStatus.申请
+                    &&approvalHistory.PlanAircraftStatus==(int)ManageStatus.批文)
+                {
+                    pesistApprovalHistory.PlanAircraft.SetManageStatus(ManageStatus.批文);//修改计划飞机为批文状态
+                }
+                if (pesistApprovalHistory.PlanAircraft.Status == ManageStatus.批文
+                    && approvalHistory.PlanAircraftStatus == (int)ManageStatus.申请)
+                {
+                    pesistApprovalHistory.PlanAircraft.SetManageStatus(ManageStatus.申请);
+                }
+             
+            }
+           
+         
         }
 
         /// <summary>

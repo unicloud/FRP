@@ -42,7 +42,7 @@ namespace UniCloud.Application.FleetPlanBC.ApprovalDocServices
 
         public IQueryable<ApprovalDocDTO> GetApprovalDocs()
         {
-            return _approvalDocQuery.RequestsQuery(new QueryBuilder<ApprovalDoc>());
+            return _approvalDocQuery.ApprovalDocsQuery(new QueryBuilder<ApprovalDoc>());
         }
 
         [Insert(typeof (ApprovalDocDTO))]
@@ -53,7 +53,7 @@ namespace UniCloud.Application.FleetPlanBC.ApprovalDocServices
                 throw new Exception("批文不能为空");
             }
             //新批文申请
-            var newApprovalDoc = ApprovalDocFactory.CreateApprovalDoc(approvalDoc.CaacExamineDate,
+            var newApprovalDoc = ApprovalDocFactory.CreateApprovalDoc(approvalDoc.Id, approvalDoc.CaacExamineDate,
                 approvalDoc.NdrcExamineDate, approvalDoc.CaacApprovalNumber,
                 approvalDoc.NdrcApprovalNumber, approvalDoc.Status, approvalDoc.Note,
                 approvalDoc.CaacDocumentName, approvalDoc.NdrcDocumentName, approvalDoc.CaacDocumentId,

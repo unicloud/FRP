@@ -177,6 +177,7 @@ namespace UniCloud.Presentation.MVVM
         /// </summary>
         protected virtual void RefreshCommandState()
         {
+
         }
 
         #endregion
