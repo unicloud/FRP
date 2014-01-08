@@ -19,7 +19,11 @@
 
 using System.Linq;
 using UniCloud.Application.FleetPlanBC.DTO;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
@@ -35,8 +39,8 @@ namespace UniCloud.Application.FleetPlanBC.Query.ApprovalDocQueries
             _unitOfWork = unitOfWork;
         }
 
-        public IQueryable<ApprovalDocDTO> RequestsQuery(QueryBuilder<ApprovalDoc> query)
-        {
+        public IQueryable<ApprovalDocDTO> ApprovalDocsQuery(QueryBuilder<ApprovalDoc> query)
+        {           
             return query.ApplyTo(_unitOfWork.CreateSet<ApprovalDoc>()).Select(p => new ApprovalDocDTO
             {
                 Id = p.Id,
@@ -49,7 +53,8 @@ namespace UniCloud.Application.FleetPlanBC.Query.ApprovalDocQueries
                 CaacDocumentId = p.CaacDocumentId,
                 NdrcDocumentId = p.NdrcDocumentId,
                 CaacDocumentName = p.CaacDocumentName,
-                NdrcDocumentName = p.NdrcDocumentName
+                NdrcDocumentName = p.NdrcDocumentName,
+             
             });
         }
     }

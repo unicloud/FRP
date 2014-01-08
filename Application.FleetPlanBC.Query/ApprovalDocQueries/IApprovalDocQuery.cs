@@ -33,7 +33,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.ApprovalDocQueries
         /// </summary>
         /// <param name="query">查询表达式。</param>
         /// <returns>申请DTO集合。</returns>
-        IQueryable<ApprovalDocDTO> RequestsQuery(
+        IQueryable<ApprovalDocDTO> ApprovalDocsQuery(
             QueryBuilder<ApprovalDoc> query);
 
     }

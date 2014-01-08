@@ -433,6 +433,7 @@
         <Property Name="RequestDeliverAnnualName" Type="Edm.Int32" Nullable="false" />
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AirlineName" Type="Edm.String" />
+        <Property Name="PlanAircraftStatus" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="SupplierDTO">
         <Key>

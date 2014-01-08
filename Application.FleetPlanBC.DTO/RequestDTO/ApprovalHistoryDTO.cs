@@ -108,5 +108,10 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         ///     航空名称
         /// </summary>
         public string AirlineName { get; set; }
+
+        /// <summary>
+        /// 计划飞机状态
+        /// </summary>
+        public int PlanAircraftStatus { get; set; }
     }
 }

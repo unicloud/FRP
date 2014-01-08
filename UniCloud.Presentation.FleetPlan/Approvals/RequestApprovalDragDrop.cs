@@ -4,8 +4,8 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：陈春勇 时间：2013/12/30，11:12
-// 文件名：RequestPlanDragDrop.cs
+// 作者：陈春勇 时间：2014/01/07，13:01
+// 文件名：RequestApprovalDragDrop.cs
 // 程序集：UniCloud.Presentation.FleetPlan
 // 版本：V1.0.0
 //
@@ -15,17 +15,19 @@
 
 #endregion
 
+
 #region 命名空间
 
 using System.Linq;
 using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.DragDrop.Behaviors;
+using UniCloud.Presentation.FleetPlan.Requests;
 
 #endregion
 
-namespace UniCloud.Presentation.FleetPlan.Requests
+namespace UniCloud.Presentation.FleetPlan.Approvals
 {
-    public class RequestPlanDragDrop : GridViewDragDropBehavior
+    public class RequestApprovalDragDrop : GridViewDragDropBehavior
     {
         public override bool CanStartDrag(GridViewDragDropState state)
         {

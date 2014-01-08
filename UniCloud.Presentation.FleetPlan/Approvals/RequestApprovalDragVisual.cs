@@ -19,20 +19,17 @@
 
 using System.Linq;
 using System.Windows;
-using Microsoft.Practices.ServiceLocation;
-using Telerik.Windows.Controls.GridView;
 using Telerik.Windows.DragDrop;
 using Telerik.Windows.DragDrop.Behaviors;
-using UniCloud.Presentation.Input;
 
 #endregion
 
-namespace UniCloud.Presentation.FleetPlan.Requests
+namespace UniCloud.Presentation.FleetPlan.Approvals
 {
     /// <summary>
     ///     拖放展示
     /// </summary>
-    public class RequestPlanDragVisual : IDragVisualProvider
+    public class RequestApprovalDragVisual : IDragVisualProvider
     {
         public bool UseDefaultCursors { get; set; }
 
@@ -41,7 +38,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             var visual = new DragVisual
             {
                 Content = state.DraggedItems.OfType<object>().FirstOrDefault(),
-                ContentTemplate = state.Host.Resources["PlanDraggedItemTemplate"] as DataTemplate
+                ContentTemplate = state.Host.Resources["EnRouteDraggedItemTemplate"] as DataTemplate
             };
             return visual;
         }
