@@ -15,6 +15,12 @@
 
 #endregion
 
+#region 命名空间
+
+
+
+#endregion
+
 namespace UniCloud.Domain.ProjectBC.Aggregates.ProjectTempAgg
 {
     /// <summary>
@@ -22,5 +28,22 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ProjectTempAgg
     /// </summary>
     public static class ProjectTempFactory
     {
+        /// <summary>
+        ///     创建项目模板
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="description">描述</param>
+        /// <returns>项目模板</returns>
+        public static ProjectTemp CreateProjectTemp(string name, string description)
+        {
+            var projectTemp = new ProjectTemp
+            {
+                Name = name,
+                Description = description
+            };
+            projectTemp.GenerateNewIdentity();
+
+            return projectTemp;
+        }
     }
 }

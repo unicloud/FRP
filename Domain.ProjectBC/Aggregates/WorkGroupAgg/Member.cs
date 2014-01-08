@@ -77,7 +77,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
         ///     设置工作组成员
         /// </summary>
         /// <param name="user">工作组成员</param>
-        public void SetUser(User user)
+        public void SetMember(User user)
         {
             if (user == null || user.IsTransient())
             {
@@ -92,7 +92,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
         ///     设置工作组成员
         /// </summary>
         /// <param name="id">工作组成员ID</param>
-        public void SetUser(int id)
+        public void SetMember(int id)
         {
             if (id == 0)
             {

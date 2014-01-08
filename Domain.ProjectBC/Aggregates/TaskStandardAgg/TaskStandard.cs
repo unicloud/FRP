@@ -54,27 +54,27 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg
         /// <summary>
         ///     名称
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; internal set; }
 
         /// <summary>
         ///     描述
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; internal set; }
 
         /// <summary>
         ///     乐观时间
         /// </summary>
-        public TimeSpan OptimisticTime { get; set; }
+        public TimeSpan OptimisticTime { get; internal set; }
 
         /// <summary>
         ///     悲观时间
         /// </summary>
-        public TimeSpan PessimisticTime { get; set; }
+        public TimeSpan PessimisticTime { get; internal set; }
 
         /// <summary>
         ///     正常时间
         /// </summary>
-        public TimeSpan NormalTime { get; set; }
+        public TimeSpan NormalTime { get; internal set; }
 
         /// <summary>
         ///     源GUID
@@ -82,9 +82,14 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg
         public Guid SourceGuid { get; private set; }
 
         /// <summary>
+        ///     是否自定义
+        /// </summary>
+        public bool IsCustom { get; internal set; }
+
+        /// <summary>
         ///     任务类型
         /// </summary>
-        public TaskType TaskType { get; set; }
+        public TaskType TaskType { get; internal set; }
 
         #endregion
 
@@ -116,6 +121,21 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg
             }
 
             SourceGuid = id;
+        }
+
+        /// <summary>
+        ///     添加任务案例
+        /// </summary>
+        /// <returns></returns>
+        public TaskCase AddTaskCase()
+        {
+            var taskCase = new TaskCase
+            {
+                TaskStandardId = Id
+            };
+            taskCase.GenerateNewIdentity();
+            TaskCases.Add(taskCase);
+            return taskCase;
         }
 
         #endregion
