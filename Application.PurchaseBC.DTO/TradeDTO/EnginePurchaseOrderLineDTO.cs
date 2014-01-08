@@ -67,8 +67,28 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public string Note { get; set; }
 
         /// <summary>
+        ///     合同发动机ID
+        /// </summary>
+        public int ContractEngineId { get; set; }
+
+        /// <summary>
         ///     发动机物料ID
         /// </summary>
         public int EngineMaterialId { get; set; }
+
+        /// <summary>
+        ///     合同Rank号
+        /// </summary>
+        public string RankNumber { get; set; }
+
+        /// <summary>
+        ///     发动机序列号
+        /// </summary>
+        public string SerialNumber { get; set; }
+
+        /// <summary>
+        ///     管理状态
+        /// </summary>
+        public int Status { get; set; }
     }
 }

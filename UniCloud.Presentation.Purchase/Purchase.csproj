@@ -237,6 +237,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contract\AircraftLease.xaml.cs">
+      <DependentUpon>AircraftLease.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Contract\AircraftLeaseVM.cs" />
     <Compile Include="Contract\AircraftPurchase.xaml.cs">
       <DependentUpon>AircraftPurchase.xaml</DependentUpon>
     </Compile>
@@ -245,10 +249,22 @@
       <DependentUpon>ApuMaintain.xaml</DependentUpon>
     </Compile>
     <Compile Include="Contract\ApuMaintainVm.cs" />
+    <Compile Include="Contract\BFEPurchase.xaml.cs">
+      <DependentUpon>BFEPurchase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Contract\BFEPurchaseVM.cs" />
+    <Compile Include="Contract\EngineLease.xaml.cs">
+      <DependentUpon>EngineLease.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Contract\EngineLeaseVM.cs" />
     <Compile Include="Contract\EngineMaintain.xaml.cs">
       <DependentUpon>EngineMaintain.xaml</DependentUpon>
     </Compile>
     <Compile Include="Contract\EngineMaintainVm.cs" />
+    <Compile Include="Contract\EnginePurchase.xaml.cs">
+      <DependentUpon>EnginePurchase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Contract\EnginePurchaseVM.cs" />
     <Compile Include="Contract\QueryContract\AddDocumentPathChild.xaml.cs">
       <DependentUpon>AddDocumentPathChild.xaml</DependentUpon>
     </Compile>
@@ -348,6 +364,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Contract\AircraftLease.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Contract\AircraftPurchase.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -356,9 +376,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Contract\BFEPurchase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Contract\EngineLease.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Contract\EngineMaintain.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Contract\EnginePurchase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Contract\QueryContract\AddDocumentPathChild.xaml">
       <SubType>Designer</SubType>

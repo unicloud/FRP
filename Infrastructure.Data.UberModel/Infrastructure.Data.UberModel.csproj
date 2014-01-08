@@ -75,10 +75,6 @@
     <Compile Include="InitialData\SupplierData.cs" />
     <Compile Include="InitialData\TradeData.cs" />
     <Compile Include="InitialData\XmlConfigData.cs" />
-    <Compile Include="Migrations\201401071414245_Initializer.cs" />
-    <Compile Include="Migrations\201401071414245_Initializer.Designer.cs">
-      <DependentUpon>201401071414245_Initializer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ActionCategoryEntityConfiguration.cs" />
@@ -197,9 +193,15 @@
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierCompanyMaterialEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierRoleEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\TaskCaseEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\TaskEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\TaskStandardEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\TaskTempEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\TradeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\UndercartMaintainContractEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\UndercartMaintainInvoiceEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\UserEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\WorkGroupEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\XmlConfigEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\XmlSettingEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\UberModelUnitOfWork.cs" />
@@ -228,11 +230,6 @@
       <Project>{cad91a38-6b90-4a18-83ca-0215ce512f4d}</Project>
       <Name>Infrastructure.Data</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201401071414245_Initializer.resx">
-      <DependentUpon>201401071414245_Initializer.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

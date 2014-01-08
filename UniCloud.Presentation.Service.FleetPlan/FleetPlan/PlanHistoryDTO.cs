@@ -24,6 +24,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 #endregion
 
@@ -31,6 +32,18 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
     public partial class PlanHistoryDTO
     {
+        #region 属性
+
+        /// <summary>
+        ///     管理状态
+        /// </summary>
+        public ManageStatus ManaStatus
+        {
+            get { return (ManageStatus)ManageStatus; }
+        }
+
+        #endregion
+
         partial void OnYearChanged()
         {
             OnPropertyChanged("PerformTime");

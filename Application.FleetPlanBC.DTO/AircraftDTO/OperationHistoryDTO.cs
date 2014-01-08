@@ -79,7 +79,20 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public string Note { get; set; }
 
+        /// <summary>
+        ///     引进方式
+        /// </summary>
+        public string ImportActionType { get; set; }
 
+        /// <summary>
+        ///     引进方式
+        /// </summary>
+        public string ImportActionName { get; set; }
+
+        /// <summary>
+        ///    运营权人
+        /// </summary>
+        public string AirlinesName { get; set; }
         #endregion
 
         #region 外键属性

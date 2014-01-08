@@ -42,7 +42,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private readonly IFleetPlanService _service;
         private AnnualDTO _curAnnual;
         private AirlinesDTO _curAirlines;
-        //private  GroupDescriptor _groupDescriptor;
         [ImportingConstructor]
         public FleetPlanPrepareVM(IRegionManager regionManager, IFleetPlanService service)
             : base(service)
@@ -63,13 +62,29 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private void InitializeVM()
         {
             ViewAnnuals = _service.CreateCollection(_context.Annuals.Expand(p => p.Plans), o => o.Plans);
-            //_groupDescriptor = new GroupDescriptor
-            //{
-            //    Member = "ProgrammingName",
-            //    SortDirection = ListSortDirection.Descending
-            //};
-            //ViewAnnuals.GroupDescriptors.Add(_groupDescriptor);
+            ViewAnnuals.LoadedData += (sender, e) =>
+            {
+                if (e.HasError)
+                {
+                    e.MarkErrorAsHandled();
+                    return;
+                }
+                if (SelAnnual == null)
+                {
+                    SelAnnual = e.Entities.Cast<AnnualDTO>().FirstOrDefault(p => p.IsOpen);
+                }
+                _curAnnual = e.Entities.Cast<AnnualDTO>().FirstOrDefault(p => p.IsOpen);
+                RefreshCommandState();
+            };
             _service.RegisterCollectionView(ViewAnnuals);//注册查询集合
+
+            //TODO：初始化当前航空公司
+            _curAirlines = new AirlinesDTO
+            {
+                Id = Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"),
+                CnName = "四川航空股份有限公司",
+                CnShortName = "川航",
+            };
         }
 
         /// <summary>
@@ -100,9 +115,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         public override void LoadData()
         {
             ViewAnnuals.AutoLoad = true;
-            _curAnnual = _service.CurrentAnnual();
-            _curAirlines = _service.CurrentAirlines();
-            RefreshCommandState();
         }
 
         #region 业务
@@ -152,17 +164,14 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 if (_selAnnual != value)
                 {
                     _selAnnual = value;
-                    _viewPlans.Clear();
+                    ViewPlans.Clear();
                     foreach (var plan in value.Plans)
                     {
-                        _viewPlans.Add(plan);
+                        ViewPlans.Add(plan);
                     }
-                    _selPlan = ViewPlans.FirstOrDefault();
+                    SelPlan = ViewPlans.FirstOrDefault();
 
                     RaisePropertyChanged(() => SelAnnual);
-                    RaisePropertyChanged(() => SelPlan);
-                    // 刷新按钮状态
-                    RefreshCommandState();
                 }
             }
         }
@@ -184,7 +193,33 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 if (_selPlan != value)
                 {
                     _selPlan = value;
+                    PlanHistories.Clear();
+                    foreach (var ph in value.PlanHistories)
+                    {
+                        PlanHistories.Add(ph);
+                    }
                     RaisePropertyChanged(() => SelPlan);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 计划明细集合
+        private ObservableCollection<PlanHistoryDTO> _planHistories = new ObservableCollection<PlanHistoryDTO>();
+
+        /// <summary>
+        ///     计划明细集合
+        /// </summary>
+        public ObservableCollection<PlanHistoryDTO> PlanHistories
+        {
+            get { return _planHistories; }
+            private set
+            {
+                if (_planHistories != value)
+                {
+                    _planHistories = value;
+                    RaisePropertyChanged(() => PlanHistories);
                 }
             }
         }
@@ -218,24 +253,25 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private void OnUnLock(object obj)
         {
             var newAnnual = ViewAnnuals.FirstOrDefault(a => a.Year == _curAnnual.Year + 1);
-            var currentAnnual = ViewAnnuals.FirstOrDefault(a => a.Year == _curAnnual.Year);
-            if (newAnnual == null || currentAnnual == null)
+            if (newAnnual == null || _curAnnual == null)
             {
                 MessageAlert("年度不能为空！");
                 return;
             }
             //获取当前计划作为创建新版本计划的上一版本计划
-            PlanDTO lastPlan = currentAnnual.Plans.OrderBy(p => p.VersionNumber).LastOrDefault();
+            PlanDTO lastPlan = _curAnnual.Plans.OrderBy(p => p.VersionNumber).LastOrDefault();
 
             //设置当前打开年度
             newAnnual.IsOpen = true;
-            currentAnnual.IsOpen = false;
+            _curAnnual.IsOpen = false;
 
             //刷新_service中的静态属性CurrentAnnual
-            _curAnnual = _service.CurrentAnnual(true);
+            _curAnnual = ViewAnnuals.SingleOrDefault(p=>p.IsOpen);
 
             //创建新年度的第一版本计划
             newAnnual.Plans.Add(_service.CreateNewYearPlan(lastPlan, newAnnual.Id, newAnnual.Year, _curAirlines));
+
+            SelAnnual = _curAnnual;
 
             RefreshCommandState();
         }

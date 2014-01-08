@@ -54,7 +54,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
         /// <summary>
         ///     工作组名称
         /// </summary>
-        public string Name { get;internal set; }
+        public string Name { get; internal set; }
 
         #endregion
 
@@ -92,7 +92,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
         ///     设置工作组管理者
         /// </summary>
         /// <param name="user">工作组管理者</param>
-        public void SetUser(User user)
+        public void SetManager(User user)
         {
             if (user == null || user.IsTransient())
             {
@@ -107,7 +107,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
         ///     设置工作组管理者
         /// </summary>
         /// <param name="id">工作组管理者ID</param>
-        public void SetUser(int id)
+        public void SetManager(int id)
         {
             if (id == 0)
             {
@@ -115,6 +115,34 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
             }
 
             ManagerUserId = id;
+        }
+
+        /// <summary>
+        ///     添加工作组成员
+        /// </summary>
+        /// <param name="user">工作组成员</param>
+        /// <returns>添加的工作组成员</returns>
+        public Member AddMember(User user)
+        {
+            var member = WorkGroupFactory.CreateMember(user);
+            member.WorkGroupId = Id;
+            Members.Add(member);
+
+            return member;
+        }
+
+        /// <summary>
+        ///     添加工作组成员
+        /// </summary>
+        /// <param name="userId">工作组成员ID</param>
+        /// <returns>添加的工作组成员</returns>
+        public Member AddMember(int userId)
+        {
+            var member = WorkGroupFactory.CreateMember(userId);
+            member.WorkGroupId = Id;
+            Members.Add(member);
+
+            return member;
         }
 
         #endregion

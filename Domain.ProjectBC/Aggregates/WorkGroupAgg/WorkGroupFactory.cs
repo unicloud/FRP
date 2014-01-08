@@ -15,6 +15,12 @@
 
 #endregion
 
+#region 命名空间
+
+using UniCloud.Domain.ProjectBC.Aggregates.UserAgg;
+
+#endregion
+
 namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
 {
     /// <summary>
@@ -22,14 +28,48 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
     /// </summary>
     public static class WorkGroupFactory
     {
-        public static WorkGroup CreateWorkGroup()
+        /// <summary>
+        ///     创建工作组
+        /// </summary>
+        /// <param name="name">工作组名称</param>
+        /// <returns>工作组</returns>
+        public static WorkGroup CreateWorkGroup(string name)
         {
             var workGroup = new WorkGroup
             {
-
+                Name = name
             };
+            workGroup.GenerateNewIdentity();
 
             return workGroup;
+        }
+
+        /// <summary>
+        ///     创建工作组成员
+        /// </summary>
+        /// <param name="user">用户</param>
+        /// <returns>工作组成员</returns>
+        public static Member CreateMember(User user)
+        {
+            var member = new Member();
+            member.GenerateNewIdentity();
+            member.SetMember(user);
+
+            return member;
+        }
+
+        /// <summary>
+        ///     创建工作组成员
+        /// </summary>
+        /// <param name="userId">用户ID</param>
+        /// <returns>工作组成员</returns>
+        public static Member CreateMember(int userId)
+        {
+            var member = new Member();
+            member.GenerateNewIdentity();
+            member.SetMember(userId);
+
+            return member;
         }
     }
 }

@@ -38,6 +38,7 @@ namespace UniCloud.Presentation.Service
     /// </summary>
     public abstract class ServiceBase : IService
     {
+        private static Dictionary<string, QueryableDataServiceCollectionViewBase> _staticCollectionView;
         private readonly List<QueryableDataServiceCollectionViewBase> _dataServiceCollectionViews;
         private bool _hasChanges;
         private EventHandler<DataServiceSubmittedChangesEventArgs> _submitChanges;
@@ -46,6 +47,8 @@ namespace UniCloud.Presentation.Service
         protected ServiceBase()
         {
             _dataServiceCollectionViews = new List<QueryableDataServiceCollectionViewBase>();
+            if (_staticCollectionView == null)
+                _staticCollectionView = new Dictionary<string, QueryableDataServiceCollectionViewBase>();
         }
 
         /// <summary>
@@ -72,56 +75,27 @@ namespace UniCloud.Presentation.Service
         ///     获取静态数据
         /// </summary>
         /// <typeparam name="T">DTO类型</typeparam>
-        /// <param name="staticData">静态数据集合</param>
         /// <param name="loaded">回调</param>
         /// <param name="query">查询</param>
         /// <param name="forceLoad">是否强制加载</param>
         /// <returns>静态数据集合</returns>
         protected QueryableDataServiceCollectionView<T> GetStaticData<T>(
-            QueryableDataServiceCollectionView<T> staticData, Action loaded, DataServiceQuery<T> query,
-            bool forceLoad = false)
+            DataServiceQuery<T> query, Action loaded = null, bool forceLoad = false)
             where T : class, INotifyPropertyChanged
         {
-            if (staticData == null)
+            var type = typeof (T).ToString();
+            if (!_staticCollectionView.ContainsKey(type))
             {
-                staticData = new QueryableDataServiceCollectionView<T>(context, query);
-                staticData.LoadedData += (o, e) => loaded();
-                staticData.Load(true);
-                return staticData;
+                _staticCollectionView.Add(type, new QueryableDataServiceCollectionView<T>(context, query));
+                _staticCollectionView[type].LoadedData += (o, e) => { if (loaded != null) loaded(); };
+                _staticCollectionView[type].Load(true);
+                return _staticCollectionView[type] as QueryableDataServiceCollectionView<T>;
             }
             if (forceLoad)
-                staticData.Load(true);
-            return staticData;
+                _staticCollectionView[type].Load(true);
+            return _staticCollectionView[type] as QueryableDataServiceCollectionView<T>;
         }
 
-
-        /// <summary>
-        ///     获取静态属性
-        /// </summary>
-        /// <typeparam name="TEntity">DTO类型</typeparam>
-        /// <param name="staticData">静态属性</param>
-        /// <param name="loaded">回调</param>
-        /// <param name="query">查询</param>
-        /// <param name="filterDescriptor">查询条件</param>
-        /// <param name="forceLoad">是否强制加载</param>
-        /// <returns>静态属性</returns>
-        protected TEntity GetStaticData<TEntity>(
-            TEntity staticData, Action loaded, DataServiceQuery<TEntity> query,FilterDescriptor filterDescriptor,
-            bool forceLoad = false)
-            where TEntity : class, INotifyPropertyChanged
-        {
-            var staticDatas = new QueryableDataServiceCollectionView<TEntity>(context, query);
-            if (staticData == null)
-            {
-                staticDatas.FilterDescriptors.Add(filterDescriptor);
-                staticDatas.LoadedData += (o, e) => loaded();
-                staticDatas.Load(true);
-                return staticDatas.FirstOrDefault();
-            }
-            if (forceLoad)
-                staticDatas.Load(true);
-            return staticDatas.FirstOrDefault();
-        }
         #region IService 成员
 
         #region 属性
@@ -235,6 +209,13 @@ namespace UniCloud.Presentation.Service
         /// </summary>
         public void RejectChanges()
         {
+            // 移除链接
+            context.Links.ToList().ForEach(l =>
+            {
+                if (l.State != EntityStates.Unchanged && l.State != EntityStates.Detached)
+                    context.Detach(l.Target);
+            });
+            // 遍历ServiceCollectionViews并撤销更改
             _dataServiceCollectionViews.ForEach(RejectChanges);
         }
 
@@ -291,8 +272,9 @@ namespace UniCloud.Presentation.Service
             where TService : class, INotifyPropertyChanged
         {
             var result = new QueryableDataServiceCollectionView<TService>(context, query);
-            result.SubmittingChanges += (o, e) => { e.SaveChangesOptions = options; };
-            result.PropertyChanged += (o, e) => { HasChanges = result.HasChanges; };
+            result.SubmittingChanges += (o, e) =>
+                e.SaveChangesOptions = options;
+            result.PropertyChanged += (o, e) => { if (result.HasChanges) HasChanges = true; };
             result.LoadedData += (o, e) =>
             {
                 HasChanges = false;

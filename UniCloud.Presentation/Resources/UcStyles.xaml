@@ -12,7 +12,7 @@
 
     <!--数字格式-->
     <system:String x:Key="NumberStringFormat">###,###</system:String>
-    
+
     <!-- 字体、字号 -->
     <FontFamily x:Key="NormalFontFamily">Microsoft YaHei UI</FontFamily>
     <system:Double x:Key="TitleFontSize">16</system:Double>
@@ -65,50 +65,44 @@
     <!--ListBox相关样式-->
 
     <!--ListBox相关样式-->
-    
+
     <!--RibbonView相关样式-->
-    <Style TargetType="telerik:RadRibbonBackstageItem" x:Key="BaseRadRibbonBackstageItem"/>
+    <Style TargetType="telerik:RadRibbonBackstageItem" x:Key="BaseRadRibbonBackstageItem" />
     <Style TargetType="telerik:RadRibbonBackstageItem" BasedOn="{StaticResource BaseRadRibbonBackstageItem}">
-        <Setter Property="FontFamily" Value="{StaticResource NormalFontFamily}"/>
-        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontFamily" Value="{StaticResource NormalFontFamily}" />
+        <Setter Property="FontSize" Value="12" />
     </Style>
-    
-    <Style TargetType="telerik:RadRibbonTab" x:Key="BaseRadRibbonTab"/>
+
+    <Style TargetType="telerik:RadRibbonTab" x:Key="BaseRadRibbonTab" />
     <Style TargetType="telerik:RadRibbonTab" BasedOn="{StaticResource BaseRadRibbonTab}">
-        <Setter Property="FontFamily" Value="{StaticResource NormalFontFamily}"/>
-        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontFamily" Value="{StaticResource NormalFontFamily}" />
+        <Setter Property="FontSize" Value="12" />
     </Style>
-    
-    <Style TargetType="telerik:RadRibbonGroup" x:Key="BaseRadRibbonGroup"/>
+
+    <Style TargetType="telerik:RadRibbonGroup" x:Key="BaseRadRibbonGroup" />
     <Style TargetType="telerik:RadRibbonGroup" BasedOn="{StaticResource BaseRadRibbonGroup}">
-        <Setter Property="FontFamily" Value="{StaticResource NormalFontFamily}"/>
-        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontFamily" Value="{StaticResource NormalFontFamily}" />
+        <Setter Property="FontSize" Value="12" />
     </Style>
-    
-    <Style TargetType="telerik:RadRibbonButton" x:Key="BaseRadRibbonButton"/>
+
+    <Style TargetType="telerik:RadRibbonButton" x:Key="BaseRadRibbonButton" />
     <Style TargetType="telerik:RadRibbonButton" BasedOn="{StaticResource BaseRadRibbonButton}">
-        <Setter Property="FontFamily" Value="{StaticResource NormalFontFamily}"/>
-        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontFamily" Value="{StaticResource NormalFontFamily}" />
+        <Setter Property="FontSize" Value="12" />
     </Style>
 
     <!--RibbonView相关样式-->
 
     <!--RadToggleButton相关样式-->
-    <Style TargetType="telerik:RadToggleButton">
-        <Setter Property="BorderThickness"
-                Value="1" />
-        <Setter Property="HorizontalContentAlignment"
-                Value="Center" />
-        <Setter Property="VerticalContentAlignment"
-                Value="Center" />
-        <Setter Property="Foreground"
-                Value="#1FA3EB" />
-        <Setter Property="Margin"
-                Value="10 0 0 10" />
-        <Setter Property="Width"
-                Value="90" />
-        <Setter Property="Height"
-                Value="40" />
+    <Style TargetType="telerik:RadToggleButton" x:Key="BaseRadToggleButton" />
+    <Style TargetType="telerik:RadToggleButton" BasedOn="{StaticResource BaseRadToggleButton}" x:Key="ChartButton">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="#1FA3EB" />
+        <Setter Property="Margin" Value="10 0 0 10" />
+        <Setter Property="Width" Value="90" />
+        <Setter Property="Height" Value="40" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="telerik:RadToggleButton">
@@ -127,12 +121,12 @@
                                                              Storyboard.TargetName="InnerBorder"
                                                              Storyboard.TargetProperty="Opacity"
                                                              To="1" />
-                                            <ColorAnimationUsingKeyFrames  Duration="0:0:0"
-                                                                           Storyboard.TargetName="textBlock"
-                                                                           Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
+                                            <ColorAnimationUsingKeyFrames Duration="0:0:0"
+                                                                          Storyboard.TargetName="textBlock"
+                                                                          Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
                                                 <DiscreteColorKeyFrame KeyTime="0:0:0"
                                                                        Value="#1FA3EB" />
-                                            </ColorAnimationUsingKeyFrames >
+                                            </ColorAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetName="OuterBorder"
                                                                            Storyboard.TargetProperty="Background"
                                                                            Duration="0">
@@ -149,12 +143,12 @@
                             <VisualStateGroup x:Name="CheckStates">
                                 <VisualState x:Name="Checked">
                                     <Storyboard>
-                                        <ColorAnimationUsingKeyFrames  Duration="0:0:0"
-                                                                       Storyboard.TargetName="textBlock"
-                                                                       Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
+                                        <ColorAnimationUsingKeyFrames Duration="0:0:0"
+                                                                      Storyboard.TargetName="textBlock"
+                                                                      Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
                                             <DiscreteColorKeyFrame KeyTime="0:0:0"
                                                                    Value="#FFFFFF" />
-                                        </ColorAnimationUsingKeyFrames >
+                                        </ColorAnimationUsingKeyFrames>
                                         <DoubleAnimation Duration="0"
                                                          Storyboard.TargetName="InnerBorder"
                                                          Storyboard.TargetProperty="Opacity"
@@ -168,12 +162,12 @@
                                 <VisualState x:Name="Unchecked" />
                                 <VisualState x:Name="MouseOverChecked">
                                     <Storyboard>
-                                        <ColorAnimationUsingKeyFrames  Duration="0:0:0"
-                                                                       Storyboard.TargetName="textBlock"
-                                                                       Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
+                                        <ColorAnimationUsingKeyFrames Duration="0:0:0"
+                                                                      Storyboard.TargetName="textBlock"
+                                                                      Storyboard.TargetProperty="(TextBlock.Foreground).(SolidColorBrush.Color)">
                                             <DiscreteColorKeyFrame KeyTime="0:0:0"
                                                                    Value="#FFFFFF" />
-                                        </ColorAnimationUsingKeyFrames  >
+                                        </ColorAnimationUsingKeyFrames>
                                         <DoubleAnimation Duration="0"
                                                          Storyboard.TargetName="InnerBorder"
                                                          Storyboard.TargetProperty="Opacity"
@@ -220,7 +214,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <valueConverts:EnumToStringConverter x:Key="EnumToStringConverter" />
     <valueConverts:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
 </ResourceDictionary>

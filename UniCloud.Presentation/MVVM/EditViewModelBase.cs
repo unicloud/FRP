@@ -17,7 +17,9 @@
 
 #region 命名空间
 
+using System;
 using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls.DataServices;
 using UniCloud.Presentation.Service;
 
@@ -25,7 +27,7 @@ using UniCloud.Presentation.Service;
 
 namespace UniCloud.Presentation.MVVM
 {
-    public abstract class EditViewModelBase : ViewModelBase
+    public abstract class EditViewModelBase : ViewModelBase, IConfirmNavigationRequest
     {
         private readonly IService _service;
 
@@ -177,7 +179,33 @@ namespace UniCloud.Presentation.MVVM
         /// </summary>
         protected virtual void RefreshCommandState()
         {
+        }
 
+        #endregion
+
+        #region IConfirmNavigationRequest 成员
+
+        public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
+        {
+            if (_service.HasChanges)
+            {
+                MessageConfirm("还有未保存的更改，继续导航将撤销这些修改，是否继续？", (o, e) =>
+                {
+                    if (e.DialogResult == true)
+                    {
+                        _service.RejectChanges();
+                        continuationCallback(true);
+                    }
+                    else
+                    {
+                        continuationCallback(false);
+                    }
+                });
+            }
+            else
+            {
+                continuationCallback(true);
+            }
         }
 
         #endregion

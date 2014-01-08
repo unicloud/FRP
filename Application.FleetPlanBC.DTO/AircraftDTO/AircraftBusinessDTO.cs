@@ -59,6 +59,20 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public int Status { get; set; }
 
+        /// <summary>
+        ///     机型
+        /// </summary>
+        public string AircraftTypeName { get; set; }
+
+        /// <summary>
+        ///     飞机座级
+        /// </summary>
+        public string Regional { get;set; }
+
+        /// <summary>
+        ///  飞机座级类型
+        /// </summary>
+        public string Category { get; set; }
         #endregion
 
         #region 外键属性

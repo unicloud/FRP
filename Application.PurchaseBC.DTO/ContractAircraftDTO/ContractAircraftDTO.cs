@@ -14,10 +14,7 @@ namespace UniCloud.Application.PurchaseBC.DTO
     [DataServiceKey("ContractNumber", "RankNumber")]
     public class ContractAircraftDTO
     {
-        public ContractAircraftDTO()
-        {
-            BFEPurchaseOrders = new List<BFEPurchaseOrderDTO>();
-        }
+        private List<BFEPurchaseOrderDTO> _bfePurchaseOrders;
 
         #region 属性
 
@@ -110,9 +107,13 @@ namespace UniCloud.Application.PurchaseBC.DTO
         #region 导航属性
 
         /// <summary>
-        ///     合同飞机BFE
+        ///     合同飞机BFE集合
         /// </summary>
-        public List<BFEPurchaseOrderDTO> BFEPurchaseOrders { get; set; }
+        public virtual List<BFEPurchaseOrderDTO> BFEPurchaseOrders
+        {
+            get { return _bfePurchaseOrders ?? (_bfePurchaseOrders = new List<BFEPurchaseOrderDTO>()); }
+            set { _bfePurchaseOrders = value; }
+        }
 
         #endregion
     }

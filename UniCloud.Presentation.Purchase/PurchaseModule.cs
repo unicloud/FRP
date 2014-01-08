@@ -21,11 +21,6 @@ using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.MefExtensions.Modularity;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
-using UniCloud.Presentation.Purchase.Contract;
-using UniCloud.Presentation.Purchase.Forwarder;
-using UniCloud.Presentation.Purchase.Reception;
-using UniCloud.Presentation.Purchase.Supplier;
-using UniCloud.Presentation.Service.Purchase;
 
 #endregion
 
@@ -40,28 +35,8 @@ namespace UniCloud.Presentation.Purchase
 
         public void Initialize()
         {
-            RegisterView();
         }
 
         #endregion
-
-        private void RegisterView()
-        {
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (ForwarderManager));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (AircraftPurchase));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (MatchingPlanAircraftManager));
-            //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (AircraftPurchaseReceptionManager));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(AircraftLeaseReceptionManager));
-            //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (EnginePurchaseReceptionManager));
-            //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (EngineLeaseReceptionManager));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (SupplierRoleManager));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (SupplierMaterialManager));
-            //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(ApuMaintain));
-            //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(EngineMaintain));
-            //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(UndercartMaintain));
-            //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(AnalyseAircraftPrice));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (QuerySupplier));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof (LinkManManager));
-        }
     }
 }

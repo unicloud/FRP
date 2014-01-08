@@ -19,6 +19,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Modularity;
@@ -32,23 +33,16 @@ using UniCloud.Presentation.SessionExtension;
 
 namespace UniCloud.Presentation.Shell
 {
-    [Export(typeof(ShellViewModel))]
+    [Export(typeof (ShellViewModel))]
     public class ShellViewModel : NotificationObject, IPartImportsSatisfiedNotification
     {
         #region 声明
 
-        private bool _firstLoad = true;
-        [Import]
-        public IModuleManager moduleManager;
-        [Import]
-        public IRegionManager regionManager;
+        [Import] public IModuleManager moduleManager;
+        [Import] public IRegionManager regionManager;
 
         #region IPartImportsSatisfiedNotification 成员
 
-        /// <summary>
-        ///     装配完成后执行的操作
-        ///     在此处注册命令、事件处理程序
-        /// </summary>
         public void OnImportsSatisfied()
         {
             HomeCommand = new DelegateCommand<object>(OnHome, CanHome);
@@ -67,7 +61,7 @@ namespace UniCloud.Presentation.Shell
         private void InitializeVM()
         {
             LoadMenuItems();
-            InitialSession("123456","test用户");
+            InitialSession("123456", "test用户");
         }
 
         #endregion
@@ -79,22 +73,44 @@ namespace UniCloud.Presentation.Shell
         /// <summary>
         ///     应用模块加载完成后的操作
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void moduleManager_LoadModuleCompleted(object sender, LoadModuleCompletedEventArgs e)
         {
-            if (_firstLoad)
+            switch (e.ModuleInfo.ModuleName)
             {
-                _firstLoad = false;
+                case "PortalModule":
+                    var menuItemPortal = Items.SingleOrDefault(m => m.Text == "管理门户");
+                    if (menuItemPortal != null)
+                        menuItemPortal.IsEnabled = true;
                 OnHome(null);
+                    break;
+                case "FleetPlanModule":
+                    var menuItemFleetPlan = Items.SingleOrDefault(m => m.Text == "运力规划");
+                    if (menuItemFleetPlan != null)
+                        menuItemFleetPlan.IsEnabled = true;
+                    break;
+                case "PurchaseModule":
+                    var menuItemPurchase = Items.SingleOrDefault(m => m.Text == "采购合同");
+                    if (menuItemPurchase != null)
+                        menuItemPurchase.IsEnabled = true;
+                    break;
+                case "PaymentModule":
+                    var menuItemPayment = Items.SingleOrDefault(m => m.Text == "应付款");
+                    if (menuItemPayment != null)
+                        menuItemPayment.IsEnabled = true;
+                    break;
+                case "ProjectModule":
+                    var menuItemProject = Items.SingleOrDefault(m => m.Text == "项目管理");
+                    if (menuItemProject != null)
+                        menuItemProject.IsEnabled = true;
+                    break;
+                default:
+                    throw new ArgumentException("没有匹配的模块名称！");
             }
         }
 
         /// <summary>
         ///     应用模块加载进程处理
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void moduleManager_ModuleDownloadProgressChanged(object sender,
             ModuleDownloadProgressChangedEventArgs e)
         {
@@ -135,7 +151,7 @@ namespace UniCloud.Presentation.Shell
             var menu1 = new MenuItem
             {
                 Text = "飞行日志",
-                NavUri = "UniCloud.Presentation.Portal.Plan.PlanPortal"
+                IsEnabled = false
             };
             _items.Add(menu1);
 
@@ -146,6 +162,7 @@ namespace UniCloud.Presentation.Shell
             var menu2 = new MenuItem
             {
                 Text = "运力规划",
+                IsEnabled = false
             };
             _items.Add(menu2);
 
@@ -167,31 +184,26 @@ namespace UniCloud.Presentation.Shell
             {
                 Text = "准备编制",
                 NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanPrepare"
-
             };
             var menu214 = new MenuItem
             {
                 Text = "编制规划",
                 NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanLay"
-
             };
             var menu215 = new MenuItem
             {
                 Text = "发布规划",
                 NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanPublish"
-
             };
             var menu216 = new MenuItem
             {
                 Text = "报送规划",
                 NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanSend"
-
             };
             var menu217 = new MenuItem
             {
                 Text = "编制备发计划",
                 NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.SpareEnginePlanLay"
-
             };
             menu21.Items.Add(menu211);
             menu21.Items.Add(menu212);
@@ -220,7 +232,6 @@ namespace UniCloud.Presentation.Shell
             {
                 Text = "完成规划",
                 NavUri = "UniCloud.Presentation.FleetPlan.PerformFleetPlan.FleetPlanDeliver"
-
             };
             menu22.Items.Add(menu221);
             menu22.Items.Add(menu222);
@@ -322,7 +333,7 @@ namespace UniCloud.Presentation.Shell
             menu25.Items.Add(menu255);
             menu25.Items.Add(menu256);
             menu25.Items.Add(menu257);
-            menu25.Items.Add(menu258);
+            //menu25.Items.Add(menu258);
             menu2.Items.Add(menu25);
 
             #endregion
@@ -332,6 +343,7 @@ namespace UniCloud.Presentation.Shell
             var menu3 = new MenuItem
             {
                 Text = "采购合同",
+                IsEnabled = false
             };
 
             var menu31 = new MenuItem
@@ -352,19 +364,16 @@ namespace UniCloud.Presentation.Shell
             {
                 Text = "维护联系人",
                 NavUri = "UniCloud.Presentation.Purchase.Supplier.LinkManManager"
-
             };
             var menu314 = new MenuItem
             {
                 Text = "查询供应商",
                 NavUri = "UniCloud.Presentation.Purchase.Supplier.QuerySupplier"
-
             };
             var menu315 = new MenuItem
             {
                 Text = "维护BFE承运人",
                 NavUri = "UniCloud.Presentation.Purchase.Forwarder.ForwarderManager"
-
             };
             menu31.Items.Add(menu311);
             menu31.Items.Add(menu312);
@@ -385,18 +394,22 @@ namespace UniCloud.Presentation.Shell
             var menu322 = new MenuItem
             {
                 Text = "管理飞机租赁合同",
+                NavUri = "UniCloud.Presentation.Purchase.Contract.AircraftLease"
             };
             var menu323 = new MenuItem
             {
                 Text = "管理发动机购买合同",
+                NavUri = "UniCloud.Presentation.Purchase.Contract.EnginePurchase"
             };
             var menu324 = new MenuItem
             {
                 Text = "管理发动机租赁合同",
+                NavUri = "UniCloud.Presentation.Purchase.Contract.EngineLease"
             };
             var menu325 = new MenuItem
             {
                 Text = "管理BFE合同",
+                NavUri = "UniCloud.Presentation.Purchase.Contract.BFEPurchase"
             };
 
             menu32.Items.Add(menu321);
@@ -498,6 +511,7 @@ namespace UniCloud.Presentation.Shell
             var menu4 = new MenuItem
             {
                 Text = "应付款",
+                IsEnabled = false
             };
             var menu41 = new MenuItem
             {
@@ -512,7 +526,6 @@ namespace UniCloud.Presentation.Shell
             {
                 Text = "管理发动机付款计划",
                 NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.EnginePaymentSchedule"
-
             };
             var menu413 = new MenuItem
             {
@@ -665,8 +678,6 @@ namespace UniCloud.Presentation.Shell
 
             _items.Add(menu4);
 
-
-
             #endregion
 
             #region 项目管理
@@ -710,7 +721,7 @@ namespace UniCloud.Presentation.Shell
         private void OnHome(object obj)
         {
             // TODO：根据角色获取门户并导航
-            var uri = new Uri("UniCloud.Presentation.Portal.Plan.PlanPortal", UriKind.Relative);
+            var uri = new Uri("UniCloud.Presentation.Portal.Manager.ManagerPortal", UriKind.Relative);
             regionManager.RequestNavigate(RegionNames.MainRegion, uri);
         }
 
@@ -736,8 +747,9 @@ namespace UniCloud.Presentation.Shell
         #endregion
 
         #region 去掉默认右键菜单
+
         /// <summary>
-        /// 去掉右击选择默认菜单
+        ///     去掉右击选择默认菜单
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -745,16 +757,16 @@ namespace UniCloud.Presentation.Shell
         {
             e.Handled = true;
         }
+
         #endregion
 
         #region 设置用户Session
 
         /// <summary>
-        /// 设置用户Session
+        ///     设置用户Session
         /// </summary>
         /// <param name="userId">用户Id</param>
         /// <param name="userName">用户名</param>
-
         private void InitialSession(string userId, string userName)
         {
             SessionHelper.SetSession("userId", userId);

@@ -38,6 +38,7 @@ namespace UniCloud.Infrastructure.Data.PaymentBC.UnitOfWork.Mapping.Sql
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(p => p.TradeNumber).HasColumnName("TradeNumber");
+            Property(p => p.TradeType).HasColumnName("TradeType");
             Property(p => p.Name).HasColumnName("Name");
             Property(p => p.Description).HasColumnName("Description");
             Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");

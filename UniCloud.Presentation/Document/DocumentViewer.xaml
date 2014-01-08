@@ -194,14 +194,11 @@
                                                                      SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/save.png"
                                                                      Text="保存"
                                                                      ToolTipService.ToolTip="保存到服务器" />
-                                            <telerik:RadRibbonSplitButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding UndoCommand}"
-                                                                          Size="Small"
-                                                                          SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/undo.png"
-                                                                          Text="撤销键入">
-                                                <telerik:RadRibbonSplitButton.DropDownContent>
-                                                    <telerik:MultipleUndoControl telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding MultipleUndoCommand}" />
-                                                </telerik:RadRibbonSplitButton.DropDownContent>
-                                            </telerik:RadRibbonSplitButton>
+                                            <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding UndoCommand}"
+                                                                     Size="Small"
+                                                                     SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/undo.png"
+                                                                     Text="撤销键入">
+                                            </telerik:RadRibbonButton>
                                             <telerik:RadRibbonButton telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding RedoCommand}"
                                                                      Size="Small"
                                                                      SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/redo.png"

@@ -42,13 +42,15 @@ namespace UniCloud.Presentation.Purchase.Contract
     {
         #region 声明、初始化
 
+        private const string TradeType = "购买飞机";
         private readonly PurchaseData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
         private DocumentDTO _document = new DocumentDTO();
         private bool _isAttach;
         private FilterDescriptor _orderDescriptor;
-        private FilterDescriptor _tradeDescriptor;
+        private FilterDescriptor _tradeDescriptor1;
+        private FilterDescriptor _tradeDescriptor2;
 
         [ImportingConstructor]
         public AircraftPurchaseVM(IRegionManager regionManager, IPurchaseService service) : base(service)
@@ -75,22 +77,13 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// <summary>
         ///     初始化ViewModel
         ///     <remarks>
-        ///         统一在此处创建并注册CollectionView集合。
+        ///         统一在此处访问创建并注册CollectionView集合的方法。
         ///     </remarks>
         /// </summary>
         private void InitializeVM()
         {
-            ViewTradeDTO = _service.CreateCollection(_context.Trades);
-            _tradeDescriptor = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
-            ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor);
-            _service.RegisterCollectionView(ViewTradeDTO);
-
-            ViewAircraftPurchaseOrderDTO = _service.CreateCollection(
-                _context.AircraftPurchaseOrders.Expand(p => p.RelatedDocs),
-                o => o.AircraftPurchaseOrderLines, o => o.RelatedDocs, o => o.ContractContents);
-            _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
-            ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
-            _service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
+            InitializeViewTradeDTO();
+            InitializeViewAircraftPurchaseOrderDTO();
         }
 
         #endregion
@@ -156,10 +149,10 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             ViewTradeDTO.AutoLoad = true;
 
-            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
-            Currencies = _service.GetCurrency(() => RaisePropertyChanged(() => Currencies));
-            Linkmen = _service.GetLinkman(() => RaisePropertyChanged(() => Linkmen));
-            AircraftMaterials = _service.GetAircraftMaterial(() => RaisePropertyChanged(() => AircraftMaterials));
+            Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers), true);
+            Currencies = _service.GetCurrency(() => RaisePropertyChanged(() => Currencies), true);
+            Linkmen = _service.GetLinkman(() => RaisePropertyChanged(() => Linkmen), true);
+            AircraftMaterials = _service.GetAircraftMaterial(() => RaisePropertyChanged(() => AircraftMaterials), true);
         }
 
         #region 交易
@@ -202,6 +195,19 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
         }
 
+        /// <summary>
+        ///     初始化交易集合
+        /// </summary>
+        private void InitializeViewTradeDTO()
+        {
+            ViewTradeDTO = _service.CreateCollection(_context.Trades);
+            _tradeDescriptor1 = new FilterDescriptor("IsClosed", FilterOperator.IsEqualTo, false);
+            _tradeDescriptor2 = new FilterDescriptor("TradeType", FilterOperator.IsEqualTo, TradeType);
+            ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor1);
+            ViewTradeDTO.FilterDescriptors.Add(_tradeDescriptor2);
+            _service.RegisterCollectionView(ViewTradeDTO);
+        }
+
         #endregion
 
         #region 购买飞机订单
@@ -229,6 +235,19 @@ namespace UniCloud.Presentation.Purchase.Contract
                     RefreshCommandState();
                 }
             }
+        }
+
+        /// <summary>
+        ///     初始化购买飞机订单集合
+        /// </summary>
+        private void InitializeViewAircraftPurchaseOrderDTO()
+        {
+            ViewAircraftPurchaseOrderDTO = _service.CreateCollection(
+                _context.AircraftPurchaseOrders.Expand(p => p.RelatedDocs),
+                o => o.AircraftPurchaseOrderLines, o => o.RelatedDocs, o => o.ContractContents);
+            _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
+            ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
+            _service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
         }
 
         #endregion
@@ -421,6 +440,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             var trade = new TradeDTO
             {
                 Id = RandomHelper.Next(),
+                TradeType = TradeType,
                 StartDate = DateTime.Now,
             };
             ViewTradeDTO.AddNew(trade);
