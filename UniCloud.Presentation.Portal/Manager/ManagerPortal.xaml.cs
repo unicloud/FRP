@@ -2,7 +2,11 @@
 // 
 //------------------------------------------------------------------------------
 
+using System;
 using System.ComponentModel.Composition;
+using System.Windows.Data;
+using Telerik.Windows.Controls;
+using System.Windows;
 
 namespace UniCloud.Presentation.Portal.Manager
 {
@@ -13,6 +17,7 @@ namespace UniCloud.Presentation.Portal.Manager
         public ManagerPortal()
         {
             InitializeComponent();
+            Calendar.SelectedDate = DateTime.Today;
         }
 
         [Import]
@@ -20,6 +25,12 @@ namespace UniCloud.Presentation.Portal.Manager
         {
             get { return DataContext as ManagerPortalVm; }
             set { DataContext = value; }
+        }
+
+        private void EventsListFilter(object sender, FilterEventArgs e)
+        {
+            var item = e.Item as Event;
+            if (item != null) e.Accepted = Calendar != null && Calendar.SelectedDates.Contains(item.Date);
         }
     }
 }
