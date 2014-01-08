@@ -118,7 +118,7 @@ namespace UniCloud.Application.PurchaseBC.TradeServices
             }
 
             var supplier = _supplierRepository.Get(dto.SupplierId);
-            var newTrade = TradeFactory.CreateTrade(dto.Name, dto.Description, dto.StartDate);
+            var newTrade = TradeFactory.CreateTrade(dto.Name, dto.Description, dto.StartDate, dto.TradeType);
             newTrade.ChangeCurrentIdentity(dto.Id);
             newTrade.SetStatus((TradeStatus) dto.Status);
             // TODO:设置交易编号,如果当天的记录被删除过，本方法导致会出现重复交易号

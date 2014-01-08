@@ -55,7 +55,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         {
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, PurchaseBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                .RegisterType<IEventAggregator,EventAggregator>(new WcfPerRequestLifetimeManager())
+                .RegisterType<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager())
                 .RegisterType<IPurchaseEvent, PurchaseEvent>(new WcfPerRequestLifetimeManager())
 
                 #region 交易相关配置，包括查询，应用服务，仓储注册
@@ -152,11 +152,11 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
             var tradeRep = DefaultContainer.Resolve<ITradeRepository>();
 
             var supplier = supplierRep.GetAll().FirstOrDefault();
-            var trade1 = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now);
+            var trade1 = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now, "购买飞机");
             trade1.SetTradeNumber(1);
-            var trade2 = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now);
+            var trade2 = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now, "购买飞机");
             trade2.SetTradeNumber(2);
-            var trade3 = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now);
+            var trade3 = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now, "购买飞机");
             trade3.SetTradeNumber(3);
             trade1.SetSupplier(supplier);
             trade2.SetSupplier(supplier);

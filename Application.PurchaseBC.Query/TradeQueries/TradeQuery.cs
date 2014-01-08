@@ -55,11 +55,12 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
             var result = query.ApplyTo(_tradeRepository.GetAll()).Select(t => new TradeDTO
             {
                 Id = t.Id,
+                TradeType = t.TradeType,
                 TradeNumber = t.TradeNumber,
                 Name = t.Name,
                 Description = t.Description,
                 SupplierId = t.SupplierId,
-                SuppierCompanyId = supplier.FirstOrDefault(s=>s.Id==t.SupplierId).SupplierCompanyId,
+                SuppierCompanyId = supplier.FirstOrDefault(s => s.Id == t.SupplierId).SupplierCompanyId,
                 StartDate = t.StartDate,
                 IsClosed = t.IsClosed,
                 Status = (int) t.Status

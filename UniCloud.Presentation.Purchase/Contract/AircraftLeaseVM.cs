@@ -1,10 +1,10 @@
 ﻿#region 版本信息
 
 // =====================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2013/11/27，12:49
+// 作者：丁志浩 时间：2014/01/07，11:29
 // 方案：FRP
 // 项目：Purchase
 // 版本：V1.0.0
@@ -36,13 +36,13 @@ using UniCloud.Presentation.Service.Purchase.Purchase.Enums;
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
-    [Export(typeof (AircraftPurchaseVM))]
+    [Export(typeof (AircraftLeaseVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class AircraftPurchaseVM : EditViewModelBase
+    public class AircraftLeaseVM : EditViewModelBase
     {
         #region 声明、初始化
 
-        private const string TradeType = "购买飞机";
+        private const string TradeType = "租赁飞机";
         private readonly PurchaseData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
@@ -53,7 +53,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         private FilterDescriptor _tradeDescriptor2;
 
         [ImportingConstructor]
-        public AircraftPurchaseVM(IRegionManager regionManager, IPurchaseService service) : base(service)
+        public AircraftLeaseVM(IRegionManager regionManager, IPurchaseService service) : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -83,7 +83,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         private void InitializeVM()
         {
             InitializeViewTradeDTO();
-            InitializeViewAircraftPurchaseOrderDTO();
+            InitializeViewAircraftLeaseOrderDTO();
         }
 
         #endregion
@@ -174,23 +174,26 @@ namespace UniCloud.Presentation.Purchase.Contract
             {
                 if (_selTradeDTO != value)
                 {
-                    _selTradeDTO = value;
-                    if (_selTradeDTO != null)
+                    if (_selTradeDTO != value)
                     {
-                        _orderDescriptor.Value = _selTradeDTO.Id;
-                        RaisePropertyChanged(() => AircraftMaterials);
+                        _selTradeDTO = value;
+                        if (_selTradeDTO != null)
+                        {
+                            _orderDescriptor.Value = _selTradeDTO.Id;
+                            RaisePropertyChanged(() => AircraftMaterials);
+                        }
+                        else
+                        {
+                            _orderDescriptor.Value = -1;
+                        }
+                        if (!ViewAircraftLeaseOrderDTO.AutoLoad)
+                        {
+                            ViewAircraftLeaseOrderDTO.AutoLoad = true;
+                        }
+                        RaisePropertyChanged(() => SelTradeDTO);
+                        // 刷新按钮状态
+                        RefreshCommandState();
                     }
-                    else
-                    {
-                        _orderDescriptor.Value = -1;
-                    }
-                    if (!ViewAircraftPurchaseOrderDTO.AutoLoad)
-                    {
-                        ViewAircraftPurchaseOrderDTO.AutoLoad = true;
-                    }
-                    RaisePropertyChanged(() => SelTradeDTO);
-                    // 刷新按钮状态
-                    RefreshCommandState();
                 }
             }
         }
@@ -210,27 +213,27 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #endregion
 
-        #region 购买飞机订单
+        #region 租赁飞机订单
 
-        private AircraftPurchaseOrderDTO _selAircraftPurchaseOrderDTO;
-
-        /// <summary>
-        ///     购买飞机订单集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<AircraftPurchaseOrderDTO> ViewAircraftPurchaseOrderDTO { get; set; }
+        private AircraftLeaseOrderDTO _selAircraftLeaseOrderDTO;
 
         /// <summary>
-        ///     选中的购买飞机订单
+        ///     租赁飞机订单集合
         /// </summary>
-        public AircraftPurchaseOrderDTO SelAircraftPurchaseOrderDTO
+        public QueryableDataServiceCollectionView<AircraftLeaseOrderDTO> ViewAircraftLeaseOrderDTO { get; set; }
+
+        /// <summary>
+        ///     选中的租赁飞机订单
+        /// </summary>
+        public AircraftLeaseOrderDTO SelAircraftLeaseOrderDTO
         {
-            get { return _selAircraftPurchaseOrderDTO; }
+            get { return _selAircraftLeaseOrderDTO; }
             private set
             {
-                if (_selAircraftPurchaseOrderDTO != value)
+                if (_selAircraftLeaseOrderDTO != value)
                 {
-                    _selAircraftPurchaseOrderDTO = value;
-                    RaisePropertyChanged(() => SelAircraftPurchaseOrderDTO);
+                    _selAircraftLeaseOrderDTO = value;
+                    RaisePropertyChanged(() => SelAircraftLeaseOrderDTO);
                     // 刷新按钮状态
                     RefreshCommandState();
                 }
@@ -238,36 +241,36 @@ namespace UniCloud.Presentation.Purchase.Contract
         }
 
         /// <summary>
-        ///     初始化购买飞机订单集合
+        ///     初始化租赁飞机订单集合
         /// </summary>
-        private void InitializeViewAircraftPurchaseOrderDTO()
+        private void InitializeViewAircraftLeaseOrderDTO()
         {
-            ViewAircraftPurchaseOrderDTO = _service.CreateCollection(
-                _context.AircraftPurchaseOrders.Expand(p => p.RelatedDocs),
-                o => o.AircraftPurchaseOrderLines, o => o.RelatedDocs, o => o.ContractContents);
+            ViewAircraftLeaseOrderDTO = _service.CreateCollection(
+                _context.AircraftLeaseOrders.Expand(p => p.RelatedDocs),
+                o => o.AircraftLeaseOrderLines, o => o.RelatedDocs, o => o.ContractContents);
             _orderDescriptor = new FilterDescriptor("TradeId", FilterOperator.IsEqualTo, -1);
-            ViewAircraftPurchaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
-            _service.RegisterCollectionView(ViewAircraftPurchaseOrderDTO);
+            ViewAircraftLeaseOrderDTO.FilterDescriptors.Add(_orderDescriptor);
+            _service.RegisterCollectionView(ViewAircraftLeaseOrderDTO);
         }
 
         #endregion
 
-        #region 选中的购买飞机订单行
+        #region 选中的租赁飞机订单行
 
-        private AircraftPurchaseOrderLineDTO _selAircraftPurchaseOrderLineDTO;
+        private AircraftLeaseOrderLineDTO _selAircraftLeaseOrderLineDTO;
 
         /// <summary>
-        ///     选中的购买飞机订单行
+        ///     选中的租赁飞机订单行
         /// </summary>
-        public AircraftPurchaseOrderLineDTO SelAircraftPurchaseOrderLineDTO
+        public AircraftLeaseOrderLineDTO SelAircraftLeaseOrderLineDTO
         {
-            get { return _selAircraftPurchaseOrderLineDTO; }
+            get { return _selAircraftLeaseOrderLineDTO; }
             private set
             {
-                if (_selAircraftPurchaseOrderLineDTO != value)
+                if (_selAircraftLeaseOrderLineDTO != value)
                 {
-                    _selAircraftPurchaseOrderLineDTO = value;
-                    RaisePropertyChanged(() => SelAircraftPurchaseOrderLineDTO);
+                    _selAircraftLeaseOrderLineDTO = value;
+                    RaisePropertyChanged(() => SelAircraftLeaseOrderLineDTO);
                     // 刷新按钮状态
                     RefreshCommandState();
                 }
@@ -276,12 +279,12 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #endregion
 
-        #region 选中的购买飞机合同内容行
+        #region 选中的租赁飞机合同内容行
 
         private ContractContentDTO _selContractContentDTO;
 
         /// <summary>
-        ///     选中的购买飞机合同内容行
+        ///     选中的租赁飞机合同内容行
         /// </summary>
         public ContractContentDTO SelContractContentDTO
         {
@@ -339,8 +342,8 @@ namespace UniCloud.Presentation.Purchase.Contract
                 if (_isAttach)
                 {
                     _document = documentView.Tag as DocumentDTO;
-                    SelAircraftPurchaseOrderDTO.ContractName = _document.Name;
-                    SelAircraftPurchaseOrderDTO.ContractDocGuid = _document.DocumentId;
+                    SelAircraftLeaseOrderDTO.ContractName = _document.Name;
+                    SelAircraftLeaseOrderDTO.ContractDocGuid = _document.DocumentId;
                 }
                 else
                 {
@@ -350,16 +353,16 @@ namespace UniCloud.Presentation.Purchase.Contract
                         Id = RandomHelper.Next(),
                         DocumentId = _document.DocumentId,
                         DocumentName = _document.Name,
-                        SourceId = SelAircraftPurchaseOrderDTO.SourceGuid
+                        SourceId = SelAircraftLeaseOrderDTO.SourceGuid
                     };
-                    SelAircraftPurchaseOrderDTO.RelatedDocs.Add(doc);
+                    SelAircraftLeaseOrderDTO.RelatedDocs.Add(doc);
                 }
             }
         }
 
         protected override bool CanAddAttach(object obj)
         {
-            return _selAircraftPurchaseOrderDTO != null;
+            return _selAircraftLeaseOrderDTO != null;
         }
 
         #endregion
@@ -390,7 +393,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         protected override void OnSaveSuccess(object sender)
         {
-            SelAircraftPurchaseOrderLineDTO = null;
+            SelAircraftLeaseOrderLineDTO = null;
             SelContractContentDTO = null;
         }
 
@@ -400,7 +403,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         protected override void OnAbortExecuted(object sender)
         {
-            SelAircraftPurchaseOrderLineDTO = null;
+            SelAircraftLeaseOrderLineDTO = null;
             SelContractContentDTO = null;
         }
 
@@ -484,9 +487,9 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddOrder(object obj)
         {
-            if (_selAircraftPurchaseOrderDTO == null)
+            if (_selAircraftLeaseOrderDTO == null)
             {
-                var order = new AircraftPurchaseOrderDTO
+                var order = new AircraftLeaseOrderDTO
                 {
                     Id = RandomHelper.Next(),
                     OrderDate = DateTime.Now,
@@ -494,17 +497,17 @@ namespace UniCloud.Presentation.Purchase.Contract
                     SourceGuid = Guid.NewGuid(),
                     SupplierId = _selTradeDTO.SupplierId
                 };
-                ViewAircraftPurchaseOrderDTO.AddNew(order);
+                ViewAircraftLeaseOrderDTO.AddNew(order);
                 SelTradeDTO.Status = (int) TradeStatus.进行中;
             }
             else
             {
                 var order =
-                    ViewAircraftPurchaseOrderDTO.Where(o => o.TradeId == _selTradeDTO.Id)
+                    ViewAircraftLeaseOrderDTO.Where(o => o.TradeId == _selTradeDTO.Id)
                         .OrderBy(o => o.Version)
                         .LastOrDefault();
                 if (order == null) return;
-                var newOrder = new AircraftPurchaseOrderDTO
+                var newOrder = new AircraftLeaseOrderDTO
                 {
                     Id = RandomHelper.Next(),
                     OrderDate = DateTime.Now,
@@ -515,18 +518,15 @@ namespace UniCloud.Presentation.Purchase.Contract
                     SourceGuid = Guid.NewGuid(),
                     SupplierId = order.SupplierId
                 };
-                ViewAircraftPurchaseOrderDTO.AddNew(newOrder);
-                order.AircraftPurchaseOrderLines.ToList().ForEach(line =>
+                ViewAircraftLeaseOrderDTO.AddNew(newOrder);
+                order.AircraftLeaseOrderLines.ToList().ForEach(line =>
                 {
-                    var newLine = new AircraftPurchaseOrderLineDTO
+                    var newLine = new AircraftLeaseOrderLineDTO
                     {
                         Id = RandomHelper.Next(),
                         UnitPrice = line.UnitPrice,
                         Amount = line.Amount,
                         Discount = line.Discount,
-                        AirframePrice = line.AirframePrice,
-                        RefitCost = line.RefitCost,
-                        EnginePrice = line.EnginePrice,
                         EstimateDeliveryDate = line.EstimateDeliveryDate,
                         Note = line.Note,
                         ContractAircraftId = line.ContractAircraftId,
@@ -536,7 +536,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                         SerialNumber = line.SerialNumber,
                         Status = line.Status
                     };
-                    newOrder.AircraftPurchaseOrderLines.Add(newLine);
+                    newOrder.AircraftLeaseOrderLines.Add(newLine);
                 });
             }
         }
@@ -545,7 +545,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             if (_selTradeDTO == null) return false;
             var order =
-                ViewAircraftPurchaseOrderDTO.Where(o => o.TradeId == _selTradeDTO.Id)
+                ViewAircraftLeaseOrderDTO.Where(o => o.TradeId == _selTradeDTO.Id)
                     .OrderBy(o => o.Version)
                     .LastOrDefault();
             if (order != null && order.OrderStatus == OrderStatus.已审核)
@@ -564,15 +564,15 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveOrder(object obj)
         {
-            if (_selAircraftPurchaseOrderDTO != null)
+            if (_selAircraftLeaseOrderDTO != null)
             {
-                ViewAircraftPurchaseOrderDTO.Remove(_selAircraftPurchaseOrderDTO);
+                ViewAircraftLeaseOrderDTO.Remove(_selAircraftLeaseOrderDTO);
             }
         }
 
         private bool CanRemoveOrder(object obj)
         {
-            return _selAircraftPurchaseOrderDTO != null && _selAircraftPurchaseOrderDTO.OrderStatus < OrderStatus.已审核;
+            return _selAircraftLeaseOrderDTO != null && _selAircraftLeaseOrderDTO.OrderStatus < OrderStatus.已审核;
         }
 
         #endregion
@@ -593,7 +593,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 {
                     if (e.DialogResult == true)
                     {
-                        SelAircraftPurchaseOrderDTO.RelatedDocs.Remove(doc);
+                        SelAircraftLeaseOrderDTO.RelatedDocs.Remove(doc);
                     }
                 });
             }
@@ -601,7 +601,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private bool CanRemoveDoc(object obj)
         {
-            return _selAircraftPurchaseOrderDTO != null;
+            return _selAircraftLeaseOrderDTO != null;
         }
 
         #endregion
@@ -615,7 +615,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnAddOrderLine(object obj)
         {
-            var orderLine = new AircraftPurchaseOrderLineDTO
+            var orderLine = new AircraftLeaseOrderLineDTO
             {
                 Id = RandomHelper.Next(),
                 Amount = 1,
@@ -623,12 +623,12 @@ namespace UniCloud.Presentation.Purchase.Contract
                 ContractAircraftId = RandomHelper.Next()
             };
 
-            SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Add(orderLine);
+            SelAircraftLeaseOrderDTO.AircraftLeaseOrderLines.Add(orderLine);
         }
 
         private bool CanAddOrderLine(object obj)
         {
-            return _selAircraftPurchaseOrderDTO != null;
+            return _selAircraftLeaseOrderDTO != null;
         }
 
         #endregion
@@ -642,16 +642,16 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnRemoveOrderLine(object obj)
         {
-            if (_selAircraftPurchaseOrderLineDTO != null)
+            if (_selAircraftLeaseOrderLineDTO != null)
             {
-                SelAircraftPurchaseOrderDTO.AircraftPurchaseOrderLines.Remove(_selAircraftPurchaseOrderLineDTO);
+                SelAircraftLeaseOrderDTO.AircraftLeaseOrderLines.Remove(_selAircraftLeaseOrderLineDTO);
                 RemoveOrderCommand.RaiseCanExecuteChanged();
             }
         }
 
         private bool CanRemoveOrderLine(object obj)
         {
-            return _selAircraftPurchaseOrderLineDTO != null;
+            return _selAircraftLeaseOrderLineDTO != null;
         }
 
         #endregion
@@ -669,7 +669,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             {
                 Id = RandomHelper.Next(),
             };
-            SelAircraftPurchaseOrderDTO.ContractContents.Add(content);
+            SelAircraftLeaseOrderDTO.ContractContents.Add(content);
             SelContractContentDTO = content;
         }
 
@@ -691,7 +691,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             if (_selContractContentDTO != null)
             {
-                SelAircraftPurchaseOrderDTO.ContractContents.Remove(_selContractContentDTO);
+                SelAircraftLeaseOrderDTO.ContractContents.Remove(_selContractContentDTO);
                 SelContractContentDTO = null;
             }
         }
@@ -712,14 +712,14 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnCommit(object obj)
         {
-            SelAircraftPurchaseOrderDTO.Status = (int) OrderStatus.待审核;
+            SelAircraftLeaseOrderDTO.Status = (int) OrderStatus.待审核;
             // 刷新按钮状态
             RefreshCommandState();
         }
 
         private bool CanCommit(object obj)
         {
-            return _selAircraftPurchaseOrderDTO != null && _selAircraftPurchaseOrderDTO.OrderStatus == OrderStatus.草稿;
+            return _selAircraftLeaseOrderDTO != null && _selAircraftLeaseOrderDTO.OrderStatus == OrderStatus.草稿;
         }
 
         #endregion
@@ -733,14 +733,14 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void OnCheck(object obj)
         {
-            SelAircraftPurchaseOrderDTO.Status = (int) OrderStatus.已审核;
+            SelAircraftLeaseOrderDTO.Status = (int) OrderStatus.已审核;
             // 刷新按钮状态
             RefreshCommandState();
         }
 
         private bool CanCheck(object obj)
         {
-            return _selAircraftPurchaseOrderDTO != null && _selAircraftPurchaseOrderDTO.OrderStatus == OrderStatus.待审核;
+            return _selAircraftLeaseOrderDTO != null && _selAircraftLeaseOrderDTO.OrderStatus == OrderStatus.待审核;
         }
 
         #endregion

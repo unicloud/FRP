@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PurchaseBC.Aggregates.SupplierAgg;
@@ -26,7 +27,7 @@ using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
@@ -73,7 +74,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.Tests
             var tradeRep = DefaultContainer.Resolve<ITradeRepository>();
 
             var supplier = supplierRep.GetAll().FirstOrDefault();
-            var trade = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now);
+            var trade = TradeFactory.CreateTrade("购买飞机", null, DateTime.Now, "购买飞机");
             // 设置交易编号
             var date = DateTime.Now.Date;
             var seq = tradeRep.GetFiltered(t => t.CreateDate > date).Count() + 1;
