@@ -115,7 +115,7 @@ namespace UniCloud.Presentation.Shell
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.OnDemand,
+                InitializationMode = InitializationMode.WhenAvailable,
                 Ref = "Project.xap",
                 ModuleName = "ProjectModule",
                 ModuleType =
