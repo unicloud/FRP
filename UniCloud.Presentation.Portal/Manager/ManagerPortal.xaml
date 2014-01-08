@@ -4,21 +4,94 @@
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
              mc:Ignorable="d"
              d:DesignHeight="300"
-             d:DesignWidth="400">
+             d:DesignWidth="400"
+             d:DataContext="{d:DesignInstance uc:ManagerPortalVm}">
 
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="telerik:RadHorizontalBulletGraph">
+                <Setter Property="ComparativeMeasureThickness"
+                        Value="2" />
+                <Setter Property="FontSize"
+                        Value="10" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="telerik:RadHorizontalBulletGraph">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        Background="{TemplateBinding Background}"
+                                        Grid.Row="0">
+                                    <Grid>
+                                        <telerik:QualitativeRangeContainer ChildrenSource="{TemplateBinding QualitativeRanges}"
+                                                                           Range="{TemplateBinding Range}" />
+                                        <Grid>
+                                            <Grid.Resources>
+                                                <Style TargetType="telerik:BarItem">
+                                                    <Setter Property="LengthPercent"
+                                                            Value="1" />
+                                                </Style>
+                                            </Grid.Resources>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="5*" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <telerik:FeaturedMeasurePresenter Grid.Row="0"
+                                                                              Content="{TemplateBinding FeaturedMeasureInternal}"
+                                                                              Background="#FF333333" />
+                                            <telerik:FeaturedMeasurePresenter Grid.Row="1"
+                                                                              Content="{TemplateBinding ProjectedMeasureInternal}"
+                                                                              Margin="0,1,0,0" />
+                                        </Grid>
+                                        <telerik:ComparativeMeasuresContainer ChildrenSource="{TemplateBinding MergedComparativeMeasures}"
+                                                                              Range="{TemplateBinding Range}" />
+                                    </Grid>
+                                </Border>
+                                <telerik:QuantitativeScaleContainer Grid.Row="1"
+                                                                    TextFormatString="{TemplateBinding TextFormatString}"
+                                                                    Visibility="{TemplateBinding QuantitativeScaleVisibility}"
+                                                                    Opacity="0.6"
+                                                                    RenderTransformOrigin="0.5,0.5"
+                                                                    Range="{TemplateBinding Range}">
+                                    <telerik:QuantitativeScaleContainer.RenderTransform>
+                                        <TranslateTransform Y="10" />
+                                    </telerik:QuantitativeScaleContainer.RenderTransform>
+                                </telerik:QuantitativeScaleContainer>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <SolidColorBrush x:Key="ActualBrush"
+                             Color="#FFCCCCCC" />
+            <SolidColorBrush x:Key="TargetBrush"
+                             Color="#FF1B9DDE" />
+            <Style x:Key="TextBlockLegendStyle"
+                   TargetType="TextBlock">
+                <Setter Property="FontFamily"
+                        Value="Segoe UI" />
+                <Setter Property="FontSize"
+                        Value="12" />
+                <Setter Property="Foreground"
+                        Value="#FF767676" />
+                <Setter Property="Margin"
+                        Value="4,2,4,2" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <telerik:RadTileView x:Name="MyTileView"
-                             ColumnWidth="Auto" 
-                             ColumnsCount="2"
+                             ColumnWidth="Auto"
                              DragMode="{Binding ElementName=dragMode, Path=SelectedItem}"
                              IsItemsSizeInPercentages="True"
                              MinimizedColumnWidth="250"
@@ -27,82 +100,39 @@
                              MinimizedRowHeight="Auto"
                              telerik:TileViewPanel.IsColumnsShrinkEnabled="True"
                              telerik:TileViewPanel.IsRowsShrinkEnabled="True"
-                             telerik:TileViewPanel.IsSizeBoundToPosition="True"
-                             MaximizeMode="One">
-            <telerik:RadTileViewItem Header="数据统计"
+                             telerik:TileViewPanel.IsSizeBoundToPosition="True">
+            <telerik:RadTileViewItem Header="机队结构"
+                                     RestoredHeight="62"
+                                     MinimizedHeight="164"
+                                     RestoredWidth="18">
+                <TextBlock Foreground="#333333"
+                           FontSize="12"
+                           FontFamily="Segoe UI"
+                           Text="审核发票等" />
+            </telerik:RadTileViewItem>
+
+            <telerik:RadTileViewItem Header="飞机成本统计"
                                      RestoredHeight="62"
                                      MinimizedHeight="150"
-                                     RestoredWidth="68">
-                <Grid>
-                    <TextBlock Foreground="#333333"
-                               FontSize="12"
-                               Margin="0 0 0 5"
-                               FontWeight="Bold"
-                               FontFamily="Segoe UI"
-                               Text="Telerik INC - Boston; Start Time - 3.00 pm" />
-                    <TextBlock Foreground="#333333"
-                               FontSize="12"
-                               Margin="0 15 0 5"
-                               FontWeight="Bold"
-                               FontFamily="Segoe UI"
-                               Text="Telerik INC - Boston; Start Time - 3.00 pm" />
-                    <TextBlock Foreground="#333333"
-                               FontSize="12"
-                               Margin="0 30 0 5"
-                               FontWeight="Bold"
-                               FontFamily="Segoe UI"
-                               Text="Telerik INC - Boston; Start Time - 3.00 pm" />
-                </Grid>
+                                     RestoredWidth="50">
+                <TextBlock Foreground="#333333"
+                           FontSize="12"
+                           FontFamily="Segoe UI"
+                           Text="飞机引进成本 以及 后期维护成本" />
             </telerik:RadTileViewItem>
-            <telerik:RadTileViewItem Header="通知公告"
+            <telerik:RadTileViewItem Header="维护成本"
                                      RestoredHeight="62"
                                      MinimizedHeight="164"
                                      RestoredWidth="32">
-                <Grid>
-                    <TextBlock Foreground="#333333"
-                               FontSize="12"
-                               Margin="0 0 0 5"
-                               FontWeight="Bold"
-                               FontFamily="Segoe UI"
-                               Text="Telerik INC - Boston; Start Time - 3.00 pm" />
-                    <TextBlock Foreground="#333333"
-                               FontSize="12"
-                               Margin="0 15 0 5"
-                               FontWeight="Bold"
-                               FontFamily="Segoe UI"
-                               Text="Telerik INC - Boston; Start Time - 3.00 pm" />
-                    <TextBlock Foreground="#333333"
-                               FontSize="12"
-                               Margin="0 30 0 5"
-                               FontWeight="Bold"
-                               FontFamily="Segoe UI"
-                               Text="Telerik INC - Boston; Start Time - 3.00 pm" />
-                </Grid>
+                <TextBlock Foreground="#333333"
+                           FontSize="12"
+                           FontFamily="Segoe UI"
+                           Text="未开始或正在进行的项目" />
             </telerik:RadTileViewItem>
-            <telerik:RadTileViewItem Header="待办事项"
+            <telerik:RadTileViewItem Header="资金需求"
                                      RestoredHeight="38"
                                      MinimizedHeight="140"
-                                     RestoredWidth="18" >
-                <Grid>
-                    <TextBlock Foreground="#333333"
-                               FontSize="12"
-                               Margin="0 0 0 5"
-                               FontWeight="Bold"
-                               FontFamily="Segoe UI"
-                               Text="Telerik INC - Boston; Start Time - 3.00 pm" />
-                    <TextBlock Foreground="#333333"
-                               FontSize="12"
-                               Margin="0 15 0 5"
-                               FontWeight="Bold"
-                               FontFamily="Segoe UI"
-                               Text="Telerik INC - Boston; Start Time - 3.00 pm" />
-                    <TextBlock Foreground="#333333"
-                               FontSize="12"
-                               Margin="0 30 0 5"
-                               FontWeight="Bold"
-                               FontFamily="Segoe UI"
-                               Text="Telerik INC - Boston; Start Time - 3.00 pm" />
-                </Grid>
+                                     RestoredWidth="18">
             </telerik:RadTileViewItem>
             <telerik:RadTileViewItem Header="日程安排"
                                      RestoredHeight="38"
@@ -128,7 +158,7 @@
                                            FontSize="16"
                                            Margin="0 0 0 2"
                                            FontFamily="Segoe UI"
-                                           Text="{Binding ElementName=MyCalandar, Path=SelectedDate, Mode=TwoWay,StringFormat={StaticResource DateStringFormat}}"/>
+                                           Text="{Binding ElementName=MyCalandar, Path=SelectedDate, Mode=TwoWay}" />
                                 <TextBlock Foreground="#ffffff"
                                            FontSize="10"
                                            Margin="0 0 0 5"
@@ -138,7 +168,7 @@
                                 <TextBlock Foreground="#333333"
                                            FontSize="12"
                                            FontFamily="Segoe UI"
-                                           Text="Things Every ASP.NET Developer" />
+                                           Text="显示当前要执行的事项以不同颜色标记" />
                             </StackPanel>
                         </Grid>
                         <Grid Grid.Row="2"
@@ -148,7 +178,7 @@
                                            FontSize="16"
                                            Margin="0 0 0 2"
                                            FontFamily="Segoe UI"
-                                           Text="{Binding ElementName=MyCalandar, Path=SelectedDate, Mode=TwoWay,StringFormat={StaticResource DateStringFormat}}" />
+                                           Text="{Binding ElementName=MyCalandar, Path=SelectedDate, Mode=TwoWay}" />
                                 <TextBlock Foreground="#ffffff"
                                            FontSize="10"
                                            Margin="0 0 0 5"
@@ -162,6 +192,73 @@
                             </StackPanel>
                         </Grid>
                     </Grid>
+                </Grid>
+            </telerik:RadTileViewItem>
+            <telerik:RadTileViewItem Header="项目进度"
+                                     RestoredHeight="38"
+                                     MinimizedHeight="164"
+                                     RestoredWidth="32">
+                <Grid x:Name="LayoutRoot">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <telerik:RadGridView ItemsSource="{Binding CountryRevenues}"
+                                         ShowColumnHeaders="False"
+                                         RowIndicatorVisibility="Collapsed"
+                                         CanUserSelect="False"
+                                         ShowGroupPanel="False"
+                                         AutoGenerateColumns="False"
+                                         BorderThickness="0"
+                                         CanUserFreezeColumns="False"
+                                         IsReadOnly="True">
+                        <telerik:RadGridView.Columns>
+                            <telerik:GridViewDataColumn DataMemberBinding="{Binding Country}"
+                                                        TextAlignment="Right" />
+                            <telerik:GridViewDataColumn IsResizable="False"
+                                                        HeaderTextAlignment="Center"
+                                                        TextAlignment="Center"
+                                                        Width="*">
+                                <telerik:GridViewDataColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <telerik:RadHorizontalBulletGraph QuantitativeScaleVisibility="Collapsed"
+                                                                              ProjectedValue="{Binding Target}"
+                                                                              FeaturedMeasure="{Binding Actual}"
+                                                                              Height="20"
+                                                                              FeaturedMeasureBrush="{Binding Color}"
+                                                                              ProjectedValueBrush="{StaticResource TargetBrush}"
+                                                                              ComparativeMeasureThickness="0"
+                                                                              Minimum="0"
+                                                                              Maximum="100"
+                                                                              Margin="16,3,8,3" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </telerik:GridViewDataColumn.CellTemplate>
+                            </telerik:GridViewDataColumn>
+                            <telerik:GridViewDataColumn DataMemberBinding="{Binding Actual}"
+                                                        TextAlignment="Right" />
+                        </telerik:RadGridView.Columns>
+                    </telerik:RadGridView>
+                    <StackPanel Grid.Column="1"
+                                Orientation="Vertical"
+                                HorizontalAlignment="Right"
+                                Margin="12,6,0,20">
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Fill="{StaticResource ActualBrush}"
+                                       Height="10"
+                                       Width="10" />
+                            <TextBlock Text="实际进度"
+                                       Foreground="Gray" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Rectangle Fill="{StaticResource TargetBrush}"
+                                       Height="2"
+                                       Width="10" />
+                            <TextBlock Text="总进度"
+                                       Foreground="Gray" />
+                        </StackPanel>
+                    </StackPanel>
                 </Grid>
             </telerik:RadTileViewItem>
         </telerik:RadTileView>
