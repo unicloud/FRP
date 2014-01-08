@@ -62,7 +62,7 @@
                                                ToolTipService.ToolTip="创建申请" />
                                     </telerik:RadButton>
                                     <telerik:RadToolBarSeparator />
-                                    <telerik:RadDropDownButton IsOpen="{Binding IsDropDownClose,Mode=TwoWay}" IsEnabled="{Binding}">
+                                    <telerik:RadDropDownButton IsOpen="{Binding IsDropDownClose,Mode=TwoWay}" IsEnabled="{Binding AttachButtonEnabled}">
                                         <telerik:RadDropDownButton.ContentTemplate>
                                             <DataTemplate>
                                                 <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
@@ -97,6 +97,7 @@
                                                          CanUserFreezeColumns="False"
                                                          IsFilteringAllowed="True"
                                                          EditTriggers="CellClick"
+                                                         IsReadOnly="{Binding RequestReadOnly}"
                                                          RowDetailsVisibilityMode="VisibleWhenSelected"
                                                          FontSize="{StaticResource TextFontSize}"
                                                          ItemsSource="{Binding RequestsView}"
@@ -120,10 +121,10 @@
                                                                     IsReadOnly="True">
                                                 <telerik:GridViewColumn.CellTemplate>
                                                     <DataTemplate>
-                                                        <HyperlinkButton Content="{Binding RaDocumentName}"
+                                                        <HyperlinkButton Content="{Binding RaDocumentName}" Name="HyperlinkButton"
                                                                          Command="{Binding DataContext.ViewAttachCommand, 
                                                         RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
-                                                                         CommandParameter="{Binding}" />
+                                                                         CommandParameter="{Binding RaDocumentId}" />
                                                     </DataTemplate>
                                                 </telerik:GridViewColumn.CellTemplate>
                                             </telerik:GridViewColumn>
@@ -145,7 +146,7 @@
                                                         <HyperlinkButton Content="{Binding SawsDocumentName}"
                                                                          Command="{Binding DataContext.ViewAttachCommand, 
                                                         RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
-                                                                         CommandParameter="{Binding}" />
+                                                                         CommandParameter="{Binding SawsDocumentId}" />
                                                     </DataTemplate>
                                                 </telerik:GridViewColumn.CellTemplate>
                                             </telerik:GridViewColumn>
@@ -167,7 +168,7 @@
                                                         <HyperlinkButton Content="{Binding CaacDocumentName}"
                                                                          Command="{Binding DataContext.ViewAttachCommand, 
                                                         RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
-                                                                         CommandParameter="{Binding}" />
+                                                                         CommandParameter="{Binding CaacDocumentId}" />
                                                     </DataTemplate>
                                                 </telerik:GridViewColumn.CellTemplate>
                                             </telerik:GridViewColumn>
@@ -252,7 +253,10 @@
                                                  CanUserSortColumns="True"
                                                  CanUserFreezeColumns="False"
                                                  ShowGroupPanel="True"
+                                                 IsReadOnly="{Binding RequestReadOnly}"
+                                                 IsBusy="{Binding RequestsView.IsBusy}"
                                                  ItemsSource="{Binding SelectedRequest.ApprovalHistories}"
+                                                 SelectedItem="{Binding SelectedApprovalHistory,Mode=TwoWay}"
                                                  AutoGenerateColumns="False"
                                                  ShowColumnFooters="True"
                                                  EditTriggers="CellClick"
@@ -349,6 +353,7 @@
                             <telerik:RadGridView x:Name="PlanDetail"
                                                  ItemsSource="{Binding SelectedPlan.PlanHistories}"
                                                  IsBusy="{Binding PlansView.IsBusy}"
+                                                 SelectedItem="{Binding SelectedPlanHistory,Mode=TwoWay}"
                                                  AutoGenerateColumns="False"
                                                  ShowGroupPanel="True"
                                                  IsFilteringAllowed="True"
@@ -382,15 +387,6 @@
                                 </telerik:RadGridView.Resources>
                                 <telerik:RadGridView.Columns>
                                     <uc:DataPageSerialColumn Header="序号" />
-                                    <telerik:GridViewDataColumn Header="申请情况"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                HeaderTextAlignment="Center"
-                                                                DataMemberBinding="{Binding CanRequest}" />
-                                    <telerik:GridViewCheckBoxColumn Header="是否有效"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    HeaderTextAlignment="Center"
-                                                                    IsGroupable="False"
-                                                                    DataMemberBinding="{Binding IsValid}" />
                                     <telerik:GridViewDataColumn Header="座级"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 HeaderTextAlignment="Center"

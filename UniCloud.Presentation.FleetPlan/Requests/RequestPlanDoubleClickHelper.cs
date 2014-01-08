@@ -30,6 +30,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         protected override void GridViewDoubleClick(GridViewCellBase cell)
         {
             var viewModel = ServiceLocator.Current.GetInstance<RequestVM>();
+            viewModel.AddRequestDetail(viewModel.SelectedPlanHistory);
         }
 
         protected override bool CanDoubleClick(GridViewCellBase cell)

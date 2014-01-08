@@ -57,5 +57,16 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg
 
             return task;
         }
+
+        /// <summary>
+        ///     创建任务案例
+        /// </summary>
+        /// <returns>任务案例</returns>
+        public static TaskCase CreateTaskCase()
+        {
+            var taskCase = new TaskCase();
+            taskCase.GenerateNewIdentity();
+            return taskCase;
+        }
     }
 }

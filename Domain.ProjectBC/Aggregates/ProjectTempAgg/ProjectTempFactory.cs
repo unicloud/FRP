@@ -17,7 +17,7 @@
 
 #region 命名空间
 
-
+using System;
 
 #endregion
 
@@ -44,6 +44,61 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ProjectTempAgg
             projectTemp.GenerateNewIdentity();
 
             return projectTemp;
+        }
+
+        /// <summary>
+        ///     创建任务模板
+        ///     <remarks>
+        ///         添加非标准任务，包括摘要任务、里程碑任务。
+        ///     </remarks>
+        /// </summary>
+        /// <param name="subject">主题</param>
+        /// <param name="start">开始偏移量</param>
+        /// <param name="end">结束偏移量</param>
+        /// <param name="isSummary">是否摘要任务</param>
+        /// <returns>任务模板</returns>
+        public static TaskTemp CreateTaskTemp(string subject, TimeSpan start, TimeSpan end, bool isSummary)
+        {
+            var taskTemp = new TaskTemp
+            {
+                Subject = subject,
+                Start = start,
+                End = end,
+                IsSummary = isSummary
+            };
+            taskTemp.GenerateNewIdentity();
+            taskTemp.IsMileStone = start == end;
+
+            return taskTemp;
+        }
+
+        /// <summary>
+        ///     添加任务模板
+        ///     <remarks>
+        ///         通过任务标准创建，只能为叶子任务，非摘要任务或里程碑任务
+        ///     </remarks>
+        /// </summary>
+        /// <param name="subject">主题</param>
+        /// <param name="start">开始偏移量</param>
+        /// <param name="end">结束偏移量</param>
+        /// <param name="isSummary">是否摘要任务</param>
+        /// <param name="taskStandardId">任务标准ID</param>
+        /// <returns>任务模板</returns>
+        public static TaskTemp CreateTaskTemp(string subject, TimeSpan start, TimeSpan end, bool isSummary,
+            int taskStandardId)
+        {
+            var taskTemp = new TaskTemp
+            {
+                Subject = subject,
+                Start = start,
+                End = end,
+                IsSummary = isSummary,
+                TaskStandardId = taskStandardId
+            };
+            taskTemp.GenerateNewIdentity();
+            taskTemp.IsMileStone = start == end;
+
+            return taskTemp;
         }
     }
 }

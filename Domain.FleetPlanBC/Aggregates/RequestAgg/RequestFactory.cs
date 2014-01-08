@@ -55,9 +55,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         {
             var request = new Request
             {
+                
                 CreateDate = DateTime.Now,
                 SubmitDate = submitDate,
             };
+            request.GenerateNewIdentity();
             request.SetTitle(title);
             request.SetRaDocNumber(raDocNumber);
             request.SetSawsDocNumber(sawsDocNumber);
@@ -69,6 +71,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
             request.SetRaDocument(raDocumentId, raDocumentName);
             request.SetSawsDocument(sawsDocumentId, sawsDocumentName);
             request.SetCaacDocument(caacDocumentId, caacDocumentName);
+            request.SetAirlines(airlinesId);
             return request;
         }
     }

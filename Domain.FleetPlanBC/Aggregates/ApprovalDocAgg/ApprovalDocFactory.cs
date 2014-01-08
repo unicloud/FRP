@@ -32,7 +32,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg
         ///     创建批文文档
         /// </summary>
         /// <returns>批文</returns>
-        public static ApprovalDoc CreateApprovalDoc(DateTime? caacExamineDate, DateTime? ndrcExamineDate,
+        public static ApprovalDoc CreateApprovalDoc(Guid key,DateTime? caacExamineDate, DateTime? ndrcExamineDate,
             string caacApprovalNumber, string ndrcApprovalNumber,
             int status, string note, string caacDocumentName, string ndrcDocumentName, Guid? caacDocumentId,
             Guid? ndrcDocumentId)
@@ -46,6 +46,8 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg
             approvalDoc.SetNote(note);
             approvalDoc.SetCaacDocument(caacDocumentId, caacDocumentName);
             approvalDoc.SetNdrcDocument(ndrcDocumentId, ndrcDocumentName);
+            approvalDoc.SetKey(key);
+            approvalDoc.SetDispatchUnit(Guid.Parse("31A9DE51-C207-4A73-919C-21521F17FEF9"));
             return approvalDoc;
         }
     }

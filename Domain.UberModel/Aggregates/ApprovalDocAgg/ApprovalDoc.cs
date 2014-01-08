@@ -73,6 +73,16 @@ namespace UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg
         /// </summary>
         public string Note { get; private set; }
 
+        /// <summary>
+        ///     民航局批文文档名称
+        /// </summary>
+        public string CaacDocumentName { get; private set; }
+
+        /// <summary>
+        ///     发改委批文文档
+        /// </summary>
+        public string NdrcDocumentName { get; private set; }
+
         #endregion
 
         #region 外键属性
@@ -80,7 +90,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg
         /// <summary>
         ///     审批单位
         /// </summary>
-        public Guid DispatchUnitId { get; private set; }
+        public Guid? DispatchUnitId { get; private set; }
 
         /// <summary>
         ///     民航局批文文档
@@ -161,14 +171,19 @@ namespace UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg
         ///     设置民航局批文文档
         /// </summary>
         /// <param name="caacDocumentId"></param>
-        /// <param name="caacApprovalNumber"></param>
-        public void SetCaacDocument(Guid? caacDocumentId, string caacApprovalNumber)
+        /// <param name="caacDocumentName"></param>
+        public void SetCaacDocument(Guid? caacDocumentId, string caacDocumentName)
         {
-            if (string.IsNullOrWhiteSpace(caacApprovalNumber))
-            {
-                throw new ArgumentException("民航局批文文号为空！");
-            }
             CaacDocumentId = caacDocumentId;
+            CaacDocumentName = caacDocumentName;
+        }
+
+        /// <summary>
+        ///     设置民航局批文文号
+        /// </summary>
+        /// <param name="caacApprovalNumber"></param>
+        public void SetCaacApprovalNumber(string caacApprovalNumber)
+        {
             CaacApprovalNumber = caacApprovalNumber;
         }
 
@@ -176,14 +191,19 @@ namespace UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg
         ///     设置发改委批文文档
         /// </summary>
         /// <param name="ndrcDocumentId"></param>
-        /// <param name="ndrcApprovalNumber"></param>
-        public void SetNdrcDocument(Guid? ndrcDocumentId, string ndrcApprovalNumber)
+        /// <param name="ndrcDocumentName"></param>
+        public void SetNdrcDocument(Guid? ndrcDocumentId, string ndrcDocumentName)
         {
-            if (string.IsNullOrWhiteSpace(ndrcApprovalNumber))
-            {
-                throw new ArgumentException("民航局批文文号为空！");
-            }
             NdrcDocumentId = ndrcDocumentId;
+            NdrcDocumentName = ndrcDocumentName;
+        }
+
+        /// <summary>
+        ///     设置民航局批文文号
+        /// </summary>
+        /// <param name="ndrcApprovalNumber"></param>
+        public void SetNdrcApprovalNumber(string ndrcApprovalNumber)
+        {
             NdrcApprovalNumber = ndrcApprovalNumber;
         }
 

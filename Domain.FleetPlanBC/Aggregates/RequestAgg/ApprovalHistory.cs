@@ -245,6 +245,15 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
 
             AirlinesId = airlinesId;
         }
+
+        /// <summary>
+        /// 设置是否批准
+        /// </summary>
+        /// <param name="isApproved"></param>
+        public void SetIsApproved(bool isApproved)
+        {
+            IsApproved = isApproved;
+        }
         #endregion
     }
 }

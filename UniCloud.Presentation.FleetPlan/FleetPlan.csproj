@@ -204,7 +204,14 @@
     <Compile Include="Approvals\Approval.xaml.cs">
       <DependentUpon>Approval.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Approvals\ApprovalStatusConvert.cs" />
     <Compile Include="Approvals\ApprovalVM.cs" />
+    <Compile Include="Approvals\ApprovalDoubleClickHelper.cs" />
+    <Compile Include="Approvals\ApprovalDragDrop.cs" />
+    <Compile Include="Approvals\ApprovalDragVisual.cs" />
+    <Compile Include="Approvals\RequestApprovalDoubleClickHelper.cs" />
+    <Compile Include="Approvals\RequestApprovalDragDrop.cs" />
+    <Compile Include="Approvals\RequestApprovalDragVisual.cs" />
     <Compile Include="PrepareFleetPlan\AirProgramming.xaml.cs">
       <DependentUpon>AirProgramming.xaml</DependentUpon>
     </Compile>

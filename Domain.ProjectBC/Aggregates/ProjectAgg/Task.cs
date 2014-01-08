@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
 using UniCloud.Domain.Common.Entities;
 
 #endregion
@@ -75,7 +76,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ProjectAgg
         /// <summary>
         ///     是否有风险
         /// </summary>
-        public bool HasRisk { get;private set; }
+        public bool HasRisk { get; private set; }
 
         /// <summary>
         ///     时区ID
@@ -85,7 +86,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ProjectAgg
         /// <summary>
         ///     任务跟踪记录
         /// </summary>
-        public string Note { get; set; }
+        public string Note { get;private set; }
 
         #endregion
 
@@ -135,6 +136,55 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ProjectAgg
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置是否有风险
+        /// </summary>
+        /// <param name="hasRisk">是否有风险</param>
+        /// <returns></returns>
+        public bool SetRisk(bool hasRisk)
+        {
+            HasRisk = hasRisk;
+            return hasRisk;
+        }
+
+        /// <summary>
+        ///     设置具体任务ID
+        /// </summary>
+        /// <param name="relatedId">具体任务ID</param>
+        public void SetRelatedId(int relatedId)
+        {
+            if (IsMileStone || IsSummary)
+            {
+                throw new Exception("里程碑任务或者摘要任务不能关联到具体任务！");
+            }
+            if (relatedId == 0)
+            {
+                throw new ArgumentException("具体任务ID参数为空！");
+            }
+
+            RelatedId = relatedId;
+        }
+
+        /// <summary>
+        ///     设置跟踪记录
+        /// </summary>
+        /// <param name="note">跟踪记录</param>
+        public void SetNote(string note)
+        {
+            if (string.IsNullOrWhiteSpace(note))
+            {
+                throw new ArgumentException("跟踪记录参数为空！");
+            }
+
+            var sb = new StringBuilder();
+            sb.AppendLine(DateTime.Now.Date.ToShortDateString());
+            sb.AppendLine(note);
+            sb.AppendLine();
+            sb.Append(Note);
+
+            Note = sb.ToString();
+        }
 
         /// <summary>
         ///     设置父项

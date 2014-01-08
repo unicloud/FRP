@@ -122,15 +122,8 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ProjectTempAgg
         /// <returns>任务模板</returns>
         public TaskTemp CreateTaskTemp(string subject, TimeSpan start, TimeSpan end, bool isSummary)
         {
-            var taskTemp = new TaskTemp
-            {
-                Subject = subject,
-                Start = start,
-                End = end,
-                IsSummary = isSummary
-            };
-            taskTemp.GenerateNewIdentity();
-            taskTemp.IsMileStone = start == end;
+            var taskTemp = ProjectTempFactory.CreateTaskTemp(subject, start, end, isSummary);
+            taskTemp.ProjectTempId = Id;
             TaskTemps.Add(taskTemp);
 
             return taskTemp;
@@ -150,16 +143,8 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ProjectTempAgg
         /// <returns>任务模板</returns>
         public TaskTemp CreateTaskTemp(string subject, TimeSpan start, TimeSpan end, bool isSummary, int taskStandardId)
         {
-            var taskTemp = new TaskTemp
-            {
-                Subject = subject,
-                Start = start,
-                End = end,
-                IsSummary = isSummary,
-                TaskStandardId = taskStandardId
-            };
-            taskTemp.GenerateNewIdentity();
-            taskTemp.IsMileStone = start == end;
+            var taskTemp = ProjectTempFactory.CreateTaskTemp(subject, start, end, isSummary, taskStandardId);
+            taskTemp.ProjectTempId = Id;
             TaskTemps.Add(taskTemp);
 
             return taskTemp;

@@ -129,11 +129,8 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg
         /// <returns></returns>
         public TaskCase AddTaskCase()
         {
-            var taskCase = new TaskCase
-            {
-                TaskStandardId = Id
-            };
-            taskCase.GenerateNewIdentity();
+            var taskCase = TaskStandardFactory.CreateTaskCase();
+            taskCase.TaskStandardId = Id;
             TaskCases.Add(taskCase);
             return taskCase;
         }

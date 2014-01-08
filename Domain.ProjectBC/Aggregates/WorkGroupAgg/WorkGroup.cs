@@ -124,12 +124,8 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
         /// <returns>添加的工作组成员</returns>
         public Member AddMember(User user)
         {
-            var member = new Member
-            {
-                WorkGroupId = Id
-            };
-            member.GenerateNewIdentity();
-            member.SetMember(user);
+            var member = WorkGroupFactory.CreateMember(user);
+            member.WorkGroupId = Id;
             Members.Add(member);
 
             return member;
@@ -142,12 +138,8 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
         /// <returns>添加的工作组成员</returns>
         public Member AddMember(int userId)
         {
-            var member = new Member
-            {
-                WorkGroupId = Id
-            };
-            member.GenerateNewIdentity();
-            member.SetMember(userId);
+            var member = WorkGroupFactory.CreateMember(userId);
+            member.WorkGroupId = Id;
             Members.Add(member);
 
             return member;

@@ -67,7 +67,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
         /// <summary>
         ///     工作组成员
         /// </summary>
-        public User User { get; private set; }
+        public User MemberUser { get; private set; }
 
         #endregion
 
@@ -84,7 +84,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
                 throw new ArgumentException("工作组成员参数为空！");
             }
 
-            User = user;
+            MemberUser = user;
             MemberUserId = user.Id;
         }
 
