@@ -28,7 +28,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 namespace UniCloud.Presentation.Service.FleetPlan
 {
     [Export(typeof (IFleetPlanService))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
+    [PartCreationPolicy(CreationPolicy.Shared)]
     public class FleetPlanService : ServiceBase, IFleetPlanService
     {
         public FleetPlanService()

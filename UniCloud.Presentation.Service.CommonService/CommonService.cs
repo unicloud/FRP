@@ -25,7 +25,7 @@ using UniCloud.Presentation.Service.CommonService.Common;
 namespace UniCloud.Presentation.Service.CommonService
 {
     [Export(typeof (ICommonService))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
+    [PartCreationPolicy(CreationPolicy.Shared)]
     public class CommonService : ServiceBase, ICommonService
     {
         public CommonService()

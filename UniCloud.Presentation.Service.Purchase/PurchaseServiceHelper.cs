@@ -17,13 +17,29 @@
 
 #region 命名空间
 
-
+using System;
+using System.ComponentModel.Composition;
 
 #endregion
 
 namespace UniCloud.Presentation.Service.Purchase
 {
-    public class PurchaseServiceHelper
+    public class PurchaseServiceHelper : IDisposable
     {
+        private readonly IPurchaseService _service;
+
+        [ImportingConstructor]
+        public PurchaseServiceHelper(IPurchaseService service)
+        {
+            _service = service;
+        }
+
+        #region IDisposable 成员
+
+        public void Dispose()
+        {
+        }
+
+        #endregion
     }
 }

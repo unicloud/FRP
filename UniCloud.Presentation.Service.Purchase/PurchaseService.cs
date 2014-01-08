@@ -27,7 +27,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 namespace UniCloud.Presentation.Service.Purchase
 {
     [Export(typeof (IPurchaseService))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
+    [PartCreationPolicy(CreationPolicy.Shared)]
     public class PurchaseService : ServiceBase, IPurchaseService
     {
         public PurchaseService()
