@@ -84,11 +84,6 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Rectangle x:Name="Shadow"
-                       Height="7"
-                       VerticalAlignment="Bottom"
-                       StrokeThickness="0"
-                       Margin="0,0,0,-7" />
             <Grid Grid.Row="0"
                   Height="50">
                 <StackPanel x:Name="Toolbar"
@@ -147,8 +142,7 @@
             <Border BorderThickness="0"
                     CornerRadius="5"
                     Background="White"
-                    Grid.Row="1"
-                    Margin="22,12">
+                    Grid.Row="1">
 
                 <Border.Effect>
                     <DropShadowEffect BlurRadius="5"
@@ -159,7 +153,6 @@
                 <telerik:RadDocking BorderThickness="0"
                                     Padding="0"
                                     telerik:StyleManager.Theme="Windows8"
-                                    Margin="5"
                                     HasDocumentHost="False">
                     <telerik:RadSplitContainer Orientation="Vertical">
                         <telerik:RadSplitContainer InitialPosition="DockedTop"
@@ -264,7 +257,7 @@
                                                             <DataTemplate>
                                                                 <Ellipse Height='8'
                                                                          Width='8'
-                                                                         Fill="{Binding Path=DataItem.AircraftColor}" />
+                                                                         Fill="Blue" />
                                                             </DataTemplate>
                                                         </telerik:LineSeries.PointTemplate>
                                                         <telerik:LineSeries.TrackBallInfoTemplate>
@@ -292,7 +285,7 @@
                                                             <DataTemplate>
                                                                 <Ellipse Height='8'
                                                                          Width='8'
-                                                                         Fill="{Binding Path=DataItem.SeatColor}" />
+                                                                         Fill="Blue" />
                                                             </DataTemplate>
                                                         </telerik:LineSeries.PointTemplate>
                                                         <telerik:LineSeries.TrackBallInfoTemplate>
@@ -316,7 +309,7 @@
                                                             <DataTemplate>
                                                                 <Ellipse Height='8'
                                                                          Width='8'
-                                                                         Fill="{Binding Path=DataItem.LoadColor}" />
+                                                                         Fill="Blue" />
                                                             </DataTemplate>
                                                         </telerik:LineSeries.PointTemplate>
                                                         <telerik:LineSeries.TrackBallInfoTemplate>
@@ -343,7 +336,7 @@
                                                                                  Content="期末飞机数"
                                                                                  Tag="期末飞机数"
                                                                                  IsChecked="True"
-                                                                                 BorderThickness="1"
+                                                                                 Style="{StaticResource ChartButton}"
                                                                                  Background="Gray"
                                                                                  BorderBrush="Gray"
                                                                                  Command="{Binding ToggleButtonCommand}"
@@ -355,7 +348,7 @@
                                                                                  Content="期末座位数"
                                                                                  Tag="期末座位数"
                                                                                  IsChecked="True"
-                                                                                 BorderThickness="1"
+                                                                                 Style="{StaticResource ChartButton}"
                                                                                  Background="Gray"
                                                                                  BorderBrush="Gray"
                                                                                  Command="{Binding ToggleButtonCommand}"
@@ -367,7 +360,7 @@
                                                                                  Content="期末商载量"
                                                                                  Tag="期末商载量"
                                                                                  IsChecked="True"
-                                                                                 BorderThickness="1"
+                                                                                 Style="{StaticResource ChartButton}"
                                                                                  Background="Gray"
                                                                                  BorderBrush="Gray"
                                                                                  Command="{Binding ToggleButtonCommand}"
@@ -508,7 +501,7 @@
                                                                                  Content="飞机净增数"
                                                                                  Tag="飞机净增数"
                                                                                  IsChecked="True"
-                                                                                 BorderThickness="1"
+                                                                                 Style="{StaticResource ChartButton}"
                                                                                  Background="Gray"
                                                                                  BorderBrush="Gray"
                                                                                  Command="{Binding ToggleButtonCommand}"
@@ -520,7 +513,7 @@
                                                                                  Content="座位净增数"
                                                                                  Tag="座位净增数"
                                                                                  IsChecked="True"
-                                                                                 BorderThickness="1"
+                                                                                 Style="{StaticResource ChartButton}"
                                                                                  Background="Gray"
                                                                                  BorderBrush="Gray"
                                                                                  Command="{Binding ToggleButtonCommand}"
@@ -532,7 +525,7 @@
                                                                                  Content="商载净增量"
                                                                                  Tag="商载净增量"
                                                                                  IsChecked="True"
-                                                                                 BorderThickness="1"
+                                                                                 Style="{StaticResource ChartButton}"
                                                                                  Background="Gray"
                                                                                  BorderBrush="Gray"
                                                                                  Command="{Binding ToggleButtonCommand}"

@@ -57,20 +57,6 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Rectangle x:Name="Shadow"
-                       Height="7"
-                       VerticalAlignment="Bottom"
-                       StrokeThickness="0"
-                       Margin="0,0,0,-7">
-                <Rectangle.Fill>
-                    <LinearGradientBrush EndPoint="0.5,1"
-                                         StartPoint="0.5,0">
-                        <GradientStop Color="#7F000000"
-                                      Offset="0" />
-                        <GradientStop Offset="0.6" />
-                    </LinearGradientBrush>
-                </Rectangle.Fill>
-            </Rectangle>
             <Grid Height="50">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="时间的统计方式："
@@ -136,8 +122,6 @@
             </Grid>
 
             <Border BorderThickness="0"
-                    Margin="22,12"
-                    CornerRadius="5"
                     Background="White"
                     Grid.Row="1">
                 <Border.Effect>
@@ -149,7 +133,6 @@
                 <telerik:RadDocking BorderThickness="0"
                                     Padding="0"
                                     telerik:StyleManager.Theme="Windows8"
-                                    Margin="5"
                                     HasDocumentHost="False">
                     <telerik:RadSplitContainer Orientation="Vertical">
                         <telerik:RadSplitContainer InitialPosition="DockedTop"
@@ -195,7 +178,7 @@
                                                 <DataTemplate x:Key="LinePointTemplate">
                                                     <Ellipse Height='10'
                                                              Width='10'
-                                                             Fill="{Binding Path=DataItem.Color}" />
+                                                             Fill="Blue" />
                                                 </DataTemplate>
                                             </telerik:RadCartesianChart.Resources>
                                             <telerik:RadCartesianChart.SeriesProvider>
@@ -292,10 +275,10 @@
                                                     <ItemsControl.ItemTemplate>
                                                         <DataTemplate>
                                                             <telerik:RadToggleButton x:Name="AircraftTypeToggleButton"
+                                                                                     Style="{StaticResource ChartButton}"
                                                                                      Content="{Binding AircraftType}"
                                                                                      Tag="{Binding AircraftType}"
                                                                                      IsChecked="{Binding AircraftType,ConverterParameter=AircraftType, Converter={StaticResource BoolToVisibilityConverter}}"
-                                                                                     BorderThickness="1"
                                                                                      Background="{Binding Color}"
                                                                                      BorderBrush="{Binding Color}"
                                                                                      Command="{Binding DataContext.ToggleButtonCommand,ElementName=FleetAgeView}"
