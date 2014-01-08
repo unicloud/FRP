@@ -51,15 +51,48 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ProjectRepository.cs" />
+    <Compile Include="Repositories\ProjectTempRepository.cs" />
+    <Compile Include="Repositories\RelatedDocRepository.cs" />
+    <Compile Include="Repositories\TaskStandardRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\WorkGroupRepository.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\MemberEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ProjectEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ProjectTempEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\RelatedDocEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\TaskCaseEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\TaskEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\TaskStandardEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\TaskTempEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\UserEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\WorkGroupEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\ProjectBCUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Repositories\" />
     <Folder Include="UnitOfWork\Mapping\Oracle\" />
-    <Folder Include="UnitOfWork\Mapping\Sql\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
+      <Project>{e48e84de-5a91-4d16-84e5-cffc4c7e7657}</Project>
+      <Name>Domain.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.ProjectBC\Domain.ProjectBC.csproj">
+      <Project>{f1558ab6-afab-461a-8604-29510cccc19e}</Project>
+      <Name>Domain.ProjectBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{CAD91A38-6B90-4A18-83CA-0215CE512F4D}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

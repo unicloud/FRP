@@ -1111,6 +1111,82 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .Index(t => t.PlanId);
             
             CreateTable(
+                "FRP.Project",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Description = c.String(),
+                        PlannedStart = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        PlannedEnd = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        Status = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "FRP.Task",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Duration = c.Time(nullable: false, precision: 7),
+                        DeadLine = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        IsMileStone = c.Boolean(nullable: false),
+                        IsSummary = c.Boolean(nullable: false),
+                        HasRisk = c.Boolean(nullable: false),
+                        TimeZoneId = c.String(),
+                        Note = c.String(),
+                        ProjectId = c.Int(nullable: false),
+                        TaskStandardId = c.Int(),
+                        RelatedId = c.Int(),
+                        ParentId = c.Int(),
+                        Subject = c.String(),
+                        Body = c.String(),
+                        Importance = c.String(),
+                        Tempo = c.String(),
+                        Start = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        End = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        IsAllDayEvent = c.Boolean(nullable: false),
+                        IsCompleted = c.Boolean(nullable: false),
+                        TaskStatus = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.Task", t => t.ParentId)
+                .ForeignKey("FRP.Project", t => t.ProjectId)
+                .Index(t => t.ParentId)
+                .Index(t => t.ProjectId);
+            
+            CreateTable(
+                "FRP.ProjectTemp",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Description = c.String(),
+                        Status = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "FRP.TaskTemp",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Subject = c.String(),
+                        Start = c.Time(nullable: false, precision: 7),
+                        End = c.Time(nullable: false, precision: 7),
+                        IsMileStone = c.Boolean(nullable: false),
+                        IsSummary = c.Boolean(nullable: false),
+                        TaskStandardId = c.Int(),
+                        ParentId = c.Int(),
+                        ProjectTempId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.TaskTemp", t => t.ParentId)
+                .ForeignKey("FRP.ProjectTemp", t => t.ProjectTempId)
+                .Index(t => t.ParentId)
+                .Index(t => t.ProjectTempId);
+            
+            CreateTable(
                 "FRP.ReceptionLine",
                 c => new
                     {
@@ -1249,6 +1325,72 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.SupplierCompany", t => t.SupplierCompanyId)
                 .Index(t => t.SupplierCompanyId);
+            
+            CreateTable(
+                "FRP.TaskStandard",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Description = c.String(),
+                        OptimisticTime = c.Time(nullable: false, precision: 7),
+                        PessimisticTime = c.Time(nullable: false, precision: 7),
+                        NormalTime = c.Time(nullable: false, precision: 7),
+                        SourceGuid = c.Guid(nullable: false),
+                        IsCustom = c.Boolean(nullable: false),
+                        TaskType = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "FRP.TaskCase",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        TaskStandardId = c.Int(nullable: false),
+                        RelatedId = c.Int(),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.TaskStandard", t => t.TaskStandardId)
+                .Index(t => t.TaskStandardId);
+            
+            CreateTable(
+                "FRP.User",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        EmployeeCode = c.String(),
+                        FirstName = c.String(),
+                        LaseName = c.String(),
+                        DisplayName = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "FRP.WorkGroup",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        ManagerUserId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.User", t => t.ManagerUserId)
+                .Index(t => t.ManagerUserId);
+            
+            CreateTable(
+                "FRP.Member",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        WorkGroupId = c.Int(nullable: false),
+                        MemberUserId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.User", t => t.MemberUserId)
+                .ForeignKey("FRP.WorkGroup", t => t.WorkGroupId)
+                .Index(t => t.MemberUserId)
+                .Index(t => t.WorkGroupId);
             
             CreateTable(
                 "FRP.XmlConfig",
@@ -1939,6 +2081,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.LeaseContractAircraft", "ID", "FRP.ContractAircraft");
             DropForeignKey("FRP.OperationPlan", "ID", "FRP.PlanHistory");
             DropForeignKey("FRP.ChangePlan", "ID", "FRP.PlanHistory");
+            DropForeignKey("FRP.Member", "WorkGroupId", "FRP.WorkGroup");
+            DropForeignKey("FRP.Member", "MemberUserId", "FRP.User");
+            DropForeignKey("FRP.WorkGroup", "ManagerUserId", "FRP.User");
+            DropForeignKey("FRP.TaskCase", "TaskStandardId", "FRP.TaskStandard");
             DropForeignKey("FRP.SupplierRole", "SupplierCompanyId", "FRP.SupplierCompany");
             DropForeignKey("FRP.ApprovalHistory", "RequestId", "FRP.Request");
             DropForeignKey("FRP.ApprovalHistory", "RequestDeliverAnnualId", "FRP.Annual");
@@ -1950,6 +2096,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.Reception", "SupplierId", "FRP.Supplier");
             DropForeignKey("FRP.ReceptionSchedule", "ReceptionId", "FRP.Reception");
             DropForeignKey("FRP.ReceptionLine", "ReceptionId", "FRP.Reception");
+            DropForeignKey("FRP.TaskTemp", "ProjectTempId", "FRP.ProjectTemp");
+            DropForeignKey("FRP.TaskTemp", "ParentId", "FRP.TaskTemp");
+            DropForeignKey("FRP.Task", "ProjectId", "FRP.Project");
+            DropForeignKey("FRP.Task", "ParentId", "FRP.Task");
             DropForeignKey("FRP.PlanHistory", "PlanId", "FRP.AircraftPlan");
             DropForeignKey("FRP.PlanHistory", "TargetCategoryId", "FRP.ActionCategory");
             DropForeignKey("FRP.PlanHistory", "PlanAircraftId", "FRP.PlanAircraft");
@@ -2119,6 +2269,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.LeaseContractAircraft", new[] { "ID" });
             DropIndex("FRP.OperationPlan", new[] { "ID" });
             DropIndex("FRP.ChangePlan", new[] { "ID" });
+            DropIndex("FRP.Member", new[] { "WorkGroupId" });
+            DropIndex("FRP.Member", new[] { "MemberUserId" });
+            DropIndex("FRP.WorkGroup", new[] { "ManagerUserId" });
+            DropIndex("FRP.TaskCase", new[] { "TaskStandardId" });
             DropIndex("FRP.SupplierRole", new[] { "SupplierCompanyId" });
             DropIndex("FRP.ApprovalHistory", new[] { "RequestId" });
             DropIndex("FRP.ApprovalHistory", new[] { "RequestDeliverAnnualId" });
@@ -2130,6 +2284,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.Reception", new[] { "SupplierId" });
             DropIndex("FRP.ReceptionSchedule", new[] { "ReceptionId" });
             DropIndex("FRP.ReceptionLine", new[] { "ReceptionId" });
+            DropIndex("FRP.TaskTemp", new[] { "ProjectTempId" });
+            DropIndex("FRP.TaskTemp", new[] { "ParentId" });
+            DropIndex("FRP.Task", new[] { "ProjectId" });
+            DropIndex("FRP.Task", new[] { "ParentId" });
             DropIndex("FRP.PlanHistory", new[] { "PlanId" });
             DropIndex("FRP.PlanHistory", new[] { "TargetCategoryId" });
             DropIndex("FRP.PlanHistory", new[] { "PlanAircraftId" });
@@ -2285,6 +2443,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.ContentTag");
             DropTable("FRP.XmlSetting");
             DropTable("FRP.XmlConfig");
+            DropTable("FRP.Member");
+            DropTable("FRP.WorkGroup");
+            DropTable("FRP.User");
+            DropTable("FRP.TaskCase");
+            DropTable("FRP.TaskStandard");
             DropTable("FRP.SupplierRole");
             DropTable("FRP.ApprovalHistory");
             DropTable("FRP.Request");
@@ -2292,6 +2455,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.Reception");
             DropTable("FRP.ReceptionSchedule");
             DropTable("FRP.ReceptionLine");
+            DropTable("FRP.TaskTemp");
+            DropTable("FRP.ProjectTemp");
+            DropTable("FRP.Task");
+            DropTable("FRP.Project");
             DropTable("FRP.PlanHistory");
             DropTable("FRP.AircraftPlan");
             DropTable("FRP.PaymentSchedule");

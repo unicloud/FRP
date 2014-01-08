@@ -1,27 +1,27 @@
 ﻿#region 版本信息
 
-// =====================================================
+// ========================================================================
 // 版权所有 (C) 2014 UniCloud 
-// 【本类功能概述】
+//【本类功能概述】
 // 
-// 作者：丁志浩 时间：2014/01/02，21:31
+// 作者：丁志浩 时间：2014/01/08，17:01
 // 方案：FRP
-// 项目：Domain.ProjectBC
+// 项目：Domain.UberModel
 // 版本：V1.0.0
-// 
+//
 // 修改者： 时间： 
 // 修改说明：
-// =====================================================
+// ========================================================================
 
 #endregion
 
 #region 命名空间
 
-using UniCloud.Domain.ProjectBC.Aggregates.UserAgg;
+using UniCloud.Domain.UberModel.Aggregates.UserAgg;
 
 #endregion
 
-namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
+namespace UniCloud.Domain.UberModel.Aggregates.WorkGroupAgg
 {
     /// <summary>
     ///     工作组工厂

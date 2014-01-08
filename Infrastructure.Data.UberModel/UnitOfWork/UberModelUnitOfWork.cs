@@ -57,6 +57,8 @@ using UniCloud.Domain.UberModel.Aggregates.PaymentScheduleAgg;
 using UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.PlanEngineAgg;
 using UniCloud.Domain.UberModel.Aggregates.ProgrammingAgg;
+using UniCloud.Domain.UberModel.Aggregates.ProjectAgg;
+using UniCloud.Domain.UberModel.Aggregates.ProjectTempAgg;
 using UniCloud.Domain.UberModel.Aggregates.ReceptionAgg;
 using UniCloud.Domain.UberModel.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.UberModel.Aggregates.RequestAgg;
@@ -64,7 +66,10 @@ using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyMaterialAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierRoleAgg;
+using UniCloud.Domain.UberModel.Aggregates.TaskStandardAgg;
 using UniCloud.Domain.UberModel.Aggregates.TradeAgg;
+using UniCloud.Domain.UberModel.Aggregates.UserAgg;
+using UniCloud.Domain.UberModel.Aggregates.WorkGroupAgg;
 using UniCloud.Domain.UberModel.Aggregates.XmlConfigAgg;
 using UniCloud.Domain.UberModel.Aggregates.XmlSettingAgg;
 using UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql;
@@ -77,8 +82,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
     {
         #region IDbSet成员
 
-        private IDbSet<ActionCategory> _actionCategories;
         private IDbSet<AcType> _acTypes;
+        private IDbSet<ActionCategory> _actionCategories;
         private IDbSet<AirProgramming> _airProgrammings;
         private IDbSet<AircraftCategory> _aircraftCategories;
         private IDbSet<AircraftType> _aircraftTypes;
@@ -115,6 +120,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<PlanEngine> _planEngines;
         private IDbSet<Plan> _plans;
         private IDbSet<Programming> _programmings;
+        private IDbSet<ProjectTemp> _projectTemps;
+        private IDbSet<Project> _projects;
         private IDbSet<Reception> _receptions;
         private IDbSet<RelatedDoc> _relatedDocs;
         private IDbSet<Request> _requests;
@@ -122,7 +129,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<SupplierCompanyMaterial> _supplierCompanyMaterials;
         private IDbSet<SupplierRole> _supplierRoles;
         private IDbSet<Supplier> _suppliers;
+        private IDbSet<TaskStandard> _taskStandards;
         private IDbSet<Trade> _trades;
+        private IDbSet<User> _users;
+        private IDbSet<WorkGroup> _workGroups;
         private IDbSet<XmlConfig> _xmlConfigs;
         private IDbSet<XmlSetting> _xmlSettings;
 
@@ -367,6 +377,31 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<XmlSetting> XmlSettings
         {
             get { return _xmlSettings ?? (_xmlSettings = base.Set<XmlSetting>()); }
+        }
+
+        public IDbSet<Project> Projects
+        {
+            get { return _projects ?? (_projects = base.Set<Project>()); }
+        }
+
+        public IDbSet<ProjectTemp> ProjectTemps
+        {
+            get { return _projectTemps ?? (_projectTemps = base.Set<ProjectTemp>()); }
+        }
+
+        public IDbSet<TaskStandard> TaskStandards
+        {
+            get { return _taskStandards ?? (_taskStandards = base.Set<TaskStandard>()); }
+        }
+
+        public IDbSet<User> Users
+        {
+            get { return _users ?? (_users = base.Set<User>()); }
+        }
+
+        public IDbSet<WorkGroup> WorkGroups
+        {
+            get { return _workGroups ?? (_workGroups = base.Set<WorkGroup>()); }
         }
 
         #endregion
@@ -765,6 +800,40 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 #region XmlSettingAgg
 
                 .Add(new XmlSettingEntityConfiguration())
+
+                #endregion
+
+                #region ProjectAgg
+
+                .Add(new ProjectEntityConfiguration())
+                .Add(new TaskEntityConfiguration())
+
+                #endregion
+
+                #region ProjectTempAgg
+
+                .Add(new ProjectTempEntityConfiguration())
+                .Add(new TaskTempEntityConfiguration())
+
+                #endregion
+
+                #region TaskStandardAgg
+
+                .Add(new TaskStandardEntityConfiguration())
+                .Add(new TaskCaseEntityConfiguration())
+
+                #endregion
+
+                #region UserAgg
+
+                .Add(new UserEntityConfiguration())
+
+                #endregion
+
+                #region WorkGroupAgg
+
+                .Add(new WorkGroupEntityConfiguration())
+                .Add(new MemberEntityConfiguration())
 
                 #endregion
 
