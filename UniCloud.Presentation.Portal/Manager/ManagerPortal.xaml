@@ -11,45 +11,16 @@
              d:DesignHeight="300"
              d:DesignWidth="400"
              d:DataContext="{d:DesignInstance uc:ManagerPortalVm}">
-
+    <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="TrackBallLineStyle"
-                   TargetType="Polyline">
-                <Setter Property="Visibility"
-                        Value="Collapsed" />
-            </Style>
-            <Style x:Key="TrackBallInfoStyle"
-                   TargetType="telerik:TrackBallInfoControl">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="telerik:TrackBallInfoControl" />
-                    </Setter.Value>
-                </Setter>
-            </Style>
             <DataTemplate x:Key="PointTemplate">
                 <Ellipse Height='8'
                          Width='8'
                          Fill="Blue" />
-            </DataTemplate>
-            <DataTemplate x:Key="TrackBallInfoTemplate">
-                <StackPanel Background="Transparent">
-                    <TextBlock Text="{Binding Path=DataPoint.DataItem.DateTime, StringFormat='时间: {0}'}"
-                               Foreground="Black"
-                               Margin="6,0"
-                               FontFamily="Segoe UI" />
-                    <TextBlock Text="{Binding Path=DataPoint.DataItem.Purchase, StringFormat='采购: {0}'}"
-                               Foreground="Black"
-                               Margin="6,0"
-                               FontFamily="Segoe UI" />
-                    <TextBlock Text="{Binding Path=DataPoint.DataItem.Lease, StringFormat='租赁: {0}'}"
-                               Foreground="Black"
-                               Margin="6,0"
-                               FontFamily="Segoe UI" />
-                </StackPanel>
             </DataTemplate>
 
             <Style TargetType="telerik:RadHorizontalBulletGraph">
@@ -320,7 +291,7 @@
                                               Stroke="Gray"
                                               StrokeThickness="1" />
                                         <StackPanel Margin="5,3,5,10">
-                                            <TextBlock Text="{Binding Path=DataItem.AircraftRegional, StringFormat='{0}'}"
+                                            <TextBlock Text="{Binding Path=DataItem.AircraftRegional}"
                                                        Foreground="{Binding Path=DataItem.Color}"
                                                        FontFamily="Segoe UI"
                                                        FontSize="11" />
@@ -376,9 +347,7 @@
                                                    Margin="10,10,10,15"
                                                    EmptyContent="飞机引进成本趋势"
                                                    Foreground="Black"
-                                                   Palette="Metro"
-                                                   Zoom="{Binding Zoom, Mode=TwoWay}"
-                                                   PanOffset="{Binding PanOffset, Mode=TwoWay}">
+                                                   Palette="Metro">
                             <telerik:RadCartesianChart.Behaviors>
                                 <telerik:ChartTrackBallBehavior />
                             </telerik:RadCartesianChart.Behaviors>
@@ -389,8 +358,19 @@
                                                 ValueBinding="Purchase"
                                                 Stroke="#FF25A0DA"
                                                 StrokeThickness="2"
-                                                PointTemplate="{StaticResource PointTemplate}"
-                                                TrackBallTemplate="{StaticResource TrackBallInfoTemplate}">
+                                                PointTemplate="{StaticResource PointTemplate}">
+                                <telerik:LineSeries.TrackBallInfoTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Background="Transparent">
+                                            <TextBlock Text="{Binding Path=DataPoint.DataItem.DateTime, StringFormat={StaticResource DateStringFormat}}"
+                                                       Foreground="Black"
+                                                       FontFamily="Segoe UI" />
+                                            <TextBlock Text="{Binding Path=DataPoint.DataItem.Purchase, StringFormat='采购: \{0:N2\}'}"
+                                                       Foreground="Black"
+                                                       FontFamily="Segoe UI" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </telerik:LineSeries.TrackBallInfoTemplate>
                                 <telerik:LineSeries.LegendSettings>
                                     <telerik:SeriesLegendSettings Title="采购" />
                                 </telerik:LineSeries.LegendSettings>
@@ -402,19 +382,30 @@
                                                 ValueBinding="Lease"
                                                 Stroke="#FF8EC441"
                                                 StrokeThickness="2"
-                                                PointTemplate="{StaticResource PointTemplate}"
-                                                TrackBallTemplate="{StaticResource TrackBallInfoTemplate}">
+                                                PointTemplate="{StaticResource PointTemplate}">
+                                <telerik:LineSeries.TrackBallInfoTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Background="Transparent">
+                                            <TextBlock Text="{Binding Path=DataPoint.DataItem.Lease, StringFormat='租赁: \{0:N2\}'}"
+                                                       Foreground="Black"
+                                                       FontFamily="Segoe UI" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </telerik:LineSeries.TrackBallInfoTemplate>
                                 <telerik:LineSeries.LegendSettings>
                                     <telerik:SeriesLegendSettings Title="租赁" />
                                 </telerik:LineSeries.LegendSettings>
                             </telerik:LineSeries>
                             <telerik:RadCartesianChart.HorizontalAxis>
-                                <telerik:DateTimeCategoricalAxis PlotMode="OnTicks"
-                                                                 MajorTickInterval="1" 
-                                                                 LabelFormat="yyyy/MM" />
+                                <telerik:DateTimeContinuousAxis MajorStep="12"
+                                                                MajorStepUnit="Month"
+                                                                LabelInterval="1"
+                                                                GapLength="0.4"
+                                                                PlotMode="OnTicksPadded"
+                                                                LabelFormat="yyyy/MM" />
                             </telerik:RadCartesianChart.HorizontalAxis>
                             <telerik:RadCartesianChart.VerticalAxis>
-                                <telerik:LinearAxis Title="单位(千万)"
+                                <telerik:LinearAxis Title="单位(百万)"
                                                     Foreground="Black"
                                                     LabelFormat="0,,"
                                                     MajorStep="10000000"
@@ -422,13 +413,13 @@
                                                     Maximum="100000000" />
                             </telerik:RadCartesianChart.VerticalAxis>
                             <telerik:RadCartesianChart.Grid>
-                                <telerik:CartesianChartGrid StripLinesVisibility="Y"
-                                                            MajorLinesVisibility="Y">
-                                    <telerik:CartesianChartGrid.YStripeBrushes>
+                                <telerik:CartesianChartGrid MajorLinesVisibility="X"
+                                                            StripLinesVisibility="X">
+                                    <telerik:CartesianChartGrid.XStripeBrushes>
                                         <SolidColorBrush Color="#FFD7D7D7"
-                                                         Opacity="0.3" />
+                                                         Opacity="0.15" />
                                         <SolidColorBrush Color="Transparent" />
-                                    </telerik:CartesianChartGrid.YStripeBrushes>
+                                    </telerik:CartesianChartGrid.XStripeBrushes>
                                 </telerik:CartesianChartGrid>
                             </telerik:RadCartesianChart.Grid>
                         </telerik:RadCartesianChart>
@@ -446,13 +437,10 @@
                         <telerik:RadCartesianChart Name="ImportBarChart"
                                                    Margin="10,11,10,0"
                                                    EmptyContent="飞机引进成本趋势"
-                                                   Foreground="Black"
-                                                   Zoom="{Binding Zoom, Mode=TwoWay}"
-                                                   PanOffset="{Binding PanOffset, Mode=TwoWay}">
+                                                   Foreground="Black">
                             <telerik:RadCartesianChart.Behaviors>
-                                <telerik:ChartPanAndZoomBehavior ZoomMode="Horizontal" />
                                 <telerik:ChartTooltipBehavior HorizontalOffset="-11"
-                                                              VerticalOffset="-50" />
+                                                              VerticalOffset="-70" />
                             </telerik:RadCartesianChart.Behaviors>
                             <telerik:RadCartesianChart.TooltipTemplate>
                                 <DataTemplate>
@@ -504,15 +492,18 @@
                                 </telerik:BarSeries.LegendSettings>
                             </telerik:BarSeries>
                             <telerik:RadCartesianChart.HorizontalAxis>
-                                <telerik:DateTimeCategoricalAxis PlotMode="OnTicks"
-                                                                 MajorTickInterval="1"
-                                                                 LabelFormat="yyyy/MM" />
+                                <telerik:DateTimeContinuousAxis MajorStep="12"
+                                                                MajorStepUnit="Month"
+                                                                LabelInterval="1"
+                                                                GapLength="0.4"
+                                                                PlotMode="OnTicksPadded"
+                                                                LabelFormat="yyyy/MM" />
                             </telerik:RadCartesianChart.HorizontalAxis>
                             <telerik:RadCartesianChart.VerticalAxis>
-                                <telerik:LinearAxis Title="单位(千万)"
+                                <telerik:LinearAxis Title="单位(百万)"
                                                     Foreground="Black"
                                                     LabelFormat="0,,"
-                                                    MajorStep="10000000"
+                                                    MajorStep="15000000"
                                                     Minimum="5000000"
                                                     Maximum="100000000" />
                             </telerik:RadCartesianChart.VerticalAxis>
@@ -534,10 +525,157 @@
                                      RestoredHeight="62"
                                      MinimizedHeight="164"
                                      RestoredWidth="32">
-                <TextBlock Foreground="#333333"
-                           FontSize="12"
-                           FontFamily="Segoe UI"
-                           Text="未开始或正在进行的项目" />
+                <Grid Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.38*" />
+                        <RowDefinition Height="0.22*" />
+                    </Grid.RowDefinitions>
+                    <Grid Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <telerik:RadCartesianChart Name="MaintainCostChart"
+                                                   Margin="10,10,10,15"
+                                                   EmptyContent="飞机维护成本趋势"
+                                                   Foreground="Black"
+                                                   Palette="Metro">
+                            <telerik:RadCartesianChart.Behaviors>
+                                <telerik:ChartTrackBallBehavior />
+                            </telerik:RadCartesianChart.Behaviors>
+                            <telerik:LineSeries DisplayName="维修"
+                                                Name="MaintainLineSeries"
+                                                ItemsSource="{Binding AircraftCosts}"
+                                                CategoryBinding="DateTime"
+                                                ValueBinding="Maintain"
+                                                Stroke="#FF25A0DA"
+                                                StrokeThickness="2"
+                                                PointTemplate="{StaticResource PointTemplate}">
+                                <telerik:LineSeries.TrackBallInfoTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Background="Transparent">
+                                            <TextBlock Text="{Binding Path=DataPoint.DataItem.Maintain, StringFormat={StaticResource CurrencyStringFormat}}"
+                                                       Foreground="Black"
+                                                       FontFamily="Segoe UI" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </telerik:LineSeries.TrackBallInfoTemplate>
+                            </telerik:LineSeries>
+                            <telerik:RadCartesianChart.HorizontalAxis>
+                                <telerik:DateTimeContinuousAxis MajorStep="12"
+                                                                MajorStepUnit="Month"
+                                                                LabelInterval="1"
+                                                                GapLength="0.4"
+                                                                PlotMode="OnTicksPadded"
+                                                                LabelFormat="yyyy/MM" />
+                            </telerik:RadCartesianChart.HorizontalAxis>
+                            <telerik:RadCartesianChart.VerticalAxis>
+                                <telerik:LinearAxis Title="单位(千)"
+                                                    Foreground="Black"
+                                                    LabelFormat="0,"
+                                                    MajorStep="100000"
+                                                    Minimum="100000"
+                                                    Maximum="500000" />
+                            </telerik:RadCartesianChart.VerticalAxis>
+                            <telerik:RadCartesianChart.Grid>
+                                <telerik:CartesianChartGrid MajorLinesVisibility="X"
+                                                            StripLinesVisibility="X">
+                                    <telerik:CartesianChartGrid.XStripeBrushes>
+                                        <SolidColorBrush Color="#FFD7D7D7"
+                                                         Opacity="0.15" />
+                                        <SolidColorBrush Color="Transparent" />
+                                    </telerik:CartesianChartGrid.XStripeBrushes>
+                                </telerik:CartesianChartGrid>
+                            </telerik:RadCartesianChart.Grid>
+                        </telerik:RadCartesianChart>
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Vertical"
+                                    HorizontalAlignment="Right"
+                                    Margin="12,6,10,20">
+                            <StackPanel Orientation="Horizontal">
+                                <Rectangle Fill="#FF25A0DA"
+                                           Height="10"
+                                           Width="10" />
+                                <TextBlock Text=" 维护"
+                                           Foreground="Black" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <telerik:RadCartesianChart Name="MaintainBarChart"
+                                                   Margin="10,11,10,0"
+                                                   EmptyContent="飞机维护成本趋势"
+                                                   Foreground="Black">
+                            <telerik:RadCartesianChart.Behaviors>
+                                <telerik:ChartTooltipBehavior HorizontalOffset="-11"
+                                                              VerticalOffset="-70" />
+                            </telerik:RadCartesianChart.Behaviors>
+                            <telerik:RadCartesianChart.TooltipTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
+                                              Stretch="Fill"
+                                              Fill="White"
+                                              Stroke="Gray"
+                                              StrokeThickness="1" />
+                                        <StackPanel Margin="5,3,5,10">
+                                            <TextBlock Text="{Binding Path=DataItem.DateTime, StringFormat={StaticResource DateStringFormat}}"
+                                                       Foreground="Black"
+                                                       FontFamily="Segoe UI"
+                                                       FontSize="11" />
+                                            <TextBlock Text="{Binding Path=DataItem.Maintain, StringFormat='维护: \{0:N2\}'}"
+                                                       Foreground="Black"
+                                                       FontFamily="Segoe UI"
+                                                       FontSize="11" />
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </telerik:RadCartesianChart.TooltipTemplate>
+                            <telerik:BarSeries ItemsSource="{Binding AircraftCosts}"
+                                               CategoryBinding="DateTime"
+                                               ValueBinding="Maintain">
+                                <telerik:BarSeries.PointTemplate>
+                                    <DataTemplate>
+                                        <Border Background="#FF25A0DA" />
+                                    </DataTemplate>
+                                </telerik:BarSeries.PointTemplate>
+                                <telerik:BarSeries.LegendSettings>
+                                    <telerik:SeriesLegendSettings Title="维护" />
+                                </telerik:BarSeries.LegendSettings>
+                            </telerik:BarSeries>
+                            <telerik:RadCartesianChart.HorizontalAxis>
+                                <telerik:DateTimeContinuousAxis MajorStep="12"
+                                                                MajorStepUnit="Month"
+                                                                LabelInterval="1"
+                                                                GapLength="0.4"
+                                                                PlotMode="OnTicksPadded"
+                                                                LabelFormat="yyyy/MM" />
+                            </telerik:RadCartesianChart.HorizontalAxis>
+                            <telerik:RadCartesianChart.VerticalAxis>
+                                <telerik:LinearAxis Title="单位(千)"
+                                                    Foreground="Black"
+                                                    LabelFormat="0,"
+                                                    MajorStep="100000"
+                                                    Minimum="100000"
+                                                    Maximum="500000" />
+                            </telerik:RadCartesianChart.VerticalAxis>
+                            <telerik:RadCartesianChart.Grid>
+                                <telerik:CartesianChartGrid StripLinesVisibility="Y"
+                                                            MajorLinesVisibility="Y">
+                                    <telerik:CartesianChartGrid.YStripeBrushes>
+                                        <SolidColorBrush Color="#FFD7D7D7"
+                                                         Opacity="0.3" />
+                                        <SolidColorBrush Color="Transparent" />
+                                    </telerik:CartesianChartGrid.YStripeBrushes>
+                                </telerik:CartesianChartGrid>
+                            </telerik:RadCartesianChart.Grid>
+                        </telerik:RadCartesianChart>
+                    </Grid>
+                </Grid>
             </telerik:RadTileViewItem>
             <telerik:RadTileViewItem Header="资金需求"
                                      RestoredHeight="38"
