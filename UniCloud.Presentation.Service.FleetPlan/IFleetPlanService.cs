@@ -95,11 +95,6 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <returns><see cref="IFleetPlanService"/></returns>
         PlanHistoryDTO CreatePlanHistory(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType);
 
-        /// <summary>
-        ///  移除运力增减计划明细
-        /// </summary>
-        /// <param name="planDetail"><see cref="IFleetPlanService"/></param>
-        void RemovePlanDetail(PlanHistoryDTO planDetail);
 
         /// <summary>
         /// 完成运力增减计划

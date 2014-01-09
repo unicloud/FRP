@@ -177,14 +177,14 @@ namespace UniCloud.Presentation.Shell
             };
             var menu215 = new MenuItem
             {
-                Text = "发布规划",
-                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanPublish"
+                Text = "报送规划",
+                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanSend"
 
             };
             var menu216 = new MenuItem
             {
-                Text = "报送规划",
-                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanSend"
+                Text = "发布规划",
+                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanPublish"
 
             };
             var menu217 = new MenuItem

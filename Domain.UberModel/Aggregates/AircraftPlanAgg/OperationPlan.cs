@@ -55,6 +55,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
 
         #region 导航属性
 
+        /// <summary>
+        ///     运营权历史
+        /// </summary>
+        public virtual OperationHistory OperationHistory { get; private set; }
+
         #endregion
 
         #region 操作
@@ -62,12 +67,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     设置运营权历史
         /// </summary>
-        /// <param name="operationHistoryId">运营权历史</param>
-        public void SetOperationHistory(Guid? operationHistoryId)
+        /// <param name="operationHistory">运营权历史</param>
+        public void SetOperationHistory(OperationHistory operationHistory)
         {
-            OperationHistoryId = operationHistoryId;
+            OperationHistory = operationHistory;
+            OperationHistoryId = operationHistory.Id;
         }
-
 
         #endregion
     }

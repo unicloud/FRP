@@ -41,15 +41,13 @@
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                     Margin="-1 -2 -1 0">
                                     <telerik:RadButton Margin="4,2,2,-2"
-                                                       Command="{Binding SaveCommand}"
-                                                       CommandParameter="{Binding ViewAnnuals}">
+                                                       Command="{Binding SaveCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="保存" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AbortCommand}"
-                                                       CommandParameter="{Binding ViewAnnuals}">
+                                                       Command="{Binding AbortCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="放弃更改" />
@@ -68,14 +66,14 @@
                                                      ShowGroupPanel="False"
                                                      AutoGenerateColumns="False"
                                                      CanUserSortColumns="True"
-                                                     ItemsSource="{Binding ViewAnnuals,Mode=TwoWay}"
+                                                     ItemsSource="{Binding Annuals,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelAnnual,Mode=TwoWay}"
                                                      CanUserFreezeColumns="False"
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="True"
-                                                     IsBusy="{Binding ViewAnnuals.IsBusy}">
+                                                     IsBusy="{Binding Annuals.IsBusy}">
                                     <!--<telerik:RadGridView.GroupDescriptors>
                                         <telerik:GroupDescriptor Member="ProgrammingName"
                                                                  SortDirection="Descending">
@@ -109,7 +107,7 @@
                                                  ShowGroupPanel="False"
                                                  IsFilteringAllowed="False"
                                                  SelectedItem="{Binding SelPlan, Mode=TwoWay}"
-                                                 IsBusy="{Binding ViewAnnuals.IsBusy}">
+                                                 IsBusy="{Binding AllPlans.IsBusy}">
                                 <telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadContextMenu>
                                         <telerik:RadMenuItem Header="导出Excel"
@@ -160,7 +158,7 @@
                             <telerik:RadGridView d:LayoutOverrides="Height"
                                                  x:Name="PlanDetail"
                                                  ItemsSource="{Binding PlanHistories,Mode=TwoWay}"
-                                                 IsBusy="{Binding ViewAnnuals.IsBusy}"
+                                                 IsBusy="{Binding AllPlans.IsBusy}"
                                                  IsReadOnly="True"
                                                  ShowGroupPanel="True"
                                                  ShowColumnFooters="True">
@@ -194,10 +192,9 @@
                                     <telerik:GridViewDataColumn Header="引进/退出方式"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding TargetType}" />
-                                    <telerik:GridViewDataColumn Header="执行时间"
+                                    <telerik:GridViewExpressionColumn Header="执行时间"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding PerformTime}" 
-                                                                DataFormatString="{StaticResource DateStringFormat}"/>
+                                                                Expression="(Year+'/'+PerformMonth)" />
                                     <telerik:GridViewDataColumn Header="净增客机"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding }">

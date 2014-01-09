@@ -32,7 +32,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal Annual()
+        public Annual()
         {
         }
 
@@ -43,7 +43,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg
         /// <summary>
         ///     年度
         /// </summary>
-        public int Year { get; protected set; }
+        public int Year { get; set; }
 
         /// <summary>
         ///     是否打开年度
@@ -57,7 +57,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg
         /// <summary>
         ///     五年规划期间ID
         /// </summary>
-        public Guid ProgrammingId { get; protected set; }
+        public Guid ProgrammingId { get; set; }
 
         #endregion
 

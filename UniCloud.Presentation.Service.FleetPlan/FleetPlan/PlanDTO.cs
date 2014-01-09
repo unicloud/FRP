@@ -32,6 +32,20 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
     public partial class PlanDTO
     {
+        #region Method
+
+        partial void OnStatusChanged()
+        {
+            OnPropertyChanged("PlanStatus");
+        }
+
+        partial void OnPublishStatusChanged()
+        {
+            OnPropertyChanged("PlanPublishStatus");
+        }
+
+        #endregion
+
         #region 属性
         /// <summary>
         ///     计划编制状态

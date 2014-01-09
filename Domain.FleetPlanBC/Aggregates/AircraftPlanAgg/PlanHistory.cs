@@ -60,7 +60,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         public int PerformMonth { get; private set; }
 
         /// <summary>
-        ///     是否有效
+        ///     是否有效，确认计划时将计划相关条目置为有效，只有有效的条目才能执行。已有申请、批文的始终有效。
         /// </summary>
         public bool IsValid { get; internal set; }
 

@@ -81,6 +81,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftQueries
                                                                                                ImportCategoryId = q.ImportCategoryId,
                                                                                                ImportActionType = q.ImportCategory.ActionName,
                                                                                                ExportCategoryId = q.ExportCategoryId,
+                                                                                               Status = (int)q.Status,
                                                                                            }).ToList(),
                                      OwnershipHistories = p.OwnershipHistories.Select(q => new OwnershipHistoryDTO
                                                                                            {

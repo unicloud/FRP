@@ -22,7 +22,7 @@ namespace UniCloud.Domain.Common.Enums
     /// </summary>
     public enum ManageStatus
     {
-        草稿 = 0,
+        预备 = 0,
         计划 = 1,
         申请 = 2,
         批文 = 3,

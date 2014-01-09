@@ -156,18 +156,6 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        ///  移除运力增减计划明细
-        /// </summary>
-        /// <param name="planDetail"><see cref="IFleetPlanService"/></param>
-        public void RemovePlanDetail(PlanHistoryDTO planDetail)
-        {
-            using (var pb = new FleetPlanServiceHelper())
-            {
-                pb.RemovePlanDetail(planDetail, this);
-            }
-        }
-
-        /// <summary>
         /// 完成运力增减计划
         /// </summary>
         /// <param name="planDetail"><see cref="IFleetPlanService"/></param>

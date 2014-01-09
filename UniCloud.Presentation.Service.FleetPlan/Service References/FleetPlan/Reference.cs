@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/1/6 12:15:51
+// 生成日期: 2014/1/8 18:40:45
 namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
     
@@ -698,313 +698,317 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 ".com/ado/2009/11/edm\"><EntityType Name=\"ActionCategoryDTO\"><Key><PropertyRef Nam" +
                 "e=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property " +
                 "Name=\"ActionType\" Type=\"Edm.String\" /><Property Name=\"ActionName\" Type=\"Edm.Stri" +
-                "ng\" /><Property Name=\"NeedRequest\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Proper" +
-                "ty Name=\"NetIncrement\" Type=\"Edm.Int32\" Nullable=\"false\" /></EntityType><EntityT" +
-                "ype Name=\"AcTypeDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Typ" +
-                "e=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /></Enti" +
-                "tyType><EntityType Name=\"AircraftCategoryDTO\"><Key><PropertyRef Name=\"Id\" /></Ke" +
-                "y><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Categor" +
-                "y\" Type=\"Edm.String\" /><Property Name=\"Regional\" Type=\"Edm.String\" /></EntityTyp" +
-                "e><EntityType Name=\"AircraftDTO\"><Key><PropertyRef Name=\"AircraftId\" /></Key><Pr" +
-                "operty Name=\"AircraftId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"RegN" +
-                "umber\" Type=\"Edm.String\" /><Property Name=\"SerialNumber\" Type=\"Edm.String\" /><Pr" +
-                "operty Name=\"IsOperation\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"" +
-                "CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"FactoryDate\" " +
-                "Type=\"Edm.DateTime\" /><Property Name=\"ImportDate\" Type=\"Edm.DateTime\" Nullable=\"" +
-                "false\" /><Property Name=\"ExportDate\" Type=\"Edm.DateTime\" /><Property Name=\"Seati" +
-                "ngCapacity\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CarryingCapacity" +
-                "\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"SupplierName\" Type=\"Edm." +
-                "String\" /><Property Name=\"AircraftTypeName\" Type=\"Edm.String\" /><Property Name=\"" +
-                "AirlinesName\" Type=\"Edm.String\" /><Property Name=\"ImportCategoryName\" Type=\"Edm." +
-                "String\" /><Property Name=\"ManufacturerName\" Type=\"Edm.String\" /><Property Name=\"" +
-                "Regional\" Type=\"Edm.String\" /><Property Name=\"OperationHistories\" Type=\"Collecti" +
-                "on(UniCloud.Application.FleetPlanBC.DTO.OperationHistoryDTO)\" Nullable=\"false\" /" +
-                "><Property Name=\"OwnershipHistories\" Type=\"Collection(UniCloud.Application.Fleet" +
-                "PlanBC.DTO.OwnershipHistoryDTO)\" Nullable=\"false\" /><Property Name=\"AircraftBusi" +
-                "nesses\" Type=\"Collection(UniCloud.Application.FleetPlanBC.DTO.AircraftBusinessDT" +
-                "O)\" Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" /><Property " +
-                "Name=\"AircraftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Airline" +
-                "sId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ImportCategoryId\" Type=\"" +
-                "Edm.Guid\" Nullable=\"false\" /></EntityType><ComplexType Name=\"OperationHistoryDTO" +
-                "\"><Property Name=\"OperationHistoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Proper" +
-                "ty Name=\"RegNumber\" Type=\"Edm.String\" /><Property Name=\"StartDate\" Type=\"Edm.Dat" +
-                "eTime\" Nullable=\"false\" /><Property Name=\"StopDate\" Type=\"Edm.DateTime\" /><Prope" +
-                "rty Name=\"TechReceiptDate\" Type=\"Edm.DateTime\" /><Property Name=\"ReceiptDate\" Ty" +
-                "pe=\"Edm.DateTime\" /><Property Name=\"TechDeliveryDate\" Type=\"Edm.DateTime\" /><Pro" +
-                "perty Name=\"OnHireDate\" Type=\"Edm.DateTime\" /><Property Name=\"EndDate\" Type=\"Edm" +
-                ".DateTime\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"AircraftI" +
-                "d\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AirlinesId\" Type=\"Edm.Guid" +
-                "\" Nullable=\"false\" /><Property Name=\"ImportCategoryId\" Type=\"Edm.Guid\" Nullable=" +
-                "\"false\" /><Property Name=\"ExportCategoryId\" Type=\"Edm.Guid\" /></ComplexType><Com" +
-                "plexType Name=\"OwnershipHistoryDTO\"><Property Name=\"OwnershipHistoryId\" Type=\"Ed" +
-                "m.Guid\" Nullable=\"false\" /><Property Name=\"StartDate\" Type=\"Edm.DateTime\" Nullab" +
-                "le=\"false\" /><Property Name=\"EndDate\" Type=\"Edm.DateTime\" /><Property Name=\"Stat" +
-                "us\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AircraftId\" Type=\"Edm.Gu" +
-                "id\" Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullable=\"fa" +
-                "lse\" /></ComplexType><ComplexType Name=\"AircraftBusinessDTO\"><Property Name=\"Air" +
-                "craftBusinessId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"SeatingCapac" +
-                "ity\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CarryingCapacity\" Type=" +
-                "\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"StartDate\" Type=\"Edm.DateTime\" " +
-                "Nullable=\"false\" /><Property Name=\"EndDate\" Type=\"Edm.DateTime\" /><Property Name" +
-                "=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AircraftId\" Type=\"" +
-                "Edm.Guid\" Nullable=\"false\" /><Property Name=\"AircraftTypeId\" Type=\"Edm.Guid\" Nul" +
-                "lable=\"false\" /><Property Name=\"ImportCategoryId\" Type=\"Edm.Guid\" Nullable=\"fals" +
-                "e\" /></ComplexType><EntityType Name=\"AircraftTypeDTO\"><Key><PropertyRef Name=\"Id" +
-                "\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=" +
-                "\"Name\" Type=\"Edm.String\" /></EntityType><EntityType Name=\"AirlinesDTO\"><Key><Pro" +
-                "pertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" " +
-                "/><Property Name=\"CnName\" Type=\"Edm.String\" /><Property Name=\"CnShortName\" Type=" +
-                "\"Edm.String\" /><Property Name=\"IsCurrent\" Type=\"Edm.Boolean\" Nullable=\"false\" />" +
-                "</EntityType><EntityType Name=\"AirProgrammingDTO\"><Key><PropertyRef Name=\"Id\" />" +
-                "</Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Nam" +
-                "e\" Type=\"Edm.String\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" /><Proper" +
-                "ty Name=\"IssuedDate\" Type=\"Edm.DateTime\" /><Property Name=\"Note\" Type=\"Edm.Strin" +
-                "g\" /><Property Name=\"DocName\" Type=\"Edm.String\" /><Property Name=\"ProgrammingId\"" +
-                " Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"DocumentId\" Type=\"Edm.Guid\" " +
-                "Nullable=\"false\" /><Property Name=\"IssuedUnitId\" Type=\"Edm.Guid\" Nullable=\"false" +
-                "\" /><Property Name=\"AirProgrammingLines\" Type=\"Collection(UniCloud.Application.F" +
-                "leetPlanBC.DTO.AirProgrammingLineDTO)\" Nullable=\"false\" /></EntityType><ComplexT" +
-                "ype Name=\"AirProgrammingLineDTO\"><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"f" +
-                "alse\" /><Property Name=\"Year\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name" +
-                "=\"BuyNum\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ExportNum\" Type=\"E" +
-                "dm.Int32\" Nullable=\"false\" /><Property Name=\"LeaseNum\" Type=\"Edm.Int32\" Nullable" +
-                "=\"false\" /><Property Name=\"AcTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Propert" +
-                "y Name=\"AircraftCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"A" +
-                "irProgrammingId\" Type=\"Edm.Guid\" Nullable=\"false\" /></ComplexType><EntityType Na" +
-                "me=\"AnnualDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm" +
-                ".Guid\" Nullable=\"false\" /><Property Name=\"Year\" Type=\"Edm.Int32\" Nullable=\"false" +
-                "\" /><Property Name=\"IsOpen\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name" +
-                "=\"ProgrammingName\" Type=\"Edm.String\" /><Property Name=\"ProgrammingId\" Type=\"Edm." +
-                "Guid\" Nullable=\"false\" /><NavigationProperty Name=\"Plans\" Relationship=\"UniCloud" +
-                ".Application.FleetPlanBC.DTO.AnnualDTO_Plans\" ToRole=\"Plans\" FromRole=\"AnnualDTO" +
-                "\" /></EntityType><EntityType Name=\"PlanYearDTO\"><Key><PropertyRef Name=\"Id\" /></" +
-                "Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Year\"" +
-                " Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"IsOpen\" Type=\"Edm.Boolean\" " +
-                "Nullable=\"false\" /><Property Name=\"ProgrammingName\" Type=\"Edm.String\" /><Propert" +
-                "y Name=\"ProgrammingId\" Type=\"Edm.Guid\" Nullable=\"false\" /></EntityType><EntityTy" +
-                "pe Name=\"ApprovalDocDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\"" +
-                " Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"CaacExamineDate\" Type=\"Edm.D" +
-                "ateTime\" /><Property Name=\"NdrcExamineDate\" Type=\"Edm.DateT";
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart1 = "ime\" /><Property Name=\"CaacApprovalNumber\" Type=\"Edm.String\" /><Property Name=\"Nd" +
-                "rcApprovalNumber\" Type=\"Edm.String\" /><Property Name=\"Status\" Type=\"Edm.Int32\" N" +
-                "ullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"Caac" +
-                "DocumentName\" Type=\"Edm.String\" /><Property Name=\"NdrcDocumentName\" Type=\"Edm.St" +
-                "ring\" /><Property Name=\"CaacDocumentId\" Type=\"Edm.Guid\" /><Property Name=\"NdrcDo" +
-                "cumentId\" Type=\"Edm.Guid\" /></EntityType><EntityType Name=\"CaacProgrammingDTO\"><" +
-                "Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=" +
-                "\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"CreateDate\" " +
-                "Type=\"Edm.DateTime\" /><Property Name=\"IssuedDate\" Type=\"Edm.DateTime\" /><Propert" +
-                "y Name=\"DocNumber\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /" +
-                "><Property Name=\"DocName\" Type=\"Edm.String\" /><Property Name=\"ProgrammingId\" Typ" +
-                "e=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"IssuedUnitId\" Type=\"Edm.Guid\" Nu" +
-                "llable=\"false\" /><Property Name=\"DocumentId\" Type=\"Edm.Guid\" Nullable=\"false\" />" +
-                "<Property Name=\"CaacProgrammingLines\" Type=\"Collection(UniCloud.Application.Flee" +
-                "tPlanBC.DTO.CaacProgrammingLineDTO)\" Nullable=\"false\" /></EntityType><ComplexTyp" +
-                "e Name=\"CaacProgrammingLineDTO\"><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"fa" +
-                "lse\" /><Property Name=\"Number\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Nam" +
-                "e=\"Year\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AircraftCategoryId\"" +
-                " Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"CaacProgrammingId\" Type=\"Edm" +
-                ".Guid\" Nullable=\"false\" /></ComplexType><EntityType Name=\"EngineDTO\"><Key><Prope" +
-                "rtyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" />" +
-                "<Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Nam" +
-                "e=\"FactoryDate\" Type=\"Edm.DateTime\" /><Property Name=\"ImportDate\" Type=\"Edm.Date" +
-                "Time\" /><Property Name=\"ExportDate\" Type=\"Edm.DateTime\" /><Property Name=\"Serial" +
-                "Number\" Type=\"Edm.String\" /><Property Name=\"MaxThrust\" Type=\"Edm.Decimal\" Nullab" +
-                "le=\"false\" /><Property Name=\"EngineTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><P" +
-                "roperty Name=\"SupplierId\" Type=\"Edm.Int32\" /><Property Name=\"AirlinesId\" Type=\"E" +
-                "dm.Guid\" Nullable=\"false\" /><Property Name=\"ImportCategoryId\" Type=\"Edm.Guid\" Nu" +
-                "llable=\"false\" /><Property Name=\"EngineOwnerShipHistories\" Type=\"Collection(UniC" +
-                "loud.Application.FleetPlanBC.DTO.EngineOwnershipHistoryDTO)\" Nullable=\"false\" />" +
-                "<Property Name=\"EngineBusinessHistories\" Type=\"Collection(UniCloud.Application.F" +
-                "leetPlanBC.DTO.EngineBusinessHistoryDTO)\" Nullable=\"false\" /></EntityType><Compl" +
-                "exType Name=\"EngineOwnershipHistoryDTO\"><Property Name=\"Id\" Type=\"Edm.Guid\" Null" +
-                "able=\"false\" /><Property Name=\"StartDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /" +
-                "><Property Name=\"EndDate\" Type=\"Edm.DateTime\" /><Property Name=\"EngineId\" Type=\"" +
-                "Edm.Guid\" Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" Nullab" +
-                "le=\"false\" /></ComplexType><ComplexType Name=\"EngineBusinessHistoryDTO\"><Propert" +
-                "y Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"StartDate\" Type=\"" +
-                "Edm.DateTime\" /><Property Name=\"EndDate\" Type=\"Edm.DateTime\" /><Property Name=\"M" +
-                "axThrust\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"EngineId\" Type=\"" +
-                "Edm.Guid\" Nullable=\"false\" /><Property Name=\"EngineTypeId\" Type=\"Edm.Guid\" Nulla" +
-                "ble=\"false\" /><Property Name=\"ImportCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\"" +
-                " /></ComplexType><EntityType Name=\"EnginePlanDTO\"><Key><PropertyRef Name=\"Id\" />" +
-                "</Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Tit" +
-                "le\" Type=\"Edm.String\" /><Property Name=\"DocNumber\" Type=\"Edm.String\" /><Property" +
-                " Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"IsVali" +
-                "d\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"VersionNumber\" Type=\"Ed" +
-                "m.Int32\" Nullable=\"false\" /><Property Name=\"IsFinished\" Type=\"Edm.Boolean\" Nulla" +
-                "ble=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prope" +
-                "rty Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"DocName\" Type=\"Edm.String\" /" +
-                "><Property Name=\"AirlinesId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"" +
-                "AnnualId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"DocumentId\" Type=\"E" +
-                "dm.Guid\" Nullable=\"false\" /><Property Name=\"EnginePlanHistories\" Type=\"Collectio" +
-                "n(UniCloud.Application.FleetPlanBC.DTO.EnginePlanHistoryDTO)\" Nullable=\"false\" /" +
-                "></EntityType><ComplexType Name=\"EnginePlanHistoryDTO\"><Property Name=\"Id\" Type=" +
-                "\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"PerformMonth\" Type=\"Edm.Int32\" Nul" +
-                "lable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pro" +
-                "perty Name=\"IsFinished\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Ma" +
-                "xThrust\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"EngineTypeId\" Typ" +
-                "e=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"EnginePlanId\" Type=\"Edm.Guid\" Nu" +
-                "llable=\"false\" /><Property Name=\"PerformAnnualId\" Type=\"Edm.Guid\" Nullable=\"fals" +
-                "e\" /><Property Name=\"PlanEngineId\" Type=\"Edm.Guid\" /><Property Name=\"ActionCateg" +
-                "oryId\" Type=\"Edm.Guid\" Nullable=\"false\" /></ComplexType><EntityType Name=\"Engine" +
-                "TypeDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\"" +
-                " Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Ma" +
-                "nufacturerId\" Type=\"Edm.Guid\" Nullable=\"false\" /></EntityType><EntityType Name=\"" +
-                "MailAddressDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Ed" +
-                "m.Guid\" Nullable=\"false\" /><Property Name=\"SmtpHost\" Type=\"Edm.String\" /><Proper" +
-                "ty Name=\"Pop3Host\" Type=\"Edm.String\" /><Property Name=\"SendPort\" Type=\"Edm.Int32" +
-                "\" Nullable=\"false\" /><Property Name=\"ReceivePort\" Type=\"Edm.Int32\" Nullable=\"fal" +
-                "se\" /><Property Name=\"LoginUser\" Type=\"Edm.String\" /><Property Name=\"LoginPasswo" +
-                "rd\" Type=\"Edm.String\" /><Property Name=\"Address\" Type=\"Edm.String\" /><Property N" +
-                "ame=\"DisplayName\" Type=\"Edm.String\" /><Property Name=\"SendSSL\" Type=\"Edm.Boolean" +
-                "\" Nullable=\"false\" /><Property Name=\"StartTLS\" Type=\"Edm.Boolean\" Nullable=\"fals" +
-                "e\" /><Property Name=\"ReceiveSSL\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property" +
-                " Name=\"ServerType\" Type=\"Edm.Int32\" Nullable=\"false\" /></EntityType><EntityType " +
-                "Name=\"ManagerDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"" +
-                "Edm.Guid\" Nullable=\"false\" /><Property Name=\"CnName\" Type=\"Edm.String\" /><Proper" +
-                "ty Name=\"EnName\" Type=\"Edm.String\" /><Property Name=\"CnShortName\" Type=\"Edm.Stri" +
-                "ng\" /><Property Name=\"EnShortName\" Type=\"Edm.String\" /></EntityType><EntityType " +
-                "Name=\"ManufacturerDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" T" +
-                "ype=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"CnName\" Type=\"Edm.String\" /><P" +
-                "roperty Name=\"EnName\" Type=\"Edm.String\" /><Property Name=\"CnShortName\" Type=\"Edm" +
-                ".String\" /><Property Name=\"EnShortName\" Type=\"Edm.String\" /><Property Name=\"Note" +
-                "\" Type=\"Edm.String\" /><Property Name=\"Type\" Type=\"Edm.Int32\" Nullable=\"false\" />" +
-                "</EntityType><EntityType Name=\"PlanDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Pro" +
-                "perty Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Title\" Type=\"" +
-                "Edm.String\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Pr" +
-                "operty Name=\"VersionNumber\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"" +
-                "IsCurrentVersion\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"SubmitDa" +
-                "te\" Type=\"Edm.DateTime\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullab" +
-                "le=\"false\" /><Property Name=\"DocNumber\" Type=\"Edm.String\" /><Property Name=\"IsFi" +
-                "nished\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm." +
-                "Int32\" Nullable=\"false\" /><Property Name=\"PublishStatus\" Ty";
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart2 = "pe=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"DocName\" Type=\"Edm.String\" /><P" +
-                "roperty Name=\"AirlinesName\" Type=\"Edm.String\" /><Property Name=\"Year\" Type=\"Edm." +
-                "Int32\" Nullable=\"false\" /><Property Name=\"AirlinesId\" Type=\"Edm.Guid\" Nullable=\"" +
-                "false\" /><Property Name=\"AnnualId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property " +
-                "Name=\"DocumentId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"PlanHistori" +
-                "es\" Type=\"Collection(UniCloud.Application.FleetPlanBC.DTO.PlanHistoryDTO)\" Nulla" +
-                "ble=\"false\" /></EntityType><ComplexType Name=\"PlanHistoryDTO\"><Property Name=\"Id" +
-                "\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"SeatingCapacity\" Type=\"Edm." +
-                "Int32\" Nullable=\"false\" /><Property Name=\"CarryingCapacity\" Type=\"Edm.Decimal\" N" +
-                "ullable=\"false\" /><Property Name=\"PerformMonth\" Type=\"Edm.Int32\" Nullable=\"false" +
-                "\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Nam" +
-                "e=\"IsSubmit\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"E" +
-                "dm.String\" /><Property Name=\"AirlinesName\" Type=\"Edm.String\" /><Property Name=\"R" +
-                "egional\" Type=\"Edm.String\" /><Property Name=\"AircraftTypeName\" Type=\"Edm.String\"" +
-                " /><Property Name=\"ActionType\" Type=\"Edm.String\" /><Property Name=\"TargetType\" T" +
-                "ype=\"Edm.String\" /><Property Name=\"Year\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pr" +
-                "operty Name=\"ManageStatus\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"P" +
-                "lanAircraftId\" Type=\"Edm.Guid\" /><Property Name=\"PlanId\" Type=\"Edm.Guid\" Nullabl" +
-                "e=\"false\" /><Property Name=\"ActionCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /" +
-                "><Property Name=\"TargetCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property " +
-                "Name=\"AircraftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Airline" +
-                "sId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"PerformAnnualId\" Type=\"E" +
-                "dm.Guid\" Nullable=\"false\" /><Property Name=\"PlanType\" Type=\"Edm.Int32\" Nullable=" +
-                "\"false\" /><Property Name=\"RelatedGuid\" Type=\"Edm.Guid\" /><Property Name=\"Related" +
-                "EndDate\" Type=\"Edm.DateTime\" /></ComplexType><EntityType Name=\"PlanAircraftDTO\">" +
+                "ng\" /><Property Name=\"NeedRequest\" Type=\"Edm.Boolean\" Nullable=\"false\" /></Entit" +
+                "yType><EntityType Name=\"AcTypeDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property" +
+                " Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.St" +
+                "ring\" /></EntityType><EntityType Name=\"AircraftCategoryDTO\"><Key><PropertyRef Na" +
+                "me=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property" +
+                " Name=\"Category\" Type=\"Edm.String\" /><Property Name=\"Regional\" Type=\"Edm.String\"" +
+                " /></EntityType><EntityType Name=\"AircraftDTO\"><Key><PropertyRef Name=\"AircraftI" +
+                "d\" /></Key><Property Name=\"AircraftId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"RegNumber\" Type=\"Edm.String\" /><Property Name=\"SerialNumber\" Type=\"Edm" +
+                ".String\" /><Property Name=\"IsOperation\" Type=\"Edm.Boolean\" Nullable=\"false\" /><P" +
+                "roperty Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=" +
+                "\"FactoryDate\" Type=\"Edm.DateTime\" /><Property Name=\"ImportDate\" Type=\"Edm.DateTi" +
+                "me\" /><Property Name=\"ExportDate\" Type=\"Edm.DateTime\" /><Property Name=\"SeatingC" +
+                "apacity\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CarryingCapacity\" T" +
+                "ype=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"SupplierName\" Type=\"Edm.Str" +
+                "ing\" /><Property Name=\"AircraftTypeName\" Type=\"Edm.String\" /><Property Name=\"Air" +
+                "linesName\" Type=\"Edm.String\" /><Property Name=\"ImportCategoryName\" Type=\"Edm.Str" +
+                "ing\" /><Property Name=\"ManufacturerName\" Type=\"Edm.String\" /><Property Name=\"Reg" +
+                "ional\" Type=\"Edm.String\" /><Property Name=\"OperationHistories\" Type=\"Collection(" +
+                "UniCloud.Application.FleetPlanBC.DTO.OperationHistoryDTO)\" Nullable=\"false\" /><P" +
+                "roperty Name=\"OwnershipHistories\" Type=\"Collection(UniCloud.Application.FleetPla" +
+                "nBC.DTO.OwnershipHistoryDTO)\" Nullable=\"false\" /><Property Name=\"AircraftBusines" +
+                "ses\" Type=\"Collection(UniCloud.Application.FleetPlanBC.DTO.AircraftBusinessDTO)\"" +
+                " Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" /><Property Nam" +
+                "e=\"AircraftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AirlinesId" +
+                "\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ImportCategoryId\" Type=\"Edm" +
+                ".Guid\" Nullable=\"false\" /></EntityType><ComplexType Name=\"OperationHistoryDTO\"><" +
+                "Property Name=\"OperationHistoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property " +
+                "Name=\"RegNumber\" Type=\"Edm.String\" /><Property Name=\"StartDate\" Type=\"Edm.DateTi" +
+                "me\" /><Property Name=\"StopDate\" Type=\"Edm.DateTime\" /><Property Name=\"TechReceip" +
+                "tDate\" Type=\"Edm.DateTime\" /><Property Name=\"ReceiptDate\" Type=\"Edm.DateTime\" />" +
+                "<Property Name=\"TechDeliveryDate\" Type=\"Edm.DateTime\" /><Property Name=\"OnHireDa" +
+                "te\" Type=\"Edm.DateTime\" /><Property Name=\"EndDate\" Type=\"Edm.DateTime\" /><Proper" +
+                "ty Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"ImportActionType\" Type=\"Edm.S" +
+                "tring\" /><Property Name=\"AirlinesName\" Type=\"Edm.String\" /><Property Name=\"Statu" +
+                "s\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AircraftId\" Type=\"Edm.Gui" +
+                "d\" Nullable=\"false\" /><Property Name=\"AirlinesId\" Type=\"Edm.Guid\" Nullable=\"fals" +
+                "e\" /><Property Name=\"ImportCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"ExportCategoryId\" Type=\"Edm.Guid\" /></ComplexType><ComplexType Name=\"O" +
+                "wnershipHistoryDTO\"><Property Name=\"OwnershipHistoryId\" Type=\"Edm.Guid\" Nullable" +
+                "=\"false\" /><Property Name=\"StartDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"EndDate\" Type=\"Edm.DateTime\" /><Property Name=\"Status\" Type=\"Edm.In" +
+                "t32\" Nullable=\"false\" /><Property Name=\"SupplierName\" Type=\"Edm.String\" /><Prope" +
+                "rty Name=\"AircraftId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Supplie" +
+                "rId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><ComplexType Name=\"Aircra" +
+                "ftBusinessDTO\"><Property Name=\"AircraftBusinessId\" Type=\"Edm.Guid\" Nullable=\"fal" +
+                "se\" /><Property Name=\"SeatingCapacity\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prop" +
+                "erty Name=\"CarryingCapacity\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Nam" +
+                "e=\"StartDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"EndDate\" Ty" +
+                "pe=\"Edm.DateTime\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" />" +
+                "<Property Name=\"AircraftTypeName\" Type=\"Edm.String\" /><Property Name=\"Regional\" " +
+                "Type=\"Edm.String\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" Nullable=\"false\"" +
+                " /><Property Name=\"AircraftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property " +
+                "Name=\"ImportCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /></ComplexType><Entity" +
+                "Type Name=\"AircraftTypeDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"" +
+                "Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /" +
+                "><Property Name=\"AircraftCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Propert" +
+                "y Name=\"Regional\" Type=\"Edm.String\" /></EntityType><EntityType Name=\"AirlinesDTO" +
+                "\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullab" +
+                "le=\"false\" /><Property Name=\"CnName\" Type=\"Edm.String\" /><Property Name=\"CnShort" +
+                "Name\" Type=\"Edm.String\" /><Property Name=\"IsCurrent\" Type=\"Edm.Boolean\" Nullable" +
+                "=\"false\" /></EntityType><EntityType Name=\"AirProgrammingDTO\"><Key><PropertyRef N" +
+                "ame=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Propert" +
+                "y Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime" +
+                "\" /><Property Name=\"IssuedDate\" Type=\"Edm.DateTime\" /><Property Name=\"Note\" Type" +
+                "=\"Edm.String\" /><Property Name=\"DocName\" Type=\"Edm.String\" /><Property Name=\"Pro" +
+                "grammingId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"DocumentId\" Type=" +
+                "\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"IssuedUnitId\" Type=\"Edm.Guid\" Null" +
+                "able=\"false\" /><Property Name=\"AirProgrammingLines\" Type=\"Collection(UniCloud.Ap" +
+                "plication.FleetPlanBC.DTO.AirProgrammingLineDTO)\" Nullable=\"false\" /></EntityTyp" +
+                "e><ComplexType Name=\"AirProgrammingLineDTO\"><Property Name=\"Id\" Type=\"Edm.Guid\" " +
+                "Nullable=\"false\" /><Property Name=\"Year\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"BuyNum\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ExportN" +
+                "um\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"LeaseNum\" Type=\"Edm.Int3" +
+                "2\" Nullable=\"false\" /><Property Name=\"AcTypeId\" Type=\"Edm.Guid\" Nullable=\"false\"" +
+                " /><Property Name=\"AircraftCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"AirProgrammingId\" Type=\"Edm.Guid\" Nullable=\"false\" /></ComplexType><En" +
+                "tityType Name=\"AnnualDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id" +
+                "\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Year\" Type=\"Edm.Int32\" Null" +
+                "able=\"false\" /><Property Name=\"IsOpen\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"ProgrammingName\" Type=\"Edm.String\" /><Property Name=\"ProgrammingId\"" +
+                " Type=\"Edm.Guid\" Nullable=\"false\" /></EntityType><EntityType Name=\"PlanYearDTO\">" +
                 "<Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable" +
-                "=\"false\" /><Property Name=\"IsLock\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Proper" +
-                "ty Name=\"IsOwn\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Status\" Ty" +
-                "pe=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" />" +
-                "<Property Name=\"AircraftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Nam" +
-                "e=\"AirlinesId\" Type=\"Edm.Guid\" Nullable=\"false\" /></EntityType><EntityType Name=" +
-                "\"PlanEngineDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Ed" +
-                "m.Guid\" Nullable=\"false\" /><Property Name=\"EngineId\" Type=\"Edm.Guid\" /><Property" +
-                " Name=\"EngineTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Airlines" +
-                "Id\" Type=\"Edm.Guid\" Nullable=\"false\" /></EntityType><EntityType Name=\"Programmin" +
-                "gDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nu" +
-                "llable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Start" +
-                "Date\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"EndDate\" Type=\"Edm." +
-                "DateTime\" Nullable=\"false\" /></EntityType><EntityType Name=\"RequestDTO\"><Key><Pr" +
-                "opertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\"" +
-                " /><Property Name=\"SubmitDate\" Type=\"Edm.DateTime\" /><Property Name=\"IsFinished\"" +
-                " Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Title\" Type=\"Edm.String\" " +
-                "/><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property N" +
-                "ame=\"RaDocNumber\" Type=\"Edm.String\" /><Property Name=\"SawsDocNumber\" Type=\"Edm.S" +
-                "tring\" /><Property Name=\"CaacDocNumber\" Type=\"Edm.String\" /><Property Name=\"Stat" +
-                "us\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CaacNote\" Type=\"Edm.Stri" +
-                "ng\" /><Property Name=\"RaNote\" Type=\"Edm.String\" /><Property Name=\"SawsNote\" Type" +
-                "=\"Edm.String\" /><Property Name=\"ApprovalDocId\" Type=\"Edm.Guid\" /><Property Name=" +
-                "\"RaDocumentId\" Type=\"Edm.Guid\" /><Property Name=\"RaDocumentName\" Type=\"Edm.Strin" +
-                "g\" /><Property Name=\"SawsDocumentId\" Type=\"Edm.Guid\" /><Property Name=\"SawsDocum" +
-                "entName\" Type=\"Edm.String\" /><Property Name=\"CaacDocumentId\" Type=\"Edm.Guid\" /><" +
-                "Property Name=\"CaacDocumentName\" Type=\"Edm.String\" /><Property Name=\"AirlinesId\"" +
-                " Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AirlinesName\" Type=\"Edm.Stri" +
-                "ng\" /><Property Name=\"ApprovalHistories\" Type=\"Collection(UniCloud.Application.F" +
-                "leetPlanBC.DTO.ApprovalHistoryDTO)\" Nullable=\"false\" /></EntityType><ComplexType" +
-                " Name=\"ApprovalHistoryDTO\"><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" " +
-                "/><Property Name=\"IsApproved\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Na" +
-                "me=\"SeatingCapacity\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Carryin" +
-                "gCapacity\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"RequestDeliverM" +
-                "onth\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String" +
-                "\" /><Property Name=\"RequestId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name" +
-                "=\"PlanAircraftId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AircraftReg" +
-                "ional\" Type=\"Edm.String\" /><Property Name=\"AircraftType\" Type=\"Edm.String\" /><Pr" +
-                "operty Name=\"ImportCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name" +
-                "=\"ImportCategoryName\" Type=\"Edm.String\" /><Property Name=\"RequestDeliverAnnualId" +
-                "\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"RequestDeliverAnnualName\" T" +
-                "ype=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AirlinesId\" Type=\"Edm.Guid\" N" +
-                "ullable=\"false\" /><Property Name=\"AirlineName\" Type=\"Edm.String\" /></ComplexType" +
-                "><EntityType Name=\"SupplierDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Na" +
-                "me=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierType\" Type=\"" +
-                "Edm.Int32\" Nullable=\"false\" /><Property Name=\"Code\" Type=\"Edm.String\" /><Propert" +
-                "y Name=\"CnName\" Type=\"Edm.String\" /><Property Name=\"EnName\" Type=\"Edm.String\" />" +
-                "<Property Name=\"CnShortName\" Type=\"Edm.String\" /><Property Name=\"EnShortName\" Ty" +
-                "pe=\"Edm.String\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /" +
-                "><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"AirlineGuid\" Type=\"Ed" +
-                "m.Guid\" /></EntityType><EntityType Name=\"XmlConfigDTO\"><Key><PropertyRef Name=\"X" +
-                "mlConfigId\" /></Key><Property Name=\"XmlConfigId\" Type=\"Edm.Guid\" Nullable=\"false" +
-                "\" /><Property Name=\"ConfigType\" Type=\"Edm.String\" /><Property Name=\"ConfigConten" +
-                "t\" Type=\"Edm.String\" /><Property Name=\"VersionNumber\" Type=\"Edm.Int32\" Nullable=" +
-                "\"false\" /><Property Name=\"XmlContent\" Type=\"Edm.String\" /></EntityType><EntityTy" +
-                "pe Name=\"XmlSettingDTO\"><Key><PropertyRef Name=\"XmlSettingId\" /></Key><Property " +
-                "Name=\"XmlSettingId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"SettingTy" +
-                "pe\" Type=\"Edm.String\" /><Property Name=\"SettingContent\" Type=\"Edm.String\" /><Pro" +
-                "perty Name=\"XmlContent\" Type=\"Edm.String\" /></EntityType><Association Name=\"Annu" +
-                "alDTO_Plans\"><End Type=\"UniCloud.Application.FleetPlanBC.DTO.PlanDTO\" Role=\"Plan" +
-                "s\" Multiplicity=\"*\" /><End Type=\"UniCloud.Application.FleetPlanBC.DTO.AnnualDTO\"" +
-                " Role=\"AnnualDTO\" Multiplicity=\"*\" /></Association></Schema><Schema Namespace=\"U" +
-                "niCloud.DistributedServices.FleetPlan\" xmlns=\"http://schemas.microsoft.com/ado/2" +
-                "009/11/edm\"><EntityContainer Name=\"FleetPlanData\" m:IsDefaultEntityContainer=\"tr" +
-                "ue\"><EntitySet Name=\"ActionCategories\" EntityType=\"UniCloud.Application.FleetPla" +
-                "nBC.DTO.ActionCategoryDTO\" /><EntitySet Name=\"AcTypes\" EntityType=\"UniCloud.Appl" +
-                "ication.FleetPlanBC.DTO.AcTypeDTO\" /><EntitySet Name=\"AircraftCategories\" Entity" +
-                "Type=\"UniCloud.Application.FleetPlanBC.DTO.AircraftCategoryDTO\" /><EntitySet Nam" +
-                "e=\"Aircrafts\" EntityType=\"UniCloud.Application.FleetPlanBC.";
+                "=\"false\" /><Property Name=\"Year\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property N" +
+                "ame=\"IsOpen\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"ProgrammingNa" +
+                "me\" Type=\"Edm.String\" /><Property Name=\"ProgrammingId\" Type=\"Edm.Guid\" Nullable=" +
+                "\"false\" /></EntityType><EntityType Name=\"ApprovalDocDTO\"><K";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart3 = "DTO.AircraftDTO\" /><EntitySet Name=\"AircraftTypes\" EntityType=\"UniCloud.Applicati" +
-                "on.FleetPlanBC.DTO.AircraftTypeDTO\" /><EntitySet Name=\"Airlineses\" EntityType=\"U" +
-                "niCloud.Application.FleetPlanBC.DTO.AirlinesDTO\" /><EntitySet Name=\"AirProgrammi" +
-                "ngs\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.AirProgrammingDTO\" /><Enti" +
-                "tySet Name=\"Annuals\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.AnnualDTO\"" +
-                " /><EntitySet Name=\"PlanYears\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO." +
-                "PlanYearDTO\" /><EntitySet Name=\"ApprovalDocs\" EntityType=\"UniCloud.Application.F" +
-                "leetPlanBC.DTO.ApprovalDocDTO\" /><EntitySet Name=\"CaacProgrammings\" EntityType=\"" +
-                "UniCloud.Application.FleetPlanBC.DTO.CaacProgrammingDTO\" /><EntitySet Name=\"Engi" +
-                "nes\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.EngineDTO\" /><EntitySet Na" +
-                "me=\"EnginePlans\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.EnginePlanDTO\"" +
-                " /><EntitySet Name=\"EngineTypes\" EntityType=\"UniCloud.Application.FleetPlanBC.DT" +
-                "O.EngineTypeDTO\" /><EntitySet Name=\"MailAddresses\" EntityType=\"UniCloud.Applicat" +
-                "ion.FleetPlanBC.DTO.MailAddressDTO\" /><EntitySet Name=\"Managers\" EntityType=\"Uni" +
-                "Cloud.Application.FleetPlanBC.DTO.ManagerDTO\" /><EntitySet Name=\"Manufacturers\" " +
-                "EntityType=\"UniCloud.Application.FleetPlanBC.DTO.ManufacturerDTO\" /><EntitySet N" +
-                "ame=\"Plans\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.PlanDTO\" /><EntityS" +
-                "et Name=\"PlanAircrafts\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.PlanAir" +
-                "craftDTO\" /><EntitySet Name=\"PlanEngines\" EntityType=\"UniCloud.Application.Fleet" +
-                "PlanBC.DTO.PlanEngineDTO\" /><EntitySet Name=\"Programmings\" EntityType=\"UniCloud." +
-                "Application.FleetPlanBC.DTO.ProgrammingDTO\" /><EntitySet Name=\"Requests\" EntityT" +
-                "ype=\"UniCloud.Application.FleetPlanBC.DTO.RequestDTO\" /><EntitySet Name=\"Supplie" +
-                "rs\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.SupplierDTO\" /><EntitySet N" +
-                "ame=\"XmlConfigs\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.XmlConfigDTO\" " +
-                "/><EntitySet Name=\"XmlSettings\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO" +
-                ".XmlSettingDTO\" /><AssociationSet Name=\"AnnualDTO_Plans\" Association=\"UniCloud.A" +
-                "pplication.FleetPlanBC.DTO.AnnualDTO_Plans\"><End Role=\"AnnualDTO\" EntitySet=\"Ann" +
-                "uals\" /><End Role=\"Plans\" EntitySet=\"Plans\" /></AssociationSet></EntityContainer" +
-                "></Schema></edmx:DataServices></edmx:Edmx>";
+            private const string ModelPart1 = "ey><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"f" +
+                "alse\" /><Property Name=\"CaacExamineDate\" Type=\"Edm.DateTime\" /><Property Name=\"N" +
+                "drcExamineDate\" Type=\"Edm.DateTime\" /><Property Name=\"CaacApprovalNumber\" Type=\"" +
+                "Edm.String\" /><Property Name=\"NdrcApprovalNumber\" Type=\"Edm.String\" /><Property " +
+                "Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Ed" +
+                "m.String\" /><Property Name=\"CaacDocumentName\" Type=\"Edm.String\" /><Property Name" +
+                "=\"NdrcDocumentName\" Type=\"Edm.String\" /><Property Name=\"CaacDocumentId\" Type=\"Ed" +
+                "m.Guid\" /><Property Name=\"NdrcDocumentId\" Type=\"Edm.Guid\" /></EntityType><Entity" +
+                "Type Name=\"CaacProgrammingDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Nam" +
+                "e=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String" +
+                "\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" /><Property Name=\"IssuedDate" +
+                "\" Type=\"Edm.DateTime\" /><Property Name=\"DocNumber\" Type=\"Edm.String\" /><Property" +
+                " Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"DocName\" Type=\"Edm.String\" /><P" +
+                "roperty Name=\"ProgrammingId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"" +
+                "IssuedUnitId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"DocumentId\" Typ" +
+                "e=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"CaacProgrammingLines\" Type=\"Coll" +
+                "ection(UniCloud.Application.FleetPlanBC.DTO.CaacProgrammingLineDTO)\" Nullable=\"f" +
+                "alse\" /></EntityType><ComplexType Name=\"CaacProgrammingLineDTO\"><Property Name=\"" +
+                "Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Number\" Type=\"Edm.Int32\" " +
+                "Nullable=\"false\" /><Property Name=\"Year\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"AircraftCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Na" +
+                "me=\"CaacProgrammingId\" Type=\"Edm.Guid\" Nullable=\"false\" /></ComplexType><EntityT" +
+                "ype Name=\"EngineDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Typ" +
+                "e=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" " +
+                "Nullable=\"false\" /><Property Name=\"FactoryDate\" Type=\"Edm.DateTime\" /><Property " +
+                "Name=\"ImportDate\" Type=\"Edm.DateTime\" /><Property Name=\"ExportDate\" Type=\"Edm.Da" +
+                "teTime\" /><Property Name=\"SerialNumber\" Type=\"Edm.String\" /><Property Name=\"MaxT" +
+                "hrust\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"EngineTypeId\" Type=" +
+                "\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"SupplierId\" Type=\"Edm.Int32\" /><Pr" +
+                "operty Name=\"AirlinesId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Impo" +
+                "rtCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"EngineOwnerShip" +
+                "Histories\" Type=\"Collection(UniCloud.Application.FleetPlanBC.DTO.EngineOwnership" +
+                "HistoryDTO)\" Nullable=\"false\" /><Property Name=\"EngineBusinessHistories\" Type=\"C" +
+                "ollection(UniCloud.Application.FleetPlanBC.DTO.EngineBusinessHistoryDTO)\" Nullab" +
+                "le=\"false\" /></EntityType><ComplexType Name=\"EngineOwnershipHistoryDTO\"><Propert" +
+                "y Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"StartDate\" Type=\"" +
+                "Edm.DateTime\" Nullable=\"false\" /><Property Name=\"EndDate\" Type=\"Edm.DateTime\" />" +
+                "<Property Name=\"EngineId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Sup" +
+                "plierId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><ComplexType Name=\"En" +
+                "gineBusinessHistoryDTO\"><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><" +
+                "Property Name=\"StartDate\" Type=\"Edm.DateTime\" /><Property Name=\"EndDate\" Type=\"E" +
+                "dm.DateTime\" /><Property Name=\"MaxThrust\" Type=\"Edm.Decimal\" Nullable=\"false\" />" +
+                "<Property Name=\"EngineId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Eng" +
+                "ineTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ImportCategoryId\" " +
+                "Type=\"Edm.Guid\" Nullable=\"false\" /></ComplexType><EntityType Name=\"EnginePlanDTO" +
+                "\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullab" +
+                "le=\"false\" /><Property Name=\"Title\" Type=\"Edm.String\" /><Property Name=\"DocNumbe" +
+                "r\" Type=\"Edm.String\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=" +
+                "\"false\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Proper" +
+                "ty Name=\"VersionNumber\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"IsFi" +
+                "nished\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm." +
+                "Int32\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Na" +
+                "me=\"DocName\" Type=\"Edm.String\" /><Property Name=\"AirlinesId\" Type=\"Edm.Guid\" Nul" +
+                "lable=\"false\" /><Property Name=\"AnnualId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"DocumentId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Engi" +
+                "nePlanHistories\" Type=\"Collection(UniCloud.Application.FleetPlanBC.DTO.EnginePla" +
+                "nHistoryDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"EnginePlanHisto" +
+                "ryDTO\"><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Pe" +
+                "rformMonth\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Ed" +
+                "m.Int32\" Nullable=\"false\" /><Property Name=\"IsFinished\" Type=\"Edm.Boolean\" Nulla" +
+                "ble=\"false\" /><Property Name=\"MaxThrust\" Type=\"Edm.Decimal\" Nullable=\"false\" /><" +
+                "Property Name=\"EngineTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"" +
+                "EnginePlanId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"PerformAnnualId" +
+                "\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"PlanEngineId\" Type=\"Edm.Gui" +
+                "d\" /><Property Name=\"ActionCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /></Comp" +
+                "lexType><EntityType Name=\"EngineTypeDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Pr" +
+                "operty Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"" +
+                "Edm.String\" /><Property Name=\"ManufacturerId\" Type=\"Edm.Guid\" Nullable=\"false\" /" +
+                "></EntityType><EntityType Name=\"MailAddressDTO\"><Key><PropertyRef Name=\"Id\" /></" +
+                "Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"SmtpH" +
+                "ost\" Type=\"Edm.String\" /><Property Name=\"Pop3Host\" Type=\"Edm.String\" /><Property" +
+                " Name=\"SendPort\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ReceivePort" +
+                "\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"LoginUser\" Type=\"Edm.Strin" +
+                "g\" /><Property Name=\"LoginPassword\" Type=\"Edm.String\" /><Property Name=\"Address\"" +
+                " Type=\"Edm.String\" /><Property Name=\"DisplayName\" Type=\"Edm.String\" /><Property " +
+                "Name=\"SendSSL\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"StartTLS\" T" +
+                "ype=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"ReceiveSSL\" Type=\"Edm.Boole" +
+                "an\" Nullable=\"false\" /><Property Name=\"ServerType\" Type=\"Edm.Int32\" Nullable=\"fa" +
+                "lse\" /></EntityType><EntityType Name=\"ManagerDTO\"><Key><PropertyRef Name=\"Id\" />" +
+                "</Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"CnN" +
+                "ame\" Type=\"Edm.String\" /><Property Name=\"EnName\" Type=\"Edm.String\" /><Property N" +
+                "ame=\"CnShortName\" Type=\"Edm.String\" /><Property Name=\"EnShortName\" Type=\"Edm.Str" +
+                "ing\" /></EntityType><EntityType Name=\"ManufacturerDTO\"><Key><PropertyRef Name=\"I" +
+                "d\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name" +
+                "=\"CnName\" Type=\"Edm.String\" /><Property Name=\"EnName\" Type=\"Edm.String\" /><Prope" +
+                "rty Name=\"CnShortName\" Type=\"Edm.String\" /><Property Name=\"EnShortName\" Type=\"Ed" +
+                "m.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"Type\" Type" +
+                "=\"Edm.Int32\" Nullable=\"false\" /></EntityType><EntityType Name=\"PlanDTO\"><Key><Pr" +
+                "opertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\"" +
+                " /><Property Name=\"Title\" Type=\"Edm.String\" /><Property Name=\"IsValid\" Type=\"Edm" +
+                ".Boolean\" Nullable=\"false\" /><Property Name=\"VersionNumber\" Type=\"Edm.Int32\" Nul" +
+                "lable=\"false\" /><Property Name=\"SubmitDate\" Type=\"Edm.DateTime\" /><Property Name" +
+                "=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"DocNumber\" " +
+                "Type=\"Edm.String\" /><Property Name=\"IsFinished\" Type=\"Edm.B";
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+            private const string ModelPart2 = "oolean\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"fal" +
+                "se\" /><Property Name=\"PublishStatus\" Type=\"Edm.Int32\" Nullable=\"false\" /><Proper" +
+                "ty Name=\"DocName\" Type=\"Edm.String\" /><Property Name=\"AirlinesName\" Type=\"Edm.St" +
+                "ring\" /><Property Name=\"Year\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name" +
+                "=\"AirlinesId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AnnualId\" Type=" +
+                "\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"DocumentId\" Type=\"Edm.Guid\" /><Pro" +
+                "perty Name=\"PlanHistories\" Type=\"Collection(UniCloud.Application.FleetPlanBC.DTO" +
+                ".PlanHistoryDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"PlanHistory" +
+                "DTO\"><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Seat" +
+                "ingCapacity\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CarryingCapacit" +
+                "y\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"PerformMonth\" Type=\"Edm" +
+                ".Int32\" Nullable=\"false\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=" +
+                "\"false\" /><Property Name=\"IsSubmit\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"AirlinesName\" Type=\"Edm.Stri" +
+                "ng\" /><Property Name=\"AircraftTypeName\" Type=\"Edm.String\" /><Property Name=\"Acti" +
+                "onType\" Type=\"Edm.String\" /><Property Name=\"ActionName\" Type=\"Edm.String\" /><Pro" +
+                "perty Name=\"TargetType\" Type=\"Edm.String\" /><Property Name=\"NeedRequest\" Type=\"E" +
+                "dm.Boolean\" Nullable=\"false\" /><Property Name=\"Year\" Type=\"Edm.Int32\" Nullable=\"" +
+                "false\" /><Property Name=\"PlanAircraftId\" Type=\"Edm.Guid\" /><Property Name=\"PlanI" +
+                "d\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ActionCategoryId\" Type=\"Ed" +
+                "m.Guid\" Nullable=\"false\" /><Property Name=\"TargetCategoryId\" Type=\"Edm.Guid\" Nul" +
+                "lable=\"false\" /><Property Name=\"AircraftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\"" +
+                " /><Property Name=\"AirlinesId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name" +
+                "=\"PerformAnnualId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"PlanType\" " +
+                "Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"RelatedGuid\" Type=\"Edm.Guid\"" +
+                " /><Property Name=\"RelatedEndDate\" Type=\"Edm.DateTime\" /><Property Name=\"Related" +
+                "Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ManageStatus\" Type=\"" +
+                "Edm.Int32\" Nullable=\"false\" /><Property Name=\"PaIsLock\" Type=\"Edm.Boolean\" Nulla" +
+                "ble=\"false\" /><Property Name=\"RegNumber\" Type=\"Edm.String\" /><Property Name=\"Air" +
+                "craftId\" Type=\"Edm.Guid\" /></ComplexType><EntityType Name=\"PlanAircraftDTO\"><Key" +
+                "><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"fa" +
+                "lse\" /><Property Name=\"IsLock\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property N" +
+                "ame=\"IsOwn\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"" +
+                "Edm.Int32\" Nullable=\"false\" /><Property Name=\"AirlinesName\" Type=\"Edm.String\" />" +
+                "<Property Name=\"AircraftTypeName\" Type=\"Edm.String\" /><Property Name=\"Regional\" " +
+                "Type=\"Edm.String\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" /><Property Name" +
+                "=\"AircraftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AirlinesId\"" +
+                " Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"PlanHistories\" Type=\"Collect" +
+                "ion(UniCloud.Application.FleetPlanBC.DTO.PlanHistoryDTO)\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"ApprovalHistories\" Type=\"Collection(UniCloud.Application.FleetPlanB" +
+                "C.DTO.ApprovalHistoryDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"Ap" +
+                "provalHistoryDTO\"><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Proper" +
+                "ty Name=\"IsApproved\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Seati" +
+                "ngCapacity\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CarryingCapacity" +
+                "\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"RequestDeliverMonth\" Typ" +
+                "e=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Prop" +
+                "erty Name=\"RequestId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"PlanAir" +
+                "craftId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AircraftRegional\" Ty" +
+                "pe=\"Edm.String\" /><Property Name=\"AircraftType\" Type=\"Edm.String\" /><Property Na" +
+                "me=\"ImportCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ImportC" +
+                "ategoryName\" Type=\"Edm.String\" /><Property Name=\"RequestDeliverAnnualId\" Type=\"E" +
+                "dm.Guid\" Nullable=\"false\" /><Property Name=\"RequestDeliverAnnualName\" Type=\"Edm." +
+                "Int32\" Nullable=\"false\" /><Property Name=\"AirlinesId\" Type=\"Edm.Guid\" Nullable=\"" +
+                "false\" /><Property Name=\"AirlineName\" Type=\"Edm.String\" /></ComplexType><EntityT" +
+                "ype Name=\"PlanEngineDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\"" +
+                " Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"EngineId\" Type=\"Edm.Guid\" />" +
+                "<Property Name=\"EngineTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=" +
+                "\"AirlinesId\" Type=\"Edm.Guid\" Nullable=\"false\" /></EntityType><EntityType Name=\"P" +
+                "rogrammingDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm" +
+                ".Guid\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Na" +
+                "me=\"StartDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"EndDate\" T" +
+                "ype=\"Edm.DateTime\" Nullable=\"false\" /></EntityType><EntityType Name=\"RequestDTO\"" +
+                "><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullabl" +
+                "e=\"false\" /><Property Name=\"SubmitDate\" Type=\"Edm.DateTime\" /><Property Name=\"Is" +
+                "Finished\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Title\" Type=\"Edm" +
+                ".String\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><P" +
+                "roperty Name=\"RaDocNumber\" Type=\"Edm.String\" /><Property Name=\"SawsDocNumber\" Ty" +
+                "pe=\"Edm.String\" /><Property Name=\"CaacDocNumber\" Type=\"Edm.String\" /><Property N" +
+                "ame=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CaacNote\" Type=" +
+                "\"Edm.String\" /><Property Name=\"RaNote\" Type=\"Edm.String\" /><Property Name=\"SawsN" +
+                "ote\" Type=\"Edm.String\" /><Property Name=\"ApprovalDocId\" Type=\"Edm.Guid\" /><Prope" +
+                "rty Name=\"RaDocumentId\" Type=\"Edm.Guid\" /><Property Name=\"RaDocumentName\" Type=\"" +
+                "Edm.String\" /><Property Name=\"SawsDocumentId\" Type=\"Edm.Guid\" /><Property Name=\"" +
+                "SawsDocumentName\" Type=\"Edm.String\" /><Property Name=\"CaacDocumentId\" Type=\"Edm." +
+                "Guid\" /><Property Name=\"CaacDocumentName\" Type=\"Edm.String\" /><Property Name=\"Ai" +
+                "rlinesId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AirlinesName\" Type=" +
+                "\"Edm.String\" /><Property Name=\"ApprovalHistories\" Type=\"Collection(UniCloud.Appl" +
+                "ication.FleetPlanBC.DTO.ApprovalHistoryDTO)\" Nullable=\"false\" /></EntityType><En" +
+                "tityType Name=\"SupplierDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"" +
+                "Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierType\" Type=\"Edm." +
+                "Int32\" Nullable=\"false\" /><Property Name=\"Code\" Type=\"Edm.String\" /><Property Na" +
+                "me=\"CnName\" Type=\"Edm.String\" /><Property Name=\"EnName\" Type=\"Edm.String\" /><Pro" +
+                "perty Name=\"CnShortName\" Type=\"Edm.String\" /><Property Name=\"EnShortName\" Type=\"" +
+                "Edm.String\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"AirlineGuid\" Type=\"Edm.Gu" +
+                "id\" /></EntityType><EntityType Name=\"XmlConfigDTO\"><Key><PropertyRef Name=\"XmlCo" +
+                "nfigId\" /></Key><Property Name=\"XmlConfigId\" Type=\"Edm.Guid\" Nullable=\"false\" />" +
+                "<Property Name=\"ConfigType\" Type=\"Edm.String\" /><Property Name=\"ConfigContent\" T" +
+                "ype=\"Edm.String\" /><Property Name=\"VersionNumber\" Type=\"Edm.Int32\" Nullable=\"fal" +
+                "se\" /><Property Name=\"XmlContent\" Type=\"Edm.String\" /></EntityType><EntityType N" +
+                "ame=\"XmlSettingDTO\"><Key><PropertyRef Name=\"XmlSettingId\" /></Key><Property Name" +
+                "=\"XmlSettingId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"SettingType\" " +
+                "Type=\"Edm.String\" /><Property Name=\"SettingContent\" Type=\"Edm.String\" /><Propert" +
+                "y Name=\"XmlContent\" Type=\"Edm.String\" /></EntityType></Sche";
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+            private const string ModelPart3 = "ma><Schema Namespace=\"UniCloud.DistributedServices.FleetPlan\" xmlns=\"http://schem" +
+                "as.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"FleetPlanData\" m:IsDefa" +
+                "ultEntityContainer=\"true\"><EntitySet Name=\"ActionCategories\" EntityType=\"UniClou" +
+                "d.Application.FleetPlanBC.DTO.ActionCategoryDTO\" /><EntitySet Name=\"AcTypes\" Ent" +
+                "ityType=\"UniCloud.Application.FleetPlanBC.DTO.AcTypeDTO\" /><EntitySet Name=\"Airc" +
+                "raftCategories\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.AircraftCategor" +
+                "yDTO\" /><EntitySet Name=\"Aircrafts\" EntityType=\"UniCloud.Application.FleetPlanBC" +
+                ".DTO.AircraftDTO\" /><EntitySet Name=\"AircraftTypes\" EntityType=\"UniCloud.Applica" +
+                "tion.FleetPlanBC.DTO.AircraftTypeDTO\" /><EntitySet Name=\"Airlineses\" EntityType=" +
+                "\"UniCloud.Application.FleetPlanBC.DTO.AirlinesDTO\" /><EntitySet Name=\"AirProgram" +
+                "mings\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.AirProgrammingDTO\" /><En" +
+                "titySet Name=\"Annuals\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.AnnualDT" +
+                "O\" /><EntitySet Name=\"PlanYears\" EntityType=\"UniCloud.Application.FleetPlanBC.DT" +
+                "O.PlanYearDTO\" /><EntitySet Name=\"ApprovalDocs\" EntityType=\"UniCloud.Application" +
+                ".FleetPlanBC.DTO.ApprovalDocDTO\" /><EntitySet Name=\"CaacProgrammings\" EntityType" +
+                "=\"UniCloud.Application.FleetPlanBC.DTO.CaacProgrammingDTO\" /><EntitySet Name=\"En" +
+                "gines\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.EngineDTO\" /><EntitySet " +
+                "Name=\"EnginePlans\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.EnginePlanDT" +
+                "O\" /><EntitySet Name=\"EngineTypes\" EntityType=\"UniCloud.Application.FleetPlanBC." +
+                "DTO.EngineTypeDTO\" /><EntitySet Name=\"MailAddresses\" EntityType=\"UniCloud.Applic" +
+                "ation.FleetPlanBC.DTO.MailAddressDTO\" /><EntitySet Name=\"Managers\" EntityType=\"U" +
+                "niCloud.Application.FleetPlanBC.DTO.ManagerDTO\" /><EntitySet Name=\"Manufacturers" +
+                "\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.ManufacturerDTO\" /><EntitySet" +
+                " Name=\"Plans\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.PlanDTO\" /><Entit" +
+                "ySet Name=\"PlanAircrafts\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.PlanA" +
+                "ircraftDTO\" /><EntitySet Name=\"PlanEngines\" EntityType=\"UniCloud.Application.Fle" +
+                "etPlanBC.DTO.PlanEngineDTO\" /><EntitySet Name=\"Programmings\" EntityType=\"UniClou" +
+                "d.Application.FleetPlanBC.DTO.ProgrammingDTO\" /><EntitySet Name=\"Requests\" Entit" +
+                "yType=\"UniCloud.Application.FleetPlanBC.DTO.RequestDTO\" /><EntitySet Name=\"Suppl" +
+                "iers\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.SupplierDTO\" /><EntitySet" +
+                " Name=\"XmlConfigs\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.XmlConfigDTO" +
+                "\" /><EntitySet Name=\"XmlSettings\" EntityType=\"UniCloud.Application.FleetPlanBC.D" +
+                "TO.XmlSettingDTO\" /></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -1051,14 +1055,12 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// </summary>
         /// <param name="ID">Id 的初始值。</param>
         /// <param name="needRequest">NeedRequest 的初始值。</param>
-        /// <param name="netIncrement">NetIncrement 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static ActionCategoryDTO CreateActionCategoryDTO(global::System.Guid ID, bool needRequest, int netIncrement)
+        public static ActionCategoryDTO CreateActionCategoryDTO(global::System.Guid ID, bool needRequest)
         {
             ActionCategoryDTO actionCategoryDTO = new ActionCategoryDTO();
             actionCategoryDTO.Id = ID;
             actionCategoryDTO.NeedRequest = needRequest;
-            actionCategoryDTO.NetIncrement = netIncrement;
             return actionCategoryDTO;
         }
         /// <summary>
@@ -1149,28 +1151,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         private bool _NeedRequest;
         partial void OnNeedRequestChanging(bool value);
         partial void OnNeedRequestChanged();
-        /// <summary>
-        /// 架构中不存在属性 NetIncrement 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int NetIncrement
-        {
-            get
-            {
-                return this._NetIncrement;
-            }
-            set
-            {
-                this.OnNetIncrementChanging(value);
-                this._NetIncrement = value;
-                this.OnNetIncrementChanged();
-                this.OnPropertyChanged("NetIncrement");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _NetIncrement;
-        partial void OnNetIncrementChanging(int value);
-        partial void OnNetIncrementChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -1365,16 +1345,16 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 创建新的 OperationHistoryDTO 对象。
         /// </summary>
         /// <param name="operationHistoryId">OperationHistoryId 的初始值。</param>
-        /// <param name="startDate">StartDate 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
         /// <param name="aircraftId">AircraftId 的初始值。</param>
         /// <param name="airlinesId">AirlinesId 的初始值。</param>
         /// <param name="importCategoryId">ImportCategoryId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static OperationHistoryDTO CreateOperationHistoryDTO(global::System.Guid operationHistoryId, global::System.DateTime startDate, global::System.Guid aircraftId, global::System.Guid airlinesId, global::System.Guid importCategoryId)
+        public static OperationHistoryDTO CreateOperationHistoryDTO(global::System.Guid operationHistoryId, int status, global::System.Guid aircraftId, global::System.Guid airlinesId, global::System.Guid importCategoryId)
         {
             OperationHistoryDTO operationHistoryDTO = new OperationHistoryDTO();
             operationHistoryDTO.OperationHistoryId = operationHistoryId;
-            operationHistoryDTO.StartDate = startDate;
+            operationHistoryDTO.Status = status;
             operationHistoryDTO.AircraftId = aircraftId;
             operationHistoryDTO.AirlinesId = airlinesId;
             operationHistoryDTO.ImportCategoryId = importCategoryId;
@@ -1428,7 +1408,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 架构中不存在属性 StartDate 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.DateTime StartDate
+        public global::System.Nullable<global::System.DateTime> StartDate
         {
             get
             {
@@ -1443,8 +1423,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.DateTime _StartDate;
-        partial void OnStartDateChanging(global::System.DateTime value);
+        private global::System.Nullable<global::System.DateTime> _StartDate;
+        partial void OnStartDateChanging(global::System.Nullable<global::System.DateTime> value);
         partial void OnStartDateChanged();
         /// <summary>
         /// 架构中不存在属性 StopDate 的注释。
@@ -1600,6 +1580,72 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         private string _Note;
         partial void OnNoteChanging(string value);
         partial void OnNoteChanged();
+        /// <summary>
+        /// 架构中不存在属性 ImportActionType 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ImportActionType
+        {
+            get
+            {
+                return this._ImportActionType;
+            }
+            set
+            {
+                this.OnImportActionTypeChanging(value);
+                this._ImportActionType = value;
+                this.OnImportActionTypeChanged();
+                this.OnPropertyChanged("ImportActionType");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ImportActionType;
+        partial void OnImportActionTypeChanging(string value);
+        partial void OnImportActionTypeChanged();
+        /// <summary>
+        /// 架构中不存在属性 AirlinesName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string AirlinesName
+        {
+            get
+            {
+                return this._AirlinesName;
+            }
+            set
+            {
+                this.OnAirlinesNameChanging(value);
+                this._AirlinesName = value;
+                this.OnAirlinesNameChanged();
+                this.OnPropertyChanged("AirlinesName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _AirlinesName;
+        partial void OnAirlinesNameChanging(string value);
+        partial void OnAirlinesNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
         /// <summary>
         /// 架构中不存在属性 AircraftId 的注释。
         /// </summary>
@@ -1811,6 +1857,28 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         private int _Status;
         partial void OnStatusChanging(int value);
         partial void OnStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 SupplierName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string SupplierName
+        {
+            get
+            {
+                return this._SupplierName;
+            }
+            set
+            {
+                this.OnSupplierNameChanging(value);
+                this._SupplierName = value;
+                this.OnSupplierNameChanged();
+                this.OnPropertyChanged("SupplierName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _SupplierName;
+        partial void OnSupplierNameChanging(string value);
+        partial void OnSupplierNameChanged();
         /// <summary>
         /// 架构中不存在属性 AircraftId 的注释。
         /// </summary>
@@ -2029,6 +2097,50 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         partial void OnStatusChanging(int value);
         partial void OnStatusChanged();
         /// <summary>
+        /// 架构中不存在属性 AircraftTypeName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string AircraftTypeName
+        {
+            get
+            {
+                return this._AircraftTypeName;
+            }
+            set
+            {
+                this.OnAircraftTypeNameChanging(value);
+                this._AircraftTypeName = value;
+                this.OnAircraftTypeNameChanged();
+                this.OnPropertyChanged("AircraftTypeName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _AircraftTypeName;
+        partial void OnAircraftTypeNameChanging(string value);
+        partial void OnAircraftTypeNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Regional 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Regional
+        {
+            get
+            {
+                return this._Regional;
+            }
+            set
+            {
+                this.OnRegionalChanging(value);
+                this._Regional = value;
+                this.OnRegionalChanged();
+                this.OnPropertyChanged("Regional");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Regional;
+        partial void OnRegionalChanging(string value);
+        partial void OnRegionalChanged();
+        /// <summary>
         /// 架构中不存在属性 AircraftId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -2121,7 +2233,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <param name="aircraftId">AircraftId 的初始值。</param>
         /// <param name="isOperation">IsOperation 的初始值。</param>
         /// <param name="createDate">CreateDate 的初始值。</param>
-        /// <param name="importDate">ImportDate 的初始值。</param>
         /// <param name="seatingCapacity">SeatingCapacity 的初始值。</param>
         /// <param name="carryingCapacity">CarryingCapacity 的初始值。</param>
         /// <param name="operationHistories">OperationHistories 的初始值。</param>
@@ -2131,13 +2242,12 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <param name="airlinesId">AirlinesId 的初始值。</param>
         /// <param name="importCategoryId">ImportCategoryId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static AircraftDTO CreateAircraftDTO(global::System.Guid aircraftId, bool isOperation, global::System.DateTime createDate, global::System.DateTime importDate, int seatingCapacity, decimal carryingCapacity, global::System.Collections.ObjectModel.ObservableCollection<OperationHistoryDTO> operationHistories, global::System.Collections.ObjectModel.ObservableCollection<OwnershipHistoryDTO> ownershipHistories, global::System.Collections.ObjectModel.ObservableCollection<AircraftBusinessDTO> aircraftBusinesses, global::System.Guid aircraftTypeId, global::System.Guid airlinesId, global::System.Guid importCategoryId)
+        public static AircraftDTO CreateAircraftDTO(global::System.Guid aircraftId, bool isOperation, global::System.DateTime createDate, int seatingCapacity, decimal carryingCapacity, global::System.Collections.ObjectModel.ObservableCollection<OperationHistoryDTO> operationHistories, global::System.Collections.ObjectModel.ObservableCollection<OwnershipHistoryDTO> ownershipHistories, global::System.Collections.ObjectModel.ObservableCollection<AircraftBusinessDTO> aircraftBusinesses, global::System.Guid aircraftTypeId, global::System.Guid airlinesId, global::System.Guid importCategoryId)
         {
             AircraftDTO aircraftDTO = new AircraftDTO();
             aircraftDTO.AircraftId = aircraftId;
             aircraftDTO.IsOperation = isOperation;
             aircraftDTO.CreateDate = createDate;
-            aircraftDTO.ImportDate = importDate;
             aircraftDTO.SeatingCapacity = seatingCapacity;
             aircraftDTO.CarryingCapacity = carryingCapacity;
             if ((operationHistories == null))
@@ -2296,7 +2406,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 架构中不存在属性 ImportDate 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.DateTime ImportDate
+        public global::System.Nullable<global::System.DateTime> ImportDate
         {
             get
             {
@@ -2311,8 +2421,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.DateTime _ImportDate;
-        partial void OnImportDateChanging(global::System.DateTime value);
+        private global::System.Nullable<global::System.DateTime> _ImportDate;
+        partial void OnImportDateChanging(global::System.Nullable<global::System.DateTime> value);
         partial void OnImportDateChanged();
         /// <summary>
         /// 架构中不存在属性 ExportDate 的注释。
@@ -2691,11 +2801,13 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 创建新的 AircraftTypeDTO 对象。
         /// </summary>
         /// <param name="ID">Id 的初始值。</param>
+        /// <param name="aircraftCategoryId">AircraftCategoryId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static AircraftTypeDTO CreateAircraftTypeDTO(global::System.Guid ID)
+        public static AircraftTypeDTO CreateAircraftTypeDTO(global::System.Guid ID, global::System.Guid aircraftCategoryId)
         {
             AircraftTypeDTO aircraftTypeDTO = new AircraftTypeDTO();
             aircraftTypeDTO.Id = ID;
+            aircraftTypeDTO.AircraftCategoryId = aircraftCategoryId;
             return aircraftTypeDTO;
         }
         /// <summary>
@@ -2742,6 +2854,50 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         private string _Name;
         partial void OnNameChanging(string value);
         partial void OnNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 AircraftCategoryId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid AircraftCategoryId
+        {
+            get
+            {
+                return this._AircraftCategoryId;
+            }
+            set
+            {
+                this.OnAircraftCategoryIdChanging(value);
+                this._AircraftCategoryId = value;
+                this.OnAircraftCategoryIdChanged();
+                this.OnPropertyChanged("AircraftCategoryId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _AircraftCategoryId;
+        partial void OnAircraftCategoryIdChanging(global::System.Guid value);
+        partial void OnAircraftCategoryIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Regional 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Regional
+        {
+            get
+            {
+                return this._Regional;
+            }
+            set
+            {
+                this.OnRegionalChanging(value);
+                this._Regional = value;
+                this.OnRegionalChanged();
+                this.OnPropertyChanged("Regional");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Regional;
+        partial void OnRegionalChanging(string value);
+        partial void OnRegionalChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -3493,24 +3649,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         private global::System.Guid _ProgrammingId;
         partial void OnProgrammingIdChanging(global::System.Guid value);
         partial void OnProgrammingIdChanged();
-        /// <summary>
-        /// 架构中不存在 Plans 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Data.Services.Client.DataServiceCollection<PlanDTO> Plans
-        {
-            get
-            {
-                return this._Plans;
-            }
-            set
-            {
-                this._Plans = value;
-                this.OnPropertyChanged("Plans");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Data.Services.Client.DataServiceCollection<PlanDTO> _Plans = new global::System.Data.Services.Client.DataServiceCollection<PlanDTO>(null, global::System.Data.Services.Client.TrackingMode.None);
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -6448,8 +6586,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <param name="performMonth">PerformMonth 的初始值。</param>
         /// <param name="isValid">IsValid 的初始值。</param>
         /// <param name="isSubmit">IsSubmit 的初始值。</param>
+        /// <param name="needRequest">NeedRequest 的初始值。</param>
         /// <param name="year">Year 的初始值。</param>
-        /// <param name="manageStatus">ManageStatus 的初始值。</param>
         /// <param name="planId">PlanId 的初始值。</param>
         /// <param name="actionCategoryId">ActionCategoryId 的初始值。</param>
         /// <param name="targetCategoryId">TargetCategoryId 的初始值。</param>
@@ -6457,8 +6595,29 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <param name="airlinesId">AirlinesId 的初始值。</param>
         /// <param name="performAnnualId">PerformAnnualId 的初始值。</param>
         /// <param name="planType">PlanType 的初始值。</param>
+        /// <param name="relatedStatus">RelatedStatus 的初始值。</param>
+        /// <param name="manageStatus">ManageStatus 的初始值。</param>
+        /// <param name="paIsLock">PaIsLock 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static PlanHistoryDTO CreatePlanHistoryDTO(global::System.Guid ID, int seatingCapacity, decimal carryingCapacity, int performMonth, bool isValid, bool isSubmit, int year, int manageStatus, global::System.Guid planId, global::System.Guid actionCategoryId, global::System.Guid targetCategoryId, global::System.Guid aircraftTypeId, global::System.Guid airlinesId, global::System.Guid performAnnualId, int planType)
+        public static PlanHistoryDTO CreatePlanHistoryDTO(
+                    global::System.Guid ID, 
+                    int seatingCapacity, 
+                    decimal carryingCapacity, 
+                    int performMonth, 
+                    bool isValid, 
+                    bool isSubmit, 
+                    bool needRequest, 
+                    int year, 
+                    global::System.Guid planId, 
+                    global::System.Guid actionCategoryId, 
+                    global::System.Guid targetCategoryId, 
+                    global::System.Guid aircraftTypeId, 
+                    global::System.Guid airlinesId, 
+                    global::System.Guid performAnnualId, 
+                    int planType, 
+                    int relatedStatus, 
+                    int manageStatus, 
+                    bool paIsLock)
         {
             PlanHistoryDTO planHistoryDTO = new PlanHistoryDTO();
             planHistoryDTO.Id = ID;
@@ -6467,8 +6626,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             planHistoryDTO.PerformMonth = performMonth;
             planHistoryDTO.IsValid = isValid;
             planHistoryDTO.IsSubmit = isSubmit;
+            planHistoryDTO.NeedRequest = needRequest;
             planHistoryDTO.Year = year;
-            planHistoryDTO.ManageStatus = manageStatus;
             planHistoryDTO.PlanId = planId;
             planHistoryDTO.ActionCategoryId = actionCategoryId;
             planHistoryDTO.TargetCategoryId = targetCategoryId;
@@ -6476,6 +6635,9 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             planHistoryDTO.AirlinesId = airlinesId;
             planHistoryDTO.PerformAnnualId = performAnnualId;
             planHistoryDTO.PlanType = planType;
+            planHistoryDTO.RelatedStatus = relatedStatus;
+            planHistoryDTO.ManageStatus = manageStatus;
+            planHistoryDTO.PaIsLock = paIsLock;
             return planHistoryDTO;
         }
         /// <summary>
@@ -6655,28 +6817,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         partial void OnAirlinesNameChanging(string value);
         partial void OnAirlinesNameChanged();
         /// <summary>
-        /// 架构中不存在属性 Regional 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string Regional
-        {
-            get
-            {
-                return this._Regional;
-            }
-            set
-            {
-                this.OnRegionalChanging(value);
-                this._Regional = value;
-                this.OnRegionalChanged();
-                this.OnPropertyChanged("Regional");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _Regional;
-        partial void OnRegionalChanging(string value);
-        partial void OnRegionalChanged();
-        /// <summary>
         /// 架构中不存在属性 AircraftTypeName 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -6721,6 +6861,28 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         partial void OnActionTypeChanging(string value);
         partial void OnActionTypeChanged();
         /// <summary>
+        /// 架构中不存在属性 ActionName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ActionName
+        {
+            get
+            {
+                return this._ActionName;
+            }
+            set
+            {
+                this.OnActionNameChanging(value);
+                this._ActionName = value;
+                this.OnActionNameChanged();
+                this.OnPropertyChanged("ActionName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ActionName;
+        partial void OnActionNameChanging(string value);
+        partial void OnActionNameChanged();
+        /// <summary>
         /// 架构中不存在属性 TargetType 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -6743,6 +6905,28 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         partial void OnTargetTypeChanging(string value);
         partial void OnTargetTypeChanged();
         /// <summary>
+        /// 架构中不存在属性 NeedRequest 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool NeedRequest
+        {
+            get
+            {
+                return this._NeedRequest;
+            }
+            set
+            {
+                this.OnNeedRequestChanging(value);
+                this._NeedRequest = value;
+                this.OnNeedRequestChanged();
+                this.OnPropertyChanged("NeedRequest");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _NeedRequest;
+        partial void OnNeedRequestChanging(bool value);
+        partial void OnNeedRequestChanged();
+        /// <summary>
         /// 架构中不存在属性 Year 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -6764,28 +6948,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         private int _Year;
         partial void OnYearChanging(int value);
         partial void OnYearChanged();
-        /// <summary>
-        /// 架构中不存在属性 ManageStatus 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int ManageStatus
-        {
-            get
-            {
-                return this._ManageStatus;
-            }
-            set
-            {
-                this.OnManageStatusChanging(value);
-                this._ManageStatus = value;
-                this.OnManageStatusChanged();
-                this.OnPropertyChanged("ManageStatus");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _ManageStatus;
-        partial void OnManageStatusChanging(int value);
-        partial void OnManageStatusChanged();
         /// <summary>
         /// 架构中不存在属性 PlanAircraftId 的注释。
         /// </summary>
@@ -7006,6 +7168,116 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         private global::System.Nullable<global::System.DateTime> _RelatedEndDate;
         partial void OnRelatedEndDateChanging(global::System.Nullable<global::System.DateTime> value);
         partial void OnRelatedEndDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 RelatedStatus 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int RelatedStatus
+        {
+            get
+            {
+                return this._RelatedStatus;
+            }
+            set
+            {
+                this.OnRelatedStatusChanging(value);
+                this._RelatedStatus = value;
+                this.OnRelatedStatusChanged();
+                this.OnPropertyChanged("RelatedStatus");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _RelatedStatus;
+        partial void OnRelatedStatusChanging(int value);
+        partial void OnRelatedStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 ManageStatus 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int ManageStatus
+        {
+            get
+            {
+                return this._ManageStatus;
+            }
+            set
+            {
+                this.OnManageStatusChanging(value);
+                this._ManageStatus = value;
+                this.OnManageStatusChanged();
+                this.OnPropertyChanged("ManageStatus");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _ManageStatus;
+        partial void OnManageStatusChanging(int value);
+        partial void OnManageStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 PaIsLock 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool PaIsLock
+        {
+            get
+            {
+                return this._PaIsLock;
+            }
+            set
+            {
+                this.OnPaIsLockChanging(value);
+                this._PaIsLock = value;
+                this.OnPaIsLockChanged();
+                this.OnPropertyChanged("PaIsLock");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _PaIsLock;
+        partial void OnPaIsLockChanging(bool value);
+        partial void OnPaIsLockChanged();
+        /// <summary>
+        /// 架构中不存在属性 RegNumber 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string RegNumber
+        {
+            get
+            {
+                return this._RegNumber;
+            }
+            set
+            {
+                this.OnRegNumberChanging(value);
+                this._RegNumber = value;
+                this.OnRegNumberChanged();
+                this.OnPropertyChanged("RegNumber");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _RegNumber;
+        partial void OnRegNumberChanging(string value);
+        partial void OnRegNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 AircraftId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.Guid> AircraftId
+        {
+            get
+            {
+                return this._AircraftId;
+            }
+            set
+            {
+                this.OnAircraftIdChanging(value);
+                this._AircraftId = value;
+                this.OnAircraftIdChanged();
+                this.OnPropertyChanged("AircraftId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.Guid> _AircraftId;
+        partial void OnAircraftIdChanging(global::System.Nullable<global::System.Guid> value);
+        partial void OnAircraftIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -7033,7 +7305,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <param name="ID">Id 的初始值。</param>
         /// <param name="isValid">IsValid 的初始值。</param>
         /// <param name="versionNumber">VersionNumber 的初始值。</param>
-        /// <param name="isCurrentVersion">IsCurrentVersion 的初始值。</param>
         /// <param name="createDate">CreateDate 的初始值。</param>
         /// <param name="isFinished">IsFinished 的初始值。</param>
         /// <param name="status">Status 的初始值。</param>
@@ -7041,16 +7312,14 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <param name="year">Year 的初始值。</param>
         /// <param name="airlinesId">AirlinesId 的初始值。</param>
         /// <param name="annualId">AnnualId 的初始值。</param>
-        /// <param name="documentId">DocumentId 的初始值。</param>
         /// <param name="planHistories">PlanHistories 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static PlanDTO CreatePlanDTO(global::System.Guid ID, bool isValid, int versionNumber, bool isCurrentVersion, global::System.DateTime createDate, bool isFinished, int status, int publishStatus, int year, global::System.Guid airlinesId, global::System.Guid annualId, global::System.Guid documentId, global::System.Collections.ObjectModel.ObservableCollection<PlanHistoryDTO> planHistories)
+        public static PlanDTO CreatePlanDTO(global::System.Guid ID, bool isValid, int versionNumber, global::System.DateTime createDate, bool isFinished, int status, int publishStatus, int year, global::System.Guid airlinesId, global::System.Guid annualId, global::System.Collections.ObjectModel.ObservableCollection<PlanHistoryDTO> planHistories)
         {
             PlanDTO planDTO = new PlanDTO();
             planDTO.Id = ID;
             planDTO.IsValid = isValid;
             planDTO.VersionNumber = versionNumber;
-            planDTO.IsCurrentVersion = isCurrentVersion;
             planDTO.CreateDate = createDate;
             planDTO.IsFinished = isFinished;
             planDTO.Status = status;
@@ -7058,7 +7327,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             planDTO.Year = year;
             planDTO.AirlinesId = airlinesId;
             planDTO.AnnualId = annualId;
-            planDTO.DocumentId = documentId;
             if ((planHistories == null))
             {
                 throw new global::System.ArgumentNullException("planHistories");
@@ -7154,28 +7422,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         private int _VersionNumber;
         partial void OnVersionNumberChanging(int value);
         partial void OnVersionNumberChanged();
-        /// <summary>
-        /// 架构中不存在属性 IsCurrentVersion 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public bool IsCurrentVersion
-        {
-            get
-            {
-                return this._IsCurrentVersion;
-            }
-            set
-            {
-                this.OnIsCurrentVersionChanging(value);
-                this._IsCurrentVersion = value;
-                this.OnIsCurrentVersionChanged();
-                this.OnPropertyChanged("IsCurrentVersion");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private bool _IsCurrentVersion;
-        partial void OnIsCurrentVersionChanging(bool value);
-        partial void OnIsCurrentVersionChanged();
         /// <summary>
         /// 架构中不存在属性 SubmitDate 的注释。
         /// </summary>
@@ -7422,7 +7668,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 架构中不存在属性 DocumentId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid DocumentId
+        public global::System.Nullable<global::System.Guid> DocumentId
         {
             get
             {
@@ -7437,8 +7683,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _DocumentId;
-        partial void OnDocumentIdChanging(global::System.Guid value);
+        private global::System.Nullable<global::System.Guid> _DocumentId;
+        partial void OnDocumentIdChanging(global::System.Nullable<global::System.Guid> value);
         partial void OnDocumentIdChanged();
         /// <summary>
         /// 架构中不存在属性 PlanHistories 的注释。
@@ -7462,450 +7708,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         private global::System.Collections.ObjectModel.ObservableCollection<PlanHistoryDTO> _PlanHistories = new global::System.Collections.ObjectModel.ObservableCollection<PlanHistoryDTO>();
         partial void OnPlanHistoriesChanging(global::System.Collections.ObjectModel.ObservableCollection<PlanHistoryDTO> value);
         partial void OnPlanHistoriesChanged();
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        protected virtual void OnPropertyChanged(string property)
-        {
-            if ((this.PropertyChanged != null))
-            {
-                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
-            }
-        }
-    }
-    /// <summary>
-    /// 架构中不存在 UniCloud.Application.FleetPlanBC.DTO.PlanAircraftDTO 的注释。
-    /// </summary>
-    /// <KeyProperties>
-    /// Id
-    /// </KeyProperties>
-    [global::System.Data.Services.Common.EntitySetAttribute("PlanAircrafts")]
-    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
-    public partial class PlanAircraftDTO : global::System.ComponentModel.INotifyPropertyChanged
-    {
-        /// <summary>
-        /// 创建新的 PlanAircraftDTO 对象。
-        /// </summary>
-        /// <param name="ID">Id 的初始值。</param>
-        /// <param name="isLock">IsLock 的初始值。</param>
-        /// <param name="isOwn">IsOwn 的初始值。</param>
-        /// <param name="status">Status 的初始值。</param>
-        /// <param name="aircraftTypeId">AircraftTypeId 的初始值。</param>
-        /// <param name="airlinesId">AirlinesId 的初始值。</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static PlanAircraftDTO CreatePlanAircraftDTO(global::System.Guid ID, bool isLock, bool isOwn, int status, global::System.Guid aircraftTypeId, global::System.Guid airlinesId)
-        {
-            PlanAircraftDTO planAircraftDTO = new PlanAircraftDTO();
-            planAircraftDTO.Id = ID;
-            planAircraftDTO.IsLock = isLock;
-            planAircraftDTO.IsOwn = isOwn;
-            planAircraftDTO.Status = status;
-            planAircraftDTO.AircraftTypeId = aircraftTypeId;
-            planAircraftDTO.AirlinesId = airlinesId;
-            return planAircraftDTO;
-        }
-        /// <summary>
-        /// 架构中不存在属性 Id 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid Id
-        {
-            get
-            {
-                return this._Id;
-            }
-            set
-            {
-                this.OnIdChanging(value);
-                this._Id = value;
-                this.OnIdChanged();
-                this.OnPropertyChanged("Id");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _Id;
-        partial void OnIdChanging(global::System.Guid value);
-        partial void OnIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 IsLock 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public bool IsLock
-        {
-            get
-            {
-                return this._IsLock;
-            }
-            set
-            {
-                this.OnIsLockChanging(value);
-                this._IsLock = value;
-                this.OnIsLockChanged();
-                this.OnPropertyChanged("IsLock");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private bool _IsLock;
-        partial void OnIsLockChanging(bool value);
-        partial void OnIsLockChanged();
-        /// <summary>
-        /// 架构中不存在属性 IsOwn 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public bool IsOwn
-        {
-            get
-            {
-                return this._IsOwn;
-            }
-            set
-            {
-                this.OnIsOwnChanging(value);
-                this._IsOwn = value;
-                this.OnIsOwnChanged();
-                this.OnPropertyChanged("IsOwn");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private bool _IsOwn;
-        partial void OnIsOwnChanging(bool value);
-        partial void OnIsOwnChanged();
-        /// <summary>
-        /// 架构中不存在属性 Status 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int Status
-        {
-            get
-            {
-                return this._Status;
-            }
-            set
-            {
-                this.OnStatusChanging(value);
-                this._Status = value;
-                this.OnStatusChanged();
-                this.OnPropertyChanged("Status");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _Status;
-        partial void OnStatusChanging(int value);
-        partial void OnStatusChanged();
-        /// <summary>
-        /// 架构中不存在属性 AircraftId 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Nullable<global::System.Guid> AircraftId
-        {
-            get
-            {
-                return this._AircraftId;
-            }
-            set
-            {
-                this.OnAircraftIdChanging(value);
-                this._AircraftId = value;
-                this.OnAircraftIdChanged();
-                this.OnPropertyChanged("AircraftId");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Nullable<global::System.Guid> _AircraftId;
-        partial void OnAircraftIdChanging(global::System.Nullable<global::System.Guid> value);
-        partial void OnAircraftIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 AircraftTypeId 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid AircraftTypeId
-        {
-            get
-            {
-                return this._AircraftTypeId;
-            }
-            set
-            {
-                this.OnAircraftTypeIdChanging(value);
-                this._AircraftTypeId = value;
-                this.OnAircraftTypeIdChanged();
-                this.OnPropertyChanged("AircraftTypeId");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _AircraftTypeId;
-        partial void OnAircraftTypeIdChanging(global::System.Guid value);
-        partial void OnAircraftTypeIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 AirlinesId 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid AirlinesId
-        {
-            get
-            {
-                return this._AirlinesId;
-            }
-            set
-            {
-                this.OnAirlinesIdChanging(value);
-                this._AirlinesId = value;
-                this.OnAirlinesIdChanged();
-                this.OnPropertyChanged("AirlinesId");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _AirlinesId;
-        partial void OnAirlinesIdChanging(global::System.Guid value);
-        partial void OnAirlinesIdChanged();
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        protected virtual void OnPropertyChanged(string property)
-        {
-            if ((this.PropertyChanged != null))
-            {
-                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
-            }
-        }
-    }
-    /// <summary>
-    /// 架构中不存在 UniCloud.Application.FleetPlanBC.DTO.PlanEngineDTO 的注释。
-    /// </summary>
-    /// <KeyProperties>
-    /// Id
-    /// </KeyProperties>
-    [global::System.Data.Services.Common.EntitySetAttribute("PlanEngines")]
-    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
-    public partial class PlanEngineDTO : global::System.ComponentModel.INotifyPropertyChanged
-    {
-        /// <summary>
-        /// 创建新的 PlanEngineDTO 对象。
-        /// </summary>
-        /// <param name="ID">Id 的初始值。</param>
-        /// <param name="engineTypeId">EngineTypeId 的初始值。</param>
-        /// <param name="airlinesId">AirlinesId 的初始值。</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static PlanEngineDTO CreatePlanEngineDTO(global::System.Guid ID, global::System.Guid engineTypeId, global::System.Guid airlinesId)
-        {
-            PlanEngineDTO planEngineDTO = new PlanEngineDTO();
-            planEngineDTO.Id = ID;
-            planEngineDTO.EngineTypeId = engineTypeId;
-            planEngineDTO.AirlinesId = airlinesId;
-            return planEngineDTO;
-        }
-        /// <summary>
-        /// 架构中不存在属性 Id 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid Id
-        {
-            get
-            {
-                return this._Id;
-            }
-            set
-            {
-                this.OnIdChanging(value);
-                this._Id = value;
-                this.OnIdChanged();
-                this.OnPropertyChanged("Id");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _Id;
-        partial void OnIdChanging(global::System.Guid value);
-        partial void OnIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 EngineId 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Nullable<global::System.Guid> EngineId
-        {
-            get
-            {
-                return this._EngineId;
-            }
-            set
-            {
-                this.OnEngineIdChanging(value);
-                this._EngineId = value;
-                this.OnEngineIdChanged();
-                this.OnPropertyChanged("EngineId");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Nullable<global::System.Guid> _EngineId;
-        partial void OnEngineIdChanging(global::System.Nullable<global::System.Guid> value);
-        partial void OnEngineIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 EngineTypeId 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid EngineTypeId
-        {
-            get
-            {
-                return this._EngineTypeId;
-            }
-            set
-            {
-                this.OnEngineTypeIdChanging(value);
-                this._EngineTypeId = value;
-                this.OnEngineTypeIdChanged();
-                this.OnPropertyChanged("EngineTypeId");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _EngineTypeId;
-        partial void OnEngineTypeIdChanging(global::System.Guid value);
-        partial void OnEngineTypeIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 AirlinesId 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid AirlinesId
-        {
-            get
-            {
-                return this._AirlinesId;
-            }
-            set
-            {
-                this.OnAirlinesIdChanging(value);
-                this._AirlinesId = value;
-                this.OnAirlinesIdChanged();
-                this.OnPropertyChanged("AirlinesId");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _AirlinesId;
-        partial void OnAirlinesIdChanging(global::System.Guid value);
-        partial void OnAirlinesIdChanged();
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        protected virtual void OnPropertyChanged(string property)
-        {
-            if ((this.PropertyChanged != null))
-            {
-                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
-            }
-        }
-    }
-    /// <summary>
-    /// 架构中不存在 UniCloud.Application.FleetPlanBC.DTO.ProgrammingDTO 的注释。
-    /// </summary>
-    /// <KeyProperties>
-    /// Id
-    /// </KeyProperties>
-    [global::System.Data.Services.Common.EntitySetAttribute("Programmings")]
-    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
-    public partial class ProgrammingDTO : global::System.ComponentModel.INotifyPropertyChanged
-    {
-        /// <summary>
-        /// 创建新的 ProgrammingDTO 对象。
-        /// </summary>
-        /// <param name="ID">Id 的初始值。</param>
-        /// <param name="startDate">StartDate 的初始值。</param>
-        /// <param name="endDate">EndDate 的初始值。</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static ProgrammingDTO CreateProgrammingDTO(global::System.Guid ID, global::System.DateTime startDate, global::System.DateTime endDate)
-        {
-            ProgrammingDTO programmingDTO = new ProgrammingDTO();
-            programmingDTO.Id = ID;
-            programmingDTO.StartDate = startDate;
-            programmingDTO.EndDate = endDate;
-            return programmingDTO;
-        }
-        /// <summary>
-        /// 架构中不存在属性 Id 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid Id
-        {
-            get
-            {
-                return this._Id;
-            }
-            set
-            {
-                this.OnIdChanging(value);
-                this._Id = value;
-                this.OnIdChanged();
-                this.OnPropertyChanged("Id");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _Id;
-        partial void OnIdChanging(global::System.Guid value);
-        partial void OnIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 Name 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string Name
-        {
-            get
-            {
-                return this._Name;
-            }
-            set
-            {
-                this.OnNameChanging(value);
-                this._Name = value;
-                this.OnNameChanged();
-                this.OnPropertyChanged("Name");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _Name;
-        partial void OnNameChanging(string value);
-        partial void OnNameChanged();
-        /// <summary>
-        /// 架构中不存在属性 StartDate 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.DateTime StartDate
-        {
-            get
-            {
-                return this._StartDate;
-            }
-            set
-            {
-                this.OnStartDateChanging(value);
-                this._StartDate = value;
-                this.OnStartDateChanged();
-                this.OnPropertyChanged("StartDate");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.DateTime _StartDate;
-        partial void OnStartDateChanging(global::System.DateTime value);
-        partial void OnStartDateChanged();
-        /// <summary>
-        /// 架构中不存在属性 EndDate 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.DateTime EndDate
-        {
-            get
-            {
-                return this._EndDate;
-            }
-            set
-            {
-                this.OnEndDateChanging(value);
-                this._EndDate = value;
-                this.OnEndDateChanged();
-                this.OnPropertyChanged("EndDate");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.DateTime _EndDate;
-        partial void OnEndDateChanging(global::System.DateTime value);
-        partial void OnEndDateChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -8305,6 +8107,572 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         private string _AirlineName;
         partial void OnAirlineNameChanging(string value);
         partial void OnAirlineNameChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.FleetPlanBC.DTO.PlanAircraftDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("PlanAircrafts")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class PlanAircraftDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 PlanAircraftDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        /// <param name="isLock">IsLock 的初始值。</param>
+        /// <param name="isOwn">IsOwn 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
+        /// <param name="aircraftTypeId">AircraftTypeId 的初始值。</param>
+        /// <param name="airlinesId">AirlinesId 的初始值。</param>
+        /// <param name="planHistories">PlanHistories 的初始值。</param>
+        /// <param name="approvalHistories">ApprovalHistories 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static PlanAircraftDTO CreatePlanAircraftDTO(global::System.Guid ID, bool isLock, bool isOwn, int status, global::System.Guid aircraftTypeId, global::System.Guid airlinesId, global::System.Collections.ObjectModel.ObservableCollection<PlanHistoryDTO> planHistories, global::System.Collections.ObjectModel.ObservableCollection<ApprovalHistoryDTO> approvalHistories)
+        {
+            PlanAircraftDTO planAircraftDTO = new PlanAircraftDTO();
+            planAircraftDTO.Id = ID;
+            planAircraftDTO.IsLock = isLock;
+            planAircraftDTO.IsOwn = isOwn;
+            planAircraftDTO.Status = status;
+            planAircraftDTO.AircraftTypeId = aircraftTypeId;
+            planAircraftDTO.AirlinesId = airlinesId;
+            if ((planHistories == null))
+            {
+                throw new global::System.ArgumentNullException("planHistories");
+            }
+            planAircraftDTO.PlanHistories = planHistories;
+            if ((approvalHistories == null))
+            {
+                throw new global::System.ArgumentNullException("approvalHistories");
+            }
+            planAircraftDTO.ApprovalHistories = approvalHistories;
+            return planAircraftDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsLock 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsLock
+        {
+            get
+            {
+                return this._IsLock;
+            }
+            set
+            {
+                this.OnIsLockChanging(value);
+                this._IsLock = value;
+                this.OnIsLockChanged();
+                this.OnPropertyChanged("IsLock");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsLock;
+        partial void OnIsLockChanging(bool value);
+        partial void OnIsLockChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsOwn 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsOwn
+        {
+            get
+            {
+                return this._IsOwn;
+            }
+            set
+            {
+                this.OnIsOwnChanging(value);
+                this._IsOwn = value;
+                this.OnIsOwnChanged();
+                this.OnPropertyChanged("IsOwn");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsOwn;
+        partial void OnIsOwnChanging(bool value);
+        partial void OnIsOwnChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 AirlinesName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string AirlinesName
+        {
+            get
+            {
+                return this._AirlinesName;
+            }
+            set
+            {
+                this.OnAirlinesNameChanging(value);
+                this._AirlinesName = value;
+                this.OnAirlinesNameChanged();
+                this.OnPropertyChanged("AirlinesName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _AirlinesName;
+        partial void OnAirlinesNameChanging(string value);
+        partial void OnAirlinesNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 AircraftTypeName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string AircraftTypeName
+        {
+            get
+            {
+                return this._AircraftTypeName;
+            }
+            set
+            {
+                this.OnAircraftTypeNameChanging(value);
+                this._AircraftTypeName = value;
+                this.OnAircraftTypeNameChanged();
+                this.OnPropertyChanged("AircraftTypeName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _AircraftTypeName;
+        partial void OnAircraftTypeNameChanging(string value);
+        partial void OnAircraftTypeNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Regional 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Regional
+        {
+            get
+            {
+                return this._Regional;
+            }
+            set
+            {
+                this.OnRegionalChanging(value);
+                this._Regional = value;
+                this.OnRegionalChanged();
+                this.OnPropertyChanged("Regional");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Regional;
+        partial void OnRegionalChanging(string value);
+        partial void OnRegionalChanged();
+        /// <summary>
+        /// 架构中不存在属性 AircraftId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.Guid> AircraftId
+        {
+            get
+            {
+                return this._AircraftId;
+            }
+            set
+            {
+                this.OnAircraftIdChanging(value);
+                this._AircraftId = value;
+                this.OnAircraftIdChanged();
+                this.OnPropertyChanged("AircraftId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.Guid> _AircraftId;
+        partial void OnAircraftIdChanging(global::System.Nullable<global::System.Guid> value);
+        partial void OnAircraftIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 AircraftTypeId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid AircraftTypeId
+        {
+            get
+            {
+                return this._AircraftTypeId;
+            }
+            set
+            {
+                this.OnAircraftTypeIdChanging(value);
+                this._AircraftTypeId = value;
+                this.OnAircraftTypeIdChanged();
+                this.OnPropertyChanged("AircraftTypeId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _AircraftTypeId;
+        partial void OnAircraftTypeIdChanging(global::System.Guid value);
+        partial void OnAircraftTypeIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 AirlinesId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid AirlinesId
+        {
+            get
+            {
+                return this._AirlinesId;
+            }
+            set
+            {
+                this.OnAirlinesIdChanging(value);
+                this._AirlinesId = value;
+                this.OnAirlinesIdChanged();
+                this.OnPropertyChanged("AirlinesId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _AirlinesId;
+        partial void OnAirlinesIdChanging(global::System.Guid value);
+        partial void OnAirlinesIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 PlanHistories 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<PlanHistoryDTO> PlanHistories
+        {
+            get
+            {
+                return this._PlanHistories;
+            }
+            set
+            {
+                this.OnPlanHistoriesChanging(value);
+                this._PlanHistories = value;
+                this.OnPlanHistoriesChanged();
+                this.OnPropertyChanged("PlanHistories");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<PlanHistoryDTO> _PlanHistories = new global::System.Collections.ObjectModel.ObservableCollection<PlanHistoryDTO>();
+        partial void OnPlanHistoriesChanging(global::System.Collections.ObjectModel.ObservableCollection<PlanHistoryDTO> value);
+        partial void OnPlanHistoriesChanged();
+        /// <summary>
+        /// 架构中不存在属性 ApprovalHistories 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Collections.ObjectModel.ObservableCollection<ApprovalHistoryDTO> ApprovalHistories
+        {
+            get
+            {
+                return this._ApprovalHistories;
+            }
+            set
+            {
+                this.OnApprovalHistoriesChanging(value);
+                this._ApprovalHistories = value;
+                this.OnApprovalHistoriesChanged();
+                this.OnPropertyChanged("ApprovalHistories");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Collections.ObjectModel.ObservableCollection<ApprovalHistoryDTO> _ApprovalHistories = new global::System.Collections.ObjectModel.ObservableCollection<ApprovalHistoryDTO>();
+        partial void OnApprovalHistoriesChanging(global::System.Collections.ObjectModel.ObservableCollection<ApprovalHistoryDTO> value);
+        partial void OnApprovalHistoriesChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.FleetPlanBC.DTO.PlanEngineDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("PlanEngines")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class PlanEngineDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 PlanEngineDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        /// <param name="engineTypeId">EngineTypeId 的初始值。</param>
+        /// <param name="airlinesId">AirlinesId 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static PlanEngineDTO CreatePlanEngineDTO(global::System.Guid ID, global::System.Guid engineTypeId, global::System.Guid airlinesId)
+        {
+            PlanEngineDTO planEngineDTO = new PlanEngineDTO();
+            planEngineDTO.Id = ID;
+            planEngineDTO.EngineTypeId = engineTypeId;
+            planEngineDTO.AirlinesId = airlinesId;
+            return planEngineDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 EngineId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.Guid> EngineId
+        {
+            get
+            {
+                return this._EngineId;
+            }
+            set
+            {
+                this.OnEngineIdChanging(value);
+                this._EngineId = value;
+                this.OnEngineIdChanged();
+                this.OnPropertyChanged("EngineId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.Guid> _EngineId;
+        partial void OnEngineIdChanging(global::System.Nullable<global::System.Guid> value);
+        partial void OnEngineIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 EngineTypeId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid EngineTypeId
+        {
+            get
+            {
+                return this._EngineTypeId;
+            }
+            set
+            {
+                this.OnEngineTypeIdChanging(value);
+                this._EngineTypeId = value;
+                this.OnEngineTypeIdChanged();
+                this.OnPropertyChanged("EngineTypeId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _EngineTypeId;
+        partial void OnEngineTypeIdChanging(global::System.Guid value);
+        partial void OnEngineTypeIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 AirlinesId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid AirlinesId
+        {
+            get
+            {
+                return this._AirlinesId;
+            }
+            set
+            {
+                this.OnAirlinesIdChanging(value);
+                this._AirlinesId = value;
+                this.OnAirlinesIdChanged();
+                this.OnPropertyChanged("AirlinesId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _AirlinesId;
+        partial void OnAirlinesIdChanging(global::System.Guid value);
+        partial void OnAirlinesIdChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.FleetPlanBC.DTO.ProgrammingDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("Programmings")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class ProgrammingDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 ProgrammingDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        /// <param name="startDate">StartDate 的初始值。</param>
+        /// <param name="endDate">EndDate 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static ProgrammingDTO CreateProgrammingDTO(global::System.Guid ID, global::System.DateTime startDate, global::System.DateTime endDate)
+        {
+            ProgrammingDTO programmingDTO = new ProgrammingDTO();
+            programmingDTO.Id = ID;
+            programmingDTO.StartDate = startDate;
+            programmingDTO.EndDate = endDate;
+            return programmingDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _Id;
+        partial void OnIdChanging(global::System.Guid value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Name 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                this.OnNameChanging(value);
+                this._Name = value;
+                this.OnNameChanged();
+                this.OnPropertyChanged("Name");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Name;
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 StartDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime StartDate
+        {
+            get
+            {
+                return this._StartDate;
+            }
+            set
+            {
+                this.OnStartDateChanging(value);
+                this._StartDate = value;
+                this.OnStartDateChanged();
+                this.OnPropertyChanged("StartDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _StartDate;
+        partial void OnStartDateChanging(global::System.DateTime value);
+        partial void OnStartDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 EndDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime EndDate
+        {
+            get
+            {
+                return this._EndDate;
+            }
+            set
+            {
+                this.OnEndDateChanging(value);
+                this._EndDate = value;
+                this.OnEndDateChanged();
+                this.OnPropertyChanged("EndDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _EndDate;
+        partial void OnEndDateChanging(global::System.DateTime value);
+        partial void OnEndDateChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

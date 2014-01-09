@@ -107,8 +107,8 @@ namespace UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg
         {
             switch (status)
             {
-                case ManageStatus.草稿:
-                    Status = ManageStatus.草稿;
+                case ManageStatus.预备:
+                    Status = ManageStatus.预备;
                     break;
                 case ManageStatus.计划:
                     Status = ManageStatus.计划;

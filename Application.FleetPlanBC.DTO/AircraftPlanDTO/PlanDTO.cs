@@ -57,11 +57,6 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public int VersionNumber { get; set; }
 
         /// <summary>
-        ///     是否当前版本
-        /// </summary>
-        public bool IsCurrentVersion { get; set; }
-
-        /// <summary>
         ///     提交日期
         /// </summary>
         public DateTime? SubmitDate { get; set; }
@@ -122,7 +117,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// <summary>
         ///     文档Id
         /// </summary>
-        public Guid DocumentId { get; set; }
+        public Guid? DocumentId { get; set; }
 
         #endregion
 
