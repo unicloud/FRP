@@ -280,8 +280,10 @@ namespace UniCloud.Presentation.Service
                 HasChanges = false;
                 var collectionView = o as QueryableDataServiceCollectionView<TService>;
                 if (collectionView == null) return;
-                collectionView.ToList().ForEach(item =>
+                if (changed.Any())
                 {
+                    collectionView.ToList().ForEach(item =>                
+                    {
                     if (item is TService)
                     {
                         var master = item;
@@ -315,6 +317,7 @@ namespace UniCloud.Presentation.Service
                 //        }
                 //    }
                 //}
+                }
             };
 
             return result;

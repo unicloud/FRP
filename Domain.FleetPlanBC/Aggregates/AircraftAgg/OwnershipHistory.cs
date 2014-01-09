@@ -143,6 +143,14 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
             SupplierId = supplier.Id;
         }
 
+        /// <summary>
+        ///     设置所有权人
+        /// </summary>
+        /// <param name="supplierId">所有权人</param>
+        public void SetSupplier(int supplierId)
+        {
+            SupplierId = supplierId;
+        }
         #endregion
     }
 }

@@ -22,6 +22,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
+using Microsoft.Expression.Interactivity.Media;
 using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.Calendar;
@@ -51,6 +52,7 @@ namespace UniCloud.Presentation.Portal.Manager
             InitStructureDate();
             InitCalendarData();
             InitProjectData();
+            InitAmountData();
         }
 
         #region 飞机引进成本
@@ -534,6 +536,34 @@ namespace UniCloud.Presentation.Portal.Manager
                               };
         }
         #endregion
+
+        #region  资金需求
+
+        private List<CostRequest> _costRequests;
+
+        public List<CostRequest> CostRequests
+        {
+            get { return _costRequests; }
+            set
+            {
+                _costRequests = value;
+                RaisePropertyChanged("CostRequests");
+            }
+        }
+        private void InitAmountData()
+        {
+            CostRequests = new List<CostRequest>
+                         {
+                             new CostRequest{DateString="2014/01",Date = new DateTime(2014,1,20 ),Title = "付款",Amount =100000 },
+                             new CostRequest{DateString="2014/02",Date = new DateTime(2014,2,10 ),Title = "付款",Amount =200000 },
+                             new CostRequest{DateString="2014/02",Date = new DateTime(2014,2,25 ),Title = "维修",Amount =100000 },
+                             new CostRequest{DateString="2014/04",Date = new DateTime(2014,4,20 ),Title = "维修",Amount =300000 },
+                             new CostRequest{DateString="2014/06",Date = new DateTime(2014,6,7 ),Title = "付款",Amount =100000 },
+                             new CostRequest{DateString="2014/06",Date = new DateTime(2014,6,16 ),Title = "付款",Amount =100000 },
+                             new CostRequest{DateString="2014/06",Date = new DateTime(2014,6,29 ),Title = "付款",Amount =1000000 },
+                         };
+        }
+        #endregion
     }
     #region 飞机成本
     public class AircraftCost
@@ -738,5 +768,16 @@ namespace UniCloud.Presentation.Portal.Manager
         public DataTemplate ImportantTemplate { get; set; }
     }
 
+    #endregion
+
+    #region 资金需求
+
+    public class CostRequest
+    {
+        public string DateString { get; set; }
+        public DateTime Date { get; set; }
+        public string Title { get; set; }
+        public decimal Amount { get; set; }
+    }
     #endregion
 }
