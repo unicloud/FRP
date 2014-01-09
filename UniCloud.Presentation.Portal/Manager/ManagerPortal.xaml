@@ -195,10 +195,6 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid Background="White">
-                        <TextBox Text="机队结构"
-                                 Foreground="Black"
-                                 BorderThickness="0"
-                                 Margin="10" />
                         <telerik:RadPieChart Name="TypeRadPieChart1"
                                              Palette="Metro"
                                              EmptyContent="机队结构">
@@ -229,10 +225,6 @@
                     </Grid>
                     <Grid Grid.Row="1"
                           Background="White">
-                        <TextBox Text="引进方式"
-                                 Foreground="Black"
-                                 BorderThickness="0"
-                                 Margin="10" />
                         <telerik:RadPieChart Name="TypeRadPieChart"
                                              Palette="Metro"
                                              EmptyContent="引进方式">
