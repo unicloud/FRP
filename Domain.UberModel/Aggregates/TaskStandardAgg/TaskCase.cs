@@ -45,6 +45,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.TaskStandardAgg
 
         #region 属性
 
+        /// <summary>
+        ///     描述
+        /// </summary>
+        public string Description { get; internal set; }
+
         #endregion
 
         #region 外键属性

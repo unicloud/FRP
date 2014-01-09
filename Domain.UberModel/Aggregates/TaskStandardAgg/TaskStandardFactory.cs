@@ -61,10 +61,14 @@ namespace UniCloud.Domain.UberModel.Aggregates.TaskStandardAgg
         /// <summary>
         ///     创建任务案例
         /// </summary>
+        /// <param name="description">案例简述</param>
         /// <returns>任务案例</returns>
-        public static TaskCase CreateTaskCase()
+        public static TaskCase CreateTaskCase(string description)
         {
-            var taskCase = new TaskCase();
+            var taskCase = new TaskCase
+            {
+                Description = description
+            };
             taskCase.GenerateNewIdentity();
             return taskCase;
         }

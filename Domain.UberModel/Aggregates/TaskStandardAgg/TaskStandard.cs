@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.UberModel.Aggregates.WorkGroupAgg;
 
 #endregion
 
@@ -95,9 +96,19 @@ namespace UniCloud.Domain.UberModel.Aggregates.TaskStandardAgg
 
         #region 外键属性
 
+        /// <summary>
+        ///     工作组ID
+        /// </summary>
+        public int WorkGroupId { get; private set; }
+
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        ///     工作组
+        /// </summary>
+        public virtual WorkGroup WorkGroup { get; private set; }
 
         public virtual ICollection<TaskCase> TaskCases
         {
@@ -108,6 +119,35 @@ namespace UniCloud.Domain.UberModel.Aggregates.TaskStandardAgg
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置工作组
+        /// </summary>
+        /// <param name="workGroup">工作组</param>
+        public void SetWorkGroup(WorkGroup workGroup)
+        {
+            if (workGroup == null || workGroup.IsTransient())
+            {
+                throw new ArgumentException("工作组参数为空！");
+            }
+
+            WorkGroup = workGroup;
+            WorkGroupId = workGroup.Id;
+        }
+
+        /// <summary>
+        ///     设置工作组
+        /// </summary>
+        /// <param name="workGroupId">工作组ID</param>
+        public void SetWorkGroup(int workGroupId)
+        {
+            if (workGroupId == 0)
+            {
+                throw new ArgumentException("工作组ID参数为空！");
+            }
+
+            WorkGroupId = workGroupId;
+        }
 
         /// <summary>
         ///     设置源GUID
@@ -126,10 +166,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.TaskStandardAgg
         /// <summary>
         ///     添加任务案例
         /// </summary>
+        /// <param name="description">案例简述</param>
         /// <returns></returns>
-        public TaskCase AddTaskCase()
+        public TaskCase AddTaskCase(string description)
         {
-            var taskCase = TaskStandardFactory.CreateTaskCase();
+            var taskCase = TaskStandardFactory.CreateTaskCase(description);
             taskCase.TaskStandardId = Id;
             TaskCases.Add(taskCase);
             return taskCase;
