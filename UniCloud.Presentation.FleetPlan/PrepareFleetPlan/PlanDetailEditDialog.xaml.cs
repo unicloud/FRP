@@ -1,14 +1,16 @@
-﻿using System.ComponentModel.Composition;
+﻿
+using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
     [Export]
-    public partial class FleetPlanLay
+    public partial class PlanDetailEditDialog
     {
-        public FleetPlanLay()
+        public PlanDetailEditDialog()
         {
             InitializeComponent();
         }
+
         [Import(typeof(FleetPlanLayVM))]
         public FleetPlanLayVM ViewModel
         {

@@ -63,7 +63,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// <summary>
         ///     引进日期
         /// </summary>
-        public DateTime ImportDate { get; set; }
+        public DateTime? ImportDate { get; set; }
 
         /// <summary>
         ///     注销日期
@@ -99,14 +99,17 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         ///     引进方式
         /// </summary>
         public string ImportCategoryName { get; set; }
+
         /// <summary>
         /// 制造商
         /// </summary>
         public string ManufacturerName { get; set; }
+
         /// <summary>
         /// 座级
         /// </summary>
         public string Regional { get; set; }
+
         /// <summary>
         ///     运营权历史
         /// </summary>

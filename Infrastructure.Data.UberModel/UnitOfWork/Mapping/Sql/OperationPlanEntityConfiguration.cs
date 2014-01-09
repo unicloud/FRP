@@ -36,6 +36,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 
             Property(p => p.OperationHistoryId).HasColumnName("OperationHistoryId");
 
+            HasOptional(o => o.OperationHistory).WithMany().HasForeignKey(o => o.OperationHistoryId);
+
         }
     }
 }

@@ -9,7 +9,6 @@
         <Property Name="ActionType" Type="Edm.String" />
         <Property Name="ActionName" Type="Edm.String" />
         <Property Name="NeedRequest" Type="Edm.Boolean" Nullable="false" />
-        <Property Name="NetIncrement" Type="Edm.Int32" Nullable="false" />
       </EntityType>
       <EntityType Name="AcTypeDTO">
         <Key>
@@ -36,7 +35,7 @@
         <Property Name="IsOperation" Type="Edm.Boolean" Nullable="false" />
         <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="FactoryDate" Type="Edm.DateTime" />
-        <Property Name="ImportDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ImportDate" Type="Edm.DateTime" />
         <Property Name="ExportDate" Type="Edm.DateTime" />
         <Property Name="SeatingCapacity" Type="Edm.Int32" Nullable="false" />
         <Property Name="CarryingCapacity" Type="Edm.Decimal" Nullable="false" />
@@ -57,7 +56,7 @@
       <ComplexType Name="OperationHistoryDTO">
         <Property Name="OperationHistoryId" Type="Edm.Guid" Nullable="false" />
         <Property Name="RegNumber" Type="Edm.String" />
-        <Property Name="StartDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="StartDate" Type="Edm.DateTime" />
         <Property Name="StopDate" Type="Edm.DateTime" />
         <Property Name="TechReceiptDate" Type="Edm.DateTime" />
         <Property Name="ReceiptDate" Type="Edm.DateTime" />
@@ -68,6 +67,7 @@
         <Property Name="ImportActionType" Type="Edm.String" />
         <Property Name="ImportActionName" Type="Edm.String" />
         <Property Name="AirlinesName" Type="Edm.String" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
         <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
@@ -102,6 +102,8 @@
         </Key>
         <Property Name="Id" Type="Edm.Guid" Nullable="false" />
         <Property Name="Name" Type="Edm.String" />
+        <Property Name="AircraftCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Regional" Type="Edm.String" />
       </EntityType>
       <EntityType Name="AirlinesDTO">
         <Key>
@@ -146,7 +148,6 @@
         <Property Name="IsOpen" Type="Edm.Boolean" Nullable="false" />
         <Property Name="ProgrammingName" Type="Edm.String" />
         <Property Name="ProgrammingId" Type="Edm.Guid" Nullable="false" />
-        <NavigationProperty Name="Plans" Relationship="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO_Plans" ToRole="Plans" FromRole="AnnualDTO" />
       </EntityType>
       <EntityType Name="PlanYearDTO">
         <Key>
@@ -318,7 +319,6 @@
         <Property Name="Title" Type="Edm.String" />
         <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
         <Property Name="VersionNumber" Type="Edm.Int32" Nullable="false" />
-        <Property Name="IsCurrentVersion" Type="Edm.Boolean" Nullable="false" />
         <Property Name="SubmitDate" Type="Edm.DateTime" />
         <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="DocNumber" Type="Edm.String" />
@@ -330,7 +330,7 @@
         <Property Name="Year" Type="Edm.Int32" Nullable="false" />
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AnnualId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="DocumentId" Type="Edm.Guid" />
         <Property Name="PlanHistories" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.PlanHistoryDTO)" Nullable="false" />
       </EntityType>
       <ComplexType Name="PlanHistoryDTO">
@@ -342,12 +342,12 @@
         <Property Name="IsSubmit" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="AirlinesName" Type="Edm.String" />
-        <Property Name="Regional" Type="Edm.String" />
         <Property Name="AircraftTypeName" Type="Edm.String" />
         <Property Name="ActionType" Type="Edm.String" />
+        <Property Name="ActionName" Type="Edm.String" />
         <Property Name="TargetType" Type="Edm.String" />
+        <Property Name="NeedRequest" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Year" Type="Edm.Int32" Nullable="false" />
-        <Property Name="ManageStatus" Type="Edm.Int32" Nullable="false" />
         <Property Name="PlanAircraftId" Type="Edm.Guid" />
         <Property Name="PlanId" Type="Edm.Guid" Nullable="false" />
         <Property Name="ActionCategoryId" Type="Edm.Guid" Nullable="false" />
@@ -358,6 +358,11 @@
         <Property Name="PlanType" Type="Edm.Int32" Nullable="false" />
         <Property Name="RelatedGuid" Type="Edm.Guid" />
         <Property Name="RelatedEndDate" Type="Edm.DateTime" />
+        <Property Name="RelatedStatus" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ManageStatus" Type="Edm.Int32" Nullable="false" />
+        <Property Name="PaIsLock" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="RegNumber" Type="Edm.String" />
+        <Property Name="AircraftId" Type="Edm.Guid" />
       </ComplexType>
       <EntityType Name="PlanAircraftDTO">
         <Key>
@@ -367,10 +372,34 @@
         <Property Name="IsLock" Type="Edm.Boolean" Nullable="false" />
         <Property Name="IsOwn" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AirlinesName" Type="Edm.String" />
+        <Property Name="AircraftTypeName" Type="Edm.String" />
+        <Property Name="Regional" Type="Edm.String" />
         <Property Name="AircraftId" Type="Edm.Guid" />
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="PlanHistories" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.PlanHistoryDTO)" Nullable="false" />
+        <Property Name="ApprovalHistories" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.ApprovalHistoryDTO)" Nullable="false" />
       </EntityType>
+      <ComplexType Name="ApprovalHistoryDTO">
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="IsApproved" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="SeatingCapacity" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CarryingCapacity" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="RequestDeliverMonth" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Note" Type="Edm.String" />
+        <Property Name="RequestId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="PlanAircraftId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftRegional" Type="Edm.String" />
+        <Property Name="AircraftType" Type="Edm.String" />
+        <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ImportCategoryName" Type="Edm.String" />
+        <Property Name="RequestDeliverAnnualId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="RequestDeliverAnnualName" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AirlineName" Type="Edm.String" />
+        <Property Name="PlanAircraftStatus" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
       <EntityType Name="PlanEngineDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -416,25 +445,6 @@
         <Property Name="AirlinesName" Type="Edm.String" />
         <Property Name="ApprovalHistories" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.ApprovalHistoryDTO)" Nullable="false" />
       </EntityType>
-      <ComplexType Name="ApprovalHistoryDTO">
-        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
-        <Property Name="IsApproved" Type="Edm.Boolean" Nullable="false" />
-        <Property Name="SeatingCapacity" Type="Edm.Int32" Nullable="false" />
-        <Property Name="CarryingCapacity" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="RequestDeliverMonth" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Note" Type="Edm.String" />
-        <Property Name="RequestId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="PlanAircraftId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="AircraftRegional" Type="Edm.String" />
-        <Property Name="AircraftType" Type="Edm.String" />
-        <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="ImportCategoryName" Type="Edm.String" />
-        <Property Name="RequestDeliverAnnualId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="RequestDeliverAnnualName" Type="Edm.Int32" Nullable="false" />
-        <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="AirlineName" Type="Edm.String" />
-        <Property Name="PlanAircraftStatus" Type="Edm.Int32" Nullable="false" />
-      </ComplexType>
       <EntityType Name="SupplierDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -469,10 +479,6 @@
         <Property Name="SettingContent" Type="Edm.String" />
         <Property Name="XmlContent" Type="Edm.String" />
       </EntityType>
-      <Association Name="AnnualDTO_Plans">
-        <End Type="UniCloud.Application.FleetPlanBC.DTO.PlanDTO" Role="Plans" Multiplicity="*" />
-        <End Type="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO" Role="AnnualDTO" Multiplicity="*" />
-      </Association>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.FleetPlan" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="FleetPlanData" m:IsDefaultEntityContainer="true">
@@ -501,10 +507,6 @@
         <EntitySet Name="Suppliers" EntityType="UniCloud.Application.FleetPlanBC.DTO.SupplierDTO" />
         <EntitySet Name="XmlConfigs" EntityType="UniCloud.Application.FleetPlanBC.DTO.XmlConfigDTO" />
         <EntitySet Name="XmlSettings" EntityType="UniCloud.Application.FleetPlanBC.DTO.XmlSettingDTO" />
-        <AssociationSet Name="AnnualDTO_Plans" Association="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO_Plans">
-          <End Role="AnnualDTO" EntitySet="Annuals" />
-          <End Role="Plans" EntitySet="Plans" />
-        </AssociationSet>
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

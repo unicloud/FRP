@@ -51,10 +51,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg
         /// </summary>
         public bool NeedRequest { get; protected set; }
 
-        /// <summary>
-        /// 活动类型对应的净增量
-        /// </summary>
-        public int NetIncrement { get; protected set; }
         #endregion
 
         #region 外键属性

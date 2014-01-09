@@ -68,6 +68,8 @@ namespace UniCloud.Application.FleetPlanBC.AnnualServices
         [Insert(typeof(AnnualDTO))]
         public void InsertAnnual(AnnualDTO dto)
         {
+            var newAnnual = new Annual();
+            _annualRepository.Add(newAnnual);
         }
 
         /// <summary>
@@ -93,8 +95,15 @@ namespace UniCloud.Application.FleetPlanBC.AnnualServices
         /// </summary>
         /// <param name="dto">计划年度DTO。</param>
         [Delete(typeof(AnnualDTO))]
-        public void DeleteAirProgramming(AnnualDTO dto)
+        public void DeleteAnnual(AnnualDTO dto)
         {
+            var delAnnual = _annualRepository.Get(dto.Id);
+            //获取需要删除的对象。
+            if (delAnnual != null)
+            {
+                _annualRepository.Remove(delAnnual); //删除航空公司五年规划。
+            }
+
         }
         #endregion
     }

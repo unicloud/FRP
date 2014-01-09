@@ -44,9 +44,6 @@ namespace UniCloud.Application.FleetPlanBC.Query.AnnualQueries
         public IQueryable<AnnualDTO> AnnualDTOQuery(
             QueryBuilder<Annual> query)
         {
-            var plans = _unitOfWork.CreateSet<Plan>();
-            var aircraftBusinesses = _unitOfWork.CreateSet<AircraftBusiness>();
-            var operationHistories = _unitOfWork.CreateSet<OperationHistory>();
             var result = query.ApplyTo(_unitOfWork.CreateSet<Annual>()).Select(p => new AnnualDTO
             {
                 Id = p.Id,
@@ -54,82 +51,9 @@ namespace UniCloud.Application.FleetPlanBC.Query.AnnualQueries
                 ProgrammingId = p.ProgrammingId,
                 Year = p.Year,
                 ProgrammingName = p.Programming.Name,
-                Plans = plans.Where(r => r.AnnualId == p.Id).Select(r => new PlanDTO
-                {
-                    Id = r.Id,
-                    Title = r.Title,
-                    VersionNumber = r.VersionNumber,
-                    IsValid = r.IsValid,
-                    IsCurrentVersion = r.IsCurrentVersion,
-                    SubmitDate = r.SubmitDate,
-                    CreateDate = r.CreateDate,
-                    DocNumber = r.DocNumber,
-                    DocName = r.DocName,
-                    IsFinished = r.IsFinished,
-                    Status = (int)r.Status,
-                    PublishStatus = (int)r.PublishStatus,
-                    AirlinesId = r.AirlinesId,
-                    AnnualId = r.AnnualId,
-                    DocumentId = r.DocumentId,
-                    AirlinesName = r.Airlines.CnName,
-                    Year = r.Annual.Year,
-                    PlanHistories = r.PlanHistories.OfType<OperationPlan>().Select(q => new PlanHistoryDTO
-                    {
-                        Id = q.Id,
-                        ActionCategoryId = q.ActionCategoryId,
-                        AircraftTypeId = q.AircraftTypeId,
-                        AirlinesId = q.AirlinesId,
-                        CarryingCapacity = q.CarryingCapacity,
-                        SeatingCapacity = q.SeatingCapacity,
-                        RelatedGuid = q.OperationHistoryId,
-                        //RelatedEndDate = operationHistories.FirstOrDefault(o=>o.Id==q.OperationHistoryId).EndDate,
-                        IsSubmit = q.IsSubmit,
-                        IsValid = q.IsValid,
-                        Note = q.Note,
-                        PerformAnnualId = q.PerformAnnualId,
-                        PerformMonth = q.PerformMonth,
-                        PlanAircraftId = q.PlanAircraftId,
-                        PlanId = q.PlanId,
-                        PlanType = 1,
-                        TargetCategoryId = q.TargetCategoryId,
-                        AirlinesName = q.Airlines.CnName,
-                        Regional = q.AircraftType.AircraftCategory.Regional,
-                        AircraftTypeName = q.AircraftType.Name,
-                        ActionType = q.ActionCategory.ActionType + ":" + q.ActionCategory.ActionName,
-                        TargetType = q.TargetCategory.ActionName,
-                        Year = q.PerformAnnual.Year,
-                        ManageStatus = (int)q.PlanAircraft.Status,
-                    })
-                     .Union(r.PlanHistories.OfType<ChangePlan>().Select(q => new PlanHistoryDTO
-                    {
-                        Id = q.Id,
-                        ActionCategoryId = q.ActionCategoryId,
-                        AircraftTypeId = q.AircraftTypeId,
-                        AirlinesId = q.AirlinesId,
-                        CarryingCapacity = q.CarryingCapacity,
-                        SeatingCapacity = q.SeatingCapacity,
-                        RelatedGuid = q.AircraftBusinessId,
-                        //RelatedEndDate = aircraftBusinesses.FirstOrDefault(o=>o.Id==q.AircraftBusinessId).EndDate,
-                        IsSubmit = q.IsSubmit,
-                        IsValid = q.IsValid,
-                        Note = q.Note,
-                        PerformAnnualId = q.PerformAnnualId,
-                        PerformMonth = q.PerformMonth,
-                        PlanAircraftId = q.PlanAircraftId,
-                        PlanId = q.PlanId,
-                        PlanType = 2,
-                        TargetCategoryId = q.TargetCategoryId,
-                        AirlinesName = q.Airlines.CnName,
-                        Regional = q.AircraftType.AircraftCategory.Regional,
-                        AircraftTypeName = q.AircraftType.Name,
-                        ActionType = q.ActionCategory.ActionType + ":" + q.ActionCategory.ActionName,
-                        TargetType = q.TargetCategory.ActionName,
-                        Year = q.PerformAnnual.Year,
-                        ManageStatus = (int)q.PlanAircraft.Status,
-                    })).ToList(),
-                }).ToList()
             });
-            return result.OrderByDescending(p=>p.Year);
+            var a = result.OrderByDescending(p => p.Year).ToList();
+            return result.OrderByDescending(p => p.Year);
         }
 
         public IQueryable<PlanYearDTO> PlanYearDTOQuery(QueryBuilder<Annual> query)
@@ -142,7 +66,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AnnualQueries
                 Year = p.Year,
                 ProgrammingName = p.Programming.Name,
             });
-            return result.OrderByDescending(p=>p.Year);
+            return result.OrderByDescending(p => p.Year);
         }
     }
 }

@@ -86,7 +86,7 @@ namespace UniCloud.Application.FleetPlanBC.PlanAircraftServices
             newPlanAircraft.SetAirlines(airlines);
             newPlanAircraft.SetLock();
             newPlanAircraft.SetOwn();
-            newPlanAircraft.SetManageStatus(ManageStatus.草稿);
+            newPlanAircraft.SetManageStatus(ManageStatus.计划);
 
             _planAircraftRepository.Add(newPlanAircraft);
         }

@@ -37,7 +37,6 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             Property(p => p.ActionType).HasColumnName("ActionType");
             Property(p => p.ActionName).HasColumnName("ActionName");
             Property(p => p.NeedRequest).HasColumnName("NeedRequest");
-            Property(p => p.NetIncrement).HasColumnName("NetIncrement");
 
         }
     }

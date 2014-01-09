@@ -25,15 +25,13 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         ///     创建运力增减计划
         /// </summary>
         /// <param name="versionNumber">版本号</param>
-        /// <param name="submitDate">提交日期</param>
         /// <returns>飞机计划</returns>
-        public static Plan CreatePlan(int versionNumber,DateTime? submitDate)
+        public static Plan CreatePlan(int versionNumber)
         {
             var plan = new Plan
             {
                 VersionNumber = versionNumber,
-                CreateDate = DateTime.Now,
-                SubmitDate = submitDate,
+                CreateDate = DateTime.Now
             };
 
             plan.GenerateNewIdentity();

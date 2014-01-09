@@ -69,6 +69,18 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         }
 
         [TestMethod]
+        public void ModefyAnnuals()
+        {
+            var service = DefaultContainer.Resolve<IAnnualRepository>();
+            var annual = service.GetAll().FirstOrDefault();
+            if (annual != null)
+            {
+                annual.SetIsOpen(true);
+            }
+            service.UnitOfWork.Commit();
+        }
+
+        [TestMethod]
         public void TestGetPlanYears()
         {
             // Arrange

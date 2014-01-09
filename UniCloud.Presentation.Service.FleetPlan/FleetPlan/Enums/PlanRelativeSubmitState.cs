@@ -1,10 +1,10 @@
 ﻿#region 版本信息
 /* ========================================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2013/12/31 17:46:24
-// 文件名：AnnualDTO
+// 作者：HuangQiBin 时间：2014/1/7 14:49:22
+// 文件名：PlanRelativeSubmitState
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -15,7 +15,6 @@
 #region 命名空间
 
 using System;
-using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,26 +24,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 #endregion
 
-namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
+namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums
 {
-    public partial class AnnualDTO
+    public enum PlanRelativeSubmitState
     {
-        partial void OnIsOpenChanged()
-        {
-            OnPropertyChanged("OpenState");
-        }
-
-        public OpenState OpenState
-        {
-            get
-            {
-                if (IsOpen) return OpenState.打开;
-                return OpenState.关闭;
-            }
-        }
+        All = 0,
+        OperationHistoryNot = 1,
+        BusinessHistoryNot = 2,
+        RequestNot = 3
     }
 }

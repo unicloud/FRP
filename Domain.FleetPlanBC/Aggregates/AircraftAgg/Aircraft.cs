@@ -79,7 +79,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// <summary>
         ///     引进日期
         /// </summary>
-        public DateTime ImportDate { get; private set; }
+        public DateTime? ImportDate { get; private set; }
 
         /// <summary>
         ///     注销日期
@@ -221,7 +221,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         ///     设置引进日期
         /// </summary>
         /// <param name="date">引进日期</param>
-        public void SetImportDate(DateTime date)
+        public void SetImportDate(DateTime? date)
         {
             ImportDate = date;
         }
