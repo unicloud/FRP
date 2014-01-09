@@ -83,7 +83,7 @@ namespace UniCloud.Presentation.Service
             DataServiceQuery<T> query, Action loaded = null, bool forceLoad = false)
             where T : class, INotifyPropertyChanged
         {
-            var type = typeof (T).ToString();
+            var type = typeof(T).ToString();
             if (!_staticCollectionView.ContainsKey(type))
             {
                 _staticCollectionView.Add(type, new QueryableDataServiceCollectionView<T>(context, query));
@@ -282,41 +282,41 @@ namespace UniCloud.Presentation.Service
                 if (collectionView == null) return;
                 if (changed.Any())
                 {
-                    collectionView.ToList().ForEach(item =>                
+                    collectionView.ToList().ForEach(item =>
                     {
-                    if (item is TService)
-                    {
-                        var master = item;
-                        foreach (var details in changed.Select(c => c(master)))
+                        if (item is TService)
                         {
-                            var collection = details as INotifyCollectionChanged;
-                            if (collection == null) return;
-                            collection.CollectionChanged += (obj, handler) => HasChanges = true;
-                            var detailList = details as IList;
-                            if (detailList == null) return;
-                            foreach (var entity in from object d in detailList select d as INotifyPropertyChanged)
+                            var master = item;
+                            foreach (var details in changed.Select(c => c(master)))
                             {
-                                entity.PropertyChanged += (obj, handler) => HasChanges = true;
+                                var collection = details as INotifyCollectionChanged;
+                                if (collection == null) return;
+                                collection.CollectionChanged += (obj, handler) => HasChanges = true;
+                                var detailList = details as IList;
+                                if (detailList == null) return;
+                                foreach (var entity in from object d in detailList select d as INotifyPropertyChanged)
+                                {
+                                    entity.PropertyChanged += (obj, handler) => HasChanges = true;
+                                }
                             }
                         }
-                    }
-                });
-                //foreach (TService item in collectionView)
-                //{
-                //    var master = item;
-                //    foreach (var details in changed.Select(c => c(master)))
-                //    {
-                //        var collection = details as INotifyCollectionChanged;
-                //        if (collection == null) return;
-                //        collection.CollectionChanged += (obj, handler) => HasChanges = true;
-                //        var detailList = details as IList;
-                //        if (detailList == null) return;
-                //        foreach (var entity in from object d in detailList select d as INotifyPropertyChanged)
-                //        {
-                //            entity.PropertyChanged += (obj, handler) => HasChanges = true;
-                //        }
-                //    }
-                //}
+                    });
+                    //foreach (TService item in collectionView)
+                    //{
+                    //    var master = item;
+                    //    foreach (var details in changed.Select(c => c(master)))
+                    //    {
+                    //        var collection = details as INotifyCollectionChanged;
+                    //        if (collection == null) return;
+                    //        collection.CollectionChanged += (obj, handler) => HasChanges = true;
+                    //        var detailList = details as IList;
+                    //        if (detailList == null) return;
+                    //        foreach (var entity in from object d in detailList select d as INotifyPropertyChanged)
+                    //        {
+                    //            entity.PropertyChanged += (obj, handler) => HasChanges = true;
+                    //        }
+                    //    }
+                    //}
                 }
             };
 

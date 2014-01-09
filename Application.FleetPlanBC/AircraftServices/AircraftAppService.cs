@@ -255,10 +255,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftServices
             var supplier = _supplierRepository.Get(ownershipHistoryDto.SupplierId);
 
             //添加所有权历史
-            var newOwnh = aircraft.AddNewOwnershipHistory();
-            newOwnh.SetEndDate(ownershipHistoryDto.EndDate);
-            newOwnh.SetOperationStatus(OperationStatus.草稿);
-            newOwnh.SetStartDate(ownershipHistoryDto.StartDate);
+            var newOwnh = aircraft.AddNewOwnershipHistory(ownershipHistoryDto.SupplierId,ownershipHistoryDto.StartDate,ownershipHistoryDto.EndDate,OperationStatus.草稿);
             newOwnh.SetSupplier(supplier);
         }
 
