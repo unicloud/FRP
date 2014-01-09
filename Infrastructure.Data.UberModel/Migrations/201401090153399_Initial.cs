@@ -1352,6 +1352,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
+                        Description = c.String(),
                         TaskStandardId = c.Int(nullable: false),
                         RelatedId = c.Int(),
                     })
@@ -1365,11 +1366,26 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         Name = c.String(),
-                        ManagerUserId = c.Int(nullable: false),
+                        ManagerId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.User", t => t.ManagerUserId)
-                .Index(t => t.ManagerUserId);
+                .ForeignKey("FRP.Member", t => t.ManagerId)
+                .Index(t => t.ManagerId);
+            
+            CreateTable(
+                "FRP.Member",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Description = c.String(),
+                        IsManager = c.Boolean(nullable: false),
+                        WorkGroupId = c.Int(nullable: false),
+                        MemberUserId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.WorkGroup", t => t.WorkGroupId)
+                .Index(t => t.WorkGroupId);
             
             CreateTable(
                 "FRP.User",
@@ -1382,20 +1398,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         DisplayName = c.String(),
                     })
                 .PrimaryKey(t => t.ID);
-            
-            CreateTable(
-                "FRP.Member",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        WorkGroupId = c.Int(nullable: false),
-                        MemberUserId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.User", t => t.MemberUserId)
-                .ForeignKey("FRP.WorkGroup", t => t.WorkGroupId)
-                .Index(t => t.MemberUserId)
-                .Index(t => t.WorkGroupId);
             
             CreateTable(
                 "FRP.XmlConfig",
@@ -2088,8 +2090,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.ChangePlan", "ID", "FRP.PlanHistory");
             DropForeignKey("FRP.TaskStandard", "WorkGroupId", "FRP.WorkGroup");
             DropForeignKey("FRP.Member", "WorkGroupId", "FRP.WorkGroup");
-            DropForeignKey("FRP.Member", "MemberUserId", "FRP.User");
-            DropForeignKey("FRP.WorkGroup", "ManagerUserId", "FRP.User");
+            DropForeignKey("FRP.WorkGroup", "ManagerId", "FRP.Member");
             DropForeignKey("FRP.TaskCase", "TaskStandardId", "FRP.TaskStandard");
             DropForeignKey("FRP.SupplierRole", "SupplierCompanyId", "FRP.SupplierCompany");
             DropForeignKey("FRP.ApprovalHistory", "RequestId", "FRP.Request");
@@ -2277,8 +2278,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.ChangePlan", new[] { "ID" });
             DropIndex("FRP.TaskStandard", new[] { "WorkGroupId" });
             DropIndex("FRP.Member", new[] { "WorkGroupId" });
-            DropIndex("FRP.Member", new[] { "MemberUserId" });
-            DropIndex("FRP.WorkGroup", new[] { "ManagerUserId" });
+            DropIndex("FRP.WorkGroup", new[] { "ManagerId" });
             DropIndex("FRP.TaskCase", new[] { "TaskStandardId" });
             DropIndex("FRP.SupplierRole", new[] { "SupplierCompanyId" });
             DropIndex("FRP.ApprovalHistory", new[] { "RequestId" });
@@ -2450,8 +2450,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.ContentTag");
             DropTable("FRP.XmlSetting");
             DropTable("FRP.XmlConfig");
-            DropTable("FRP.Member");
             DropTable("FRP.User");
+            DropTable("FRP.Member");
             DropTable("FRP.WorkGroup");
             DropTable("FRP.TaskCase");
             DropTable("FRP.TaskStandard");
