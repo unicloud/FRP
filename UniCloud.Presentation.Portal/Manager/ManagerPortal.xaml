@@ -265,7 +265,7 @@
                 </Grid>
             </telerik:RadTileViewItem>
 
-            <telerik:RadTileViewItem Header="飞机成本统计"
+            <telerik:RadTileViewItem Header="飞机引进成本统计"
                                      RestoredHeight="62"
                                      MinimizedHeight="150"
                                      RestoredWidth="50">
@@ -457,7 +457,7 @@
                     </Grid>
                 </Grid>
             </telerik:RadTileViewItem>
-            <telerik:RadTileViewItem Header="维护成本"
+            <telerik:RadTileViewItem Header="飞机维护成本统计"
                                      RestoredHeight="62"
                                      MinimizedHeight="164"
                                      RestoredWidth="32">
