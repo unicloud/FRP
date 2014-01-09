@@ -65,6 +65,7 @@
         <Property Name="EndDate" Type="Edm.DateTime" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="ImportActionType" Type="Edm.String" />
+        <Property Name="ImportActionName" Type="Edm.String" />
         <Property Name="AirlinesName" Type="Edm.String" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
@@ -90,6 +91,7 @@
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="AircraftTypeName" Type="Edm.String" />
         <Property Name="Regional" Type="Edm.String" />
+        <Property Name="Category" Type="Edm.String" />
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
         <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
@@ -396,6 +398,7 @@
         <Property Name="RequestDeliverAnnualName" Type="Edm.Int32" Nullable="false" />
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AirlineName" Type="Edm.String" />
+        <Property Name="PlanAircraftStatus" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
       <EntityType Name="PlanEngineDTO">
         <Key>

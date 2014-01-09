@@ -140,25 +140,11 @@ namespace UniCloud.Presentation.Service.FleetPlan
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                pb.RemovePlanDetail(planDetail, this);
+                //pb.RemovePlanDetail(planDetail, this);
             }
         }
 
         /// <summary>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         /// 完成运力增减计划
         /// </summary>
         /// <param name="planDetail"><see cref="IFleetPlanService"/></param>
