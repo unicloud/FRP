@@ -18,6 +18,7 @@
 #region 命名空间
 
 using UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg;
+using UniCloud.Infrastructure.Data.ProjectBC.UnitOfWork;
 
 #endregion
 
@@ -34,6 +35,17 @@ namespace UniCloud.Infrastructure.Data.ProjectBC.Repositories
         }
 
         #region 方法重载
+
+        #endregion
+
+        #region IWorkGroupRepository 成员
+
+        public void RemoveMember(Member member)
+        {
+            var currentUnitOfWork = UnitOfWork as ProjectBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            currentUnitOfWork.CreateSet<Member>().Remove(member);
+        }
 
         #endregion
     }

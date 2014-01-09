@@ -81,6 +81,15 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
 
         #region 操作
 
+        /// <summary>
+        ///     更新成员数据
+        /// </summary>
+        /// <param name="description">描述</param>
+        public void UpdateMember(string description)
+        {
+            Description = description;
+        }
+
         #endregion
 
         #region IValidatableObject 成员
