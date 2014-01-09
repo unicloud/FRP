@@ -99,10 +99,10 @@ namespace UniCloud.Presentation.Portal.Manager
         {
             AircraftCosts = new List<AircraftCost>
                           {
-                              new AircraftCost{DateTime =new DateTime(2011,1,1),Purchase=20000000,Lease=10000000 },
-                              new AircraftCost{DateTime =new DateTime(2012,6,7),Purchase=40000000,Lease=20000000 },
-                              new AircraftCost{DateTime =new DateTime(2013,11,11),Purchase=50000000,Lease=40000000 },
-                              new AircraftCost{DateTime =new DateTime(2014,9,1),Purchase=90000000,Lease=60000000 },
+                              new AircraftCost{DateTime =new DateTime(2011,1,1),Purchase=20000000,Lease=10000000,Maintain = 200000},
+                              new AircraftCost{DateTime =new DateTime(2012,1,1),Purchase=40000000,Lease=20000000 ,Maintain = 200000},
+                              new AircraftCost{DateTime =new DateTime(2013,1,1),Purchase=50000000,Lease=40000000 ,Maintain = 250000},
+                              new AircraftCost{DateTime =new DateTime(2014,1,1),Purchase=90000000,Lease=60000000 ,Maintain = 300000},
                           };
         }
         #endregion
