@@ -14,7 +14,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <uc:ApprovalStatusConvert x:Key="ApprovalStatusConvert" />
+            <uc:OperationStatusConvert x:Key="ApprovalStatusConvert" />
             <uc:RequestStatusConvert x:Key="RequestStatusConvert" />
         </ResourceDictionary>
     </UserControl.Resources>

@@ -245,6 +245,7 @@ namespace UniCloud.Presentation.Shell
             var menu231 = new MenuItem
             {
                 Text = "变更所有权",
+                NavUri = "UniCloud.Presentation.FleetPlan.AircraftOwnerShips.AircraftOwnership"
             };
             var menu232 = new MenuItem
             {

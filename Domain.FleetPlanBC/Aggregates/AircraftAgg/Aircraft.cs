@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
@@ -352,16 +353,19 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// 新增所有权历史
         /// </summary>
         /// <returns></returns>
-        public OwnershipHistory AddNewOwnershipHistory()
+        public OwnershipHistory AddNewOwnershipHistory(int supplierId, DateTime starDate, DateTime? endatDate, OperationStatus status)
         {
             var ownershipHistory = new OwnershipHistory
             {
                 AircraftId = Id,
+                
             };
-
+            ownershipHistory.SetSupplier(supplierId);
+            ownershipHistory.SetStartDate(starDate);
+            ownershipHistory.SetEndDate(endatDate);
             ownershipHistory.GenerateNewIdentity();
             OwnershipHistories.Add(ownershipHistory);
-
+            ownershipHistory.SetOperationStatus(status);
             return ownershipHistory;
         }
         #endregion

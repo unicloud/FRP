@@ -62,6 +62,18 @@ namespace UniCloud.Presentation.Service.FleetPlan
             return GetStaticData(Context.AircraftTypes, loaded, forceLoad);
         }
 
+        /// <summary>
+        ///     获取供应商
+        /// </summary>
+        /// <param name="loaded">回调</param>
+        /// <param name="forceLoad">是否强制加载</param>
+        /// <returns>供应商集合</returns>
+        public QueryableDataServiceCollectionView<SupplierDTO> GetSupplier(Action loaded, bool forceLoad = false)
+        {
+            return GetStaticData(Context.Suppliers, loaded, forceLoad);
+        }
+
+
         #endregion
 
         #region 公共属性
