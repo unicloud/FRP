@@ -57,7 +57,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         /// <param name="operatorName">经办人</param>
         /// <param name="orderDate">订单日期</param>
         /// <returns>飞机购买订单</returns>
-        public static AircraftPurchaseOrder CreateAircraftPurchaseOrder(int version, 
+        public static AircraftPurchaseOrder CreateAircraftPurchaseOrder(int version,
             string operatorName, DateTime orderDate)
         {
             var aircraftPurchaseOrder = new AircraftPurchaseOrder
@@ -79,7 +79,7 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
         /// <param name="operatorName">经办人</param>
         /// <param name="orderDate">订单日期</param>
         /// <returns>BFE购买订单</returns>
-        public static BFEPurchaseOrder CreateBFEPurchaseOrder(int version, 
+        public static BFEPurchaseOrder CreateBFEPurchaseOrder(int version,
             string operatorName, DateTime orderDate)
         {
             var bfePurchaseOrder = new BFEPurchaseOrder
@@ -92,6 +92,50 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg
             };
 
             return bfePurchaseOrder;
+        }
+
+        /// <summary>
+        ///     创建发动机租赁订单
+        /// </summary>
+        /// <param name="version">版本</param>
+        /// <param name="operatorName">经办人</param>
+        /// <param name="orderDate">订单日期</param>
+        /// <returns>发动机租赁订单</returns>
+        public static EngineLeaseOrder CreateEngineLeaseOrder(int version,
+            string operatorName, DateTime orderDate)
+        {
+            var engineLeaseOrder = new EngineLeaseOrder
+            {
+                Version = version,
+                OperatorName = operatorName,
+                CreateDate = DateTime.Now,
+                OrderDate = orderDate,
+                IsValid = true
+            };
+
+            return engineLeaseOrder;
+        }
+
+        /// <summary>
+        ///     创建发动机购买订单
+        /// </summary>
+        /// <param name="version">版本</param>
+        /// <param name="operatorName">经办人</param>
+        /// <param name="orderDate">订单日期</param>
+        /// <returns>发动机购买订单</returns>
+        public static EnginePurchaseOrder CreateEnginePurchaseOrder(int version,
+            string operatorName, DateTime orderDate)
+        {
+            var enginePurchaseOrder = new EnginePurchaseOrder
+            {
+                Version = version,
+                OperatorName = operatorName,
+                CreateDate = DateTime.Now,
+                OrderDate = orderDate,
+                IsValid = true
+            };
+
+            return enginePurchaseOrder;
         }
     }
 }

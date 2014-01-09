@@ -25,6 +25,8 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
 {
     public partial class AircraftPurchaseOrderLineDTO
     {
+        #region 属性
+
         /// <summary>
         ///     合同飞机状态
         /// </summary>
@@ -32,5 +34,7 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
         {
             get { return (ContractAircraftStatus) Status; }
         }
+
+        #endregion
     }
 }

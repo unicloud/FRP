@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.Common.Enums;
@@ -53,17 +54,17 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ProjectTempAgg
         /// <summary>
         ///     名称
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; internal set; }
 
         /// <summary>
         ///     描述
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; internal set; }
 
         /// <summary>
         ///     项目模板状态
         /// </summary>
-        public ProjectTempStatus Status { get; set; }
+        public ProjectTempStatus Status { get; private set; }
 
         #endregion
 
@@ -85,6 +86,69 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ProjectTempAgg
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置项目模板状态
+        /// </summary>
+        /// <param name="status">项目模板状态</param>
+        public void SetProjectStatus(ProjectTempStatus status)
+        {
+            switch (status)
+            {
+                case ProjectTempStatus.草稿:
+                    Status = ProjectTempStatus.草稿;
+                    break;
+                case ProjectTempStatus.待审核:
+                    Status = ProjectTempStatus.待审核;
+                    break;
+                case ProjectTempStatus.已审核:
+                    Status = ProjectTempStatus.已审核;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
+        }
+
+        /// <summary>
+        ///     添加任务模板
+        ///     <remarks>
+        ///         添加非标准任务，包括摘要任务、里程碑任务。
+        ///     </remarks>
+        /// </summary>
+        /// <param name="subject">主题</param>
+        /// <param name="start">开始偏移量</param>
+        /// <param name="end">结束偏移量</param>
+        /// <param name="isSummary">是否摘要任务</param>
+        /// <returns>任务模板</returns>
+        public TaskTemp CreateTaskTemp(string subject, TimeSpan start, TimeSpan end, bool isSummary)
+        {
+            var taskTemp = ProjectTempFactory.CreateTaskTemp(subject, start, end, isSummary);
+            taskTemp.ProjectTempId = Id;
+            TaskTemps.Add(taskTemp);
+
+            return taskTemp;
+        }
+
+        /// <summary>
+        ///     添加任务模板
+        ///     <remarks>
+        ///         通过任务标准创建，只能为叶子任务，非摘要任务或里程碑任务
+        ///     </remarks>
+        /// </summary>
+        /// <param name="subject">主题</param>
+        /// <param name="start">开始偏移量</param>
+        /// <param name="end">结束偏移量</param>
+        /// <param name="isSummary">是否摘要任务</param>
+        /// <param name="taskStandardId">任务标准ID</param>
+        /// <returns>任务模板</returns>
+        public TaskTemp CreateTaskTemp(string subject, TimeSpan start, TimeSpan end, bool isSummary, int taskStandardId)
+        {
+            var taskTemp = ProjectTempFactory.CreateTaskTemp(subject, start, end, isSummary, taskStandardId);
+            taskTemp.ProjectTempId = Id;
+            TaskTemps.Add(taskTemp);
+
+            return taskTemp;
+        }
 
         #endregion
 

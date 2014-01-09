@@ -78,6 +78,9 @@
     <Compile Include="Migrations\201401080233209_database.cs" />
     <Compile Include="Migrations\201401080233209_database.Designer.cs">
       <DependentUpon>201401080233209_database.cs</DependentUpon>
+    <Compile Include="Migrations\201401090153399_Initial.cs" />
+    <Compile Include="Migrations\201401090153399_Initial.Designer.cs">
+      <DependentUpon>201401090153399_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -166,6 +169,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ManagerEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ManufacturerEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaterialEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\MemberEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OfficialDocumentEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OperationHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OperationPlanEntityConfiguration.cs" />
@@ -183,6 +187,8 @@
     <Compile Include="UnitOfWork\Mapping\Sql\PlanHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PrepaymentInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ProgrammingEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ProjectEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ProjectTempEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseContractAircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseContractEngineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseInvoiceEntityConfiguration.cs" />
@@ -197,9 +203,15 @@
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierCompanyMaterialEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierRoleEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\TaskCaseEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\TaskEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\TaskStandardEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\TaskTempEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\TradeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\UndercartMaintainContractEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\UndercartMaintainInvoiceEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\UserEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\WorkGroupEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\XmlConfigEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\XmlSettingEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\UberModelUnitOfWork.cs" />
@@ -232,6 +244,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201401080233209_database.resx">
       <DependentUpon>201401080233209_database.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201401090153399_Initial.resx">
+      <DependentUpon>201401090153399_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

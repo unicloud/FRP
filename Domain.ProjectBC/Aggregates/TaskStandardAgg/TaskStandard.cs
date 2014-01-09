@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg;
 
 #endregion
 
@@ -54,27 +55,27 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg
         /// <summary>
         ///     名称
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; internal set; }
 
         /// <summary>
         ///     描述
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; internal set; }
 
         /// <summary>
         ///     乐观时间
         /// </summary>
-        public TimeSpan OptimisticTime { get; set; }
+        public TimeSpan OptimisticTime { get; internal set; }
 
         /// <summary>
         ///     悲观时间
         /// </summary>
-        public TimeSpan PessimisticTime { get; set; }
+        public TimeSpan PessimisticTime { get; internal set; }
 
         /// <summary>
         ///     正常时间
         /// </summary>
-        public TimeSpan NormalTime { get; set; }
+        public TimeSpan NormalTime { get; internal set; }
 
         /// <summary>
         ///     源GUID
@@ -82,17 +83,32 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg
         public Guid SourceGuid { get; private set; }
 
         /// <summary>
+        ///     是否自定义
+        /// </summary>
+        public bool IsCustom { get; internal set; }
+
+        /// <summary>
         ///     任务类型
         /// </summary>
-        public TaskType TaskType { get; set; }
+        public TaskType TaskType { get; internal set; }
 
         #endregion
 
         #region 外键属性
 
+        /// <summary>
+        ///     工作组ID
+        /// </summary>
+        public int WorkGroupId { get; private set; }
+
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        ///     工作组
+        /// </summary>
+        public virtual WorkGroup WorkGroup { get; private set; }
 
         public virtual ICollection<TaskCase> TaskCases
         {
@@ -103,6 +119,35 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置工作组
+        /// </summary>
+        /// <param name="workGroup">工作组</param>
+        public void SetWorkGroup(WorkGroup workGroup)
+        {
+            if (workGroup == null || workGroup.IsTransient())
+            {
+                throw new ArgumentException("工作组参数为空！");
+            }
+
+            WorkGroup = workGroup;
+            WorkGroupId = workGroup.Id;
+        }
+
+        /// <summary>
+        ///     设置工作组
+        /// </summary>
+        /// <param name="workGroupId">工作组ID</param>
+        public void SetWorkGroup(int workGroupId)
+        {
+            if (workGroupId == 0)
+            {
+                throw new ArgumentException("工作组ID参数为空！");
+            }
+
+            WorkGroupId = workGroupId;
+        }
 
         /// <summary>
         ///     设置源GUID
@@ -116,6 +161,19 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg
             }
 
             SourceGuid = id;
+        }
+
+        /// <summary>
+        ///     添加任务案例
+        /// </summary>
+        /// <param name="description">案例简述</param>
+        /// <returns></returns>
+        public TaskCase AddTaskCase(string description)
+        {
+            var taskCase = TaskStandardFactory.CreateTaskCase(description);
+            taskCase.TaskStandardId = Id;
+            TaskCases.Add(taskCase);
+            return taskCase;
         }
 
         #endregion

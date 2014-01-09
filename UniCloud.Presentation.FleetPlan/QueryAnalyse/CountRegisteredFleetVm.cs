@@ -174,7 +174,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #endregion
 
         #region ViewModel 属性 StartDate --开始时间
-        private DateTime? _startDate = new DateTime(DateTime.Now.AddYears(-1).Year, 1, 1);
+        private DateTime? _startDate = new DateTime(2000, 1, 1);
         /// <summary>
         /// 开始时间
         /// </summary>
@@ -257,9 +257,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         public override void LoadData()
         {
-            IsBusy = true;
-            XmlConfigs.Load(true);
-            XmlSettings.Load(true);
+            XmlConfigs.AutoLoad = true;
+            XmlSettings.AutoLoad = true;
+            IsBusy = XmlConfigs.IsBusy && XmlSettings.IsBusy;
         }
 
         #endregion
@@ -509,7 +509,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// <param name="e"></param>
         void ElementExporting(object sender, GridViewElementExportingEventArgs e)
         {
-// ReSharper disable once CSharpWarnings::CS0618
+            // ReSharper disable once CSharpWarnings::CS0618
             e.Width = 120;
             if (e.Element == ExportElement.Cell && e.Value != null)
             {

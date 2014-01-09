@@ -26,12 +26,9 @@ using UniCloud.Presentation.Service.Payment.Payment;
 namespace UniCloud.Presentation.Service.Payment
 {
     [Export(typeof (IPaymentService))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
+    [PartCreationPolicy(CreationPolicy.Shared)]
     public class PaymentService : ServiceBase, IPaymentService
     {
-        private static QueryableDataServiceCollectionView<SupplierDTO> _supplier;
-        private static QueryableDataServiceCollectionView<CurrencyDTO> _currency;
-
         public PaymentService()
         {
             context = new PaymentData(AgentHelper.PaymentUri);
@@ -48,12 +45,12 @@ namespace UniCloud.Presentation.Service.Payment
 
         public QueryableDataServiceCollectionView<SupplierDTO> GetSupplier(Action loaded, bool forceLoad = false)
         {
-            return GetStaticData(_supplier, loaded, Context.Suppliers);
+            return GetStaticData(Context.Suppliers, loaded, forceLoad);
         }
 
         public QueryableDataServiceCollectionView<CurrencyDTO> GetCurrency(Action loaded, bool forceLoad = false)
         {
-            return GetStaticData(_currency, loaded, Context.Currencies);
+            return GetStaticData(Context.Currencies, loaded, forceLoad);
         }
 
         #endregion

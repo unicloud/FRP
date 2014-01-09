@@ -220,6 +220,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg
             DispatchUnitId = dispatchUnitId;
         }
 
+        public void SetKey(Guid key)
+        {
+            Id = key;
+        }
+
         #endregion
     }
 }

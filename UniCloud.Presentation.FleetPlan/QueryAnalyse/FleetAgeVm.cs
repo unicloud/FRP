@@ -52,7 +52,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private readonly FleetPlanData _fleetPlanContext;
         private static readonly CommonMethod CommonMethod = new CommonMethod();
         private readonly RadWindow _ageWindow = new RadWindow(); //用于单击机龄饼状图的用户提示
-        private readonly IFleetPlanService _service;
 
         private Grid _agePieGrid; //趋势折线图区域， 机龄饼图区域
         private RadGridView _aircraftDetail; //初始化RadGridView
@@ -66,8 +65,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         [ImportingConstructor]
         public FleetAgeVm(IFleetPlanService service)
         {
-            _service = service;
-            _fleetPlanContext = _service.Context;
+            _fleetPlanContext = service.Context;
 
             ViewModelInitializer();
             InitalizerRadWindows(_ageWindow, "Age", 220);
@@ -148,10 +146,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         public override void LoadData()
         {
-            IsBusy = true;
-            XmlConfigs.Load(true);
-            XmlSettings.Load(true);
-            Aircrafts.Load(true);
+            XmlConfigs.AutoLoad = true;
+            XmlSettings.AutoLoad = true;
+            Aircrafts.AutoLoad = true;
+            IsBusy = XmlConfigs.IsBusy && XmlSettings.IsBusy && Aircrafts.IsBusy;
         }
 
         #region 属性 SelectedTime --所选的时间点
@@ -380,8 +378,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// </summary>
         /// <param name="selectedItem">选中点</param>
         /// <param name="radwindow">弹出窗体</param>
-        /// <param name="header">窗体标示</param>
-        private void GetGridViewDataSourse(PieDataPoint selectedItem, RadWindow radwindow, string header)
+        private void GetGridViewDataSourse(PieDataPoint selectedItem, RadWindow radwindow)
         {
             if (selectedItem != null && radwindow != null)
             {
@@ -395,7 +392,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         rgv.ItemsSource = CommonMethod.GetAircraftByTime(AircraftByAgeDic[fleetAgeComposition.AgeGroup], time);
                 }
                 if (fleetAgeComposition != null)
-                    _ageWindow.Header = fleetAgeComposition.AgeGroup + "的飞机数：" + fleetAgeComposition.ToolTip;
+                    _ageWindow.Header = "机龄 " + fleetAgeComposition.AgeGroup + "的飞机数：" + fleetAgeComposition.ToolTip;
                 if (!radwindow.IsOpen)
                 {
                     CommonMethod.ShowRadWindow(radwindow);
@@ -433,8 +430,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             radwindow.Name = windowsName;
             radwindow.Top = length;
             radwindow.Left = length;
-            radwindow.Height = 250;
-            radwindow.Width = 500;
+            radwindow.Height = 300;
+            radwindow.Width = 600;
             radwindow.ResizeMode = ResizeMode.CanResize;
             radwindow.Content = CommonMethod.CreatOperationGridView();
             radwindow.Closed += RadwindowClosed;
@@ -501,7 +498,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
                 if (radChartBase.EmptyContent.ToString().Equals("机龄分布", StringComparison.OrdinalIgnoreCase))
                 {
-                    GetGridViewDataSourse(selectedPoint, _ageWindow, "机龄");
+                    GetGridViewDataSourse(selectedPoint, _ageWindow);
                 }
             }
             else
@@ -1019,9 +1016,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                             {
                                 if (typeColor != null)
                                 {
-                                    var firstOrDefault =typeColor.Descendants("Item").FirstOrDefault(
-                                                p => p.Attribute("Name").Value.Equals(fleetageTrend.AircraftType,StringComparison.OrdinalIgnoreCase));
-                                    if (firstOrDefault !=null)
+                                    var firstOrDefault = typeColor.Descendants("Item").FirstOrDefault(
+                                                p => p.Attribute("Name").Value.Equals(fleetageTrend.AircraftType, StringComparison.OrdinalIgnoreCase));
+                                    if (firstOrDefault != null)
                                         fleetageTrend.Color = firstOrDefault.Attribute("Color").Value;
                                 }
                             }

@@ -70,5 +70,10 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     BFE物料ID
         /// </summary>
         public int BFEMaterialId { get; set; }
+
+        /// <summary>
+        ///     交易状态
+        /// </summary>
+        public int Status { get; set; }
     }
 }

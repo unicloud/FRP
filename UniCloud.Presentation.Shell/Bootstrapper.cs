@@ -21,6 +21,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.Windows;
 using Microsoft.Practices.Prism.MefExtensions;
 using Microsoft.Practices.Prism.Modularity;
+using UniCloud.Presentation.Document;
 
 #endregion
 
@@ -31,7 +32,7 @@ namespace UniCloud.Presentation.Shell
         protected override void ConfigureAggregateCatalog()
         {
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (Bootstrapper).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(UniCloud.Presentation.Document.PDFViewer).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (PDFViewer).Assembly));
         }
 
         protected override void InitializeShell()
@@ -114,7 +115,7 @@ namespace UniCloud.Presentation.Shell
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.OnDemand,
+                InitializationMode = InitializationMode.WhenAvailable,
                 Ref = "Project.xap",
                 ModuleName = "ProjectModule",
                 ModuleType =

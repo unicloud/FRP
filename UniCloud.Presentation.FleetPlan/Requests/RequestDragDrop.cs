@@ -31,9 +31,8 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         public override bool CanStartDrag(GridViewDragDropState state)
         {
             var viewModel = ServiceLocator.Current.GetInstance<RequestVM>();
-            // 选中申请还未审核通过，才允许开始拖放。
-            return true;
-            //  return viewModel.CurrentRequestDataObject != null && viewModel.CurrentRequestDataObject.Status < (int)ReqStatus.Checked;
+           var items = (from object item in state.DraggedItems select item).ToList();
+            return viewModel.DragApprovalHistory(items[0]);
         }
 
         public override bool CanDrop(GridViewDragDropState state)
@@ -54,7 +53,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         {
             var viewModel = ServiceLocator.Current.GetInstance<RequestVM>();
             var items = (from object item in state.DraggedItems select item).ToList();
-            var requestDetail = items[0] as ApprovalHistoryDTO;
+            viewModel.RemoveRequestDetail(items[0] as ApprovalHistoryDTO);
         }
     }
 }

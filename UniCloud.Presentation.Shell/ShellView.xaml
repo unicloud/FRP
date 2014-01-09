@@ -1,16 +1,15 @@
-﻿<UserControl
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:regions="http://www.codeplex.com/prism"
-    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-    xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-    x:Class="UniCloud.Presentation.Shell.ShellView"
-    mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800"
-    d:DataContext="{d:DesignInstance uc:ShellViewModel}">
+﻿<UserControl x:Class="UniCloud.Presentation.Shell.ShellView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:regions="http://www.codeplex.com/prism"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance uc:ShellViewModel}">
 
     <UserControl.Resources>
         <Style x:Key="MenuItemStyle" TargetType="telerik:RadMenuItem">
@@ -62,6 +61,6 @@
             </telerik:RadMenu>
         </StackPanel>
         <ContentControl Grid.Row="1" regions:RegionManager.RegionName="MainRegion" x:Name="MainContent"
-                            HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Background="Black" />
+                        HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
     </Grid>
 </UserControl>

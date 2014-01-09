@@ -30,7 +30,7 @@ using UniCloud.Presentation.Input;
 namespace UniCloud.Presentation.FleetPlan.Requests
 {
     /// <summary>
-    ///     鼠标双击逻辑
+    ///     拖放展示
     /// </summary>
     public class RequestPlanDragVisual : IDragVisualProvider
     {

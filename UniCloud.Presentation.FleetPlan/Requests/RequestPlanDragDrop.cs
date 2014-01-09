@@ -38,14 +38,10 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             }
             // 选中申请还未审核通过，且拖动的是可申请的计划明细，才允许开始拖放。
             return viewModel.DragPlanHistory(items[0]);
-            //planDetail != null && viewModel.CurrentRequestDataObject != null &&
-            //viewModel.CurrentRequestDataObject.Status < (int)ReqStatus.Checked && planDetail.CanRequest == "1：可申请";
         }
 
         public override bool CanDrop(GridViewDragDropState state)
         {
-            // 拖动的是申请明细时，才可以释放。
-            var items = (from object item in state.DraggedItems select item).ToList();
             return true;
         }
 

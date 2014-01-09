@@ -1,14 +1,28 @@
-﻿//------------------------------------------------------------------------------
-// 
-//------------------------------------------------------------------------------
+﻿#region 版本信息
 
-using System;
+// ========================================================================
+// 版权所有 (C) 2014 UniCloud 
+//【本类功能概述】
+// 
+// 作者：丁志浩 时间：2013/11/29，13:11
+// 方案：FRP
+// 项目：FleetPlan
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// ========================================================================
+
+#endregion
+
+#region 命名空间
+
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.MefExtensions.Modularity;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
-using UniCloud.Presentation.FleetPlan.PerformFleetPlan;
-using UniCloud.Presentation.FleetPlan.PrepareFleetPlan;
+
+#endregion
 
 namespace UniCloud.Presentation.FleetPlan
 {
@@ -21,24 +35,8 @@ namespace UniCloud.Presentation.FleetPlan
 
         public void Initialize()
         {
-            RegisterView();
         }
 
         #endregion
-
-        private void RegisterView()
-        {
-            //编制运力规划
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(AirProgramming));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(CaacProgramming));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FleetPlanPrepare));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FleetPlanLay));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FleetPlanPublish));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FleetPlanSend));
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(SpareEnginePlanLay));
-
-            //执行运力规划
-            regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(FleetPlanDeliver));
-        }
     }
 }

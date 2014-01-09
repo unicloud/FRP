@@ -79,7 +79,8 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftQueries
                                                                                                AirlinesId = q.AirlinesId,
                                                                                                AirlinesName = q.Airlines.CnName,
                                                                                                ImportCategoryId = q.ImportCategoryId,
-                                                                                               ImportActionType = q.ImportCategory.ActionName,
+                                                                                               ImportActionType = q.ImportCategory.ActionType,
+                                                                                               ImportActionName = q.ImportCategory.ActionName,
                                                                                                ExportCategoryId = q.ExportCategoryId,
                                                                                                Status = (int)q.Status,
                                                                                            }).ToList(),
@@ -105,6 +106,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftQueries
                                                                                                AircraftTypeId = q.AircraftTypeId,
                                                                                                AircraftTypeName = q.AircraftType.Name,
                                                                                                Regional = q.AircraftType.AircraftCategory.Regional,
+                                                                                               Category = q.AircraftType.AircraftCategory.Category,
                                                                                                ImportCategoryId = q.ImportCategoryId,
                                                                                            }).ToList()
                                  });

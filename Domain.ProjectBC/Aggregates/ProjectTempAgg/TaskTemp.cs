@@ -54,27 +54,27 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ProjectTempAgg
         /// <summary>
         ///     主题
         /// </summary>
-        public string Subject { get; private set; }
+        public string Subject { get; internal set; }
 
         /// <summary>
         ///     开始偏移量
         /// </summary>
-        public TimeSpan Start { get; set; }
+        public TimeSpan Start { get; internal set; }
 
         /// <summary>
         ///     结束偏移量
         /// </summary>
-        public TimeSpan End { get; set; }
+        public TimeSpan End { get; internal set; }
 
         /// <summary>
         ///     是否里程碑
         /// </summary>
-        public bool IsMileStone { get; set; }
+        public bool IsMileStone { get; internal set; }
 
         /// <summary>
         ///     是否摘要任务
         /// </summary>
-        public bool IsSummary { get; set; }
+        public bool IsSummary { get; internal set; }
 
         #endregion
 
@@ -83,17 +83,17 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ProjectTempAgg
         /// <summary>
         ///     任务标准ID
         /// </summary>
-        public int? TaskStandardId { get; set; }
+        public int? TaskStandardId { get; internal set; }
 
         /// <summary>
         ///     父项ID
         /// </summary>
-        public int? ParentId { get; set; }
+        public int? ParentId { get; private set; }
 
         /// <summary>
         ///     项目模板ID
         /// </summary>
-        public int ProjectTempId { get; set; }
+        public int ProjectTempId { get; internal set; }
 
         #endregion
 
@@ -102,7 +102,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ProjectTempAgg
         /// <summary>
         ///     父节点
         /// </summary>
-        public virtual TaskTemp Parent { get; set; }
+        public virtual TaskTemp Parent { get; private set; }
 
         /// <summary>
         ///     子集
@@ -116,6 +116,38 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.ProjectTempAgg
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置父项
+        /// </summary>
+        /// <param name="taskTemp">父项</param>
+        private void SetParent(TaskTemp taskTemp)
+        {
+            if (taskTemp == null || taskTemp.IsTransient())
+            {
+                throw new ArgumentException("任务模板父项参数为空！");
+            }
+
+            Parent = taskTemp;
+            ParentId = taskTemp.Id;
+        }
+
+        /// <summary>
+        ///     添加子项
+        /// </summary>
+        /// <param name="taskTemp">子项</param>
+        /// <returns>添加的子项</returns>
+        public TaskTemp AddChild(TaskTemp taskTemp)
+        {
+            if (taskTemp == null || taskTemp.IsTransient())
+            {
+                throw new ArgumentException("任务模板子项参数为空！");
+            }
+
+            Children.Add(taskTemp);
+            taskTemp.SetParent(this);
+            return taskTemp;
+        }
 
         #endregion
 

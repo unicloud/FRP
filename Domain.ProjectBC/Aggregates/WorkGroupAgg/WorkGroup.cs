@@ -20,7 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.ProjectBC.Aggregates.UserAgg;
+using System.Linq;
 
 #endregion
 
@@ -54,7 +54,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
         /// <summary>
         ///     工作组名称
         /// </summary>
-        public string Name { get;internal set; }
+        public string Name { get; internal set; }
 
         #endregion
 
@@ -63,7 +63,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
         /// <summary>
         ///     工作组管理者ID
         /// </summary>
-        public int ManagerUserId { get; internal set; }
+        public int ManagerId { get; internal set; }
 
         #endregion
 
@@ -72,7 +72,7 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
         /// <summary>
         ///     工作组管理者
         /// </summary>
-        public virtual User ManagerUser { get; private set; }
+        public virtual Member Manager { get; private set; }
 
         /// <summary>
         ///     工作组成员集合
@@ -91,30 +91,36 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
         /// <summary>
         ///     设置工作组管理者
         /// </summary>
-        /// <param name="user">工作组管理者</param>
-        public void SetUser(User user)
+        /// <param name="member">工作组管理者</param>
+        public void SetManager(Member member)
         {
-            if (user == null || user.IsTransient())
+            if (member == null || member.IsTransient())
             {
                 throw new ArgumentException("工作组管理者参数为空！");
             }
 
-            ManagerUser = user;
-            ManagerUserId = user.Id;
+            var manager = Members.FirstOrDefault(m => m.Equals(Manager));
+            if (manager != null)
+                manager.IsManager = false;
+            Manager = member;
+            ManagerId = member.Id;
+            member.IsManager = true;
         }
 
         /// <summary>
-        ///     设置工作组管理者
+        ///     添加工作组成员
         /// </summary>
-        /// <param name="id">工作组管理者ID</param>
-        public void SetUser(int id)
+        /// <param name="name">名称</param>
+        /// <param name="description">描述</param>
+        /// <param name="userId">用户ID</param>
+        /// <returns>添加的工作组成员</returns>
+        public Member AddMember(string name, string description, int userId)
         {
-            if (id == 0)
-            {
-                throw new ArgumentException("工作组管理者参数为空！");
-            }
+            var member = WorkGroupFactory.CreateMember(name, description, userId);
+            member.WorkGroupId = Id;
+            Members.Add(member);
 
-            ManagerUserId = id;
+            return member;
         }
 
         #endregion

@@ -23,9 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Shapes;
 using System.Xml.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.ServiceLocation;
@@ -77,7 +75,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             _service = service;
             _fleetPlanContext = _service.Context;
-
+            _service.GetAirlineses(null);
             ViewModelInitializer();
 
             InitalizerRadWindows(_aircraftWindow, "Aircraft", 200);
@@ -127,9 +125,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
             _lineGrid = CurrentPassengerAircraftTrend.LineGrid;
             _barGrid = CurrentPassengerAircraftTrend.BarGrid;
-            _aircraftPieGrid = CurrentPassengerAircraftTrend.AircraftPieGrid;
-            _seatPieGrid = CurrentPassengerAircraftTrend.SeatPieGrid;
-            _loadPieGrid = CurrentPassengerAircraftTrend.LoadPieGrid;
             _aircraftDetail = CurrentPassengerAircraftTrend.AircraftDetail;
         }
 
@@ -160,9 +155,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public AirlinesDTO CurrentAirlines { get; set; }
 
         #region  属性 SelectedTime --所选的时间点
-
         private string _selectedTime = "所选时间";
-
         /// <summary>
         ///     所选的时间点
         /// </summary>
@@ -192,33 +185,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
-        #endregion
-
-        #region ViewModel 属性 IsHidden --控制是否含分公司的饼图区域显示
-
-        private bool _isHidden = true;
-
-        /// <summary>
-        ///     控制是否含分公司的饼图区域显示
-        /// </summary>
-        public bool IsHidden
-        {
-            get { return _isHidden; }
-            set
-            {
-                _isHidden = value;
-                CurrentPassengerAircraftTrend.GridViewPane.IsHidden = !value;
-                RaisePropertyChanged("IsHidden");
-            }
-        }
-
         #endregion
 
         #region ViewModel 属性 AircraftCollection --选中时间点的飞机数据集合
-
         private List<AircraftDTO> _aircraftCollection;
-
         /// <summary>
         ///     选中时间点的飞机数分布集合
         /// </summary>
@@ -249,13 +219,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 EndDate --结束时间
-
         private DateTime? _endDate = Convert.ToDateTime(DateTime.Now.ToString("yyyy/M"));
-
         /// <summary>
         ///     结束时间
         /// </summary>
@@ -272,13 +239,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 StartDate --开始时间
-
-        private DateTime? _startDate = new DateTime(DateTime.Now.AddYears(-1).Year, 1, 1);
-
+        private DateTime? _startDate = new DateTime(2000, 1, 1);
         /// <summary>
         ///     开始时间
         /// </summary>
@@ -295,35 +259,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
-        #endregion
-
-        #region ViewModel 属性 Visibility --控制是否含分公司的趋势图数据显示
-
-        private Visibility _visibility = Visibility.Collapsed;
-
-        /// <summary>
-        ///     控制是否含分公司的饼图区域显示
-        /// </summary>
-        public Visibility Visibility
-        {
-            get { return _visibility; }
-            set
-            {
-                if (Visibility != value)
-                {
-                    _visibility = value;
-                    RaisePropertyChanged("Visibility");
-                }
-            }
-        }
-
         #endregion
 
         #region ViewModel 属性 FleetAircraftTrendLineCollection --折线图的统计总数集合
-
         private List<FleetAircraftTrend> _fleetAircraftTrendLineCollection;
-
         /// <summary>
         ///     折线图的统计总数集合
         /// </summary>
@@ -351,13 +290,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 FleetAircraftTrendBarCollection --柱状图的净增数集合
-
         private List<FleetAircraftTrend> _fleetAircraftTrendBarCollection;
-
         /// <summary>
         ///     柱状图的净增数集合
         /// </summary>
@@ -373,13 +309,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 FleetAircraftCollection --选中时间点的飞机数分布集合
-
         private IEnumerable<FleetAircraft> _fleetAircraftCollection;
-
         /// <summary>
         ///     选中时间点的飞机数分布集合
         /// </summary>
@@ -395,13 +328,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 FleetSeatCollection --选中时间点的座位数分布集合
-
         private IEnumerable<FleetAircraft> _fleetSeatCollection;
-
         /// <summary>
         ///     选中时间点的座位数分布集合
         /// </summary>
@@ -417,13 +347,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 FleetAircraftCollection --选中时间点的商载量分布集合
-
         private IEnumerable<FleetAircraft> _fleetLoadCollection;
-
         /// <summary>
         ///     选中时间点的商载量分布集合
         /// </summary>
@@ -439,13 +366,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 Zoom --滚动条的对应
-
         private Size _zoom = new Size(1, 1);
-
         /// <summary>
         ///     滚动条的对应
         /// </summary>
@@ -461,13 +385,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 PanOffset --滚动条的滑动
-
         private Point _panOffset;
-
         /// <summary>
         ///     滚动条的滑动
         /// </summary>
@@ -483,11 +404,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
+        #endregion
 
         #region ViewModel 属性 SelectedTimeAircraft --飞机数饼图的标识提示
-
         private string _selectedTimeAircraft = "所选时间的飞机分布图";
-
         /// <summary>
         ///     飞机数饼图的标识提示
         /// </summary>
@@ -503,13 +423,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 SelectedTimeSeat--座位数饼图的标识提示
-
         private string _selectedTimeSeat = "所选时间的座位分布图";
-
         /// <summary>
         ///     座位数饼图的标识提示
         /// </summary>
@@ -525,13 +442,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 SelectedTimeLoad --商载量饼图的标识提示
-
         private string _selectedTimeLoad = "所选时间的商载分布图";
-
         /// <summary>
         ///     商载量饼图的标识提示
         /// </summary>
@@ -547,13 +461,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 SelectedTimeAircraft --飞机列表的标识提示
-
         private string _selectedTimeAircraftList = "所选时间的飞机详细";
-
         /// <summary>
         ///     飞机列表的标识提示
         /// </summary>
@@ -569,13 +480,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 SelectedIndex --时间的统计方式
-
         private int _selectedIndex;
-
         /// <summary>
         ///     时间的统计方式
         /// </summary>
@@ -592,13 +500,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 AircraftMaxValue --柱状图中飞机数轴的最大值
-
         private double _aircraftMaxValue;
-
         /// <summary>
         ///     柱状图中飞机数轴的最大值
         /// </summary>
@@ -614,13 +519,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 AircraftMinValue --柱状图中飞机数轴的最小值
-
         private double _aircraftMinValue;
-
         /// <summary>
         ///     柱状图中飞机数轴的最小值
         /// </summary>
@@ -636,13 +538,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 AircraftStep --柱状图中飞机数轴的节点距离
-
         private int _aircraftStep = 20;
-
         /// <summary>
         ///     柱状图中飞机数轴的节点距离
         /// </summary>
@@ -658,13 +557,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 LoadMaxValue --柱状图中商载量轴的最大值
-
         private double _loadMaxValue;
-
         /// <summary>
         ///     柱状图中商载量轴的最大值
         /// </summary>
@@ -680,13 +576,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 LoadMinValue --柱状图中商载量轴的最小值
-
         private double _loadMinValue;
-
         /// <summary>
         ///     柱状图中商载量轴的最小值
         /// </summary>
@@ -702,13 +595,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 LoadStep --柱状图中商载量轴的节点距离
-
         private int _loadStep = 200;
-
         /// <summary>
         ///     柱状图中商载量轴的节点距离
         /// </summary>
@@ -724,13 +614,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 SeatMaxValue --柱状图中座位数轴的最大值
-
         private double _seatMaxValue;
-
         /// <summary>
         ///     柱状图中座位数轴的最大值
         /// </summary>
@@ -746,13 +633,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 SeatMinValue --柱状图中座位数轴的最小值
-
         private double _seatMinValue;
-
         /// <summary>
         ///     柱状图中座位数轴的最小值
         /// </summary>
@@ -768,13 +652,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 SeatStep --柱状图中座位数轴的节点距离
-
         private int _seatStep = 200;
-
         /// <summary>
         ///     柱状图中座位数轴的节点距离
         /// </summary>
@@ -790,13 +671,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
 
         #region ViewModel 属性 IsContextMenuOpen --控制右键菜单的打开
-
         private bool _isContextMenuOpen = true;
-
         /// <summary>
         ///     控制右键菜单的打开
         /// </summary>
@@ -812,12 +690,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
-
         #endregion
-
-        #endregion
-
-        //飞机集合 
 
         #endregion
 
@@ -825,10 +698,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         public override void LoadData()
         {
-            IsBusy = true;
-            XmlConfigs.Load(true);
-            XmlSettings.Load(true);
-            Aircrafts.Load(true);
+            XmlConfigs.AutoLoad = true;
+            XmlSettings.AutoLoad = true;
+            Aircrafts.AutoLoad = true;
+            IsBusy = XmlConfigs.IsBusy && XmlSettings.IsBusy && Aircrafts.IsBusy;
         }
 
         #endregion
@@ -843,19 +716,14 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public Dictionary<string, string> GetColorDictionary()
         {
             var colorDictionary = new Dictionary<string, string>();
-            XmlSettingDTO colorConfig =
-                XmlSettings.FirstOrDefault(
-                    config => config.SettingType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));
-            if (colorConfig != null &&
-                XElement.Parse(colorConfig.SettingContent)
+            XmlSettingDTO colorConfig = XmlSettings.FirstOrDefault(config => config.SettingType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));
+            if (colorConfig != null && XElement.Parse(colorConfig.SettingContent)
                     .Descendants("Type")
                     .Any(type => type.Attribute("TypeName").Value.Equals("运力变化", StringComparison.OrdinalIgnoreCase)))
             {
-                XElement capacityColor =
-                    XElement.Parse(colorConfig.SettingContent)
+                XElement capacityColor = XElement.Parse(colorConfig.SettingContent)
                         .Descendants("Type")
-                        .FirstOrDefault(
-                            type => type.Attribute("TypeName").Value.Equals("运力变化", StringComparison.OrdinalIgnoreCase));
+                        .FirstOrDefault(type => type.Attribute("TypeName").Value.Equals("运力变化", StringComparison.OrdinalIgnoreCase));
                 if (capacityColor != null)
                     foreach (var item in capacityColor.Descendants("Item"))
                     {
@@ -897,8 +765,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
                     foreach (XElement datetime in xelement.Descendants("DateTime"))
                     {
-                        string currentTime =
-                            Convert.ToDateTime(datetime.Attribute("EndOfMonth").Value).ToString("yyyy/M");
+                        string currentTime = Convert.ToDateTime(datetime.Attribute("EndOfMonth").Value).ToString("yyyy/M");
 
                         if (SelectedIndex == 1) //按半年统计
                         {
@@ -963,8 +830,43 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
                     if (fleetAircraftTrendBarList.Count > 0)
                     {
+                        AircraftMaxValue = fleetAircraftTrendBarList.Max(p => p.AircraftAmount);
+                        AircraftMinValue = fleetAircraftTrendBarList.Min(p => p.AircraftAmount);
+                        if (AircraftMinValue >= 0)
+                        {
+                            AircraftMinValue = 0;
+                            // ReSharper disable once CompareOfFloatsByEqualityOperator
+                            if (AircraftMaxValue == 0)
+                            {
+                                AircraftMaxValue = 5;
+                            }
+                        }
                         AircraftStep = Convert.ToInt32(AircraftMaxValue / 2);
+
+                        SeatMaxValue = fleetAircraftTrendBarList.Max(p => p.SeatAmount);
+                        SeatMinValue = fleetAircraftTrendBarList.Min(p => p.SeatAmount);
+                        if (SeatMinValue >= 0)
+                        {
+                            SeatMinValue = 0;
+                            // ReSharper disable once CompareOfFloatsByEqualityOperator
+                            if (SeatMaxValue == 0.0)
+                            {
+                                SeatMaxValue = 410;
+                            }
+                        }
                         SeatStep = Convert.ToInt32(SeatMaxValue / 2);
+
+                        LoadMaxValue = fleetAircraftTrendBarList.Max(p => p.LoadAmount);
+                        LoadMinValue = fleetAircraftTrendBarList.Min(p => p.LoadAmount);
+                        if (LoadMinValue >= 0)
+                        {
+                            LoadMinValue = 0;
+                            // ReSharper disable once CompareOfFloatsByEqualityOperator
+                            if (LoadMaxValue == 0)
+                            {
+                                LoadMaxValue = 70;
+                            }
+                        }
                         LoadStep = Convert.ToInt32(LoadMaxValue / 2);
                     }
                 }
@@ -1090,73 +992,37 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 if (radMenuItem.Name.Equals("LineGridData", StringComparison.OrdinalIgnoreCase))
                 {
-                    //if (CurrentAirlines.SubAirlines != null && CurrentAirlines.SubAirlines.Any(p => p.SubType == 1))
-                    //{
-                    //    //当包含子公司时
-                    //    var columnsList = new Dictionary<string, string>
-                    //                      {
-                    //                          {"DateTime", "时间点"},
-                    //                          {"AircraftAmount", "期末客机数(子)"},
-                    //                          {"AircraftAmount1", "期末客机数"},
-                    //                          {"SeatAmount", "期末座位数(子)"},
-                    //                          {"SeatAmount1", "期末座位数"},
-                    //                          {"LoadAmount", "期末商载量(子)"},
-                    //                          {"LoadAmount1", "期末商载量"}
-                    //                      };
-                    //    _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAircraftTrendLineCollection, "SubFleetTrendPnr");
-                    //}
-                    //else
-                    //{
-                    //    //创建RadGridView
-                    //    var columnsList = new Dictionary<string, string>
-                    //                      {
-                    //                          {"DateTime", "时间点"},
-                    //                          {"AircraftAmount1", "期末客机数"},
-                    //                          {"SeatAmount1", "期末座位数"},
-                    //                          {"LoadAmount1", "期末商载量"}
-                    //                      };
-                    //    _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAircraftTrendLineCollection, "FleetTrendPnr");
-                    //}
-                    //_i = 1;
-                    //_exportRadGridView.ElementExporting -= ElementExporting;
-                    //_exportRadGridView.ElementExporting += ElementExporting;
-                    //using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc"))
-                    //{
-                    //    if (stream != null)
-                    //    {
-                    //        _exportRadGridView.Export(stream, ImageAndGridOperation.SetGridViewExportOptions());
-                    //    }
-                    //}
+                    //创建RadGridView
+                    var columnsList = new Dictionary<string, string>
+                                          {
+                                              {"DateTime", "时间点"},
+                                              {"AircraftAmount", "期末客机数"},
+                                              {"SeatAmount", "期末座位数"},
+                                              {"LoadAmount", "期末商载量"}
+                                          };
+                    _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAircraftTrendLineCollection, "FleetTrendPnr");
+                    _i = 1;
+                    _exportRadGridView.ElementExporting -= ElementExporting;
+                    _exportRadGridView.ElementExporting += ElementExporting;
+                    using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc"))
+                    {
+                        if (stream != null)
+                        {
+                            _exportRadGridView.Export(stream, ImageAndGridOperation.SetGridViewExportOptions());
+                        }
+                    }
                 }
                 else if (radMenuItem.Name.Equals("BarGridData", StringComparison.OrdinalIgnoreCase))
                 {
-                    //if (CurrentAirlines.SubAirlines != null && CurrentAirlines.SubAirlines.Any(p => p.SubType == 1))
-                    //{
-                    //    //当包含子公司时
-                    //    var columnsList = new Dictionary<string, string>
-                    //                      {
-                    //                          {"DateTime", "时间点"},
-                    //                          {"AircraftAmount", "客机净增数(子)"},
-                    //                          {"AircraftAmount1", "客机净增数(子)"},
-                    //                          {"SeatAmount", "座位净增数(子)"},
-                    //                          {"SeatAmount1", "座位净增数"},
-                    //                          {"LoadAmount", "商载净增量(子)"},
-                    //                          {"LoadAmount1", "商载净增量"}
-                    //                      };
-                    //    _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAircraftTrendBarCollection, "SubFleetTrendPnr");
-                    //}
-                    //else
-                    //{
-                    //    //创建RadGridView
-                    //    var columnsList = new Dictionary<string, string>
-                    //                      {
-                    //                          {"DateTime", "时间点"},
-                    //                          {"AircraftAmount1", "客机净增数"},
-                    //                          {"SeatAmount1", "座位净增数"},
-                    //                          {"LoadAmount1", "商载净增量"}
-                    //                      };
-                    //    _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAircraftTrendBarCollection, "FleetTrendPnr");
-                    //}
+                    //创建RadGridView
+                    var columnsList = new Dictionary<string, string>
+                                          {
+                                              {"DateTime", "时间点"},
+                                              {"AircraftAmount", "客机净增数"},
+                                              {"SeatAmount", "座位净增数"},
+                                              {"LoadAmount", "商载净增量"}
+                                          };
+                    _exportRadGridView = ImageAndGridOperation.CreatDataGridView(columnsList, FleetAircraftTrendBarCollection, "FleetTrendPnr");
                     _i = 1;
                     _exportRadGridView.ElementExporting -= ElementExporting;
                     _exportRadGridView.ElementExporting += ElementExporting;
@@ -1275,12 +1141,12 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// <param name="e"></param>
         private void ElementExporting(object sender, GridViewElementExportingEventArgs e)
         {
+            // ReSharper disable once CSharpWarnings::CS0618
             e.Width = 120;
             if (e.Element == ExportElement.Cell && e.Value != null)
             {
                 var radGridView = sender as RadGridView;
-                if (radGridView != null &&
-                    (_i % 5 == 3 && _i >= 8 &&
+                if (radGridView != null && (_i % 5 == 3 && _i >= 8 &&
                      radGridView.Name.Equals("FleetTrendPnr", StringComparison.OrdinalIgnoreCase)))
                 {
                     e.Value = DateTime.Parse(e.Value.ToString()).AddMonths(1).AddDays(-1).ToString("yyyy/M/d");
@@ -1341,8 +1207,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 radGridView.ElementExporting -= ElementExporting;
                 radGridView.ElementExporting += ElementExporting;
-                using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
-                    )
+                using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc"))
                 {
                     if (stream != null)
                     {
@@ -1366,8 +1231,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 _aircraftDetail.ElementExporting -= ElementExporting;
                 _aircraftDetail.ElementExporting += ElementExporting;
-                using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
-                    )
+                using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc"))
                 {
                     if (stream != null)
                     {
@@ -1389,96 +1253,46 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// <param name="header">窗体标示</param>
         private void GetGridViewDataSourse(PieDataPoint selectedItem, RadWindow radWindow, string header)
         {
-            //if (selectedItem != null && radWindow != null)
-            //{
-            //    var fleetAircraft = selectedItem.DataItem as FleetAircraft;
-            //    DateTime time = Convert.ToDateTime(SelectedTime).AddMonths(1).AddDays(-1);
-            //    var aircraftData = Aircrafts.Where(aircraft => aircraft.OperationHistories.Any(operation =>
-            //        (operation.Airlines.ShortName.Equals(_service.CurrentAirlines.ShortName, StringComparison.OrdinalIgnoreCase) || operation.Airlines.SubType == 2)
-            //        && operation.StartDate <= time && !(operation.EndDate != null && operation.EndDate < time))
-            //        && aircraft.AircraftBusinesses.Any(aircraftBusiness =>
-            //            aircraftBusiness.AircraftType.AircraftCategory.Category.Equals("客机", StringComparison.OrdinalIgnoreCase) && aircraftBusiness.StartDate <= time && !(aircraftBusiness.EndDate != null && aircraftBusiness.EndDate < time)));
+            if (selectedItem != null && radWindow != null)
+            {
+                var fleetAircraft = selectedItem.DataItem as FleetAircraft;
+                if (fleetAircraft != null)
+                {
+                    DateTime time = Convert.ToDateTime(SelectedTime).AddMonths(1).AddDays(-1);
+                    var aircraftData = Aircrafts.Where(aircraft => aircraft.OperationHistories.Any(operation =>
+                        (operation.AirlinesName.Equals(CurrentAirlines.CnName, StringComparison.OrdinalIgnoreCase))
+                        && operation.StartDate <= time && !(operation.EndDate != null && operation.EndDate < time))
+                        && aircraft.AircraftBusinesses.Any(aircraftBusiness =>
+                            aircraftBusiness.Category.Equals("客机", StringComparison.OrdinalIgnoreCase) && aircraftBusiness.StartDate <= time && !(aircraftBusiness.EndDate != null && aircraftBusiness.EndDate < time)));
 
-            //    var airlineAircrafts = new List<AircraftDTO>();
-            //    if (fleetAircraft.Aircraft.Equals(_service.CurrentAirlines.ShortName, StringComparison.OrdinalIgnoreCase))
-            //    {
-            //        //部分属性变化------------------
-            //        //#region 筛选飞机数据
-            //        //airlineAircrafts = aircraftData.Where(aircraft =>
-            //        //{
-            //        //    var aircraftbusiness = aircraft.AircraftBusinesses.FirstOrDefault(aircraftBusiness => aircraftBusiness.StartDate <= time && !(aircraftBusiness.EndDate != null && aircraftBusiness.EndDate < time));
-            //        //    if (aircraftbusiness == null) return false;
-            //        //    if (!aircraftbusiness.AircraftType.AircraftCategory.Category.Equals("客机", StringComparison.OrdinalIgnoreCase)) return false;
+                    var airlineAircrafts = new List<AircraftDTO>();
+                    if (fleetAircraft.Aircraft.Equals(CurrentAirlines.CnName, StringComparison.OrdinalIgnoreCase))
+                    {
+                        //部分属性变化------------------
+                        #region 筛选飞机数据
+                        airlineAircrafts = aircraftData.Where(aircraft =>
+                        {
+                            var aircraftbusiness = aircraft.AircraftBusinesses.FirstOrDefault(aircraftBusiness => aircraftBusiness.StartDate <= time && !(aircraftBusiness.EndDate != null && aircraftBusiness.EndDate < time));
+                            if (aircraftbusiness == null) return false;
+                            if (!aircraftbusiness.Category.Equals("客机", StringComparison.OrdinalIgnoreCase)) return false;
 
-            //        //    var operationHistory = aircraft.OperationHistories.FirstOrDefault(operation => operation.Airlines.ShortName.Equals(this._service.CurrentAirlines.ShortName, StringComparison.OrdinalIgnoreCase)
-            //        //        && operation.StartDate <= time && !(operation.EndDate != null && operation.EndDate < time));
-            //        //    if (operationHistory == null)
-            //        //    {
-            //        //        return false;
-            //        //    }
-            //        //    else if (operationHistory.SubOperationCategorys.Count <= 0)
-            //        //    {
-            //        //        return true;
-            //        //    }
-            //        //    else
-            //        //    {
-            //        //        var subOperationCategory = operationHistory.SubOperationCategorys.Where(subOperation => subOperation.StartDate <= time && !(subOperation.EndDate != null && subOperation.EndDate < time));
-            //        //        if (subOperationCategory == null || subOperationCategory.Count() == 0) return true;
-            //        //        return subOperationCategory.Any(subOperation => subOperation.Airlines.ShortName.Equals(this._service.CurrentAirlines.ShortName, StringComparison.OrdinalIgnoreCase));
-            //        //    }
-
-            //        //}).ToList();
-            //        //#endregion
-            //    }
-            //    else
-            //    {
-            //        #region 分子公司的筛选
-            //        var aircraftSubCompany = aircraftData.Where(aircraft =>
-            //        {
-            //            var aircraftbusiness = aircraft.AircraftBusinesses.FirstOrDefault(aircraftBusiness => aircraftBusiness.StartDate <= time && !(aircraftBusiness.EndDate != null && aircraftBusiness.EndDate < time));
-            //            if (aircraftbusiness == null) return false;
-            //            if (aircraftbusiness.AircraftType.AircraftCategory.Category != "客机") return false;
-            //            return aircraft.OperationHistories.Any(operation =>
-            //                                                operation.Airlines.ShortName.Equals(fleetAircraft.Aircraft, StringComparison.OrdinalIgnoreCase) &&
-            //                                                operation.Airlines.SubType == 2 && operation.StartDate <= time &&
-            //                                       !(operation.EndDate != null && operation.EndDate < time));
-            //        }).ToList();
-            //        #endregion
-
-            //        //分公司部分属性有变化-----------------
-            //        //#region 分公司的筛选
-            //        //var aircraftFiliale = aircraftData.Where(aircraft =>
-            //        //{
-            //        //    var aircraftbusiness = aircraft.AircraftBusinesses.FirstOrDefault(aircraftBusiness => aircraftBusiness.StartDate <= time && !(aircraftBusiness.EndDate != null && aircraftBusiness.EndDate < time));
-            //        //    if (aircraftbusiness == null) return false;
-            //        //    if (aircraftbusiness.AircraftType.AircraftCategory.Category != "客机") return false;
-
-            //        //    var operationHistory = aircraft.OperationHistories.FirstOrDefault(operation => operation.Airlines.ShortName.Equals(this._service.CurrentAirlines.ShortName, StringComparison.OrdinalIgnoreCase) && operation.StartDate <= time && !(operation.EndDate != null && operation.EndDate < time));
-            //        //    if (operationHistory == null || operationHistor.SubOperationCategorys.Count <= 0)
-            //        //    {
-            //        //        return false;
-            //        //    }
-            //        //    else
-            //        //    {
-            //        //        return
-            //        //            operationHistory.SubOperationCategorys.Any(subOperation =>
-            //        //                subOperation.Airlines.ShortName.Equals(fleetAircraft.Aircraft, StringComparison.OrdinalIgnoreCase) &&
-            //        //                subOperation.StartDate <= time && !(subOperation.EndDate != null && subOperation.EndDate < time));
-            //        //    }
-            //        //}).ToList();
-            //        //#endregion
-            //        //airlineAircrafts = aircraftSubCompany.Union(aircraftFiliale).ToList();
-            //    };
-            //    //找到子窗体的RadGridView，并为其赋值
-            //    var radGridView = radWindow.Content as RadGridView;
-            //    if (radGridView != null)
-            //        radGridView.ItemsSource = _commonMethod.GetAircraftByTime(airlineAircrafts, time);
-            //    radWindow.Header = fleetAircraft.Aircraft + header + "：" + fleetAircraft.ToolTip;
-            //    if (!radWindow.IsOpen)
-            //    {
-            //        _commonMethod.ShowRadWindow(radWindow);
-            //    }
-            //}
+                            var operationHistory = aircraft.OperationHistories.FirstOrDefault(operation => operation.AirlinesName.Equals(CurrentAirlines.CnName, StringComparison.OrdinalIgnoreCase)
+                                && operation.StartDate <= time && !(operation.EndDate != null && operation.EndDate < time));
+                            return operationHistory != null;
+                        }).ToList();
+                        #endregion
+                    }
+                    //找到子窗体的RadGridView，并为其赋值
+                    var radGridView = radWindow.Content as RadGridView;
+                    if (radGridView != null)
+                        radGridView.ItemsSource = _commonMethod.GetAircraftByTime(airlineAircrafts, time);
+                    radWindow.Header = fleetAircraft.Aircraft + header + "：" + fleetAircraft.ToolTip;
+                    if (!radWindow.IsOpen)
+                    {
+                        _commonMethod.ShowRadWindow(radWindow);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -1524,8 +1338,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             radWindow.Name = windowsName;
             radWindow.Top = length;
             radWindow.Left = length;
-            radWindow.Height = 250;
-            radWindow.Width = 500;
+            radWindow.Height = 300;
+            radWindow.Width = 600;
             radWindow.ResizeMode = ResizeMode.CanResize;
             radWindow.Content = _commonMethod.CreatOperationGridView();
             radWindow.Closed += RadwindowClosed;
@@ -1538,6 +1352,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// <param name="e"></param>
         public void ChartSelectionBehaviorSelectionChanged(object sender, ChartSelectionChangedEventArgs e)
         {
+            CurrentAirlines = _service.CurrentAirlines();
             var chartSelectionBehavior = sender as ChartSelectionBehavior;
             if (chartSelectionBehavior != null)
             {
@@ -1556,51 +1371,37 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         SelectedTime = fleetAircraftTrend.DateTime;
 
                         DateTime time = Convert.ToDateTime(fleetAircraftTrend.DateTime).AddMonths(1).AddDays(-1);
-                        //var aircraftlist = Aircrafts.Where(aircraft => aircraft.OperationHistories.Any(operation => (operation.Airlines.ShortName.Equals(_service.CurrentAirlines.ShortName, StringComparison.OrdinalIgnoreCase) || operation.Airlines.SubType == 2)
-                        //                                                                                       && operation.StartDate <= time && !(operation.EndDate != null && operation.EndDate < time))
-                        //                                          && aircraft.AircraftBusinesses.Any(aircraftBusiness => aircraftBusiness.StartDate <= time && !(aircraftBusiness.EndDate != null && aircraftBusiness.EndDate < time)))
-                        //                       .Where(aircraft =>
-                        //                       {
-                        //                           var aircraftBusinessDataObject = aircraft.AircraftBusinesses.FirstOrDefault(aircraftBusiness => aircraftBusiness.StartDate <= time && !(aircraftBusiness.EndDate != null && aircraftBusiness.EndDate < time));
-                        //                           return aircraftBusinessDataObject != null && aircraftBusinessDataObject
-                        //                                                                            .AircraftType.AircraftCategory.Category.Equals("客机", StringComparison.OrdinalIgnoreCase);
-                        //                       }).ToList();
+                        var aircraftlist = Aircrafts.Where(aircraft => aircraft.OperationHistories.Any(operation => (operation.AirlinesName.Equals(CurrentAirlines.CnName, StringComparison.OrdinalIgnoreCase))
+                                                                                                               && operation.StartDate <= time && !(operation.EndDate != null && operation.EndDate < time))
+                                                                  && aircraft.AircraftBusinesses.Any(aircraftBusiness => aircraftBusiness.StartDate <= time && !(aircraftBusiness.EndDate != null && aircraftBusiness.EndDate < time)))
+                                               .Where(aircraft =>
+                                               {
+                                                   var aircraftBusinessDataObject = aircraft.AircraftBusinesses.FirstOrDefault(aircraftBusiness => aircraftBusiness.StartDate <= time && !(aircraftBusiness.EndDate != null && aircraftBusiness.EndDate < time));
+                                                   return aircraftBusinessDataObject != null && aircraftBusinessDataObject.Category.Equals("客机", StringComparison.OrdinalIgnoreCase);
+                                               }).ToList();
 
-                        //AircraftCollection = _commonMethod.GetAircraftByTime(aircraftlist, time);
+                        AircraftCollection = _commonMethod.GetAircraftByTime(aircraftlist, time);
 
                         #endregion
 
                         #region 客机运力XML解析
 
-                        var xmlConfig =
-                            XmlConfigs.FirstOrDefault(
-                                config => config.ConfigType.Equals("客机运力", StringComparison.OrdinalIgnoreCase));
+                        var xmlConfig = XmlConfigs.FirstOrDefault(config => config.ConfigType.Equals("客机运力", StringComparison.OrdinalIgnoreCase));
 
                         XElement airlineColor = null;
-                        XmlSettingDTO colorConfig =
-                            XmlSettings.FirstOrDefault(
+                        XmlSettingDTO colorConfig = XmlSettings.FirstOrDefault(
                                 config => config.SettingType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));
                         if (colorConfig != null &&
                             XElement.Parse(colorConfig.SettingContent)
                                 .Descendants("Type")
-                                .Any(
-                                    type =>
-                                        type.Attribute("TypeName")
-                                            .Value.Equals("航空公司", StringComparison.OrdinalIgnoreCase)))
+                                .Any(type => type.Attribute("TypeName").Value.Equals("航空公司", StringComparison.OrdinalIgnoreCase)))
                         {
-                            var xmlSettingDataObject =
-                                XmlSettings.FirstOrDefault(
+                            var xmlSettingDataObject = XmlSettings.FirstOrDefault(
                                     config => config.SettingType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));
-                            if (
-                                xmlSettingDataObject !=
-                                null)
-                                airlineColor =
-                                    XElement.Parse(xmlSettingDataObject.SettingContent)
-                                        .Descendants("Type")
-                                        .FirstOrDefault(
-                                            type =>
-                                                type.Attribute("TypeName")
-                                                    .Value.Equals("航空公司", StringComparison.OrdinalIgnoreCase));
+                            if (xmlSettingDataObject != null)
+                                airlineColor = XElement.Parse(xmlSettingDataObject.SettingContent)
+                                        .Descendants("Type").FirstOrDefault(
+                                            type => type.Attribute("TypeName").Value.Equals("航空公司", StringComparison.OrdinalIgnoreCase));
                         }
                         if (xmlConfig != null)
                         {
@@ -1608,17 +1409,14 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                             var seatList = new List<FleetAircraft>(); //座位数饼图集合
                             var loadList = new List<FleetAircraft>(); //商载量饼图集合
 
-                            XElement xelement =
-                                XElement.Parse(xmlConfig.ConfigContent)
+                            XElement xelement = XElement.Parse(xmlConfig.ConfigContent)
                                     .Descendants("DateTime")
-                                    .FirstOrDefault(
-                                        dateTime => Convert.ToDateTime(dateTime.Attribute("EndOfMonth").Value) == time);
+                                    .FirstOrDefault(dateTime => Convert.ToDateTime(dateTime.Attribute("EndOfMonth").Value) == time);
                             if (xelement != null)
                             {
                                 foreach (XElement type in xelement.Descendants("Type"))
                                 {
-                                    if (type.Attribute("TypeName")
-                                        .Value.Equals("飞机数", StringComparison.OrdinalIgnoreCase))
+                                    if (type.Attribute("TypeName").Value.Equals("飞机数", StringComparison.OrdinalIgnoreCase))
                                     {
                                         foreach (XElement item in type.Descendants("Item"))
                                         {
@@ -1630,13 +1428,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                                                 };
                                             if (airlineColor != null)
                                             {
-                                                var firstOrDefault =
-                                                    airlineColor.Descendants("Item")
-                                                        .FirstOrDefault(
-                                                            aircraftItem =>
-                                                                aircraftItem.Attribute("Name")
-                                                                    .Value.Equals(fleetAircraft.Aircraft,
-                                                                        StringComparison.OrdinalIgnoreCase));
+                                                var firstOrDefault = airlineColor.Descendants("Item")
+                                                        .FirstOrDefault(aircraftItem => aircraftItem.Attribute("Name").Value.Equals(fleetAircraft.Aircraft, StringComparison.OrdinalIgnoreCase));
                                                 if (firstOrDefault !=
                                                     null)
                                                     fleetAircraft.Color = firstOrDefault.Attribute("Color").Value;
@@ -1647,8 +1440,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                             }
                                         }
                                     }
-                                    else if (type.Attribute("TypeName")
-                                        .Value.Equals("座位数", StringComparison.OrdinalIgnoreCase))
+                                    else if (type.Attribute("TypeName").Value.Equals("座位数", StringComparison.OrdinalIgnoreCase))
                                     {
                                         foreach (XElement item in type.Descendants("Item"))
                                         {
@@ -1661,12 +1453,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                             if (airlineColor != null)
                                             {
                                                 var firstOrDefault =
-                                                    airlineColor.Descendants("Item")
-                                                        .FirstOrDefault(
-                                                            aircraftItem =>
-                                                                aircraftItem.Attribute("Name")
-                                                                    .Value.Equals(fleetAircraft.Aircraft,
-                                                                        StringComparison.OrdinalIgnoreCase));
+                                                    airlineColor.Descendants("Item").FirstOrDefault(aircraftItem =>
+                                                                aircraftItem.Attribute("Name").Value.Equals(fleetAircraft.Aircraft, StringComparison.OrdinalIgnoreCase));
                                                 if (firstOrDefault !=
                                                     null)
                                                     fleetAircraft.Color = firstOrDefault.Attribute("Color").Value;
@@ -1677,8 +1465,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                             }
                                         }
                                     }
-                                    else if (type.Attribute("TypeName")
-                                        .Value.Equals("商载量", StringComparison.OrdinalIgnoreCase))
+                                    else if (type.Attribute("TypeName").Value.Equals("商载量", StringComparison.OrdinalIgnoreCase))
                                     {
                                         foreach (XElement item in type.Descendants("Item"))
                                         {
@@ -1691,16 +1478,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                                             if (airlineColor != null)
                                             {
                                                 var firstOrDefault =
-                                                    airlineColor.Descendants("Item")
-                                                        .FirstOrDefault(
-                                                            aircraftItem =>
-                                                                aircraftItem.Attribute("Name")
-                                                                    .Value.Equals(fleetAircraft.Aircraft,
-                                                                        StringComparison.OrdinalIgnoreCase));
-                                                if (firstOrDefault !=
-                                                    null)
-                                                    fleetAircraft.Color =
-                                                        firstOrDefault.Attribute("Color").Value;
+                                                    airlineColor.Descendants("Item").FirstOrDefault(aircraftItem =>
+                                                                aircraftItem.Attribute("Name").Value.Equals(fleetAircraft.Aircraft, StringComparison.OrdinalIgnoreCase));
+                                                if (firstOrDefault != null)
+                                                    fleetAircraft.Color = firstOrDefault.Attribute("Color").Value;
                                             }
                                             if (fleetAircraft.Amount > 0)
                                             {
@@ -1800,7 +1581,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             var button = sender as RadToggleButton;
             if (button != null)
             {
-                if ((bool)button.IsChecked)
+                if (button.IsChecked != null && (bool)button.IsChecked)
                 {
                     var firstOrDefault = CurrentPassengerAircraftTrend.LineSeries.Series.FirstOrDefault(p => p.Name.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase));
                     if (firstOrDefault != null)

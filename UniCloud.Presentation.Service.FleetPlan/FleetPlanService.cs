@@ -27,16 +27,10 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.Service.FleetPlan
 {
-    [Export(typeof(IFleetPlanService))]
-    [PartCreationPolicy(CreationPolicy.NonShared)]
+    [Export(typeof (IFleetPlanService))]
+    [PartCreationPolicy(CreationPolicy.Shared)]
     public class FleetPlanService : ServiceBase, IFleetPlanService
     {
-        private static AirlinesDTO _curAirlines;
-        private static AnnualDTO _curAnnual;
-        private static QueryableDataServiceCollectionView<AnnualDTO> _annual;
-        private static QueryableDataServiceCollectionView<AirlinesDTO> _airlines;
-        private static QueryableDataServiceCollectionView<AircraftTypeDTO> _aircraftTypes;
-
         public FleetPlanService()
         {
             context = new FleetPlanData(AgentHelper.FleetPlanServiceUri);
@@ -52,21 +46,20 @@ namespace UniCloud.Presentation.Service.FleetPlan
         #region 获取静态数据
 
         /// <summary>
-        /// 所有航空公司
+        ///     所有航空公司
         /// </summary>
-        public QueryableDataServiceCollectionView<AirlinesDTO> GetAirlineses(bool forceLoad = false)
+        public QueryableDataServiceCollectionView<AirlinesDTO> GetAirlineses(Action loaded, bool forceLoad = false)
         {
-            Action loaded = () => { };
-            return GetStaticData(_airlines, loaded, Context.Airlineses);
+            return GetStaticData(Context.Airlineses, loaded, forceLoad);
         }
 
         /// <summary>
-        /// 所有机型
+        ///     所有机型
         /// </summary>
-        public QueryableDataServiceCollectionView<AircraftTypeDTO> GetAircraftTypes(bool forceLoad = false)
+        public QueryableDataServiceCollectionView<AircraftTypeDTO> GetAircraftTypes(Action loaded,
+            bool forceLoad = false)
         {
-            Action loaded = () => { };
-            return GetStaticData(_aircraftTypes, loaded, Context.AircraftTypes);
+            return GetStaticData(Context.AircraftTypes, loaded, forceLoad);
         }
 
         #endregion
@@ -74,40 +67,24 @@ namespace UniCloud.Presentation.Service.FleetPlan
         #region 公共属性
 
         /// <summary>
-        /// 民航局ID
+        ///     民航局ID
         /// </summary>
         public string Caacid
         {
-            get
-            {
-                return "31A9DE51-C207-4A73-919C-21521F17FEF9";
-            }
+            get { return "31A9DE51-C207-4A73-919C-21521F17FEF9"; }
         }
 
         /// <summary>
-        /// 当前航空公司
+        ///     当前航空公司
         /// </summary>
-        public AirlinesDTO CurrentAirlines(Action loaded, bool forceLoad = false)
+        public AirlinesDTO CurrentAirlines(bool forceLoad = false)
         {
-            Action loaded1 = () => { };
-            var airlinesDescriptor = new FilterDescriptor("IsCurrent", FilterOperator.IsEqualTo, true);
-            var airlines= GetStaticData(_curAirlines, loaded1, Context.Airlineses, airlinesDescriptor);
-            return airlines;
-        }
-
-        /// <summary>
-        /// 当前年度
-        /// </summary>
-        public AnnualDTO CurrentAnnual(Action loaded, bool forceLoad = false)
-        {
-            Action loaded1 = () => { };
-            var annualDescriptor = new FilterDescriptor("IsOpen", FilterOperator.IsEqualTo, true);
-            return GetStaticData(_curAnnual, loaded1, Context.Annuals, annualDescriptor);
+            return GetStaticData(Context.Airlineses, () => { }, forceLoad).FirstOrDefault(a => a.IsCurrent);
         }
 
         #endregion
 
-        #region 业务逻辑
+      #region 业务逻辑
 
         #region 计划
 
@@ -156,6 +133,32 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
+        ///  移除运力增减计划明细
+        /// </summary>
+        /// <param name="planDetail"><see cref="IFleetPlanService"/></param>
+        public void RemovePlanDetail(PlanHistoryDTO planDetail)
+        {
+            using (var pb = new FleetPlanServiceHelper())
+            {
+                pb.RemovePlanDetail(planDetail, this);
+            }
+        }
+
+        /// <summary>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         /// 完成运力增减计划
         /// </summary>
         /// <param name="planDetail"><see cref="IFleetPlanService"/></param>

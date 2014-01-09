@@ -15,6 +15,7 @@
 
 #endregion
 
+using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Controls.GridView;
 using UniCloud.Presentation.Input;
 
@@ -27,7 +28,8 @@ namespace UniCloud.Presentation.FleetPlan.Requests
     {
         protected override void GridViewDoubleClick(GridViewCellBase cell)
         {
-
+            var viewModel = ServiceLocator.Current.GetInstance<RequestVM>();
+            viewModel.RemoveRequestDetail(viewModel.SelectedApprovalHistory);
         }
 
         protected override bool CanDoubleClick(GridViewCellBase cell)

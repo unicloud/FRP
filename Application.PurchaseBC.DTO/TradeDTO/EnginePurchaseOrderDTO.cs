@@ -31,6 +31,10 @@ namespace UniCloud.Application.PurchaseBC.DTO
     [DataServiceKey("Id")]
     public class EnginePurchaseOrderDTO
     {
+        private List<ContractContentDTO> _contractContents;
+        private List<EnginePurchaseOrderLineDTO> _orderLines;
+        private List<RelatedDocDTO> _relatedDocs;
+
         /// <summary>
         ///     订单ID
         /// </summary>
@@ -65,6 +69,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         ///     联系人ID
         /// </summary>
         public int LinkmanId { get; set; }
+
+        /// <summary>
+        ///     供应商ID
+        /// </summary>
+        public int SupplierId { get; set; }
 
         /// <summary>
         ///     生效日期
@@ -104,11 +113,28 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     购买发动机订单行集合
         /// </summary>
-        public virtual List<EnginePurchaseOrderLineDTO> EnginePurchaseOrderLines { get; set; }
+        public virtual List<EnginePurchaseOrderLineDTO> EnginePurchaseOrderLines
+        {
+            get { return _orderLines ?? (_orderLines = new List<EnginePurchaseOrderLineDTO>()); }
+            set { _orderLines = value; }
+        }
+
+        /// <summary>
+        ///     购买发动机合同内容集合
+        /// </summary>
+        public virtual List<ContractContentDTO> ContractContents
+        {
+            get { return _contractContents ?? (_contractContents = new List<ContractContentDTO>()); }
+            set { _contractContents = value; }
+        }
 
         /// <summary>
         ///     关联文档集合
         /// </summary>
-        public virtual List<RelatedDocDTO> RelatedDocs { get; set; }
+        public virtual List<RelatedDocDTO> RelatedDocs
+        {
+            get { return _relatedDocs ?? (_relatedDocs = new List<RelatedDocDTO>()); }
+            set { _relatedDocs = value; }
+        }
     }
 }
