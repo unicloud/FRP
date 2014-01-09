@@ -11,7 +11,6 @@
              d:DesignHeight="300"
              d:DesignWidth="400"
              d:DataContext="{d:DesignInstance uc:ManagerPortalVm}">
-    <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -613,6 +612,45 @@
                                      RestoredHeight="38"
                                      MinimizedHeight="140"
                                      RestoredWidth="18">
+                <telerik:RadGridView Name="CostRequestGridView"
+                                     FontSize="13"
+                                     AutoGenerateColumns="False"
+                                     CanUserFreezeColumns="False"
+                                     RowIndicatorVisibility="Collapsed"
+                                     IsReadOnly="True"
+                                     ShowColumnFooters="True"
+                                     ItemsSource="{Binding CostRequests}">
+                    <telerik:RadGridView.Columns>
+                        <uc:DataPageSerialColumn Header="序号"
+                                                 HeaderTextAlignment="Center" />
+                        <telerik:GridViewDataColumn Header="日期"
+                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                    HeaderTextAlignment="Center"
+                                                    TextAlignment="Right"
+                                                    DataMemberBinding="{Binding Date,StringFormat={StaticResource DateStringFormat}}"/>
+                        <telerik:GridViewDataColumn Header="事项"
+                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                    HeaderTextAlignment="Center"
+                                                    DataMemberBinding="{Binding Title}"
+                                                    TextAlignment="Center" />
+                        <telerik:GridViewDataColumn Header="金额"
+                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                    HeaderTextAlignment="Center"
+                                                    TextAlignment="Center"
+                                                    DataMemberBinding="{Binding Amount,StringFormat={StaticResource CurrencyStringFormat}}" >
+                            <telerik:GridViewDataColumn.AggregateFunctions>
+                                <telerik:SumFunction Caption="总计："
+                                                     SourceField="Amount"
+                                                     ResultFormatString="{StaticResource CurrencyStringFormat}" />
+                            </telerik:GridViewDataColumn.AggregateFunctions>
+                        </telerik:GridViewDataColumn>
+                    </telerik:RadGridView.Columns>
+                    <telerik:RadGridView.GroupDescriptors>
+                        <telerik:GroupDescriptor Member="DateString" 
+                                                 SortDirection="Ascending"
+                                                 DisplayContent="月份"/>
+                    </telerik:RadGridView.GroupDescriptors>
+                </telerik:RadGridView>
             </telerik:RadTileViewItem>
             <telerik:RadTileViewItem Header="日程安排"
                                      RestoredHeight="38"
