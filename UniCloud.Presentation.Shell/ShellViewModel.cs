@@ -247,13 +247,7 @@ namespace UniCloud.Presentation.Shell
                 Text = "变更所有权",
                 NavUri = "UniCloud.Presentation.FleetPlan.AircraftOwnerShips.AircraftOwnership"
             };
-            var menu232 = new MenuItem
-            {
-                Text = "分配飞机运力",
-            };
-
             menu23.Items.Add(menu231);
-            menu23.Items.Add(menu232);
             menu2.Items.Add(menu23);
 
             var menu24 = new MenuItem
@@ -271,6 +265,7 @@ namespace UniCloud.Presentation.Shell
             var menu243 = new MenuItem
             {
                 Text = "查询申请",
+                NavUri = "UniCloud.Presentation.FleetPlan.Requests.QueryRequest"
             };
             var menu244 = new MenuItem
             {

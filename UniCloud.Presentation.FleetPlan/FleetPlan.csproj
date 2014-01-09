@@ -260,6 +260,10 @@
       <DependentUpon>PassengerAircraftTrend.xaml</DependentUpon>
     </Compile>
     <Compile Include="QueryAnalyse\PassengerAircraftTrendVm.cs" />
+    <Compile Include="Requests\QueryRequest.xaml.cs">
+      <DependentUpon>QueryRequest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Requests\QueryRequestVM.cs" />
     <Compile Include="Requests\RequestDoubleClickHelper.cs" />
     <Compile Include="Requests\RequestDragDrop.cs" />
     <Compile Include="Requests\RequestDragVisual.cs" />
@@ -395,6 +399,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="QueryAnalyse\PassengerAircraftTrend.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Requests\QueryRequest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

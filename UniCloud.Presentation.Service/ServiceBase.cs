@@ -280,6 +280,9 @@ namespace UniCloud.Presentation.Service
                 HasChanges = false;
                 var collectionView = o as QueryableDataServiceCollectionView<TService>;
                 if (collectionView == null) return;
+                if (changed.Any())
+                {
+               
                 foreach (TService item in collectionView)
                 {
                     var master = item;
@@ -295,6 +298,7 @@ namespace UniCloud.Presentation.Service
                             entity.PropertyChanged += (obj, handler) => HasChanges = true;
                         }
                     }
+                }
                 }
             };
 
