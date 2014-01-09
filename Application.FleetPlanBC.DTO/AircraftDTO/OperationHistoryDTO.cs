@@ -42,7 +42,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// <summary>
         ///     运营日期
         /// </summary>
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         /// <summary>
         ///     退出停厂日期
@@ -93,6 +93,11 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         ///    运营权人
         /// </summary>
         public string AirlinesName { get; set; }
+
+        /// <summary>
+        ///    处理状态
+        /// </summary>
+        public int Status { get; set; }
         #endregion
 
         #region 外键属性

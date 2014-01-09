@@ -17,6 +17,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 
 #endregion
 
@@ -54,6 +55,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
 
         #region 导航属性
 
+        /// <summary>
+        ///     商业数据历史
+        /// </summary>
+        public virtual AircraftBusiness AircraftBusiness { get; private set; }
+
         #endregion
 
         #region 操作
@@ -61,10 +67,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     设置商业数据历史
         /// </summary>
-        /// <param name="aircraftBusinessId">商业数据历史</param>
-        public void SetAircraftBusiness(Guid? aircraftBusinessId)
+        /// <param name="aircraftBusiness">商业数据历史</param>
+        public void SetAircraftBusiness(AircraftBusiness aircraftBusiness)
         {
-            AircraftBusinessId = aircraftBusinessId;
+            AircraftBusiness = AircraftBusiness;
+            AircraftBusinessId = aircraftBusiness.Id;
         }
 
         #endregion

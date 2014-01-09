@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Data.Services.Common;
 
 #endregion
@@ -30,6 +31,10 @@ namespace UniCloud.Application.ProjectBC.DTO
     [DataServiceKey("Id")]
     public class TaskStandardDTO
     {
+        private List<MemberDTO> _members;
+        private List<RelatedDocDTO> _relatedDocs;
+        private List<TaskCaseDTO> _taskCases;
+
         /// <summary>
         ///     任务标准ID
         /// </summary>
@@ -74,5 +79,37 @@ namespace UniCloud.Application.ProjectBC.DTO
         ///     任务类型
         /// </summary>
         public int TaskType { get; set; }
+
+        /// <summary>
+        ///     工作组ID
+        /// </summary>
+        public int WorkGroupId { get; set; }
+
+        /// <summary>
+        ///     任务案例集合
+        /// </summary>
+        public virtual List<TaskCaseDTO> TaskCases
+        {
+            get { return _taskCases ?? (_taskCases = new List<TaskCaseDTO>()); }
+            set { _taskCases = value; }
+        }
+
+        /// <summary>
+        ///     关联文档集合
+        /// </summary>
+        public virtual List<RelatedDocDTO> RelatedDocs
+        {
+            get { return _relatedDocs ?? (_relatedDocs = new List<RelatedDocDTO>()); }
+            set { _relatedDocs = value; }
+        }
+
+        /// <summary>
+        ///     成员集合
+        /// </summary>
+        public virtual List<MemberDTO> Members
+        {
+            get { return _members ?? (_members = new List<MemberDTO>()); }
+            set { _members = value; }
+        }
     }
 }

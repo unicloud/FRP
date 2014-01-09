@@ -48,7 +48,6 @@ namespace UniCloud.Application.FleetPlanBC.Query.ActionCategoryQueries
                 ActionType = p.ActionType,
                 ActionName = p.ActionName,
                 NeedRequest = p.NeedRequest,
-                NetIncrement = p.NetIncrement,
             });
         }
     }

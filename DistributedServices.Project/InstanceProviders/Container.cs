@@ -1,64 +1,74 @@
-﻿//------------------------------------------------------------------------------
+﻿#region 版本信息
+
+// ========================================================================
+// 版权所有 (C) 2014 UniCloud 
+//【本类功能概述】
 // 
-//------------------------------------------------------------------------------
+// 作者：丁志浩 时间：2013/11/29，13:11
+// 方案：FRP
+// 项目：DistributedServices.Project
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// ========================================================================
+
+#endregion
+
+#region 命名空间
+
+using Microsoft.Practices.Unity;
+using UniCloud.Application.ProjectBC.Query.RelatedDocQueries;
+using UniCloud.Application.ProjectBC.Query.TemplateQueries;
+using UniCloud.Application.ProjectBC.RelatedDocServices;
+using UniCloud.Application.ProjectBC.TemplateServices;
+using UniCloud.Domain.Events;
+using UniCloud.Domain.ProjectBC.Aggregates.RelatedDocAgg;
+using UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg;
+using UniCloud.Infrastructure.Crosscutting.Logging;
+using UniCloud.Infrastructure.Crosscutting.NetFramework.Logging;
+using UniCloud.Infrastructure.Data;
+using UniCloud.Infrastructure.Data.ProjectBC.Repositories;
+using UniCloud.Infrastructure.Data.ProjectBC.UnitOfWork;
+using UniCloud.Infrastructure.Utilities.Container;
+
+#endregion
+
 namespace UniCloud.DistributedServices.Project.InstanceProviders
 {
-    using Application.ProjectBC.Services;
-    using Infrastructure.Crosscutting.Logging;
-    using Infrastructure.Crosscutting.NetFramework.Logging;
-    using Microsoft.Practices.Unity;
-
     /// <summary>
-    /// DI 容器
+    ///     DI 容器
     /// </summary>
     public static class Container
     {
-        #region 属性
-
-        /// <summary>
-        /// 当前 DI 容器
-        /// </summary>
-        public static IUnityContainer Current { get; private set; }
-
-        #endregion
-
-        #region 构造函数
-
-        static Container()
+        public static void ConfigureContainer()
         {
-            ConfigureContainer();
-            ConfigureFactories();
-        }
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, ProjectBCUnitOfWork>(new WcfPerRequestLifetimeManager())
 
-        #endregion
+                #region 模板管理相关配置注册
 
-        #region 方法
+                .RegisterType<ITaskStandardRepository, TaskStandardRepository>()
+                .RegisterType<ITemplateQuery, TemplateQuery>()
+                .RegisterType<ITemplateAppService, TemplateAppService>()
+                
+                #endregion
 
-        static void ConfigureContainer()
-        {
+                #region 关联文档相关配置注册
 
-            Current = new UnityContainer();
+                .RegisterType<IRelatedDocRepository, RelatedDocRepository>()
+                .RegisterType<IRelatedDocQuery, RelatedDocQuery>()
+                .RegisterType<IRelatedDocAppService, RelatedDocAppService>()
 
+                #endregion
 
-            //-> Unit of Work与仓储
-
-            //-> 领域服务
-
-
-            //-> 应用服务
-            Current.RegisterType<IProjectAppService, ProjectAppService>();
-
-            //-> 分布式服务
-
+                .RegisterType<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager());
         }
 
 
-        static void ConfigureFactories()
+        private static void ConfigureFactories()
         {
             LoggerFactory.SetCurrent(new UniCloudLogFactory());
         }
-
-        #endregion
-
     }
 }

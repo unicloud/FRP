@@ -101,15 +101,13 @@ namespace UniCloud.Presentation.Service.FleetPlan
         #region 计划
 
         /// <summary>
-        ///     创建新年度的初始化计划
+        /// 创建新年度的初始化计划
         /// </summary>
         /// <param name="lastPlan"></param>
         /// <param name="newAnnual"></param>
         /// <param name="newYear"></param>
         /// <param name="curAirlines"></param>
-        /// <returns>
-        ///     <see cref="IFleetPlanService" />
-        /// </returns>
+        /// <returns><see cref="IFleetPlanService"/></returns>
         public PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual, int newYear, AirlinesDTO curAirlines)
         {
             using (var pb = new FleetPlanServiceHelper())
@@ -119,12 +117,10 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        ///     创建新版本的运力增减计划
+        /// 创建新版本的运力增减计划
         /// </summary>
         /// <param name="lastPlan"></param>
-        /// <returns>
-        ///     <see cref="IFleetPlanService" />
-        /// </returns>
+        /// <returns><see cref="IFleetPlanService"/></returns>
         public PlanDTO CreateNewVersionPlan(PlanDTO lastPlan)
         {
             using (var pb = new FleetPlanServiceHelper())
@@ -134,20 +130,12 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        ///     创建运力增减计划明细
+        /// 创建运力增减计划明细
         /// </summary>
-        /// <param name="plan">
-        ///     <see cref="IFleetPlanService" />
-        /// </param>
-        /// <param name="planAircraft">
-        ///     <see cref="IFleetPlanService" />
-        /// </param>
-        /// <param name="actionType">
-        ///     <see cref="IFleetPlanService" />
-        /// </param>
-        /// <returns>
-        ///     <see cref="IFleetPlanService" />
-        /// </returns>
+        /// <param name="plan"><see cref="IFleetPlanService"/></param>
+        /// <param name="planAircraft"><see cref="IFleetPlanService"/></param>
+        /// <param name="actionType"><see cref="IFleetPlanService"/></param>
+        /// <returns><see cref="IFleetPlanService"/></returns>
         public PlanHistoryDTO CreatePlanHistory(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType)
         {
             using (var pb = new FleetPlanServiceHelper())
@@ -157,28 +145,22 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        ///     移除运力增减计划明细
+        ///  移除运力增减计划明细
         /// </summary>
-        /// <param name="planDetail">
-        ///     <see cref="IFleetPlanService" />
-        /// </param>
+        /// <param name="planDetail"><see cref="IFleetPlanService"/></param>
         public void RemovePlanDetail(PlanHistoryDTO planDetail)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                pb.RemovePlanDetail(planDetail, this);
+                //pb.RemovePlanDetail(planDetail, this);
             }
         }
 
         /// <summary>
-        ///     完成运力增减计划
+        /// 完成运力增减计划
         /// </summary>
-        /// <param name="planDetail">
-        ///     <see cref="IFleetPlanService" />
-        /// </param>
-        /// <returns>
-        ///     <see cref="IFleetPlanService" />
-        /// </returns>
+        /// <param name="planDetail"><see cref="IFleetPlanService"/></param>
+        /// <returns><see cref="IFleetPlanService"/></returns>
         public AircraftDTO CompletePlan(PlanHistoryDTO planDetail)
         {
             using (var pb = new FleetPlanServiceHelper())
@@ -188,11 +170,9 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        ///     获取所有有效的计划
+        /// 获取所有有效的计划
         /// </summary>
-        /// <returns>
-        ///     <see cref="IFleetPlanService" />
-        /// </returns>
+        /// <returns><see cref="IFleetPlanService"/></returns>
         public ObservableCollection<PlanDTO> GetAllValidPlan()
         {
             using (var pb = new FleetPlanServiceHelper())
@@ -210,14 +190,10 @@ namespace UniCloud.Presentation.Service.FleetPlan
         #region 运营管理
 
         /// <summary>
-        ///     创建所有权历史
+        /// 创建所有权历史
         /// </summary>
-        /// <param name="aircraft">
-        ///     <see cref="IFleetPlanService" />
-        /// </param>
-        /// <returns>
-        ///     <see cref="IFleetPlanService" />
-        /// </returns>
+        /// <param name="aircraft"><see cref="IFleetPlanService"/></param>
+        /// <returns><see cref="IFleetPlanService"/></returns>
         public OwnershipHistoryDTO CreateNewOwnership(AircraftDTO aircraft)
         {
             using (var pb = new FleetPlanServiceHelper())
@@ -227,11 +203,9 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        ///     移除所有权历史
+        /// 移除所有权历史
         /// </summary>
-        /// <param name="ownership">
-        ///     <see cref="IFleetPlanService" />
-        /// </param>
+        /// <param name="ownership"><see cref="IFleetPlanService"/></param>
         public void RemoveOwnership(OwnershipHistoryDTO ownership)
         {
             using (var pb = new FleetPlanServiceHelper())

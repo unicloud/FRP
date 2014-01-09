@@ -72,7 +72,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     提交日期
         /// </summary>
-        public DateTime? SubmitDate { get; internal set; }
+        public DateTime? SubmitDate { get; private set; }
 
         /// <summary>
         ///     创建日期
@@ -120,7 +120,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     文档Id
         /// </summary>
-        public Guid DocumentId { get; private set; }
+        public Guid? DocumentId { get; private set; }
 
         #endregion
 
@@ -169,6 +169,8 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
                     break;
                 case PlanStatus.已提交:
                     Status = PlanStatus.已提交;
+                    IsFinished = true;
+                    SubmitDate = DateTime.Now;
                     break;
                 case PlanStatus.退回:
                     Status = PlanStatus.退回;
@@ -269,7 +271,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
         /// </summary>
         /// <param name="documentId">计划文档</param>
         /// <param name="docName">文档名称</param>
-        public void SetDocument(Guid documentId,string docName)
+        public void SetDocument(Guid? documentId,string docName)
         {
             if (documentId == Guid.Empty)
             {

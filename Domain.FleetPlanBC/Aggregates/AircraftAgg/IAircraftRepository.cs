@@ -43,5 +43,21 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// </summary>
         /// <param name="oh"></param>
         void RemoveOwnershipHistory(OwnershipHistory oh);
+
+        /// <summary>
+        /// 获取单个运营权历史
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        OperationHistory GetPh(object id);
+
+
+        /// <summary>
+        /// 获取单个的商业数据历史
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        AircraftBusiness GetAb(object id);
+
     }
 }

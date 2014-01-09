@@ -17,10 +17,8 @@
 
 #region 命名空间
 
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.ProjectBC.Aggregates.UserAgg;
 
 #endregion
 
@@ -46,6 +44,21 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
 
         #region 属性
 
+        /// <summary>
+        ///     名称
+        /// </summary>
+        public string Name { get; internal set; }
+
+        /// <summary>
+        ///     描述
+        /// </summary>
+        public string Description { get; internal set; }
+
+        /// <summary>
+        ///     是否工作组负责人
+        /// </summary>
+        public bool IsManager { get; internal set; }
+
         #endregion
 
         #region 外键属性
@@ -56,51 +69,17 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
         public int WorkGroupId { get; internal set; }
 
         /// <summary>
-        ///     工作组成员ID
+        ///     工作组成员用户ID
         /// </summary>
-        public int MemberUserId { get; private set; }
+        public int MemberUserId { get; internal set; }
 
         #endregion
 
         #region 导航属性
 
-        /// <summary>
-        ///     工作组成员
-        /// </summary>
-        public User MemberUser { get; private set; }
-
         #endregion
 
         #region 操作
-
-        /// <summary>
-        ///     设置工作组成员
-        /// </summary>
-        /// <param name="user">工作组成员</param>
-        public void SetMember(User user)
-        {
-            if (user == null || user.IsTransient())
-            {
-                throw new ArgumentException("工作组成员参数为空！");
-            }
-
-            MemberUser = user;
-            MemberUserId = user.Id;
-        }
-
-        /// <summary>
-        ///     设置工作组成员
-        /// </summary>
-        /// <param name="id">工作组成员ID</param>
-        public void SetMember(int id)
-        {
-            if (id == 0)
-            {
-                throw new ArgumentException("工作组成员参数为空！");
-            }
-
-            MemberUserId = id;
-        }
 
         #endregion
 

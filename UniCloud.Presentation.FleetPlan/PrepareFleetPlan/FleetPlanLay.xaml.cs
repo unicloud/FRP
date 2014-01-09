@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.Composition;
-using System.Windows.Controls;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
     [Export]
-    public partial class FleetPlanLay : UserControl
+    public partial class FleetPlanLay
     {
         public FleetPlanLay()
         {

@@ -37,10 +37,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
+            Property(p => p.Name).HasColumnName("Name");
+            Property(p => p.Description).HasColumnName("Description");
+            Property(p => p.IsManager).HasColumnName("IsManager");
+
             Property(p => p.WorkGroupId).HasColumnName("WorkGroupId");
             Property(p => p.MemberUserId).HasColumnName("MemberUserId");
-
-            HasRequired(m => m.MemberUser).WithMany().HasForeignKey(m => m.MemberUserId);
         }
     }
 }

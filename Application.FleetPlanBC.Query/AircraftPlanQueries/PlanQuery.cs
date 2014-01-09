@@ -43,16 +43,12 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
         public IQueryable<PlanDTO> PlanDTOQuery(
             QueryBuilder<Plan> query)
         {
-            var aircraftBusinesses = _unitOfWork.CreateSet<AircraftBusiness>();
-            var operationHistories = _unitOfWork.CreateSet<OperationHistory>();
-
-            return query.ApplyTo(_unitOfWork.CreateSet<Plan>()).Select(p => new PlanDTO
+           var result= query.ApplyTo(_unitOfWork.CreateSet<Plan>()).Select(p => new PlanDTO
             {
                 Id = p.Id,
                 Title = p.Title,
                 VersionNumber = p.VersionNumber,
                 IsValid = p.IsValid,
-                IsCurrentVersion = p.IsCurrentVersion,
                 SubmitDate = p.SubmitDate,
                 CreateDate = p.CreateDate,
                 DocNumber = p.DocNumber,
@@ -68,59 +64,76 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                 PlanHistories = p.PlanHistories.OfType<OperationPlan>().Select(q => new PlanHistoryDTO
                                 {
                                     Id=q.Id,
-                                    ActionCategoryId = q.ActionCategoryId,
-                                    AircraftTypeId = q.AircraftTypeId,
-                                    AirlinesId = q.AirlinesId,
                                     CarryingCapacity = q.CarryingCapacity,
                                     SeatingCapacity = q.SeatingCapacity,
-                                    RelatedGuid = q.OperationHistoryId,
-                                    RelatedEndDate = operationHistories.FirstOrDefault(o => o.Id == q.OperationHistoryId).EndDate,
+                                    PerformAnnualId = q.PerformAnnualId,
+                                    PerformMonth = q.PerformMonth,
                                     IsSubmit = q.IsSubmit,
                                     IsValid = q.IsValid,
                                     Note = q.Note,
-                                    PerformAnnualId = q.PerformAnnualId,
-                                    PerformMonth = q.PerformMonth,
-                                    PlanAircraftId = q.PlanAircraftId,
-                                    PlanId = q.PlanId,
-                                    PlanType = 1,
+                                    ActionCategoryId = q.ActionCategoryId,
+                                    ActionType = q.ActionCategory.ActionType,
+                                    ActionName=q.ActionCategory.ActionName,
                                     TargetCategoryId = q.TargetCategoryId,
-                                    AirlinesName=q.Airlines.CnName,
-                                    Regional=q.AircraftType.AircraftCategory.Regional,
-                                    AircraftTypeName=q.AircraftType.Name,
-                                    ActionType=q.ActionCategory.ActionType+":"+q.ActionCategory.ActionName,
                                     TargetType = q.TargetCategory.ActionName,
+                                    AircraftTypeId = q.AircraftTypeId,
+                                    AircraftTypeName = q.AircraftType.Name,
+                                    AirlinesId = q.AirlinesId,
+                                    AirlinesName = q.Airlines.CnName,
+                                    NeedRequest = q.ActionCategory.NeedRequest,
                                     Year = q.PerformAnnual.Year,
-                                    ManageStatus = (int)q.PlanAircraft.Status,
+
+                                    PlanAircraftId = q.PlanAircraftId,
+                                    AircraftId = q.PlanAircraft.AircraftId,
+                                    RegNumber = q.PlanAircraft.Aircraft.RegNumber,
+                                    ManageStatus = q.PlanAircraft == null ? 0 : (int)q.PlanAircraft.Status,
+                                    PaIsLock = q.PlanAircraft.IsLock,
+
+                                    RelatedGuid = q.OperationHistoryId,
+                                    RelatedEndDate = q.OperationHistory.EndDate,
+                                    RelatedStatus = q.OperationHistory == null ? 0 : (int)q.OperationHistory.Status,
+                                    PlanId = q.PlanId,
+                                    PlanType = 1,//1表示运营计划
+                                    
                                 })
                                 .Union(p.PlanHistories.OfType<ChangePlan>().Select(q => new PlanHistoryDTO
                                 {
                                     Id = q.Id,
-                                    ActionCategoryId = q.ActionCategoryId,
-                                    AircraftTypeId = q.AircraftTypeId,
-                                    AirlinesId = q.AirlinesId,
                                     CarryingCapacity = q.CarryingCapacity,
                                     SeatingCapacity = q.SeatingCapacity,
-                                    RelatedGuid = q.AircraftBusinessId,
-                                    RelatedEndDate = aircraftBusinesses.FirstOrDefault(o => o.Id == q.AircraftBusinessId).EndDate,
+                                    PerformAnnualId = q.PerformAnnualId,
+                                    PerformMonth = q.PerformMonth,
                                     IsSubmit = q.IsSubmit,
                                     IsValid = q.IsValid,
                                     Note = q.Note,
-                                    PerformAnnualId = q.PerformAnnualId,
-                                    PerformMonth = q.PerformMonth,
-                                    PlanAircraftId = q.PlanAircraftId,
-                                    PlanId = q.PlanId,
-                                    PlanType = 2,
+                                    ActionCategoryId = q.ActionCategoryId,
+                                    ActionType = q.ActionCategory.ActionType,
+                                    ActionName = q.ActionCategory.ActionName,
                                     TargetCategoryId = q.TargetCategoryId,
-                                    AirlinesName = q.Airlines.CnName,
-                                    Regional = q.AircraftType.AircraftCategory.Regional,
-                                    AircraftTypeName = q.AircraftType.Name,
-                                    ActionType = q.ActionCategory.ActionType + ":" + q.ActionCategory.ActionName,
                                     TargetType = q.TargetCategory.ActionName,
+                                    AircraftTypeId = q.AircraftTypeId,
+                                    AircraftTypeName = q.AircraftType.Name,
+                                    AirlinesId = q.AirlinesId,
+                                    AirlinesName = q.Airlines.CnName,
+                                    NeedRequest = q.ActionCategory.NeedRequest,
                                     Year = q.PerformAnnual.Year,
-                                    ManageStatus = (int)q.PlanAircraft.Status,
+
+                                    PlanAircraftId = q.PlanAircraftId,
+                                    AircraftId = q.PlanAircraft.AircraftId,
+                                    RegNumber = q.PlanAircraft.Aircraft.RegNumber,
+                                    ManageStatus = q.PlanAircraft == null ? 0 : (int)q.PlanAircraft.Status,
+                                    PaIsLock = q.PlanAircraft.IsLock,
+
+                                    RelatedGuid = q.AircraftBusinessId,
+                                    RelatedEndDate = q.AircraftBusiness.EndDate,
+                                    RelatedStatus = q.AircraftBusiness == null ? 0 : (int)q.AircraftBusiness.Status,
+                                    PlanId = q.PlanId,
+                                    PlanType = 2,//2表示变更计划
                                 })
                                 ).ToList(),
             });
+            var a = result.ToList();
+            return result;
         }
     }
 }

@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Data.Services.Common;
 
 #endregion
@@ -27,6 +28,13 @@ namespace UniCloud.Application.FleetPlanBC.DTO
     [DataServiceKey("Id")]
     public class PlanAircraftDTO
     {
+        #region 私有字段
+
+        private List<PlanHistoryDTO> _planHistories;
+        private List<ApprovalHistoryDTO> _approvalHistories;
+
+        #endregion
+
         #region 属性
 
         /// <summary>
@@ -49,7 +57,20 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public int Status { get; set; }
 
+        /// <summary>
+        /// 航空公司名称
+        /// </summary>
+        public string AirlinesName { get; set; }
 
+        /// <summary>
+        /// 机型
+        /// </summary>
+        public string AircraftTypeName { get; set; }
+
+        /// <summary>
+        /// 座级
+        /// </summary>
+        public string Regional { get; set; }
         #endregion
 
         #region 外键属性
@@ -68,6 +89,28 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         ///     航空公司外键
         /// </summary>
         public Guid AirlinesId { get; set; }
+
+        #endregion
+
+        #region 导航属性
+
+        /// <summary>
+        ///     飞机计划明细
+        /// </summary>
+        public virtual List<PlanHistoryDTO> PlanHistories
+        {
+            get { return _planHistories ?? (_planHistories = new List<PlanHistoryDTO>()); }
+            set { _planHistories = value; }
+        }
+
+        /// <summary>
+        ///     审批历史集合
+        /// </summary>
+        public virtual List<ApprovalHistoryDTO> ApprovalHistories
+        {
+            get { return _approvalHistories ?? (_approvalHistories = new List<ApprovalHistoryDTO>()); }
+            set { _approvalHistories = value; }
+        }
         #endregion
     }
 }

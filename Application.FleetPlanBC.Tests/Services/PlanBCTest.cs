@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -57,25 +58,25 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         {
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, FleetPlanBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                #region 飞机计划相关配置，包括查询，应用服务，仓储注册
+            #region 飞机计划相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IPlanQuery, PlanQuery>()
+.RegisterType<IPlanQuery, PlanQuery>()
                 .RegisterType<IPlanAppService, PlanAppService>()
                 .RegisterType<IPlanRepository, PlanRepository>()
-                #endregion
+            #endregion
 
-                #region 活动类型相关配置，包括查询，应用服务，仓储注册
+            #region 活动类型相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IActionCategoryQuery, ActionCategoryQuery>()
+.RegisterType<IActionCategoryQuery, ActionCategoryQuery>()
                 .RegisterType<IActionCategoryAppService, ActionCategoryAppService>()
                 .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
-                #endregion
-                #region 机型相关配置，包括查询，应用服务，仓储注册
+            #endregion
+            #region 机型相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
+.RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
                 .RegisterType<IAircraftTypeAppService, AircraftTypeAppService>()
                 .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
-                #endregion
+            #endregion
             #region 航空公司相关配置，包括查询，应用服务，仓储注册
 
 .RegisterType<IAirlinesQuery, AirlinesQuery>()
@@ -96,7 +97,7 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
                 .RegisterType<IPlanAircraftRepository, PlanAircraftRepository>()
             #endregion
 
-                ;
+;
         }
 
         [TestCleanup]
@@ -117,6 +118,20 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
 
             // Assert
             Assert.IsTrue(result.Any());
+        }
+
+        [TestMethod]
+        public void ModefyPlans()
+        {
+            var context = DefaultContainer.Resolve<IPlanRepository>();
+            var plan = context.GetAll().ToList().FirstOrDefault();
+            if (plan != null)
+            {
+                plan.SetTitle("2013年运力规划");
+                var ph = plan.PlanHistories.FirstOrDefault();
+                if (ph != null) ph.SetSeatingCapacity(231);
+            }
+            context.UnitOfWork.Commit();
         }
     }
 }

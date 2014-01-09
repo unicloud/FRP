@@ -70,11 +70,6 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public string AirlinesName { get; set; }
 
         /// <summary>
-        /// 座级
-        /// </summary>
-        public string Regional { get; set; }
-
-        /// <summary>
         /// 机型
         /// </summary>
         public string AircraftTypeName { get; set; }
@@ -85,19 +80,25 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public string ActionType { get; set; }
 
         /// <summary>
+        /// 活动类型
+        /// </summary>
+        public string ActionName { get; set; }
+
+        /// <summary>
         /// 引进/退出方式
         /// </summary>
         public string TargetType { get; set; }
+
+        /// <summary>
+        /// 是否需要申请
+        /// </summary>
+        public bool NeedRequest { get; set; }
 
         /// <summary>
         /// 执行年度
         /// </summary>
         public int Year { get; set; }
 
-        /// <summary>
-        /// 计划明细的状态（取自关联的计划飞机的管理状态）
-        /// </summary>
-        public int ManageStatus { get; set; }
         #endregion
 
         #region 外键属性
@@ -156,6 +157,31 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public DateTime? RelatedEndDate { get; set; }
 
+        /// <summary>
+        /// 关联的运营权历史或商业数据历史的状态
+        /// </summary>
+        public int RelatedStatus { get; set; }
+
+        /// <summary>
+        /// 计划明细的状态（取自关联的计划飞机的管理状态）
+        /// </summary>
+        public int ManageStatus { get; set; }
+
+        /// <summary>
+        /// 计划飞机锁定状态（取自关联的计划飞机的锁定状态）
+        /// </summary>
+        public bool PaIsLock { get; set; }
+
+
+        /// <summary>
+        /// 机号（取自关联的计划飞机带的飞机的机号）
+        /// </summary>
+        public string RegNumber { get; set; }
+
+        /// <summary>
+        /// 飞机id（取自关联的计划飞机带的飞机外键）
+        /// </summary>
+        public Guid? AircraftId { get; set; }
         #endregion
     }
 }

@@ -46,6 +46,9 @@ namespace UniCloud.Infrastructure.Data.ProjectBC.UnitOfWork.Mapping.Sql
             Property(p => p.IsCustom).HasColumnName("IsCustom");
             Property(p => p.TaskType).HasColumnName("TaskType");
 
+            Property(p => p.WorkGroupId).HasColumnName("WorkGroupId");
+
+            HasRequired(t => t.WorkGroup).WithMany().HasForeignKey(t => t.WorkGroupId);
             HasMany(t => t.TaskCases).WithRequired().HasForeignKey(t => t.TaskStandardId);
         }
     }
