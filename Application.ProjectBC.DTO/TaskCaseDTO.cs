@@ -47,5 +47,10 @@ namespace UniCloud.Application.ProjectBC.DTO
         ///     </remarks>
         /// </summary>
         public int RelatedId { get; set; }
+
+        /// <summary>
+        ///     描述
+        /// </summary>
+        public string Description { get; set; }
     }
 }
