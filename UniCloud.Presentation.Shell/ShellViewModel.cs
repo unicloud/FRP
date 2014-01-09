@@ -690,19 +690,24 @@ namespace UniCloud.Presentation.Shell
 
             var menu51 = new MenuItem
             {
-                Text = "配置任务模板"
+                Text = "配置工作组"
             };
             var menu52 = new MenuItem
             {
-                Text = "配置项目模板"
+                Text = "配置任务模板"
             };
             var menu53 = new MenuItem
+            {
+                Text = "配置项目模板"
+            };
+            var menu54 = new MenuItem
             {
                 Text = "管理项目计划"
             };
             menu5.Items.Add(menu51);
             menu5.Items.Add(menu52);
             menu5.Items.Add(menu53);
+            menu5.Items.Add(menu54);
 
             _items.Add(menu5);
 

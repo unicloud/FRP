@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,7 +11,11 @@
 // 修改者：linxw 时间：2013/12/12 11:16:10
 // 修改说明：
 // ========================================================================*/
+
 #endregion
+
+#region 命名空间
+
 using System;
 using System.ComponentModel.Composition;
 using System.IO;
@@ -22,37 +27,44 @@ using Telerik.Windows.Controls.DataServices;
 using Telerik.Windows.Data;
 using Telerik.Windows.Documents.Fixed;
 using Telerik.Windows.Documents.Fixed.FormatProviders;
-using Telerik.Windows.Documents.Fixed.FormatProviders.Pdf;
 using Telerik.Windows.Documents.FormatProviders.OpenXml.Docx;
 using Telerik.Windows.Documents.Model;
-using UniCloud.Presentation.Service;
+using UniCloud.Presentation.Service.CommonService;
 using UniCloud.Presentation.Service.CommonService.Common;
 using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 
+#endregion
+
 namespace UniCloud.Presentation.Document
 {
-    [Export(typeof(DocumentViewerVm))]
+    [Export(typeof (DocumentViewerVm))]
     public class DocumentViewerVm : ViewModelBase
     {
         #region 声明、初始化
 
-        [Import]
-        public DocumentViewer CurrentDocumentView;
-        private DocumentDTO _currentDoc;
-        private bool _onlyView;
+        private readonly CommonServiceData _context;
+        private readonly ICommonService _service;
         private byte[] _byteContent;
-        private int _navigatePageNumber;
+        private DocumentDTO _currentDoc;
         private QueryableDataServiceCollectionView<DocumentDTO> _documents;
-        private EventHandler<DataServiceSubmittedChangesEventArgs> _submitChanges;
         private FilterDescriptor _filter;
-        public DocumentViewerVm(DocumentViewer documentView)
+        private int _navigatePageNumber;
+        private bool _onlyView;
+        private EventHandler<DataServiceSubmittedChangesEventArgs> _submitChanges;
+        [Import] public DocumentViewer currentDocumentView;
+
+        public DocumentViewerVm(DocumentViewer documentView, ICommonService service) : base(service)
         {
-            CurrentDocumentView = documentView;
+            _service = service;
+            _context = _service.Context;
+            currentDocumentView = documentView;
             InitVm();
         }
 
-        public DocumentViewerVm()
+        public DocumentViewerVm(ICommonService service) : base(service)
         {
+            _service = service;
+            _context = _service.Context;
             InitVm();
         }
 
@@ -62,9 +74,8 @@ namespace UniCloud.Presentation.Document
             SaveCommand = new DelegateCommand<object>(Save, CanSave);
             OpenDocumentCommand = new DelegateCommand<object>(OpenDocument);
             PdfDocumentChangedCommand = new DelegateCommand<object>(PdfDocumentChanged);
-            var commonServiceData = new CommonServiceData(AgentHelper.CommonServiceUri);
-            _documents = new QueryableDataServiceCollectionView<DocumentDTO>(commonServiceData, commonServiceData.Documents);
-
+            _documents = _service.CreateCollection(_context.Documents);
+            _service.RegisterCollectionView(_documents);
             _filter = new FilterDescriptor("DocumentId", FilterOperator.IsEqualTo, Guid.Empty);
             _documents.FilterDescriptors.Add(_filter);
             _documents.LoadedData += (o, e) =>
@@ -76,14 +87,15 @@ namespace UniCloud.Presentation.Document
                     {
                         if (result.Name.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
                         {
-                            CurrentDocumentView.WordPane.IsHidden = true;
+                            currentDocumentView.WordPane.IsHidden = true;
                             Stream currentContent = new MemoryStream(result.FileStorage);
-                            CurrentDocumentView.PdfReader.DocumentSource = new PdfDocumentSource(currentContent, FormatProviderSettings.ReadOnDemand);
+                            currentDocumentView.PdfReader.DocumentSource = new PdfDocumentSource(currentContent,
+                                FormatProviderSettings.ReadOnDemand);
                         }
                         else if (result.Name.EndsWith(".docx", StringComparison.OrdinalIgnoreCase))
                         {
-                            CurrentDocumentView.PdfPane.IsHidden = true;
-                            CurrentDocumentView.WordReader.Document = new DocxFormatProvider().Import(result.FileStorage);
+                            currentDocumentView.PdfPane.IsHidden = true;
+                            currentDocumentView.WordReader.Document = new DocxFormatProvider().Import(result.FileStorage);
                         }
                     }
                     //else
@@ -98,6 +110,7 @@ namespace UniCloud.Presentation.Document
                 IsBusy = false;
             };
         }
+
         #endregion
 
         #region 数据
@@ -105,39 +118,43 @@ namespace UniCloud.Presentation.Document
         #endregion
 
         #region 操作
+
         #region 初始化文档信息
+
         public void InitData(bool onlyView, Guid docId, EventHandler<WindowClosedEventArgs> closed)
         {
             _currentDoc = new DocumentDTO();
-            CurrentDocumentView.Tag = null;
-            CurrentDocumentView.WordReader.Document = new RadDocument();
-            CurrentDocumentView.PdfReader.Document = null;
-            CurrentDocumentView.WordPane.IsHidden = false;
-            CurrentDocumentView.PdfPane.IsHidden = false;
+            currentDocumentView.Tag = null;
+            currentDocumentView.WordReader.Document = new RadDocument();
+            currentDocumentView.PdfReader.Document = null;
+            currentDocumentView.WordPane.IsHidden = false;
+            currentDocumentView.PdfPane.IsHidden = false;
             IsBusy = true;
             _currentDoc.DocumentId = docId;
             _onlyView = onlyView;
             if (_onlyView)
             {
-                CurrentDocumentView.Header = "查看文档";
-                CurrentDocumentView.Closed -= closed;
+                currentDocumentView.Header = "查看文档";
+                currentDocumentView.Closed -= closed;
             }
             else
             {
-                CurrentDocumentView.Header = "编辑文档";
-                CurrentDocumentView.Closed -= closed;
-                CurrentDocumentView.Closed += closed;
+                currentDocumentView.Header = "编辑文档";
+                currentDocumentView.Closed -= closed;
+                currentDocumentView.Closed += closed;
             }
-            CurrentDocumentView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            currentDocumentView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             if (!docId.Equals(Guid.Empty))
             {
                 LoadDocumentByDocId(docId);
             }
             IsBusy = false;
         }
+
         #endregion
 
         #region 加载文档
+
         private void LoadDocumentByDocId(Guid docId)
         {
             _filter.Value = docId;
@@ -147,29 +164,33 @@ namespace UniCloud.Presentation.Document
         #endregion
 
         #region 打开文档
+
         public DelegateCommand<object> OpenDocumentCommand { get; set; }
+
         private void OpenDocument(object sender)
         {
             try
             {
                 _navigatePageNumber = 1;
-                if (CurrentDocumentView.PaneGroups.SelectedPane.Name.Equals("WordPane", StringComparison.OrdinalIgnoreCase))
+                if (currentDocumentView.PaneGroups.SelectedPane.Name.Equals("WordPane",
+                    StringComparison.OrdinalIgnoreCase))
                 {
-                    var openFileDialog = new OpenFileDialog { Filter = "Word Documents(*.docx)|*.docx" };
+                    var openFileDialog = new OpenFileDialog {Filter = "Word Documents(*.docx)|*.docx"};
                     if (openFileDialog.ShowDialog() == true)
                     {
                         _currentDoc.Name = openFileDialog.File.Name;
                         _currentDoc.Extension = openFileDialog.File.Extension;
-                        var input = (Stream)openFileDialog.File.OpenRead();
+                        var input = (Stream) openFileDialog.File.OpenRead();
                         using (input)
                         {
-                            CurrentDocumentView.WordReader.Document = new DocxFormatProvider().Import(input);
+                            currentDocumentView.WordReader.Document = new DocxFormatProvider().Import(input);
                         }
                     }
                 }
-                else if (CurrentDocumentView.PaneGroups.SelectedPane.Name.Equals("PdfPane", StringComparison.OrdinalIgnoreCase))
+                else if (currentDocumentView.PaneGroups.SelectedPane.Name.Equals("PdfPane",
+                    StringComparison.OrdinalIgnoreCase))
                 {
-                    var openFileDialog = new OpenFileDialog { Filter = "PDF Files(*.pdf)|*.pdf" };
+                    var openFileDialog = new OpenFileDialog {Filter = "PDF Files(*.pdf)|*.pdf"};
                     if (openFileDialog.ShowDialog() == true)
                     {
                         _currentDoc.Name = openFileDialog.File.Name;
@@ -179,7 +200,8 @@ namespace UniCloud.Presentation.Document
                         Stream currentContent = new MemoryStream(_byteContent);
                         //using (input)
                         {
-                            CurrentDocumentView.PdfReader.DocumentSource = new PdfDocumentSource(currentContent, FormatProviderSettings.ReadOnDemand); ;
+                            currentDocumentView.PdfReader.DocumentSource = new PdfDocumentSource(currentContent,
+                                FormatProviderSettings.ReadOnDemand);
                         }
                     }
                 }
@@ -189,10 +211,13 @@ namespace UniCloud.Presentation.Document
                 MessageAlert(e.Message);
             }
         }
+
         #endregion
 
         #region 保存文档到服务器
+
         public DelegateCommand<object> SaveCommand { get; set; }
+
         private bool CanSave(object sender)
         {
             if (_onlyView)
@@ -206,15 +231,16 @@ namespace UniCloud.Presentation.Document
         {
             IsBusy = true;
 
-            if (CurrentDocumentView.PaneGroups.SelectedPane.Name.Equals("WordPane", StringComparison.OrdinalIgnoreCase))
+            if (currentDocumentView.PaneGroups.SelectedPane.Name.Equals("WordPane", StringComparison.OrdinalIgnoreCase))
             {
                 if (string.IsNullOrEmpty(_currentDoc.Name))
                 {
                     _currentDoc.Name = "新建Word文档" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".docx";
                 }
-                _currentDoc.FileStorage = new DocxFormatProvider().Export(CurrentDocumentView.WordReader.Document);
+                _currentDoc.FileStorage = new DocxFormatProvider().Export(currentDocumentView.WordReader.Document);
             }
-            else if (CurrentDocumentView.PaneGroups.SelectedPane.Name.Equals("PdfPane", StringComparison.OrdinalIgnoreCase))
+            else if (currentDocumentView.PaneGroups.SelectedPane.Name.Equals("PdfPane",
+                StringComparison.OrdinalIgnoreCase))
             {
                 _currentDoc.FileStorage = _byteContent;
             }
@@ -246,9 +272,9 @@ namespace UniCloud.Presentation.Document
                             MessageAlert("保存失败: " + e.Error.Message);
                             return;
                         }
-                        CurrentDocumentView.Tag = _currentDoc;
+                        currentDocumentView.Tag = _currentDoc;
                         _byteContent = null;
-                        CurrentDocumentView.Close();
+                        currentDocumentView.Close();
                         MessageAlert("保存成功！");
                     }
                     catch (Exception ex)
@@ -260,37 +286,44 @@ namespace UniCloud.Presentation.Document
                 _documents.SubmittedChanges += _submitChanges;
             }
         }
+
         #endregion
 
         #region  Pdf文档导航特定页
+
         public void PdfNavigateSpecialPage(int navigatePageNumber)
         {
             _navigatePageNumber = navigatePageNumber;
         }
+
         #endregion
 
         #region PdfDocumentChanged
+
         public DelegateCommand<object> PdfDocumentChangedCommand { get; set; }
+
         private void PdfDocumentChanged(object sender)
         {
-            if (CurrentDocumentView.PdfReader.Document != null)
+            if (currentDocumentView.PdfReader.Document != null)
             {
                 if (_navigatePageNumber < 1)
                 {
                     _navigatePageNumber = 1;
                 }
-                else if (_navigatePageNumber > CurrentDocumentView.PdfReader.Document.Pages.Count)
+                else if (_navigatePageNumber > currentDocumentView.PdfReader.Document.Pages.Count)
                 {
-                    _navigatePageNumber = CurrentDocumentView.PdfReader.Document.Pages.Count;
+                    _navigatePageNumber = currentDocumentView.PdfReader.Document.Pages.Count;
                 }
-                CurrentDocumentView.PdfReader.CurrentPageNumber = _navigatePageNumber;
+                currentDocumentView.PdfReader.CurrentPageNumber = _navigatePageNumber;
             }
         }
+
         #endregion
 
         public override void LoadData()
         {
         }
+
         #endregion
     }
 }

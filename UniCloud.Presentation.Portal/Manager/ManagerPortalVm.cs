@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2014/1/8 9:51:51
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -25,28 +27,22 @@ using System.Windows.Data;
 using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.Calendar;
+using UniCloud.Presentation.Service.Portal;
 using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 
 #endregion
 
 namespace UniCloud.Presentation.Portal.Manager
 {
-    [Export(typeof(ManagerPortalVm))]
+    [Export(typeof (ManagerPortalVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class ManagerPortalVm : ViewModelBase
     {
-        public ManagerPortal CurrentManagerPortal
-        {
-            get { return ServiceLocator.Current.GetInstance<ManagerPortal>(); }
-        }
+        private readonly IPortalService _service;
 
-        public override void LoadData()
+        public ManagerPortalVm(IPortalService service) : base(service)
         {
-            //throw new System.NotImplementedException();
-        }
-
-        public ManagerPortalVm()
-        {
+            _service = service;
             InitAircraftCostData();
             InitStructureDate();
             InitCalendarData();
@@ -54,7 +50,11 @@ namespace UniCloud.Presentation.Portal.Manager
         }
 
         #region 飞机引进成本
-        private Size _zoom = new Size(1, 1);//滚动条的对应
+
+        private List<AircraftCost> _aircraftCosts;
+        private Point _panOffset; //滚动条的滑动
+        private Size _zoom = new Size(1, 1); //滚动条的对应
+
         public Size Zoom
         {
             get { return _zoom; }
@@ -68,7 +68,6 @@ namespace UniCloud.Presentation.Portal.Manager
             }
         }
 
-        private Point _panOffset; //滚动条的滑动
         public Point PanOffset
         {
             get { return _panOffset; }
@@ -82,7 +81,6 @@ namespace UniCloud.Presentation.Portal.Manager
             }
         }
 
-        private List<AircraftCost> _aircraftCosts;
         public List<AircraftCost> AircraftCosts
         {
             get { return _aircraftCosts; }
@@ -95,20 +93,49 @@ namespace UniCloud.Presentation.Portal.Manager
                 }
             }
         }
+
         private void InitAircraftCostData()
         {
             AircraftCosts = new List<AircraftCost>
-                          {
-                              new AircraftCost{DateTime =new DateTime(2011,1,1),Purchase=20000000,Lease=10000000,Maintain = 200000},
-                              new AircraftCost{DateTime =new DateTime(2012,1,1),Purchase=40000000,Lease=20000000 ,Maintain = 200000},
-                              new AircraftCost{DateTime =new DateTime(2013,1,1),Purchase=50000000,Lease=40000000 ,Maintain = 250000},
-                              new AircraftCost{DateTime =new DateTime(2014,1,1),Purchase=90000000,Lease=60000000 ,Maintain = 300000},
-                          };
+            {
+                new AircraftCost
+                {
+                    DateTime = new DateTime(2011, 1, 1),
+                    Purchase = 20000000,
+                    Lease = 10000000,
+                    Maintain = 200000
+                },
+                new AircraftCost
+                {
+                    DateTime = new DateTime(2012, 1, 1),
+                    Purchase = 40000000,
+                    Lease = 20000000,
+                    Maintain = 200000
+                },
+                new AircraftCost
+                {
+                    DateTime = new DateTime(2013, 1, 1),
+                    Purchase = 50000000,
+                    Lease = 40000000,
+                    Maintain = 250000
+                },
+                new AircraftCost
+                {
+                    DateTime = new DateTime(2014, 1, 1),
+                    Purchase = 90000000,
+                    Lease = 60000000,
+                    Maintain = 300000
+                },
+            };
         }
+
         #endregion
 
         #region 机队分析
+
+        private IEnumerable<FleetAircraftTypeComposition> _fleetAircraftImportTypeCollection;
         private IEnumerable<FleetAircraftTypeComposition> _fleetAircraftTypeCollection;
+
         /// <summary>
         ///     机型饼图的数据集合（指定时间点）
         /// </summary>
@@ -123,7 +150,6 @@ namespace UniCloud.Presentation.Portal.Manager
             }
         }
 
-        private IEnumerable<FleetAircraftTypeComposition> _fleetAircraftImportTypeCollection;
         /// <summary>
         ///     机型饼图的数据集合（指定时间点）
         /// </summary>
@@ -137,70 +163,71 @@ namespace UniCloud.Presentation.Portal.Manager
                 RaisePropertyChanged(() => FleetAircraftImportTypeCollection);
             }
         }
+
         private void InitStructureDate()
         {
             var types = new List<FleetAircraftTypeComposition>
-                        {
-                             new FleetAircraftTypeComposition
-                            {
-                                AircraftRegional="A319",
-                                AirNum=16,
-                                AirTt="16架，占23%",
-                                Color = "#FF339933"
-                            },
-                            new FleetAircraftTypeComposition
-                            {
-                                AircraftRegional="A320",
-                                AirNum=31,
-                                AirTt="31架，占44%",
-                                Color = "#FF8CBF26"
-                            },
-                            new FleetAircraftTypeComposition
-                            {
-                                AircraftRegional="A321",
-                                AirNum=19,
-                                AirTt="19架，占27%",
-                                Color = "#FFF09609"
-                            },
-                            new FleetAircraftTypeComposition
-                            {
-                                AircraftRegional="A330-200",
-                                AirNum=4,
-                                AirTt="4架，占6%",
-                                Color = "#FFE671B8"
-                            },
-                        };
+            {
+                new FleetAircraftTypeComposition
+                {
+                    AircraftRegional = "A319",
+                    AirNum = 16,
+                    AirTt = "16架，占23%",
+                    Color = "#FF339933"
+                },
+                new FleetAircraftTypeComposition
+                {
+                    AircraftRegional = "A320",
+                    AirNum = 31,
+                    AirTt = "31架，占44%",
+                    Color = "#FF8CBF26"
+                },
+                new FleetAircraftTypeComposition
+                {
+                    AircraftRegional = "A321",
+                    AirNum = 19,
+                    AirTt = "19架，占27%",
+                    Color = "#FFF09609"
+                },
+                new FleetAircraftTypeComposition
+                {
+                    AircraftRegional = "A330-200",
+                    AirNum = 4,
+                    AirTt = "4架，占6%",
+                    Color = "#FFE671B8"
+                },
+            };
             FleetAircraftTypeCollection = types;
 
             types = new List<FleetAircraftTypeComposition>
-                        {
-                             new FleetAircraftTypeComposition
-                            {
-                                AircraftRegional="购买",
-                                AirNum=24,
-                                AirTt="24架，占46%",
-                                Color = "#FF339933"
-                            },
-                            new FleetAircraftTypeComposition
-                            {
-                                AircraftRegional="租赁",
-                                AirNum=28,
-                                AirTt="28架，占54%",
-                                Color = "#FF8CBF26"
-                            },
-                        };
+            {
+                new FleetAircraftTypeComposition
+                {
+                    AircraftRegional = "购买",
+                    AirNum = 24,
+                    AirTt = "24架，占46%",
+                    Color = "#FF339933"
+                },
+                new FleetAircraftTypeComposition
+                {
+                    AircraftRegional = "租赁",
+                    AirNum = 28,
+                    AirTt = "28架，占54%",
+                    Color = "#FF8CBF26"
+                },
+            };
             FleetAircraftImportTypeCollection = types;
         }
+
         #endregion
 
         #region 日程安排
-        EventsCollection _calendars;
+
+        private EventsCollection _calendars;
+
         public EventsCollection Calendars
         {
-            get
-            {
-                return _calendars;
-            }
+            get { return _calendars; }
             set
             {
                 if (_calendars != value)
@@ -214,270 +241,256 @@ namespace UniCloud.Presentation.Portal.Manager
         private void InitCalendarData()
         {
             Calendars = new EventsCollection
-                        {
-                            new Event
-                            {
-                                Day = 2,
-                                Title = "The Future Of Web Development",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Tom Black; Start Time - 11.15 AM",
-                                Important=true
-                            },
-                            new Event
-                            {
-                                Day = 2,
-                                Title = "Blend For Silverlight Developers",
-                                Company = "Telerik Inc - Texas, USA",
-                                Description = "Speaker: Tom Black; Start Time - 4.00 PM",
-                            },
-                            new Event
-                            {
-                                Day = 2,
-                                Title = "Integrating WPF and WCF",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Tom Wildermuth; Start Time - 1.00 PM"
-                            },
-
-                            new Event
-                            {
-                                Day = 3,
-                                Title = "What's new in WCF 4",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Grace Becerra; Start Time - 10.00 AM"
-                            },
-                            new Event
-                            {
-                                Day = 3,
-                                Title = "The Future Of Web Development",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Tom Black; Start Time - 11.15 AM"
-                            },
-                            new Event
-                            {
-                                Day = 3,
-                                Title = "Blend For Silverlight Developers",
-                                Company = "Telerik Inc - Texas, USA",
-                                Description = "Speaker: Tom Black; Start Time - 4.00 PM"
-                            },
-
-                            new Event
-                            {
-                                Day = 4,
-                                Title = "What's new in WCF 4",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Grace Becerra; Start Time - 10.00 AM"
-                            },
-                            new Event
-                            {
-                                Day = 4,
-                                Title = "Multimedia in Silverlight 4",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Jeremy Boatner; Start Time - 12.00 PM"
-                            },
-
-                            new Event
-                            {
-                                Day = 5,
-                                Title = "The Future Of Web Development",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Tom Black; Start Time - 11.15 AM"
-                            },
-                            new Event
-                            {
-                                Day = 5,
-                                Title = "Multimedia in Silverlight 4",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Jeremy Boatner; Start Time - 2.00 PM"
-                            },
-                            new Event
-                            {
-                                Day = 5,
-                                Title = "Blend For Silverlight Developers",
-                                Company = "Telerik Inc - Texas, USA",
-                                Description = "Speaker: Tom Black; Start Time - 4.00 PM"
-                            },
-
-                            new Event
-                            {
-                                Day = 8,
-                                Title = "Integrating WPF and WCF",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Tom Wildermuth; Start Time - 9:45 AM"
-                            },
-                            new Event
-                            {
-                                Day = 8,
-                                Title = "Blend For Silverlight Developers",
-                                Company = "Telerik Inc - Texas, USA",
-                                Description = "Speaker: Tom Black; Start Time - 2.00 PM"
-                            },
-                            new Event
-                            {
-                                Day = 8,
-                                Title = "Multimedia in Silverlight 4",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Jeremy Boatner; Start Time - 4.00 PM"
-                            },
-
-                            new Event
-                            {
-                                Day = 11,
-                                Title = "The Future Of Web Development",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Tom Black; Start Time - 11.15 AM"
-                            },
-                            new Event
-                            {
-                                Day = 11,
-                                Title = "Blend For Silverlight Developers",
-                                Company = "Telerik Inc - Texas, USA",
-                                Description = "Speaker: Tom Black; Start Time - 4.00 PM"
-                            },
-
-                            new Event
-                            {
-                                Day = 14,
-                                Title = "Integrating WPF and WCF",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Tom Wildermuth; Start Time - 11.45 PM"
-                            },
-
-                            new Event
-                            {
-                                Day = 14,
-                                Title = "The Future Of Web Development",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Tom Black; Start Time - 1.15 PM",
-                                Important = true
-                            },
-                            new Event
-                            {
-                                Day = 14,
-                                Title = "Multimedia in Silverlight 4",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Jeremy Boatner; Start Time - 3.00 PM"
-                            },
-
-
-                            new Event
-                            {
-                                Day = 15,
-                                Title = " Windows Phone 7 Development",
-                                Company = "Telerik Inc - Texas, USA",
-                                Description = "Speaker: Brenda Smith; Start Time - 12:00 AM"
-                            },
-                            new Event
-                            {
-                                Day = 15,
-                                Title = "Integrating WPF and WCF",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Tom Wildermuth; Start Time - 1.00 PM"
-                            },
-
-                            new Event
-                            {
-                                Day = 17,
-                                Title = "The Future Of Web Development",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Tom Black; Start Time - 11.15 AM"
-                            },
-                            new Event
-                            {
-                                Day = 17,
-                                Title = "Blend For Silverlight Developers",
-                                Company = "Telerik Inc - Texas, USA",
-                                Description = "Speaker: Tom Black; Start Time - 1:30 PM"
-                            },
-                            new Event
-                            {
-                                Day = 17,
-                                Title = "What's new in WCF 4",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Grace Becerra; Start Time - 3.00 PM"
-                            },
-
-                            new Event
-                            {
-                                Day = 24,
-                                Title = "Integrating WPF and WCF",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Tom Wildermuth; Start Time - 12.00 AM"
-                            },
-                            new Event
-                            {
-                                Day = 24,
-                                Title = "The Future Of Web Development",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Tom Black; Start Time - 2.15 PM"
-                            },
-                            new Event
-                            {
-                                Day = 24,
-                                Title = " Windows Phone 7 Development",
-                                Company = "Telerik Inc - Texas, USA",
-                                Description = "Speaker: Brenda Smith; Start Time - 5:00 PM"
-                            },
-
-                            new Event
-                            {
-                                Day = 25,
-                                Title = "Blend For Silverlight Developers",
-                                Company = "Telerik Inc - Texas, USA",
-                                Description = "Speaker: Tom Black; Start Time - 10.00 AM",
-                                Important = true
-                            },
-                            new Event
-                            {
-                                Day = 25,
-                                Title = "Integrating WPF and WCF",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Tom Wildermuth; Start Time - 1.00 PM"
-                            },
-                            new Event
-                            {
-                                Day = 25,
-                                Title = " Windows Phone 7 Development",
-                                Company = "Telerik Inc - Texas, USA",
-                                Description = "Speaker: Brenda Smith; Start Time - 3:00 PM"
-                            },
-
-                            new Event
-                            {
-                                Day = 27,
-                                Title = "What's new in WCF 4",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Grace Becerra; Start Time - 10.00 AM"
-                            },
-                            new Event
-                            {
-                                Day = 27,
-                                Title = "Blend For Silverlight Developers",
-                                Company = "Telerik Inc - Texas, USA",
-                                Description = "Speaker: Tom Black; Start Time - 2.00 PM"
-                            },
-
-                            new Event
-                            {
-                                Day = 28,
-                                Title = "Integrating WPF and WCF",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Tom Wildermuth; Start Time - 1.00 PM"
-                            },
-                            new Event
-                            {
-                                Day = 28,
-                                Title = "The Future Of Web Development",
-                                Company = "Telerik Inc - Boston, USA",
-                                Description = "Speaker: Tom Black; Start Time - 2:00 PM"
-                            },
-                            new Event
-                            {
-                                Day = 28,
-                                Title = " Windows Phone 7 Development",
-                                Company = "Telerik Inc - Texas, USA",
-                                Description = "Speaker: Brenda Smith; Start Time - 4:00 PM"
-                            },
-                        };
+            {
+                new Event
+                {
+                    Day = 2,
+                    Title = "The Future Of Web Development",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Tom Black; Start Time - 11.15 AM",
+                    Important = true
+                },
+                new Event
+                {
+                    Day = 2,
+                    Title = "Blend For Silverlight Developers",
+                    Company = "Telerik Inc - Texas, USA",
+                    Description = "Speaker: Tom Black; Start Time - 4.00 PM",
+                },
+                new Event
+                {
+                    Day = 2,
+                    Title = "Integrating WPF and WCF",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Tom Wildermuth; Start Time - 1.00 PM"
+                },
+                new Event
+                {
+                    Day = 3,
+                    Title = "What's new in WCF 4",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Grace Becerra; Start Time - 10.00 AM"
+                },
+                new Event
+                {
+                    Day = 3,
+                    Title = "The Future Of Web Development",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Tom Black; Start Time - 11.15 AM"
+                },
+                new Event
+                {
+                    Day = 3,
+                    Title = "Blend For Silverlight Developers",
+                    Company = "Telerik Inc - Texas, USA",
+                    Description = "Speaker: Tom Black; Start Time - 4.00 PM"
+                },
+                new Event
+                {
+                    Day = 4,
+                    Title = "What's new in WCF 4",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Grace Becerra; Start Time - 10.00 AM"
+                },
+                new Event
+                {
+                    Day = 4,
+                    Title = "Multimedia in Silverlight 4",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Jeremy Boatner; Start Time - 12.00 PM"
+                },
+                new Event
+                {
+                    Day = 5,
+                    Title = "The Future Of Web Development",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Tom Black; Start Time - 11.15 AM"
+                },
+                new Event
+                {
+                    Day = 5,
+                    Title = "Multimedia in Silverlight 4",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Jeremy Boatner; Start Time - 2.00 PM"
+                },
+                new Event
+                {
+                    Day = 5,
+                    Title = "Blend For Silverlight Developers",
+                    Company = "Telerik Inc - Texas, USA",
+                    Description = "Speaker: Tom Black; Start Time - 4.00 PM"
+                },
+                new Event
+                {
+                    Day = 8,
+                    Title = "Integrating WPF and WCF",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Tom Wildermuth; Start Time - 9:45 AM"
+                },
+                new Event
+                {
+                    Day = 8,
+                    Title = "Blend For Silverlight Developers",
+                    Company = "Telerik Inc - Texas, USA",
+                    Description = "Speaker: Tom Black; Start Time - 2.00 PM"
+                },
+                new Event
+                {
+                    Day = 8,
+                    Title = "Multimedia in Silverlight 4",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Jeremy Boatner; Start Time - 4.00 PM"
+                },
+                new Event
+                {
+                    Day = 11,
+                    Title = "The Future Of Web Development",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Tom Black; Start Time - 11.15 AM"
+                },
+                new Event
+                {
+                    Day = 11,
+                    Title = "Blend For Silverlight Developers",
+                    Company = "Telerik Inc - Texas, USA",
+                    Description = "Speaker: Tom Black; Start Time - 4.00 PM"
+                },
+                new Event
+                {
+                    Day = 14,
+                    Title = "Integrating WPF and WCF",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Tom Wildermuth; Start Time - 11.45 PM"
+                },
+                new Event
+                {
+                    Day = 14,
+                    Title = "The Future Of Web Development",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Tom Black; Start Time - 1.15 PM",
+                    Important = true
+                },
+                new Event
+                {
+                    Day = 14,
+                    Title = "Multimedia in Silverlight 4",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Jeremy Boatner; Start Time - 3.00 PM"
+                },
+                new Event
+                {
+                    Day = 15,
+                    Title = " Windows Phone 7 Development",
+                    Company = "Telerik Inc - Texas, USA",
+                    Description = "Speaker: Brenda Smith; Start Time - 12:00 AM"
+                },
+                new Event
+                {
+                    Day = 15,
+                    Title = "Integrating WPF and WCF",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Tom Wildermuth; Start Time - 1.00 PM"
+                },
+                new Event
+                {
+                    Day = 17,
+                    Title = "The Future Of Web Development",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Tom Black; Start Time - 11.15 AM"
+                },
+                new Event
+                {
+                    Day = 17,
+                    Title = "Blend For Silverlight Developers",
+                    Company = "Telerik Inc - Texas, USA",
+                    Description = "Speaker: Tom Black; Start Time - 1:30 PM"
+                },
+                new Event
+                {
+                    Day = 17,
+                    Title = "What's new in WCF 4",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Grace Becerra; Start Time - 3.00 PM"
+                },
+                new Event
+                {
+                    Day = 24,
+                    Title = "Integrating WPF and WCF",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Tom Wildermuth; Start Time - 12.00 AM"
+                },
+                new Event
+                {
+                    Day = 24,
+                    Title = "The Future Of Web Development",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Tom Black; Start Time - 2.15 PM"
+                },
+                new Event
+                {
+                    Day = 24,
+                    Title = " Windows Phone 7 Development",
+                    Company = "Telerik Inc - Texas, USA",
+                    Description = "Speaker: Brenda Smith; Start Time - 5:00 PM"
+                },
+                new Event
+                {
+                    Day = 25,
+                    Title = "Blend For Silverlight Developers",
+                    Company = "Telerik Inc - Texas, USA",
+                    Description = "Speaker: Tom Black; Start Time - 10.00 AM",
+                    Important = true
+                },
+                new Event
+                {
+                    Day = 25,
+                    Title = "Integrating WPF and WCF",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Tom Wildermuth; Start Time - 1.00 PM"
+                },
+                new Event
+                {
+                    Day = 25,
+                    Title = " Windows Phone 7 Development",
+                    Company = "Telerik Inc - Texas, USA",
+                    Description = "Speaker: Brenda Smith; Start Time - 3:00 PM"
+                },
+                new Event
+                {
+                    Day = 27,
+                    Title = "What's new in WCF 4",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Grace Becerra; Start Time - 10.00 AM"
+                },
+                new Event
+                {
+                    Day = 27,
+                    Title = "Blend For Silverlight Developers",
+                    Company = "Telerik Inc - Texas, USA",
+                    Description = "Speaker: Tom Black; Start Time - 2.00 PM"
+                },
+                new Event
+                {
+                    Day = 28,
+                    Title = "Integrating WPF and WCF",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Tom Wildermuth; Start Time - 1.00 PM"
+                },
+                new Event
+                {
+                    Day = 28,
+                    Title = "The Future Of Web Development",
+                    Company = "Telerik Inc - Boston, USA",
+                    Description = "Speaker: Tom Black; Start Time - 2:00 PM"
+                },
+                new Event
+                {
+                    Day = 28,
+                    Title = " Windows Phone 7 Development",
+                    Company = "Telerik Inc - Texas, USA",
+                    Description = "Speaker: Brenda Smith; Start Time - 4:00 PM"
+                },
+            };
             EventDayTemplateSelector.Events = Calendars;
         }
 
@@ -487,19 +500,21 @@ namespace UniCloud.Presentation.Portal.Manager
             if (c != null)
             {
                 c.View.Refresh();
-                CurrentManagerPortal.EmptyContent.Visibility = c.View.IsEmpty ? Visibility.Visible : Visibility.Collapsed;
+                CurrentManagerPortal.EmptyContent.Visibility = c.View.IsEmpty
+                    ? Visibility.Visible
+                    : Visibility.Collapsed;
             }
         }
+
         #endregion
 
         #region 项目进度
-        List<CountryRevenue> _countryRevenues;
+
+        private List<CountryRevenue> _countryRevenues;
+
         public List<CountryRevenue> CountryRevenues
         {
-            get
-            {
-                return _countryRevenues;
-            }
+            get { return _countryRevenues; }
             set
             {
                 if (_countryRevenues != value)
@@ -509,18 +524,32 @@ namespace UniCloud.Presentation.Portal.Manager
                 }
             }
         }
+
         private void InitProjectData()
         {
             CountryRevenues = new List<CountryRevenue>
-                              {
-                                  new CountryRevenue{Country = "CN",Actual=97,Target=100,Color="#FFCCCCCC"},
-                                  new CountryRevenue{Country = "USA",Actual=80,Target=100,Color="#FFCCCCCC"},
-                                   new CountryRevenue{Country = "Jp",Actual=70,Target=100,Color="#FFF90202"},
-                              };
+            {
+                new CountryRevenue {Country = "CN", Actual = 97, Target = 100, Color = "#FFCCCCCC"},
+                new CountryRevenue {Country = "USA", Actual = 80, Target = 100, Color = "#FFCCCCCC"},
+                new CountryRevenue {Country = "Jp", Actual = 70, Target = 100, Color = "#FFF90202"},
+            };
         }
+
         #endregion
+
+        public ManagerPortal CurrentManagerPortal
+        {
+            get { return ServiceLocator.Current.GetInstance<ManagerPortal>(); }
+        }
+
+        public override void LoadData()
+        {
+            //throw new System.NotImplementedException();
+        }
     }
+
     #region 飞机成本
+
     public class AircraftCost
     {
         public string Aircraft { get; set; } //飞机相关的名称
@@ -532,9 +561,11 @@ namespace UniCloud.Presentation.Portal.Manager
         public string SeatColor { get; set; } //座位数的颜色
         public string LoadColor { get; set; } //商载量的颜色
     }
+
     #endregion
 
     #region 机队结构
+
     public class FleetAircraftTypeComposition
     {
         public string AircraftRegional { get; set; }
@@ -542,9 +573,11 @@ namespace UniCloud.Presentation.Portal.Manager
         public string AirTt { get; set; }
         public string Color { get; set; }
     }
+
     #endregion
 
     #region 项目进度
+
     public class CountryRevenue
     {
         public string Country { get; set; }
@@ -555,11 +588,20 @@ namespace UniCloud.Presentation.Portal.Manager
 
         public string Color { get; set; }
     }
+
     #endregion
 
     #region 日程安排
+
     public class Event : INotifyPropertyChanged
     {
+        private string _company;
+        private DateTime _date;
+        private string _description;
+        private string _formatedDate;
+        private bool _important;
+        private string _title;
+
         public Event()
         {
             _date = DateTime.Now;
@@ -567,10 +609,7 @@ namespace UniCloud.Presentation.Portal.Manager
 
         public int Day
         {
-            get
-            {
-                return Date.Day;
-            }
+            get { return Date.Day; }
             set
             {
                 DateTime today = DateTime.Now;
@@ -578,13 +617,9 @@ namespace UniCloud.Presentation.Portal.Manager
             }
         }
 
-        private DateTime _date;
         public DateTime Date
         {
-            get
-            {
-                return _date;
-            }
+            get { return _date; }
             set
             {
                 if (_date != value)
@@ -597,13 +632,9 @@ namespace UniCloud.Presentation.Portal.Manager
             }
         }
 
-        private string _formatedDate;
         public string FormatedDate
         {
-            get
-            {
-                return _formatedDate;
-            }
+            get { return _formatedDate; }
             protected set
             {
                 if (_formatedDate != value)
@@ -614,13 +645,9 @@ namespace UniCloud.Presentation.Portal.Manager
             }
         }
 
-        private string _title;
         public string Title
         {
-            get
-            {
-                return _title;
-            }
+            get { return _title; }
             set
             {
                 if (_title != value)
@@ -631,13 +658,9 @@ namespace UniCloud.Presentation.Portal.Manager
             }
         }
 
-        private string _company;
         public string Company
         {
-            get
-            {
-                return _company;
-            }
+            get { return _company; }
             set
             {
                 if (_company != value)
@@ -648,13 +671,9 @@ namespace UniCloud.Presentation.Portal.Manager
             }
         }
 
-        private string _description;
         public string Description
         {
-            get
-            {
-                return _description;
-            }
+            get { return _description; }
             set
             {
                 if (_description != value)
@@ -665,7 +684,6 @@ namespace UniCloud.Presentation.Portal.Manager
             }
         }
 
-        private bool _important;
         public bool Important
         {
             get { return _important; }
@@ -679,6 +697,8 @@ namespace UniCloud.Presentation.Portal.Manager
             }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         protected void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -686,7 +706,6 @@ namespace UniCloud.Presentation.Portal.Manager
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 
     public class EventsCollection : ObservableCollection<Event>
@@ -695,6 +714,18 @@ namespace UniCloud.Presentation.Portal.Manager
 
     public class EventDayTemplateSelector : DataTemplateSelector
     {
+        public static EventsCollection Events;
+
+        public EventsCollection EventsCollection
+        {
+            get { return Events; }
+            set { }
+        }
+
+        public DataTemplate DefaultTemplate { get; set; }
+        public DataTemplate EventTemplate { get; set; }
+        public DataTemplate ImportantTemplate { get; set; }
+
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             var content = item as CalendarButtonContent;
@@ -711,16 +742,6 @@ namespace UniCloud.Presentation.Portal.Manager
 
             return DefaultTemplate;
         }
-
-        public static EventsCollection Events;
-        public EventsCollection EventsCollection
-        {
-            get { return Events; }
-            set { }
-        }
-        public DataTemplate DefaultTemplate { get; set; }
-        public DataTemplate EventTemplate { get; set; }
-        public DataTemplate ImportantTemplate { get; set; }
     }
 
     #endregion

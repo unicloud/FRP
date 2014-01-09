@@ -1,5 +1,10 @@
-﻿using System.ComponentModel.Composition;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
 using System.Windows.Controls;
+using System.Windows.Input;
+
+#endregion
 
 namespace UniCloud.Presentation.Document
 {
@@ -9,11 +14,9 @@ namespace UniCloud.Presentation.Document
         public DocumentViewer()
         {
             InitializeComponent();
-            ViewModel = new DocumentViewerVm(this);
-            DataContext = ViewModel;
         }
 
-        [Import(typeof(DocumentViewerVm))]
+        [Import(typeof (DocumentViewerVm))]
         public DocumentViewerVm ViewModel
         {
             get { return DataContext as DocumentViewerVm; }
@@ -22,17 +25,18 @@ namespace UniCloud.Presentation.Document
 
         #region EventHandlers
 
-        private void TbCurrentPage_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void TbCurrentPage_KeyDown(object sender, KeyEventArgs e)
         {
             var textBox = sender as TextBox;
             if (textBox != null)
             {
-                if (e.Key == System.Windows.Input.Key.Enter)
+                if (e.Key == Key.Enter)
                 {
                     textBox.GetBindingExpression(TextBox.TextProperty).UpdateSource();
                 }
             }
         }
+
         #endregion
     }
 }

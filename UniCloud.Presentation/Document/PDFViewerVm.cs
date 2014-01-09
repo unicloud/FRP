@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -25,7 +27,7 @@ using Telerik.Windows.Controls.DataServices;
 using Telerik.Windows.Data;
 using Telerik.Windows.Documents.Fixed.FormatProviders;
 using Telerik.Windows.Documents.Fixed.FormatProviders.Pdf;
-using UniCloud.Presentation.Service;
+using UniCloud.Presentation.Service.CommonService;
 using UniCloud.Presentation.Service.CommonService.Common;
 using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 
@@ -33,26 +35,27 @@ using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 
 namespace UniCloud.Presentation.Document
 {
-    [Export(typeof(PDFViewerVm))]
+    [Export(typeof (PDFViewerVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class PDFViewerVm : ViewModelBase
     {
         #region 声明、初始化
 
-        [Import]
-        public PDFViewer CurrentPdfView;
+        private readonly QueryableDataServiceCollectionView<DocumentDTO> _documents;
+        private readonly FilterDescriptor _filter;
+        private byte[] _byteContent;
         private DocumentDTO _currentDoc;
         private bool _onlyView;
-        private byte[] _byteContent;
-        private readonly QueryableDataServiceCollectionView<DocumentDTO> _documents;
         private EventHandler<DataServiceSubmittedChangesEventArgs> _submitChanges;
-        private readonly FilterDescriptor _filter;
-        public PDFViewerVm()
+        [Import] public PDFViewer currentPdfView;
+
+        public PDFViewerVm(ICommonService service) : base(service)
         {
+            var context = service.Context;
             SaveCommand = new DelegateCommand<object>(Save, CanSave);
             OpenDocumentCommand = new DelegateCommand<object>(OpenDocument);
-            var commonServiceData = new CommonServiceData(AgentHelper.CommonServiceUri);
-            _documents = new QueryableDataServiceCollectionView<DocumentDTO>(commonServiceData, commonServiceData.Documents);
+            _documents = service.CreateCollection(context.Documents);
+            service.RegisterCollectionView(_documents);
             _filter = new FilterDescriptor("DocumentId", FilterOperator.IsEqualTo, Guid.Empty);
             _documents.FilterDescriptors.Add(_filter);
             _documents.LoadedData += (o, e) =>
@@ -63,7 +66,8 @@ namespace UniCloud.Presentation.Document
                     if (result != null)
                     {
                         Stream currentContent = new MemoryStream(result.FileStorage);
-                        CurrentPdfView.pdfViewer.Document = new PdfFormatProvider(currentContent, FormatProviderSettings.ReadOnDemand).Import();
+                        currentPdfView.pdfViewer.Document =
+                            new PdfFormatProvider(currentContent, FormatProviderSettings.ReadOnDemand).Import();
                     }
                 }
                 catch (Exception ex)
@@ -73,6 +77,7 @@ namespace UniCloud.Presentation.Document
                 IsBusy = false;
             };
         }
+
         #endregion
 
         #region 数据
@@ -80,7 +85,9 @@ namespace UniCloud.Presentation.Document
         #endregion
 
         #region 操作
+
         #region 初始化文档信息
+
         public void InitData(bool onlyView, DocumentDTO doc, EventHandler<WindowClosedEventArgs> closed)
         {
             IsBusy = true;
@@ -88,24 +95,27 @@ namespace UniCloud.Presentation.Document
             _onlyView = onlyView;
             if (_onlyView)
             {
-                CurrentPdfView.Header = "查看PDF文档";
+                currentPdfView.Header = "查看PDF文档";
             }
-            CurrentPdfView.Closed -= closed;
-            CurrentPdfView.Closed += closed;
-            CurrentPdfView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            if (doc != null && !doc.DocumentId.Equals(Guid.Empty) && doc.Name.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
+            currentPdfView.Closed -= closed;
+            currentPdfView.Closed += closed;
+            currentPdfView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            if (doc != null && !doc.DocumentId.Equals(Guid.Empty) &&
+                doc.Name.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
             {
                 LoadDocumentByDocId(doc.DocumentId);
             }
             else
             {
-                CurrentPdfView.pdfViewer.DocumentSource = null;
+                currentPdfView.pdfViewer.DocumentSource = null;
                 IsBusy = false;
             }
         }
+
         #endregion
 
         #region 加载文档
+
         private void LoadDocumentByDocId(Guid docId)
         {
             _filter.Value = docId;
@@ -115,12 +125,14 @@ namespace UniCloud.Presentation.Document
         #endregion
 
         #region 打开文档
+
         public DelegateCommand<object> OpenDocumentCommand { get; set; }
+
         private void OpenDocument(object sender)
         {
             try
             {
-                var openFileDialog = new OpenFileDialog { Filter = "PDF Files(*.pdf)|*.pdf" };
+                var openFileDialog = new OpenFileDialog {Filter = "PDF Files(*.pdf)|*.pdf"};
                 if (openFileDialog.ShowDialog() == true)
                 {
                     _currentDoc.Name = openFileDialog.File.Name;
@@ -129,7 +141,8 @@ namespace UniCloud.Presentation.Document
                     Stream currentContent = new MemoryStream(_byteContent);
                     //using (input)
                     {
-                        CurrentPdfView.pdfViewer.Document = new PdfFormatProvider(currentContent, FormatProviderSettings.ReadOnDemand).Import();
+                        currentPdfView.pdfViewer.Document =
+                            new PdfFormatProvider(currentContent, FormatProviderSettings.ReadOnDemand).Import();
                     }
                 }
             }
@@ -138,10 +151,13 @@ namespace UniCloud.Presentation.Document
                 MessageAlert(e.Message);
             }
         }
+
         #endregion
 
         #region 保存文档到服务器
+
         public DelegateCommand<object> SaveCommand { get; set; }
+
         private bool CanSave(object sender)
         {
             if (_onlyView)
@@ -160,11 +176,11 @@ namespace UniCloud.Presentation.Document
                 _currentDoc.DocumentId = Guid.NewGuid();
             }
             var document = new DocumentDTO
-                           {
-                               DocumentId = _currentDoc.DocumentId,
-                               Name = _currentDoc.Name,
-                               FileStorage = _byteContent
-                           };
+            {
+                DocumentId = _currentDoc.DocumentId,
+                Name = _currentDoc.Name,
+                FileStorage = _byteContent
+            };
             if (isNew)
             {
                 _documents.AddNew(document);
@@ -185,9 +201,9 @@ namespace UniCloud.Presentation.Document
                             MessageAlert("保存失败: " + e.Error.Message);
                             return;
                         }
-                        CurrentPdfView.Tag = _currentDoc;
+                        currentPdfView.Tag = _currentDoc;
                         _byteContent = null;
-                        CurrentPdfView.Close();
+                        currentPdfView.Close();
                         MessageAlert("保存成功！");
                     }
                     catch (Exception ex)
@@ -198,11 +214,13 @@ namespace UniCloud.Presentation.Document
                 _documents.SubmittedChanges += _submitChanges;
             }
         }
+
         #endregion
 
         public override void LoadData()
         {
         }
+
         #endregion
     }
 }

@@ -40,18 +40,16 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
     {
         #region 声明、初始化
 
-        private readonly FleetPlanData _fleetPlanContext;
         private static readonly CommonMethod CommonMethod = new CommonMethod();
-        private readonly IFleetPlanService _service;
+        private readonly FleetPlanData _fleetPlanContext;
         private RadGridView _ageDeployGridView; //机龄配置列表
         private bool _loadXmlConfig;
         private bool _loadXmlSetting;
 
         [ImportingConstructor]
-        public AgeDeployVm(IFleetPlanService service)
+        public AgeDeployVm(IFleetPlanService service) : base(service)
         {
-            _service = service;
-            _fleetPlanContext = _service.Context;
+            _fleetPlanContext = service.Context;
             ViewModelInitializer();
             SaveCommand = new DelegateCommand<object>(OnSave, CanSave);
             AddCommand = new DelegateCommand<object>(OnAdd, CanAdd);

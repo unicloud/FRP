@@ -152,6 +152,14 @@
     <Folder Include="Maintenance\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.Portal\Service.Portal.csproj">
+      <Project>{1f136252-47f1-43dc-bf81-ec22724d9f9f}</Project>
+      <Name>Service.Portal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Presentation.Service\Service.csproj">
+      <Project>{5f45eae5-2f35-4ad1-bf0e-f5fd5539fd32}</Project>
+      <Name>Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation\Presentation.csproj">
       <Project>{faa6d644-29da-477e-a351-5536b2a5a8eb}</Project>
       <Name>Presentation</Name>

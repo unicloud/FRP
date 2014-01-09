@@ -44,11 +44,12 @@ namespace UniCloud.Presentation.Purchase.Contract
         private readonly PurchaseData _context; //域上下文
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
-        [Import] public DocumentViewer DocumentView;
+        [Import] public DocumentViewer documentView;
         private string _loadType; //加载子项文件夹方式方式，1、DoubleClick 双击,2、SearchText 搜索框
 
         [ImportingConstructor]
         public QueryContractVM(IRegionManager regionManager, IPurchaseService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -279,9 +280,9 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         private void OpenDocument(Guid? documentId)
         {
-            DocumentView.Tag = null;
-            if (documentId != null) DocumentView.ViewModel.InitData(true, documentId.Value, null);
-            DocumentView.ShowDialog();
+            documentView.Tag = null;
+            if (documentId != null) documentView.ViewModel.InitData(true, documentId.Value, null);
+            documentView.ShowDialog();
         }
 
         /// <summary>

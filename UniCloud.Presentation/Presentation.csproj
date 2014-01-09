@@ -291,8 +291,6 @@
       <DependentUpon>LocalizationResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Localization\ReportViewerLocalization.cs" />
-    <Compile Include="MVVM\EditMasterSlaveViewModelBase.cs" />
-    <Compile Include="MVVM\EditMasterViewModelBase.cs" />
     <Compile Include="MVVM\EditViewModelBase.cs" />
     <Compile Include="MVVM\GridViewExtension.cs" />
     <Compile Include="MVVM\ILoadData.cs" />

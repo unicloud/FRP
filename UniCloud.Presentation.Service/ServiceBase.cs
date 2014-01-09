@@ -41,6 +41,7 @@ namespace UniCloud.Presentation.Service
         private static Dictionary<string, QueryableDataServiceCollectionViewBase> _staticCollectionView;
         private readonly List<QueryableDataServiceCollectionViewBase> _dataServiceCollectionViews;
         private bool _hasChanges;
+        private bool _isBusy;
         private EventHandler<DataServiceSubmittedChangesEventArgs> _submitChanges;
         protected DataServiceContext context;
 
@@ -101,12 +102,27 @@ namespace UniCloud.Presentation.Service
         #region 属性
 
         /// <summary>
+        ///     是否正忙
+        /// </summary>
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            private set
+            {
+                if (_isBusy == value)
+                    return;
+                _isBusy = value;
+                OnPropertyChanged("IsBusy");
+            }
+        }
+
+        /// <summary>
         ///     是否有变化
         /// </summary>
         public bool HasChanges
         {
             get { return _hasChanges; }
-            protected set
+            private set
             {
                 if (_hasChanges == value)
                     return;
@@ -275,9 +291,11 @@ namespace UniCloud.Presentation.Service
             result.SubmittingChanges += (o, e) =>
                 e.SaveChangesOptions = options;
             result.PropertyChanged += (o, e) => { if (result.HasChanges) HasChanges = true; };
+            result.LoadingData += (o, e) => { IsBusy = true; };
             result.LoadedData += (o, e) =>
             {
                 HasChanges = false;
+                IsBusy = _dataServiceCollectionViews.Any(d => d.IsBusy);
                 var collectionView = o as QueryableDataServiceCollectionView<TService>;
                 if (collectionView == null) return;
                 foreach (TService item in collectionView)

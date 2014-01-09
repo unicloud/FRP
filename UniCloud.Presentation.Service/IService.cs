@@ -35,6 +35,11 @@ namespace UniCloud.Presentation.Service
     public interface IService : INotifyPropertyChanged
     {
         /// <summary>
+        ///     是否正忙
+        /// </summary>
+        bool IsBusy { get; }
+
+        /// <summary>
         ///     是否有变化
         /// </summary>
         bool HasChanges { get; }
