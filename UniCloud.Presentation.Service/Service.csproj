@@ -60,6 +60,7 @@
       <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.0\lib\sl4\Microsoft.Data.Services.Client.SL.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
+    <Reference Include="System.ComponentModel.Composition, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Spatial.SL">

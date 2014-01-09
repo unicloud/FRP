@@ -67,8 +67,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private Grid _seatPieGrid; //飞机数饼图区域， 座位数饼图区域， 商载量区域
 
         [ImportingConstructor]
-        public PassengerAircraftTrendVm(IFleetPlanService service)
-            : base(service)
+        public PassengerAircraftTrendVm(IFleetPlanService service) : base(service)
         {
             _service = service;
             _fleetPlanContext = _service.Context;

@@ -1,0 +1,80 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="UniCloud.Application.ProjectBC.DTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityType Name="RelatedDocDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SourceId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="DocumentName" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="TaskStandardDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="OptimisticTime" Type="Edm.Time" Nullable="false" />
+        <Property Name="PessimisticTime" Type="Edm.Time" Nullable="false" />
+        <Property Name="NormalTime" Type="Edm.Time" Nullable="false" />
+        <Property Name="SourceGuid" Type="Edm.Guid" Nullable="false" />
+        <Property Name="IsCustom" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="TaskType" Type="Edm.Int32" Nullable="false" />
+        <Property Name="WorkGroupId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TaskCases" Type="Collection(UniCloud.Application.ProjectBC.DTO.TaskCaseDTO)" Nullable="false" />
+        <Property Name="Members" Type="Collection(UniCloud.Application.ProjectBC.DTO.MemberDTO)" Nullable="false" />
+        <NavigationProperty Name="RelatedDocs" Relationship="UniCloud.Application.ProjectBC.DTO.TaskStandardDTO_RelatedDocs" ToRole="RelatedDocs" FromRole="TaskStandardDTO" />
+      </EntityType>
+      <ComplexType Name="TaskCaseDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TaskStandardId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RelatedId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+      </ComplexType>
+      <ComplexType Name="MemberDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="IsManager" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="MemberUserId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
+      <EntityType Name="WorkGroupDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="ManagerId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ManagerName" Type="Edm.String" />
+        <Property Name="Members" Type="Collection(UniCloud.Application.ProjectBC.DTO.MemberDTO)" Nullable="false" />
+      </EntityType>
+      <EntityType Name="UserDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="EmployeeCode" Type="Edm.String" />
+        <Property Name="DisplayName" Type="Edm.String" />
+      </EntityType>
+      <Association Name="TaskStandardDTO_RelatedDocs">
+        <End Type="UniCloud.Application.ProjectBC.DTO.TaskStandardDTO" Role="TaskStandardDTO" Multiplicity="*" />
+        <End Type="UniCloud.Application.ProjectBC.DTO.RelatedDocDTO" Role="RelatedDocs" Multiplicity="*" />
+      </Association>
+    </Schema>
+    <Schema Namespace="UniCloud.DistributedServices.Project" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityContainer Name="ProjectData" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="RelatedDocs" EntityType="UniCloud.Application.ProjectBC.DTO.RelatedDocDTO" />
+        <EntitySet Name="TaskStandards" EntityType="UniCloud.Application.ProjectBC.DTO.TaskStandardDTO" />
+        <EntitySet Name="WorkGroups" EntityType="UniCloud.Application.ProjectBC.DTO.WorkGroupDTO" />
+        <EntitySet Name="Users" EntityType="UniCloud.Application.ProjectBC.DTO.UserDTO" />
+        <AssociationSet Name="TaskStandardDTO_RelatedDocs" Association="UniCloud.Application.ProjectBC.DTO.TaskStandardDTO_RelatedDocs">
+          <End Role="TaskStandardDTO" EntitySet="TaskStandards" />
+          <End Role="RelatedDocs" EntitySet="RelatedDocs" />
+        </AssociationSet>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

@@ -53,7 +53,8 @@ namespace UniCloud.Presentation.Purchase.Contract
         private FilterDescriptor _tradeDescriptor2;
 
         [ImportingConstructor]
-        public AircraftPurchaseVM(IRegionManager regionManager, IPurchaseService service) : base(service)
+        public AircraftPurchaseVM(IRegionManager regionManager, IPurchaseService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -333,18 +334,18 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
         {
-            var documentView = sender as DocumentViewer;
-            if (documentView != null && documentView.Tag is DocumentDTO)
+            var docView = sender as DocumentViewer;
+            if (docView != null && docView.Tag is DocumentDTO)
             {
                 if (_isAttach)
                 {
-                    _document = documentView.Tag as DocumentDTO;
+                    _document = docView.Tag as DocumentDTO;
                     SelAircraftPurchaseOrderDTO.ContractName = _document.Name;
                     SelAircraftPurchaseOrderDTO.ContractDocGuid = _document.DocumentId;
                 }
                 else
                 {
-                    _document = documentView.Tag as DocumentDTO;
+                    _document = docView.Tag as DocumentDTO;
                     var doc = new RelatedDocDTO
                     {
                         Id = RandomHelper.Next(),

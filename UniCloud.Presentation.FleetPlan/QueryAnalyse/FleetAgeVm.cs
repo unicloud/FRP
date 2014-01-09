@@ -63,8 +63,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private string _selectedType; //所选的机型
 
         [ImportingConstructor]
-        public FleetAgeVm(IFleetPlanService service)
-            : base(service)
+        public FleetAgeVm(IFleetPlanService service) : base(service)
         {
             _fleetPlanContext = service.Context;
 
@@ -112,9 +111,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         #region 公共数据
 
-        public Dictionary<string, List<AircraftDTO>> aircraftByAgeDic = new Dictionary<string, List<AircraftDTO>>();
         private ObservableCollection<FleetAgeTrend> _aircraftTypes;
         private ObservableCollection<FleetData> _fleetDatas;
+        public Dictionary<string, List<AircraftDTO>> aircraftByAgeDic = new Dictionary<string, List<AircraftDTO>>();
         //机龄饼图的飞机数据分布字典
 
         public QueryableDataServiceCollectionView<XmlConfigDTO> XmlConfigs { get; set; } //XmlConfig集合

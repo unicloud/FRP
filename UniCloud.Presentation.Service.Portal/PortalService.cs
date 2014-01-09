@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System.ComponentModel.Composition;
+using UniCloud.Presentation.Service.Portal.Portal;
 
 #endregion
 
@@ -27,5 +28,9 @@ namespace UniCloud.Presentation.Service.Portal
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class PortalService : ServiceBase, IPortalService
     {
+        public PortalService()
+        {
+            context = new ProjectData(AgentHelper.ProjectServiceUri);
+        }
     }
 }

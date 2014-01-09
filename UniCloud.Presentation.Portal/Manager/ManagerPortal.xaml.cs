@@ -1,17 +1,14 @@
-﻿//------------------------------------------------------------------------------
-// 
-//------------------------------------------------------------------------------
+﻿#region 命名空间
 
 using System;
 using System.ComponentModel.Composition;
 using System.Windows.Data;
-using Telerik.Windows.Controls;
-using System.Windows;
+
+#endregion
 
 namespace UniCloud.Presentation.Portal.Manager
 {
-    [Export(typeof(ManagerPortal))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
+    [Export]
     public partial class ManagerPortal
     {
         public ManagerPortal()
@@ -20,7 +17,7 @@ namespace UniCloud.Presentation.Portal.Manager
             Calendar.SelectedDate = DateTime.Today;
         }
 
-        [Import]
+        [Import(typeof (ManagerPortalVm))]
         public ManagerPortalVm ViewModel
         {
             get { return DataContext as ManagerPortalVm; }

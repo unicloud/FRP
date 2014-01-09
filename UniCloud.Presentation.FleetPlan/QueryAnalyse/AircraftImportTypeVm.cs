@@ -61,8 +61,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private bool _loadXmlSetting;
 
         [ImportingConstructor]
-        public AircraftImportTypeVm(IFleetPlanService service)
-            : base(service)
+        public AircraftImportTypeVm(IFleetPlanService service) : base(service)
         {
             _fleetPlanContext = service.Context;
 

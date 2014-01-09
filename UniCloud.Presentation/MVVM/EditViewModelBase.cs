@@ -29,8 +29,11 @@ namespace UniCloud.Presentation.MVVM
 {
     public abstract class EditViewModelBase : ViewModelBase, IConfirmNavigationRequest
     {
+        private readonly IService _service;
+
         protected EditViewModelBase(IService service) : base(service)
         {
+            _service = service;
             SaveCommand = new DelegateCommand<object>(OnSave, CanSave);
             AbortCommand = new DelegateCommand<object>(OnAbort, CanAbort);
             if (service != null)
@@ -60,7 +63,7 @@ namespace UniCloud.Presentation.MVVM
                 {
                     return;
                 }
-                service.SubmitChanges(collectionView, sm =>
+                _service.SubmitChanges(collectionView, sm =>
                 {
                     IsBusy = false;
                     if (sm.Error == null)
@@ -78,7 +81,7 @@ namespace UniCloud.Presentation.MVVM
             }
             else
             {
-                service.SubmitChanges(sm =>
+                _service.SubmitChanges(sm =>
                 {
                     IsBusy = false;
                     if (sm.Error == null)
@@ -123,7 +126,7 @@ namespace UniCloud.Presentation.MVVM
 
         private bool CanSave(object sender)
         {
-            return service != null && service.HasChanges;
+            return _service != null && _service.HasChanges;
         }
 
         #endregion
@@ -147,7 +150,7 @@ namespace UniCloud.Presentation.MVVM
                 var collectionView = sender as QueryableDataServiceCollectionViewBase;
                 IsBusy = true;
                 OnAbortExecuting(collectionView); //取消前。
-                service.RejectChanges(collectionView); //取消。
+                _service.RejectChanges(collectionView); //取消。
                 OnAbortExecuted(collectionView); //取消后。
                 IsBusy = false;
             }
@@ -155,7 +158,7 @@ namespace UniCloud.Presentation.MVVM
             {
                 IsBusy = true;
                 OnAbortExecuting(sender);
-                service.RejectChanges();
+                _service.RejectChanges();
                 OnAbortExecuted(sender);
                 IsBusy = false;
             }
@@ -171,7 +174,7 @@ namespace UniCloud.Presentation.MVVM
 
         private bool CanAbort(object sender)
         {
-            return service != null && service.HasChanges;
+            return _service != null && _service.HasChanges;
         }
 
         #endregion
@@ -191,13 +194,13 @@ namespace UniCloud.Presentation.MVVM
 
         public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
         {
-            if (service.HasChanges)
+            if (_service.HasChanges)
             {
                 MessageConfirm("还有未保存的更改，继续导航将撤销这些修改，是否继续？", (o, e) =>
                 {
                     if (e.DialogResult == true)
                     {
-                        service.RejectChanges();
+                        _service.RejectChanges();
                         continuationCallback(true);
                     }
                     else

@@ -29,6 +29,7 @@ using Telerik.Windows.Documents.Fixed;
 using Telerik.Windows.Documents.Fixed.FormatProviders;
 using Telerik.Windows.Documents.FormatProviders.OpenXml.Docx;
 using Telerik.Windows.Documents.Model;
+using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.CommonService;
 using UniCloud.Presentation.Service.CommonService.Common;
 using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
@@ -42,7 +43,6 @@ namespace UniCloud.Presentation.Document
     {
         #region 声明、初始化
 
-        private readonly CommonServiceData _context;
         private readonly ICommonService _service;
         private byte[] _byteContent;
         private DocumentDTO _currentDoc;
@@ -55,16 +55,14 @@ namespace UniCloud.Presentation.Document
 
         public DocumentViewerVm(DocumentViewer documentView, ICommonService service) : base(service)
         {
-            _service = service;
-            _context = _service.Context;
             currentDocumentView = documentView;
+            _service = service;
             InitVm();
         }
 
         public DocumentViewerVm(ICommonService service) : base(service)
         {
             _service = service;
-            _context = _service.Context;
             InitVm();
         }
 
@@ -74,8 +72,10 @@ namespace UniCloud.Presentation.Document
             SaveCommand = new DelegateCommand<object>(Save, CanSave);
             OpenDocumentCommand = new DelegateCommand<object>(OpenDocument);
             PdfDocumentChangedCommand = new DelegateCommand<object>(PdfDocumentChanged);
-            _documents = _service.CreateCollection(_context.Documents);
-            _service.RegisterCollectionView(_documents);
+            var commonServiceData = new CommonServiceData(AgentHelper.CommonServiceUri);
+            _documents = new QueryableDataServiceCollectionView<DocumentDTO>(commonServiceData,
+                commonServiceData.Documents);
+
             _filter = new FilterDescriptor("DocumentId", FilterOperator.IsEqualTo, Guid.Empty);
             _documents.FilterDescriptors.Add(_filter);
             _documents.LoadedData += (o, e) =>

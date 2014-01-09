@@ -33,13 +33,10 @@ namespace UniCloud.Presentation.MVVM
     /// </summary>
     public abstract class ViewModelBase : NotificationObject, INavigationAware, ILoadData
     {
-        protected readonly IService service;
-
         #region ctor
 
         protected ViewModelBase(IService service)
         {
-            this.service = service;
             AddAttachCommand = new DelegateCommand<object>(OnAddAttach, CanAddAttach);
             ViewAttachCommand = new DelegateCommand<object>(OnViewAttach);
             ExcelExportCommand = new DelegateCommand<object>(OnExcelExport);

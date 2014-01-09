@@ -44,12 +44,11 @@ namespace UniCloud.Presentation.Purchase.Contract
         private readonly PurchaseData _context; //域上下文
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
-        [Import] public DocumentViewer documentView;
         private string _loadType; //加载子项文件夹方式方式，1、DoubleClick 双击,2、SearchText 搜索框
+        [Import] public DocumentViewer documentView;
 
         [ImportingConstructor]
-        public QueryContractVM(IRegionManager regionManager, IPurchaseService service)
-            : base(service)
+        public QueryContractVM(IRegionManager regionManager, IPurchaseService service) : base(service)
         {
             _regionManager = regionManager;
             _service = service;

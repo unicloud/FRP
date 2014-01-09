@@ -63,8 +63,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private Grid _typePieGrid; //趋势折线图区域，趋势柱状图区域， 座级饼图区域，机型饼图区域
 
         [ImportingConstructor]
-        public FleetStructureVm(IFleetPlanService service)
-            : base(service)
+        public FleetStructureVm(IFleetPlanService service) : base(service)
         {
             _fleetPlanContext = service.Context;
             ViewModelInitializer();

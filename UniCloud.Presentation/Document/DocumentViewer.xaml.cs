@@ -14,9 +14,11 @@ namespace UniCloud.Presentation.Document
         public DocumentViewer()
         {
             InitializeComponent();
+            //ViewModel = new DocumentViewerVm(this);
+            //DataContext = ViewModel;
         }
 
-        [Import(typeof (DocumentViewerVm))]
+        //[Import(typeof (DocumentViewerVm))]
         public DocumentViewerVm ViewModel
         {
             get { return DataContext as DocumentViewerVm; }

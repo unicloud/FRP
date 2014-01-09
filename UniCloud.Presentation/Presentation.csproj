@@ -53,6 +53,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.Data.Services.Client.SL">
       <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.0\lib\sl4\Microsoft.Data.Services.Client.SL.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.4.1.0.0\lib\SL5\Microsoft.Expression.Interactions.dll</HintPath>
@@ -75,17 +76,22 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="mscorlib" />
-    <Reference Include="System.ComponentModel.Composition, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.ComponentModel.Composition, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations, Version=5.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\Microsoft SDKs\Silverlight\v5.0\Libraries\Client\System.ComponentModel.DataAnnotations.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core">
       <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
     </Reference>
-    <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Windows.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
@@ -102,6 +108,7 @@
     </Reference>
     <Reference Include="Telerik.ReportViewer.Silverlight">
       <HintPath>..\packages\Telerik.ReportViewer.Silverlight.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Controls">
       <HintPath>..\packages\Telerik.Windows.Controls.2.0.0\lib\Telerik.Windows.Controls.dll</HintPath>
@@ -370,18 +377,22 @@
     <ProjectReference Include="..\UniCloud.Presentation.Service.CommonService\Service.CommonService.csproj">
       <Project>{e182cb39-cb47-4a7a-bf2d-0094d38d24fe}</Project>
       <Name>Service.CommonService</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service.FleetPlan\Service.FleetPlan.csproj">
       <Project>{b2d2a463-a571-4467-b552-338d89d322f8}</Project>
       <Name>Service.FleetPlan</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service.Payment\Service.Payment.csproj">
       <Project>{8a34eaf1-0a35-4b80-bc53-f8bf11b626dc}</Project>
       <Name>Service.Payment</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service\Service.csproj">
       <Project>{5F45EAE5-2F35-4AD1-BF0E-F5FD5539FD32}</Project>
       <Name>Service</Name>
+      <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

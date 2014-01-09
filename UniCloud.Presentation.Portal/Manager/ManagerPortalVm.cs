@@ -40,6 +40,7 @@ namespace UniCloud.Presentation.Portal.Manager
     {
         private readonly IPortalService _service;
 
+        [ImportingConstructor]
         public ManagerPortalVm(IPortalService service) : base(service)
         {
             _service = service;

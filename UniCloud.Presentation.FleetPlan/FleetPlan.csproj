@@ -64,6 +64,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.Data.Services.Client.SL">
       <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.0\lib\sl4\Microsoft.Data.Services.Client.SL.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.4.1.0.0\lib\SL5\Microsoft.Expression.Interactions.dll</HintPath>
@@ -89,13 +90,20 @@
     <Reference Include="System.ComponentModel.Composition, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.ComponentModel.DataAnnotations, Version=5.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217, processorArchitecture=MSIL" />
+    <Reference Include="System.ComponentModel.DataAnnotations, Version=5.0.5.0, Culture=neutral, PublicKeyToken=ddd0da4d3e678217, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceModel.DomainServices.Client.Web, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.ServiceModel.Web.Extensions, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.ServiceModel.DomainServices.Client.Web, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web.Extensions, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Spatial.SL">
       <HintPath>..\packages\System.Spatial.5.6.0\lib\sl4\System.Spatial.SL.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
@@ -103,18 +111,30 @@
       <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
-    <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Windows.Controls.Navigation, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Windows.Controls.Toolkit, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Windows.Controls.Toolkit.Internals, Version=4.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Windows.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Navigation, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Toolkit, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Controls.Toolkit.Internals, Version=4.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Windows.Interactivity, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.4.1.0.0\lib\SL5\System.Windows.Interactivity.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Windows.Browser" />
-    <Reference Include="System.Xml.Linq, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Telerik.Windows.Controls, Version=2013.3.1016.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\packages\Telerik.Windows.Controls.2.0.0\lib\Telerik.Windows.Controls.dll</HintPath>
       <Private>False</Private>
@@ -298,14 +318,17 @@
     <ProjectReference Include="..\UniCloud.Presentation.Service.CommonService\Service.CommonService.csproj">
       <Project>{e182cb39-cb47-4a7a-bf2d-0094d38d24fe}</Project>
       <Name>Service.CommonService</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service.FleetPlan\Service.FleetPlan.csproj">
       <Project>{b2d2a463-a571-4467-b552-338d89d322f8}</Project>
       <Name>Service.FleetPlan</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service\Service.csproj">
       <Project>{5f45eae5-2f35-4ad1-bf0e-f5fd5539fd32}</Project>
       <Name>Service</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation\Presentation.csproj">
       <Project>{faa6d644-29da-477e-a351-5536b2a5a8eb}</Project>
