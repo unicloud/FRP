@@ -1153,7 +1153,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.Task", t => t.ParentId)
-                .ForeignKey("FRP.Project", t => t.ProjectId)
+                .ForeignKey("FRP.Project", t => t.ProjectId, cascadeDelete: true)
                 .Index(t => t.ParentId)
                 .Index(t => t.ProjectId);
             
@@ -1184,7 +1184,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.TaskTemp", t => t.ParentId)
-                .ForeignKey("FRP.ProjectTemp", t => t.ProjectTempId)
+                .ForeignKey("FRP.ProjectTemp", t => t.ProjectTempId, cascadeDelete: true)
                 .Index(t => t.ParentId)
                 .Index(t => t.ProjectTempId);
             
@@ -1357,7 +1357,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         RelatedId = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.TaskStandard", t => t.TaskStandardId)
+                .ForeignKey("FRP.TaskStandard", t => t.TaskStandardId, cascadeDelete: true)
                 .Index(t => t.TaskStandardId);
             
             CreateTable(
@@ -1384,7 +1384,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         MemberUserId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.WorkGroup", t => t.WorkGroupId)
+                .ForeignKey("FRP.WorkGroup", t => t.WorkGroupId, cascadeDelete: true)
                 .Index(t => t.WorkGroupId);
             
             CreateTable(

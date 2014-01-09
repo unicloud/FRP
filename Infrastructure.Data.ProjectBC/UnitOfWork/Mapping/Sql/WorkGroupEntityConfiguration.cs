@@ -42,7 +42,7 @@ namespace UniCloud.Infrastructure.Data.ProjectBC.UnitOfWork.Mapping.Sql
             Property(p => p.ManagerId).HasColumnName("ManagerId");
 
             HasRequired(w => w.Manager).WithMany().HasForeignKey(w => w.ManagerId);
-            HasMany(w => w.Members).WithRequired().HasForeignKey(w => w.WorkGroupId);
+            HasMany(w => w.Members).WithRequired().HasForeignKey(w => w.WorkGroupId).WillCascadeOnDelete(true);
         }
     }
 }
