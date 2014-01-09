@@ -112,7 +112,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         /// <summary>
         ///     计划发动机
         /// </summary>
-        public virtual PlanEngine PlanEngine { get; private set; }
+        public virtual PlanEngine PlanEngine { get; set; }
 
         /// <summary>
         ///     活动类型
@@ -193,11 +193,10 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         /// <summary>
         ///     设置计划发动机
         /// </summary>
-        /// <param name="planEngine">计划发动机</param>
-        public void SetPlanEngine(PlanEngine planEngine)
+        /// <param name="planEngineId">计划发动机Id</param>
+        public void SetPlanEngine(Guid? planEngineId)
         {
-            PlanEngine = planEngine;
-            PlanEngineId = planEngine.Id;
+            PlanEngineId = planEngineId;
         }
 
         /// <summary>
@@ -208,7 +207,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         {
             if (actionCategory == null)
             {
-                throw new ArgumentException("活动类型Id参数为空！");
+                throw new ArgumentException("活动类型参数为空！");
             }
             ActionCategory = actionCategory;
             ActionCategoryId = actionCategory.Id;

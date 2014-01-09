@@ -120,7 +120,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         /// 计划飞机
         /// </summary>
-        public virtual PlanAircraft PlanAircraft { get; private set; }
+        public virtual PlanAircraft PlanAircraft { get; set; }
 
         /// <summary>
         /// 活动类别：包括引进、退出、变更
@@ -203,11 +203,10 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     设置计划飞机
         /// </summary>
-        /// <param name="planAircraft">计划飞机</param>
-        public void SetPlanAircraft(PlanAircraft planAircraft)
+        /// <param name="planAircraftId">计划飞机</param>
+        public void SetPlanAircraft(Guid? planAircraftId)
         {
-            PlanAircraft = planAircraft;
-            PlanAircraftId = planAircraft.Id;
+            PlanAircraftId = planAircraftId;
         }
 
         /// <summary>

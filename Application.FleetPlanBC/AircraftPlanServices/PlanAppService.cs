@@ -46,14 +46,13 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
         private readonly IAircraftTypeRepository _aircraftTypeRepository;
         private readonly IAirlinesRepository _airlinesRepository;
         private readonly IAnnualRepository _annualRepository;
-        private readonly IPlanAircraftRepository _planAircraftRepository;
         private readonly IPlanQuery _planQuery;
         private readonly IPlanRepository _planRepository;
 
         public PlanAppService(IPlanQuery planQuery, IActionCategoryRepository actionCategoryRepository
             , IAircraftTypeRepository aircraftTypeRepository, IAirlinesRepository airlinesRepository,
             IAnnualRepository annualRepository,IAircraftRepository aircraftRepository,
-            IPlanRepository planRepository, IPlanAircraftRepository planAircraftRepository)
+            IPlanRepository planRepository)
         {
             _planQuery = planQuery;
             _actionCategoryRepository = actionCategoryRepository;
@@ -62,7 +61,6 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
             _airlinesRepository = airlinesRepository;
             _annualRepository = annualRepository;
             _planRepository = planRepository;
-            _planAircraftRepository = planAircraftRepository;
         }
 
         #region PlanDTO
@@ -172,7 +170,6 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
             var aircraftType = _aircraftTypeRepository.Get(planHistoryDto.AircraftTypeId);
             var airlines = _airlinesRepository.Get(planHistoryDto.AirlinesId);
             var annual = _annualRepository.Get(planHistoryDto.PerformAnnualId);
-            var planAircraft = _planAircraftRepository.Get(planHistoryDto.PlanAircraftId);
             // 添加接机行
             if (planHistoryDto.PlanType == 1)
             {
@@ -183,7 +180,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 newPlanHistory.SetCarryingCapacity(planHistoryDto.CarryingCapacity);
                 newPlanHistory.SetNote(planHistoryDto.Note);
                 newPlanHistory.SetPerformDate(annual, planHistoryDto.PerformMonth);
-                newPlanHistory.SetPlanAircraft(planAircraft);
+                newPlanHistory.SetPlanAircraft(planHistoryDto.PlanAircraftId);
                 newPlanHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
             }
             else if (planHistoryDto.PlanType == 2)
@@ -195,7 +192,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 newPlanHistory.SetCarryingCapacity(planHistoryDto.CarryingCapacity);
                 newPlanHistory.SetNote(planHistoryDto.Note);
                 newPlanHistory.SetPerformDate(annual, planHistoryDto.PerformMonth);
-                newPlanHistory.SetPlanAircraft(planAircraft);
+                newPlanHistory.SetPlanAircraft(planHistoryDto.PlanAircraftId);
                 newPlanHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
             }
         }
@@ -213,7 +210,6 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
             var aircraftType = _aircraftTypeRepository.Get(planHistoryDto.AircraftTypeId);
             var airlines = _airlinesRepository.Get(planHistoryDto.AirlinesId);
             var annual = _annualRepository.Get(planHistoryDto.PerformAnnualId);
-            var planAircraft = _planAircraftRepository.Get(planHistoryDto.PlanAircraftId);
             var operationHistory = _aircraftRepository.GetPh(planHistoryDto.RelatedGuid);
             var aircraftBusiness = _aircraftRepository.GetAb(planHistoryDto.RelatedGuid);
 
@@ -226,7 +222,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 planHistory.SetCarryingCapacity(planHistoryDto.CarryingCapacity);
                 planHistory.SetNote(planHistoryDto.Note);
                 planHistory.SetPerformDate(annual, planHistoryDto.PerformMonth);
-                planHistory.SetPlanAircraft(planAircraft);
+                planHistory.SetPlanAircraft(planHistoryDto.PlanAircraftId);
                 planHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
                 var operationPlan = planHistory as OperationPlan;
                 if (operationPlan != null)
@@ -240,7 +236,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 planHistory.SetCarryingCapacity(planHistoryDto.CarryingCapacity);
                 planHistory.SetNote(planHistoryDto.Note);
                 planHistory.SetPerformDate(annual, planHistoryDto.PerformMonth);
-                planHistory.SetPlanAircraft(planAircraft);
+                planHistory.SetPlanAircraft(planHistoryDto.PlanAircraftId);
                 planHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
                 var changePlan = planHistory as ChangePlan;
                 if (changePlan != null)

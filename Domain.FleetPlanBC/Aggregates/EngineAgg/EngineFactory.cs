@@ -12,6 +12,7 @@
 // ========================================================================*/
 #endregion
 
+using System;
 
 namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
 {
@@ -20,6 +21,19 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg
     /// </summary>
     public static class EngineFactory
     {
+        /// <summary>
+        ///     创建实际发动机
+        /// </summary>
+        /// <returns>实际发动机</returns>
+        public static Engine CreateEngine()
+        {
+            var engine = new Engine
+            {
+                CreateDate = DateTime.Now,
+            };
 
+            engine.GenerateNewIdentity();
+            return engine;
+        }
     }
 }

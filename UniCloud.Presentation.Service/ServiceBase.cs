@@ -280,22 +280,41 @@ namespace UniCloud.Presentation.Service
                 HasChanges = false;
                 var collectionView = o as QueryableDataServiceCollectionView<TService>;
                 if (collectionView == null) return;
-                foreach (TService item in collectionView)
+                collectionView.ToList().ForEach(item =>
                 {
-                    var master = item;
-                    foreach (var details in changed.Select(c => c(master)))
+                    if (item is TService)
                     {
-                        var collection = details as INotifyCollectionChanged;
-                        if (collection == null) return;
-                        collection.CollectionChanged += (obj, handler) => HasChanges = true;
-                        var detailList = details as IList;
-                        if (detailList == null) return;
-                        foreach (var entity in from object d in detailList select d as INotifyPropertyChanged)
+                        var master = item;
+                        foreach (var details in changed.Select(c => c(master)))
                         {
-                            entity.PropertyChanged += (obj, handler) => HasChanges = true;
+                            var collection = details as INotifyCollectionChanged;
+                            if (collection == null) return;
+                            collection.CollectionChanged += (obj, handler) => HasChanges = true;
+                            var detailList = details as IList;
+                            if (detailList == null) return;
+                            foreach (var entity in from object d in detailList select d as INotifyPropertyChanged)
+                            {
+                                entity.PropertyChanged += (obj, handler) => HasChanges = true;
+                            }
                         }
                     }
-                }
+                });
+                //foreach (TService item in collectionView)
+                //{
+                //    var master = item;
+                //    foreach (var details in changed.Select(c => c(master)))
+                //    {
+                //        var collection = details as INotifyCollectionChanged;
+                //        if (collection == null) return;
+                //        collection.CollectionChanged += (obj, handler) => HasChanges = true;
+                //        var detailList = details as IList;
+                //        if (detailList == null) return;
+                //        foreach (var entity in from object d in detailList select d as INotifyPropertyChanged)
+                //        {
+                //            entity.PropertyChanged += (obj, handler) => HasChanges = true;
+                //        }
+                //    }
+                //}
             };
 
             return result;

@@ -74,11 +74,11 @@
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="True"
                                                      IsBusy="{Binding Annuals.IsBusy}">
-                                    <!--<telerik:RadGridView.GroupDescriptors>
+                                    <telerik:RadGridView.GroupDescriptors>
                                         <telerik:GroupDescriptor Member="ProgrammingName"
                                                                  SortDirection="Descending">
                                         </telerik:GroupDescriptor>
-                                    </telerik:RadGridView.GroupDescriptors>-->
+                                    </telerik:RadGridView.GroupDescriptors>
                                     <telerik:RadGridView.Columns>
                                         <telerik:GridViewDataColumn Header="年度"
                                                                     DataMemberBinding="{Binding Year}"
@@ -178,6 +178,9 @@
                                     <telerik:GridViewDataColumn Header="航空公司"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding AirlinesName}">
+                                        <telerik:GridViewDataColumn.AggregateFunctions>
+                                            <telerik:CountFunction ResultFormatString="总计：{0}项" />
+                                        </telerik:GridViewDataColumn.AggregateFunctions>
                                     </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="座级"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
