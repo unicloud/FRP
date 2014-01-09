@@ -148,7 +148,7 @@ namespace UniCloud.Presentation.Portal.Manager
                                 AirTt="16架，占23%",
                                 Color = "#FF339933"
                             },
-                            new FleetAircraftTypeComposition
+                             new FleetAircraftTypeComposition
                             {
                                 AircraftRegional="A320",
                                 AirNum=31,
@@ -513,9 +513,9 @@ namespace UniCloud.Presentation.Portal.Manager
         {
             CountryRevenues = new List<CountryRevenue>
                               {
-                                  new CountryRevenue{Country = "CN",Actual=97,Target=100,Color="#FFCCCCCC"},
-                                  new CountryRevenue{Country = "USA",Actual=80,Target=100,Color="#FFCCCCCC"},
-                                   new CountryRevenue{Country = "Jp",Actual=70,Target=100,Color="#FFF90202"},
+                                  new CountryRevenue{Country = "项目1",Actual=97,Target=100,Color="#FFCCCCCC"},
+                                  new CountryRevenue{Country = "项目2",Actual=80,Target=100,Color="#FFCCCCCC"},
+                                  new CountryRevenue{Country = "项目3",Actual=70,Target=100,Color="#FFF90202"},
                               };
         }
         #endregion
