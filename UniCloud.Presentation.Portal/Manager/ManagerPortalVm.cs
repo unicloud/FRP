@@ -177,15 +177,15 @@ namespace UniCloud.Presentation.Portal.Manager
                              new FleetAircraftTypeComposition
                             {
                                 AircraftRegional="购买",
-                                AirNum=24,
-                                AirTt="24架，占46%",
+                                AirNum=42,
+                                AirTt="42架，占60%",
                                 Color = "#FF339933"
                             },
                             new FleetAircraftTypeComposition
                             {
                                 AircraftRegional="租赁",
                                 AirNum=28,
-                                AirTt="28架，占54%",
+                                AirTt="28架，占40%",
                                 Color = "#FF8CBF26"
                             },
                         };
@@ -317,6 +317,21 @@ namespace UniCloud.Presentation.Portal.Manager
                                 Title = "Multimedia in Silverlight 4",
                                 Company = "Telerik Inc - Boston, USA",
                                 Description = "Speaker: Jeremy Boatner; Start Time - 4.00 PM"
+                            },
+
+                            new Event
+                            {
+                                Day = 10,
+                                Title = " Windows Phone 7 Development",
+                                Company = "Telerik Inc - Texas, USA",
+                                Description = "Speaker: Brenda Smith; Start Time - 12:00 AM"
+                            },
+                            new Event
+                            {
+                                Day = 10,
+                                Title = "Integrating WPF and WCF",
+                                Company = "Telerik Inc - Boston, USA",
+                                Description = "Speaker: Tom Wildermuth; Start Time - 1.00 PM"
                             },
 
                             new Event
