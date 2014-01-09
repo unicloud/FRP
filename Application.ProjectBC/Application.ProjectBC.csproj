@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,8 +45,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IProjectAppService.cs" />
-    <Compile Include="Services\ProjectAppService.cs" />
+    <Compile Include="RelatedDocServices\IRelatedDocAppService.cs" />
+    <Compile Include="RelatedDocServices\RelatedDocAppService.cs" />
+    <Compile Include="TemplateServices\ITemplateAppService.cs" />
+    <Compile Include="TemplateServices\TemplateAppService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application.ProjectBC.DTO\Application.ProjectBC.DTO.csproj">
+      <Project>{BFC8133B-301A-4747-97D2-90A1ED762F45}</Project>
+      <Name>Application.ProjectBC.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.ProjectBC.Query\Application.ProjectBC.Query.csproj">
+      <Project>{E34BCBCB-F177-48A8-B95F-4242E7F3C03A}</Project>
+      <Name>Application.ProjectBC.Query</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{C926E107-6971-4B5C-8E00-DB7761EEAC8E}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.ProjectBC\Domain.ProjectBC.csproj">
+      <Project>{F1558AB6-AFAB-461A-8604-29510CCCC19E}</Project>
+      <Name>Domain.ProjectBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46A5B5A0-4B2C-411F-A74B-C26A81619CD9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

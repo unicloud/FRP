@@ -44,14 +44,13 @@ namespace UniCloud.DistributedServices.Purchase
 
             #region 服务操作访问控制
 
-            // config.SetServiceOperationAccessRule("MyServiceOperation", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("AddDocPath", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("DelDocPath", ServiceOperationRights.All);
 
             #endregion
 
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
             config.UseVerboseErrors = true;
-            config.SetServiceOperationAccessRule("AddDocPath", ServiceOperationRights.All);
-            config.SetServiceOperationAccessRule("DelDocPath", ServiceOperationRights.All);
         }
 
         #region 服务操作

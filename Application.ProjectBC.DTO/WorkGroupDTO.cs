@@ -45,7 +45,7 @@ namespace UniCloud.Application.ProjectBC.DTO
         /// <summary>
         ///     工作组管理者ID
         /// </summary>
-        public int ManagerUserId { get; set; }
+        public int ManagerId { get; set; }
 
         /// <summary>
         ///     管理者姓名

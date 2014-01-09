@@ -29,12 +29,10 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
 {
     public class TradeQuery : ITradeQuery
     {
-        private readonly ITradeRepository _tradeRepository;
         private readonly IQueryableUnitOfWork _unitOfWork;
 
-        public TradeQuery(ITradeRepository tradeRepository, IQueryableUnitOfWork unitOfWork)
+        public TradeQuery(IQueryableUnitOfWork unitOfWork)
         {
-            _tradeRepository = tradeRepository;
             _unitOfWork = unitOfWork;
         }
 
@@ -52,7 +50,7 @@ namespace UniCloud.Application.PurchaseBC.Query.TradeQueries
         public IQueryable<TradeDTO> TradesQuery(QueryBuilder<Trade> query)
         {
             var supplier = _unitOfWork.CreateSet<Supplier>();
-            var result = query.ApplyTo(_tradeRepository.GetAll()).Select(t => new TradeDTO
+            var result = query.ApplyTo(_unitOfWork.CreateSet<Trade>()).Select(t => new TradeDTO
             {
                 Id = t.Id,
                 TradeType = t.TradeType,

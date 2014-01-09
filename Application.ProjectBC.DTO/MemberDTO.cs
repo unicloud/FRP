@@ -35,13 +35,23 @@ namespace UniCloud.Application.ProjectBC.DTO
         public int Id { get; set; }
 
         /// <summary>
-        ///     工作组成员ID
+        ///     名称
         /// </summary>
-        public int MemberUserId { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
-        ///     成员姓名
+        ///     描述
         /// </summary>
-        public string MemberName { get; set; }
+        public string Description { get; set; }
+
+        /// <summary>
+        ///     是否工作组负责人
+        /// </summary>
+        public bool IsManager { get; set; }
+
+        /// <summary>
+        ///     工作组成员用户ID
+        /// </summary>
+        public int MemberUserId { get; set; }
     }
 }

@@ -31,6 +31,7 @@ namespace UniCloud.Application.ProjectBC.DTO
     [DataServiceKey("Id")]
     public class TaskStandardDTO
     {
+        private List<MemberDTO> _members;
         private List<RelatedDocDTO> _relatedDocs;
         private List<TaskCaseDTO> _taskCases;
 
@@ -80,6 +81,11 @@ namespace UniCloud.Application.ProjectBC.DTO
         public int TaskType { get; set; }
 
         /// <summary>
+        ///     工作组ID
+        /// </summary>
+        public int WorkGroupId { get; set; }
+
+        /// <summary>
         ///     任务案例集合
         /// </summary>
         public virtual List<TaskCaseDTO> TaskCases
@@ -95,6 +101,15 @@ namespace UniCloud.Application.ProjectBC.DTO
         {
             get { return _relatedDocs ?? (_relatedDocs = new List<RelatedDocDTO>()); }
             set { _relatedDocs = value; }
+        }
+
+        /// <summary>
+        ///     成员集合
+        /// </summary>
+        public virtual List<MemberDTO> Members
+        {
+            get { return _members ?? (_members = new List<MemberDTO>()); }
+            set { _members = value; }
         }
     }
 }
