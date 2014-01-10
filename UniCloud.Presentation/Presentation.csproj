@@ -271,6 +271,10 @@
       <DependentUpon>DocumentViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Document\DocumentViewerVm.cs" />
+    <Compile Include="Document\DocViewer.xaml.cs">
+      <DependentUpon>DocViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Document\DocViewerVM.cs" />
     <Compile Include="Document\PDFViewer.xaml.cs">
       <DependentUpon>PDFViewer.xaml</DependentUpon>
     </Compile>
@@ -313,6 +317,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Document\DocumentViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Document\DocViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

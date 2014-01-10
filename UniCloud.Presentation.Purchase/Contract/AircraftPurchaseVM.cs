@@ -38,7 +38,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 {
     [Export(typeof (AircraftPurchaseVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class AircraftPurchaseVM : EditViewModelBase
+    public class AircraftPurchaseVM : EditViewModelBase,IPartImportsSatisfiedNotification
     {
         #region 声明、初始化
 
@@ -51,6 +51,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         private FilterDescriptor _orderDescriptor;
         private FilterDescriptor _tradeDescriptor1;
         private FilterDescriptor _tradeDescriptor2;
+        [Import] public DocumentViewer docViewer;
 
         [ImportingConstructor]
         public AircraftPurchaseVM(IRegionManager regionManager, IPurchaseService service)
@@ -745,6 +746,15 @@ namespace UniCloud.Presentation.Purchase.Contract
         }
 
         #endregion
+
+        #endregion
+
+        #region IPartImportsSatisfiedNotification 成员
+
+        public void OnImportsSatisfied()
+        {
+            var q = docViewer;
+        }
 
         #endregion
     }
