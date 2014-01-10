@@ -15,7 +15,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         ActionType = c.String(),
                         ActionName = c.String(),
                         NeedRequest = c.Boolean(nullable: false),
-                        NetIncrement = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -69,7 +68,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         IsOperation = c.Boolean(nullable: false),
                         CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         FactoryDate = c.DateTime(precision: 7, storeType: "datetime2"),
-                        ImportDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        ImportDate = c.DateTime(precision: 7, storeType: "datetime2"),
                         ExportDate = c.DateTime(precision: 7, storeType: "datetime2"),
                         SeatingCapacity = c.Int(nullable: false),
                         CarryingCapacity = c.Decimal(nullable: false, precision: 18, scale: 2),
@@ -147,7 +146,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                     {
                         ID = c.Guid(nullable: false),
                         RegNumber = c.String(),
-                        StartDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        StartDate = c.DateTime(precision: 7, storeType: "datetime2"),
                         StopDate = c.DateTime(precision: 7, storeType: "datetime2"),
                         TechReceiptDate = c.DateTime(precision: 7, storeType: "datetime2"),
                         ReceiptDate = c.DateTime(precision: 7, storeType: "datetime2"),
@@ -155,6 +154,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         OnHireDate = c.DateTime(precision: 7, storeType: "datetime2"),
                         EndDate = c.DateTime(precision: 7, storeType: "datetime2"),
                         Note = c.String(),
+                        Status = c.Int(nullable: false),
                         AircraftId = c.Guid(nullable: false),
                         AirlinesId = c.Guid(nullable: false),
                         ImportCategoryId = c.Guid(nullable: false),
@@ -1069,7 +1069,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         DocName = c.String(),
                         AirlinesId = c.Guid(nullable: false),
                         AnnualId = c.Guid(nullable: false),
-                        DocumentId = c.Guid(nullable: false),
+                        DocumentId = c.Guid(),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.Airlines", t => t.AirlinesId)
@@ -1439,7 +1439,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.PlanHistory", t => t.ID)
-                .Index(t => t.ID);
+                .ForeignKey("FRP.AircraftBusiness", t => t.AircraftBusinessId)
+                .Index(t => t.ID)
+                .Index(t => t.AircraftBusinessId);
             
             CreateTable(
                 "FRP.OperationPlan",
@@ -1450,7 +1452,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.PlanHistory", t => t.ID)
-                .Index(t => t.ID);
+                .ForeignKey("FRP.OperationHistory", t => t.OperationHistoryId)
+                .Index(t => t.ID)
+                .Index(t => t.OperationHistoryId);
             
             CreateTable(
                 "FRP.LeaseContractAircraft",
@@ -2086,7 +2090,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.LeaseContractEngine", "ID", "FRP.ContractEngine");
             DropForeignKey("FRP.PurchaseContractAircraft", "ID", "FRP.ContractAircraft");
             DropForeignKey("FRP.LeaseContractAircraft", "ID", "FRP.ContractAircraft");
+            DropForeignKey("FRP.OperationPlan", "OperationHistoryId", "FRP.OperationHistory");
             DropForeignKey("FRP.OperationPlan", "ID", "FRP.PlanHistory");
+            DropForeignKey("FRP.ChangePlan", "AircraftBusinessId", "FRP.AircraftBusiness");
             DropForeignKey("FRP.ChangePlan", "ID", "FRP.PlanHistory");
             DropForeignKey("FRP.TaskStandard", "WorkGroupId", "FRP.WorkGroup");
             DropForeignKey("FRP.Member", "WorkGroupId", "FRP.WorkGroup");
@@ -2274,7 +2280,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.LeaseContractEngine", new[] { "ID" });
             DropIndex("FRP.PurchaseContractAircraft", new[] { "ID" });
             DropIndex("FRP.LeaseContractAircraft", new[] { "ID" });
+            DropIndex("FRP.OperationPlan", new[] { "OperationHistoryId" });
             DropIndex("FRP.OperationPlan", new[] { "ID" });
+            DropIndex("FRP.ChangePlan", new[] { "AircraftBusinessId" });
             DropIndex("FRP.ChangePlan", new[] { "ID" });
             DropIndex("FRP.TaskStandard", new[] { "WorkGroupId" });
             DropIndex("FRP.Member", new[] { "WorkGroupId" });

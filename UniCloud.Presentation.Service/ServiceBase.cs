@@ -84,7 +84,7 @@ namespace UniCloud.Presentation.Service
             DataServiceQuery<T> query, Action loaded = null, bool forceLoad = false)
             where T : class, INotifyPropertyChanged
         {
-            var type = typeof(T).ToString();
+            var type = typeof (T).ToString();
             if (!_staticCollectionView.ContainsKey(type))
             {
                 _staticCollectionView.Add(type, new QueryableDataServiceCollectionView<T>(context, query));
@@ -310,12 +310,14 @@ namespace UniCloud.Presentation.Service
                             {
                                 var collection = details as INotifyCollectionChanged;
                                 if (collection == null) return;
-                                collection.CollectionChanged += (obj, handler) => HasChanges = true;
+                                collection.CollectionChanged += (obj, handler) =>
+                                    HasChanges = true;
                                 var detailList = details as IList;
                                 if (detailList == null) return;
                                 foreach (var entity in from object d in detailList select d as INotifyPropertyChanged)
                                 {
-                                    entity.PropertyChanged += (obj, handler) => HasChanges = true;
+                                    entity.PropertyChanged += (obj, handler) =>
+                                        HasChanges = true;
                                 }
                             }
                         }
