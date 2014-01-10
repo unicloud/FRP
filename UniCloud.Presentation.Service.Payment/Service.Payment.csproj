@@ -111,6 +111,7 @@
     <Compile Include="Payment\LeaseGuaranteeDTO.cs" />
     <Compile Include="Payment\MaintainGuaranteeDTO.cs" />
     <Compile Include="Payment\MaintainInvoiceLineDTO.cs" />
+    <Compile Include="Payment\PaymentNoticeDTO.cs" />
     <Compile Include="Payment\PaymentNoticeLineDTO.cs" />
     <Compile Include="Payment\PurchaseInvoiceDTO.cs" />
     <Compile Include="Payment\PaymentScheduleDTO.cs" />

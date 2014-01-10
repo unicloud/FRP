@@ -22,6 +22,7 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Payment.Invoice;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
@@ -31,7 +32,7 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.PaymentNotice
 {
-    [Export(typeof (PaymentNoticeVm))]
+    [Export(typeof(PaymentNoticeVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class PaymentNoticeVm : InvoiceVm
     {
@@ -40,15 +41,14 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         private readonly PaymentData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
-        //[Import]
-        //public PaymentNoticeEdit CurrenPaymentNoticeEdit;
         [ImportingConstructor]
-        public PaymentNoticeVm(IRegionManager regionManager, IPaymentService service) : base(service)
+        public PaymentNoticeVm(IRegionManager regionManager, IPaymentService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
-
+            _service.GetSupplier(null);
             InitializeVm();
         }
 
@@ -61,7 +61,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            PaymentNotices = _service.CreateCollection(_context.PaymentNotices);
+            PaymentNotices = _service.CreateCollection(_context.PaymentNotices, o => o.PaymentNoticeLines);
             _service.RegisterCollectionView(PaymentNotices);
             ViewReportCommand = new DelegateCommand<object>(OnViewReport);
         }
@@ -77,7 +77,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         /// </summary>
         public Array InvoiceTypes
         {
-            get { return Enum.GetValues(typeof (InvoiceType)); }
+            get { return Enum.GetValues(typeof(InvoiceType)); }
         }
 
         #endregion
@@ -97,6 +97,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             PaymentNotices.AutoLoad = true;
             PaymentNotices.Load(true);
             Currencies.Load(true);
+            Suppliers.Load(true);
         }
 
         #region 付款通知
@@ -154,38 +155,17 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
 
         protected override void OnAddInvoice(object obj)
         {
-            var currenPaymentNoticeEdit = new PaymentNoticeEdit();
-            currenPaymentNoticeEdit.ViewModel.InitData(0, PaymentNoticeEditClosed);
-            currenPaymentNoticeEdit.ShowDialog();
+            PaymentNotice = new PaymentNoticeDTO
+            {
+                PaymentNoticeId = RandomHelper.Next(),
+                CreateDate = DateTime.Now,
+                DeadLine = DateTime.Now,
+                Status = 0,
+            };
+            PaymentNotices.AddNew(PaymentNotice);
         }
 
         protected override bool CanAddInvoice(object obj)
-        {
-            return true;
-        }
-
-        private void PaymentNoticeEditClosed(object sender, WindowClosedEventArgs e)
-        {
-            PaymentNotices.Load(true);
-        }
-
-        #endregion
-
-        #region 修改付款通知
-
-        protected override void OnEditInvoice(object obj)
-        {
-            if (PaymentNotice == null)
-            {
-                MessageAlert("请选择一条记录！");
-                return;
-            }
-            var currenPaymentNoticeEdit = new PaymentNoticeEdit();
-            currenPaymentNoticeEdit.ViewModel.InitData(PaymentNotice.PaymentNoticeId, PaymentNoticeEditClosed);
-            currenPaymentNoticeEdit.ShowDialog();
-        }
-
-        protected override bool CanEditInvoice(object obj)
         {
             return true;
         }
@@ -215,6 +195,53 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
 
         #endregion
 
+        #region 增加付款通知行
+
+        protected override void OnAddInvoiceLine(object obj)
+        {
+            if (PaymentNotice == null)
+            {
+                MessageAlert("请选择一条付款通知记录！");
+                return;
+            }
+            var maintainInvoiceLine = new PaymentNoticeLineDTO
+            {
+                PaymentNoticeLineId = RandomHelper.Next(),
+            };
+
+            PaymentNotice.PaymentNoticeLines.Add(maintainInvoiceLine);
+        }
+
+        protected override bool CanAddInvoiceLine(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
+        #region 移除付款通知行
+
+        protected override void OnRemoveInvoiceLine(object obj)
+        {
+            if (PaymentNoticeLine == null)
+            {
+                MessageAlert("请选择一条付款通知明细！");
+                return;
+            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+            {
+                if (arg.DialogResult != true) return;
+                PaymentNotice.PaymentNoticeLines.Remove(PaymentNoticeLine);
+            });
+        }
+
+        protected override bool CanRemoveInvoiceLine(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
         #region 提交付款通知
 
         protected override void OnSubmitInvoice(object obj)
@@ -224,7 +251,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                 MessageAlert("请选择一条付款通知记录！");
                 return;
             }
-            PaymentNotice.Status = (int) PaymentNoticeStatus.待审核;
+            PaymentNotice.Status = (int)PaymentNoticeStatus.待审核;
         }
 
         protected override bool CanSubmitInvoice(object obj)
@@ -243,7 +270,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                 MessageAlert("请选择一条付款通知记录！");
                 return;
             }
-            PaymentNotice.Status = (int) PaymentNoticeStatus.已审核;
+            PaymentNotice.Status = (int)PaymentNoticeStatus.已审核;
             PaymentNotice.Reviewer = "admin";
             PaymentNotice.ReviewDate = DateTime.Now;
         }

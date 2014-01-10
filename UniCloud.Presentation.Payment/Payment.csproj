@@ -240,10 +240,6 @@
     <Compile Include="PaymentNotice\PaymentNotice.xaml.cs">
       <DependentUpon>PaymentNotice.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PaymentNotice\PaymentNoticeEdit.xaml.cs">
-      <DependentUpon>PaymentNoticeEdit.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PaymentNotice\PaymentNoticeEditVm.cs" />
     <Compile Include="PaymentNotice\PaymentNoticeReport.xaml.cs">
       <DependentUpon>PaymentNoticeReport.xaml</DependentUpon>
     </Compile>
@@ -366,10 +362,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PaymentNotice\PaymentNotice.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PaymentNotice\PaymentNoticeEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
