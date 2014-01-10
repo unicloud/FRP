@@ -129,7 +129,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             if (_loadedAnnuals && _loadedPlans)
             {
-                SelAnnual = Annuals.FirstOrDefault(p => p.IsOpen);
+                SelAnnual = _curAnnual;
             }
         }
 

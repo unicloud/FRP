@@ -16,6 +16,7 @@
 
 using System;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
 using UniCloud.Domain.UberModel.Aggregates.AnnualAgg;
 using UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg;
@@ -120,6 +121,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.RequestAgg
         /// </summary>
         public virtual Annual RequestDeliverAnnual { get; set; }
 
+        /// <summary>
+        /// 运营权历史，共享主键
+        /// </summary>
+        public virtual OperationHistory OperationHistory { get; set; }
         #endregion
 
         #region 操作

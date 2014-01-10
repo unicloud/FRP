@@ -53,6 +53,7 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             HasRequired(o => o.Airlines).WithMany().HasForeignKey(o => o.AirlinesId);
             HasRequired(o => o.ImportCategory).WithMany().HasForeignKey(o => o.ImportCategoryId);
             HasOptional(o => o.ExportCategory).WithMany().HasForeignKey(o => o.ExportCategoryId);
+            HasRequired(o => o.ApprovalHistory).WithOptional(a => a.OperationHistory);
 
         }
     }
