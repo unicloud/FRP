@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 
@@ -49,7 +50,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// <summary>
         ///     运营日期
         /// </summary>
-        public DateTime StartDate { get; private set; }
+        public DateTime? StartDate { get; private set; }
 
         /// <summary>
         ///     退出停厂日期
@@ -86,7 +87,10 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// </summary>
         public string Note { get; private set; }
 
-
+        /// <summary>
+        ///     处理状态
+        /// </summary>
+        public OperationStatus Status { get; private set; }
         #endregion
 
         #region 外键属性
@@ -138,6 +142,31 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         #region 操作
 
         /// <summary>
+        ///     设置处理状态
+        /// </summary>
+        /// <param name="status">处理状态</param>
+        public void SetOperationStatus(OperationStatus status)
+        {
+            switch (status)
+            {
+                case OperationStatus.草稿:
+                    Status = OperationStatus.草稿;
+                    break;
+                case OperationStatus.待审核:
+                    Status = OperationStatus.待审核;
+                    break;
+                case OperationStatus.已审核:
+                    Status = OperationStatus.已审核;
+                    break;
+                case OperationStatus.已提交:
+                    Status = OperationStatus.已提交;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
+        }
+
+        /// <summary>
         ///     设置飞机机号
         /// </summary>
         /// <param name="regNumber">注册号</param>
@@ -155,7 +184,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         ///     设置运营日期
         /// </summary>
         /// <param name="date">运营日期</param>
-        public void SetStartDate(DateTime date)
+        public void SetStartDate(DateTime? date)
         {
             StartDate = date;
         }

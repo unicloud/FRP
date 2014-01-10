@@ -106,7 +106,7 @@
                                                                     >
                                             <telerik:GridViewDataColumn.CellEditTemplate>
                                                 <DataTemplate>
-                                                    <telerik:RadDateTimePicker InputMode="DatePicker" DisplayDateEnd="{Binding EndDate}" SelectedDate="{Binding StartDate,StringFormat={StaticResource DateStringFormat}}"></telerik:RadDateTimePicker>
+                                                    <telerik:RadDateTimePicker InputMode="DatePicker" DisplayDateEnd="{Binding EndDate}" SelectedDate="{Binding StartDate,Mode=TwoWay,StringFormat={StaticResource DateStringFormat}}"></telerik:RadDateTimePicker>
                                                 </DataTemplate>
                                             </telerik:GridViewDataColumn.CellEditTemplate>
                                             </telerik:GridViewDataColumn>
@@ -118,7 +118,7 @@
                                                                     DataMemberBinding="{Binding EndDate,StringFormat={StaticResource DateStringFormat}}">
                                             <telerik:GridViewDataColumn.CellEditTemplate>
                                                 <DataTemplate>
-                                                    <telerik:RadDateTimePicker InputMode="DatePicker" DisplayDateStart="{Binding StartDate}" SelectedDate="{Binding EndDate,StringFormat={StaticResource DateStringFormat}}"></telerik:RadDateTimePicker>
+                                                    <telerik:RadDateTimePicker InputMode="DatePicker" DisplayDateStart="{Binding StartDate}" SelectedDate="{Binding EndDate,Mode=TwoWay,StringFormat={StaticResource DateStringFormat}}"></telerik:RadDateTimePicker>
                                                 </DataTemplate>
                                             </telerik:GridViewDataColumn.CellEditTemplate>
                                         </telerik:GridViewDataColumn>

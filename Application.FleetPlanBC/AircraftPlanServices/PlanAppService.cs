@@ -24,6 +24,7 @@ using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
@@ -41,25 +42,25 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
     public class PlanAppService : IPlanAppService
     {
         private readonly IActionCategoryRepository _actionCategoryRepository;
+        private readonly IAircraftRepository _aircraftRepository;
         private readonly IAircraftTypeRepository _aircraftTypeRepository;
         private readonly IAirlinesRepository _airlinesRepository;
         private readonly IAnnualRepository _annualRepository;
-        private readonly IPlanAircraftRepository _planAircraftRepository;
         private readonly IPlanQuery _planQuery;
         private readonly IPlanRepository _planRepository;
 
         public PlanAppService(IPlanQuery planQuery, IActionCategoryRepository actionCategoryRepository
             , IAircraftTypeRepository aircraftTypeRepository, IAirlinesRepository airlinesRepository,
-            IAnnualRepository annualRepository,
-            IPlanRepository planRepository, IPlanAircraftRepository planAircraftRepository)
+            IAnnualRepository annualRepository,IAircraftRepository aircraftRepository,
+            IPlanRepository planRepository)
         {
             _planQuery = planQuery;
             _actionCategoryRepository = actionCategoryRepository;
+            _aircraftRepository = aircraftRepository;
             _aircraftTypeRepository = aircraftTypeRepository;
             _airlinesRepository = airlinesRepository;
             _annualRepository = annualRepository;
             _planRepository = planRepository;
-            _planAircraftRepository = planAircraftRepository;
         }
 
         #region PlanDTO
@@ -79,19 +80,17 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
         ///     新增运力增减计划。
         /// </summary>
         /// <param name="dto">运力增减计划DTO。</param>
-        [Insert(typeof (Plan))]
+        [Insert(typeof(PlanDTO))]
         public void InsertPlan(PlanDTO dto)
         {
             var airlines = _airlinesRepository.Get(dto.AirlinesId); //获取航空公司
             var annual = _annualRepository.Get(dto.AnnualId); //获取计划年度
 
             //创建运力增减计划
-            var newPlan = PlanFactory.CreatePlan(dto.VersionNumber, dto.SubmitDate);
+            var newPlan = PlanFactory.CreatePlan(dto.VersionNumber);
             newPlan.SetPlanStatus(PlanStatus.草稿);
             newPlan.SetAirlines(airlines);
             newPlan.SetAnnual(annual);
-            newPlan.SetDocNumber(dto.DocNumber);
-            newPlan.SetDocument(dto.DocumentId, dto.DocName);
             newPlan.SetTitle(dto.Title);
 
             //添加
@@ -116,7 +115,8 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
             if (updatePlan != null)
             {
                 //更新主表：
-                updatePlan.SetPlanStatus(PlanStatus.草稿);
+                updatePlan.SetPlanStatus((PlanStatus)dto.Status);
+                updatePlan.SetPlanPublishStatus((PlanPublishStatus)dto.PublishStatus);
                 updatePlan.SetAirlines(airlines);
                 updatePlan.SetAnnual(annual);
                 updatePlan.SetDocNumber(dto.DocNumber);
@@ -170,7 +170,6 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
             var aircraftType = _aircraftTypeRepository.Get(planHistoryDto.AircraftTypeId);
             var airlines = _airlinesRepository.Get(planHistoryDto.AirlinesId);
             var annual = _annualRepository.Get(planHistoryDto.PerformAnnualId);
-            var planAircraft = _planAircraftRepository.Get(planHistoryDto.PlanAircraftId);
             // 添加接机行
             if (planHistoryDto.PlanType == 1)
             {
@@ -181,7 +180,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 newPlanHistory.SetCarryingCapacity(planHistoryDto.CarryingCapacity);
                 newPlanHistory.SetNote(planHistoryDto.Note);
                 newPlanHistory.SetPerformDate(annual, planHistoryDto.PerformMonth);
-                newPlanHistory.SetPlanAircraft(planAircraft);
+                newPlanHistory.SetPlanAircraft(planHistoryDto.PlanAircraftId);
                 newPlanHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
             }
             else if (planHistoryDto.PlanType == 2)
@@ -193,7 +192,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 newPlanHistory.SetCarryingCapacity(planHistoryDto.CarryingCapacity);
                 newPlanHistory.SetNote(planHistoryDto.Note);
                 newPlanHistory.SetPerformDate(annual, planHistoryDto.PerformMonth);
-                newPlanHistory.SetPlanAircraft(planAircraft);
+                newPlanHistory.SetPlanAircraft(planHistoryDto.PlanAircraftId);
                 newPlanHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
             }
         }
@@ -211,7 +210,8 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
             var aircraftType = _aircraftTypeRepository.Get(planHistoryDto.AircraftTypeId);
             var airlines = _airlinesRepository.Get(planHistoryDto.AirlinesId);
             var annual = _annualRepository.Get(planHistoryDto.PerformAnnualId);
-            var planAircraft = _planAircraftRepository.Get(planHistoryDto.PlanAircraftId);
+            var operationHistory = _aircraftRepository.GetPh(planHistoryDto.RelatedGuid);
+            var aircraftBusiness = _aircraftRepository.GetAb(planHistoryDto.RelatedGuid);
 
             // 更新计划历史
             if (planHistoryDto.PlanType == 1)
@@ -222,11 +222,11 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 planHistory.SetCarryingCapacity(planHistoryDto.CarryingCapacity);
                 planHistory.SetNote(planHistoryDto.Note);
                 planHistory.SetPerformDate(annual, planHistoryDto.PerformMonth);
-                planHistory.SetPlanAircraft(planAircraft);
+                planHistory.SetPlanAircraft(planHistoryDto.PlanAircraftId);
                 planHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
                 var operationPlan = planHistory as OperationPlan;
                 if (operationPlan != null)
-                    operationPlan.SetOperationHistory(planHistoryDto.RelatedGuid);
+                    operationPlan.SetOperationHistory(operationHistory);
             }
             else if (planHistoryDto.PlanType == 2)
             {
@@ -236,11 +236,11 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 planHistory.SetCarryingCapacity(planHistoryDto.CarryingCapacity);
                 planHistory.SetNote(planHistoryDto.Note);
                 planHistory.SetPerformDate(annual, planHistoryDto.PerformMonth);
-                planHistory.SetPlanAircraft(planAircraft);
+                planHistory.SetPlanAircraft(planHistoryDto.PlanAircraftId);
                 planHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
                 var changePlan = planHistory as ChangePlan;
                 if (changePlan != null)
-                    changePlan.SetAircraftBusiness(planHistoryDto.RelatedGuid);
+                    changePlan.SetAircraftBusiness(aircraftBusiness);
             }
         }
 

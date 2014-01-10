@@ -430,7 +430,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
         }
 
         /// <summary>
-        ///     判断新增申请命令是否可用。
+        ///     判断新增命令是否可用。
         /// </summary>
         /// <param name="sender"></param>
         /// <returns>新增命令是否可用。</returns>
@@ -476,7 +476,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
 
         #endregion
 
-        #region 审核申请
+        #region 审核
 
         public DelegateCommand<object> ReviewApprovalCommand { get; private set; }
 
@@ -491,7 +491,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                 MessageAlert("批文不能为空");
                 return;
             }
-            SelectedApprovalDoc.Status = (int) RequestStatus.已审核;
+            SelectedApprovalDoc.Status = (int)OperationStatus.已审核;
             RefreshCommandState();
         }
 

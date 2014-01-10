@@ -579,7 +579,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                     ImportCategoryId = planHistory.ActionCategoryId,
                     RequestDeliverAnnualId = planHistory.PerformAnnualId,
                     AirlinesId = planHistory.AirlinesId,
-                    AircraftRegional = planHistory.Regional,
+                    //AircraftRegional = planHistory.Regional,
                     AircraftType = planHistory.AircraftTypeName
                 };
                 SelectedRequest.ApprovalHistories.Add(approveHistory);

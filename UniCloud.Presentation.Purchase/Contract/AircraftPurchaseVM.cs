@@ -38,7 +38,7 @@ namespace UniCloud.Presentation.Purchase.Contract
 {
     [Export(typeof (AircraftPurchaseVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class AircraftPurchaseVM : EditViewModelBase,IPartImportsSatisfiedNotification
+    public class AircraftPurchaseVM : EditViewModelBase
     {
         #region 声明、初始化
 
@@ -746,15 +746,6 @@ namespace UniCloud.Presentation.Purchase.Contract
         }
 
         #endregion
-
-        #endregion
-
-        #region IPartImportsSatisfiedNotification 成员
-
-        public void OnImportsSatisfied()
-        {
-            var q = docViewer;
-        }
 
         #endregion
     }

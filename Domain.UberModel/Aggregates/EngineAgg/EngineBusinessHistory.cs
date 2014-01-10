@@ -97,7 +97,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.EngineAgg
         ///     设置开始日期
         /// </summary>
         /// <param name="date">开始日期</param>
-        public void SetStartDate(DateTime date)
+        public void SetStartDate(DateTime? date)
         {
             StartDate = date;
         }

@@ -25,6 +25,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 #endregion
 
@@ -37,13 +38,12 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             OnPropertyChanged("OpenState");
         }
 
-        public string OpenState
+        public OpenState OpenState
         {
             get
             {
-                if (IsOpen && Plans.Any()) return "打开";
-                else if (IsOpen==false && Plans.Any()) return "关闭";
-                return "";
+                if (IsOpen) return OpenState.打开;
+                return OpenState.关闭;
             }
         }
     }

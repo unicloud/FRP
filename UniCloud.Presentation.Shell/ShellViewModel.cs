@@ -192,13 +192,13 @@ namespace UniCloud.Presentation.Shell
             };
             var menu215 = new MenuItem
             {
-                Text = "发布规划",
-                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanPublish"
+                Text = "报送规划",
+                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanSend"
             };
             var menu216 = new MenuItem
             {
-                Text = "报送规划",
-                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanSend"
+                Text = "发布规划",
+                NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanPublish"
             };
             var menu217 = new MenuItem
             {
@@ -245,14 +245,9 @@ namespace UniCloud.Presentation.Shell
             var menu231 = new MenuItem
             {
                 Text = "变更所有权",
+                NavUri = "UniCloud.Presentation.FleetPlan.AircraftOwnerShips.AircraftOwnership"
             };
-            var menu232 = new MenuItem
-            {
-                Text = "分配飞机运力",
-            };
-
             menu23.Items.Add(menu231);
-            menu23.Items.Add(menu232);
             menu2.Items.Add(menu23);
 
             var menu24 = new MenuItem
@@ -270,6 +265,7 @@ namespace UniCloud.Presentation.Shell
             var menu243 = new MenuItem
             {
                 Text = "查询申请",
+                NavUri = "UniCloud.Presentation.FleetPlan.Requests.QueryRequest"
             };
             var menu244 = new MenuItem
             {
@@ -690,24 +686,19 @@ namespace UniCloud.Presentation.Shell
 
             var menu51 = new MenuItem
             {
-                Text = "配置工作组"
+                Text = "配置任务模板"
             };
             var menu52 = new MenuItem
             {
-                Text = "配置任务模板"
-            };
-            var menu53 = new MenuItem
-            {
                 Text = "配置项目模板"
             };
-            var menu54 = new MenuItem
+            var menu53 = new MenuItem
             {
                 Text = "管理项目计划"
             };
             menu5.Items.Add(menu51);
             menu5.Items.Add(menu52);
             menu5.Items.Add(menu53);
-            menu5.Items.Add(menu54);
 
             _items.Add(menu5);
 

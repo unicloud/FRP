@@ -28,11 +28,6 @@ namespace UniCloud.Application.FleetPlanBC.DTO
     [DataServiceKey("Id")]
     public class AnnualDTO
     {
-        #region 私有字段
-
-        private List<PlanDTO> _plans;
-
-        #endregion
 
         #region 属性
 
@@ -67,17 +62,5 @@ namespace UniCloud.Application.FleetPlanBC.DTO
 
         #endregion
 
-        #region 导航属性
-
-        /// <summary>
-        ///     当前年度的运力增减计划集合
-        /// </summary>
-        public virtual List<PlanDTO> Plans
-        {
-            get { return _plans ?? (_plans = new List<PlanDTO>()); }
-            set { _plans = value; }
-        }
-        
-        #endregion
     }
 }

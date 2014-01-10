@@ -102,20 +102,24 @@
   <ItemGroup>
     <Compile Include="FleetPlanService.cs" />
     <Compile Include="FleetPlanServiceHelper.cs" />
+    <Compile Include="FleetPlan\ActionCategoryDTO.cs" />
     <Compile Include="FleetPlan\EnginePlanDTO.cs" />
     <Compile Include="FleetPlan\EnginePlanHistoryDTO.cs" />
     <Compile Include="FleetPlan\Enums\EnginePlanDeliverStatus.cs" />
     <Compile Include="FleetPlan\Enums\EnginePlanStatus.cs" />
     <Compile Include="FleetPlan\Enums\ManageStatus.cs" />
+    <Compile Include="FleetPlan\Enums\OpenState.cs" />
     <Compile Include="FleetPlan\Enums\OperationStatus.cs" />
+    <Compile Include="FleetPlan\Enums\PlanDetailCreateSource.cs" />
     <Compile Include="FleetPlan\Enums\PlanPublishStatus.cs" />
+    <Compile Include="FleetPlan\Enums\PlanRelativeSubmitState.cs" />
     <Compile Include="FleetPlan\Enums\PlanStatus.cs" />
+    <Compile Include="FleetPlan\OwnershipHistoryDTO.cs" />
     <Compile Include="FleetPlan\RequestDTO.cs" />
     <Compile Include="FleetPlan\Enums\RequestStatus.cs" />
     <Compile Include="FleetPlan\AnnualDTO.cs" />
     <Compile Include="FleetPlan\PlanAircraftDTO.cs" />
     <Compile Include="FleetPlan\PlanDTO.cs" />
-    <Compile Include="FleetPlan\PlanHistoryDTO.cs" />
     <Compile Include="IFleetPlanService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\FleetPlan\Reference.cs">

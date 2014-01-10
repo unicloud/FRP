@@ -25,9 +25,9 @@ using UniCloud.Presentation.ValueConverts;
 
 #endregion
 
-namespace UniCloud.Presentation.FleetPlan.Approvals
+namespace UniCloud.Presentation.FleetPlan.Converts
 {
-    public class ApprovalStatusConvert : IValueConverter
+    public class OperationStatusConvert : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

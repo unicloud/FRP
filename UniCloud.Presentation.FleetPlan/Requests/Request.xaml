@@ -92,7 +92,7 @@
                                     </telerik:RadButton>
                                 </telerik:RadToolBar>
                                 <Grid Row="1">
-                                    <telerik:RadGridView Name="EngineMaintainInvoiceList"
+                                    <telerik:RadGridView 
                                                          CanUserSortColumns="True"
                                                          CanUserFreezeColumns="False"
                                                          IsFilteringAllowed="True"

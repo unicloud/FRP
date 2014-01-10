@@ -44,6 +44,14 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// </summary>
         QueryableDataServiceCollectionView<AircraftTypeDTO> GetAircraftTypes(Action loaded, bool forceLoad = false);
 
+        /// <summary>
+        ///     获取供应商
+        /// </summary>
+        /// <param name="loaded">回调</param>
+        /// <param name="forceLoad">是否强制加载</param>
+        /// <returns>供应商集合</returns>
+        QueryableDataServiceCollectionView<SupplierDTO> GetSupplier(Action loaded, bool forceLoad = false);
+
         #endregion
 
         #region 公共属性
@@ -92,12 +100,12 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <returns>计划明细</returns>
         PlanHistoryDTO CreatePlanHistory(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType);
 
+
         /// <summary>
         ///     移除运力增减计划明细
         /// </summary>
         /// <param name="planDetail">计划明细</param>
         void RemovePlanDetail(PlanHistoryDTO planDetail);
-
         /// <summary>
         ///     完成运力增减计划
         /// </summary>

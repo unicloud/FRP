@@ -166,7 +166,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.EngineAgg
         ///     设置引进日期
         /// </summary>
         /// <param name="date">引进日期</param>
-        public void SetImportDate(DateTime date)
+        public void SetImportDate(DateTime? date)
         {
             ImportDate = date;
         }

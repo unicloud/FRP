@@ -11,7 +11,6 @@
              d:DesignHeight="300"
              d:DesignWidth="400"
              d:DataContext="{d:DesignInstance uc:ManagerPortalVm}">
-    <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -195,141 +194,69 @@
                         <RowDefinition />
                         <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Grid Name="TypePieGrid1"
-                          Cursor="Hand"
-                          Background="White">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBox Text="机队结构"
-                                 Foreground="Black"
-                                 BorderThickness="0"
-                                 Margin="10" />
+                    <Grid Background="White">
                         <telerik:RadPieChart Name="TypeRadPieChart1"
                                              Palette="Metro"
-                                             Grid.Column="0"
                                              EmptyContent="机队结构">
-                            <telerik:RadPieChart.Behaviors>
-                                <telerik:ChartTooltipBehavior Placement="MousePoint"
-                                                              PlacementTarget="{Binding  ElementName=TypeRadPieChart1}"
-                                                              HorizontalOffset="-8"
-                                                              VerticalOffset="-46" />
-                            </telerik:RadPieChart.Behaviors>
-                            <telerik:RadPieChart.TooltipTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
-                                              Stretch="Fill"
-                                              Fill="White"
-                                              Stroke="Gray"
-                                              StrokeThickness="1" />
-                                        <StackPanel Margin="5,3,5,10">
-                                            <TextBlock Text="{Binding Path=DataItem.AircraftRegional, StringFormat='机型名称: {0}'}"
-                                                       Foreground="{Binding Path=DataItem.Color}"
-                                                       FontFamily="Segoe UI"
-                                                       FontSize="11" />
-                                            <TextBlock Text="{Binding Path=DataItem.AirNum, StringFormat='飞机数: {0}架'}"
-                                                       Foreground="{Binding Path=DataItem.Color}"
-                                                       FontFamily="Segoe UI"
-                                                       FontSize="11" />
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </telerik:RadPieChart.TooltipTemplate>
                             <telerik:PieSeries ValueBinding="AirNum"
                                                ItemsSource="{Binding FleetAircraftTypeCollection}"
-                                               ShowLabels="False"
-                                               RadiusFactor="0.7">
+                                               ShowLabels="True"
+                                               RadiusFactor="0.6">
                                 <telerik:PieSeries.LabelDefinitions>
-                                    <telerik:ChartSeriesLabelDefinition Margin="-5,0,0,0" />
+                                    <telerik:ChartSeriesLabelDefinition Margin="-1,0,0,0">
+                                        <telerik:ChartSeriesLabelDefinition.Template>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding DataItem.AircraftRegional}"
+                                                               Foreground="Black" />
+                                                    <TextBlock Text="{Binding DataItem.AirNum,StringFormat='\{0\}架'}"
+                                                               Foreground="Black" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </telerik:ChartSeriesLabelDefinition.Template>
+                                    </telerik:ChartSeriesLabelDefinition>
                                 </telerik:PieSeries.LabelDefinitions>
-                                <telerik:PieSeries.LegendSettings>
-                                    <telerik:DataPointLegendSettings TitleBinding="AircraftRegional" />
-                                </telerik:PieSeries.LegendSettings>
                                 <telerik:PieSeries.AngleRange>
                                     <telerik:AngleRange StartAngle="270"
                                                         SweepAngle="360" />
                                 </telerik:PieSeries.AngleRange>
                             </telerik:PieSeries>
                         </telerik:RadPieChart>
-                        <telerik:RadLegend Name="TypePieLegend1"
-                                           Margin="0,0,10,0"
-                                           Items="{Binding LegendItems, ElementName=TypeRadPieChart1}"
-                                           Foreground="Black"
-                                           Grid.Column="1">
-                        </telerik:RadLegend>
                     </Grid>
                     <Grid Grid.Row="1"
-                          Name="TypePieGrid"
-                          Cursor="Hand"
                           Background="White">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBox Text="引进方式"
-                                 Foreground="Black"
-                                 BorderThickness="0"
-                                 Margin="10" />
                         <telerik:RadPieChart Name="TypeRadPieChart"
                                              Palette="Metro"
-                                             Grid.Column="0"
                                              EmptyContent="引进方式">
-                            <telerik:RadPieChart.Behaviors>
-                                <telerik:ChartTooltipBehavior Placement="MousePoint"
-                                                              PlacementTarget="{Binding  ElementName=TypeRadPieChart}"
-                                                              HorizontalOffset="-8"
-                                                              VerticalOffset="-46" />
-                            </telerik:RadPieChart.Behaviors>
-                            <telerik:RadPieChart.TooltipTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Path Data="M-1236,-441 L-1180,-441 -1180,-424 -1228,-424 -1230.5,-420 -1233,-424 -1236,-424 z"
-                                              Stretch="Fill"
-                                              Fill="White"
-                                              Stroke="Gray"
-                                              StrokeThickness="1" />
-                                        <StackPanel Margin="5,3,5,10">
-                                            <TextBlock Text="{Binding Path=DataItem.AircraftRegional}"
-                                                       Foreground="{Binding Path=DataItem.Color}"
-                                                       FontFamily="Segoe UI"
-                                                       FontSize="11" />
-                                            <TextBlock Text="{Binding Path=DataItem.AirNum, StringFormat='飞机数: {0}架'}"
-                                                       Foreground="{Binding Path=DataItem.Color}"
-                                                       FontFamily="Segoe UI"
-                                                       FontSize="11" />
-                                        </StackPanel>
-                                    </Grid>
-                                </DataTemplate>
-                            </telerik:RadPieChart.TooltipTemplate>
                             <telerik:PieSeries ValueBinding="AirNum"
                                                ItemsSource="{Binding FleetAircraftImportTypeCollection}"
-                                               ShowLabels="False"
-                                               RadiusFactor="0.7">
+                                               ShowLabels="True"
+                                               RadiusFactor="0.6">
                                 <telerik:PieSeries.LabelDefinitions>
-                                    <telerik:ChartSeriesLabelDefinition Margin="-5,0,0,0" />
+                                    <telerik:ChartSeriesLabelDefinition Margin="-5,0,0,0">
+                                        <telerik:ChartSeriesLabelDefinition.Template>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding DataItem.AircraftRegional}"
+                                                               Foreground="Black" />
+                                                    <TextBlock Text="{Binding DataItem.AirNum,StringFormat='\{0\}架'}"
+                                                               Foreground="Black" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </telerik:ChartSeriesLabelDefinition.Template>
+                                    </telerik:ChartSeriesLabelDefinition>
                                 </telerik:PieSeries.LabelDefinitions>
-                                <telerik:PieSeries.LegendSettings>
-                                    <telerik:DataPointLegendSettings TitleBinding="AircraftRegional" />
-                                </telerik:PieSeries.LegendSettings>
                                 <telerik:PieSeries.AngleRange>
                                     <telerik:AngleRange StartAngle="270"
                                                         SweepAngle="360" />
                                 </telerik:PieSeries.AngleRange>
                             </telerik:PieSeries>
                         </telerik:RadPieChart>
-                        <telerik:RadLegend Name="TypePieLegend"
-                                           Margin="0,0,10,0"
-                                           Items="{Binding LegendItems, ElementName=TypeRadPieChart}"
-                                           Foreground="Black"
-                                           Grid.Column="1">
-                        </telerik:RadLegend>
                     </Grid>
                 </Grid>
             </telerik:RadTileViewItem>
 
-            <telerik:RadTileViewItem Header="飞机成本统计"
+            <telerik:RadTileViewItem Header="飞机引进成本统计"
                                      RestoredHeight="62"
                                      MinimizedHeight="150"
                                      RestoredWidth="50">
@@ -521,14 +448,14 @@
                     </Grid>
                 </Grid>
             </telerik:RadTileViewItem>
-            <telerik:RadTileViewItem Header="维护成本"
+            <telerik:RadTileViewItem Header="飞机维护成本统计"
                                      RestoredHeight="62"
                                      MinimizedHeight="164"
                                      RestoredWidth="32">
                 <Grid Background="White">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.38*" />
-                        <RowDefinition Height="0.22*" />
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid Row="0">
                         <Grid.ColumnDefinitions>
@@ -602,10 +529,6 @@
                         </StackPanel>
                     </Grid>
                     <Grid Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
                         <telerik:RadCartesianChart Name="MaintainBarChart"
                                                    Margin="10,11,10,0"
                                                    EmptyContent="飞机维护成本趋势"
@@ -681,6 +604,45 @@
                                      RestoredHeight="38"
                                      MinimizedHeight="140"
                                      RestoredWidth="18">
+                <telerik:RadGridView Name="CostRequestGridView"
+                                     FontSize="13"
+                                     AutoGenerateColumns="False"
+                                     CanUserFreezeColumns="False"
+                                     RowIndicatorVisibility="Collapsed"
+                                     IsReadOnly="True"
+                                     ShowColumnFooters="True"
+                                     ItemsSource="{Binding CostRequests}">
+                    <telerik:RadGridView.Columns>
+                        <uc:DataPageSerialColumn Header="序号"
+                                                 HeaderTextAlignment="Center" />
+                        <telerik:GridViewDataColumn Header="日期"
+                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                    HeaderTextAlignment="Center"
+                                                    TextAlignment="Right"
+                                                    DataMemberBinding="{Binding Date,StringFormat={StaticResource DateStringFormat}}"/>
+                        <telerik:GridViewDataColumn Header="事项"
+                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                    HeaderTextAlignment="Center"
+                                                    DataMemberBinding="{Binding Title}"
+                                                    TextAlignment="Center" />
+                        <telerik:GridViewDataColumn Header="金额"
+                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                    HeaderTextAlignment="Center"
+                                                    TextAlignment="Center"
+                                                    DataMemberBinding="{Binding Amount,StringFormat={StaticResource CurrencyStringFormat}}" >
+                            <telerik:GridViewDataColumn.AggregateFunctions>
+                                <telerik:SumFunction Caption="总计："
+                                                     SourceField="Amount"
+                                                     ResultFormatString="{StaticResource CurrencyStringFormat}" />
+                            </telerik:GridViewDataColumn.AggregateFunctions>
+                        </telerik:GridViewDataColumn>
+                    </telerik:RadGridView.Columns>
+                    <telerik:RadGridView.GroupDescriptors>
+                        <telerik:GroupDescriptor Member="DateString" 
+                                                 SortDirection="Ascending"
+                                                 DisplayContent="月份"/>
+                    </telerik:RadGridView.GroupDescriptors>
+                </telerik:RadGridView>
             </telerik:RadTileViewItem>
             <telerik:RadTileViewItem Header="日程安排"
                                      RestoredHeight="38"

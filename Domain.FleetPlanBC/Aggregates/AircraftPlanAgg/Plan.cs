@@ -57,24 +57,24 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         public string Title { get; private set; }
 
         /// <summary>
-        ///     是否有效版本
+        ///     是否有效版本，通过审核的计划均为有效
         /// </summary>
         public bool IsValid { get; private set; }
 
         /// <summary>
-        ///     版本号
+        ///     版本号，同年度计划中版本号最高的为那一年度的“当前计划”
         /// </summary>
         public int VersionNumber { get; internal set; }
 
         /// <summary>
-        ///     是否当前版本
+        ///     是否当前版本，民航局系统中设置
         /// </summary>
         public bool IsCurrentVersion { get; private set; }
 
         /// <summary>
         ///     提交日期
         /// </summary>
-        public DateTime? SubmitDate { get; internal set; }
+        public DateTime? SubmitDate { get; private set; }
 
         /// <summary>
         ///     创建日期
@@ -87,7 +87,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         public string DocNumber { get; private set; }
 
         /// <summary>
-        ///     是否完成
+        ///     是否完成，计划是否完成评审流程，计划发送后设为完成
         /// </summary>
         public bool IsFinished { get; private set; }
 
@@ -123,7 +123,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     文档Id
         /// </summary>
-        public Guid DocumentId { get; private set; }
+        public Guid? DocumentId { get; private set; }
 
         #endregion
 
@@ -172,6 +172,8 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
                     break;
                 case PlanStatus.已提交:
                     Status = PlanStatus.已提交;
+                    IsFinished = true;
+                    SubmitDate = DateTime.Now;
                     break;
                 case PlanStatus.退回:
                     Status = PlanStatus.退回;
@@ -273,12 +275,8 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// </summary>
         /// <param name="documentId">计划文档</param>
         /// <param name="docName">文档名称</param>
-        public void SetDocument(Guid documentId, string docName)
+        public void SetDocument(Guid? documentId, string docName)
         {
-            if (documentId == Guid.Empty)
-            {
-                throw new ArgumentException("计划文档Id参数为空！");
-            }
             DocumentId = documentId;
             DocName = docName;
         }

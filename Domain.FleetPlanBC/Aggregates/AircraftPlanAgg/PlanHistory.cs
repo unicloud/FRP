@@ -60,7 +60,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         public int PerformMonth { get; private set; }
 
         /// <summary>
-        ///     是否有效
+        ///     是否有效，确认计划时将计划相关条目置为有效，只有有效的条目才能执行。已有申请、批文的始终有效。
         /// </summary>
         public bool IsValid { get; internal set; }
 
@@ -120,7 +120,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         /// 计划飞机
         /// </summary>
-        public virtual PlanAircraft PlanAircraft { get; private set; }
+        public virtual PlanAircraft PlanAircraft { get; set; }
 
         /// <summary>
         /// 活动类别：包括引进、退出、变更
@@ -203,11 +203,10 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// <summary>
         ///     设置计划飞机
         /// </summary>
-        /// <param name="planAircraft">计划飞机</param>
-        public void SetPlanAircraft(PlanAircraft planAircraft)
+        /// <param name="planAircraftId">计划飞机</param>
+        public void SetPlanAircraft(Guid? planAircraftId)
         {
-            PlanAircraft = planAircraft;
-            PlanAircraftId = planAircraft.Id;
+            PlanAircraftId = planAircraftId;
         }
 
         /// <summary>

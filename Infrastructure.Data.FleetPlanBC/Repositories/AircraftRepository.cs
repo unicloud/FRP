@@ -95,6 +95,32 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.Repositories
             if (currentUnitOfWork == null) return;
             currentUnitOfWork.CreateSet<OwnershipHistory>().Remove(oh);
         }
+
+        /// <summary>
+        /// 获取单个运营权历史
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public OperationHistory GetPh(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var operationHistory = currentUnitOfWork.CreateSet<OperationHistory>().Find((Guid)id);
+            return operationHistory;
+        }
+
+        /// <summary>
+        /// 获取单个的商业数据历史
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public AircraftBusiness GetAb(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var aircraftBusiness = currentUnitOfWork.CreateSet<AircraftBusiness>().Find((Guid)id);
+            return aircraftBusiness;
+        }
         #endregion
     }
 }
