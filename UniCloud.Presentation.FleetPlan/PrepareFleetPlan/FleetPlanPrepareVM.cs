@@ -155,10 +155,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #region 选择的年度
 
-        private AnnualDTO _selAnnual;
+        private AnnualDTO _selAnnual=new AnnualDTO();
 
         /// <summary>
-        ///     选择的规划
+        ///     选择的年度
         /// </summary>
         public AnnualDTO SelAnnual
         {
