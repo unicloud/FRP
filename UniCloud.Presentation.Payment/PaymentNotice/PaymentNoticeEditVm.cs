@@ -42,7 +42,8 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         private int _currentPaymentNoticeId;
 
         [ImportingConstructor]
-        public PaymentNoticeEditVm(PaymentNoticeEdit payeNoticeEdit, IPaymentService service) : base(service)
+        public PaymentNoticeEditVm(PaymentNoticeEdit payeNoticeEdit, IPaymentService service)
+            : base(service)
         {
             CurrenPaymentNoticeEdit = payeNoticeEdit;
             _service = service;
@@ -60,8 +61,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         {
             CellEditEndCommand = new DelegateCommand<object>(CellEditEnd);
             // 创建并注册CollectionView
-            PaymentNotices = new QueryableDataServiceCollectionView<PaymentNoticeDTO>(_context,
-                _context.PaymentNotices);
+            PaymentNotices = _service.CreateCollection(_context.PaymentNotices, o => o.PaymentNoticeLines);
             PaymentNotices.LoadedData += (o, e) =>
             {
                 try
@@ -107,7 +107,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         /// </summary>
         public Array InvoiceTypes
         {
-            get { return Enum.GetValues(typeof (InvoiceType)); }
+            get { return Enum.GetValues(typeof(InvoiceType)); }
         }
 
         public SupplierDTO Supplier
