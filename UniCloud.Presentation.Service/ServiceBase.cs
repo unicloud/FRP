@@ -297,6 +297,7 @@ namespace UniCloud.Presentation.Service
                 HasChanges = false;
                 IsBusy = _dataServiceCollectionViews.Any(d => d.IsBusy);
                 var collectionView = o as QueryableDataServiceCollectionView<TService>;
+                var q = collectionView.ToList();
                 if (collectionView == null) return;
                 if (changed.Any())
                 {
