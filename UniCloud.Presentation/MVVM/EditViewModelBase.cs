@@ -1,4 +1,4 @@
-﻿#region 版本信息
+#region 版本信息
 
 // ========================================================================
 // 版权所有 (C) 2013 UniCloud 
@@ -33,14 +33,14 @@ namespace UniCloud.Presentation.MVVM
     {
         private readonly IService _service;
 
-        protected EditViewModelBase(IService service)
+        protected EditViewModelBase(IService service) : base(service)
         {
             _service = service;
             SaveCommand = new DelegateCommand<object>(OnSave, CanSave);
             AbortCommand = new DelegateCommand<object>(OnAbort, CanAbort);
-            if (_service != null)
+            if (service != null)
             {
-                _service.PropertyChanged += (o, e) =>
+                service.PropertyChanged += (o, e) =>
                 {
                     if (e.PropertyName == "HasChanges")
                     {
@@ -57,6 +57,7 @@ namespace UniCloud.Presentation.MVVM
 
         private void OnSave(object sender)
         {
+            IsBusy = true;
             if (sender is QueryableDataServiceCollectionViewBase)
             {
                 var collectionView = sender as QueryableDataServiceCollectionViewBase;
@@ -66,6 +67,7 @@ namespace UniCloud.Presentation.MVVM
                 }
                 _service.SubmitChanges(collectionView, sm =>
                 {
+                    IsBusy = false;
                     if (sm.Error == null)
                     {
                         MessageAlert("提示", "保存成功。");
@@ -83,6 +85,7 @@ namespace UniCloud.Presentation.MVVM
             {
                 _service.SubmitChanges(sm =>
                 {
+                    IsBusy = false;
                     if (sm.Error == null)
                     {
                         MessageAlert("提示", "保存成功。");
@@ -147,15 +150,19 @@ namespace UniCloud.Presentation.MVVM
             if (sender is QueryableDataServiceCollectionViewBase)
             {
                 var collectionView = sender as QueryableDataServiceCollectionViewBase;
+                IsBusy = true;
                 OnAbortExecuting(collectionView); //取消前。
                 _service.RejectChanges(collectionView); //取消。
                 OnAbortExecuted(collectionView); //取消后。
+                IsBusy = false;
             }
             else
             {
+                IsBusy = true;
                 OnAbortExecuting(sender);
                 _service.RejectChanges();
                 OnAbortExecuted(sender);
+                IsBusy = false;
             }
         }
 

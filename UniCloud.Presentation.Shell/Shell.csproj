@@ -133,6 +133,10 @@
     <Reference Include="System.Net">
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Windows.Controls, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Navigation, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Toolkit, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Controls.Toolkit.Internals, Version=4.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Interactivity, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.4.1.0.0\lib\SL5\System.Windows.Interactivity.dll</HintPath>
@@ -288,6 +292,42 @@
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.AircraftConfig\Service.AircraftConfig.csproj">
+      <Project>{45cdca5d-f98e-4e03-ace1-02f45c62c8f0}</Project>
+      <Name>Service.AircraftConfig</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.BaseManagement\Service.BaseManagement.csproj">
+      <Project>{edc31656-0f6e-4e1e-a047-a65cff2ee2e6}</Project>
+      <Name>Service.BaseManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.CommonService\Service.CommonService.csproj">
+      <Project>{e182cb39-cb47-4a7a-bf2d-0094d38d24fe}</Project>
+      <Name>Service.CommonService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.FleetPlan\Service.FleetPlan.csproj">
+      <Project>{b2d2a463-a571-4467-b552-338d89d322f8}</Project>
+      <Name>Service.FleetPlan</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.FlightLog\Service.FlightLog.csproj">
+      <Project>{fd4dfbe9-c8ec-4195-b4a2-64b46faa9d1d}</Project>
+      <Name>Service.FlightLog</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.Payment\Service.Payment.csproj">
+      <Project>{8a34eaf1-0a35-4b80-bc53-f8bf11b626dc}</Project>
+      <Name>Service.Payment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.Portal\Service.Portal.csproj">
+      <Project>{1f136252-47f1-43dc-bf81-ec22724d9f9f}</Project>
+      <Name>Service.Portal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.Project\Service.Project.csproj">
+      <Project>{9be2689d-49ab-4cef-84a8-3e87170e9d7a}</Project>
+      <Name>Service.Project</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.Purchase\Service.Purchase.csproj">
+      <Project>{d233e363-2d75-4ca3-9fa4-020ea90ebbc4}</Project>
+      <Name>Service.Purchase</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service\Service.csproj">
       <Project>{5f45eae5-2f35-4ad1-bf0e-f5fd5539fd32}</Project>
       <Name>Service</Name>

@@ -42,7 +42,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         private readonly PurchaseData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
-        [Import] public DocumentViewer DocumentView;
+        public DocumentViewer DocumentView;
         private DocumentDTO _document = new DocumentDTO();
 
         [ImportingConstructor]

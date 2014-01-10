@@ -22,6 +22,13 @@ using System.Windows;
 using Microsoft.Practices.Prism.MefExtensions;
 using Microsoft.Practices.Prism.Modularity;
 using UniCloud.Presentation.Document;
+using UniCloud.Presentation.Service;
+using UniCloud.Presentation.Service.CommonService;
+using UniCloud.Presentation.Service.FleetPlan;
+using UniCloud.Presentation.Service.Payment;
+using UniCloud.Presentation.Service.Portal;
+using UniCloud.Presentation.Service.Project;
+using UniCloud.Presentation.Service.Purchase;
 
 #endregion
 
@@ -32,7 +39,14 @@ namespace UniCloud.Presentation.Shell
         protected override void ConfigureAggregateCatalog()
         {
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (Bootstrapper).Assembly));
-            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (PDFViewer).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (DocViewer).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(ICommonService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IFleetPlanService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPurchaseService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPaymentService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IProjectService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPortalService).Assembly));
         }
 
         protected override void InitializeShell()

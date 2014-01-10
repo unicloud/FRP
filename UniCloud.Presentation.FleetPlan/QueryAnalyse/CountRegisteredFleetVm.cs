@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者：linxw 时间：2013/12/28 11:07:56
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -28,43 +30,46 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Export;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
-using UniCloud.Presentation.CommonExtension;
 using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 
 #endregion
 
-
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
-    [Export(typeof(CountRegisteredFleetVm))]
+    [Export(typeof (CountRegisteredFleetVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class CountRegisteredFleetVm : ViewModelBase
     {
         #region 声明、初始化
-        private readonly FleetPlanData _fleetPlanContext;
-        public CountRegisteredFleet CurrentCountRegisteredFleet
-        {
-            get { return ServiceLocator.Current.GetInstance<CountRegisteredFleet>(); }
-        }
+
         private static readonly CommonMethod CommonMethod = new CommonMethod();
+        private readonly FleetPlanData _fleetPlanContext;
 
         private int _i; //导出数据源格式判断
-        private Grid _monthGrid, _yearGrid;
-        private RadGridView _monthExportRadgridview, _yearExportRadgridview; //初始化RadGridView
 
         private bool _loadXmlConfig;
         private bool _loadXmlSetting;
+        private RadGridView _monthExportRadgridview; //初始化RadGridView
+        private Grid _monthGrid;
+        private RadGridView _yearExportRadgridview; //初始化RadGridView
+        private Grid _yearGrid;
 
         [ImportingConstructor]
-        public CountRegisteredFleetVm(IFleetPlanService service)
+        public CountRegisteredFleetVm(IFleetPlanService service) : base(service)
         {
             _fleetPlanContext = service.Context;
 
             ViewModelInitializer();
             InitializeVm();
+        }
+
+        public CountRegisteredFleet CurrentCountRegisteredFleet
+        {
+            get { return ServiceLocator.Current.GetInstance<CountRegisteredFleet>(); }
         }
 
         /// <summary>
@@ -76,13 +81,15 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         public void InitializeVm()
         {
             // 创建并注册CollectionView
-            XmlConfigs = new QueryableDataServiceCollectionView<XmlConfigDTO>(_fleetPlanContext, _fleetPlanContext.XmlConfigs);
+            XmlConfigs = new QueryableDataServiceCollectionView<XmlConfigDTO>(_fleetPlanContext,
+                _fleetPlanContext.XmlConfigs);
             XmlConfigs.LoadedData += (o, e) =>
             {
                 _loadXmlConfig = true;
                 InitializeData();
             };
-            XmlSettings = new QueryableDataServiceCollectionView<XmlSettingDTO>(_fleetPlanContext, _fleetPlanContext.XmlSettings);
+            XmlSettings = new QueryableDataServiceCollectionView<XmlSettingDTO>(_fleetPlanContext,
+                _fleetPlanContext.XmlSettings);
             XmlSettings.LoadedData += (o, e) =>
             {
                 _loadXmlSetting = true;
@@ -91,23 +98,29 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         }
 
         /// <summary>
-        /// 以View的实例初始化ViewModel相关字段、属性
+        ///     以View的实例初始化ViewModel相关字段、属性
         /// </summary>
         private void ViewModelInitializer()
         {
-            ExportCommand = new DelegateCommand<object>(OnExport);//导出图表源数据（Source data）
+            ExportCommand = new DelegateCommand<object>(OnExport); //导出图表源数据（Source data）
             ToggleButtonCommand = new DelegateCommand<object>(ToggleButtonCheck);
             _monthGrid = CurrentCountRegisteredFleet.MonthGrid;
             _yearGrid = CurrentCountRegisteredFleet.YearGrid;
         }
+
         #endregion
 
         #region 数据
+
         #region 公共数据
-        public QueryableDataServiceCollectionView<XmlConfigDTO> XmlConfigs { get; set; }//XmlConfig集合
+
+        private ObservableCollection<FleetRegisteredTrend> _monthAircraftTypes;
+        private ObservableCollection<FleetData> _monthFleetDatas;
+        private ObservableCollection<FleetRegisteredTrend> _yearAircraftTypes;
+        private ObservableCollection<FleetData> _yearFleetDatas;
+        public QueryableDataServiceCollectionView<XmlConfigDTO> XmlConfigs { get; set; } //XmlConfig集合
         public QueryableDataServiceCollectionView<XmlSettingDTO> XmlSettings { get; set; } //XmlSetting集合
 
-        private ObservableCollection<FleetData> _monthFleetDatas;
         public ObservableCollection<FleetData> MonthFleetDatas
         {
             get { return _monthFleetDatas; }
@@ -117,8 +130,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 RaisePropertyChanged("MonthFleetDatas");
             }
         }
+
         private ObservableCollection<FleetData> StaticMonthFleetDatas { get; set; }
-        private ObservableCollection<FleetRegisteredTrend> _monthAircraftTypes;
+
         public ObservableCollection<FleetRegisteredTrend> MonthAircraftTypes
         {
             get { return _monthAircraftTypes; }
@@ -129,7 +143,6 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
         }
 
-        private ObservableCollection<FleetData> _yearFleetDatas;
         public ObservableCollection<FleetData> YearFleetDatas
         {
             get { return _yearFleetDatas; }
@@ -139,9 +152,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 RaisePropertyChanged("YearFleetDatas");
             }
         }
+
         private ObservableCollection<FleetData> StaticYearFleetDatas { get; set; }
 
-        private ObservableCollection<FleetRegisteredTrend> _yearAircraftTypes;
         public ObservableCollection<FleetRegisteredTrend> YearAircraftTypes
         {
             get { return _yearAircraftTypes; }
@@ -152,11 +165,12 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
         }
 
-
         #region ViewModel 属性 EndDate --结束时间
+
         private DateTime? _endDate = Convert.ToDateTime(DateTime.Now.ToString("yyyy/M"));
+
         /// <summary>
-        /// 结束时间
+        ///     结束时间
         /// </summary>
         public DateTime? EndDate
         {
@@ -171,12 +185,15 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
+
         #endregion
 
         #region ViewModel 属性 StartDate --开始时间
+
         private DateTime? _startDate = new DateTime(2000, 1, 1);
+
         /// <summary>
-        /// 开始时间
+        ///     开始时间
         /// </summary>
         public DateTime? StartDate
         {
@@ -191,12 +208,15 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
+
         #endregion
 
         #region ViewModel 属性 IsContextMenuOpen --控制右键菜单的打开
+
         private bool _isContextMenuOpen = true;
+
         /// <summary>
-        /// 控制右键菜单的打开
+        ///     控制右键菜单的打开
         /// </summary>
         public bool IsContextMenuOpen
         {
@@ -210,12 +230,15 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
+
         #endregion
 
         #region ViewModel 属性 FleetAircraftTrendMonthCollection --月平均在册的机型飞机数集合
+
         private List<FleetRegisteredTrend> _fleetRegisteredTrendMonthCollection;
+
         /// <summary>
-        /// 月平均在册的机型飞机数集合
+        ///     月平均在册的机型飞机数集合
         /// </summary>
         public List<FleetRegisteredTrend> FleetRegisteredTrendMonthCollection
         {
@@ -230,12 +253,15 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
+
         #endregion
 
         #region ViewModel 属性 FleetRegisteredTrendYearCollection --年平均在册的机型飞机数集合
+
         private List<FleetRegisteredTrend> _fleetRegisteredTrendYearCollection;
+
         /// <summary>
-        /// 年平均在册的机型飞机数集合
+        ///     年平均在册的机型飞机数集合
         /// </summary>
         public List<FleetRegisteredTrend> FleetRegisteredTrendYearCollection
         {
@@ -250,7 +276,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
             }
         }
+
         #endregion
+
         #endregion
 
         #region 加载数据
@@ -263,17 +291,21 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         }
 
         #endregion
+
         #endregion
 
         #region 操作
 
+        public DelegateCommand<object> ToggleButtonCommand { get; set; }
+
         /// <summary>
-        /// 创建GradDataView
+        ///     创建GradDataView
         /// </summary>
         /// <param name="structs"></param>
         /// <param name="itemsSource"></param>
         /// <param name="headerName"></param>
-        public void CreateDataGridView(Dictionary<string, string> structs, List<FleetRegisteredTrend> itemsSource, string headerName)
+        public void CreateDataGridView(Dictionary<string, string> structs, List<FleetRegisteredTrend> itemsSource,
+            string headerName)
         {
             if (headerName.Equals("FleetTrendPnrMonth", StringComparison.OrdinalIgnoreCase))
             {
@@ -287,10 +319,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
 
         /// <summary>
-        /// 年平均在册的机型飞机数集合变化时
+        ///     年平均在册的机型飞机数集合变化时
         /// </summary>
         /// <param name="fleetRegisteredTrendYearCollection"></param>
-        public void FleetRegisteredTrendYearCollectionChange(List<FleetRegisteredTrend> fleetRegisteredTrendYearCollection)
+        public void FleetRegisteredTrendYearCollectionChange(
+            List<FleetRegisteredTrend> fleetRegisteredTrendYearCollection)
         {
             YearFleetDatas = new ObservableCollection<FleetData>();
             StaticYearFleetDatas = new ObservableCollection<FleetData>();
@@ -315,14 +348,15 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     }
                 }
             }
-            YearFleetDatas.Add(result.FirstOrDefault(p => p.AircraftTypeName.Equals("所有机型", StringComparison.OrdinalIgnoreCase)));
+            YearFleetDatas.Add(
+                result.FirstOrDefault(p => p.AircraftTypeName.Equals("所有机型", StringComparison.OrdinalIgnoreCase)));
             result.ToList().ForEach(StaticYearFleetDatas.Add);
             YearAircraftTypes = aircraftTypeResult;
             //控制趋势图的滚动条
             int dateTimeCount = FleetRegisteredTrendYearCollection.Select(p => p.DateTime).Distinct().Count();
             if (FleetRegisteredTrendYearCollection != null && dateTimeCount >= 12)
             {
-                CurrentCountRegisteredFleet.YearCategoricalAxis.MajorTickInterval = dateTimeCount / 6;
+                CurrentCountRegisteredFleet.YearCategoricalAxis.MajorTickInterval = dateTimeCount/6;
             }
             else
             {
@@ -331,10 +365,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         }
 
         /// <summary>
-        /// 月平均在册的机型飞机数集合变化时
+        ///     月平均在册的机型飞机数集合变化时
         /// </summary>
         /// <param name="fleetRegisteredTrendMonthCollection"></param>
-        public void FleetRegisteredTrendMonthCollectionChange(List<FleetRegisteredTrend> fleetRegisteredTrendMonthCollection)
+        public void FleetRegisteredTrendMonthCollectionChange(
+            List<FleetRegisteredTrend> fleetRegisteredTrendMonthCollection)
         {
             MonthFleetDatas = new ObservableCollection<FleetData>();
             StaticMonthFleetDatas = new ObservableCollection<FleetData>();
@@ -359,14 +394,15 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     }
                 }
             }
-            MonthFleetDatas.Add(result.FirstOrDefault(p => p.AircraftTypeName.Equals("所有机型", StringComparison.OrdinalIgnoreCase)));
+            MonthFleetDatas.Add(
+                result.FirstOrDefault(p => p.AircraftTypeName.Equals("所有机型", StringComparison.OrdinalIgnoreCase)));
             result.ToList().ForEach(StaticMonthFleetDatas.Add);
             MonthAircraftTypes = aircraftTypeResult;
             //控制趋势图的滚动条
             int dateTimeCount = FleetRegisteredTrendMonthCollection.Select(p => p.DateTime).Distinct().Count();
             if (FleetRegisteredTrendMonthCollection != null && dateTimeCount >= 12)
             {
-                CurrentCountRegisteredFleet.MonthCategoricalAxis.MajorTickInterval = dateTimeCount / 6;
+                CurrentCountRegisteredFleet.MonthCategoricalAxis.MajorTickInterval = dateTimeCount/6;
             }
             else
             {
@@ -374,9 +410,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
         }
 
-        public DelegateCommand<object> ToggleButtonCommand { get; set; }
         /// <summary>
-        /// 控制趋势图中折线（饼状）的显示/隐藏
+        ///     控制趋势图中折线（饼状）的显示/隐藏
         /// </summary>
         /// <param name="sender"></param>
         private void ToggleButtonCheck(object sender)
@@ -384,20 +419,30 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             var button = sender as RadToggleButton;
             if (button != null)
             {
-                if (button.IsChecked != null && (bool)button.IsChecked)
+                if (button.IsChecked != null && (bool) button.IsChecked)
                 {
                     if ("YearToggleButton".Equals(button.Name, StringComparison.OrdinalIgnoreCase))
                     {
-                        var temp = StaticYearFleetDatas.FirstOrDefault(p => p.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase));
-                        if (temp != null && !YearFleetDatas.Any(p => p.AircraftTypeName.Equals(temp.AircraftTypeName, StringComparison.OrdinalIgnoreCase)))
+                        var temp =
+                            StaticYearFleetDatas.FirstOrDefault(
+                                p => p.AircraftTypeName.Equals((string) button.Tag, StringComparison.OrdinalIgnoreCase));
+                        if (temp != null &&
+                            !YearFleetDatas.Any(
+                                p =>
+                                    p.AircraftTypeName.Equals(temp.AircraftTypeName, StringComparison.OrdinalIgnoreCase)))
                         {
                             YearFleetDatas.Add(temp);
                         }
                     }
                     else
                     {
-                        var temp = StaticMonthFleetDatas.FirstOrDefault(p => p.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase));
-                        if (temp != null && !MonthFleetDatas.Any(p => p.AircraftTypeName.Equals(temp.AircraftTypeName, StringComparison.OrdinalIgnoreCase)))
+                        var temp =
+                            StaticMonthFleetDatas.FirstOrDefault(
+                                p => p.AircraftTypeName.Equals((string) button.Tag, StringComparison.OrdinalIgnoreCase));
+                        if (temp != null &&
+                            !MonthFleetDatas.Any(
+                                p =>
+                                    p.AircraftTypeName.Equals(temp.AircraftTypeName, StringComparison.OrdinalIgnoreCase)))
                         {
                             MonthFleetDatas.Add(temp);
                         }
@@ -410,7 +455,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         for (int i = YearFleetDatas.Count - 1; i > -1; i--)
                         {
                             var temp = YearFleetDatas[i];
-                            if (temp.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase))
+                            if (temp.AircraftTypeName.Equals((string) button.Tag, StringComparison.OrdinalIgnoreCase))
                             {
                                 YearFleetDatas.Remove(temp);
                                 break;
@@ -422,7 +467,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         for (int i = MonthFleetDatas.Count - 1; i > -1; i--)
                         {
                             var temp = MonthFleetDatas[i];
-                            if (temp.AircraftTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase))
+                            if (temp.AircraftTypeName.Equals((string) button.Tag, StringComparison.OrdinalIgnoreCase))
                             {
                                 MonthFleetDatas.Remove(temp);
                                 break;
@@ -434,7 +479,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         }
 
         /// <summary>
-        /// 控制右键的打开
+        ///     控制右键的打开
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -448,6 +493,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #region ViewModel 命令 --导出图表
 
         public DelegateCommand<object> ExportCommand { get; set; }
+
         private void OnExport(object sender)
         {
             var menu = sender as RadMenuItem;
@@ -459,7 +505,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     _i = 1;
                     _monthExportRadgridview.ElementExporting -= ElementExporting;
                     _monthExportRadgridview.ElementExporting += ElementExporting;
-                    using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc"))
+                    using (
+                        Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
+                        )
                     {
                         if (stream != null)
                         {
@@ -472,7 +520,9 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     _i = 1;
                     _yearExportRadgridview.ElementExporting -= ElementExporting;
                     _yearExportRadgridview.ElementExporting += ElementExporting;
-                    using (Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc"))
+                    using (
+                        Stream stream = ImageAndGridOperation.DowmLoadDialogStream("文档文件(*.xls)|*.xls|文档文件(*.doc)|*.doc")
+                        )
                     {
                         if (stream != null)
                         {
@@ -503,17 +553,17 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         }
 
         /// <summary>
-        /// 设置导出样式
+        ///     设置导出样式
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void ElementExporting(object sender, GridViewElementExportingEventArgs e)
+        private void ElementExporting(object sender, GridViewElementExportingEventArgs e)
         {
             // ReSharper disable once CSharpWarnings::CS0618
             e.Width = 120;
             if (e.Element == ExportElement.Cell && e.Value != null)
             {
-                if (_i % 4 == 3 && _i >= 7)
+                if (_i%4 == 3 && _i >= 7)
                 {
                     var a = sender as RadGridView;
                     if (a != null && a.Name.Equals("FleetTrendPnrMonth", StringComparison.OrdinalIgnoreCase))
@@ -524,6 +574,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             }
             _i++;
         }
+
         #endregion
 
         #endregion
@@ -531,7 +582,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         #region Methods
 
         /// <summary>
-        /// 初始化数据
+        ///     初始化数据
         /// </summary>
         private void InitializeData()
         {
@@ -546,42 +597,58 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         }
 
         /// <summary>
-        /// 获取月平均在册飞机数趋势图的数据源集合
+        ///     获取月平均在册飞机数趋势图的数据源集合
         /// </summary>
         /// <returns></returns>
         private void CreatFleetRegisteredTrendMonthCollection()
         {
-            var fleetRegisteredTrendMonthList = new List<FleetRegisteredTrend>();//月在册的机型飞机数集合
+            var fleetRegisteredTrendMonthList = new List<FleetRegisteredTrend>(); //月在册的机型飞机数集合
             var allFleetRegisteredTrendMonthCollection = new List<FleetRegisteredTrend>();
 
             #region 飞机运力XML文件的读写
-            var xmlConfig = XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("在册分析", StringComparison.OrdinalIgnoreCase));
+
+            var xmlConfig =
+                XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("在册分析", StringComparison.OrdinalIgnoreCase));
 
             string aircraftColor = string.Empty;
-            var colorConfig = XmlSettings.FirstOrDefault(p => p.SettingType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));
+            var colorConfig =
+                XmlSettings.FirstOrDefault(p => p.SettingType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));
             if (colorConfig != null && XElement.Parse(colorConfig.SettingContent).Descendants("Type").Any(p =>
             {
                 var xAttributeTypeName = p.Attribute("TypeName");
-                return xAttributeTypeName != null && xAttributeTypeName.Value.Equals("运力变化", StringComparison.OrdinalIgnoreCase);
+                return xAttributeTypeName != null &&
+                       xAttributeTypeName.Value.Equals("运力变化", StringComparison.OrdinalIgnoreCase);
             }))
             {
-                var firstOrDefault = XElement.Parse(colorConfig.SettingContent).Descendants("Type").FirstOrDefault(p => p.Attribute("TypeName").Value.Equals("运力变化", StringComparison.OrdinalIgnoreCase));
+                var firstOrDefault =
+                    XElement.Parse(colorConfig.SettingContent)
+                        .Descendants("Type")
+                        .FirstOrDefault(
+                            p => p.Attribute("TypeName").Value.Equals("运力变化", StringComparison.OrdinalIgnoreCase));
                 if (firstOrDefault != null)
                 {
                     var orDefault = firstOrDefault.Descendants("Item").FirstOrDefault(p =>
-                                                            {
-                                                                var xAttributeName = p.Attribute("Name");
-                                                                return xAttributeName != null && xAttributeName.Value.Equals("飞机数", StringComparison.OrdinalIgnoreCase);
-                                                            });
+                    {
+                        var xAttributeName = p.Attribute("Name");
+                        return xAttributeName != null &&
+                               xAttributeName.Value.Equals("飞机数", StringComparison.OrdinalIgnoreCase);
+                    });
                     if (orDefault != null)
                         aircraftColor = orDefault.Attribute("Color").Value;
                 }
             }
 
             XElement typeColor = null;
-            if (colorConfig != null && XElement.Parse(colorConfig.SettingContent).Descendants("Type").Any(p => p.Attribute("TypeName").Value.Equals("机型", StringComparison.OrdinalIgnoreCase)))
+            if (colorConfig != null &&
+                XElement.Parse(colorConfig.SettingContent)
+                    .Descendants("Type")
+                    .Any(p => p.Attribute("TypeName").Value.Equals("机型", StringComparison.OrdinalIgnoreCase)))
             {
-                typeColor = XElement.Parse(colorConfig.SettingContent).Descendants("Type").FirstOrDefault(p => p.Attribute("TypeName").Value.Equals("机型", StringComparison.OrdinalIgnoreCase));
+                typeColor =
+                    XElement.Parse(colorConfig.SettingContent)
+                        .Descendants("Type")
+                        .FirstOrDefault(
+                            p => p.Attribute("TypeName").Value.Equals("机型", StringComparison.OrdinalIgnoreCase));
             }
 
             if (xmlConfig != null)
@@ -591,7 +658,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 {
                     foreach (XElement datetime in xelement.Descendants("DateTime"))
                     {
-                        string currentTime = Convert.ToDateTime(datetime.Attribute("EndOfMonth").Value).ToString("yyyy/M");
+                        string currentTime =
+                            Convert.ToDateTime(datetime.Attribute("EndOfMonth").Value).ToString("yyyy/M");
                         //早于开始时间时执行下一个
                         if (Convert.ToDateTime(currentTime) < StartDate)
                         {
@@ -602,16 +670,19 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         {
                             break;
                         }
-                        XElement typeElement = datetime.Descendants("Type").FirstOrDefault(p => p.Attribute("TypeName").Value.Equals("机型", StringComparison.OrdinalIgnoreCase));
+                        XElement typeElement =
+                            datetime.Descendants("Type")
+                                .FirstOrDefault(
+                                    p => p.Attribute("TypeName").Value.Equals("机型", StringComparison.OrdinalIgnoreCase));
                         if (typeElement != null)
                         {
                             //平均在册总飞机数的柱状数据
                             var amountTrendMonth = new FleetRegisteredTrend
-                                                  {
-                                                      DateTime = currentTime,
-                                                      RegisteredCount = Convert.ToDouble(typeElement.Attribute("Amount").Value),
-                                                      AircraftType = "所有机型"
-                                                  };//月平均在册的总飞机数对象
+                            {
+                                DateTime = currentTime,
+                                RegisteredCount = Convert.ToDouble(typeElement.Attribute("Amount").Value),
+                                AircraftType = "所有机型"
+                            }; //月平均在册的总飞机数对象
                             if (!string.IsNullOrEmpty(aircraftColor))
                             {
                                 amountTrendMonth.Color = aircraftColor;
@@ -621,14 +692,20 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                             foreach (XElement item in typeElement.Descendants("Item"))
                             {
                                 var fleetRegisteredTrenMonth = new FleetRegisteredTrend
-                                                               {
-                                                                   DateTime = currentTime,
-                                                                   AircraftType = item.Attribute("Name").Value,
-                                                                   RegisteredCount = Convert.ToDouble(item.Value)
-                                                               };//月平均在册的机型飞机数对象
+                                {
+                                    DateTime = currentTime,
+                                    AircraftType = item.Attribute("Name").Value,
+                                    RegisteredCount = Convert.ToDouble(item.Value)
+                                }; //月平均在册的机型飞机数对象
                                 if (typeColor != null)
                                 {
-                                    var firstOrDefault = typeColor.Descendants("Item").FirstOrDefault(p => p.Attribute("Name").Value.Equals(fleetRegisteredTrenMonth.AircraftType, StringComparison.OrdinalIgnoreCase));
+                                    var firstOrDefault =
+                                        typeColor.Descendants("Item")
+                                            .FirstOrDefault(
+                                                p =>
+                                                    p.Attribute("Name")
+                                                        .Value.Equals(fleetRegisteredTrenMonth.AircraftType,
+                                                            StringComparison.OrdinalIgnoreCase));
                                     if (firstOrDefault !=
                                         null)
                                         fleetRegisteredTrenMonth.Color = firstOrDefault.Attribute("Color").Value;
@@ -639,48 +716,69 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     }
                 }
             }
+
             #endregion
 
             FleetRegisteredTrendMonthCollection = fleetRegisteredTrendMonthList;
             allFleetRegisteredTrendMonthCollection.AddRange(FleetRegisteredTrendMonthCollection);
             //创建RadGridView
             var columnsList = new Dictionary<string, string>
-                {
-                    {"DateTime", "时间点"},
-                    {"AircraftType", "机型"},
-                    {"RegisteredCount", "月平均在册飞机数"}
-                };
+            {
+                {"DateTime", "时间点"},
+                {"AircraftType", "机型"},
+                {"RegisteredCount", "月平均在册飞机数"}
+            };
             CreateDataGridView(columnsList, allFleetRegisteredTrendMonthCollection, "FleetTrendPnrMonth");
         }
 
         /// <summary>
-        /// 获取年平均在册飞机数趋势图的数据源集合
+        ///     获取年平均在册飞机数趋势图的数据源集合
         /// </summary>
         /// <returns></returns>
         private void CreatFleetRegisteredTrendYearCollection()
         {
-            var fleetRegisteredTrendMonthList = new List<FleetRegisteredTrend>();//月平均在册的机型飞机数集合
+            var fleetRegisteredTrendMonthList = new List<FleetRegisteredTrend>(); //月平均在册的机型飞机数集合
 
             #region 飞机运力XML文件的读写
-            var xmlConfig = XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("在册分析", StringComparison.OrdinalIgnoreCase));
+
+            var xmlConfig =
+                XmlConfigs.FirstOrDefault(p => p.ConfigType.Equals("在册分析", StringComparison.OrdinalIgnoreCase));
 
             string aircraftColor = string.Empty;
-            var colorConfig = XmlSettings.FirstOrDefault(p => p.SettingType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));
-            if (colorConfig != null && XElement.Parse(colorConfig.SettingContent).Descendants("Type").Any(p => p.Attribute("TypeName").Value.Equals("运力变化", StringComparison.OrdinalIgnoreCase)))
+            var colorConfig =
+                XmlSettings.FirstOrDefault(p => p.SettingType.Equals("颜色配置", StringComparison.OrdinalIgnoreCase));
+            if (colorConfig != null &&
+                XElement.Parse(colorConfig.SettingContent)
+                    .Descendants("Type")
+                    .Any(p => p.Attribute("TypeName").Value.Equals("运力变化", StringComparison.OrdinalIgnoreCase)))
             {
-                var firstOrDefault = XElement.Parse(colorConfig.SettingContent).Descendants("Type").FirstOrDefault(p => p.Attribute("TypeName").Value.Equals("运力变化", StringComparison.OrdinalIgnoreCase));
+                var firstOrDefault =
+                    XElement.Parse(colorConfig.SettingContent)
+                        .Descendants("Type")
+                        .FirstOrDefault(
+                            p => p.Attribute("TypeName").Value.Equals("运力变化", StringComparison.OrdinalIgnoreCase));
                 if (firstOrDefault != null)
                 {
-                    var orDefault = firstOrDefault.Descendants("Item").FirstOrDefault(p => p.Attribute("Name").Value.Equals("飞机数", StringComparison.OrdinalIgnoreCase));
+                    var orDefault =
+                        firstOrDefault.Descendants("Item")
+                            .FirstOrDefault(
+                                p => p.Attribute("Name").Value.Equals("飞机数", StringComparison.OrdinalIgnoreCase));
                     if (orDefault != null)
                         aircraftColor = orDefault.Attribute("Color").Value;
                 }
             }
 
             XElement typeColor = null;
-            if (colorConfig != null && XElement.Parse(colorConfig.SettingContent).Descendants("Type").Any(p => p.Attribute("TypeName").Value.Equals("机型", StringComparison.OrdinalIgnoreCase)))
+            if (colorConfig != null &&
+                XElement.Parse(colorConfig.SettingContent)
+                    .Descendants("Type")
+                    .Any(p => p.Attribute("TypeName").Value.Equals("机型", StringComparison.OrdinalIgnoreCase)))
             {
-                typeColor = XElement.Parse(colorConfig.SettingContent).Descendants("Type").FirstOrDefault(p => p.Attribute("TypeName").Value.Equals("机型", StringComparison.OrdinalIgnoreCase));
+                typeColor =
+                    XElement.Parse(colorConfig.SettingContent)
+                        .Descendants("Type")
+                        .FirstOrDefault(
+                            p => p.Attribute("TypeName").Value.Equals("机型", StringComparison.OrdinalIgnoreCase));
             }
 
             if (xmlConfig != null)
@@ -690,18 +788,22 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 {
                     foreach (XElement datetime in xelement.Descendants("DateTime"))
                     {
-                        string currentTime = Convert.ToDateTime(datetime.Attribute("EndOfMonth").Value).ToString("yyyy/M");
+                        string currentTime =
+                            Convert.ToDateTime(datetime.Attribute("EndOfMonth").Value).ToString("yyyy/M");
 
-                        XElement typeElement = datetime.Descendants("Type").FirstOrDefault(p => p.Attribute("TypeName").Value.Equals("机型", StringComparison.OrdinalIgnoreCase));
+                        XElement typeElement =
+                            datetime.Descendants("Type")
+                                .FirstOrDefault(
+                                    p => p.Attribute("TypeName").Value.Equals("机型", StringComparison.OrdinalIgnoreCase));
                         if (typeElement != null)
                         {
                             //平均在册总飞机数的柱状数据
                             var amountTrendMonth = new FleetRegisteredTrend
-                                                  {
-                                                      DateTime = currentTime,
-                                                      RegisteredCount = Convert.ToDouble(typeElement.Attribute("Amount").Value),
-                                                      AircraftType = "所有机型"
-                                                  };//月平均在册的总飞机数对象
+                            {
+                                DateTime = currentTime,
+                                RegisteredCount = Convert.ToDouble(typeElement.Attribute("Amount").Value),
+                                AircraftType = "所有机型"
+                            }; //月平均在册的总飞机数对象
                             if (!string.IsNullOrEmpty(aircraftColor))
                             {
                                 amountTrendMonth.Color = aircraftColor;
@@ -711,14 +813,20 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                             foreach (XElement item in typeElement.Descendants("Item"))
                             {
                                 var fleetRegisteredTrendMonth = new FleetRegisteredTrend
-                                                               {
-                                                                   DateTime = currentTime,
-                                                                   AircraftType = item.Attribute("Name").Value,
-                                                                   RegisteredCount = Convert.ToDouble(item.Value)
-                                                               };//月平均在册的机型飞机数对象
+                                {
+                                    DateTime = currentTime,
+                                    AircraftType = item.Attribute("Name").Value,
+                                    RegisteredCount = Convert.ToDouble(item.Value)
+                                }; //月平均在册的机型飞机数对象
                                 if (typeColor != null)
                                 {
-                                    var firstOrDefault = typeColor.Descendants("Item").FirstOrDefault(p => p.Attribute("Name").Value.Equals(fleetRegisteredTrendMonth.AircraftType, StringComparison.OrdinalIgnoreCase));
+                                    var firstOrDefault =
+                                        typeColor.Descendants("Item")
+                                            .FirstOrDefault(
+                                                p =>
+                                                    p.Attribute("Name")
+                                                        .Value.Equals(fleetRegisteredTrendMonth.AircraftType,
+                                                            StringComparison.OrdinalIgnoreCase));
                                     if (firstOrDefault !=
                                         null)
                                         fleetRegisteredTrendMonth.Color = firstOrDefault.Attribute("Color").Value;
@@ -729,9 +837,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     }
                 }
             }
+
             #endregion
 
-            var fleetRegisteredTrendYearList = new List<FleetRegisteredTrend>();//年平均在册的机型飞机数集合
+            var fleetRegisteredTrendYearList = new List<FleetRegisteredTrend>(); //年平均在册的机型飞机数集合
             var allFleetRegisteredTrendYeatList = new List<FleetRegisteredTrend>();
             if (fleetRegisteredTrendMonthList.Any())
             {
@@ -750,7 +859,12 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                         var firstOrDefault = variableMonth.FirstOrDefault();
                         if (firstOrDefault != null)
                             fleetRegisterYear.AircraftType = firstOrDefault.AircraftType;
-                        fleetRegisterYear.RegisteredCount = Math.Round(variableYear.Sum(a => a.RegisteredCount * Convert.ToDateTime(a.DateTime).AddMonths(1).AddDays(-1).Day) / (new DateTime(variableYear.Key + 1, 1, 1) - new DateTime(variableYear.Key, 1, 1)).TotalDays, 4);
+                        fleetRegisterYear.RegisteredCount =
+                            Math.Round(
+                                variableYear.Sum(
+                                    a => a.RegisteredCount*Convert.ToDateTime(a.DateTime).AddMonths(1).AddDays(-1).Day)/
+                                (new DateTime(variableYear.Key + 1, 1, 1) - new DateTime(variableYear.Key, 1, 1))
+                                    .TotalDays, 4);
                         var fleetRegisteredTrend = variableMonth.FirstOrDefault();
                         if (fleetRegisteredTrend != null)
                             fleetRegisterYear.Color = fleetRegisteredTrend.Color;
@@ -759,18 +873,27 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                 }
 
                 fleetRegisteredTrendMonthList.GroupBy(p => p.AircraftType).ToList().ForEach(p =>
-                    fleetRegisteredTrendYearList.AddRange(p.GroupBy(pp => Convert.ToDateTime(pp.DateTime).Year).Select(o =>
-                                                                                                                       {
-                                                                                                                           var orDefault = p.FirstOrDefault();
-                                                                                                                           return orDefault != null ? new FleetRegisteredTrend
-                                                                                                                                                           {
-                                                                                                                                                               DateTime = o.Key.ToString(CultureInfo.InvariantCulture),
-                                                                                                                                                               AircraftType = p.Key,
-                                                                                                                                                               RegisteredCount = Math.Round(o.Sum(a => a.RegisteredCount * Convert.ToDateTime(a.DateTime).AddMonths(1).AddDays(-1).Day) / (new DateTime(o.Key + 1, 1, 1) - new DateTime(o.Key, 1, 1)).TotalDays, 4),
-                                                                                                                                                               Color = orDefault.Color
-                                                                                                                                                           } : null;
-                                                                                                                       }))
-                );
+                    fleetRegisteredTrendYearList.AddRange(
+                        p.GroupBy(pp => Convert.ToDateTime(pp.DateTime).Year).Select(o =>
+                        {
+                            var orDefault = p.FirstOrDefault();
+                            return orDefault != null
+                                ? new FleetRegisteredTrend
+                                {
+                                    DateTime = o.Key.ToString(CultureInfo.InvariantCulture),
+                                    AircraftType = p.Key,
+                                    RegisteredCount =
+                                        Math.Round(
+                                            o.Sum(
+                                                a =>
+                                                    a.RegisteredCount*
+                                                    Convert.ToDateTime(a.DateTime).AddMonths(1).AddDays(-1).Day)/
+                                            (new DateTime(o.Key + 1, 1, 1) - new DateTime(o.Key, 1, 1)).TotalDays, 4),
+                                    Color = orDefault.Color
+                                }
+                                : null;
+                        }))
+                    );
             }
 
             FleetRegisteredTrendYearCollection = fleetRegisteredTrendYearList;
@@ -778,20 +901,28 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
             //创建RadGridView
             var columnsList2 = new Dictionary<string, string>
-                {
-                    {"DateTime", "年份"},
-                    {"AircraftType", "机型"},
-                    {"RegisteredCount", "年平均在册飞机数"}
-                };
+            {
+                {"DateTime", "年份"},
+                {"AircraftType", "机型"},
+                {"RegisteredCount", "年平均在册飞机数"}
+            };
             CreateDataGridView(columnsList2, allFleetRegisteredTrendYeatList, "FleetTrendPnrYear");
         }
 
         #endregion
+
         #endregion
 
         #region Class
+
+        public class FleetData
+        {
+            public string AircraftTypeName { get; set; }
+            public ObservableCollection<FleetRegisteredTrend> Data { get; set; }
+        }
+
         /// <summary>
-        /// 趋势图的对象
+        ///     趋势图的对象
         /// </summary>
         public class FleetRegisteredTrend
         {
@@ -799,18 +930,13 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             {
                 Color = CommonMethod.GetRandomColor();
             }
-            public string AircraftType { get; set; }//机型名称
-            public double RegisteredCount { get; set; }//机型的平均在册飞机数
-            public string DateTime { get; set; }//时间点
-            public string Color { get; set; }//颜色
+
+            public string AircraftType { get; set; } //机型名称
+            public double RegisteredCount { get; set; } //机型的平均在册飞机数
+            public string DateTime { get; set; } //时间点
+            public string Color { get; set; } //颜色
         }
 
-        public class FleetData
-        {
-            public string AircraftTypeName { get; set; }
-            public ObservableCollection<FleetRegisteredTrend> Data { get; set; }
-        }
         #endregion
     }
 }
-

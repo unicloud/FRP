@@ -40,5 +40,11 @@ namespace UniCloud.Application.ProjectBC.TemplateServices
         /// </summary>
         /// <returns>工作组集合</returns>
         IQueryable<WorkGroupDTO> GetWorkGroups();
+
+        /// <summary>
+        ///     获取用户
+        /// </summary>
+        /// <returns>用户集合</returns>
+        IQueryable<UserDTO> GetUsers();
     }
 }

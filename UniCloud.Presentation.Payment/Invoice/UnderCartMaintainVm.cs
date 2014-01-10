@@ -62,7 +62,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            UndercartMaintainInvoices = _service.CreateCollection(_context.UndercartMaintainInvoices);
+            UndercartMaintainInvoices = _service.CreateCollection(_context.UndercartMaintainInvoices,o=>o.MaintainInvoiceLines);
             _service.RegisterCollectionView(UndercartMaintainInvoices);
             //ApuMaintainInvoices.PropertyChanged += (sender, e) =>
             //{

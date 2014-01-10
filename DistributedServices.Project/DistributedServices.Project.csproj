@@ -96,6 +96,9 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Telerik.Windows.Controls.GanttView">
+      <HintPath>..\packages\Telerik.Windows.Controls.GanttView.2.0.0\lib\Telerik.Windows.Controls.GanttView.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="crossdomain.xml" />

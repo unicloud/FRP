@@ -1,4 +1,4 @@
-﻿#region
+﻿#region 命名空间
 
 using System;
 
@@ -19,7 +19,7 @@ namespace UniCloud.Presentation.Service
             get
             {
                 return new Uri("http://localhost:20059/PurchaseDataService.svc",
-                               UriKind.Absolute);
+                    UriKind.Absolute);
             }
         }
 
@@ -37,7 +37,7 @@ namespace UniCloud.Presentation.Service
             get
             {
                 return new Uri("http://localhost:20074/CommonServiceDataService.svc",
-                               UriKind.Absolute);
+                    UriKind.Absolute);
             }
         }
 
@@ -46,6 +46,15 @@ namespace UniCloud.Presentation.Service
             get
             {
                 return new Uri("http://localhost:20102/FleetPlanDataService.svc",
+                    UriKind.Absolute);
+            }
+        }
+
+        public static Uri ProjectServiceUri
+        {
+            get
+            {
+                return new Uri("http://localhost:20113/ProjectDataService.svc",
                     UriKind.Absolute);
             }
         }

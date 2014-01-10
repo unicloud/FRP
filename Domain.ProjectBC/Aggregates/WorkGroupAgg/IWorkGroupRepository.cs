@@ -23,5 +23,6 @@ namespace UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg
     /// </summary>
     public interface IWorkGroupRepository : IRepository<WorkGroup>
     {
+        void RemoveMember(Member member);
     }
 }

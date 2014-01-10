@@ -23,8 +23,11 @@ using UniCloud.Application.ProjectBC.Query.TemplateQueries;
 using UniCloud.Application.ProjectBC.RelatedDocServices;
 using UniCloud.Application.ProjectBC.TemplateServices;
 using UniCloud.Domain.Events;
+using UniCloud.Domain.ProjectBC.Aggregates.ProjectTempAgg;
 using UniCloud.Domain.ProjectBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg;
+using UniCloud.Domain.ProjectBC.Aggregates.UserAgg;
+using UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg;
 using UniCloud.Infrastructure.Crosscutting.Logging;
 using UniCloud.Infrastructure.Crosscutting.NetFramework.Logging;
 using UniCloud.Infrastructure.Data;
@@ -48,9 +51,17 @@ namespace UniCloud.DistributedServices.Project.InstanceProviders
 
                 #region 模板管理相关配置注册
 
+                .RegisterType<IProjectTempRepository, ProjectTempRepository>()
                 .RegisterType<ITaskStandardRepository, TaskStandardRepository>()
+                .RegisterType<IWorkGroupRepository, WorkGroupRepository>()
+                .RegisterType<IUserRepository, UserRepository>()
                 .RegisterType<ITemplateQuery, TemplateQuery>()
                 .RegisterType<ITemplateAppService, TemplateAppService>()
+                
+                #endregion
+
+                #region 项目管理相关配置注册
+
                 
                 #endregion
 

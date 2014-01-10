@@ -20,6 +20,7 @@
 using System.Linq;
 using UniCloud.Application.ProjectBC.DTO;
 using UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg;
+using UniCloud.Domain.ProjectBC.Aggregates.UserAgg;
 using UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg;
 
 #endregion
@@ -41,5 +42,12 @@ namespace UniCloud.Application.ProjectBC.Query.TemplateQueries
         /// <param name="query">查询表达式</param>
         /// <returns>工作组集合</returns>
         IQueryable<WorkGroupDTO> WorkGroupDTOQuery(QueryBuilder<WorkGroup> query);
+
+        /// <summary>
+        ///     查询用户
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        /// <returns>用户集合</returns>
+        IQueryable<UserDTO> UserDTOQuery(QueryBuilder<User> query);
     }
 }

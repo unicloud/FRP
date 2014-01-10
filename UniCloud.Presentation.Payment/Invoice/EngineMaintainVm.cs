@@ -32,7 +32,7 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof (EngineMaintainVm))]
+    [Export(typeof(EngineMaintainVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class EngineMaintainVm : InvoiceVm
     {
@@ -41,10 +41,12 @@ namespace UniCloud.Presentation.Payment.Invoice
         private readonly PaymentData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
-        [Import] public DocumentViewer DocumentView;
+        [Import]
+        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
-        public EngineMaintainVm(IRegionManager regionManager, IPaymentService service) : base(service)
+        public EngineMaintainVm(IRegionManager regionManager, IPaymentService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -62,7 +64,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            EngineMaintainInvoices = _service.CreateCollection(_context.EngineMaintainInvoices);
+            EngineMaintainInvoices = _service.CreateCollection(_context.EngineMaintainInvoices, o => o.MaintainInvoiceLines);
             _service.RegisterCollectionView(EngineMaintainInvoices);
             //ApuMaintainInvoices.PropertyChanged += (sender, e) =>
             //{
@@ -249,7 +251,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            EngineMaintainInvoice.Status = (int) InvoiceStatus.待审核;
+            EngineMaintainInvoice.Status = (int)InvoiceStatus.待审核;
         }
 
         protected override bool CanSubmitInvoice(object obj)
@@ -268,7 +270,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            EngineMaintainInvoice.Status = (int) InvoiceStatus.已审核;
+            EngineMaintainInvoice.Status = (int)InvoiceStatus.已审核;
             EngineMaintainInvoice.Reviewer = "admin";
             EngineMaintainInvoice.ReviewDate = DateTime.Now;
             EngineMaintainInvoice.IsValid = true;

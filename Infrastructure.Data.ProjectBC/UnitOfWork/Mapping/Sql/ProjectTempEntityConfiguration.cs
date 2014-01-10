@@ -41,7 +41,7 @@ namespace UniCloud.Infrastructure.Data.ProjectBC.UnitOfWork.Mapping.Sql
             Property(p => p.Description).HasColumnName("Description");
             Property(p => p.Status).HasColumnName("Status");
 
-            HasMany(p => p.TaskTemps).WithRequired().HasForeignKey(p => p.ProjectTempId);
+            HasMany(p => p.TaskTemps).WithRequired().HasForeignKey(p => p.ProjectTempId).WillCascadeOnDelete(true);
         }
     }
 }

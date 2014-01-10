@@ -72,6 +72,14 @@ namespace UniCloud.DistributedServices.Project
             get { return _templateAppService.GetWorkGroups(); }
         }
 
+        /// <summary>
+        ///     用户集合
+        /// </summary>
+        public IQueryable<UserDTO> Users
+        {
+            get { return _templateAppService.GetUsers(); }
+        }
+
         #endregion
     }
 }

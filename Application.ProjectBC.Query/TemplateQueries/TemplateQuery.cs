@@ -21,6 +21,7 @@ using System.Linq;
 using UniCloud.Application.ProjectBC.DTO;
 using UniCloud.Domain.ProjectBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.ProjectBC.Aggregates.TaskStandardAgg;
+using UniCloud.Domain.ProjectBC.Aggregates.UserAgg;
 using UniCloud.Domain.ProjectBC.Aggregates.WorkGroupAgg;
 using UniCloud.Infrastructure.Data;
 
@@ -97,6 +98,17 @@ namespace UniCloud.Application.ProjectBC.Query.TemplateQueries
                     IsManager = m.IsManager,
                     MemberUserId = m.MemberUserId
                 }).ToList()
+            });
+            return result;
+        }
+
+        public IQueryable<UserDTO> UserDTOQuery(QueryBuilder<User> query)
+        {
+            var result = query.ApplyTo(_unitOfWork.CreateSet<User>()).Select(u => new UserDTO
+            {
+                Id = u.Id,
+                EmployeeCode = u.EmployeeCode,
+                DisplayName = u.DisplayName
             });
             return result;
         }

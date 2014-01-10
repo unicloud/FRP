@@ -64,6 +64,7 @@
     <Compile Include="RelatedDocDTO.cs" />
     <Compile Include="TaskCaseDTO.cs" />
     <Compile Include="TaskStandardDTO.cs" />
+    <Compile Include="UserDTO.cs" />
     <Compile Include="WorkGroupDTO.cs" />
   </ItemGroup>
   <ItemGroup>

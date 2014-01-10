@@ -22,6 +22,7 @@ using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Prism.ViewModel;
 using Telerik.Windows.Controls;
+using UniCloud.Presentation.Service;
 
 #endregion
 
@@ -34,7 +35,7 @@ namespace UniCloud.Presentation.MVVM
     {
         #region ctor
 
-        protected ViewModelBase()
+        protected ViewModelBase(IService service)
         {
             AddAttachCommand = new DelegateCommand<object>(OnAddAttach, CanAddAttach);
             ViewAttachCommand = new DelegateCommand<object>(OnViewAttach);
@@ -42,6 +43,16 @@ namespace UniCloud.Presentation.MVVM
             WordExportCommand = new DelegateCommand<object>(OnWordExport);
             ChartExportCommand = new DelegateCommand<object>(OnChartExport);
             ChartDataExportCommand = new DelegateCommand<object>(OnChartDataExport);
+            if (service != null)
+            {
+                service.PropertyChanged += (o, e) =>
+                {
+                    if (e.PropertyName == "IsBusy")
+                    {
+                        IsBusy = service.IsBusy;
+                    }
+                };
+            }
         }
 
         #endregion
@@ -245,8 +256,7 @@ namespace UniCloud.Presentation.MVVM
 
         public virtual void OnNavigatedTo(NavigationContext navigationContext)
         {
-            IsBusy = true;
-            LoadData(); //加载数据。
+            LoadData();
         }
 
         #endregion

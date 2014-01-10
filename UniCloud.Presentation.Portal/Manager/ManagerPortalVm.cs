@@ -1,4 +1,5 @@
 ﻿#region Version Info
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -9,7 +10,9 @@
 //
 // 修改者：linxw 时间：2014/1/8 9:51:51
 // 修改说明：
+<<<<<<< HEAD
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -26,6 +29,7 @@ using Microsoft.Expression.Interactivity.Media;
 using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.Calendar;
+using UniCloud.Presentation.Service.Portal;
 using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 
 #endregion
@@ -46,14 +50,20 @@ namespace UniCloud.Presentation.Portal.Manager
             //throw new System.NotImplementedException();
         }
 
-        public ManagerPortalVm()
+        private readonly IPortalService _service;
+
+        [ImportingConstructor]
+        public ManagerPortalVm(IPortalService service)
+            : base(service)
         {
+            _service = service;
             InitAircraftCostData();
             InitStructureDate();
             InitCalendarData();
             InitProjectData();
             InitAmountData();
         }
+
 
         #region 飞机引进成本
         private Size _zoom = new Size(1, 1);//滚动条的对应

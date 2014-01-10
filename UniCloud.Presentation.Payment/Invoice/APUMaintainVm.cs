@@ -62,7 +62,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            ApuMaintainInvoices = _service.CreateCollection(_context.APUMaintainInvoices);
+            ApuMaintainInvoices = _service.CreateCollection(_context.APUMaintainInvoices,o=>o.MaintainInvoiceLines);
             _service.RegisterCollectionView(ApuMaintainInvoices);
             //ApuMaintainInvoices.PropertyChanged += (sender, e) =>
             //{
