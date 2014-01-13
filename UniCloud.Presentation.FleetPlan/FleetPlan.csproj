@@ -234,7 +234,7 @@
       <DependentUpon>FleetPlanDeliver.xaml</DependentUpon>
     </Compile>
     <Compile Include="PerformFleetPlan\FleetPlanDeliverVM.cs" />
-    <Compile Include="PrepareFleetPlan\AfrpPlanLayInput.cs" />
+    <Compile Include="PrepareFleetPlan\FleetPlanLayInput.cs" />
     <Compile Include="Approvals\ApprovalDoubleClickHelper.cs" />
     <Compile Include="Approvals\ApprovalDragDrop.cs" />
     <Compile Include="Approvals\ApprovalDragVisual.cs" />
@@ -386,8 +386,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PrepareFleetPlan\PlanDetailEditDialog.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PrepareFleetPlan\SpareEnginePlanLay.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -25,14 +25,14 @@
         </ResourceDictionary>
     </telerik:RadWindow.Resources>
 
-    <Grid>
+    <Grid  telerik:StyleManager.Theme="Windows8">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal"
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
                     Visibility="{Binding IsPlanTypeVisible}">
             <telerik:RadRadioButton Content="运营计划"
                                     HorizontalAlignment="Center"
@@ -68,16 +68,20 @@
 
             <TextBlock Text="机号"
                        VerticalAlignment="Center" />
-            <TextBlock HorizontalAlignment="Left"
+            <TextBlock Grid.Row="0"
+                       HorizontalAlignment="Left"
                        Text="{Binding PlanDetail.PlanAircraft.Aircraft.RegNumber}"
                        Grid.Column="1" />
             <TextBlock Text="管理状态"
+                       Grid.Row="0"
                        Grid.Column="2" />
             <TextBlock HorizontalAlignment="Left"
-                       Text="{Binding }"
+                       Text="{Binding ManagerStatus}"
+                       Grid.Row="0"
                        Grid.Column="3" />
             <TextBlock Text="航空公司"
-                       Grid.Row="1" />
+                       Grid.Row="1"
+                       Grid.Column="0" />
             <telerik:RadComboBox Grid.Row="1"
                                  Grid.Column="1"
                                  ItemsSource="{Binding PlanDetail.AirlinesCollection}"
@@ -87,8 +91,8 @@
                                  SelectedValue="{Binding }">
             </telerik:RadComboBox>
             <TextBlock Text="活动类别"
-                       Grid.Column="2"
-                       Grid.Row="1" />
+                       Grid.Row="1"
+                       Grid.Column="2" />
             <telerik:RadComboBox Grid.Row="1"
                                  Grid.Column="3"
                                  ItemsSource="{Binding PlanDetail.ActionCategories}"
@@ -96,7 +100,8 @@
                                  SelectedValuePath="ActionCategoryID"
                                  SelectedValue="{Binding }" />
             <TextBlock Text="座级"
-                       Grid.Row="2" />
+                     Grid.Row="2"
+                     Grid.Column="0" />
             <telerik:RadComboBox Grid.Row="2"
                                  Grid.Column="1"
                                  ItemsSource="{Binding AircraftCategories}"
@@ -114,11 +119,12 @@
                                  SelectedValuePath="Id"
                                  IsEnabled="{Binding IsAicraftTypeAndRegionalChangeable}"
                                  SelectedValue="{Binding}" />
-            <TextBlock Grid.Row="3"
-                       Text="执行年度" />
+            <TextBlock Text="执行年度"
+                       Grid.Row="3"
+                       Grid.Column="0" />
             <telerik:RadComboBox Grid.Row="3"
                                  Grid.Column="1"
-                                 ItemsSource="{Binding PlanYears}"
+                                 ItemsSource="{Binding Annuals}"
                                  DisplayMemberPath="Year"
                                  SelectedValuePath="Id"
                                  SelectedValue="{Binding }" />
@@ -129,8 +135,9 @@
                                  Grid.Column="3"
                                  ItemsSource="{Binding Months}"
                                  SelectedValue="{Binding PlanDetail.PerformMonth, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
-            <TextBlock Grid.Row="4"
-                       Text="净增座位" />
+            <TextBlock Text="净增座位"
+                       Grid.Row="4"
+                       Grid.Column="0" />
             <TextBox Grid.Row="4"
                      Grid.Column="1"
                      IsReadOnly="{Binding PlanDetail.IsOperationAndExportPlan}"
@@ -144,6 +151,7 @@
                      Text="{Binding PlanDetail.CarryingCapacity, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
             <telerik:RadWatermarkTextBox Text="{Binding PlanDetail.Note, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
                                          Grid.Row="5"
+                                         Grid.Column="0"
                                          Grid.ColumnSpan="4"
                                          VerticalAlignment="Stretch"
                                          Margin="0,5"
@@ -157,7 +165,7 @@
         <!--<input:ValidationSummary Grid.Row="2" Grid.ColumnSpan="4" Margin="20,0,20,10" Header="错误列表" />-->
 
         <StackPanel Orientation="Horizontal"
-                    Grid.Row="3"
+                    Grid.Row="2"
                     HorizontalAlignment="Right"
                     Margin="0 0 20 10">
             <telerik:RadButton Width="80"

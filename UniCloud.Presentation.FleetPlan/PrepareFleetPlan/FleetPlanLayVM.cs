@@ -46,16 +46,14 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private readonly FleetPlanData _context;
         private readonly IRegionManager _regionManager;
         private readonly IFleetPlanService _service;
+        private AnnualDTO _curAnnual = new AnnualDTO();
         private FilterDescriptor _annualDescriptor;
+        private bool _loadedPlans;
+        private bool _loadedPlanAircrafts;
         private PlanAircraftDTO _planAircraft;
         private PlanHistoryDTO _operationPlan;
         private PlanHistoryDTO _changePlan;
-        private AnnualDTO _curAnnual = new AnnualDTO();
-        private bool _loadedPlans;
-        private bool _loadedPlanAircrafts;
 
-        [Import]
-        public PlanDetailEditDialog editDialog;
 
         [ImportingConstructor]
         public FleetPlanLayVM(IRegionManager regionManager, IFleetPlanService service)
@@ -76,24 +74,22 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializeVM()
         {
-            CurAnnuals = _service.CreateCollection(_context.Annuals);
-            _annualDescriptor = new FilterDescriptor("IsOpen", FilterOperator.IsEqualTo, true);
-            CurAnnuals.FilterDescriptors.Add(_annualDescriptor);
-            CurAnnuals.LoadedData += (sender, e) =>
+            Annuals = _service.CreateCollection(_context.Annuals);
+            _annualDescriptor = new FilterDescriptor("Year", FilterOperator.IsGreaterThanOrEqualTo, DateTime.Now.Year - 1);
+            Annuals.LoadedData += (sender, e) =>
             {
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
                     return;
                 }
-                if (CurAnnuals.Count != 0)
+                if (Annuals.Count != 0)
                 {
-                    _curAnnual = CurAnnuals.First();
+                    _curAnnual = Annuals.SingleOrDefault(p => p.IsOpen);
+                    Plans.Load(true);
                 }
-                Plans.Load(true);
                 RefreshCommandState();
             };
-            _service.RegisterCollectionView(CurAnnuals);//注册查询集合
 
             Plans = _service.CreateCollection(_context.Plans);
             Plans.LoadedData += (sender, e) =>
@@ -129,8 +125,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             AircraftCategories = new QueryableDataServiceCollectionView<AircraftCategoryDTO>(_context, _context.AircraftCategories);
 
             AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_context, _context.AircraftTypes);
-
-            PlanYears = new QueryableDataServiceCollectionView<PlanYearDTO>(_context, _context.PlanYears);
         }
 
         /// <summary>
@@ -143,6 +137,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             RemoveEntityCommand = new DelegateCommand<object>(OnRemoveEntity, CanRemoveEntity);
             CommitCommand = new DelegateCommand<object>(OnCommit, CanCommit);
             CheckCommand = new DelegateCommand<object>(OnCheck, CanCheck);
+            OkCommand = new DelegateCommand<object>(OnOk, CanOk);
+            CancelCommand = new DelegateCommand<object>(OnCancel, CanCancel);
         }
 
         #endregion
@@ -151,12 +147,12 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #region 公共属性
 
-        #region 当前计划年度
+        #region 计划年度集合
 
         /// <summary>
         ///     当前计划年度
         /// </summary>
-        public QueryableDataServiceCollectionView<AnnualDTO> CurAnnuals { get; set; }
+        public QueryableDataServiceCollectionView<AnnualDTO> Annuals { get; set; }
 
         #endregion
 
@@ -214,15 +210,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #endregion
 
-        #region 执行年度集合
-
-        /// <summary>
-        ///     执行年度集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<PlanYearDTO> PlanYears { get; set; }
-
-        #endregion
-
         #region 执行月份集合
 
         /// <summary>
@@ -253,13 +240,12 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             _loadedPlans = false;
             _loadedPlanAircrafts = false;
-            CurAnnuals.Load(true);
+            Annuals.Load(true);
             PlanAircrafts.Load(true);
             Aircrafts.Load(true);
             ActionCategories.Load(true);
             AircraftCategories.Load(true);
             AircraftTypes.Load(true);
-            PlanYears.Load(true);
         }
 
         public void LoadPlanAircrafts()
@@ -397,10 +383,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     if (ViewPlanAircrafts.Any(pa => pa.Id == _selPlanHistory.PlanAircraftId))
                         SelPlanAircraft = ViewPlanAircrafts.FirstOrDefault(p => p.Id == _selPlanHistory.PlanAircraftId);
                     else SelPlanAircraft = null;
-                    var aircraft = Aircrafts.FirstOrDefault(p => p.AircraftId == SelPlanAircraft.AircraftId);
-                    if (aircraft != null && Aircrafts.Any(a => a == aircraft))
-                        SelAircraft = aircraft;
-                    else SelAircraft = null;
+                    SelAircraft = _selPlanAircraft.AircraftId == null ? null : Aircrafts.FirstOrDefault(p => p.AircraftId == _selPlanHistory.AircraftId);
                     RefreshCommandState();
                 }
             }
@@ -508,7 +491,21 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnAddEntity(object obj)
         {
+            // 创建新的计划飞机
+            var pa = new PlanAircraftDTO
+            {
+                Id = Guid.NewGuid(),
+                AirlinesId = CurPlan.AirlinesId,
+                Status = (int)ManageStatus.计划,
+                IsOwn = true
+            };
             OpenEditDialog(null, PlanDetailCreateSource.New);
+            //创建完新的计划明细后，将其与新的计划飞机关联起来。
+            pa.AircraftTypeId = this.PlanDetail.AircraftTypeId;
+            this.PlanDetail.PlanAircraftId = pa.Id;
+            //将新建的实体添加到对应的注册集合中
+            PlanAircrafts.AddNew(pa);
+            CurPlan.PlanHistories.Add(this.PlanDetail);
         }
 
         private bool CanAddEntity(object obj)
@@ -823,6 +820,9 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #region 子窗体相关
 
+        [Import]
+        public PlanDetailEditDialog editDialog;
+
         #region 当前编辑的计划明细项
 
         private PlanHistoryDTO _planDetail;
@@ -1018,6 +1018,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         protected virtual void OnOkExecute(object sender)
         {
+            this.editDialog.Close();
         }
 
         #endregion
@@ -1041,6 +1042,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         protected virtual void OnCancelExecute(object sender)
         {
+            this.editDialog.Close();
         }
 
         #endregion
