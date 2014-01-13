@@ -275,14 +275,6 @@
       <DependentUpon>DocViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Document\DocViewerVM.cs" />
-    <Compile Include="Document\PDFViewer.xaml.cs">
-      <DependentUpon>PDFViewer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Document\PDFViewerVm.cs" />
-    <Compile Include="Document\WordViewer.xaml.cs">
-      <DependentUpon>WordViewer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Document\WordViewerVm.cs" />
     <Compile Include="Export\ExportFormat.cs" />
     <Compile Include="Export\ExportSettings.cs" />
     <Compile Include="Export\ImageAndGridOperation.cs" />
@@ -321,14 +313,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Document\DocViewer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Document\PDFViewer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Document\WordViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
