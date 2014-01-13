@@ -145,7 +145,7 @@ namespace UniCloud.Presentation.MVVM
                 {
                     docViewer.ShowDialog();
                     docViewerVM.InitDocument(openFileDialog.File, d => WindowClosed(d, sender));
-                }
+        }
             }
         }
 

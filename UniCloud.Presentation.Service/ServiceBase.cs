@@ -302,21 +302,21 @@ namespace UniCloud.Presentation.Service
                 {
                     collectionView.ToList().ForEach(item =>
                     {
-                        var master = item;
-                        foreach (var details in changed.Select(c => c(master)))
-                        {
-                            var collection = details as INotifyCollectionChanged;
-                            if (collection == null) return;
-                            collection.CollectionChanged += (obj, handler) =>
-                                HasChanges = true;
-                            var detailList = details as IList;
-                            if (detailList == null) return;
-                            foreach (var entity in from object d in detailList select d as INotifyPropertyChanged)
+                            var master = item;
+                            foreach (var details in changed.Select(c => c(master)))
                             {
-                                entity.PropertyChanged += (obj, handler) =>
+                                var collection = details as INotifyCollectionChanged;
+                                if (collection == null) return;
+                                collection.CollectionChanged += (obj, handler) =>
                                     HasChanges = true;
+                                var detailList = details as IList;
+                                if (detailList == null) return;
+                                foreach (var entity in from object d in detailList select d as INotifyPropertyChanged)
+                                {
+                                    entity.PropertyChanged += (obj, handler) =>
+                                        HasChanges = true;
+                                }
                             }
-                        }
                     });
                 }
             };

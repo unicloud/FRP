@@ -173,9 +173,10 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="plan"></param>
         /// <param name="planAircraft"></param>
         /// <param name="actionType"></param>
+        /// <param name="planType"></param>
         /// <param name="service"></param>
         /// <returns></returns>
-        internal PlanHistoryDTO CreateOperationPlan(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType, IFleetPlanService service)
+        internal PlanHistoryDTO CreateOperationPlan(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType,int planType, IFleetPlanService service)
         {
             if (plan == null) return null;
             // 创建新的计划历史
@@ -187,9 +188,9 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 AirlinesName = plan.AirlinesName,
                 PerformAnnualId = plan.AnnualId,
                 PerformMonth = 1,
-                PlanType = 1,
+                PlanType = planType,
             };
-            // 1、计划飞机为空
+            // 1、计划飞机为空  TODO:得移出到ViewModel中处理
             if (planAircraft == null)
             {
                 // 创建新的计划飞机

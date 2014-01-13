@@ -98,7 +98,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="planAircraft">计划飞机</param>
         /// <param name="actionType">活动类型</param>
         /// <returns>计划明细</returns>
-        PlanHistoryDTO CreatePlanHistory(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType);
+        PlanHistoryDTO CreatePlanHistory(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType,int planType);
 
 
         /// <summary>

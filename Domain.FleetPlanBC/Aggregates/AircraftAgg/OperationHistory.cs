@@ -18,6 +18,7 @@ using System;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 
 #endregion
 
@@ -136,6 +137,10 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         /// </summary>
         public virtual ActionCategory ExportCategory { get; private set; }
 
+        /// <summary>
+        /// 审核历史，共享主键
+        /// </summary>
+        public virtual ApprovalHistory ApprovalHistory { get; set; }
 
         #endregion
 

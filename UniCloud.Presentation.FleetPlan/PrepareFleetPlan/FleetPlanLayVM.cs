@@ -396,9 +396,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
                     if (ViewPlanAircrafts.Any(pa => pa.Id == _selPlanHistory.PlanAircraftId))
                         SelPlanAircraft = ViewPlanAircrafts.FirstOrDefault(p => p.Id == _selPlanHistory.PlanAircraftId);
+                    else SelPlanAircraft = null;
                     var aircraft = Aircrafts.FirstOrDefault(p => p.AircraftId == SelPlanAircraft.AircraftId);
                     if (aircraft != null && Aircrafts.Any(a => a == aircraft))
                         SelAircraft = aircraft;
+                    else SelAircraft = null;
                     RefreshCommandState();
                 }
             }
@@ -506,7 +508,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnAddEntity(object obj)
         {
-            RefreshCommandState();
+            OpenEditDialog(null, PlanDetailCreateSource.New);
         }
 
         private bool CanAddEntity(object obj)
@@ -742,14 +744,14 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             switch (source)
             {
                 case PlanDetailCreateSource.New:
-                    this._operationPlan = _service.CreatePlanHistory(CurPlan, this._planAircraft, "引进");
+                    this._operationPlan = _service.CreatePlanHistory(CurPlan, this._planAircraft, "引进", 1);
                     this.PlanDetail = this._operationPlan;
                     this.IsChangeable = true;
                     break;
                 case PlanDetailCreateSource.PlanAircraft:
                     this.IsPlanTypeVisible = Visibility.Collapsed;
                     // 计划飞机已有的明细项肯定是引进计划，只能添加退出计划
-                    this._operationPlan = _service.CreatePlanHistory(CurPlan, this._planAircraft, existDetail != null ? "退出" : "引进");
+                    this._operationPlan = _service.CreatePlanHistory(CurPlan, this._planAircraft, existDetail != null ? "退出" : "引进", 1);
                     this.PlanDetail = this._operationPlan;
                     //这时不能修改机型和座机
                     this.IsChangeable = false;
@@ -800,7 +802,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             if (this._operationPlan == null)
             {
                 // 针对运营飞机的运营计划只能是退出
-                this._operationPlan = _service.CreatePlanHistory(CurPlan, this._planAircraft, "退出");
+                this._operationPlan = _service.CreatePlanHistory(CurPlan, this._planAircraft, "退出", 1);
             }
             this.PlanDetail = this._operationPlan;
             this.IsChangeable = false;
@@ -809,7 +811,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private void OnChange()
         {
             if (this._changePlan == null)
-                this._changePlan = _service.CreatePlanHistory(CurPlan, this._planAircraft, "变更");
+                this._changePlan = _service.CreatePlanHistory(CurPlan, this._planAircraft, "变更", 2);
             this.PlanDetail = this._changePlan;
             this.IsChangeable = true;
         }

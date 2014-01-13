@@ -27,7 +27,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.Service.FleetPlan
 {
-    [Export(typeof (IFleetPlanService))]
+    [Export(typeof(IFleetPlanService))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class FleetPlanService : ServiceBase, IFleetPlanService
     {
@@ -132,15 +132,16 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <summary>
         /// 创建运力增减计划明细
         /// </summary>
-        /// <param name="plan"><see cref="IFleetPlanService"/></param>
-        /// <param name="planAircraft"><see cref="IFleetPlanService"/></param>
-        /// <param name="actionType"><see cref="IFleetPlanService"/></param>
-        /// <returns><see cref="IFleetPlanService"/></returns>
-        public PlanHistoryDTO CreatePlanHistory(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType)
+        /// <param name="plan">计划</param>
+        /// <param name="planAircraft">计划飞机</param>
+        /// <param name="actionType">活动类型</param>
+        /// <param name="planType">判断是否运营\变更计划</param>
+        /// <returns></returns>
+        public PlanHistoryDTO CreatePlanHistory(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType, int planType)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                return pb.CreateOperationPlan(plan, planAircraft, actionType, this);
+                return pb.CreateOperationPlan(plan, planAircraft, actionType,planType, this);
             }
         }
 

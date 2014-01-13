@@ -5,6 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              xmlns:input="clr-namespace:UniCloud.Presentation.Input;assembly=UniCloud.Presentation"
              mc:Ignorable="d"
              d:DesignHeight="600"
@@ -217,6 +219,17 @@
                                                      ItemsSource="{Binding ViewPlanAircrafts,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelPlanAircraft,Mode=TwoWay}"
                                                      IsBusy="{Binding PlanAircrafts.IsBusy}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <ei:CallMethodAction TargetObject="{Binding}"
+                                                                 MethodName="GridViewSelectionChanged" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <telerik:RadGridView.GroupDescriptors>
+                                        <telerik:GroupDescriptor Member="AircraftTypeName"
+                                                                 SortDirection="Descending">
+                                        </telerik:GroupDescriptor>
+                                    </telerik:RadGridView.GroupDescriptors>
                                     <uc:GridViewDoubleClick.Helper>
                                         <uc:FleetPlanLayPlanDoubleClickHelper />
                                     </uc:GridViewDoubleClick.Helper>
@@ -293,6 +306,17 @@
                                                      IsBusy="{Binding Aircrafts.IsBusy}"
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <ei:CallMethodAction TargetObject="{Binding}"
+                                                                 MethodName="GridViewSelectionChanged" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                    <telerik:RadGridView.GroupDescriptors>
+                                        <telerik:GroupDescriptor Member="AircraftType.Name"
+                                                                 SortDirection="Descending">
+                                        </telerik:GroupDescriptor>
+                                    </telerik:RadGridView.GroupDescriptors>
                                     <uc:GridViewDoubleClick.Helper>
                                         <uc:FleetPlanLayOperationDoubleClickHelper />
                                     </uc:GridViewDoubleClick.Helper>

@@ -18,8 +18,10 @@
 #region 命名空间
 
 using System;
+using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Controls.DataServices;
 using UniCloud.Presentation.Service;
 
@@ -186,6 +188,17 @@ namespace UniCloud.Presentation.MVVM
         /// </summary>
         protected virtual void RefreshCommandState()
         {
+        }
+
+        #endregion
+
+        #region Method
+
+        public void GridViewSelectionChanged(object sender, SelectionChangeEventArgs e)
+        {
+            var gridView = sender as RadGridView;
+            var addedItem = e.AddedItems.FirstOrDefault();
+            if (gridView != null && addedItem != null) gridView.ScrollIntoView(e.AddedItems[0]);
         }
 
         #endregion

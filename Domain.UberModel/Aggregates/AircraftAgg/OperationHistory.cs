@@ -18,6 +18,7 @@ using System;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
+using UniCloud.Domain.UberModel.Aggregates.RequestAgg;
 
 #endregion
 
@@ -136,6 +137,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
         /// </summary>
         public virtual ActionCategory ExportCategory { get; private set; }
 
+
+        /// <summary>
+        /// 审核历史，共享主键
+        /// </summary>
+        public virtual ApprovalHistory ApprovalHistory { get; set; }
         #endregion
 
         #region 操作

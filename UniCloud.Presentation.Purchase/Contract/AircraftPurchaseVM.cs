@@ -145,7 +145,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         public override void LoadData()
         {
             if (!ViewTradeDTO.AutoLoad)
-                ViewTradeDTO.AutoLoad = true;
+            ViewTradeDTO.AutoLoad = true;
             else
                 ViewTradeDTO.Load(true);
 
@@ -315,7 +315,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             SelAircraftPurchaseOrderLineDTO = null;
             SelContractContentDTO = null;
-        }
+            }
 
         #endregion
 
@@ -325,7 +325,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             SelAircraftPurchaseOrderLineDTO = null;
             SelContractContentDTO = null;
-        }
+                }
 
         #endregion
 
@@ -352,14 +352,14 @@ namespace UniCloud.Presentation.Purchase.Contract
             else
             {
                 var relatedDoc = new RelatedDocDTO
-                {
+        {
                     Id = RandomHelper.Next(),
                     DocumentId = doc.DocumentId,
                     DocumentName = doc.Name,
                     SourceId = SelAircraftPurchaseOrderDTO.SourceGuid
                 };
                 SelAircraftPurchaseOrderDTO.RelatedDocs.Add(relatedDoc);
-            }
+        }
         }
 
         #endregion

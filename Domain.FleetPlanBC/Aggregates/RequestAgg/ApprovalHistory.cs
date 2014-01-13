@@ -16,6 +16,7 @@
 
 using System;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
@@ -120,6 +121,10 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// </summary>
         public virtual Annual RequestDeliverAnnual { get; set; }
 
+        /// <summary>
+        /// 运营权历史，共享主键
+        /// </summary>
+        public virtual OperationHistory OperationHistory { get; set; }
         #endregion
 
         #region 操作
