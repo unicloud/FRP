@@ -61,6 +61,7 @@
     <Compile Include="Repositories\ContentTagRepository.cs" />
     <Compile Include="Repositories\ContractEngineRepository.cs" />
     <Compile Include="Repositories\DocumentPathRepository.cs" />
+    <Compile Include="Repositories\DocumentRepository.cs" />
     <Compile Include="Repositories\MaintainContractRepository.cs" />
     <Compile Include="Repositories\CurrencyRepository.cs" />
     <Compile Include="Repositories\ForwarderRepository.cs" />

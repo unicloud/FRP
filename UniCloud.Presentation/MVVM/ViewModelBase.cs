@@ -18,11 +18,15 @@
 #region 命名空间
 
 using System;
+using System.ComponentModel.Composition;
+using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Prism.ViewModel;
 using Telerik.Windows.Controls;
+using UniCloud.Presentation.Document;
 using UniCloud.Presentation.Service;
+using UniCloud.Presentation.Service.CommonService.Common;
 
 #endregion
 
@@ -33,6 +37,9 @@ namespace UniCloud.Presentation.MVVM
     /// </summary>
     public abstract class ViewModelBase : NotificationObject, INavigationAware, ILoadData
     {
+        [Import] public DocViewer docViewer;
+        [Import] public DocViewerVM docViewerVM;
+
         #region ctor
 
         protected ViewModelBase(IService service)
@@ -113,9 +120,43 @@ namespace UniCloud.Presentation.MVVM
         /// <summary>
         ///     添加附件
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">命令参数</param>
         protected virtual void OnAddAttach(object sender)
         {
+            if ((sender is Guid) && (Guid) sender != Guid.Empty)
+            {
+                MessageConfirm("附件已存在，继续操作将有可能替换当前附件。是否继续？", (o, e) =>
+                {
+                    if (e.DialogResult != null && e.DialogResult == true)
+                    {
+                        var openFileDialog = new OpenFileDialog {Filter = "可用文档|*.docx;*.pdf"};
+                        if (openFileDialog.ShowDialog() == true)
+                        {
+                            docViewer.ShowDialog();
+                            docViewerVM.InitDocument(openFileDialog.File, d => WindowClosed(d, sender));
+                        }
+                    }
+                });
+            }
+            else
+            {
+                var openFileDialog = new OpenFileDialog {Filter = "可用文档|*.docx;*.pdf"};
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    docViewer.ShowDialog();
+                    docViewerVM.InitDocument(openFileDialog.File, d => WindowClosed(d, sender));
+                }
+            }
+        }
+
+        /// <summary>
+        ///     子窗口关闭后执行的操作
+        /// </summary>
+        /// <param name="doc">添加的附件</param>
+        /// <param name="sender">添加附件命令的参数</param>
+        protected virtual void WindowClosed(DocumentDTO doc, object sender)
+        {
+            docViewer.Close();
         }
 
         protected virtual bool CanAddAttach(object obj)
@@ -132,9 +173,18 @@ namespace UniCloud.Presentation.MVVM
         /// <summary>
         ///     查看附件
         /// </summary>
-        /// <param name="sender"></param>
+        /// <param name="sender">查看附件命令的参数</param>
         protected virtual void OnViewAttach(object sender)
         {
+            if (sender is Guid)
+            {
+                docViewer.Show();
+                docViewerVM.InitDocument((Guid) sender);
+            }
+            else
+            {
+                throw new ArgumentException("查看附件应包含文档的GUID参数！");
+            }
         }
 
         #endregion

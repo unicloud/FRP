@@ -100,7 +100,7 @@ namespace UniCloud.Presentation.MVVM
         }
 
         /// <summary>
-        ///     保存成功前执行的操作。
+        ///     保存前执行的操作
         /// </summary>
         /// <param name="sender"></param>
         protected virtual bool OnSaveExecuting(object sender)
