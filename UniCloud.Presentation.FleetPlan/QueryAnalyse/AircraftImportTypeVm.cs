@@ -42,7 +42,7 @@ using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 
 namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 {
-    [Export(typeof (AircraftImportTypeVm))]
+    [Export(typeof(AircraftImportTypeVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AircraftImportTypeVm : ViewModelBase
     {
@@ -61,7 +61,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         private bool _loadXmlSetting;
 
         [ImportingConstructor]
-        public AircraftImportTypeVm(IFleetPlanService service) : base(service)
+        public AircraftImportTypeVm(IFleetPlanService service)
+            : base(service)
         {
             _fleetPlanContext = service.Context;
 
@@ -482,9 +483,12 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         public override void LoadData()
         {
-            XmlConfigs.AutoLoad = true;
-            XmlSettings.AutoLoad = true;
-            Aircrafts.AutoLoad = true;
+            if (XmlConfigs.AutoLoad)
+                XmlConfigs.AutoLoad = true;
+            if (XmlSettings.AutoLoad)
+                XmlSettings.AutoLoad = true;
+            if (Aircrafts.AutoLoad)
+                Aircrafts.AutoLoad = true;
             IsBusy = XmlConfigs.IsBusy && XmlSettings.IsBusy && Aircrafts.IsBusy;
         }
 
@@ -590,8 +594,8 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             //控制趋势图的滚动条
             if (AircraftAmountCollection != null && AircraftAmountCollection.Count() >= 12)
             {
-                CurrentAircraftImportType.LineCategoricalAxis.MajorTickInterval = AircraftAmountCollection.Count()/6;
-                CurrentAircraftImportType.BarCategoricalAxis.MajorTickInterval = AircraftAmountCollection.Count()/6;
+                CurrentAircraftImportType.LineCategoricalAxis.MajorTickInterval = AircraftAmountCollection.Count() / 6;
+                CurrentAircraftImportType.BarCategoricalAxis.MajorTickInterval = AircraftAmountCollection.Count() / 6;
             }
             else
             {
@@ -630,7 +634,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     item.IsSelected = false;
                 }
             //更改对应饼图的标签大小
-            ((RadLegend) grid.Children[1]).Items.ToList().ForEach(p => p.IsHovered = false);
+            ((RadLegend)grid.Children[1]).Items.ToList().ForEach(p => p.IsHovered = false);
         }
 
         /// <summary>
@@ -695,11 +699,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
                 if (selectedPoint != null)
                 {
-                    var items = ((RadLegend) _importTypePieGrid.Children[1]).Items;
+                    var items = ((RadLegend)_importTypePieGrid.Children[1]).Items;
                     items.ToList().ForEach(p => p.IsHovered = false);
                     foreach (var item in items)
                     {
-                        if (item.Title.Equals(((FleetImportTypeComposition) selectedPoint.DataItem).ImportType,
+                        if (item.Title.Equals(((FleetImportTypeComposition)selectedPoint.DataItem).ImportType,
                             StringComparison.OrdinalIgnoreCase))
                         {
                             item.IsHovered = true;
@@ -730,11 +734,11 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
             var button = sender as RadToggleButton;
             if (button != null)
             {
-                if (button.IsChecked != null && (bool) button.IsChecked)
+                if (button.IsChecked != null && (bool)button.IsChecked)
                 {
                     var temp =
                         StaticFleetDatas.FirstOrDefault(
-                            p => p.ImportTypeName.Equals((string) button.Tag, StringComparison.OrdinalIgnoreCase));
+                            p => p.ImportTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase));
                     if (temp != null &&
                         !FleetDatas.Any(
                             p => p.ImportTypeName.Equals(temp.ImportTypeName, StringComparison.OrdinalIgnoreCase)))
@@ -747,7 +751,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     for (int i = FleetDatas.Count - 1; i > -1; i--)
                     {
                         var temp = FleetDatas[i];
-                        if (temp.ImportTypeName.Equals((string) button.Tag, StringComparison.OrdinalIgnoreCase))
+                        if (temp.ImportTypeName.Equals((string)button.Tag, StringComparison.OrdinalIgnoreCase))
                         {
                             FleetDatas.Remove(temp);
                             break;
@@ -808,7 +812,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
                     }
 
                     //创建RadGridView
-                    var columnsList = new Dictionary<string, string> {{"ImportType", "飞机引进方式"}, {"AirNum", "飞机数（架）"}};
+                    var columnsList = new Dictionary<string, string> { { "ImportType", "飞机引进方式" }, { "AirNum", "飞机数（架）" } };
                     _exportRadgridview = ImageAndGridOperation.CreatDataGridView(columnsList, FleetImportTypeCollection,
                         "PieImportType");
 
@@ -853,12 +857,12 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         /// <param name="e"></param>
         private void ElementExporting(object sender, GridViewElementExportingEventArgs e)
         {
-// ReSharper disable once CSharpWarnings::CS0618
+            // ReSharper disable once CSharpWarnings::CS0618
             e.Width = 120;
             if (e.Element == ExportElement.Cell && e.Value != null)
             {
                 var radGridView = sender as RadGridView;
-                if (radGridView != null && (_i%5 == 3 && _i >= 8 &&
+                if (radGridView != null && (_i % 5 == 3 && _i >= 8 &&
                                             radGridView.Name.Equals("LineImportType", StringComparison.OrdinalIgnoreCase)))
                 {
                     e.Value = DateTime.Parse(e.Value.ToString()).AddMonths(1).AddDays(-1).ToString("yyyy/M/d");
@@ -901,7 +905,7 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
         {
             var radcm = new RadContextMenu(); //新建右键菜单
             radcm.Opened += radcm_Opened;
-            var rmi = new RadMenuItem {Header = "导出表格"}; //新建右键菜单项
+            var rmi = new RadMenuItem { Header = "导出表格" }; //新建右键菜单项
             rmi.Click += MenuItemClick; //为菜单项注册事件
             rmi.DataContext = rwindow.Name;
             radcm.Items.Add(rmi);

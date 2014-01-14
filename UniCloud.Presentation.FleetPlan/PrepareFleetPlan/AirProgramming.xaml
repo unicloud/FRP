@@ -81,7 +81,8 @@
                                                ToolTipService.ToolTip="删除五年规划" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AddAttachCommand}">
+                                                       Command="{Binding AddAttachCommand}"
+                                                       CommandParameter="{Binding SelAirProgramming.DocumentId}">
                                         <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="添加规划文档" />
@@ -101,6 +102,12 @@
                                                      ItemsSource="{Binding AirProgrammings,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelAirProgramming,Mode=TwoWay}"
                                                      IsBusy="{Binding AirProgrammings.IsBusy}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <ei:CallMethodAction TargetObject="{Binding}"
+                                                                 MethodName="GridViewSelectionChanged" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
@@ -138,7 +145,8 @@
                                             <telerik:GridViewDataColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <HyperlinkButton Content="{Binding DocName}"
-                                                                     Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}" />
+                                                                     Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                     CommandParameter="{Binding DocumentId}" />
                                                 </DataTemplate>
                                             </telerik:GridViewDataColumn.CellTemplate>
                                         </telerik:GridViewDataColumn>
@@ -187,6 +195,12 @@
                                                      IsBusy="{Binding AirProgrammings.IsBusy}"
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <ei:CallMethodAction TargetObject="{Binding}"
+                                                                 MethodName="GridViewSelectionChanged" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"

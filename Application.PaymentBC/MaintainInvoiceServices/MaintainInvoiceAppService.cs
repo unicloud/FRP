@@ -60,10 +60,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         public void InsertEngineMaintainInvoice(EngineMaintainInvoiceDTO engineMaintainInvoice)
         {
             var newEngineMaintainInvoice = MaintainInvoiceFactory.CreateEngineMaintainInvoice();
-            var date = DateTime.Now.Date;
-            var seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
-            newEngineMaintainInvoice.SetInvoiceNumber(seq);
-            MaintainInvoiceFactory.SetMaintainInvoice(newEngineMaintainInvoice, engineMaintainInvoice.SerialNumber, 
+            newEngineMaintainInvoice.SetInvoiceNumber(GetMaxInvoiceNumber());
+            MaintainInvoiceFactory.SetMaintainInvoice(newEngineMaintainInvoice, engineMaintainInvoice.SerialNumber,
                 engineMaintainInvoice.InvoideCode, engineMaintainInvoice.InvoiceDate, engineMaintainInvoice.SupplierName, engineMaintainInvoice.SupplierId,
                 engineMaintainInvoice.InvoiceValue, engineMaintainInvoice.PaidAmount, engineMaintainInvoice.OperatorName,
                 engineMaintainInvoice.Reviewer, engineMaintainInvoice.Status, engineMaintainInvoice.CurrencyId, engineMaintainInvoice.DocumentName, engineMaintainInvoice.DocumentId);
@@ -90,7 +88,7 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         {
             var updateEngineMaintainInvoice =
                 _invoiceRepository.Get(engineMaintainInvoice.EngineMaintainInvoiceId); //获取需要更新的对象。
-            MaintainInvoiceFactory.SetMaintainInvoice(updateEngineMaintainInvoice, engineMaintainInvoice.SerialNumber, 
+            MaintainInvoiceFactory.SetMaintainInvoice(updateEngineMaintainInvoice, engineMaintainInvoice.SerialNumber,
                 engineMaintainInvoice.InvoideCode, engineMaintainInvoice.InvoiceDate, engineMaintainInvoice.SupplierName, engineMaintainInvoice.SupplierId,
                 engineMaintainInvoice.InvoiceValue, engineMaintainInvoice.PaidAmount, engineMaintainInvoice.OperatorName,
                engineMaintainInvoice.Reviewer, engineMaintainInvoice.Status, engineMaintainInvoice.CurrencyId, engineMaintainInvoice.DocumentName, engineMaintainInvoice.DocumentId);
@@ -131,10 +129,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         public void InsertApuMaintainInvoice(APUMaintainInvoiceDTO apuMaintainInvoice)
         {
             var newApuMaintainInvoice = MaintainInvoiceFactory.CreateApuMaintainInvoice();
-            var date = DateTime.Now.Date;
-            var seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
-            newApuMaintainInvoice.SetInvoiceNumber(seq);
-            MaintainInvoiceFactory.SetMaintainInvoice(newApuMaintainInvoice, apuMaintainInvoice.SerialNumber, 
+            newApuMaintainInvoice.SetInvoiceNumber(GetMaxInvoiceNumber());
+            MaintainInvoiceFactory.SetMaintainInvoice(newApuMaintainInvoice, apuMaintainInvoice.SerialNumber,
                 apuMaintainInvoice.InvoideCode, apuMaintainInvoice.InvoiceDate, apuMaintainInvoice.SupplierName, apuMaintainInvoice.SupplierId,
                 apuMaintainInvoice.InvoiceValue, apuMaintainInvoice.PaidAmount, apuMaintainInvoice.OperatorName,
                apuMaintainInvoice.Reviewer, apuMaintainInvoice.Status, apuMaintainInvoice.CurrencyId, apuMaintainInvoice.DocumentName, apuMaintainInvoice.DocumentId);
@@ -159,7 +155,7 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         public void ModifyApuMaintainInvoice(APUMaintainInvoiceDTO apuMaintainInvoice)
         {
             var updateApuMaintainInvoice = _invoiceRepository.Get(apuMaintainInvoice.APUMaintainInvoiceId);//获取需要更新的对象。
-            MaintainInvoiceFactory.SetMaintainInvoice(updateApuMaintainInvoice, apuMaintainInvoice.SerialNumber, 
+            MaintainInvoiceFactory.SetMaintainInvoice(updateApuMaintainInvoice, apuMaintainInvoice.SerialNumber,
                 apuMaintainInvoice.InvoideCode, apuMaintainInvoice.InvoiceDate, apuMaintainInvoice.SupplierName, apuMaintainInvoice.SupplierId,
                 apuMaintainInvoice.InvoiceValue, apuMaintainInvoice.PaidAmount, apuMaintainInvoice.OperatorName,
                apuMaintainInvoice.Reviewer, apuMaintainInvoice.Status, apuMaintainInvoice.CurrencyId, apuMaintainInvoice.DocumentName, apuMaintainInvoice.DocumentId);
@@ -201,10 +197,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         public void InsertAirframeMaintainInvoice(AirframeMaintainInvoiceDTO airframeMaintainInvoice)
         {
             var newAirframeMaintainInvoice = MaintainInvoiceFactory.CreateAirframeMaintainInvoice();
-            var date = DateTime.Now.Date;
-            var seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
-            newAirframeMaintainInvoice.SetInvoiceNumber(seq);
-            MaintainInvoiceFactory.SetMaintainInvoice(newAirframeMaintainInvoice, airframeMaintainInvoice.SerialNumber, 
+            newAirframeMaintainInvoice.SetInvoiceNumber(GetMaxInvoiceNumber());
+            MaintainInvoiceFactory.SetMaintainInvoice(newAirframeMaintainInvoice, airframeMaintainInvoice.SerialNumber,
                 airframeMaintainInvoice.InvoideCode, airframeMaintainInvoice.InvoiceDate, airframeMaintainInvoice.SupplierName, airframeMaintainInvoice.SupplierId,
                 airframeMaintainInvoice.InvoiceValue, airframeMaintainInvoice.PaidAmount, airframeMaintainInvoice.OperatorName,
                 airframeMaintainInvoice.Reviewer, airframeMaintainInvoice.Status, airframeMaintainInvoice.CurrencyId, airframeMaintainInvoice.DocumentName, airframeMaintainInvoice.DocumentId);
@@ -270,10 +264,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         public void InsertUndercartMaintainInvoice(UndercartMaintainInvoiceDTO undercartMaintainInvoice)
         {
             var newUndercartMaintainInvoice = MaintainInvoiceFactory.CreateUndercartMaintainInvoice();
-            var date = DateTime.Now.Date;
-            var seq = _invoiceRepository.GetFiltered(t => t.CreateDate > date).Count() + 1;
-            newUndercartMaintainInvoice.SetInvoiceNumber(seq);
-            MaintainInvoiceFactory.SetMaintainInvoice(newUndercartMaintainInvoice, undercartMaintainInvoice.SerialNumber, 
+            newUndercartMaintainInvoice.SetInvoiceNumber(GetMaxInvoiceNumber());
+            MaintainInvoiceFactory.SetMaintainInvoice(newUndercartMaintainInvoice, undercartMaintainInvoice.SerialNumber,
                 undercartMaintainInvoice.InvoideCode, undercartMaintainInvoice.InvoiceDate, undercartMaintainInvoice.SupplierName, undercartMaintainInvoice.SupplierId,
                 undercartMaintainInvoice.InvoiceValue, undercartMaintainInvoice.PaidAmount, undercartMaintainInvoice.OperatorName,
                undercartMaintainInvoice.Reviewer, undercartMaintainInvoice.Status, undercartMaintainInvoice.CurrencyId, undercartMaintainInvoice.DocumentName, undercartMaintainInvoice.DocumentId);
@@ -299,7 +291,7 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         {
             var updateUndercartMaintainInvoice =
                 _invoiceRepository.Get(undercartMaintainInvoice.UndercartMaintainInvoiceId);//获取需要更新的对象。
-            MaintainInvoiceFactory.SetMaintainInvoice(updateUndercartMaintainInvoice, undercartMaintainInvoice.SerialNumber, 
+            MaintainInvoiceFactory.SetMaintainInvoice(updateUndercartMaintainInvoice, undercartMaintainInvoice.SerialNumber,
                   undercartMaintainInvoice.InvoideCode, undercartMaintainInvoice.InvoiceDate, undercartMaintainInvoice.SupplierName, undercartMaintainInvoice.SupplierId,
                   undercartMaintainInvoice.InvoiceValue, undercartMaintainInvoice.PaidAmount, undercartMaintainInvoice.OperatorName,
                  undercartMaintainInvoice.Reviewer, undercartMaintainInvoice.Status, undercartMaintainInvoice.CurrencyId, undercartMaintainInvoice.DocumentName, undercartMaintainInvoice.DocumentId);
@@ -353,5 +345,17 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             dstMaintainInvoice.MaintainInvoiceLines = maintainInvoiceLines;
         }
         #endregion
+
+        private int GetMaxInvoiceNumber()
+        {
+            var date = DateTime.Now.Date.ToString("yyyyMMdd").Substring(0, 8);
+            var noticeNumber = _invoiceRepository.GetAll().Max(p => p.InvoiceNumber);
+            int seq = 1;
+            if (!string.IsNullOrEmpty(noticeNumber) && noticeNumber.StartsWith(date))
+            {
+                seq = Int32.Parse(noticeNumber.Substring(8)) + 1;
+            }
+            return seq;
+        }
     }
 }

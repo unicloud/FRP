@@ -34,10 +34,6 @@
                        ToolTipService.ToolTip="放弃更改" />
             </telerik:RadButton>
             <telerik:RadToolBarSeparator />
-            <telerik:RadButton Margin="2,2,2,-2" Command="{Binding NewCommand}">
-                <Image Source="/UniCloud.Presentation;component/Images/New.png" Stretch="Fill"
-                       ToolTipService.ToolTip="New Document" />
-            </telerik:RadButton>
         </telerik:RadToolBar>
 
         <telerik:RadDocking Grid.Row="1" BorderThickness="0" Padding="0" HasDocumentHost="False">

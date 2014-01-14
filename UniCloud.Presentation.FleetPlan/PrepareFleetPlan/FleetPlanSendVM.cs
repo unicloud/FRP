@@ -50,10 +50,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private FilterDescriptor _annualDescriptor;
         private AnnualDTO _curAnnual = new AnnualDTO();
 
-        [Import]
-        public DocumentViewer DocumentView;
-        private DocumentDTO _document = new DocumentDTO();
-
         [ImportingConstructor]
         public FleetPlanSendVM(IRegionManager regionManager, IFleetPlanService service)
             : base(service)
@@ -87,7 +83,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 {
                     _curAnnual = CurAnnuals.First();
                 }
-                Plans.Load(true);
+                if (!Plans.AutoLoad)
+                    Plans.AutoLoad = true;
+                else
+                    Plans.Load(true);
                 RefreshCommandState();
             };
             _service.RegisterCollectionView(CurAnnuals);//注册查询集合
@@ -100,7 +99,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     e.MarkErrorAsHandled();
                     return;
                 }
-                ViewPlans = e.Entities.Cast<PlanDTO>().Where(p => p.Year == _curAnnual.Year);
+                ViewPlans = e.Entities.Cast<PlanDTO>().Where(p => p.Year == _curAnnual.Year).OrderBy(p=>p.VersionNumber);
                 CurPlan.Clear();
                 CurPlan.Add(Plans.Where(p => p.Year == _curAnnual.Year).OrderBy(p => p.VersionNumber).LastOrDefault());
                 SelPlan = CurPlan.FirstOrDefault();
@@ -115,7 +114,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializerCommand()
         {
-            AttachCommand = new DelegateCommand<object>(OnAttach, CanAttach);
             SendCommand = new DelegateCommand<object>(OnSend, CanSend);
         }
 
@@ -267,7 +265,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         protected override void RefreshCommandState()
         {
-            AttachCommand.RaiseCanExecuteChanged();
             SendCommand.RaiseCanExecuteChanged();
         }
 
@@ -275,35 +272,26 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #region 添加计划文档
 
-        /// <summary>
-        ///     添加计划文档
-        /// </summary>
-        public DelegateCommand<object> AttachCommand { get; private set; }
-
-        private void OnAttach(object obj)
-        {
-            if (SelPlan != null)
-            {
-                DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
-                DocumentView.ShowDialog();
-            }
-        }
-        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
-        {
-            if (DocumentView.Tag is DocumentDTO)
-            {
-                var document = DocumentView.Tag as DocumentDTO;
-                SelPlan.DocumentId = document.DocumentId;
-                SelPlan.DocName = document.Name;
-            }
-        }
-
-        private bool CanAttach(object obj)
+        protected override bool CanAddAttach(object obj)
         {
             // 当前计划处于审核状态时，按钮可用
             return SelPlan != null && SelPlan.Status == (int)PlanStatus.已审核;
         }
 
+        /// <summary>
+        ///     子窗口关闭后执行的操作
+        /// </summary>
+        /// <param name="doc">添加的附件</param>
+        /// <param name="sender">添加附件命令的参数</param>
+        protected override void WindowClosed(DocumentDTO doc, object sender)
+        {
+            base.WindowClosed(doc, sender);
+            if (sender is Guid)
+            {
+                SelPlan.DocumentId = doc.DocumentId;
+                SelPlan.DocName = doc.Name;
+            }
+        }
         #endregion
 
         #region 报送计划
@@ -358,23 +346,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 return false;
             }
             return !_service.HasChanges;
-        }
-
-        #endregion
-
-        #region 查看附件
-
-        protected override void OnViewAttach(object sender)
-        {
-            var currentItem = sender as PlanDTO;
-            if (currentItem == null)
-            {
-                MessageBox.Show("没有选中的计划!");
-                return;
-            }
-            Guid docId = currentItem.DocumentId == Guid.Empty ? Guid.Empty : Guid.Parse(_selPlan.DocumentId.ToString());
-            DocumentView.ViewModel.InitData(true, docId, null);
-            DocumentView.ShowDialog();
         }
 
         #endregion

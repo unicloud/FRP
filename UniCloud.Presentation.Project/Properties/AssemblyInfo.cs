@@ -37,3 +37,4 @@ using System.Windows.Markup;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.Project.Template")]
+[assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.Project.Project")]

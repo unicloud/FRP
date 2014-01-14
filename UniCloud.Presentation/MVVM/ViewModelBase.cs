@@ -121,7 +121,7 @@ namespace UniCloud.Presentation.MVVM
         ///     添加附件
         /// </summary>
         /// <param name="sender">命令参数</param>
-        protected virtual void OnAddAttach(object sender)
+        protected void OnAddAttach(object sender)
         {
             if ((sender is Guid) && (Guid) sender != Guid.Empty)
             {
@@ -145,7 +145,7 @@ namespace UniCloud.Presentation.MVVM
                 {
                     docViewer.ShowDialog();
                     docViewerVM.InitDocument(openFileDialog.File, d => WindowClosed(d, sender));
-        }
+                }
             }
         }
 
@@ -174,7 +174,7 @@ namespace UniCloud.Presentation.MVVM
         ///     查看附件
         /// </summary>
         /// <param name="sender">查看附件命令的参数</param>
-        protected virtual void OnViewAttach(object sender)
+        protected void OnViewAttach(object sender)
         {
             if (sender is Guid)
             {

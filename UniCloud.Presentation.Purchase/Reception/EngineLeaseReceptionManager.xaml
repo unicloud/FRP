@@ -318,7 +318,7 @@
                                                 <DataTemplate>
                                                     <telerik:RadButton Content="查看文档"
                                                                        Command="{Binding DataContext.ViewAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                                                       CommandParameter="{Binding}">
+                                                                       CommandParameter="{Binding DocumentId}">
                                                     </telerik:RadButton>
                                                 </DataTemplate>
                                             </telerik:GridViewColumn.CellTemplate>
@@ -328,7 +328,7 @@
                                                 <DataTemplate>
                                                     <telerik:RadButton Content="移除文档"
                                                                        Command="{Binding DataContext.RemoveAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                                                       CommandParameter="{Binding}">
+                                                                       CommandParameter="{Binding DocumentId}">
                                                     </telerik:RadButton>
                                                 </DataTemplate>
                                             </telerik:GridViewColumn.CellTemplate>

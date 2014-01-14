@@ -144,7 +144,7 @@
                                   IsEnabled="{Binding SelOperationHistory.IsOperationHistoryNotCheckedAndImportCondition}"
                                   DisplayMemberPath="ActionName"
                                   SelectedValuePath="ActionCategoryID"
-                                  SelectedValue="{Binding SelOperationHistory.ImportCategoryID,Mode=TwoWay}" />
+                                  SelectedValue="{Binding SelOperationHistory.ImportCategoryId,Mode=TwoWay}" />
 
             <TextBlock Text="机号"
                        Grid.Row="0"
@@ -201,7 +201,7 @@
                                  ItemsSource="{Binding SelOperationHistory.ExportTypes}"
                                  DisplayMemberPath="ActionName"
                                  SelectedValuePath="ActionCategoryID"
-                                 SelectedValue="{Binding SelOperationHistory.ExportCategoryID,Mode=TwoWay}" />
+                                 SelectedValue="{Binding SelOperationHistory.ExportCategoryId,Mode=TwoWay}" />
 
 
             <TextBlock Text="退出停场日期"
@@ -288,7 +288,7 @@
                                   ItemsSource="{Binding SelAircraftBusiness.AircraftTypes}"
                                   DisplayMemberPath="Name"
                                   SelectedValuePath="AircraftTypeID"
-                                  SelectedValue="{Binding SelAircraftBusiness.AircraftTypeID, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
+                                  SelectedValue="{Binding SelAircraftBusiness.AircraftTypeId, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
 
             <TextBlock Text="引进方式"
                        Grid.Row="1"
@@ -300,7 +300,7 @@
                                   ItemsSource="{Binding SelOperationHistory.ImportTypes}"
                                   DisplayMemberPath="ActionName"
                                   SelectedValuePath="ActionCategoryID"
-                                  SelectedValue="{Binding SelAircraftBusiness.ImportCategoryID,Mode=TwoWay}" />
+                                  SelectedValue="{Binding SelAircraftBusiness.ImportCategoryId,Mode=TwoWay}" />
 
             <TextBlock Text="座位"
                        Grid.Row="1"

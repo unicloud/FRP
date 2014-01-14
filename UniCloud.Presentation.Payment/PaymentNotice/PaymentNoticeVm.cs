@@ -94,7 +94,8 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         public override void LoadData()
         {
             // 将CollectionView的AutoLoad属性设为True
-            PaymentNotices.AutoLoad = true;
+            if (PaymentNotices.AutoLoad)
+                PaymentNotices.AutoLoad = true;
             PaymentNotices.Load(true);
             Currencies.Load(true);
             Suppliers.Load(true);

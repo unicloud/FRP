@@ -60,8 +60,8 @@
     <Compile Include="ContractEngineServices\IPurchaseContractEngineAppService.cs" />
     <Compile Include="ContractEngineServices\LeaseContractEngineAppService.cs" />
     <Compile Include="ContractEngineServices\PurchaseContractEngineAppService.cs" />
-    <Compile Include="ContractServices\IMaintainContractAppService.cs" />
-    <Compile Include="ContractServices\MaintainContractAppService.cs" />
+    <Compile Include="MaintainContractServices\IMaintainContractAppService.cs" />
+    <Compile Include="MaintainContractServices\MaintainContractAppService.cs" />
     <Compile Include="CurrencyServices\CurrencyAppService.cs" />
     <Compile Include="CurrencyServices\ICurrencyAppService.cs" />
     <Compile Include="DocumentPathServices\DocumentPathAppService.cs" />

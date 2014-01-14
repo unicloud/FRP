@@ -52,7 +52,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <returns></returns>
         internal PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual, int newYear, AirlinesDTO curAirline)
         {
-            var title = newYear + "年度运力规划";
+            var title = newYear + "年度机队资源规划";
             // 从当前计划复制生成新年度计划
             var newPlan = new PlanDTO
             {

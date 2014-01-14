@@ -41,9 +41,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private readonly FleetPlanData _context;
         private readonly IRegionManager _regionManager;
         private readonly IFleetPlanService _service;
-        [Import]
-        public DocumentViewer DocumentView;
-        private DocumentDTO _document = new DocumentDTO();
 
         [ImportingConstructor]
         public AirProgrammingVM(IRegionManager regionManager, IFleetPlanService service)
@@ -69,7 +66,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
             Programmings = new QueryableDataServiceCollectionView<ProgrammingDTO>(_context, _context.Programmings);
 
-            AcTypes=new QueryableDataServiceCollectionView<AcTypeDTO>(_context,_context.AcTypes);
+            AcTypes = new QueryableDataServiceCollectionView<AcTypeDTO>(_context, _context.AcTypes);
         }
 
         /// <summary>
@@ -102,9 +99,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public override void LoadData()
         {
-            AirProgrammings.Load(true);
-            Programmings.Load(true);
-            AcTypes.Load(true);
+            if (!AirProgrammings.AutoLoad)
+                AirProgrammings.AutoLoad = true;
+            else
+                AirProgrammings.Load(true);
+
+            Programmings.AutoLoad = true;
+            AcTypes.AutoLoad = true;
         }
 
         #region 业务
@@ -305,42 +306,25 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #region 添加附件
 
-        protected override void OnAddAttach(object sender)
-        {
-            DocumentView.ViewModel.InitData(false, _selAirProgramming.DocumentId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
-        }
-
         protected override bool CanAddAttach(object obj)
         {
             return _selAirProgramming != null;
         }
 
-        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
+        /// <summary>
+        ///     子窗口关闭后执行的操作
+        /// </summary>
+        /// <param name="doc">添加的附件</param>
+        /// <param name="sender">添加附件命令的参数</param>
+        protected override void WindowClosed(DocumentDTO doc, object sender)
         {
-            if (DocumentView.Tag is DocumentDTO)
+            base.WindowClosed(doc, sender);
+            if (sender is Guid)
             {
-                _document = DocumentView.Tag as DocumentDTO;
-                SelAirProgramming.DocumentId = _document.DocumentId;
-                SelAirProgramming.DocName = _document.Name;
+                SelAirProgramming.DocumentId = doc.DocumentId;
+                SelAirProgramming.DocName = doc.Name;
             }
         }
-
-        #endregion
-
-        #region 查看附件
-
-        protected override void OnViewAttach(object sender)
-        {
-            if (SelAirProgramming == null)
-            {
-                MessageAlert("请选择一条记录！");
-                return;
-            }
-            DocumentView.ViewModel.InitData(true, _selAirProgramming.DocumentId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
-        }
-
         #endregion
 
         #endregion

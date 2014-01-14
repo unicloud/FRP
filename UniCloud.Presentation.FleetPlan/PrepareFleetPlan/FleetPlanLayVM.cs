@@ -87,7 +87,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 if (Annuals.Count != 0)
                 {
                     _curAnnual = Annuals.SingleOrDefault(p => p.IsOpen);
-                    Plans.Load(true);
+                    if (!Plans.AutoLoad)
+                        Plans.AutoLoad = true;
+                    else
+                        Plans.Load(true);
                 }
                 RefreshCommandState();
             };
@@ -241,12 +244,21 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             _loadedPlans = false;
             _loadedPlanAircrafts = false;
+
             Annuals.Load(true);
-            PlanAircrafts.Load(true);
-            Aircrafts.Load(true);
-            ActionCategories.Load(true);
-            AircraftCategories.Load(true);
-            AircraftTypes.Load(true);
+
+            if (!PlanAircrafts.AutoLoad)
+                PlanAircrafts.AutoLoad = true;
+            else
+                PlanAircrafts.Load(true);
+
+            if (!Aircrafts.AutoLoad)
+                Aircrafts.AutoLoad = true;
+            else
+                Aircrafts.Load(true);
+            ActionCategories.AutoLoad = true;
+            AircraftCategories.AutoLoad = true;
+            AircraftTypes.AutoLoad = true;
         }
 
         public void LoadPlanAircrafts()
@@ -386,7 +398,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     else SelPlanAircraft = null;
 
                     if (Aircrafts.Any(pa => pa.AircraftId == value.AircraftId))
-                        SelAircraft = Aircrafts.FirstOrDefault(p => p.AircraftId == value.AircraftId);
+                        SelAircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == value.AircraftId);
                     else SelAircraft = null;
                     RefreshCommandState();
                 }

@@ -336,6 +336,21 @@
         <Property Name="SignatoryId" Type="Edm.Int32" Nullable="false" />
         <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
+      <EntityType Name="AirframeMaintainContractDTO">
+        <Key>
+          <PropertyRef Name="AirframeMaintainContractId" />
+        </Key>
+        <Property Name="AirframeMaintainContractId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Number" Type="Edm.String" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Signatory" Type="Edm.String" />
+        <Property Name="SignDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Abstract" Type="Edm.String" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="DocumentName" Type="Edm.String" />
+        <Property Name="SignatoryId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
+      </EntityType>
       <EntityType Name="AircraftLeaseReceptionDTO">
         <Key>
           <PropertyRef Name="AircraftLeaseReceptionId" />
@@ -832,6 +847,7 @@
         <EntitySet Name="EngineMaintainContracts" EntityType="UniCloud.Application.PurchaseBC.DTO.EngineMaintainContractDTO" />
         <EntitySet Name="APUMaintainContracts" EntityType="UniCloud.Application.PurchaseBC.DTO.APUMaintainContractDTO" />
         <EntitySet Name="UndercartMaintainContracts" EntityType="UniCloud.Application.PurchaseBC.DTO.UndercartMaintainContractDTO" />
+        <EntitySet Name="AirframeMaintainContracts" EntityType="UniCloud.Application.PurchaseBC.DTO.AirframeMaintainContractDTO" />
         <EntitySet Name="AircraftLeaseReceptions" EntityType="UniCloud.Application.PurchaseBC.DTO.AircraftLeaseReceptionDTO" />
         <EntitySet Name="AircraftPurchaseReceptions" EntityType="UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseReceptionDTO" />
         <EntitySet Name="EngineLeaseReceptions" EntityType="UniCloud.Application.PurchaseBC.DTO.EngineLeaseReceptionDTO" />

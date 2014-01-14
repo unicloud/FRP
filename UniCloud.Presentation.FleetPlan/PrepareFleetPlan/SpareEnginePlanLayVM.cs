@@ -42,9 +42,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private readonly FleetPlanData _context;
         private readonly IRegionManager _regionManager;
         private readonly IFleetPlanService _service;
-        [Import]
-        public DocumentViewer DocumentView;
-        private DocumentDTO _document = new DocumentDTO();
 
         [ImportingConstructor]
         public SpareEnginePlanLayVM(IRegionManager regionManager, IFleetPlanService service)
@@ -68,11 +65,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             EnginePlans = _service.CreateCollection(_context.EnginePlans, o => o.EnginePlanHistories);
             _service.RegisterCollectionView(EnginePlans);//注册查询集合
 
-            Annuals=new QueryableDataServiceCollectionView<AnnualDTO>(_context,_context.Annuals);
+            Annuals = new QueryableDataServiceCollectionView<AnnualDTO>(_context, _context.Annuals);
 
-            EngineTypes=new QueryableDataServiceCollectionView<EngineTypeDTO>(_context,_context.EngineTypes);
+            EngineTypes = new QueryableDataServiceCollectionView<EngineTypeDTO>(_context, _context.EngineTypes);
 
-            ActionCategories=new QueryableDataServiceCollectionView<ActionCategoryDTO>(_context,_context.ActionCategories);
+            ActionCategories = new QueryableDataServiceCollectionView<ActionCategoryDTO>(_context, _context.ActionCategories);
         }
 
         /// <summary>
@@ -134,10 +131,14 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public override void LoadData()
         {
-            EnginePlans.Load(true);
-            Annuals.Load(true);
-            EngineTypes.Load(true);
-            ActionCategories.Load(true);
+            if (!EnginePlans.AutoLoad)
+                EnginePlans.AutoLoad = true;
+            else
+                EnginePlans.Load(true);
+
+            Annuals.AutoLoad = true;
+            EngineTypes.AutoLoad = true;
+            ActionCategories.AutoLoad = true;
         }
 
         #region 业务
@@ -244,7 +245,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             {
                 foreach (var ph in enginePlan.EnginePlanHistories)
                 {
-                    if(ph.Status ==0)
+                    if (ph.Status == 0)
                         newEnginePlan.EnginePlanHistories.Add(ph);
                 }
             }
@@ -369,42 +370,25 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #region 添加附件
 
-        protected override void OnAddAttach(object sender)
-        {
-            DocumentView.ViewModel.InitData(false, _selEnginePlan.DocumentId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
-        }
-
         protected override bool CanAddAttach(object obj)
         {
             return _selEnginePlan != null;
         }
 
-        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
+        /// <summary>
+        ///     子窗口关闭后执行的操作
+        /// </summary>
+        /// <param name="doc">添加的附件</param>
+        /// <param name="sender">添加附件命令的参数</param>
+        protected override void WindowClosed(DocumentDTO doc, object sender)
         {
-            if (DocumentView.Tag is DocumentDTO)
+            base.WindowClosed(doc, sender);
+            if (sender is Guid)
             {
-                _document = DocumentView.Tag as DocumentDTO;
-                SelEnginePlan.DocumentId = _document.DocumentId;
-                SelEnginePlan.DocName = _document.Name;
+                SelEnginePlan.DocumentId = doc.DocumentId;
+                SelEnginePlan.DocName = doc.Name;
             }
         }
-
-        #endregion
-
-        #region 查看附件
-
-        protected override void OnViewAttach(object sender)
-        {
-            if (SelEnginePlan == null)
-            {
-                MessageAlert("请选择一条记录！");
-                return;
-            }
-            DocumentView.ViewModel.InitData(true, _selEnginePlan.DocumentId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
-        }
-
         #endregion
 
         #endregion
