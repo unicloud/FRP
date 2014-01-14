@@ -21,11 +21,8 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
-using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
@@ -44,18 +41,14 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private const string TradeType = "购买发动机";
         private readonly PurchaseData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
-        private DocumentDTO _document = new DocumentDTO();
-        private bool _isAttach;
         private FilterDescriptor _orderDescriptor;
         private FilterDescriptor _tradeDescriptor1;
         private FilterDescriptor _tradeDescriptor2;
 
         [ImportingConstructor]
-        public EnginePurchaseVM(IRegionManager regionManager, IPurchaseService service) : base(service)
+        public EnginePurchaseVM(IPurchaseService service) : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
 
@@ -312,83 +305,6 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 重载操作
 
-        #region 添加合同文档
-
-        protected override void OnAddAttach(object sender)
-        {
-            if (sender is Guid)
-            {
-                _isAttach = true;
-                var docId = (Guid) sender;
-                var documentView = new DocumentViewer();
-                documentView.ViewModel.InitData(false, docId, DocumentViewerClosed);
-                documentView.ShowDialog();
-            }
-            else
-            {
-                _isAttach = false;
-                var docId = Guid.Empty;
-                var documentView = new DocumentViewer();
-                documentView.ViewModel.InitData(false, docId, DocumentViewerClosed);
-                documentView.ShowDialog();
-            }
-        }
-
-        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
-        {
-            var documentView = sender as DocumentViewer;
-            if (documentView != null && documentView.Tag is DocumentDTO)
-            {
-                if (_isAttach)
-                {
-                    _document = documentView.Tag as DocumentDTO;
-                    SelEnginePurchaseOrderDTO.ContractName = _document.Name;
-                    SelEnginePurchaseOrderDTO.ContractDocGuid = _document.DocumentId;
-                }
-                else
-                {
-                    _document = documentView.Tag as DocumentDTO;
-                    var doc = new RelatedDocDTO
-                    {
-                        Id = RandomHelper.Next(),
-                        DocumentId = _document.DocumentId,
-                        DocumentName = _document.Name,
-                        SourceId = SelEnginePurchaseOrderDTO.SourceGuid
-                    };
-                    SelEnginePurchaseOrderDTO.RelatedDocs.Add(doc);
-                }
-            }
-        }
-
-        protected override bool CanAddAttach(object obj)
-        {
-            return _selEnginePurchaseOrderDTO != null;
-        }
-
-        #endregion
-
-        #region 查看合同文档
-
-        protected override void OnViewAttach(object sender)
-        {
-            if (sender is Guid)
-            {
-                var docId = (Guid) sender;
-                var documentView = new DocumentViewer();
-                documentView.ViewModel.InitData(true, docId, DocumentViewerClosed);
-                documentView.Show();
-            }
-            else if (sender is RelatedDocDTO)
-            {
-                var doc = sender as RelatedDocDTO;
-                var documentView = new DocumentViewer();
-                documentView.ViewModel.InitData(true, doc.DocumentId, DocumentViewerClosed);
-                documentView.Show();
-            }
-        }
-
-        #endregion
-
         #region 保存成功后执行
 
         protected override void OnSaveSuccess(object sender)
@@ -405,6 +321,41 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             SelEnginePurchaseOrderLineDTO = null;
             SelContractContentDTO = null;
+        }
+
+        #endregion
+
+        protected override bool CanAddAttach(object obj)
+        {
+            return _selEnginePurchaseOrderDTO != null;
+        }
+
+        #region 添加附件成功后执行的操作
+
+        /// <summary>
+        ///     子窗口关闭后执行的操作
+        /// </summary>
+        /// <param name="doc">添加的附件</param>
+        /// <param name="sender">添加附件命令的参数</param>
+        protected override void WindowClosed(DocumentDTO doc, object sender)
+        {
+            base.WindowClosed(doc, sender);
+            if (sender is Guid)
+            {
+                SelEnginePurchaseOrderDTO.ContractDocGuid = doc.DocumentId;
+                SelEnginePurchaseOrderDTO.ContractName = doc.Name;
+            }
+            else
+            {
+                var relatedDoc = new RelatedDocDTO
+                {
+                    Id = RandomHelper.Next(),
+                    DocumentId = doc.DocumentId,
+                    DocumentName = doc.Name,
+                    SourceId = SelEnginePurchaseOrderDTO.SourceGuid
+                };
+                SelEnginePurchaseOrderDTO.RelatedDocs.Add(relatedDoc);
+            }
         }
 
         #endregion
