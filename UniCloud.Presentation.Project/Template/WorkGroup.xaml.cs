@@ -1,22 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+﻿#region 版本信息
+
+// ========================================================================
+// 版权所有 (C) 2014 UniCloud 
+//【本类功能概述】
+// 
+// 作者：丁志浩 时间：2014/01/09，15:01
+// 方案：FRP
+// 项目：Project
+// 版本：V1.0.0
+//
+// 修改者： 时间： 
+// 修改说明：
+// ========================================================================
+
+#endregion
+
+#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.Project.Template
 {
-    public partial class WorkGroup : UserControl
+    [Export]
+    public partial class WorkGroup
     {
         public WorkGroup()
         {
             InitializeComponent();
+        }
+
+        [Import(typeof (WorkGroupVM))]
+        public WorkGroupVM ViewModel
+        {
+            get { return DataContext as WorkGroupVM; }
+            set { DataContext = value; }
         }
     }
 }

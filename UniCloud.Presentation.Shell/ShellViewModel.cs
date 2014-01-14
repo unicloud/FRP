@@ -81,7 +81,7 @@ namespace UniCloud.Presentation.Shell
                     var menuItemPortal = Items.SingleOrDefault(m => m.Text == "管理门户");
                     if (menuItemPortal != null)
                         menuItemPortal.IsEnabled = true;
-                OnHome(null);
+                    OnHome(null);
                     break;
                 case "FleetPlanModule":
                     var menuItemFleetPlan = Items.SingleOrDefault(m => m.Text == "运力规划");
@@ -146,13 +146,51 @@ namespace UniCloud.Presentation.Shell
 
         private void LoadMenuItems()
         {
-            #region 飞行日志
+            #region 飞行构型
 
             var menu1 = new MenuItem
             {
-                Text = "飞行日志",
-                IsEnabled = false
+                Text = "飞机构型",
+                IsEnabled = true
             };
+
+            var menu11 = new MenuItem
+            {
+                Text = "管理飞机构型",
+            };
+            var menu111 = new MenuItem
+            {
+                Text = "维护飞机系列",
+            };
+            var menu112 = new MenuItem
+            {
+                Text = "维护飞机型号",
+            };
+            var menu113 = new MenuItem
+            {
+                Text = "维护飞机配置",
+            };
+            menu11.Items.Add(menu111);
+            menu11.Items.Add(menu112);
+            menu11.Items.Add(menu113);
+            menu1.Items.Add(menu11);
+
+            var menu12 = new MenuItem
+            {
+                Text = "管理飞机数据",
+            };
+            var menu121 = new MenuItem
+            {
+                Text = "维护飞机证照",
+            };
+            var menu122 = new MenuItem
+            {
+                Text = "查询现役飞机",
+            };
+            menu12.Items.Add(menu121);
+            menu12.Items.Add(menu122);
+            menu1.Items.Add(menu12);
+
             _items.Add(menu1);
 
             #endregion
@@ -613,7 +651,7 @@ namespace UniCloud.Presentation.Shell
             };
             var menu452 = new MenuItem
             {
-                Text = "维护大修保证金",
+                Text = "维护大修储备金",
                 NavUri = "UniCloud.Presentation.Payment.Guarantees.MaintainGuarantee"
             };
             menu45.Items.Add(menu451);
@@ -686,32 +724,144 @@ namespace UniCloud.Presentation.Shell
 
             var menu51 = new MenuItem
             {
-                Text = "配置任务模板"
+                Text = "配置工作组",
+                NavUri = "UniCloud.Presentation.Project.Template.WorkGroup"
             };
             var menu52 = new MenuItem
             {
-                Text = "配置项目模板"
+                Text = "配置任务模板"
             };
             var menu53 = new MenuItem
+            {
+                Text = "配置项目模板"
+            };
+            var menu54 = new MenuItem
             {
                 Text = "管理项目计划"
             };
             menu5.Items.Add(menu51);
             menu5.Items.Add(menu52);
             menu5.Items.Add(menu53);
+            menu5.Items.Add(menu54);
 
             _items.Add(menu5);
 
             #endregion
 
-            #region 系统管理
+            #region 适航管理
 
             var menu6 = new MenuItem
             {
-                Text = "系统管理",
-                IsEnabled = false,
+                Text = "适航管理",
+                IsEnabled = true,
             };
+
+
             _items.Add(menu6);
+
+            #endregion
+
+            #region 发动机管理
+
+            var menu7 = new MenuItem
+            {
+                Text = "发动机管理",
+                IsEnabled = true,
+            };
+
+
+            _items.Add(menu7);
+
+            #endregion
+
+            #region 附件管理
+
+            var menu8 = new MenuItem
+            {
+                Text = "附件管理",
+                IsEnabled = true,
+            };
+
+
+            _items.Add(menu8);
+
+            #endregion
+
+            #region 基础管理
+
+            var menu9 = new MenuItem
+            {
+                Text = "基础管理",
+                IsEnabled = true,
+            };
+
+            var menu91 = new MenuItem
+            {
+                Text = "管理授权",
+            };
+            var menu911 = new MenuItem
+            {
+                Text = "管理角色",
+            };
+            var menu912 = new MenuItem
+            {
+                Text = "管理用户",
+            };
+            menu91.Items.Add(menu911);
+            menu91.Items.Add(menu912);
+            menu9.Items.Add(menu91);
+
+            var menu92 = new MenuItem
+            {
+                Text = "管理运营资质",
+            };
+            var menu921 = new MenuItem
+            {
+                Text = "维护证照种类",
+            };
+            var menu922 = new MenuItem
+            {
+                Text = "维护经营证照",
+            };
+            menu92.Items.Add(menu921);
+            menu92.Items.Add(menu922);
+            menu9.Items.Add(menu92);
+
+            var menu93 = new MenuItem
+            {
+                Text = "维护基础配置",
+            };
+            var menu931 = new MenuItem
+            {
+                Text = "维护分支机构",
+            };
+            var menu932 = new MenuItem
+            {
+                Text = "管理系统配置",
+            };
+            var menu933 = new MenuItem
+            {
+                Text = "管理提醒策略",
+            };
+            menu93.Items.Add(menu931);
+            menu93.Items.Add(menu932);
+            menu93.Items.Add(menu933);
+            menu9.Items.Add(menu93);
+
+            _items.Add(menu9);
+
+            #endregion
+
+            #region 文档库
+
+            var menu10 = new MenuItem
+            {
+                Text = "文档库",
+                IsEnabled = true,
+            };
+
+
+            _items.Add(menu10);
 
             #endregion
         }
