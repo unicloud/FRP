@@ -62,7 +62,8 @@
                                            ToolTipService.ToolTip="创建新维修发票" />
                                 </telerik:RadButton>
                                 <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding AddAttachCommand}">
+                                                   Command="{Binding AddAttachCommand}"
+                                                   CommandParameter="{Binding UndercartMaintainInvoice.DocumentId,Mode=TwoWay}">
                                     <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
                                            Stretch="Fill"
                                            ToolTipService.ToolTip="添加附件" />
@@ -226,7 +227,8 @@
                                             <telerik:GridViewDataColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <HyperlinkButton Content="{Binding DocumentName}"
-                                                                     Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}" />
+                                                                     Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                     CommandParameter="{Binding DocumentId,Mode=TwoWay}" />
                                                 </DataTemplate>
                                             </telerik:GridViewDataColumn.CellTemplate>
                                         </telerik:GridViewDataColumn>

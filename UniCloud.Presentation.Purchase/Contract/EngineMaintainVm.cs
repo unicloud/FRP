@@ -224,33 +224,22 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 操作
 
-        #region 添加附件
+        #region 添加附件成功后执行的操作
 
-        protected override void OnAddAttach(object sender)
+        /// <summary>
+        ///     子窗口关闭后执行的操作
+        /// </summary>
+        /// <param name="doc">添加的附件</param>
+        /// <param name="sender">添加附件命令的参数</param>
+        protected override void WindowClosed(DocumentDTO doc, object sender)
         {
-            DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
-        }
-
-        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
-        {
-            if (DocumentView.Tag is DocumentDTO)
+            base.WindowClosed(doc, sender);
+            if (sender is Guid)
             {
-                _document = DocumentView.Tag as DocumentDTO;
-                EngineMaintainContract.DocumentId = _document.DocumentId;
-                EngineMaintainContract.DocumentName = _document.Name;
-                DocumentName = _document.Name;
+                EngineMaintainContract.DocumentId = doc.DocumentId;
+                EngineMaintainContract.DocumentName = doc.Name;
+                DocumentName = doc.Name;
             }
-        }
-
-        #endregion
-
-        #region 查看附件
-
-        protected override void OnViewAttach(object sender)
-        {
-            DocumentView.ViewModel.InitData(true, _document.DocumentId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
         }
 
         #endregion

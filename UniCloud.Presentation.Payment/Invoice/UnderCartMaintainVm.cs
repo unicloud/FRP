@@ -19,7 +19,6 @@
 using System;
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Regions;
-using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
@@ -32,7 +31,7 @@ using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 namespace UniCloud.Presentation.Payment.Invoice
 {
-    [Export(typeof (UndercartMaintainVm))]
+    [Export(typeof(UndercartMaintainVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class UndercartMaintainVm : InvoiceVm
     {
@@ -41,10 +40,12 @@ namespace UniCloud.Presentation.Payment.Invoice
         private readonly PaymentData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
-        [Import] public DocumentViewer DocumentView;
+        [Import]
+        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
-        public UndercartMaintainVm(IRegionManager regionManager, IPaymentService service) : base(service)
+        public UndercartMaintainVm(IRegionManager regionManager, IPaymentService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -62,15 +63,8 @@ namespace UniCloud.Presentation.Payment.Invoice
         private void InitializeVm()
         {
             // 创建并注册CollectionView
-            UndercartMaintainInvoices = _service.CreateCollection(_context.UndercartMaintainInvoices,o=>o.MaintainInvoiceLines);
+            UndercartMaintainInvoices = _service.CreateCollection(_context.UndercartMaintainInvoices, o => o.MaintainInvoiceLines);
             _service.RegisterCollectionView(UndercartMaintainInvoices);
-            //ApuMaintainInvoices.PropertyChanged += (sender, e) =>
-            //{
-            //    if (e.PropertyName == "HasChanges")
-            //    {
-            //        CanSelectApuMaintain = !ApuMaintainInvoices.HasChanges;
-            //    }
-            //};
         }
 
         #endregion
@@ -249,7 +243,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            UndercartMaintainInvoice.Status = (int) InvoiceStatus.待审核;
+            UndercartMaintainInvoice.Status = (int)InvoiceStatus.待审核;
         }
 
         protected override bool CanSubmitInvoice(object obj)
@@ -268,7 +262,7 @@ namespace UniCloud.Presentation.Payment.Invoice
                 MessageAlert("请选择一条维修发票记录！");
                 return;
             }
-            UndercartMaintainInvoice.Status = (int) InvoiceStatus.已审核;
+            UndercartMaintainInvoice.Status = (int)InvoiceStatus.已审核;
             UndercartMaintainInvoice.Reviewer = "admin";
             UndercartMaintainInvoice.ReviewDate = DateTime.Now;
             UndercartMaintainInvoice.IsValid = true;
@@ -281,42 +275,21 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
 
-        #region 添加附件
+        #region 添加附件成功后执行的操作
 
-        protected override void OnAddAttach(object sender)
+        /// <summary>
+        ///     子窗口关闭后执行的操作
+        /// </summary>
+        /// <param name="doc">添加的附件</param>
+        /// <param name="sender">添加附件命令的参数</param>
+        protected override void WindowClosed(DocumentDTO doc, object sender)
         {
-            if (UndercartMaintainInvoice == null)
+            base.WindowClosed(doc, sender);
+            if (sender is Guid)
             {
-                MessageAlert("请选择一条记录！");
-                return;
+                UndercartMaintainInvoice.DocumentId = doc.DocumentId;
+                UndercartMaintainInvoice.DocumentName = doc.Name;
             }
-            DocumentView.ViewModel.InitData(false, UndercartMaintainInvoice.DocumentId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
-        }
-
-        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
-        {
-            if (DocumentView.Tag is DocumentDTO)
-            {
-                var document = DocumentView.Tag as DocumentDTO;
-                UndercartMaintainInvoice.DocumentId = document.DocumentId;
-                UndercartMaintainInvoice.DocumentName = document.Name;
-            }
-        }
-
-        #endregion
-
-        #region 查看附件
-
-        protected override void OnViewAttach(object sender)
-        {
-            if (UndercartMaintainInvoice == null)
-            {
-                MessageAlert("请选择一条记录！");
-                return;
-            }
-            DocumentView.ViewModel.InitData(true, UndercartMaintainInvoice.DocumentId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
         }
 
         #endregion

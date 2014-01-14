@@ -114,19 +114,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             {
                 RequestsView.Load(true);
             }
-        }
-
-        protected override void OnViewAttach(object sender)
-        {
-            var docId = Guid.Parse(sender.ToString());
-            DocumentView.ViewModel.InitData(true, docId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
-        }
-
-        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
-        {
-          
-        }
+        }     
         #endregion
     }
 }

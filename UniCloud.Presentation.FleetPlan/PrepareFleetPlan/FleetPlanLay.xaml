@@ -109,9 +109,16 @@
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="False"
+                                                     RowStyle="{StaticResource DraggedRowStyle}"
                                                      ItemsSource="{Binding PlanHistories,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelPlanHistory,Mode=TwoWay}"
                                                      IsBusy="{Binding Plans.IsBusy}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <ei:CallMethodAction TargetObject="{Binding}"
+                                                                 MethodName="GridViewSelectionChanged" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <telerik:GridViewDragDrop.Behavior>
                                         <uc:FleetPlanLayCurrentPlanDetail />
                                     </telerik:GridViewDragDrop.Behavior>
@@ -159,7 +166,7 @@
                                                                      />
                                         <telerik:GridViewComboBoxColumn Header="执行年度"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSourceBinding="{Binding DataContext.PlanYears,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                        ItemsSourceBinding="{Binding DataContext.Annuals,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
                                                                         DataMemberBinding="{Binding PerformAnnualId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"
                                                                         DisplayMemberPath="Year"
@@ -185,7 +192,7 @@
                                         <telerik:GridViewDataColumn Header="管理状态"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsReadOnly="True"
-                                                                    DataMemberBinding="{Binding ManaStatus}" />
+                                                                    DataMemberBinding="{Binding ManageStatus}" />
                                         <telerik:GridViewDataColumn Header="备注"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding Note}" />
@@ -210,12 +217,12 @@
                                                      ShowGroupPanel="False"
                                                      AutoGenerateColumns="False"
                                                      CanUserSortColumns="True"
-                                                     AllowDrop="True"
+                                                     RowStyle="{StaticResource DraggedRowStyle}"
                                                      CanUserFreezeColumns="False"
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
-                                                     IsReadOnly="False"
+                                                     IsReadOnly="True"
                                                      ItemsSource="{Binding ViewPlanAircrafts,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelPlanAircraft,Mode=TwoWay}"
                                                      IsBusy="{Binding PlanAircrafts.IsBusy}">
@@ -295,8 +302,9 @@
                                 <telerik:RadGridView x:Name="Aircraft"
                                                      ShowGroupPanel="False"
                                                      AutoExpandGroups="True"
-                                                     IsReadOnly="False"
-                                                     AllowDrop="True"
+                                                     IsReadOnly="True"
+                                                     CanUserSortColumns="True"
+                                                     RowStyle="{StaticResource DraggedRowStyle}"
                                                      CanUserFreezeColumns="False"
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
@@ -304,19 +312,18 @@
                                                      ItemsSource="{Binding Aircrafts,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelAircraft,Mode=TwoWay}"
                                                      IsBusy="{Binding Aircrafts.IsBusy}"
-                                                     AutoGenerateColumns="False"
-                                                     ShowColumnFooters="True">
+                                                     AutoGenerateColumns="False">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
                                             <ei:CallMethodAction TargetObject="{Binding}"
                                                                  MethodName="GridViewSelectionChanged" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
-                                    <telerik:RadGridView.GroupDescriptors>
-                                        <telerik:GroupDescriptor Member="AircraftType.Name"
+                                    <!--<telerik:RadGridView.GroupDescriptors>
+                                        <telerik:GroupDescriptor Member="AircraftTypeName"
                                                                  SortDirection="Descending">
                                         </telerik:GroupDescriptor>
-                                    </telerik:RadGridView.GroupDescriptors>
+                                    </telerik:RadGridView.GroupDescriptors>-->
                                     <uc:GridViewDoubleClick.Helper>
                                         <uc:FleetPlanLayOperationDoubleClickHelper />
                                     </uc:GridViewDoubleClick.Helper>
@@ -329,21 +336,25 @@
                                     <telerik:RadGridView.Resources>
                                         <DataTemplate x:Name="OperationDraggedItemTemplate">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="{Binding AircraftType.AircraftCategory.Regional}"
+                                                <TextBlock Text="{Binding Regional}"
                                                            HorizontalAlignment="Center"
                                                            Margin="3,0" />
-                                                <TextBlock Text="{Binding AircraftType.Name}"
+                                                <TextBlock Text="{Binding AircraftTypeName}"
                                                            HorizontalAlignment="Center"
                                                            Margin="3,0" />
                                                 <TextBlock Text="{Binding RegNumber}"
                                                            HorizontalAlignment="Center"
                                                            Margin="3,0" />
-                                                <TextBlock Text="{Binding ImportCategory.ActionName}"
+                                                <TextBlock Text="{Binding ImportCategoryName}"
                                                            HorizontalAlignment="Center"
                                                            Margin="3,0" />
+                                                <TextBlock Text="出厂:"
+                                                           HorizontalAlignment="Center"/>
                                                 <TextBlock Text="{Binding FactoryDate, StringFormat={StaticResource DateStringFormat}}"
                                                            HorizontalAlignment="Center"
                                                            Margin="3,0" />
+                                                <TextBlock Text="引进:"
+                                                           HorizontalAlignment="Center" />
                                                 <TextBlock Text="{Binding ImportDate, StringFormat={StaticResource DateStringFormat}}"
                                                            HorizontalAlignment="Center"
                                                            Margin="3,0" />

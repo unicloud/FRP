@@ -29,7 +29,7 @@
                 <telerik:RadSplitContainer Orientation="Horizontal"
                                            telerik:ProportionalStackPanel.RelativeSize="500, 600">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="当前计划"
+                        <telerik:RadPane Header="{Binding PlanTitle}"
                                          IsPinned="True"
                                          CanFloat="False"
                                          CanUserClose="False"
@@ -70,7 +70,7 @@
                                                ToolTipService.ToolTip="提交审核" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding ExamineCommand}"
+                                                       Command="{Binding CheckCommand}"
                                                        CommandParameter="{Binding }">
                                         <Image Source="/UniCloud.Presentation;component/Images/Check.png"
                                                Stretch="Fill"
@@ -101,9 +101,15 @@
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="False"
-                                                     ItemsSource="{Binding }"
-                                                     SelectedItem="{Binding }"
-                                                     IsBusy="{Binding }">
+                                                     ItemsSource="{Binding PlanHistories,Mode=TwoWay}"
+                                                     SelectedItem="{Binding SelPlanHistory,Mode=TwoWay}"
+                                                     IsBusy="{Binding Plans.IsBusy}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <ei:CallMethodAction TargetObject="{Binding}"
+                                                                 MethodName="GridViewSelectionChanged" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
@@ -119,59 +125,46 @@
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="航空公司"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding Airlines.ShortName}">
+                                                                    DataMemberBinding="{Binding AirlinesName}">
                                             <telerik:GridViewDataColumn.AggregateFunctions>
                                                 <telerik:CountFunction ResultFormatString="总计：{0}项" />
                                             </telerik:GridViewDataColumn.AggregateFunctions>
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="座级"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding AircraftType.AircraftCategory.Regional}">
+                                                                    DataMemberBinding="{Binding Regional}">
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="机型"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding AircraftType.Name}" />
-                                        <telerik:GridViewDataColumn Header="活动类别"
+                                                                    DataMemberBinding="{Binding AircraftTypeName}" />
+                                        <telerik:GridViewExpressionColumn Header="活动类别"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding ActionCategoryOperation}" />
+                                                                          Expression="(ActionType+':'+ActionName)" />
                                         <telerik:GridViewDataColumn Header="引进/退出方式"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding TargetCategory.ActionName}" />
-                                        <telerik:GridViewDataColumn Header="执行时间"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding PerformTime}" 
-                                                                    DataFormatString="{StaticResource DateStringFormat}"/>
+                                                                    DataMemberBinding="{Binding TargetType}" />
+                                        <telerik:GridViewExpressionColumn Header="执行时间"
+                                                                          MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                          Expression="(Year+'/'+PerformMonth)" />
                                         <telerik:GridViewDataColumn Header="净增客机"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding DeltaPnr}">
-                                            <telerik:GridViewDataColumn.AggregateFunctions>
-                                                <telerik:SumFunction ResultFormatString="总计：{0}架" />
-                                            </telerik:GridViewDataColumn.AggregateFunctions>
+                                                                    DataMemberBinding="{Binding }">
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="净增座位"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding SeatingCapacity}">
-                                            <telerik:GridViewDataColumn.AggregateFunctions>
-                                                <telerik:SumFunction ResultFormatString="总计：{0}座" />
-                                            </telerik:GridViewDataColumn.AggregateFunctions>
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="净增商载（吨）"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding CarryingCapacity}">
-                                            <telerik:GridViewDataColumn.AggregateFunctions>
-                                                <telerik:SumFunction ResultFormatString="总计：{0}吨" />
-                                            </telerik:GridViewDataColumn.AggregateFunctions>
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="净增货机"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding DeltaCargo}">
-                                            <telerik:GridViewDataColumn.AggregateFunctions>
-                                                <telerik:SumFunction ResultFormatString="总计：{0}架" />
-                                            </telerik:GridViewDataColumn.AggregateFunctions>
+                                                                    DataMemberBinding="{Binding }">
                                         </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="管理状态"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding PlanAircraft.Status}" />
+                                                                    DataMemberBinding="{Binding ManageStatus}" />
                                         <telerik:GridViewDataColumn Header="备注"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding Note}" />
@@ -196,11 +189,17 @@
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="False"
-                                                     ItemsSource="{Binding }"
-                                                     SelectedItem="{Binding }"
-                                                     IsBusy="{Binding }"
+                                                     ItemsSource="{Binding Aircrafts,Mode=TwoWay}"
+                                                     SelectedItem="{Binding SelAircraft,Mode=TwoWay}"
+                                                     IsBusy="{Binding Aircrafts.IsBusy}"
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <ei:CallMethodAction TargetObject="{Binding}"
+                                                                 MethodName="GridViewSelectionChanged" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
@@ -217,7 +216,7 @@
                                         <telerik:GridViewDataColumn Header="机型"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsReadOnly="True"
-                                                                    DataMemberBinding="{Binding AircraftType.Name}" />
+                                                                    DataMemberBinding="{Binding AircraftTypeName}" />
                                         <telerik:GridViewDataColumn Header="机号"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsReadOnly="True"
@@ -233,7 +232,7 @@
                                         <telerik:GridViewDataColumn Header="引进方式"
                                                                     IsReadOnly="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding ImportCategory.ActionName}" />
+                                                                    DataMemberBinding="{Binding ImportCategoryName}" />
                                         <telerik:GridViewDataColumn Header="创建日期"
                                                                     IsReadOnly="True"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -262,7 +261,7 @@
                 <telerik:RadSplitContainer Orientation="Horizontal"
                                            telerik:ProportionalStackPanel.RelativeSize="500, 300">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="运营历史"
+                        <telerik:RadPane Header="{Binding OhTitle}"
                                          IsPinned="True"
                                          CanFloat="False"
                                          CanUserClose="False"
@@ -279,9 +278,8 @@
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="False"
-                                                     ItemsSource="{Binding }"
-                                                     SelectedItem="{Binding }"
-                                                     IsBusy="{Binding }">
+                                                     ItemsSource="{Binding OperationHistories,Mode=TwoWay}"
+                                                     IsBusy="{Binding Aircrafts.IsBusy}">
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
@@ -298,10 +296,10 @@
                                         <telerik:GridViewComboBoxColumn Header="引进方式"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         FilterMemberPath="ActionCategory.ActionName"
-                                                                        ItemsSourceBinding="{Binding ImportTypes}"
+                                                                        ItemsSourceBinding="{Binding ActionCategories}"
                                                                         DisplayMemberPath="ActionName"
-                                                                        DataMemberBinding="{Binding ImportCategoryID}"
-                                                                        SelectedValueMemberPath="ActionCategoryID" />
+                                                                        DataMemberBinding="{Binding ImportCategoryId}"
+                                                                        SelectedValueMemberPath="Id" />
                                         <telerik:GridViewDataColumn Header="机号"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding RegNumber}" />
@@ -324,10 +322,10 @@
                                         <telerik:GridViewComboBoxColumn Header="退出方式"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         FilterMemberPath="ActionCategory.ActionName"
-                                                                        ItemsSourceBinding="{Binding ExportTypes}"
+                                                                        ItemsSourceBinding="{Binding ActionCategories}"
                                                                         DisplayMemberPath="ActionName"
-                                                                        DataMemberBinding="{Binding ExportCategoryID}"
-                                                                        SelectedValueMemberPath="ActionCategoryID" />
+                                                                        DataMemberBinding="{Binding ExportCategoryId}"
+                                                                        SelectedValueMemberPath="Id" />
                                         <telerik:GridViewDataColumn Header="退出停场日期"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding StopDate}"
@@ -353,7 +351,7 @@
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
                     <telerik:RadPaneGroup VerticalAlignment="Stretch">
-                        <telerik:RadPane Header="商业数据历史"
+                        <telerik:RadPane Header="{Binding AbTitle}"
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
@@ -368,9 +366,8 @@
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="False"
-                                                     ItemsSource="{Binding }"
-                                                     SelectedItem="{Binding }"
-                                                     IsBusy="{Binding }"
+                                                     ItemsSource="{Binding AircraftBusinesses,Mode=TwoWay}"
+                                                     IsBusy="{Binding Aircrafts.IsBusy}"
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True">
                                     <telerik:RadContextMenu.ContextMenu>
@@ -390,7 +387,7 @@
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         FilterMemberPath="Regional"
                                                                         IsReadOnly="True"
-                                                                        ItemsSourceBinding="{Binding AircraftCategores}"
+                                                                        ItemsSourceBinding="{Binding AircraftCategories}"
                                                                         DisplayMemberPath="Regional"
                                                                         DataMemberBinding="{Binding Regional}"
                                                                         SelectedValueMemberPath="Regional" />
@@ -399,21 +396,20 @@
                                                                         FilterMemberPath="AircraftType.Name"
                                                                         ItemsSourceBinding="{Binding AircraftTypes}"
                                                                         DisplayMemberPath="Name"
-                                                                        DataMemberBinding="{Binding AircraftTypeID}"
-                                                                        SelectedValueMemberPath="AircraftTypeID" />
+                                                                        DataMemberBinding="{Binding AircraftTypeId}"
+                                                                        SelectedValueMemberPath="Id" />
                                         <telerik:GridViewComboBoxColumn Header="引进方式"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         FilterMemberPath="ActionCategory.ActionName"
-                                                                        ItemsSourceBinding="{Binding ImportTypes}"
+                                                                        ItemsSourceBinding="{Binding ActionCategories}"
                                                                         DisplayMemberPath="ActionName"
-                                                                        DataMemberBinding="{Binding ImportCategoryID}"
-                                                                        SelectedValueMemberPath="ActionCategoryID" />
+                                                                        DataMemberBinding="{Binding ImportCategoryId}"
+                                                                        SelectedValueMemberPath="Id" />
                                         <telerik:GridViewDataColumn Header="座位"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding SeatingCapacity}" />
                                         <telerik:GridViewDataColumn Header="商载（吨）"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    IsReadOnlyBinding="{Binding IsAircraftBusinessChecked}"
                                                                     DataMemberBinding="{Binding CarryingCapacity}" />
                                         <telerik:GridViewDataColumn Header="开始日期"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
