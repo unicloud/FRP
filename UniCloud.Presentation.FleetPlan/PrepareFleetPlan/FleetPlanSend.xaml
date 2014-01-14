@@ -104,7 +104,7 @@
                                                     <HyperlinkButton Content="{Binding DocName}"
                                                                      VerticalAlignment="Center"
                                                                      Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
-                                                                     CommandParameter="{Binding}" />
+                                                                     CommandParameter="{Binding DocumentId}" />
                                                 </DataTemplate>
                                             </telerik:GridViewColumn.CellTemplate>
                                         </telerik:GridViewColumn>
@@ -178,7 +178,7 @@
                                                 <DataTemplate>
                                                     <HyperlinkButton Content="{Binding DocName}"
                                                                      Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
-                                                                     CommandParameter="{Binding}" />
+                                                                     CommandParameter="{Binding DocumentId}" />
                                                 </DataTemplate>
                                             </telerik:GridViewColumn.CellTemplate>
                                         </telerik:GridViewColumn>

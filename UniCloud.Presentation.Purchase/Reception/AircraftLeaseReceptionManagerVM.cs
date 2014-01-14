@@ -104,9 +104,12 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         public override void LoadData()
         {
-            LeaseContractAircrafts.Load(true);
-            AircraftLeaseReceptions.Load(true);
+            if (!AircraftLeaseReceptions.AutoLoad)
+                AircraftLeaseReceptions.AutoLoad = true;
+            else
+                AircraftLeaseReceptions.Load(true);
 
+            LeaseContractAircrafts.Load(true);
             Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers));
         }
 
