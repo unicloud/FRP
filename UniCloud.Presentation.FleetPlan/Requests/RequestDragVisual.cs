@@ -48,4 +48,5 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         public bool UseDefaultCursors { get; set; }
     }
+
 }

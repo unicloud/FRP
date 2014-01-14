@@ -83,7 +83,7 @@ namespace UniCloud.Presentation.Shell
                     var menuItemPortal = Items.SingleOrDefault(m => m.Text == "管理门户");
                     if (menuItemPortal != null)
                         menuItemPortal.IsEnabled = true;
-                    OnHome(null);
+                OnHome(null);
                     break;
                 case "FleetPlanModule":
                     var menuItemFleetPlan = Items.SingleOrDefault(m => m.Text == "运力规划");
@@ -297,6 +297,7 @@ namespace UniCloud.Presentation.Shell
             var menu241 = new MenuItem
             {
                 Text = "查询规划",
+                NavUri = "UniCloud.Presentation.FleetPlan.QueryPlans.QueryPlan"
             };
             var menu242 = new MenuItem
             {

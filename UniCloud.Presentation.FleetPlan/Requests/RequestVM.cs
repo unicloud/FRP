@@ -91,6 +91,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         private void InitialRequest()
         {
             RequestsView = _service.CreateCollection(_context.Requests, o => o.ApprovalHistories);
+            _service.RegisterCollectionView(RequestsView);
             RequestsView.PageSize = 20;
             RequestsView.LoadedData += (sender, e) =>
             {
