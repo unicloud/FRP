@@ -399,7 +399,6 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 
         #region 附件添加相关
 
-        [Import] public DocumentViewer DocumentView;
         private bool _isDropDownClose;
 
         private string _selDocType;
@@ -477,34 +476,38 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 SelDocType = null;
                 return;
             }
-            DocumentView.ViewModel.InitData(false, Guid.Empty, DocumentViewerClosed);
-            DocumentView.ShowDialog();
+            OnAddAttach(Guid.Empty);
         }
-
-        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
+        /// <summary>
+        ///     子窗口关闭后执行的操作
+        /// </summary>
+        /// <param name="doc">添加的附件</param>
+        /// <param name="sender">添加附件命令的参数</param>
+        protected override void WindowClosed(DocumentDTO doc, object sender)
         {
-            if (DocumentView.Tag is DocumentDTO)
+            base.WindowClosed(doc, sender);
+
+            if (doc!=null)
             {
-                var document = DocumentView.Tag as DocumentDTO;
-                if (SelDocType.Equals("地方局申请文档"))
+                 if (SelDocType.Equals("地方局申请文档"))
                 {
-                    SelectedRequest.RaDocumentId = document.DocumentId;
-                    SelectedRequest.RaDocumentName = document.Name;
+                    SelectedRequest.RaDocumentId = doc.DocumentId;
+                    SelectedRequest.RaDocumentName = doc.Name;
                 }
                 else if (SelDocType.Equals("监管局申请文档"))
                 {
-                    SelectedRequest.SawsDocumentId = document.DocumentId;
-                    SelectedRequest.SawsDocumentName = document.Name;
+                    SelectedRequest.SawsDocumentId = doc.DocumentId;
+                    SelectedRequest.SawsDocumentName = doc.Name;
                 }
                 else
                 {
-                    SelectedRequest.CaacDocumentId = document.DocumentId;
-                    SelectedRequest.CaacDocumentName = document.Name;
+                    SelectedRequest.CaacDocumentId = doc.DocumentId;
+                    SelectedRequest.CaacDocumentName = doc.Name;
                 }
+                SelDocType = null;
             }
-            SelDocType = null;
+               
         }
-
         #endregion
 
         #region 计划明细、申请拖拽，申请增加、删除,申请状态控制
@@ -796,13 +799,6 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 return false;
             }
             return true;
-        }
-
-        protected override void OnViewAttach(object sender)
-        {
-            var docId =Guid.Parse(sender.ToString());
-            DocumentView.ViewModel.InitData(true, docId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
         }
         #endregion
     }

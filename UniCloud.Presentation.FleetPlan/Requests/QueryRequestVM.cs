@@ -33,11 +33,10 @@ namespace UniCloud.Presentation.FleetPlan.Requests
 {
     [Export(typeof (QueryRequestVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class QueryRequestVM : EditViewModelBase
+    public class QueryRequestVM : UniCloud.Presentation.MVVM.ViewModelBase
     {
         private readonly FleetPlanData _context;
         private readonly IFleetPlanService _service;
-        [Import] public DocumentViewer DocumentView;
 
         /// <summary>
         ///     构造函数。
@@ -66,7 +65,6 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 if (_selectedRequest != value)
                 {
                     _selectedRequest = value;
-                    RefreshCommandState();
                     RaisePropertyChanged(() => SelectedRequest);
                 }
             }
