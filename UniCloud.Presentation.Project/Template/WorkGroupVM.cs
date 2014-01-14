@@ -18,7 +18,6 @@
 #region 命名空间
 
 using System.ComponentModel.Composition;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Project;
@@ -35,13 +34,11 @@ namespace UniCloud.Presentation.Project.Template
         #region 声明、初始化
 
         private readonly ProjectData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IProjectService _service;
 
         [ImportingConstructor]
-        public WorkGroupVM(IRegionManager regionManager, IProjectService service) : base(service)
+        public WorkGroupVM(IProjectService service) : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
 
@@ -79,8 +76,10 @@ namespace UniCloud.Presentation.Project.Template
         /// </summary>
         public override void LoadData()
         {
-            ViewWorkGroupDTO.AutoLoad = true;
-            ViewUserDTO.AutoLoad = true;
+            if (!ViewUserDTO.AutoLoad) ViewUserDTO.AutoLoad = true;
+            else ViewUserDTO.Load(true);
+            if (!ViewWorkGroupDTO.AutoLoad) ViewWorkGroupDTO.AutoLoad = true;
+            else ViewWorkGroupDTO.Load(true);
         }
 
         #region 工作组
@@ -115,7 +114,7 @@ namespace UniCloud.Presentation.Project.Template
         /// </summary>
         private void InitializeViewWorkGroupDTO()
         {
-            _service.CreateCollection(_context.WorkGroups);
+            ViewWorkGroupDTO = _service.CreateCollection(_context.WorkGroups);
             _service.RegisterCollectionView(ViewWorkGroupDTO);
         }
 
@@ -153,7 +152,7 @@ namespace UniCloud.Presentation.Project.Template
         /// </summary>
         private void InitializeViewUserDTO()
         {
-            _service.CreateCollection(_context.Users);
+            ViewUserDTO = _service.CreateCollection(_context.Users);
             _service.RegisterCollectionView(ViewUserDTO);
         }
 
