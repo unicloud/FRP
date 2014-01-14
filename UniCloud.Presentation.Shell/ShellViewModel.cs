@@ -613,7 +613,7 @@ namespace UniCloud.Presentation.Shell
             };
             var menu452 = new MenuItem
             {
-                Text = "维护大修保证金",
+                Text = "维护大修储备金",
                 NavUri = "UniCloud.Presentation.Payment.Guarantees.MaintainGuarantee"
             };
             menu45.Items.Add(menu451);
