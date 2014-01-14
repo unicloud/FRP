@@ -140,7 +140,8 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         public override void LoadData()
         {
-            ViewTradeDTO.AutoLoad = true;
+            if (!ViewTradeDTO.AutoLoad) ViewTradeDTO.AutoLoad = true;
+            else ViewTradeDTO.Load(true);
 
             Suppliers = _service.GetSupplier(() => RaisePropertyChanged(() => Suppliers), true);
             Currencies = _service.GetCurrency(() => RaisePropertyChanged(() => Currencies), true);
