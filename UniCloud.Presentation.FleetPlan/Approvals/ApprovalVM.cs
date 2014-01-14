@@ -214,7 +214,6 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
 
         #region 附件添加相关
 
-        [Import] public DocumentViewer DocumentView;
         private bool _isDropDownClose;
 
         private string _selDocType;
@@ -291,29 +290,26 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
                 SelDocType = null;
                 return;
             }
-            DocumentView.ViewModel.InitData(false, Guid.Empty, DocumentViewerClosed);
-            DocumentView.ShowDialog();
+            OnAddAttach(Guid.Empty);
         }
 
-        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
+        protected override void WindowClosed(DocumentDTO doc, object sender)
         {
-            if (DocumentView.Tag is DocumentDTO)
+            if (doc!=null)
             {
-                var document = DocumentView.Tag as DocumentDTO;
                 if (SelDocType.Equals("民航局批文文档"))
                 {
-                    SelectedApprovalDoc.CaacDocumentId = document.DocumentId;
-                    SelectedApprovalDoc.CaacDocumentName = document.Name;
+                    SelectedApprovalDoc.CaacDocumentId = doc.DocumentId;
+                    SelectedApprovalDoc.CaacDocumentName = doc.Name;
                 }
                 else
                 {
-                    SelectedApprovalDoc.NdrcDocumentId = document.DocumentId;
-                    SelectedApprovalDoc.NdrcDocumentName = document.Name;
+                    SelectedApprovalDoc.NdrcDocumentId = doc.DocumentId;
+                    SelectedApprovalDoc.NdrcDocumentName = doc.Name;
                 }
             }
             SelDocType = null;
         }
-
         #endregion
 
         #region 申请拖拽，批文增加、删除,批文状态控制
@@ -588,13 +584,6 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
         protected override void OnSaveSuccess(object sender)
         {
            
-        }
-
-        protected override void OnViewAttach(object sender)
-        {
-            var docId = Guid.Parse(sender.ToString());
-            DocumentView.ViewModel.InitData(true, docId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
         }
 
         #endregion
