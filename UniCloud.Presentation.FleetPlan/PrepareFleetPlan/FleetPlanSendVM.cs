@@ -83,7 +83,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 {
                     _curAnnual = CurAnnuals.First();
                 }
-                Plans.Load(true);
+                if (!Plans.AutoLoad)
+                    Plans.AutoLoad = true;
+                else
+                    Plans.Load(true);
                 RefreshCommandState();
             };
             _service.RegisterCollectionView(CurAnnuals);//注册查询集合
@@ -96,7 +99,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     e.MarkErrorAsHandled();
                     return;
                 }
-                ViewPlans = e.Entities.Cast<PlanDTO>().Where(p => p.Year == _curAnnual.Year);
+                ViewPlans = e.Entities.Cast<PlanDTO>().Where(p => p.Year == _curAnnual.Year).OrderBy(p=>p.VersionNumber);
                 CurPlan.Clear();
                 CurPlan.Add(Plans.Where(p => p.Year == _curAnnual.Year).OrderBy(p => p.VersionNumber).LastOrDefault());
                 SelPlan = CurPlan.FirstOrDefault();
@@ -275,6 +278,20 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             return SelPlan != null && SelPlan.Status == (int)PlanStatus.已审核;
         }
 
+        /// <summary>
+        ///     子窗口关闭后执行的操作
+        /// </summary>
+        /// <param name="doc">添加的附件</param>
+        /// <param name="sender">添加附件命令的参数</param>
+        protected override void WindowClosed(DocumentDTO doc, object sender)
+        {
+            base.WindowClosed(doc, sender);
+            if (sender is Guid)
+            {
+                SelPlan.DocumentId = doc.DocumentId;
+                SelPlan.DocName = doc.Name;
+            }
+        }
         #endregion
 
         #region 报送计划

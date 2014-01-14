@@ -121,8 +121,15 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             _loadedAnnuals = false;
             _loadedPlans = false;
-            AllPlans.Load(true);
-            Annuals.Load(true);
+            if (!AllPlans.AutoLoad)
+                AllPlans.AutoLoad = true;
+            else
+                AllPlans.Load(true);
+
+            if (!Annuals.AutoLoad)
+                Annuals.AutoLoad = true;
+            else
+                Annuals.Load(true);
         }
 
         public void SetSelAnnual()
@@ -155,7 +162,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #region 选择的年度
 
-        private AnnualDTO _selAnnual=new AnnualDTO();
+        private AnnualDTO _selAnnual = new AnnualDTO();
 
         /// <summary>
         ///     选择的年度
@@ -174,6 +181,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                         if (plan.Year == value.Year)
                             ViewPlans.Add(plan);
                     }
+                    ViewPlans.OrderBy(p => p.VersionNumber);
                     SelPlan = ViewPlans.FirstOrDefault();
                     RaisePropertyChanged(() => SelAnnual);
                 }

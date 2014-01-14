@@ -82,7 +82,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 {
                     _curAnnual = CurAnnuals.First();
                 }
-                Plans.Load(true);
+                if (!Plans.AutoLoad)
+                    Plans.AutoLoad = true;
+                else
+                    Plans.Load(true);
                 RefreshCommandState();
             };
             _service.RegisterCollectionView(CurAnnuals);//注册查询集合
