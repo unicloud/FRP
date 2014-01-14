@@ -22,11 +22,11 @@ using UniCloud.Application.PurchaseBC.ActionCategoryServices;
 using UniCloud.Application.PurchaseBC.AircraftTypeServices;
 using UniCloud.Application.PurchaseBC.ContractAircraftServices;
 using UniCloud.Application.PurchaseBC.ContractEngineServices;
-using UniCloud.Application.PurchaseBC.ContractServices;
 using UniCloud.Application.PurchaseBC.CurrencyServices;
 using UniCloud.Application.PurchaseBC.DocumentPathServices;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
+using UniCloud.Application.PurchaseBC.MaintainContractServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
 using UniCloud.Application.PurchaseBC.OrderDocumentServices;
 using UniCloud.Application.PurchaseBC.PartServices;
@@ -328,6 +328,13 @@ namespace UniCloud.DistributedServices.Purchase
             get { return _maintainContractAppService.GetUndercartMaintainContracts(); }
         }
 
+        /// <summary>
+        ///     机身维修合同信息
+        /// </summary>
+        public IQueryable<AirframeMaintainContractDTO> AirframeMaintainContracts
+        {
+            get { return _maintainContractAppService.GetAirframeMaintainContracts(); }
+        }
         #endregion
 
         #region Reception
