@@ -15,6 +15,7 @@
 
 #endregion
 
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.DragDrop.Behaviors;
@@ -28,10 +29,14 @@ namespace UniCloud.Presentation.FleetPlan.Requests
     /// </summary>
     public class RequestDragDrop : GridViewDragDropBehavior
     {
+        public RequestDragDrop()
+        {
+            this.AllowReorder = true;
+        }
         public override bool CanStartDrag(GridViewDragDropState state)
         {
             var viewModel = ServiceLocator.Current.GetInstance<RequestVM>();
-           var items = (from object item in state.DraggedItems select item).ToList();
+            var items = (from object item in state.DraggedItems select item).ToList();
             return viewModel.DragApprovalHistory(items[0]);
         }
 
@@ -46,8 +51,8 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         {
             var items = (from object item in state.DraggedItems select item).ToList();
             // 拖动的是申请明细时，才可以释放。
-       
-        }
+
+        } 
 
         public override void DragDropCompleted(GridViewDragDropState state)
         {
@@ -56,4 +61,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             viewModel.RemoveRequestDetail(items[0] as ApprovalHistoryDTO);
         }
     }
+
+
+   
 }

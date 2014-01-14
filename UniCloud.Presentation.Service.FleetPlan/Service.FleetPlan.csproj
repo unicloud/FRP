@@ -111,6 +111,7 @@
     <Compile Include="FleetPlan\Enums\OpenState.cs" />
     <Compile Include="FleetPlan\Enums\OperationStatus.cs" />
     <Compile Include="FleetPlan\Enums\PlanDetailCreateSource.cs" />
+    <Compile Include="FleetPlan\Enums\PlanHistoryCompareStatus.cs" />
     <Compile Include="FleetPlan\Enums\PlanPublishStatus.cs" />
     <Compile Include="FleetPlan\Enums\PlanRelativeSubmitState.cs" />
     <Compile Include="FleetPlan\Enums\PlanStatus.cs" />

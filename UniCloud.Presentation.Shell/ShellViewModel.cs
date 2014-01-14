@@ -257,6 +257,7 @@ namespace UniCloud.Presentation.Shell
             var menu241 = new MenuItem
             {
                 Text = "查询规划",
+                NavUri = "UniCloud.Presentation.FleetPlan.QueryPlans.QueryPlan"
             };
             var menu242 = new MenuItem
             {
