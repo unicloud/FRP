@@ -33,13 +33,15 @@ using UniCloud.Presentation.SessionExtension;
 
 namespace UniCloud.Presentation.Shell
 {
-    [Export(typeof (ShellViewModel))]
+    [Export(typeof(ShellViewModel))]
     public class ShellViewModel : NotificationObject, IPartImportsSatisfiedNotification
     {
         #region 声明
 
-        [Import] public IModuleManager moduleManager;
-        [Import] public IRegionManager regionManager;
+        [Import]
+        public IModuleManager moduleManager;
+        [Import]
+        public IRegionManager regionManager;
 
         #region IPartImportsSatisfiedNotification 成员
 
@@ -472,9 +474,16 @@ namespace UniCloud.Presentation.Shell
                 Text = "管理起落架维修合同",
                 NavUri = "UniCloud.Presentation.Purchase.Contract.UndercartMaintain"
             };
+            var menu334 = new MenuItem
+            {
+                Text = "管理机身维修合同",
+                NavUri = "UniCloud.Presentation.Purchase.Contract.AirframeMaintain"
+            };
+
             menu33.Items.Add(menu331);
             menu33.Items.Add(menu332);
             menu33.Items.Add(menu333);
+            menu33.Items.Add(menu334);
             menu3.Items.Add(menu33);
 
             var menu34 = new MenuItem
