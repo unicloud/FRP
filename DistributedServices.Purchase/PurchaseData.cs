@@ -139,7 +139,10 @@ namespace UniCloud.DistributedServices.Purchase
         /// </summary>
         public IQueryable<SupplierCompanyAcMaterialDTO> SupplierCompanyAcMaterials
         {
-            get { return GetStaticData("acMaterialsPurchase", () => _supplierAppService.GetSupplierCompanyAcMaterials()); }
+            get
+            {
+                return GetStaticData("acMaterialsPurchase", () => _supplierAppService.GetSupplierCompanyAcMaterials());
+            }
         }
 
         /// <summary>
@@ -149,7 +152,8 @@ namespace UniCloud.DistributedServices.Purchase
         {
             get
             {
-                return GetStaticData("engineMaterialsPurchase", () => _supplierAppService.GetSupplierCompanyEngineMaterials());
+                return GetStaticData("engineMaterialsPurchase",
+                    () => _supplierAppService.GetSupplierCompanyEngineMaterials());
             }
         }
 
@@ -158,7 +162,10 @@ namespace UniCloud.DistributedServices.Purchase
         /// </summary>
         public IQueryable<SupplierCompanyBFEMaterialDTO> SupplierCompanyBFEMaterials
         {
-            get { return GetStaticData("bfeMaterialsPurchase", () => _supplierAppService.GetSupplierCompanyBFEMaterials()); }
+            get
+            {
+                return GetStaticData("bfeMaterialsPurchase", () => _supplierAppService.GetSupplierCompanyBFEMaterials());
+            }
         }
 
         #endregion

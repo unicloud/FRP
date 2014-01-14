@@ -17,8 +17,13 @@
 
 #region 命名空间
 
+using System;
 using System.ComponentModel.Composition;
-using Microsoft.Practices.Prism.Regions;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using Microsoft.Practices.Prism.Commands;
+using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService;
 using UniCloud.Presentation.Service.CommonService.Common;
@@ -27,22 +32,27 @@ using UniCloud.Presentation.Service.CommonService.Common;
 
 namespace UniCloud.Presentation.Document
 {
-    [Export(typeof (DocViewerVM))]
+    [Export(typeof(DocViewerVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class DocViewerVM : EditViewModelBase
+    public class DocViewerVM : ViewModelBase
     {
         #region 声明、初始化
 
         private readonly CommonServiceData _context;
-        private readonly IRegionManager _regionManager;
         private readonly ICommonService _service;
+        private DocumentDTO _addedDocument;
+        private FilterDescriptor _docDescriptor;
+        private DocumentDTO _loadedDocument;
+        private Action<DocumentDTO> _windowClosed;
 
         [ImportingConstructor]
-        public DocViewerVM(IRegionManager regionManager, ICommonService service) : base(service)
+        public DocViewerVM(ICommonService service)
+            : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
-            _context = _service.Context;
+            _context = service.Context;
+
+            SaveCommand = new DelegateCommand<object>(OnSave, CanSave);
 
             InitializeVM();
         }
@@ -55,6 +65,7 @@ namespace UniCloud.Presentation.Document
         /// </summary>
         private void InitializeVM()
         {
+            InitializeViewDocumentDTO();
         }
 
         #endregion
@@ -63,22 +74,167 @@ namespace UniCloud.Presentation.Document
 
         #region 公共属性
 
+        #region 窗口标题
+
+        private string _title;
+
+        /// <summary>
+        ///     窗口标题
+        /// </summary>
+        public string Title
+        {
+            get { return _title; }
+            private set
+            {
+                if (_title != value)
+                {
+                    _title = value;
+                    RaisePropertyChanged(() => Title);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Word文档可见
+
+        private Visibility _wordVisibility;
+
+        /// <summary>
+        ///     Word文档可见
+        /// </summary>
+        public Visibility WordVisibility
+        {
+            get { return _wordVisibility; }
+            private set
+            {
+                if (_wordVisibility != value)
+                {
+                    _wordVisibility = value;
+                    RaisePropertyChanged(() => WordVisibility);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Word文档内容
+
+        private byte[] _wordContent;
+
+        /// <summary>
+        ///     Word文档内容
+        /// </summary>
+        public byte[] WordContent
+        {
+            get { return _wordContent; }
+            private set
+            {
+                if (_wordContent != value)
+                {
+                    _wordContent = value;
+                    RaisePropertyChanged(() => WordContent);
+                }
+            }
+        }
+
+        #endregion
+
+        #region PDF文档可见
+
+        private Visibility _pdfVisibility;
+
+        /// <summary>
+        ///     PDF文档可见
+        /// </summary>
+        public Visibility PDFVisibility
+        {
+            get { return _pdfVisibility; }
+            private set
+            {
+                if (_pdfVisibility != value)
+                {
+                    _pdfVisibility = value;
+                    RaisePropertyChanged(() => PDFVisibility);
+                }
+            }
+        }
+
+        #endregion
+
+        #region PDF文档内容
+
+        private MemoryStream _pdfContent;
+
+        /// <summary>
+        ///     PDF文档内容
+        /// </summary>
+        public MemoryStream PDFContent
+        {
+            get { return _pdfContent; }
+            private set
+            {
+                if (_pdfContent != value)
+                {
+                    _pdfContent = value;
+                    RaisePropertyChanged(() => PDFContent);
+                }
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region 加载数据
 
-        /// <summary>
-        ///     加载数据方法
-        ///     <remarks>
-        ///         导航到此页面时调用。
-        ///         可在此处将CollectionView的AutoLoad属性设为True，以实现数据的自动加载。
-        ///     </remarks>
-        /// </summary>
         public override void LoadData()
         {
-            // 将CollectionView的AutoLoad属性设为True，例如：
-            // Orders.AutoLoad = true;
         }
+
+        #region 文档
+
+        private DocumentDTO _selDocumentDTO;
+
+        /// <summary>
+        ///     文档集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<DocumentDTO> ViewDocumentDTO { get; set; }
+
+        /// <summary>
+        ///     选中的文档
+        /// </summary>
+        public DocumentDTO SelDocumentDTO
+        {
+            get { return _selDocumentDTO; }
+            private set
+            {
+                if (_selDocumentDTO != value)
+                {
+                    _selDocumentDTO = value;
+                    RaisePropertyChanged(() => SelDocumentDTO);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     初始化文档集合
+        /// </summary>
+        private void InitializeViewDocumentDTO()
+        {
+            ViewDocumentDTO = _service.CreateCollection(_context.Documents);
+            _docDescriptor = new FilterDescriptor("DocumentId", FilterOperator.IsEqualTo, Guid.Empty);
+            ViewDocumentDTO.FilterDescriptors.Add(_docDescriptor);
+            _service.RegisterCollectionView(ViewDocumentDTO);
+            ViewDocumentDTO.LoadedData += (o, e) =>
+            {
+                _loadedDocument = (o as QueryableDataServiceCollectionView<DocumentDTO>).FirstOrDefault();
+                if (_loadedDocument != null)
+                    ViewDocument(_loadedDocument);
+            };
+        }
+
+        #endregion
 
         #endregion
 
@@ -88,13 +244,134 @@ namespace UniCloud.Presentation.Document
 
         #region 重载操作
 
-        #region 刷新按钮状态
+        #endregion
 
-        protected override void RefreshCommandState()
+        #region 保存命令
+
+        /// <summary>
+        ///     保存命令
+        /// </summary>
+        public DelegateCommand<object> SaveCommand { get; private set; }
+
+        private void OnSave(object obj)
         {
+            IsBusy = true;
+            ViewDocumentDTO.AddNew(_addedDocument);
+            _service.SubmitChanges(sm =>
+            {
+                IsBusy = false;
+                _windowClosed(_addedDocument);
+                MessageAlert("提示", sm.Error == null ? "保存成功。" : "保存失败，请检查！");
+            });
+        }
+
+        private bool CanSave(object obj)
+        {
+            return true;
         }
 
         #endregion
+
+        #region 查询文档相关操作
+
+        /// <summary>
+        ///     添加文档
+        /// </summary>
+        /// <param name="fi">文件</param>
+        /// <param name="callback">回调操作</param>
+        internal void InitDocument(FileInfo fi, Action<DocumentDTO> callback)
+        {
+            _windowClosed = callback;
+            ViewDocument(fi);
+        }
+
+        /// <summary>
+        ///     查看文档
+        /// </summary>
+        /// <param name="docId">文档ID</param>
+        internal void InitDocument(Guid docId)
+        {
+            Title = string.Empty;
+            PDFVisibility = Visibility.Collapsed;
+            WordVisibility = Visibility.Collapsed;
+            if (_loadedDocument != null && docId == _loadedDocument.DocumentId)
+            {
+                ViewDocument(_loadedDocument);
+            }
+            else
+            {
+                _docDescriptor.Value = docId;
+                ViewDocumentDTO.Load(true);
+            }
+        }
+
+        /// <summary>
+        ///     展示从本地添加的文档
+        ///     <remarks>
+        ///         需要将文档相关内容赋给本地的_currentDocument。
+        ///     </remarks>
+        /// </summary>
+        /// <param name="fi">文件</param>
+        private void ViewDocument(FileInfo fi)
+        {
+            var extension = fi.Extension.ToLower();
+            var length = (int)fi.Length;
+            var fs = fi.OpenRead();
+            var content = new byte[length];
+            using (fs)
+            {
+                fs.Read(content, 0, length);
+            }
+            switch (extension.ToLower())
+            {
+                case ".docx":
+                    PDFVisibility = Visibility.Collapsed;
+                    WordVisibility = Visibility.Visible;
+                    WordContent = content;
+                    break;
+                case ".pdf":
+                    WordVisibility = Visibility.Collapsed;
+                    PDFVisibility = Visibility.Visible;
+                    PDFContent = new MemoryStream(content);
+                    break;
+                default:
+                    throw new ArgumentException("不是合法的Word文档或者PDF文档！");
+            }
+            Title = fi.Name;
+            _addedDocument = new DocumentDTO
+            {
+                DocumentId = Guid.NewGuid(),
+                Name = fi.Name,
+                Extension = extension,
+                FileStorage = content
+            };
+        }
+
+        /// <summary>
+        ///     展示从服务端获取的文档
+        /// </summary>
+        /// <param name="doc">获取的文档</param>
+        private void ViewDocument(DocumentDTO doc)
+        {
+            var extension = doc.Extension;
+            var content = doc.FileStorage;
+            switch (extension)
+            {
+                case ".docx":
+                    PDFVisibility = Visibility.Collapsed;
+                    WordVisibility = Visibility.Visible;
+                    WordContent = content;
+                    break;
+                case ".pdf":
+                    WordVisibility = Visibility.Collapsed;
+                    PDFVisibility = Visibility.Visible;
+                    PDFContent = new MemoryStream(content);
+                    break;
+                default:
+                    throw new ArgumentException("不是合法的Word文档或者PDF文档！");
+            }
+            Title = doc.Name;
+        }
 
         #endregion
 

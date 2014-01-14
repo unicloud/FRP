@@ -297,14 +297,11 @@ namespace UniCloud.Presentation.Service
                 HasChanges = false;
                 IsBusy = _dataServiceCollectionViews.Any(d => d.IsBusy);
                 var collectionView = o as QueryableDataServiceCollectionView<TService>;
-                var q = collectionView.ToList();
                 if (collectionView == null) return;
                 if (changed.Any())
                 {
                     collectionView.ToList().ForEach(item =>
                     {
-                        if (item is TService)
-                        {
                             var master = item;
                             foreach (var details in changed.Select(c => c(master)))
                             {
@@ -320,24 +317,7 @@ namespace UniCloud.Presentation.Service
                                         HasChanges = true;
                                 }
                             }
-                        }
                     });
-                    //foreach (TService item in collectionView)
-                    //{
-                    //    var master = item;
-                    //    foreach (var details in changed.Select(c => c(master)))
-                    //    {
-                    //        var collection = details as INotifyCollectionChanged;
-                    //        if (collection == null) return;
-                    //        collection.CollectionChanged += (obj, handler) => HasChanges = true;
-                    //        var detailList = details as IList;
-                    //        if (detailList == null) return;
-                    //        foreach (var entity in from object d in detailList select d as INotifyPropertyChanged)
-                    //        {
-                    //            entity.PropertyChanged += (obj, handler) => HasChanges = true;
-                    //        }
-                    //    }
-                    //}
                 }
             };
 

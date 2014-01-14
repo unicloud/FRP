@@ -235,7 +235,7 @@
                                                             <HyperlinkButton Content="{Binding DocumentName}"
                                                                              VerticalAlignment="Center"
                                                                              Command="{Binding DataContext.ViewAttachCommand, ElementName=LayoutRoot}"
-                                                                             CommandParameter="{Binding}"
+                                                                             CommandParameter="{Binding DocumentId}"
                                                                              Margin="10,0,0,0" />
                                                         </StackPanel>
                                                     </DataTemplate>

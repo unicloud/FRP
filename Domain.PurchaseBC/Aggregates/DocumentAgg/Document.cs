@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.IO;
 using UniCloud.Domain.Common.Enums;
 
 #endregion
@@ -46,47 +47,47 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.DocumentAgg
         /// <summary>
         ///     文件名
         /// </summary>
-        public string FileName { get; protected set; }
+        public string FileName { get; internal set; }
 
         /// <summary>
         ///     扩展名
         /// </summary>
-        public string Extension { get; protected set; }
+        public string Extension { get; internal set; }
 
         /// <summary>
         ///     文档
         /// </summary>
-        public byte[] FileStorage { get; protected set; }
+        public byte[] FileStorage { get; internal set; }
 
         /// <summary>
         ///     摘要
         /// </summary>
-        public string Abstract { get; protected set; }
+        public string Abstract { get; internal set; }
 
         /// <summary>
         ///     备注
         /// </summary>
-        public string Note { get; protected set; }
+        public string Note { get; internal set; }
 
         /// <summary>
         ///     上传者
         /// </summary>
-        public string Uploader { get; protected set; }
+        public string Uploader { get; internal set; }
 
         /// <summary>
         ///     是否有效
         /// </summary>
-        public bool IsValid { get; protected set; }
+        public bool IsValid { get; internal set; }
 
         /// <summary>
         ///     创建时间
         /// </summary>
-        public DateTime CreateTime { get; protected set; }
+        public DateTime CreateTime { get; internal set; }
 
         /// <summary>
         ///     索引状态
         /// </summary>
-        public IndexStatus Status { get; protected set; }
+        public IndexStatus Status { get; private set; }
 
         #endregion
 
@@ -99,6 +100,43 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.DocumentAgg
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置文件名
+        /// </summary>
+        /// <param name="file">文件</param>
+        public void SetFileName(FileInfo file)
+        {
+            if (file == null)
+            {
+                throw new ArgumentException("文件参数为空！");
+            }
+
+            FileName = file.Name;
+            Extension = file.Extension;
+        }
+
+        /// <summary>
+        ///     设置索引状态
+        /// </summary>
+        /// <param name="status">索引状态</param>
+        public void SetIndexStatus(IndexStatus status)
+        {
+            switch (status)
+            {
+                case IndexStatus.未建:
+                    Status = IndexStatus.未建;
+                    break;
+                case IndexStatus.已建:
+                    Status = IndexStatus.已建;
+                    break;
+                case IndexStatus.需要更新:
+                    Status = IndexStatus.需要更新;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
+        }
 
         #endregion
     }

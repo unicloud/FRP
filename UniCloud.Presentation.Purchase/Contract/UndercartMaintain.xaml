@@ -113,6 +113,7 @@
                                       Grid.Row="5"
                                       Margin="0,3"
                                       Command="{Binding DataContext.ViewAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                      CommandParameter="{Binding DocumentId,Mode=TwoWay}"
                                       VerticalContentAlignment="Top"
                                       HorizontalContentAlignment="Left">
                         <TextBlock Text="{Binding DocumentName,Mode=TwoWay}"
@@ -212,6 +213,7 @@
                                       Grid.Row="5"
                                       Margin="0,3"
                                       Command="{Binding DataContext.AddAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                      CommandParameter="{Binding DocumentId,Mode=TwoWay}"
                                       VerticalContentAlignment="Top"
                                       HorizontalContentAlignment="Left">
                         <TextBlock Text="{Binding DataContext.DocumentName,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl},Mode=TwoWay}"

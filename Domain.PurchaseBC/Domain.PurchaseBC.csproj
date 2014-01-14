@@ -64,6 +64,7 @@
     <Compile Include="Aggregates\ContractAircraftBFEAgg\ContractAircraftBFESpecifications.cs" />
     <Compile Include="Aggregates\ContractAircraftBFEAgg\IContractAircraftBFERepository.cs" />
     <Compile Include="Aggregates\DocumentAgg\Document.cs" />
+    <Compile Include="Aggregates\DocumentAgg\DocumentFactory.cs" />
     <Compile Include="Aggregates\DocumentAgg\DocumentSpecifications.cs" />
     <Compile Include="Aggregates\DocumentAgg\IDocumentRepository.cs" />
     <Compile Include="Aggregates\DocumentAgg\OfficialDocument.cs" />

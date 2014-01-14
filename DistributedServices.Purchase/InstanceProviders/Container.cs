@@ -223,6 +223,7 @@ namespace UniCloud.DistributedServices.Purchase.InstanceProviders
                 .RegisterType<IDocumentPathAppService, DocumentPathAppService>()
                 .RegisterType<IDocumentPathRepository, DocumentPathRepository>()
                 .RegisterType<IDocumentPathQuery, DocumentPathQuery>()
+
                 #endregion
 
                 #region 订单文档相关配置，包括查询，应用服务，仓储注册

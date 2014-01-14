@@ -27,6 +27,8 @@ using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractAircraftBFEAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.CurrencyAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.DocumentAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.DocumentPathAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.ForwarderAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.LinkmanAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg;
@@ -60,6 +62,8 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
         private IDbSet<ContractAircraft> _contractAircrafts;
         private IDbSet<ContractEngine> _contractEngines;
         private IDbSet<Currency> _currencies;
+        private IDbSet<DocumentPath> _documentPaths;
+        private IDbSet<Document> _documents;
         private IDbSet<Forwarder> _forwarders;
         private IDbSet<Linkman> _linkmen;
         private IDbSet<MaintainContract> _maintainContracts;
@@ -96,11 +100,6 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
             get { return _bankAccounts ?? (_bankAccounts = base.Set<BankAccount>()); }
         }
 
-        public IDbSet<MaintainContract> MaintainContracts
-        {
-            get { return _maintainContracts ?? (_maintainContracts = base.Set<MaintainContract>()); }
-        }
-
         public IDbSet<ContractAircraft> ContractAircrafts
         {
             get { return _contractAircrafts ?? (_contractAircrafts = base.Set<ContractAircraft>()); }
@@ -121,6 +120,16 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
             get { return _currencies ?? (_currencies = base.Set<Currency>()); }
         }
 
+        public IDbSet<Document> Documents
+        {
+            get { return _documents ?? (_documents = base.Set<Document>()); }
+        }
+
+        public IDbSet<DocumentPath> DocumentPaths
+        {
+            get { return _documentPaths ?? (_documentPaths = base.Set<DocumentPath>()); }
+        }
+
         public IDbSet<Forwarder> Forwarders
         {
             get { return _forwarders ?? (_forwarders = base.Set<Forwarder>()); }
@@ -129,6 +138,11 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
         public IDbSet<Linkman> Linkmen
         {
             get { return _linkmen ?? (_linkmen = base.Set<Linkman>()); }
+        }
+
+        public IDbSet<MaintainContract> MaintainContracts
+        {
+            get { return _maintainContracts ?? (_maintainContracts = base.Set<MaintainContract>()); }
         }
 
         public IDbSet<Manufacturer> Manufacturers
