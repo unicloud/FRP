@@ -303,6 +303,7 @@
                                                      ShowGroupPanel="False"
                                                      AutoExpandGroups="True"
                                                      IsReadOnly="True"
+                                                     CanUserSortColumns="True"
                                                      RowStyle="{StaticResource DraggedRowStyle}"
                                                      CanUserFreezeColumns="False"
                                                      RowIndicatorVisibility="Collapsed"
@@ -311,19 +312,18 @@
                                                      ItemsSource="{Binding Aircrafts,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelAircraft,Mode=TwoWay}"
                                                      IsBusy="{Binding Aircrafts.IsBusy}"
-                                                     AutoGenerateColumns="False"
-                                                     ShowColumnFooters="True">
+                                                     AutoGenerateColumns="False">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
                                             <ei:CallMethodAction TargetObject="{Binding}"
                                                                  MethodName="GridViewSelectionChanged" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
-                                    <telerik:RadGridView.GroupDescriptors>
+                                    <!--<telerik:RadGridView.GroupDescriptors>
                                         <telerik:GroupDescriptor Member="AircraftTypeName"
                                                                  SortDirection="Descending">
                                         </telerik:GroupDescriptor>
-                                    </telerik:RadGridView.GroupDescriptors>
+                                    </telerik:RadGridView.GroupDescriptors>-->
                                     <uc:GridViewDoubleClick.Helper>
                                         <uc:FleetPlanLayOperationDoubleClickHelper />
                                     </uc:GridViewDoubleClick.Helper>

@@ -76,6 +76,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             Annuals = _service.CreateCollection(_context.Annuals);
             _annualDescriptor = new FilterDescriptor("Year", FilterOperator.IsGreaterThanOrEqualTo, DateTime.Now.Year - 1);
+            Annuals.FilterDescriptors.Add(_annualDescriptor);
             Annuals.LoadedData += (sender, e) =>
             {
                 if (e.HasError)
@@ -383,7 +384,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     if (ViewPlanAircrafts.Any(pa => pa.Id == _selPlanHistory.PlanAircraftId))
                         SelPlanAircraft = ViewPlanAircrafts.FirstOrDefault(p => p.Id == _selPlanHistory.PlanAircraftId);
                     else SelPlanAircraft = null;
-                    SelAircraft = _selPlanAircraft.AircraftId == null ? null : Aircrafts.FirstOrDefault(p => p.AircraftId == _selPlanHistory.AircraftId);
+
+                    if (Aircrafts.Any(pa => pa.AircraftId == value.AircraftId))
+                        SelAircraft = Aircrafts.FirstOrDefault(p => p.AircraftId == value.AircraftId);
+                    else SelAircraft = null;
                     RefreshCommandState();
                 }
             }
@@ -789,7 +793,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     throw new ArgumentOutOfRangeException("source");
             }
 
-            this.editDialog.ShowDialog();
+            this.EditDialog.ShowDialog();
         }
 
         #region 调用业务逻辑处理
@@ -821,7 +825,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #region 子窗体相关
 
         [Import]
-        public PlanDetailEditDialog editDialog;
+        public PlanDetailEditDialog EditDialog;
 
         #region 当前编辑的计划明细项
 
@@ -1018,7 +1022,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         protected virtual void OnOkExecute(object sender)
         {
-            this.editDialog.Close();
+            this.EditDialog.Close();
         }
 
         #endregion
@@ -1042,7 +1046,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         protected virtual void OnCancelExecute(object sender)
         {
-            this.editDialog.Close();
+            this.EditDialog.Close();
         }
 
         #endregion
