@@ -5,7 +5,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
@@ -62,7 +61,8 @@
                                            ToolTipService.ToolTip="创建新维修发票" />
                                 </telerik:RadButton>
                                 <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding AddAttachCommand}">
+                                                   Command="{Binding AddAttachCommand}"
+                                                   CommandParameter="{Binding ApuMaintainInvoice.DocumentId,Mode=TwoWay}">
                                     <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
                                            Stretch="Fill"
                                            ToolTipService.ToolTip="添加附件" />
@@ -226,7 +226,8 @@
                                             <telerik:GridViewDataColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <HyperlinkButton Content="{Binding DocumentName}"
-                                                                     Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}" />
+                                                                     Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                     CommandParameter="{Binding DocumentId,Mode=TwoWay}" />
                                                 </DataTemplate>
                                             </telerik:GridViewDataColumn.CellTemplate>
                                         </telerik:GridViewDataColumn>

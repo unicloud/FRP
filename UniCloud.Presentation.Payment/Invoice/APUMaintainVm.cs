@@ -19,7 +19,6 @@
 using System;
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Regions;
-using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
@@ -64,13 +63,6 @@ namespace UniCloud.Presentation.Payment.Invoice
             // 创建并注册CollectionView
             ApuMaintainInvoices = _service.CreateCollection(_context.APUMaintainInvoices,o=>o.MaintainInvoiceLines);
             _service.RegisterCollectionView(ApuMaintainInvoices);
-            //ApuMaintainInvoices.PropertyChanged += (sender, e) =>
-            //{
-            //    if (e.PropertyName == "HasChanges")
-            //    {
-            //        CanSelectApuMaintain = !ApuMaintainInvoices.HasChanges;
-            //    }
-            //};
         }
 
         #endregion
@@ -281,42 +273,21 @@ namespace UniCloud.Presentation.Payment.Invoice
 
         #endregion
 
-        #region 添加附件
+        #region 添加附件成功后执行的操作
 
-        protected override void OnAddAttach(object sender)
+        /// <summary>
+        ///     子窗口关闭后执行的操作
+        /// </summary>
+        /// <param name="doc">添加的附件</param>
+        /// <param name="sender">添加附件命令的参数</param>
+        protected override void WindowClosed(DocumentDTO doc, object sender)
         {
-            if (ApuMaintainInvoice == null)
+            base.WindowClosed(doc, sender);
+            if (sender is Guid)
             {
-                MessageAlert("请选择一条记录！");
-                return;
+                ApuMaintainInvoice.DocumentId = doc.DocumentId;
+                ApuMaintainInvoice.DocumentName = doc.Name;
             }
-            DocumentView.ViewModel.InitData(false, ApuMaintainInvoice.DocumentId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
-        }
-
-        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
-        {
-            if (DocumentView.Tag is DocumentDTO)
-            {
-                var document = DocumentView.Tag as DocumentDTO;
-                ApuMaintainInvoice.DocumentId = document.DocumentId;
-                ApuMaintainInvoice.DocumentName = document.Name;
-            }
-        }
-
-        #endregion
-
-        #region 查看附件
-
-        protected override void OnViewAttach(object sender)
-        {
-            if (ApuMaintainInvoice == null)
-            {
-                MessageAlert("请选择一条记录！");
-                return;
-            }
-            DocumentView.ViewModel.InitData(true, ApuMaintainInvoice.DocumentId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
         }
 
         #endregion

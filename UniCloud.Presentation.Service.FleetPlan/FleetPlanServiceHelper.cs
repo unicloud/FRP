@@ -190,18 +190,11 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 PerformMonth = 1,
                 PlanType = planType,
             };
-            // 1、计划飞机为空  TODO:得移出到ViewModel中处理
+            // 1、计划飞机为空  这种情况创建计划飞机的操作已移出到ViewModel中处理
+            // 故此处无需作其他操作
             if (planAircraft == null)
             {
-                // 创建新的计划飞机
-                var pa = new PlanAircraftDTO
-                {
-                    Id = Guid.NewGuid(),
-                    AirlinesId = plan.AirlinesId,
-                    Status = (int)ManageStatus.计划,
-                    IsOwn = true
-                };
-                planDetail.PlanAircraftId = pa.Id;
+                
             }
             // 2、计划飞机非空
             else
