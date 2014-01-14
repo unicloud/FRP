@@ -5,8 +5,9 @@
 //【本类功能概述】
 // 
 // 作者：HuangQibin 时间：2014/01/04，11:01
-// 文件名：IAcTypeQuery.cs
-// 程序集：UniCloud.Application.FleetPlanBC.Query
+// 文件名：IAcTypeAppService.cs
+// 程序集：UniCloud.Application.FleetPlanBC
+// 版本：V1.0.0
 //
 // 修改者： 时间： 
 // 修改说明：
@@ -18,20 +19,20 @@
 
 using System.Linq;
 using UniCloud.Application.FleetPlanBC.DTO;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AcTypeAgg;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.Query.AcTypeQueries
+namespace UniCloud.Application.FleetPlanBC.AircraftSeriesServices
 {
-    public interface IAcTypeQuery
+    /// <summary>
+    ///     飞机系列服务接口。
+    /// </summary>
+    public interface IAircraftSeriesAppService
     {
         /// <summary>
-        ///     飞机系列查询
+        ///     获取所有飞机系列
         /// </summary>
-        /// <param name="query">查询表达式</param>
-        /// <returns>飞机系列DTO集合</returns>
-        IQueryable<AcTypeDTO> AcTypeDTOQuery(
-            QueryBuilder<AcType> query);
+        /// <returns></returns>
+        IQueryable<AircraftSeriesDTO> GetAircraftSeries();
     }
 }

@@ -14,13 +14,7 @@
 
 #region 命名空间
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AcTypeAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftSeriesAgg;
 
 #endregion
 
@@ -29,9 +23,9 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.Repositories
     /// <summary>
     ///     飞机系列仓储实现
     /// </summary>
-    public class AcTypeRepository : Repository<AcType>, IAcTypeRepository
+    public class AircraftSeriesRepository : Repository<AircraftSeries>, IAircraftSeriesRepository
     {
-        public AcTypeRepository(IQueryableUnitOfWork unitOfWork)
+        public AircraftSeriesRepository(IQueryableUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
         }

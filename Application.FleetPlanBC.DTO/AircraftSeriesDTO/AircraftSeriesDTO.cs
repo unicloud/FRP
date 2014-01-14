@@ -30,7 +30,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
     /// 飞机系列
     /// </summary>
     [DataServiceKey("Id")]
-    public class AcTypeDTO
+    public class AircraftSeriesDTO
     {
         #region 属性
 

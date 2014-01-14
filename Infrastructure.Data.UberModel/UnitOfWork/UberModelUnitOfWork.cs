@@ -20,10 +20,10 @@
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
-using UniCloud.Domain.UberModel.Aggregates.AcTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg;
+using UniCloud.Domain.UberModel.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg;
@@ -82,7 +82,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
     {
         #region IDbSet成员
 
-        private IDbSet<AcType> _acTypes;
+        private IDbSet<AircraftSeries> _acTypes;
         private IDbSet<ActionCategory> _actionCategories;
         private IDbSet<AirProgramming> _airProgrammings;
         private IDbSet<AircraftCategory> _aircraftCategories;
@@ -141,9 +141,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             get { return _actionCategories ?? (_actionCategories = base.Set<ActionCategory>()); }
         }
 
-        public IDbSet<AcType> AcTypes
+        public IDbSet<AircraftSeries> AcTypes
         {
-            get { return _acTypes ?? (_acTypes = base.Set<AcType>()); }
+            get { return _acTypes ?? (_acTypes = base.Set<AircraftSeries>()); }
         }
 
         public IDbSet<AircraftCategory> AircraftCategories
@@ -448,7 +448,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 #region AcTypeAgg
 
-                .Add(new AcTypeEntityConfiguration())
+                .Add(new AircraftSeriesEntityConfiguration())
 
                 #endregion
 

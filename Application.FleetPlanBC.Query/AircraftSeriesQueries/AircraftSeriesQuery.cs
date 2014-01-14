@@ -18,18 +18,18 @@
 
 using System.Linq;
 using UniCloud.Application.FleetPlanBC.DTO;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AcTypeAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
 
-namespace UniCloud.Application.FleetPlanBC.Query.AcTypeQueries
+namespace UniCloud.Application.FleetPlanBC.Query.AircraftSeriesQueries
 {
-    public class AcTypeQuery : IAcTypeQuery
+    public class AircraftSeriesQuery : IAircraftSeriesQuery
     {
         private readonly IQueryableUnitOfWork _unitOfWork;
 
-        public AcTypeQuery(IQueryableUnitOfWork unitOfWork)
+        public AircraftSeriesQuery(IQueryableUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -39,10 +39,10 @@ namespace UniCloud.Application.FleetPlanBC.Query.AcTypeQueries
         /// </summary>
         /// <param name="query">查询表达式。</param>
         /// <returns>飞机系列DTO集合。</returns>
-        public IQueryable<AcTypeDTO> AcTypeDTOQuery(
-            QueryBuilder<AcType> query)
+        public IQueryable<AircraftSeriesDTO> AircraftSeriesDTOQuery(
+            QueryBuilder<AircraftSeries> query)
         {
-            return query.ApplyTo(_unitOfWork.CreateSet<AcType>()).Select(p => new AcTypeDTO
+            return query.ApplyTo(_unitOfWork.CreateSet<AircraftSeries>()).Select(p => new AircraftSeriesDTO
             {
                 Id = p.Id,
                 Name = p.Name,
