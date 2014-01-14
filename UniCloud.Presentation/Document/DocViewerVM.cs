@@ -32,7 +32,7 @@ using UniCloud.Presentation.Service.CommonService.Common;
 
 namespace UniCloud.Presentation.Document
 {
-    [Export(typeof (DocViewerVM))]
+    [Export(typeof(DocViewerVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class DocViewerVM : ViewModelBase
     {
@@ -46,7 +46,8 @@ namespace UniCloud.Presentation.Document
         private Action<DocumentDTO> _windowClosed;
 
         [ImportingConstructor]
-        public DocViewerVM(ICommonService service) : base(service)
+        public DocViewerVM(ICommonService service)
+            : base(service)
         {
             _service = service;
             _context = service.Context;
@@ -314,14 +315,14 @@ namespace UniCloud.Presentation.Document
         private void ViewDocument(FileInfo fi)
         {
             var extension = fi.Extension.ToLower();
-            var length = (int) fi.Length;
+            var length = (int)fi.Length;
             var fs = fi.OpenRead();
             var content = new byte[length];
             using (fs)
             {
                 fs.Read(content, 0, length);
             }
-            switch (extension)
+            switch (extension.ToLower())
             {
                 case ".docx":
                     PDFVisibility = Visibility.Collapsed;

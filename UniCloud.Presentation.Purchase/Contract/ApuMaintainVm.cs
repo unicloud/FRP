@@ -20,7 +20,6 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Regions;
-using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.Document;
@@ -220,33 +219,22 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 操作
 
-        #region 添加附件
+        #region 添加附件成功后执行的操作
 
-        protected override void OnAddAttach(object sender)
+        /// <summary>
+        ///     子窗口关闭后执行的操作
+        /// </summary>
+        /// <param name="doc">添加的附件</param>
+        /// <param name="sender">添加附件命令的参数</param>
+        protected override void WindowClosed(DocumentDTO doc, object sender)
         {
-            DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
-        }
-
-        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
-        {
-            if (DocumentView.Tag is DocumentDTO)
+            base.WindowClosed(doc, sender);
+            if (sender is Guid)
             {
-                _document = DocumentView.Tag as DocumentDTO;
-                ApuMaintainContract.DocumentId = _document.DocumentId;
-                ApuMaintainContract.DocumentName = _document.Name;
-                DocumentName = _document.Name;
+                ApuMaintainContract.DocumentId = doc.DocumentId;
+                ApuMaintainContract.DocumentName = doc.Name;
+                DocumentName = doc.Name;
             }
-        }
-
-        #endregion
-
-        #region 查看附件
-
-        protected override void OnViewAttach(object sender)
-        {
-            DocumentView.ViewModel.InitData(true, _document.DocumentId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
         }
 
         #endregion
