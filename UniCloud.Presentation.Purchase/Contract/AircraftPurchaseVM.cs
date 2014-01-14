@@ -21,7 +21,6 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -42,17 +41,14 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private const string TradeType = "购买飞机";
         private readonly PurchaseData _context;
-        private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
         private FilterDescriptor _orderDescriptor;
         private FilterDescriptor _tradeDescriptor1;
         private FilterDescriptor _tradeDescriptor2;
 
         [ImportingConstructor]
-        public AircraftPurchaseVM(IRegionManager regionManager, IPurchaseService service)
-            : base(service)
+        public AircraftPurchaseVM(IPurchaseService service) : base(service)
         {
-            _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
 
@@ -145,7 +141,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         public override void LoadData()
         {
             if (!ViewTradeDTO.AutoLoad)
-            ViewTradeDTO.AutoLoad = true;
+                ViewTradeDTO.AutoLoad = true;
             else
                 ViewTradeDTO.Load(true);
 
@@ -315,7 +311,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             SelAircraftPurchaseOrderLineDTO = null;
             SelContractContentDTO = null;
-            }
+        }
 
         #endregion
 
@@ -325,7 +321,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             SelAircraftPurchaseOrderLineDTO = null;
             SelContractContentDTO = null;
-                }
+        }
 
         #endregion
 
@@ -352,14 +348,14 @@ namespace UniCloud.Presentation.Purchase.Contract
             else
             {
                 var relatedDoc = new RelatedDocDTO
-        {
+                {
                     Id = RandomHelper.Next(),
                     DocumentId = doc.DocumentId,
                     DocumentName = doc.Name,
                     SourceId = SelAircraftPurchaseOrderDTO.SourceGuid
                 };
                 SelAircraftPurchaseOrderDTO.RelatedDocs.Add(relatedDoc);
-        }
+            }
         }
 
         #endregion
