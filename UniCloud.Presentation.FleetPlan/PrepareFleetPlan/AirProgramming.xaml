@@ -81,7 +81,8 @@
                                                ToolTipService.ToolTip="删除五年规划" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AddAttachCommand}">
+                                                       Command="{Binding AddAttachCommand}"
+                                                       CommandParameter="{Binding SelAirProgramming.DocumentId}">
                                         <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="添加规划文档" />

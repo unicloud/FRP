@@ -47,9 +47,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private readonly IFleetPlanService _service;
         private FilterDescriptor _annualDescriptor;
         private AnnualDTO _curAnnual = new AnnualDTO();
-        [Import]
-        public DocumentViewer DocumentView;
-        private DocumentDTO _document = new DocumentDTO();
 
 
         [ImportingConstructor]
@@ -485,22 +482,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             // 选中计划的发布状态不是待发布，且没有未保存的内容时，按钮可用
             return SelPlan != null && SelPlan.PublishStatus > (int)PlanPublishStatus.待发布 &&
                    !_service.HasChanges;
-        }
-
-        #endregion
-
-        #region 查看附件
-
-        protected override void OnViewAttach(object sender)
-        {
-            if (SelPlan == null)
-            {
-                MessageAlert("请选择一条记录！");
-                return;
-            }
-            Guid docId = _selPlan.DocumentId == Guid.Empty ? Guid.Empty : Guid.Parse(_selPlan.DocumentId.ToString());
-            DocumentView.ViewModel.InitData(true, docId, null);
-            DocumentView.ShowDialog();
         }
 
         #endregion

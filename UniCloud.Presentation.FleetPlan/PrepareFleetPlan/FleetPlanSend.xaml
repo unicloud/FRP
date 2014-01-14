@@ -54,7 +54,8 @@
                                     </telerik:RadButton>
                                     <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AttachCommand}">
+                                                       Command="{Binding AddAttachCommand}"
+                                                       CommandParameter="{Binding SelPlan.DocumentId}">
                                         <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="添加附件" />

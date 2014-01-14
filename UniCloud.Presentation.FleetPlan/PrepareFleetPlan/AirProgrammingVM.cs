@@ -41,9 +41,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private readonly FleetPlanData _context;
         private readonly IRegionManager _regionManager;
         private readonly IFleetPlanService _service;
-        [Import]
-        public DocumentViewer DocumentView;
-        private DocumentDTO _document = new DocumentDTO();
 
         [ImportingConstructor]
         public AirProgrammingVM(IRegionManager regionManager, IFleetPlanService service)
@@ -305,42 +302,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #region 添加附件
 
-        protected override void OnAddAttach(object sender)
-        {
-            DocumentView.ViewModel.InitData(false, _selAirProgramming.DocumentId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
-        }
-
         protected override bool CanAddAttach(object obj)
         {
             return _selAirProgramming != null;
         }
-
-        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
-        {
-            if (DocumentView.Tag is DocumentDTO)
-            {
-                _document = DocumentView.Tag as DocumentDTO;
-                SelAirProgramming.DocumentId = _document.DocumentId;
-                SelAirProgramming.DocName = _document.Name;
-            }
-        }
-
-        #endregion
-
-        #region 查看附件
-
-        protected override void OnViewAttach(object sender)
-        {
-            if (SelAirProgramming == null)
-            {
-                MessageAlert("请选择一条记录！");
-                return;
-            }
-            DocumentView.ViewModel.InitData(true, _selAirProgramming.DocumentId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
-        }
-
         #endregion
 
         #endregion

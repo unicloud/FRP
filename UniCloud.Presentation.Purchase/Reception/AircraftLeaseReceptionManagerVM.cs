@@ -26,12 +26,8 @@ namespace UniCloud.Presentation.Purchase.Reception
         #region 声明、初始化
 
         private readonly PurchaseData _context;
-        private readonly DocumentDTO _document = new DocumentDTO();
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
-
-        [Import]
-        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
         public AircraftLeaseReceptionManagerVM(IRegionManager regionManager, IPurchaseService service)
@@ -56,7 +52,7 @@ namespace UniCloud.Presentation.Purchase.Reception
                     _context.LeaseContractAircrafts);
 
             AircraftLeaseReceptions = _service.CreateCollection(_context.AircraftLeaseReceptions.Expand(p => p.RelatedDocs),
-                o=>o.ReceptionLines,o=>o.ReceptionSchedules,o=>o.RelatedDocs);
+                o => o.ReceptionLines, o => o.ReceptionSchedules, o => o.RelatedDocs);
             _service.RegisterCollectionView(AircraftLeaseReceptions); //注册查询集合。
         }
 
@@ -253,6 +249,60 @@ namespace UniCloud.Presentation.Purchase.Reception
 
         #region 重载操作
 
+        #region 添加附件
+        protected override bool CanAddAttach(object obj)
+        {
+            return _selAircraftLeaseReception != null;
+        }
+
+        /// <summary>
+        ///     子窗口关闭后执行的操作
+        /// </summary>
+        /// <param name="doc">添加的交付文件</param>
+        /// <param name="sender">添加附件命令的参数</param>
+        protected override void WindowClosed(DocumentDTO doc, object sender)
+        {
+            base.WindowClosed(doc, sender);
+
+            var relatedDoc = new RelatedDocDTO
+            {
+                Id = RandomHelper.Next(),
+                DocumentId = doc.DocumentId,
+                DocumentName = doc.Name,
+                SourceId = SelAircraftLeaseReception.SourceId
+            };
+            SelAircraftLeaseReception.RelatedDocs.Add(relatedDoc);
+        }
+
+        #endregion
+
+        #region 移除附件
+
+        /// <summary>
+        ///     移除附件
+        /// </summary>
+        /// <param name="sender"></param>
+        protected override void OnRemoveAttach(object sender)
+        {
+            var doc = sender as RelatedDocDTO;
+            if (doc != null)
+            {
+                MessageConfirm("确认移除", "是否移除交机文档：" + doc.DocumentName + "？", (o, e) =>
+                {
+                    if (e.DialogResult == true)
+                    {
+                        SelAircraftLeaseReception.RelatedDocs.Remove(doc);
+                    }
+                });
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region 操作
+
         #region 新建接收项目
 
         protected override void OnNew(object obj)
@@ -332,73 +382,6 @@ namespace UniCloud.Presentation.Purchase.Reception
         protected override bool CanRemoveEntity(object obj)
         {
             return _selAircraftLeaseReceptionLine != null;
-        }
-
-        #endregion
-
-        #region 添加附件
-
-        /// <summary>
-        ///     添加附件
-        /// </summary>
-        protected override void OnAddAttach(object sender)
-        {
-            if (SelAircraftLeaseReception != null)
-            {
-                DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
-                DocumentView.ShowDialog();
-            }
-        }
-
-        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
-        {
-            if (DocumentView.Tag is DocumentDTO)
-            {
-                var relatedDoc = new RelatedDocDTO
-                {
-                    Id = RandomHelper.Next(),
-                    SourceId = SelAircraftLeaseReception.SourceId,
-                };
-                var document = DocumentView.Tag as DocumentDTO;
-                relatedDoc.DocumentId = document.DocumentId;
-                relatedDoc.DocumentName = document.Name;
-                SelAircraftLeaseReception.RelatedDocs.Add(relatedDoc);
-            }
-        }
-
-        #endregion
-
-        #region 移除附件
-
-        /// <summary>
-        ///     移除附件
-        /// </summary>
-        /// <param name="sender"></param>
-        protected override void OnRemoveAttach(object sender)
-        {
-            var currentItem = sender as RelatedDocDTO;
-            if (currentItem == null)
-            {
-                MessageBox.Show("没有选中的文档!");
-                return;
-            }
-            SelAircraftLeaseReception.RelatedDocs.Remove(currentItem);
-        }
-
-        #endregion
-
-        #region 查看附件
-
-        protected override void OnViewAttach(object sender)
-        {
-            var currentItem = sender as RelatedDocDTO;
-            if (currentItem == null)
-            {
-                MessageBox.Show("没有选中的文档!");
-                return;
-            }
-            DocumentView.ViewModel.InitData(true, currentItem.DocumentId, DocumentViewerClosed);
-            DocumentView.ShowDialog();
         }
 
         #endregion

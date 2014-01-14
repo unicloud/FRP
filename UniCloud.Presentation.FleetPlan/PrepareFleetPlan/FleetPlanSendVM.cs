@@ -50,10 +50,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private FilterDescriptor _annualDescriptor;
         private AnnualDTO _curAnnual = new AnnualDTO();
 
-        [Import]
-        public DocumentViewer DocumentView;
-        private DocumentDTO _document = new DocumentDTO();
-
         [ImportingConstructor]
         public FleetPlanSendVM(IRegionManager regionManager, IFleetPlanService service)
             : base(service)
@@ -115,7 +111,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         private void InitializerCommand()
         {
-            AttachCommand = new DelegateCommand<object>(OnAttach, CanAttach);
             SendCommand = new DelegateCommand<object>(OnSend, CanSend);
         }
 
@@ -267,7 +262,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         protected override void RefreshCommandState()
         {
-            AttachCommand.RaiseCanExecuteChanged();
             SendCommand.RaiseCanExecuteChanged();
         }
 
@@ -275,30 +269,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #region 添加计划文档
 
-        /// <summary>
-        ///     添加计划文档
-        /// </summary>
-        public DelegateCommand<object> AttachCommand { get; private set; }
-
-        private void OnAttach(object obj)
-        {
-            if (SelPlan != null)
-            {
-                DocumentView.ViewModel.InitData(false, _document.DocumentId, DocumentViewerClosed);
-                DocumentView.ShowDialog();
-            }
-        }
-        private void DocumentViewerClosed(object sender, WindowClosedEventArgs e)
-        {
-            if (DocumentView.Tag is DocumentDTO)
-            {
-                var document = DocumentView.Tag as DocumentDTO;
-                SelPlan.DocumentId = document.DocumentId;
-                SelPlan.DocName = document.Name;
-            }
-        }
-
-        private bool CanAttach(object obj)
+        protected override bool CanAddAttach(object obj)
         {
             // 当前计划处于审核状态时，按钮可用
             return SelPlan != null && SelPlan.Status == (int)PlanStatus.已审核;
@@ -358,23 +329,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 return false;
             }
             return !_service.HasChanges;
-        }
-
-        #endregion
-
-        #region 查看附件
-
-        protected override void OnViewAttach(object sender)
-        {
-            var currentItem = sender as PlanDTO;
-            if (currentItem == null)
-            {
-                MessageBox.Show("没有选中的计划!");
-                return;
-            }
-            Guid docId = currentItem.DocumentId == Guid.Empty ? Guid.Empty : Guid.Parse(_selPlan.DocumentId.ToString());
-            DocumentView.ViewModel.InitData(true, docId, null);
-            DocumentView.ShowDialog();
         }
 
         #endregion
