@@ -6,9 +6,9 @@
 
 using System.Linq;
 using UniCloud.Application.FleetPlanBC.ActionCategoryServices;
-using UniCloud.Application.FleetPlanBC.AcTypeServices;
 using UniCloud.Application.FleetPlanBC.AircraftCategoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftPlanServices;
+using UniCloud.Application.FleetPlanBC.AircraftSeriesServices;
 using UniCloud.Application.FleetPlanBC.AircraftServices;
 using UniCloud.Application.FleetPlanBC.AircraftTypeServices;
 using UniCloud.Application.FleetPlanBC.AirlinesServices;
@@ -41,7 +41,7 @@ namespace UniCloud.DistributedServices.FleetPlan
     /// </summary>
     public class FleetPlanData : ExposeData.ExposeData
     {
-        private readonly IAcTypeAppService _acTypeAppService;
+        private readonly IAircraftSeriesAppService _aircraftSeriesAppService;
         private readonly IActionCategoryAppService _actionCategoryAppService;
         private readonly IAirProgrammingAppService _airProgrammingAppService;
         private readonly IAircraftAppService _aircraftAppService;
@@ -70,7 +70,7 @@ namespace UniCloud.DistributedServices.FleetPlan
             : base("UniCloud.Application.FleetPlanBC.DTO")
         {
             _actionCategoryAppService = DefaultContainer.Resolve<IActionCategoryAppService>();
-            _acTypeAppService = DefaultContainer.Resolve<IAcTypeAppService>();
+            _aircraftSeriesAppService = DefaultContainer.Resolve<IAircraftSeriesAppService>();
             _aircraftCategoryAppService = DefaultContainer.Resolve<IAircraftCategoryAppService>();
             _aircraftAppService = DefaultContainer.Resolve<IAircraftAppService>();
             _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
@@ -117,9 +117,9 @@ namespace UniCloud.DistributedServices.FleetPlan
         /// <summary>
         ///     活动类型集合
         /// </summary>
-        public IQueryable<AcTypeDTO> AcTypes
+        public IQueryable<AircraftSeriesDTO> AircraftSeries
         {
-            get { return GetStaticData("acTypesFleetPlan", () => _acTypeAppService.GetAcTypes()); }
+            get { return GetStaticData("AircraftSeriesFleetPlan", () => _aircraftSeriesAppService.GetAircraftSeries()); }
         }
 
         #endregion

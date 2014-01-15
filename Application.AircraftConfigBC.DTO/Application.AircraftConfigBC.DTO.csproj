@@ -47,6 +47,7 @@
       <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.0\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Spatial, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -59,6 +60,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionCategoryDTO\ActionCategoryDTO.cs" />
+    <Compile Include="AircraftCategoryDTO\AircraftCategoryDTO.cs" />
+    <Compile Include="AircraftDTO\AircraftDTO.cs" />
+    <Compile Include="AircraftSeriesDTO\AircraftSeriesDTO.cs" />
+    <Compile Include="AircraftTypeDTO\AircraftTypeDTO.cs" />
+    <Compile Include="ManufacturerDTO\ManufacturerDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

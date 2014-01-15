@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.UberModel.Aggregates.AircraftLicenseAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
@@ -98,6 +99,16 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftAgg
         ///     商载量（吨）
         /// </summary>
         public decimal CarryingCapacity { get; private set; }
+
+        private HashSet<AircraftLicense> _licenses;
+        /// <summary>
+        /// 飞机证照
+        /// </summary>
+        public virtual ICollection<AircraftLicense> Licenses
+        {
+            get { return _licenses ?? (_licenses = new HashSet<AircraftLicense>()); }
+            set { _licenses = new HashSet<AircraftLicense>(value); }
+        }
         #endregion
 
         #region 外键属性

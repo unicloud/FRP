@@ -19,6 +19,7 @@
 
 using System;
 using UniCloud.Domain.UberModel.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.UberModel.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.UberModel.Aggregates.ManufacturerAgg;
 
 #endregion
@@ -60,23 +61,30 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg
         #region 外键属性
 
         /// <summary>
-        ///     制造商
+        ///     系列
         /// </summary>
-        public Guid ManufacturerId { get; set; }
+        public Guid AircraftSeriesId { get; set; }
 
         /// <summary>
         ///     飞机类别
         /// </summary>
         public Guid AircraftCategoryId { get; set; }
 
+        /// <summary>
+        /// 制造商
+        /// </summary>
+        public Guid ManufacturerId { get;  set; }
         #endregion
 
         #region 导航属性
-
         /// <summary>
         /// 制造商
         /// </summary>
         public virtual Manufacturer Manufacturer { get; set; }
+        /// <summary>
+        /// 系列
+        /// </summary>
+        public virtual AircraftSeries AircraftSeries { get; set; }
 
         /// <summary>
         /// 飞机类别

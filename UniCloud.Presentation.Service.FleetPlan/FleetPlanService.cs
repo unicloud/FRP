@@ -73,7 +73,32 @@ namespace UniCloud.Presentation.Service.FleetPlan
             return GetStaticData(Context.Suppliers, loaded, forceLoad);
         }
 
+        /// <summary>
+        ///     所有座级
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftCategoryDTO> GetAircraftCategories(Action loaded,
+            bool forceLoad = false)
+        {
+            return GetStaticData(Context.AircraftCategories, loaded, forceLoad);
+        }
 
+        /// <summary>
+        ///     所有活动类型
+        /// </summary>
+        public QueryableDataServiceCollectionView<ActionCategoryDTO> GetActionCategories(Action loaded,
+            bool forceLoad = false)
+        {
+            return GetStaticData(Context.ActionCategories, loaded, forceLoad);
+        }
+
+        /// <summary>
+        ///     所有飞机系列
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftSeriesDTO> GetAircraftSeries(Action loaded,
+            bool forceLoad = false)
+        {
+            return GetStaticData(Context.AircraftSeries, loaded, forceLoad);
+        }
         #endregion
 
         #region 公共属性
@@ -141,7 +166,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                return pb.CreateOperationPlan(plan, planAircraft, actionType,planType, this);
+                return pb.CreatePlanHistory(plan, planAircraft, actionType, planType, this);
             }
         }
 

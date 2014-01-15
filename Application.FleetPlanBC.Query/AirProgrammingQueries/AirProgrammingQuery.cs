@@ -56,8 +56,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AirProgrammingQueries
                 AirProgrammingLines = p.AirProgrammingLines.Select(q=>new AirProgrammingLineDTO
                 {
                     Id = q.Id,
-                    AcTypeId = q.AcTypeId,
-                    AircraftCategoryId = q.AircraftCategoryId,
+                    AircraftSeriesId = q.AircraftSeriesId,
                     AirProgrammingId = q.AirProgrammingId,
                     BuyNum = q.BuyNum,
                     ExportNum = q.ExportNum,

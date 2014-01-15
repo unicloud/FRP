@@ -23,6 +23,7 @@ using Microsoft.Practices.Prism.MefExtensions;
 using Microsoft.Practices.Prism.Modularity;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.Service;
+using UniCloud.Presentation.Service.AircraftConfig;
 using UniCloud.Presentation.Service.CommonService;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.Payment;
@@ -47,6 +48,7 @@ namespace UniCloud.Presentation.Shell
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPaymentService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IProjectService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPortalService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IAircraftConfigService).Assembly));
         }
 
         protected override void InitializeShell()
@@ -84,7 +86,7 @@ namespace UniCloud.Presentation.Shell
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.OnDemand,
+                InitializationMode = InitializationMode.WhenAvailable,
                 Ref = "AircraftConfig.xap",
                 ModuleName = "AircraftConfigModule",
                 ModuleType =

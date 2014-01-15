@@ -1,61 +1,78 @@
 ﻿//------------------------------------------------------------------------------
 // 
 //------------------------------------------------------------------------------
+
+using UniCloud.Application.AircraftConfigBC.ActionCategoryServices;
+using UniCloud.Application.AircraftConfigBC.AircraftCategoryServices;
+using UniCloud.Application.AircraftConfigBC.AircraftSeriesServices;
+using UniCloud.Application.AircraftConfigBC.AircraftTypeServices;
+using UniCloud.Application.AircraftConfigBC.ManufacturerServices;
+using UniCloud.Application.AircraftConfigBC.Query.ActionCategoryQueries;
+using UniCloud.Application.AircraftConfigBC.Query.AircraftCategoryQueries;
+using UniCloud.Application.AircraftConfigBC.Query.AircraftSeriesQueries;
+using UniCloud.Application.AircraftConfigBC.Query.AircraftTypeQueries;
+using UniCloud.Application.AircraftConfigBC.Query.ManufacturerQueries;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.ManufacturerAgg;
+using UniCloud.Infrastructure.Data;
+using UniCloud.Infrastructure.Data.AircraftConfigBC.Repositories;
+using UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork;
+using UniCloud.Infrastructure.Utilities.Container;
+using Microsoft.Practices.Unity;
 namespace UniCloud.DistributedServices.AircraftConfig.InstanceProviders
 {
-    using Application.AircraftConfigBC.Services;
-    using Infrastructure.Crosscutting.Logging;
-    using Infrastructure.Crosscutting.NetFramework.Logging;
-    using Microsoft.Practices.Unity;
 
     /// <summary>
     /// DI 容器
     /// </summary>
     public static class Container
     {
-        #region 属性
-
-        /// <summary>
-        /// 当前 DI 容器
-        /// </summary>
-        public static IUnityContainer Current { get; private set; }
-
-        #endregion
-
-        #region 构造函数
-
-        static Container()
-        {
-            ConfigureContainer();
-            ConfigureFactories();
-        }
-
-        #endregion
-
         #region 方法
 
-        static void ConfigureContainer()
+        public static void ConfigureContainer()
         {
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, AircraftConfigBCUnitOfWork>(new WcfPerRequestLifetimeManager())
 
-            Current = new UnityContainer();
+            #region 活动类型相关配置，包括查询，应用服务，仓储注册
 
+.RegisterType<IActionCategoryQuery, ActionCategoryQuery>()
+                .RegisterType<IActionCategoryAppService, ActionCategoryAppService>()
+                .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
+            #endregion
 
-            //-> Unit of Work与仓储
+            #region 飞机系列相关配置，包括查询，应用服务，仓储注册
 
-            //-> 领域服务
+.RegisterType<IAircraftSeriesQuery, AircraftSeriesQuery>()
+                .RegisterType<IAircraftSeriesAppService, AircraftSeriesAppService>()
+                .RegisterType<IAircraftSeriesRepository, AircraftSeriesRepository>()
+            #endregion
 
+            #region 座级相关配置，包括查询，应用服务，仓储注册
 
-            //-> 应用服务
-            Current.RegisterType<IAircraftConfigAppService, AircraftConfigAppService>();
+.RegisterType<IAircraftCategoryQuery, AircraftCategoryQuery>()
+                .RegisterType<IAircraftCategoryAppService, AircraftCategoryAppService>()
+                .RegisterType<IAircraftCategoryRepository, AircraftCategoryRepository>()
+            #endregion
 
-            //-> 分布式服务
+            #region 机型相关配置，包括查询，应用服务，仓储注册
 
-        }
+.RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
+                .RegisterType<IAircraftTypeAppService, AircraftTypeAppService>()
+                .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
+            #endregion
 
+            #region 制造商相关配置，包括查询，应用服务，仓储注册
 
-        static void ConfigureFactories()
-        {
-            LoggerFactory.SetCurrent(new UniCloudLogFactory());
+.RegisterType<IManufacturerQuery, ManufacturerQuery>()
+                .RegisterType<IManufacturerAppService, ManufacturerAppService>()
+                .RegisterType<IManufacturerRepository, ManufacturerRepository>()
+            #endregion
+
+;
         }
 
         #endregion

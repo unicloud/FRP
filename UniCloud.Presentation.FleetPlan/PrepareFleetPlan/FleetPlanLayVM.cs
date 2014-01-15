@@ -143,6 +143,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             CheckCommand = new DelegateCommand<object>(OnCheck, CanCheck);
             OkCommand = new DelegateCommand<object>(OnOk, CanOk);
             CancelCommand = new DelegateCommand<object>(OnCancel, CanCancel);
+            CellEditEndCommand=new DelegateCommand<object>(OnCellEditEnd);
         }
 
         #endregion
@@ -512,6 +513,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             {
                 Id = Guid.NewGuid(),
                 AirlinesId = CurPlan.AirlinesId,
+                AirlinesName = CurPlan.AirlinesName,
                 Status = (int)ManageStatus.计划,
                 IsOwn = true
             };
@@ -521,7 +523,9 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             this.PlanDetail.PlanAircraftId = pa.Id;
             //将新建的实体添加到对应的注册集合中
             PlanAircrafts.AddNew(pa);
+            ViewPlanAircrafts.Add(pa);
             CurPlan.PlanHistories.Add(this.PlanDetail);
+            PlanHistories.Add(this.PlanDetail);
         }
 
         private bool CanAddEntity(object obj)
@@ -709,8 +713,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             if (CurPlan != null && planAircraft != null)
                 planDetails = CurPlan.PlanHistories.Where(ph => ph.PlanAircraftId == planAircraft.Id).ToList();
 
-            // 1、计划飞机在当前计划中没有明细项
-            if (!planDetails.Any())
+            // 1、计划飞机在当前计划中没有明细项；或新增计划明细时，传入空的计划飞机
+            if (_planAircraft == null || !planDetails.Any())
                 this.ShowEditDialog(null, source);
             // 2、计划飞机在当前计划中已有明细项
             else
@@ -832,6 +836,45 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #endregion
         #endregion
 
+
+        #region GridView单元格变更处理
+
+        public DelegateCommand<object> CellEditEndCommand { set; get; }
+
+        /// <summary>
+        ///     GridView单元格变更处理
+        /// </summary>
+        /// <param name="sender"></param>
+        protected virtual void OnCellEditEnd(object sender)
+        {
+            var gridView = sender as RadGridView;
+            if (gridView != null)
+            {
+                var cell = gridView.CurrentCell;
+                if (string.Equals(cell.Column.UniqueName, "Regional"))
+                {
+                    var planhistory = gridView.CurrentCellInfo.Item as PlanHistoryDTO;
+                    if (planhistory != null)
+                    {
+                        var planAircraft = PlanAircrafts.FirstOrDefault(p => p.Id == planhistory.PlanAircraftId);
+                        if (planAircraft != null)
+                            planAircraft.Regional = planhistory.Regional;
+                    }
+                }
+                else if (string.Equals(cell.Column.UniqueName, "AircraftType"))
+                {
+                    var planhistory = gridView.CurrentCellInfo.Item as PlanHistoryDTO;
+                    if (planhistory != null)
+                    {
+                        var planAircraft = PlanAircrafts.FirstOrDefault(p => p.Id == planhistory.PlanAircraftId);
+                        if (planAircraft != null)
+                            planAircraft.AircraftTypeId = planhistory.AircraftTypeId;
+                    }
+                }
+            }
+        }
+
+        #endregion
         #endregion
 
         #region 子窗体相关

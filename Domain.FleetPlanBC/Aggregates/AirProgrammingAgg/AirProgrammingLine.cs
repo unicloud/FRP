@@ -15,8 +15,8 @@
 #region 命名空间
 
 using System;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AcTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftSeriesAgg;
 
 #endregion
 
@@ -69,12 +69,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
         /// <summary>
         ///     飞机系列
         /// </summary>
-        public Guid AcTypeId { get; private set; }
-
-        /// <summary>
-        ///     飞机座级
-        /// </summary>
-        public Guid AircraftCategoryId { get; private set; }
+        public Guid AircraftSeriesId { get; private set; }
 
         /// <summary>
         ///     航空公司规划
@@ -88,12 +83,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
         /// <summary>
         /// 飞机系列
         /// </summary>
-        public virtual AcType AcType { get; private set; }
-
-        /// <summary>
-        /// 飞机座级
-        /// </summary>
-        public virtual AircraftCategory AircraftCategory { get; private set; }
+        public virtual AircraftSeries AircraftSeries { get; private set; }
 
         #endregion
 
@@ -129,31 +119,16 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
         /// <summary>
         ///     设置飞机系列
         /// </summary>
-        /// <param name="acType">飞机系列</param>
-        public void SetAcType(AcType acType)
+        /// <param name="aircraftSeries">飞机系列</param>
+        public void SetAircraftSeries(AircraftSeries aircraftSeries)
         {
-            if (acType == null)
+            if (aircraftSeries == null)
             {
                 throw new ArgumentException("飞机系列参数为空！");
             }
 
-            AcType = acType;
-            AcTypeId = acType.Id;
-        }
-
-        /// <summary>
-        ///     设置飞机座级
-        /// </summary>
-        /// <param name="aircraftCategory">飞机座级</param>
-        public void SetAircraftCategory(AircraftCategory aircraftCategory)
-        {
-            if (aircraftCategory == null)
-            {
-                throw new ArgumentException("飞机座级参数为空！");
-            }
-
-            AircraftCategory = aircraftCategory;
-            AircraftCategoryId = aircraftCategory.Id;
+            AircraftSeries = aircraftSeries;
+            AircraftSeriesId = aircraftSeries.Id;
         }
 
         #endregion
