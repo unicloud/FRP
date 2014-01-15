@@ -16,6 +16,8 @@
         </Key>
         <Property Name="Id" Type="Edm.Guid" Nullable="false" />
         <Property Name="Name" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="ManufacturerId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
       <EntityType Name="AircraftCategoryDTO">
         <Key>

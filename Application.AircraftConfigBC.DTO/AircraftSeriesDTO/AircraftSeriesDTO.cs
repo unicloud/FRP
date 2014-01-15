@@ -39,6 +39,19 @@ namespace UniCloud.Application.AircraftConfigBC.DTO
         /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// 描述
+        /// </summary>
+        public string Description { get; set; }
+        #endregion
+
+        #region 外键属性
+
+        /// <summary>
+        /// 制造商外键
+        /// </summary>
+        public Guid ManufacturerId { get; set; }
+
         #endregion
     }
 }

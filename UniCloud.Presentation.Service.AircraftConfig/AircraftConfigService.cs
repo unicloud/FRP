@@ -18,31 +18,29 @@ using UniCloud.Presentation.Service.AircraftConfig.AircraftConfig;
 
 namespace UniCloud.Presentation.Service.AircraftConfig
 {
-     [Export(typeof(IAircraftConfigService))]
+    [Export(typeof(IAircraftConfigService))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class AircraftConfigService: ServiceBase, IAircraftConfigService
+    public class AircraftConfigService : ServiceBase, IAircraftConfigService
     {
-         public AircraftConfigService()
+        public AircraftConfigService()
         {
             context = new AircraftConfigData(AgentHelper.AircraftConfigUri);
         }
 
-         #region IAircraftConfigService 成员
+        #region IAircraftConfigService 成员
 
-         public AircraftConfigData Context
+        public AircraftConfigData Context
         {
             get { return context as AircraftConfigData; }
         }
 
         #region 获取静态数据
-
         /// <summary>
-        ///     所有机型
+        ///     所有制造商
         /// </summary>
-        public QueryableDataServiceCollectionView<AircraftTypeDTO> GetAircraftTypes(Action loaded,
-            bool forceLoad = false)
+        public QueryableDataServiceCollectionView<ManufacturerDTO> GetManufacturers(Action loaded, bool forceLoad = false)
         {
-            return GetStaticData(Context.AircraftTypes, loaded, forceLoad);
+            return GetStaticData(Context.Manufacturers, loaded, forceLoad);
         }
 
         #endregion

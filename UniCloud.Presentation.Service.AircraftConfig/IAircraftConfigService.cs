@@ -26,16 +26,13 @@ namespace UniCloud.Presentation.Service.AircraftConfig
 
         #region 获取静态数据
 
-        
         /// <summary>
-        ///     所有机型
+        ///     所有制造商
         /// </summary>
-        QueryableDataServiceCollectionView<AircraftTypeDTO> GetAircraftTypes(Action loaded, bool forceLoad = false);
-
-        
+        QueryableDataServiceCollectionView<ManufacturerDTO> GetManufacturers(Action loaded, bool forceLoad = false);
+      
         #endregion
 
-       
 
     }
 }

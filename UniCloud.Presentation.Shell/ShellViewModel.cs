@@ -105,6 +105,11 @@ namespace UniCloud.Presentation.Shell
                     if (menuItemProject != null)
                         menuItemProject.IsEnabled = true;
                     break;
+                case "AircraftConfigModule":
+                    var menuItemAircraftConfig = Items.SingleOrDefault(m => m.Text == "飞机构型");
+                    if (menuItemAircraftConfig != null)
+                        menuItemAircraftConfig.IsEnabled = true;
+                    break;
                 default:
                     throw new ArgumentException("没有匹配的模块名称！");
             }
@@ -163,6 +168,7 @@ namespace UniCloud.Presentation.Shell
             var menu111 = new MenuItem
             {
                 Text = "维护飞机系列",
+                NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig.ManagerAircraftSeries"
             };
             var menu112 = new MenuItem
             {

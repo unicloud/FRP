@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/1/15 14:20:52
+// 生成日期: 2014/1/15 14:59:42
 namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
 {
     
@@ -201,29 +201,30 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
                 ".String\" /><Property Name=\"NeedRequest\" Type=\"Edm.Boolean\" Nullable=\"false\" /></" +
                 "EntityType><EntityType Name=\"AircraftSeriesDTO\"><Key><PropertyRef Name=\"Id\" /></" +
                 "Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Name\"" +
-                " Type=\"Edm.String\" /></EntityType><EntityType Name=\"AircraftCategoryDTO\"><Key><P" +
-                "ropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false" +
-                "\" /><Property Name=\"Category\" Type=\"Edm.String\" /><Property Name=\"Regional\" Type" +
-                "=\"Edm.String\" /></EntityType><EntityType Name=\"AircraftTypeDTO\"><Key><PropertyRe" +
-                "f Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Prop" +
-                "erty Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"AircraftCategoryId\" Type=\"E" +
-                "dm.Guid\" Nullable=\"false\" /><Property Name=\"Regional\" Type=\"Edm.String\" /></Enti" +
-                "tyType><EntityType Name=\"ManufacturerDTO\"><Key><PropertyRef Name=\"Id\" /></Key><P" +
-                "roperty Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"CnName\" Typ" +
-                "e=\"Edm.String\" /><Property Name=\"EnName\" Type=\"Edm.String\" /><Property Name=\"CnS" +
-                "hortName\" Type=\"Edm.String\" /><Property Name=\"EnShortName\" Type=\"Edm.String\" /><" +
-                "Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"Type\" Type=\"Edm.Int32\" " +
-                "Nullable=\"false\" /></EntityType></Schema><Schema Namespace=\"UniCloud.Distributed" +
-                "Services.AircraftConfig\" xmlns=\"http://schemas.microsoft.com/ado/2006/04/edm\"><E" +
-                "ntityContainer Name=\"AircraftConfigData\" m:IsDefaultEntityContainer=\"true\"><Enti" +
-                "tySet Name=\"ActionCategories\" EntityType=\"UniCloud.Application.AircraftConfigBC." +
-                "DTO.ActionCategoryDTO\" /><EntitySet Name=\"AircraftSeries\" EntityType=\"UniCloud.A" +
-                "pplication.AircraftConfigBC.DTO.AircraftSeriesDTO\" /><EntitySet Name=\"AircraftCa" +
-                "tegories\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.AircraftCategory" +
-                "DTO\" /><EntitySet Name=\"AircraftTypes\" EntityType=\"UniCloud.Application.Aircraft" +
-                "ConfigBC.DTO.AircraftTypeDTO\" /><EntitySet Name=\"Manufacturers\" EntityType=\"UniC" +
-                "loud.Application.AircraftConfigBC.DTO.ManufacturerDTO\" /></EntityContainer></Sch" +
-                "ema></edmx:DataServices></edmx:Edmx>";
+                " Type=\"Edm.String\" /><Property Name=\"Description\" Type=\"Edm.String\" /><Property " +
+                "Name=\"ManufacturerId\" Type=\"Edm.Guid\" Nullable=\"false\" /></EntityType><EntityTyp" +
+                "e Name=\"AircraftCategoryDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=" +
+                "\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Category\" Type=\"Edm.Stri" +
+                "ng\" /><Property Name=\"Regional\" Type=\"Edm.String\" /></EntityType><EntityType Nam" +
+                "e=\"AircraftTypeDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type" +
+                "=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Proper" +
+                "ty Name=\"AircraftCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"" +
+                "Regional\" Type=\"Edm.String\" /></EntityType><EntityType Name=\"ManufacturerDTO\"><K" +
+                "ey><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"" +
+                "false\" /><Property Name=\"CnName\" Type=\"Edm.String\" /><Property Name=\"EnName\" Typ" +
+                "e=\"Edm.String\" /><Property Name=\"CnShortName\" Type=\"Edm.String\" /><Property Name" +
+                "=\"EnShortName\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Pr" +
+                "operty Name=\"Type\" Type=\"Edm.Int32\" Nullable=\"false\" /></EntityType></Schema><Sc" +
+                "hema Namespace=\"UniCloud.DistributedServices.AircraftConfig\" xmlns=\"http://schem" +
+                "as.microsoft.com/ado/2006/04/edm\"><EntityContainer Name=\"AircraftConfigData\" m:I" +
+                "sDefaultEntityContainer=\"true\"><EntitySet Name=\"ActionCategories\" EntityType=\"Un" +
+                "iCloud.Application.AircraftConfigBC.DTO.ActionCategoryDTO\" /><EntitySet Name=\"Ai" +
+                "rcraftSeries\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.AircraftSeri" +
+                "esDTO\" /><EntitySet Name=\"AircraftCategories\" EntityType=\"UniCloud.Application.A" +
+                "ircraftConfigBC.DTO.AircraftCategoryDTO\" /><EntitySet Name=\"AircraftTypes\" Entit" +
+                "yType=\"UniCloud.Application.AircraftConfigBC.DTO.AircraftTypeDTO\" /><EntitySet N" +
+                "ame=\"Manufacturers\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.Manufa" +
+                "cturerDTO\" /></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -391,11 +392,13 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
         /// 创建新的 AircraftSeriesDTO 对象。
         /// </summary>
         /// <param name="ID">Id 的初始值。</param>
+        /// <param name="manufacturerId">ManufacturerId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static AircraftSeriesDTO CreateAircraftSeriesDTO(global::System.Guid ID)
+        public static AircraftSeriesDTO CreateAircraftSeriesDTO(global::System.Guid ID, global::System.Guid manufacturerId)
         {
             AircraftSeriesDTO aircraftSeriesDTO = new AircraftSeriesDTO();
             aircraftSeriesDTO.Id = ID;
+            aircraftSeriesDTO.ManufacturerId = manufacturerId;
             return aircraftSeriesDTO;
         }
         /// <summary>
@@ -442,6 +445,50 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
         private string _Name;
         partial void OnNameChanging(string value);
         partial void OnNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Description 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Description
+        {
+            get
+            {
+                return this._Description;
+            }
+            set
+            {
+                this.OnDescriptionChanging(value);
+                this._Description = value;
+                this.OnDescriptionChanged();
+                this.OnPropertyChanged("Description");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Description;
+        partial void OnDescriptionChanging(string value);
+        partial void OnDescriptionChanged();
+        /// <summary>
+        /// 架构中不存在属性 ManufacturerId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid ManufacturerId
+        {
+            get
+            {
+                return this._ManufacturerId;
+            }
+            set
+            {
+                this.OnManufacturerIdChanging(value);
+                this._ManufacturerId = value;
+                this.OnManufacturerIdChanged();
+                this.OnPropertyChanged("ManufacturerId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _ManufacturerId;
+        partial void OnManufacturerIdChanging(global::System.Guid value);
+        partial void OnManufacturerIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

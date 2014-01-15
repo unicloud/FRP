@@ -46,6 +46,8 @@ namespace UniCloud.Application.AircraftConfigBC.Query.AircraftSeriesQueries
             {
                 Id = p.Id,
                 Name = p.Name,
+                Description = p.Description,
+                ManufacturerId = p.ManufacturerId
             });
 
         }

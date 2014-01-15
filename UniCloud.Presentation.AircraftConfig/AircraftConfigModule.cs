@@ -21,6 +21,7 @@ using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.MefExtensions.Modularity;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
+using UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig;
 
 #endregion
 
@@ -35,6 +36,7 @@ namespace UniCloud.Presentation.AircraftConfig
 
         public void Initialize()
         {
+            //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(ManagerAircraftSeries));
         }
 
         #endregion
