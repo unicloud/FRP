@@ -60,11 +60,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftSeriesAgg
         /// </summary>
         public Guid ManufacturerId { get; protected set; }
 
-        /// <summary>
-        /// 座级外键
-        /// </summary>
-        public Guid AircraftCategoryId { get; protected set; }
-
         #endregion
 
         #region 导航属性
@@ -72,12 +67,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftSeriesAgg
         /// 制造商
         /// </summary>
         public virtual Manufacturer Manufacturer { get; protected set; }
-
-        /// <summary>
-        /// 座级
-        /// </summary>
-        public virtual AircraftCategory AircraftCategory { get; protected set; }
-
         #endregion
 
         #region 操作

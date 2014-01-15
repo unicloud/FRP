@@ -44,6 +44,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\ActionCategoryAgg\ActionCategory.cs" />
+    <Compile Include="Aggregates\ActionCategoryAgg\ActionCategorySpecifications.cs" />
+    <Compile Include="Aggregates\ActionCategoryAgg\IActionCategoryRepository.cs" />
+    <Compile Include="Aggregates\AircraftCategoryAgg\AircraftCategory.cs" />
+    <Compile Include="Aggregates\AircraftCategoryAgg\AircraftCategorySepcifications.cs" />
+    <Compile Include="Aggregates\AircraftCategoryAgg\IAircraftCategoryRepository.cs" />
+    <Compile Include="Aggregates\AircraftLicenseAgg\AircraftLicense.cs" />
+    <Compile Include="Aggregates\AircraftLicenseAgg\AircraftLicenseFactory.cs" />
+    <Compile Include="Aggregates\AircraftLicenseAgg\AircraftLicenseSpecifications.cs" />
+    <Compile Include="Aggregates\AircraftLicenseAgg\IAircraftLicenseRepository.cs" />
     <Compile Include="Aggregates\AircraftSeriesAgg\AircraftSeries.cs" />
     <Compile Include="Aggregates\AircraftSeriesAgg\AircraftSeriesFactory.cs" />
     <Compile Include="Aggregates\AircraftSeriesAgg\AircraftSeriesSpecifications.cs" />
@@ -56,6 +66,23 @@
     <Compile Include="Aggregates\AircraftTypeAgg\AircraftTypeFactory.cs" />
     <Compile Include="Aggregates\AircraftTypeAgg\AircraftTypeSpecifications.cs" />
     <Compile Include="Aggregates\AircraftTypeAgg\IAircraftTypeRepository.cs" />
+    <Compile Include="Aggregates\AirlinesAgg\Airlines.cs" />
+    <Compile Include="Aggregates\AirlinesAgg\AirlinesSpecifications.cs" />
+    <Compile Include="Aggregates\AirlinesAgg\IAirlinesRepository.cs" />
+    <Compile Include="Aggregates\AtaAgg\Ata.cs" />
+    <Compile Include="Aggregates\AtaAgg\AtaFactory.cs" />
+    <Compile Include="Aggregates\AtaAgg\AtaSpecification.cs" />
+    <Compile Include="Aggregates\AtaAgg\IAtaRepository.cs" />
+    <Compile Include="Aggregates\LicenseTypeAgg\ILicenseTypeRepository.cs" />
+    <Compile Include="Aggregates\LicenseTypeAgg\LicenseType.cs" />
+    <Compile Include="Aggregates\LicenseTypeAgg\LicenseTypeFactory.cs" />
+    <Compile Include="Aggregates\LicenseTypeAgg\LicenseTypeSpecifications.cs" />
+    <Compile Include="Aggregates\ManufacturerAgg\IManufacturerRepository.cs" />
+    <Compile Include="Aggregates\ManufacturerAgg\Manufacturer.cs" />
+    <Compile Include="Aggregates\ManufacturerAgg\ManufacturerSpecifications.cs" />
+    <Compile Include="Aggregates\SupplierAgg\ISupplierRepository.cs" />
+    <Compile Include="Aggregates\SupplierAgg\Supplier.cs" />
+    <Compile Include="Aggregates\SupplierAgg\SupplierSpecifications.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +90,10 @@
     <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
+      <Project>{e48e84de-5a91-4d16-84e5-cffc4c7e7657}</Project>
+      <Name>Domain.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
       <Name>Domain</Name>
