@@ -4,7 +4,7 @@
 //【本类功能概述】
 // 
 // 作者：HuangQiBin 时间：2014/1/4 10:34:47
-// 文件名：AcTypeRepository
+// 文件名：AircraftSeriesRepository
 // 版本：V1.0.0
 //
 // 修改者： 时间： 

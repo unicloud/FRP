@@ -38,12 +38,12 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg
             Property(p => p.BuyNum).HasColumnName("BuyNum");
             Property(p => p.ExportNum).HasColumnName("ExportNum");
             Property(p => p.LeaseNum).HasColumnName("LeaseNum");
-          
-            Property(p => p.AcTypeId).HasColumnName("AcTypeId");
+
+            Property(p => p.AircraftSeriesId).HasColumnName("AircraftSeriesId");
             Property(p => p.AircraftCategoryId).HasColumnName("AircraftCategoryId");
             Property(p => p.AirProgrammingId).HasColumnName("AirProgrammingId");
 
-            HasRequired(o => o.AcType).WithMany().HasForeignKey(o => o.AcTypeId);
+            HasRequired(o => o.AircraftSeries).WithMany().HasForeignKey(o => o.AircraftSeriesId);
             HasRequired(o => o.AircraftCategory).WithMany().HasForeignKey(o => o.AircraftCategoryId);
 
         }

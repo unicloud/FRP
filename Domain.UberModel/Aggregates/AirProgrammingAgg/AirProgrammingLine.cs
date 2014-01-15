@@ -69,7 +69,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg
         /// <summary>
         ///     飞机系列
         /// </summary>
-        public Guid AcTypeId { get; private set; }
+        public Guid AircraftSeriesId { get; private set; }
 
         /// <summary>
         ///     飞机座级
@@ -88,7 +88,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg
         /// <summary>
         /// 飞机系列
         /// </summary>
-        public virtual AircraftSeries AcType { get; private set; }
+        public virtual AircraftSeries AircraftSeries { get; private set; }
 
         /// <summary>
         /// 飞机座级
@@ -129,16 +129,16 @@ namespace UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg
         /// <summary>
         ///     设置飞机系列
         /// </summary>
-        /// <param name="acType">飞机系列</param>
-        public void SetAircraftSeries(AircraftSeries acType)
+        /// <param name="aircraftSeries">飞机系列</param>
+        public void SetAircraftSeries(AircraftSeries aircraftSeries)
         {
-            if (acType == null)
+            if (aircraftSeries == null)
             {
                 throw new ArgumentException("飞机系列参数为空！");
             }
 
-            AcType = acType;
-            AcTypeId = acType.Id;
+            AircraftSeries = aircraftSeries;
+            AircraftSeriesId = aircraftSeries.Id;
         }
 
         /// <summary>

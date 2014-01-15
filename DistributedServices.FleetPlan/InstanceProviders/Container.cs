@@ -107,7 +107,7 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
 
                 #region 飞机系列相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IAircraftSeriesQuery, AircraftSeriesQuery>()
+                .RegisterType<IAircraftSeriesQuery, AircraftSeriesQuery>()
                 .RegisterType<IAircraftSeriesAppService, AircraftSeriesAppService>()
                 .RegisterType<IAircraftSeriesRepository, AircraftSeriesRepository>()
                 #endregion

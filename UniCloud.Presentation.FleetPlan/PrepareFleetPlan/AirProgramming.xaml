@@ -222,9 +222,9 @@
                                                                     DataMemberBinding="{Binding Year}" />
                                         <telerik:GridViewComboBoxColumn Header="系列"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSource="{Binding DataContext.AcTypes, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        ItemsSource="{Binding DataContext.AircraftSeries, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                                                         DisplayMemberPath="Name"
-                                                                        DataMemberBinding="{Binding AcTypeId,Mode=TwoWay}"
+                                                                        DataMemberBinding="{Binding AircraftSeriesId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"
                                                                         EditorStyle="{StaticResource EditComboBox}" />
                                         <telerik:GridViewDataColumn Header="购买数量"

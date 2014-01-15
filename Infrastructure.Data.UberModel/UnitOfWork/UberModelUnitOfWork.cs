@@ -85,7 +85,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
     {
         #region IDbSet成员
 
-        private IDbSet<AircraftSeries> _acTypes;
+        private IDbSet<AircraftSeries> _aircraftSeries;
         private IDbSet<ActionCategory> _actionCategories;
         private IDbSet<AirProgramming> _airProgrammings;
         private IDbSet<AircraftCategory> _aircraftCategories;
@@ -163,9 +163,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             get { return _actionCategories ?? (_actionCategories = base.Set<ActionCategory>()); }
         }
 
-        public IDbSet<AircraftSeries> AcTypes
+        public IDbSet<AircraftSeries> AircraftSeries
         {
-            get { return _acTypes ?? (_acTypes = base.Set<AircraftSeries>()); }
+            get { return _aircraftSeries ?? (_aircraftSeries = base.Set<AircraftSeries>()); }
         }
 
         public IDbSet<AircraftCategory> AircraftCategories
@@ -468,8 +468,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
             #endregion
 
-            #region AcTypeAgg
-
+                #region AircraftSeriesAgg
 .Add(new AircraftSeriesEntityConfiguration())
 
             #endregion
