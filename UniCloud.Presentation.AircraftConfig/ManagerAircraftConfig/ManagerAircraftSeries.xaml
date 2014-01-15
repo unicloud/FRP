@@ -60,6 +60,8 @@
                                          Margin="0,3"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
+                                         IsReadOnly="True"
+                                         IsEnabled="False"
                                          Height="{StaticResource ControlHeight}"
                                          ItemsSource="{Binding DataContext.Manufacturers, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                          SelectedValue="{Binding ManufacturerId, Mode=TwoWay}"
@@ -188,7 +190,7 @@
                                                                             IsSortable="True"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
-                                                                            ItemsSource="{Binding Manufacturers,Mode=TwoWay}"
+                                                                            ItemsSource="{Binding DataContext.Manufacturers, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                                                             DataMemberBinding="{Binding ManufacturerId}"
                                                                             SelectedValueMemberPath="Id"
                                                                             DisplayMemberPath="CnName" />

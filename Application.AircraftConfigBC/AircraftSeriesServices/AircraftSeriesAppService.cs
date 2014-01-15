@@ -20,6 +20,7 @@
 using System.Linq;
 using UniCloud.Application.AircraftConfigBC.DTO;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftSeriesQueries;
+using UniCloud.Application.ApplicationExtension;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg;
 
 #endregion
@@ -32,11 +33,13 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftSeriesServices
     /// </summary>
     public class AircraftSeriesAppService : IAircraftSeriesAppService
     {
-        private readonly IAircraftSeriesQuery _actionCategoryQuery;
+        private readonly IAircraftSeriesQuery _aircraftSeriesQuery;
+        private readonly IAircraftSeriesRepository _aircraftSeriesRepository;
 
-        public AircraftSeriesAppService(IAircraftSeriesQuery actionCategoryQuery)
+        public AircraftSeriesAppService(IAircraftSeriesQuery aircraftSeriesQuery, IAircraftSeriesRepository aircraftSeriesRepository)
         {
-            _actionCategoryQuery = actionCategoryQuery;
+            _aircraftSeriesQuery = aircraftSeriesQuery;
+            _aircraftSeriesRepository = aircraftSeriesRepository;
         }
 
         #region AircraftSeriesDTO
@@ -49,9 +52,44 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftSeriesServices
         {
             var queryBuilder =
                 new QueryBuilder<AircraftSeries>();
-            return _actionCategoryQuery.AircraftSeriesDTOQuery(queryBuilder);
+            return _aircraftSeriesQuery.AircraftSeriesDTOQuery(queryBuilder);
         }
 
+         /// <summary>
+        ///     新增飞机系列。
+        /// </summary>
+        /// <param name="aircraftSeries">飞机系列DTO。</param>
+        [Insert(typeof(AircraftSeriesDTO))]
+        public void InsertAircraftSeries(AircraftSeriesDTO aircraftSeries)
+        {
+            var newAircraftSeries = AircraftSeriesFactory.CreateAircraftSeries();
+            AircraftSeriesFactory.SetAircraftSeries(newAircraftSeries, aircraftSeries.Name, aircraftSeries.Description, aircraftSeries.ManufacturerId);
+            _aircraftSeriesRepository.Add(newAircraftSeries);
+        }
+
+
+        /// <summary>
+        ///     更新飞机系列。
+        /// </summary>
+        /// <param name="aircraftSeries">飞机系列DTO。</param>
+        [Update(typeof(AircraftSeriesDTO))]
+        public void ModifyAircraftSeries(AircraftSeriesDTO aircraftSeries)
+        {
+            var updateAircraftSeries = _aircraftSeriesRepository.Get(aircraftSeries.Id); //获取需要更新的对象。
+            AircraftSeriesFactory.SetAircraftSeries(updateAircraftSeries, aircraftSeries.Name, aircraftSeries.Description, aircraftSeries.ManufacturerId);
+            _aircraftSeriesRepository.Modify(updateAircraftSeries);
+        }
+
+        /// <summary>
+        ///     删除飞机系列。
+        /// </summary>
+        /// <param name="aircraftSeries">飞机系列DTO。</param>
+        [Delete(typeof(AircraftSeriesDTO))]
+        public void DeleteAircraftSeries(AircraftSeriesDTO aircraftSeries)
+        {
+            var deleteAircraftSeries = _aircraftSeriesRepository.Get(aircraftSeries.Id); //获取需要删除的对象。
+            _aircraftSeriesRepository.Remove(deleteAircraftSeries); //删除飞机系列。
+        }
         #endregion
     }
 }
