@@ -1,0 +1,60 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices m:DataServiceVersion="1.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="UniCloud.Application.AircraftConfigBC.DTO" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+      <EntityType Name="ActionCategoryDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ActionType" Type="Edm.String" />
+        <Property Name="ActionName" Type="Edm.String" />
+        <Property Name="NeedRequest" Type="Edm.Boolean" Nullable="false" />
+      </EntityType>
+      <EntityType Name="AircraftSeriesDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="AircraftCategoryDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Category" Type="Edm.String" />
+        <Property Name="Regional" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="AircraftTypeDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="AircraftCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Regional" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="ManufacturerDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="CnName" Type="Edm.String" />
+        <Property Name="EnName" Type="Edm.String" />
+        <Property Name="CnShortName" Type="Edm.String" />
+        <Property Name="EnShortName" Type="Edm.String" />
+        <Property Name="Note" Type="Edm.String" />
+        <Property Name="Type" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+    </Schema>
+    <Schema Namespace="UniCloud.DistributedServices.AircraftConfig" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+      <EntityContainer Name="AircraftConfigData" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="ActionCategories" EntityType="UniCloud.Application.AircraftConfigBC.DTO.ActionCategoryDTO" />
+        <EntitySet Name="AircraftSeries" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftSeriesDTO" />
+        <EntitySet Name="AircraftCategories" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftCategoryDTO" />
+        <EntitySet Name="AircraftTypes" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftTypeDTO" />
+        <EntitySet Name="Manufacturers" EntityType="UniCloud.Application.AircraftConfigBC.DTO.ManufacturerDTO" />
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

@@ -58,5 +58,14 @@ namespace UniCloud.Presentation.Service
                     UriKind.Absolute);
             }
         }
+
+        public static Uri AircraftConfigUri
+        {
+            get
+            {
+                return new Uri("http://localhost:20088/AircraftConfigDataService.svc",
+                    UriKind.Absolute);
+            }
+        }
     }
 }

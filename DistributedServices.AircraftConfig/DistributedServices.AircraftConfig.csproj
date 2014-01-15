@@ -100,12 +100,16 @@
   <ItemGroup>
     <Content Include="AircraftConfigDataService.svc" />
     <Content Include="crossdomain.xml" />
+    <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AircraftConfigData.cs" />
     <Compile Include="AircraftConfigDataService.svc.cs">
       <DependentUpon>AircraftConfigDataService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="InstanceProviders\Container.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -162,6 +166,10 @@
     <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
       <Project>{cad91a38-6b90-4a18-83ca-0215ce512f4d}</Project>
       <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Utilities\Infrastructure.Utilities.csproj">
+      <Project>{34a8a0e1-3d4a-48ca-9e78-71f88e2d273d}</Project>
+      <Name>Infrastructure.Utilities</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
