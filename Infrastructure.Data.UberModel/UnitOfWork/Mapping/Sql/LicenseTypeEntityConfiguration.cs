@@ -28,7 +28,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             ToTable("LicenseType", DbConfig.Schema);
 
             HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(p => p.Type).HasColumnName("Type");
             Property(p => p.Description).HasColumnName("Description");

@@ -41,8 +41,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
         {
             var acTypes = new List<AircraftSeries>
             {
-              AircraftSeriesFactory.CreateAircraftSeries(Guid.Parse("AB65EE49-D110-40F1-B3CE-52CADB0C6B81"), "A320系列",Guid.Parse("9F14444A-228D-4681-9B33-835AB10B608C"),Guid.Parse("B962079E-C968-46E4-99A8-24771F5C79CD")),
-              AircraftSeriesFactory.CreateAircraftSeries(Guid.Parse("5C690CB2-2D33-4006-858B-0BE610E9CB47"), "A330系列",Guid.Parse("9F14444A-228D-4681-9B33-835AB10B608C"),Guid.Parse("B962079E-C968-46E4-99A8-24771F5C79CD")),
+              AircraftSeriesFactory.CreateAircraftSeries(Guid.Parse("AB65EE49-D110-40F1-B3CE-52CADB0C6B81"), "A320系列",Guid.Parse("9F14444A-228D-4681-9B33-835AB10B608C")),
+              AircraftSeriesFactory.CreateAircraftSeries(Guid.Parse("5C690CB2-2D33-4006-858B-0BE610E9CB47"), "A330系列",Guid.Parse("9F14444A-228D-4681-9B33-835AB10B608C")),
             };
 
             acTypes.ForEach(p => Context.AcTypes.Add(p));

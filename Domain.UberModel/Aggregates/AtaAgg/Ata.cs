@@ -76,10 +76,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.AtaAgg
         /// </summary>
         public virtual Ata ParentAta { get; internal set; }
 
-        /// <summary>
-        /// 系列
-        /// </summary>
-        public virtual AircraftSeries AircraftSeries { get; internal set; }
         #endregion
 
     }

@@ -37,7 +37,7 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork.Mapping.Sql
             Property(p => p.Name).HasColumnName("Name");
             Property(p => p.Description).HasColumnName("Description");
 
-            Property(p => p.AircraftSeriesId).HasColumnName("ManufacturerId");
+            Property(p => p.AircraftSeriesId).HasColumnName("AircraftSeriesId");
             Property(p => p.AircraftCategoryId).HasColumnName("AircraftCategoryId");
             Property(p => p.ManufacturerId).HasColumnName("ManufacturerId");
 

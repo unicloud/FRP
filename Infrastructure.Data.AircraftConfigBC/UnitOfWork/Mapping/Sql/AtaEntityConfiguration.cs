@@ -28,15 +28,11 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork.Mapping.Sql
             ToTable("Ata", DbConfig.Schema);
 
             HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(p => p.ATA).HasColumnName("ATA");
             Property(p => p.Description).HasColumnName("Description");
-            Property(p => p.ParentId).HasColumnName("ParentId");
-            Property(p => p.AircraftSeriesId).HasColumnName("AircraftSeriesId");
 
-            HasRequired(o => o.ParentAta).WithMany().HasForeignKey(o => o.ParentId);
-            HasRequired(o => o.AircraftSeries).WithMany().HasForeignKey(o => o.AircraftSeriesId);
             HasMany(o => o.ChildAtas).WithRequired().HasForeignKey(o => o.ParentId);
 
         }

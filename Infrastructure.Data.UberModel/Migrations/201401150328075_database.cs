@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initializer : DbMigration
+    public partial class database : DbMigration
     {
         public override void Up()
         {
@@ -19,30 +19,36 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
-                "FRP.AcType",
+                "FRP.AircraftSeries",
                 c => new
                     {
                         ID = c.Guid(nullable: false),
                         Name = c.String(),
                         Description = c.String(),
                         ManufacturerId = c.Guid(nullable: false),
-                        AircraftCategoryId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.AircraftCategory", t => t.AircraftCategoryId)
                 .ForeignKey("FRP.Manufacturer", t => t.ManufacturerId)
-                .Index(t => t.AircraftCategoryId)
                 .Index(t => t.ManufacturerId);
             
             CreateTable(
-                "FRP.AircraftCategory",
+                "FRP.Ata",
                 c => new
                     {
-                        ID = c.Guid(nullable: false),
-                        Category = c.String(),
-                        Regional = c.String(),
+                        ID = c.Int(nullable: false, identity: true),
+                        ATA = c.String(),
+                        Description = c.String(),
+                        ParentId = c.Int(nullable: false),
+                        AircraftSeriesId = c.Guid(nullable: false),
+                        ParentAta_Id = c.Int(),
                     })
-                .PrimaryKey(t => t.ID);
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.Ata", t => t.ParentId)
+                .ForeignKey("FRP.Ata", t => t.ParentAta_Id)
+                .ForeignKey("FRP.AircraftSeries", t => t.AircraftSeriesId)
+                .Index(t => t.ParentId)
+                .Index(t => t.ParentAta_Id)
+                .Index(t => t.AircraftSeriesId);
             
             CreateTable(
                 "FRP.Manufacturer",
@@ -55,6 +61,49 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         EnShortName = c.String(),
                         Note = c.String(),
                         Type = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "FRP.AircraftCategory",
+                c => new
+                    {
+                        ID = c.Guid(nullable: false),
+                        Category = c.String(),
+                        Regional = c.String(),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
+                "FRP.AircraftLicense",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                        Description = c.String(),
+                        IssuedUnit = c.String(),
+                        IssuedDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        ValidMonths = c.Int(nullable: false),
+                        ExpireDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        State = c.Int(nullable: false),
+                        LicenseFile = c.Binary(),
+                        AircraftId = c.Guid(nullable: false),
+                        LicenseTypeId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.LicenseType", t => t.LicenseTypeId)
+                .ForeignKey("FRP.Aircraft", t => t.AircraftId)
+                .Index(t => t.LicenseTypeId)
+                .Index(t => t.AircraftId);
+            
+            CreateTable(
+                "FRP.LicenseType",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Type = c.String(),
+                        Description = c.String(),
+                        HasFile = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -116,13 +165,16 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         ID = c.Guid(nullable: false),
                         Name = c.String(),
                         Description = c.String(),
-                        ManufacturerId = c.Guid(nullable: false),
+                        AircraftSeriesId = c.Guid(nullable: false),
                         AircraftCategoryId = c.Guid(nullable: false),
+                        ManufacturerId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.AircraftCategory", t => t.AircraftCategoryId)
+                .ForeignKey("FRP.AircraftSeries", t => t.AircraftSeriesId)
                 .ForeignKey("FRP.Manufacturer", t => t.ManufacturerId)
                 .Index(t => t.AircraftCategoryId)
+                .Index(t => t.AircraftSeriesId)
                 .Index(t => t.ManufacturerId);
             
             CreateTable(
@@ -382,7 +434,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         AirProgrammingId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.AcType", t => t.AcTypeId)
+                .ForeignKey("FRP.AircraftSeries", t => t.AcTypeId)
                 .ForeignKey("FRP.AircraftCategory", t => t.AircraftCategoryId)
                 .ForeignKey("FRP.AirProgramming", t => t.AirProgrammingId)
                 .Index(t => t.AcTypeId)
@@ -2185,7 +2237,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.AirProgramming", "IssuedUnitId", "FRP.Manager");
             DropForeignKey("FRP.AirProgrammingLine", "AirProgrammingId", "FRP.AirProgramming");
             DropForeignKey("FRP.AirProgrammingLine", "AircraftCategoryId", "FRP.AircraftCategory");
-            DropForeignKey("FRP.AirProgrammingLine", "AcTypeId", "FRP.AcType");
+            DropForeignKey("FRP.AirProgrammingLine", "AcTypeId", "FRP.AircraftSeries");
             DropForeignKey("FRP.Aircraft", "SupplierId", "FRP.Supplier");
             DropForeignKey("FRP.OwnershipHistory", "AircraftId", "FRP.Aircraft");
             DropForeignKey("FRP.OwnershipHistory", "SupplierId", "FRP.Supplier");
@@ -2207,6 +2259,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.ApprovalHistory", "ImportCategoryId", "FRP.ActionCategory");
             DropForeignKey("FRP.ApprovalHistory", "AirlinesId", "FRP.Airlines");
             DropForeignKey("FRP.OperationHistory", "AirlinesId", "FRP.Airlines");
+            DropForeignKey("FRP.AircraftLicense", "AircraftId", "FRP.Aircraft");
             DropForeignKey("FRP.Aircraft", "ImportCategoryId", "FRP.ActionCategory");
             DropForeignKey("FRP.Aircraft", "AirlinesId", "FRP.Airlines");
             DropForeignKey("FRP.Aircraft", "AircraftTypeId", "FRP.AircraftType");
@@ -2214,9 +2267,13 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.AircraftBusiness", "ImportCategoryId", "FRP.ActionCategory");
             DropForeignKey("FRP.AircraftBusiness", "AircraftTypeId", "FRP.AircraftType");
             DropForeignKey("FRP.AircraftType", "ManufacturerId", "FRP.Manufacturer");
+            DropForeignKey("FRP.AircraftType", "AircraftSeriesId", "FRP.AircraftSeries");
             DropForeignKey("FRP.AircraftType", "AircraftCategoryId", "FRP.AircraftCategory");
-            DropForeignKey("FRP.AcType", "ManufacturerId", "FRP.Manufacturer");
-            DropForeignKey("FRP.AcType", "AircraftCategoryId", "FRP.AircraftCategory");
+            DropForeignKey("FRP.AircraftLicense", "LicenseTypeId", "FRP.LicenseType");
+            DropForeignKey("FRP.AircraftSeries", "ManufacturerId", "FRP.Manufacturer");
+            DropForeignKey("FRP.Ata", "AircraftSeriesId", "FRP.AircraftSeries");
+            DropForeignKey("FRP.Ata", "ParentAta_Id", "FRP.Ata");
+            DropForeignKey("FRP.Ata", "ParentId", "FRP.Ata");
             DropIndex("FRP.MaintainSupplier", new[] { "ID" });
             DropIndex("FRP.EnginePurchaseSupplier", new[] { "ID" });
             DropIndex("FRP.EngineLeaseSupplier", new[] { "ID" });
@@ -2398,6 +2455,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.ApprovalHistory", new[] { "ImportCategoryId" });
             DropIndex("FRP.ApprovalHistory", new[] { "AirlinesId" });
             DropIndex("FRP.OperationHistory", new[] { "AirlinesId" });
+            DropIndex("FRP.AircraftLicense", new[] { "AircraftId" });
             DropIndex("FRP.Aircraft", new[] { "ImportCategoryId" });
             DropIndex("FRP.Aircraft", new[] { "AirlinesId" });
             DropIndex("FRP.Aircraft", new[] { "AircraftTypeId" });
@@ -2405,9 +2463,13 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.AircraftBusiness", new[] { "ImportCategoryId" });
             DropIndex("FRP.AircraftBusiness", new[] { "AircraftTypeId" });
             DropIndex("FRP.AircraftType", new[] { "ManufacturerId" });
+            DropIndex("FRP.AircraftType", new[] { "AircraftSeriesId" });
             DropIndex("FRP.AircraftType", new[] { "AircraftCategoryId" });
-            DropIndex("FRP.AcType", new[] { "ManufacturerId" });
-            DropIndex("FRP.AcType", new[] { "AircraftCategoryId" });
+            DropIndex("FRP.AircraftLicense", new[] { "LicenseTypeId" });
+            DropIndex("FRP.AircraftSeries", new[] { "ManufacturerId" });
+            DropIndex("FRP.Ata", new[] { "AircraftSeriesId" });
+            DropIndex("FRP.Ata", new[] { "ParentAta_Id" });
+            DropIndex("FRP.Ata", new[] { "ParentId" });
             DropTable("FRP.MaintainSupplier");
             DropTable("FRP.EnginePurchaseSupplier");
             DropTable("FRP.EngineLeaseSupplier");
@@ -2531,9 +2593,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.AircraftType");
             DropTable("FRP.AircraftBusiness");
             DropTable("FRP.Aircraft");
-            DropTable("FRP.Manufacturer");
+            DropTable("FRP.LicenseType");
+            DropTable("FRP.AircraftLicense");
             DropTable("FRP.AircraftCategory");
-            DropTable("FRP.AcType");
+            DropTable("FRP.Manufacturer");
+            DropTable("FRP.Ata");
+            DropTable("FRP.AircraftSeries");
             DropTable("FRP.ActionCategory");
         }
     }

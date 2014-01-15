@@ -30,6 +30,7 @@ using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg;
 using UniCloud.Domain.UberModel.Aggregates.AnnualAgg;
 using UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg;
+using UniCloud.Domain.UberModel.Aggregates.AtaAgg;
 using UniCloud.Domain.UberModel.Aggregates.BankAccountAgg;
 using UniCloud.Domain.UberModel.Aggregates.CaacProgrammingAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg;
@@ -139,15 +140,22 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<XmlSetting> _xmlSettings;
         private IDbSet<AircraftLicense> _aircraftLicenses;
         private IDbSet<LicenseType> _licenseTypes;
+        private IDbSet<Ata> _atas;
+
 
         public IDbSet<AircraftLicense> AircraftLicenses
         {
-            get { return _aircraftLicenses ?? (_aircraftLicenses = base.Set<AircraftLicense>()); } 
+            get { return _aircraftLicenses ?? (_aircraftLicenses = base.Set<AircraftLicense>()); }
         }
 
         public IDbSet<LicenseType> LicenseTypes
         {
             get { return _licenseTypes ?? (_licenseTypes = base.Set<LicenseType>()); }
+        }
+
+        public IDbSet<Ata> Atas
+        {
+            get { return _atas ?? (_atas = base.Set<Ata>()); }
         }
 
         public IDbSet<ActionCategory> ActionCategories
@@ -856,6 +864,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new LicenseTypeEntityConfiguration())
             #endregion
 
+.Add(new AtaEntityConfiguration())
 .Add(new AddressConfiguration());
         }
 

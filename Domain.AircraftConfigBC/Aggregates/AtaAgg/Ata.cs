@@ -75,11 +75,6 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AtaAgg
         /// 父章节
         /// </summary>
         public virtual Ata ParentAta { get; internal set; }
-
-        /// <summary>
-        /// 系列
-        /// </summary>
-        public virtual AircraftSeries AircraftSeries { get; internal set; }
         #endregion
 
     }

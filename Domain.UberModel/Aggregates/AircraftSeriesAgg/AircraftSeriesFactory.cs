@@ -31,9 +31,8 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftSeriesAgg
         /// <param name="id">飞机系列ID</param>
         /// <param name="name">飞机系列名称</param>
         /// <param name="manufacturerId">制造商</param>
-        /// <param name="aircraftCategoryId">座级</param>
         /// <returns></returns>
-        public static AircraftSeries CreateAircraftSeries(Guid id, string name, Guid manufacturerId, Guid aircraftCategoryId)
+        public static AircraftSeries CreateAircraftSeries(Guid id, string name, Guid manufacturerId)
         {
             var acType = new AircraftSeries { Name = name };
             acType.ChangeCurrentIdentity(id);

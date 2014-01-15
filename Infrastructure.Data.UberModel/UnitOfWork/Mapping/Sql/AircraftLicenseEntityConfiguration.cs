@@ -28,7 +28,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             ToTable("AircraftLicense", DbConfig.Schema);
 
             HasKey(p => p.Id);
-            Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
             Property(p => p.Name).HasColumnName("Name");
             Property(p => p.Description).HasColumnName("Description");
@@ -41,8 +41,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.ValidMonths).HasColumnName("ValidMonths");
             Property(p => p.LicenseTypeId).HasColumnName("LicenseTypeId");
             Property(p => p.AircraftId).HasColumnName("AircraftId");
-            HasOptional(o => o.LicenseType).WithMany().HasForeignKey(o => o.LicenseTypeId);
-            HasRequired(o => o.Aircraft).WithMany().HasForeignKey(o => o.AircraftId);
+
+            HasRequired(o => o.LicenseType).WithMany().HasForeignKey(o => o.LicenseTypeId);
         }
     }
 }

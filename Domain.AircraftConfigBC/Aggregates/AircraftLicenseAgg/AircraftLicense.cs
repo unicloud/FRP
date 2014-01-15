@@ -96,10 +96,6 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg
         #endregion
 
         #region 导航属性
-        /// <summary>
-        /// 飞机
-        /// </summary>
-        public virtual Aircraft Aircraft { get; internal set; }
 
         /// <summary>
         /// 证照类型
