@@ -44,14 +44,16 @@
                                      CanFloat="False"
                                      CanUserClose="False"
                                      CanUserPin="False"
-                                     FontSize="{StaticResource TextFontSize}">
+                                     FontSize="{StaticResource TextFontSize}"
+                                     ContextMenuTemplate="{x:Null}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                Margin="-1 -2 -1 0">
+                                                Margin="-1 -2 -1 0"
+                                                OverflowButtonVisibility="Collapsed">
                                 <telerik:RadButton Margin="4,2,2,-2"
                                                    Command="{Binding SaveCommand}"
                                                    CommandParameter="{Binding EnginePlans}">
@@ -172,7 +174,8 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                Margin="-1 -2 -1 0">
+                                                Margin="-1 -2 -1 0"
+                                                OverflowButtonVisibility="Collapsed">
                                 <telerik:RadButton Margin="4,2,2,-2"
                                                    Command="{Binding AddEntityCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/Add.png"

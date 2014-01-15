@@ -32,14 +32,16 @@
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
-                                         FontSize="{StaticResource TextFontSize}">
+                                         FontSize="{StaticResource TextFontSize}"
+                                         ContextMenuTemplate="{x:Null}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                    Margin="-1 -2 -1 0">
+                                                    Margin="-1 -2 -1 0"
+                                                    OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding SaveCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png"
@@ -189,9 +191,9 @@
                                     <telerik:GridViewDataColumn Header="机型"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding AircraftTypeName}" />
-                                    <telerik:GridViewDataColumn Header="活动类别"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding ActionType}" />
+                                    <telerik:GridViewExpressionColumn Header="活动类别"
+                                                                      MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                      Expression="(ActionType+'：'+ActionName)" />
                                     <telerik:GridViewDataColumn Header="引进/退出方式"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding TargetType}" />
@@ -200,11 +202,17 @@
                                                                 Expression="(Year+'/'+PerformMonth)" />
                                     <telerik:GridViewDataColumn Header="净增客机"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding }">
+                                                                DataMemberBinding="{Binding DetaPnr}">
+                                        <telerik:GridViewDataColumn.AggregateFunctions>
+                                            <telerik:SumFunction ResultFormatString="总计：{0}架" />
+                                        </telerik:GridViewDataColumn.AggregateFunctions>
                                     </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="净增座位"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding SeatingCapacity}">
+                                        <telerik:GridViewDataColumn.AggregateFunctions>
+                                            <telerik:SumFunction ResultFormatString="总计：{0}座" />
+                                        </telerik:GridViewDataColumn.AggregateFunctions>
                                     </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="净增商载（吨）"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -212,7 +220,10 @@
                                     </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="净增货机"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding }">
+                                                                DataMemberBinding="{Binding DetaCargo}">
+                                        <telerik:GridViewDataColumn.AggregateFunctions>
+                                            <telerik:SumFunction ResultFormatString="总计：{0}架" />
+                                        </telerik:GridViewDataColumn.AggregateFunctions>
                                     </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="管理状态"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
