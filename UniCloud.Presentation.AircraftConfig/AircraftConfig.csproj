@@ -162,6 +162,7 @@
     <ProjectReference Include="..\UniCloud.Presentation.Service.AircraftConfig\Service.AircraftConfig.csproj">
       <Project>{45cdca5d-f98e-4e03-ace1-02f45c62c8f0}</Project>
       <Name>Service.AircraftConfig</Name>
+      <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service\Service.csproj">
       <Project>{5f45eae5-2f35-4ad1-bf0e-f5fd5539fd32}</Project>

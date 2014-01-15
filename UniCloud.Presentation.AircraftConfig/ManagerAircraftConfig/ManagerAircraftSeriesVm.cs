@@ -56,112 +56,112 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         /// </summary>
         private void InitializeVm()
         {
-            // 创建并注册CollectionView
-            //AircraftSerieses = _service.CreateCollection(_context.AircraftSeries);
-            //_service.RegisterCollectionView(AircraftSerieses);
-            //AircraftSerieses.PropertyChanged += (sender, e) =>
-            //{
-            //    if (e.PropertyName == "IsAddingNew")
-            //    {
-            //        var newItem = AircraftSerieses.CurrentAddItem as AircraftSeriesDTO;
-            //        if (newItem != null)
-            //        {
-            //            newItem.Id = Guid.NewGuid();
-            //        }
-            //    }
-            //    else if (e.PropertyName == "HasChanges")
-            //    {
-            //        CanSelectAircraftSeries = !AircraftSerieses.HasChanges;
-            //    }
-            //};
+            //创建并注册CollectionView
+           AircraftSerieses = _service.CreateCollection(_context.AircraftSeries);
+            _service.RegisterCollectionView(AircraftSerieses);
+            AircraftSerieses.PropertyChanged += (sender, e) =>
+            {
+                if (e.PropertyName == "IsAddingNew")
+                {
+                    var newItem = AircraftSerieses.CurrentAddItem as AircraftSeriesDTO;
+                    if (newItem != null)
+                    {
+                        newItem.Id = Guid.NewGuid();
+                    }
+                }
+                else if (e.PropertyName == "HasChanges")
+                {
+                    CanSelectAircraftSeries = !AircraftSerieses.HasChanges;
+                }
+            };
 
         }
 
         #endregion
 
-        //#region 数据
+        #region 数据
 
-        //#region 公共属性
-        ///// <summary>
-        ///// 制造商
-        ///// </summary>
-        //public QueryableDataServiceCollectionView<ManufacturerDTO> Manufacturers { get; set; }
-        //#endregion
+        #region 公共属性
+        /// <summary>
+        /// 制造商
+        /// </summary>
+        public QueryableDataServiceCollectionView<ManufacturerDTO> Manufacturers { get; set; }
+        #endregion
 
-        //#region 加载数据
+        #region 加载数据
 
-        ///// <summary>
-        /////     加载数据方法
-        /////     <remarks>
-        /////         导航到此页面时调用。
-        /////         可在此处将CollectionView的AutoLoad属性设为True，以实现数据的自动加载。
-        /////     </remarks>
-        ///// </summary>
+        /// <summary>
+        ///     加载数据方法
+        ///     <remarks>
+        ///         导航到此页面时调用。
+        ///         可在此处将CollectionView的AutoLoad属性设为True，以实现数据的自动加载。
+        ///     </remarks>
+        /// </summary>
         public override void LoadData()
         {
             //// 将CollectionView的AutoLoad属性设为True
-            //if (AircraftSerieses.AutoLoad)
-            //    AircraftSerieses.AutoLoad = true;
-            //AircraftSerieses.Load(true);
-            //Manufacturers = _service.GetManufacturers(null);
+            if (AircraftSerieses.AutoLoad)
+                AircraftSerieses.AutoLoad = true;
+            AircraftSerieses.Load(true);
+            Manufacturers = _service.GetManufacturers(null);
         }
 
-        //#region 系列
+        #region 系列
 
-        //private AircraftSeriesDTO _aircraftSeries;
+        private AircraftSeriesDTO _aircraftSeries;
 
-        //private bool _canSelectAircraftSeries = true;
+        private bool _canSelectAircraftSeries = true;
 
-        ///// <summary>
-        /////     系列集合
-        ///// </summary>
-        //public QueryableDataServiceCollectionView<AircraftSeriesDTO> AircraftSerieses { get; set; }
+        /// <summary>
+        ///     系列集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftSeriesDTO> AircraftSerieses { get; set; }
 
-        ///// <summary>
-        /////     选中的系列
-        ///// </summary>
-        //public AircraftSeriesDTO AircraftSeries
-        //{
-        //    get { return _aircraftSeries; }
-        //    set
-        //    {
-        //        if (_aircraftSeries != value)
-        //        {
-        //            _aircraftSeries = value;
-        //            RaisePropertyChanged(() => AircraftSeries);
-        //        }
-        //    }
-        //}
+        /// <summary>
+        ///     选中的系列
+        /// </summary>
+        public AircraftSeriesDTO AircraftSeries
+        {
+            get { return _aircraftSeries; }
+            set
+            {
+                if (_aircraftSeries != value)
+                {
+                    _aircraftSeries = value;
+                    RaisePropertyChanged(() => AircraftSeries);
+                }
+            }
+        }
 
-        ////用户能否选择
-        //public bool CanSelectAircraftSeries
-        //{
-        //    get { return _canSelectAircraftSeries; }
-        //    set
-        //    {
-        //        if (_canSelectAircraftSeries != value)
-        //        {
-        //            _canSelectAircraftSeries = value;
-        //            RaisePropertyChanged(() => CanSelectAircraftSeries);
-        //        }
-        //    }
-        //}
+        //用户能否选择
+        public bool CanSelectAircraftSeries
+        {
+            get { return _canSelectAircraftSeries; }
+            set
+            {
+                if (_canSelectAircraftSeries != value)
+                {
+                    _canSelectAircraftSeries = value;
+                    RaisePropertyChanged(() => CanSelectAircraftSeries);
+                }
+            }
+        }
 
-        //#endregion
-
-
-
-        //#endregion
-
-        //#endregion
-
-        //#region 操作
+        #endregion
 
 
-        //#region 重载操作
 
-        //#endregion
+        #endregion
 
-        //#endregion
+        #endregion
+
+        #region 操作
+
+
+        #region 重载操作
+
+        #endregion
+
+        #endregion
     }
 }

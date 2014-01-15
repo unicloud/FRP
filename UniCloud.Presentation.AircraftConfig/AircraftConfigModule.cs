@@ -30,13 +30,13 @@ namespace UniCloud.Presentation.AircraftConfig
     [ModuleExport(typeof (AircraftConfigModule))]
     public class AircraftConfigModule : IModule
     {
-        [Import] public IRegionManager regionManager;
+        [Import]
+        public IRegionManager regionManager;
 
         #region IModule 成员
 
         public void Initialize()
         {
-            //regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(ManagerAircraftSeries));
         }
 
         #endregion

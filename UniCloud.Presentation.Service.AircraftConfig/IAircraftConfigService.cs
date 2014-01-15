@@ -30,7 +30,7 @@ namespace UniCloud.Presentation.Service.AircraftConfig
         ///     所有制造商
         /// </summary>
         QueryableDataServiceCollectionView<ManufacturerDTO> GetManufacturers(Action loaded, bool forceLoad = false);
-      
+
         #endregion
 
 
