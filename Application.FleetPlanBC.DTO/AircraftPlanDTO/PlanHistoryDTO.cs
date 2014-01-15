@@ -152,6 +152,12 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public Guid? RelatedGuid { get; set; }
 
         /// <summary>
+        ///  关联的运营计划历史或商业数据历史的开始日期
+        ///  用于分析当前年度计划执行情况
+        /// </summary>
+        public DateTime? RelatedStartDate { get; set; }
+
+        /// <summary>
         ///  关联的运营计划历史或商业数据历史的结束日期
         ///  在创建新年度计划时，用于判断是否需要复制此计划明细
         /// </summary>

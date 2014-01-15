@@ -248,12 +248,21 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 
         #region 属性绑定
 
+        /// <summary>
+        /// 计划历史比较状态
+        /// </summary>
+        public PlanHistoryCompareStatus PlanHistoryCompareStatus
+        { get; set; }
         #endregion
 
         #endregion
 
         #region 方法
 
+        public PlanHistoryDTO Clone()
+        {
+            return MemberwiseClone() as PlanHistoryDTO;
+        }
         #endregion
     }
 }

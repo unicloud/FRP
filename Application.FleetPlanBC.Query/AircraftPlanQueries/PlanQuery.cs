@@ -94,6 +94,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                                     RelatedStatus = q.OperationHistory == null ? 0 : (int)q.OperationHistory.Status,
                                     PlanId = q.PlanId,
                                     PlanType = 1,//1表示运营计划
+                                    RelatedStartDate=q.OperationHistory.StartDate,
                                     
                                 })
                                 .Union(p.PlanHistories.OfType<ChangePlan>().Select(q => new PlanHistoryDTO
@@ -129,6 +130,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                                     RelatedStatus = q.AircraftBusiness == null ? 0 : (int)q.AircraftBusiness.Status,
                                     PlanId = q.PlanId,
                                     PlanType = 2,//2表示变更计划
+                                    RelatedStartDate = q.AircraftBusiness.StartDate,
                                 })
                                 ).ToList(),
             });

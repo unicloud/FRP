@@ -1,0 +1,394 @@
+﻿<UserControl x:Class="UniCloud.Presentation.FleetPlan.PerformFleetPlan.QueryPerformPlan"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance uc:QueryPerformPlanVM}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <telerik:Windows8Colors x:Key="MetroColors" />
+            <SolidColorBrush x:Key="AccentBrush" Color="{Binding Source={StaticResource MetroColors}, Path=Palette.AccentColor}" />
+            <SolidColorBrush x:Key="BasicBrush" Color="{Binding Source={StaticResource MetroColors}, Path=Palette.BasicColor}" />
+            <SolidColorBrush x:Key="StrongBrush" Color="{Binding Source={StaticResource MetroColors}, Path=Palette.StrongColor}" />
+            <SolidColorBrush x:Key="MainBrush" Color="{Binding Source={StaticResource MetroColors}, Path=Palette.MainColor}" />
+            <SolidColorBrush x:Key="MarkerBrush" Color="{Binding Source={StaticResource MetroColors}, Path=Palette.MarkerColor}" />
+            <DataTemplate x:Key="TriangleTickTemplate">
+                <Polygon Points="0.5,0 1,1 0,1"
+					Stretch="Fill" 
+					Fill="{Binding Path=Background}"
+					Stroke="{Binding Path=Stroke}"
+					StrokeThickness="{Binding Path=StrokeThickness}" />
+            </DataTemplate>
+            <DataTemplate x:Key="MajorTriangleTickTemplate">
+                <Grid>
+                    <Path Data="M89,41 L94,32 L100,32 L105,41" 
+                      Fill="{StaticResource MainBrush}"
+                      Stroke="{StaticResource StrongBrush}"
+                      Stretch="Fill" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="2*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Polygon Grid.Column="1" 
+                             Grid.Row="1"
+                             Fill="{StaticResource BasicBrush}"
+                             Points="0.5,0 1,1 0,1" 
+                             Stretch="Fill"  />
+                    </Grid>
+                </Grid>
+            </DataTemplate>
+            <Style x:Key="NeedleStyle" TargetType="telerik:Needle">
+                <Setter Property="telerik:ScaleObject.Location" Value="Inside" />
+                <Setter Property="telerik:ScaleObject.RelativeWidth" Value="0.1*" />
+                <Setter Property="telerik:ScaleObject.Offset" Value="0.23*" />
+                <Setter Property="Background" Value="{StaticResource MarkerBrush}" />
+                <Setter Property="TailHeight" Value="0.12" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="telerik:Needle">
+                            <Grid x:Name="PART_Grid" >
+                                <Polygon Points="0,0 1,0 0.5,1"
+								     Fill="{TemplateBinding Background}"
+                                     Stroke="{TemplateBinding BorderBrush}"
+								     Stretch="Fill"/>
+
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <telerik:RadDocking HasDocumentHost="False"
+                           >
+            <telerik:RadSplitContainer Orientation="Vertical">
+                <telerik:RadSplitContainer Orientation="Horizontal" telerik:ProportionalStackPanel.RelativeSize="500, 600">
+                    <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="200,200">
+                        <telerik:RadPane
+                                         Header="{Binding PerformPlanHeader}" 
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         ContextMenuTemplate="{x:Null}"
+                                         FontSize="{StaticResource TextFontSize}">
+                            <Grid>
+                                <telerik:RadRadialGauge                         
+                                        OuterBorderBrush="{StaticResource MainBrush}"
+                                        OuterBorderThickness="2" 
+                                        Margin="20">
+                                    <telerik:RadRadialGauge.OuterBackground>
+                                        <RadialGradientBrush>
+                                            <GradientStop Color="White" Offset="0"/>
+                                            <GradientStop Color="Transparent" Offset="0.5"/>
+                                        </RadialGradientBrush>
+                                    </telerik:RadRadialGauge.OuterBackground>
+                                    <telerik:RadialScale StartWidth="0.04"
+                                         EndWidth="0.04"
+                                         Radius="0.6"
+                                         MajorTickRelativeWidth="1"
+                                         MajorTickRelativeHeight="3"
+                                         MajorTickBackground="{StaticResource StrongBrush}"
+                                         MajorTickStep="40"
+                                         MiddleTickRelativeWidth="1"
+                                         MiddleTickRelativeHeight="3"
+                                         MiddleTicks="5"
+                                         MinorTicks="1"
+                                         Min="0" Max="201"
+                                         ShowLastLabel="False"
+                                         RangeOffset="2"
+                                         RangeLocation="Outside"
+                                         LabelOffset="4"
+                                         LabelRotationMode="None"
+                                         Foreground="{StaticResource StrongBrush}"
+                                         FontSize="12"
+                                         FontFamily="Segoe UI Semibold">
+
+                                        <telerik:RadialScale.Ranges>
+                                            <telerik:GaugeRange Background="{StaticResource BasicBrush}" 
+                                                StartWidth="0.01"
+                                                EndWidth="0.01"
+                                                Min="0" Max="200"/>
+                                        </telerik:RadialScale.Ranges>
+                                        <telerik:RadialScale.CustomItems>
+                                            <TextBlock 
+                                       TextAlignment="Center" 
+                                       FontFamily="Segoe UI Semibold"
+                                       FontSize="12" 
+                                       Foreground="{StaticResource StrongBrush}"
+                                       telerik:ScaleObject.RelativeX="0.44"
+                                       telerik:ScaleObject.RelativeY="0.74" />
+                                        </telerik:RadialScale.CustomItems>
+                                    </telerik:RadialScale>
+                                    <telerik:RadialScale Name="scale2" 
+                                         Min="0" Max="200"
+                                         MajorTickStep="40"
+                                         MiddleTicks="1"
+                                         MinorTicks="1"
+                                         MajorTickLocation="Inside"  
+                                         MajorTickRelativeWidth="0.15*"
+                                         MajorTickRelativeHeight="0.1*"
+                                         MajorTickOffset="-2"
+                                         MajorTickTemplate="{StaticResource MajorTriangleTickTemplate}"
+                                         MiddleTickLocation="Inside"
+                                         MiddleTickOffset="0.05*"
+                                         MiddleTickRelativeWidth="0.03*"
+                                         MiddleTickRelativeHeight="0.08*"
+                                         MiddleTickBackground="{StaticResource StrongBrush}"
+                                         MiddleTickTemplate="{StaticResource TriangleTickTemplate}"
+                                         LabelLocation="Inside"
+                                         LabelOffset="0.12*"
+                                         LabelRotationMode="None"
+                                         Foreground="{StaticResource MarkerBrush}"
+                                         StartWidth="0.04"
+                                         EndWidth="0.04"
+                                         RangeOffset="-1"
+                                         RangeLocation="Inside"
+                                         FontFamily="Segoe UI Semibold"
+                                         FontSize="12">
+                                        <telerik:RadialScale.Indicators>
+                                            <telerik:Pinpoint Background="{StaticResource MarkerBrush}" 
+                                              BorderBrush="{StaticResource AccentBrush}" 
+                                              StrokeThickness="2"
+                                              telerik:ScaleObject.RelativeWidth="18" 
+                                              telerik:ScaleObject.RelativeHeight="18" />
+                                            <telerik:Needle Value="{Binding Performance}" Name="needl" IsAnimated="True" 
+                                            Style="{StaticResource NeedleStyle}"/>
+                                        </telerik:RadialScale.Indicators>
+                                        <telerik:RadialScale.Ranges>
+                                            <telerik:GaugeRange Background="{StaticResource StrongBrush}" 
+                                                StrokeThickness="2"
+                                                StartWidth="0.03"
+                                                EndWidth="0.03"
+                                                Min="0" Max="200"/>
+                                        </telerik:RadialScale.Ranges>
+                                        <telerik:RadialScale.CustomItems>
+                                            <TextBlock 
+                                       TextAlignment="Center" 
+                                       FontFamily="Segoe UI Semibold"
+                                       FontSize="12"
+                                       Foreground="{StaticResource MarkerBrush}"
+                                       telerik:ScaleObject.RelativeX="0.43"
+                                       telerik:ScaleObject.RelativeY="0.82"/>
+                                        </telerik:RadialScale.CustomItems>
+                                    </telerik:RadialScale>
+                                </telerik:RadRadialGauge>
+                            </Grid>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                    <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="400,200">
+                        <telerik:RadPane Header="当前计划"
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         ContextMenuTemplate="{x:Null}"
+                                         FontSize="{StaticResource TextFontSize}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition Height="30" />
+                                </Grid.RowDefinitions>
+                                <telerik:RadGridView 
+                                                     AutoExpandGroups="True"
+                                                     ShowGroupPanel="False"
+                                                     AutoGenerateColumns="False"
+                                                     CanUserSortColumns="True"
+                                                     CanUserFreezeColumns="False"
+                                                     RowIndicatorVisibility="Collapsed"
+                                                     CanUserResizeColumns="False"
+                                                     IsFilteringAllowed="True"
+                                                     IsReadOnly="True"
+                                                     ItemsSource="{Binding PlansView}"
+                                                     SelectedItem="{Binding SelectedPlan,Mode=TwoWay}"
+                                                     IsBusy="{Binding PlansView.IsBusy}">
+                                    <telerik:RadGridView.GroupDescriptors>
+                                        <telerik:GroupDescriptor Member="Year"
+											   SortDirection="Ascending" >
+                                            <telerik:GroupDescriptor.AggregateFunctions>
+                                                <telerik:CountFunction Caption="总计:" />
+                                            </telerik:GroupDescriptor.AggregateFunctions>
+                                        </telerik:GroupDescriptor>
+                                    </telerik:RadGridView.GroupDescriptors>
+                                    <telerik:RadGridView.SortDescriptors>
+                                        <telerik:SortDescriptor Member="VersionNumber" SortDirection="Ascending"></telerik:SortDescriptor>
+                                    </telerik:RadGridView.SortDescriptors>
+                                    <telerik:RadGridView.Columns>
+                                        <uc:DataPageSerialColumn Header="序号"
+                                                                    HeaderTextAlignment="Center" />
+                                        <telerik:GridViewDataColumn Header="计划文号"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding DocNumber}" />
+                                        <telerik:GridViewColumn Header="计划文档"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}">
+                                            <telerik:GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <HyperlinkButton Content="{Binding DocName}"
+                                                                     VerticalAlignment="Center"
+                                                                     Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
+                                                                     CommandParameter="{Binding DocumentId}" />
+                                                </DataTemplate>
+                                            </telerik:GridViewColumn.CellTemplate>
+                                        </telerik:GridViewColumn>
+                                        <telerik:GridViewDataColumn Header="版本"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding VersionNumber}" />
+                                        <telerik:GridViewDataColumn Header="编制状态"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding PlanStatus}" />
+                                        <telerik:GridViewDataColumn Header="发布状态"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding PlanPublishStatus}" />
+                                        <telerik:GridViewDataColumn Header="创建日期"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding CreateDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}"/>
+                                        <telerik:GridViewDataColumn Header="提交日期"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding SubmitDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}"/>
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+                                <Grid Grid.Row="1">
+                                    <telerik:RadDataPager 
+                                                          BorderThickness="1,0,1,1"
+                                                          AutoEllipsisMode="Both"
+                                                          DisplayMode="All"
+                                                          Source="{Binding PlansView}" />
+                                </Grid>
+                            </Grid>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                </telerik:RadSplitContainer>
+                <telerik:RadSplitContainer Orientation="Horizontal" telerik:ProportionalStackPanel.RelativeSize="500, 600">
+                    <telerik:RadPaneGroup >
+                        <telerik:RadPane Header="计划历史" 
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         ContextMenuTemplate="{x:Null}"
+                                         FontSize="{StaticResource TextFontSize}">
+                            <Grid>
+                                <telerik:RadGridView 
+                                                     AutoExpandGroups="True"
+                                                     ShowGroupPanel="False"
+                                                     AutoGenerateColumns="False"
+                                                     CanUserSortColumns="False"
+                                                     CanUserFreezeColumns="False"
+                                                     RowIndicatorVisibility="Collapsed"
+                                                     CanUserResizeColumns="False"
+                                                     IsFilteringAllowed="False"
+                                                     CanUserSortGroups="False"
+                                                     IsReadOnly="True"
+                                                     ItemsSource="{Binding SelectedPlan.PlanHistories}"
+                                                     IsBusy="{Binding PlansView.IsBusy}"
+                                                     >
+                                    <telerik:RadGridView.GroupDescriptors>
+                                        <telerik:GroupDescriptor Member="ActionType"
+                                                DisplayContent="引进/退出" SortDirection="Ascending">
+                                            <telerik:GroupDescriptor.AggregateFunctions>
+                                                <telerik:CountFunction Caption="总计：" />
+                                            </telerik:GroupDescriptor.AggregateFunctions>
+                                        </telerik:GroupDescriptor>
+                                    </telerik:RadGridView.GroupDescriptors>
+                                    <telerik:RadGridView.Columns>
+                                        <uc:DataPageSerialColumn Header="序号"
+                                                                    HeaderTextAlignment="Center" />
+                                        <telerik:GridViewCheckBoxColumn Header="是否上报"
+                                                                        DataMemberBinding="{Binding IsSubmit}"
+                                                                         />
+                                        <telerik:GridViewDataColumn Header="座级"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding Regional}">
+                                        </telerik:GridViewDataColumn>
+                                        <telerik:GridViewDataColumn Header="机型"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding AircraftTypeName}" />
+                                        <telerik:GridViewDataColumn Header="机号"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding RegNumber}" />
+                                        <telerik:GridViewDataColumn Header="活动类别"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding ActionType}" />
+                                        <telerik:GridViewDataColumn Header="引进/退出方式"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding TargetType}" />
+                                        <telerik:GridViewExpressionColumn Header="执行时间"
+                                                                          MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                          Expression="(Year+'/'+PerformMonth)" />
+                                        <telerik:GridViewDataColumn Header="净增座位"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding SeatingCapacity}">
+                                        </telerik:GridViewDataColumn>
+                                        <telerik:GridViewDataColumn Header="净增商载（吨）"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding CarryingCapacity}">
+                                        </telerik:GridViewDataColumn>
+                                        <telerik:GridViewColumn Header="申请"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                            >
+                                            <telerik:GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <HyperlinkButton
+                                                            VerticalAlignment="Center"
+                                                            Command="{Binding DataContext.ViewOpertationApprovalHistoryCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                            CommandParameter="{Binding}" />
+                                                </DataTemplate>
+                                            </telerik:GridViewColumn.CellTemplate>
+                                        </telerik:GridViewColumn>
+                                        <telerik:GridViewColumn Header="运营/商业历史" IsReadOnly="True">
+                                            <telerik:GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <HyperlinkButton VerticalAlignment="Center"
+                                                            Command="{Binding DataContext.ViewOperationOrAircraftHistoryCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                            CommandParameter="{Binding}" />
+                                                </DataTemplate>
+                                            </telerik:GridViewColumn.CellTemplate>
+                                        </telerik:GridViewColumn>
+                                        <telerik:GridViewDataColumn Header="管理状态"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding ManageStatus}" />
+                                        <telerik:GridViewDataColumn Header="备注"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding Note}" />
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+                            </Grid>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                </telerik:RadSplitContainer>
+            </telerik:RadSplitContainer>
+        </telerik:RadDocking>
+    </Grid>
+</UserControl>
