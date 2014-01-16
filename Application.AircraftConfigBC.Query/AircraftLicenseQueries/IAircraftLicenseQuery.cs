@@ -16,7 +16,6 @@
 
 using System.Linq;
 using UniCloud.Application.AircraftConfigBC.DTO;
-using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.LicenseTypeAgg;
 
 #endregion
@@ -32,13 +31,5 @@ namespace UniCloud.Application.AircraftConfigBC.Query.AircraftLicenseQueries
         /// <returns>证照类型DTO集合</returns>
         IQueryable<LicenseTypeDTO> LicenseTypeDTOQuery(
             QueryBuilder<LicenseType> query);
-
-        /// <summary>
-        ///     飞机证照查询
-        /// </summary>
-        /// <param name="query">查询表达式</param>
-        /// <returns>飞机证照DTO集合</returns>
-        IQueryable<AircraftLicenseDTO> AircraftLicenseDTOQuery(
-            QueryBuilder<AircraftLicense> query);
     }
 }

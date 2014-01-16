@@ -16,7 +16,6 @@
 
 using System.Linq;
 using UniCloud.Application.AircraftConfigBC.DTO;
-using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.LicenseTypeAgg;
 using UniCloud.Infrastructure.Data;
 
@@ -47,30 +46,6 @@ namespace UniCloud.Application.AircraftConfigBC.Query.AircraftLicenseQueries
                 Name = p.Type,
                 HasFile = p.HasFile,
                 Description = p.Description
-            });
-        }
-
-        /// <summary>
-        ///     飞机证照查询。
-        /// </summary>
-        /// <param name="query">查询表达式。</param>
-        /// <returns>飞机证照DTO集合。</returns>
-        public IQueryable<AircraftLicenseDTO> AircraftLicenseDTOQuery(
-            QueryBuilder<AircraftLicense> query)
-        {
-            return query.ApplyTo(_unitOfWork.CreateSet<AircraftLicense>()).Select(p => new AircraftLicenseDTO
-            {
-                AircraftLicenseId = p.Id,
-                Description = p.Description,
-                ExpireDate = p.ExpireDate,
-                IssuedDate = p.IssuedDate,
-                IssuedUnit = p.IssuedUnit,
-                LicenseFile = p.LicenseFile,
-                FileName = p.FileName,
-                LicenseTypeId = p.LicenseTypeId,
-                ValidMonths = p.ValidMonths,
-                Name = p.Name,
-                State = (int)p.State,
             });
         }
     }

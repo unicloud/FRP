@@ -18,7 +18,6 @@ using System.Linq;
 using UniCloud.Application.AircraftConfigBC.DTO;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftLicenseQueries;
 using UniCloud.Application.ApplicationExtension;
-using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.LicenseTypeAgg;
 
 #endregion
@@ -32,68 +31,13 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftLicenseServices
     public class AircraftLicenseAppService : IAircraftLicenseAppService
     {
         private readonly IAircraftLicenseQuery _aircraftLicenseQuery;
-        private readonly IAircraftLicenseRepository _aircraftLicenseRepository;
         private readonly ILicenseTypeRepository _licenseTypeRepository;
 
-        public AircraftLicenseAppService(IAircraftLicenseQuery aircraftLicenseQuery, IAircraftLicenseRepository aircraftLicenseRepository,
-            ILicenseTypeRepository licenseTypeRepository)
+        public AircraftLicenseAppService(IAircraftLicenseQuery aircraftLicenseQuery, ILicenseTypeRepository licenseTypeRepository)
         {
             _aircraftLicenseQuery = aircraftLicenseQuery;
-            _aircraftLicenseRepository = aircraftLicenseRepository;
             _licenseTypeRepository = licenseTypeRepository;
         }
-
-        #region AircraftLicenseDTO
-
-        /// <summary>
-        ///     获取所有飞机证照
-        /// </summary>
-        /// <returns></returns>
-        public IQueryable<AircraftLicenseDTO> GetAircraftLicenses()
-        {
-            var queryBuilder =
-                new QueryBuilder<AircraftLicense>();
-            return _aircraftLicenseQuery.AircraftLicenseDTOQuery(queryBuilder);
-        }
-
-        /// <summary>
-        ///     新增飞机证照。
-        /// </summary>
-        /// <param name="aircraftLicense">飞机证照DTO。</param>
-        [Insert(typeof(AircraftLicenseDTO))]
-        public void InsertAircraftLicense(AircraftLicenseDTO aircraftLicense)
-        {
-            var newAircraftLicense = AircraftLicenseFactory.CreateAircraftLicense();
-            AircraftLicenseFactory.SetAircraftLicense(newAircraftLicense, aircraftLicense.Name, aircraftLicense.Description, aircraftLicense.IssuedUnit,
-                aircraftLicense.IssuedDate, aircraftLicense.ValidMonths, aircraftLicense.ExpireDate, aircraftLicense.State, aircraftLicense.FileName, aircraftLicense.LicenseFile);
-            _aircraftLicenseRepository.Add(newAircraftLicense);
-        }
-
-
-        /// <summary>
-        ///     更新飞机证照。
-        /// </summary>
-        /// <param name="aircraftLicense">飞机证照DTO。</param>
-        [Update(typeof(AircraftLicenseDTO))]
-        public void ModifyAircraftLicense(AircraftLicenseDTO aircraftLicense)
-        {
-            var updateAircraftLicense = _aircraftLicenseRepository.Get(aircraftLicense.AircraftLicenseId); //获取需要更新的对象。
-            AircraftLicenseFactory.SetAircraftLicense(updateAircraftLicense, aircraftLicense.Name, aircraftLicense.Description, aircraftLicense.IssuedUnit,
-                aircraftLicense.IssuedDate, aircraftLicense.ValidMonths, aircraftLicense.ExpireDate, aircraftLicense.State, aircraftLicense.FileName, aircraftLicense.LicenseFile);
-            _aircraftLicenseRepository.Modify(updateAircraftLicense);
-        }
-
-        /// <summary>
-        ///     删除飞机证照。
-        /// </summary>
-        /// <param name="aircraftLicense">飞机证照DTO。</param>
-        [Delete(typeof(AircraftLicenseDTO))]
-        public void DeleteAircraftLicense(AircraftLicenseDTO aircraftLicense)
-        {
-            var deleteAircraftLicense = _aircraftLicenseRepository.Get(aircraftLicense.AircraftLicenseId); //获取需要删除的对象。
-            _aircraftLicenseRepository.Remove(deleteAircraftLicense); //删除飞机证照。
-        }
-        #endregion
 
         #region LicenseTypeDTO
 

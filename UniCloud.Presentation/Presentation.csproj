@@ -366,6 +366,11 @@
     <Resource Include="Images\Up.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.AircraftConfig\Service.AircraftConfig.csproj">
+      <Project>{45cdca5d-f98e-4e03-ace1-02f45c62c8f0}</Project>
+      <Name>Service.AircraftConfig</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service.CommonService\Service.CommonService.csproj">
       <Project>{e182cb39-cb47-4a7a-bf2d-0094d38d24fe}</Project>
       <Name>Service.CommonService</Name>

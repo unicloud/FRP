@@ -52,6 +52,8 @@
     <Compile Include="AircraftLicenseServices\IAircraftLicenseAppService.cs" />
     <Compile Include="AircraftSeriesServices\AircraftSeriesAppService.cs" />
     <Compile Include="AircraftSeriesServices\IAircraftSeriesAppService.cs" />
+    <Compile Include="AircraftServices\AircraftAppService.cs" />
+    <Compile Include="AircraftServices\IAircraftAppService.cs" />
     <Compile Include="AircraftTypeServices\AircraftTypeAppService.cs" />
     <Compile Include="AircraftTypeServices\IAircraftTypeAppService.cs" />
     <Compile Include="ManufacturerServices\IManufacturerAppService.cs" />

@@ -1,13 +1,13 @@
 ﻿#region Version Info
 /* ========================================================================
-// 版权所有 (C) 2014 UniCloud 
+// 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2014/1/16 14:36:24
-// 文件名：IAircraftLicenseAppService
+// 作者：linxw 时间：2013/12/29 12:06:01
+// 文件名：IAircraftAppService
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2014/1/16 14:36:24
+// 修改者：linxw 时间：2013/12/29 12:06:01
 // 修改说明：
 // ========================================================================*/
 #endregion
@@ -19,18 +19,17 @@ using UniCloud.Application.AircraftConfigBC.DTO;
 
 #endregion
 
-namespace UniCloud.Application.AircraftConfigBC.AircraftLicenseServices
+namespace UniCloud.Application.AircraftConfigBC.AircraftServices
 {
     /// <summary>
-    ///     飞机证照服务接口。
+    ///     表示用于实际飞机相关信息服务
     /// </summary>
-    public interface IAircraftLicenseAppService
+    public interface IAircraftAppService
     {
-
         /// <summary>
-        ///     获取所有证照类型
+        ///     获取所有实际飞机
         /// </summary>
-        /// <returns></returns>
-        IQueryable<LicenseTypeDTO> GetLicenseTypes();
+        /// <returns>所有实际飞机</returns>
+        IQueryable<AircraftDTO> GetAircrafts();
     }
 }

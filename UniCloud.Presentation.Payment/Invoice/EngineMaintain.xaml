@@ -39,7 +39,8 @@
                                 <RowDefinition Height="30" />
                             </Grid.RowDefinitions>
                             <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                Margin="0 0 0 -1">
+                                                Margin="0 0 0 -1"
+                                                OverflowButtonVisibility="Collapsed">
                                 <telerik:RadButton Margin="4,2,2,-2"
                                                    Command="{Binding SaveCommand}"
                                                    CommandParameter="{Binding EngineMaintainInvoices}">
@@ -265,7 +266,8 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                Margin="0 0 0 -1">
+                                                Margin="0 0 0 -1"
+                                                OverflowButtonVisibility="Collapsed">
                                 <telerik:RadButton Margin="2,2,2,-2"
                                                    Command="{Binding AddInvoiceLineCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/Add.png"

@@ -7,6 +7,7 @@ using UniCloud.Application.AircraftConfigBC.ActionCategoryServices;
 using UniCloud.Application.AircraftConfigBC.AircraftCategoryServices;
 using UniCloud.Application.AircraftConfigBC.AircraftLicenseServices;
 using UniCloud.Application.AircraftConfigBC.AircraftSeriesServices;
+using UniCloud.Application.AircraftConfigBC.AircraftServices;
 using UniCloud.Application.AircraftConfigBC.AircraftTypeServices;
 using UniCloud.Application.AircraftConfigBC.DTO;
 using UniCloud.Application.AircraftConfigBC.ManufacturerServices;
@@ -26,7 +27,7 @@ namespace UniCloud.DistributedServices.AircraftConfig
         private readonly IAircraftTypeAppService _aircraftTypeAppService;
         private readonly IManufacturerAppService _manufacturerAppService;
         private readonly IAircraftLicenseAppService _aircraftLicenseAppService;
-
+        private readonly IAircraftAppService _aircraftAppService;
         public AircraftConfigData()
             : base("UniCloud.Application.AircraftConfigBC.DTO")
         {
@@ -36,6 +37,7 @@ namespace UniCloud.DistributedServices.AircraftConfig
             _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
             _manufacturerAppService = DefaultContainer.Resolve<IManufacturerAppService>();
             _aircraftLicenseAppService = DefaultContainer.Resolve<IAircraftLicenseAppService>();
+            _aircraftAppService = DefaultContainer.Resolve<IAircraftAppService>();
         }
 
         #region 活动类型
@@ -113,14 +115,19 @@ namespace UniCloud.DistributedServices.AircraftConfig
         {
             get { return _aircraftLicenseAppService.GetLicenseTypes(); }
         }
+       
+        #endregion
+
+        #region 实际飞机
 
         /// <summary>
-        ///    飞机证照
+        ///     实际飞机集合
         /// </summary>
-        public IQueryable<AircraftLicenseDTO> AircraftLicenses
+        public IQueryable<AircraftDTO> Aircrafts
         {
-            get { return _aircraftLicenseAppService.GetAircraftLicenses(); }
+            get { return _aircraftAppService.GetAircrafts(); }
         }
+
         #endregion
     }
 }

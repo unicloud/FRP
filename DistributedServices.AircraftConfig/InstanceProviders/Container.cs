@@ -6,15 +6,18 @@ using UniCloud.Application.AircraftConfigBC.ActionCategoryServices;
 using UniCloud.Application.AircraftConfigBC.AircraftCategoryServices;
 using UniCloud.Application.AircraftConfigBC.AircraftLicenseServices;
 using UniCloud.Application.AircraftConfigBC.AircraftSeriesServices;
+using UniCloud.Application.AircraftConfigBC.AircraftServices;
 using UniCloud.Application.AircraftConfigBC.AircraftTypeServices;
 using UniCloud.Application.AircraftConfigBC.ManufacturerServices;
 using UniCloud.Application.AircraftConfigBC.Query.ActionCategoryQueries;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftCategoryQueries;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftLicenseQueries;
+using UniCloud.Application.AircraftConfigBC.Query.AircraftQueries;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftSeriesQueries;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftTypeQueries;
 using UniCloud.Application.AircraftConfigBC.Query.ManufacturerQueries;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg;
@@ -50,6 +53,13 @@ namespace UniCloud.DistributedServices.AircraftConfig.InstanceProviders
                 .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
             #endregion
 
+            #region 实际飞机相关配置，包括查询，应用服务，仓储注册
+
+.RegisterType<IAircraftQuery, AircraftQuery>()
+                .RegisterType<IAircraftAppService, AircraftAppService>()
+                .RegisterType<IAircraftRepository, AircraftRepository>()
+            #endregion
+
             #region 飞机系列相关配置，包括查询，应用服务，仓储注册
 
 .RegisterType<IAircraftSeriesQuery, AircraftSeriesQuery>()
@@ -82,7 +92,6 @@ namespace UniCloud.DistributedServices.AircraftConfig.InstanceProviders
 
 .RegisterType<IAircraftLicenseQuery, AircraftLicenseQuery>()
                 .RegisterType<IAircraftLicenseAppService, AircraftLicenseAppService>()
-                .RegisterType<IAircraftLicenseRepository, AircraftLicenseRepository>()
                  .RegisterType<ILicenseTypeRepository, LicenseTypeRepository>()
             #endregion
 ;
