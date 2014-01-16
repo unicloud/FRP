@@ -190,14 +190,20 @@ namespace UniCloud.Presentation.Shell
             };
             var menu121 = new MenuItem
             {
-                Text = "维护飞机证照",
+                Text = "维护证照种类",
+                NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftData.ManagerLicenseType"
             };
             var menu122 = new MenuItem
+            {
+                Text = "维护飞机证照",
+            };
+            var menu123 = new MenuItem
             {
                 Text = "查询现役飞机",
             };
             menu12.Items.Add(menu121);
             menu12.Items.Add(menu122);
+            menu12.Items.Add(menu123);
             menu1.Items.Add(menu12);
 
             _items.Add(menu1);
