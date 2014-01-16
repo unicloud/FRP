@@ -179,6 +179,7 @@
                                          Height="{StaticResource ControlHeight}"
                                          ItemsSource="{Binding DataContext.AircraftSerieses, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                          SelectedValue="{Binding AircraftSeriesId, Mode=TwoWay}"
+                                         SelectedItem="{Binding DataContext.AircraftSeries,Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                          SelectedValuePath="Id"
                                          DisplayMemberPath="Name" />
                     <TextBlock Grid.Row="3"

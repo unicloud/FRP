@@ -16,6 +16,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
@@ -91,10 +92,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         /// </summary>
         public QueryableDataServiceCollectionView<ManufacturerDTO> Manufacturers { get; set; }
 
-        /// <summary>
-        /// 飞机机型
-        /// </summary>
-        public QueryableDataServiceCollectionView<AircraftSeriesDTO> AircraftSerieses { get; set; }
+
         #endregion
 
         #region 加载数据
@@ -112,7 +110,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             if (!AircraftTypes.AutoLoad)
                 AircraftTypes.AutoLoad = true;
             AircraftTypes.Load(true);
-            AircraftSerieses.AutoLoad=true;
+            AircraftSerieses.AutoLoad = true;
             Manufacturers = _service.GetManufacturers(null);
             AircraftCategories = _service.GetAircraftCategories(null);
         }
@@ -136,9 +134,13 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             get { return _aircraftType; }
             set
             {
-                if (_aircraftType != value)
+                if (value != null && _aircraftType != value)
                 {
                     _aircraftType = value;
+                    if (AircraftSerieses != null)
+                    {
+                        _aircraftSeries = AircraftSerieses.FirstOrDefault(p => p.ManufacturerId == _aircraftType.ManufacturerId);
+                    }
                     RaisePropertyChanged(() => AircraftType);
                 }
             }
@@ -160,7 +162,27 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
 
         #endregion
 
+        #region 飞机系列
+        /// <summary>
+        /// 飞机系列
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftSeriesDTO> AircraftSerieses { get; set; }
 
+        private AircraftSeriesDTO _aircraftSeries;
+        public AircraftSeriesDTO AircraftSeries
+        {
+            get { return _aircraftSeries; }
+            set
+            {
+                _aircraftSeries = value;
+                if (_aircraftSeries != null)
+                {
+                    AircraftType.ManufacturerId = _aircraftSeries.ManufacturerId;
+                }
+                RaisePropertyChanged("AircraftSeries");
+            }
+        }
+        #endregion
 
         #endregion
 
@@ -168,17 +190,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
 
         #region 操作
 
-        #region Combobox SelectedChanged
-
-        public void SelectedChanged(object comboboxSelectedItem)
-        {
-            if (comboboxSelectedItem is AircraftSeriesDTO)
-            {
-                AircraftType.ManufacturerId = (comboboxSelectedItem as AircraftSeriesDTO).ManufacturerId;
-            }
-        }
-
-        #endregion
 
         #region 重载操作
 
