@@ -17,6 +17,7 @@ using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.ManufacturerAgg;
+using UniCloud.Domain.Events;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.AircraftConfigBC.Repositories;
 using UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork;
@@ -36,6 +37,7 @@ namespace UniCloud.DistributedServices.AircraftConfig.InstanceProviders
         {
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, AircraftConfigBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                 .RegisterType<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager())
 
             #region 活动类型相关配置，包括查询，应用服务，仓储注册
 

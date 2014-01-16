@@ -31,6 +31,7 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg
         public static AircraftType CreateAircraftType()
         {
             var aircraftType = new AircraftType();
+            aircraftType.ChangeCurrentIdentity(Guid.NewGuid());
             return aircraftType;
         }
 

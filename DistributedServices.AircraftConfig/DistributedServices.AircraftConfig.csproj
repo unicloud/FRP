@@ -99,6 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AircraftConfigDataService.svc" />
+    <Content Include="clientaccesspolicy.xml" />
     <Content Include="crossdomain.xml" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
