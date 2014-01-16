@@ -50,6 +50,32 @@
         <Property Name="Note" Type="Edm.String" />
         <Property Name="Type" Type="Edm.Int32" Nullable="false" />
       </EntityType>
+      <EntityType Name="LicenseTypeDTO">
+        <Key>
+          <PropertyRef Name="LicenseTypeId" />
+        </Key>
+        <Property Name="LicenseTypeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="HasFile" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="AircraftLicenseDTO">
+        <Key>
+          <PropertyRef Name="AircraftLicenseId" />
+        </Key>
+        <Property Name="AircraftLicenseId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="IssuedUnit" Type="Edm.String" />
+        <Property Name="IssuedDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ValidMonths" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ExpireDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="State" Type="Edm.Int32" Nullable="false" />
+        <Property Name="LicenseFile" Type="Edm.Binary" />
+        <Property Name="FileName" Type="Edm.String" />
+        <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="LicenseTypeId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.AircraftConfig" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
       <EntityContainer Name="AircraftConfigData" m:IsDefaultEntityContainer="true">
@@ -58,6 +84,8 @@
         <EntitySet Name="AircraftCategories" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftCategoryDTO" />
         <EntitySet Name="AircraftTypes" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftTypeDTO" />
         <EntitySet Name="Manufacturers" EntityType="UniCloud.Application.AircraftConfigBC.DTO.ManufacturerDTO" />
+        <EntitySet Name="LicenseTypes" EntityType="UniCloud.Application.AircraftConfigBC.DTO.LicenseTypeDTO" />
+        <EntitySet Name="AircraftLicenses" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftLicenseDTO" />
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

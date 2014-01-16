@@ -5,6 +5,7 @@
 using System.Linq;
 using UniCloud.Application.AircraftConfigBC.ActionCategoryServices;
 using UniCloud.Application.AircraftConfigBC.AircraftCategoryServices;
+using UniCloud.Application.AircraftConfigBC.AircraftLicenseServices;
 using UniCloud.Application.AircraftConfigBC.AircraftSeriesServices;
 using UniCloud.Application.AircraftConfigBC.AircraftTypeServices;
 using UniCloud.Application.AircraftConfigBC.DTO;
@@ -24,7 +25,7 @@ namespace UniCloud.DistributedServices.AircraftConfig
         private readonly IAircraftCategoryAppService _aircraftCategoryAppService;
         private readonly IAircraftTypeAppService _aircraftTypeAppService;
         private readonly IManufacturerAppService _manufacturerAppService;
-
+        private readonly IAircraftLicenseAppService _aircraftLicenseAppService;
 
         public AircraftConfigData()
             : base("UniCloud.Application.AircraftConfigBC.DTO")
@@ -34,6 +35,7 @@ namespace UniCloud.DistributedServices.AircraftConfig
             _aircraftCategoryAppService = DefaultContainer.Resolve<IAircraftCategoryAppService>();
             _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
             _manufacturerAppService = DefaultContainer.Resolve<IManufacturerAppService>();
+            _aircraftLicenseAppService = DefaultContainer.Resolve<IAircraftLicenseAppService>();
         }
 
         #region 活动类型
@@ -101,6 +103,24 @@ namespace UniCloud.DistributedServices.AircraftConfig
             get { return GetStaticData("manufactoriesAircraftConfig", () => _manufacturerAppService.GetManufacturers()); }
         }
 
+        #endregion
+
+        #region 飞机证照
+        /// <summary>
+        ///     证照类型
+        /// </summary>
+        public IQueryable<LicenseTypeDTO> LicenseTypes
+        {
+            get { return _aircraftLicenseAppService.GetLicenseTypes(); }
+        }
+
+        /// <summary>
+        ///    飞机证照
+        /// </summary>
+        public IQueryable<AircraftLicenseDTO> AircraftLicenses
+        {
+            get { return _aircraftLicenseAppService.GetAircraftLicenses(); }
+        }
         #endregion
     }
 }

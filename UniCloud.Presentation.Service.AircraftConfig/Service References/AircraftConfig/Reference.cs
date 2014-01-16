@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/1/16 10:40:13
+// 生成日期: 2014/1/16 15:15:23
 namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
 {
     
@@ -146,6 +146,40 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<ManufacturerDTO> _Manufacturers;
         /// <summary>
+        /// 架构中不存在 LicenseTypes 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<LicenseTypeDTO> LicenseTypes
+        {
+            get
+            {
+                if ((this._LicenseTypes == null))
+                {
+                    this._LicenseTypes = base.CreateQuery<LicenseTypeDTO>("LicenseTypes");
+                }
+                return this._LicenseTypes;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<LicenseTypeDTO> _LicenseTypes;
+        /// <summary>
+        /// 架构中不存在 AircraftLicenses 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<AircraftLicenseDTO> AircraftLicenses
+        {
+            get
+            {
+                if ((this._AircraftLicenses == null))
+                {
+                    this._AircraftLicenses = base.CreateQuery<AircraftLicenseDTO>("AircraftLicenses");
+                }
+                return this._AircraftLicenses;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<AircraftLicenseDTO> _AircraftLicenses;
+        /// <summary>
         /// 架构中不存在 ActionCategories 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -185,6 +219,22 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
         {
             base.AddObject("Manufacturers", manufacturerDTO);
         }
+        /// <summary>
+        /// 架构中不存在 LicenseTypes 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToLicenseTypes(LicenseTypeDTO licenseTypeDTO)
+        {
+            base.AddObject("LicenseTypes", licenseTypeDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 AircraftLicenses 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToAircraftLicenses(AircraftLicenseDTO aircraftLicenseDTO)
+        {
+            base.AddObject("AircraftLicenses", aircraftLicenseDTO);
+        }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private abstract class GeneratedEdmModel
         {
@@ -216,17 +266,34 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
                 "e=\"false\" /><Property Name=\"CnName\" Type=\"Edm.String\" /><Property Name=\"EnName\" " +
                 "Type=\"Edm.String\" /><Property Name=\"CnShortName\" Type=\"Edm.String\" /><Property N" +
                 "ame=\"EnShortName\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" />" +
-                "<Property Name=\"Type\" Type=\"Edm.Int32\" Nullable=\"false\" /></EntityType></Schema>" +
-                "<Schema Namespace=\"UniCloud.DistributedServices.AircraftConfig\" xmlns=\"http://sc" +
-                "hemas.microsoft.com/ado/2006/04/edm\"><EntityContainer Name=\"AircraftConfigData\" " +
-                "m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"ActionCategories\" EntityType=" +
-                "\"UniCloud.Application.AircraftConfigBC.DTO.ActionCategoryDTO\" /><EntitySet Name=" +
-                "\"AircraftSeries\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.AircraftS" +
-                "eriesDTO\" /><EntitySet Name=\"AircraftCategories\" EntityType=\"UniCloud.Applicatio" +
-                "n.AircraftConfigBC.DTO.AircraftCategoryDTO\" /><EntitySet Name=\"AircraftTypes\" En" +
-                "tityType=\"UniCloud.Application.AircraftConfigBC.DTO.AircraftTypeDTO\" /><EntitySe" +
-                "t Name=\"Manufacturers\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.Man" +
-                "ufacturerDTO\" /></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
+                "<Property Name=\"Type\" Type=\"Edm.Int32\" Nullable=\"false\" /></EntityType><EntityTy" +
+                "pe Name=\"LicenseTypeDTO\"><Key><PropertyRef Name=\"LicenseTypeId\" /></Key><Propert" +
+                "y Name=\"LicenseTypeId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\"" +
+                " Type=\"Edm.String\" /><Property Name=\"HasFile\" Type=\"Edm.Boolean\" Nullable=\"false" +
+                "\" /><Property Name=\"Description\" Type=\"Edm.String\" /></EntityType><EntityType Na" +
+                "me=\"AircraftLicenseDTO\"><Key><PropertyRef Name=\"AircraftLicenseId\" /></Key><Prop" +
+                "erty Name=\"AircraftLicenseId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name" +
+                "=\"Name\" Type=\"Edm.String\" /><Property Name=\"Description\" Type=\"Edm.String\" /><Pr" +
+                "operty Name=\"IssuedUnit\" Type=\"Edm.String\" /><Property Name=\"IssuedDate\" Type=\"E" +
+                "dm.DateTime\" Nullable=\"false\" /><Property Name=\"ValidMonths\" Type=\"Edm.Int32\" Nu" +
+                "llable=\"false\" /><Property Name=\"ExpireDate\" Type=\"Edm.DateTime\" Nullable=\"false" +
+                "\" /><Property Name=\"State\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"L" +
+                "icenseFile\" Type=\"Edm.Binary\" /><Property Name=\"FileName\" Type=\"Edm.String\" /><P" +
+                "roperty Name=\"AircraftId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Lic" +
+                "enseTypeId\" Type=\"Edm.Int32\" Nullable=\"false\" /></EntityType></Schema><Schema Na" +
+                "mespace=\"UniCloud.DistributedServices.AircraftConfig\" xmlns=\"http://schemas.micr" +
+                "osoft.com/ado/2006/04/edm\"><EntityContainer Name=\"AircraftConfigData\" m:IsDefaul" +
+                "tEntityContainer=\"true\"><EntitySet Name=\"ActionCategories\" EntityType=\"UniCloud." +
+                "Application.AircraftConfigBC.DTO.ActionCategoryDTO\" /><EntitySet Name=\"AircraftS" +
+                "eries\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.AircraftSeriesDTO\" " +
+                "/><EntitySet Name=\"AircraftCategories\" EntityType=\"UniCloud.Application.Aircraft" +
+                "ConfigBC.DTO.AircraftCategoryDTO\" /><EntitySet Name=\"AircraftTypes\" EntityType=\"" +
+                "UniCloud.Application.AircraftConfigBC.DTO.AircraftTypeDTO\" /><EntitySet Name=\"Ma" +
+                "nufacturers\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.ManufacturerD" +
+                "TO\" /><EntitySet Name=\"LicenseTypes\" EntityType=\"UniCloud.Application.AircraftCo" +
+                "nfigBC.DTO.LicenseTypeDTO\" /><EntitySet Name=\"AircraftLicenses\" EntityType=\"UniC" +
+                "loud.Application.AircraftConfigBC.DTO.AircraftLicenseDTO\" /></EntityContainer></" +
+                "Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -947,6 +1014,443 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
         private int _Type;
         partial void OnTypeChanging(int value);
         partial void OnTypeChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.AircraftConfigBC.DTO.LicenseTypeDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// LicenseTypeId
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("LicenseTypes")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("LicenseTypeId")]
+    public partial class LicenseTypeDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 LicenseTypeDTO 对象。
+        /// </summary>
+        /// <param name="licenseTypeId">LicenseTypeId 的初始值。</param>
+        /// <param name="hasFile">HasFile 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static LicenseTypeDTO CreateLicenseTypeDTO(int licenseTypeId, bool hasFile)
+        {
+            LicenseTypeDTO licenseTypeDTO = new LicenseTypeDTO();
+            licenseTypeDTO.LicenseTypeId = licenseTypeId;
+            licenseTypeDTO.HasFile = hasFile;
+            return licenseTypeDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 LicenseTypeId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int LicenseTypeId
+        {
+            get
+            {
+                return this._LicenseTypeId;
+            }
+            set
+            {
+                this.OnLicenseTypeIdChanging(value);
+                this._LicenseTypeId = value;
+                this.OnLicenseTypeIdChanged();
+                this.OnPropertyChanged("LicenseTypeId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _LicenseTypeId;
+        partial void OnLicenseTypeIdChanging(int value);
+        partial void OnLicenseTypeIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Name 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                this.OnNameChanging(value);
+                this._Name = value;
+                this.OnNameChanged();
+                this.OnPropertyChanged("Name");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Name;
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 HasFile 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool HasFile
+        {
+            get
+            {
+                return this._HasFile;
+            }
+            set
+            {
+                this.OnHasFileChanging(value);
+                this._HasFile = value;
+                this.OnHasFileChanged();
+                this.OnPropertyChanged("HasFile");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _HasFile;
+        partial void OnHasFileChanging(bool value);
+        partial void OnHasFileChanged();
+        /// <summary>
+        /// 架构中不存在属性 Description 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Description
+        {
+            get
+            {
+                return this._Description;
+            }
+            set
+            {
+                this.OnDescriptionChanging(value);
+                this._Description = value;
+                this.OnDescriptionChanged();
+                this.OnPropertyChanged("Description");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Description;
+        partial void OnDescriptionChanging(string value);
+        partial void OnDescriptionChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.AircraftConfigBC.DTO.AircraftLicenseDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// AircraftLicenseId
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("AircraftLicenses")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("AircraftLicenseId")]
+    public partial class AircraftLicenseDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 AircraftLicenseDTO 对象。
+        /// </summary>
+        /// <param name="aircraftLicenseId">AircraftLicenseId 的初始值。</param>
+        /// <param name="issuedDate">IssuedDate 的初始值。</param>
+        /// <param name="validMonths">ValidMonths 的初始值。</param>
+        /// <param name="expireDate">ExpireDate 的初始值。</param>
+        /// <param name="state">State 的初始值。</param>
+        /// <param name="aircraftId">AircraftId 的初始值。</param>
+        /// <param name="licenseTypeId">LicenseTypeId 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static AircraftLicenseDTO CreateAircraftLicenseDTO(int aircraftLicenseId, global::System.DateTime issuedDate, int validMonths, global::System.DateTime expireDate, int state, global::System.Guid aircraftId, int licenseTypeId)
+        {
+            AircraftLicenseDTO aircraftLicenseDTO = new AircraftLicenseDTO();
+            aircraftLicenseDTO.AircraftLicenseId = aircraftLicenseId;
+            aircraftLicenseDTO.IssuedDate = issuedDate;
+            aircraftLicenseDTO.ValidMonths = validMonths;
+            aircraftLicenseDTO.ExpireDate = expireDate;
+            aircraftLicenseDTO.State = state;
+            aircraftLicenseDTO.AircraftId = aircraftId;
+            aircraftLicenseDTO.LicenseTypeId = licenseTypeId;
+            return aircraftLicenseDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 AircraftLicenseId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int AircraftLicenseId
+        {
+            get
+            {
+                return this._AircraftLicenseId;
+            }
+            set
+            {
+                this.OnAircraftLicenseIdChanging(value);
+                this._AircraftLicenseId = value;
+                this.OnAircraftLicenseIdChanged();
+                this.OnPropertyChanged("AircraftLicenseId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _AircraftLicenseId;
+        partial void OnAircraftLicenseIdChanging(int value);
+        partial void OnAircraftLicenseIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Name 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                this.OnNameChanging(value);
+                this._Name = value;
+                this.OnNameChanged();
+                this.OnPropertyChanged("Name");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Name;
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Description 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Description
+        {
+            get
+            {
+                return this._Description;
+            }
+            set
+            {
+                this.OnDescriptionChanging(value);
+                this._Description = value;
+                this.OnDescriptionChanged();
+                this.OnPropertyChanged("Description");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Description;
+        partial void OnDescriptionChanging(string value);
+        partial void OnDescriptionChanged();
+        /// <summary>
+        /// 架构中不存在属性 IssuedUnit 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string IssuedUnit
+        {
+            get
+            {
+                return this._IssuedUnit;
+            }
+            set
+            {
+                this.OnIssuedUnitChanging(value);
+                this._IssuedUnit = value;
+                this.OnIssuedUnitChanged();
+                this.OnPropertyChanged("IssuedUnit");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _IssuedUnit;
+        partial void OnIssuedUnitChanging(string value);
+        partial void OnIssuedUnitChanged();
+        /// <summary>
+        /// 架构中不存在属性 IssuedDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime IssuedDate
+        {
+            get
+            {
+                return this._IssuedDate;
+            }
+            set
+            {
+                this.OnIssuedDateChanging(value);
+                this._IssuedDate = value;
+                this.OnIssuedDateChanged();
+                this.OnPropertyChanged("IssuedDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _IssuedDate;
+        partial void OnIssuedDateChanging(global::System.DateTime value);
+        partial void OnIssuedDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 ValidMonths 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int ValidMonths
+        {
+            get
+            {
+                return this._ValidMonths;
+            }
+            set
+            {
+                this.OnValidMonthsChanging(value);
+                this._ValidMonths = value;
+                this.OnValidMonthsChanged();
+                this.OnPropertyChanged("ValidMonths");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _ValidMonths;
+        partial void OnValidMonthsChanging(int value);
+        partial void OnValidMonthsChanged();
+        /// <summary>
+        /// 架构中不存在属性 ExpireDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.DateTime ExpireDate
+        {
+            get
+            {
+                return this._ExpireDate;
+            }
+            set
+            {
+                this.OnExpireDateChanging(value);
+                this._ExpireDate = value;
+                this.OnExpireDateChanged();
+                this.OnPropertyChanged("ExpireDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.DateTime _ExpireDate;
+        partial void OnExpireDateChanging(global::System.DateTime value);
+        partial void OnExpireDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 State 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int State
+        {
+            get
+            {
+                return this._State;
+            }
+            set
+            {
+                this.OnStateChanging(value);
+                this._State = value;
+                this.OnStateChanged();
+                this.OnPropertyChanged("State");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _State;
+        partial void OnStateChanging(int value);
+        partial void OnStateChanged();
+        /// <summary>
+        /// 架构中不存在属性 LicenseFile 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public byte[] LicenseFile
+        {
+            get
+            {
+                if ((this._LicenseFile != null))
+                {
+                    return ((byte[])(this._LicenseFile.Clone()));
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                this.OnLicenseFileChanging(value);
+                this._LicenseFile = value;
+                this.OnLicenseFileChanged();
+                this.OnPropertyChanged("LicenseFile");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private byte[] _LicenseFile;
+        partial void OnLicenseFileChanging(byte[] value);
+        partial void OnLicenseFileChanged();
+        /// <summary>
+        /// 架构中不存在属性 FileName 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string FileName
+        {
+            get
+            {
+                return this._FileName;
+            }
+            set
+            {
+                this.OnFileNameChanging(value);
+                this._FileName = value;
+                this.OnFileNameChanged();
+                this.OnPropertyChanged("FileName");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _FileName;
+        partial void OnFileNameChanging(string value);
+        partial void OnFileNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 AircraftId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid AircraftId
+        {
+            get
+            {
+                return this._AircraftId;
+            }
+            set
+            {
+                this.OnAircraftIdChanging(value);
+                this._AircraftId = value;
+                this.OnAircraftIdChanged();
+                this.OnPropertyChanged("AircraftId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _AircraftId;
+        partial void OnAircraftIdChanging(global::System.Guid value);
+        partial void OnAircraftIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 LicenseTypeId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int LicenseTypeId
+        {
+            get
+            {
+                return this._LicenseTypeId;
+            }
+            set
+            {
+                this.OnLicenseTypeIdChanging(value);
+                this._LicenseTypeId = value;
+                this.OnLicenseTypeIdChanged();
+                this.OnPropertyChanged("LicenseTypeId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _LicenseTypeId;
+        partial void OnLicenseTypeIdChanging(int value);
+        partial void OnLicenseTypeIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

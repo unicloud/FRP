@@ -4,18 +4,22 @@
 
 using UniCloud.Application.AircraftConfigBC.ActionCategoryServices;
 using UniCloud.Application.AircraftConfigBC.AircraftCategoryServices;
+using UniCloud.Application.AircraftConfigBC.AircraftLicenseServices;
 using UniCloud.Application.AircraftConfigBC.AircraftSeriesServices;
 using UniCloud.Application.AircraftConfigBC.AircraftTypeServices;
 using UniCloud.Application.AircraftConfigBC.ManufacturerServices;
 using UniCloud.Application.AircraftConfigBC.Query.ActionCategoryQueries;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftCategoryQueries;
+using UniCloud.Application.AircraftConfigBC.Query.AircraftLicenseQueries;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftSeriesQueries;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftTypeQueries;
 using UniCloud.Application.AircraftConfigBC.Query.ManufacturerQueries;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.LicenseTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.ManufacturerAgg;
 using UniCloud.Domain.Events;
 using UniCloud.Infrastructure.Data;
@@ -74,6 +78,13 @@ namespace UniCloud.DistributedServices.AircraftConfig.InstanceProviders
                 .RegisterType<IManufacturerRepository, ManufacturerRepository>()
             #endregion
 
+            #region 飞机证照相关配置，包括查询，应用服务，仓储注册
+
+.RegisterType<IAircraftLicenseQuery, AircraftLicenseQuery>()
+                .RegisterType<IAircraftLicenseAppService, AircraftLicenseAppService>()
+                .RegisterType<IAircraftLicenseRepository, AircraftLicenseRepository>()
+                 .RegisterType<ILicenseTypeRepository, LicenseTypeRepository>()
+            #endregion
 ;
         }
 
