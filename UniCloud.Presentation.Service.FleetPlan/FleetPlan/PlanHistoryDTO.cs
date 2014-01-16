@@ -15,7 +15,9 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Net;
 using System.Windows;
 using System.Windows.Controls;
@@ -33,6 +35,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
     public partial class PlanHistoryDTO
     {
+        static readonly FleetPlanService FleetPlanService = new FleetPlanService();
+
         #region 属性
 
         #region 控制只读属性
@@ -247,13 +251,68 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         #endregion
 
         #region 属性绑定
+        /// <summary>
+        /// 座级集合，用于属性绑定
+        /// </summary>
+        public IEnumerable<AircraftCategoryDTO> AircraftCategories
+        {
+            get { return FleetPlanService.GetAircraftCategories(null); }
 
+        }
+
+        /// <summary>
+        /// 机型集合，用于属性绑定
+        /// </summary>
+        public IEnumerable<AircraftTypeDTO> AircraftTypes
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 操作集合，用于属性绑定
+        /// </summary>
+        public IEnumerable<ActionCategoryDTO> ActionCategories
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 计划历史比较状态
+        /// </summary>
+        public PlanHistoryCompareStatus PlanHistoryCompareStatus
+        { get; set; }
         #endregion
 
         #endregion
 
         #region 方法
 
+        partial void OnPlanTypeChanged()
+        {
+            if (PlanType == 1)
+                ActionCategories = FleetPlanService.GetActionCategories(null).Where(p => p.ActionType != "变更");
+            else if (PlanType == 2)
+                ActionCategories = FleetPlanService.GetActionCategories(null).Where(p => p.ActionType == "变更");
+            else ActionCategories = FleetPlanService.GetActionCategories(null);
+        }
+
+        partial void OnActionCategoryIdChanged()
+        {
+            TargetCategoryId = ActionCategoryId;
+        }
+
+        partial void OnRegionalChanged()
+        {
+            if (Regional != null)
+                AircraftTypes = FleetPlanService.GetAircraftTypes(null).Where(p => p.Regional == Regional);
+            else AircraftTypes = FleetPlanService.GetAircraftTypes(null);
+        }
+
+        public PlanHistoryDTO Clone()
+        {
+            return MemberwiseClone() as PlanHistoryDTO;
+        }
         #endregion
     }
 }

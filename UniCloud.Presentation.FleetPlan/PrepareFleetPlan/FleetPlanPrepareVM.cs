@@ -177,7 +177,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 {
                     _selAnnual = value;
                     ViewPlans.Clear();
-                    foreach (var plan in AllPlans.ToList())
+                    foreach (var plan in AllPlans.SourceCollection.Cast<PlanDTO>().ToList())
                     {
                         if (plan.Year == value.Year)
                             ViewPlans.Add(plan);
@@ -301,7 +301,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             _curAnnual.IsOpen = false;
 
             //刷新_service中的静态属性CurrentAnnual
-            _curAnnual = Annuals.SingleOrDefault(p => p.IsOpen);
+            _curAnnual = Annuals.SourceCollection.Cast<AnnualDTO>().SingleOrDefault(p => p.IsOpen);
 
             //创建新年度的第一版本计划
             AllPlans.AddNew(_service.CreateNewYearPlan(lastPlan, newAnnual.Id, newAnnual.Year, _curAirlines));

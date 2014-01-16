@@ -75,6 +75,11 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public string AircraftTypeName { get; set; }
 
         /// <summary>
+        /// 座级
+        /// </summary>
+        public string Regional { get; set; }
+
+        /// <summary>
         /// 活动类型
         /// </summary>
         public string ActionType { get; set; }
@@ -138,6 +143,11 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public Guid PerformAnnualId { get; set; }
 
+        /// <summary>
+        /// 申请明细Id
+        /// </summary>
+        public Guid? ApprovalHistoryId { get; set; }
+
         #endregion
 
         #region 外加属性,用于处理运营计划\变更计划
@@ -150,6 +160,12 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// 关联的Guid，运营计划时，记录OperationHistoryID，变更计划时记录为AircraftBusinessID
         /// </summary>
         public Guid? RelatedGuid { get; set; }
+
+        /// <summary>
+        ///  关联的运营计划历史或商业数据历史的开始日期
+        ///  用于分析当前年度计划执行情况
+        /// </summary>
+        public DateTime? RelatedStartDate { get; set; }
 
         /// <summary>
         ///  关联的运营计划历史或商业数据历史的结束日期

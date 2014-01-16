@@ -100,7 +100,7 @@
                                                ToolTipService.ToolTip="审核" />
                                     </telerik:RadButton>
                                 </telerik:RadToolBar>
-                                <telerik:RadGridView x:Name="编制计划"
+                                <telerik:RadGridView x:Name="PlanLay"
                                                      Grid.Row="1"
                                                      AutoExpandGroups="True"
                                                      ShowGroupPanel="False"
@@ -119,6 +119,10 @@
                                         <i:EventTrigger EventName="SelectionChanged">
                                             <ei:CallMethodAction TargetObject="{Binding}"
                                                                  MethodName="GridViewSelectionChanged" />
+                                        </i:EventTrigger>
+                                        <i:EventTrigger EventName="CellEditEnded">
+                                            <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"
+                                                                   CommandParameter="{Binding ElementName=PlanLay}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                     <telerik:GridViewDragDrop.Behavior>
@@ -144,16 +148,17 @@
                                                                         FilterMemberPath="ActionCategoryOperation"
                                                                         DataMemberBinding="{Binding ActionCategoryId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"
-                                                                        EditorStyle="{StaticResource EditComboBox}" 
-                                                                        UniqueName="ActionType"/>
-                                        <!--<telerik:GridViewComboBoxColumn Header="座级"
+                                                                        EditorStyle="{StaticResource EditComboBox}"
+                                                                        UniqueName="ActionType" />
+                                        <telerik:GridViewComboBoxColumn Header="座级"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         FilterMemberPath="Regional"
                                                                         ItemsSourceBinding="{Binding  DataContext.AircraftCategories,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
-                                                                        DataMemberBinding="{Binding AircraftTypeId,Mode=TwoWay}"
+                                                                        DataMemberBinding="{Binding Regional,Mode=TwoWay}"
                                                                         DisplayMemberPath="Regional"
-                                                                        SelectedValueMemberPath="Id"
-                                                                        EditorStyle="{StaticResource EditComboBox}" />-->
+                                                                        SelectedValueMemberPath="Regional"
+                                                                        EditorStyle="{StaticResource EditComboBox}" 
+                                                                        UniqueName="Regional"/>
                                         <telerik:GridViewComboBoxColumn Header="机型"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         ItemsSourceBinding="{Binding DataContext.AircraftTypes,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
@@ -161,11 +166,11 @@
                                                                         FilterMemberPath="Name"
                                                                         DataMemberBinding="{Binding AircraftTypeId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"
-                                                                        EditorStyle="{StaticResource EditComboBox}" />
+                                                                        EditorStyle="{StaticResource EditComboBox}" 
+                                                                        UniqueName="AircraftType"/>
                                         <telerik:GridViewDataColumn Header="机号"
                                                                     IsReadOnly="True"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                     />
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}" />
                                         <telerik:GridViewComboBoxColumn Header="执行年度"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         ItemsSourceBinding="{Binding DataContext.Annuals,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
@@ -180,7 +185,7 @@
                                                                         DataMemberBinding="{Binding PerformMonth,Mode=TwoWay}"
                                                                         EditorStyle="{StaticResource EditComboBox}" />
                                         <telerik:GridViewComboBoxColumn Header="航空公司"
-                                                                         DataMemberBinding="{Binding AirlinesName}"/>
+                                                                        DataMemberBinding="{Binding AirlinesName}" />
                                         <telerik:GridViewDataColumn Header="净增座位"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding SeatingCapacity}" />
@@ -282,10 +287,15 @@
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding Regional}">
                                         </telerik:GridViewDataColumn>
-                                        <telerik:GridViewDataColumn Header="机型"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding AircraftTypeName}">
-                                        </telerik:GridViewDataColumn>
+                                        <telerik:GridViewComboBoxColumn Header="机型"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSourceBinding="{Binding DataContext.AircraftTypes,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                        DisplayMemberPath="Name"
+                                                                        FilterMemberPath="Name"
+                                                                        DataMemberBinding="{Binding AircraftTypeId,Mode=TwoWay}"
+                                                                        SelectedValueMemberPath="Id"
+                                                                        EditorStyle="{StaticResource EditComboBox}"
+                                                                        UniqueName="AircraftType" />
                                         <telerik:GridViewDataColumn Header="管理状态"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     DataMemberBinding="{Binding ManaStatus}" />
@@ -352,7 +362,7 @@
                                                            HorizontalAlignment="Center"
                                                            Margin="3,0" />
                                                 <TextBlock Text="出厂:"
-                                                           HorizontalAlignment="Center"/>
+                                                           HorizontalAlignment="Center" />
                                                 <TextBlock Text="{Binding FactoryDate, StringFormat={StaticResource DateStringFormat}}"
                                                            HorizontalAlignment="Center"
                                                            Margin="3,0" />

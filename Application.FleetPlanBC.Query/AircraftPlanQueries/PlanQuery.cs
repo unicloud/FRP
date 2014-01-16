@@ -78,10 +78,12 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                                     TargetType = q.TargetCategory.ActionName,
                                     AircraftTypeId = q.AircraftTypeId,
                                     AircraftTypeName = q.AircraftType.Name,
+                                    Regional = q.AircraftType.AircraftCategory.Regional,
                                     AirlinesId = q.AirlinesId,
                                     AirlinesName = q.Airlines.CnShortName,
                                     NeedRequest = q.ActionCategory.NeedRequest,
                                     Year = q.PerformAnnual.Year,
+                                    ApprovalHistoryId = q.ApprovalHistoryId,
 
                                     PlanAircraftId = q.PlanAircraftId,
                                     AircraftId = q.PlanAircraft.AircraftId,
@@ -94,6 +96,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                                     RelatedStatus = q.OperationHistory == null ? 0 : (int)q.OperationHistory.Status,
                                     PlanId = q.PlanId,
                                     PlanType = 1,//1表示运营计划
+                                    RelatedStartDate=q.OperationHistory.StartDate,
                                     
                                 })
                                 .Union(p.PlanHistories.OfType<ChangePlan>().Select(q => new PlanHistoryDTO
@@ -113,10 +116,12 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                                     TargetType = q.TargetCategory.ActionName,
                                     AircraftTypeId = q.AircraftTypeId,
                                     AircraftTypeName = q.AircraftType.Name,
+                                    Regional = q.AircraftType.AircraftCategory.Regional,
                                     AirlinesId = q.AirlinesId,
                                     AirlinesName = q.Airlines.CnShortName,
                                     NeedRequest = q.ActionCategory.NeedRequest,
                                     Year = q.PerformAnnual.Year,
+                                    ApprovalHistoryId = q.ApprovalHistoryId,
 
                                     PlanAircraftId = q.PlanAircraftId,
                                     AircraftId = q.PlanAircraft.AircraftId,
@@ -129,6 +134,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                                     RelatedStatus = q.AircraftBusiness == null ? 0 : (int)q.AircraftBusiness.Status,
                                     PlanId = q.PlanId,
                                     PlanType = 2,//2表示变更计划
+                                    RelatedStartDate = q.AircraftBusiness.StartDate,
                                 })
                                 ).ToList(),
             });

@@ -136,7 +136,6 @@
         <Property Name="ExportNum" Type="Edm.Int32" Nullable="false" />
         <Property Name="LeaseNum" Type="Edm.Int32" Nullable="false" />
         <Property Name="AircraftSeriesId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="AircraftCategoryId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AirProgrammingId" Type="Edm.Guid" Nullable="false" />
       </ComplexType>
       <EntityType Name="AnnualDTO">
@@ -343,6 +342,7 @@
         <Property Name="Note" Type="Edm.String" />
         <Property Name="AirlinesName" Type="Edm.String" />
         <Property Name="AircraftTypeName" Type="Edm.String" />
+        <Property Name="Regional" Type="Edm.String" />
         <Property Name="ActionType" Type="Edm.String" />
         <Property Name="ActionName" Type="Edm.String" />
         <Property Name="TargetType" Type="Edm.String" />
@@ -355,8 +355,10 @@
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
         <Property Name="PerformAnnualId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ApprovalHistoryId" Type="Edm.Guid" />
         <Property Name="PlanType" Type="Edm.Int32" Nullable="false" />
         <Property Name="RelatedGuid" Type="Edm.Guid" />
+        <Property Name="RelatedStartDate" Type="Edm.DateTime" />
         <Property Name="RelatedEndDate" Type="Edm.DateTime" />
         <Property Name="RelatedStatus" Type="Edm.Int32" Nullable="false" />
         <Property Name="ManageStatus" Type="Edm.Int32" Nullable="false" />

@@ -224,6 +224,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 planHistory.SetPerformDate(annual, planHistoryDto.PerformMonth);
                 planHistory.SetPlanAircraft(planHistoryDto.PlanAircraftId);
                 planHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
+                planHistory.SetApprovalHistory(planHistoryDto.ApprovalHistoryId);
                 var operationPlan = planHistory as OperationPlan;
                 if (operationPlan != null)
                     operationPlan.SetOperationHistory(operationHistory);
@@ -238,6 +239,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 planHistory.SetPerformDate(annual, planHistoryDto.PerformMonth);
                 planHistory.SetPlanAircraft(planHistoryDto.PlanAircraftId);
                 planHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
+                planHistory.SetApprovalHistory(planHistoryDto.ApprovalHistoryId);
                 var changePlan = planHistory as ChangePlan;
                 if (changePlan != null)
                     changePlan.SetAircraftBusiness(aircraftBusiness);
