@@ -3,11 +3,11 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2014/1/15 14:35:47
-// 文件名：AircraftSeriesVm
+// 作者：linxw 时间：2014/1/15 17:32:57
+// 文件名：ManagerAircraftTypeVm
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2014/1/15 14:35:47
+// 修改者：linxw 时间：2014/1/15 17:32:57
 // 修改说明：
 // ========================================================================*/
 #endregion
@@ -26,9 +26,9 @@ using UniCloud.Presentation.Service.AircraftConfig.AircraftConfig;
 
 namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
 {
-    [Export(typeof(ManagerAircraftSeriesVm))]
+    [Export(typeof(ManagerAircraftTypeVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class ManagerAircraftSeriesVm : EditViewModelBase
+    public class ManagerAircraftTypeVm : EditViewModelBase
     {
         #region 声明、初始化
 
@@ -37,7 +37,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         private readonly IAircraftConfigService _service;
 
         [ImportingConstructor]
-        public ManagerAircraftSeriesVm(IRegionManager regionManager, IAircraftConfigService service)
+        public ManagerAircraftTypeVm(IRegionManager regionManager, IAircraftConfigService service)
             : base(service)
         {
             _regionManager = regionManager;
@@ -45,7 +45,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             _context = _service.Context;
             InitializeVm();
             _service.GetManufacturers(null);
-
+            _service.GetAircraftCategories(null);
         }
 
         /// <summary>
@@ -57,24 +57,24 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         private void InitializeVm()
         {
             //创建并注册CollectionView
-           AircraftSerieses = _service.CreateCollection(_context.AircraftSeries);
-            _service.RegisterCollectionView(AircraftSerieses);
-            AircraftSerieses.PropertyChanged += (sender, e) =>
+            AircraftTypes = _service.CreateCollection(_context.AircraftTypes);
+            _service.RegisterCollectionView(AircraftTypes);
+            AircraftTypes.PropertyChanged += (sender, e) =>
             {
                 if (e.PropertyName == "IsAddingNew")
                 {
-                    var newItem = AircraftSerieses.CurrentAddItem as AircraftSeriesDTO;
+                    var newItem = AircraftTypes.CurrentAddItem as AircraftTypeDTO;
                     if (newItem != null)
                     {
-                        newItem.Id = Guid.NewGuid();
+                        newItem.AircraftTypeId = Guid.NewGuid();
                     }
                 }
                 else if (e.PropertyName == "HasChanges")
                 {
-                    CanSelectAircraftSeries = !AircraftSerieses.HasChanges;
+                    CanSelectAircraftType = !AircraftTypes.HasChanges;
                 }
             };
-
+            AircraftSerieses = _service.CreateCollection(_context.AircraftSeries);
         }
 
         #endregion
@@ -83,9 +83,18 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
 
         #region 公共属性
         /// <summary>
+        /// 座级
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftCategoryDTO> AircraftCategories { get; set; }
+        /// <summary>
         /// 制造商
         /// </summary>
         public QueryableDataServiceCollectionView<ManufacturerDTO> Manufacturers { get; set; }
+
+        /// <summary>
+        /// 飞机机型
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftSeriesDTO> AircraftSerieses { get; set; }
         #endregion
 
         #region 加载数据
@@ -100,49 +109,51 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         public override void LoadData()
         {
             //// 将CollectionView的AutoLoad属性设为True
-            if (!AircraftSerieses.AutoLoad)
-                AircraftSerieses.AutoLoad = true;
-            AircraftSerieses.Load(true);
+            if (!AircraftTypes.AutoLoad)
+                AircraftTypes.AutoLoad = true;
+            AircraftTypes.Load(true);
+            AircraftSerieses.AutoLoad=true;
             Manufacturers = _service.GetManufacturers(null);
+            AircraftCategories = _service.GetAircraftCategories(null);
         }
 
-        #region 系列
+        #region 机型
 
-        private AircraftSeriesDTO _aircraftSeries;
+        private AircraftTypeDTO _aircraftType;
 
-        private bool _canSelectAircraftSeries = true;
-
-        /// <summary>
-        ///     系列集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<AircraftSeriesDTO> AircraftSerieses { get; set; }
+        private bool _canSelectAircraftType = true;
 
         /// <summary>
-        ///     选中的系列
+        ///     机型集合
         /// </summary>
-        public AircraftSeriesDTO AircraftSeries
+        public QueryableDataServiceCollectionView<AircraftTypeDTO> AircraftTypes { get; set; }
+
+        /// <summary>
+        ///     选中的机型
+        /// </summary>
+        public AircraftTypeDTO AircraftType
         {
-            get { return _aircraftSeries; }
+            get { return _aircraftType; }
             set
             {
-                if (_aircraftSeries != value)
+                if (_aircraftType != value)
                 {
-                    _aircraftSeries = value;
-                    RaisePropertyChanged(() => AircraftSeries);
+                    _aircraftType = value;
+                    RaisePropertyChanged(() => AircraftType);
                 }
             }
         }
 
         //用户能否选择
-        public bool CanSelectAircraftSeries
+        public bool CanSelectAircraftType
         {
-            get { return _canSelectAircraftSeries; }
+            get { return _canSelectAircraftType; }
             set
             {
-                if (_canSelectAircraftSeries != value)
+                if (_canSelectAircraftType != value)
                 {
-                    _canSelectAircraftSeries = value;
-                    RaisePropertyChanged(() => CanSelectAircraftSeries);
+                    _canSelectAircraftType = value;
+                    RaisePropertyChanged(() => CanSelectAircraftType);
                 }
             }
         }
@@ -157,6 +168,17 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
 
         #region 操作
 
+        #region Combobox SelectedChanged
+
+        public void SelectedChanged(object comboboxSelectedItem)
+        {
+            if (comboboxSelectedItem is AircraftSeriesDTO)
+            {
+                AircraftType.ManufacturerId = (comboboxSelectedItem as AircraftSeriesDTO).ManufacturerId;
+            }
+        }
+
+        #endregion
 
         #region 重载操作
 

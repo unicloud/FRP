@@ -29,12 +29,14 @@
       </EntityType>
       <EntityType Name="AircraftTypeDTO">
         <Key>
-          <PropertyRef Name="Id" />
+          <PropertyRef Name="AircraftTypeId" />
         </Key>
-        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
         <Property Name="Name" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
         <Property Name="AircraftCategoryId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="Regional" Type="Edm.String" />
+        <Property Name="AircraftSeriesId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ManufacturerId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
       <EntityType Name="ManufacturerDTO">
         <Key>

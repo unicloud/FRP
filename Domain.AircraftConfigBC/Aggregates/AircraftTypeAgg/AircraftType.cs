@@ -48,12 +48,12 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg
         /// <summary>
         ///     机型名称
         /// </summary>
-        public string Name { get; protected set; }
+        public string Name { get; internal set; }
 
         /// <summary>
         ///     备注
         /// </summary>
-        public string Description { get; protected set; }
+        public string Description { get; internal set; }
 
         #endregion
 
@@ -62,17 +62,17 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg
         /// <summary>
         ///     系列
         /// </summary>
-        public Guid AircraftSeriesId { get; protected set; }
+        public Guid AircraftSeriesId { get; internal set; }
 
         /// <summary>
         ///     飞机座级
         /// </summary>
-        public Guid AircraftCategoryId { get; protected set; }
+        public Guid AircraftCategoryId { get; internal set; }
 
         /// <summary>
         /// 制造商
         /// </summary>
-        public Guid ManufacturerId { get; protected set; }
+        public Guid ManufacturerId { get; internal set; }
         #endregion
 
         #region 导航属性

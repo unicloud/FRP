@@ -46,12 +46,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftSeriesAgg
         /// <summary>
         /// 系列
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; internal set; }
 
         /// <summary>
         /// 描述
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; internal set; }
 
         /// <summary>
         /// 章节
@@ -69,7 +69,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftSeriesAgg
         /// <summary>
         /// 制造商外键
         /// </summary>
-        public Guid ManufacturerId { get; set; }
+        public Guid ManufacturerId { get; internal set; }
 
         #endregion
 

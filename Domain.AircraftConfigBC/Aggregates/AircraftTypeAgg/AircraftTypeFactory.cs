@@ -15,6 +15,8 @@
 
 #endregion
 
+using System;
+
 namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg
 {
     /// <summary>
@@ -22,5 +24,32 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg
     /// </summary>
     public static class AircraftTypeFactory
     {
+        /// <summary>
+        /// 新建机型
+        /// </summary>
+        /// <returns></returns>
+        public static AircraftType CreateAircraftType()
+        {
+            var aircraftType = new AircraftType();
+            return aircraftType;
+        }
+
+        /// <summary>
+        /// 设置机型属性
+        /// </summary>
+        /// <param name="aircraftType">当前机型</param>
+        /// <param name="name">机型名称</param>
+        /// <param name="description">描述</param>
+        /// <param name="aircraftSeriesId">飞机系列</param>
+        /// <param name="manufacturerId">制造商</param>
+        /// <param name="aircraftCategoryId">座级</param>
+        public static void SetAircraftType(AircraftType aircraftType, string name, string description, Guid aircraftCategoryId, Guid aircraftSeriesId, Guid manufacturerId)
+        {
+            aircraftType.Name = name;
+            aircraftType.Description = description;
+            aircraftType.AircraftCategoryId = aircraftCategoryId;
+            aircraftType.AircraftSeriesId = aircraftSeriesId;
+            aircraftType.ManufacturerId = manufacturerId;
+        }
     }
 }

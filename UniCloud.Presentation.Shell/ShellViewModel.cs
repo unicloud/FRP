@@ -173,6 +173,7 @@ namespace UniCloud.Presentation.Shell
             var menu112 = new MenuItem
             {
                 Text = "维护飞机型号",
+                NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig.ManagerAircraftType"
             };
             var menu113 = new MenuItem
             {

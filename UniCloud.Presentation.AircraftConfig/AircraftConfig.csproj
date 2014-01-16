@@ -152,6 +152,10 @@
       <DependentUpon>ManagerAircraftSeries.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManagerAircraftConfig\ManagerAircraftSeriesVm.cs" />
+    <Compile Include="ManagerAircraftConfig\ManagerAircraftType.xaml.cs">
+      <DependentUpon>ManagerAircraftType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerAircraftConfig\ManagerAircraftTypeVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +181,10 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="ManagerAircraftConfig\ManagerAircraftSeries.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManagerAircraftConfig\ManagerAircraftType.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/1/15 14:59:42
+// 生成日期: 2014/1/15 17:33:12
 namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
 {
     
@@ -206,25 +206,27 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
                 "e Name=\"AircraftCategoryDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=" +
                 "\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Category\" Type=\"Edm.Stri" +
                 "ng\" /><Property Name=\"Regional\" Type=\"Edm.String\" /></EntityType><EntityType Nam" +
-                "e=\"AircraftTypeDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type" +
-                "=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Proper" +
-                "ty Name=\"AircraftCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"" +
-                "Regional\" Type=\"Edm.String\" /></EntityType><EntityType Name=\"ManufacturerDTO\"><K" +
-                "ey><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"" +
-                "false\" /><Property Name=\"CnName\" Type=\"Edm.String\" /><Property Name=\"EnName\" Typ" +
-                "e=\"Edm.String\" /><Property Name=\"CnShortName\" Type=\"Edm.String\" /><Property Name" +
-                "=\"EnShortName\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Pr" +
-                "operty Name=\"Type\" Type=\"Edm.Int32\" Nullable=\"false\" /></EntityType></Schema><Sc" +
-                "hema Namespace=\"UniCloud.DistributedServices.AircraftConfig\" xmlns=\"http://schem" +
-                "as.microsoft.com/ado/2006/04/edm\"><EntityContainer Name=\"AircraftConfigData\" m:I" +
-                "sDefaultEntityContainer=\"true\"><EntitySet Name=\"ActionCategories\" EntityType=\"Un" +
-                "iCloud.Application.AircraftConfigBC.DTO.ActionCategoryDTO\" /><EntitySet Name=\"Ai" +
-                "rcraftSeries\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.AircraftSeri" +
-                "esDTO\" /><EntitySet Name=\"AircraftCategories\" EntityType=\"UniCloud.Application.A" +
-                "ircraftConfigBC.DTO.AircraftCategoryDTO\" /><EntitySet Name=\"AircraftTypes\" Entit" +
-                "yType=\"UniCloud.Application.AircraftConfigBC.DTO.AircraftTypeDTO\" /><EntitySet N" +
-                "ame=\"Manufacturers\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.Manufa" +
-                "cturerDTO\" /></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
+                "e=\"AircraftTypeDTO\"><Key><PropertyRef Name=\"AircraftTypeId\" /></Key><Property Na" +
+                "me=\"AircraftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Name\" Typ" +
+                "e=\"Edm.String\" /><Property Name=\"Description\" Type=\"Edm.String\" /><Property Name" +
+                "=\"AircraftCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Aircraf" +
+                "tSeriesId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ManufacturerId\" Ty" +
+                "pe=\"Edm.Guid\" Nullable=\"false\" /></EntityType><EntityType Name=\"ManufacturerDTO\"" +
+                "><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullabl" +
+                "e=\"false\" /><Property Name=\"CnName\" Type=\"Edm.String\" /><Property Name=\"EnName\" " +
+                "Type=\"Edm.String\" /><Property Name=\"CnShortName\" Type=\"Edm.String\" /><Property N" +
+                "ame=\"EnShortName\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" />" +
+                "<Property Name=\"Type\" Type=\"Edm.Int32\" Nullable=\"false\" /></EntityType></Schema>" +
+                "<Schema Namespace=\"UniCloud.DistributedServices.AircraftConfig\" xmlns=\"http://sc" +
+                "hemas.microsoft.com/ado/2006/04/edm\"><EntityContainer Name=\"AircraftConfigData\" " +
+                "m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"ActionCategories\" EntityType=" +
+                "\"UniCloud.Application.AircraftConfigBC.DTO.ActionCategoryDTO\" /><EntitySet Name=" +
+                "\"AircraftSeries\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.AircraftS" +
+                "eriesDTO\" /><EntitySet Name=\"AircraftCategories\" EntityType=\"UniCloud.Applicatio" +
+                "n.AircraftConfigBC.DTO.AircraftCategoryDTO\" /><EntitySet Name=\"AircraftTypes\" En" +
+                "tityType=\"UniCloud.Application.AircraftConfigBC.DTO.AircraftTypeDTO\" /><EntitySe" +
+                "t Name=\"Manufacturers\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.Man" +
+                "ufacturerDTO\" /></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -602,47 +604,51 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
     /// 架构中不存在 UniCloud.Application.AircraftConfigBC.DTO.AircraftTypeDTO 的注释。
     /// </summary>
     /// <KeyProperties>
-    /// Id
+    /// AircraftTypeId
     /// </KeyProperties>
     [global::System.Data.Services.Common.EntitySetAttribute("AircraftTypes")]
-    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("AircraftTypeId")]
     public partial class AircraftTypeDTO : global::System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
         /// 创建新的 AircraftTypeDTO 对象。
         /// </summary>
-        /// <param name="ID">Id 的初始值。</param>
+        /// <param name="aircraftTypeId">AircraftTypeId 的初始值。</param>
         /// <param name="aircraftCategoryId">AircraftCategoryId 的初始值。</param>
+        /// <param name="aircraftSeriesId">AircraftSeriesId 的初始值。</param>
+        /// <param name="manufacturerId">ManufacturerId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static AircraftTypeDTO CreateAircraftTypeDTO(global::System.Guid ID, global::System.Guid aircraftCategoryId)
+        public static AircraftTypeDTO CreateAircraftTypeDTO(global::System.Guid aircraftTypeId, global::System.Guid aircraftCategoryId, global::System.Guid aircraftSeriesId, global::System.Guid manufacturerId)
         {
             AircraftTypeDTO aircraftTypeDTO = new AircraftTypeDTO();
-            aircraftTypeDTO.Id = ID;
+            aircraftTypeDTO.AircraftTypeId = aircraftTypeId;
             aircraftTypeDTO.AircraftCategoryId = aircraftCategoryId;
+            aircraftTypeDTO.AircraftSeriesId = aircraftSeriesId;
+            aircraftTypeDTO.ManufacturerId = manufacturerId;
             return aircraftTypeDTO;
         }
         /// <summary>
-        /// 架构中不存在属性 Id 的注释。
+        /// 架构中不存在属性 AircraftTypeId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid Id
+        public global::System.Guid AircraftTypeId
         {
             get
             {
-                return this._Id;
+                return this._AircraftTypeId;
             }
             set
             {
-                this.OnIdChanging(value);
-                this._Id = value;
-                this.OnIdChanged();
-                this.OnPropertyChanged("Id");
+                this.OnAircraftTypeIdChanging(value);
+                this._AircraftTypeId = value;
+                this.OnAircraftTypeIdChanged();
+                this.OnPropertyChanged("AircraftTypeId");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _Id;
-        partial void OnIdChanging(global::System.Guid value);
-        partial void OnIdChanged();
+        private global::System.Guid _AircraftTypeId;
+        partial void OnAircraftTypeIdChanging(global::System.Guid value);
+        partial void OnAircraftTypeIdChanged();
         /// <summary>
         /// 架构中不存在属性 Name 的注释。
         /// </summary>
@@ -666,6 +672,28 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
         partial void OnNameChanging(string value);
         partial void OnNameChanged();
         /// <summary>
+        /// 架构中不存在属性 Description 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Description
+        {
+            get
+            {
+                return this._Description;
+            }
+            set
+            {
+                this.OnDescriptionChanging(value);
+                this._Description = value;
+                this.OnDescriptionChanged();
+                this.OnPropertyChanged("Description");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Description;
+        partial void OnDescriptionChanging(string value);
+        partial void OnDescriptionChanged();
+        /// <summary>
         /// 架构中不存在属性 AircraftCategoryId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -688,27 +716,49 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
         partial void OnAircraftCategoryIdChanging(global::System.Guid value);
         partial void OnAircraftCategoryIdChanged();
         /// <summary>
-        /// 架构中不存在属性 Regional 的注释。
+        /// 架构中不存在属性 AircraftSeriesId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string Regional
+        public global::System.Guid AircraftSeriesId
         {
             get
             {
-                return this._Regional;
+                return this._AircraftSeriesId;
             }
             set
             {
-                this.OnRegionalChanging(value);
-                this._Regional = value;
-                this.OnRegionalChanged();
-                this.OnPropertyChanged("Regional");
+                this.OnAircraftSeriesIdChanging(value);
+                this._AircraftSeriesId = value;
+                this.OnAircraftSeriesIdChanged();
+                this.OnPropertyChanged("AircraftSeriesId");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _Regional;
-        partial void OnRegionalChanging(string value);
-        partial void OnRegionalChanged();
+        private global::System.Guid _AircraftSeriesId;
+        partial void OnAircraftSeriesIdChanging(global::System.Guid value);
+        partial void OnAircraftSeriesIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 ManufacturerId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Guid ManufacturerId
+        {
+            get
+            {
+                return this._ManufacturerId;
+            }
+            set
+            {
+                this.OnManufacturerIdChanging(value);
+                this._ManufacturerId = value;
+                this.OnManufacturerIdChanged();
+                this.OnPropertyChanged("ManufacturerId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Guid _ManufacturerId;
+        partial void OnManufacturerIdChanging(global::System.Guid value);
+        partial void OnManufacturerIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
