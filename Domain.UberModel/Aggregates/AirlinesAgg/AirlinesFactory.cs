@@ -38,8 +38,9 @@ namespace UniCloud.Domain.UberModel.Aggregates.AirlinesAgg
         /// <param name="cnShortName">简称</param>
         /// <param name="iataCode">二字码</param>
         /// <param name="icaoCode">三字码</param>
+        /// <param name="isCurrent">是否当前航空公司</param>
         /// <returns></returns>
-        public static Airlines CreateAirlines(Guid id,string cnName,string cnShortName,string iataCode,string icaoCode)
+        public static Airlines CreateAirlines(Guid id,string cnName,string cnShortName,string iataCode,string icaoCode,bool isCurrent)
         {
             var airlines = new Airlines
             {
@@ -47,6 +48,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AirlinesAgg
                 CnShortName = cnShortName,
                 IATACode = iataCode,
                 ICAOCode = icaoCode,
+                IsCurrent = isCurrent,
             };
             airlines.ChangeCurrentIdentity(id);
 
