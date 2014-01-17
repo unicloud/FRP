@@ -17,8 +17,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Data.Services.Common;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -27,6 +29,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Microsoft.Data.OData;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 #endregion
@@ -169,6 +172,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             get { return (ManageStatus)ManageStatus; }
         }
 
+        private CanRequest _canRequest;
+
         /// <summary>
         /// 能否提出申请
         /// 1、可申请
@@ -180,14 +185,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         {
             get
             {
-                if (ActionCategoryId != Guid.Empty && NeedRequest)
-                {
-                    if (ManageStatus > (int)Enums.ManageStatus.计划) return CanRequest.已申请;
-                    return (this.IsSubmit /* TODO && this.Plan.Status == (int) OperationStatus.已提交*/)
-                        ? CanRequest.可申请
-                        : CanRequest.未报计划;
-                }
-                return CanRequest.无需申请;
+                return _canRequest;
             }
         }
 
@@ -250,29 +248,29 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 
         #endregion
 
-        #region 属性绑定
-        /// <summary>
-        /// 座级集合，用于属性绑定
-        /// </summary>
-        public IEnumerable<AircraftCategoryDTO> AircraftCategories
-        {
-            get { return FleetPlanService.GetAircraftCategories(null); }
+        //#region 属性绑定
+        ///// <summary>
+        ///// 座级集合，用于属性绑定
+        ///// </summary>
+        //public IEnumerable<AircraftCategoryDTO> AircraftCategories
+        //{
+        //    get { return FleetPlanService.GetAircraftCategories(null); }
 
-        }
+        //}
 
-        /// <summary>
-        /// 机型集合，用于属性绑定
-        /// </summary>
-        public IEnumerable<AircraftTypeDTO> AircraftTypes
-        {
-            get;
-            set;
-        }
+        ///// <summary>
+        ///// 机型集合，用于属性绑定
+        ///// </summary>
+        //public IEnumerable<AircraftTypeDTO> AircraftTypes
+        //{
+        //    get;
+        //    set;
+        //}
 
         /// <summary>
         /// 操作集合，用于属性绑定
         /// </summary>
-        public IEnumerable<ActionCategoryDTO> ActionCategories
+        internal IEnumerable<ActionCategoryDTO> ActionCategories
         {
             get;
             set;
@@ -280,9 +278,14 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         /// 计划历史比较状态
         /// </summary>
-        public PlanHistoryCompareStatus PlanHistoryCompareStatus
-        { get; set; }
-        #endregion
+        internal PlanHistoryCompareStatus PlanHistoryCompareStatus
+        {
+            get; 
+            set;
+        }
+      
+
+        //#endregion
 
         #endregion
 
@@ -290,11 +293,11 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 
         partial void OnPlanTypeChanged()
         {
-            if (PlanType == 1)
-                ActionCategories = FleetPlanService.GetActionCategories(null).Where(p => p.ActionType != "变更");
-            else if (PlanType == 2)
-                ActionCategories = FleetPlanService.GetActionCategories(null).Where(p => p.ActionType == "变更");
-            else ActionCategories = FleetPlanService.GetActionCategories(null);
+            //if (PlanType == 1)
+            //    ActionCategories = FleetPlanService.GetActionCategories(null).Where(p => p.ActionType != "变更");
+            //else if (PlanType == 2)
+            //    ActionCategories = FleetPlanService.GetActionCategories(null).Where(p => p.ActionType == "变更");
+            //else ActionCategories = FleetPlanService.GetActionCategories(null);
         }
 
         partial void OnActionCategoryIdChanged()
@@ -304,14 +307,40 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 
         partial void OnRegionalChanged()
         {
-            if (Regional != null)
-                AircraftTypes = FleetPlanService.GetAircraftTypes(null).Where(p => p.Regional == Regional);
-            else AircraftTypes = FleetPlanService.GetAircraftTypes(null);
+            //if (Regional != null)
+            //    AircraftTypes = FleetPlanService.GetAircraftTypes(null).Where(p => p.Regional == Regional);
+            //else AircraftTypes = FleetPlanService.GetAircraftTypes(null);
         }
 
+        /// <summary>
+        /// 复制一份新的计划历史
+        /// </summary>
+        /// <returns></returns>
         public PlanHistoryDTO Clone()
         {
             return MemberwiseClone() as PlanHistoryDTO;
+        }
+
+        /// <summary>
+        /// 刷新是否申请状态
+        /// </summary>
+        /// <param name="plan"></param>
+        public void  RefrashCanRequest(PlanDTO plan)
+        {
+            if (ActionCategoryId != Guid.Empty && NeedRequest)
+            {
+                if (ManageStatus > (int)Enums.ManageStatus.计划) _canRequest= CanRequest.已申请;
+                else
+                    _canRequest = (this.IsSubmit && plan.Status == (int)OperationStatus.已提交)
+                    ? CanRequest.可申请
+                    : CanRequest.未报计划;
+            }
+            else
+            {
+                _canRequest = CanRequest.无需申请;
+            }
+            OnPropertyChanged("CanRequest");
+          
         }
         #endregion
     }

@@ -1,6 +1,13 @@
 //------------------------------------------------------------------------------
 // 
 //------------------------------------------------------------------------------
+
+using System.ServiceModel.Web;
+using UniCloud.Application.FleetPlanBC.AircraftPlanServices;
+using UniCloud.Application.FleetPlanBC.ApprovalDocServices;
+using UniCloud.Application.FleetPlanBC.DTO;
+using UniCloud.Infrastructure.Utilities.Container;
+
 namespace UniCloud.DistributedServices.FleetPlan
 {
     using System.Data.Services;
@@ -25,6 +32,7 @@ namespace UniCloud.DistributedServices.FleetPlan
             #region 服务操作访问控制
 
             // config.SetServiceOperationAccessRule("MyServiceOperation", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("PerformPlanQuery", ServiceOperationRights.All);
 
             #endregion
 
@@ -58,6 +66,18 @@ namespace UniCloud.DistributedServices.FleetPlan
             cachePolicy.SetValidUntilExpires(true);
         }
 
+
+        #endregion
+
+        #region 计划执行情况查询 
+
+        [WebGet]
+        public PerformPlan PerformPlanQuery(string planHistoryId, string approvalHistoryId, int planType,
+            string relatedGuid)
+        {
+         var  planAppService = DefaultContainer.Resolve<IPlanAppService>();
+          return  planAppService.PerformPlanQuery(planHistoryId, approvalHistoryId, planType, relatedGuid);
+        }
 
         #endregion
     }

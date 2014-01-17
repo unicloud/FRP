@@ -252,6 +252,15 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         }
 
         /// <summary>
+        /// 设置主见
+        /// </summary>
+        /// <param name="key"></param>
+        public void SetId(Guid key)
+        {
+            Id = key;
+        }
+
+        /// <summary>
         /// 设置是否批准
         /// </summary>
         /// <param name="isApproved"></param>

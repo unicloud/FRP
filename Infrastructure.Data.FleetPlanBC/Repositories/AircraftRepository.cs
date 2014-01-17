@@ -105,6 +105,8 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.Repositories
         {
             var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
             if (currentUnitOfWork == null) return null;
+            if (id == null) return null;
+           
             var operationHistory = currentUnitOfWork.CreateSet<OperationHistory>().Find((Guid)id);
             return operationHistory;
         }
@@ -118,6 +120,7 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.Repositories
         {
             var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
             if (currentUnitOfWork == null) return null;
+            if (id == null) return null;
             var aircraftBusiness = currentUnitOfWork.CreateSet<AircraftBusiness>().Find((Guid)id);
             return aircraftBusiness;
         }

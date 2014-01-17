@@ -71,7 +71,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         public void SetOperationHistory(OperationHistory operationHistory)
         {
             OperationHistory = operationHistory;
-            OperationHistoryId = operationHistory.Id;
+            if (operationHistory!=null)
+            {
+                OperationHistoryId = operationHistory.Id;
+            }
+         
         }
 
         #endregion

@@ -102,7 +102,6 @@
   <ItemGroup>
     <Compile Include="FleetPlanService.cs" />
     <Compile Include="FleetPlanServiceHelper.cs" />
-    <Compile Include="FleetPlan\ActionCategoryDTO.cs" />
     <Compile Include="FleetPlan\EnginePlanDTO.cs" />
     <Compile Include="FleetPlan\EnginePlanHistoryDTO.cs" />
     <Compile Include="FleetPlan\Enums\CanDeliver.cs" />

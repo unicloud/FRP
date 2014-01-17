@@ -34,6 +34,7 @@
             </uc:PlanHistoryStyleRule>
         </ResourceDictionary>
     </UserControl.Resources>
+    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" BusyContent="">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"></RowDefinition>
@@ -70,7 +71,7 @@
                                                      IsReadOnly="True"
                                                      ItemsSource="{Binding PlansView,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelectedPlan,Mode=TwoWay}"
-                                                     IsBusy="{Binding PlansView.IsBusy}">
+                                                     >
                                     <telerik:RadGridView.GroupDescriptors>
                                         <telerik:GroupDescriptor Member="Year"
 											   SortDirection="Ascending" >
@@ -158,7 +159,7 @@
                                                      IsReadOnly="True"
                                                      ItemsSource="{Binding ComparePlansView,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelectedComparePlan,Mode=TwoWay}"
-                                                     IsBusy="{Binding ComparePlansView.IsBusy}">
+                                                    >
                                     <telerik:RadGridView.GroupDescriptors>
                                         <telerik:GroupDescriptor Member="Year"
 											   SortDirection="Ascending" >
@@ -244,7 +245,6 @@
                                                      CanUserSortGroups="False"
                                                      IsReadOnly="True"
                                                      ItemsSource="{Binding PlanHistories,Mode=TwoWay}"
-                                                     IsBusy="{Binding PlansView.IsBusy}"
                                                      RowStyleSelector="{StaticResource PlanHistoryStyleRule}">
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号"
@@ -322,7 +322,6 @@
                                                      CanUserSortGroups="False"
                                                      IsReadOnly="True"
                                                      ItemsSource="{Binding ComparePlanHistories,Mode=TwoWay}"
-                                                     IsBusy="{Binding ComparePlansView.IsBusy}"
                                                      RowStyleSelector="{StaticResource PlanHistoryStyleRule}">
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号"
@@ -381,5 +380,6 @@
                 </telerik:RadSplitContainer>
             </telerik:RadSplitContainer>
         </telerik:RadDocking>
-    </Grid>
+        </Grid>
+    </telerik:RadBusyIndicator>
 </UserControl>

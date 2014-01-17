@@ -48,11 +48,11 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
         private readonly IAnnualRepository _annualRepository;
         private readonly IPlanQuery _planQuery;
         private readonly IPlanRepository _planRepository;
-
+        private readonly IPlanAircraftRepository _planAircraftRepository;
         public PlanAppService(IPlanQuery planQuery, IActionCategoryRepository actionCategoryRepository
             , IAircraftTypeRepository aircraftTypeRepository, IAirlinesRepository airlinesRepository,
             IAnnualRepository annualRepository,IAircraftRepository aircraftRepository,
-            IPlanRepository planRepository)
+            IPlanRepository planRepository, IPlanAircraftRepository planAircraftRepository)
         {
             _planQuery = planQuery;
             _actionCategoryRepository = actionCategoryRepository;
@@ -61,6 +61,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
             _airlinesRepository = airlinesRepository;
             _annualRepository = annualRepository;
             _planRepository = planRepository;
+            _planAircraftRepository = planAircraftRepository;
         }
 
         #region PlanDTO
@@ -128,7 +129,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 var planHistories = updatePlan.PlanHistories;
                 DataHelper.DetailHandle(dtoPlanHistories.ToArray(),
                     planHistories.ToArray(),
-                    c => c.PlanId, p => p.Id,
+                    c => c.Id, p => p.Id,
                     i => InsertPlanHistory(updatePlan, i),
                     UpdatePlanHistory,
                     d => _planRepository.RemovePlanHistory(d));
@@ -212,7 +213,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
             var annual = _annualRepository.Get(planHistoryDto.PerformAnnualId);
             var operationHistory = _aircraftRepository.GetPh(planHistoryDto.RelatedGuid);
             var aircraftBusiness = _aircraftRepository.GetAb(planHistoryDto.RelatedGuid);
-
+           
             // 更新计划历史
             if (planHistoryDto.PlanType == 1)
             {
@@ -244,10 +245,23 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 if (changePlan != null)
                     changePlan.SetAircraftBusiness(aircraftBusiness);
             }
+            if (planHistory.PlanAircraftId!=null)
+            {
+                var persitPlanAircraft = _planAircraftRepository.Get(planHistory.PlanAircraftId);
+                if (persitPlanAircraft.Status != (ManageStatus)planHistoryDto.ManageStatus)
+                {
+                    persitPlanAircraft.SetManageStatus((ManageStatus)planHistoryDto.ManageStatus);
+                }
+            }
         }
 
         #endregion
 
         #endregion
+
+      public  PerformPlan PerformPlanQuery(string planHistoryId, string approvalHistoryId, int planType, string relatedGuid)
+      {
+          return _planQuery.PerformPlanQuery(planHistoryId, approvalHistoryId, planType, relatedGuid);
+      }
     }
 }

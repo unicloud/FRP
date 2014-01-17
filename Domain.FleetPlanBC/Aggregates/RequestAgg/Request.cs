@@ -250,11 +250,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// <param name="caacNote"></param>
         public void SetCaacNote(string caacNote)
         {
-            if (string.IsNullOrWhiteSpace(caacNote))
-            {
-                throw new ArgumentException("民航局审批意见参数为空！");
-            }
-
             CaacNote = caacNote;
         }
 
@@ -264,11 +259,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// <param name="raNote"></param>
         public void SetRaNote(string raNote)
         {
-            if (string.IsNullOrWhiteSpace(raNote))
-            {
-                throw new ArgumentException("地方局审批意见参数为空！");
-            }
-
             RaNote = raNote;
         }
 
@@ -278,11 +268,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// <param name="sawsNote"></param>
         public void SetSawsNote(string sawsNote)
         {
-            if (string.IsNullOrWhiteSpace(sawsNote))
-            {
-                throw new ArgumentException("监管局审批意见参数为空！");
-            }
-
             SawsNote = sawsNote;
         }
 
@@ -346,7 +331,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         ///     新增审批历史（申请明细）
         /// </summary>
         /// <returns></returns>
-        public ApprovalHistory AddNewApprovalHistory(int seatingCapacity, decimal carryingCapacity,
+        public ApprovalHistory AddNewApprovalHistory(Guid id,int seatingCapacity, decimal carryingCapacity,
             int requestDeliverMonth, string note,
             Guid requestId, Guid planAircraftId, Guid importCategoryId, Guid requestDeliverAnnualId, Guid airlinesId)
         {
@@ -360,7 +345,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
             approvalHistory.SetPlanAircraft(planAircraftId);
             approvalHistory.SetImportCategory(importCategoryId);
             approvalHistory.SetAirlines(airlinesId);
-            approvalHistory.GenerateNewIdentity();
+            approvalHistory.SetId(id);
             ApprovalHistories.Add(approvalHistory);
             return approvalHistory;
         }

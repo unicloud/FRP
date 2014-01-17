@@ -141,6 +141,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
             _service.RegisterCollectionView(RequestsView);
             RequestsView.LoadedData += (sender, e) =>
             {
+                SetIsBusy();
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
@@ -200,6 +201,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
             ApprovalDocsView.PageSize = 20;
             ApprovalDocsView.LoadedData += (sender, e) =>
             {
+                SetIsBusy();
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
@@ -584,6 +586,16 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
         protected override void OnSaveSuccess(object sender)
         {
            
+        }
+
+        protected override void SetIsBusy()
+        {
+            if (RequestsView == null || ApprovalDocsView==null)
+            {
+                IsBusy = true;
+                return;
+            }
+            IsBusy = RequestsView.IsBusy || ApprovalDocsView.IsBusy;
         }
 
         #endregion

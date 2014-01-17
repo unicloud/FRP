@@ -303,7 +303,7 @@
                                                      CanUserSortGroups="False"
                                                      IsReadOnly="True"
                                                      ItemsSource="{Binding SelectedPlan.PlanHistories}"
-                                                     IsBusy="{Binding PlansView.IsBusy}"
+                                                     SelectedItem="{Binding SelectedPlanHistory,Mode=TwoWay}"
                                                      >
                                     <telerik:RadGridView.GroupDescriptors>
                                         <telerik:GroupDescriptor Member="ActionType"
@@ -353,23 +353,12 @@
                                                                     IsReadOnly="True"
                                                                     DataMemberBinding="{Binding CarryingCapacity}">
                                         </telerik:GridViewDataColumn>
-                                        <telerik:GridViewColumn Header="申请"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                            >
-                                            <telerik:GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <HyperlinkButton
-                                                            VerticalAlignment="Center"
-                                                            Command="{Binding DataContext.ViewOpertationApprovalHistoryCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
-                                                            CommandParameter="{Binding}" />
-                                                </DataTemplate>
-                                            </telerik:GridViewColumn.CellTemplate>
-                                        </telerik:GridViewColumn>
-                                        <telerik:GridViewColumn Header="运营/商业历史" IsReadOnly="True">
+                                        <telerik:GridViewColumn Header="申请/运营/商业历史" IsReadOnly="True">
                                             <telerik:GridViewColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <HyperlinkButton VerticalAlignment="Center"
-                                                            Command="{Binding DataContext.ViewOperationOrAircraftHistoryCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                     Content="申请/运营/商业历史"
+                                                            Command="{Binding DataContext.ViewPerformPlanCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
                                                             CommandParameter="{Binding}" />
                                                 </DataTemplate>
                                             </telerik:GridViewColumn.CellTemplate>
