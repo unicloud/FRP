@@ -16,17 +16,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Ink;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 #endregion
@@ -111,32 +101,32 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 
         #region 只读逻辑
 
-        public bool IsPlanChecked
+        internal bool IsPlanChecked
         {
             get { return this.PlanCheckedCondition; }
         }
 
-        public bool IsPlanCheckedOrLock
+        internal bool IsPlanCheckedOrLock
         {
             get { return this.PlanCheckedCondition || this.LockCondition; }
         }
 
-        public bool IsPlanCheckedOrOnlyAirlines
+        internal bool IsPlanCheckedOrOnlyAirlines
         {
             get { return this.PlanCheckedCondition || this.OnlyAirlinesCondition; }
         }
 
-        public bool IsPlanCheckedOrOperation
+        internal bool IsPlanCheckedOrOperation
         {
             get { return this.PlanCheckedCondition || this.OperationCondition; }
         }
 
-        public bool IsManageRequestOrPlanSubmitted
+        internal bool IsManageRequestOrPlanSubmitted
         {
             get { return this.ManageRequestCondition; }
         }
 
-        public bool IsOperationAndExportPlan
+        internal bool IsOperationAndExportPlan
         {
             get { return this.OperationCondition && this.ExportPlanCondition; }
         }
@@ -145,12 +135,12 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 
         #region 可用逻辑
 
-        public bool IsAirlineEnabled
+        internal bool IsAirlineEnabled
         {
             get { return !this.IsPlanCheckedOrOperation; }
         }
 
-        public bool IsNotOperationOrChangePlan
+        internal bool IsNotOperationOrChangePlan
         {
             get { return !this.OperationCondition || ChangePlanCondition; }
         }
@@ -164,7 +154,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         ///     管理状态
         /// </summary>
-        public ManageStatus ManaStatus
+        internal ManageStatus ManaStatus
         {
             get { return (ManageStatus)ManageStatus; }
         }
@@ -176,7 +166,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 3、已申请
         /// 4、无需申请
         /// </summary>
-        public CanRequest CanRequest
+        internal CanRequest CanRequest
         {
             get
             {
@@ -202,7 +192,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 5、未批复
         /// 6、未批准
         /// </summary>
-        public CanDeliver CanDeliver
+        internal CanDeliver CanDeliver
         {
             get
             {
@@ -236,7 +226,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 3：已提交
         /// -1：无状态
         /// </summary>
-        public CompleteStatus CompleteStatus
+        internal CompleteStatus CompleteStatus
         {
             get
             {
@@ -254,7 +244,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         /// 座级集合，用于属性绑定
         /// </summary>
-        public IEnumerable<AircraftCategoryDTO> AircraftCategories
+        internal IEnumerable<AircraftCategoryDTO> AircraftCategories
         {
             get { return FleetPlanService.GetAircraftCategories(null); }
 
@@ -263,7 +253,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         /// 机型集合，用于属性绑定
         /// </summary>
-        public IEnumerable<AircraftTypeDTO> AircraftTypes
+        internal IEnumerable<AircraftTypeDTO> AircraftTypes
         {
             get;
             set;
@@ -272,7 +262,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         /// 操作集合，用于属性绑定
         /// </summary>
-        public IEnumerable<ActionCategoryDTO> ActionCategories
+        internal IEnumerable<ActionCategoryDTO> ActionCategories
         {
             get;
             set;

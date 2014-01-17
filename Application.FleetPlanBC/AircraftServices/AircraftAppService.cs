@@ -143,7 +143,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftServices
                 var aircraftBusinesses = updateAircraft.AircraftBusinesses;
                 DataHelper.DetailHandle(dtoAircraftBusinesses.ToArray(),
                     aircraftBusinesses.ToArray(),
-                    c => c.AircraftId, p => p.Id,
+                    c => c.AircraftBusinessId, p => p.Id,
                     i => InsertAircraftBusiness(updateAircraft, i),
                     UpdateAircraftBusiness,
                     d => _aircraftRepository.RemoveAircraftBusiness(d));
@@ -153,7 +153,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftServices
                 var operationHistories = updateAircraft.OperationHistories;
                 DataHelper.DetailHandle(dtoOperationHistories.ToArray(),
                     operationHistories.ToArray(),
-                    c => c.AircraftId, p => p.Id,
+                    c => c.OperationHistoryId, p => p.Id,
                     i => InsertOperationHistory(updateAircraft, i),
                     UpdateOperationHistory,
                     d => _aircraftRepository.RemoveOperationHistory(d));
@@ -163,7 +163,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftServices
                 var ownershipHistories = updateAircraft.OwnershipHistories;
                 DataHelper.DetailHandle(dtoOwnershipHistories.ToArray(),
                     ownershipHistories.ToArray(),
-                    c => c.AircraftId, p => p.Id,
+                    c => c.OwnershipHistoryId, p => p.Id,
                     i => InsertOwnershipHistory(updateAircraft, i),
                     UpdateOwnershipHistory,
                     d => _aircraftRepository.RemoveOwnershipHistory(d));

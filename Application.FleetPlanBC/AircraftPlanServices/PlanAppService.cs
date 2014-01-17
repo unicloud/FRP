@@ -123,12 +123,12 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 updatePlan.SetDocument(dto.DocumentId, dto.DocName);
                 updatePlan.SetTitle(dto.Title);
 
-                //更新接机行：
+                //更新计划明细：
                 var dtoPlanHistories = dto.PlanHistories;
                 var planHistories = updatePlan.PlanHistories;
                 DataHelper.DetailHandle(dtoPlanHistories.ToArray(),
                     planHistories.ToArray(),
-                    c => c.PlanId, p => p.Id,
+                    c => c.Id, p => p.Id,
                     i => InsertPlanHistory(updatePlan, i),
                     UpdatePlanHistory,
                     d => _planRepository.RemovePlanHistory(d));

@@ -53,8 +53,7 @@
         <Grid Margin="20,10"
               Height="200"
               Grid.Row="1"
-              Visibility="Collapsed">
-            <!--Visibility="{Binding IsAircraftVisibility, Mode=TwoWay}">-->
+              Visibility="{Binding IsAircraftVisibility, Mode=TwoWay}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*" />
                 <ColumnDefinition />
@@ -118,8 +117,7 @@
         <Grid Margin="20,10"
               Height="200"
               Grid.Row="1"
-              Visibility="Collapsed">
-            <!--Visibility="{Binding IsOperationHistoryVisibility, Mode=TwoWay}">-->
+              Visibility="{Binding IsOperationHistoryVisibility, Mode=TwoWay}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*" />
                 <ColumnDefinition />
@@ -250,8 +248,7 @@
         <Grid Margin="20,10"
               Height="200"
               Grid.Row="1"
-              Visibility="Visible">
-            <!--Visibility="{Binding IsAircraftBusinessVisibility, Mode=TwoWay}">-->
+              Visibility="{Binding IsAircraftBusinessVisibility, Mode=TwoWay}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*" />
                 <ColumnDefinition />

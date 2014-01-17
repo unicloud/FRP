@@ -43,7 +43,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
         public IQueryable<PlanDTO> PlanDTOQuery(
             QueryBuilder<Plan> query)
         {
-           var result= query.ApplyTo(_unitOfWork.CreateSet<Plan>()).Select(p => new PlanDTO
+            var result = query.ApplyTo(_unitOfWork.CreateSet<Plan>()).Select(p => new PlanDTO
             {
                 Id = p.Id,
                 Title = p.Title,
@@ -63,7 +63,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                 Year = p.Annual.Year,
                 PlanHistories = p.PlanHistories.OfType<OperationPlan>().Select(q => new PlanHistoryDTO
                                 {
-                                    Id=q.Id,
+                                     Id = q.Id,
                                     CarryingCapacity = q.CarryingCapacity,
                                     SeatingCapacity = q.SeatingCapacity,
                                     PerformAnnualId = q.PerformAnnualId,
@@ -73,7 +73,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                                     Note = q.Note,
                                     ActionCategoryId = q.ActionCategoryId,
                                     ActionType = q.ActionCategory.ActionType,
-                                    ActionName=q.ActionCategory.ActionName,
+                                     ActionName = q.ActionCategory.ActionName,
                                     TargetCategoryId = q.TargetCategoryId,
                                     TargetType = q.TargetCategory.ActionName,
                                     AircraftTypeId = q.AircraftTypeId,
@@ -83,7 +83,9 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                                     AirlinesName = q.Airlines.CnShortName,
                                     NeedRequest = q.ActionCategory.NeedRequest,
                                     Year = q.PerformAnnual.Year,
+
                                     ApprovalHistoryId = q.ApprovalHistoryId,
+                                     //IsApproved = q.ApprovalHistory.IsApproved,TODO
 
                                     PlanAircraftId = q.PlanAircraftId,
                                     AircraftId = q.PlanAircraft.AircraftId,
@@ -121,7 +123,9 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                                     AirlinesName = q.Airlines.CnShortName,
                                     NeedRequest = q.ActionCategory.NeedRequest,
                                     Year = q.PerformAnnual.Year,
+
                                     ApprovalHistoryId = q.ApprovalHistoryId,
+                                     //IsApproved = q.ApprovalHistory.IsApproved,TODO
 
                                     PlanAircraftId = q.PlanAircraftId,
                                     AircraftId = q.PlanAircraft.AircraftId,
