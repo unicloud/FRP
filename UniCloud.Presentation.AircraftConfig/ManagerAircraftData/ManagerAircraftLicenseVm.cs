@@ -225,7 +225,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         {
             try
             {
-                var openFileDialog = new OpenFileDialog { Filter = "PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp|JPG Files (*.jpg, *.jpeg)|*.jpg;*.jpeg" };
+                var openFileDialog = new OpenFileDialog { Filter = "PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp" };//暂不支持 JPG Files (*.jpg, *.jpeg)|*.jpg;*.jpeg
                 if (openFileDialog.ShowDialog() == true)
                 {
                     var stream = (Stream)openFileDialog.File.OpenRead();
