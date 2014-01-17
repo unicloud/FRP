@@ -1,6 +1,6 @@
 ﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
-  <edmx:DataServices m:DataServiceVersion="1.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
-    <Schema Namespace="UniCloud.Application.AircraftConfigBC.DTO" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+  <edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="UniCloud.Application.AircraftConfigBC.DTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityType Name="ActionCategoryDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -29,12 +29,14 @@
       </EntityType>
       <EntityType Name="AircraftTypeDTO">
         <Key>
-          <PropertyRef Name="Id" />
+          <PropertyRef Name="AircraftTypeId" />
         </Key>
-        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
         <Property Name="Name" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
         <Property Name="AircraftCategoryId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="Regional" Type="Edm.String" />
+        <Property Name="AircraftSeriesId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ManufacturerId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
       <EntityType Name="ManufacturerDTO">
         <Key>
@@ -48,14 +50,65 @@
         <Property Name="Note" Type="Edm.String" />
         <Property Name="Type" Type="Edm.Int32" Nullable="false" />
       </EntityType>
+      <EntityType Name="LicenseTypeDTO">
+        <Key>
+          <PropertyRef Name="LicenseTypeId" />
+        </Key>
+        <Property Name="LicenseTypeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="HasFile" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="AircraftDTO">
+        <Key>
+          <PropertyRef Name="AircraftId" />
+        </Key>
+        <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="RegNumber" Type="Edm.String" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="IsOperation" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="FactoryDate" Type="Edm.DateTime" />
+        <Property Name="ImportDate" Type="Edm.DateTime" />
+        <Property Name="ExportDate" Type="Edm.DateTime" />
+        <Property Name="SeatingCapacity" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CarryingCapacity" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="SupplierName" Type="Edm.String" />
+        <Property Name="AircraftTypeName" Type="Edm.String" />
+        <Property Name="AirlinesName" Type="Edm.String" />
+        <Property Name="ImportCategoryName" Type="Edm.String" />
+        <Property Name="ManufacturerName" Type="Edm.String" />
+        <Property Name="Regional" Type="Edm.String" />
+        <Property Name="AircraftLicenses" Type="Collection(UniCloud.Application.AircraftConfigBC.DTO.AircraftLicenseDTO)" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" />
+        <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="AircraftLicenseDTO">
+        <Property Name="AircraftLicenseId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="IssuedUnit" Type="Edm.String" />
+        <Property Name="IssuedDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ValidMonths" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ExpireDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="State" Type="Edm.Int32" Nullable="false" />
+        <Property Name="FileContent" Type="Edm.Binary" />
+        <Property Name="FileName" Type="Edm.String" />
+        <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="LicenseTypeId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
     </Schema>
-    <Schema Namespace="UniCloud.DistributedServices.AircraftConfig" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+    <Schema Namespace="UniCloud.DistributedServices.AircraftConfig" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="AircraftConfigData" m:IsDefaultEntityContainer="true">
         <EntitySet Name="ActionCategories" EntityType="UniCloud.Application.AircraftConfigBC.DTO.ActionCategoryDTO" />
         <EntitySet Name="AircraftSeries" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftSeriesDTO" />
         <EntitySet Name="AircraftCategories" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftCategoryDTO" />
         <EntitySet Name="AircraftTypes" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftTypeDTO" />
         <EntitySet Name="Manufacturers" EntityType="UniCloud.Application.AircraftConfigBC.DTO.ManufacturerDTO" />
+        <EntitySet Name="LicenseTypes" EntityType="UniCloud.Application.AircraftConfigBC.DTO.LicenseTypeDTO" />
+        <EntitySet Name="Aircrafts" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftDTO" />
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

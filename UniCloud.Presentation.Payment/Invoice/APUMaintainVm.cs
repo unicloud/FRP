@@ -85,7 +85,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         public override void LoadData()
         {
             // 将CollectionView的AutoLoad属性设为True
-            if (ApuMaintainInvoices.AutoLoad)
+            if (!ApuMaintainInvoices.AutoLoad)
                 ApuMaintainInvoices.AutoLoad = true;
             ApuMaintainInvoices.Load(true);
             Suppliers.Load(true);

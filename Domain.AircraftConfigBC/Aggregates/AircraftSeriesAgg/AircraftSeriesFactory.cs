@@ -34,6 +34,7 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg
         public static AircraftSeries CreateAircraftSeries()
         {
             var aircraftSeries = new AircraftSeries();
+            aircraftSeries.ChangeCurrentIdentity(Guid.NewGuid());
             return aircraftSeries;
         }
 

@@ -100,7 +100,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         public override void LoadData()
         {
             //// 将CollectionView的AutoLoad属性设为True
-            if (AircraftSerieses.AutoLoad)
+            if (!AircraftSerieses.AutoLoad)
                 AircraftSerieses.AutoLoad = true;
             AircraftSerieses.Load(true);
             Manufacturers = _service.GetManufacturers(null);

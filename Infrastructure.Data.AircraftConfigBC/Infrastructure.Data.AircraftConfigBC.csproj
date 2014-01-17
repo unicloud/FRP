@@ -57,6 +57,7 @@
     <Compile Include="Repositories\AircraftSeriesRepository.cs" />
     <Compile Include="Repositories\AircraftTypeRepository.cs" />
     <Compile Include="Repositories\AirlinesRepository.cs" />
+    <Compile Include="Repositories\LicenseTypeRepository.cs" />
     <Compile Include="Repositories\ManufacturerRepository.cs" />
     <Compile Include="UnitOfWork\AircraftConfigBCUnitOfWork.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ActionCategoryEntityConfiguration.cs" />

@@ -31,6 +31,10 @@ namespace UniCloud.Presentation.Service.AircraftConfig
         /// </summary>
         QueryableDataServiceCollectionView<ManufacturerDTO> GetManufacturers(Action loaded, bool forceLoad = false);
 
+        /// <summary>
+        ///     所有座级
+        /// </summary>
+        QueryableDataServiceCollectionView<AircraftCategoryDTO> GetAircraftCategories(Action loaded, bool forceLoad = false);
         #endregion
 
 

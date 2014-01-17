@@ -124,7 +124,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 updatePlan.SetDocument(dto.DocumentId, dto.DocName);
                 updatePlan.SetTitle(dto.Title);
 
-                //更新接机行：
+                //更新计划明细：
                 var dtoPlanHistories = dto.PlanHistories;
                 var planHistories = updatePlan.PlanHistories;
                 DataHelper.DetailHandle(dtoPlanHistories.ToArray(),
@@ -213,7 +213,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
             var annual = _annualRepository.Get(planHistoryDto.PerformAnnualId);
             var operationHistory = _aircraftRepository.GetPh(planHistoryDto.RelatedGuid);
             var aircraftBusiness = _aircraftRepository.GetAb(planHistoryDto.RelatedGuid);
-           
+
             // 更新计划历史
             if (planHistoryDto.PlanType == 1)
             {
@@ -252,7 +252,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 {
                     persitPlanAircraft.SetManageStatus((ManageStatus)planHistoryDto.ManageStatus);
                 }
-            }
+        }
         }
 
         #endregion

@@ -69,15 +69,13 @@
                                          DisplayMemberPath="CnName" />
                     <TextBlock Grid.Row="2"
                                Grid.Column="1"
-                               Text="摘要"
+                               Text="描述"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="2"
                              telerik:StyleManager.Theme="Windows8"
-                             VerticalContentAlignment="Top"
-                             HorizontalContentAlignment="Left"
                              Text="{Binding Description, Mode=TwoWay}"
                              IsReadOnly="True">
                     </TextBox>
@@ -138,8 +136,6 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="2"
-                             VerticalContentAlignment="Top"
-                             HorizontalContentAlignment="Left"
                              Text="{Binding Description, Mode=TwoWay}">
                     </TextBox>
                 </Grid>

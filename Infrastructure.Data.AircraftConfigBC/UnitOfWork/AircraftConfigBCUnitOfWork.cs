@@ -17,9 +17,12 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AirlinesAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AtaAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.LicenseTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.ManufacturerAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.SupplierAgg;
 using UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork.Mapping.Sql;
@@ -38,6 +41,9 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
         private IDbSet<Airlines> _airlineses;
         private IDbSet<Manufacturer> _manufacturers;
         private IDbSet<Supplier> _suppliers;
+        private IDbSet<LicenseType> _licenseTypes;
+        private IDbSet<AircraftLicense> _aircraftLicenses;
+        private IDbSet<Ata> _atas;
 
         public IDbSet<ActionCategory> ActionCategories
         {
@@ -79,6 +85,20 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
             get { return _suppliers ?? (_suppliers = base.Set<Supplier>()); }
         }
 
+        public IDbSet<LicenseType> LicenseTypes
+        {
+            get { return _licenseTypes ?? (_licenseTypes = base.Set<LicenseType>()); }
+        }
+
+        public IDbSet<AircraftLicense> AircraftLicenses
+        {
+            get { return _aircraftLicenses ?? (_aircraftLicenses = base.Set<AircraftLicense>()); }
+        }
+
+        public IDbSet<Ata> Atas
+        {
+            get { return _atas ?? (_atas = base.Set<Ata>()); }
+        }
         #endregion
 
         #region DbContext 重载
@@ -115,57 +135,60 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
         {
             modelBuilder.Configurations
 
-                #region ActionCategoryAgg
+            #region ActionCategoryAgg
 
-                .Add(new ActionCategoryEntityConfiguration())
+.Add(new ActionCategoryEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AircraftSeriesAgg
+            #region AircraftSeriesAgg
 
-                .Add(new AircraftSeriesEntityConfiguration())
+.Add(new AircraftSeriesEntityConfiguration())
+.Add(new AtaEntityConfiguration())
+            #endregion
 
-                #endregion
+            #region AircraftCategoryAgg
 
-                #region AircraftCategoryAgg
+.Add(new AircraftCategoryEntityConfiguration())
 
-                .Add(new AircraftCategoryEntityConfiguration())
+            #endregion
 
-                #endregion
+            #region AircraftAgg
 
-                #region AircraftAgg
+.Add(new AircraftEntityConfiguration())
 
-                .Add(new AircraftEntityConfiguration())
+            #endregion
+
+            #region AircraftTypeAgg
+
+.Add(new AircraftTypeEntityConfiguration())
+
+            #endregion
+
+            #region AirlinesAgg
+
+.Add(new AirlinesEntityConfiguration())
+
+            #endregion
+
+            #region ManufacturerAgg
+
+.Add(new ManufacturerEntityConfiguration())
+
+            #endregion
+
+            #region SupplierAgg
+
+.Add(new SupplierEntityConfiguration())
+
+            #endregion
+
+            #region AircraftLicenseAgg
+.Add(new LicenseTypeEntityConfiguration())
                 .Add(new AircraftLicenseEntityConfiguration())
+            #endregion
 
-                #endregion
-
-                #region AircraftTypeAgg
-
-                .Add(new AircraftTypeEntityConfiguration())
-
-                #endregion
-
-                #region AirlinesAgg
-
-                .Add(new AirlinesEntityConfiguration())
-
-                #endregion
-
-                #region ManufacturerAgg
-
-                .Add(new ManufacturerEntityConfiguration())
-
-                #endregion
-
-                #region SupplierAgg
-
-                .Add(new SupplierEntityConfiguration())
-
-                #endregion
-
-
-                ;
+;
         }
 
         #endregion

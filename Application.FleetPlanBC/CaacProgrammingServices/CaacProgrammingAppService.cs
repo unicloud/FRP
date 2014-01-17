@@ -124,7 +124,7 @@ namespace UniCloud.Application.FleetPlanBC.CaacProgrammingServices
                 var caacProgrammingLines = updateCaacProgramming.CaacProgrammingLines;
                 DataHelper.DetailHandle(dtoCaacProgrammingLines.ToArray(),
                     caacProgrammingLines.ToArray(),
-                    c => c.CaacProgrammingId, p => p.Id,
+                    c => c.Id, p => p.Id,
                     i => InsertCaacProgrammingLine(updateCaacProgramming, i),
                     UpdateCaacProgrammingLine,
                     d => _caacProgrammingRepository.RemoveCaacProgrammingLine(d));

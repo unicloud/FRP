@@ -120,7 +120,7 @@ namespace UniCloud.Application.FleetPlanBC.AirProgrammingServices
                 var airProgrammingLines = updateAirProgramming.AirProgrammingLines;
                 DataHelper.DetailHandle(dtoAirProgrammingLines.ToArray(),
                     airProgrammingLines.ToArray(),
-                    c => c.AirProgrammingId, p => p.Id,
+                    c => c.Id, p => p.Id,
                     i => InsertAirProgrammingLine(updateAirProgramming, i),
                     UpdateAirProgrammingLine,
                     d => _airProgrammingRepository.RemoveAirProgrammingLine(d));

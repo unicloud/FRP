@@ -5,7 +5,9 @@
 using System.Linq;
 using UniCloud.Application.AircraftConfigBC.ActionCategoryServices;
 using UniCloud.Application.AircraftConfigBC.AircraftCategoryServices;
+using UniCloud.Application.AircraftConfigBC.AircraftLicenseServices;
 using UniCloud.Application.AircraftConfigBC.AircraftSeriesServices;
+using UniCloud.Application.AircraftConfigBC.AircraftServices;
 using UniCloud.Application.AircraftConfigBC.AircraftTypeServices;
 using UniCloud.Application.AircraftConfigBC.DTO;
 using UniCloud.Application.AircraftConfigBC.ManufacturerServices;
@@ -19,13 +21,13 @@ namespace UniCloud.DistributedServices.AircraftConfig
     /// </summary>
     public class AircraftConfigData : ExposeData.ExposeData
     {
-         private readonly IAircraftSeriesAppService _aircraftSeriesAppService;
+        private readonly IAircraftSeriesAppService _aircraftSeriesAppService;
         private readonly IActionCategoryAppService _actionCategoryAppService;
         private readonly IAircraftCategoryAppService _aircraftCategoryAppService;
         private readonly IAircraftTypeAppService _aircraftTypeAppService;
         private readonly IManufacturerAppService _manufacturerAppService;
-
-
+        private readonly IAircraftLicenseAppService _aircraftLicenseAppService;
+        private readonly IAircraftAppService _aircraftAppService;
         public AircraftConfigData()
             : base("UniCloud.Application.AircraftConfigBC.DTO")
         {
@@ -34,6 +36,8 @@ namespace UniCloud.DistributedServices.AircraftConfig
             _aircraftCategoryAppService = DefaultContainer.Resolve<IAircraftCategoryAppService>();
             _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
             _manufacturerAppService = DefaultContainer.Resolve<IManufacturerAppService>();
+            _aircraftLicenseAppService = DefaultContainer.Resolve<IAircraftLicenseAppService>();
+            _aircraftAppService = DefaultContainer.Resolve<IAircraftAppService>();
         }
 
         #region 活动类型
@@ -45,7 +49,7 @@ namespace UniCloud.DistributedServices.AircraftConfig
         {
             get
             {
-                return GetStaticData("actionCategoriesFleetPlan", () => _actionCategoryAppService.GetActionCategories());
+                return GetStaticData("actionCategoriesAircraftConfig", () => _actionCategoryAppService.GetActionCategories());
             }
         }
 
@@ -58,7 +62,7 @@ namespace UniCloud.DistributedServices.AircraftConfig
         /// </summary>
         public IQueryable<AircraftSeriesDTO> AircraftSeries
         {
-            get { return GetStaticData("AircraftSeriesFleetPlan", () => _aircraftSeriesAppService.GetAircraftSeries()); }
+            get { return _aircraftSeriesAppService.GetAircraftSeries(); }
         }
 
         #endregion
@@ -72,7 +76,7 @@ namespace UniCloud.DistributedServices.AircraftConfig
         {
             get
             {
-                return GetStaticData("aircraftCategoriesFleetPlan",
+                return GetStaticData("aircraftCategoriesAircraftConfig",
                     () => _aircraftCategoryAppService.GetAircraftCategories());
             }
         }
@@ -86,7 +90,7 @@ namespace UniCloud.DistributedServices.AircraftConfig
         /// </summary>
         public IQueryable<AircraftTypeDTO> AircraftTypes
         {
-            get { return GetStaticData("aircraftTypesFleetPlan", () => _aircraftTypeAppService.GetAircraftTypes()); }
+            get { return _aircraftTypeAppService.GetAircraftTypes(); }
         }
 
         #endregion
@@ -98,7 +102,30 @@ namespace UniCloud.DistributedServices.AircraftConfig
         /// </summary>
         public IQueryable<ManufacturerDTO> Manufacturers
         {
-            get { return GetStaticData("manufactoriesFleetPlan", () => _manufacturerAppService.GetManufacturers()); }
+            get { return GetStaticData("manufactoriesAircraftConfig", () => _manufacturerAppService.GetManufacturers()); }
+        }
+
+        #endregion
+
+        #region 飞机证照
+        /// <summary>
+        ///     证照类型
+        /// </summary>
+        public IQueryable<LicenseTypeDTO> LicenseTypes
+        {
+            get { return _aircraftLicenseAppService.GetLicenseTypes(); }
+        }
+       
+        #endregion
+
+        #region 实际飞机
+
+        /// <summary>
+        ///     实际飞机集合
+        /// </summary>
+        public IQueryable<AircraftDTO> Aircrafts
+        {
+            get { return _aircraftAppService.GetAircrafts(); }
         }
 
         #endregion

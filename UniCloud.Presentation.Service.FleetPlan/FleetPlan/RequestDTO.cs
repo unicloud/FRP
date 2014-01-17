@@ -14,7 +14,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
     public partial class RequestDTO
     {
-        public RequestStatus RequestStatus {
+        internal RequestStatus RequestStatus
+        {
             get { return (RequestStatus) Status; }
         }
     }

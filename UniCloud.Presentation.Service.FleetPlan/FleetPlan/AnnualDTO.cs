@@ -38,7 +38,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             OnPropertyChanged("OpenState");
         }
 
-        public OpenState OpenState
+        internal OpenState OpenState
         {
             get
             {

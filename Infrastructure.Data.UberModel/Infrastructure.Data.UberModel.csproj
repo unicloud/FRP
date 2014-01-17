@@ -66,6 +66,7 @@
     <Compile Include="InitialData\InitialBase\IInitialData.cs" />
     <Compile Include="InitialData\InitialBase\InitialContainer.cs" />
     <Compile Include="InitialData\InitialBase\InitialDataBase.cs" />
+    <Compile Include="InitialData\LicenseTypeData.cs" />
     <Compile Include="InitialData\ManagerData.cs" />
     <Compile Include="InitialData\ManufacturerData.cs" />
     <Compile Include="InitialData\PartData.cs" />
@@ -78,6 +79,9 @@
     <Compile Include="Migrations\201401160056443_Initializer.cs" />
     <Compile Include="Migrations\201401160056443_Initializer.Designer.cs">
       <DependentUpon>201401160056443_Initializer.cs</DependentUpon>
+    <Compile Include="Migrations\201401170547419_database.cs" />
+    <Compile Include="Migrations\201401170547419_database.Designer.cs">
+      <DependentUpon>201401170547419_database.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -244,6 +248,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201401160056443_Initializer.resx">
       <DependentUpon>201401160056443_Initializer.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201401170547419_database.resx">
+      <DependentUpon>201401170547419_database.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

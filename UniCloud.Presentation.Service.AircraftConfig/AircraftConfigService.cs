@@ -43,6 +43,13 @@ namespace UniCloud.Presentation.Service.AircraftConfig
             return GetStaticData(Context.Manufacturers, loaded, forceLoad);
         }
 
+        /// <summary>
+        ///     所有座级
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftCategoryDTO> GetAircraftCategories(Action loaded, bool forceLoad = false)
+        {
+            return GetStaticData(Context.AircraftCategories, loaded, forceLoad);
+        }
         #endregion
 
         #endregion

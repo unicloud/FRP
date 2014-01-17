@@ -83,7 +83,7 @@ namespace UniCloud.Presentation.Payment.Invoice
         public override void LoadData()
         {
             // 将CollectionView的AutoLoad属性设为True
-            if (AirframeMaintainInvoices.AutoLoad)
+            if (!AirframeMaintainInvoices.AutoLoad)
                 AirframeMaintainInvoices.AutoLoad = true;
             AirframeMaintainInvoices.Load(true);
             Suppliers.Load(true);
