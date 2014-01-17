@@ -15,6 +15,8 @@
 
 #endregion
 
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg;
+
 namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg
 {
     /// <summary>
@@ -23,5 +25,6 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg
     /// </summary>
     public interface IAircraftRepository : IRepository<Aircraft>
     {
+        void RemoveAircraftLicense(AircraftLicense aircraftLicense);
     }
 }

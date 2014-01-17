@@ -34,7 +34,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.Description).HasColumnName("Description");
             Property(p => p.ExpireDate).HasColumnName("ExpireDate").HasColumnType("datetime2");
             Property(p => p.IssuedDate).HasColumnName("IssuedDate").HasColumnType("datetime2");
-            Property(p => p.LicenseFile).HasColumnName("LicenseFile");
+            Property(p => p.DocumentId).HasColumnName("DocumentId");
             Property(p => p.FileName).HasColumnName("FileName");
 
             Property(p => p.IssuedUnit).HasColumnName("IssuedUnit");

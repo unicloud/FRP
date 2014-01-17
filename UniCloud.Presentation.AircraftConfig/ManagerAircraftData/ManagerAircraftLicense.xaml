@@ -143,13 +143,13 @@
                                                        Command="{Binding AddInvoiceLineCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Add.png"
                                                Stretch="Fill"
-                                               ToolTipService.ToolTip="增加发票明细" />
+                                               ToolTipService.ToolTip="增加飞机证照" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding RemoveInvoiceLineCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
                                                Stretch="Fill"
-                                               ToolTipService.ToolTip="移除发票明细" />
+                                               ToolTipService.ToolTip="移除飞机证照" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding AddAttachCommand}"
@@ -167,9 +167,8 @@
                                                  CanUserFreezeColumns="False"
                                                  IsFilteringAllowed="True"
                                                  IsBusy="{Binding Aircrafts.IsBusy,Mode=TwoWay}"
-                                                 ItemsSource="{Binding AircraftLicenses}"
+                                                         ItemsSource="{Binding Aircraft.AircraftLicenses}"
                                                  SelectedItem="{Binding AircraftLicense,Mode=TwoWay}"
-                                                 CanUserSelect="{Binding CanSelectAircraftLicense}"
                                                  FontSize="{StaticResource TextFontSize}"
                                                  ValidatesOnDataErrors="InEditMode"
                                                  RowIndicatorVisibility="Visible">

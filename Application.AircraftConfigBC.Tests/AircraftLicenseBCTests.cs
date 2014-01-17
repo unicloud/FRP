@@ -40,7 +40,6 @@ namespace Application.AircraftConfigBC.Tests
                 .RegisterType<IQueryableUnitOfWork, AircraftConfigBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 .RegisterType<IAircraftLicenseQuery, AircraftLicenseQuery>()
                 .RegisterType<IAircraftLicenseAppService, AircraftLicenseAppService>()
-                .RegisterType<IAircraftLicenseRepository, AircraftLicenseRepository>()
                 .RegisterType<ILicenseTypeRepository, LicenseTypeRepository>();
 
         }

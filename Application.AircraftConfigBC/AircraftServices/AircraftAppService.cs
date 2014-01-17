@@ -14,13 +14,13 @@
 
 #region 命名空间
 
-using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.AircraftConfigBC.DTO;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftQueries;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg;
-using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg;
 
 #endregion
 
@@ -35,7 +35,7 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftServices
         private readonly IAircraftQuery _aircraftQuery;
         private readonly IAircraftRepository _aircraftRepository;
 
-        public AircraftAppService(IAircraftQuery aircraftQuery,IAircraftRepository aircraftRepository)
+        public AircraftAppService(IAircraftQuery aircraftQuery, IAircraftRepository aircraftRepository)
         {
             _aircraftQuery = aircraftQuery;
             _aircraftRepository = aircraftRepository;
@@ -52,7 +52,7 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftServices
             return _aircraftQuery.AircraftDTOQuery(queryBuilder);
         }
 
-      
+
 
         /// <summary>
         ///     更新实际飞机。
@@ -61,10 +61,42 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftServices
         [Update(typeof(AircraftDTO))]
         public void ModifyAircraft(AircraftDTO dto)
         {
-          
+            var updateAircraft = _aircraftRepository.Get(dto.AircraftId); //获取需要更新的对象。
+            UpdateAircraftLicenses(dto.AircraftLicenses, updateAircraft);
+            _aircraftRepository.Modify(updateAircraft);
         }
 
-
+        #region 更新飞机证照集合
+        /// <summary>
+        /// 更新飞机证照集合
+        /// </summary>
+        /// <param name="sourceAircraftLicenses">客户端集合</param>
+        /// <param name="dstAircraft">数据库集合</param>
+        private void UpdateAircraftLicenses(IEnumerable<AircraftLicenseDTO> sourceAircraftLicenses, Aircraft dstAircraft)
+        {
+            var aircraftLicense = new List<AircraftLicense>();
+            foreach (var sourceAircraftLicense in sourceAircraftLicenses)
+            {
+                var result = dstAircraft.Licenses.FirstOrDefault(p => p.Id == sourceAircraftLicense.AircraftLicenseId);
+                if (result == null)
+                {
+                    result = AircraftLicenseFactory.CreateAircraftLicense();
+                    result.ChangeCurrentIdentity(sourceAircraftLicense.AircraftLicenseId);
+                }
+                AircraftLicenseFactory.SetAircraftLicense(result, sourceAircraftLicense.Name, sourceAircraftLicense.Description, sourceAircraftLicense.IssuedUnit,
+                        sourceAircraftLicense.IssuedDate, sourceAircraftLicense.ValidMonths, sourceAircraftLicense.ExpireDate, sourceAircraftLicense.State, sourceAircraftLicense.FileName, sourceAircraftLicense.DocumentId);
+                aircraftLicense.Add(result);
+            }
+            dstAircraft.Licenses.ToList().ForEach(p =>
+            {
+                if (aircraftLicense.FirstOrDefault(t => t.Id == p.Id) == null)
+                {
+                    _aircraftRepository.RemoveAircraftLicense(p);
+                }
+            });
+            dstAircraft.Licenses = aircraftLicense;
+        }
+        #endregion
         #endregion
     }
 }

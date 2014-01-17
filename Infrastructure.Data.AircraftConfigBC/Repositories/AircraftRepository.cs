@@ -15,8 +15,11 @@
 #region 命名空间
 
 using System;
+using System.Linq;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg;
-
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg;
+using UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork;
+using System.Data.Entity;
 #endregion
 
 namespace UniCloud.Infrastructure.Data.AircraftConfigBC.Repositories
@@ -32,6 +35,21 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.Repositories
         }
 
         #region 方法重载
+        public override Aircraft Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as AircraftConfigBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<Aircraft>();
+            return set.Include(t => t.Licenses).FirstOrDefault(p => p.Id == (Guid)id);
+        }
         #endregion
+
+        public void RemoveAircraftLicense(AircraftLicense aircraftLicense)
+        {
+            var currentUnitOfWork = UnitOfWork as AircraftConfigBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            var set = currentUnitOfWork.CreateSet<AircraftLicense>();
+            set.Remove(aircraftLicense);
+        }
     }
 }
