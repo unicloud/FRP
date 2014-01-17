@@ -2,17 +2,22 @@
 
 using System.ComponentModel.Composition;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media.Animation;
 
 #endregion
 
 namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
 {
      [Export]
-    public partial class ManagerAircraftLicense : UserControl
+    public partial class ManagerAircraftLicense 
     {
+       
+
         public ManagerAircraftLicense()
         {
             InitializeComponent();
+           
         }
 
         [Import(typeof(ManagerAircraftLicenseVm))]

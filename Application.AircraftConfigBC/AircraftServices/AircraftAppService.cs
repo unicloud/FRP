@@ -84,7 +84,7 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftServices
                     result.ChangeCurrentIdentity(sourceAircraftLicense.AircraftLicenseId);
                 }
                 AircraftLicenseFactory.SetAircraftLicense(result, sourceAircraftLicense.Name, sourceAircraftLicense.LicenseTypeId, sourceAircraftLicense.Description, sourceAircraftLicense.IssuedUnit,
-                        sourceAircraftLicense.IssuedDate, sourceAircraftLicense.ValidMonths, sourceAircraftLicense.ExpireDate, sourceAircraftLicense.State, sourceAircraftLicense.FileName, sourceAircraftLicense.DocumentId);
+                        sourceAircraftLicense.IssuedDate, sourceAircraftLicense.ValidMonths, sourceAircraftLicense.ExpireDate, sourceAircraftLicense.State, sourceAircraftLicense.FileName, sourceAircraftLicense.FileContent);
                 aircraftLicense.Add(result);
             }
             dstAircraft.Licenses.ToList().ForEach(p =>

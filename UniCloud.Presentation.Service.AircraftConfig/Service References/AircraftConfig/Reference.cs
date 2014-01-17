@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/1/17 11:03:43
+// 生成日期: 2014/1/17 13:50:18
 namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
 {
     
@@ -294,22 +294,22 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
                 "roperty Name=\"IssuedDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=" +
                 "\"ValidMonths\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ExpireDate\" Ty" +
                 "pe=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"State\" Type=\"Edm.Int32\" Nul" +
-                "lable=\"false\" /><Property Name=\"DocumentId\" Type=\"Edm.Guid\" Nullable=\"false\" /><" +
-                "Property Name=\"FileName\" Type=\"Edm.String\" /><Property Name=\"AircraftId\" Type=\"E" +
-                "dm.Guid\" Nullable=\"false\" /><Property Name=\"LicenseTypeId\" Type=\"Edm.Int32\" Null" +
-                "able=\"false\" /></ComplexType></Schema><Schema Namespace=\"UniCloud.DistributedSer" +
-                "vices.AircraftConfig\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><Enti" +
-                "tyContainer Name=\"AircraftConfigData\" m:IsDefaultEntityContainer=\"true\"><EntityS" +
-                "et Name=\"ActionCategories\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO" +
-                ".ActionCategoryDTO\" /><EntitySet Name=\"AircraftSeries\" EntityType=\"UniCloud.Appl" +
-                "ication.AircraftConfigBC.DTO.AircraftSeriesDTO\" /><EntitySet Name=\"AircraftCateg" +
-                "ories\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.AircraftCategoryDTO" +
-                "\" /><EntitySet Name=\"AircraftTypes\" EntityType=\"UniCloud.Application.AircraftCon" +
-                "figBC.DTO.AircraftTypeDTO\" /><EntitySet Name=\"Manufacturers\" EntityType=\"UniClou" +
-                "d.Application.AircraftConfigBC.DTO.ManufacturerDTO\" /><EntitySet Name=\"LicenseTy" +
-                "pes\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.LicenseTypeDTO\" /><En" +
-                "titySet Name=\"Aircrafts\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.A" +
-                "ircraftDTO\" /></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
+                "lable=\"false\" /><Property Name=\"FileContent\" Type=\"Edm.Binary\" /><Property Name=" +
+                "\"FileName\" Type=\"Edm.String\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" Nulla" +
+                "ble=\"false\" /><Property Name=\"LicenseTypeId\" Type=\"Edm.Int32\" Nullable=\"false\" /" +
+                "></ComplexType></Schema><Schema Namespace=\"UniCloud.DistributedServices.Aircraft" +
+                "Config\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityContainer Na" +
+                "me=\"AircraftConfigData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"Actio" +
+                "nCategories\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.ActionCategor" +
+                "yDTO\" /><EntitySet Name=\"AircraftSeries\" EntityType=\"UniCloud.Application.Aircra" +
+                "ftConfigBC.DTO.AircraftSeriesDTO\" /><EntitySet Name=\"AircraftCategories\" EntityT" +
+                "ype=\"UniCloud.Application.AircraftConfigBC.DTO.AircraftCategoryDTO\" /><EntitySet" +
+                " Name=\"AircraftTypes\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.Airc" +
+                "raftTypeDTO\" /><EntitySet Name=\"Manufacturers\" EntityType=\"UniCloud.Application." +
+                "AircraftConfigBC.DTO.ManufacturerDTO\" /><EntitySet Name=\"LicenseTypes\" EntityTyp" +
+                "e=\"UniCloud.Application.AircraftConfigBC.DTO.LicenseTypeDTO\" /><EntitySet Name=\"" +
+                "Aircrafts\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.AircraftDTO\" />" +
+                "</EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -1176,11 +1176,10 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
         /// <param name="validMonths">ValidMonths 的初始值。</param>
         /// <param name="expireDate">ExpireDate 的初始值。</param>
         /// <param name="state">State 的初始值。</param>
-        /// <param name="documentId">DocumentId 的初始值。</param>
         /// <param name="aircraftId">AircraftId 的初始值。</param>
         /// <param name="licenseTypeId">LicenseTypeId 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static AircraftLicenseDTO CreateAircraftLicenseDTO(int aircraftLicenseId, global::System.DateTime issuedDate, int validMonths, global::System.DateTime expireDate, int state, global::System.Guid documentId, global::System.Guid aircraftId, int licenseTypeId)
+        public static AircraftLicenseDTO CreateAircraftLicenseDTO(int aircraftLicenseId, global::System.DateTime issuedDate, int validMonths, global::System.DateTime expireDate, int state, global::System.Guid aircraftId, int licenseTypeId)
         {
             AircraftLicenseDTO aircraftLicenseDTO = new AircraftLicenseDTO();
             aircraftLicenseDTO.AircraftLicenseId = aircraftLicenseId;
@@ -1188,7 +1187,6 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
             aircraftLicenseDTO.ValidMonths = validMonths;
             aircraftLicenseDTO.ExpireDate = expireDate;
             aircraftLicenseDTO.State = state;
-            aircraftLicenseDTO.DocumentId = documentId;
             aircraftLicenseDTO.AircraftId = aircraftId;
             aircraftLicenseDTO.LicenseTypeId = licenseTypeId;
             return aircraftLicenseDTO;
@@ -1370,27 +1368,34 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
         partial void OnStateChanging(int value);
         partial void OnStateChanged();
         /// <summary>
-        /// 架构中不存在属性 DocumentId 的注释。
+        /// 架构中不存在属性 FileContent 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Guid DocumentId
+        public byte[] FileContent
         {
             get
             {
-                return this._DocumentId;
+                if ((this._FileContent != null))
+                {
+                    return ((byte[])(this._FileContent.Clone()));
+                }
+                else
+                {
+                    return null;
+                }
             }
             set
             {
-                this.OnDocumentIdChanging(value);
-                this._DocumentId = value;
-                this.OnDocumentIdChanged();
-                this.OnPropertyChanged("DocumentId");
+                this.OnFileContentChanging(value);
+                this._FileContent = value;
+                this.OnFileContentChanged();
+                this.OnPropertyChanged("FileContent");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Guid _DocumentId;
-        partial void OnDocumentIdChanging(global::System.Guid value);
-        partial void OnDocumentIdChanged();
+        private byte[] _FileContent;
+        partial void OnFileContentChanging(byte[] value);
+        partial void OnFileContentChanged();
         /// <summary>
         /// 架构中不存在属性 FileName 的注释。
         /// </summary>

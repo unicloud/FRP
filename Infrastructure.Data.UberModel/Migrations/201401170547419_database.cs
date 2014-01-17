@@ -40,7 +40,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         ValidMonths = c.Int(nullable: false),
                         ExpireDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         State = c.Int(nullable: false),
-                        DocumentId = c.Guid(nullable: false),
+                        FileContent = c.Binary(),
                         FileName = c.String(),
                         AircraftId = c.Guid(nullable: false),
                         LicenseTypeId = c.Int(nullable: false),

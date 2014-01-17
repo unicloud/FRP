@@ -10,7 +10,7 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             Name="ApuMaintainContract">
+             Name="AircraftLicenseView">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -151,13 +151,6 @@
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="移除飞机证照" />
                                     </telerik:RadButton>
-                                    <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AddAttachCommand}"
-                                                       CommandParameter="{Binding EngineMaintainInvoice.DocumentId,Mode=TwoWay}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="添加附件" />
-                                    </telerik:RadButton>
                                 </telerik:RadToolBar>
                                 <Grid Row="1">
                                     <telerik:RadGridView Name="AircraftLicenseList"
@@ -242,6 +235,29 @@
                                          CanUserClose="False"
                                          CanUserPin="True"
                                          ContextMenuTemplate="{x:Null}">
+                            <Grid x:Name="LayoutRoot">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                        Margin="0 0 0 -1"
+                                                        OverflowButtonVisibility="Collapsed">
+                                        <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/open.png"
+                                                                      Command="{Binding DataContext.AddDocumentCommand, ElementName=AircraftLicenseView}" />
+                                        <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/Default/Rotate90CW.png"
+                                                                      Command="{Binding Path=Commands.Rotate90Clockwise, ElementName=ImageEditor}" />
+                                        <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/Default/Rotate90CCW.png"
+                                                                      Command="{Binding Path=Commands.Rotate90Counterclockwise, ElementName=ImageEditor}" />
+                                    </telerik:RadToolBar>
+                                    <telerik:RadImageEditor Grid.Row="1"
+                                                            x:Name="ImageEditor"
+                                                            ScaleFactor="0"
+                                                            HorizontalAlignment="Stretch"
+                                                            VerticalAlignment="Stretch"/>
+                                </Grid>
+                            </Grid>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
                 </telerik:RadSplitContainer>

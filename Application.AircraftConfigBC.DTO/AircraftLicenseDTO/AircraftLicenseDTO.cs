@@ -71,7 +71,7 @@ namespace UniCloud.Application.AircraftConfigBC.DTO
         /// <summary>
         /// 证照扫描件
         /// </summary>
-        public Guid DocumentId { get; set; }
+        public byte[] FileContent { get; set; }
 
         /// <summary>
         /// 扫描件名字

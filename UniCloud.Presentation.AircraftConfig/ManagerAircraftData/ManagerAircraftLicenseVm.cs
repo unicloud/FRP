@@ -16,9 +16,12 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.IO;
+using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
+using Telerik.Windows.Media.Imaging.FormatProviders;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.AircraftConfig;
@@ -58,6 +61,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         {
             AddAircraftLicenseCommand = new DelegateCommand<object>(OnAddAircraftLicense, CanAddAircraftLicense);
             RemoveAircraftLicenseCommand = new DelegateCommand<object>(OnRemoveAircraftLicense, CanRemoveAircraftLicense);
+            AddDocumentCommand = new DelegateCommand<object>(AddDocument, CanAddDocument);
             //创建并注册CollectionView
             Aircrafts = _service.CreateCollection(_context.Aircrafts, o => o.AircraftLicenses);
             _service.RegisterCollectionView(Aircrafts);
@@ -125,6 +129,19 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
             set
             {
                 _aircraftLicense = value;
+                if (_aircraftLicense != null && _aircraftLicense.FileContent != null)
+                {
+                    IImageFormatProvider providerByExtension = ImageFormatProviderManager.GetFormatProviderByExtension(Path.GetExtension(_aircraftLicense.FileName));
+                    if (providerByExtension == null)
+                    {
+                        MessageAlert("不支持文件格式！");
+                    }
+                    else
+                    {
+                        CurrentAircraftLicense.ImageEditor.Image = providerByExtension.Import(AircraftLicense.FileContent);
+                    }
+                }
+                AddDocumentCommand.RaiseCanExecuteChanged();
                 RaisePropertyChanged(() => AircraftLicense);
             }
         }
@@ -159,6 +176,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
             };
 
             Aircraft.AircraftLicenses.Add(aircraftLicense);
+            CurrentAircraftLicense.ImageEditor.Image = null;
         }
 
         protected virtual bool CanAddAircraftLicense(object obj)
@@ -196,7 +214,45 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
 
         #endregion
 
+        #region 打开文档
 
+        [Import]
+        public ManagerAircraftLicense CurrentAircraftLicense;
+       
+        public DelegateCommand<object> AddDocumentCommand { get; set; }
+
+        private void AddDocument(object sender)
+        {
+            try
+            {
+                var openFileDialog = new OpenFileDialog { Filter = "PNG Files (*.png)|*.png|BMP Files (*.bmp)|*.bmp|JPG Files (*.jpg, *.jpeg)|*.jpg;*.jpeg" };
+                if (openFileDialog.ShowDialog() == true)
+                {
+                    var stream = (Stream)openFileDialog.File.OpenRead();
+                    IImageFormatProvider providerByExtension = ImageFormatProviderManager.GetFormatProviderByExtension(openFileDialog.File.Extension);
+                    if (providerByExtension == null)
+                    {
+                        MessageAlert("不支持文件格式！");
+                    }
+                    else
+                    {
+                        AircraftLicense.FileName = openFileDialog.File.Name;
+                        CurrentAircraftLicense.ImageEditor.Image = providerByExtension.Import(stream);
+                        AircraftLicense.FileContent = providerByExtension.Export(CurrentAircraftLicense.ImageEditor.Image);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageAlert(e.Message);
+            }
+        }
+
+        private bool CanAddDocument(object obj)
+        {
+            return AircraftLicense != null;
+        }
+        #endregion
         #endregion
     }
 }
