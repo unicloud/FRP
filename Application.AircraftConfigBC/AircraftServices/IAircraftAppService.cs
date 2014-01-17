@@ -31,5 +31,7 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftServices
         /// </summary>
         /// <returns>所有实际飞机</returns>
         IQueryable<AircraftDTO> GetAircrafts();
+
+         void ModifyAircraft(AircraftDTO dto);
     }
 }

@@ -94,7 +94,7 @@
         <Property Name="ValidMonths" Type="Edm.Int32" Nullable="false" />
         <Property Name="ExpireDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="State" Type="Edm.Int32" Nullable="false" />
-        <Property Name="LicenseFile" Type="Edm.Binary" />
+        <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
         <Property Name="FileName" Type="Edm.String" />
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
         <Property Name="LicenseTypeId" Type="Edm.Int32" Nullable="false" />

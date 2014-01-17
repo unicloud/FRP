@@ -16,6 +16,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -55,8 +56,10 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         /// </summary>
         private void InitializeVm()
         {
+            AddAircraftLicenseCommand = new DelegateCommand<object>(OnAddAircraftLicense, CanAddAircraftLicense);
+            RemoveAircraftLicenseCommand = new DelegateCommand<object>(OnRemoveAircraftLicense, CanRemoveAircraftLicense);
             //创建并注册CollectionView
-            Aircrafts = _service.CreateCollection(_context.Aircrafts);
+            Aircrafts = _service.CreateCollection(_context.Aircrafts, o => o.AircraftLicenses);
             _service.RegisterCollectionView(Aircrafts);
             LicenseTypes = new QueryableDataServiceCollectionView<LicenseTypeDTO>(_context, _context.LicenseTypes);
         }
@@ -113,6 +116,19 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
 
         #endregion
 
+        #region 飞机证照
+
+        private AircraftLicenseDTO _aircraftLicense;
+        public AircraftLicenseDTO AircraftLicense
+        {
+            get { return _aircraftLicense; }
+            set
+            {
+                _aircraftLicense = value;
+                RaisePropertyChanged(() => AircraftLicense);
+            }
+        }
+        #endregion
 
 
         #endregion
@@ -121,10 +137,65 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
 
         #region 操作
 
+        #region 增加飞机证照
 
-        #region 重载操作
+        /// <summary>
+        ///     增加飞机证照
+        /// </summary>
+        public DelegateCommand<object> AddAircraftLicenseCommand { get; set; }
+
+        protected virtual void OnAddAircraftLicense(object obj)
+        {
+            if (Aircraft == null)
+            {
+                MessageAlert("请选择一条飞机记录！");
+                return;
+            }
+            var aircraftLicense = new AircraftLicenseDTO
+            {
+                AircraftLicenseId = RandomHelper.Next(),
+                IssuedDate = DateTime.Now,
+                ExpireDate = DateTime.Now
+            };
+
+            Aircraft.AircraftLicenses.Add(aircraftLicense);
+        }
+
+        protected virtual bool CanAddAircraftLicense(object obj)
+        {
+            return true;
+        }
 
         #endregion
+
+        #region 移除飞机证照
+
+        /// <summary>
+        ///     移除飞机证照
+        /// </summary>
+        public DelegateCommand<object> RemoveAircraftLicenseCommand { get; private set; }
+
+        protected virtual void OnRemoveAircraftLicense(object obj)
+        {
+            if (AircraftLicense == null)
+            {
+                MessageAlert("请选择一条飞机证照！");
+                return;
+            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+            {
+                if (arg.DialogResult != true) return;
+                Aircraft.AircraftLicenses.Remove(AircraftLicense);
+            });
+        }
+
+        protected virtual bool CanRemoveAircraftLicense(object obj)
+        {
+            return true;
+        }
+
+        #endregion
+
 
         #endregion
     }

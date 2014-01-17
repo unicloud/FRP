@@ -66,6 +66,7 @@
     <Compile Include="InitialData\InitialBase\IInitialData.cs" />
     <Compile Include="InitialData\InitialBase\InitialContainer.cs" />
     <Compile Include="InitialData\InitialBase\InitialDataBase.cs" />
+    <Compile Include="InitialData\LicenseTypeData.cs" />
     <Compile Include="InitialData\ManagerData.cs" />
     <Compile Include="InitialData\ManufacturerData.cs" />
     <Compile Include="InitialData\PartData.cs" />
