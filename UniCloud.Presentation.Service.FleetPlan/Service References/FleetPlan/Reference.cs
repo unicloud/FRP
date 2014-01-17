@@ -9,11 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-<<<<<<< HEAD
-// 生成日期: 2014/1/17 17:58:52
-=======
-// 生成日期: 2014/1/16 9:43:38
->>>>>>> 40220b530aff3910347de0fef07dc36e126d5b79
+// 生成日期: 2014/1/17 18:49:19
 namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
     
@@ -983,7 +979,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             private const string ModelPart3 = "ropertyRef Name=\"XmlSettingId\" /></Key><Property Name=\"XmlSettingId\" Type=\"Edm.Gu" +
                 "id\" Nullable=\"false\" /><Property Name=\"SettingType\" Type=\"Edm.String\" /><Propert" +
                 "y Name=\"SettingContent\" Type=\"Edm.String\" /><Property Name=\"XmlContent\" Type=\"Ed" +
-<<<<<<< HEAD
                 "m.String\" /></EntityType><ComplexType Name=\"PerformPlan\"><Property Name=\"Id\" Typ" +
                 "e=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ApprovalHistory\" Type=\"UniCloud." +
                 "Application.FleetPlanBC.DTO.ApprovalHistoryDTO\" /><Property Name=\"OperationHisto" +
@@ -1028,42 +1023,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 "\" Type=\"Edm.Int32\" Nullable=\"false\" /><Parameter Name=\"relatedGuid\" Type=\"Edm.St" +
                 "ring\" /></FunctionImport></EntityContainer></Schema></edmx:DataServices></edmx:E" +
                 "dmx>";
-=======
-                "m.String\" /></EntityType></Schema><Schema Namespace=\"UniCloud.DistributedService" +
-                "s.FleetPlan\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityContain" +
-                "er Name=\"FleetPlanData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"Actio" +
-                "nCategories\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.ActionCategoryDTO\"" +
-                " /><EntitySet Name=\"AircraftSeries\" EntityType=\"UniCloud.Application.FleetPlanBC" +
-                ".DTO.AircraftSeriesDTO\" /><EntitySet Name=\"AircraftCategories\" EntityType=\"UniCl" +
-                "oud.Application.FleetPlanBC.DTO.AircraftCategoryDTO\" /><EntitySet Name=\"Aircraft" +
-                "s\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.AircraftDTO\" /><EntitySet Na" +
-                "me=\"AircraftTypes\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.AircraftType" +
-                "DTO\" /><EntitySet Name=\"Airlineses\" EntityType=\"UniCloud.Application.FleetPlanBC" +
-                ".DTO.AirlinesDTO\" /><EntitySet Name=\"AirProgrammings\" EntityType=\"UniCloud.Appli" +
-                "cation.FleetPlanBC.DTO.AirProgrammingDTO\" /><EntitySet Name=\"Annuals\" EntityType" +
-                "=\"UniCloud.Application.FleetPlanBC.DTO.AnnualDTO\" /><EntitySet Name=\"PlanYears\" " +
-                "EntityType=\"UniCloud.Application.FleetPlanBC.DTO.PlanYearDTO\" /><EntitySet Name=" +
-                "\"ApprovalDocs\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.ApprovalDocDTO\" " +
-                "/><EntitySet Name=\"CaacProgrammings\" EntityType=\"UniCloud.Application.FleetPlanB" +
-                "C.DTO.CaacProgrammingDTO\" /><EntitySet Name=\"Engines\" EntityType=\"UniCloud.Appli" +
-                "cation.FleetPlanBC.DTO.EngineDTO\" /><EntitySet Name=\"EnginePlans\" EntityType=\"Un" +
-                "iCloud.Application.FleetPlanBC.DTO.EnginePlanDTO\" /><EntitySet Name=\"EngineTypes" +
-                "\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.EngineTypeDTO\" /><EntitySet N" +
-                "ame=\"MailAddresses\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.MailAddress" +
-                "DTO\" /><EntitySet Name=\"Managers\" EntityType=\"UniCloud.Application.FleetPlanBC.D" +
-                "TO.ManagerDTO\" /><EntitySet Name=\"Manufacturers\" EntityType=\"UniCloud.Applicatio" +
-                "n.FleetPlanBC.DTO.ManufacturerDTO\" /><EntitySet Name=\"Plans\" EntityType=\"UniClou" +
-                "d.Application.FleetPlanBC.DTO.PlanDTO\" /><EntitySet Name=\"PlanAircrafts\" EntityT" +
-                "ype=\"UniCloud.Application.FleetPlanBC.DTO.PlanAircraftDTO\" /><EntitySet Name=\"Pl" +
-                "anEngines\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.PlanEngineDTO\" /><En" +
-                "titySet Name=\"Programmings\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.Pro" +
-                "grammingDTO\" /><EntitySet Name=\"Requests\" EntityType=\"UniCloud.Application.Fleet" +
-                "PlanBC.DTO.RequestDTO\" /><EntitySet Name=\"Suppliers\" EntityType=\"UniCloud.Applic" +
-                "ation.FleetPlanBC.DTO.SupplierDTO\" /><EntitySet Name=\"XmlConfigs\" EntityType=\"Un" +
-                "iCloud.Application.FleetPlanBC.DTO.XmlConfigDTO\" /><EntitySet Name=\"XmlSettings\"" +
-                " EntityType=\"UniCloud.Application.FleetPlanBC.DTO.XmlSettingDTO\" /></EntityConta" +
-                "iner></Schema></edmx:DataServices></edmx:Edmx>";
->>>>>>> 40220b530aff3910347de0fef07dc36e126d5b79
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {

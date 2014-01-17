@@ -40,7 +40,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
     {
         static readonly FleetPlanService FleetPlanService = new FleetPlanService();
 
-        #region 属性
+      
 
         #region 控制只读属性
 
@@ -246,6 +246,9 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             }
         }
 
+        internal PlanHistoryCompareStatus PlanHistoryCompareStatus
+        { get; set; }
+
         #endregion
 
         #region 属性绑定
@@ -256,7 +259,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         {
             get { return FleetPlanService.GetAircraftCategories(null); }
 
-        //}
+        }
 
         ///// <summary>
         ///// 机型集合，用于属性绑定
