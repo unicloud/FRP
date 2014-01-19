@@ -1,22 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+﻿#region 命名空间
+
+using System.ComponentModel.Composition;
+
+#endregion
 
 namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 {
+    [Export(typeof (OperationChild))]
+    [PartCreationPolicy(CreationPolicy.Shared)]
     public partial class OperationChild
     {
         public OperationChild()
         {
             InitializeComponent();
+        }
+        [Import(typeof(OperationChildVM))]
+        public OperationChildVM ViewModel
+        {
+            get { return DataContext as OperationChildVM; }
+            set { DataContext = value; }
         }
     }
 }

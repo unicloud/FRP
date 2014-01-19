@@ -35,6 +35,5 @@ namespace UniCloud.Application.FleetPlanBC.Query.ApprovalDocQueries
         /// <returns>申请DTO集合。</returns>
         IQueryable<ApprovalDocDTO> ApprovalDocsQuery(
             QueryBuilder<ApprovalDoc> query);
-
     }
 }

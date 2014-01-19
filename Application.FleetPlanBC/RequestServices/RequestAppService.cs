@@ -47,6 +47,11 @@ namespace UniCloud.Application.FleetPlanBC.RequestServices
             return _requestQuery.RequestsQuery(new QueryBuilder<Request>());
         }
 
+        public IQueryable<ApprovalRequestDTO> GetApprovalRequests()
+        {
+            return _requestQuery.ApprovalRequestsQuery(new QueryBuilder<Request>());
+        }
+
         /// <summary>
         ///     新增申请
         /// </summary>

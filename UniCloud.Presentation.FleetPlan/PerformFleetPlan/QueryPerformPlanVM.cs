@@ -3,10 +3,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Data.Services.Client;
 using System.Linq;
-using System.Windows;
 using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.FleetPlan;
@@ -38,6 +37,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 
         #region 加载计划
 
+        private IEnumerable<PlanHistoryDTO> _planHistories;
         private PlanDTO _selectedPlan;
 
         private PlanHistoryDTO _selectedPlanHistory;
@@ -54,6 +54,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                 {
                     _selectedPlan = value;
                     AnalysePlanPerforms(value);
+                    GetPerformPlanHistory();
                     RaisePropertyChanged(() => SelectedPlan);
                 }
             }
@@ -77,6 +78,16 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         /// </summary>
         public QueryableDataServiceCollectionView<PlanDTO> PlansView { get; set; }
 
+        public IEnumerable<PlanHistoryDTO> PlanHistories
+        {
+            get { return _planHistories; }
+            set
+            {
+                _planHistories = value;
+                RaisePropertyChanged(() => PlanHistories);
+            }
+        }
+
         /// <summary>
         ///     初始化计划信息。
         /// </summary>
@@ -88,6 +99,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             PlansView.FilterDescriptors.Add(new FilterDescriptor("IsValid", FilterOperator.IsEqualTo, true));
             PlansView.LoadedData += (sender, e) =>
             {
+                SetIsBusy();
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
@@ -98,6 +110,34 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                     SelectedPlan = e.Entities.Cast<PlanDTO>().FirstOrDefault();
                 }
             };
+        }
+
+        /// <summary>
+        ///     获取执行计划的历史
+        /// </summary>
+        private void GetPerformPlanHistory()
+        {
+            if (SelectedPlan != null)
+            {
+                Func<PlanHistoryDTO, bool> annualPlanHistoryExpress = p =>
+                    p.PerformAnnualId == SelectedPlan.AnnualId; //当年度计划历史表达式
+                //不是当年度的计划，但执行时间在选择计划的年度表达式
+                Func<PlanHistoryDTO, bool> performedPlanHistoryExpress = p =>
+                    p.PerformAnnualId != SelectedPlan.AnnualId
+                    && p.RelatedGuid != null
+                    &&
+                    ((p.RelatedStartDate != null
+                      &&
+                      p.RelatedStartDate.Value.Year ==
+                      SelectedPlan.Year)
+                     ||
+                     (p.RelatedEndDate != null &&
+                      p.RelatedEndDate.Value.Year ==
+                      SelectedPlan.Year));
+                var annualPlanHistory = SelectedPlan.PlanHistories.Where(annualPlanHistoryExpress);
+                var performedPlanHistory = SelectedPlan.PlanHistories.Where(performedPlanHistoryExpress);
+                PlanHistories = annualPlanHistory.Union(performedPlanHistory);
+            }
         }
 
         #endregion
@@ -211,39 +251,19 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         /// </summary>
         public DelegateCommand<object> ViewPerformPlanCommand { get; private set; }
 
-        private PerformPlan _selPerformPlan;//选中的执行计划情况
         private void OnViewPerformPlan(object obj)
         {
+            var operationChild = ServiceLocator.Current.GetInstance<OperationChild>();
             var planHistory = obj as PlanHistoryDTO;
             if (planHistory != null)
             {
+                //查看路径
                 var path = CreatePerformPathQuery(planHistory.Id.ToString(), planHistory.ApprovalHistoryId.ToString(),
                     planHistory.PlanType, planHistory.RelatedGuid.ToString());
-
-                _context.BeginExecute<PerformPlan>(path,
-                    result => Deployment.Current.Dispatcher.BeginInvoke(() =>
-                    {
-                        var context = result.AsyncState as FleetPlanData;
-
-                        try
-                        {
-                            if (context != null)
-                            {
-                                foreach (var performPlan in context.EndExecute<PerformPlan>(result))
-                                {
-                                    _selPerformPlan = performPlan;
-                                    GetPerformPlan();
-                                }
-                            }
-                        }
-                        catch (DataServiceQueryException ex)
-                        {
-                            QueryOperationResponse response = ex.Response;
-
-                            Console.WriteLine(response.Error.Message);
-                        }
-
-                    }), _context);
+                var operationChildVm = operationChild.DataContext as OperationChildVM;
+                if (operationChildVm != null)
+                    operationChildVm.OnLoadPerformPlan(path);
+                operationChild.ShowDialog();
             }
         }
 
@@ -257,62 +277,6 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             ViewPerformPlanCommand = new DelegateCommand<object>(OnViewPerformPlan, CanViewPerformPlan);
         }
 
-        /// <summary>
-        /// 批文历史集合
-        /// </summary>
-        public IEnumerable<ApprovalHistoryDTO> ApprovalHistories
-        {
-            get
-            {
-                if (_selPerformPlan == null || _selPerformPlan.ApprovalHistory==null)
-                {
-                    return null;
-                }
-                var ls = new List<ApprovalHistoryDTO> {_selPerformPlan.ApprovalHistory};
-                return ls;
-            }
-        }
-
-        /// <summary>
-        /// 运营权历史
-        /// </summary>
-        public IEnumerable<OperationHistoryDTO> OperationHistories
-        {
-            get
-            {
-                if (_selPerformPlan == null || _selPerformPlan.OperationHistory == null)
-                {
-                    return null;
-                }
-                var ls = new List<OperationHistoryDTO> { _selPerformPlan.OperationHistory };
-                return ls;
-            }
-        }
-
-        /// <summary>
-        /// 商业数据
-        /// </summary>
-        public IEnumerable<AircraftBusinessDTO> AircraftBusiness
-        {
-            get
-            {
-                if (_selPerformPlan == null || _selPerformPlan.AircraftBusiness == null)
-                {
-                    return null;
-                }
-                var ls = new List<AircraftBusinessDTO> { _selPerformPlan.AircraftBusiness };
-                return ls;
-            }
-        }
-
-        private void GetPerformPlan()
-        {
-            RaisePropertyChanged(() => ApprovalHistories);
-            RaisePropertyChanged(() => OperationHistories);
-            RaisePropertyChanged(() => AircraftBusiness);
-
-
-        }
         #endregion
 
         #endregion
@@ -330,6 +294,11 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             {
                 PlansView.Load(true);
             }
+        }
+
+        protected override void SetIsBusy()
+        {
+            IsBusy = PlansView.IsBusy;
         }
 
         #endregion

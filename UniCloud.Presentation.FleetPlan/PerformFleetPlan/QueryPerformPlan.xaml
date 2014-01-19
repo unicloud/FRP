@@ -74,6 +74,7 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
+    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" BusyContent="">
     <Grid>
         <telerik:RadDocking HasDocumentHost="False"
                            >
@@ -302,7 +303,7 @@
                                                      IsFilteringAllowed="False"
                                                      CanUserSortGroups="False"
                                                      IsReadOnly="True"
-                                                     ItemsSource="{Binding SelectedPlan.PlanHistories}"
+                                                     ItemsSource="{Binding PlanHistories}"
                                                      SelectedItem="{Binding SelectedPlanHistory,Mode=TwoWay}"
                                                      >
                                     <telerik:RadGridView.GroupDescriptors>
@@ -380,4 +381,5 @@
             </telerik:RadSplitContainer>
         </telerik:RadDocking>
     </Grid>
+    </telerik:RadBusyIndicator>
 </UserControl>

@@ -231,6 +231,10 @@
     <Compile Include="Approvals\Approval.xaml.cs">
       <DependentUpon>Approval.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Approvals\QueryApproval.xaml.cs">
+      <DependentUpon>QueryApproval.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Approvals\QueryApprovalVM.cs" />
     <Compile Include="Converts\OperationStatusConvert.cs" />
     <Compile Include="Approvals\ApprovalVM.cs" />
     <Compile Include="PerformFleetPlan\FleetPlanDeliver.xaml.cs">
@@ -240,6 +244,7 @@
     <Compile Include="PerformFleetPlan\OperationChild.xaml.cs">
       <DependentUpon>OperationChild.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PerformFleetPlan\OperationChildVM.cs" />
     <Compile Include="PerformFleetPlan\PlanDeliverEditDialog.xaml.cs">
       <DependentUpon>PlanDeliverEditDialog.xaml</DependentUpon>
     </Compile>
@@ -372,6 +377,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Approvals\Approval.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Approvals\QueryApproval.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

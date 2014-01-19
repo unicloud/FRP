@@ -73,6 +73,12 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         ///  飞机座级类型
         /// </summary>
         public string Category { get; set; }
+
+        /// <summary>
+        ///     引进方式
+        /// </summary>
+        public string ImportCategoryName { get; set; }
+
         #endregion
 
         #region 外键属性

@@ -98,6 +98,11 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         ///    处理状态
         /// </summary>
         public int Status { get; set; }
+
+        /// <summary>
+        ///     实际退出方式
+        /// </summary>
+        public string ExportCategoryName { get; set; }
         #endregion
 
         #region 外键属性

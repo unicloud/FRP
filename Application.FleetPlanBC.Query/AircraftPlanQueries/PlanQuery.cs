@@ -227,6 +227,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                             ImportActionType = q.ImportCategory.ActionType,
                             ImportActionName = q.ImportCategory.ActionName,
                             ExportCategoryId = q.ExportCategoryId,
+                            ExportCategoryName = q.ExportCategory.ActionName,
                             Status = (int) q.Status,
                         }).FirstOrDefault();
                 }
@@ -247,6 +248,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries
                             Regional = q.AircraftType.AircraftCategory.Regional,
                             Category = q.AircraftType.AircraftCategory.Category,
                             ImportCategoryId = q.ImportCategoryId,
+                            ImportCategoryName = q.ImportCategory.ActionName,
                         }).FirstOrDefault();
                 }
             }

@@ -68,6 +68,7 @@
         <Property Name="ImportActionName" Type="Edm.String" />
         <Property Name="AirlinesName" Type="Edm.String" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ExportCategoryName" Type="Edm.String" />
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
         <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
@@ -92,6 +93,7 @@
         <Property Name="AircraftTypeName" Type="Edm.String" />
         <Property Name="Regional" Type="Edm.String" />
         <Property Name="Category" Type="Edm.String" />
+        <Property Name="ImportCategoryName" Type="Edm.String" />
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
         <Property Name="ImportCategoryId" Type="Edm.Guid" Nullable="false" />
@@ -447,6 +449,37 @@
         <Property Name="AirlinesName" Type="Edm.String" />
         <Property Name="ApprovalHistories" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.ApprovalHistoryDTO)" Nullable="false" />
       </EntityType>
+      <EntityType Name="ApprovalRequestDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="CaacExamineDate" Type="Edm.DateTime" />
+        <Property Name="NdrcExamineDate" Type="Edm.DateTime" />
+        <Property Name="CaacApprovalNumber" Type="Edm.String" />
+        <Property Name="NdrcApprovalNumber" Type="Edm.String" />
+        <Property Name="Note" Type="Edm.String" />
+        <Property Name="CaacDocumentName" Type="Edm.String" />
+        <Property Name="NdrcDocumentName" Type="Edm.String" />
+        <Property Name="CaacDocumentId" Type="Edm.Guid" />
+        <Property Name="NdrcDocumentId" Type="Edm.Guid" />
+        <Property Name="Title" Type="Edm.String" />
+        <Property Name="RaDocNumber" Type="Edm.String" />
+        <Property Name="SawsDocNumber" Type="Edm.String" />
+        <Property Name="CaacDocNumber" Type="Edm.String" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CaacNote" Type="Edm.String" />
+        <Property Name="RaNote" Type="Edm.String" />
+        <Property Name="SawsNote" Type="Edm.String" />
+        <Property Name="ApprovalDocId" Type="Edm.Guid" />
+        <Property Name="RaDocumentId" Type="Edm.Guid" />
+        <Property Name="RaDocumentName" Type="Edm.String" />
+        <Property Name="SawsDocumentId" Type="Edm.Guid" />
+        <Property Name="SawsDocumentName" Type="Edm.String" />
+        <Property Name="CaacRequestDocumentId" Type="Edm.Guid" />
+        <Property Name="CaacRequestDocumentName" Type="Edm.String" />
+        <Property Name="ApprovalHistories" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.ApprovalHistoryDTO)" Nullable="false" />
+      </EntityType>
       <EntityType Name="SupplierDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -512,6 +545,7 @@
         <EntitySet Name="PlanEngines" EntityType="UniCloud.Application.FleetPlanBC.DTO.PlanEngineDTO" />
         <EntitySet Name="Programmings" EntityType="UniCloud.Application.FleetPlanBC.DTO.ProgrammingDTO" />
         <EntitySet Name="Requests" EntityType="UniCloud.Application.FleetPlanBC.DTO.RequestDTO" />
+        <EntitySet Name="ApprovalRequests" EntityType="UniCloud.Application.FleetPlanBC.DTO.ApprovalRequestDTO" />
         <EntitySet Name="Suppliers" EntityType="UniCloud.Application.FleetPlanBC.DTO.SupplierDTO" />
         <EntitySet Name="XmlConfigs" EntityType="UniCloud.Application.FleetPlanBC.DTO.XmlConfigDTO" />
         <EntitySet Name="XmlSettings" EntityType="UniCloud.Application.FleetPlanBC.DTO.XmlSettingDTO" />

@@ -106,8 +106,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
             get
             {
                 return
-                    RequestsView
-                        .OrderBy(r => r.CreateDate)
+                    RequestsView.SourceCollection.Cast<RequestDTO>()
                         .Where(r => r.Status == (int) RequestStatus.已提交 || r.Status == (int) RequestStatus.已审批);
             }
         }
@@ -419,7 +418,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
         /// <param name="sender"></param>
         public void OndAddApproval(object sender)
         {
-            var approvalDoc = new ApprovalDocDTO()
+            var approvalDoc = new ApprovalDocDTO
             {
                 Id = Guid.NewGuid(),
             };
