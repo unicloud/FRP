@@ -74,7 +74,6 @@
                        VerticalAlignment="Center" />
             <TextBox Grid.Row="0"
                      Grid.Column="1"
-                     IsReadOnly="True"
                      Text="{Binding SelAircraft.RegNumber,Mode=TwoWay}" />
 
             <TextBlock Text="序列号"
@@ -83,7 +82,6 @@
                        VerticalAlignment="Center" />
             <TextBox Grid.Row="0"
                      Grid.Column="3"
-                     IsReadOnly="{Binding}"
                      Text="{Binding SelAircraft.SerialNumber,Mode=TwoWay}" />
 
             <TextBlock Text="机型"
@@ -92,7 +90,6 @@
                        VerticalAlignment="Center" />
             <TextBox Grid.Row="1"
                      Grid.Column="1"
-                     IsReadOnly="True"
                      Text="{Binding SelAircraft.AircraftTypeName,Mode=TwoWay}" />
 
             <TextBlock Text="引进方式"
@@ -101,7 +98,6 @@
                        VerticalAlignment="Center" />
             <TextBox Grid.Row="1"
                      Grid.Column="3"
-                     IsReadOnly="True"
                      Text="{Binding SelAircraft.ImportCategoryName,Mode=TwoWay}" />
 
             <TextBlock Text="出厂日期"
@@ -110,7 +106,6 @@
                        VerticalAlignment="Center" />
             <telerik:RadDatePicker Grid.Row="2"
                                    Grid.Column="1"
-                                   IsEnabled="True"
                                    SelectedDate="{Binding SelAircraft.FactoryDate,Mode=TwoWay, StringFormat={StaticResource DateStringFormat}}" />
         </Grid>
 
@@ -138,10 +133,9 @@
                        VerticalAlignment="Center" />
             <telerik:RadComboBox  Grid.Row="0"
                                   Grid.Column="1"
-                                  ItemsSource="{Binding SelOperationHistory.ImportTypes}"
-                                  IsEnabled="{Binding SelOperationHistory.IsOperationHistoryNotCheckedAndImportCondition}"
+                                  ItemsSource="{Binding ActionCategories}"
                                   DisplayMemberPath="ActionName"
-                                  SelectedValuePath="ActionCategoryID"
+                                  SelectedValuePath="Id"
                                   SelectedValue="{Binding SelOperationHistory.ImportCategoryId,Mode=TwoWay}" />
 
             <TextBlock Text="机号"
@@ -150,7 +144,6 @@
                        VerticalAlignment="Center" />
             <TextBox  Grid.Row="0"
                       Grid.Column="3"
-                      IsReadOnly="{Binding SelOperationHistory.IsOperationHistoryCheckedOrExportCondition}"
                       Text="{Binding SelOperationHistory.RegNumber,Mode=TwoWay}" />
 
             <TextBlock Text="技术接收日期"
@@ -159,7 +152,6 @@
                        VerticalAlignment="Center" />
             <telerik:RadDatePicker Grid.Row="1"
                                    Grid.Column="1"
-                                   IsEnabled="{Binding SelOperationHistory.IsOperationHistoryNotCheckedAndImportCondition}"
                                    SelectedDate="{Binding SelOperationHistory.TechReceiptDate,Mode=TwoWay,StringFormat={StaticResource DateStringFormat}}" />
 
             <TextBlock Text="接收日期"
@@ -168,7 +160,6 @@
                        VerticalAlignment="Center" />
             <telerik:RadDatePicker Grid.Row="1"
                                    Grid.Column="3"
-                                   IsEnabled="{Binding SelOperationHistory.IsOperationHistoryNotCheckedAndImportCondition}"
                                    SelectedDate="{Binding SelOperationHistory.ReceiptDate,Mode=TwoWay,StringFormat={StaticResource DateStringFormat}}" />
 
             <TextBlock Text="开始日期"
@@ -177,7 +168,6 @@
                        VerticalAlignment="Center" />
             <telerik:RadDatePicker Grid.Row="2"
                                    Grid.Column="1"
-                                   IsEnabled="{Binding SelOperationHistory.IsOperationHistoryNotCheckedAndImportCondition}"
                                    SelectedDate="{Binding SelOperationHistory.StartDate,Mode=TwoWay,StringFormat={StaticResource DateStringFormat}}" />
 
             <TextBlock Text="起租日期"
@@ -186,7 +176,6 @@
                        VerticalAlignment="Center" />
             <telerik:RadDatePicker Grid.Row="2"
                                    Grid.Column="3"
-                                   IsEnabled="{Binding SelOperationHistory.IsOperationHistoryNotCheckedAndImportCondition}"
                                    SelectedDate="{Binding SelOperationHistory.OnHireDate,Mode=TwoWay,StringFormat={StaticResource DateStringFormat}}" />
 
             <TextBlock Text="退出方式"
@@ -195,10 +184,9 @@
                        VerticalAlignment="Center" />
             <telerik:RadComboBox Grid.Row="3"
                                  Grid.Column="1"
-                                 IsEnabled="{Binding SelOperationHistory.IsOperationHistoryNotCheckedAndExportCondition}"
-                                 ItemsSource="{Binding SelOperationHistory.ExportTypes}"
+                                 ItemsSource="{Binding ActionCategories}"
                                  DisplayMemberPath="ActionName"
-                                 SelectedValuePath="ActionCategoryID"
+                                 SelectedValuePath="Id"
                                  SelectedValue="{Binding SelOperationHistory.ExportCategoryId,Mode=TwoWay}" />
 
 
@@ -208,7 +196,6 @@
                        VerticalAlignment="Center" />
             <telerik:RadDatePicker Grid.Row="3"
                                    Grid.Column="3"
-                                   IsEnabled="{Binding SelOperationHistory.IsOperationHistoryNotCheckedAndExportCondition}"
                                    SelectedDate="{Binding SelOperationHistory.StopDate, Mode=TwoWay, StringFormat={StaticResource DateStringFormat}}" />
 
             <TextBlock Text="技术交付日期"
@@ -217,7 +204,6 @@
                        VerticalAlignment="Center" />
             <telerik:RadDatePicker Grid.Row="4"
                                    Grid.Column="1"
-                                   IsEnabled="{Binding SelOperationHistory.IsOperationHistoryNotCheckedAndExportCondition}"
                                    SelectedDate="{Binding SelOperationHistory.TechDeliveryDate,Mode=TwoWay, StringFormat={StaticResource DateStringFormat}}" />
 
 
@@ -227,7 +213,6 @@
                        VerticalAlignment="Center" />
             <telerik:RadDatePicker Grid.Row="4"
                                    Grid.Column="3"
-                                   IsEnabled="{Binding SelOperationHistory.IsOperationHistoryNotCheckedAndExportCondition}"
                                    SelectedDate="{Binding SelOperationHistory.EndDate, Mode=TwoWay, StringFormat={StaticResource DateStringFormat} }" />
 
             <telerik:RadWatermarkTextBox Grid.Row="5"
@@ -239,7 +224,6 @@
                                          TextWrapping="Wrap"
                                          WatermarkContent="备注…"
                                          FontSize="{StaticResource TextFontSize}"
-                                         IsReadOnly="{Binding SelOperationHistory.IsOperationHistoryChecked}"
                                          Text="{Binding SelOperationHistory.Note, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}"
                                          VerticalContentAlignment="Top" />
 
@@ -269,10 +253,9 @@
                        VerticalAlignment="Center" />
             <telerik:RadComboBox Grid.Row="0"
                                  Grid.Column="1"
-                                 ItemsSource="{Binding SelAircraftBusiness.AircraftCategores}"
+                                 ItemsSource="{Binding AircraftCategories}"
                                  DisplayMemberPath="Regional"
                                  SelectedValuePath="Regional"
-                                 IsEnabled="False"
                                  SelectedValue="{Binding SelAircraftBusiness.Regional,Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}" />
 
             <TextBlock Text="机型"
@@ -281,10 +264,9 @@
                        VerticalAlignment="Center" />
             <telerik:RadComboBox  Grid.Row="0"
                                   Grid.Column="3"
-                                  IsEnabled="{Binding SelAircraftBusiness.IsAircraftBusinessNotChecked}"
-                                  ItemsSource="{Binding SelAircraftBusiness.AircraftTypes}"
+                                  ItemsSource="{Binding AircraftTypes}"
                                   DisplayMemberPath="Name"
-                                  SelectedValuePath="AircraftTypeID"
+                                  SelectedValuePath="Id"
                                   SelectedValue="{Binding SelAircraftBusiness.AircraftTypeId, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
 
             <TextBlock Text="引进方式"
@@ -293,8 +275,7 @@
                        VerticalAlignment="Center" />
             <telerik:RadComboBox  Grid.Row="1"
                                   Grid.Column="1"
-                                  IsEnabled="{Binding SelAircraftBusiness.IsAircraftBusinessNotChecked}"
-                                  ItemsSource="{Binding SelOperationHistory.ImportTypes}"
+                                  ItemsSource="{Binding ActionCategories}"
                                   DisplayMemberPath="ActionName"
                                   SelectedValuePath="ActionCategoryID"
                                   SelectedValue="{Binding SelAircraftBusiness.ImportCategoryId,Mode=TwoWay}" />
@@ -305,7 +286,6 @@
                        VerticalAlignment="Center" />
             <TextBox Grid.Row="1"
                      Grid.Column="3"
-                     IsReadOnly="{Binding SelAircraftBusiness.IsAircraftBusinessChecked}"
                      Text="{Binding SelAircraftBusiness.SeatingCapacity, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
 
             <TextBlock Text="商载（吨）"
@@ -314,7 +294,6 @@
                        VerticalAlignment="Center" />
             <TextBox  Grid.Row="2"
                       Grid.Column="1"
-                      IsReadOnly="{Binding SelAircraftBusiness.IsAircraftBusinessChecked}"
                       Text="{Binding SelAircraftBusiness.CarryingCapacity, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
 
             <TextBlock Text="开始日期"
@@ -323,7 +302,6 @@
                        VerticalAlignment="Center" />
             <telerik:RadDatePicker Grid.Row="2"
                                    Grid.Column="3"
-                                   IsEnabled="{Binding SelAircraftBusiness.IsAircraftBusinessNotChecked}"
                                    SelectedDate="{Binding SelAircraftBusiness.StartDate,Mode=TwoWay, StringFormat={StaticResource DateStringFormat}}" />
 
             <TextBlock Text="结束日期"
@@ -332,7 +310,6 @@
                        VerticalAlignment="Center" />
             <telerik:RadDatePicker Grid.Row="3"
                                    Grid.Column="1"
-                                   IsEnabled="{Binding SelAircraftBusiness.IsAircraftBusinessNotChecked}"
                                    SelectedDate="{Binding SelAircraftBusiness.EndDate,Mode=TwoWay, StringFormat={StaticResource DateStringFormat}}" />
         </Grid>
         <!--<input:ValidationSummary Grid.Row="2" Grid.ColumnSpan="4" Margin="20,0,20,10" Header="错误列表" />-->

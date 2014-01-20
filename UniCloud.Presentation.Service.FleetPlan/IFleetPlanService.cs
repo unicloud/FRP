@@ -122,8 +122,10 @@ namespace UniCloud.Presentation.Service.FleetPlan
         ///     完成运力增减计划
         /// </summary>
         /// <param name="planDetail">计划明细</param>
+        /// <param name="aircraft">飞机</param>
+        /// <param name="editAircraft">飞机</param>
         /// <returns>飞机</returns>
-        AircraftDTO CompletePlan(PlanHistoryDTO planDetail);
+        void CompletePlan(PlanHistoryDTO planDetail,AircraftDTO aircraft, ref AircraftDTO editAircraft);
 
         #endregion
 
