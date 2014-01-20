@@ -186,13 +186,15 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <summary>
         /// 完成运力增减计划
         /// </summary>
-        /// <param name="planDetail"><see cref="IFleetPlanService"/></param>
+        /// <param name="planDetail">计划明细</param>
+        /// <param name="aircraft">飞机</param>
+        /// <param name="editAircraft">飞机</param>
         /// <returns><see cref="IFleetPlanService"/></returns>
-        public AircraftDTO CompletePlan(PlanHistoryDTO planDetail)
+        public void CompletePlan(PlanHistoryDTO planDetail,AircraftDTO aircraft,ref AircraftDTO editAircraft)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                return pb.CompletePlan(planDetail, this);
+              pb.CompletePlan(planDetail,aircraft,ref editAircraft, this);
             }
         }
 

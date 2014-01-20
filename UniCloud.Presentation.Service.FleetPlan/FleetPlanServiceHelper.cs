@@ -17,6 +17,9 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.ComponentModel.Composition.ReflectionModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Windows;
@@ -47,21 +50,24 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// </summary>
         /// <param name="planDetail">计划明细</param>
         /// <param name="service"></param>
-        private static void CreateAircraft(PlanHistoryDTO planDetail, IFleetPlanService service)
+        private static AircraftDTO CreateAircraft(PlanHistoryDTO planDetail, IFleetPlanService service)
         {
-            //var aircraft = new AircraftDTO
-            //{
-            //    AircraftId = Guid.NewGuid(),
-            //    AircraftTypeId = planDetail.PlanAircraftId.AircraftType,
-            //    AirlinesId = planDetail.AirlinesId,
-            //    CreateDate = DateTime.Now,
-            //    IsOperation = true,
-            //    SeatingCapacity = planDetail.SeatingCapacity,
-            //    CarryingCapacity = planDetail.CarryingCapacity,
-            //};
-            //service.EntityContainer.GetEntitySet<Aircraft>().Add(aircraft);
-            //CreateOperationHistory(planDetail, aircraft, service);
-            //CreateAircraftBusiness(planDetail, aircraft, service);
+            var aircraft = new AircraftDTO
+            {
+                AircraftId = Guid.NewGuid(),
+                AircraftTypeId = planDetail.AircraftTypeId,
+                AircraftTypeName = planDetail.AircraftTypeName,
+                AirlinesId = planDetail.AirlinesId,
+                AirlinesName = planDetail.AirlinesName,
+                CreateDate = DateTime.Now,
+                IsOperation = true,
+                SeatingCapacity = planDetail.SeatingCapacity,
+                CarryingCapacity = planDetail.CarryingCapacity,
+            };
+            planDetail.AircraftId = aircraft.AircraftId;
+            CreateOperationHistory(planDetail, ref aircraft, service);
+            CreateAircraftBusiness(planDetail, ref aircraft, service);
+            return aircraft;
         }
 
         /// <summary>
@@ -70,20 +76,23 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="approvalHistory">批文明细</param>
         /// <param name="aircraft">飞机</param>
         /// <param name="service"></param>
-        private static void CreateOperationHistory(PlanHistoryDTO planDetail, AircraftDTO aircraft, IFleetPlanService service)
+        private static void CreateOperationHistory(PlanHistoryDTO planDetail, ref AircraftDTO aircraft, IFleetPlanService service)
         {
-            //var operationHistory = new OperationHistory
-            //{
-            //    ApprovalHistory = planDetail.ApprovalHistory,
-            //    Airlines = service.CurrentAirlines,
-            //    Aircraft = aircraft,
-            //    ImportCategory = planDetail.ApprovalHistory.ImportCategory,
-            //    Status = (int)OpStatus.Draft,
-            //};
-            //if (planDetail is OperationPlan) (planDetail as OperationPlan).OperationHistory = operationHistory;
-            //service.EntityContainer.GetEntitySet<OperationHistory>().Add(operationHistory);
-            //// 更改运营历史状态
-            //operationHistory.Status = (int)OpStatus.Draft;
+            var id = planDetail.ApprovalHistoryId == null ? Guid.Empty : Guid.Parse(planDetail.ActionCategoryId.ToString());
+            var operationHistory = new OperationHistoryDTO
+            {
+                OperationHistoryId = id,
+                AirlinesId = planDetail.AirlinesId,
+                AirlinesName = planDetail.AirlinesName,
+                AircraftId = aircraft.AircraftId,
+                ImportCategoryId = aircraft.ImportCategoryId,
+                ImportActionType = aircraft.ImportCategoryName,
+                Status = (int)OperationStatus.草稿,
+            };
+            if (planDetail.PlanType == 1) planDetail.RelatedGuid = operationHistory.OperationHistoryId;
+            aircraft.OperationHistories.Add(operationHistory);
+            // 更改运营历史状态
+            operationHistory.Status = (int)OperationStatus.草稿;
         }
 
         /// <summary>
@@ -91,23 +100,23 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// </summary>
         /// <param name="aircraft">飞机</param>
         /// <param name="service"></param>
-        private static void CreateAircraftBusiness(PlanHistoryDTO planDetail, AircraftDTO aircraft, IFleetPlanService service)
+        private static void CreateAircraftBusiness(PlanHistoryDTO planDetail, ref AircraftDTO aircraft, IFleetPlanService service)
         {
-            //var aircraftBusiness = new AircraftBusiness
-            //{
-            //    AircraftBusinessID = Guid.NewGuid(),
-            //    Aircraft = aircraft,
-            //    AircraftType = aircraft.AircraftType,
-            //    ImportCategory = aircraft.ImportCategory,
-            //    SeatingCapacity = aircraft.SeatingCapacity,
-            //    CarryingCapacity = aircraft.CarryingCapacity,
-            //    Status = (int)OpStatus.Draft,
-            //};
+            var aircraftBusiness = new AircraftBusinessDTO
+            {
+                AircraftBusinessId = Guid.NewGuid(),
+                AircraftId = aircraft.AircraftId,
+                AircraftTypeId = aircraft.AircraftTypeId,
+                ImportCategoryId = aircraft.ImportCategoryId,
+                SeatingCapacity = aircraft.SeatingCapacity,
+                CarryingCapacity = aircraft.CarryingCapacity,
+                Status = (int)OperationStatus.草稿,
+            };
 
-            //if (planDetail is ChangePlan) (planDetail as ChangePlan).AircraftBusiness = aircraftBusiness;
-            //service.EntityContainer.GetEntitySet<AircraftBusiness>().Add(aircraftBusiness);
-            //// 更改商业数据历史状态
-            //aircraftBusiness.Status = (int)OpStatus.Draft;
+            if (planDetail.PlanType == 2) planDetail.RelatedGuid = aircraftBusiness.AircraftBusinessId;
+            aircraft.AircraftBusinesses.Add(aircraftBusiness);
+            // 更改商业数据历史状态
+            aircraftBusiness.Status = (int)OperationStatus.草稿;
         }
 
 
@@ -357,132 +366,188 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// 完成计划项
         /// </summary>
         /// <param name="planDetail"></param>
+        /// <param name="aircraft"></param>
+        /// <param name="editAircraft"></param>
         /// <param name="service"></param>
         /// <returns></returns>
-        internal AircraftDTO CompletePlan(PlanHistoryDTO planDetail, IFleetPlanService service)
+        internal void CompletePlan(PlanHistoryDTO planDetail, AircraftDTO aircraft, ref AircraftDTO editAircraft, IFleetPlanService service)
         {
-            AircraftDTO aircraft;
-            //OperationHistoryDTO operationHistory;
-            //if (planDetail == null)
-            //{
-            //    throw new ArgumentNullException("planDetail");
-            //}
-            //var actionName = planDetail.ActionName;
-            //if (actionName == null)
-            //{
-            //    return null;
-            //}
-            //// 根据引进方式调用不同的操作
-            //switch (actionName)
-            //{
-            //    case "购买":
-            //        // 创建新飞机
-            //        CreateAircraft(planDetail, service);
-            //        break;
-            //    case "融资租赁":
-            //        // 创建新飞机
-            //        CreateAircraft(planDetail, service);
-            //        break;
-            //    case "经营租赁":
-            //        // 创建新飞机
-            //        CreateAircraft(planDetail, service);
-            //        break;
-            //    case "湿租":
-            //        // 创建新飞机
-            //        CreateAircraft(planDetail, service);
-            //        break;
-            //    case "经营租赁续租":
-            //        // 创建新运营历史
-            //        CreateOperationHistory(planDetail, aircraftId, service);
-            //        break;
-            //    case "湿租续租":
-            //        // 创建新运营历史
-            //        CreateOperationHistory(planDetail, aircraftId, service);
-            //        break;
-            //    case "出售":
-            //        // 更改运营历史状态
-            //        aircraft = planDetail.PlanAircraft.Aircraft;
-            //        operationHistory = aircraft.OperationHistories.LastOrDefault(oh => oh.EndDate == null);
-            //        if (operationHistory != null)
-            //        {
-            //            operationHistory.Status = (int)OpStatus.Draft;
-            //            operationHistory.ExportCategory =
-            //                service.AllActionCategories.FirstOrDefault(ac => ac.ActionName == "出售");
+            OperationHistoryDTO operationHistory;
+            if (planDetail == null)
+            {
+                throw new ArgumentNullException("planDetail");
+            }
+            var actionName = planDetail.ActionName;
+            if (actionName == null)
+            {
+                return;
+            }
+            // 根据引进方式调用不同的操作
+            switch (actionName)
+            {
+                case "购买":
+                    // 创建新飞机
+                    editAircraft = CreateAircraft(planDetail, service);
+                    break;
+                case "融资租赁":
+                    // 创建新飞机
+                    editAircraft = CreateAircraft(planDetail, service);
+                    break;
+                case "经营租赁":
+                    // 创建新飞机
+                    editAircraft = CreateAircraft(planDetail, service);
+                    break;
+                case "湿租":
+                    // 创建新飞机
+                    editAircraft = CreateAircraft(planDetail, service);
+                    break;
+                case "经营租赁续租":
+                    // 创建新运营历史
+                    if (aircraft != null)
+                    {
+                        editAircraft = aircraft;
+                        CreateOperationHistory(planDetail, ref editAircraft, service);
+                    }
+                    break;
+                case "湿租续租":
+                    // 创建新运营历史
+                    if (aircraft != null)
+                    {
+                        editAircraft = aircraft;
+                        CreateOperationHistory(planDetail, ref editAircraft, service);
+                    }
+                    break;
+                case "出售":
+                    // 更改运营历史状态
+                    if (aircraft != null)
+                    {
+                        editAircraft = aircraft;
+                        operationHistory = editAircraft.OperationHistories.LastOrDefault(oh => oh.EndDate == null);
+                        if (operationHistory != null)
+                        {
+                            operationHistory.Status = (int)OperationStatus.草稿;
+                            var actionCategoryDTO =
+                                service.GetActionCategories(null)
+                                    .SourceCollection.Cast<ActionCategoryDTO>()
+                                    .FirstOrDefault(ac => ac.ActionName == "出售");
+                            if (actionCategoryDTO != null)
+                                operationHistory.ExportCategoryId = actionCategoryDTO.Id;
 
-            //            if (planDetail is OperationPlan) (planDetail as OperationPlan).OperationHistory = operationHistory;
-            //        }
-            //        break;
-            //    case "出租":
-            //        // 更改运营历史状态
-            //        aircraft = planDetail.PlanAircraft.Aircraft;
-            //        operationHistory = aircraft.OperationHistories.LastOrDefault(oh => oh.EndDate == null);
-            //        if (operationHistory != null)
-            //        {
-            //            operationHistory.Status = (int)OpStatus.Draft;
-            //            operationHistory.ExportCategory =
-            //                service.AllActionCategories.FirstOrDefault(ac => ac.ActionName == "出租");
+                            if (planDetail.PlanType == 1) planDetail.RelatedGuid = operationHistory.OperationHistoryId;
+                        }
+                    }
+                    break;
+                case "出租":
+                    // 更改运营历史状态
+                    if (aircraft != null)
+                    {
+                        editAircraft = aircraft;
+                        operationHistory = editAircraft.OperationHistories.LastOrDefault(oh => oh.EndDate == null);
+                        if (operationHistory != null)
+                        {
+                            operationHistory.Status = (int)OperationStatus.草稿;
+                            var actionCategoryDTO =
+                                service.GetActionCategories(null)
+                                    .SourceCollection.Cast<ActionCategoryDTO>()
+                                    .FirstOrDefault(ac => ac.ActionName == "出租");
+                            if (actionCategoryDTO != null)
+                                operationHistory.ExportCategoryId = actionCategoryDTO.Id;
 
-            //            if (planDetail is OperationPlan) (planDetail as OperationPlan).OperationHistory = operationHistory;
-            //        }
-            //        break;
-            //    case "退租":
-            //        // 更改运营历史状态
-            //        aircraft = planDetail.PlanAircraft.Aircraft;
-            //        operationHistory = aircraft.OperationHistories.LastOrDefault(oh => oh.EndDate == null);
-            //        if (operationHistory != null)
-            //        {
-            //            operationHistory.Status = (int)OpStatus.Draft;
-            //            operationHistory.ExportCategory =
-            //                service.AllActionCategories.FirstOrDefault(ac => ac.ActionName == "退租");
+                            if (planDetail.PlanType == 1) planDetail.RelatedGuid = operationHistory.OperationHistoryId;
+                        }
+                    }
+                    break;
+                case "退租":
+                    // 更改运营历史状态
+                    if (aircraft != null)
+                    {
+                        editAircraft = aircraft;
+                        operationHistory = editAircraft.OperationHistories.LastOrDefault(oh => oh.EndDate == null);
+                        if (operationHistory != null)
+                        {
+                            operationHistory.Status = (int)OperationStatus.草稿;
+                            var actionCategoryDTO =
+                                service.GetActionCategories(null)
+                                    .SourceCollection.Cast<ActionCategoryDTO>()
+                                    .FirstOrDefault(ac => ac.ActionName == "退租");
+                            if (actionCategoryDTO != null)
+                                operationHistory.ExportCategoryId = actionCategoryDTO.Id;
 
-            //            if (planDetail is OperationPlan) (planDetail as OperationPlan).OperationHistory = operationHistory;
-            //        }
-            //        break;
-            //    case "退役":
-            //        // 更改运营历史状态
-            //        aircraft = planDetail.PlanAircraft.Aircraft;
-            //        operationHistory = aircraft.OperationHistories.LastOrDefault(oh => oh.EndDate == null);
-            //        if (operationHistory != null)
-            //        {
-            //            operationHistory.Status = (int)OpStatus.Draft;
-            //            operationHistory.ExportCategory =
-            //                service.AllActionCategories.FirstOrDefault(ac => ac.ActionName == "退役");
+                            if (planDetail.PlanType == 1) planDetail.RelatedGuid = operationHistory.OperationHistoryId;
+                        }
+                    }
+                    break;
+                case "退役":
+                    // 更改运营历史状态
+                    if (aircraft != null)
+                    {
+                        editAircraft = aircraft;
+                        operationHistory = editAircraft.OperationHistories.LastOrDefault(oh => oh.EndDate == null);
+                        if (operationHistory != null)
+                        {
+                            operationHistory.Status = (int)OperationStatus.草稿;
+                            var actionCategoryDTO =
+                                service.GetActionCategories(null)
+                                    .SourceCollection.Cast<ActionCategoryDTO>()
+                                    .FirstOrDefault(ac => ac.ActionName == "退役");
+                            if (actionCategoryDTO != null)
+                                operationHistory.ExportCategoryId = actionCategoryDTO.Id;
 
-            //            if (planDetail is OperationPlan) (planDetail as OperationPlan).OperationHistory = operationHistory;
-            //        }
-            //        break;
-            //    case "货改客":
-            //        // 创建商业数据历史
-            //        CreateAircraftBusiness(planDetail, planDetail.PlanAircraft.Aircraft, service);
-            //        break;
-            //    case "客改货":
-            //        // 创建商业数据历史
-            //        CreateAircraftBusiness(planDetail, planDetail.PlanAircraft.Aircraft, service);
-            //        break;
-            //    case "售后经营租赁":
-            //        // 创建商业数据历史
-            //        CreateAircraftBusiness(planDetail, planDetail.PlanAircraft.Aircraft, service);
-            //        break;
-            //    case "售后融资租赁":
-            //        // 创建商业数据历史
-            //        CreateAircraftBusiness(planDetail, planDetail.PlanAircraft.Aircraft, service);
-            //        break;
-            //    case "一般改装":
-            //        // 创建商业数据历史
-            //        CreateAircraftBusiness(planDetail, planDetail.PlanAircraft.Aircraft, service);
-            //        break;
-            //    case "租转购":
-            //        // 创建商业数据历史
-            //        CreateAircraftBusiness(planDetail, planDetail.PlanAircraft.Aircraft, service);
-            //        break;
-            //}
-            //// 更改计划飞机状态
-            //planDetail.PlanAircraft.Status = (int)ManageStatus.Operation;
-            //// 刷新计划完成状态
-            //RaisePropertyChanged(() => planDetail.CompleteStatus);
-
-            //return planDetail.PlanAircraft.Aircraft;
-            return null;
+                            if (planDetail.PlanType == 1) planDetail.RelatedGuid = operationHistory.OperationHistoryId;
+                        }
+                    }
+                    break;
+                case "货改客":
+                    // 创建商业数据历史
+                    if (aircraft != null)
+                    {
+                        editAircraft = aircraft;
+                        CreateAircraftBusiness(planDetail, ref editAircraft, service);
+                    }
+                    break;
+                case "客改货":
+                    // 创建商业数据历史
+                    if (aircraft != null)
+                    {
+                        editAircraft = aircraft;
+                        CreateAircraftBusiness(planDetail, ref editAircraft, service);
+                    }
+                    break;
+                case "售后经营租赁":
+                    // 创建商业数据历史
+                    if (aircraft != null)
+                    {
+                        editAircraft = aircraft;
+                        CreateAircraftBusiness(planDetail, ref editAircraft, service);
+                    }
+                    break;
+                case "售后融资租赁":
+                    // 创建商业数据历史
+                    if (aircraft != null)
+                    {
+                        editAircraft = aircraft;
+                        CreateAircraftBusiness(planDetail, ref editAircraft, service);
+                    }
+                    break;
+                case "一般改装":
+                    // 创建商业数据历史
+                    if (aircraft != null)
+                    {
+                        editAircraft = aircraft;
+                        CreateAircraftBusiness(planDetail, ref editAircraft, service);
+                    }
+                    break;
+                case "租转购":
+                    // 创建商业数据历史
+                    if (aircraft != null)
+                    {
+                        editAircraft = aircraft;
+                        CreateAircraftBusiness(planDetail, ref editAircraft, service);
+                    }
+                    break;
+            }
+            //更改计划飞机状态
+            planDetail.ManageStatus = (int)ManageStatus.运营; //TODO 修改计划飞机的状态（前台或后台处理）
         }
 
         /// <summary>

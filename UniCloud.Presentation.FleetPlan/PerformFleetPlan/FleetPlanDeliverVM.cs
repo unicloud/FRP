@@ -44,6 +44,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
         private readonly IRegionManager _regionManager;
         private readonly IFleetPlanService _service;
         private AnnualDTO _curAnnual = new AnnualDTO();
+        private AircraftDTO EditAircraft;
         private FilterDescriptor _annualDescriptor;
         private FilterDescriptor _planDescriptor;
 
@@ -293,9 +294,12 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                     _selPlanHistory = value;
                     RaisePropertyChanged(() => SelPlanHistory);
 
-                    if (Aircrafts.Any(pa => pa.AircraftId == value.AircraftId))
-                        SelAircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == value.AircraftId);
-                    else SelAircraft = null;
+                    if (this._selPlanHistory != null)
+                    {
+                        if (Aircrafts.Any(pa => pa.AircraftId == value.AircraftId))
+                            SelAircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == value.AircraftId);
+                        else SelAircraft = null;
+                    }
                     RefreshCommandState();
                 }
             }
@@ -318,20 +322,23 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                 {
                     _selAircraft = value;
                     OperationHistories.Clear();
-                    foreach (var op in value.OperationHistories)
-                    {
-                        OperationHistories.Add(op);
-                    }
                     AircraftBusinesses.Clear();
-                    foreach (var ab in value.AircraftBusinesses)
-                    {
-                        AircraftBusinesses.Add(ab);
-                    }
-                    //选择相关的计划明细
-                    if (PlanHistories.Any(pa => pa.AircraftId == value.AircraftId))
-                        SelPlanHistory = PlanHistories.FirstOrDefault(p => p.AircraftId == value.AircraftId);
-                    else SelPlanHistory = null;
 
+                    if (_selAircraft != null)
+                    {
+                        foreach (var op in value.OperationHistories)
+                        {
+                            OperationHistories.Add(op);
+                        }
+                        foreach (var ab in value.AircraftBusinesses)
+                        {
+                            AircraftBusinesses.Add(ab);
+                        }
+                        //选择相关的计划明细
+                        if (PlanHistories.Any(pa => pa.AircraftId == value.AircraftId))
+                            SelPlanHistory = PlanHistories.FirstOrDefault(p => p.AircraftId == value.AircraftId);
+                        else SelPlanHistory = null;
+                    }
                     this.SelOperationHistory = this.OperationHistories.LastOrDefault(p => p.Status < (int)OperationStatus.已提交);
                     //如果为变更计划，则这个时候取到的SelOperationHistory为空，重新取集合中的最后一条来展示在子窗体中
                     if (SelOperationHistory == null)
@@ -510,15 +517,24 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
 
         private void OnComplete(object obj)
         {
-            // 调用完成计划的操作，返回相关飞机
-            var aircraft = _service.CompletePlan(this.SelPlanHistory);
-
-            if (aircraft == null) return;
-            Aircrafts.AddNew(aircraft);
-            // 定位选中的飞机，并确保运营历史、商业数据历史刷新
-            if (SelAircraft != aircraft)
+            EditAircraft=new AircraftDTO();
+            var aircraft=new AircraftDTO();
+            //获取计划明细对应的飞机，可能为空
+            if (this.SelPlanHistory != null)
             {
-                this.SelAircraft = aircraft;
+                if (Aircrafts.Any(pa => pa.AircraftId == SelPlanHistory.AircraftId))
+                    aircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == SelPlanHistory.AircraftId);
+                else aircraft = null;
+            }
+            // 调用完成计划的操作
+            _service.CompletePlan(this.SelPlanHistory,aircraft,ref EditAircraft);
+
+            if (EditAircraft == null) return;
+            Aircrafts.AddNew(EditAircraft);
+            // 定位选中的飞机，并确保运营历史、商业数据历史刷新
+            if (SelAircraft != EditAircraft)
+            {
+                this.SelAircraft = EditAircraft;
             }
             this.OpenEditDialog(this.SelPlanHistory);
         }
@@ -535,9 +551,8 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             {
                 return false;
             }
-            // 选中计划明细的完成状态为无，且计划明细为可交付时，按钮可用 TODO:待修改
-            //return this.SelPlanHistory.CompleteStatus == -1 && this.SelPlanHistory.CanDeliver == "1：可交付";
-            return true;
+            // 选中计划明细的完成状态为无，且计划明细为可交付时，按钮可用
+            return this.SelPlanHistory.CompleteStatus == CompleteStatus.无状态 && this.SelPlanHistory.CanDeliver == CanDeliver.可交付;
         }
 
         #endregion
@@ -606,9 +621,8 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             {
                 return false;
             }
-            // 选中计划明细的完成状态为草稿时，按钮可用 TODO:待修改
-            //return this.SelPlanHistory.CompleteStatus == 0;
-            return true;
+            // 选中计划明细的完成状态为草稿时，按钮可用
+            return this.SelPlanHistory.CompleteStatus == CompleteStatus.草稿;
         }
 
         #endregion
@@ -677,8 +691,7 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
                 return false;
             }
             // 选中计划明细的完成状态为审核时，按钮可用
-            //return this.SelPlanHistory.CompleteStatus == 1;
-            return true;
+            return this.SelPlanHistory.CompleteStatus == CompleteStatus.审核;
         }
         #endregion
 
@@ -756,9 +769,8 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             if (_service.HasChanges) return false;
             // 没有选中的计划明细时，按钮不可用
             if (this.SelPlanHistory == null) return false;
-            // 选中计划明细的完成状态为已审核或已提交时，按钮可用 TODO:待修改
-            //return this.SelPlanHistory.CompleteStatus > 1;
-            return true;
+            // 选中计划明细的完成状态为已审核或已提交时，按钮可用
+            return this.SelPlanHistory.CompleteStatus > CompleteStatus.审核;
         }
 
         #endregion
@@ -812,9 +824,8 @@ namespace UniCloud.Presentation.FleetPlan.PerformFleetPlan
             if (_service.HasChanges) return false;
             // 没有选中的计划明细时，按钮不可用
             if (this.SelPlanHistory == null) return false;
-            // 选中计划明细的完成状态不是无和草稿时，按钮可用 TODO:待修改
-            //return this.SelPlanHistory.CompleteStatus != -1 && this.SelPlanHistory.CompleteStatus != 0;
-            return true;
+            // 选中计划明细的完成状态不是无和草稿时，按钮可用
+            return this.SelPlanHistory.CompleteStatus != CompleteStatus.无状态 && this.SelPlanHistory.CompleteStatus != CompleteStatus.草稿;
         }
 
         #endregion

@@ -471,6 +471,11 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             else AircraftTypes = FleetPlanService.GetAircraftTypes(null);
         }
 
+        partial void OnRelatedGuidChanged()
+        {
+            OnPropertyChanged("CompleteStatus");
+        }
+
         /// <summary>
         /// 复制一份新的计划历史
         /// </summary>
