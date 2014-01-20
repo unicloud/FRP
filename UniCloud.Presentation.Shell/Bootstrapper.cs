@@ -77,7 +77,7 @@ namespace UniCloud.Presentation.Shell
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.OnDemand,
+                InitializationMode = InitializationMode.WhenAvailable,
                 Ref = "BaseManagement.xap",
                 ModuleName = "BaseManagementModule",
                 ModuleType =

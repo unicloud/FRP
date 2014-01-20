@@ -59,7 +59,6 @@
                               Grid.Column="2"
                               Margin="0,3"
                               VerticalContentAlignment="Center"
-                              HorizontalAlignment="Center"
                               telerik:StyleManager.Theme="Windows8"
                               IsChecked="{Binding HasFile,Mode=TwoWay}"
                               IsEnabled="False" />
@@ -118,7 +117,6 @@
                               Grid.Column="2"
                               Margin="0,3"
                               VerticalContentAlignment="Center"
-                              HorizontalAlignment="Center"
                               telerik:StyleManager.Theme="Windows8"
                               IsChecked="{Binding HasFile,Mode=TwoWay}" />
                     <TextBlock Grid.Row="2"

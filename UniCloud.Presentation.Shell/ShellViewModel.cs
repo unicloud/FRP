@@ -84,6 +84,11 @@ namespace UniCloud.Presentation.Shell
                     if (menuItemCommonService != null)
                         menuItemCommonService.IsEnabled = true;
                     break;
+                case "BaseManagementModule":
+                    var menuItemBaseManagement = Items.SingleOrDefault(m => m.Text == "基础管理");
+                    if (menuItemBaseManagement != null)
+                        menuItemBaseManagement.IsEnabled = true;
+                    break;
                 case "PortalModule":
                     var menuItemPortal = Items.SingleOrDefault(m => m.Text == "管理门户");
                     if (menuItemPortal != null)
@@ -849,6 +854,7 @@ namespace UniCloud.Presentation.Shell
             var menu921 = new MenuItem
             {
                 Text = "维护证照种类",
+                NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftData.ManagerLicenseType"
             };
             var menu922 = new MenuItem
             {
