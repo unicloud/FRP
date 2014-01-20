@@ -79,11 +79,16 @@ namespace UniCloud.Presentation.Shell
         {
             switch (e.ModuleInfo.ModuleName)
             {
+                case "CommonServiceModule":
+                    var menuItemCommonService = Items.SingleOrDefault(m => m.Text == "文档库");
+                    if (menuItemCommonService != null)
+                        menuItemCommonService.IsEnabled = true;
+                    break;
                 case "PortalModule":
                     var menuItemPortal = Items.SingleOrDefault(m => m.Text == "管理门户");
                     if (menuItemPortal != null)
                         menuItemPortal.IsEnabled = true;
-                OnHome(null);
+                    OnHome(null);
                     break;
                 case "FleetPlanModule":
                     var menuItemFleetPlan = Items.SingleOrDefault(m => m.Text == "运力规划");
@@ -885,8 +890,17 @@ namespace UniCloud.Presentation.Shell
                 Text = "文档库",
                 IsEnabled = true,
             };
-
-
+            var menu101 = new MenuItem
+                          {
+                              Text = "维护文档类型",
+                              NavUri = "UniCloud.Presentation.CommonService.DocumentTypeManager.ManagerDocumentType"
+                          };
+            var menu102 = new MenuItem
+                          {
+                              Text = "搜索文档",
+                          };
+            menu10.Items.Add(menu101);
+            menu10.Items.Add(menu102);
             _items.Add(menu10);
 
             #endregion
