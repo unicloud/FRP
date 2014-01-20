@@ -54,6 +54,10 @@
     <Compile Include="Aggregates\DocumentPathAgg\DocumentPathFactory.cs" />
     <Compile Include="Aggregates\DocumentPathAgg\DocumentPathSpecifications.cs" />
     <Compile Include="Aggregates\DocumentPathAgg\IDocumentPathRepository.cs" />
+    <Compile Include="Aggregates\DocumentTypeAgg\DocumentType.cs" />
+    <Compile Include="Aggregates\DocumentTypeAgg\DocumentTypeFactory.cs" />
+    <Compile Include="Aggregates\DocumentTypeAgg\DocumentTypeSpecifications.cs" />
+    <Compile Include="Aggregates\DocumentTypeAgg\IDocumentTypeRepository.cs" />
     <Compile Include="Aggregates\RelatedDocAgg\IRelatedDocRepository.cs" />
     <Compile Include="Aggregates\RelatedDocAgg\RelatedDoc.cs" />
     <Compile Include="Aggregates\RelatedDocAgg\RelatedDocFactory.cs" />
