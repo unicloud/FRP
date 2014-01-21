@@ -17,9 +17,14 @@
 
 #region 命名空间
 
+using System.Collections.Generic;
 using System.Data.Services;
 using System.Data.Services.Common;
+using System.ServiceModel.Web;
 using System.Web;
+using UniCloud.Application.CommonServiceBC.DocumnetSearch;
+using UniCloud.Application.CommonServiceBC.DTO;
+using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
 
@@ -42,7 +47,7 @@ namespace UniCloud.DistributedServices.CommonService
 
             #region 服务操作访问控制
 
-            // config.SetServiceOperationAccessRule("MyServiceOperation", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("SearchDocument", ServiceOperationRights.All);
 
             #endregion
 
@@ -75,7 +80,12 @@ namespace UniCloud.DistributedServices.CommonService
         }
 
         #region 服务操作
-
+        [WebGet]
+        public List<DocumentDTO> SearchDocument(string keyword)
+        {
+            var searchDocument = DefaultContainer.Resolve<IDocumentSearchAppService>();
+            return searchDocument.Search(keyword);
+        }
         #endregion
     }
 }
