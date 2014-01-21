@@ -66,7 +66,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
             Programmings = new QueryableDataServiceCollectionView<ProgrammingDTO>(_context, _context.Programmings);
 
-            AcTypes=new QueryableDataServiceCollectionView<AcTypeDTO>(_context,_context.AcTypes);
+            AircraftSeries = new QueryableDataServiceCollectionView<AircraftSeriesDTO>(_context, _context.AircraftSeries);
         }
 
         /// <summary>
@@ -99,9 +99,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public override void LoadData()
         {
-            AirProgrammings.Load(true);
-            Programmings.Load(true);
-            AcTypes.Load(true);
+            if (!AirProgrammings.AutoLoad)
+                AirProgrammings.AutoLoad = true;
+            else
+                AirProgrammings.Load(true);
+
+            Programmings.AutoLoad = true;
+            AircraftSeries.AutoLoad = true;
         }
 
         #region 业务
@@ -129,7 +133,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// <summary>
         ///     飞机系列集合
         /// </summary>
-        public QueryableDataServiceCollectionView<AcTypeDTO> AcTypes { get; set; }
+        public QueryableDataServiceCollectionView<AircraftSeriesDTO> AircraftSeries { get; set; }
 
         #endregion
 
@@ -305,6 +309,21 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         protected override bool CanAddAttach(object obj)
         {
             return _selAirProgramming != null;
+        }
+
+        /// <summary>
+        ///     子窗口关闭后执行的操作
+        /// </summary>
+        /// <param name="doc">添加的附件</param>
+        /// <param name="sender">添加附件命令的参数</param>
+        protected override void WindowClosed(DocumentDTO doc, object sender)
+        {
+            base.WindowClosed(doc, sender);
+            if (sender is Guid)
+            {
+                SelAirProgramming.DocumentId = doc.DocumentId;
+                SelAirProgramming.DocName = doc.Name;
+            }
         }
         #endregion
 

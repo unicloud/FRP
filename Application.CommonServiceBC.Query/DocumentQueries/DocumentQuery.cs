@@ -21,6 +21,7 @@ using System.Linq;
 using UniCloud.Application.CommonServiceBC.DTO;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg;
+using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentTypeAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
@@ -50,6 +51,16 @@ namespace UniCloud.Application.CommonServiceBC.Query.DocumentQueries
                     Uploader = p.Uploader,
                     FileStorage = p.FileStorage
                 });
+        }
+
+        public IQueryable<DocumentTypeDTO> DocumentTypesQuery(QueryBuilder<DocumentType> query)
+        {
+            return query.ApplyTo(_unitOfWork.CreateSet<DocumentType>()).Select(p => new DocumentTypeDTO
+            {
+                DocumentTypeId = p.Id,
+                Name = p.Name,
+                Description = p.Description
+            });
         }
     }
 }

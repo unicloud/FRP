@@ -17,8 +17,10 @@
 
 #region 命名空间
 
-using System.Collections.Generic;
-using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg;
+using System;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.ManufacturerAgg;
 
 #endregion
 
@@ -29,9 +31,15 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg
     /// </summary>
     public class AircraftType : EntityGuid
     {
-        #region 私有字段
+        #region 构造函数
 
-        private HashSet<Aircraft> _aircrafts;
+        /// <summary>
+        ///     内部构造函数
+        ///     限制只能从内部创建新实例
+        /// </summary>
+        internal AircraftType()
+        {
+        }
 
         #endregion
 
@@ -40,24 +48,48 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg
         /// <summary>
         ///     机型名称
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; internal set; }
+
+        /// <summary>
+        ///     备注
+        /// </summary>
+        public string Description { get; internal set; }
 
         #endregion
 
         #region 外键属性
 
+        /// <summary>
+        ///     系列
+        /// </summary>
+        public Guid AircraftSeriesId { get; internal set; }
+
+        /// <summary>
+        ///     飞机座级
+        /// </summary>
+        public Guid AircraftCategoryId { get; internal set; }
+
+        /// <summary>
+        /// 制造商
+        /// </summary>
+        public Guid ManufacturerId { get; internal set; }
         #endregion
 
         #region 导航属性
+        /// <summary>
+        /// 制造商
+        /// </summary>
+        public virtual Manufacturer Manufacturer { get; set; }
 
         /// <summary>
-        ///     飞机集合
+        ///     系列
         /// </summary>
-        public virtual ICollection<Aircraft> Aircrafts
-        {
-            get { return _aircrafts ?? (_aircrafts = new HashSet<Aircraft>()); }
-            set { _aircrafts = new HashSet<Aircraft>(value); }
-        }
+        public virtual AircraftSeries AircraftSeries { get; set; }
+
+        /// <summary>
+        ///     飞机座级
+        /// </summary>
+        public virtual AircraftCategory AircraftCategory { get; set; }
 
         #endregion
 

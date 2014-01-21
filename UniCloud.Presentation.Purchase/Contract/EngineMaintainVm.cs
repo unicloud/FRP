@@ -20,10 +20,8 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Regions;
-using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Purchase;
@@ -33,7 +31,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
-    [Export(typeof (EngineMaintainVm))]
+    [Export(typeof(EngineMaintainVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class EngineMaintainVm : EditViewModelBase
     {
@@ -42,11 +40,11 @@ namespace UniCloud.Presentation.Purchase.Contract
         private readonly PurchaseData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
-        public DocumentViewer DocumentView;
-        private DocumentDTO _document = new DocumentDTO();
+        private readonly DocumentDTO _document = new DocumentDTO();
 
         [ImportingConstructor]
-        public EngineMaintainVm(IRegionManager regionManager, IPurchaseService service) : base(service)
+        public EngineMaintainVm(IRegionManager regionManager, IPurchaseService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -133,7 +131,8 @@ namespace UniCloud.Presentation.Purchase.Contract
         public override void LoadData()
         {
             // 将CollectionView的AutoLoad属性设为True
-            EngineMaintainContracts.AutoLoad = true;
+            if (!EngineMaintainContracts.AutoLoad)
+                EngineMaintainContracts.AutoLoad = true;
             EngineMaintainContracts.Load(true);
             Suppliers.Load(true);
         }

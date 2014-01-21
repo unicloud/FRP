@@ -285,8 +285,10 @@ namespace UniCloud.Presentation.FleetPlan.QueryAnalyse
 
         public override void LoadData()
         {
-            XmlConfigs.AutoLoad = true;
-            XmlSettings.AutoLoad = true;
+            if (!XmlConfigs.AutoLoad)
+                XmlConfigs.AutoLoad = true;
+            if (!XmlSettings.AutoLoad)
+                XmlSettings.AutoLoad = true;
             IsBusy = XmlConfigs.IsBusy && XmlSettings.IsBusy;
         }
 

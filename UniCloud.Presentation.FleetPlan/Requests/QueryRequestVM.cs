@@ -85,6 +85,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             RequestsView.PageSize = 20;
             RequestsView.LoadedData += (sender, e) =>
             {
+                SetIsBusy();
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
@@ -112,7 +113,13 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             {
                 RequestsView.Load(true);
             }
-        }     
+        }
+
+        protected override void SetIsBusy()
+        {
+            IsBusy = RequestsView.IsBusy;
+        }
+
         #endregion
     }
 }

@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System.Windows.Data;
+using UniCloud.Presentation.Service.AircraftConfig.AircraftConfig.Enum;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 #endregion
@@ -42,6 +43,9 @@ namespace UniCloud.Presentation.ValueConverts
                     break;
                 case "GuaranteeStatus":
                     result = EnumUtility.GetName(typeof(GuaranteeStatus), (GuaranteeStatus)value);
+                    break;
+                case "LicenseStatus":
+                    result = EnumUtility.GetName(typeof(LicenseStatus), (LicenseStatus)value);
                     break;
                 default:
                     break;

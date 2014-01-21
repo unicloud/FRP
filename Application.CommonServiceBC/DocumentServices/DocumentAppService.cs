@@ -24,6 +24,7 @@ using UniCloud.Application.CommonServiceBC.DTO;
 using UniCloud.Application.CommonServiceBC.Query.DocumentQueries;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg;
+using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentTypeAgg;
 
 #endregion
 
@@ -38,15 +39,17 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
         private readonly IDocumentPathRepository _documentPathRepository; //文档路径仓储
         private readonly IDocumentQuery _documentQuery;
         private readonly IDocumentRepository _documentRepository; //文档仓储
-
+        private readonly IDocumentTypeRepository _documentTypeRepository;//文档类型仓储
         public DocumentAppService(IDocumentQuery documentQuery, IDocumentPathRepository documentPathRepository,
-                                  IDocumentRepository documentRepository)
+                                  IDocumentRepository documentRepository, IDocumentTypeRepository documentTypeRepository)
         {
             _documentQuery = documentQuery;
             _documentPathRepository = documentPathRepository;
             _documentRepository = documentRepository;
+            _documentTypeRepository = documentTypeRepository;
         }
 
+        #region DocumnetDTO
         public IQueryable<DocumentDTO> GetDocuments()
         {
             var queryBuilder =
@@ -54,7 +57,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
             return _documentQuery.DocumentsQuery(queryBuilder);
         }
 
-        [Insert(typeof (DocumentDTO))]
+        [Insert(typeof(DocumentDTO))]
         public void InsertDocument(DocumentDTO document)
         {
             if (document == null)
@@ -81,7 +84,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
                 throw new Exception("文档不能为空");
             }
             var updateDocument = _documentRepository.Get(document.DocumentId);
-            DocumentFactory.UpdateDocument(updateDocument, document.Name, document.Extension,document.Abstract,
+            DocumentFactory.UpdateDocument(updateDocument, document.Name, document.Extension, document.Abstract,
                 document.Note, document.Uploader, document.IsValid, document.FileStorage);
             _documentRepository.Modify(updateDocument);
         }
@@ -98,7 +101,61 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
                 throw new Exception("文档不能为空");
             }
             var deleteDocument = _documentRepository.Get(document.DocumentId);
-            _documentRepository.Remove(deleteDocument); 
+            _documentRepository.Remove(deleteDocument);
         }
+        #endregion
+
+        #region DocumnetDTO
+        public IQueryable<DocumentTypeDTO> GetDocumentTypes()
+        {
+            var queryBuilder =
+                new QueryBuilder<DocumentType>();
+            return _documentQuery.DocumentTypesQuery(queryBuilder);
+        }
+
+        [Insert(typeof(DocumentTypeDTO))]
+        public void InsertDocumentType(DocumentTypeDTO documentType)
+        {
+            if (documentType == null)
+            {
+                throw new Exception("文档不能为空");
+            }
+            //新建文档
+            var newDocumentType = DocumentTypeFactory.CreateDocumentType();
+            DocumentTypeFactory.SetDocumentType(newDocumentType, documentType.Name, documentType.Description);
+            _documentTypeRepository.Add(newDocumentType);
+        }
+
+        /// <summary>
+        ///     更新文档。
+        /// </summary>
+        /// <param name="documentType">文档DTO。</param>
+        [Update(typeof(DocumentTypeDTO))]
+        public void ModifyDocumentType(DocumentTypeDTO documentType)
+        {
+            if (documentType == null)
+            {
+                throw new Exception("文档不能为空");
+            }
+            var updateDocumentType = _documentTypeRepository.Get(documentType.DocumentTypeId);
+            DocumentTypeFactory.SetDocumentType(updateDocumentType, documentType.Name, documentType.Description);
+            _documentTypeRepository.Modify(updateDocumentType);
+        }
+
+        /// <summary>
+        ///     删除文档。
+        /// </summary>
+        /// <param name="documentType">文档DTO。</param>
+        [Delete(typeof(DocumentTypeDTO))]
+        public void DeleteDocumentType(DocumentTypeDTO documentType)
+        {
+            if (documentType == null)
+            {
+                throw new Exception("文档不能为空");
+            }
+            var deleteDocumentType = _documentTypeRepository.Get(documentType.DocumentTypeId);
+            _documentTypeRepository.Remove(deleteDocumentType);
+        }
+        #endregion
     }
 }

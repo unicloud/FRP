@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,9 +44,51 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionCategoryServices\ActionCategoryAppService.cs" />
+    <Compile Include="ActionCategoryServices\IActionCategoryAppService.cs" />
+    <Compile Include="AircraftCategoryServices\AircraftCategoryAppService.cs" />
+    <Compile Include="AircraftCategoryServices\IAircraftCategoryAppService.cs" />
+    <Compile Include="AircraftLicenseServices\AircraftLicenseAppService.cs" />
+    <Compile Include="AircraftLicenseServices\IAircraftLicenseAppService.cs" />
+    <Compile Include="AircraftSeriesServices\AircraftSeriesAppService.cs" />
+    <Compile Include="AircraftSeriesServices\IAircraftSeriesAppService.cs" />
+    <Compile Include="AircraftServices\AircraftAppService.cs" />
+    <Compile Include="AircraftServices\IAircraftAppService.cs" />
+    <Compile Include="AircraftTypeServices\AircraftTypeAppService.cs" />
+    <Compile Include="AircraftTypeServices\IAircraftTypeAppService.cs" />
+    <Compile Include="ManufacturerServices\IManufacturerAppService.cs" />
+    <Compile Include="ManufacturerServices\ManufacturerAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IAircraftConfigAppService.cs" />
-    <Compile Include="Services\AircraftConfigAppService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application.AircraftConfigBC.DTO\Application.AircraftConfigBC.DTO.csproj">
+      <Project>{70ac4d17-2792-486f-bbef-179c3c6b56fb}</Project>
+      <Name>Application.AircraftConfigBC.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.AircraftConfigBC.Query\Application.AircraftConfigBC.Query.csproj">
+      <Project>{83f2b243-1b4b-4f71-a741-4cc17b16cf7f}</Project>
+      <Name>Application.AircraftConfigBC.Query</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{c926e107-6971-4b5c-8e00-db7761eeac8e}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.AircraftConfigBC\Domain.AircraftConfigBC.csproj">
+      <Project>{4d4558f2-9855-4962-8cdc-52bdb85182d4}</Project>
+      <Name>Domain.AircraftConfigBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
+      <Project>{e48e84de-5a91-4d16-84e5-cffc4c7e7657}</Project>
+      <Name>Domain.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Utilities\Infrastructure.Utilities.csproj">
+      <Project>{34a8a0e1-3d4a-48ca-9e78-71f88e2d273d}</Project>
+      <Name>Infrastructure.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

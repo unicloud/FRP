@@ -21,7 +21,6 @@ using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Payment.Payment;
@@ -40,8 +39,6 @@ namespace UniCloud.Presentation.Payment.Invoice
         private readonly PaymentData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
-        [Import]
-        public DocumentViewer DocumentView;
 
         [ImportingConstructor]
         public EngineMaintainVm(IRegionManager regionManager, IPaymentService service)
@@ -87,7 +84,8 @@ namespace UniCloud.Presentation.Payment.Invoice
         public override void LoadData()
         {
             // 将CollectionView的AutoLoad属性设为True
-            EngineMaintainInvoices.AutoLoad = true;
+            if (!EngineMaintainInvoices.AutoLoad)
+                EngineMaintainInvoices.AutoLoad = true;
             EngineMaintainInvoices.Load(true);
             Suppliers.Load(true);
             Currencies.Load(true);

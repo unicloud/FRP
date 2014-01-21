@@ -112,6 +112,10 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         /// </summary>
         public Guid PerformAnnualId { get; private set; }
 
+        /// <summary>
+        /// 申请明细Id
+        /// </summary>
+        public Guid? ApprovalHistoryId { get; private set; }
 
         #endregion
 
@@ -261,6 +265,15 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
 
             Airlines = airlines;
             AirlinesId = airlines.Id;
+        }
+
+        /// <summary>
+        ///     设置申请明细
+        /// </summary>
+        /// <param name="approvalHistoryId">申请明细</param>
+        public void SetApprovalHistory(Guid? approvalHistoryId)
+        {
+            ApprovalHistoryId = approvalHistoryId;
         }
         #endregion
     }

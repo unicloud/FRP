@@ -40,10 +40,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.Name).HasColumnName("Name");
             Property(p => p.Description).HasColumnName("Description");
 
-            Property(p => p.ManufacturerId).HasColumnName("ManufacturerId");
+            Property(p => p.AircraftSeriesId).HasColumnName("AircraftSeriesId");
             Property(p => p.AircraftCategoryId).HasColumnName("AircraftCategoryId");
+            Property(p => p.ManufacturerId).HasColumnName("ManufacturerId");
 
             HasRequired(o => o.Manufacturer).WithMany().HasForeignKey(o => o.ManufacturerId);
+            HasRequired(o => o.AircraftSeries).WithMany().HasForeignKey(o => o.AircraftSeriesId);
             HasRequired(o => o.AircraftCategory).WithMany().HasForeignKey(o => o.AircraftCategoryId);
 
         }

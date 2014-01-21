@@ -97,14 +97,16 @@
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
-                                         FontSize="{StaticResource TextFontSize}">
+                                         FontSize="{StaticResource TextFontSize}"
+                                         ContextMenuTemplate="{x:Null}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                    Margin="-1 -2 -1 0">
+                                                    Margin="-1 -2 -1 0"
+                                                    OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding SaveCommand}"
                                                        CommandParameter="{Binding AircraftLeaseReceptions}">
@@ -229,7 +231,8 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                    Margin="-1 -2 -1 0">
+                                                    Margin="-1 -2 -1 0"
+                                                    OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding AddEntityCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Add.png"
@@ -348,7 +351,8 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                    Margin="-1 -2 -1 0">
+                                                    Margin="-1 -2 -1 0"
+                                                    OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding AddAttachCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
@@ -374,7 +378,7 @@
                                                 <DataTemplate>
                                                     <telerik:RadButton Content="查看文档"
                                                                        Command="{Binding DataContext.ViewAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                                                       CommandParameter="{Binding}">
+                                                                       CommandParameter="{Binding DocumentId}">
                                                     </telerik:RadButton>
                                                 </DataTemplate>
                                             </telerik:GridViewColumn.CellTemplate>

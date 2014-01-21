@@ -106,8 +106,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
             get
             {
                 return
-                    RequestsView
-                        .OrderBy(r => r.CreateDate)
+                    RequestsView.SourceCollection.Cast<RequestDTO>()
                         .Where(r => r.Status == (int) RequestStatus.已提交 || r.Status == (int) RequestStatus.已审批);
             }
         }
@@ -141,6 +140,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
             _service.RegisterCollectionView(RequestsView);
             RequestsView.LoadedData += (sender, e) =>
             {
+                SetIsBusy();
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
@@ -200,6 +200,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
             ApprovalDocsView.PageSize = 20;
             ApprovalDocsView.LoadedData += (sender, e) =>
             {
+                SetIsBusy();
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
@@ -417,7 +418,7 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
         /// <param name="sender"></param>
         public void OndAddApproval(object sender)
         {
-            var approvalDoc = new ApprovalDocDTO()
+            var approvalDoc = new ApprovalDocDTO
             {
                 Id = Guid.NewGuid(),
             };
@@ -584,6 +585,16 @@ namespace UniCloud.Presentation.FleetPlan.Approvals
         protected override void OnSaveSuccess(object sender)
         {
            
+        }
+
+        protected override void SetIsBusy()
+        {
+            if (RequestsView == null || ApprovalDocsView==null)
+            {
+                IsBusy = true;
+                return;
+            }
+            IsBusy = RequestsView.IsBusy || ApprovalDocsView.IsBusy;
         }
 
         #endregion

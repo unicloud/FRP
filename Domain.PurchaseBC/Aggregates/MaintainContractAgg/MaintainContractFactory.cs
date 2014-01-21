@@ -67,6 +67,19 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg
             return undercartMaintainContract;
         }
 
+        ///// <summary>
+        /////     新增机身维修合同
+        ///// </summary>
+        //public static AirframeMaintainContract CreateAirframeMaintainContract()
+        //{
+        //    var airframeMaintainContract = new AirframeMaintainContract
+        //    {
+        //        CreateDate = DateTime.Now
+        //    };
+
+        //    return airframeMaintainContract;
+        //}
+
         /// <summary>
         ///     设置维修合同属性
         /// </summary>

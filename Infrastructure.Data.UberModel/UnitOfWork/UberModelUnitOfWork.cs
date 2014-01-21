@@ -20,15 +20,17 @@
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
-using UniCloud.Domain.UberModel.Aggregates.AcTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.UberModel.Aggregates.AircraftLicenseAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg;
+using UniCloud.Domain.UberModel.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg;
 using UniCloud.Domain.UberModel.Aggregates.AnnualAgg;
 using UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg;
+using UniCloud.Domain.UberModel.Aggregates.AtaAgg;
 using UniCloud.Domain.UberModel.Aggregates.BankAccountAgg;
 using UniCloud.Domain.UberModel.Aggregates.CaacProgrammingAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg;
@@ -37,12 +39,14 @@ using UniCloud.Domain.UberModel.Aggregates.ContractEngineAgg;
 using UniCloud.Domain.UberModel.Aggregates.CurrencyAgg;
 using UniCloud.Domain.UberModel.Aggregates.DocumentAgg;
 using UniCloud.Domain.UberModel.Aggregates.DocumentPathAgg;
+using UniCloud.Domain.UberModel.Aggregates.DocumentTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.EngineAgg;
 using UniCloud.Domain.UberModel.Aggregates.EnginePlanAgg;
 using UniCloud.Domain.UberModel.Aggregates.EngineTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.ForwarderAgg;
 using UniCloud.Domain.UberModel.Aggregates.GuaranteeAgg;
 using UniCloud.Domain.UberModel.Aggregates.InvoiceAgg;
+using UniCloud.Domain.UberModel.Aggregates.LicenseTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.LinkmanAgg;
 using UniCloud.Domain.UberModel.Aggregates.MailAddressAgg;
 using UniCloud.Domain.UberModel.Aggregates.MaintainContractAgg;
@@ -82,7 +86,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
     {
         #region IDbSet成员
 
-        private IDbSet<AcType> _acTypes;
+        private IDbSet<AircraftSeries> _aircraftSeries;
         private IDbSet<ActionCategory> _actionCategories;
         private IDbSet<AirProgramming> _airProgrammings;
         private IDbSet<AircraftCategory> _aircraftCategories;
@@ -135,275 +139,298 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<WorkGroup> _workGroups;
         private IDbSet<XmlConfig> _xmlConfigs;
         private IDbSet<XmlSetting> _xmlSettings;
+        private IDbSet<AircraftLicense> _aircraftLicenses;
+        private IDbSet<LicenseType> _licenseTypes;
+        private IDbSet<Ata> _atas;
+        private IDbSet<DocumentType> _documentTypes;
+
+        public IDbSet<AircraftLicense> AircraftLicenses
+        {
+            get { return _aircraftLicenses ?? (_aircraftLicenses = Set<AircraftLicense>()); }
+        }
+
+        public IDbSet<LicenseType> LicenseTypes
+        {
+            get { return _licenseTypes ?? (_licenseTypes = Set<LicenseType>()); }
+        }
+
+        public IDbSet<Ata> Atas
+        {
+            get { return _atas ?? (_atas = Set<Ata>()); }
+        }
 
         public IDbSet<ActionCategory> ActionCategories
         {
-            get { return _actionCategories ?? (_actionCategories = base.Set<ActionCategory>()); }
+            get { return _actionCategories ?? (_actionCategories = Set<ActionCategory>()); }
         }
 
-        public IDbSet<AcType> AcTypes
+        public IDbSet<AircraftSeries> AircraftSeries
         {
-            get { return _acTypes ?? (_acTypes = base.Set<AcType>()); }
+            get { return _aircraftSeries ?? (_aircraftSeries = Set<AircraftSeries>()); }
         }
 
         public IDbSet<AircraftCategory> AircraftCategories
         {
-            get { return _aircraftCategories ?? (_aircraftCategories = base.Set<AircraftCategory>()); }
+            get { return _aircraftCategories ?? (_aircraftCategories = Set<AircraftCategory>()); }
         }
 
         public IDbSet<Aircraft> Aircrafts
         {
-            get { return _aircrafts ?? (_aircrafts = base.Set<Aircraft>()); }
+            get { return _aircrafts ?? (_aircrafts = Set<Aircraft>()); }
         }
 
         public IDbSet<AircraftType> AircraftTypes
         {
-            get { return _aircraftTypes ?? (_aircraftTypes = base.Set<AircraftType>()); }
+            get { return _aircraftTypes ?? (_aircraftTypes = Set<AircraftType>()); }
         }
 
         public IDbSet<Airlines> Airlineses
         {
-            get { return _airlineses ?? (_airlineses = base.Set<Airlines>()); }
+            get { return _airlineses ?? (_airlineses = Set<Airlines>()); }
         }
 
         public IDbSet<AirProgramming> AirProgrammings
         {
-            get { return _airProgrammings ?? (_airProgrammings = base.Set<AirProgramming>()); }
+            get { return _airProgrammings ?? (_airProgrammings = Set<AirProgramming>()); }
         }
 
         public IDbSet<Annual> Annuals
         {
-            get { return _annuals ?? (_annuals = base.Set<Annual>()); }
+            get { return _annuals ?? (_annuals = Set<Annual>()); }
         }
 
         public IDbSet<ApprovalDoc> ApprovalDocs
         {
-            get { return _approvalDocs ?? (_approvalDocs = base.Set<ApprovalDoc>()); }
+            get { return _approvalDocs ?? (_approvalDocs = Set<ApprovalDoc>()); }
         }
 
         public IDbSet<BankAccount> BankAccounts
         {
-            get { return _bankAccounts ?? (_bankAccounts = base.Set<BankAccount>()); }
+            get { return _bankAccounts ?? (_bankAccounts = Set<BankAccount>()); }
         }
 
         public IDbSet<CaacProgramming> CaacProgrammings
         {
-            get { return _caacProgrammings ?? (_caacProgrammings = base.Set<CaacProgramming>()); }
+            get { return _caacProgrammings ?? (_caacProgrammings = Set<CaacProgramming>()); }
         }
 
         public IDbSet<ContractAircraft> ContractAircrafts
         {
-            get { return _contractAircrafts ?? (_contractAircrafts = base.Set<ContractAircraft>()); }
+            get { return _contractAircrafts ?? (_contractAircrafts = Set<ContractAircraft>()); }
         }
 
         public IDbSet<ContractAircraftBFE> ContractAircraftBfes
         {
-            get { return _contractAircraftBfes ?? (_contractAircraftBfes = base.Set<ContractAircraftBFE>()); }
+            get { return _contractAircraftBfes ?? (_contractAircraftBfes = Set<ContractAircraftBFE>()); }
         }
 
         public IDbSet<ContractEngine> ContractEngines
         {
-            get { return _contractEngines ?? (_contractEngines = base.Set<ContractEngine>()); }
+            get { return _contractEngines ?? (_contractEngines = Set<ContractEngine>()); }
         }
 
         public IDbSet<Currency> Currencies
         {
-            get { return _currencies ?? (_currencies = base.Set<Currency>()); }
+            get { return _currencies ?? (_currencies = Set<Currency>()); }
         }
 
         public IDbSet<Document> Documents
         {
-            get { return _documents ?? (_documents = base.Set<Document>()); }
+            get { return _documents ?? (_documents = Set<Document>()); }
         }
 
         public IDbSet<DocumentPath> DocumentPaths
         {
-            get { return _documentPaths ?? (_documentPaths = base.Set<DocumentPath>()); }
+            get { return _documentPaths ?? (_documentPaths = Set<DocumentPath>()); }
         }
 
         public IDbSet<Engine> Engines
         {
-            get { return _engines ?? (_engines = base.Set<Engine>()); }
+            get { return _engines ?? (_engines = Set<Engine>()); }
         }
 
         public IDbSet<EnginePlan> EnginePlans
         {
-            get { return _enginePlans ?? (_enginePlans = base.Set<EnginePlan>()); }
+            get { return _enginePlans ?? (_enginePlans = Set<EnginePlan>()); }
         }
 
         public IDbSet<EngineType> EngineTypes
         {
-            get { return _engineTypes ?? (_engineTypes = base.Set<EngineType>()); }
+            get { return _engineTypes ?? (_engineTypes = Set<EngineType>()); }
         }
 
         public IDbSet<Forwarder> Forwarders
         {
-            get { return _forwarders ?? (_forwarders = base.Set<Forwarder>()); }
+            get { return _forwarders ?? (_forwarders = Set<Forwarder>()); }
         }
 
         public IDbSet<Guarantee> Guarantees
         {
-            get { return _guarantees ?? (_guarantees = base.Set<Guarantee>()); }
+            get { return _guarantees ?? (_guarantees = Set<Guarantee>()); }
         }
 
         public IDbSet<Invoice> Invoices
         {
-            get { return _invoices ?? (_invoices = base.Set<Invoice>()); }
+            get { return _invoices ?? (_invoices = Set<Invoice>()); }
         }
 
         public IDbSet<Linkman> Linkmen
         {
-            get { return _linkmen ?? (_linkmen = base.Set<Linkman>()); }
+            get { return _linkmen ?? (_linkmen = Set<Linkman>()); }
         }
 
         public IDbSet<MailAddress> MailAddresses
         {
-            get { return _mailAddresses ?? (_mailAddresses = base.Set<MailAddress>()); }
+            get { return _mailAddresses ?? (_mailAddresses = Set<MailAddress>()); }
         }
 
         public IDbSet<MaintainContract> MaintainContracts
         {
-            get { return _maintainContracts ?? (_maintainContracts = base.Set<MaintainContract>()); }
+            get { return _maintainContracts ?? (_maintainContracts = Set<MaintainContract>()); }
         }
 
         public IDbSet<MaintainInvoice> MaintainInvoices
         {
-            get { return _maintainInvoices ?? (_maintainInvoices = base.Set<MaintainInvoice>()); }
+            get { return _maintainInvoices ?? (_maintainInvoices = Set<MaintainInvoice>()); }
         }
 
         public IDbSet<Manager> Managers
         {
-            get { return _managers ?? (_managers = base.Set<Manager>()); }
+            get { return _managers ?? (_managers = Set<Manager>()); }
         }
 
         public IDbSet<Manufacturer> Manufacturers
         {
-            get { return _manufacturers ?? (_manufacturers = base.Set<Manufacturer>()); }
+            get { return _manufacturers ?? (_manufacturers = Set<Manufacturer>()); }
         }
 
         public IDbSet<Material> Materials
         {
-            get { return _materials ?? (_materials = base.Set<Material>()); }
+            get { return _materials ?? (_materials = Set<Material>()); }
         }
 
         public IDbSet<Order> Orders
         {
-            get { return _orders ?? (_orders = base.Set<Order>()); }
+            get { return _orders ?? (_orders = Set<Order>()); }
         }
 
         public IDbSet<Part> Parts
         {
-            get { return _parts ?? (_parts = base.Set<Part>()); }
+            get { return _parts ?? (_parts = Set<Part>()); }
         }
 
         public IDbSet<PaymentNotice> PaymentNotices
         {
-            get { return _paymentNotices ?? (_paymentNotices = base.Set<PaymentNotice>()); }
+            get { return _paymentNotices ?? (_paymentNotices = Set<PaymentNotice>()); }
         }
 
         public IDbSet<PaymentSchedule> PaymentSchedules
         {
-            get { return _paymentSchedules ?? (_paymentSchedules = base.Set<PaymentSchedule>()); }
+            get { return _paymentSchedules ?? (_paymentSchedules = Set<PaymentSchedule>()); }
         }
 
         public IDbSet<Plan> Plans
         {
-            get { return _plans ?? (_plans = base.Set<Plan>()); }
+            get { return _plans ?? (_plans = Set<Plan>()); }
         }
 
         public IDbSet<PlanAircraft> PlanAircrafts
         {
-            get { return _planAircrafts ?? (_planAircrafts = base.Set<PlanAircraft>()); }
+            get { return _planAircrafts ?? (_planAircrafts = Set<PlanAircraft>()); }
         }
 
         public IDbSet<PlanEngine> PlanEngines
         {
-            get { return _planEngines ?? (_planEngines = base.Set<PlanEngine>()); }
+            get { return _planEngines ?? (_planEngines = Set<PlanEngine>()); }
         }
 
         public IDbSet<Programming> Programmings
         {
-            get { return _programmings ?? (_programmings = base.Set<Programming>()); }
+            get { return _programmings ?? (_programmings = Set<Programming>()); }
         }
 
         public IDbSet<Reception> Receptions
         {
-            get { return _receptions ?? (_receptions = base.Set<Reception>()); }
+            get { return _receptions ?? (_receptions = Set<Reception>()); }
         }
 
         public IDbSet<RelatedDoc> RelatedDocs
         {
-            get { return _relatedDocs ?? (_relatedDocs = base.Set<RelatedDoc>()); }
+            get { return _relatedDocs ?? (_relatedDocs = Set<RelatedDoc>()); }
         }
 
         public IDbSet<Request> Requests
         {
-            get { return _requests ?? (_requests = base.Set<Request>()); }
+            get { return _requests ?? (_requests = Set<Request>()); }
         }
 
         public IDbSet<Supplier> Suppliers
         {
-            get { return _suppliers ?? (_suppliers = base.Set<Supplier>()); }
+            get { return _suppliers ?? (_suppliers = Set<Supplier>()); }
         }
 
         public IDbSet<SupplierCompany> SupplierCompanies
         {
-            get { return _supplierCompanies ?? (_supplierCompanies = base.Set<SupplierCompany>()); }
+            get { return _supplierCompanies ?? (_supplierCompanies = Set<SupplierCompany>()); }
         }
 
         public IDbSet<SupplierCompanyMaterial> SupplierCompanyMaterials
         {
             get
             {
-                return _supplierCompanyMaterials ?? (_supplierCompanyMaterials = base.Set<SupplierCompanyMaterial>());
+                return _supplierCompanyMaterials ?? (_supplierCompanyMaterials = Set<SupplierCompanyMaterial>());
             }
         }
 
         public IDbSet<SupplierRole> SupplierRoles
         {
-            get { return _supplierRoles ?? (_supplierRoles = base.Set<SupplierRole>()); }
+            get { return _supplierRoles ?? (_supplierRoles = Set<SupplierRole>()); }
         }
 
         public IDbSet<Trade> Trades
         {
-            get { return _trades ?? (_trades = base.Set<Trade>()); }
+            get { return _trades ?? (_trades = Set<Trade>()); }
         }
 
         public IDbSet<XmlConfig> XmlConfigs
         {
-            get { return _xmlConfigs ?? (_xmlConfigs = base.Set<XmlConfig>()); }
+            get { return _xmlConfigs ?? (_xmlConfigs = Set<XmlConfig>()); }
         }
 
         public IDbSet<XmlSetting> XmlSettings
         {
-            get { return _xmlSettings ?? (_xmlSettings = base.Set<XmlSetting>()); }
+            get { return _xmlSettings ?? (_xmlSettings = Set<XmlSetting>()); }
         }
 
         public IDbSet<Project> Projects
         {
-            get { return _projects ?? (_projects = base.Set<Project>()); }
+            get { return _projects ?? (_projects = Set<Project>()); }
         }
 
         public IDbSet<ProjectTemp> ProjectTemps
         {
-            get { return _projectTemps ?? (_projectTemps = base.Set<ProjectTemp>()); }
+            get { return _projectTemps ?? (_projectTemps = Set<ProjectTemp>()); }
         }
 
         public IDbSet<TaskStandard> TaskStandards
         {
-            get { return _taskStandards ?? (_taskStandards = base.Set<TaskStandard>()); }
+            get { return _taskStandards ?? (_taskStandards = Set<TaskStandard>()); }
         }
 
         public IDbSet<User> Users
         {
-            get { return _users ?? (_users = base.Set<User>()); }
+            get { return _users ?? (_users = Set<User>()); }
         }
 
         public IDbSet<WorkGroup> WorkGroups
         {
-            get { return _workGroups ?? (_workGroups = base.Set<WorkGroup>()); }
+            get { return _workGroups ?? (_workGroups = Set<WorkGroup>()); }
         }
 
+        public IDbSet<DocumentType> DocumentTypes
+        {
+            get { return _documentTypes ?? (_documentTypes = Set<DocumentType>()); }
+        }
         #endregion
 
         #region DbContext 重载
@@ -440,236 +467,235 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         {
             modelBuilder.Configurations
 
-                #region ActionCategoryAgg
+            #region ActionCategoryAgg
 
-                .Add(new ActionCategoryEntityConfiguration())
+.Add(new ActionCategoryEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AcTypeAgg
+            #region AircraftSeriesAgg
+.Add(new AircraftSeriesEntityConfiguration())
 
-                .Add(new AcTypeEntityConfiguration())
+            #endregion
 
-                #endregion
+            #region AircraftCategoryAgg
 
-                #region AircraftCategoryAgg
+.Add(new AircraftCategoryEntityConfiguration())
 
-                .Add(new AircraftCategoryEntityConfiguration())
+            #endregion
 
-                #endregion
+            #region AircraftAgg
 
-                #region AircraftAgg
-
-                .Add(new AircraftEntityConfiguration())
+.Add(new AircraftEntityConfiguration())
                 .Add(new AircraftBusinessEntityConfiguration())
                 .Add(new OperationHistoryEntityConfiguration())
                 .Add(new OwnershipHistoryEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AircraftPlanAgg
+            #region AircraftPlanAgg
 
-                .Add(new PlanEntityConfiguration())
+.Add(new PlanEntityConfiguration())
                 .Add(new PlanHistoryEntityConfiguration())
                 .Add(new ChangePlanEntityConfiguration())
                 .Add(new OperationPlanEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AircraftTypeAgg
+            #region AircraftTypeAgg
 
-                .Add(new AircraftTypeEntityConfiguration())
+.Add(new AircraftTypeEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AirlinesAgg
+            #region AirlinesAgg
 
-                .Add(new AirlinesEntityConfiguration())
+.Add(new AirlinesEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AirProgrammingAgg
+            #region AirProgrammingAgg
 
-                .Add(new AirProgrammingEntityConfiguration())
+.Add(new AirProgrammingEntityConfiguration())
                 .Add(new AirProgrammingLineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AnnualAgg
+            #region AnnualAgg
 
-                .Add(new AnnualEntityConfiguration())
+.Add(new AnnualEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ApprovalDocAgg
+            #region ApprovalDocAgg
 
-                .Add(new ApprovalDocEntityConfiguration())
+.Add(new ApprovalDocEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region BankAccountAgg
+            #region BankAccountAgg
 
-                .Add(new BankAccountEntityConfiguration())
+.Add(new BankAccountEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region CaacProgrammingAgg
+            #region CaacProgrammingAgg
 
-                .Add(new CaacProgrammingEntityConfiguration())
+.Add(new CaacProgrammingEntityConfiguration())
                 .Add(new CaacProgrammingLineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ContentTagAgg
+            #region ContentTagAgg
 
-                .Add(new ContentTagEntityConfiguration())
+.Add(new ContentTagEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ContractAircraftAgg
+            #region ContractAircraftAgg
 
-                .Add(new ContractAircraftEntityConfiguration())
+.Add(new ContractAircraftEntityConfiguration())
                 .Add(new LeaseContractAircraftEntityConfiguration())
                 .Add(new PurchaseContractAircraftEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ContractAircraftBFEAgg
+            #region ContractAircraftBFEAgg
 
-                .Add(new ContractAircraftBFEEntityConfiguration())
+.Add(new ContractAircraftBFEEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ContractEngineAgg
+            #region ContractEngineAgg
 
-                .Add(new ContractEngineEntityConfiguration())
+.Add(new ContractEngineEntityConfiguration())
                 .Add(new LeaseContractEngineEntityConfiguration())
                 .Add(new PurchaseContractEngineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region CurrencyAgg
+            #region CurrencyAgg
 
-                .Add(new CurrencyEntityConfiguration())
+.Add(new CurrencyEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region DocumentAgg
+            #region DocumentAgg
 
-                .Add(new DocumentEntityConfiguration())
+.Add(new DocumentEntityConfiguration())
                 .Add(new OfficialDocumentEntityConfiguration())
                 .Add(new StandardDocumentEntityConfiguration())
+                .Add(new DocumentTypeEntityConfiguration())
+            #endregion
 
-                #endregion
+            #region DocumentPathAgg
 
-                #region DocumentPathAgg
+.Add(new DocumentPathEntityConfiguration())
 
-                .Add(new DocumentPathEntityConfiguration())
+            #endregion
 
-                #endregion
+            #region EngineAgg
 
-                #region EngineAgg
-
-                .Add(new EngineEntityConfiguration())
+.Add(new EngineEntityConfiguration())
                 .Add(new EngineBusinessHistoryEntityConfiguration())
                 .Add(new EngineOwnershipHistoryEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region EnginePlanAgg
+            #region EnginePlanAgg
 
-                .Add(new EnginePlanEntityConfiguration())
+.Add(new EnginePlanEntityConfiguration())
                 .Add(new EnginePlanHistoryEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region EngineTypeAgg
+            #region EngineTypeAgg
 
-                .Add(new EngineTypeEntityConfiguration())
+.Add(new EngineTypeEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ForwarderAgg
+            #region ForwarderAgg
 
-                .Add(new ForwarderEntityConfiguration())
+.Add(new ForwarderEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region GuaranteeAgg
+            #region GuaranteeAgg
 
-                .Add(new GuaranteeEntityConfiguration())
+.Add(new GuaranteeEntityConfiguration())
                 .Add(new LeaseGuaranteeEntityConfiguration())
                 .Add(new MaintainGuaranteeEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region InvoiceAgg
+            #region InvoiceAgg
 
-                .Add(new InvoiceEntityConfiguration())
+.Add(new InvoiceEntityConfiguration())
                 .Add(new InvoiceLineEntityConfiguration())
                 .Add(new CreditNoteInvoiceEntityConfiguration())
                 .Add(new LeaseInvoiceEntityConfiguration())
                 .Add(new PurchaseInvoiceEntityConfiguration())
                 .Add(new PrepaymentInvoiceEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region LinkmanAgg
+            #region LinkmanAgg
 
-                .Add(new LinkmanEntityConfiguration())
+.Add(new LinkmanEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region MailAddressAgg
+            #region MailAddressAgg
 
-                .Add(new MailAddressEntityConfiguration())
+.Add(new MailAddressEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region MaintainContractAgg
+            #region MaintainContractAgg
 
-                .Add(new MaintainContractEntityConfiguration())
+.Add(new MaintainContractEntityConfiguration())
                 .Add(new APUMaintainContractEntityConfiguration())
                 .Add(new EngineMaintainContractEntityConfiguration())
                 .Add(new UndercartMaintainContractEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region MaintainInvoiceAgg
+            #region MaintainInvoiceAgg
 
-                .Add(new MaintainInvoiceEntityConfiguration())
+.Add(new MaintainInvoiceEntityConfiguration())
                 .Add(new MaintainInvoiceLineEntityConfiguration())
                 .Add(new AirframeMaintainInvoiceEntityConfiguration())
                 .Add(new APUMaintainInvoiceEntityConfiguration())
                 .Add(new EngineMaintainInvoiceEntityConfiguration())
                 .Add(new UndercartMaintainInvoiceEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ManagerAgg
+            #region ManagerAgg
 
-                .Add(new ManagerEntityConfiguration())
+.Add(new ManagerEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ManufacturerAgg
+            #region ManufacturerAgg
 
-                .Add(new ManufacturerEntityConfiguration())
+.Add(new ManufacturerEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region MaterialAgg
+            #region MaterialAgg
 
-                .Add(new MaterialEntityConfiguration())
+.Add(new MaterialEntityConfiguration())
                 .Add(new AircraftMaterialEntityConfiguration())
                 .Add(new BFEMaterialEntityConfiguration())
                 .Add(new EngineMaterialEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region OrderAgg
+            #region OrderAgg
 
-                .Add(new OrderEntityConfiguration())
+.Add(new OrderEntityConfiguration())
                 .Add(new ContractContentEntityConfiguration())
                 .Add(new OrderLineEntityConfiguration())
                 .Add(new AircraftLeaseOrderEntityConfiguration())
@@ -683,52 +709,52 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new EnginePurchaseOrderEntityConfiguration())
                 .Add(new EnginePurchaseOrderLineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region PartAgg
+            #region PartAgg
 
-                .Add(new PartEntityConfiguration())
+.Add(new PartEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region PaymentNoticeAgg
+            #region PaymentNoticeAgg
 
-                .Add(new PaymentNoticeEntityConfiguration())
+.Add(new PaymentNoticeEntityConfiguration())
                 .Add(new PaymentNoticeLineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region PaymentScheduleAgg
+            #region PaymentScheduleAgg
 
-                .Add(new PaymentScheduleEntityConfiguration())
+.Add(new PaymentScheduleEntityConfiguration())
                 .Add(new PaymentScheduleLineEntityConfiguration())
                 .Add(new AircraftPaymentScheduleEntityConfiguration())
                 .Add(new EnginePaymentScheduleEntityConfiguration())
                 .Add(new StandardPaymentScheduleEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region PlanAircraftAgg
+            #region PlanAircraftAgg
 
-                .Add(new PlanAircraftEntityConfiguration())
+.Add(new PlanAircraftEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region PlanEngineAgg
+            #region PlanEngineAgg
 
-                .Add(new PlanEngineEntityConfiguration())
+.Add(new PlanEngineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ProgrammingAgg
+            #region ProgrammingAgg
 
-                .Add(new ProgrammingEntityConfiguration())
+.Add(new ProgrammingEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ReceptionAgg
+            #region ReceptionAgg
 
-                .Add(new ReceptionEntityConfiguration())
+.Add(new ReceptionEntityConfiguration())
                 .Add(new ReceptionLineEntityConfiguration())
                 .Add(new ReceptionScheduleEntityConfiguration())
                 .Add(new AircraftLeaseReceptionEntityConfiguration())
@@ -740,42 +766,42 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new EnginePurchaseReceptionEntityConfiguration())
                 .Add(new EnginePurchaseReceptionLineEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region RelatedDocAgg
+            #region RelatedDocAgg
 
-                .Add(new RelatedDocEntityConfiguration())
+.Add(new RelatedDocEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region RequestAgg
+            #region RequestAgg
 
-                .Add(new RequestEntityConfiguration())
+.Add(new RequestEntityConfiguration())
                 .Add(new ApprovalHistoryEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region SupplierAgg
+            #region SupplierAgg
 
-                .Add(new SupplierEntityConfiguration())
+.Add(new SupplierEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region SupplierCompanyAgg
+            #region SupplierCompanyAgg
 
-                .Add(new SupplierCompanyEntityConfiguration())
+.Add(new SupplierCompanyEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region SupplierCompanyMaterialAgg
+            #region SupplierCompanyMaterialAgg
 
-                .Add(new SupplierCompanyMaterialEntityConfiguration())
+.Add(new SupplierCompanyMaterialEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region SupplierRoleAgg
+            #region SupplierRoleAgg
 
-                .Add(new SupplierRoleEntityConfiguration())
+.Add(new SupplierRoleEntityConfiguration())
                 .Add(new AircraftLeaseSupplierEntityConfiguration())
                 .Add(new AircraftPurchaseSupplierEntityConfiguration())
                 .Add(new BFEPurchaseSupplierEntityConfiguration())
@@ -783,61 +809,67 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new EnginePurchaseSupplierEntityConfiguration())
                 .Add(new MaintainSupplierEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region TradeAgg
+            #region TradeAgg
 
-                .Add(new TradeEntityConfiguration())
+.Add(new TradeEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region XmlConfigAgg
+            #region XmlConfigAgg
 
-                .Add(new XmlConfigEntityConfiguration())
+.Add(new XmlConfigEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region XmlSettingAgg
+            #region XmlSettingAgg
 
-                .Add(new XmlSettingEntityConfiguration())
+.Add(new XmlSettingEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ProjectAgg
+            #region ProjectAgg
 
-                .Add(new ProjectEntityConfiguration())
+.Add(new ProjectEntityConfiguration())
                 .Add(new TaskEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ProjectTempAgg
+            #region ProjectTempAgg
 
-                .Add(new ProjectTempEntityConfiguration())
+.Add(new ProjectTempEntityConfiguration())
                 .Add(new TaskTempEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region TaskStandardAgg
+            #region TaskStandardAgg
 
-                .Add(new TaskStandardEntityConfiguration())
+.Add(new TaskStandardEntityConfiguration())
                 .Add(new TaskCaseEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region UserAgg
+            #region UserAgg
 
-                .Add(new UserEntityConfiguration())
+.Add(new UserEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region WorkGroupAgg
+            #region WorkGroupAgg
 
-                .Add(new WorkGroupEntityConfiguration())
+.Add(new WorkGroupEntityConfiguration())
                 .Add(new MemberEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                .Add(new AddressConfiguration());
+            #region AircraftLicense
+.Add(new AircraftLicenseEntityConfiguration())
+                .Add(new LicenseTypeEntityConfiguration())
+            #endregion
+
+.Add(new AtaEntityConfiguration())
+.Add(new AddressConfiguration());
         }
 
         #endregion

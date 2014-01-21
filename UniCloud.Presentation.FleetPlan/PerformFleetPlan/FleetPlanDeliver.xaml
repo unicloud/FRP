@@ -120,6 +120,14 @@
                                                                  CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
+                                    <telerik:RadGridView.GroupDescriptors>
+                                        <telerik:GroupDescriptor Member="CanDeliver"
+                                                                 SortDirection="Ascending">
+                                            <telerik:GroupDescriptor.AggregateFunctions>
+                                                <telerik:CountFunction ResultFormatString="小计：{0}项" />
+                                            </telerik:GroupDescriptor.AggregateFunctions>
+                                        </telerik:GroupDescriptor>
+                                    </telerik:RadGridView.GroupDescriptors>
                                     <telerik:RadGridView.Columns>
                                         <input:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
@@ -200,6 +208,11 @@
                                                                  MethodName="GridViewSelectionChanged" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
+                                    <telerik:RadGridView.GroupDescriptors>
+                                        <telerik:GroupDescriptor Member="OperateStatus"
+                                                                 SortDirection="Descending">
+                                        </telerik:GroupDescriptor>
+                                    </telerik:RadGridView.GroupDescriptors>
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
@@ -295,8 +308,8 @@
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewComboBoxColumn Header="引进方式"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        FilterMemberPath="ActionCategory.ActionName"
-                                                                        ItemsSourceBinding="{Binding ActionCategories}"
+                                                                        FilterMemberPath="ActionName"
+                                                                        ItemsSourceBinding="{Binding ActionCategories,Mode=TwoWay}"
                                                                         DisplayMemberPath="ActionName"
                                                                         DataMemberBinding="{Binding ImportCategoryId}"
                                                                         SelectedValueMemberPath="Id" />
@@ -321,8 +334,8 @@
                                                                     DataFormatString="{StaticResource DateStringFormat}" />
                                         <telerik:GridViewComboBoxColumn Header="退出方式"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        FilterMemberPath="ActionCategory.ActionName"
-                                                                        ItemsSourceBinding="{Binding ActionCategories}"
+                                                                        FilterMemberPath="ActionName"
+                                                                        ItemsSourceBinding="{Binding ActionCategories,Mode=TwoWay}"
                                                                         DisplayMemberPath="ActionName"
                                                                         DataMemberBinding="{Binding ExportCategoryId}"
                                                                         SelectedValueMemberPath="Id" />
@@ -387,21 +400,21 @@
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         FilterMemberPath="Regional"
                                                                         IsReadOnly="True"
-                                                                        ItemsSourceBinding="{Binding AircraftCategories}"
+                                                                        ItemsSourceBinding="{Binding AircraftCategories,Mode=TwoWay}"
                                                                         DisplayMemberPath="Regional"
                                                                         DataMemberBinding="{Binding Regional}"
                                                                         SelectedValueMemberPath="Regional" />
                                         <telerik:GridViewComboBoxColumn Header="机型"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        FilterMemberPath="AircraftType.Name"
-                                                                        ItemsSourceBinding="{Binding AircraftTypes}"
+                                                                        FilterMemberPath="AircraftTypeName"
+                                                                        ItemsSourceBinding="{Binding AircraftTypes,Mode=TwoWay}"
                                                                         DisplayMemberPath="Name"
                                                                         DataMemberBinding="{Binding AircraftTypeId}"
                                                                         SelectedValueMemberPath="Id" />
                                         <telerik:GridViewComboBoxColumn Header="引进方式"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        FilterMemberPath="ActionCategory.ActionName"
-                                                                        ItemsSourceBinding="{Binding ActionCategories}"
+                                                                        FilterMemberPath="ActionName"
+                                                                        ItemsSourceBinding="{Binding ActionCategories,Mode=TwoWay}"
                                                                         DisplayMemberPath="ActionName"
                                                                         DataMemberBinding="{Binding ImportCategoryId}"
                                                                         SelectedValueMemberPath="Id" />

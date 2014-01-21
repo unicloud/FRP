@@ -45,14 +45,16 @@
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
-                                         FontSize="{StaticResource TextFontSize}">
+                                         FontSize="{StaticResource TextFontSize}"
+                                         ContextMenuTemplate="{x:Null}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                    Margin="-1 -2 -1 0">
+                                                    Margin="-1 -2 -1 0"
+                                                    OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding SaveCommand}"
                                                        CommandParameter="{Binding CaacProgrammings}">
@@ -102,6 +104,12 @@
                                                      ItemsSource="{Binding CaacProgrammings,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelCaacProgramming,Mode=TwoWay}"
                                                      IsBusy="{Binding CaacProgrammings.IsBusy}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <ei:CallMethodAction TargetObject="{Binding}"
+                                                                 MethodName="GridViewSelectionChanged" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
@@ -149,7 +157,8 @@
                                             <telerik:GridViewDataColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <HyperlinkButton Content="{Binding DocName}"
-                                                                     Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}" />
+                                                                     Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                     CommandParameter="{Binding DocumentId}" />
                                                 </DataTemplate>
                                             </telerik:GridViewDataColumn.CellTemplate>
                                         </telerik:GridViewDataColumn>
@@ -171,7 +180,8 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                    Margin="-1 -2 -1 0">
+                                                    Margin="-1 -2 -1 0"
+                                                    OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding AddEntityCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Add.png"
@@ -198,6 +208,12 @@
                                                      IsBusy="{Binding CaacProgrammings.IsBusy}"
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <ei:CallMethodAction TargetObject="{Binding}"
+                                                                 MethodName="GridViewSelectionChanged" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"

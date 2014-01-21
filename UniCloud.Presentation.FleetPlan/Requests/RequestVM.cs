@@ -91,9 +91,12 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         private void InitialRequest()
         {
             RequestsView = _service.CreateCollection(_context.Requests, o => o.ApprovalHistories);
+            _service.RegisterCollectionView(RequestsView);
             RequestsView.PageSize = 20;
+            SetIsBusy();
             RequestsView.LoadedData += (sender, e) =>
             {
+                SetIsBusy();
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
@@ -104,6 +107,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                     SelectedRequest = e.Entities.Cast<RequestDTO>().FirstOrDefault();
                 }
                 RefreshCommandState();
+
             };
         }
 
@@ -140,8 +144,10 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         private void InitialAircraftType()
         {
             AircraftTypesView = _service.CreateCollection(_context.AircraftTypes);
+            SetIsBusy();
             AircraftTypesView.LoadedData += (sender, e) =>
             {
+                SetIsBusy();
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
@@ -188,8 +194,10 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         private void InitialAircraftCategory()
         {
             AircraftCategoriesView = _service.CreateCollection(_context.AircraftCategories);
+            SetIsBusy();
             AircraftCategoriesView.LoadedData += (sender, e) =>
             {
+                SetIsBusy();
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
@@ -222,6 +230,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 if (_selectedPlan != value)
                 {
                     _selectedPlan = value;
+                    RefreshCanRequest();
                     RaisePropertyChanged(() => SelectedPlan);
                 }
             }
@@ -253,9 +262,12 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// </summary>
         private void InitialPlan()
         {
-            PlansView = _service.CreateCollection(_context.Plans);
+            PlansView = _service.CreateCollection(_context.Plans,c=>c.PlanHistories);
+            _service.RegisterCollectionView(PlansView);
+            SetIsBusy();
             PlansView.LoadedData += (sender, e) =>
             {
+                SetIsBusy();
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
@@ -318,8 +330,10 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         private void InitialAnnual()
         {
             AnnualsView = _service.CreateCollection(_context.PlanYears);
+            SetIsBusy();
             AnnualsView.LoadedData += (sender, e) =>
             {
+                SetIsBusy();
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
@@ -364,8 +378,10 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         {
             ActionCategoriesView = _service.CreateCollection(_context.ActionCategories);
             ActionCategoriesView.FilterDescriptors.Add(new FilterDescriptor("ActionType", FilterOperator.IsEqualTo, "引进"));
+            SetIsBusy();
             ActionCategoriesView.LoadedData += (sender, e) =>
             {
+                SetIsBusy();
                 if (e.HasError)
                 {
                     e.MarkErrorAsHandled();
@@ -531,7 +547,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         /// <returns></returns>
         public bool DragPlanHistory(object planHistory)
         {
-            return planHistory is PlanHistoryDTO && SelectedRequest != null &&
+            return planHistory is PlanHistoryDTO && (planHistory as PlanHistoryDTO).CanRequest == CanRequest.可申请 && SelectedRequest != null &&
                    SelectedRequest.Status < (int) RequestStatus.已审核 && SubmitedPlan(planHistory as PlanHistoryDTO);
         }
 
@@ -582,10 +598,15 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                     ImportCategoryId = planHistory.ActionCategoryId,
                     RequestDeliverAnnualId = planHistory.PerformAnnualId,
                     AirlinesId = planHistory.AirlinesId,
-                    //AircraftRegional = planHistory.Regional,
+                    AircraftRegional = planHistory.Regional,
                     AircraftType = planHistory.AircraftTypeName
                 };
+                planHistory.ApprovalHistoryId = approveHistory.Id;
+                planHistory.ManageStatus = (int)ManageStatus.申请;
+                planHistory.RefrashCanRequest(SelectedPlan);
+               
                 SelectedRequest.ApprovalHistories.Add(approveHistory);
+                
             }
         }
 
@@ -599,7 +620,16 @@ namespace UniCloud.Presentation.FleetPlan.Requests
                 MessageAlert("当前申请明细不可删除");
                 return;
             }
-
+            var planHistory = SelectedPlan.PlanHistories.FirstOrDefault(p => p.ApprovalHistoryId == approvalHistory.Id);
+            if (planHistory!=null)
+            {
+                planHistory.ApprovalHistoryId = null;
+                if (planHistory.ManageStatus == (int)ManageStatus.申请)
+                {
+                    planHistory.ManageStatus = (int)ManageStatus.计划;
+                    planHistory.RefrashCanRequest(SelectedPlan);
+                }
+            }
             SelectedRequest.ApprovalHistories.Remove(approvalHistory);
         }
 
@@ -617,6 +647,15 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             return false;
         }
 
+        /// <summary>
+        /// 刷新计划是否可申请
+        /// </summary>
+        private void RefreshCanRequest()
+        {
+            if (SelectedPlan==null) return;
+            
+            SelectedPlan.PlanHistories.ToList().ForEach(p => p.RefrashCanRequest(SelectedPlan));
+        }
         #endregion
 
         #region 命令
@@ -800,6 +839,20 @@ namespace UniCloud.Presentation.FleetPlan.Requests
             }
             return true;
         }
+
+        protected override void SetIsBusy()
+        {
+            if (RequestsView == null || AircraftTypesView ==null || AnnualsView==null
+                || ActionCategoriesView == null || AircraftCategoriesView == null || PlansView==null)
+            {
+                IsBusy = true;
+                return;
+            }
+            IsBusy = RequestsView.IsBusy || AircraftTypesView.IsBusy || AnnualsView.IsBusy
+                     || ActionCategoriesView.IsBusy || AircraftCategoriesView.IsBusy
+                     || PlansView.IsBusy;
+        }
+
         #endregion
     }
 }

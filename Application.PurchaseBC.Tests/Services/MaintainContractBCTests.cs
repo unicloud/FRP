@@ -17,9 +17,9 @@
 #region 命名空间
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UniCloud.Application.PurchaseBC.ContractServices;
 using UniCloud.Application.PurchaseBC.DTO;
-using UniCloud.Application.PurchaseBC.Query.ContractQueries;
+using UniCloud.Application.PurchaseBC.MaintainContractServices;
+using UniCloud.Application.PurchaseBC.Query.MaintainContractQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;

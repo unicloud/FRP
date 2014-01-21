@@ -73,7 +73,32 @@ namespace UniCloud.Presentation.Service.FleetPlan
             return GetStaticData(Context.Suppliers, loaded, forceLoad);
         }
 
+        /// <summary>
+        ///     所有座级
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftCategoryDTO> GetAircraftCategories(Action loaded,
+            bool forceLoad = false)
+        {
+            return GetStaticData(Context.AircraftCategories, loaded, forceLoad);
+        }
 
+        /// <summary>
+        ///     所有活动类型
+        /// </summary>
+        public QueryableDataServiceCollectionView<ActionCategoryDTO> GetActionCategories(Action loaded,
+            bool forceLoad = false)
+        {
+            return GetStaticData(Context.ActionCategories, loaded, forceLoad);
+        }
+
+        /// <summary>
+        ///     所有飞机系列
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftSeriesDTO> GetAircraftSeries(Action loaded,
+            bool forceLoad = false)
+        {
+            return GetStaticData(Context.AircraftSeries, loaded, forceLoad);
+        }
         #endregion
 
         #region 公共属性
@@ -134,14 +159,15 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// </summary>
         /// <param name="plan">计划</param>
         /// <param name="planAircraft">计划飞机</param>
+        /// <param name="aircraft">计划飞机</param>
         /// <param name="actionType">活动类型</param>
         /// <param name="planType">判断是否运营\变更计划</param>
         /// <returns></returns>
-        public PlanHistoryDTO CreatePlanHistory(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType, int planType)
+        public PlanHistoryDTO CreatePlanHistory(PlanDTO plan,ref PlanAircraftDTO planAircraft,AircraftDTO aircraft, string actionType, int planType)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                return pb.CreateOperationPlan(plan, planAircraft, actionType,planType, this);
+                return pb.CreatePlanHistory(plan,ref planAircraft,aircraft,actionType, planType, this);
             }
         }
 
@@ -160,13 +186,15 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <summary>
         /// 完成运力增减计划
         /// </summary>
-        /// <param name="planDetail"><see cref="IFleetPlanService"/></param>
+        /// <param name="planDetail">计划明细</param>
+        /// <param name="aircraft">飞机</param>
+        /// <param name="editAircraft">飞机</param>
         /// <returns><see cref="IFleetPlanService"/></returns>
-        public AircraftDTO CompletePlan(PlanHistoryDTO planDetail)
+        public void CompletePlan(PlanHistoryDTO planDetail,AircraftDTO aircraft,ref AircraftDTO editAircraft)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                return pb.CompletePlan(planDetail, this);
+              pb.CompletePlan(planDetail,aircraft,ref editAircraft, this);
             }
         }
 

@@ -184,11 +184,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// <param name="title">申请标题</param>
         public void SetTitle(string title)
         {
-            if (string.IsNullOrWhiteSpace(title))
-            {
-                throw new ArgumentException("申请标题参数为空！");
-            }
-
             Title = title;
         }
 
@@ -198,11 +193,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// <param name="raDocNumber">地方局申请文号</param>
         public void SetRaDocNumber(string raDocNumber)
         {
-            if (string.IsNullOrWhiteSpace(raDocNumber))
-            {
-                throw new ArgumentException("地方局申请文号参数为空！");
-            }
-
             RaDocNumber = raDocNumber;
         }
 
@@ -212,11 +202,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// <param name="sawsDocNumber">监管局申请文号</param>
         public void SetSawsDocNumber(string sawsDocNumber)
         {
-            if (string.IsNullOrWhiteSpace(sawsDocNumber))
-            {
-                throw new ArgumentException("监管局申请文号参数为空！");
-            }
-
+           
             SawsDocNumber = sawsDocNumber;
         }
 
@@ -226,11 +212,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// <param name="caacDocNumber">民航局申请文号</param>
         public void SetCaacDocNumber(string caacDocNumber)
         {
-            if (string.IsNullOrWhiteSpace(caacDocNumber))
-            {
-                throw new ArgumentException("民航局申请文号参数为空！");
-            }
-
             CaacDocNumber = caacDocNumber;
         }
 
@@ -269,11 +250,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// <param name="caacNote"></param>
         public void SetCaacNote(string caacNote)
         {
-            if (string.IsNullOrWhiteSpace(caacNote))
-            {
-                throw new ArgumentException("民航局审批意见参数为空！");
-            }
-
             CaacNote = caacNote;
         }
 
@@ -283,11 +259,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// <param name="raNote"></param>
         public void SetRaNote(string raNote)
         {
-            if (string.IsNullOrWhiteSpace(raNote))
-            {
-                throw new ArgumentException("地方局审批意见参数为空！");
-            }
-
             RaNote = raNote;
         }
 
@@ -297,11 +268,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         /// <param name="sawsNote"></param>
         public void SetSawsNote(string sawsNote)
         {
-            if (string.IsNullOrWhiteSpace(sawsNote))
-            {
-                throw new ArgumentException("监管局审批意见参数为空！");
-            }
-
             SawsNote = sawsNote;
         }
 
@@ -365,7 +331,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
         ///     新增审批历史（申请明细）
         /// </summary>
         /// <returns></returns>
-        public ApprovalHistory AddNewApprovalHistory(int seatingCapacity, decimal carryingCapacity,
+        public ApprovalHistory AddNewApprovalHistory(Guid id,int seatingCapacity, decimal carryingCapacity,
             int requestDeliverMonth, string note,
             Guid requestId, Guid planAircraftId, Guid importCategoryId, Guid requestDeliverAnnualId, Guid airlinesId)
         {
@@ -379,7 +345,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg
             approvalHistory.SetPlanAircraft(planAircraftId);
             approvalHistory.SetImportCategory(importCategoryId);
             approvalHistory.SetAirlines(airlinesId);
-            approvalHistory.GenerateNewIdentity();
+            approvalHistory.SetId(id);
             ApprovalHistories.Add(approvalHistory);
             return approvalHistory;
         }

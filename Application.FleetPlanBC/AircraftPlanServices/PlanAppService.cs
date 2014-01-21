@@ -48,11 +48,11 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
         private readonly IAnnualRepository _annualRepository;
         private readonly IPlanQuery _planQuery;
         private readonly IPlanRepository _planRepository;
-
+        private readonly IPlanAircraftRepository _planAircraftRepository;
         public PlanAppService(IPlanQuery planQuery, IActionCategoryRepository actionCategoryRepository
             , IAircraftTypeRepository aircraftTypeRepository, IAirlinesRepository airlinesRepository,
             IAnnualRepository annualRepository,IAircraftRepository aircraftRepository,
-            IPlanRepository planRepository)
+            IPlanRepository planRepository, IPlanAircraftRepository planAircraftRepository)
         {
             _planQuery = planQuery;
             _actionCategoryRepository = actionCategoryRepository;
@@ -61,6 +61,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
             _airlinesRepository = airlinesRepository;
             _annualRepository = annualRepository;
             _planRepository = planRepository;
+            _planAircraftRepository = planAircraftRepository;
         }
 
         #region PlanDTO
@@ -123,12 +124,12 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 updatePlan.SetDocument(dto.DocumentId, dto.DocName);
                 updatePlan.SetTitle(dto.Title);
 
-                //更新接机行：
+                //更新计划明细：
                 var dtoPlanHistories = dto.PlanHistories;
                 var planHistories = updatePlan.PlanHistories;
                 DataHelper.DetailHandle(dtoPlanHistories.ToArray(),
                     planHistories.ToArray(),
-                    c => c.PlanId, p => p.Id,
+                    c => c.Id, p => p.Id,
                     i => InsertPlanHistory(updatePlan, i),
                     UpdatePlanHistory,
                     d => _planRepository.RemovePlanHistory(d));
@@ -224,6 +225,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 planHistory.SetPerformDate(annual, planHistoryDto.PerformMonth);
                 planHistory.SetPlanAircraft(planHistoryDto.PlanAircraftId);
                 planHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
+                planHistory.SetApprovalHistory(planHistoryDto.ApprovalHistoryId);
                 var operationPlan = planHistory as OperationPlan;
                 if (operationPlan != null)
                     operationPlan.SetOperationHistory(operationHistory);
@@ -238,14 +240,28 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 planHistory.SetPerformDate(annual, planHistoryDto.PerformMonth);
                 planHistory.SetPlanAircraft(planHistoryDto.PlanAircraftId);
                 planHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
+                planHistory.SetApprovalHistory(planHistoryDto.ApprovalHistoryId);
                 var changePlan = planHistory as ChangePlan;
                 if (changePlan != null)
                     changePlan.SetAircraftBusiness(aircraftBusiness);
             }
+            if (planHistory.PlanAircraftId!=null)
+            {
+                var persitPlanAircraft = _planAircraftRepository.Get(planHistory.PlanAircraftId);
+                if (persitPlanAircraft.Status != (ManageStatus)planHistoryDto.ManageStatus)
+                {
+                    persitPlanAircraft.SetManageStatus((ManageStatus)planHistoryDto.ManageStatus);
+                }
+        }
         }
 
         #endregion
 
         #endregion
+
+      public  PerformPlan PerformPlanQuery(string planHistoryId, string approvalHistoryId, int planType, string relatedGuid)
+      {
+          return _planQuery.PerformPlanQuery(planHistoryId, approvalHistoryId, planType, relatedGuid);
+      }
     }
 }

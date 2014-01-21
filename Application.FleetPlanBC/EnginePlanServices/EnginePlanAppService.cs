@@ -124,7 +124,7 @@ namespace UniCloud.Application.FleetPlanBC.EnginePlanServices
                 var engienPlanHistories = updateEnginePlan.EnginePlanHistories;
                 DataHelper.DetailHandle(dtoEnginePlanHistories.ToArray(),
                     engienPlanHistories.ToArray(),
-                    c => c.EnginePlanId, p => p.Id,
+                    c => c.Id, p => p.Id,
                     i => InsertEnginePlanHistory(updateEnginePlan, i),
                     UpdateEnginePlanHistory,
                     d => _enginePlanRepository.RemoveEnginePlanHistory(d));

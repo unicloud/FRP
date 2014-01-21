@@ -17,6 +17,8 @@
             <uc:RequestStatusConvert x:Key="RequestStatusConvert" />
         </ResourceDictionary>
     </UserControl.Resources>
+    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
+                              BusyContent="">
     <Grid Background="White">
         <telerik:RadDocking BorderThickness="0"
                             Padding="0"
@@ -44,7 +46,6 @@
                                         IsReadOnly="True"
                                         FontSize="{StaticResource TextFontSize}"
                                         ItemsSource="{Binding RequestsView}"
-                                        IsBusy="{Binding RequestsView.IsBusy}"
                                         SelectedItem="{Binding SelectedRequest,Mode=TwoWay}">
                                         <telerik:RadGridView.GroupDescriptors>
                                             <telerik:GroupDescriptor Member="Status" SortDirection="Ascending">
@@ -166,7 +167,6 @@
                                                  CanUserFreezeColumns="False"
                                                  ShowGroupPanel="True"
                                                  IsReadOnly="True"
-                                                 IsBusy="{Binding RequestsView.IsBusy}"
                                                  ItemsSource="{Binding SelectedRequest.ApprovalHistories}"
                                                  AutoGenerateColumns="False"
                                                  ShowColumnFooters="True">
@@ -219,4 +219,5 @@
             </telerik:RadSplitContainer>
         </telerik:RadDocking>
     </Grid>
+    </telerik:RadBusyIndicator>
 </UserControl>

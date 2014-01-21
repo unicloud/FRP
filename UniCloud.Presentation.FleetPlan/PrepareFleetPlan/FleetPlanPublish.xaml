@@ -33,14 +33,16 @@
                                      CanFloat="False"
                                      CanUserClose="False"
                                      CanUserPin="False"
-                                     FontSize="{StaticResource TextFontSize}">
+                                     FontSize="{StaticResource TextFontSize}"
+                                     ContextMenuTemplate="{x:Null}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                Margin="-1 -2 -1 0">
+                                                Margin="-1 -2 -1 0"
+                                                OverflowButtonVisibility="Collapsed">
                                 <telerik:RadButton Margin="4,2,2,-2"
                                                    Command="{Binding SaveCommand}">
                                     <Image Source="/UniCloud.Presentation;component/Images/Save.png"
@@ -193,15 +195,15 @@
                                     <telerik:GridViewDataColumn Header="机号"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding RegNumber}" />
-                                    <telerik:GridViewDataColumn Header="活动类别"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding ActionCategoryOperation}" />
+                                    <telerik:GridViewExpressionColumn Header="活动类别"
+                                                                      MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                      Expression="(ActionType+'：'+ActionName)" />
                                     <telerik:GridViewDataColumn Header="引进/退出方式"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding TargetType}" />
-                                    <telerik:GridViewDataColumn Header="执行时间"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding PerformTime}"/>
+                                    <telerik:GridViewExpressionColumn Header="执行时间"
+                                                                      MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                      Expression="(Year+'/'+PerformMonth)" />
                                     <telerik:GridViewDataColumn Header="净增客机"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding DeltaPnr}">

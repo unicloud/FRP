@@ -21,6 +21,7 @@ using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.MefExtensions.Modularity;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
+using UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig;
 
 #endregion
 
@@ -29,7 +30,8 @@ namespace UniCloud.Presentation.AircraftConfig
     [ModuleExport(typeof (AircraftConfigModule))]
     public class AircraftConfigModule : IModule
     {
-        [Import] public IRegionManager regionManager;
+        [Import]
+        public IRegionManager regionManager;
 
         #region IModule 成员
 

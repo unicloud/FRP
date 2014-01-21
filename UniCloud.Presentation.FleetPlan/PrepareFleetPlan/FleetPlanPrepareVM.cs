@@ -72,6 +72,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 _curAnnual = e.Entities.Cast<AnnualDTO>().FirstOrDefault(p => p.IsOpen);
                 _loadedAnnuals = true;
                 SetSelAnnual();
+                RefreshCommandState();
             };
             _service.RegisterCollectionView(Annuals);//注册查询集合
 
@@ -121,8 +122,15 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             _loadedAnnuals = false;
             _loadedPlans = false;
-            AllPlans.Load(true);
-            Annuals.Load(true);
+            if (!AllPlans.AutoLoad)
+                AllPlans.AutoLoad = true;
+            else
+                AllPlans.Load(true);
+
+            if (!Annuals.AutoLoad)
+                Annuals.AutoLoad = true;
+            else
+                Annuals.Load(true);
         }
 
         public void SetSelAnnual()
@@ -155,7 +163,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #region 选择的年度
 
-        private AnnualDTO _selAnnual=new AnnualDTO();
+        private AnnualDTO _selAnnual = new AnnualDTO();
 
         /// <summary>
         ///     选择的年度
@@ -169,11 +177,12 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 {
                     _selAnnual = value;
                     ViewPlans.Clear();
-                    foreach (var plan in AllPlans.ToList())
+                    foreach (var plan in AllPlans.SourceCollection.Cast<PlanDTO>().ToList())
                     {
                         if (plan.Year == value.Year)
                             ViewPlans.Add(plan);
                     }
+                    ViewPlans.OrderBy(p => p.VersionNumber);
                     SelPlan = ViewPlans.FirstOrDefault();
                     RaisePropertyChanged(() => SelAnnual);
                 }
@@ -278,7 +287,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnUnLock(object obj)
         {
-            var newAnnual = Annuals.FirstOrDefault(a => a.Year == _curAnnual.Year + 1);
+            var newAnnual = Annuals.SourceCollection.Cast<AnnualDTO>().FirstOrDefault(a => a.Year == _curAnnual.Year + 1);
             if (newAnnual == null || _curAnnual == null)
             {
                 MessageAlert("年度不能为空！");
@@ -292,7 +301,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             _curAnnual.IsOpen = false;
 
             //刷新_service中的静态属性CurrentAnnual
-            _curAnnual = Annuals.SingleOrDefault(p => p.IsOpen);
+            _curAnnual = Annuals.SourceCollection.Cast<AnnualDTO>().SingleOrDefault(p => p.IsOpen);
 
             //创建新年度的第一版本计划
             AllPlans.AddNew(_service.CreateNewYearPlan(lastPlan, newAnnual.Id, newAnnual.Year, _curAirlines));

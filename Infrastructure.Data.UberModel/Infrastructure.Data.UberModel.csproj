@@ -54,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InitialData\ActionCategoryData.cs" />
-    <Compile Include="InitialData\AcTypeData.cs" />
+    <Compile Include="InitialData\AircraftSeriesData.cs" />
     <Compile Include="InitialData\AircraftData.cs" />
     <Compile Include="InitialData\AircraftPlanData.cs" />
     <Compile Include="InitialData\AircraftTypeData.cs" />
@@ -62,10 +62,12 @@
     <Compile Include="InitialData\AirlinesData.cs" />
     <Compile Include="InitialData\AnnualData.cs" />
     <Compile Include="InitialData\DocumentData.cs" />
+    <Compile Include="InitialData\DocumentTypeData.cs" />
     <Compile Include="InitialData\ForwardData.cs" />
     <Compile Include="InitialData\InitialBase\IInitialData.cs" />
     <Compile Include="InitialData\InitialBase\InitialContainer.cs" />
     <Compile Include="InitialData\InitialBase\InitialDataBase.cs" />
+    <Compile Include="InitialData\LicenseTypeData.cs" />
     <Compile Include="InitialData\ManagerData.cs" />
     <Compile Include="InitialData\ManufacturerData.cs" />
     <Compile Include="InitialData\PartData.cs" />
@@ -75,14 +77,15 @@
     <Compile Include="InitialData\SupplierData.cs" />
     <Compile Include="InitialData\TradeData.cs" />
     <Compile Include="InitialData\XmlConfigData.cs" />
-    <Compile Include="Migrations\201401140200149_Initializer.cs" />
-    <Compile Include="Migrations\201401140200149_Initializer.Designer.cs">
-      <DependentUpon>201401140200149_Initializer.cs</DependentUpon>
+    <Compile Include="Migrations\201401200208216_database.cs" />
+    <Compile Include="Migrations\201401200208216_database.Designer.cs">
+      <DependentUpon>201401200208216_database.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ActionCategoryEntityConfiguration.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\AcTypeEntityConfiguration.cs">
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftLicenseEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftSeriesEntityConfiguration.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UnitOfWork\Mapping\Sql\AddressConfiguration.cs" />
@@ -111,6 +114,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ApprovalHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\APUMaintainContractEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\APUMaintainInvoiceEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AtaEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BankAccountEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BFEMaterialEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseOrderEntityConfiguration.cs" />
@@ -127,6 +131,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\CreditNoteInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\DocumentEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\DocumentPathEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\DocumentTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineBusinessHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineMaintainInvoiceEntityConfiguration.cs" />
@@ -140,6 +145,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\InvoiceLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\LeaseGuaranteeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\LeaseInvoiceEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\LicenseTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MailAddressEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainContractEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\CurrencyEntityConfiguration.cs" />
@@ -239,8 +245,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201401140200149_Initializer.resx">
-      <DependentUpon>201401140200149_Initializer.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201401200208216_database.resx">
+      <DependentUpon>201401200208216_database.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

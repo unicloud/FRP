@@ -36,5 +36,13 @@ namespace UniCloud.Application.FleetPlanBC.Query.RequestQueries
         IQueryable<RequestDTO> RequestsQuery(
             QueryBuilder<Request> query);
 
+        /// <summary>
+        ///    查询带有申请的批文
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns>申请的批文DTO集合。</returns>
+        IQueryable<ApprovalRequestDTO> ApprovalRequestsQuery(
+            QueryBuilder<Request> query);
+
     }
 }

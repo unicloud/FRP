@@ -45,14 +45,16 @@
                                          CanFloat="False"
                                          CanUserClose="False"
                                          CanUserPin="False"
-                                         FontSize="{StaticResource TextFontSize}">
-                            <Grid>
+                                         FontSize="{StaticResource TextFontSize}"
+                                         ContextMenuTemplate="{x:Null}">
+                            <Grid >
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                    Margin="-1 -2 -1 0">
+                                                    Margin="-1 -2 -1 0"
+                                                    OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding SaveCommand}"
                                                        CommandParameter="{Binding AirProgrammings}">
@@ -102,6 +104,12 @@
                                                      ItemsSource="{Binding AirProgrammings,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelAirProgramming,Mode=TwoWay}"
                                                      IsBusy="{Binding AirProgrammings.IsBusy}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <ei:CallMethodAction TargetObject="{Binding}"
+                                                                 MethodName="GridViewSelectionChanged" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
@@ -139,7 +147,8 @@
                                             <telerik:GridViewDataColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <HyperlinkButton Content="{Binding DocName}"
-                                                                     Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}" />
+                                                                     Command="{Binding DataContext.ViewAttachCommand, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                     CommandParameter="{Binding DocumentId}" />
                                                 </DataTemplate>
                                             </telerik:GridViewDataColumn.CellTemplate>
                                         </telerik:GridViewDataColumn>
@@ -161,7 +170,8 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                    Margin="-1 -2 -1 0">
+                                                    Margin="-1 -2 -1 0"
+                                                    OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding AddEntityCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Add.png"
@@ -188,6 +198,12 @@
                                                      IsBusy="{Binding AirProgrammings.IsBusy}"
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <ei:CallMethodAction TargetObject="{Binding}"
+                                                                 MethodName="GridViewSelectionChanged" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
@@ -206,9 +222,9 @@
                                                                     DataMemberBinding="{Binding Year}" />
                                         <telerik:GridViewComboBoxColumn Header="系列"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSource="{Binding DataContext.AcTypes, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                        ItemsSource="{Binding DataContext.AircraftSeries, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                                                         DisplayMemberPath="Name"
-                                                                        DataMemberBinding="{Binding AcTypeId,Mode=TwoWay}"
+                                                                        DataMemberBinding="{Binding AircraftSeriesId,Mode=TwoWay}"
                                                                         SelectedValueMemberPath="Id"
                                                                         EditorStyle="{StaticResource EditComboBox}" />
                                         <telerik:GridViewDataColumn Header="购买数量"

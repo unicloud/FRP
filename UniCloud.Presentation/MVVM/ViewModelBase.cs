@@ -87,6 +87,11 @@ namespace UniCloud.Presentation.MVVM
         {
         }
 
+        protected virtual void SetIsBusy()
+        {
+            
+        }
+
         #endregion
 
         #region Protected Properties

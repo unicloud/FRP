@@ -65,10 +65,11 @@
     <Compile Include="ContractAircraftDTO\ContractAircraftDTO.cs" />
     <Compile Include="ContractAircraftDTO\LeaseContractAircraftDTO.cs" />
     <Compile Include="ContractAircraftDTO\PurchaseContractAircraftDTO.cs" />
-    <Compile Include="ContractDTO\APUMaintainContractDTO.cs" />
-    <Compile Include="ContractDTO\MaintainContractDTO.cs" />
-    <Compile Include="ContractDTO\EngineMaintainContractDTO.cs" />
-    <Compile Include="ContractDTO\UndercartMaintainContractDTO.cs" />
+    <Compile Include="MaintainContractDTO\AirframeMaintainContractDTO.cs" />
+    <Compile Include="MaintainContractDTO\APUMaintainContractDTO.cs" />
+    <Compile Include="MaintainContractDTO\MaintainContractDTO.cs" />
+    <Compile Include="MaintainContractDTO\EngineMaintainContractDTO.cs" />
+    <Compile Include="MaintainContractDTO\UndercartMaintainContractDTO.cs" />
     <Compile Include="ContractEngineDTO\ContractEngineDTO.cs" />
     <Compile Include="ContractEngineDTO\LeaseContractEngineDTO.cs" />
     <Compile Include="ContractEngineDTO\PurchaseContractEngineDTO.cs" />

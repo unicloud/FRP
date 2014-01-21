@@ -26,6 +26,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Practices.ServiceLocation;
+using Telerik.Windows.Controls;
 using Telerik.Windows.DragDrop.Behaviors;
 using UniCloud.Presentation.Input;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
@@ -159,7 +160,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             var aircraft = cell.DataContext as AircraftDTO;
             if (aircraft != null)
             {
-                var planAircraft = viewModel.PlanAircrafts.FirstOrDefault(p => p.Id == aircraft.AircraftId);
+                var planAircraft = viewModel.AllPlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>().FirstOrDefault(p => p.AircraftId == aircraft.AircraftId);
                 viewModel.OpenEditDialog(planAircraft, PlanDetailCreateSource.Aircraft);
             }
         }
@@ -204,7 +205,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     var planAircraft = items.SelectMany(a =>
                     {
                         var aircraft = a as AircraftDTO;
-                        return aircraft != null ? viewModel.PlanAircrafts.Where(p => p.Id == aircraft.AircraftId) : null;
+                        return aircraft != null ? viewModel.PlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>().Where(p => p.Id == aircraft.AircraftId) : null;
                     }).FirstOrDefault(pa => pa.IsOwn);
                     viewModel.OpenEditDialog(planAircraft, PlanDetailCreateSource.Aircraft);
                 }

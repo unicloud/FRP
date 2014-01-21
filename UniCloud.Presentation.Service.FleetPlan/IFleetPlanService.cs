@@ -52,6 +52,23 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <returns>供应商集合</returns>
         QueryableDataServiceCollectionView<SupplierDTO> GetSupplier(Action loaded, bool forceLoad = false);
 
+        /// <summary>
+        ///     所有座级
+        /// </summary>
+        QueryableDataServiceCollectionView<AircraftCategoryDTO> GetAircraftCategories(Action loaded,
+            bool forceLoad = false);
+
+        /// <summary>
+        ///     所有活动类型
+        /// </summary>
+        QueryableDataServiceCollectionView<ActionCategoryDTO> GetActionCategories(Action loaded,
+            bool forceLoad = false);
+
+        /// <summary>
+        ///     所有飞机系列
+        /// </summary>
+        QueryableDataServiceCollectionView<AircraftSeriesDTO> GetAircraftSeries(Action loaded,
+            bool forceLoad = false);
         #endregion
 
         #region 公共属性
@@ -96,28 +113,19 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// </summary>
         /// <param name="plan">计划 </param>
         /// <param name="planAircraft">计划飞机</param>
+        /// <param name="aircraft">运营飞机</param>
         /// <param name="actionType">活动类型</param>
         /// <returns>计划明细</returns>
-        PlanHistoryDTO CreatePlanHistory(PlanDTO plan, PlanAircraftDTO planAircraft, string actionType,int planType);
+        PlanHistoryDTO CreatePlanHistory(PlanDTO plan,ref PlanAircraftDTO planAircraft,AircraftDTO aircraft, string actionType, int planType);
 
-
-        /// <summary>
-        ///     移除运力增减计划明细
-        /// </summary>
-        /// <param name="planDetail">计划明细</param>
-        void RemovePlanDetail(PlanHistoryDTO planDetail);
         /// <summary>
         ///     完成运力增减计划
         /// </summary>
         /// <param name="planDetail">计划明细</param>
+        /// <param name="aircraft">飞机</param>
+        /// <param name="editAircraft">飞机</param>
         /// <returns>飞机</returns>
-        AircraftDTO CompletePlan(PlanHistoryDTO planDetail);
-
-        /// <summary>
-        ///     获取所有有效的计划
-        /// </summary>
-        /// <returns>有效计划集合</returns>
-        ObservableCollection<PlanDTO> GetAllValidPlan();
+        void CompletePlan(PlanHistoryDTO planDetail,AircraftDTO aircraft, ref AircraftDTO editAircraft);
 
         #endregion
 

@@ -32,7 +32,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 {
-    [Export(typeof (CaacProgrammingVM))]
+    [Export(typeof(CaacProgrammingVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class CaacProgrammingVM : EditViewModelBase
     {
@@ -43,7 +43,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private readonly IFleetPlanService _service;
 
         [ImportingConstructor]
-        public CaacProgrammingVM(IRegionManager regionManager, IFleetPlanService service) : base(service)
+        public CaacProgrammingVM(IRegionManager regionManager, IFleetPlanService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -101,10 +102,14 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public override void LoadData()
         {
-            CaacProgrammings.Load(true);
-            Programmings.Load(true);
-            AircraftCategories.Load(true);
-            Managers.Load(true);
+            if (!CaacProgrammings.AutoLoad)
+                CaacProgrammings.AutoLoad = true;
+            else
+                CaacProgrammings.Load(true);
+
+            Programmings.AutoLoad = true;
+            AircraftCategories.AutoLoad = true;
+            Managers.AutoLoad = true;
         }
 
         #region 业务
@@ -316,6 +321,20 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             return _selCaacProgramming != null;
         }
 
+        /// <summary>
+        ///     子窗口关闭后执行的操作
+        /// </summary>
+        /// <param name="doc">添加的附件</param>
+        /// <param name="sender">添加附件命令的参数</param>
+        protected override void WindowClosed(DocumentDTO doc, object sender)
+        {
+            base.WindowClosed(doc, sender);
+            if (sender is Guid)
+            {
+                SelCaacProgramming.DocumentId = doc.DocumentId;
+                SelCaacProgramming.DocName = doc.Name;
+            }
+        }
         #endregion
 
         #endregion

@@ -33,13 +33,15 @@ using UniCloud.Presentation.SessionExtension;
 
 namespace UniCloud.Presentation.Shell
 {
-    [Export(typeof (ShellViewModel))]
+    [Export(typeof(ShellViewModel))]
     public class ShellViewModel : NotificationObject, IPartImportsSatisfiedNotification
     {
         #region 声明
 
-        [Import] public IModuleManager moduleManager;
-        [Import] public IRegionManager regionManager;
+        [Import]
+        public IModuleManager moduleManager;
+        [Import]
+        public IRegionManager regionManager;
 
         #region IPartImportsSatisfiedNotification 成员
 
@@ -77,6 +79,16 @@ namespace UniCloud.Presentation.Shell
         {
             switch (e.ModuleInfo.ModuleName)
             {
+                case "CommonServiceModule":
+                    var menuItemCommonService = Items.SingleOrDefault(m => m.Text == "文档库");
+                    if (menuItemCommonService != null)
+                        menuItemCommonService.IsEnabled = true;
+                    break;
+                case "BaseManagementModule":
+                    var menuItemBaseManagement = Items.SingleOrDefault(m => m.Text == "基础管理");
+                    if (menuItemBaseManagement != null)
+                        menuItemBaseManagement.IsEnabled = true;
+                    break;
                 case "PortalModule":
                     var menuItemPortal = Items.SingleOrDefault(m => m.Text == "管理门户");
                     if (menuItemPortal != null)
@@ -102,6 +114,11 @@ namespace UniCloud.Presentation.Shell
                     var menuItemProject = Items.SingleOrDefault(m => m.Text == "项目管理");
                     if (menuItemProject != null)
                         menuItemProject.IsEnabled = true;
+                    break;
+                case "AircraftConfigModule":
+                    var menuItemAircraftConfig = Items.SingleOrDefault(m => m.Text == "飞机构型");
+                    if (menuItemAircraftConfig != null)
+                        menuItemAircraftConfig.IsEnabled = true;
                     break;
                 default:
                     throw new ArgumentException("没有匹配的模块名称！");
@@ -161,10 +178,12 @@ namespace UniCloud.Presentation.Shell
             var menu111 = new MenuItem
             {
                 Text = "维护飞机系列",
+                NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig.ManagerAircraftSeries"
             };
             var menu112 = new MenuItem
             {
                 Text = "维护飞机型号",
+                NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig.ManagerAircraftType"
             };
             var menu113 = new MenuItem
             {
@@ -179,16 +198,23 @@ namespace UniCloud.Presentation.Shell
             {
                 Text = "管理飞机数据",
             };
-            var menu121 = new MenuItem
+            //var menu121 = new MenuItem
+            //{
+            //    Text = "维护证照种类",
+            //    NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftData.ManagerLicenseType"
+            //};
+            var menu122 = new MenuItem
             {
                 Text = "维护飞机证照",
+                NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftData.ManagerAircraftLicense"
             };
-            var menu122 = new MenuItem
+            var menu123 = new MenuItem
             {
                 Text = "查询现役飞机",
             };
-            menu12.Items.Add(menu121);
+            //menu12.Items.Add(menu121);
             menu12.Items.Add(menu122);
+            menu12.Items.Add(menu123);
             menu1.Items.Add(menu12);
 
             _items.Add(menu1);
@@ -295,10 +321,12 @@ namespace UniCloud.Presentation.Shell
             var menu241 = new MenuItem
             {
                 Text = "查询规划",
+                NavUri = "UniCloud.Presentation.FleetPlan.QueryPlans.QueryPlan"
             };
             var menu242 = new MenuItem
             {
                 Text = "分析规划执行",
+                NavUri = "UniCloud.Presentation.FleetPlan.PerformFleetPlan.QueryPerformPlan"
             };
             var menu243 = new MenuItem
             {
@@ -308,6 +336,7 @@ namespace UniCloud.Presentation.Shell
             var menu244 = new MenuItem
             {
                 Text = "查询批文",
+                NavUri = "UniCloud.Presentation.FleetPlan.Approvals.QueryApproval"
             };
 
             menu24.Items.Add(menu241);
@@ -472,9 +501,16 @@ namespace UniCloud.Presentation.Shell
                 Text = "管理起落架维修合同",
                 NavUri = "UniCloud.Presentation.Purchase.Contract.UndercartMaintain"
             };
+            var menu334 = new MenuItem
+            {
+                Text = "管理机身维修合同",
+                NavUri = "UniCloud.Presentation.Purchase.Contract.AirframeMaintain"
+            };
+
             menu33.Items.Add(menu331);
             menu33.Items.Add(menu332);
             menu33.Items.Add(menu333);
+            menu33.Items.Add(menu334);
             menu3.Items.Add(menu33);
 
             var menu34 = new MenuItem
@@ -818,6 +854,7 @@ namespace UniCloud.Presentation.Shell
             var menu921 = new MenuItem
             {
                 Text = "维护证照种类",
+                NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftData.ManagerLicenseType"
             };
             var menu922 = new MenuItem
             {
@@ -859,8 +896,17 @@ namespace UniCloud.Presentation.Shell
                 Text = "文档库",
                 IsEnabled = true,
             };
-
-
+            var menu101 = new MenuItem
+                          {
+                              Text = "维护文档类型",
+                              NavUri = "UniCloud.Presentation.CommonService.DocumentTypeManager.ManagerDocumentType"
+                          };
+            var menu102 = new MenuItem
+                          {
+                              Text = "搜索文档",
+                          };
+            menu10.Items.Add(menu101);
+            menu10.Items.Add(menu102);
             _items.Add(menu10);
 
             #endregion

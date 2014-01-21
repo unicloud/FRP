@@ -138,7 +138,7 @@ namespace UniCloud.Application.FleetPlanBC.EngineServices
                 var engineBusinessHistories = updateEngine.EngineBusinessHistories;
                 DataHelper.DetailHandle(dtoEngineBusinessHistories.ToArray(),
                     engineBusinessHistories.ToArray(),
-                    c => c.EngineId, p => p.Id,
+                    c => c.Id, p => p.Id,
                     i => InsertEngineBusinesHistory(updateEngine, i),
                     UpdateEngineBusinessHistory,
                     d => _engineRepository.RemoveEngineBusinessHistory(d));
@@ -148,7 +148,7 @@ namespace UniCloud.Application.FleetPlanBC.EngineServices
                 var engineOwnerShipHistories = updateEngine.EngineOwnerShipHistories;
                 DataHelper.DetailHandle(dtoEngineOwnerShipHistories.ToArray(),
                     engineOwnerShipHistories.ToArray(),
-                    c => c.EngineId, p => p.Id,
+                    c => c.Id, p => p.Id,
                     i => InsertEngineOwnershipHistory(updateEngine, i),
                     UpdateEngineOwnershipHistory,
                     d => _engineRepository.RemoveEngineOwnershipHistory(d));

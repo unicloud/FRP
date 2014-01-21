@@ -22,8 +22,8 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.AirProgrammingQueries;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AcTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ManagerAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingAgg;
@@ -39,18 +39,16 @@ namespace UniCloud.Application.FleetPlanBC.AirProgrammingServices
     public class AirProgrammingAppService : IAirProgrammingAppService
     {
         private readonly IAirProgrammingQuery _airProgrammingQuery;
-        private readonly IAcTypeRepository _acTypeRepository;
-        private readonly IAircraftCategoryRepository _aircraftCategoryRepository;
+        private readonly IAircraftSeriesRepository _aircraftSeriesRepository;
         private readonly IAirProgrammingRepository _airProgrammingRepository;
         private readonly IManagerRepository _managerRepository;
         private readonly IProgrammingRepository _programmingRepository;
-        public AirProgrammingAppService(IAirProgrammingQuery airProgrammingQuery,IAcTypeRepository acTypeRepository
-            ,IAircraftCategoryRepository aircraftCategoryRepository,IAirProgrammingRepository airProgrammingRepository,
+        public AirProgrammingAppService(IAirProgrammingQuery airProgrammingQuery,
+            IAircraftSeriesRepository aircraftSeriesRepository,IAirProgrammingRepository airProgrammingRepository,
             IManagerRepository managerRepository,IProgrammingRepository programmingRepository)
         {
             _airProgrammingQuery = airProgrammingQuery;
-            _acTypeRepository = acTypeRepository;
-            _aircraftCategoryRepository = aircraftCategoryRepository;
+            _aircraftSeriesRepository = aircraftSeriesRepository;
             _airProgrammingRepository = airProgrammingRepository;
             _managerRepository = managerRepository;
             _programmingRepository = programmingRepository;
@@ -122,7 +120,7 @@ namespace UniCloud.Application.FleetPlanBC.AirProgrammingServices
                 var airProgrammingLines = updateAirProgramming.AirProgrammingLines;
                 DataHelper.DetailHandle(dtoAirProgrammingLines.ToArray(),
                     airProgrammingLines.ToArray(),
-                    c => c.AirProgrammingId, p => p.Id,
+                    c => c.Id, p => p.Id,
                     i => InsertAirProgrammingLine(updateAirProgramming, i),
                     UpdateAirProgrammingLine,
                     d => _airProgrammingRepository.RemoveAirProgrammingLine(d));
@@ -160,15 +158,13 @@ namespace UniCloud.Application.FleetPlanBC.AirProgrammingServices
         private void InsertAirProgrammingLine(AirProgramming airProgramming, AirProgrammingLineDTO line)
         {
             //获取
-            var acType = _acTypeRepository.Get(line.AcTypeId);
-            var aircraftCategory = _aircraftCategoryRepository.Get(acType.AircraftCategoryId);
+            var aircraftSeries = _aircraftSeriesRepository.Get(line.AircraftSeriesId);
 
             // 添加接机行
             var newAirProgrammingLine =
                 airProgramming.AddNewAirProgrammingLine();
-            newAirProgrammingLine.SetAcType(acType);
+            newAirProgrammingLine.SetAircraftSeries(aircraftSeries);
             newAirProgrammingLine.SetAirProgramming(line.Year,line.BuyNum,line.LeaseNum,line.ExportNum);
-            newAirProgrammingLine.SetAircraftCategory(aircraftCategory);
 
         }
 
@@ -180,13 +176,11 @@ namespace UniCloud.Application.FleetPlanBC.AirProgrammingServices
         private void UpdateAirProgrammingLine(AirProgrammingLineDTO line, AirProgrammingLine airProgrammingLine)
         {
             //获取
-            var acType = _acTypeRepository.Get(line.AcTypeId);
-            var aircraftCategory = _aircraftCategoryRepository.Get(acType.AircraftCategoryId);
+            var aircraftSeries = _aircraftSeriesRepository.Get(line.AircraftSeriesId);
 
             // 更新订单行
-            airProgrammingLine.SetAcType(acType);
+            airProgrammingLine.SetAircraftSeries(aircraftSeries);
             airProgrammingLine.SetAirProgramming(line.Year, line.BuyNum, line.LeaseNum, line.ExportNum);
-            airProgrammingLine.SetAircraftCategory(aircraftCategory);
             
         }
 
