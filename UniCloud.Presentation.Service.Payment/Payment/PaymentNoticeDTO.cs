@@ -14,10 +14,7 @@
 
 #region 命名空间
 
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.Serialization;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 #endregion
@@ -28,20 +25,12 @@ namespace UniCloud.Presentation.Service.Payment.Payment
     {
         static readonly PaymentService PaymentService = new PaymentService();
 
-        //private IEnumerable<BankAccountDTO> _bankAccounts;
-
-        //public IEnumerable<BankAccountDTO> BankAccounts
-        //{
-        //    get { return new List<BankAccountDTO>(); }
-        //}
         partial void OnSupplierIdChanged()
         {
             var supplier = PaymentService.GetSupplier(null).FirstOrDefault(p => p.SupplierId == SupplierId);
             if (supplier != null)
             {
                 SupplierName = supplier.Name;
-                //_bankAccounts = supplier.BankAccounts;
-                BankAccountId = supplier.BankAccounts.FirstOrDefault().BankAccountId;
             }
         }
 

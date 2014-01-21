@@ -1,0 +1,75 @@
+﻿<telerik:RadWindow x:Class="UniCloud.Presentation.Payment.PaymentNotice.BankAccountWindow"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+                   xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+                   mc:Ignorable="d"
+                   d:DesignHeight="600"
+                   d:DesignWidth="800"
+                   Width="800"
+                   Height="600"
+                   d:DataContext="{d:DesignInstance uc:BankAccountWindowVm}"
+                   Header="银行账户列表">
+
+    <telerik:RadWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </telerik:RadWindow.Resources>
+    <Grid x:Name="LayoutRoot"
+          Background="White">
+        <telerik:RadGridView Name="BankAccountList"
+                             AutoExpandGroups="True"
+                             AutoGenerateColumns="False"
+                             CanUserSortColumns="True"
+                             CanUserFreezeColumns="False"
+                             IsFilteringAllowed="True"
+                             IsReadOnly="True"
+                             FontSize="{StaticResource TextFontSize}"
+                             ItemsSource="{Binding BankAccounts,Mode=TwoWay}"
+                             ValidatesOnDataErrors="InEditMode"
+                             RowIndicatorVisibility="Visible">
+            <uc:GridViewDoubleClick.Helper>
+                <uc:BankAccountDoubleClickHelper />
+            </uc:GridViewDoubleClick.Helper>
+            <telerik:RadGridView.Columns>
+                <uc:DataPageSerialColumn Header="序号" />
+                <telerik:GridViewDataColumn Header="账号"
+                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                            TextAlignment="Right"
+                                            HeaderTextAlignment="Center"
+                                            IsReadOnly="True"
+                                            DataMemberBinding="{Binding Account}" />
+                <telerik:GridViewDataColumn Header="开户人"
+                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                            TextAlignment="Right"
+                                            HeaderTextAlignment="Center"
+                                            DataMemberBinding="{Binding Name}" />
+                <telerik:GridViewDataColumn Header="开户行"
+                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                            TextAlignment="Right"
+                                            HeaderTextAlignment="Center"
+                                            DataMemberBinding="{Binding Bank}" />
+                <telerik:GridViewDataColumn Header="开户行分支"
+                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                            TextAlignment="Right"
+                                            HeaderTextAlignment="Center"
+                                            DataMemberBinding="{Binding Branch}" />
+                <telerik:GridViewDataColumn Header="国家"
+                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                            TextAlignment="Center"
+                                            HeaderTextAlignment="Center"
+                                            DataMemberBinding="{Binding Country}" />
+                <telerik:GridViewDataColumn Header="开户地址"
+                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                            TextAlignment="Right"
+                                            HeaderTextAlignment="Center"
+                                            DataMemberBinding="{Binding Address}" />
+            </telerik:RadGridView.Columns>
+        </telerik:RadGridView>
+    </Grid>
+</telerik:RadWindow>

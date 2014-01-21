@@ -49,5 +49,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             get { return DataContext as PaymentNoticeVm; }
             set { DataContext = value; }
         }
+
+        
     }
 }

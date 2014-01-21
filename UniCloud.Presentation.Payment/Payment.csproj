@@ -237,6 +237,11 @@
     </Compile>
     <Compile Include="Invoice\UndercartMaintainVm.cs" />
     <Compile Include="PaymentModule.cs" />
+    <Compile Include="PaymentNotice\BankAccountDoubleClickHelper.cs" />
+    <Compile Include="PaymentNotice\BankAccountWindow.xaml.cs">
+      <DependentUpon>BankAccountWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentNotice\BankAccountWindowVm.cs" />
     <Compile Include="PaymentNotice\PaymentNotice.xaml.cs">
       <DependentUpon>PaymentNotice.xaml</DependentUpon>
     </Compile>
@@ -358,6 +363,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Invoice\UndercartMaintain.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PaymentNotice\BankAccountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
