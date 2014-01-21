@@ -19,33 +19,64 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
 
-        <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="-1 -2 -1 0">
-            <telerik:RadButton Margin="4,2,2,-2" Command="{Binding SaveCommand}">
-                <Image Source="/UniCloud.Presentation;component/Images/Save.png" Stretch="Fill"
-                       ToolTipService.ToolTip="保存" />
-            </telerik:RadButton>
-            <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AbortCommand}">
-                <Image Source="/UniCloud.Presentation;component/Images/Rotate.png" Stretch="Fill"
-                       ToolTipService.ToolTip="放弃更改" />
-            </telerik:RadButton>
-            <telerik:RadToolBarSeparator />
-        </telerik:RadToolBar>
-
-        <telerik:RadDocking Grid.Row="1" BorderThickness="0" Padding="0" HasDocumentHost="False">
+        <telerik:RadDocking BorderThickness="0" Padding="0" HasDocumentHost="False">
             <telerik:RadSplitContainer>
                 <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="500, 600">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane />
+                        <telerik:RadPane Header="工作组" CanUserPin="False" CanUserClose="False" CanFloat="False"
+                                         ContextMenuTemplate="{x:Null}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="-1 -2 -1 0">
+                                    <telerik:RadButton Margin="4,2,2,-2" Command="{Binding SaveCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Save.png" Stretch="Fill"
+                                               ToolTipService.ToolTip="保存" />
+                                    </telerik:RadButton>
+                                    <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AbortCommand}">
+                                        <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                               Stretch="Fill"
+                                               ToolTipService.ToolTip="放弃更改" />
+                                    </telerik:RadButton>
+                                    <telerik:RadToolBarSeparator />
+                                </telerik:RadToolBar>
+                                
+                            </Grid>
+                        </telerik:RadPane>
                     </telerik:RadPaneGroup>
                 </telerik:RadSplitContainer>
                 <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="500, 600">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane />
+                        <telerik:RadPane Header="有效用户" CanUserPin="False" CanUserClose="False" CanFloat="False"
+                                         ContextMenuTemplate="{x:Null}">
+                            <Grid>
+                                <telerik:RadGridView ItemsSource="{Binding ViewUserDTO}"
+                                                     SelectedItem="{Binding SelUserDTO, Mode=TwoWay}"
+                                                     IsReadOnly="true">
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadContextMenu>
+                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
+                                            <telerik:RadMenuItem Header="导出Word" Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
+                                        </telerik:RadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
+                                    <telerik:RadGridView.Columns>
+                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <telerik:GridViewDataColumn Header="员工号"
+                                                                    DataMemberBinding="{Binding EmployeeCode}"
+                                                                    IsFilterable="true" />
+                                        <telerik:GridViewDataColumn Header="姓名"
+                                                                    DataMemberBinding="{Binding DisplayName}"
+                                                                    IsFilterable="True" />
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+                            </Grid>
+                        </telerik:RadPane>
                     </telerik:RadPaneGroup>
                 </telerik:RadSplitContainer>
             </telerik:RadSplitContainer>
