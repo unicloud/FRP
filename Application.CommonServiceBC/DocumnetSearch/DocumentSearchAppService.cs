@@ -14,12 +14,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
+using PanGu;
+using PanGu.HighLight;
 using UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch;
 using UniCloud.Application.CommonServiceBC.DTO;
-using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
 
 namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
 {
@@ -29,6 +28,9 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
     /// </summary>
     public class DocumentSearchAppService : IDocumentSearchAppService
     {
+        private const String Start = "<font color='red'>";
+        private const String End = "</font>";
+
         public List<DocumentDTO> Search(string keyword)
         {
             //DocumentIndexService service = new DocumentIndexService();
@@ -48,12 +50,14 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
             //document = DocumentFactory.CreateStandardDocument(Guid.NewGuid(), "111.txt", ".txt", "", "", "",
             //    true, null, File.ReadAllText(@"C:\Users\Linxw\Desktop\111.txt"), 1);
             //service.AddDocumentSearchIndex(document);
+            var simpleHTMLFormatter = new SimpleHTMLFormatter(Start, End);
+            var highlighter = new Highlighter(simpleHTMLFormatter, new Segment()) { FragmentSize = 20 };
             var aa = LuceneSearch.LuceneSearch.PanguQuery(keyword, "1", ".txt");
             return aa.scoreDocs.Select(a => IndexManager.MultiSearch.Doc(a.doc)).Select(result => new DocumentDTO
                                                                                                   {
                                                                                                       DocumentId = Guid.Parse(result.Get("ID")),
-                                                                                                      Abstract = result.Get("abstract"),
                                                                                                       Extension = result.Get("extendType"),
+                                                                                                      Abstract = highlighter.GetBestFragment(keyword, result.Get("fileContent")),
                                                                                                       FileContent = result.Get("fileContent"),
                                                                                                       Name = result.Get("fileName"),
                                                                                                   }).ToList();

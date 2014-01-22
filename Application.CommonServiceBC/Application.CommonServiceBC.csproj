@@ -46,6 +46,9 @@
     <Reference Include="PanGu">
       <HintPath>..\packages\Lucene\PanGu.dll</HintPath>
     </Reference>
+    <Reference Include="PanGu.HighLight">
+      <HintPath>..\packages\Lucene\PanGu.HighLight.dll</HintPath>
+    </Reference>
     <Reference Include="PanGu.Lucene.Analyzer">
       <HintPath>..\packages\Lucene\PanGu.Lucene.Analyzer.dll</HintPath>
     </Reference>
