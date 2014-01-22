@@ -69,6 +69,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DocumentBCTest.cs" />
+    <Compile Include="DocumentSearchBCTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -166,6 +166,10 @@
     </Compile>
     <Compile Include="DocumentTypeManager\ManagerDocumentTypeVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SearchDocument\SearchDocument.xaml.cs">
+      <DependentUpon>SearchDocument.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SearchDocument\SearchDocumentVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -190,6 +194,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="DocumentTypeManager\ManagerDocumentType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SearchDocument\SearchDocument.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

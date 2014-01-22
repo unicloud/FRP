@@ -9,6 +9,8 @@
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Extension" Type="Edm.String" />
         <Property Name="FileStorage" Type="Edm.Binary" />
+        <Property Name="FileContent" Type="Edm.String" />
+        <Property Name="DocumentTypeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="Abstract" Type="Edm.String" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="Uploader" Type="Edm.String" />
@@ -28,6 +30,9 @@
       <EntityContainer Name="CommonServiceData" m:IsDefaultEntityContainer="true">
         <EntitySet Name="Documents" EntityType="UniCloud.Application.CommonServiceBC.DTO.DocumentDTO" />
         <EntitySet Name="DocumentTypes" EntityType="UniCloud.Application.CommonServiceBC.DTO.DocumentTypeDTO" />
+        <FunctionImport Name="SearchDocument" ReturnType="Collection(UniCloud.Application.CommonServiceBC.DTO.DocumentDTO)" EntitySet="Documents" m:HttpMethod="GET">
+          <Parameter Name="keyword" Type="Edm.String" />
+        </FunctionImport>
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

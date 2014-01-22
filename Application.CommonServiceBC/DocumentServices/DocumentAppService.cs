@@ -68,7 +68,8 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
             var newDocument = DocumentFactory.CreateStandardDocument(document.DocumentId, document.Name,
                                                                      document.Extension,
                                                                      document.Abstract, document.Note, document.Uploader,
-                                                                     document.IsValid, document.FileStorage);
+                                                                     document.IsValid, document.FileStorage,
+                                                                     document.FileContent, document.DocumentTypeId);
             _documentRepository.Add(newDocument);
         }
 
@@ -85,7 +86,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
             }
             var updateDocument = _documentRepository.Get(document.DocumentId);
             DocumentFactory.UpdateDocument(updateDocument, document.Name, document.Extension, document.Abstract,
-                document.Note, document.Uploader, document.IsValid, document.FileStorage);
+                document.Note, document.Uploader, document.IsValid, document.FileStorage, document.FileContent, document.DocumentTypeId);
             _documentRepository.Modify(updateDocument);
         }
 
@@ -105,7 +106,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
         }
         #endregion
 
-        #region DocumnetDTO
+        #region DocumentTypeDTO
         public IQueryable<DocumentTypeDTO> GetDocumentTypes()
         {
             var queryBuilder =

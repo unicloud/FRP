@@ -19,6 +19,8 @@
 
 using System;
 using System.Diagnostics;
+using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Browser;
 using System.Windows.Media;
@@ -85,6 +87,10 @@ namespace UniCloud.Presentation.Shell
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            if (e.InitParams != null)
+            {
+                e.InitParams.ToList().ForEach(p => Current.Resources.Add(p.Key, p.Value));
+            }
             var bootstrapper = new Bootstrapper();
             bootstrapper.Run();
         }

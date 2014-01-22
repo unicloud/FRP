@@ -36,10 +36,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.DocumentAgg
         /// <param name="uploader">上传者</param>
         /// <param name="isValid">是否有效</param>
         /// <param name="stream">字节数组</param>
+        /// <param name="content">文本内容</param>
+        /// <param name="documentTypeId">文档类型</param>
         /// <returns>标准文档</returns>
-        public static StandardDocument CreateStandardDocument(Guid docId,string fileName, string extension,
+        public static StandardDocument CreateStandardDocument(Guid docId, string fileName, string extension,
                                         string abstractInfo, string note, string uploader, bool isValid,
-                                        byte[] stream)
+                                        byte[] stream, string content, int documentTypeId)
         {
             var doc = new StandardDocument
             {
@@ -51,6 +53,8 @@ namespace UniCloud.Domain.UberModel.Aggregates.DocumentAgg
                 IsValid = isValid,
                 CreateTime = DateTime.Now,
                 FileStorage = stream,
+                FileContent = content,
+                DocumentTypeId = 1
             };
             doc.ChangeCurrentIdentity(docId);
             doc.SetIndexStatus(IndexStatus.未建);

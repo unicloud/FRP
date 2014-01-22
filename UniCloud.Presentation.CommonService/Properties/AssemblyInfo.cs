@@ -36,3 +36,4 @@ using System.Windows.Markup;
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
 [assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.CommonService.DocumentTypeManager")]
+[assembly: XmlnsDefinition("http://schemas.unicloud.com/2012/xaml/presentation", "UniCloud.Presentation.CommonService.SearchDocument")]

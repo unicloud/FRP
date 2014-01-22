@@ -35,7 +35,7 @@ namespace UniCloud.Application.CommonServiceBC.DTO
         /// <summary>
         ///     文件名
         /// </summary>
-        public string Name { get;  set; }
+        public string Name { get; set; }
 
         /// <summary>
         ///     扩展名
@@ -45,7 +45,17 @@ namespace UniCloud.Application.CommonServiceBC.DTO
         /// <summary>
         ///     文档
         /// </summary>
-        public byte[] FileStorage { get;  set; }
+        public byte[] FileStorage { get; set; }
+
+        /// <summary>
+        /// 文档文本内容
+        /// </summary>
+        public string FileContent { get; set; }
+
+        /// <summary>
+        /// 文档类型Id
+        /// </summary>
+        public int DocumentTypeId { get; set; }
 
         /// <summary>
         ///     摘要

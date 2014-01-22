@@ -1,6 +1,7 @@
 ﻿#region 命名空间
 
 using System;
+using System.Windows;
 
 #endregion
 
@@ -18,7 +19,7 @@ namespace UniCloud.Presentation.Service
         {
             get
             {
-                return new Uri("http://localhost:20059/PurchaseDataService.svc",
+                return new Uri(Application.Current.Resources["PurchaseDataService"].ToString(),
                     UriKind.Absolute);
             }
         }
@@ -27,7 +28,7 @@ namespace UniCloud.Presentation.Service
         {
             get
             {
-                return new Uri("http://localhost:20109/PaymentDataService.svc",
+                return new Uri(Application.Current.Resources["PaymentDataService"].ToString(),
                     UriKind.Absolute);
             }
         }
@@ -36,7 +37,7 @@ namespace UniCloud.Presentation.Service
         {
             get
             {
-                return new Uri("http://localhost:20074/CommonServiceDataService.svc",
+                return new Uri(Application.Current.Resources["CommonServiceDataService"].ToString(),
                     UriKind.Absolute);
             }
         }
@@ -45,7 +46,7 @@ namespace UniCloud.Presentation.Service
         {
             get
             {
-                return new Uri("http://localhost:20102/FleetPlanDataService.svc",
+                return new Uri(Application.Current.Resources["FleetPlanDataService"].ToString(),
                     UriKind.Absolute);
             }
         }
@@ -54,7 +55,7 @@ namespace UniCloud.Presentation.Service
         {
             get
             {
-                return new Uri("http://localhost:20113/ProjectDataService.svc",
+                return new Uri(Application.Current.Resources["ProjectDataService"].ToString(),
                     UriKind.Absolute);
             }
         }
@@ -63,7 +64,7 @@ namespace UniCloud.Presentation.Service
         {
             get
             {
-                return new Uri("http://localhost:20088/AircraftConfigDataService.svc",
+                return new Uri(Application.Current.Resources["AircraftConfigDataService"].ToString(),
                     UriKind.Absolute);
             }
         }

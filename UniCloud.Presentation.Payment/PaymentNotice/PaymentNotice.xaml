@@ -5,6 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
@@ -101,6 +103,12 @@
                                                      SelectedItem="{Binding PaymentNotice,Mode=TwoWay}"
                                                      ValidatesOnDataErrors="InEditMode"
                                                      RowIndicatorVisibility="Visible">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="CellEditEnded">
+                                            <ei:CallMethodAction  TargetObject="{Binding}"
+                                                                  MethodName="PaymentNoticeListCellEditEnded" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号" />
                                         <telerik:GridViewDataColumn Header="通知编号"
@@ -110,6 +118,7 @@
                                                                     IsReadOnly="True"
                                                                     DataMemberBinding="{Binding NoticeNumber}" />
                                         <telerik:GridViewComboBoxColumn Header="供应商"
+                                                                        UniqueName="Supplier"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         TextAlignment="Right"
                                                                         HeaderTextAlignment="Center"
@@ -117,14 +126,12 @@
                                                                         DataMemberBinding="{Binding SupplierId}"
                                                                         SelectedValueMemberPath="SupplierId"
                                                                         DisplayMemberPath="Name" />
-                                        <telerik:GridViewComboBoxColumn Header="银行账号"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        TextAlignment="Right"
-                                                                        HeaderTextAlignment="Center"
-                                                                        ItemsSourceBinding="{Binding BankAccounts,Mode=TwoWay }"
-                                                                        DataMemberBinding="{Binding BankAccountId}"
-                                                                        SelectedValueMemberPath="BankAccountId"
-                                                                        DisplayMemberPath="Account" />
+                                        <telerik:GridViewDataColumn Header="银行账号"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    TextAlignment="Right"
+                                                                    HeaderTextAlignment="Center"
+                                                                    IsReadOnly="True"
+                                                                    DataMemberBinding="{Binding BankAccountName}" />
                                         <uc:DateTimePickerColumn Header="付款期限"
                                                                  MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                  TextAlignment="Right"
