@@ -3,8 +3,8 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2014/1/7 11:15:58
-// 文件名：ActionCategoryDTO
+// 作者：HuangQiBin 时间：2014/1/21 11:26:05
+// 文件名：AirProgrammingLineDTO
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -29,14 +29,34 @@ using System.Windows.Shapes;
 
 namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
-    public partial class ActionCategoryDTO
+    public partial class AirProgrammingLineDTO
     {
-        public string ActionCategoryOperation
+        #region 属性
+
+        /// <summary>
+        ///     净增量
+        /// </summary>
+        internal int NetIncrease
         {
-            get
-            {
-                return ActionType + ":" + ActionName;
-            }
+            get { return (BuyNum+LeaseNum-ExportNum); }
         }
+
+        #endregion
+
+        partial void OnBuyNumChanged()
+        {
+            OnPropertyChanged("NetIncrease");
+        }
+
+        partial void OnLeaseNumChanged()
+        {
+            OnPropertyChanged("NetIncrease");
+        }
+
+        partial void OnExportNumChanged()
+        {
+            OnPropertyChanged("NetIncrease");
+        }
+        
     }
 }

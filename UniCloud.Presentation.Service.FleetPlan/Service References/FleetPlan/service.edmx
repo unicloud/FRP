@@ -243,7 +243,6 @@
         <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
         <Property Name="VersionNumber" Type="Edm.Int32" Nullable="false" />
-        <Property Name="IsFinished" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="DocName" Type="Edm.String" />
@@ -258,6 +257,8 @@
         <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="IsFinished" Type="Edm.Boolean" Nullable="false" />
         <Property Name="MaxThrust" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="ImportDate" Type="Edm.DateTime" />
+        <Property Name="Note" Type="Edm.String" />
         <Property Name="EngineTypeId" Type="Edm.Guid" Nullable="false" />
         <Property Name="EnginePlanId" Type="Edm.Guid" Nullable="false" />
         <Property Name="PerformAnnualId" Type="Edm.Guid" Nullable="false" />

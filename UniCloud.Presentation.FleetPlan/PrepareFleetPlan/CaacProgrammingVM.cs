@@ -231,7 +231,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             var caacProg = new CaacProgrammingDTO
             {
-                Id = new Guid(),
+                Id = Guid.NewGuid(),
                 CreateDate = DateTime.Now,
             };
             CaacProgrammings.AddNew(caacProg);
@@ -277,7 +277,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             var caacProgLine = new CaacProgrammingLineDTO
             {
-                Id = new Guid(),
+                Id = Guid.NewGuid(),
                 Number = 1,
                 CaacProgrammingId = SelCaacProgramming.Id,
             };

@@ -219,7 +219,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             var airProg = new AirProgrammingDTO
             {
-                Id = new Guid(),
+                Id = Guid.NewGuid(),
                 CreateDate = DateTime.Now,
             };
             AirProgrammings.AddNew(airProg);
@@ -265,7 +265,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             var airProgLine = new AirProgrammingLineDTO
             {
-                Id = new Guid(),
+                Id = Guid.NewGuid(),
                 BuyNum = 1,
                 ExportNum = 1,
                 LeaseNum = 1,

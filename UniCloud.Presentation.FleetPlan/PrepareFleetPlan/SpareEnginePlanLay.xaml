@@ -129,30 +129,19 @@
                                                                     DataMemberBinding="{Binding AnnualId,Mode=TwoWay}"
                                                                     SelectedValueMemberPath="Id"
                                                                     EditorStyle="{StaticResource EditComboBox}" />
-                                    <!--<telerik:GridViewDataColumn Header="版本号"
-                                                                HeaderTextAlignment="Center"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                IsSortable="True"
-                                                                IsFilterable="True"
-                                                                IsReadOnly="True"
-                                                                DataMemberBinding="{Binding VersionNumber}">
-                                        <telerik:GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="版本"></TextBlock>
-                                                    <TextBlock Text="{Binding VersionNumber }"></TextBlock>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </telerik:GridViewColumn.CellTemplate>
-                                    </telerik:GridViewDataColumn>-->
-                                    <telerik:GridViewCheckBoxColumn Header="是否有效"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding IsValid}">
-                                    </telerik:GridViewCheckBoxColumn>
                                     <telerik:GridViewDataColumn Header="创建日期"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding CreateDate}"
                                                                 DataFormatString="{StaticResource DateStringFormat}" />
+                                    <telerik:GridViewDataColumn Header="计划状态"
+                                                                IsReadOnly="True"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding EnginePlanStatus}" />
+                                    <telerik:GridViewCheckBoxColumn Header="是否有效"
+                                                                    IsReadOnly="True"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding IsValid}">
+                                    </telerik:GridViewCheckBoxColumn>
                                     <telerik:GridViewDataColumn Header="备注"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding Note}" />
@@ -198,19 +187,25 @@
                                                  RowIndicatorVisibility="Collapsed"
                                                  CanUserResizeColumns="False"
                                                  IsFilteringAllowed="False"
-                                                 ItemsSource="{Binding SelEnginePlan.EnginePlanHistories,Mode=TwoWay}"
+                                                 ItemsSource="{Binding EnginePlanHistories,Mode=TwoWay}"
                                                  SelectedItem="{Binding SelEnginePlanHistory,Mode=TwoWay}"
                                                  IsBusy="{Binding EnginePlans.IsBusy}"
                                                  AutoGenerateColumns="False"
                                                  ShowColumnFooters="True">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="CellEditEnded">
+                                        <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"
+                                                               CommandParameter="{Binding ElementName=EnginePlanDetail}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
                                 <telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadContextMenu>
                                         <telerik:RadMenuItem Header="导出Excel"
                                                              Command="{Binding ExcelExportCommand}"
-                                                             CommandParameter="{Binding ElementName=SelAircraftLeaseReception.ReceptionLines, Mode=OneWay}" />
+                                                             CommandParameter="{Binding ElementName=EnginePlanDetail, Mode=OneWay}" />
                                         <telerik:RadMenuItem Header="导出Word"
                                                              Command="{Binding WordExportCommand}"
-                                                             CommandParameter="{Binding ElementName=SelAircraftLeaseReception.ReceptionLines, Mode=OneWay}" />
+                                                             CommandParameter="{Binding ElementName=EnginePlanDetail, Mode=OneWay}" />
                                     </telerik:RadContextMenu>
                                 </telerik:RadContextMenu.ContextMenu>
                                 <telerik:RadGridView.Columns>
@@ -222,36 +217,40 @@
                                                                     DisplayMemberPath="Name"
                                                                     DataMemberBinding="{Binding EngineTypeId,Mode=TwoWay}"
                                                                     SelectedValueMemberPath="Id"
-                                                                    EditorStyle="{StaticResource EditComboBox}" />
-                                    <telerik:GridViewComboBoxColumn Header="活动类别"
+                                                                    EditorStyle="{StaticResource EditComboBox}" 
+                                                                    UniqueName="EngineType"/>
+                                    <telerik:GridViewComboBoxColumn Header="引进方式"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     ItemsSource="{Binding DataContext.ActionCategories, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                                                    DisplayMemberPath="ActionName"
+                                                                    DisplayMemberPath="ActionCategoryOperation"
                                                                     DataMemberBinding="{Binding ActionCategoryId,Mode=TwoWay}"
                                                                     SelectedValueMemberPath="Id"
                                                                     EditorStyle="{StaticResource EditComboBox}" />
-                                    <telerik:GridViewDataColumn Header="引进/退出方式"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding ActionCategory.ActionName}" />
                                     <telerik:GridViewComboBoxColumn Header="执行年度"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     ItemsSource="{Binding DataContext.Annuals, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
                                                                     DisplayMemberPath="Year"
                                                                     DataMemberBinding="{Binding PerformAnnualId,Mode=TwoWay}"
                                                                     SelectedValueMemberPath="Id"
-                                                                    EditorStyle="{StaticResource EditComboBox}" />                                    <telerik:GridViewDataColumn Header="执行月份"
+                                                                    EditorStyle="{StaticResource EditComboBox}" />
+                                    <telerik:GridViewDataColumn Header="执行月份"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 UniqueName="PerformMonth"
-                                                                DataMemberBinding="{Binding PerformMonth}"/>
+                                                                DataMemberBinding="{Binding PerformMonth}" />
                                     <telerik:GridViewDataColumn Header="最大推力"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding MaxThrust}" />
                                     <telerik:GridViewDataColumn Header="管理状态"
+                                                                IsReadOnly="True"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding Status}" />
+                                                                DataMemberBinding="{Binding DeliverStatus}" />
+                                    <telerik:GridViewDataColumn Header="实际引进日期"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding ImportDate}" 
+                                                                DataFormatString="{StaticResource DateStringFormat}"/>
                                     <telerik:GridViewDataColumn Header="引进发动机详细信息"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}" 
-                                                                DataMemberBinding="{Binding}"/>
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding Note}" />
                                 </telerik:RadGridView.Columns>
                             </telerik:RadGridView>
                         </Grid>

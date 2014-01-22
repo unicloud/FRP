@@ -99,7 +99,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     e.MarkErrorAsHandled();
                     return;
                 }
-                ViewPlans = e.Entities.Cast<PlanDTO>().Where(p => p.Year == _curAnnual.Year).OrderBy(p=>p.VersionNumber);
+                ViewPlans.AddRange(e.Entities.Cast<PlanDTO>().Where(p => p.Year == _curAnnual.Year).OrderBy(p => p.VersionNumber));
                 CurPlan.Clear();
                 CurPlan.Add(Plans.Where(p => p.Year == _curAnnual.Year).OrderBy(p => p.VersionNumber).LastOrDefault());
                 SelPlan = CurPlan.FirstOrDefault();
@@ -164,10 +164,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// <summary>
         /// 当前年度运力增减计划集合
         /// </summary>
-        private IEnumerable<PlanDTO> _viewPlans;
+        private ObservableCollection<PlanDTO> _viewPlans=new ObservableCollection<PlanDTO>();
 
 
-        public IEnumerable<PlanDTO> ViewPlans
+        public ObservableCollection<PlanDTO> ViewPlans
         {
             get { return _viewPlans; }
             private set
