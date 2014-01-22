@@ -51,7 +51,6 @@ namespace UniCloud.Application.FleetPlanBC.Query.EnginePlanQueries
                 DocName = p.DocName,
                 DocNumber = p.DocNumber,
                 DocumentId = p.DocumentId,
-                IsFinished = p.IsFinished,
                 IsValid = p.IsValid,
                 Note = p.Note,
                 Status = (int)p.Status,
@@ -65,13 +64,15 @@ namespace UniCloud.Application.FleetPlanBC.Query.EnginePlanQueries
                     EngineTypeId = q.EngineTypeId,
                     IsFinished = q.IsFinished,
                     MaxThrust = q.MaxThrust,
+                    ImportDate = q.ImportDate,
+                    Note = q.Note,
                     PerformAnnualId = q.PerformAnnualId,
                     PerformMonth = q.PerformMonth,
                     PlanEngineId = q.PlanEngineId,
                     Status = (int)q.Status,
                 }).ToList(),
                 
-            });
+            }).OrderBy(p=>p.CreateDate);
         }
     }
 }

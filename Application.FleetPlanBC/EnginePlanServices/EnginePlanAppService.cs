@@ -28,6 +28,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EngineTypeAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.PlanEngineAgg;
 
 #endregion
 
@@ -170,6 +171,7 @@ namespace UniCloud.Application.FleetPlanBC.EnginePlanServices
             newEnginePlanHistory.SetActionCategory(actionCategory);
             newEnginePlanHistory.SetEngineType(engineType);
             newEnginePlanHistory.SetMaxThrust(enginePlanHistoryDto.MaxThrust);
+            newEnginePlanHistory.SetNote(enginePlanHistoryDto.Note);
             newEnginePlanHistory.SetPerformDate(annual, enginePlanHistoryDto.PerformMonth);
             newEnginePlanHistory.SetPlanEngine(enginePlanHistoryDto.PlanEngineId);
             newEnginePlanHistory.SetPlanStatus((EnginePlanDeliverStatus)enginePlanHistoryDto.Status);
@@ -192,6 +194,8 @@ namespace UniCloud.Application.FleetPlanBC.EnginePlanServices
             enginePlanHistory.SetActionCategory(actionCategory);
             enginePlanHistory.SetEngineType(engineType);
             enginePlanHistory.SetMaxThrust(enginePlanHistoryDto.MaxThrust);
+            enginePlanHistory.SetNote(enginePlanHistoryDto.Note);
+            enginePlanHistory.SetImportDate(enginePlanHistoryDto.ImportDate);
             enginePlanHistory.SetPerformDate(annual, enginePlanHistoryDto.PerformMonth);
             enginePlanHistory.SetPlanEngine(enginePlanHistoryDto.PlanEngineId);
             enginePlanHistory.SetPlanStatus((EnginePlanDeliverStatus)enginePlanHistoryDto.Status);

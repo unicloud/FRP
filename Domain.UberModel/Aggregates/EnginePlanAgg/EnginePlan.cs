@@ -75,11 +75,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.EnginePlanAgg
         public int VersionNumber { get; internal set; }
 
         /// <summary>
-        ///     是否完成
-        /// </summary>
-        public bool IsFinished { get; private set; }
-
-        /// <summary>
         ///     计划编辑处理状态
         /// </summary>
         public EnginePlanStatus Status { get; private set; }
@@ -153,7 +148,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.EnginePlanAgg
                 case EnginePlanStatus.已审核:
                     Status = EnginePlanStatus.已审核;
                     IsValid = true;
-                    IsFinished = true;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("status");

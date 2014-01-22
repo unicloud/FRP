@@ -31,7 +31,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
     public partial class ActionCategoryDTO
     {
-        internal string ActionCategoryOperation
+        public string ActionCategoryOperation
         {
             get
             {

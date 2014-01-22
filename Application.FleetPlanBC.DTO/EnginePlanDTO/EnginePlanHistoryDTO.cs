@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Data.Services.Common;
 
 #endregion
@@ -27,6 +28,10 @@ namespace UniCloud.Application.FleetPlanBC.DTO
     [DataServiceKey("Id")]
     public class EnginePlanHistoryDTO
     {
+        #region 私有字段
+
+        #endregion
+
         #region 属性
 
         /// <summary>
@@ -54,6 +59,15 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public decimal MaxThrust { get; set; }
 
+        /// <summary>
+        ///     发动机实际引进日期
+        /// </summary>
+        public DateTime? ImportDate { get; set; }
+
+        /// <summary>
+        ///     备注
+        /// </summary>
+        public string Note { get; set; }
         #endregion
 
         #region 外键属性
@@ -82,6 +96,10 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         ///     活动类型
         /// </summary>
         public Guid ActionCategoryId { get; set; }
+
+        #endregion
+
+        #region 导航属性
 
         #endregion
     }
