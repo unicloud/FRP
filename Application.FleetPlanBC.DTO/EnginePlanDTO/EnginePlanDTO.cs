@@ -67,11 +67,6 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public int VersionNumber { get; set; }
 
         /// <summary>
-        ///     是否完成
-        /// </summary>
-        public bool IsFinished { get; set; }
-
-        /// <summary>
         ///     计划编辑处理状态
         /// </summary>
         public int Status { get; set; }
@@ -111,13 +106,11 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// <summary>
         ///     备发计划明细
         /// </summary>
-        public virtual List<EnginePlanHistoryDTO> EnginePlanHistories
+        public List<EnginePlanHistoryDTO> EnginePlanHistories
         {
             get { return _enginePlanHistories ?? (_enginePlanHistories = new List<EnginePlanHistoryDTO>()); }
             set { _enginePlanHistories = value; }
         }
-
-
         #endregion
     }
 }

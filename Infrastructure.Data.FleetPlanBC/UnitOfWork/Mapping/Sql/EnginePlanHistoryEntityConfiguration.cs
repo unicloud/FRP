@@ -39,6 +39,8 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             Property(p => p.MaxThrust).HasColumnName("MaxThrust");
             Property(p => p.Status).HasColumnName("Status");
             Property(p => p.IsFinished).HasColumnName("IsFinished");
+            Property(p => p.ImportDate).HasColumnName("ImportDate").HasColumnType("datetime2");
+            Property(p => p.Note).HasColumnName("Note");
 
             Property(p => p.EngineTypeId).HasColumnName("EngineTypeId");
             Property(p => p.EnginePlanId).HasColumnName("EnginePlanId");

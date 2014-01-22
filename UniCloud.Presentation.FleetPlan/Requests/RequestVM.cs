@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Data.Services.Client;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Controls;

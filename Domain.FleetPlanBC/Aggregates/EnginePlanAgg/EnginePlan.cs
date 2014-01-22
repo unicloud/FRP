@@ -77,11 +77,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         public int VersionNumber { get; internal set; }
 
         /// <summary>
-        ///     是否完成
-        /// </summary>
-        public bool IsFinished { get; private set; }
-
-        /// <summary>
         ///     计划编辑处理状态
         /// </summary>
         public EnginePlanStatus Status { get; private set; }
@@ -159,7 +154,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
                 case EnginePlanStatus.已审核:
                     Status = EnginePlanStatus.已审核;
                     IsValid = true;
-                    IsFinished = true;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("status");
@@ -172,11 +166,6 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
         /// <param name="title">计划标题</param>
         public void SetTitle(string title)
         {
-            if (string.IsNullOrWhiteSpace(title))
-            {
-                throw new ArgumentException("计划标题参数为空！");
-            }
-
             Title = title;
         }
 
@@ -255,6 +244,8 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
                 EnginePlanId = Id,
             };
 
+            enginePlanHistory.GenerateNewIdentity();
+            EnginePlanHistories.Add(enginePlanHistory);
             return enginePlanHistory;
         }
 

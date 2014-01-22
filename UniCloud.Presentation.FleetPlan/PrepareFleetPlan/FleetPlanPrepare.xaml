@@ -81,6 +81,11 @@
                                                                  SortDirection="Descending">
                                         </telerik:GroupDescriptor>
                                     </telerik:RadGridView.GroupDescriptors>
+                                    <telerik:RadGridView.SortDescriptors>
+                                        <telerik:SortDescriptor Member="Year"
+                                                                 SortDirection="Descending">
+                                        </telerik:SortDescriptor>
+                                    </telerik:RadGridView.SortDescriptors>
                                     <telerik:RadGridView.Columns>
                                         <telerik:GridViewDataColumn Header="年度"
                                                                     DataMemberBinding="{Binding Year}"
@@ -110,14 +115,19 @@
                                                  IsFilteringAllowed="False"
                                                  SelectedItem="{Binding SelPlan, Mode=TwoWay}"
                                                  IsBusy="{Binding AllPlans.IsBusy}">
+                                <telerik:RadGridView.SortDescriptors>
+                                    <telerik:SortDescriptor Member="VersionNumber"
+                                                            SortDirection="Ascending">
+                                    </telerik:SortDescriptor>
+                                </telerik:RadGridView.SortDescriptors>
                                 <telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadContextMenu>
                                         <telerik:RadMenuItem Header="导出Excel"
                                                              Command="{Binding ExcelExportCommand}"
-                                                             CommandParameter="{Binding ElementName=SelAnnual.Plans, Mode=OneWay}" />
+                                                             CommandParameter="{Binding ElementName=Plans, Mode=OneWay}" />
                                         <telerik:RadMenuItem Header="导出Word"
                                                              Command="{Binding WordExportCommand}"
-                                                             CommandParameter="{Binding ElementName=SelAnnual.Plans, Mode=OneWay}" />
+                                                             CommandParameter="{Binding ElementName=Plans, Mode=OneWay}" />
                                     </telerik:RadContextMenu>
                                 </telerik:RadContextMenu.ContextMenu>
                                 <telerik:RadGridView.Columns>
@@ -202,10 +212,7 @@
                                                                 Expression="(Year+'/'+PerformMonth)" />
                                     <telerik:GridViewDataColumn Header="净增客机"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding DetaPnr}">
-                                        <!--<telerik:GridViewDataColumn.AggregateFunctions>
-                                            <telerik:SumFunction ResultFormatString="总计：{0}架" />
-                                        </telerik:GridViewDataColumn.AggregateFunctions>-->
+                                                                DataMemberBinding="{Binding DeltaPnr}">
                                     </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="净增座位"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -217,10 +224,13 @@
                                     <telerik:GridViewDataColumn Header="净增商载（吨）"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding CarryingCapacity}">
+                                        <telerik:GridViewDataColumn.AggregateFunctions>
+                                            <telerik:SumFunction ResultFormatString="总计：{0}吨" />
+                                        </telerik:GridViewDataColumn.AggregateFunctions>
                                     </telerik:GridViewDataColumn>
                                     <telerik:GridViewDataColumn Header="净增货机"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding DetaCargo}">
+                                                                DataMemberBinding="{Binding DeltaCargo}">
                                         <!--<telerik:GridViewDataColumn.AggregateFunctions>
                                             <telerik:SumFunction ResultFormatString="总计：{0}架" />
                                         </telerik:GridViewDataColumn.AggregateFunctions>-->

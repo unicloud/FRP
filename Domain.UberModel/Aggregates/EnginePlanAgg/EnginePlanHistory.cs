@@ -64,6 +64,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.EnginePlanAgg
         /// </summary>
         public decimal MaxThrust { get; private set; }
 
+        /// <summary>
+        /// 实际引进日期
+        /// </summary>
+        public DateTime? ImportDate { get; private set; }
+
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Note { get; private set; }
         #endregion
 
         #region 外键属性
@@ -171,6 +180,25 @@ namespace UniCloud.Domain.UberModel.Aggregates.EnginePlanAgg
         public void SetMaxThrust(decimal maxThrust)
         {
             MaxThrust = maxThrust;
+        }
+
+        /// <summary>
+        ///     设置发动机实际引进日期
+        /// </summary>
+        /// <param name="date"></param>
+        public void SetImportDate(DateTime? date)
+        {
+            ImportDate = date;
+        }
+
+
+        /// <summary>
+        ///     设置备注
+        /// </summary>
+        /// <param name="note"></param>
+        public void SetNote(string note)
+        {
+            Note = note;
         }
 
         /// <summary>
