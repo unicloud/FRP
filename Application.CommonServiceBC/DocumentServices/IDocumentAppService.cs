@@ -42,5 +42,10 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
         /// <param name="document">文档DTO</param>
         void InsertDocument(DocumentDTO document);
 
+        /// <summary>
+        ///   获取文档类型
+        /// </summary>
+        /// <returns>文档类型DTO集合</returns>
+        IQueryable<DocumentTypeDTO> GetDocumentTypes();
     }
 }

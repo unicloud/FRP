@@ -44,7 +44,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             _service = service;
             _context = _service.Context;
             InitializeVm();
-            _service.GetManufacturers(null);
 
         }
 
@@ -57,7 +56,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         private void InitializeVm()
         {
             //创建并注册CollectionView
-           AircraftSerieses = _service.CreateCollection(_context.AircraftSeries);
+            AircraftSerieses = _service.CreateCollection(_context.AircraftSeries);
             _service.RegisterCollectionView(AircraftSerieses);
             AircraftSerieses.PropertyChanged += (sender, e) =>
             {
@@ -74,7 +73,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                     CanSelectAircraftSeries = !AircraftSerieses.HasChanges;
                 }
             };
-
         }
 
         #endregion
@@ -102,8 +100,8 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             //// 将CollectionView的AutoLoad属性设为True
             if (!AircraftSerieses.AutoLoad)
                 AircraftSerieses.AutoLoad = true;
-            AircraftSerieses.Load(true);
-            Manufacturers = _service.GetManufacturers(null);
+            else AircraftSerieses.Load(true);
+            Manufacturers = _service.GetManufacturers(() => RaisePropertyChanged(() => Manufacturers));
         }
 
         #region 系列

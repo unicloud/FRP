@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/1/19 16:42:12
+// 生成日期: 2014/10/16 21:07:33
 namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
     
@@ -923,152 +923,153 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 "lse\" /><Property Name=\"IsSubmit\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property" +
                 " Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"AirlinesName\" Type=\"Edm.String\"" +
                 " /><Property Name=\"AircraftTypeName\" Type=\"Edm.String\" /><Property Name=\"Regiona" +
-                "l\" Type=\"Edm.String\" /><Property Name=\"ActionType\" Type=\"Edm.String\" /><Property" +
-                " Name=\"ActionName\" Type=\"Edm.String\" /><Property Name=\"TargetType\" Type=\"Edm.Str" +
-                "ing\" /><Property Name=\"NeedRequest\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Prope" +
-                "rty Name=\"Year\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"PlanAircraft" +
-                "Id\" Type=\"Edm.Guid\" /><Property Name=\"PlanId\" Type=\"Edm.Guid\" Nullable=\"false\" /" +
-                "><Property Name=\"ActionCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property " +
-                "Name=\"TargetCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Aircr" +
-                "aftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AirlinesId\" Type=\"" +
-                "Edm.Guid\" Nullable=\"false\" /><Property Name=\"PerformAnnualId\" Type=\"Edm.Guid\" Nu" +
-                "llable=\"false\" /><Property Name=\"ApprovalHistoryId\" Type=\"Edm.Guid\" /><Property " +
-                "Name=\"PlanType\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"RelatedGuid\"" +
-                " Type=\"Edm.Guid\" /><Property Name=\"RelatedStartDate\" Type=\"Edm.DateTime\" /><Prop" +
-                "erty Name=\"RelatedEndDate\" Type=\"Edm.DateTime\" /><Property Name=\"RelatedStatus\" " +
-                "Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ManageStatus\" Type=\"Edm.Int3" +
-                "2\" Nullable=\"false\" /><Property Name=\"PaIsLock\" Type=\"Edm.Boolean\" Nullable=\"fal" +
-                "se\" /><Property Name=\"RegNumber\" Type=\"Edm.String\" /><Property Name=\"AircraftId\"" +
-                " Type=\"Edm.Guid\" /></ComplexType><EntityType Name=\"PlanAircraftDTO\"><Key><Proper" +
-                "tyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><" +
-                "Property Name=\"IsLock\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"IsO" +
-                "wn\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int3" +
-                "2\" Nullable=\"false\" /><Property Name=\"AirlinesName\" Type=\"Edm.String\" /><Propert" +
-                "y Name=\"AircraftTypeName\" Type=\"Edm.String\" /><Property Name=\"Regional\" Type=\"Ed" +
-                "m.String\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" /><Property Name=\"Aircra" +
-                "ftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AirlinesId\" Type=\"E" +
-                "dm.Guid\" Nullable=\"false\" /><Property Name=\"PlanHistories\" Type=\"Collection(UniC" +
-                "loud.Application.FleetPlanBC.DTO.PlanHistoryDTO)\" Nullable=\"false\" /><Property N" +
-                "ame=\"ApprovalHistories\" Type=\"Collection(UniCloud.Application.FleetPlanBC.DTO.Ap" +
-                "provalHistoryDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"ApprovalHi" +
-                "storyDTO\"><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=" +
-                "\"IsApproved\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"SeatingCapaci" +
-                "ty\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CarryingCapacity\" Type=\"" +
-                "Edm.Decimal\" Nullable=\"false\" /><Property Name=\"RequestDeliverMonth\" Type=\"Edm.I" +
-                "nt32\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Nam" +
-                "e=\"RequestId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"PlanAircraftId\"" +
-                " Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AircraftRegional\" Type=\"Edm." +
-                "String\" /><Property Name=\"AircraftType\" Type=\"Edm.String\" /><Property Name=\"Impo" +
-                "rtCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ImportCategoryN" +
-                "ame\" Type=\"Edm.String\" /><Property Name=\"RequestDeliverAnnualId\" Type=\"Edm.Guid\"" +
-                " Nullable=\"false\" /><Property Name=\"RequestDeliverAnnualName\" Type=\"Edm.Int32\" N" +
-                "ullable=\"false\" /><Property Name=\"AirlinesId\" Type=\"Edm.Guid\" Nullable=\"false\" /" +
-                "><Property Name=\"AirlineName\" Type=\"Edm.String\" /><Property Name=\"PlanAircraftSt" +
-                "atus\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"PlanEn" +
-                "gineDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\"" +
-                " Nullable=\"false\" /><Property Name=\"EngineId\" Type=\"Edm.Guid\" /><Property Name=\"" +
-                "EngineTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AirlinesId\" Typ" +
-                "e=\"Edm.Guid\" Nullable=\"false\" /></EntityType><EntityType Name=\"ProgrammingDTO\"><" +
-                "Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=" +
-                "\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"StartDate\" T" +
-                "ype=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"EndDate\" Type=\"Edm.DateTim" +
-                "e\" Nullable=\"false\" /></EntityType><EntityType Name=\"RequestDTO\"><Key><PropertyR" +
-                "ef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Pro" +
-                "perty Name=\"SubmitDate\" Type=\"Edm.DateTime\" /><Property Name=\"IsFinished\" Type=\"" +
-                "Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Title\" Type=\"Edm.String\" /><Prop" +
-                "erty Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Ra" +
-                "DocNumber\" Type=\"Edm.String\" /><Property Name=\"SawsDocNumber\" Type=\"Edm.String\" " +
-                "/><Property Name=\"CaacDocNumber\" Type=\"Edm.String\" /><Property Name=\"Status\" Typ" +
-                "e=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CaacNote\" Type=\"Edm.String\" /><" +
-                "Property Name=\"RaNote\" Type=\"Edm.String\" /><Property Name=\"SawsNote\" Type=\"Edm.S" +
-                "tring\" /><Property Name=\"ApprovalDocId\" Type=\"Edm.Guid\" /><Property Name=\"RaDocu" +
-                "mentId\" Type=\"Edm.Guid\" /><Property Name=\"RaDocumentName\" Type=\"Edm.String\" /><P" +
-                "roperty Name=\"SawsDocumentId\" Type=\"Edm.Guid\" /><Property Name=\"SawsDocumentName" +
-                "\" Type=\"Edm.String\" /><Property Name=\"CaacDocumentId\" Type=\"Edm.Guid\" /><Propert" +
-                "y Name=\"CaacDocumentName\" Type=\"Edm.String\" /><Property Name=\"AirlinesId\" Type=\"" +
-                "Edm.Guid\" Nullable=\"false\" /><Property Name=\"AirlinesName\" Type=\"Edm.String\" /><" +
-                "Property Name=\"ApprovalHistories\" Type=\"Collection(UniCloud.Application.FleetPla" +
-                "nBC.DTO.ApprovalHistoryDTO)\" Nullable=\"false\" /></EntityType><EntityType Name=\"A" +
-                "pprovalRequestDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=" +
-                "\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"CaacExamineDate\" Type=\"Edm.DateTim" +
-                "e\" /><Property Name=\"NdrcExamineDate\" Type=\"Edm.DateTime\" /><Property Name=\"Caac" +
-                "ApprovalNumber\" Type=\"Edm.String\" /><Property Name=\"NdrcApprovalNumber\" Type=\"Ed" +
-                "m.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"CaacDocume" +
-                "ntName\" Type=\"Edm.String\" /><Property Name=\"NdrcDocumentName\" Type=\"Edm.String\" " +
-                "/><Property Name=\"CaacDocumentId\" Type=\"Edm.Guid\" /><Property Name=\"NdrcDocument" +
-                "Id\" Type=\"Edm.Guid\" /><Property Name=\"Title\" Type=\"Edm.String\" /><Property Name=" +
-                "\"RaDocNumber\" Type=\"Edm.String\" /><Property Name=\"SawsDocNumber\" Type=\"Edm.Strin" +
-                "g\" /><Property Name=\"CaacDocNumber\" Type=\"Edm.String\" /><Property Name=\"Status\" " +
-                "Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CaacNot";
+                "l\" Type=\"Edm.String\" /><Property Name=\"Category\" Type=\"Edm.String\" /><Property N" +
+                "ame=\"ActionType\" Type=\"Edm.String\" /><Property Name=\"ActionName\" Type=\"Edm.Strin" +
+                "g\" /><Property Name=\"TargetType\" Type=\"Edm.String\" /><Property Name=\"NeedRequest" +
+                "\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Year\" Type=\"Edm.Int32\" N" +
+                "ullable=\"false\" /><Property Name=\"PlanAircraftId\" Type=\"Edm.Guid\" /><Property Na" +
+                "me=\"PlanId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ActionCategoryId\"" +
+                " Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"TargetCategoryId\" Type=\"Edm." +
+                "Guid\" Nullable=\"false\" /><Property Name=\"AircraftTypeId\" Type=\"Edm.Guid\" Nullabl" +
+                "e=\"false\" /><Property Name=\"AirlinesId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Prop" +
+                "erty Name=\"PerformAnnualId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"A" +
+                "pprovalHistoryId\" Type=\"Edm.Guid\" /><Property Name=\"PlanType\" Type=\"Edm.Int32\" N" +
+                "ullable=\"false\" /><Property Name=\"RelatedGuid\" Type=\"Edm.Guid\" /><Property Name=" +
+                "\"RelatedStartDate\" Type=\"Edm.DateTime\" /><Property Name=\"RelatedEndDate\" Type=\"E" +
+                "dm.DateTime\" /><Property Name=\"RelatedStatus\" Type=\"Edm.Int32\" Nullable=\"false\" " +
+                "/><Property Name=\"ManageStatus\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Na" +
+                "me=\"PaIsLock\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"RegNumber\" T" +
+                "ype=\"Edm.String\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" /><Property Name=" +
+                "\"AircraftImportCategoryId\" Type=\"Edm.Guid\" /></ComplexType><EntityType Name=\"Pla" +
+                "nAircraftDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm." +
+                "Guid\" Nullable=\"false\" /><Property Name=\"IsLock\" Type=\"Edm.Boolean\" Nullable=\"fa" +
+                "lse\" /><Property Name=\"IsOwn\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Na" +
+                "me=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AirlinesName\" Ty" +
+                "pe=\"Edm.String\" /><Property Name=\"AircraftTypeName\" Type=\"Edm.String\" /><Propert" +
+                "y Name=\"Regional\" Type=\"Edm.String\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid" +
+                "\" /><Property Name=\"AircraftTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property" +
+                " Name=\"AirlinesId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"PlanHistor" +
+                "ies\" Type=\"Collection(UniCloud.Application.FleetPlanBC.DTO.PlanHistoryDTO)\" Null" +
+                "able=\"false\" /><Property Name=\"ApprovalHistories\" Type=\"Collection(UniCloud.Appl" +
+                "ication.FleetPlanBC.DTO.ApprovalHistoryDTO)\" Nullable=\"false\" /></EntityType><Co" +
+                "mplexType Name=\"ApprovalHistoryDTO\"><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable" +
+                "=\"false\" /><Property Name=\"IsApproved\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"SeatingCapacity\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name" +
+                "=\"CarryingCapacity\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Reques" +
+                "tDeliverMonth\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"E" +
+                "dm.String\" /><Property Name=\"RequestId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Prop" +
+                "erty Name=\"PlanAircraftId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Ai" +
+                "rcraftRegional\" Type=\"Edm.String\" /><Property Name=\"AircraftType\" Type=\"Edm.Stri" +
+                "ng\" /><Property Name=\"ImportCategoryId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Prop" +
+                "erty Name=\"ImportCategoryName\" Type=\"Edm.String\" /><Property Name=\"RequestDelive" +
+                "rAnnualId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"RequestDeliverAnnu" +
+                "alName\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AirlinesId\" Type=\"Ed" +
+                "m.Guid\" Nullable=\"false\" /><Property Name=\"AirlineName\" Type=\"Edm.String\" /><Pro" +
+                "perty Name=\"PlanAircraftStatus\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexTyp" +
+                "e><EntityType Name=\"PlanEngineDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property" +
+                " Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"EngineId\" Type=\"Ed" +
+                "m.Guid\" /><Property Name=\"EngineTypeId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Prop" +
+                "erty Name=\"AirlinesId\" Type=\"Edm.Guid\" Nullable=\"false\" /></EntityType><EntityTy" +
+                "pe Name=\"ProgrammingDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\"" +
+                " Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><P" +
+                "roperty Name=\"StartDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"" +
+                "EndDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /></EntityType><EntityType Name=\"R" +
+                "equestDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Gui" +
+                "d\" Nullable=\"false\" /><Property Name=\"SubmitDate\" Type=\"Edm.DateTime\" /><Propert" +
+                "y Name=\"IsFinished\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Title\"" +
+                " Type=\"Edm.String\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"f" +
+                "alse\" /><Property Name=\"RaDocNumber\" Type=\"Edm.String\" /><Property Name=\"SawsDoc" +
+                "Number\" Type=\"Edm.String\" /><Property Name=\"CaacDocNumber\" Type=\"Edm.String\" /><" +
+                "Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CaacN" +
+                "ote\" Type=\"Edm.String\" /><Property Name=\"RaNote\" Type=\"Edm.String\" /><Property N" +
+                "ame=\"SawsNote\" Type=\"Edm.String\" /><Property Name=\"ApprovalDocId\" Type=\"Edm.Guid" +
+                "\" /><Property Name=\"RaDocumentId\" Type=\"Edm.Guid\" /><Property Name=\"RaDocumentNa" +
+                "me\" Type=\"Edm.String\" /><Property Name=\"SawsDocumentId\" Type=\"Edm.Guid\" /><Prope" +
+                "rty Name=\"SawsDocumentName\" Type=\"Edm.String\" /><Property Name=\"CaacDocumentId\" " +
+                "Type=\"Edm.Guid\" /><Property Name=\"CaacDocumentName\" Type=\"Edm.String\" /><Propert" +
+                "y Name=\"AirlinesId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AirlinesN" +
+                "ame\" Type=\"Edm.String\" /><Property Name=\"ApprovalHistories\" Type=\"Collection(Uni" +
+                "Cloud.Application.FleetPlanBC.DTO.ApprovalHistoryDTO)\" Nullable=\"false\" /></Enti" +
+                "tyType><EntityType Name=\"ApprovalRequestDTO\"><Key><PropertyRef Name=\"Id\" /></Key" +
+                "><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"CaacExam" +
+                "ineDate\" Type=\"Edm.DateTime\" /><Property Name=\"NdrcExamineDate\" Type=\"Edm.DateTi" +
+                "me\" /><Property Name=\"CaacApprovalNumber\" Type=\"Edm.String\" /><Property Name=\"Nd" +
+                "rcApprovalNumber\" Type=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" />" +
+                "<Property Name=\"CaacDocumentName\" Type=\"Edm.String\" /><Property Name=\"NdrcDocume" +
+                "ntName\" Type=\"Edm.String\" /><Property Name=\"CaacDocumentId\" Type=\"Edm.Guid\" /><P" +
+                "roperty Name=\"NdrcDocumentId\" Type=\"Edm.Guid\" /><Property Name=\"Title\" Type=\"Edm" +
+                ".String\" /><Property Name=\"RaDocNumber\" Type=\"Edm.String\" /><Property Name=\"Saws" +
+                "DocNumber\" Type=\"Edm.String\" /><Property Name=\"CaacDocNumbe";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart3 = "e\" Type=\"Edm.String\" /><Property Name=\"RaNote\" Type=\"Edm.String\" /><Property Name" +
-                "=\"SawsNote\" Type=\"Edm.String\" /><Property Name=\"ApprovalDocId\" Type=\"Edm.Guid\" /" +
-                "><Property Name=\"RaDocumentId\" Type=\"Edm.Guid\" /><Property Name=\"RaDocumentName\"" +
-                " Type=\"Edm.String\" /><Property Name=\"SawsDocumentId\" Type=\"Edm.Guid\" /><Property" +
-                " Name=\"SawsDocumentName\" Type=\"Edm.String\" /><Property Name=\"CaacRequestDocument" +
-                "Id\" Type=\"Edm.Guid\" /><Property Name=\"CaacRequestDocumentName\" Type=\"Edm.String\"" +
-                " /><Property Name=\"ApprovalHistories\" Type=\"Collection(UniCloud.Application.Flee" +
-                "tPlanBC.DTO.ApprovalHistoryDTO)\" Nullable=\"false\" /></EntityType><EntityType Nam" +
-                "e=\"SupplierDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Ed" +
-                "m.Int32\" Nullable=\"false\" /><Property Name=\"SupplierType\" Type=\"Edm.Int32\" Nulla" +
-                "ble=\"false\" /><Property Name=\"Code\" Type=\"Edm.String\" /><Property Name=\"CnName\" " +
-                "Type=\"Edm.String\" /><Property Name=\"EnName\" Type=\"Edm.String\" /><Property Name=\"" +
-                "CnShortName\" Type=\"Edm.String\" /><Property Name=\"EnShortName\" Type=\"Edm.String\" " +
-                "/><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=" +
-                "\"Note\" Type=\"Edm.String\" /><Property Name=\"AirlineGuid\" Type=\"Edm.Guid\" /></Enti" +
-                "tyType><EntityType Name=\"XmlConfigDTO\"><Key><PropertyRef Name=\"XmlConfigId\" /></" +
-                "Key><Property Name=\"XmlConfigId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Na" +
-                "me=\"ConfigType\" Type=\"Edm.String\" /><Property Name=\"ConfigContent\" Type=\"Edm.Str" +
-                "ing\" /><Property Name=\"VersionNumber\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prope" +
-                "rty Name=\"XmlContent\" Type=\"Edm.String\" /></EntityType><EntityType Name=\"XmlSett" +
-                "ingDTO\"><Key><PropertyRef Name=\"XmlSettingId\" /></Key><Property Name=\"XmlSetting" +
-                "Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"SettingType\" Type=\"Edm.St" +
-                "ring\" /><Property Name=\"SettingContent\" Type=\"Edm.String\" /><Property Name=\"XmlC" +
-                "ontent\" Type=\"Edm.String\" /></EntityType><ComplexType Name=\"PerformPlan\"><Proper" +
-                "ty Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ApprovalHistory\"" +
-                " Type=\"UniCloud.Application.FleetPlanBC.DTO.ApprovalHistoryDTO\" /><Property Name" +
-                "=\"OperationHistory\" Type=\"UniCloud.Application.FleetPlanBC.DTO.OperationHistoryD" +
-                "TO\" /><Property Name=\"AircraftBusiness\" Type=\"UniCloud.Application.FleetPlanBC.D" +
-                "TO.AircraftBusinessDTO\" /></ComplexType></Schema><Schema Namespace=\"UniCloud.Dis" +
-                "tributedServices.FleetPlan\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"" +
-                "><EntityContainer Name=\"FleetPlanData\" m:IsDefaultEntityContainer=\"true\"><Entity" +
-                "Set Name=\"ActionCategories\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.Act" +
-                "ionCategoryDTO\" /><EntitySet Name=\"AircraftSeries\" EntityType=\"UniCloud.Applicat" +
-                "ion.FleetPlanBC.DTO.AircraftSeriesDTO\" /><EntitySet Name=\"AircraftCategories\" En" +
-                "tityType=\"UniCloud.Application.FleetPlanBC.DTO.AircraftCategoryDTO\" /><EntitySet" +
-                " Name=\"Aircrafts\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.AircraftDTO\" " +
-                "/><EntitySet Name=\"AircraftTypes\" EntityType=\"UniCloud.Application.FleetPlanBC.D" +
-                "TO.AircraftTypeDTO\" /><EntitySet Name=\"Airlineses\" EntityType=\"UniCloud.Applicat" +
-                "ion.FleetPlanBC.DTO.AirlinesDTO\" /><EntitySet Name=\"AirProgrammings\" EntityType=" +
-                "\"UniCloud.Application.FleetPlanBC.DTO.AirProgrammingDTO\" /><EntitySet Name=\"Annu" +
-                "als\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.AnnualDTO\" /><EntitySet Na" +
-                "me=\"PlanYears\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.PlanYearDTO\" /><" +
-                "EntitySet Name=\"ApprovalDocs\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.A" +
-                "pprovalDocDTO\" /><EntitySet Name=\"CaacProgrammings\" EntityType=\"UniCloud.Applica" +
-                "tion.FleetPlanBC.DTO.CaacProgrammingDTO\" /><EntitySet Name=\"Engines\" EntityType=" +
-                "\"UniCloud.Application.FleetPlanBC.DTO.EngineDTO\" /><EntitySet Name=\"EnginePlans\"" +
-                " EntityType=\"UniCloud.Application.FleetPlanBC.DTO.EnginePlanDTO\" /><EntitySet Na" +
-                "me=\"EngineTypes\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.EngineTypeDTO\"" +
-                " /><EntitySet Name=\"MailAddresses\" EntityType=\"UniCloud.Application.FleetPlanBC." +
-                "DTO.MailAddressDTO\" /><EntitySet Name=\"Managers\" EntityType=\"UniCloud.Applicatio" +
-                "n.FleetPlanBC.DTO.ManagerDTO\" /><EntitySet Name=\"Manufacturers\" EntityType=\"UniC" +
-                "loud.Application.FleetPlanBC.DTO.ManufacturerDTO\" /><EntitySet Name=\"Plans\" Enti" +
-                "tyType=\"UniCloud.Application.FleetPlanBC.DTO.PlanDTO\" /><EntitySet Name=\"PlanAir" +
-                "crafts\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.PlanAircraftDTO\" /><Ent" +
-                "itySet Name=\"PlanEngines\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.PlanE" +
-                "ngineDTO\" /><EntitySet Name=\"Programmings\" EntityType=\"UniCloud.Application.Flee" +
-                "tPlanBC.DTO.ProgrammingDTO\" /><EntitySet Name=\"Requests\" EntityType=\"UniCloud.Ap" +
-                "plication.FleetPlanBC.DTO.RequestDTO\" /><EntitySet Name=\"ApprovalRequests\" Entit" +
-                "yType=\"UniCloud.Application.FleetPlanBC.DTO.ApprovalRequestDTO\" /><EntitySet Nam" +
-                "e=\"Suppliers\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.SupplierDTO\" /><E" +
-                "ntitySet Name=\"XmlConfigs\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.XmlC" +
-                "onfigDTO\" /><EntitySet Name=\"XmlSettings\" EntityType=\"UniCloud.Application.Fleet" +
-                "PlanBC.DTO.XmlSettingDTO\" /><FunctionImport Name=\"PerformPlanQuery\" ReturnType=\"" +
-                "UniCloud.Application.FleetPlanBC.DTO.PerformPlan\" m:HttpMethod=\"GET\"><Parameter " +
-                "Name=\"planHistoryId\" Type=\"Edm.String\" /><Parameter Name=\"approvalHistoryId\" Typ" +
-                "e=\"Edm.String\" /><Parameter Name=\"planType\" Type=\"Edm.Int32\" Nullable=\"false\" />" +
-                "<Parameter Name=\"relatedGuid\" Type=\"Edm.String\" /></FunctionImport></EntityConta" +
-                "iner></Schema></edmx:DataServices></edmx:Edmx>";
+            private const string ModelPart3 = "r\" Type=\"Edm.String\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" " +
+                "/><Property Name=\"CaacNote\" Type=\"Edm.String\" /><Property Name=\"RaNote\" Type=\"Ed" +
+                "m.String\" /><Property Name=\"SawsNote\" Type=\"Edm.String\" /><Property Name=\"Approv" +
+                "alDocId\" Type=\"Edm.Guid\" /><Property Name=\"RaDocumentId\" Type=\"Edm.Guid\" /><Prop" +
+                "erty Name=\"RaDocumentName\" Type=\"Edm.String\" /><Property Name=\"SawsDocumentId\" T" +
+                "ype=\"Edm.Guid\" /><Property Name=\"SawsDocumentName\" Type=\"Edm.String\" /><Property" +
+                " Name=\"CaacRequestDocumentId\" Type=\"Edm.Guid\" /><Property Name=\"CaacRequestDocum" +
+                "entName\" Type=\"Edm.String\" /><Property Name=\"ApprovalHistories\" Type=\"Collection" +
+                "(UniCloud.Application.FleetPlanBC.DTO.ApprovalHistoryDTO)\" Nullable=\"false\" /></" +
+                "EntityType><EntityType Name=\"SupplierDTO\"><Key><PropertyRef Name=\"Id\" /></Key><P" +
+                "roperty Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SupplierTy" +
+                "pe\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Code\" Type=\"Edm.String\" " +
+                "/><Property Name=\"CnName\" Type=\"Edm.String\" /><Property Name=\"EnName\" Type=\"Edm." +
+                "String\" /><Property Name=\"CnShortName\" Type=\"Edm.String\" /><Property Name=\"EnSho" +
+                "rtName\" Type=\"Edm.String\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable" +
+                "=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /><Property Name=\"AirlineGuid" +
+                "\" Type=\"Edm.Guid\" /></EntityType><EntityType Name=\"XmlConfigDTO\"><Key><PropertyR" +
+                "ef Name=\"XmlConfigId\" /></Key><Property Name=\"XmlConfigId\" Type=\"Edm.Guid\" Nulla" +
+                "ble=\"false\" /><Property Name=\"ConfigType\" Type=\"Edm.String\" /><Property Name=\"Co" +
+                "nfigContent\" Type=\"Edm.String\" /><Property Name=\"VersionNumber\" Type=\"Edm.Int32\"" +
+                " Nullable=\"false\" /><Property Name=\"XmlContent\" Type=\"Edm.String\" /></EntityType" +
+                "><EntityType Name=\"XmlSettingDTO\"><Key><PropertyRef Name=\"XmlSettingId\" /></Key>" +
+                "<Property Name=\"XmlSettingId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=" +
+                "\"SettingType\" Type=\"Edm.String\" /><Property Name=\"SettingContent\" Type=\"Edm.Stri" +
+                "ng\" /><Property Name=\"XmlContent\" Type=\"Edm.String\" /></EntityType><ComplexType " +
+                "Name=\"PerformPlan\"><Property Name=\"Id\" Type=\"Edm.Guid\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"ApprovalHistory\" Type=\"UniCloud.Application.FleetPlanBC.DTO.ApprovalHi" +
+                "storyDTO\" /><Property Name=\"OperationHistory\" Type=\"UniCloud.Application.FleetPl" +
+                "anBC.DTO.OperationHistoryDTO\" /><Property Name=\"AircraftBusiness\" Type=\"UniCloud" +
+                ".Application.FleetPlanBC.DTO.AircraftBusinessDTO\" /></ComplexType></Schema><Sche" +
+                "ma Namespace=\"UniCloud.DistributedServices.FleetPlan\" xmlns=\"http://schemas.micr" +
+                "osoft.com/ado/2009/11/edm\"><EntityContainer Name=\"FleetPlanData\" m:IsDefaultEnti" +
+                "tyContainer=\"true\"><EntitySet Name=\"ActionCategories\" EntityType=\"UniCloud.Appli" +
+                "cation.FleetPlanBC.DTO.ActionCategoryDTO\" /><EntitySet Name=\"AircraftSeries\" Ent" +
+                "ityType=\"UniCloud.Application.FleetPlanBC.DTO.AircraftSeriesDTO\" /><EntitySet Na" +
+                "me=\"AircraftCategories\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.Aircraf" +
+                "tCategoryDTO\" /><EntitySet Name=\"Aircrafts\" EntityType=\"UniCloud.Application.Fle" +
+                "etPlanBC.DTO.AircraftDTO\" /><EntitySet Name=\"AircraftTypes\" EntityType=\"UniCloud" +
+                ".Application.FleetPlanBC.DTO.AircraftTypeDTO\" /><EntitySet Name=\"Airlineses\" Ent" +
+                "ityType=\"UniCloud.Application.FleetPlanBC.DTO.AirlinesDTO\" /><EntitySet Name=\"Ai" +
+                "rProgrammings\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.AirProgrammingDT" +
+                "O\" /><EntitySet Name=\"Annuals\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO." +
+                "AnnualDTO\" /><EntitySet Name=\"PlanYears\" EntityType=\"UniCloud.Application.FleetP" +
+                "lanBC.DTO.PlanYearDTO\" /><EntitySet Name=\"ApprovalDocs\" EntityType=\"UniCloud.App" +
+                "lication.FleetPlanBC.DTO.ApprovalDocDTO\" /><EntitySet Name=\"CaacProgrammings\" En" +
+                "tityType=\"UniCloud.Application.FleetPlanBC.DTO.CaacProgrammingDTO\" /><EntitySet " +
+                "Name=\"Engines\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.EngineDTO\" /><En" +
+                "titySet Name=\"EnginePlans\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.Engi" +
+                "nePlanDTO\" /><EntitySet Name=\"EngineTypes\" EntityType=\"UniCloud.Application.Flee" +
+                "tPlanBC.DTO.EngineTypeDTO\" /><EntitySet Name=\"MailAddresses\" EntityType=\"UniClou" +
+                "d.Application.FleetPlanBC.DTO.MailAddressDTO\" /><EntitySet Name=\"Managers\" Entit" +
+                "yType=\"UniCloud.Application.FleetPlanBC.DTO.ManagerDTO\" /><EntitySet Name=\"Manuf" +
+                "acturers\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.ManufacturerDTO\" /><E" +
+                "ntitySet Name=\"Plans\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.PlanDTO\" " +
+                "/><EntitySet Name=\"PlanAircrafts\" EntityType=\"UniCloud.Application.FleetPlanBC.D" +
+                "TO.PlanAircraftDTO\" /><EntitySet Name=\"PlanEngines\" EntityType=\"UniCloud.Applica" +
+                "tion.FleetPlanBC.DTO.PlanEngineDTO\" /><EntitySet Name=\"Programmings\" EntityType=" +
+                "\"UniCloud.Application.FleetPlanBC.DTO.ProgrammingDTO\" /><EntitySet Name=\"Request" +
+                "s\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.RequestDTO\" /><EntitySet Nam" +
+                "e=\"ApprovalRequests\" EntityType=\"UniCloud.Application.FleetPlanBC.DTO.ApprovalRe" +
+                "questDTO\" /><EntitySet Name=\"Suppliers\" EntityType=\"UniCloud.Application.FleetPl" +
+                "anBC.DTO.SupplierDTO\" /><EntitySet Name=\"XmlConfigs\" EntityType=\"UniCloud.Applic" +
+                "ation.FleetPlanBC.DTO.XmlConfigDTO\" /><EntitySet Name=\"XmlSettings\" EntityType=\"" +
+                "UniCloud.Application.FleetPlanBC.DTO.XmlSettingDTO\" /><FunctionImport Name=\"Perf" +
+                "ormPlanQuery\" ReturnType=\"UniCloud.Application.FleetPlanBC.DTO.PerformPlan\" m:Ht" +
+                "tpMethod=\"GET\"><Parameter Name=\"planHistoryId\" Type=\"Edm.String\" /><Parameter Na" +
+                "me=\"approvalHistoryId\" Type=\"Edm.String\" /><Parameter Name=\"planType\" Type=\"Edm." +
+                "Int32\" Nullable=\"false\" /><Parameter Name=\"relatedGuid\" Type=\"Edm.String\" /></Fu" +
+                "nctionImport></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -6985,6 +6986,28 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         partial void OnRegionalChanging(string value);
         partial void OnRegionalChanged();
         /// <summary>
+        /// 架构中不存在属性 Category 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Category
+        {
+            get
+            {
+                return this._Category;
+            }
+            set
+            {
+                this.OnCategoryChanging(value);
+                this._Category = value;
+                this.OnCategoryChanged();
+                this.OnPropertyChanged("Category");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Category;
+        partial void OnCategoryChanging(string value);
+        partial void OnCategoryChanged();
+        /// <summary>
         /// 架构中不存在属性 ActionType 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -7468,6 +7491,28 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         private global::System.Nullable<global::System.Guid> _AircraftId;
         partial void OnAircraftIdChanging(global::System.Nullable<global::System.Guid> value);
         partial void OnAircraftIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 AircraftImportCategoryId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.Guid> AircraftImportCategoryId
+        {
+            get
+            {
+                return this._AircraftImportCategoryId;
+            }
+            set
+            {
+                this.OnAircraftImportCategoryIdChanging(value);
+                this._AircraftImportCategoryId = value;
+                this.OnAircraftImportCategoryIdChanged();
+                this.OnPropertyChanged("AircraftImportCategoryId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.Guid> _AircraftImportCategoryId;
+        partial void OnAircraftImportCategoryIdChanging(global::System.Nullable<global::System.Guid> value);
+        partial void OnAircraftImportCategoryIdChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

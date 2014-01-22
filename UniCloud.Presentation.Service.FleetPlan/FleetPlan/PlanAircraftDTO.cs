@@ -27,7 +27,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         ///     计划飞机管理状态
         /// </summary>
-        internal ManageStatus ManaStatus
+        public ManageStatus ManaStatus
         {
             get { return (ManageStatus)Status; }
         }

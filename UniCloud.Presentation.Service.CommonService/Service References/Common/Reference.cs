@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2013/12/19 22:54:50
+// 生成日期: 2014/1/21 16:58:36
 namespace UniCloud.Presentation.Service.CommonService.Common
 {
     
@@ -78,6 +78,23 @@ namespace UniCloud.Presentation.Service.CommonService.Common
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<DocumentDTO> _Documents;
         /// <summary>
+        /// 架构中不存在 DocumentTypes 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<DocumentTypeDTO> DocumentTypes
+        {
+            get
+            {
+                if ((this._DocumentTypes == null))
+                {
+                    this._DocumentTypes = base.CreateQuery<DocumentTypeDTO>("DocumentTypes");
+                }
+                return this._DocumentTypes;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<DocumentTypeDTO> _DocumentTypes;
+        /// <summary>
         /// 架构中不存在 Documents 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -85,13 +102,45 @@ namespace UniCloud.Presentation.Service.CommonService.Common
         {
             base.AddObject("Documents", documentDTO);
         }
+        /// <summary>
+        /// 架构中不存在 DocumentTypes 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToDocumentTypes(DocumentTypeDTO documentTypeDTO)
+        {
+            base.AddObject("DocumentTypes", documentTypeDTO);
+        }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private abstract class GeneratedEdmModel
         {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static global::Microsoft.Data.Edm.IEdmModel ParsedModel = LoadModelFromString();
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart0 = @"<edmx:Edmx Version=""1.0"" xmlns:edmx=""http://schemas.microsoft.com/ado/2007/06/edmx""><edmx:DataServices m:DataServiceVersion=""1.0"" m:MaxDataServiceVersion=""3.0"" xmlns:m=""http://schemas.microsoft.com/ado/2007/08/dataservices/metadata""><Schema Namespace=""UniCloud.Application.CommonServiceBC.DTO"" xmlns=""http://schemas.microsoft.com/ado/2006/04/edm""><EntityType Name=""DocumentDTO""><Key><PropertyRef Name=""DocumentId"" /></Key><Property Name=""DocumentId"" Type=""Edm.Guid"" Nullable=""false"" /><Property Name=""Name"" Type=""Edm.String"" /><Property Name=""Extension"" Type=""Edm.String"" /><Property Name=""FileStorage"" Type=""Edm.Binary"" /><Property Name=""Abstract"" Type=""Edm.String"" /><Property Name=""Note"" Type=""Edm.String"" /><Property Name=""Uploader"" Type=""Edm.String"" /><Property Name=""IsValid"" Type=""Edm.Boolean"" Nullable=""false"" /><Property Name=""CreateTime"" Type=""Edm.DateTime"" Nullable=""false"" /></EntityType></Schema><Schema Namespace=""UniCloud.DistributedServices.CommonService"" xmlns=""http://schemas.microsoft.com/ado/2006/04/edm""><EntityContainer Name=""CommonServiceData"" m:IsDefaultEntityContainer=""true""><EntitySet Name=""Documents"" EntityType=""UniCloud.Application.CommonServiceBC.DTO.DocumentDTO"" /></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
+            private const string ModelPart0 = "<edmx:Edmx Version=\"1.0\" xmlns:edmx=\"http://schemas.microsoft.com/ado/2007/06/edm" +
+                "x\"><edmx:DataServices m:DataServiceVersion=\"1.0\" m:MaxDataServiceVersion=\"3.0\" x" +
+                "mlns:m=\"http://schemas.microsoft.com/ado/2007/08/dataservices/metadata\"><Schema " +
+                "Namespace=\"UniCloud.Application.CommonServiceBC.DTO\" xmlns=\"http://schemas.micro" +
+                "soft.com/ado/2006/04/edm\"><EntityType Name=\"DocumentDTO\"><Key><PropertyRef Name=" +
+                "\"DocumentId\" /></Key><Property Name=\"DocumentId\" Type=\"Edm.Guid\" Nullable=\"false" +
+                "\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Extension\" Type=\"E" +
+                "dm.String\" /><Property Name=\"FileStorage\" Type=\"Edm.Binary\" /><Property Name=\"Fi" +
+                "leContent\" Type=\"Edm.String\" /><Property Name=\"DocumentTypeId\" Type=\"Edm.Int32\" " +
+                "Nullable=\"false\" /><Property Name=\"Abstract\" Type=\"Edm.String\" /><Property Name=" +
+                "\"Note\" Type=\"Edm.String\" /><Property Name=\"Uploader\" Type=\"Edm.String\" /><Proper" +
+                "ty Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"CreateTi" +
+                "me\" Type=\"Edm.DateTime\" Nullable=\"false\" /></EntityType><EntityType Name=\"Docume" +
+                "ntTypeDTO\"><Key><PropertyRef Name=\"DocumentTypeId\" /></Key><Property Name=\"Docum" +
+                "entTypeId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.S" +
+                "tring\" /><Property Name=\"Description\" Type=\"Edm.String\" /></EntityType></Schema>" +
+                "<Schema Namespace=\"UniCloud.DistributedServices.CommonService\" xmlns=\"http://sch" +
+                "emas.microsoft.com/ado/2006/04/edm\"><EntityContainer Name=\"CommonServiceData\" m:" +
+                "IsDefaultEntityContainer=\"true\"><EntitySet Name=\"Documents\" EntityType=\"UniCloud" +
+                ".Application.CommonServiceBC.DTO.DocumentDTO\" /><EntitySet Name=\"DocumentTypes\" " +
+                "EntityType=\"UniCloud.Application.CommonServiceBC.DTO.DocumentTypeDTO\" /><Functio" +
+                "nImport Name=\"SearchDocument\" ReturnType=\"Collection(UniCloud.Application.Common" +
+                "ServiceBC.DTO.DocumentDTO)\" EntitySet=\"Documents\" m:HttpMethod=\"GET\"><Parameter " +
+                "Name=\"keyword\" Type=\"Edm.String\" /></FunctionImport></EntityContainer></Schema><" +
+                "/edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -137,13 +186,15 @@ namespace UniCloud.Presentation.Service.CommonService.Common
         /// 创建新的 DocumentDTO 对象。
         /// </summary>
         /// <param name="documentId">DocumentId 的初始值。</param>
+        /// <param name="documentTypeId">DocumentTypeId 的初始值。</param>
         /// <param name="isValid">IsValid 的初始值。</param>
         /// <param name="createTime">CreateTime 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static DocumentDTO CreateDocumentDTO(global::System.Guid documentId, bool isValid, global::System.DateTime createTime)
+        public static DocumentDTO CreateDocumentDTO(global::System.Guid documentId, int documentTypeId, bool isValid, global::System.DateTime createTime)
         {
             DocumentDTO documentDTO = new DocumentDTO();
             documentDTO.DocumentId = documentId;
+            documentDTO.DocumentTypeId = documentTypeId;
             documentDTO.IsValid = isValid;
             documentDTO.CreateTime = createTime;
             return documentDTO;
@@ -243,6 +294,50 @@ namespace UniCloud.Presentation.Service.CommonService.Common
         private byte[] _FileStorage;
         partial void OnFileStorageChanging(byte[] value);
         partial void OnFileStorageChanged();
+        /// <summary>
+        /// 架构中不存在属性 FileContent 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string FileContent
+        {
+            get
+            {
+                return this._FileContent;
+            }
+            set
+            {
+                this.OnFileContentChanging(value);
+                this._FileContent = value;
+                this.OnFileContentChanged();
+                this.OnPropertyChanged("FileContent");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _FileContent;
+        partial void OnFileContentChanging(string value);
+        partial void OnFileContentChanged();
+        /// <summary>
+        /// 架构中不存在属性 DocumentTypeId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int DocumentTypeId
+        {
+            get
+            {
+                return this._DocumentTypeId;
+            }
+            set
+            {
+                this.OnDocumentTypeIdChanging(value);
+                this._DocumentTypeId = value;
+                this.OnDocumentTypeIdChanged();
+                this.OnPropertyChanged("DocumentTypeId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _DocumentTypeId;
+        partial void OnDocumentTypeIdChanging(int value);
+        partial void OnDocumentTypeIdChanged();
         /// <summary>
         /// 架构中不存在属性 Abstract 的注释。
         /// </summary>
@@ -353,6 +448,104 @@ namespace UniCloud.Presentation.Service.CommonService.Common
         private global::System.DateTime _CreateTime;
         partial void OnCreateTimeChanging(global::System.DateTime value);
         partial void OnCreateTimeChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.CommonServiceBC.DTO.DocumentTypeDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// DocumentTypeId
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("DocumentTypes")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("DocumentTypeId")]
+    public partial class DocumentTypeDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 DocumentTypeDTO 对象。
+        /// </summary>
+        /// <param name="documentTypeId">DocumentTypeId 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static DocumentTypeDTO CreateDocumentTypeDTO(int documentTypeId)
+        {
+            DocumentTypeDTO documentTypeDTO = new DocumentTypeDTO();
+            documentTypeDTO.DocumentTypeId = documentTypeId;
+            return documentTypeDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 DocumentTypeId 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int DocumentTypeId
+        {
+            get
+            {
+                return this._DocumentTypeId;
+            }
+            set
+            {
+                this.OnDocumentTypeIdChanging(value);
+                this._DocumentTypeId = value;
+                this.OnDocumentTypeIdChanged();
+                this.OnPropertyChanged("DocumentTypeId");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _DocumentTypeId;
+        partial void OnDocumentTypeIdChanging(int value);
+        partial void OnDocumentTypeIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Name 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                this.OnNameChanging(value);
+                this._Name = value;
+                this.OnNameChanged();
+                this.OnPropertyChanged("Name");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Name;
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Description 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Description
+        {
+            get
+            {
+                return this._Description;
+            }
+            set
+            {
+                this.OnDescriptionChanging(value);
+                this._Description = value;
+                this.OnDescriptionChanged();
+                this.OnPropertyChanged("Description");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Description;
+        partial void OnDescriptionChanging(string value);
+        partial void OnDescriptionChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

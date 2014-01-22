@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.UberModel.Aggregates.DocumentTypeAgg;
 
 #endregion
 
@@ -62,6 +63,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.DocumentAgg
         public byte[] FileStorage { get; internal set; }
 
         /// <summary>
+        /// 文档文本内容
+        /// </summary>
+        public string FileContent { get; internal set; }
+
+        /// <summary>
         ///     摘要
         /// </summary>
         public string Abstract { get; set; }
@@ -94,11 +100,17 @@ namespace UniCloud.Domain.UberModel.Aggregates.DocumentAgg
         #endregion
 
         #region 外键属性
-
+        /// <summary>
+        /// 文档类型Id
+        /// </summary>
+        public int DocumentTypeId { get; internal set; }
         #endregion
 
         #region 导航属性
-
+        /// <summary>
+        /// 文档类型
+        /// </summary>
+        public virtual DocumentType DocumentType { get; set; }
         #endregion
 
         #region 操作

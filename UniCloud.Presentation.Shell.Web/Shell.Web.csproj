@@ -77,13 +77,20 @@
     <Content Include="ClientBin\Project.xap" />
     <Content Include="ClientBin\Purchase.xap" />
     <Content Include="ClientBin\Shell.xap" />
+    <Content Include="Default.aspx" />
     <Content Include="ReportService.svc" />
     <Content Include="Silverlight.js" />
-    <Content Include="Default.aspx" />
     <Content Include="Default.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

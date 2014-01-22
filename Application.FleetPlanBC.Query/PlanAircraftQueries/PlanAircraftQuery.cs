@@ -78,6 +78,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.PlanAircraftQueries
                     AircraftTypeId = q.AircraftTypeId,
                     AircraftTypeName = q.AircraftType.Name,
                     Regional = q.AircraftType.AircraftCategory.Regional,
+                    Category = q.AircraftType.AircraftCategory.Category,
                     AirlinesId = q.AirlinesId,
                     AirlinesName = q.Airlines.CnShortName,
                     NeedRequest = q.ActionCategory.NeedRequest,
@@ -87,6 +88,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.PlanAircraftQueries
                     PlanAircraftId = q.PlanAircraftId,
                     AircraftId = q.PlanAircraft.AircraftId,
                     RegNumber = q.PlanAircraft.Aircraft.RegNumber,
+                    AircraftImportCategoryId = q.PlanAircraft.Aircraft.ImportCategoryId,
                     ManageStatus = (int)p.Status,
                     PaIsLock = q.PlanAircraft.IsLock,
 
@@ -114,6 +116,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.PlanAircraftQueries
                     AircraftTypeId = q.AircraftTypeId,
                     AircraftTypeName = q.AircraftType.Name,
                     Regional = q.AircraftType.AircraftCategory.Regional,
+                    Category = q.AircraftType.AircraftCategory.Category,
                     AirlinesId = q.AirlinesId,
                     AirlinesName = q.Airlines.CnShortName,
                     NeedRequest = q.ActionCategory.NeedRequest,
@@ -123,6 +126,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.PlanAircraftQueries
                     PlanAircraftId = q.PlanAircraftId,
                     AircraftId = q.PlanAircraft.AircraftId,
                     RegNumber = q.PlanAircraft.Aircraft.RegNumber,
+                    AircraftImportCategoryId = q.PlanAircraft.Aircraft.ImportCategoryId,
                     ManageStatus = (int)p.Status,
                     PaIsLock = q.PlanAircraft.IsLock,
 

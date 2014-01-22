@@ -55,18 +55,18 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             Context.DocumentPaths.Add(exportPath);
             var documents = new List<Document>();
             var document1 = DocumentFactory.CreateStandardDocument(Guid.Parse("8C58622E-01E3-4F61-B34D-619D3FB43211"), "计划引进飞机10架飞机.docx", "docx", null, null, "XXX",
-                                               true, null);
+                                               true, null, null,3);
             var document2 = DocumentFactory.CreateStandardDocument(Guid.Parse("8C58622E-01E3-4F61-B34D-619D3FB43222"), "计划引进飞机11架飞机.docx", "docx", null, null, "XXX",
-                                               true, null);
+                                               true, null, null, 3);
             var document3 = DocumentFactory.CreateStandardDocument(Guid.Parse("8C58622E-01E3-4F61-B34D-619D3FB43233"), "计划引进飞机11架飞机.xlsx", "xlsx", null, null, "XXX",
-                                               true, null);
+                                               true, null, null, 3);
 
             var document4 = DocumentFactory.CreateStandardDocument(Guid.Parse("8C58622E-01E3-4F61-B34D-619D3FB43244"), "计划退出飞机10架飞机.docx", "docx", null, null, "XXX",
-                                   true, null);
+                                   true, null, null, 3);
             var document5 = DocumentFactory.CreateStandardDocument(Guid.Parse("8C58622E-01E3-4F61-B34D-619D3FB43255"), "计划退出飞机11架飞机.docx", "docx", null, null, "XXX",
-                                               true, null);
+                                               true, null, null, 3);
             var document6 = DocumentFactory.CreateStandardDocument(Guid.Parse("8C58622E-01E3-4F61-B34D-619D3FB43266"), "计划退出飞机11架飞机.xlsx", "xlsx", null, null, "XXX",
-                                               true, null);
+                                               true, null, null, 3);
 
             documents.Add(document1);
             documents.Add(document2);

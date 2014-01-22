@@ -22,6 +22,7 @@ using System.Linq;
 using UniCloud.Application.CommonServiceBC.DTO;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg;
+using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentTypeAgg;
 
 #endregion
 
@@ -39,5 +40,13 @@ namespace UniCloud.Application.CommonServiceBC.Query.DocumentQueries
         /// <returns>文档。</returns>
         IQueryable<DocumentDTO> DocumentsQuery(
             QueryBuilder<Document> query);
+
+        /// <summary>
+        ///     查询文档类型。
+        /// </summary>
+        /// <param name="query">查询条件。</param>
+        /// <returns>文档类型。</returns>
+        IQueryable<DocumentTypeDTO> DocumentTypesQuery(
+            QueryBuilder<DocumentType> query);
     }
 }

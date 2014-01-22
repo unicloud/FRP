@@ -45,8 +45,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             _service = service;
             _context = _service.Context;
             InitializeVm();
-            _service.GetManufacturers(null);
-            _service.GetAircraftCategories(null);
         }
 
         /// <summary>
@@ -111,8 +109,8 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 AircraftTypes.AutoLoad = true;
             AircraftTypes.Load(true);
             AircraftSerieses.AutoLoad = true;
-            Manufacturers = _service.GetManufacturers(null);
-            AircraftCategories = _service.GetAircraftCategories(null);
+            Manufacturers = _service.GetManufacturers(() => RaisePropertyChanged(() => Manufacturers));
+            AircraftCategories = _service.GetAircraftCategories(() => RaisePropertyChanged(() => AircraftCategories));
         }
 
         #region 机型

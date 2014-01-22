@@ -51,7 +51,7 @@ namespace UniCloud.Application.PaymentBC.Query.SupplierQueries
                             Address = c.Address,
                             Bank = c.Bank,
                             BankAccountId = c.Id,
-                            Branch = c.Bank,
+                            Branch = c.Branch,
                             Country = c.Country,
                             IsCurrent = c.IsCurrent,
                             Name = c.Name,

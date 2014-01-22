@@ -41,6 +41,9 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         private readonly PaymentData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPaymentService _service;
+        [Import]
+        public BankAccountWindow BankAccountWindow;
+
         [ImportingConstructor]
         public PaymentNoticeVm(IRegionManager regionManager, IPaymentService service)
             : base(service)
@@ -301,11 +304,40 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
 
         #region Combobox SelectedChanged
 
+        public void PaymentNoticeListCellEditEnded(object sender, GridViewCellEditEndedEventArgs e)
+        {
+            if (e.Cell.Column.UniqueName.Equals("Supplier", StringComparison.OrdinalIgnoreCase))
+            {
+                var comboBox = e.EditingElement as RadComboBox;
+                if (comboBox != null)
+                {
+                    var supplier = comboBox.SelectedItem as SupplierDTO;
+                    if (supplier != null)
+                    {
+                        PaymentNotice.SupplierName = supplier.Name;
+                        BankAccountWindow.ViewModel.InitBankAccounts(supplier.BankAccounts);
+                        BankAccountWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                        BankAccountWindow.Closed += BankAccountWindowClosed;
+                        BankAccountWindow.ShowDialog();
+                    }
+                }
+            }
+        }
+
         public void SelectedChanged(object comboboxSelectedItem)
         {
             if (comboboxSelectedItem is SupplierDTO)
             {
-                PaymentNotice.SupplierName = (comboboxSelectedItem as SupplierDTO).Name;
+            }
+        }
+
+        void BankAccountWindowClosed(object sender, WindowClosedEventArgs e)
+        {
+            if (BankAccountWindow.Tag is BankAccountDTO)
+            {
+                var bankAccount = BankAccountWindow.Tag as BankAccountDTO;
+                PaymentNotice.BankAccountId = bankAccount.BankAccountId;
+                PaymentNotice.BankAccountName = bankAccount.Account + "/" + bankAccount.Bank + bankAccount.Branch;
             }
         }
 

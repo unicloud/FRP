@@ -49,5 +49,15 @@ namespace UniCloud.DistributedServices.CommonService
             get { return _documentAppService.GetDocuments(); }
         }
         #endregion
+
+        #region 文档类型集合
+        /// <summary>
+        /// 文档类型集合
+        /// </summary>
+        public IQueryable<DocumentTypeDTO> DocumentTypes
+        {
+            get { return _documentAppService.GetDocumentTypes(); }
+        }
+        #endregion
     }
 }
