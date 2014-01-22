@@ -2,6 +2,7 @@
 // 
 //------------------------------------------------------------------------------
 
+using System;
 using System.ServiceModel.Web;
 using UniCloud.Application.FleetPlanBC.AircraftPlanServices;
 using UniCloud.Application.FleetPlanBC.ApprovalDocServices;
@@ -16,7 +17,6 @@ namespace UniCloud.DistributedServices.FleetPlan
 
     public class FleetPlanDataService : DataService<FleetPlanData>
     {
-
         /// <summary>
         /// 初始化服务端策略
         /// </summary>
@@ -37,6 +37,7 @@ namespace UniCloud.DistributedServices.FleetPlan
             #endregion
 
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
+          
         }
 
         #region 服务操作

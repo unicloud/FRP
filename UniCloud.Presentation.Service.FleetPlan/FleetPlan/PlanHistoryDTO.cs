@@ -114,32 +114,32 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 
         #region 只读逻辑
 
-        internal bool IsPlanChecked
+        public bool IsPlanChecked
         {
             get { return this.PlanCheckedCondition; }
         }
 
-        internal bool IsPlanCheckedOrLock
+        public bool IsPlanCheckedOrLock
         {
             get { return this.PlanCheckedCondition || this.LockCondition; }
         }
 
-        internal bool IsPlanCheckedOrOnlyAirlines
+        public bool IsPlanCheckedOrOnlyAirlines
         {
             get { return this.PlanCheckedCondition || this.OnlyAirlinesCondition; }
         }
 
-        internal bool IsPlanCheckedOrOperation
+        public bool IsPlanCheckedOrOperation
         {
             get { return this.PlanCheckedCondition || this.OperationCondition; }
         }
 
-        internal bool IsManageRequestOrPlanSubmitted
+        public bool IsManageRequestOrPlanSubmitted
         {
             get { return this.ManageRequestCondition; }
         }
 
-        internal bool IsOperationAndExportPlan
+        public bool IsOperationAndExportPlan
         {
             get { return this.OperationCondition && this.ExportPlanCondition; }
         }
@@ -148,12 +148,12 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 
         #region 可用逻辑
 
-        internal bool IsAirlineEnabled
+        public bool IsAirlineEnabled
         {
             get { return !this.IsPlanCheckedOrOperation; }
         }
 
-        internal bool IsNotOperationOrChangePlan
+        public bool IsNotOperationOrChangePlan
         {
             get { return !this.OperationCondition || ChangePlanCondition; }
         }
@@ -167,7 +167,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         ///     管理状态
         /// </summary>
-        internal ManageStatus ManaStatus
+        public ManageStatus ManaStatus
         {
             get { return (ManageStatus)ManageStatus; }
         }
@@ -181,7 +181,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 3、已申请
         /// 4、无需申请
         /// </summary>
-        internal CanRequest CanRequest
+        public CanRequest CanRequest
         {
             get
             {
@@ -200,7 +200,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 5、未批复
         /// 6、未批准
         /// </summary>
-        internal CanDeliver CanDeliver
+        public CanDeliver CanDeliver
         {
             get
             {
@@ -234,7 +234,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 3：已提交
         /// -1：无状态
         /// </summary>
-        internal CompleteStatus CompleteStatus
+        public CompleteStatus CompleteStatus
         {
             get
             {
@@ -246,7 +246,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             }
         }
 
-        internal PlanHistoryCompareStatus PlanHistoryCompareStatus
+        public PlanHistoryCompareStatus PlanHistoryCompareStatus
         { get; set; }
 
         #endregion
@@ -255,7 +255,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         /// 座级集合，用于属性绑定
         /// </summary>
-        internal IEnumerable<AircraftCategoryDTO> AircraftCategories
+        public IEnumerable<AircraftCategoryDTO> AircraftCategories
         {
             get { return FleetPlanService.GetAircraftCategories(null); }
 
@@ -273,19 +273,19 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         /// 操作集合，用于属性绑定
         /// </summary>
-        internal IEnumerable<AircraftTypeDTO> AircraftTypes
+        public IEnumerable<AircraftTypeDTO> AircraftTypes
         {
             get;
             set;
         }
-        /// <summary>
-        /// 计划历史比较状态
-        /// </summary>
-        internal IEnumerable<ActionCategoryDTO> ActionCategories
-        {
-            get;
-            set;
-        }
+        ///// <summary>
+        ///// 计划历史比较状态
+        ///// </summary>
+        //public IEnumerable<ActionCategoryDTO> ActionCategories
+        //{
+        //    get;
+        //    set;
+        //}
       
 
         //#endregion
