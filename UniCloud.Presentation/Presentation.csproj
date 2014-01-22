@@ -306,6 +306,7 @@
     <Compile Include="ValueConverts\BoolConverter.cs" />
     <Compile Include="ValueConverts\EnumUtility.cs" />
     <Compile Include="ValueConverts\StringConverter.cs" />
+    <Compile Include="ValueConverts\StringToXamlConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Document\DocumentViewer.xaml">

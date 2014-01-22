@@ -94,13 +94,19 @@
                                                             MaxWidth="250"
                                                             TextWrapping="Wrap"
                                                             DataMemberBinding="{Binding FileContent}" />
-                                <telerik:GridViewDataColumn Header="描述"
+                                <telerik:GridViewDataColumn Header="摘要"
                                                             IsSortable="True"
                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                             HeaderTextAlignment="Center"
                                                             MaxWidth="250"
                                                             TextWrapping="Wrap"
-                                                            DataMemberBinding="{Binding Abstract}" />
+                                                            DataMemberBinding="{Binding Abstract, Converter={StaticResource StringToXamlConverter}}">
+                                    <telerik:GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ContentControl Content="{Binding Abstract, Converter={StaticResource StringToXamlConverter}, Mode=OneTime}" />
+                                        </DataTemplate>
+                                    </telerik:GridViewColumn.CellTemplate>
+                                </telerik:GridViewDataColumn>
                             </telerik:RadGridView.Columns>
                         </telerik:RadGridView>
                     </telerik:RadPane>

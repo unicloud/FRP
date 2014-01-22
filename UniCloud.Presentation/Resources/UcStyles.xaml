@@ -15,6 +15,8 @@
 
     <!-- 字体、字号 -->
     <FontFamily x:Key="NormalFontFamily">Microsoft YaHei UI</FontFamily>
+    <SolidColorBrush Color="Red"
+                     x:Key="HighLight" />
     <system:Double x:Key="TitleFontSize">16</system:Double>
     <system:Double x:Key="HeaderFontSize">14</system:Double>
     <system:Double x:Key="TextFontSize">13</system:Double>
@@ -217,4 +219,5 @@
 
     <valueConverts:EnumToStringConverter x:Key="EnumToStringConverter" />
     <valueConverts:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <valueConverts:StringToXamlConverter x:Key="StringToXamlConverter" />
 </ResourceDictionary>

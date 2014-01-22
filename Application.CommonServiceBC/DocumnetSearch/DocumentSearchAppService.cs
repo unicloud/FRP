@@ -28,8 +28,8 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
     /// </summary>
     public class DocumentSearchAppService : IDocumentSearchAppService
     {
-        private const String Start = "<font color='red'>";
-        private const String End = "</font>";
+        private const String Start = "|~S~|";
+        private const String End = "|~E~|";
 
         public List<DocumentDTO> Search(string keyword)
         {
