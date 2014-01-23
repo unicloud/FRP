@@ -31,8 +31,11 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             var view = ServiceLocator.Current.GetInstance<SearchDocument>();
             var docViewer = ServiceLocator.Current.GetInstance<DocViewer>();
             var docViewerVM = ServiceLocator.Current.GetInstance<DocViewerVM>();
-            docViewer.Show();
-            docViewerVM.InitDocument(((DocumentDTO)view.DocumentList.CurrentItem).DocumentId);
+            if (view.DocumentList.CurrentItem != null)
+            {
+                docViewer.Show();
+                docViewerVM.InitDocument(((DocumentDTO)view.DocumentList.CurrentItem).DocumentId);
+            }
         }
         protected override bool CanDoubleClick(Telerik.Windows.Controls.GridView.GridViewCellBase cell)
         {

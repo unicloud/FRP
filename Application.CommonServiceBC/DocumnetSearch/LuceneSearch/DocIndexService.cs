@@ -28,7 +28,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
         /// <returns></returns>
         public void AddDocumentSearchIndex(Document document)
         {
-            IndexManager.SetIndexStorePath("E:\\Indexs\\" + document.DocumentTypeId);
+            IndexManager.SetIndexStorePath("E:\\Indexs\\");
             IndexManager.GenerateWriter();
             IndexManager.MaxMergeFactor = 301;
             IndexManager.MinMergeDocs = 301;
@@ -45,7 +45,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
         /// <returns></returns>
         public void DeleteDocumentSearchIndex(Document document)
         {
-            IndexManager.SetIndexStorePath("E:\\Indexs\\" + document.DocumentTypeId);
+            IndexManager.SetIndexStorePath("E:\\Indexs\\");
             IndexManager.GenerateWriter();
             LuceneIndex.DeleteIndex(document.Id.ToString());
             LuceneIndex.CloseWithOptimize();

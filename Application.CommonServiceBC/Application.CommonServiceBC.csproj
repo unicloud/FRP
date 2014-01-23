@@ -70,6 +70,7 @@
     <Compile Include="DocumnetSearch\LuceneSearch\IndexManager.cs" />
     <Compile Include="DocumnetSearch\LuceneSearch\LuceneIndex.cs" />
     <Compile Include="DocumnetSearch\LuceneSearch\LuceneSearch.cs" />
+    <Compile Include="DocumnetSearch\LuceneSearch\ResultHighlighter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
