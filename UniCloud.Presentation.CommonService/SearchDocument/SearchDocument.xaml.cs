@@ -21,7 +21,5 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             get { return DataContext as SearchDocumentVm; }
             set { DataContext = value; }
         }
-
-       
     }
 }

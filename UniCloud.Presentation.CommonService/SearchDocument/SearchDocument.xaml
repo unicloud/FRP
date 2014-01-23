@@ -20,35 +20,94 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid x:Name="SearchView">
-        <TextBlock Text="文 档 搜 索"
-                   FontFamily="Microsoft YaHei UI"
-                   FontSize="25"
-                   HorizontalAlignment="Center"
-                   Foreground="CornflowerBlue"
-                   Margin="335,190,335,364" />
-        <telerik:RadWatermarkTextBox HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"
-                                     Grid.Column="0"
-                                     Grid.Row="0"
-                                     FontSize="21"
-                                     WatermarkContent="输入文档关键字"
-                                     FontFamily="Microsoft YaHei UI"
-                                     Width="303"
-                                     Text="{Binding Keyword,Mode=TwoWay}" />
-        <telerik:RadButton Width="120"
-                           Height="40"
-                           Content="搜索"
-                           FontSize="25"
-                           FontFamily="Microsoft YaHei UI"
-                           Foreground="CornflowerBlue"
-                           HorizontalAlignment="Right"
-                           Margin="0,278,90,282">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Click">
-                    <ei:CallMethodAction  TargetObject="{Binding}"
-                                          MethodName="RadButtonClick" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </telerik:RadButton>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+              Margin="0,0,0,5">
+            <TextBlock Text="文 档 搜 索"
+                       FontFamily="Microsoft YaHei UI"
+                       FontSize="20"
+                       HorizontalAlignment="Left"
+                       Foreground="CornflowerBlue"
+                       Margin="68,0,0,0" />
+            <telerik:RadWatermarkTextBox HorizontalAlignment="Left"
+                                         VerticalAlignment="Top"
+                                         Grid.Column="0"
+                                         Grid.Row="0"
+                                         FontSize="20"
+                                         WatermarkContent="输入文档关键字"
+                                         FontFamily="Microsoft YaHei UI"
+                                         Width="303"
+                                         Text="{Binding Keyword,Mode=TwoWay}"
+                                         Margin="10,37,0,0" />
+            <telerik:RadButton Width="100"
+                               Height="35"
+                               Content="搜索"
+                               FontSize="20"
+                               FontFamily="Microsoft YaHei UI"
+                               Foreground="CornflowerBlue"
+                               HorizontalAlignment="Left"
+                               Margin="343,33,0,22">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction  TargetObject="{Binding}"
+                                              MethodName="RadButtonClick" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </telerik:RadButton>
+        </Grid>
+        <Grid Grid.Row="1">
+            <telerik:RadSplitContainer>
+                <telerik:RadPaneGroup>
+                    <telerik:RadPane Header="文档搜索结果"
+                                     FontSize="{StaticResource HeaderFontSize}"
+                                     IsPinned="True"
+                                     CanFloat="False"
+                                     CanUserClose="False"
+                                     CanUserPin="False"
+                                     ContextMenuTemplate="{x:Null}">
+                        <telerik:RadGridView Name="DocumentList"
+                                             AutoExpandGroups="True"
+                                             AutoGenerateColumns="False"
+                                             CanUserSortColumns="True"
+                                             CanUserFreezeColumns="False"
+                                             IsFilteringAllowed="True"
+                                             IsReadOnly="True"
+                                             ItemsSource="{Binding Documents}"
+                                             IsBusy="{Binding IsBusy}"
+                                             FontSize="{StaticResource TextFontSize}"
+                                             ValidatesOnDataErrors="InEditMode"
+                                             RowIndicatorVisibility="Visible">
+                            <uc:GridViewDoubleClick.Helper>
+                                <uc:DocumentDoubleClickHelper />
+                            </uc:GridViewDoubleClick.Helper>
+                            <telerik:RadGridView.Columns>
+                                <uc:DataPageSerialColumn  Header="序号" />
+                                <telerik:GridViewDataColumn Header="名称"
+                                                            IsSortable="True"
+                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                            HeaderTextAlignment="Center"
+                                                            DataMemberBinding="{Binding Name}" />
+                                <telerik:GridViewDataColumn Header="摘要"
+                                                            IsSortable="True"
+                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                            HeaderTextAlignment="Center"
+                                                            MaxWidth="250"
+                                                            TextWrapping="Wrap"
+                                                            DataMemberBinding="{Binding Abstract, Converter={StaticResource StringToXamlConverter}}">
+                                    <telerik:GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ContentControl Content="{Binding Abstract, Converter={StaticResource StringToXamlConverter}, Mode=OneTime}" />
+                                        </DataTemplate>
+                                    </telerik:GridViewColumn.CellTemplate>
+                                </telerik:GridViewDataColumn>
+                            </telerik:RadGridView.Columns>
+                        </telerik:RadGridView>
+                    </telerik:RadPane>
+                </telerik:RadPaneGroup>
+            </telerik:RadSplitContainer>
+        </Grid>
     </Grid>
 </UserControl>

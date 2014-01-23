@@ -14,7 +14,13 @@
 
 #region 命名空间
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Data.Services.Client;
+using System.Linq;
+using System.Windows;
+using Microsoft.Practices.ServiceLocation;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService;
 using UniCloud.Presentation.Service.CommonService.Common;
@@ -27,15 +33,12 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class SearchDocumentVm : ViewModelBase
     {
-
-        private ICommonService _service;
-        private CommonServiceData _context;
+        private readonly CommonServiceData _context;
 
         [ImportingConstructor]
         public SearchDocumentVm(ICommonService service)
             : base(service)
         {
-            _service = service;
             _context = service.Context;
         }
 
@@ -49,13 +52,57 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 RaisePropertyChanged("Keyword");
             }
         }
-        public void RadButtonClick(object sender, System.Windows.RoutedEventArgs e)
+
+        private List<DocumentDTO> _documents;
+        public List<DocumentDTO> Documents
         {
-            //_context.se
+            get { return _documents; }
+            set
+            {
+                _documents = value;
+                RaisePropertyChanged(()=>Documents);
+            }
         }
+        public void RadButtonClick(object sender, RoutedEventArgs e)
+        {
+            var keyword = SearchDocuments(Keyword);
+            IsBusy = true;
+            _context.BeginExecute<DocumentDTO>(keyword,
+               result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+               {
+                   var context = result.AsyncState as CommonServiceData;
+                   try
+                   {
+                       if (context != null)
+                       {
+                           Documents = context.EndExecute<DocumentDTO>(result).ToList();
+                       } 
+                   }
+                   catch (DataServiceQueryException ex)
+                   {
+                       QueryOperationResponse response = ex.Response;
+                       MessageAlert(response.Error.Message);
+                   }
+                   IsBusy = false;
+               }), _context);
+        }
+
+        /// <summary>
+        ///     搜索文档
+        /// </summary>
+        /// <param name="keyword"></param>
+        /// <returns></returns>
+        private Uri SearchDocuments(string keyword)
+        {
+            return new Uri(string.Format("SearchDocument?keyword='{0}'", keyword),
+                UriKind.Relative);
+        }
+
         public override void LoadData()
         {
-
+            var main = ServiceLocator.Current.GetInstance<SearchDocumentMainVm>();
+            Keyword = main.Keyword;
+            RadButtonClick(null, null);
         }
     }
 }

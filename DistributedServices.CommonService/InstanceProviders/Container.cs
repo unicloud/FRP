@@ -18,6 +18,7 @@
 #region 命名空间
 
 using UniCloud.Application.CommonServiceBC.DocumentServices;
+using UniCloud.Application.CommonServiceBC.DocumnetSearch;
 using UniCloud.Application.CommonServiceBC.Query.DocumentQueries;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg;
@@ -48,6 +49,7 @@ namespace UniCloud.DistributedServices.CommonService.InstanceProviders
                          .RegisterType<IDocumentPathRepository, DocumentPathRepository>()
                          .RegisterType<IDocumentRepository, DocumentRepository>()
                          .RegisterType<IDocumentTypeRepository, DocumentTypeRepository>()
+                         .RegisterType<IDocumentSearchAppService, DocumentSearchAppService>()
             #endregion
 
 ;
