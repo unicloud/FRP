@@ -22,6 +22,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
 
         private static string _indexStorePath = "E:\\Indexs\\";
         private static ParallelMultiSearcher _multiSearch;//索引搜索器
+        private static IndexSearcher searcher;
         private static readonly Analyzer analyzer = new PanGuAnalyzer();  //读取索引器
         private static IndexWriter _indexWriter;
         #endregion
@@ -36,6 +37,10 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
             get { return _multiSearch; }
         }
 
+        public static IndexSearcher IndexSearcher
+        {
+            get { return searcher; }
+        }
         public static IndexWriter IndexWriter
         {
             get { return _indexWriter ?? GenerateWriter(); }
@@ -49,10 +54,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
                 {
                     return _indexWriter.GetMergeFactor();
                 }
-                else
-                {
-                    return 0;
-                }
+                return 0;
             }
 
             set
@@ -72,10 +74,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
                 {
                     return _indexWriter.GetMaxMergeDocs();
                 }
-                else
-                {
-                    return 0;
-                }
+                return 0;
             }
 
             set
@@ -95,10 +94,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
                 {
                     return _indexWriter.GetMaxBufferedDocs();
                 }
-                else
-                {
-                    return 0;
-                }
+                return 0;
             }
 
             set
@@ -132,7 +128,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
         {
             var dirInfo = System.IO.Directory.CreateDirectory(_indexStorePath);
             var directory = FSDirectory.Open(dirInfo);
-            var searcher = new IndexSearcher(directory, true);
+             searcher = new IndexSearcher(directory, true);
             _indexStorePath = "E:\\Indexs\\";
             return searcher;
         }
@@ -195,6 +191,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
             _multiSearch = new ParallelMultiSearcher(searchs);
             return _multiSearch;
         }
+
         #endregion
     }
 }

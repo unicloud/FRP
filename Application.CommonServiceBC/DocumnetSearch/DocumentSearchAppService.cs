@@ -14,11 +14,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Lucene.Net.Analysis.PanGu;
 using PanGu;
 using PanGu.HighLight;
 using UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch;
 using UniCloud.Application.CommonServiceBC.DTO;
+using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
 
 namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
 {
@@ -50,17 +53,38 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
             //document = DocumentFactory.CreateStandardDocument(Guid.NewGuid(), "111.txt", ".txt", "", "", "",
             //    true, null, File.ReadAllText(@"C:\Users\Linxw\Desktop\111.txt"), 1);
             //service.AddDocumentSearchIndex(document);
-            var simpleHTMLFormatter = new SimpleHTMLFormatter(Start, End);
-            var highlighter = new Highlighter(simpleHTMLFormatter, new Segment()) { FragmentSize = 20 };
-            var aa = LuceneSearch.LuceneSearch.PanguQuery(keyword, "1", ".txt");
-            return aa.scoreDocs.Select(a => IndexManager.MultiSearch.Doc(a.doc)).Select(result => new DocumentDTO
-                                                                                                  {
-                                                                                                      DocumentId = Guid.Parse(result.Get("ID")),
-                                                                                                      Extension = result.Get("extendType"),
-                                                                                                      Abstract = highlighter.GetBestFragment(keyword, result.Get("fileContent")),
-                                                                                                      FileContent = result.Get("fileContent"),
-                                                                                                      Name = result.Get("fileName"),
-                                                                                                  }).ToList();
+           // var simpleHTMLFormatter = new SimpleHTMLFormatter(Start, End);
+           // var highlighter = new Highlighter(simpleHTMLFormatter, new Segment()) { FragmentSize = 20 };
+           // var aa = LuceneSearch.LuceneSearch.Query(keyword);
+            IndexManager.GenerateSearcher();
+            var docCount = IndexManager.IndexSearcher.MaxDoc();
+            ////return aa.scoreDocs.Select(a => IndexManager.IndexSearcher.Doc(a.doc)).Select(result => new DocumentDTO
+            ////                                                                                      {
+            ////                                                                                          DocumentId = Guid.Parse(result.Get("ID")),
+            ////                                                                                          Extension = result.Get("extendType"),
+            ////                                                                                          Abstract = highlighter.GetBestFragment(keyword, result.Get("fileContent")),
+            ////                                                                                          FileContent = result.Get("fileContent"),
+            ////                                                                                          Name = result.Get("fileName"),
+            ////                                                                                      }).ToList();
+            var documents = new List<DocumentDTO>();
+            for (int i = 0; i < docCount; i++)
+            {
+                var result = IndexManager.IndexSearcher.Doc(i);
+                if (!string.IsNullOrEmpty(ResultHighlighter.HighlightContent(LuceneSearch.LuceneSearch.GetKeyWordsSplitBySpace(keyword, new PanGuTokenizer()), result.Get("fileContent"))))
+                {
+                    var temp = new DocumentDTO
+                               {
+                                   DocumentId = Guid.Parse(result.Get("ID")),
+                                   Extension = result.Get("extendType"),
+                                   Abstract = ResultHighlighter.HighlightContent(LuceneSearch.LuceneSearch.GetKeyWordsSplitBySpace(keyword, new PanGuTokenizer()), result.Get("fileContent")),
+                                   FileContent = result.Get("fileContent"),
+                                   Name = result.Get("fileName"),
+                               };
+                    documents.Add(temp);
+                }
+            }
+            return documents;
+            //return null;
         }
     }
 }
