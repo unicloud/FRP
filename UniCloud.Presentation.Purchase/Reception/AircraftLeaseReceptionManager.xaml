@@ -17,6 +17,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/ReceptionSchedule.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="EditComboBox"
                    TargetType="telerik:RadComboBox">
@@ -29,60 +30,10 @@
                 <Setter Property="OpenDropDownOnFocus"
                         Value="True" />
             </Style>
-            <DataTemplate x:Key="AppointmentToolTipTemplate">
-                <Grid MaxWidth="300">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="43" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="{Binding Subject}"
-                               Grid.ColumnSpan="2"
-                               TextWrapping="Wrap"
-                               Margin="5 8 4 3"
-                               FontWeight="Bold" />
-                    <Image Grid.Row="1"
-                           VerticalAlignment="Top"
-                           HorizontalAlignment="Left"
-                           Margin="5 5 0 0"
-                           Source="/UniCloud.Presentation;component/Images/Save.png"
-                           Width="28"
-                           Height="29" />
-                    <StackPanel Orientation="Vertical"
-                                Grid.Column="1"
-                                Grid.Row="1"
-                                Margin="0 5 0 0">
-                        <StackPanel Orientation="Horizontal"
-                                    Margin="0 0 0 0">
-                            <TextBlock Text="{Binding Start, StringFormat='hh:mm tt', Mode=TwoWay}"
-                                       TextWrapping="Wrap"
-                                       FontSize="10" />
-                            <TextBlock Text=" - "
-                                       FontSize="10" />
-                            <TextBlock Text="{Binding End, StringFormat='hh:mm tt', Mode=TwoWay}"
-                                       TextWrapping="Wrap"
-                                       FontSize="10" />
-                        </StackPanel>
-                        <TextBlock Text="{Binding Start, StringFormat='dddd dd MMM yyyy', Mode=TwoWay}"
-                                   Margin="0 3"
-                                   FontSize="10" />
-                    </StackPanel>
-                    <TextBlock Grid.Row="2"
-                               Grid.ColumnSpan="2"
-                               Text="{Binding Body}"
-                               Margin="5 3 5 8"
-                               TextWrapping="Wrap" />
-                </Grid>
-            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
-
         <telerik:RadDocking  BorderThickness="0"
                              Padding="0"
                              HasDocumentHost="False"
@@ -420,6 +371,7 @@
                                                           SnapAppointments="True"
                                                           AppointmentsSource="{Binding Appointments,Mode=TwoWay}"
                                                           CategoriesSource="{Binding Categories}"
+                                                          EditAppointmentDialogStyle="{StaticResource EditAppointmentDialogStyle}"
                                                           ToolTipTemplate="{StaticResource AppointmentToolTipTemplate}"
                                                           telerik:StyleManager.Theme="Windows8">
                                     <i:Interaction.Triggers>

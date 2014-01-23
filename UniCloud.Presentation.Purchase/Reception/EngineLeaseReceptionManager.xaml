@@ -28,6 +28,7 @@
             </Style>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/ReceptionSchedule.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -363,6 +364,8 @@
                                                           SnapAppointments="True"
                                                           AppointmentsSource="{Binding Appointments,Mode=TwoWay}"
                                                           CategoriesSource="{Binding Categories}"
+                                                          EditAppointmentDialogStyle="{StaticResource EditAppointmentDialogStyle}"
+                                                          ToolTipTemplate="{StaticResource AppointmentToolTipTemplate}"
                                                           telerik:StyleManager.Theme="Windows8">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="AppointmentCreated">
