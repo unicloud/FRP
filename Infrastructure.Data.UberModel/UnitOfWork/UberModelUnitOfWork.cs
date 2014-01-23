@@ -43,6 +43,7 @@ using UniCloud.Domain.UberModel.Aggregates.DocumentTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.EngineAgg;
 using UniCloud.Domain.UberModel.Aggregates.EnginePlanAgg;
 using UniCloud.Domain.UberModel.Aggregates.EngineTypeAgg;
+using UniCloud.Domain.UberModel.Aggregates.FlightLogAgg;
 using UniCloud.Domain.UberModel.Aggregates.ForwarderAgg;
 using UniCloud.Domain.UberModel.Aggregates.GuaranteeAgg;
 using UniCloud.Domain.UberModel.Aggregates.InvoiceAgg;
@@ -106,6 +107,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<EnginePlan> _enginePlans;
         private IDbSet<EngineType> _engineTypes;
         private IDbSet<Engine> _engines;
+        private IDbSet<FlightLog> _flightLogs; 
         private IDbSet<Forwarder> _forwarders;
         private IDbSet<Guarantee> _guarantees;
         private IDbSet<Invoice> _invoices;
@@ -257,6 +259,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<EngineType> EngineTypes
         {
             get { return _engineTypes ?? (_engineTypes = Set<EngineType>()); }
+        }
+
+        public IDbSet<FlightLog> FlightLogs
+        {
+            get { return _flightLogs ?? (_flightLogs = Set<FlightLog>()); }
         }
 
         public IDbSet<Forwarder> Forwarders
@@ -612,6 +619,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             #region EngineTypeAgg
 
 .Add(new EngineTypeEntityConfiguration())
+
+            #endregion
+
+            #region FlightLogAgg
+
+            .Add(new FlightLogEntityConfiguration())
 
             #endregion
 
