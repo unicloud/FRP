@@ -904,7 +904,7 @@ namespace UniCloud.Presentation.Shell
             var menu102 = new MenuItem
                           {
                               Text = "搜索文档",
-                              NavUri = "UniCloud.Presentation.CommonService.SearchDocument.SearchDocument"
+                              NavUri = "UniCloud.Presentation.CommonService.SearchDocument.SearchDocumentMain"
                           };
             menu10.Items.Add(menu101);
             menu10.Items.Add(menu102);

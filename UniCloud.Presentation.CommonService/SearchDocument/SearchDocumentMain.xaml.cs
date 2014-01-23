@@ -8,17 +8,16 @@ using System.Windows.Controls;
 namespace UniCloud.Presentation.CommonService.SearchDocument
 {
     [Export]
-    public partial class SearchDocument : UserControl
+    public partial class SearchDocumentMain : UserControl
     {
-        public SearchDocument()
+        public SearchDocumentMain()
         {
             InitializeComponent();
         }
-
-        [Import(typeof(SearchDocumentVm))]
-        public SearchDocumentVm ViewModel
+        [Import(typeof(SearchDocumentMainVm))]
+        public SearchDocumentMainVm ViewModel
         {
-            get { return DataContext as SearchDocumentVm; }
+            get { return DataContext as SearchDocumentMainVm; }
             set { DataContext = value; }
         }
     }

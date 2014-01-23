@@ -20,6 +20,7 @@ using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
 using System.Windows;
+using Microsoft.Practices.ServiceLocation;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService;
 using UniCloud.Presentation.Service.CommonService.Common;
@@ -96,9 +97,12 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             return new Uri(string.Format("SearchDocument?keyword='{0}'", keyword),
                 UriKind.Relative);
         }
+
         public override void LoadData()
         {
-
+            var main = ServiceLocator.Current.GetInstance<SearchDocumentMainVm>();
+            Keyword = main.Keyword;
+            RadButtonClick(null, null);
         }
     }
 }

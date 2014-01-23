@@ -80,6 +80,9 @@
                                              FontSize="{StaticResource TextFontSize}"
                                              ValidatesOnDataErrors="InEditMode"
                                              RowIndicatorVisibility="Visible">
+                            <uc:GridViewDoubleClick.Helper>
+                                <uc:DocumentDoubleClickHelper />
+                            </uc:GridViewDoubleClick.Helper>
                             <telerik:RadGridView.Columns>
                                 <uc:DataPageSerialColumn  Header="序号" />
                                 <telerik:GridViewDataColumn Header="名称"
@@ -87,13 +90,6 @@
                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                             HeaderTextAlignment="Center"
                                                             DataMemberBinding="{Binding Name}" />
-                                <telerik:GridViewDataColumn Header="描述"
-                                                            IsSortable="True"
-                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                            HeaderTextAlignment="Center"
-                                                            MaxWidth="250"
-                                                            TextWrapping="Wrap"
-                                                            DataMemberBinding="{Binding FileContent}" />
                                 <telerik:GridViewDataColumn Header="摘要"
                                                             IsSortable="True"
                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
