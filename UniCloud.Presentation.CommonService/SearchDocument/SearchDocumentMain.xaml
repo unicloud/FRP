@@ -20,29 +20,41 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid x:Name="SearchView">
-        <TextBlock Text="文 档 搜 索"
-                   FontFamily="Microsoft YaHei UI"
-                   FontSize="25"
-                   HorizontalAlignment="Center"
-                   Foreground="CornflowerBlue"
-                   Margin="340,216,338,0" />
-        <telerik:RadWatermarkTextBox HorizontalAlignment="Center"
-                                     VerticalAlignment="Center"
-                                     Grid.Column="0"
-                                     Grid.Row="0"
-                                     FontSize="20"
-                                     WatermarkContent="输入文档关键字"
-                                     FontFamily="Microsoft YaHei UI"
-                                     Width="303"
-                                     Text="{Binding Keyword,Mode=TwoWay}" />
-        <telerik:RadButton Width="100"
-                           Height="35"
-                           Content="搜索"
-                           FontSize="25"
-                           FontFamily="Microsoft YaHei UI"
-                           Foreground="CornflowerBlue"
-                           HorizontalAlignment="Right"
-                           Margin="0,282,118,283">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="700" />
+            <ColumnDefinition Width="200" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="284" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       Text="文 档 搜 索"
+                       FontFamily="Microsoft YaHei UI"
+                       FontSize="25"
+                       Height="40"
+                       HorizontalAlignment="Center"
+                       Foreground="CornflowerBlue"
+                       Margin="495,221,82,23" />
+            <telerik:RadWatermarkTextBox Grid.Row="1"
+                                         HorizontalAlignment="Right"
+                                         VerticalAlignment="Center"
+                                         FontSize="20"
+                                         WatermarkContent="输入文档关键字"
+                                         FontFamily="Microsoft YaHei UI"
+                                         Width="303"
+                                         Text="{Binding Keyword,Mode=TwoWay}" />
+        </Grid>
+        <telerik:RadButton  Grid.Column="1"
+                            Width="100"
+                            Height="35"
+                            Content="搜索"
+                            FontSize="25"
+                            FontFamily="Microsoft YaHei UI"
+                            Foreground="CornflowerBlue"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Click">
                     <ei:CallMethodAction  TargetObject="{Binding}"
