@@ -101,6 +101,7 @@
     <Compile Include="Aggregates\EnginePlanAgg\EnginePlan.cs" />
     <Compile Include="Aggregates\EnginePlanAgg\EnginePlanHistory.cs" />
     <Compile Include="Aggregates\EngineTypeAgg\EngineType.cs" />
+    <Compile Include="Aggregates\FlightLogAgg\FlightLog.cs" />
     <Compile Include="Aggregates\ForwarderAgg\Forwarder.cs" />
     <Compile Include="Aggregates\GuaranteeAgg\Guarantee.cs" />
     <Compile Include="Aggregates\GuaranteeAgg\GuaranteeFactory.cs" />
