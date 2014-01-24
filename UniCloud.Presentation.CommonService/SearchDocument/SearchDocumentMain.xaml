@@ -22,6 +22,7 @@
     <Grid x:Name="SearchView">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="700" />
+            <ColumnDefinition Width="20" />
             <ColumnDefinition Width="200" />
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
@@ -46,21 +47,27 @@
                                          Width="303"
                                          Text="{Binding Keyword,Mode=TwoWay}" />
         </Grid>
-        <telerik:RadButton  Grid.Column="1"
-                            Width="100"
-                            Height="35"
-                            Content="搜索"
-                            FontSize="25"
-                            FontFamily="Microsoft YaHei UI"
-                            Foreground="CornflowerBlue"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center">
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Click">
-                    <ei:CallMethodAction  TargetObject="{Binding}"
-                                          MethodName="RadButtonClick" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-        </telerik:RadButton>
+        <Grid  Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="284" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <telerik:RadButton Grid.Row="1"
+                               Width="100"
+                               Height="35"
+                               Content="搜索"
+                               FontSize="25"
+                               FontFamily="Microsoft YaHei UI"
+                               Foreground="CornflowerBlue"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <ei:CallMethodAction  TargetObject="{Binding}"
+                                              MethodName="RadButtonClick" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </telerik:RadButton>
+        </Grid>
     </Grid>
 </UserControl>
