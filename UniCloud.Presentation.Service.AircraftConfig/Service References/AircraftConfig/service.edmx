@@ -17,6 +17,7 @@
         <Property Name="Id" Type="Edm.Guid" Nullable="false" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
+        <Property Name="ManufacturerName" Type="Edm.String" />
         <Property Name="ManufacturerId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
       <EntityType Name="AircraftCategoryDTO">
@@ -35,8 +36,11 @@
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
         <Property Name="AircraftCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftCategoryName" Type="Edm.String" />
         <Property Name="AircraftSeriesId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftSeriesName" Type="Edm.String" />
         <Property Name="ManufacturerId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ManufacturerName" Type="Edm.String" />
       </EntityType>
       <EntityType Name="ManufacturerDTO">
         <Key>
