@@ -64,7 +64,7 @@
                                          IsEnabled="False"
                                          Height="{StaticResource ControlHeight}"
                                          ItemsSource="{Binding DataContext.Manufacturers, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                         SelectedValue="{Binding ManufacturerId, Mode=TwoWay}"
+                                         SelectedValue="{Binding ManufacturerId}"
                                          SelectedValuePath="Id"
                                          DisplayMemberPath="CnName" />
                     <TextBlock Grid.Row="2"
@@ -125,7 +125,7 @@
                                          VerticalAlignment="Center"
                                          Height="{StaticResource ControlHeight}"
                                          ItemsSource="{Binding DataContext.Manufacturers, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                         SelectedValue="{Binding ManufacturerId, Mode=TwoWay}"
+                                         SelectedValue="{Binding ManufacturerId,Mode=TwoWay}"
                                          SelectedValuePath="Id"
                                          DisplayMemberPath="CnName" />
                     <TextBlock Grid.Row="2"
