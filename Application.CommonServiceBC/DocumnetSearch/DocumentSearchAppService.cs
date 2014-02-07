@@ -55,28 +55,28 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
             //service.AddDocumentSearchIndex(document);
            // var simpleHTMLFormatter = new SimpleHTMLFormatter(Start, End);
            // var highlighter = new Highlighter(simpleHTMLFormatter, new Segment()) { FragmentSize = 20 };
-           // var aa = LuceneSearch.LuceneSearch.Query(keyword);
+            //var aa = LuceneSearch.LuceneSearch.Query(keyword);
             IndexManager.GenerateSearcher();
             var docCount = IndexManager.IndexSearcher.MaxDoc();
-            ////return aa.scoreDocs.Select(a => IndexManager.IndexSearcher.Doc(a.doc)).Select(result => new DocumentDTO
-            ////                                                                                      {
-            ////                                                                                          DocumentId = Guid.Parse(result.Get("ID")),
-            ////                                                                                          Extension = result.Get("extendType"),
-            ////                                                                                          Abstract = highlighter.GetBestFragment(keyword, result.Get("fileContent")),
-            ////                                                                                          FileContent = result.Get("fileContent"),
-            ////                                                                                          Name = result.Get("fileName"),
-            ////                                                                                      }).ToList();
+            //var asdasd= aa.scoreDocs.Select(a => IndexManager.IndexSearcher.Doc(a.doc)).Select(result => new DocumentDTO
+            //                                                                                      {
+            //                                                                                          DocumentId = Guid.Parse(result.Get("ID")),
+            //                                                                                          Extension = result.Get("extendType"),
+            //                                                                                          //Abstract = highlighter.GetBestFragment(keyword, result.Get("fileContent")),
+            //                                                                                          FileContent = result.Get("fileContent"),
+            //                                                                                          Name = result.Get("fileName"),
+            //                                                                                      }).ToList();
             var documents = new List<DocumentDTO>();
             for (int i = 0; i < docCount; i++)
             {
                 var result = IndexManager.IndexSearcher.Doc(i);
-                if (!string.IsNullOrEmpty(ResultHighlighter.HighlightContent(LuceneSearch.LuceneSearch.GetKeyWordsSplitBySpace(keyword, new PanGuTokenizer()), result.Get("fileContent"))))
+                if (!string.IsNullOrEmpty(ResultHighlighter.HighlightContent(keyword, result.Get("fileContent"))))
                 {
                     var temp = new DocumentDTO
                                {
                                    DocumentId = Guid.Parse(result.Get("ID")),
                                    Extension = result.Get("extendType"),
-                                   Abstract = ResultHighlighter.HighlightContent(LuceneSearch.LuceneSearch.GetKeyWordsSplitBySpace(keyword, new PanGuTokenizer()), result.Get("fileContent")),
+                                   Abstract = ResultHighlighter.HighlightContent(keyword, result.Get("fileContent")),
                                    FileContent = result.Get("fileContent"),
                                    Name = result.Get("fileName"),
                                };
