@@ -286,6 +286,7 @@
     <Compile Include="Input\DoubleClick.cs" />
     <Compile Include="Input\GridViewDoubleClick.cs" />
     <Compile Include="Input\GridViewDoubleClickHelper.cs" />
+    <Compile Include="Input\GridViewSelectedItemsBehavior.cs" />
     <Compile Include="Input\ListBoxDoubleClickHelper.cs" />
     <Compile Include="Input\RadListBoxDoubleClick.cs" />
     <Compile Include="Localization\LocalizationResource.Designer.cs">

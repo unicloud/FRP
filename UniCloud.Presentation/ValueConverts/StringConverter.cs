@@ -47,6 +47,9 @@ namespace UniCloud.Presentation.ValueConverts
                 case "LicenseStatus":
                     result = EnumUtility.GetName(typeof(LicenseStatus), (LicenseStatus)value);
                     break;
+                case "InvoiceType":
+                    result = EnumUtility.GetName(typeof(InvoiceType), (InvoiceType)value);
+                    break;
                 default:
                     break;
             }
