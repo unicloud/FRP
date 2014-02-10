@@ -40,6 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\MScnAgg\IMScnRepository.cs" />
+    <Compile Include="Aggregates\MScnAgg\MScn.cs" />
+    <Compile Include="Aggregates\MScnAgg\MScnFactory.cs" />
+    <Compile Include="Aggregates\MScnAgg\MScnLine.cs" />
+    <Compile Include="Aggregates\MScnAgg\MScnSpecifications.cs" />
+    <Compile Include="Aggregates\ScnAgg\IScnRepository.cs" />
+    <Compile Include="Aggregates\ScnAgg\Scn.cs" />
+    <Compile Include="Aggregates\ScnAgg\ScnFactory.cs" />
+    <Compile Include="Aggregates\ScnAgg\ScnLine.cs" />
+    <Compile Include="Aggregates\ScnAgg\ScnSpecifications.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -47,6 +57,9 @@
       <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

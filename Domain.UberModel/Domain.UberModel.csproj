@@ -139,6 +139,8 @@
     <Compile Include="Aggregates\MaterialAgg\BFEMaterial.cs" />
     <Compile Include="Aggregates\MaterialAgg\EngineMaterial.cs" />
     <Compile Include="Aggregates\MaterialAgg\Material.cs" />
+    <Compile Include="Aggregates\MScnAgg\MScn.cs" />
+    <Compile Include="Aggregates\MScnAgg\MScnLine.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftLeaseOrder.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftLeaseOrderLine.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftPurchaseOrder.cs" />
@@ -188,6 +190,8 @@
     <Compile Include="Aggregates\RelatedDocAgg\RelatedDocSpecifications.cs" />
     <Compile Include="Aggregates\RequestAgg\ApprovalHistory.cs" />
     <Compile Include="Aggregates\RequestAgg\Request.cs" />
+    <Compile Include="Aggregates\ScnAgg\Scn.cs" />
+    <Compile Include="Aggregates\ScnAgg\ScnLine.cs" />
     <Compile Include="Aggregates\SupplierAgg\Supplier.cs" />
     <Compile Include="Aggregates\SupplierAgg\SupplierFactory.cs" />
     <Compile Include="Aggregates\SupplierCompanyAgg\SupplierCompany.cs" />
