@@ -32,7 +32,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
         static ResultHighlighter()
         {
             var simpleHTMLFormatter = new SimpleHTMLFormatter(Start, End);
-            Highlighter = new Highlighter(simpleHTMLFormatter, new Segment()) { FragmentSize = 20 };
+            Highlighter = new Highlighter(simpleHTMLFormatter, new Segment()) { FragmentSize = 100 };
         }
 
         public static string HighlightContent(string keyword, string content)
