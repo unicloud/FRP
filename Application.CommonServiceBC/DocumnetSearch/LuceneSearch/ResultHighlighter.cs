@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using Lucene.Net.Analysis.PanGu;
 using PanGu;
 using PanGu.HighLight;
 
@@ -31,11 +32,12 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
         static ResultHighlighter()
         {
             var simpleHTMLFormatter = new SimpleHTMLFormatter(Start, End);
-            Highlighter = new Highlighter(simpleHTMLFormatter, new Segment()) { FragmentSize = 20 };
+            Highlighter = new Highlighter(simpleHTMLFormatter, new Segment()) { FragmentSize = 100 };
         }
 
         public static string HighlightContent(string keyword, string content)
         {
+            keyword = LuceneSearch.GetKeyWordsSplitBySpace(keyword, new PanGuTokenizer());
             return Highlighter.GetBestFragment(keyword, content);
         }
     }

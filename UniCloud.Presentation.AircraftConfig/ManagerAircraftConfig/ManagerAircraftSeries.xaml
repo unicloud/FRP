@@ -54,19 +54,12 @@
                                Text="制造商"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
-                    <telerik:RadComboBox Name="ManufactureComboBox"
-                                         Grid.Row="1"
-                                         Grid.Column="2"
-                                         Margin="0,3"
-                                         HorizontalAlignment="Stretch"
-                                         VerticalAlignment="Center"
-                                         IsReadOnly="True"
-                                         IsEnabled="False"
-                                         Height="{StaticResource ControlHeight}"
-                                         ItemsSource="{Binding DataContext.Manufacturers, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                         SelectedValue="{Binding ManufacturerId, Mode=TwoWay}"
-                                         SelectedValuePath="Id"
-                                         DisplayMemberPath="CnName" />
+                    <TextBox Grid.Row="1"
+                             Grid.Column="2"
+                             Margin="0,3"
+                             IsReadOnly="True"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding ManufacturerName,Mode=TwoWay}" />
                     <TextBlock Grid.Row="2"
                                Grid.Column="1"
                                Text="描述"
@@ -110,7 +103,7 @@
                     <TextBox Grid.Row="0"
                              Grid.Column="2"
                              Margin="0,3"
-                             Text="{Binding Name, Mode=TwoWay}">
+                             Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}">
                     </TextBox>
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
@@ -125,7 +118,7 @@
                                          VerticalAlignment="Center"
                                          Height="{StaticResource ControlHeight}"
                                          ItemsSource="{Binding DataContext.Manufacturers, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                         SelectedValue="{Binding ManufacturerId, Mode=TwoWay}"
+                                         SelectedValue="{Binding ManufacturerId,Mode=TwoWay}"
                                          SelectedValuePath="Id"
                                          DisplayMemberPath="CnName" />
                     <TextBlock Grid.Row="2"
@@ -226,7 +219,7 @@
                                                      CommitButtonContent="确定"
                                                      ItemsSource="{Binding AircraftSerieses}"
                                                      AutoGenerateFields="False"
-                                                     AutoCommit="True"
+                                                     AutoCommit="True"  
                                                      ReadOnlyTemplate="{StaticResource ReadTemplate}"
                                                      EditTemplate="{StaticResource EditNewTemplate}"
                                                      NewItemTemplate="{StaticResource EditNewTemplate}">

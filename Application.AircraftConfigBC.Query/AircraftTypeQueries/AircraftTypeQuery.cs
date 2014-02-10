@@ -48,8 +48,11 @@ namespace UniCloud.Application.AircraftConfigBC.Query.AircraftTypeQueries
                 Name = p.Name,
                 Description = p.Description,
                 AircraftCategoryId = p.AircraftCategoryId,
+                AircraftCategoryName = p.AircraftCategory.Regional,
                 AircraftSeriesId = p.AircraftSeriesId,
+                AircraftSeriesName = p.AircraftSeries.Name,
                 ManufacturerId = p.ManufacturerId,
+                ManufacturerName = p.Manufacturer.CnName
             });
         }
     }

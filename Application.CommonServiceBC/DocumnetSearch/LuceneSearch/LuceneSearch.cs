@@ -125,13 +125,13 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
                 #region 查询fileName
 
                 var term = new Term(field[0], keyword );
-                var fuzzQuery = new FuzzyQuery(term, 0.8f);
+                var fuzzQuery = new FuzzyQuery(term);
                 keywordQuery.Add(fuzzQuery, BooleanClause.Occur.SHOULD);
                 #endregion
                 #region 查询fileContent
 
                 term = new Term(field[1], keyword );
-                fuzzQuery = new FuzzyQuery(term, 0.8f);
+                fuzzQuery = new FuzzyQuery(term);
                 keywordQuery.Add(fuzzQuery, BooleanClause.Occur.SHOULD);
                 #endregion
                 boolQuery.Add(keywordQuery, BooleanClause.Occur.MUST);

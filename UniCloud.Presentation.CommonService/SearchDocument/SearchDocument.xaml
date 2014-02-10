@@ -94,7 +94,7 @@
                                                             IsSortable="True"
                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                             HeaderTextAlignment="Center"
-                                                            MaxWidth="250"
+                                                            MaxWidth="400"
                                                             TextWrapping="Wrap"
                                                             DataMemberBinding="{Binding Abstract, Converter={StaticResource StringToXamlConverter}}">
                                     <telerik:GridViewColumn.CellTemplate>

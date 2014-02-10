@@ -99,6 +99,14 @@ namespace UniCloud.DistributedServices.Payment
         /// <summary>
         ///     发动机维修发票集合
         /// </summary>
+        public IQueryable<BaseMaintainInvoiceDTO> MaintainInvoices
+        {
+            get { return _maintainInvoiceAppService.GetMaintainInvoices(); }
+        }
+
+        /// <summary>
+        ///     发动机维修发票集合
+        /// </summary>
         public IQueryable<EngineMaintainInvoiceDTO> EngineMaintainInvoices
         {
             get { return _maintainInvoiceAppService.GetEngineMaintainInvoices(); }

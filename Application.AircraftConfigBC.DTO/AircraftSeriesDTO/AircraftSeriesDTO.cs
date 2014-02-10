@@ -43,6 +43,11 @@ namespace UniCloud.Application.AircraftConfigBC.DTO
         /// 描述
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// 制造商
+        /// </summary>
+        public string ManufacturerName { get; set; }
         #endregion
 
         #region 外键属性

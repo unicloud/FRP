@@ -243,18 +243,19 @@
                                 </telerik:RadContextMenu.ContextMenu>
                                 <telerik:RadGridView.Columns>
                                     <uc:DataPageSerialColumn Header="序号" />
-                                    <telerik:GridViewComboBoxColumn Header="发票类型"
-                                                                    IsSortable="True"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    TextAlignment="Right"
-                                                                    HeaderTextAlignment="Center"
-                                                                    ItemsSource="{Binding InvoiceTypes}"
-                                                                    DataMemberBinding="{Binding InvoiceTypeString}" />
+                                    <telerik:GridViewDataColumn Header="发票类型"
+                                                                IsSortable="True"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                TextAlignment="Right"
+                                                                HeaderTextAlignment="Center"
+                                                                IsReadOnly="True"
+                                                                DataMemberBinding="{Binding InvoiceType, ConverterParameter=InvoiceType, Converter={StaticResource EnumToStringConverter}}" />
                                     <telerik:GridViewDataColumn Header="发票编号"
                                                                 IsSortable="True"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 TextAlignment="Right"
                                                                 HeaderTextAlignment="Center"
+                                                                IsReadOnly="True"
                                                                 DataMemberBinding="{Binding InvoiceNumber}" />
                                     <telerik:GridViewMaskedInputColumn Header="付款金额"
                                                                        IsSortable="True"
