@@ -42,6 +42,9 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             SelectInvoicesWindow = selectInvoicesWindow;
             CommitCommand = new DelegateCommand<object>(OnCommitExecute, CanCommitExecute);
             CancelCommand = new DelegateCommand<object>(OnCancelExecute, CanCancelExecute);
+            Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(service.Context, service.Context.Suppliers);
+            Suppliers.Load(true);
+            Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(service.Context, service.Context.Currencies);
             #region 采购发票
             PurchaseInvoices = new QueryableDataServiceCollectionView<PurchaseInvoiceDTO>(service.Context, service.Context.PurchaseInvoices);
             PurchaseInvoices.LoadedData += (e, o) =>
@@ -132,6 +135,8 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         public void InitData(PaymentNoticeDTO paymentNotice)
         {
             PaymentNotice = paymentNotice;
+            Currencies.Load(true);
+
             PurchaseInvoices.Load(true);
             PrepaymentInvoices.Load(true);
             LeaseInvoices.Load(true);
@@ -141,6 +146,8 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         #endregion
 
         #region 公共属性
+        public QueryableDataServiceCollectionView<SupplierDTO> Suppliers { get; set; }
+        public QueryableDataServiceCollectionView<CurrencyDTO> Currencies { get; set; }
         #region 采购发票
         public QueryableDataServiceCollectionView<PurchaseInvoiceDTO> PurchaseInvoices { get; set; }
         public ObservableCollection<PurchaseInvoiceDTO> PurchaseInvoiceList { get; set; }

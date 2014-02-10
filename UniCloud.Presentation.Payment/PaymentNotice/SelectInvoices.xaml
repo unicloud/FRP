@@ -82,7 +82,7 @@
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsFilterable="True"
-                                                                    ItemsSource="{Binding DataContext.Suppliers, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                    ItemsSource="{Binding DataContext.Suppliers, Mode=TwoWay, ElementName=InvoicesWindow}"
                                                                     DisplayMemberPath="Name"
                                                                     DataMemberBinding="{Binding SupplierId,Mode=TwoWay}"
                                                                     SelectedValueMemberPath="SupplierId" />
@@ -90,7 +90,7 @@
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsFilterable="True"
-                                                                    ItemsSource="{Binding DataContext.Currencies, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                    ItemsSource="{Binding DataContext.Currencies, Mode=TwoWay, ElementName=InvoicesWindow}"
                                                                     DisplayMemberPath="Name"
                                                                     DataMemberBinding="{Binding CurrencyId,Mode=TwoWay}"
                                                                     SelectedValueMemberPath="Id" />
@@ -162,7 +162,7 @@
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsFilterable="True"
-                                                                    ItemsSource="{Binding DataContext.Suppliers, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                    ItemsSource="{Binding DataContext.Suppliers,  Mode=TwoWay, ElementName=InvoicesWindow}"
                                                                     DisplayMemberPath="Name"
                                                                     DataMemberBinding="{Binding SupplierId,Mode=TwoWay}"
                                                                     SelectedValueMemberPath="SupplierId" />
@@ -170,7 +170,7 @@
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsFilterable="True"
-                                                                    ItemsSource="{Binding DataContext.Currencies, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                    ItemsSource="{Binding DataContext.Currencies, Mode=TwoWay, ElementName=InvoicesWindow}"
                                                                     DisplayMemberPath="Name"
                                                                     DataMemberBinding="{Binding CurrencyId,Mode=TwoWay}"
                                                                     SelectedValueMemberPath="Id" />
@@ -190,11 +190,6 @@
                                                                 DataMemberBinding="{Binding Status}" />
                                 </telerik:RadGridView.Columns>
                             </telerik:RadGridView>
-                            <telerik:RadDataPager BorderThickness="1,0,1,1"
-                                                  AutoEllipsisMode="Both"
-                                                  DisplayMode="All"
-                                                  Source="{Binding EngineMaterialsView}"
-                                                  Grid.Row="1" />
                         </Grid>
                     </telerik:RadPane>
                     <telerik:RadPane Header="租赁发票"
@@ -247,7 +242,7 @@
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsFilterable="True"
-                                                                    ItemsSource="{Binding DataContext.Suppliers, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                    ItemsSource="{Binding DataContext.Suppliers, Mode=TwoWay, ElementName=InvoicesWindow}"
                                                                     DisplayMemberPath="Name"
                                                                     DataMemberBinding="{Binding SupplierId,Mode=TwoWay}"
                                                                     SelectedValueMemberPath="SupplierId" />
@@ -255,7 +250,7 @@
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsFilterable="True"
-                                                                    ItemsSource="{Binding DataContext.Currencies, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                    ItemsSource="{Binding DataContext.Currencies, Mode=TwoWay, ElementName=InvoicesWindow}"
                                                                     DisplayMemberPath="Name"
                                                                     DataMemberBinding="{Binding CurrencyId,Mode=TwoWay}"
                                                                     SelectedValueMemberPath="Id" />
@@ -275,11 +270,6 @@
                                                                 DataMemberBinding="{Binding Status}" />
                                 </telerik:RadGridView.Columns>
                             </telerik:RadGridView>
-                            <telerik:RadDataPager BorderThickness="1,0,1,1"
-                                                  AutoEllipsisMode="Both"
-                                                  DisplayMode="All"
-                                                  Source="{Binding BFEMaterialsView}"
-                                                  Grid.Row="1" />
                         </Grid>
                     </telerik:RadPane>
                     <telerik:RadPane Header="维修发票"
@@ -304,7 +294,7 @@
                                                  ShowGroupPanel="True"
                                                  CanUserSortColumns="True"
                                                  RowIndicatorVisibility="Visible"
-                                                 CanUserFreezeColumns="False"
+                                                 CanUserFreezeColumns="False"  
                                                  SelectionMode="Extended">
                                 <i:Interaction.Behaviors>
                                     <uc:GridViewSelectedItemsBehavior SelectedItems="{Binding SelectMaintainInvoices,Mode=TwoWay}" />
@@ -342,7 +332,7 @@
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
-                                                                    ItemsSource="{Binding DataContext.Suppliers, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl},Mode=TwoWay}"
+                                                                    ItemsSource="{Binding DataContext.Suppliers, Mode=TwoWay, ElementName=InvoicesWindow}"
                                                                     DataMemberBinding="{Binding SupplierId}"
                                                                     SelectedValueMemberPath="SupplierId"
                                                                     DisplayMemberPath="Name">
@@ -352,7 +342,7 @@
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
-                                                                    ItemsSource="{Binding DataContext.Currencies, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl},Mode=TwoWay}"
+                                                                    ItemsSource="{Binding DataContext.Currencies, Mode=TwoWay, ElementName=InvoicesWindow}"
                                                                     DataMemberBinding="{Binding CurrencyId}"
                                                                     SelectedValueMemberPath="Id"
                                                                     DisplayMemberPath="Name" />
@@ -381,11 +371,6 @@
                                                                 DataMemberBinding="{Binding Status, ConverterParameter=InvoiceStatus, Converter={StaticResource EnumToStringConverter}}" />
                                 </telerik:RadGridView.Columns>
                             </telerik:RadGridView>
-                            <telerik:RadDataPager BorderThickness="1,0,1,1"
-                                                  AutoEllipsisMode="Both"
-                                                  DisplayMode="All"
-                                                  Source="{Binding MaintainInvoices}"
-                                                  Grid.Row="1" />
                         </Grid>
                     </telerik:RadPane>
                     <telerik:RadPane Header="贷项单"
@@ -437,7 +422,7 @@
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsFilterable="True"
-                                                                    ItemsSource="{Binding DataContext.Suppliers, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                    ItemsSource="{Binding DataContext.Suppliers, Mode=TwoWay, ElementName=InvoicesWindow}"
                                                                     DisplayMemberPath="Name"
                                                                     DataMemberBinding="{Binding SupplierId,Mode=TwoWay}"
                                                                     SelectedValueMemberPath="SupplierId" />
@@ -445,7 +430,7 @@
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsFilterable="True"
-                                                                    ItemsSource="{Binding DataContext.Currencies, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                    ItemsSource="{Binding DataContext.Currencies, Mode=TwoWay, ElementName=InvoicesWindow}"
                                                                     DisplayMemberPath="Name"
                                                                     DataMemberBinding="{Binding CurrencyId,Mode=TwoWay}"
                                                                     SelectedValueMemberPath="Id" />
@@ -465,11 +450,6 @@
                                                                 DataMemberBinding="{Binding Status}" />
                                 </telerik:RadGridView.Columns>
                             </telerik:RadGridView>
-                            <telerik:RadDataPager BorderThickness="1,0,1,1"
-                                                  AutoEllipsisMode="Both"
-                                                  DisplayMode="All"
-                                                  Source="{Binding BFEMaterialsView}"
-                                                  Grid.Row="1" />
                         </Grid>
                     </telerik:RadPane>
                 </telerik:RadPaneGroup>
@@ -482,12 +462,12 @@
                                Height="30"
                                Width="100"
                                Margin="5,2"
-                               Command="{Binding CommitCommand}"></telerik:RadButton>
+                               Command="{Binding CommitCommand}"/>
             <telerik:RadButton Content="取消"
                                Height="30"
                                Width="100"
                                Margin="5,2"
-                               Command="{Binding CancelCommand}"></telerik:RadButton>
+                               Command="{Binding CancelCommand}"/>
         </StackPanel>
     </Grid>
 </telerik:RadWindow>
