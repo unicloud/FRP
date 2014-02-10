@@ -1,13 +1,13 @@
 ﻿#region Version Info
 /* ========================================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2013/12/16 9:45:27
-// 文件名：MaintainInvoiceDTO
+// 作者：linxw 时间：2014/1/7 17:49:09
+// 文件名：BaseInvoice
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2013/12/16 9:45:27
+// 修改者：linxw 时间：2014/1/7 17:49:09
 // 修改说明：
 // ========================================================================*/
 #endregion
@@ -15,7 +15,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.Data.Services.Common;
 
 #endregion
@@ -23,11 +22,17 @@ using System.Data.Services.Common;
 namespace UniCloud.Application.PaymentBC.DTO
 {
     /// <summary>
-    ///  维修发票基类
+    ///     发票
     /// </summary>
-    public class MaintainInvoiceDTO
+    [DataServiceKey("MaintainInvoiceId")]
+    public class BaseMaintainInvoiceDTO
     {
         #region 属性
+
+        /// <summary>
+        ///  发票主键
+        /// </summary>
+        public int MaintainInvoiceId { get; set; }
 
         /// <summary>
         ///     序列号
@@ -104,15 +109,6 @@ namespace UniCloud.Application.PaymentBC.DTO
         /// </summary>
         public string DocumentName { get; set; }
 
-        /// <summary>
-        ///  维修发票行集合
-        /// </summary>
-        private List<MaintainInvoiceLineDTO> _maintainInvoiceLines;
-        public List<MaintainInvoiceLineDTO> MaintainInvoiceLines
-        {
-            get { return _maintainInvoiceLines ?? new List<MaintainInvoiceLineDTO>(); }
-            set { _maintainInvoiceLines = value; }
-        }
         #endregion
 
         #region 外键属性

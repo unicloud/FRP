@@ -41,6 +41,16 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             _invoiceRepository = invoiceRepository;
         }
 
+        /// <summary>
+        ///     获取所有维修发票。
+        /// </summary>
+        /// <returns>所有维修发票。</returns>
+        public IQueryable<BaseMaintainInvoiceDTO> GetMaintainInvoices()
+        {
+            var queryBuilder = new QueryBuilder<MaintainInvoice>();
+            return _maintainInvoiceQuery.MaintainInvoiceDTOQuery(queryBuilder);
+        }
+
         #region EngineMaintainInvoiceDTO
         /// <summary>
         ///     获取所有发动机维修发票。
