@@ -346,15 +346,26 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         }
         #endregion
 
+        private static int _maxInvoiceNumber;
         private int GetMaxInvoiceNumber()
         {
             var date = DateTime.Now.Date.ToString("yyyyMMdd").Substring(0, 8);
             var noticeNumber = _invoiceRepository.GetAll().Max(p => p.InvoiceNumber);
+
             int seq = 1;
             if (!string.IsNullOrEmpty(noticeNumber) && noticeNumber.StartsWith(date))
             {
                 seq = Int32.Parse(noticeNumber.Substring(8)) + 1;
             }
+            if (seq <= _maxInvoiceNumber)
+            {
+                seq = _maxInvoiceNumber;
+            }
+            else
+            {
+                _maxInvoiceNumber = seq;
+            }
+            _maxInvoiceNumber++;
             return seq;
         }
     }
