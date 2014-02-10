@@ -17,10 +17,7 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
-using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
@@ -46,7 +43,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         private readonly IPaymentService _service;
         [Import]
         public BankAccountWindow BankAccountWindow;
-        [Import]
         public SelectInvoices SelectInvoicesWindow;
 
         [ImportingConstructor]
@@ -71,9 +67,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             PaymentNotices = _service.CreateCollection(_context.PaymentNotices, o => o.PaymentNoticeLines);
             _service.RegisterCollectionView(PaymentNotices);
             ViewReportCommand = new DelegateCommand<object>(OnViewReport);
-            CommitCommand = new DelegateCommand<object>(OnCommitExecute, CanCommitExecute);
-            CancelCommand = new DelegateCommand<object>(OnCancelExecute, CanCancelExecute);
-
         }
 
         #endregion
@@ -156,23 +149,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
 
         #endregion
 
-        #region 维修发票
-        public QueryableDataServiceCollectionView<EngineMaintainInvoiceDTO> EngineMaintainInvoices { get; set; }
-        public ObservableCollection<EngineMaintainInvoiceDTO> EngineMaintainInvoiceList { get; set; }
-        private ObservableCollection<EngineMaintainInvoiceDTO> _selectEngineMaintainInvoices = new ObservableCollection<EngineMaintainInvoiceDTO>();
-        public ObservableCollection<EngineMaintainInvoiceDTO> SelectEngineMaintainInvoices
-        {
-            get
-            {
-                return _selectEngineMaintainInvoices;
-            }
-            set
-            {
-                _selectEngineMaintainInvoices = value;
-                RaisePropertyChanged(() => SelectEngineMaintainInvoices);
-            }
-        }
-        #endregion
         #endregion
 
         #endregion
@@ -232,23 +208,9 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                 MessageAlert("请选择一条付款通知记录！");
                 return;
             }
-            EngineMaintainInvoices = new QueryableDataServiceCollectionView<EngineMaintainInvoiceDTO>(_context, _context.EngineMaintainInvoices);
-            EngineMaintainInvoices.LoadedData += (e, o) =>
-            {
-                //var result = e as QueryableDataServiceCollectionView<EngineMaintainInvoiceDTO>;
-                EngineMaintainInvoiceList = new ObservableCollection<EngineMaintainInvoiceDTO>();
-                EngineMaintainInvoices.ToList().ForEach(EngineMaintainInvoiceList.Add);
-                SelectEngineMaintainInvoices.Clear();
 
-                PaymentNotice.PaymentNoticeLines.ToList().ForEach(p =>
-                {
-                    if (p.InvoiceType == 3)
-                    {
-                        SelectEngineMaintainInvoices.Add(EngineMaintainInvoiceList.FirstOrDefault(t => t.EngineMaintainInvoiceId == p.InvoiceId));
-                    }
-                });
-            };
-            EngineMaintainInvoices.Load(true);
+            SelectInvoicesWindow = new SelectInvoices();
+            SelectInvoicesWindow.ViewModel.InitData(PaymentNotice);
             SelectInvoicesWindow.ShowDialog();
 
             //var maintainInvoiceLine = new PaymentNoticeLineDTO
@@ -386,81 +348,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
 
         #endregion
 
-        #region 发票选择
-        #region 取消命令
-
-        public DelegateCommand<object> CancelCommand { get; set; }
-
-        /// <summary>
-        ///     执行取消命令。
-        /// </summary>
-        /// <param name="sender"></param>
-        public void OnCancelExecute(object sender)
-        {
-            SelectInvoicesWindow.Close();
-        }
-
-        /// <summary>
-        ///     判断取消命令是否可用。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns>取消命令是否可用。</returns>
-        public bool CanCancelExecute(object sender)
-        {
-            return true;
-        }
-
-        #endregion
-
-        #region 确定命令
-
-        public DelegateCommand<object> CommitCommand { get; set; }
-
-        /// <summary>
-        ///     执行确定命令。
-        /// </summary>
-        /// <param name="sender"></param>
-        public void OnCommitExecute(object sender)
-        {
-            SelectInvoicesWindow.MaintainInvoiceGridView.SelectedItems.ToList().ForEach(p =>
-                                                          {
-                                                              if (PaymentNotice.PaymentNoticeLines.All(t => t.InvoiceId != (p as EngineMaintainInvoiceDTO).EngineMaintainInvoiceId))
-                                                              {
-                                                                  var maintainInvoiceLine = new PaymentNoticeLineDTO
-                                                                                            {
-                                                                                                PaymentNoticeLineId = RandomHelper.Next(),
-                                                                                                InvoiceType = 3,
-                                                                                                InvoiceTypeString = InvoiceType.维修发票.ToString(),
-                                                                                                InvoiceId = (p as EngineMaintainInvoiceDTO).EngineMaintainInvoiceId,
-                                                                                                InvoiceNumber = (p as EngineMaintainInvoiceDTO).InvoiceNumber,
-                                                                                            };
-
-                                                                  PaymentNotice.PaymentNoticeLines.Add(maintainInvoiceLine);
-                                                              }
-                                                          });
-            for (int i = PaymentNotice.PaymentNoticeLines.Count - 1; i > 0; i--)
-            {
-                var temp = PaymentNotice.PaymentNoticeLines[i];
-                if (SelectInvoicesWindow.MaintainInvoiceGridView.SelectedItems.ToList().All(p => (p as EngineMaintainInvoiceDTO).EngineMaintainInvoiceId != temp.InvoiceId))
-                {
-                    PaymentNotice.PaymentNoticeLines.Remove(temp);
-                }
-            }
-            SelectInvoicesWindow.Close();
-        }
-
-        /// <summary>
-        ///     判断确定命令是否可用。
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <returns>确定命令是否可用。</returns>
-        public bool CanCommitExecute(object sender)
-        {
-            return true;
-        }
-
-        #endregion
-        #endregion
         #endregion
     }
 }

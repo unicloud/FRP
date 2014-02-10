@@ -13,7 +13,7 @@
                    Height="600"
                    Width="800"
                    Name="InvoicesWindow"
-                   d:DataContext="{d:DesignInstance uc:PaymentNoticeVm}">
+                   d:DataContext="{d:DesignInstance uc:SelectInvoicesVm}">
     <telerik:RadWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

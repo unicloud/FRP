@@ -1,23 +1,24 @@
 ﻿#region 命名空间
 
 using System.ComponentModel.Composition;
+using UniCloud.Presentation.Service.Payment;
 
 #endregion
 
 namespace UniCloud.Presentation.Payment.PaymentNotice
 {
     [Export(typeof(SelectInvoices))]
-    [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class SelectInvoices 
+    public partial class SelectInvoices
     {
         public SelectInvoices()
         {
             InitializeComponent();
+            ViewModel = new SelectInvoicesVm(this,new PaymentService());
         }
-        [Import]
-        public PaymentNoticeVm ViewModel
+        
+        public SelectInvoicesVm ViewModel
         {
-            get { return DataContext as PaymentNoticeVm; }
+            get { return DataContext as SelectInvoicesVm; }
             set { DataContext = value; }
         }
     }
