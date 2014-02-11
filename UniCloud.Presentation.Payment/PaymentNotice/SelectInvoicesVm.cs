@@ -43,7 +43,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             CommitCommand = new DelegateCommand<object>(OnCommitExecute, CanCommitExecute);
             CancelCommand = new DelegateCommand<object>(OnCancelExecute, CanCancelExecute);
             Suppliers = new QueryableDataServiceCollectionView<SupplierDTO>(service.Context, service.Context.Suppliers);
-            Suppliers.Load(true);
             Currencies = new QueryableDataServiceCollectionView<CurrencyDTO>(service.Context, service.Context.Currencies);
             #region 采购发票
             PurchaseInvoices = new QueryableDataServiceCollectionView<PurchaseInvoiceDTO>(service.Context, service.Context.PurchaseInvoices);
@@ -136,6 +135,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         {
             PaymentNotice = paymentNotice;
             Currencies.Load(true);
+            Suppliers.Load(true);
 
             PurchaseInvoices.Load(true);
             PrepaymentInvoices.Load(true);
