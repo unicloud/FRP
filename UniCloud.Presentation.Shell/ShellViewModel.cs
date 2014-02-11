@@ -845,9 +845,14 @@ namespace UniCloud.Presentation.Shell
                 Text = "管理角色",
                 NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageUserInRole"
             };
-            
+            var menu913 = new MenuItem
+            {
+                Text = "管理权限",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageFunctionsInRole"
+            };
             menu91.Items.Add(menu911);
             menu91.Items.Add(menu912);
+            menu91.Items.Add(menu913);
             menu9.Items.Add(menu91);
 
             var menu92 = new MenuItem

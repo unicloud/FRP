@@ -158,6 +158,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseManagementModule.cs" />
+    <Compile Include="ManagePermission\ManageFunctionsInRole.xaml.cs">
+      <DependentUpon>ManageFunctionsInRole.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManagePermission\ManageFunctionsInRoleVm.cs" />
     <Compile Include="ManagePermission\ManageUser.xaml.cs">
       <DependentUpon>ManageUser.xaml</DependentUpon>
     </Compile>
@@ -181,6 +185,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="ManagePermission\ManageFunctionsInRole.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ManagePermission\ManageUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

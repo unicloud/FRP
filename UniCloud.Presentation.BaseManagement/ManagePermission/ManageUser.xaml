@@ -69,7 +69,6 @@
                             </telerik:RadToolBar>
                             <Grid Row="1">
                                 <telerik:RadGridView x:Name="UserList"
-                                                     telerik:StyleManager.Theme="Windows8"
                                                      AutoExpandGroups="True"
                                                      AutoGenerateColumns="False"
                                                      CanUserSortColumns="True"
