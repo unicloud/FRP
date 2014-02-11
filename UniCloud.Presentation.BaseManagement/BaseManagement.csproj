@@ -161,6 +161,10 @@
     <Compile Include="ManagePermission\ManageUser.xaml.cs">
       <DependentUpon>ManageUser.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ManagePermission\ManageUserInRole.xaml.cs">
+      <DependentUpon>ManageUserInRole.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManagePermission\ManageUserInRoleVm.cs" />
     <Compile Include="ManagePermission\ManageUserVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -178,6 +182,10 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="ManagePermission\ManageUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManagePermission\ManageUserInRole.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
