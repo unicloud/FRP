@@ -842,6 +842,7 @@ namespace UniCloud.Presentation.Shell
             var menu912 = new MenuItem
             {
                 Text = "管理用户",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageUser"
             };
             menu91.Items.Add(menu911);
             menu91.Items.Add(menu912);
