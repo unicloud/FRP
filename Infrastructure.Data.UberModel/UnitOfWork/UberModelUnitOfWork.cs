@@ -55,6 +55,7 @@ using UniCloud.Domain.UberModel.Aggregates.MaintainInvoiceAgg;
 using UniCloud.Domain.UberModel.Aggregates.ManagerAgg;
 using UniCloud.Domain.UberModel.Aggregates.ManufacturerAgg;
 using UniCloud.Domain.UberModel.Aggregates.MaterialAgg;
+using UniCloud.Domain.UberModel.Aggregates.MScnAgg;
 using UniCloud.Domain.UberModel.Aggregates.OrderAgg;
 using UniCloud.Domain.UberModel.Aggregates.PartAgg;
 using UniCloud.Domain.UberModel.Aggregates.PaymentNoticeAgg;
@@ -67,6 +68,7 @@ using UniCloud.Domain.UberModel.Aggregates.ProjectTempAgg;
 using UniCloud.Domain.UberModel.Aggregates.ReceptionAgg;
 using UniCloud.Domain.UberModel.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.UberModel.Aggregates.RequestAgg;
+using UniCloud.Domain.UberModel.Aggregates.ScnAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierCompanyMaterialAgg;
@@ -118,6 +120,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Manager> _managers;
         private IDbSet<Manufacturer> _manufacturers;
         private IDbSet<Material> _materials;
+        private IDbSet<MScn> _mScns;
         private IDbSet<Order> _orders;
         private IDbSet<Part> _parts;
         private IDbSet<PaymentNotice> _paymentNotices;
@@ -131,6 +134,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Reception> _receptions;
         private IDbSet<RelatedDoc> _relatedDocs;
         private IDbSet<Request> _requests;
+        private IDbSet<Scn> _scns;
         private IDbSet<SupplierCompany> _supplierCompanies;
         private IDbSet<SupplierCompanyMaterial> _supplierCompanyMaterials;
         private IDbSet<SupplierRole> _supplierRoles;
@@ -316,6 +320,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             get { return _materials ?? (_materials = Set<Material>()); }
         }
 
+        public IDbSet<MScn> MScns
+        {
+            get { return _mScns ?? (_mScns = Set<MScn>()); }
+        }
+
         public IDbSet<Order> Orders
         {
             get { return _orders ?? (_orders = Set<Order>()); }
@@ -369,6 +378,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<Request> Requests
         {
             get { return _requests ?? (_requests = Set<Request>()); }
+        }
+
+        public IDbSet<Scn> Scns
+        {
+            get { return _scns ?? (_scns = Set<Scn>()); }
         }
 
         public IDbSet<Supplier> Suppliers
@@ -706,6 +720,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
             #endregion
 
+            #region MScnAgg
+
+            .Add(new MScnEntityConfiguration())
+            .Add(new MScnLineEntityConfiguration())
+            #endregion
+
             #region OrderAgg
 
 .Add(new OrderEntityConfiguration())
@@ -793,6 +813,14 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new ApprovalHistoryEntityConfiguration())
 
             #endregion
+
+            #region ScnAgg
+
+            .Add(new ScnEntityConfiguration())
+            .Add(new ScnLineEntityConfiguration())
+
+            #endregion
+
 
             #region SupplierAgg
 
