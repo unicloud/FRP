@@ -59,7 +59,7 @@
                             HasDocumentHost="False">
             <telerik:RadSplitContainer InitialPosition="DockedLeft"
                                        Orientation="Vertical"
-                                       Width="300">
+                                       telerik:ProportionalStackPanel.RelativeSize="600,300">
                 <telerik:RadPaneGroup>
                     <telerik:RadPane  Header="管理权限"
                                       FontSize="{StaticResource HeaderFontSize}"
@@ -182,7 +182,8 @@
                 </telerik:RadPaneGroup>
             </telerik:RadSplitContainer>
             <telerik:RadSplitContainer InitialPosition="DockedRight"
-                                       Orientation="Vertical">
+                                       Orientation="Vertical"
+                                       telerik:ProportionalStackPanel.RelativeSize="600,300">
                 <telerik:RadPaneGroup>
                     <telerik:RadPane  Header="角色功能"
                                       FontSize="{StaticResource HeaderFontSize}"
@@ -193,11 +194,11 @@
                                       CanUserPin="False"
                                       ContextMenuTemplate="{x:Null}">
                         <telerik:RadTreeView  x:Name="FunctionRole"
-                                              SelectionMode="Extended"
+                                              SelectionMode="Multiple"
                                               ItemTemplate="{StaticResource ApplicationTemplate}"
                                               ItemsSource="{Binding FunctionItemCollection}"
                                               ItemContainerStyle="{StaticResource ItemContainerStyle}"
-                                              FontSize="13"
+                                              FontSize="13" 
                                               IsOptionElementsEnabled="True"
                                               IsRootLinesEnabled="True"
                                               IsTriStateMode="True">
