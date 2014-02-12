@@ -130,6 +130,11 @@
       <HintPath>..\packages\Telerik.Windows.Controls.DataServices50.2.0.0\lib\Telerik.Windows.Controls.DataServices50.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Telerik.Windows.Controls.DataVisualization, Version=2013.3.1204.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Telerik.Windows.Controls.DataVisualization.2.0.0\lib\Telerik.Windows.Controls.DataVisualization.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Telerik.Windows.Controls.Docking, Version=2013.3.1204.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Telerik.Windows.Controls.Docking.2.0.0\lib\Telerik.Windows.Controls.Docking.dll</HintPath>
@@ -153,6 +158,16 @@
     <Reference Include="Telerik.Windows.Data, Version=2013.3.1204.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Telerik.Windows.Data.2.0.0\lib\Telerik.Windows.Data.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Themes.Windows8, Version=2013.3.1204.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Telerik.Windows.Themes.Windows8.2.0.0\lib\Telerik.Windows.Themes.Windows8.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Telerik.Windows.Zip, Version=2013.3.1204.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Telerik.Windows.Zip.2.0.0\lib\Telerik.Windows.Zip.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
