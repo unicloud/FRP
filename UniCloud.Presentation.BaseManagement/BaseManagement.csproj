@@ -145,6 +145,11 @@
       <HintPath>..\packages\Telerik.Windows.Controls.GridView.2.0.0\lib\Telerik.Windows.Controls.GridView.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Telerik.Windows.Controls.ImageEditor, Version=2013.3.1204.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Telerik.Windows.Controls.ImageEditor.2.0.0\lib\Telerik.Windows.Controls.ImageEditor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Telerik.Windows.Controls.Input, Version=2013.3.1204.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Telerik.Windows.Controls.Input.2.0.0\lib\Telerik.Windows.Controls.Input.dll</HintPath>
@@ -173,6 +178,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseManagementModule.cs" />
+    <Compile Include="ManageOperationQualification\ManageOperationLicense.xaml.cs">
+      <DependentUpon>ManageOperationLicense.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageOperationQualification\ManageOperationLicenseVm.cs" />
     <Compile Include="ManagePermission\ManageFunctionsInRole.xaml.cs">
       <DependentUpon>ManageFunctionsInRole.xaml</DependentUpon>
     </Compile>
@@ -200,6 +209,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="ManageOperationQualification\ManageOperationLicense.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ManagePermission\ManageFunctionsInRole.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

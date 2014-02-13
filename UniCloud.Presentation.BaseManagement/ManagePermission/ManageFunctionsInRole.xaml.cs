@@ -1,7 +1,6 @@
 ﻿#region 命名空间
 
 using System.ComponentModel.Composition;
-using System.Windows.Controls;
 
 #endregion
 
@@ -9,7 +8,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
 {
     [Export(typeof(ManageFunctionsInRole))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class ManageFunctionsInRole : UserControl
+    public partial class ManageFunctionsInRole 
     {
         public ManageFunctionsInRole()
         {
