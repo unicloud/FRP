@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="UniCloud.Presentation.BaseManagement.ManageSubsidiary.BranchCompany"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             d:DataContext="{d:DesignInstance uc:BranchCompanyVm}"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid x:Name="BranchCompanyLayoutRoot"
+          Background="White">
+        <telerik:RadDocking  BorderThickness="0"
+                             Padding="0"
+                             HasDocumentHost="False">
+            <telerik:RadSplitContainer Orientation="Vertical">
+                <telerik:RadPaneGroup>
+                    <telerik:RadPane Header="分公司管理"
+                                     CanFloat="False"
+                                     CanUserClose="False"
+                                     CanUserPin="False"
+                                     FontSize="{StaticResource TextFontSize}"
+                                     ContextMenuTemplate="{x:Null}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                Margin="0 0 0 -1"
+                                                OverflowButtonVisibility="Collapsed">
+                                <telerik:RadButton Margin="4,2,2,-2"
+                                                   Command="{Binding SaveCommand}"
+                                                   CommandParameter="{Binding PaymentNotices}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Save.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="保存" />
+                                </telerik:RadButton>
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding AbortCommand}"
+                                                   CommandParameter="{Binding PaymentNotices}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="放弃更改" />
+                                </telerik:RadButton>
+                                <telerik:RadToolBarSeparator />
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding AddInvoiceCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/New.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="添加分公司" />
+                                </telerik:RadButton>
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding RemoveInvoiceCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="删除分公司" />
+                                </telerik:RadButton>
+                            </telerik:RadToolBar>
+                            <Grid Row="1">
+                                <telerik:RadGridView x:Name="FilialeManager"
+                                                     IsReadOnly="True"
+                                                     ItemsSource="{Binding AirlinesDataObjectList}"
+                                                     SelectedItem="{Binding CurrentAirline,Mode=TwoWay}"
+                                                     EditTriggers="CellClick">
+                                    <telerik:RadContextMenu.ContextMenu>
+                                        <telerik:RadContextMenu>
+                                            <telerik:RadMenuItem Header="导出Excel"
+                                                                 Command="{Binding ExcelExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=FilialeManager, Mode=OneWay}" />
+                                            <telerik:RadMenuItem Header="导出Word"
+                                                                 Command="{Binding WordExportCommand}"
+                                                                 CommandParameter="{Binding ElementName=FilialeManager, Mode=OneWay}" />
+                                        </telerik:RadContextMenu>
+                                    </telerik:RadContextMenu.ContextMenu>
+                                    <telerik:RadGridView.Columns>
+                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <telerik:GridViewDataColumn Header="类型"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding SubType, ConverterParameter=SubAirlinesType, Converter={StaticResource EnumToStringConverter}}" />
+                                        <telerik:GridViewDataColumn Header="所属公司"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding MasterName}" />
+                                        <telerik:GridViewDataColumn Header="分公司名称"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Owner.CnName}" />
+                                        <telerik:GridViewDataColumn Header="简称"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Owner.CnShortName}" />
+                                        <telerik:GridViewDataColumn Header="成立日期"
+                                                                    DataMemberBinding="{Binding CreateDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}" />
+                                        <telerik:GridViewDataColumn Header="注销日期"
+                                                                    DataMemberBinding="{Binding LogoutDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}" />
+                                        <telerik:GridViewDataColumn Header="运营开始日期"
+                                                                    DataMemberBinding="{Binding OperationDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}" />
+                                        <telerik:GridViewDataColumn Header="退出运营日期"
+                                                                    DataMemberBinding="{Binding ExportDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}" />
+                                        <telerik:GridViewDataColumn Header="备注"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Owner.Note}" />
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+                            </Grid>
+                        </Grid>
+                    </telerik:RadPane>
+                </telerik:RadPaneGroup>
+            </telerik:RadSplitContainer>
+        </telerik:RadDocking>
+    </Grid>
+</UserControl>

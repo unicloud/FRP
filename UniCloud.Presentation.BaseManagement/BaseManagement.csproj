@@ -194,6 +194,10 @@
     </Compile>
     <Compile Include="ManagePermission\ManageUserInRoleVm.cs" />
     <Compile Include="ManagePermission\ManageUserVm.cs" />
+    <Compile Include="ManageSubsidiary\BranchCompany.xaml.cs">
+      <DependentUpon>BranchCompany.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageSubsidiary\BranchCompanyVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +226,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManagePermission\ManageUserInRole.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageSubsidiary\BranchCompany.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
