@@ -50,6 +50,12 @@ namespace UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries
             return query.ApplyTo(_unitOfWork.CreateSet<PlanAircraft>()).Select(p => new PlanAircraftDTO
             {
                 Id = p.Id,
+                AircraftId = p.AircraftId,
+                AircraftTypeId = p.AircraftTypeId,
+                IsLock = p.IsLock,
+                IsOwn = p.IsOwn,
+                Status = (int)p.Status,
+                AircraftTypeName = p.AircraftType.Name,
             });
         }
     }

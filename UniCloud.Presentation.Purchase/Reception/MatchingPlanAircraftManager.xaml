@@ -208,13 +208,13 @@
                                                                 HeaderTextAlignment="Center"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding IsValid}" />
-                                    <telerik:GridViewComboBoxColumn Header="计划飞机"
+                                    <telerik:GridViewComboBoxColumn Header="计划飞机型号"
                                                                     IsReadOnly="True"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsFilterable="True"
                                                                     ItemsSource="{Binding DataContext.PlanAircrafts, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                                                    DisplayMemberPath="RegNumber"
+                                                                    DisplayMemberPath="AircraftTypeName"
                                                                     DataMemberBinding="{Binding PlanAircraftID,Mode=TwoWay}"
                                                                     SelectedValueMemberPath="Id"
                                                                     EditorStyle="{StaticResource EditComboBox}">
