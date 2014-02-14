@@ -46,11 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MScnQueries\IMScnQuery.cs" />
-    <Compile Include="MScnQueries\MScnQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScnQueries\IScnQuery.cs" />
-    <Compile Include="ScnQueries\ScnQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

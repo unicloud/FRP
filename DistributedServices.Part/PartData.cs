@@ -18,8 +18,6 @@
 #region 命名空间
 
 using System.Linq;
-using UniCloud.Application.PartBC.DTO;
-using UniCloud.Application.PartBC.ScnServices;
 using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
@@ -31,23 +29,23 @@ namespace UniCloud.DistributedServices.Part
     /// </summary>
     public class PartData : ExposeData.ExposeData
     {
-        private readonly IScnAppService _scnAppService;
+        //private readonly IScnAppService _scnAppService;
 
         public PartData()
             : base("UniCloud.Application.PartBC.DTO")
         {
-            _scnAppService = DefaultContainer.Resolve<IScnAppService>();
+            //_scnAppService = DefaultContainer.Resolve<IScnAppService>();
         }
 
         #region Scn相关集合
 
-        /// <summary>
-        ///     Scn信息。
-        /// </summary>
-        public IQueryable<ScnDTO> Scns
-        {
-            get { return _scnAppService.GetScns(); }
-        }
+        ///// <summary>
+        /////     Scn信息。
+        ///// </summary>
+        //public IQueryable<ScnDTO> Scns
+        //{
+        //    get { return _scnAppService.GetScns(); }
+        //}
 
         #endregion
     }

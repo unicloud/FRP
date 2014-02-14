@@ -51,11 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MScnDTO\MScnDTO.cs" />
-    <Compile Include="MScnDTO\MScnLineDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ScnDTO\ScnDTO.cs" />
-    <Compile Include="ScnDTO\ScnLineDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

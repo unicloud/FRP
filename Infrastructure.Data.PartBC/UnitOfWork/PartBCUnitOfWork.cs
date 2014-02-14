@@ -17,9 +17,6 @@
 using System;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using UniCloud.Domain.PartBC.Aggregates.MScnAgg;
-using UniCloud.Domain.PartBC.Aggregates.ScnAgg;
-using UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql;
 
 #endregion
 
@@ -29,18 +26,18 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
     {
         #region IDbSet成员
 
-        private IDbSet<Scn> _scns;
-        private IDbSet<MScn> _mscns;
+        //private IDbSet<Scn> _scns;
+        //private IDbSet<MScn> _mscns;
 
-        public IDbSet<Scn> Scns
-        {
-            get { return _scns ?? (_scns = base.Set<Scn>()); }
-        }
+        //public IDbSet<Scn> Scns
+        //{
+        //    get { return _scns ?? (_scns = base.Set<Scn>()); }
+        //}
 
-        public IDbSet<MScn> MScns
-        {
-            get { return _mscns ?? (_mscns = base.Set<MScn>()); }
-        }
+        //public IDbSet<MScn> MScns
+        //{
+        //    get { return _mscns ?? (_mscns = base.Set<MScn>()); }
+        //}
 
         #endregion
 
@@ -76,21 +73,15 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         /// <param name="modelBuilder"></param>
         private static void SqlConfigurations(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Configurations
+            //modelBuilder.Configurations
 
-                #region Scn
+            //    #region Scn
 
-                .Add(new ScnEntityConfiguration())
-                .Add(new ScnLineEntityConfiguration())
-                #endregion
+            //    .Add(new ScnEntityConfiguration())
+            //    .Add(new ScnLineEntityConfiguration())
+            //    #endregion
 
-                #region MScn
-
-                .Add(new MScnEntityConfiguration())
-                .Add(new MScnLineEntityConfiguration())
-                #endregion
-
-                ;
+            //    ;
         }
 
         #endregion

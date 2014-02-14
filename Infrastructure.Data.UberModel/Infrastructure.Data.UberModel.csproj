@@ -170,8 +170,6 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ManufacturerEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaterialEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MemberEntityConfiguration.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\MScnEntityConfiguration.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\MScnLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OfficialDocumentEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OperationHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OperationPlanEntityConfiguration.cs" />
@@ -199,8 +197,6 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionScheduleEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\RelatedDocEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\RequestEntityConfiguration.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\ScnEntityConfiguration.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\ScnLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\StandardDocumentEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\StandardPaymentScheduleEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierCompanyEntityConfiguration.cs" />

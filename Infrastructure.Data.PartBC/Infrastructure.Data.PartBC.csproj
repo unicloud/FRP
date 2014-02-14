@@ -47,12 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\MScnRepository.cs" />
-    <Compile Include="Repositories\ScnRepository.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\MScnEntityConfiguration.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\MScnLineEntityConfiguration.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\ScnEntityConfiguration.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\ScnLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\PartBCUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,7 +54,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Repositories\" />
     <Folder Include="UnitOfWork\Mapping\Oracle\" />
+    <Folder Include="UnitOfWork\Mapping\Sql\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">

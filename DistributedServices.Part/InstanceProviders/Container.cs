@@ -17,13 +17,9 @@
 
 #region 命名空间
 
-using UniCloud.Application.PartBC.Query.ScnQueries;
-using UniCloud.Application.PartBC.ScnServices;
 using Microsoft.Practices.Unity;
 using UniCloud.Domain.Events;
-using UniCloud.Domain.PartBC.Aggregates.ScnAgg;
 using UniCloud.Infrastructure.Data;
-using UniCloud.Infrastructure.Data.PartBC.Repositories;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
 
@@ -50,12 +46,12 @@ namespace UniCloud.DistributedServices.Part.InstanceProviders
 
             #endregion
 
-            #region SCN相关配置，包括查询，应用服务，仓储注册
+            //#region SCN相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IScnQuery, ScnQuery>()
-                .RegisterType<IScnAppService, ScnAppService>()
-                .RegisterType<IScnRepository, ScnRepository>()
-            #endregion
+            //    .RegisterType<IScnQuery, ScnQuery>()
+            //    .RegisterType<IScnAppService, ScnAppService>()
+            //    .RegisterType<IScnRepository, ScnRepository>()
+            //#endregion
                 
             ;
         }

@@ -40,16 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Aggregates\MScnAgg\IMScnRepository.cs" />
-    <Compile Include="Aggregates\MScnAgg\MScn.cs" />
-    <Compile Include="Aggregates\MScnAgg\MScnFactory.cs" />
-    <Compile Include="Aggregates\MScnAgg\MScnLine.cs" />
-    <Compile Include="Aggregates\MScnAgg\MScnSpecifications.cs" />
-    <Compile Include="Aggregates\ScnAgg\IScnRepository.cs" />
-    <Compile Include="Aggregates\ScnAgg\Scn.cs" />
-    <Compile Include="Aggregates\ScnAgg\ScnFactory.cs" />
-    <Compile Include="Aggregates\ScnAgg\ScnLine.cs" />
-    <Compile Include="Aggregates\ScnAgg\ScnSpecifications.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +49,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Aggregates\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
