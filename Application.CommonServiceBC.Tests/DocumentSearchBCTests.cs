@@ -53,7 +53,7 @@ namespace UniCloud.Application.CommonServiceBC.Tests
         public void TestSearch()
         {
             var service = DefaultContainer.Resolve<IDocumentSearchAppService>();
-            var result = service.Search("item");
+            var result = service.Search("80201100");
         }
 
         #endregion

@@ -30,5 +30,6 @@ namespace UniCloud.Infrastructure.Data
         public const string SchemaPayment = "Payment";
         public const string SchemaProject = "Project";
         public const string SchemaPortal = "Portal";
+        public const string SchemaPart = "Part";
     }
 }

@@ -34,7 +34,7 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
     {
         private readonly IPaymentNoticeQuery _paymentNoticeQuery;
         private readonly IPaymentNoticeRepository _paymentNoticeRepository;
-
+        private static int _maxInvoiceNumber;
         public PaymentNoticeAppService(IPaymentNoticeQuery paymentNoticeQuery, IPaymentNoticeRepository paymentNoticeRepository)
         {
             _paymentNoticeQuery = paymentNoticeQuery;
@@ -67,6 +67,15 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
             {
                 seq = Int32.Parse(noticeNumber.Substring(8)) + 1;
             }
+            if (seq <= _maxInvoiceNumber)
+            {
+                seq = _maxInvoiceNumber;
+            }
+            else
+            {
+                _maxInvoiceNumber = seq;
+            }
+            _maxInvoiceNumber++;
             newPaymentNotice.SetNoticeNumber(seq);
             PaymentNoticeFactory.SetPaymentNotice(newPaymentNotice, paymentNotice.DeadLine, paymentNotice.SupplierName, paymentNotice.SupplierId,
                 paymentNotice.OperatorName, paymentNotice.Reviewer, paymentNotice.Status, paymentNotice.CurrencyId, paymentNotice.BankAccountId);

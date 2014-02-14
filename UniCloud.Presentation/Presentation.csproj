@@ -286,6 +286,7 @@
     <Compile Include="Input\DoubleClick.cs" />
     <Compile Include="Input\GridViewDoubleClick.cs" />
     <Compile Include="Input\GridViewDoubleClickHelper.cs" />
+    <Compile Include="Input\GridViewSelectedItemsBehavior.cs" />
     <Compile Include="Input\ListBoxDoubleClickHelper.cs" />
     <Compile Include="Input\RadListBoxDoubleClick.cs" />
     <Compile Include="Localization\LocalizationResource.Designer.cs">
@@ -304,6 +305,7 @@
     <Compile Include="SessionExtension\SessionHelper.cs" />
     <Compile Include="SessionExtension\SessionUser.cs" />
     <Compile Include="ValueConverts\BoolConverter.cs" />
+    <Compile Include="ValueConverts\CheckStateConverter.cs" />
     <Compile Include="ValueConverts\EnumUtility.cs" />
     <Compile Include="ValueConverts\StringConverter.cs" />
     <Compile Include="ValueConverts\StringToXamlConverter.cs" />

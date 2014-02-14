@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Services.Common;
 
 #endregion
 
@@ -27,6 +28,7 @@ namespace UniCloud.Application.PaymentBC.DTO
     public class MaintainInvoiceDTO
     {
         #region 属性
+
         /// <summary>
         ///     序列号
         /// </summary>

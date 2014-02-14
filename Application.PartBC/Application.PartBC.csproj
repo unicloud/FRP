@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -39,9 +40,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MScnServices\IMScnAppService.cs" />
+    <Compile Include="MScnServices\MScnAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IPartAppService.cs" />
-    <Compile Include="Services\PartAppService.cs" />
+    <Compile Include="ScnServices\IScnAppService.cs" />
+    <Compile Include="ScnServices\ScnAppService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application.PartBC.DTO\Application.PartBC.DTO.csproj">
+      <Project>{c4ec503e-850e-47f9-b691-1b3617f125ee}</Project>
+      <Name>Application.PartBC.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.PartBC.Query\Application.PartBC.Query.csproj">
+      <Project>{532c6d73-ca28-4dea-a2f8-3a3500c5e097}</Project>
+      <Name>Application.PartBC.Query</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{c926e107-6971-4b5c-8e00-db7761eeac8e}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
+      <Project>{e48e84de-5a91-4d16-84e5-cffc4c7e7657}</Project>
+      <Name>Domain.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.PartBC\Domain.PartBC.csproj">
+      <Project>{c8c80cbf-f4c4-4c7a-a19c-52fb09aec87d}</Project>
+      <Name>Domain.PartBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Utilities\Infrastructure.Utilities.csproj">
+      <Project>{34a8a0e1-3d4a-48ca-9e78-71f88e2d273d}</Project>
+      <Name>Infrastructure.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -127,6 +127,12 @@
           <PropertyRef Name="Id" />
         </Key>
         <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="IsLock" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="IsOwn" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AircraftTypeName" Type="Edm.String" />
+        <Property Name="AircraftId" Type="Edm.Guid" />
+        <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
       <EntityType Name="ContractAircraftDTO">
         <Key>

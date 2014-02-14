@@ -41,6 +41,16 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
             _invoiceRepository = invoiceRepository;
         }
 
+        /// <summary>
+        ///     获取所有维修发票。
+        /// </summary>
+        /// <returns>所有维修发票。</returns>
+        public IQueryable<BaseMaintainInvoiceDTO> GetMaintainInvoices()
+        {
+            var queryBuilder = new QueryBuilder<MaintainInvoice>();
+            return _maintainInvoiceQuery.MaintainInvoiceDTOQuery(queryBuilder);
+        }
+
         #region EngineMaintainInvoiceDTO
         /// <summary>
         ///     获取所有发动机维修发票。
@@ -346,15 +356,26 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
         }
         #endregion
 
+        private static int _maxInvoiceNumber;
         private int GetMaxInvoiceNumber()
         {
             var date = DateTime.Now.Date.ToString("yyyyMMdd").Substring(0, 8);
             var noticeNumber = _invoiceRepository.GetAll().Max(p => p.InvoiceNumber);
+
             int seq = 1;
             if (!string.IsNullOrEmpty(noticeNumber) && noticeNumber.StartsWith(date))
             {
                 seq = Int32.Parse(noticeNumber.Substring(8)) + 1;
             }
+            if (seq <= _maxInvoiceNumber)
+            {
+                seq = _maxInvoiceNumber;
+            }
+            else
+            {
+                _maxInvoiceNumber = seq;
+            }
+            _maxInvoiceNumber++;
             return seq;
         }
     }

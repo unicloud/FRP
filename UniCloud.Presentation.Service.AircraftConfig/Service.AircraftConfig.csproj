@@ -102,6 +102,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AircraftConfigService.cs" />
+    <Compile Include="AircraftConfig\AircraftSeriesDTO.cs" />
     <Compile Include="AircraftConfig\Enum\LicenseStatus.cs" />
     <Compile Include="IAircraftConfigService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

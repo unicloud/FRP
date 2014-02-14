@@ -103,7 +103,7 @@
                     <TextBox Grid.Row="0"
                              Grid.Column="2"
                              Margin="0,3"
-                             Text="{Binding Name, Mode=TwoWay}">
+                             Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}">
                     </TextBox>
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
@@ -219,7 +219,7 @@
                                                      CommitButtonContent="确定"
                                                      ItemsSource="{Binding AircraftSerieses}"
                                                      AutoGenerateFields="False"
-                                                     AutoCommit="True"
+                                                     AutoCommit="True"  
                                                      ReadOnlyTemplate="{StaticResource ReadTemplate}"
                                                      EditTemplate="{StaticResource EditNewTemplate}"
                                                      NewItemTemplate="{StaticResource EditNewTemplate}">

@@ -74,6 +74,7 @@
     <Compile Include="MaintainContractDTO\MaintainContractDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\AirframeMaintainInvoiceDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\APUMaintainInvoiceDTO.cs" />
+    <Compile Include="MaintainInvoiceDTO\BaseMaintainInvoiceDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\EngineMaintainInvoiceDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\MaintainInvoiceDTO.cs" />
     <Compile Include="MaintainInvoiceDTO\MaintainInvoiceLineDTO.cs" />

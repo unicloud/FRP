@@ -105,6 +105,30 @@
         <Property Name="PaymentScheduleLineId" Type="Edm.Int32" />
         <Property Name="InvoiceLines" Type="Collection(UniCloud.Application.PaymentBC.DTO.InvoiceLineDTO)" Nullable="false" />
       </EntityType>
+      <EntityType Name="BaseMaintainInvoiceDTO">
+        <Key>
+          <PropertyRef Name="MaintainInvoiceId" />
+        </Key>
+        <Property Name="MaintainInvoiceId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="InvoiceNumber" Type="Edm.String" />
+        <Property Name="InvoideCode" Type="Edm.String" />
+        <Property Name="InvoiceDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="SupplierName" Type="Edm.String" />
+        <Property Name="InvoiceValue" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="PaidAmount" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="OperatorName" Type="Edm.String" />
+        <Property Name="Reviewer" Type="Edm.String" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="ReviewDate" Type="Edm.DateTime" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="IsCompleted" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="DocumentName" Type="Edm.String" />
+        <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="SupplierId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CurrencyId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
       <EntityType Name="EngineMaintainInvoiceDTO">
         <Key>
           <PropertyRef Name="EngineMaintainInvoiceId" />
@@ -643,6 +667,7 @@
         <EntitySet Name="LeaseInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.LeaseInvoiceDTO" />
         <EntitySet Name="PrepaymentInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.PrepaymentInvoiceDTO" />
         <EntitySet Name="PurchaseInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.PurchaseInvoiceDTO" />
+        <EntitySet Name="MaintainInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.BaseMaintainInvoiceDTO" />
         <EntitySet Name="EngineMaintainInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.EngineMaintainInvoiceDTO" />
         <EntitySet Name="APUMaintainInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.APUMaintainInvoiceDTO" />
         <EntitySet Name="AirframeMaintainInvoices" EntityType="UniCloud.Application.PaymentBC.DTO.AirframeMaintainInvoiceDTO" />
