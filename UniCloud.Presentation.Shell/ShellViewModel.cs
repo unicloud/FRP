@@ -867,6 +867,7 @@ namespace UniCloud.Presentation.Shell
             var menu922 = new MenuItem
             {
                 Text = "维护经营证照",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManageOperationQualification.ManageOperationLicense"
             };
             menu92.Items.Add(menu921);
             menu92.Items.Add(menu922);
@@ -879,6 +880,7 @@ namespace UniCloud.Presentation.Shell
             var menu931 = new MenuItem
             {
                 Text = "维护分支机构",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManageSubsidiary.BranchCompany"
             };
             var menu932 = new MenuItem
             {
