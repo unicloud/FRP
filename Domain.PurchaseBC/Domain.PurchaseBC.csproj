@@ -73,6 +73,7 @@
     <Compile Include="Aggregates\DocumentPathAgg\DocumentPathFactory.cs" />
     <Compile Include="Aggregates\DocumentPathAgg\DocumentPathSpecifications.cs" />
     <Compile Include="Aggregates\DocumentPathAgg\IDocumentPathRepository.cs" />
+    <Compile Include="Aggregates\MaintainContractAgg\AirframeMaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\APUMaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContractFactory.cs" />

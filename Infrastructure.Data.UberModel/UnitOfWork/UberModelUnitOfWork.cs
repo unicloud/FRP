@@ -671,7 +671,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new APUMaintainContractEntityConfiguration())
                 .Add(new EngineMaintainContractEntityConfiguration())
                 .Add(new UndercartMaintainContractEntityConfiguration())
-
+                .Add(new AirframeMaintainContractEntityConfiguration())
             #endregion
 
             #region MaintainInvoiceAgg

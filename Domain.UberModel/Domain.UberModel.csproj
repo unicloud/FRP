@@ -119,6 +119,7 @@
     <Compile Include="Aggregates\LinkmanAgg\Linkman.cs" />
     <Compile Include="Aggregates\LinkmanAgg\LinkmanFactory.cs" />
     <Compile Include="Aggregates\MailAddressAgg\MailAddress.cs" />
+    <Compile Include="Aggregates\MaintainContractAgg\AirframeMaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\APUMaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\EngineMaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContract.cs" />

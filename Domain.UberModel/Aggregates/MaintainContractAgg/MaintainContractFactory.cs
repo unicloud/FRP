@@ -68,6 +68,19 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainContractAgg
         }
 
         /// <summary>
+        ///     新增机身维修合同
+        /// </summary>
+        public static AirframeMaintainContract CreateAirframeMaintainContract()
+        {
+            var airframeMaintainContract = new AirframeMaintainContract
+            {
+                CreateDate = DateTime.Now
+            };
+
+            return airframeMaintainContract;
+        }
+
+        /// <summary>
         ///     设置维修合同属性
         /// </summary>
         /// <param name="maintainContract">维修合同</param>
@@ -98,6 +111,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainContractAgg
             }
             else if (maintainContract is UndercartMaintainContract)
             {
+            }
+            else if (maintainContract is AirframeMaintainContract)
+            {
+                
             }
         }
     }
