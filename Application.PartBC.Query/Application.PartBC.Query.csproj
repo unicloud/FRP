@@ -52,6 +52,36 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application.PartBC.DTO\Application.PartBC.DTO.csproj">
+      <Project>{c4ec503e-850e-47f9-b691-1b3617f125ee}</Project>
+      <Name>Application.PartBC.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{c926e107-6971-4b5c-8e00-db7761eeac8e}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
+      <Project>{e48e84de-5a91-4d16-84e5-cffc4c7e7657}</Project>
+      <Name>Domain.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.PartBC\Domain.PartBC.csproj">
+      <Project>{c8c80cbf-f4c4-4c7a-a19c-52fb09aec87d}</Project>
+      <Name>Domain.PartBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.PartBC\Infrastructure.Data.PartBC.csproj">
+      <Project>{86b54e11-e21e-4800-ac61-100ef0ab1efa}</Project>
+      <Name>Infrastructure.Data.PartBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{cad91a38-6b90-4a18-83ca-0215ce512f4d}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

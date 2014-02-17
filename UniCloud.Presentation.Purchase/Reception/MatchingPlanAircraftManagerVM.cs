@@ -14,7 +14,8 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Reception
 {
-    [Export]
+    [Export(typeof(MatchingPlanAircraftManagerVM))]
+    [PartCreationPolicy(CreationPolicy.Shared)]
     public class MatchingPlanAircraftManagerVM : EditViewModelBase
     {
         #region 声明、初始化
@@ -40,10 +41,10 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         private void InitializeVM()
         {
-            ContractAircrafts = _service.CreateCollection<ContractAircraftDTO>(_context.ContractAircrafts);
+            ContractAircrafts = _service.CreateCollection(_context.ContractAircrafts);
             _service.RegisterCollectionView(ContractAircrafts); //注册查询集合。
 
-            PlanAircrafts = _service.CreateCollection<PlanAircraftDTO>(_context.PlanAircrafts);
+            PlanAircrafts = _service.CreateCollection(_context.PlanAircrafts);
             _service.RegisterCollectionView(PlanAircrafts); //注册查询集合。
         }
 
@@ -74,8 +75,15 @@ namespace UniCloud.Presentation.Purchase.Reception
         /// </summary>
         public override void LoadData()
         {
-            ContractAircrafts.Load(true);
-            PlanAircrafts.Load(true);
+            if (!ContractAircrafts.AutoLoad)
+                ContractAircrafts.AutoLoad = true;
+            else
+                ContractAircrafts.Load(true);
+
+            if (!PlanAircrafts.AutoLoad)
+                PlanAircrafts.AutoLoad = true;
+            else
+                PlanAircrafts.Load(true);
         }
 
         #region 业务
@@ -118,12 +126,12 @@ namespace UniCloud.Presentation.Purchase.Reception
             get
             {
                 var contractAircrafts = ContractAircrafts.Where(p => p.PlanAircraftID != null).ToList();
-                var MatchedContAcs = new ObservableCollection<ContractAircraftDTO>();
+                var matchedContAcs = new ObservableCollection<ContractAircraftDTO>();
                 foreach (var contractAircraft in contractAircrafts)
                 {
-                    MatchedContAcs.Add(contractAircraft);
+                    matchedContAcs.Add(contractAircraft);
                 }
-                return MatchedContAcs;
+                return matchedContAcs;
             }
         }
 

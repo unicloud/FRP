@@ -334,7 +334,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork
                 .Add(new APUMaintainContractEntityConfiguration())
                 .Add(new EngineMaintainContractEntityConfiguration())
                 .Add(new UndercartMaintainContractEntityConfiguration())
-
+                .Add(new AirframeMaintainContractEntityConfiguration())
                 #endregion
 
                 #region ManufacturerAgg

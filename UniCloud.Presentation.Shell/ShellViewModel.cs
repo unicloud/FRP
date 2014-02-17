@@ -517,11 +517,11 @@ namespace UniCloud.Presentation.Shell
             {
                 Text = "管理接机",
             };
-            //var menu341 = new MenuItem
-            //{
-            //    Text = "匹配计划飞机",
-            //    NavUri = "UniCloud.Presentation.Purchase.Reception.MatchingPlanAircraftManager"
-            //};
+            var menu341 = new MenuItem
+            {
+                Text = "匹配计划飞机",
+                NavUri = "UniCloud.Presentation.Purchase.Reception.MatchingPlanAircraftManager"
+            };
             var menu342 = new MenuItem
             {
                 Text = "维护租赁飞机交付项目",
@@ -542,7 +542,7 @@ namespace UniCloud.Presentation.Shell
                 Text = "维护采购发动机交付项目",
                 NavUri = "UniCloud.Presentation.Purchase.Reception.EnginePurchaseReceptionManager",
             };
-            //menu34.Items.Add(menu341);
+            menu34.Items.Add(menu341);
             menu34.Items.Add(menu342);
             menu34.Items.Add(menu343);
             menu34.Items.Add(menu344);
@@ -837,14 +837,22 @@ namespace UniCloud.Presentation.Shell
             };
             var menu911 = new MenuItem
             {
-                Text = "管理角色",
+                Text = "管理用户",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageUser"
             };
             var menu912 = new MenuItem
             {
-                Text = "管理用户",
+                Text = "管理角色",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageUserInRole"
+            };
+            var menu913 = new MenuItem
+            {
+                Text = "管理权限",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageFunctionsInRole"
             };
             menu91.Items.Add(menu911);
             menu91.Items.Add(menu912);
+            menu91.Items.Add(menu913);
             menu9.Items.Add(menu91);
 
             var menu92 = new MenuItem
@@ -859,6 +867,7 @@ namespace UniCloud.Presentation.Shell
             var menu922 = new MenuItem
             {
                 Text = "维护经营证照",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManageOperationQualification.ManageOperationLicense"
             };
             menu92.Items.Add(menu921);
             menu92.Items.Add(menu922);
@@ -871,6 +880,7 @@ namespace UniCloud.Presentation.Shell
             var menu931 = new MenuItem
             {
                 Text = "维护分支机构",
+                NavUri = "UniCloud.Presentation.BaseManagement.ManageSubsidiary.BranchCompany"
             };
             var menu932 = new MenuItem
             {

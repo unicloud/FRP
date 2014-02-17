@@ -32,6 +32,40 @@ namespace UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries
         }
 
         /// <summary>
+        ///     维修发票查询。
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns>维修发票DTO集合。</returns>
+        public IQueryable<BaseMaintainInvoiceDTO> MaintainInvoiceDTOQuery(
+            QueryBuilder<MaintainInvoice> query)
+        {
+            return
+                query.ApplyTo(_invoiceRepository.GetAll())
+                    .Select(p => new BaseMaintainInvoiceDTO
+                    {
+                        MaintainInvoiceId = p.Id,
+                        SerialNumber = p.SerialNumber,
+                        InvoiceNumber = p.InvoiceNumber,
+                        InvoideCode = p.InvoideCode,
+                        InvoiceDate = p.InvoiceDate,
+                        SupplierName = p.SupplierName,
+                        InvoiceValue = p.InvoiceValue,
+                        PaidAmount = p.PaidAmount,
+                        OperatorName = p.OperatorName,
+                        Reviewer = p.Reviewer,
+                        CreateDate = p.CreateDate,
+                        ReviewDate = p.ReviewDate,
+                        IsValid = p.IsValid,
+                        IsCompleted = p.IsCompleted,
+                        Status = (int)p.Status,
+                        SupplierId = p.SupplierId,
+                        CurrencyId = p.CurrencyId,
+                        DocumentName = p.DocumentName,
+                        DocumentId = p.DocumentId,
+                    });
+        }
+
+        /// <summary>
         ///     发动机维修发票查询。
         /// </summary>
         /// <param name="query">查询表达式。</param>

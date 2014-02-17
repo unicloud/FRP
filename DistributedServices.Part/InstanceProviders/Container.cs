@@ -1,65 +1,61 @@
-﻿//------------------------------------------------------------------------------
+﻿#region 版本信息
+
+// ========================================================================
+// 版权所有 (C) 2013 UniCloud 
+//【本类功能概述】
 // 
-//------------------------------------------------------------------------------
+// 作者：HuangQiBin 时间：2014/2/10，13:11
+// 方案：FRP
+// 项目：DistributedServices.Part
+// 版本：V1.0.0
+// 
+// 修改者： 时间： 
+// 修改说明：
+// ========================================================================
+
+#endregion
+
+#region 命名空间
+
+using Microsoft.Practices.Unity;
+using UniCloud.Domain.Events;
+using UniCloud.Infrastructure.Data;
+using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+using UniCloud.Infrastructure.Utilities.Container;
+
+#endregion
 
 namespace UniCloud.DistributedServices.Part.InstanceProviders
 {
-    using Application.PartBC.Services;
-    using Infrastructure.Crosscutting.Logging;
-    using Infrastructure.Crosscutting.NetFramework.Logging;
-    using Microsoft.Practices.Unity;
-
     /// <summary>
-    /// DI 容器
+    ///     DI 容器
     /// </summary>
     public static class Container
     {
-        #region 属性
-
-        /// <summary>
-        /// 当前 DI 容器
-        /// </summary>
-        public static IUnityContainer Current { get; private set; }
-
-        #endregion
-
-        #region 构造函数
-
-        static Container()
-        {
-            ConfigureContainer();
-            ConfigureFactories();
-        }
-
-        #endregion
-
         #region 方法
 
-        static void ConfigureContainer()
+        public static void ConfigureContainer()
         {
+            DefaultContainer.CreateContainer()
+                .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
+                //.RegisterType<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager())
 
-            Current = new UnityContainer();
+            #region 领域事件相关配置
 
+            //.RegisterType<IPartEvent, PartEvent>(new WcfPerRequestLifetimeManager())
 
-            //-> Unit of Work与仓储
+            #endregion
 
-            //-> 领域服务
+            //#region SCN相关配置，包括查询，应用服务，仓储注册
 
-
-            //-> 应用服务
-            Current.RegisterType<IPartAppService, PartAppService>();
-            //-> 分布式服务
-
+            //    .RegisterType<IScnQuery, ScnQuery>()
+            //    .RegisterType<IScnAppService, ScnAppService>()
+            //    .RegisterType<IScnRepository, ScnRepository>()
+            //#endregion
+                
+            ;
         }
 
-
-        static void ConfigureFactories()
-        {
-            LoggerFactory.SetCurrent(new UniCloudLogFactory());
-        }
-
-      
         #endregion
-
     }
 }

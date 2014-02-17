@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitOfWork\PartBCUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -56,6 +57,24 @@
     <Folder Include="Repositories\" />
     <Folder Include="UnitOfWork\Mapping\Oracle\" />
     <Folder Include="UnitOfWork\Mapping\Sql\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Common\Domain.Common.csproj">
+      <Project>{e48e84de-5a91-4d16-84e5-cffc4c7e7657}</Project>
+      <Name>Domain.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.PartBC\Domain.PartBC.csproj">
+      <Project>{c8c80cbf-f4c4-4c7a-a19c-52fb09aec87d}</Project>
+      <Name>Domain.PartBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{cad91a38-6b90-4a18-83ca-0215ce512f4d}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

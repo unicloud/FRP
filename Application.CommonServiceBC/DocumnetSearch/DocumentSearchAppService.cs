@@ -58,7 +58,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
             //var aa = LuceneSearch.LuceneSearch.Query(keyword);
             IndexManager.GenerateSearcher();
             var docCount = IndexManager.IndexSearcher.MaxDoc();
-            //var asdasd= aa.scoreDocs.Select(a => IndexManager.IndexSearcher.Doc(a.doc)).Select(result => new DocumentDTO
+            //var asdasd = aa.scoreDocs.Select(a => IndexManager.IndexSearcher.Doc(a.doc)).Select(result => new DocumentDTO
             //                                                                                      {
             //                                                                                          DocumentId = Guid.Parse(result.Get("ID")),
             //                                                                                          Extension = result.Get("extendType"),

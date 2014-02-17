@@ -43,6 +43,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
         private readonly IPaymentService _service;
         [Import]
         public BankAccountWindow BankAccountWindow;
+        public SelectInvoices SelectInvoicesWindow;
 
         [ImportingConstructor]
         public PaymentNoticeVm(IRegionManager regionManager, IPaymentService service)
@@ -51,7 +52,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
             _regionManager = regionManager;
             _service = service;
             _context = _service.Context;
-            _service.GetSupplier(null);
             InitializeVm();
         }
 
@@ -208,12 +208,17 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                 MessageAlert("请选择一条付款通知记录！");
                 return;
             }
-            var maintainInvoiceLine = new PaymentNoticeLineDTO
-            {
-                PaymentNoticeLineId = RandomHelper.Next(),
-            };
 
-            PaymentNotice.PaymentNoticeLines.Add(maintainInvoiceLine);
+            SelectInvoicesWindow = new SelectInvoices();
+            SelectInvoicesWindow.ViewModel.InitData(PaymentNotice);
+            SelectInvoicesWindow.ShowDialog();
+
+            //var maintainInvoiceLine = new PaymentNoticeLineDTO
+            //{
+            //    PaymentNoticeLineId = RandomHelper.Next(),
+            //};
+
+            //PaymentNotice.PaymentNoticeLines.Add(maintainInvoiceLine);
         }
 
         protected override bool CanAddInvoiceLine(object obj)
