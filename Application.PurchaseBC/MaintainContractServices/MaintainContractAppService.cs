@@ -215,10 +215,10 @@ namespace UniCloud.Application.PurchaseBC.MaintainContractServices
         [Insert(typeof(AirframeMaintainContractDTO))]
         public void InsertAirframeMaintainContract(AirframeMaintainContractDTO airframeMaintainContract)
         {
-            //var newAirframeMaintainContract = MaintainContractFactory.CreateAirframeMaintainContract();
-            //MaintainContractFactory.SetMaintainContract(newAirframeMaintainContract, airframeMaintainContract.Name, airframeMaintainContract.Number, airframeMaintainContract.Signatory,
-            //   airframeMaintainContract.SignDate, airframeMaintainContract.Abstract, airframeMaintainContract.SignatoryId, airframeMaintainContract.DocumentId, airframeMaintainContract.DocumentName);
-            //_contractRepository.Add(newAirframeMaintainContract);
+            var newAirframeMaintainContract = MaintainContractFactory.CreateAirframeMaintainContract();
+            MaintainContractFactory.SetMaintainContract(newAirframeMaintainContract, airframeMaintainContract.Name, airframeMaintainContract.Number, airframeMaintainContract.Signatory,
+               airframeMaintainContract.SignDate, airframeMaintainContract.Abstract, airframeMaintainContract.SignatoryId, airframeMaintainContract.DocumentId, airframeMaintainContract.DocumentName);
+            _contractRepository.Add(newAirframeMaintainContract);
         }
 
         /// <summary>

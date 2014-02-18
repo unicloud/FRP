@@ -122,24 +122,20 @@ namespace UniCloud.Application.PurchaseBC.Query.MaintainContractQueries
         public IQueryable<AirframeMaintainContractDTO> AirframeMaintainContractDTOQuery(
             QueryBuilder<MaintainContract> query)
         {
-            return null;
-            //query.ApplyTo(_contractRepository.GetAll().OfType<AirframeMaintainContract>())
-            //     .Select(p => new AirframeMaintainContractDTO
-            //     {
-            //         UndercartMaintainContractId
-            //             = p.Id,
-            //         Name = p.Name,
-            //         Number = p.Number,
-            //         Signatory = p.Signatory,
-            //         SignDate = p.SignDate,
-            //         SignatoryId =
-            //             p.SignatoryId,
-            //         Abstract = p.Abstract,
-            //         CreateDate =
-            //             p.CreateDate,
-            //         DocumentId = p.DocumentId,
-            //         DocumentName = p.DocumentName
-            //     });
+            return query.ApplyTo(_contractRepository.GetAll().OfType<AirframeMaintainContract>())
+                 .Select(p => new AirframeMaintainContractDTO
+                 {
+                     AirframeMaintainContractId = p.Id,
+                     Name = p.Name,
+                     Number = p.Number,
+                     Signatory = p.Signatory,
+                     SignDate = p.SignDate,
+                     SignatoryId = p.SignatoryId,
+                     Abstract = p.Abstract,
+                     CreateDate = p.CreateDate,
+                     DocumentId = p.DocumentId,
+                     DocumentName = p.DocumentName
+                 });
         }
     }
 }
