@@ -46,7 +46,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AircraftQueries\AircraftQuery.cs" />
+    <Compile Include="AircraftQueries\IAircraftQuery.cs" />
+    <Compile Include="AircraftTypeQueries\AircraftTypeQuery.cs" />
+    <Compile Include="AircraftTypeQueries\IAircraftTypeQuery.cs" />
+    <Compile Include="BasicConfigGroupQueries\BasicConfigGroupQuery.cs" />
+    <Compile Include="BasicConfigGroupQueries\IBasicConfigGroupQuery.cs" />
+    <Compile Include="ContractAircraftQueries\ContractAircraftQuery.cs" />
+    <Compile Include="ContractAircraftQueries\IContractAircraftQuery.cs" />
+    <Compile Include="CtrlUnitQueries\CtrlUnitQuery.cs" />
+    <Compile Include="CtrlUnitQueries\ICtrlUnitQuery.cs" />
+    <Compile Include="MaintainCtrlQueries\IMaintainCtrlQuery.cs" />
+    <Compile Include="MaintainCtrlQueries\MaintainCtrlQuery.cs" />
+    <Compile Include="MaintainWorkQueries\IMaintainWorkQuery.cs" />
+    <Compile Include="MaintainWorkQueries\MaintainWorkQuery.cs" />
+    <Compile Include="ModQueries\IModQuery.cs" />
+    <Compile Include="ModQueries\ModQuery.cs" />
+    <Compile Include="PnRegQueries\IPnRegQuery.cs" />
+    <Compile Include="PnRegQueries\PnRegQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScnQueries\IScnQuery.cs" />
+    <Compile Include="ScnQueries\ScnQuery.cs" />
+    <Compile Include="SnRegQueries\ISnRegQuery.cs" />
+    <Compile Include="SnRegQueries\SnRegQuery.cs" />
+    <Compile Include="SpecialConfigQueries\ISpecialConfigQuery.cs" />
+    <Compile Include="SpecialConfigQueries\SpecialConfigQuery.cs" />
+    <Compile Include="TechnicalSolutionQueries\ITechnicalSolutionQuery.cs" />
+    <Compile Include="TechnicalSolutionQueries\TechnicalSolutionQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

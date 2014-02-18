@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\AcDailyUtilizationAgg\AcDailyUtilization.cs" />
     <Compile Include="Aggregates\ActionCategoryAgg\ActionCategory.cs" />
     <Compile Include="Aggregates\ActionCategoryAgg\ActionCategoryFactory.cs" />
     <Compile Include="Aggregates\AircraftLicenseAgg\AircraftLicense.cs" />
@@ -73,6 +74,8 @@
     <Compile Include="Aggregates\AtaAgg\Ata.cs" />
     <Compile Include="Aggregates\AtaAgg\AtaFactory.cs" />
     <Compile Include="Aggregates\BankAccountAgg\BankAccount.cs" />
+    <Compile Include="Aggregates\BasicConfigGroupAgg\BasicConfig.cs" />
+    <Compile Include="Aggregates\BasicConfigGroupAgg\BasicConfigGroup.cs" />
     <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgramming.cs" />
     <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgrammingLine.cs" />
     <Compile Include="Aggregates\ContentTagAgg\ContentTag.cs" />
@@ -86,6 +89,7 @@
     <Compile Include="Aggregates\ContractEngineAgg\ContractEngine.cs" />
     <Compile Include="Aggregates\ContractEngineAgg\LeaseContractEngine.cs" />
     <Compile Include="Aggregates\ContractEngineAgg\PurchaseContractEngine.cs" />
+    <Compile Include="Aggregates\CtrlUnitAgg\CtrlUnit.cs" />
     <Compile Include="Aggregates\CurrencyAgg\Currency.cs" />
     <Compile Include="Aggregates\DocumentAgg\Document.cs" />
     <Compile Include="Aggregates\DocumentAgg\DocumentFactory.cs" />
@@ -124,6 +128,11 @@
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContract.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\MaintainContractFactory.cs" />
     <Compile Include="Aggregates\MaintainContractAgg\UndercartMaintainContract.cs" />
+    <Compile Include="Aggregates\MaintainCtrlAgg\ItemMaintainCtrl.cs" />
+    <Compile Include="Aggregates\MaintainCtrlAgg\MaintainCtrl.cs" />
+    <Compile Include="Aggregates\MaintainCtrlAgg\MaintainCtrlLine.cs" />
+    <Compile Include="Aggregates\MaintainCtrlAgg\PnMaintainCtrl.cs" />
+    <Compile Include="Aggregates\MaintainCtrlAgg\SnMaintainCtrl.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\AirframeMaintainInvoice.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\APUMaintainInvoice.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\EngineMaintainInvoice.cs" />
@@ -131,6 +140,7 @@
     <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoiceFactory.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\MaintainInvoiceLine.cs" />
     <Compile Include="Aggregates\MaintainInvoiceAgg\UndercartMaintainInvoice.cs" />
+    <Compile Include="Aggregates\MaintainWorkAgg\MaintainWork.cs" />
     <Compile Include="Aggregates\ManagerAgg\Manager.cs" />
     <Compile Include="Aggregates\ManagerAgg\ManagerFactory.cs" />
     <Compile Include="Aggregates\ManufacturerAgg\Manufacturer.cs" />
@@ -139,6 +149,7 @@
     <Compile Include="Aggregates\MaterialAgg\BFEMaterial.cs" />
     <Compile Include="Aggregates\MaterialAgg\EngineMaterial.cs" />
     <Compile Include="Aggregates\MaterialAgg\Material.cs" />
+    <Compile Include="Aggregates\ModAgg\Mod.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftLeaseOrder.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftLeaseOrderLine.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftPurchaseOrder.cs" />
@@ -165,6 +176,7 @@
     <Compile Include="Aggregates\PaymentScheduleAgg\StandardPaymentSchedule.cs" />
     <Compile Include="Aggregates\PlanAircraftAgg\PlanAircraft.cs" />
     <Compile Include="Aggregates\PlanEngineAgg\PlanEngine.cs" />
+    <Compile Include="Aggregates\PnRegAgg\PnReg.cs" />
     <Compile Include="Aggregates\ProgrammingAgg\Programming.cs" />
     <Compile Include="Aggregates\ProgrammingAgg\ProgrammingFactory.cs" />
     <Compile Include="Aggregates\ProjectAgg\Project.cs" />
@@ -188,6 +200,13 @@
     <Compile Include="Aggregates\RelatedDocAgg\RelatedDocSpecifications.cs" />
     <Compile Include="Aggregates\RequestAgg\ApprovalHistory.cs" />
     <Compile Include="Aggregates\RequestAgg\Request.cs" />
+    <Compile Include="Aggregates\ScnAgg\ApplicableAircraft.cs" />
+    <Compile Include="Aggregates\ScnAgg\Scn.cs" />
+    <Compile Include="Aggregates\SnRegAgg\LifeMonitor.cs" />
+    <Compile Include="Aggregates\SnRegAgg\SnHistory.cs" />
+    <Compile Include="Aggregates\SnRegAgg\SnReg.cs" />
+    <Compile Include="Aggregates\SpecialConfigAgg\AcConfig.cs" />
+    <Compile Include="Aggregates\SpecialConfigAgg\SpecialConfig.cs" />
     <Compile Include="Aggregates\SupplierAgg\Supplier.cs" />
     <Compile Include="Aggregates\SupplierAgg\SupplierFactory.cs" />
     <Compile Include="Aggregates\SupplierCompanyAgg\SupplierCompany.cs" />
@@ -207,6 +226,9 @@
     <Compile Include="Aggregates\TaskStandardAgg\TaskCase.cs" />
     <Compile Include="Aggregates\TaskStandardAgg\TaskStandard.cs" />
     <Compile Include="Aggregates\TaskStandardAgg\TaskStandardFactory.cs" />
+    <Compile Include="Aggregates\TechnicalSolutionAgg\Dependency.cs" />
+    <Compile Include="Aggregates\TechnicalSolutionAgg\TechnicalSolution.cs" />
+    <Compile Include="Aggregates\TechnicalSolutionAgg\TsLine.cs" />
     <Compile Include="Aggregates\TradeAgg\Trade.cs" />
     <Compile Include="Aggregates\TradeAgg\TradeFactory.cs" />
     <Compile Include="Aggregates\UserAgg\User.cs" />

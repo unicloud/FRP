@@ -51,7 +51,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AircraftDTO\AircraftDTO.cs" />
+    <Compile Include="AircraftTypeDTO\AircraftTypeDTO.cs" />
+    <Compile Include="BasicConfigGroupDTO\BasicConfigDTO.cs" />
+    <Compile Include="BasicConfigGroupDTO\BasicConfigGroupDTO.cs" />
+    <Compile Include="ContractAircraftDTO\ContractAircraftDTO.cs" />
+    <Compile Include="CtrlUnitDTO\CtrlUnitDTO.cs" />
+    <Compile Include="MaintainCtrlDTO\ItemMaintainCtrlDTO.cs" />
+    <Compile Include="MaintainCtrlDTO\MaintainCtrlLineDTO.cs" />
+    <Compile Include="MaintainCtrlDTO\PnMaintainCtrlDTO.cs" />
+    <Compile Include="MaintainCtrlDTO\SnMaintainCtrlDTO.cs" />
+    <Compile Include="MaintainWorkDTO\MaintainWorkDTO.cs" />
+    <Compile Include="ModDTO\ModDTO.cs" />
+    <Compile Include="PnRegDTO\PnRegDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScnDTO\ApplicableAircraftDTO.cs" />
+    <Compile Include="ScnDTO\ScnDTO.cs" />
+    <Compile Include="SnRegDTO\LifeMonitorDTO.cs" />
+    <Compile Include="SnRegDTO\SnHistoryDTO.cs" />
+    <Compile Include="SnRegDTO\SnRegDTO.cs" />
+    <Compile Include="SpecialConfigDTO\SpecialConfigDTO.cs" />
+    <Compile Include="TechnicalSolutionDTO\DependencyDTO.cs" />
+    <Compile Include="TechnicalSolutionDTO\TechnicalSolutionDTO.cs" />
+    <Compile Include="TechnicalSolutionDTO\TsLineDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

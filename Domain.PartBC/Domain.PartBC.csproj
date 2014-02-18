@@ -40,6 +40,70 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\SpecialConfigAgg\AcConfig.cs" />
+    <Compile Include="Aggregates\AcDailyUtilizationAgg\AcDailyUtilization.cs" />
+    <Compile Include="Aggregates\AcDailyUtilizationAgg\AcDailyUtilizationFactory.cs" />
+    <Compile Include="Aggregates\AcDailyUtilizationAgg\AcDailyUtilizationSpecifications.cs" />
+    <Compile Include="Aggregates\AcDailyUtilizationAgg\IAcDailyUtilizationRepository.cs" />
+    <Compile Include="Aggregates\BasicConfigGroupAgg\BasicConfig.cs" />
+    <Compile Include="Aggregates\AircraftAgg\Aircraft.cs" />
+    <Compile Include="Aggregates\AircraftAgg\AircraftSpecifications.cs" />
+    <Compile Include="Aggregates\AircraftAgg\IAircraftRepository.cs" />
+    <Compile Include="Aggregates\AircraftTypeAgg\AircraftType.cs" />
+    <Compile Include="Aggregates\AircraftTypeAgg\AircraftTypeSpecifications.cs" />
+    <Compile Include="Aggregates\AircraftTypeAgg\IAircraftTypeRepository.cs" />
+    <Compile Include="Aggregates\BasicConfigGroupAgg\BasicConfigGroup.cs" />
+    <Compile Include="Aggregates\BasicConfigGroupAgg\BasicConfigGroupFactory.cs" />
+    <Compile Include="Aggregates\BasicConfigGroupAgg\BasicConfigGroupSpecifications.cs" />
+    <Compile Include="Aggregates\BasicConfigGroupAgg\IBasicConfigGroupRepository.cs" />
+    <Compile Include="Aggregates\ContractAircraftAgg\ContractAircraft.cs" />
+    <Compile Include="Aggregates\ContractAircraftAgg\ContractAircraftSpecifications.cs" />
+    <Compile Include="Aggregates\ContractAircraftAgg\IContractAircraftRepository.cs" />
+    <Compile Include="Aggregates\CtrlUnitAgg\CtrlUnit.cs" />
+    <Compile Include="Aggregates\CtrlUnitAgg\CtrlUnitFactory.cs" />
+    <Compile Include="Aggregates\CtrlUnitAgg\CtrlUnitSpecifications.cs" />
+    <Compile Include="Aggregates\CtrlUnitAgg\ICtrlUnitRepository.cs" />
+    <Compile Include="Aggregates\MaintainCtrlAgg\IMaintainCtrlRepository.cs" />
+    <Compile Include="Aggregates\MaintainCtrlAgg\ItemMaintainCtrl.cs" />
+    <Compile Include="Aggregates\MaintainCtrlAgg\MaintainCtrlFactory.cs" />
+    <Compile Include="Aggregates\MaintainCtrlAgg\MaintainCtrlSpecifications.cs" />
+    <Compile Include="Aggregates\MaintainWorkAgg\IMaintainWorkRepository.cs" />
+    <Compile Include="Aggregates\MaintainWorkAgg\MaintainWork.cs" />
+    <Compile Include="Aggregates\MaintainWorkAgg\MaintainWorkFactory.cs" />
+    <Compile Include="Aggregates\MaintainWorkAgg\MaintainWorkSpecifications.cs" />
+    <Compile Include="Aggregates\SnRegAgg\LifeMonitor.cs" />
+    <Compile Include="Aggregates\MaintainCtrlAgg\MaintainCtrl.cs" />
+    <Compile Include="Aggregates\MaintainCtrlAgg\MaintainCtrlLine.cs" />
+    <Compile Include="Aggregates\ModAgg\IModRepository.cs" />
+    <Compile Include="Aggregates\ModAgg\Mod.cs" />
+    <Compile Include="Aggregates\ModAgg\ModFactory.cs" />
+    <Compile Include="Aggregates\ModAgg\ModSpecifications.cs" />
+    <Compile Include="Aggregates\MaintainCtrlAgg\PnMaintainCtrl.cs" />
+    <Compile Include="Aggregates\PnRegAgg\IPnRegRepository.cs" />
+    <Compile Include="Aggregates\PnRegAgg\PnReg.cs" />
+    <Compile Include="Aggregates\PnRegAgg\PnRegFactory.cs" />
+    <Compile Include="Aggregates\PnRegAgg\PnRegSpecifications.cs" />
+    <Compile Include="Aggregates\ScnAgg\ApplicableAircraft.cs" />
+    <Compile Include="Aggregates\ScnAgg\IScnRepository.cs" />
+    <Compile Include="Aggregates\ScnAgg\Scn.cs" />
+    <Compile Include="Aggregates\ScnAgg\ScnFactory.cs" />
+    <Compile Include="Aggregates\ScnAgg\ScnSpecifications.cs" />
+    <Compile Include="Aggregates\MaintainCtrlAgg\SnMaintainCtrl.cs" />
+    <Compile Include="Aggregates\SnRegAgg\ISnRegRepository.cs" />
+    <Compile Include="Aggregates\SnRegAgg\SnHistory.cs" />
+    <Compile Include="Aggregates\SnRegAgg\SnReg.cs" />
+    <Compile Include="Aggregates\SpecialConfigAgg\ISpecialConfigRepository.cs" />
+    <Compile Include="Aggregates\SpecialConfigAgg\SpecialConfig.cs" />
+    <Compile Include="Aggregates\SnRegAgg\SnRegFactory.cs" />
+    <Compile Include="Aggregates\SnRegAgg\SnRegSpecifications.cs" />
+    <Compile Include="Aggregates\SpecialConfigAgg\SpecialConfigFactory.cs" />
+    <Compile Include="Aggregates\SpecialConfigAgg\SpecialConfigSpecifications.cs" />
+    <Compile Include="Aggregates\TechnicalSolutionAgg\Dependency.cs" />
+    <Compile Include="Aggregates\TechnicalSolutionAgg\ITechnicalSolutionRepository.cs" />
+    <Compile Include="Aggregates\TechnicalSolutionAgg\TechnicalSolution.cs" />
+    <Compile Include="Aggregates\TechnicalSolutionAgg\TechnicalSolutionFactory.cs" />
+    <Compile Include="Aggregates\TechnicalSolutionAgg\TechnicalSolutionSpecifications.cs" />
+    <Compile Include="Aggregates\TechnicalSolutionAgg\TsLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -49,7 +113,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Aggregates\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

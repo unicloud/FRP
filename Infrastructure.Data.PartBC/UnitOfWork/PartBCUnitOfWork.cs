@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,13 +11,28 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using UniCloud.Domain.PartBC.Aggregates.AcDailyUtilizationAgg;
+using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
+using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
+using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
+using UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg;
+using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
+using UniCloud.Domain.PartBC.Aggregates.ModAgg;
+using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
+using UniCloud.Domain.PartBC.Aggregates.ScnAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
+using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
+using UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg;
+using UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql;
 
 #endregion
 
@@ -26,18 +42,90 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
     {
         #region IDbSet成员
 
-        //private IDbSet<Scn> _scns;
-        //private IDbSet<MScn> _mscns;
+        private IDbSet<AcDailyUtilization> _acDailyUtilizations;
+        private IDbSet<AircraftType> _aircraftTypes;
+        private IDbSet<Aircraft> _aircrafts;
+        private IDbSet<BasicConfigGroup> _basicConfigGroups;
+        private IDbSet<ContractAircraft> _contractAircrafts;
+        private IDbSet<CtrlUnit> _ctrlUnits;
+        private IDbSet<MaintainCtrl> _maintainCtrls;
+        private IDbSet<MaintainWork> _maintainWorks;
+        private IDbSet<Mod> _mods;
+        private IDbSet<PnReg> _pneRegs;
+        private IDbSet<Scn> _scns;
+        private IDbSet<SnReg> _snRegs;
+        private IDbSet<SpecialConfig> _specialConfigs;
+        private IDbSet<TechnicalSolution> _technicalSolutions;
 
-        //public IDbSet<Scn> Scns
-        //{
-        //    get { return _scns ?? (_scns = base.Set<Scn>()); }
-        //}
+        public IDbSet<AcDailyUtilization> AcDailyUtilizations
+        {
+            get { return _acDailyUtilizations ?? (_acDailyUtilizations = base.Set<AcDailyUtilization>()); }
+        }
 
-        //public IDbSet<MScn> MScns
-        //{
-        //    get { return _mscns ?? (_mscns = base.Set<MScn>()); }
-        //}
+        public IDbSet<Aircraft> Aircrafts
+        {
+            get { return _aircrafts ?? (_aircrafts = base.Set<Aircraft>()); }
+        }
+
+        public IDbSet<AircraftType> AircraftTypes
+        {
+            get { return _aircraftTypes ?? (_aircraftTypes = base.Set<AircraftType>()); }
+        }
+
+        public IDbSet<BasicConfigGroup> BasicConfigGroups
+        {
+            get { return _basicConfigGroups ?? (_basicConfigGroups = base.Set<BasicConfigGroup>()); }
+        }
+
+        public IDbSet<ContractAircraft> ContractAircrafts
+        {
+            get { return _contractAircrafts ?? (_contractAircrafts = base.Set<ContractAircraft>()); }
+        }
+
+        public IDbSet<CtrlUnit> CtrlUnits
+        {
+            get { return _ctrlUnits ?? (_ctrlUnits = base.Set<CtrlUnit>()); }
+        }
+
+        public IDbSet<MaintainCtrl> MaintainCtrls
+        {
+            get { return _maintainCtrls ?? (_maintainCtrls = base.Set<MaintainCtrl>()); }
+        }
+
+        public IDbSet<MaintainWork> MaintainWorks
+        {
+            get { return _maintainWorks ?? (_maintainWorks = base.Set<MaintainWork>()); }
+        }
+
+        public IDbSet<Mod> Mods
+        {
+            get { return _mods ?? (_mods = base.Set<Mod>()); }
+        }
+
+        public IDbSet<PnReg> PnRegs
+        {
+            get { return _pneRegs ?? (_pneRegs = base.Set<PnReg>()); }
+        }
+
+        public IDbSet<Scn> Scns
+        {
+            get { return _scns ?? (_scns = base.Set<Scn>()); }
+        }
+
+        public IDbSet<SnReg> SnRegs
+        {
+            get { return _snRegs ?? (_snRegs = base.Set<SnReg>()); }
+        }
+
+        public IDbSet<SpecialConfig> SpecialConfigs
+        {
+            get { return _specialConfigs ?? (_specialConfigs = base.Set<SpecialConfig>()); }
+        }
+
+        public IDbSet<TechnicalSolution> TechnicalSolutions
+        {
+            get { return _technicalSolutions ?? (_technicalSolutions = base.Set<TechnicalSolution>()); }
+        }
 
         #endregion
 
@@ -73,15 +161,91 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         /// <param name="modelBuilder"></param>
         private static void SqlConfigurations(DbModelBuilder modelBuilder)
         {
-            //modelBuilder.Configurations
+            modelBuilder.Configurations
 
-            //    #region Scn
+                #region AcDailyUtilizationAgg
 
-            //    .Add(new ScnEntityConfiguration())
-            //    .Add(new ScnLineEntityConfiguration())
-            //    #endregion
+                .Add(new AcDailyUtilizationEntityConfiguration())
+                #endregion
 
-            //    ;
+                #region AircraftAgg
+
+                .Add(new AircraftEntityConfiguration())
+                #endregion
+
+                #region AircraftTypeAgg
+
+                .Add(new AircraftTypeEntityConfiguration())
+                #endregion
+
+                #region BasicConfigGroupAgg
+
+                .Add(new BasicConfigGroupEntityConfiguration())
+                .Add(new BasicConfigEntityConfiguration())
+                #endregion
+
+                #region ContractAircraftAgg
+
+                .Add(new ContractAircraftEntityConfiguration())
+                #endregion
+
+                #region CtrlUnitAgg
+
+                .Add(new CtrlUnitEntityConfiguration())
+                #endregion
+
+                #region MaintainCtrlAgg
+
+                .Add(new MaintainCtrlEntityConfiguration())
+                .Add(new ItemMaintainCtrlEntityConfiguration())
+                .Add(new PnMaintainCtrlEntityConfiguration())
+                .Add(new SnMaintainCtrlEntityConfiguration())
+                .Add(new MaintainCtrlLineEntityConfiguration())
+                #endregion
+
+                #region MaintainWorkAgg
+
+                .Add(new MaintainWorkEntityConfiguration())
+                #endregion
+
+                #region ModAgg
+
+                .Add(new ModEntityConfiguration())
+                #endregion
+
+                #region PnRegAgg
+
+                .Add(new PnRegEntityConfiguration())
+                #endregion
+
+                #region ScnAgg
+
+                .Add(new ScnEntityConfiguration())
+                .Add(new ApplicableAircraftEntityConfiguration())
+                #endregion
+
+                #region SnRegAgg
+
+                .Add(new SnRegEntityConfiguration())
+                .Add(new SnHistoryEntityConfiguration())
+                .Add(new LifeMonitorEntityConfiguration())
+                #endregion
+
+                #region SpecialConfigAgg
+
+                .Add(new AcConfigEntityConfiguration())
+                .Add(new SpecialConfigEntityConfiguration())
+
+                #endregion
+
+                #region TechnicalSolutionAgg
+
+                .Add(new TechnicalSolutionEntityConfiguration())
+                .Add(new TsLineEntityConfiguration())
+                .Add(new DependencyEntityConfiguration())
+                #endregion
+
+                ;
         }
 
         #endregion

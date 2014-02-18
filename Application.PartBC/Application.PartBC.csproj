@@ -40,7 +40,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AircraftServices\AircraftAppService.cs" />
+    <Compile Include="AircraftServices\IAircraftAppService.cs" />
+    <Compile Include="AircraftTypeServices\AircraftTypeAppService.cs" />
+    <Compile Include="AircraftTypeServices\IAircraftTypeAppService.cs" />
+    <Compile Include="BasicConfigGroupServices\BasicConfigGroupAppService.cs" />
+    <Compile Include="BasicConfigGroupServices\IBasicConfigGroupAppService.cs" />
+    <Compile Include="ContractAircraftServices\ContractAircraftAppService.cs" />
+    <Compile Include="ContractAircraftServices\IContractAircraftAppService.cs" />
+    <Compile Include="CtrlUnitServices\CtrlUnitAppService.cs" />
+    <Compile Include="CtrlUnitServices\ICtrlUnitAppService.cs" />
+    <Compile Include="MaintainCtrlServices\IMaintainCtrlAppService.cs" />
+    <Compile Include="MaintainCtrlServices\MaintainCtrlAppService.cs" />
+    <Compile Include="MaintainWorkServices\IMaintainWorkAppService.cs" />
+    <Compile Include="MaintainWorkServices\MaintainWorkAppService.cs" />
+    <Compile Include="ModServices\IModAppService.cs" />
+    <Compile Include="ModServices\ModAppService.cs" />
+    <Compile Include="PnRegServices\IPnRegAppService.cs" />
+    <Compile Include="PnRegServices\PnRegAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScnServices\IScnAppService.cs" />
+    <Compile Include="ScnServices\ScnAppService.cs" />
+    <Compile Include="SnRegServices\ISnRegAppService.cs" />
+    <Compile Include="SnRegServices\SnRegAppService.cs" />
+    <Compile Include="SpecialConfigServices\ISpecialConfigAppService.cs" />
+    <Compile Include="SpecialConfigServices\SpecialConfigAppService.cs" />
+    <Compile Include="TechnicalSolutionServices\ITechnicalSolutionAppService.cs" />
+    <Compile Include="TechnicalSolutionServices\TechnicalSolutionAppService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application.PartBC.DTO\Application.PartBC.DTO.csproj">
