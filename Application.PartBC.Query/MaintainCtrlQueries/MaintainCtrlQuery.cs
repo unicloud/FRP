@@ -17,6 +17,7 @@
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg;
+using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
 using UniCloud.Infrastructure.Data;
 #endregion
 
@@ -40,12 +41,25 @@ namespace UniCloud.Application.PartBC.Query.MaintainCtrlQueries
         ///  <returns>ItemMaintainCtrlDTO集合</returns>
         public IQueryable<ItemMaintainCtrlDTO> ItemMaintainCtrlDTOQuery(QueryBuilder<ItemMaintainCtrl> query)
         {
+            var maintainWorks = _unitOfWork.CreateSet<MaintainWork>();
             return query.ApplyTo(_unitOfWork.CreateSet<ItemMaintainCtrl>()).Select(p => new ItemMaintainCtrlDTO
             {
                 Id = p.Id,
                 CtrlStrategy = p.CtrlStrategy,
                 ItemNo = p.ItemNo,
                 AcConfigId = p.AcConfigId,
+                MaintainCtrlLines = p.MaintainCtrlLines.Select(q => new MaintainCtrlLineDTO()
+                {
+                    Id = q.Id,
+                    MaintainCtrlId = q.MaintainCtrlId,
+                    CtrlUnitId = q.CtrlUnitId,
+                    CtrlUnitName = q.CtrlUnit.Name,
+                    MaintainWorkId = q.MaintainCtrlId,
+                    MaxInterval = q.MaxInterval,
+                    MinInterval = q.MinInterval,
+                    StandardInterval = q.StandardInterval,
+                    WorkCode = maintainWorks.FirstOrDefault(a=>a.Id==q.MaintainWorkId).WorkCode,
+                }).ToList(),
             });
         }
 
@@ -56,12 +70,25 @@ namespace UniCloud.Application.PartBC.Query.MaintainCtrlQueries
         ///  <returns>PnMaintainCtrlDTO集合</returns>
         public IQueryable<PnMaintainCtrlDTO> PnMaintainCtrlDTOQuery(QueryBuilder<PnMaintainCtrl> query)
         {
+            var maintainWorks = _unitOfWork.CreateSet<MaintainWork>();
             return query.ApplyTo(_unitOfWork.CreateSet<PnMaintainCtrl>()).Select(p => new PnMaintainCtrlDTO
             {
                 Id = p.Id,
                 CtrlStrategy = p.CtrlStrategy,
                 Pn = p.Pn,
                 PnRegId = p.PnRegId,
+                MaintainCtrlLines = p.MaintainCtrlLines.Select(q => new MaintainCtrlLineDTO()
+                {
+                    Id = q.Id,
+                    MaintainCtrlId = q.MaintainCtrlId,
+                    CtrlUnitId = q.CtrlUnitId,
+                    CtrlUnitName = q.CtrlUnit.Name,
+                    MaintainWorkId = q.MaintainCtrlId,
+                    MaxInterval = q.MaxInterval,
+                    MinInterval = q.MinInterval,
+                    StandardInterval = q.StandardInterval,
+                    WorkCode = maintainWorks.FirstOrDefault(a => a.Id == q.MaintainWorkId).WorkCode,
+                }).ToList(),
             });
         }
 
@@ -72,11 +99,24 @@ namespace UniCloud.Application.PartBC.Query.MaintainCtrlQueries
         ///  <returns>SnMaintainCtrlDTO集合</returns>
         public IQueryable<SnMaintainCtrlDTO> SnMaintainCtrlDTOQuery(QueryBuilder<SnMaintainCtrl> query)
         {
+            var maintainWorks = _unitOfWork.CreateSet<MaintainWork>();
             return query.ApplyTo(_unitOfWork.CreateSet<SnMaintainCtrl>()).Select(p => new SnMaintainCtrlDTO
             {
                 Id = p.Id,
                 CtrlStrategy = p.CtrlStrategy,
                 SnScope = p.SnScope,
+                MaintainCtrlLines = p.MaintainCtrlLines.Select(q => new MaintainCtrlLineDTO()
+                {
+                    Id = q.Id,
+                    MaintainCtrlId = q.MaintainCtrlId,
+                    CtrlUnitId = q.CtrlUnitId,
+                    CtrlUnitName = q.CtrlUnit.Name,
+                    MaintainWorkId = q.MaintainCtrlId,
+                    MaxInterval = q.MaxInterval,
+                    MinInterval = q.MinInterval,
+                    StandardInterval = q.StandardInterval,
+                    WorkCode = maintainWorks.FirstOrDefault(a => a.Id == q.MaintainWorkId).WorkCode,
+                }).ToList(),
             });
         }
     }

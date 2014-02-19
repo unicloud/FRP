@@ -126,7 +126,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
         /// <summary>
         /// Sn外键
         /// </summary>
-        public int SnId
+        public int SnRegId
         {
             get;
             set;

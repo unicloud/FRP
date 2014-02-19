@@ -43,6 +43,23 @@ namespace UniCloud.Application.PartBC.Query.BasicConfigGroupQueries
             return query.ApplyTo(_unitOfWork.CreateSet<BasicConfigGroup>()).Select(p => new BasicConfigGroupDTO
             {
                 Id = p.Id,
+                Description = p.Description,
+                GroupNo = p.GroupNo,
+                StartDate = p.StartDate,
+                AircraftTypeId = p.AircraftTypeId,
+                AircraftTypeName = p.AircraftType.Name,
+                BasicConfigs = p.BasicConfigs.Select(q => new BasicConfigDTO()
+                {
+                    Id=q.Id,
+                    BasicConfigGroupId = q.BasicConfigGroupId,
+                    Description = q.Description,
+                    FiNumber = q.FiNumber,
+                    ItemNo = q.ItemNo,
+                    TsNumber = q.TsNumber,
+                    ParentItemNo = q.ParentItemNo,
+                    ParentId = q.ParentId,
+                    TsId = q.TsId,
+                }).ToList(),
             });
         }
     }

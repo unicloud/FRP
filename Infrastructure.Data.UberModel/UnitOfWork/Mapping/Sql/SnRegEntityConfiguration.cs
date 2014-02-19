@@ -38,11 +38,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.IsStop).HasColumnName("IsStop");
             Property(p => p.PnRegId).HasColumnName("PnRegId");
             Property(p => p.AircraftId).HasColumnName("AircraftId");
-            Property(p => p.LifeMonitorId).HasColumnName("LifeMonitorId");
 
-            HasOptional(o => o.LifeMonitor).WithMany().HasForeignKey(o => o.LifeMonitorId);
-
-            HasMany(o => o.SnHistories).WithRequired().HasForeignKey(o => o.SnId);
+            HasMany(o => o.SnHistories).WithRequired().HasForeignKey(o => o.SnRegId);
+            HasMany(o => o.LifeMonitors).WithRequired().HasForeignKey(o => o.SnRegId);
         }
 
     }

@@ -43,6 +43,24 @@ namespace UniCloud.Application.PartBC.Query.TechnicalSolutionQueries
             return query.ApplyTo(_unitOfWork.CreateSet<TechnicalSolution>()).Select(p => new TechnicalSolutionDTO
             {
                 Id = p.Id,
+                FiNumber = p.FiNumber,
+                Position = p.Position,
+                TsNumber = p.TsNumber,
+                TsLines = p.TsLines.Select(q => new TsLineDTO
+                {
+                    Id = q.Id,
+                    Description = q.Description,
+                    Pn = q.Pn,
+                    TsId = q.TsId,
+                    TsNumber = q.TsNumber,
+                    Dependencies = q.Dependencies.Select(o => new DependencyDTO
+                    {
+                        Id = o.Id,
+                        Pn = o.Pn,
+                        PnRegId = o.PnRegId,
+                        TsLineId = o.TsLineId,
+                    }).ToList(),
+                }).ToList(),
             });
         }
     }

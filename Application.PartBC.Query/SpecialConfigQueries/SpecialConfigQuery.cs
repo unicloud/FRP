@@ -43,6 +43,18 @@ namespace UniCloud.Application.PartBC.Query.SpecialConfigQueries
             return query.ApplyTo(_unitOfWork.CreateSet<SpecialConfig>()).Select(p => new SpecialConfigDTO
             {
                 Id = p.Id,
+                StartDate = p.StartDate,
+                CreateDate = p.CreateDate,
+                Description = p.Description,
+                ContractAircraftId = p.ContractAircraftId,
+                EndDate = p.EndDate,
+                FiNumber = p.FiNumber,
+                IsValid = p.IsValid,
+                ItemNo = p.ItemNo,
+                ParentId = p.ParentId,
+                ParentItemNo = p.ParentItemNo,
+                TsNumber = p.TsNumber,
+                TsId = p.TsId,
             });
         }
     }

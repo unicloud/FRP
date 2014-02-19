@@ -27,6 +27,7 @@ namespace UniCloud.Application.PartBC.DTO
     [DataServiceKey("Id")]
     public class BasicConfigDTO
     {
+
         #region 属性
         /// <summary>
         /// 主键

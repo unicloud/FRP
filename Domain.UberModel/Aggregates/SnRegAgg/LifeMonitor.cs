@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.UberModel.Aggregates.MaintainWorkAgg;
 
 namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
 {
@@ -73,13 +74,38 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
             get;
             set;
         }
+
         #endregion
 
         #region 外键属性
 
+        /// <summary>
+        /// 维修工作外键
+        /// </summary>
+        public int MaintainWorkId
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// 序号外键
+        /// </summary>
+        public int SnRegId
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region 导航属性
+
+        public MaintainWork MaintainWork
+        {
+            get;
+            set;
+        }
 
         #endregion
 

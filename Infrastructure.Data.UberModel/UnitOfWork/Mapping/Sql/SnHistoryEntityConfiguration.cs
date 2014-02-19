@@ -42,7 +42,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.TSN).HasColumnName("TSN").HasMaxLength(100);
             Property(p => p.TSR).HasColumnName("TSR").HasMaxLength(100);
             Property(p => p.AircraftId).HasColumnName("AircraftId");
-            Property(p => p.SnId).HasColumnName("SnId");
+            Property(p => p.SnRegId).HasColumnName("SnRegId");
         }
 
     }

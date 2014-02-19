@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
 
 namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
 {
@@ -86,6 +87,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        /// 机型
+        /// </summary>
+        public AircraftType AircraftType { get; set; }
 
         /// <summary>
         /// 基本构型集合

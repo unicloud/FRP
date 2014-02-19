@@ -38,6 +38,8 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             Property(p => p.CtrlUnitId).HasColumnName("CtrlUnitId");
             Property(p => p.MaintainWorkId).HasColumnName("MaintainWorkId");
             Property(p => p.MaintainCtrlId).HasColumnName("MaintainCtrlId");
+
+            HasRequired(p => p.CtrlUnit).WithMany().HasForeignKey(o => o.CtrlUnitId);
         }
 
     }

@@ -65,6 +65,16 @@ namespace UniCloud.Application.PartBC.DTO
             get;
             set;
         }
+
+        /// <summary>
+        /// 机型
+        /// </summary>
+        public string AircraftTypeName
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region 外键属性

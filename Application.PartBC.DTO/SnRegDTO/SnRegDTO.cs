@@ -31,6 +31,7 @@ namespace UniCloud.Application.PartBC.DTO
 
         private List<SnHistoryDTO> _snHistories;
 
+        private List<LifeMonitorDTO> _lifeMonitors;
         #endregion
 
         #region 属性
@@ -96,15 +97,6 @@ namespace UniCloud.Application.PartBC.DTO
             set;
         }
 
-        /// <summary>
-        /// 到寿监控Id
-        /// </summary>
-        public int? LifeMonitorId
-        {
-            get;
-            set;
-        }
-
         #endregion
         
         #region 导航属性
@@ -118,6 +110,14 @@ namespace UniCloud.Application.PartBC.DTO
             set { _snHistories = value; }
         }
 
+        /// <summary>
+        ///     到寿控制
+        /// </summary>
+        public virtual List<LifeMonitorDTO> LiftMonitors
+        {
+            get { return _lifeMonitors ?? (_lifeMonitors = new List<LifeMonitorDTO>()); }
+            set { _lifeMonitors = value; }
+        }
         #endregion
     }
 }

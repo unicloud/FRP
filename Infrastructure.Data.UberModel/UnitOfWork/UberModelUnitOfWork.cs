@@ -112,7 +112,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<ApprovalDoc> _approvalDocs;
         private IDbSet<Ata> _atas;
         private IDbSet<BankAccount> _bankAccounts;
-        //private IDbSet<BasicConfigGroup> _basicConfigGroups;
+        private IDbSet<BasicConfigGroup> _basicConfigGroups;
         private IDbSet<CaacProgramming> _caacProgrammings;
         private IDbSet<ContractAircraftBFE> _contractAircraftBfes;
         private IDbSet<ContractAircraft> _contractAircrafts;
@@ -156,7 +156,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Request> _requests;
         private IDbSet<Scn> _scns;
         private IDbSet<SnReg> _snRegs;
-        //private IDbSet<SpecialConfig> _specialConfigs;
+        private IDbSet<SpecialConfig> _specialConfigs;
         private IDbSet<SupplierCompany> _supplierCompanies;
         private IDbSet<SupplierCompanyMaterial> _supplierCompanyMaterials;
         private IDbSet<SupplierRole> _supplierRoles;
@@ -239,10 +239,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             get { return _bankAccounts ?? (_bankAccounts = Set<BankAccount>()); }
         }
 
-        //public IDbSet<BasicConfigGroup> BasicConfigGroups
-        //{
-        //    get { return _basicConfigGroups ?? (_basicConfigGroups = base.Set<BasicConfigGroup>()); }
-        //}
+        public IDbSet<BasicConfigGroup> BasicConfigGroups
+        {
+            get { return _basicConfigGroups ?? (_basicConfigGroups = base.Set<BasicConfigGroup>()); }
+        }
 
         public IDbSet<CaacProgramming> CaacProgrammings
         {
@@ -439,10 +439,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             get { return _snRegs ?? (_snRegs = base.Set<SnReg>()); }
         }
 
-        //public IDbSet<SpecialConfig> SpecialConfigs
-        //{
-        //    get { return _specialConfigs ?? (_specialConfigs = base.Set<SpecialConfig>()); }
-        //}
+        public IDbSet<SpecialConfig> SpecialConfigs
+        {
+            get { return _specialConfigs ?? (_specialConfigs = base.Set<SpecialConfig>()); }
+        }
 
         public IDbSet<Supplier> Suppliers
         {
@@ -630,8 +630,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 #region BasicConfigGroupAgg
 
-                //.Add(new BasicConfigGroupEntityConfiguration())
-                //.Add(new BasicConfigEntityConfiguration())
+                .Add(new BasicConfigGroupEntityConfiguration())
+                .Add(new BasicConfigEntityConfiguration())
                 #endregion
 
                 #region CaacProgrammingAgg
@@ -926,8 +926,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 #region SpecialConfigAgg
 
-                //.Add(new AcConfigEntityConfiguration())
-                //.Add(new SpecialConfigEntityConfiguration())
+                .Add(new AcConfigEntityConfiguration())
+                .Add(new SpecialConfigEntityConfiguration())
 
                 #endregion
 

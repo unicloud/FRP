@@ -52,6 +52,14 @@ namespace UniCloud.Application.PartBC.Query.ScnQueries
                 ScnNumber = p.ScnNumber,
                 ScnType = p.ScnType,
                 TsNumber = p.TsNumber,
+                ApplicableAircrafts = p.ApplicableAircrafts.Select(q => new ApplicableAircraftDTO
+                {
+                    Id = q.Id,
+                    CompleteDate = q.CompleteDate,
+                    Cost = q.Cost,
+                    ContractAircraftId = q.ContractAircraftId,
+                    ScnId = q.ScnId,
+                }).ToList(),
             });
         }
     }

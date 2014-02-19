@@ -31,8 +31,83 @@ namespace UniCloud.Application.PartBC.DTO
         /// <summary>
         /// 主键
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
+
+        /// <summary>
+        /// 基准间隔
+        /// </summary>
+        public string StandardInterval
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 最大间隔
+        /// </summary>
+        public string MaxInterval
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 最小间隔
+        /// </summary>
+        public string MinInterval
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 控制单位
+        /// </summary>
+        public string CtrlUnitName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 维修工作代码
+        /// </summary>
+        public string WorkCode
+        {
+            get;
+            set;
+        }
+
         #endregion
 
+        #region 外键属性
+
+        /// <summary>
+        /// 控制单位Id
+        /// </summary>
+        public int CtrlUnitId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 维修工作Id
+        /// </summary>
+        public int MaintainWorkId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 维修控制组Id
+        /// </summary>
+        public int MaintainCtrlId
+        {
+            get;
+            set;
+        }
+        #endregion
     }
 }

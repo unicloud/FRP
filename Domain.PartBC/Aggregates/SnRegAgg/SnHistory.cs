@@ -126,7 +126,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         /// <summary>
         /// Sn外键
         /// </summary>
-        public int SnId
+        public int SnRegId
         {
             get;
             set;

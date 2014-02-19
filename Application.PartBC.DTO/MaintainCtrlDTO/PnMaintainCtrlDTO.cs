@@ -78,7 +78,7 @@ namespace UniCloud.Application.PartBC.DTO
         /// <summary>
         ///     维修控制明细
         /// </summary>
-        public virtual List<MaintainCtrlLineDTO> BasicConfigs
+        public virtual List<MaintainCtrlLineDTO> MaintainCtrlLines
         {
             get { return _maintainCtrlLines ?? (_maintainCtrlLines = new List<MaintainCtrlLineDTO>()); }
             set { _maintainCtrlLines = value; }

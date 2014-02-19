@@ -70,5 +70,26 @@ namespace UniCloud.Application.PartBC.DTO
         }
         #endregion
 
+        #region 外键属性
+
+        /// <summary>
+        /// 维修工作外键
+        /// </summary>
+        public int MaintainWorkId
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 序号外键
+        /// </summary>
+        public int SnRegId
+        {
+            get;
+            set;
+        }
+        #endregion
+
     }
 }

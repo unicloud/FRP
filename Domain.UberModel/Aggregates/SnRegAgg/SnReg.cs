@@ -28,6 +28,8 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
 
         private HashSet<SnHistory> _snHistories;
 
+        private HashSet<LifeMonitor> _lifeMonitors;
+
         #endregion
 
         #region 构造函数
@@ -101,26 +103,17 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
             set;
         }
 
-        /// <summary>
-        /// 到寿监控Id
-        /// </summary>
-        public int? LifeMonitorId
-        {
-            get;
-            set;
-        }
-
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        /// 到寿监控
+        /// 到寿监控集合
         /// </summary>
-        public LifeMonitor LifeMonitor
+        public virtual ICollection<LifeMonitor> LifeMonitors
         {
-            get;
-            set;
+            get { return _lifeMonitors ?? (_lifeMonitors = new HashSet<LifeMonitor>()); }
+            set { _lifeMonitors = new HashSet<LifeMonitor>(value); }
         }
 
         /// <summary>

@@ -43,6 +43,36 @@ namespace UniCloud.Application.PartBC.Query.SnRegQueries
             return query.ApplyTo(_unitOfWork.CreateSet<SnReg>()).Select(p => new SnRegDTO
             {
                 Id = p.Id,
+                Pn = p.Pn,
+                Sn = p.Sn,
+                IsStop = p.IsStop,
+                InstallDate = p.InstallDate,
+                AircraftId = p.AircraftId,
+                PnRegId = p.PnRegId,
+                LiftMonitors = p.LifeMonitors.Select(q => new LifeMonitorDTO
+                {
+                    Id = q.Id,
+                    LifeTimeLimit = q.LifeTimeLimit,
+                    MointorStart = q.MointorStart,
+                    WorkCode = q.WorkCode,
+                    Sn = q.Sn,
+                    MaintainWorkId = q.MaintainWorkId,
+                    SnRegId = q.SnRegId,
+                }).ToList(),
+                SnHistories = p.SnHistories.Select(q => new SnHistoryDTO
+                {
+                    Id = q.Id,
+                    FiNumber = q.FiNumber,
+                    CSN = q.CSN,
+                    CSR = q.CSR,
+                    TSN = q.TSN,
+                    TSR = q.TSR,
+                    InstallDate = q.InstallDate,
+                    RemoveDate = q.RemoveDate,
+                    Sn = q.Sn,
+                    SnRegId = q.SnRegId,
+                    AircraftId = q.AircraftId,
+                }).ToList(),
             });
         }
     }

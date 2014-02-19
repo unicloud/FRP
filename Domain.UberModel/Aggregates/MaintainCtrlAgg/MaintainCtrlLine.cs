@@ -15,6 +15,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.UberModel.Aggregates.CtrlUnitAgg;
 
 namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
 {
@@ -98,6 +99,14 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
 
         #region 导航属性
 
+        /// <summary>
+        /// 维修控制单位
+        /// </summary>
+        public CtrlUnit CtrlUnit
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region 操作

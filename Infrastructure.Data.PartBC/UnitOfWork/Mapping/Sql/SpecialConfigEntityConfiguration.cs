@@ -33,11 +33,11 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            Property(p => p.StartDate).HasColumnName("StartDate").HasColumnType("datetime2");
-            Property(p => p.EndDate).HasColumnName("EndDate").HasColumnType("datetime2");
-            Property(p => p.IsValid).HasColumnName("IsValid");
-            Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
-            Property(p => p.ContractAircraftId).HasColumnName("ContractAircraftId");
+            //Property(p => p.StartDate).HasColumnName("StartDate").HasColumnType("datetime2");
+            //Property(p => p.EndDate).HasColumnName("EndDate").HasColumnType("datetime2");
+            //Property(p => p.IsValid).HasColumnName("IsValid");
+            //Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
+            //Property(p => p.ContractAircraftId).HasColumnName("ContractAircraftId");
         }
 
     }

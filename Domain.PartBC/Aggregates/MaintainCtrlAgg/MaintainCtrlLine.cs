@@ -15,6 +15,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
 
 namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
 {
@@ -97,6 +98,15 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        /// 维修控制单位
+        /// </summary>
+        public CtrlUnit CtrlUnit
+        {
+            get;
+            set;
+        }
 
         #endregion
 

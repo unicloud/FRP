@@ -32,13 +32,13 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            Property(p => p.TsNumber).HasColumnName("TsNumber").HasMaxLength(100);
-            Property(p => p.FiNumber).HasColumnName("FiNumber").HasMaxLength(100);
-            Property(p => p.ItemNo).HasColumnName("ItemNo").HasMaxLength(100);
-            Property(p => p.ParentItemNo).HasColumnName("ParentItemNo").HasMaxLength(100);
-            Property(p => p.Description).HasColumnName("Description").HasMaxLength(100);
-            Property(p => p.TsId).HasColumnName("TsId");
-            Property(p => p.ParentId).HasColumnName("ParentId");
+            //Property(p => p.TsNumber).HasColumnName("TsNumber").HasMaxLength(100);
+            //Property(p => p.FiNumber).HasColumnName("FiNumber").HasMaxLength(100);
+            //Property(p => p.ItemNo).HasColumnName("ItemNo").HasMaxLength(100);
+            //Property(p => p.ParentItemNo).HasColumnName("ParentItemNo").HasMaxLength(100);
+            //Property(p => p.Description).HasColumnName("Description").HasMaxLength(100);
+            //Property(p => p.TsId).HasColumnName("TsId");
+            //Property(p => p.ParentId).HasColumnName("ParentId");
 
             HasMany(o => o.SubAcConfigs).WithRequired().HasForeignKey(o => o.ParentId);
         }
