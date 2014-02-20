@@ -13,6 +13,8 @@
 // ========================================================================*/
 #endregion
 
+using System;
+
 namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg
 {
     /// <summary>
@@ -46,7 +48,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg
         public int BasicConfigGroupId
         {
             get;
-            set;
+            internal set;
         }
         #endregion
 

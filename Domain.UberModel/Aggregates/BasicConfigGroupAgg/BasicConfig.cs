@@ -46,7 +46,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
         public int BasicConfigGroupId
         {
             get;
-            set;
+            internal set;
         }
         #endregion
 

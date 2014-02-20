@@ -48,33 +48,6 @@ namespace UniCloud.Application.PartBC.AircraftServices
             return _aircraftQuery.AircraftDTOQuery(queryBuilder);
         }
 
-        /// <summary>
-        ///  新增Aircraft。
-        /// </summary>
-        /// <param name="dto">AircraftDTO。</param>
-        [Insert(typeof(AircraftDTO))]
-        public void InsertAircraft(AircraftDTO dto)
-        {
-        }
-
-        /// <summary>
-        ///  更新Aircraft。
-        /// </summary>
-        /// <param name="dto">AircraftDTO。</param>
-        [Update(typeof(AircraftDTO))]
-        public void ModifyAircraft(AircraftDTO dto)
-        {
-        }
-
-        /// <summary>
-        ///  删除Aircraft。
-        /// </summary>
-        /// <param name="dto">AircraftDTO。</param>
-        [Delete(typeof(AircraftDTO))]
-        public void DeleteAircraft(AircraftDTO dto)
-        {
-        }
-
         #endregion
 
     }

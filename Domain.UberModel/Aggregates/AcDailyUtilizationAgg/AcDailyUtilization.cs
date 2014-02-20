@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
 
 namespace UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg
 {
@@ -44,7 +45,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg
         public string RegNumber
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg
         public decimal CalculatedValue
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -62,7 +63,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg
         public decimal AmendValue
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg
         public int Year
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -80,7 +81,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg
         public int Month
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -89,7 +90,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg
         public bool IsCurrent
         {
             get;
-            set;
+            private set;
         }
         #endregion
 
@@ -101,7 +102,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg
         public Guid AircraftId
         {
             get;
-            set;
+            private set;
         }
         #endregion
 
@@ -111,6 +112,78 @@ namespace UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置飞机注册号
+        /// </summary>
+        /// <param name="regNumber">飞机注册号</param>
+        public void SetRegNumber(string regNumber)
+        {
+            if (string.IsNullOrWhiteSpace(regNumber))
+            {
+                throw new ArgumentException("飞机注册号参数为空！");
+            }
+
+            RegNumber = regNumber;
+        }
+
+        /// <summary>
+        ///     设置计算日利用率
+        /// </summary>
+        /// <param name="calculatedValue">计算日利用率</param>
+        public void SetCalculatedValue(decimal calculatedValue)
+        {
+            CalculatedValue = calculatedValue;
+        }
+
+        /// <summary>
+        ///     设置修正日利用率
+        /// </summary>
+        /// <param name="amendValue">修正日利用率</param>
+        public void SetAmendValue(decimal amendValue)
+        {
+            AmendValue = amendValue;
+        }
+
+        /// <summary>
+        ///     设置年度
+        /// </summary>
+        /// <param name="year">年度</param>
+        public void SetYear(int year)
+        {
+            Year = year;
+        }
+
+        /// <summary>
+        ///     设置月份
+        /// </summary>
+        /// <param name="month">月份</param>
+        public void SetMonth(int month)
+        {
+            Month = month;
+        }
+
+        /// <summary>
+        ///     设置是否当前
+        /// </summary>
+        /// <param name="isCurrent">是否当前</param>
+        public void SetIsCurrent(bool isCurrent)
+        {
+            IsCurrent = isCurrent;
+        }
+
+        /// <summary>
+        ///     设置飞机
+        /// </summary>
+        /// <param name="aircraft">飞机</param>
+        public void SetAircraft(Aircraft aircraft)
+        {
+            if (aircraft == null || aircraft.IsTransient())
+            {
+                throw new ArgumentException("飞机参数为空！");
+            }
+
+            AircraftId = aircraft.Id;
+        }
         #endregion
 
         #region IValidatableObject 成员

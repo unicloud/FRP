@@ -13,6 +13,7 @@
 // ========================================================================*/
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -50,7 +51,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.TechnicalSolutionAgg
         public string Pn
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -59,7 +60,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.TechnicalSolutionAgg
         public string Description
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.TechnicalSolutionAgg
         public string TsNumber
         {
             get;
-            set;
+            private set;
         }
 
         #endregion
@@ -81,7 +82,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.TechnicalSolutionAgg
         public int TsId
         {
             get;
-            set;
+            internal set;
         }
         #endregion
 
@@ -98,6 +99,64 @@ namespace UniCloud.Domain.UberModel.Aggregates.TechnicalSolutionAgg
         #endregion
 
         #region 操作
+        /// <summary>
+        ///     设置件号
+        /// </summary>
+        /// <param name="pn">件号</param>
+        public void SetPn(string pn)
+        {
+            if (string.IsNullOrWhiteSpace(pn))
+            {
+                throw new ArgumentException("件号参数为空！");
+            }
+
+            Pn = pn;
+        }
+
+        /// <summary>
+        ///     设置描述
+        /// </summary>
+        /// <param name="description">描述</param>
+        public void SetDescription(string description)
+        {
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                throw new ArgumentException("描述参数为空！");
+            }
+
+            Description = description;
+        }
+
+        /// <summary>
+        ///     设置TS号
+        /// </summary>
+        /// <param name="tsNumber">TS号</param>
+        public void SetTsNumber(string tsNumber)
+        {
+            if (string.IsNullOrWhiteSpace(tsNumber))
+            {
+                throw new ArgumentException("TS号参数为空！");
+            }
+
+            TsNumber = tsNumber;
+        }
+
+        /// <summary>
+        /// 新增依赖项
+        /// </summary>
+        /// <returns></returns>
+        public Dependency AddNewDependency()
+        {
+            var dependency = new Dependency
+            {
+                TsLineId = Id,
+            };
+
+            dependency.GenerateNewIdentity();
+            Dependencies.Add(dependency);
+
+            return dependency;
+        }
 
         #endregion
 

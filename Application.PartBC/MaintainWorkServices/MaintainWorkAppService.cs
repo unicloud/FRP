@@ -30,10 +30,12 @@ namespace UniCloud.Application.PartBC.MaintainWorkServices
     public class MaintainWorkAppService : IMaintainWorkAppService
     {
         private readonly IMaintainWorkQuery _maintainWorkQuery;
-
-        public MaintainWorkAppService(IMaintainWorkQuery maintainWorkQuery)
+        private readonly IMaintainWorkRepository _maintainWorkRepository;
+        public MaintainWorkAppService(IMaintainWorkQuery maintainWorkQuery,
+            IMaintainWorkRepository maintainWorkRepository)
         {
             _maintainWorkQuery = maintainWorkQuery;
+            _maintainWorkRepository = maintainWorkRepository;
         }
 
         #region MaintainWorkDTO
@@ -55,6 +57,11 @@ namespace UniCloud.Application.PartBC.MaintainWorkServices
         [Insert(typeof(MaintainWorkDTO))]
         public void InsertMaintainWork(MaintainWorkDTO dto)
         {
+            var newMaintainWork = MaintainWorkFactory.CreateMaintainWork();
+
+            newMaintainWork.SetWorkCode(dto.WorkCode);
+            newMaintainWork.SetDescription(dto.Description);
+            _maintainWorkRepository.Add(newMaintainWork);
         }
 
         /// <summary>
@@ -64,6 +71,12 @@ namespace UniCloud.Application.PartBC.MaintainWorkServices
         [Update(typeof(MaintainWorkDTO))]
         public void ModifyMaintainWork(MaintainWorkDTO dto)
         {
+            var updateMaintainWork = _maintainWorkRepository.Get(dto.Id); //获取需要更新的对象。
+
+            //更新。
+            updateMaintainWork.SetWorkCode(dto.WorkCode);
+            updateMaintainWork.SetDescription(dto.Description);
+            _maintainWorkRepository.Modify(updateMaintainWork);
         }
 
         /// <summary>
@@ -73,6 +86,8 @@ namespace UniCloud.Application.PartBC.MaintainWorkServices
         [Delete(typeof(MaintainWorkDTO))]
         public void DeleteMaintainWork(MaintainWorkDTO dto)
         {
+            var delMaintainWork = _maintainWorkRepository.Get(dto.Id); //获取需要删除的对象。
+            _maintainWorkRepository.Remove(delMaintainWork); //删除MaintainWork。
         }
 
         #endregion

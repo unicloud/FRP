@@ -50,7 +50,7 @@ namespace UniCloud.Application.PartBC.Query.ScnQueries
                 ModNumber = p.ModNumber,
                 ScnDocumentId = p.ScnDocumentId,
                 ScnNumber = p.ScnNumber,
-                ScnType = p.ScnType,
+                ScnType = (int)p.ScnType,
                 TsNumber = p.TsNumber,
                 ApplicableAircrafts = p.ApplicableAircrafts.Select(q => new ApplicableAircraftDTO
                 {

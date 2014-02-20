@@ -110,6 +110,14 @@ namespace UniCloud.Application.PartBC.DTO
             set;
         }
 
+        /// <summary>
+        /// SCN文件名称
+        /// </summary>
+        public string ScnDocName
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region 外键属性

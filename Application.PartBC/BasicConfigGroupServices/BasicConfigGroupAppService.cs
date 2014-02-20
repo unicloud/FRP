@@ -14,10 +14,14 @@
 #endregion
 
 #region 命名空间
+
+using System;
 using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.BasicConfigGroupQueries;
+using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 #endregion
 
@@ -30,10 +34,15 @@ namespace UniCloud.Application.PartBC.BasicConfigGroupServices
     public class BasicConfigGroupAppService : IBasicConfigGroupAppService
     {
         private readonly IBasicConfigGroupQuery _basicConfigGroupQuery;
-
-        public BasicConfigGroupAppService(IBasicConfigGroupQuery basicConfigGroupQuery)
+        private readonly IBasicConfigGroupRepository _basicConfigGroupRepository;
+        private readonly IAircraftTypeRepository _aircraftTypeRepository;
+        public BasicConfigGroupAppService(IBasicConfigGroupQuery basicConfigGroupQuery,
+            IBasicConfigGroupRepository basicConfigGroupRepository,
+            IAircraftTypeRepository aircraftTypeRepository)
         {
             _basicConfigGroupQuery = basicConfigGroupQuery;
+            _basicConfigGroupRepository = basicConfigGroupRepository;
+            _aircraftTypeRepository = aircraftTypeRepository;
         }
 
         #region BasicConfigGroupDTO
@@ -55,6 +64,19 @@ namespace UniCloud.Application.PartBC.BasicConfigGroupServices
         [Insert(typeof(BasicConfigGroupDTO))]
         public void InsertBasicConfigGroup(BasicConfigGroupDTO dto)
         {
+            var aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId);//获取机型
+
+            //创建航空公司五年规划
+            var newBasicConfigGroup = BasicConfigGroupFactory.CreateBasicConfigGroup();
+            newBasicConfigGroup.SetAircraftType(aircraftType);
+            newBasicConfigGroup.SetDescription(dto.Description);
+            newBasicConfigGroup.SetGroupNo(dto.GroupNo);
+            newBasicConfigGroup.SetStartDate(dto.StartDate);
+
+            //添加规划行
+            //dto.BasicConfigs.ToList().ForEach(line => InsertBasicConfig(newBasicConfigGroup, basicConfig));
+
+            _basicConfigGroupRepository.Add(newBasicConfigGroup);
         }
 
         /// <summary>
@@ -64,6 +86,30 @@ namespace UniCloud.Application.PartBC.BasicConfigGroupServices
         [Update(typeof(BasicConfigGroupDTO))]
         public void ModifyBasicConfigGroup(BasicConfigGroupDTO dto)
         {
+            var aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId);//获取机型
+
+            //获取需要更新的对象
+            var updateBasicConfigGroup = _basicConfigGroupRepository.Get(dto.Id);
+
+            if (updateBasicConfigGroup != null)
+            {
+                //更新主表：
+                updateBasicConfigGroup.SetAircraftType(aircraftType);
+                updateBasicConfigGroup.SetDescription(dto.Description);
+                updateBasicConfigGroup.SetGroupNo(dto.GroupNo);
+                updateBasicConfigGroup.SetStartDate(dto.StartDate);
+
+                //更新基本构型集合：
+                var dtoBasicConfigs = dto.BasicConfigs;
+                var basicConfigs = updateBasicConfigGroup.BasicConfigs;
+                //DataHelper.DetailHandle(dtoBasicConfigs.ToArray(),
+                //    basicConfigs.ToArray(),
+                //    c => c.Id, p => p.Id,
+                //    i => InsertAirProgrammingLine(updateAirProgramming, i),
+                //    UpdateAirProgrammingLine,
+                //    d => _airProgrammingRepository.RemoveAirProgrammingLine(d));
+            }
+            _basicConfigGroupRepository.Modify(updateBasicConfigGroup);
         }
 
         /// <summary>

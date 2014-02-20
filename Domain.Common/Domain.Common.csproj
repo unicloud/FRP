@@ -43,6 +43,7 @@
     <Compile Include="Enums\ContractAircraftStatus.cs" />
     <Compile Include="Enums\ContractEngineStatus.cs" />
     <Compile Include="Enums\ControlStatus.cs" />
+    <Compile Include="Enums\ControlStrategy.cs" />
     <Compile Include="Enums\DependencyType.cs" />
     <Compile Include="Enums\EnginePlanDeliverStatus.cs">
       <SubType>Code</SubType>
@@ -77,6 +78,7 @@
     <Compile Include="Enums\RequestStatus.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Enums\ScnApplicableType.cs" />
     <Compile Include="Enums\SupplierType.cs" />
     <Compile Include="Enums\TaskStatus.cs" />
     <Compile Include="Enums\TaskType.cs" />

@@ -45,7 +45,7 @@ namespace UniCloud.Application.PartBC.Query.MaintainCtrlQueries
             return query.ApplyTo(_unitOfWork.CreateSet<ItemMaintainCtrl>()).Select(p => new ItemMaintainCtrlDTO
             {
                 Id = p.Id,
-                CtrlStrategy = p.CtrlStrategy,
+                CtrlStrategy = (int)p.CtrlStrategy,
                 ItemNo = p.ItemNo,
                 AcConfigId = p.AcConfigId,
                 MaintainCtrlLines = p.MaintainCtrlLines.Select(q => new MaintainCtrlLineDTO()
@@ -74,7 +74,7 @@ namespace UniCloud.Application.PartBC.Query.MaintainCtrlQueries
             return query.ApplyTo(_unitOfWork.CreateSet<PnMaintainCtrl>()).Select(p => new PnMaintainCtrlDTO
             {
                 Id = p.Id,
-                CtrlStrategy = p.CtrlStrategy,
+                CtrlStrategy = (int)p.CtrlStrategy,
                 Pn = p.Pn,
                 PnRegId = p.PnRegId,
                 MaintainCtrlLines = p.MaintainCtrlLines.Select(q => new MaintainCtrlLineDTO()
@@ -103,7 +103,7 @@ namespace UniCloud.Application.PartBC.Query.MaintainCtrlQueries
             return query.ApplyTo(_unitOfWork.CreateSet<SnMaintainCtrl>()).Select(p => new SnMaintainCtrlDTO
             {
                 Id = p.Id,
-                CtrlStrategy = p.CtrlStrategy,
+                CtrlStrategy = (int)p.CtrlStrategy,
                 SnScope = p.SnScope,
                 MaintainCtrlLines = p.MaintainCtrlLines.Select(q => new MaintainCtrlLineDTO()
                 {

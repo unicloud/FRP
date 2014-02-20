@@ -13,6 +13,8 @@
 // ========================================================================*/
 #endregion
 
+using System;
+
 namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
 {
     /// <summary>
@@ -40,7 +42,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
         public string SnScope
         {
             get;
-            set;
+            private set;
         }
 
         #endregion
@@ -54,7 +56,19 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
         #endregion
 
         #region 操作
+        /// <summary>
+        ///     设置序号范围
+        /// </summary>
+        /// <param name="snScope">序号范围</param>
+        public void SetSnScope(string snScope)
+        {
+            if (string.IsNullOrWhiteSpace(snScope))
+            {
+                throw new ArgumentException("序号范围参数为空！");
+            }
 
+            SnScope = snScope;
+        }
         #endregion
 
     }

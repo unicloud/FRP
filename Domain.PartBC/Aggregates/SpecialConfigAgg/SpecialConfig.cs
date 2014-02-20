@@ -42,7 +42,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg
         public DateTime StartDate
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg
         public DateTime? EndDate
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg
         public bool IsValid
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg
         public DateTime CreateDate
         {
             get;
-            set;
+            internal set;
         }
         #endregion
 
@@ -89,7 +89,32 @@ namespace UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg
         #endregion
 
         #region 操作
+        /// <summary>
+        ///     设置开始时间
+        /// </summary>
+        /// <param name="date">开始时间</param>
+        public void SetStartDate(DateTime date)
+        {
+            StartDate = date;
+        }
 
+        /// <summary>
+        ///     设置结束时间
+        /// </summary>
+        /// <param name="date">结束时间</param>
+        public void SetEndDate(DateTime? date)
+        {
+            EndDate = date;
+        }
+
+        /// <summary>
+        ///     设置是否有效
+        /// </summary>
+        /// <param name="isValid">是否有效</param>
+        public void SetIsValid(bool isValid)
+        {
+            IsValid = isValid;
+        }
         #endregion
     }
 }
