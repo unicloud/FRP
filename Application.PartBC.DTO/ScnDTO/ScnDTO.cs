@@ -38,6 +38,7 @@ namespace UniCloud.Application.PartBC.DTO
         /// 主键
         /// </summary>
         public int Id { get; set; }
+
         /// <summary>
         /// 确认日期
         /// </summary>
@@ -87,6 +88,15 @@ namespace UniCloud.Application.PartBC.DTO
         /// SCN号
         /// </summary>
         public string ScnNumber
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// SCN类型
+        /// </summary>
+        public int Type
         {
             get;
             set;

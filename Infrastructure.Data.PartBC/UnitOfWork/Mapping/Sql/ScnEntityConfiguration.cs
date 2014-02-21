@@ -48,6 +48,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             Property(p => p.AuditTime).HasColumnName("AuditTime").HasColumnType("datetime2");
             Property(p => p.AuditNotes).HasColumnName("AuditNotes");
             Property(p => p.AuditHistory).HasColumnName("AuditHistory");
+            Property(p => p.Type).HasColumnName("Type");
             HasMany(o => o.ApplicableAircrafts).WithRequired().HasForeignKey(o => o.ScnId);
         }
 

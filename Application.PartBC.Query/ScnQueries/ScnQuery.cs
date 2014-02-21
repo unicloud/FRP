@@ -50,6 +50,7 @@ namespace UniCloud.Application.PartBC.Query.ScnQueries
                 ModNumber = p.ModNumber,
                 ScnDocumentId = p.ScnDocumentId,
                 ScnNumber = p.ScnNumber,
+                Type = (int)p.Type,
                 ScnType = (int)p.ScnType,
                 TsNumber = p.TsNumber,
                 ScnStatus = (int)p.ScnStatus,

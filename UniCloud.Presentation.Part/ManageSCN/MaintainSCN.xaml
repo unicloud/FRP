@@ -38,10 +38,57 @@
                                              ContextMenuTemplate="{x:Null}">
                                 <Grid>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="30" />
                                     </Grid.RowDefinitions>
-                                    <Grid Row="0">
+                                    <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                        Margin="0 0 0 -1"
+                                                        OverflowButtonVisibility="Collapsed">
+                                        <telerik:RadButton Margin="4,2,2,-2"
+                                                           Command="{Binding SaveCommand}"
+                                                           CommandParameter="{Binding PaymentNotices}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Save.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="保存" />
+                                        </telerik:RadButton>
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding AbortCommand}"
+                                                           CommandParameter="{Binding PaymentNotices}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="放弃更改" />
+                                        </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding AddInvoiceCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/New.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="创建SCN/MSCN" />
+                                        </telerik:RadButton>
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding AddAttachCommand}"
+                                                           CommandParameter="{Binding ApuMaintainInvoice.DocumentId,Mode=TwoWay}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="添加附件" />
+                                        </telerik:RadButton>
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding RemoveInvoiceCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="删除SCN/MSCN" />
+                                        </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding SubmitInvoiceCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Up.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="提交SCN/MSCN" />
+                                        </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
+                                    </telerik:RadToolBar>
+                                    <Grid Row="1">
                                         <telerik:RadGridView x:Name="SCNList"
                                                              AutoExpandGroups="True"
                                                              AutoGenerateColumns="False"
@@ -53,14 +100,14 @@
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="序号"
                                                                          HeaderTextAlignment="Center" />
-                                                <telerik:GridViewDataColumn Header="工号"
+                                                <telerik:GridViewDataColumn Header="类型"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsReadOnly="True"
                                                                             IsFilterable="True"
                                                                             IsGroupable="True"
                                                                             DataMemberBinding="{Binding WorkNumber}" />
-                                                <telerik:GridViewDataColumn Header="用户名"
+                                                <telerik:GridViewDataColumn Header="编号"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsReadOnly="True"
@@ -68,7 +115,7 @@
                                                                             IsGroupable="True"
                                                                             DataMemberBinding="{Binding UserName}">
                                                 </telerik:GridViewDataColumn>
-                                                <telerik:GridViewDataColumn Header="手机号"
+                                                <telerik:GridViewDataColumn Header="批次号"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsReadOnly="True"
@@ -76,7 +123,63 @@
                                                                             IsGroupable="True"
                                                                             DataMemberBinding="{Binding MobileAlias}">
                                                 </telerik:GridViewDataColumn>
-                                                <telerik:GridViewDataColumn Header="E-mail"
+                                                <telerik:GridViewDataColumn Header="MOD号"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsReadOnly="True"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding Email}">
+                                                </telerik:GridViewDataColumn>
+                                                <telerik:GridViewDataColumn Header="TS号"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsReadOnly="True"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding Email}">
+                                                </telerik:GridViewDataColumn>
+                                                <telerik:GridViewDataColumn Header="适用类型"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsReadOnly="True"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding Email}">
+                                                </telerik:GridViewDataColumn>
+                                                <telerik:GridViewDataColumn Header="费用"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsReadOnly="True"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding Email}">
+                                                </telerik:GridViewDataColumn>
+                                                <telerik:GridViewDataColumn Header="确认日期"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsReadOnly="True"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding Email}">
+                                                </telerik:GridViewDataColumn>
+                                                <telerik:GridViewDataColumn Header="状态"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsReadOnly="True"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding Email}">
+                                                </telerik:GridViewDataColumn>
+                                                <telerik:GridViewDataColumn Header="文件名"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsReadOnly="True"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding Email}">
+                                                </telerik:GridViewDataColumn>
+                                                <telerik:GridViewDataColumn Header="描述"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsReadOnly="True"
@@ -87,7 +190,7 @@
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                     </Grid>
-                                    <Grid Row="1">
+                                    <Grid Row="2">
                                         <telerik:RadDataPager Name="SCNRadPage"
                                                               BorderThickness="1,0,1,1"
                                                               AutoEllipsisMode="Both"
@@ -114,27 +217,24 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
-                                    <telerik:RadToolBar Grid.Row="0"
-                                                        HorizontalAlignment="Stretch"
+                                    <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                         Margin="0 0 0 -1"
                                                         OverflowButtonVisibility="Collapsed">
-                                        <telerik:RadButton Margin="4,2,2,-2"
-                                                           Command="{Binding SaveCommand}"
-                                                           CommandParameter="{Binding PaymentNotices}">
-                                            <Image Source="/UniCloud.Presentation;component/Images/Save.png"
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding AddInvoiceLineCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Add.png"
                                                    Stretch="Fill"
-                                                   ToolTipService.ToolTip="保存" />
+                                                   ToolTipService.ToolTip="增加适用飞机" />
                                         </telerik:RadButton>
                                         <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding AbortCommand}"
-                                                           CommandParameter="{Binding PaymentNotices}">
-                                            <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                                           Command="{Binding RemoveInvoiceLineCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
                                                    Stretch="Fill"
-                                                   ToolTipService.ToolTip="放弃更改" />
+                                                   ToolTipService.ToolTip="移除适用飞机" />
                                         </telerik:RadButton>
                                     </telerik:RadToolBar>
                                     <Grid Row="1">
-                                        <telerik:RadGridView x:Name="UserInRoleList"
+                                        <telerik:RadGridView x:Name="AircraftList"
                                                              AutoExpandGroups="True"
                                                              AutoGenerateColumns="False"
                                                              CanUserSortColumns="True"
@@ -147,21 +247,21 @@
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="序号"
                                                                          HeaderTextAlignment="Center" />
-                                                <telerik:GridViewDataColumn Header="角色名"
+                                                <telerik:GridViewDataColumn Header="合同飞机"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsReadOnly="True"
                                                                             IsFilterable="True"
                                                                             IsGroupable="True"
                                                                             DataMemberBinding="{Binding RoleName}" />
-                                                <telerik:GridViewDataColumn Header="说明"
+                                                <telerik:GridViewDataColumn Header="费用"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsReadOnly="True"
                                                                             IsFilterable="True"
                                                                             IsGroupable="True"
                                                                             DataMemberBinding="{Binding Description}" />
-                                                <telerik:GridViewDataColumn Header="应用名称"
+                                                <telerik:GridViewDataColumn Header="完成日期"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsReadOnly="True"
@@ -190,43 +290,94 @@
                                              CanUserClose="False"
                                              CanUserPin="False"
                                              ContextMenuTemplate="{x:Null}">
-                                <telerik:RadGridView x:Name="RoleList"
-                                                     AutoExpandGroups="True"
-                                                     AutoGenerateColumns="False"
-                                                     CanUserSortColumns="True"
-                                                     RowIndicatorVisibility="Visible"
-                                                     CanUserFreezeColumns="False"
-                                                     FontSize="{StaticResource TextFontSize}"
-                                                     ValidatesOnDataErrors="InEditMode"
-                                                     ItemsSource="{Binding RoleCollection}"
-                                                     SelectedItem="{Binding CurrentRole, Mode=TwoWay}">
-
-                                    <telerik:RadGridView.Columns>
-                                        <uc:DataPageSerialColumn Header="序号"
-                                                                 HeaderTextAlignment="Center" />
-                                        <telerik:GridViewDataColumn Header="角色名"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    IsReadOnly="True"
-                                                                    IsFilterable="True"
-                                                                    IsGroupable="True"
-                                                                    DataMemberBinding="{Binding RoleName}" />
-                                        <telerik:GridViewDataColumn Header="说明"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    IsReadOnly="True"
-                                                                    IsFilterable="True"
-                                                                    IsGroupable="True"
-                                                                    DataMemberBinding="{Binding Description}" />
-                                        <telerik:GridViewDataColumn Header="应用名称"
-                                                                    HeaderTextAlignment="Center"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    IsReadOnly="True"
-                                                                    IsFilterable="True"
-                                                                    IsGroupable="True"
-                                                                    DataMemberBinding="{Binding Roles.Application.Description}" />
-                                    </telerik:RadGridView.Columns>
-                                </telerik:RadGridView>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
+                                    </Grid.RowDefinitions>
+                                    <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                        Margin="0 0 0 -1"
+                                                        OverflowButtonVisibility="Collapsed">
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding ReviewInvoiceCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Check.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="审核SCN/MSCN" />
+                                        </telerik:RadButton>
+                                    </telerik:RadToolBar>
+                                    <Grid Row="1">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                                <ColumnDefinition Width="65"></ColumnDefinition>
+                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="35" />
+                                                <RowDefinition Height="35" />
+                                                <RowDefinition Height="35" />
+                                                <RowDefinition Height="35" />
+                                                <RowDefinition Height="35" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Column="1"
+                                                       Text="审核部门"
+                                                       FontSize="{StaticResource TextFontSize}"
+                                                       TextAlignment="Left"
+                                                       VerticalAlignment="Center" />
+                                            <TextBox Grid.Row="0"
+                                                     Grid.Column="2"
+                                                     Margin="0,3"
+                                                     telerik:StyleManager.Theme="Windows8"
+                                                     Text="{Binding Number, Mode=TwoWay}"
+                                                     IsReadOnly="True">
+                                            </TextBox>
+                                            <TextBlock Grid.Row="1"
+                                                       Grid.Column="1"
+                                                       Text="审核人"
+                                                       FontSize="{StaticResource TextFontSize}"
+                                                       TextAlignment="Left"
+                                                       VerticalAlignment="Center" />
+                                            <TextBox Grid.Column="2"
+                                                     Margin="0,3"
+                                                     Grid.Row="1"
+                                                     telerik:StyleManager.Theme="Windows8"
+                                                     Text="{Binding Name, Mode=TwoWay}">
+                                            </TextBox>
+                                            <TextBlock Grid.Row="2"
+                                                       Grid.Column="1"
+                                                       Text="审核时间"
+                                                       FontSize="{StaticResource TextFontSize}"
+                                                       TextAlignment="Left"
+                                                       VerticalAlignment="Center" />
+                                            <StackPanel Grid.Column="2"
+                                                        Grid.Row="2"
+                                                        Margin="0,3"
+                                                        VerticalAlignment="Center">
+                                                <telerik:RadTimePicker  Height="{StaticResource ControlHeight}"
+                                                                        SelectedValue="{Binding SignDate, Mode=TwoWay}"
+                                                                        telerik:StyleManager.Theme="Windows8"
+                                                                        InputMode="DatePicker"
+                                                                        IsReadOnly="True"
+                                                                        IsEnabled="False"
+                                                                        DateTimeWatermarkContent="" />
+                                            </StackPanel>
+                                            <TextBlock Grid.Row="3"
+                                                       Grid.Column="1"
+                                                       Text="意见"
+                                                       FontSize="{StaticResource TextFontSize}"
+                                                       TextAlignment="Left"
+                                                       VerticalAlignment="Center" />
+                                            <TextBox Grid.Column="2"
+                                                     Margin="0,3"
+                                                     Grid.Row="3"
+                                                     telerik:StyleManager.Theme="Windows8"
+                                                     Text="{Binding Abstract, Mode=TwoWay}">
+                                            </TextBox>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
                             </telerik:RadPane>
                         </telerik:RadPaneGroup>
                     </telerik:RadSplitContainer>
@@ -241,6 +392,15 @@
                                               CanUserClose="False"
                                               CanUserPin="False"
                                               ContextMenuTemplate="{x:Null}">
+                                <telerik:GroupBox Header="历史信息">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                                  BorderThickness="0"
+                                                  HorizontalScrollBarVisibility="Disabled"
+                                                  telerik:StyleManager.Theme="Windows8">
+                                        <TextBlock Text="{Binding SelAircraftPurchaseOrderDTO.Note }"
+                                                   TextWrapping="Wrap" />
+                                    </ScrollViewer>
+                                </telerik:GroupBox>
                             </telerik:RadPane>
                         </telerik:RadPaneGroup>
                     </telerik:RadSplitContainer>

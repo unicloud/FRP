@@ -100,6 +100,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.ScnAgg
         }
 
         /// <summary>
+        /// SCN类型
+        /// </summary>
+        public ScnType Type
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// SCN状态
         /// </summary>
         public ScnStatus ScnStatus
@@ -278,6 +287,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.ScnAgg
             }
 
             ScnNumber = scnNumber;
+        }
+
+        /// <summary>
+        ///     设置SCN类型
+        /// </summary>
+        /// <param name="type">SCN类型</param>
+        public void SetType(ScnType type)
+        {
+            Type = type;
         }
 
         /// <summary>
