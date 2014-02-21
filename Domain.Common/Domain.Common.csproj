@@ -79,6 +79,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Enums\ScnApplicableType.cs" />
+    <Compile Include="Enums\ScnStatus.cs" />
     <Compile Include="Enums\SupplierType.cs" />
     <Compile Include="Enums\TaskStatus.cs" />
     <Compile Include="Enums\TaskType.cs" />

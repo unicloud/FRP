@@ -1,14 +1,38 @@
 ﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
-  <edmx:DataServices m:DataServiceVersion="1.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
-    <Schema Namespace="UniCloud.Application.PartBC.DTO" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+  <edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="UniCloud.Application.PartBC.DTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityType Name="ScnDTO">
         <Key>
           <PropertyRef Name="Id" />
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CheckDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="CSCNumber" Type="Edm.String" />
+        <Property Name="ModNumber" Type="Edm.String" />
+        <Property Name="TsNumber" Type="Edm.String" />
+        <Property Name="Cost" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="ScnNumber" Type="Edm.String" />
+        <Property Name="ScnStatus" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ScnType" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="ScnDocName" Type="Edm.String" />
+        <Property Name="AuditOrganization" Type="Edm.String" />
+        <Property Name="Auditor" Type="Edm.String" />
+        <Property Name="AuditTime" Type="Edm.DateTime" />
+        <Property Name="AuditNotes" Type="Edm.String" />
+        <Property Name="AuditHistory" Type="Edm.String" />
+        <Property Name="ScnDocumentId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ApplicableAircrafts" Type="Collection(UniCloud.Application.PartBC.DTO.ApplicableAircraftDTO)" Nullable="false" />
       </EntityType>
+      <ComplexType Name="ApplicableAircraftDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CompleteDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Cost" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="ContractAircraftId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ScnId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
     </Schema>
-    <Schema Namespace="UniCloud.DistributedServices.Part" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+    <Schema Namespace="UniCloud.DistributedServices.Part" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="PartData" m:IsDefaultEntityContainer="true">
         <EntitySet Name="Scns" EntityType="UniCloud.Application.PartBC.DTO.ScnDTO" />
       </EntityContainer>

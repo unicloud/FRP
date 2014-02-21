@@ -100,6 +100,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.ScnAgg
         }
 
         /// <summary>
+        /// SCN状态
+        /// </summary>
+        public ScnStatus ScnStatus
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// SCN适用类型
         /// </summary>
         public ScnApplicableType ScnType
@@ -121,6 +130,51 @@ namespace UniCloud.Domain.UberModel.Aggregates.ScnAgg
         /// Scn文档名称
         /// </summary>
         public string ScnDocName
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 审核部门
+        /// </summary>
+        public string AuditOrganization
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 审核人
+        /// </summary>
+        public string Auditor
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 审核时间
+        /// </summary>
+        public DateTime? AuditTime
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 审核意见
+        /// </summary>
+        public string AuditNotes
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 审核历史
+        /// </summary>
+        public string AuditHistory
         {
             get;
             private set;
@@ -227,6 +281,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.ScnAgg
         }
 
         /// <summary>
+        ///     设置SCN状态
+        /// </summary>
+        /// <param name="scnStatus">SCN状态</param>
+        public void SetScnStatus(ScnStatus scnStatus)
+        {
+            ScnStatus = scnStatus;
+        }
+
+        /// <summary>
         ///     设置SCN适用类型
         /// </summary>
         /// <param name="scnType">SCN适用类型</param>
@@ -268,6 +331,22 @@ namespace UniCloud.Domain.UberModel.Aggregates.ScnAgg
         {
             ScnDocName = scnDocName;
             ScnDocumentId = scnDocumentId;
+        }
+
+        /// <summary>
+        /// 设置审核信息
+        /// </summary>
+        /// <param name="auditOrganization">审核部门</param>
+        /// <param name="auditor">审核人</param>
+        /// <param name="auditTime">审核时间</param>
+        /// <param name="auditNotes">审核意见</param>
+        public void SetAuditMsg(string auditOrganization, string auditor, DateTime? auditTime, string auditNotes)
+        {
+            AuditOrganization = auditOrganization;
+            Auditor = auditor;
+            AuditTime = auditTime;
+            AuditNotes = auditNotes;
+            AuditHistory = auditOrganization + "-" + auditor + "  " + auditTime.ToString() + "\r\n" + auditNotes + "\r\n\r\n" + AuditHistory;
         }
 
         /// <summary>
