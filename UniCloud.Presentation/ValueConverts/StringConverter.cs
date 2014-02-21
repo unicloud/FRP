@@ -16,6 +16,7 @@
 
 using System.Windows.Data;
 using UniCloud.Presentation.Service.AircraftConfig.AircraftConfig.Enum;
+using UniCloud.Presentation.Service.Part.Part.Enums;
 using UniCloud.Presentation.Service.Payment.Payment.Enums;
 
 #endregion
@@ -49,6 +50,9 @@ namespace UniCloud.Presentation.ValueConverts
                     break;
                 case "InvoiceType":
                     result = EnumUtility.GetName(typeof(InvoiceType), (InvoiceType)value);
+                    break;
+                case "ScnStatus":
+                    result = EnumUtility.GetName(typeof(ScnStatus), (ScnStatus)value);
                     break;
                 default:
                     break;

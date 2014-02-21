@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/2/21 15:52:56
+// 生成日期: 2014/2/21 18:22:35
 namespace UniCloud.Presentation.Service.Part.Part
 {
     
@@ -100,24 +100,26 @@ namespace UniCloud.Presentation.Service.Part.Part
                 "\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"CSCNumber\" Type=\"Edm.St" +
                 "ring\" /><Property Name=\"ModNumber\" Type=\"Edm.String\" /><Property Name=\"TsNumber\"" +
                 " Type=\"Edm.String\" /><Property Name=\"Cost\" Type=\"Edm.Decimal\" Nullable=\"false\" /" +
-                "><Property Name=\"ScnNumber\" Type=\"Edm.String\" /><Property Name=\"ScnStatus\" Type=" +
-                "\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ScnType\" Type=\"Edm.Int32\" Nullabl" +
-                "e=\"false\" /><Property Name=\"Description\" Type=\"Edm.String\" /><Property Name=\"Scn" +
-                "DocName\" Type=\"Edm.String\" /><Property Name=\"AuditOrganization\" Type=\"Edm.String" +
-                "\" /><Property Name=\"Auditor\" Type=\"Edm.String\" /><Property Name=\"AuditTime\" Type" +
-                "=\"Edm.DateTime\" /><Property Name=\"AuditNotes\" Type=\"Edm.String\" /><Property Name" +
-                "=\"AuditHistory\" Type=\"Edm.String\" /><Property Name=\"ScnDocumentId\" Type=\"Edm.Gui" +
-                "d\" Nullable=\"false\" /><Property Name=\"ApplicableAircrafts\" Type=\"Collection(UniC" +
-                "loud.Application.PartBC.DTO.ApplicableAircraftDTO)\" Nullable=\"false\" /></EntityT" +
-                "ype><ComplexType Name=\"ApplicableAircraftDTO\"><Property Name=\"Id\" Type=\"Edm.Int3" +
-                "2\" Nullable=\"false\" /><Property Name=\"CompleteDate\" Type=\"Edm.DateTime\" Nullable" +
-                "=\"false\" /><Property Name=\"Cost\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property" +
-                " Name=\"ContractAircraftId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"S" +
-                "cnId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType></Schema><Schema Namespa" +
-                "ce=\"UniCloud.DistributedServices.Part\" xmlns=\"http://schemas.microsoft.com/ado/2" +
-                "009/11/edm\"><EntityContainer Name=\"PartData\" m:IsDefaultEntityContainer=\"true\"><" +
-                "EntitySet Name=\"Scns\" EntityType=\"UniCloud.Application.PartBC.DTO.ScnDTO\" /></En" +
-                "tityContainer></Schema></edmx:DataServices></edmx:Edmx>";
+                "><Property Name=\"ScnNumber\" Type=\"Edm.String\" /><Property Name=\"Type\" Type=\"Edm." +
+                "Int32\" Nullable=\"false\" /><Property Name=\"TypeString\" Type=\"Edm.String\" /><Prope" +
+                "rty Name=\"ScnStatus\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ScnType" +
+                "\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ScnTypeString\" Type=\"Edm.S" +
+                "tring\" /><Property Name=\"Description\" Type=\"Edm.String\" /><Property Name=\"ScnDoc" +
+                "Name\" Type=\"Edm.String\" /><Property Name=\"AuditOrganization\" Type=\"Edm.String\" /" +
+                "><Property Name=\"Auditor\" Type=\"Edm.String\" /><Property Name=\"AuditTime\" Type=\"E" +
+                "dm.DateTime\" /><Property Name=\"AuditNotes\" Type=\"Edm.String\" /><Property Name=\"A" +
+                "uditHistory\" Type=\"Edm.String\" /><Property Name=\"ScnDocumentId\" Type=\"Edm.Guid\" " +
+                "Nullable=\"false\" /><Property Name=\"ApplicableAircrafts\" Type=\"Collection(UniClou" +
+                "d.Application.PartBC.DTO.ApplicableAircraftDTO)\" Nullable=\"false\" /></EntityType" +
+                "><ComplexType Name=\"ApplicableAircraftDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" " +
+                "Nullable=\"false\" /><Property Name=\"CompleteDate\" Type=\"Edm.DateTime\" Nullable=\"f" +
+                "alse\" /><Property Name=\"Cost\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Na" +
+                "me=\"ContractAircraftId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ScnI" +
+                "d\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType></Schema><Schema Namespace=" +
+                "\"UniCloud.DistributedServices.Part\" xmlns=\"http://schemas.microsoft.com/ado/2009" +
+                "/11/edm\"><EntityContainer Name=\"PartData\" m:IsDefaultEntityContainer=\"true\"><Ent" +
+                "itySet Name=\"Scns\" EntityType=\"UniCloud.Application.PartBC.DTO.ScnDTO\" /></Entit" +
+                "yContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -310,17 +312,19 @@ namespace UniCloud.Presentation.Service.Part.Part
         /// <param name="ID">Id 的初始值。</param>
         /// <param name="checkDate">CheckDate 的初始值。</param>
         /// <param name="cost">Cost 的初始值。</param>
+        /// <param name="type">Type 的初始值。</param>
         /// <param name="scnStatus">ScnStatus 的初始值。</param>
         /// <param name="scnType">ScnType 的初始值。</param>
         /// <param name="scnDocumentId">ScnDocumentId 的初始值。</param>
         /// <param name="applicableAircrafts">ApplicableAircrafts 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static ScnDTO CreateScnDTO(int ID, global::System.DateTime checkDate, decimal cost, int scnStatus, int scnType, global::System.Guid scnDocumentId, global::System.Collections.ObjectModel.ObservableCollection<ApplicableAircraftDTO> applicableAircrafts)
+        public static ScnDTO CreateScnDTO(int ID, global::System.DateTime checkDate, decimal cost, int type, int scnStatus, int scnType, global::System.Guid scnDocumentId, global::System.Collections.ObjectModel.ObservableCollection<ApplicableAircraftDTO> applicableAircrafts)
         {
             ScnDTO scnDTO = new ScnDTO();
             scnDTO.Id = ID;
             scnDTO.CheckDate = checkDate;
             scnDTO.Cost = cost;
+            scnDTO.Type = type;
             scnDTO.ScnStatus = scnStatus;
             scnDTO.ScnType = scnType;
             scnDTO.ScnDocumentId = scnDocumentId;
@@ -486,6 +490,50 @@ namespace UniCloud.Presentation.Service.Part.Part
         partial void OnScnNumberChanging(string value);
         partial void OnScnNumberChanged();
         /// <summary>
+        /// 架构中不存在属性 Type 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Type
+        {
+            get
+            {
+                return this._Type;
+            }
+            set
+            {
+                this.OnTypeChanging(value);
+                this._Type = value;
+                this.OnTypeChanged();
+                this.OnPropertyChanged("Type");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Type;
+        partial void OnTypeChanging(int value);
+        partial void OnTypeChanged();
+        /// <summary>
+        /// 架构中不存在属性 TypeString 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string TypeString
+        {
+            get
+            {
+                return this._TypeString;
+            }
+            set
+            {
+                this.OnTypeStringChanging(value);
+                this._TypeString = value;
+                this.OnTypeStringChanged();
+                this.OnPropertyChanged("TypeString");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _TypeString;
+        partial void OnTypeStringChanging(string value);
+        partial void OnTypeStringChanged();
+        /// <summary>
         /// 架构中不存在属性 ScnStatus 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -529,6 +577,28 @@ namespace UniCloud.Presentation.Service.Part.Part
         private int _ScnType;
         partial void OnScnTypeChanging(int value);
         partial void OnScnTypeChanged();
+        /// <summary>
+        /// 架构中不存在属性 ScnTypeString 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ScnTypeString
+        {
+            get
+            {
+                return this._ScnTypeString;
+            }
+            set
+            {
+                this.OnScnTypeStringChanging(value);
+                this._ScnTypeString = value;
+                this.OnScnTypeStringChanged();
+                this.OnPropertyChanged("ScnTypeString");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ScnTypeString;
+        partial void OnScnTypeStringChanging(string value);
+        partial void OnScnTypeStringChanged();
         /// <summary>
         /// 架构中不存在属性 Description 的注释。
         /// </summary>

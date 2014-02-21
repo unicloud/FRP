@@ -17,6 +17,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Common;
+using UniCloud.Domain.Common.Enums;
+
 #endregion
 
 namespace UniCloud.Application.PartBC.DTO
@@ -102,6 +104,11 @@ namespace UniCloud.Application.PartBC.DTO
             set;
         }
 
+        public string TypeString
+        {
+            get { return ((ScnType)Type).ToString(); }
+            set { Type = (int)(ScnType)Enum.Parse(typeof(ScnType), value, true); }
+        }
         /// <summary>
         /// SCN状态
         /// </summary>
@@ -118,6 +125,11 @@ namespace UniCloud.Application.PartBC.DTO
         {
             get;
             set;
+        }
+        public string ScnTypeString
+        {
+            get { return ((ScnApplicableType)ScnType).ToString(); }
+            set { ScnType = (int)(ScnApplicableType)Enum.Parse(typeof(ScnApplicableType), value, true); }
         }
 
         /// <summary>
