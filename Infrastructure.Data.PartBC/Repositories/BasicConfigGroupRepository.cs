@@ -15,6 +15,8 @@
 
 #region 命名空间
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
+using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PartBC.Repositories
@@ -32,5 +34,31 @@ namespace UniCloud.Infrastructure.Data.PartBC.Repositories
 
         #region 方法重载
         #endregion
+
+        /// <summary>
+        /// 删除基本构型组
+        /// </summary>
+        /// <param name="basicConfigGroup"></param>
+        public void DeleteBasicConfigGroup(BasicConfigGroup basicConfigGroup)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            var dbBasicConfigs = currentUnitOfWork.CreateSet<BasicConfig>();
+            var dbBasicConfigGroups = currentUnitOfWork.CreateSet<BasicConfigGroup>();
+            dbBasicConfigs.RemoveRange(basicConfigGroup.BasicConfigs);
+            dbBasicConfigGroups.Remove(basicConfigGroup);
+        }
+
+
+        /// <summary>
+        ///     移除基本构型
+        /// </summary>
+        /// <param name="basicConfig">基本构型</param>
+        public void RemoveBasicConfig(BasicConfig basicConfig)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            currentUnitOfWork.CreateSet<BasicConfig>().Remove(basicConfig);
+        }
     }
 }

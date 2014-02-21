@@ -184,11 +184,10 @@ namespace UniCloud.Domain.PartBC.Aggregates
         /// <summary>
         ///     设置父项构型
         /// </summary>
-        /// <param name="acConfig">父项构型</param>
-        public void SetParentAcConfig(AcConfig acConfig)
+        /// <param name="parentId">父项构型ID</param>
+        public void SetParentAcConfigId(int? parentId)
         {
-            ParentId = acConfig.Id;
-            ParentItemNo = acConfig.ItemNo;
+            ParentId = parentId;
         }
         #endregion
 

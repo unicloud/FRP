@@ -82,15 +82,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
         ///     设置构型
         /// </summary>
         /// <param name="acConfig">构型</param>
-        public void SetAcConfig(AcConfig acConfig)
+        public void SetAcConfig(int acConfigId)
         {
-            if (acConfig == null || acConfig.IsTransient())
-            {
-                throw new ArgumentException("构型参数为空！");
-            }
-
-            AcConfigId = acConfig.Id;
+            AcConfigId = acConfigId;
         }
+
         #endregion
     }
 }

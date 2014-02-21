@@ -20,5 +20,16 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
     /// </summary>
     public interface IScnRepository : IRepository<Scn>
     {
+        /// <summary>
+        /// 删除SCN
+        /// </summary>
+        /// <param name="scn"></param>
+        void DeleteScn(Scn scn);
+
+        /// <summary>
+        ///     移除适用飞机
+        /// </summary>
+        /// <param name="applicableAircraft">适用飞机</param>
+        void RemoveApplicableAircraft(ApplicableAircraft applicableAircraft);
     }
 }

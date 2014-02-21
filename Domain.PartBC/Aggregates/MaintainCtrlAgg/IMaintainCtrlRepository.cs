@@ -20,5 +20,30 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
     /// </summary>
     public interface IMaintainCtrlRepository : IRepository<MaintainCtrl>
     {
+        /// <summary>
+        /// 删除项控制组
+        /// </summary>
+        /// <param name="itemMaintainCtrl">项控制组</param>
+        void DeleteItemMaintainCtrl(ItemMaintainCtrl itemMaintainCtrl);
+
+        /// <summary>
+        /// 删除附件控制组
+        /// </summary>
+        /// <param name="pnMaintainCtrl">附件控制组</param>
+        void DeletePnMaintainCtrl(PnMaintainCtrl pnMaintainCtrl);
+
+
+        /// <summary>
+        /// 删除序号控制组
+        /// </summary>
+        /// <param name="snMaintainCtrl">序号控制组</param>
+        void DeleteSnMaintainCtrl(SnMaintainCtrl snMaintainCtrl);
+
+
+        /// <summary>
+        ///     移除维修控制明细
+        /// </summary>
+        /// <param name="maintainCtrlLine">维修控制明细</param>
+        void RemoveMaintainCtrlLine(MaintainCtrlLine maintainCtrlLine);
     }
 }

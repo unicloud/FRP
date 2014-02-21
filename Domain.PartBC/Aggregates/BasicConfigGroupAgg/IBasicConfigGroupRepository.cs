@@ -20,5 +20,16 @@ namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg
     /// </summary>
     public interface IBasicConfigGroupRepository : IRepository<BasicConfigGroup>
     {
+        /// <summary>
+        /// 删除基本构型组
+        /// </summary>
+        /// <param name="basicConfigGroup"></param>
+        void DeleteBasicConfigGroup(BasicConfigGroup basicConfigGroup);
+
+        /// <summary>
+        ///     移除基本构型
+        /// </summary>
+        /// <param name="basicConfig">基本构型</param>
+        void RemoveBasicConfig(BasicConfig basicConfig);
     }
 }

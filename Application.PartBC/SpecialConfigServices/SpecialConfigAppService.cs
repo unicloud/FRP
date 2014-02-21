@@ -64,7 +64,6 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
         public void InsertSpecialConfig(SpecialConfigDTO dto)
         {
             //获取相关数据
-            var parentAcConfig = _specialConfigRepository.Get(dto.ParentId);
             var ts = _technicalSolutionRepository.Get(dto.TsId);
 
             var newSpecialConfig = SpecialConfigFactory.CreateSpecialConfig();
@@ -75,7 +74,7 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
             newSpecialConfig.SetIsValid(dto.IsValid);
             newSpecialConfig.SetItemNo(dto.ItemNo);
             newSpecialConfig.SetStartDate(dto.StartDate);
-            newSpecialConfig.SetParentAcConfig(parentAcConfig);
+            newSpecialConfig.SetParentAcConfigId(dto.ParentId);
             newSpecialConfig.SetTechnicalSolution(ts);
             _specialConfigRepository.Add(newSpecialConfig);
         }
@@ -88,7 +87,6 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
         public void ModifySpecialConfig(SpecialConfigDTO dto)
         {            
             //获取相关数据
-            var parentAcConfig = _specialConfigRepository.Get(dto.ParentId);
             var ts = _technicalSolutionRepository.Get(dto.TsId);
             
             var updateSpecialConfig = _specialConfigRepository.Get(dto.Id); //获取需要更新的对象。
@@ -100,7 +98,7 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
             updateSpecialConfig.SetIsValid(dto.IsValid);
             updateSpecialConfig.SetItemNo(dto.ItemNo);
             updateSpecialConfig.SetStartDate(dto.StartDate);
-            updateSpecialConfig.SetParentAcConfig(parentAcConfig);
+            updateSpecialConfig.SetParentAcConfigId(dto.ParentId);
             updateSpecialConfig.SetTechnicalSolution(ts);
             _specialConfigRepository.Modify(updateSpecialConfig);
         }

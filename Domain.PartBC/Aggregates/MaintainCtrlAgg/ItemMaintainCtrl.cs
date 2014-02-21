@@ -81,15 +81,10 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         /// <summary>
         ///     设置构型
         /// </summary>
-        /// <param name="acConfig">构型</param>
-        public void SetAcConfig(AcConfig acConfig)
+        /// <param name="acConfigId">构型</param>
+        public void SetAcConfig(int acConfigId)
         {
-            if (acConfig == null || acConfig.IsTransient())
-            {
-                throw new ArgumentException("构型参数为空！");
-            }
-
-            AcConfigId = acConfig.Id;
+            AcConfigId = acConfigId;
         }
         #endregion
     }

@@ -20,7 +20,12 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.MaintainCtrlQueries;
+using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg;
+using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
+using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
+
 #endregion
 
 namespace UniCloud.Application.PartBC.MaintainCtrlServices
@@ -32,10 +37,21 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
     public class MaintainCtrlAppService : IMaintainCtrlAppService
     {
         private readonly IMaintainCtrlQuery _maintainCtrlQuery;
-
-        public MaintainCtrlAppService(IMaintainCtrlQuery maintainCtrlQuery)
+        private readonly IMaintainCtrlRepository _maintainCtrlRepository;
+        private readonly ICtrlUnitRepository _ctrlUnitRepository;
+        private readonly IMaintainWorkRepository _maintainWorkRepository;
+        private readonly IPnRegRepository _pnRegRepository;
+        public MaintainCtrlAppService(IMaintainCtrlQuery maintainCtrlQuery,
+            IMaintainCtrlRepository maintainCtrlRepository,
+            ICtrlUnitRepository ctrlUnitRepository,
+            IMaintainWorkRepository maintainWorkRepository,
+            IPnRegRepository pnRegRepository)
         {
             _maintainCtrlQuery = maintainCtrlQuery;
+            _maintainCtrlRepository = maintainCtrlRepository;
+            _ctrlUnitRepository = ctrlUnitRepository;
+            _maintainWorkRepository = maintainWorkRepository;
+            _pnRegRepository = pnRegRepository;
         }
 
         #region ItemMaintainCtrlDTO
@@ -57,24 +73,17 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
         [Insert(typeof(ItemMaintainCtrlDTO))]
         public void InsertItemMaintainCtrl(ItemMaintainCtrlDTO dto)
         {
-            ////获取供应商
-            //var supplier = _supplierRepository.Get(dto.SupplierId);
+            //创建项维修控制组
+            var newItemMainCtrl = MaintainCtrlFactory.CreateItemMaintainCtrl();
 
-            ////创建项维修控制组
-            //var newItemMainCtrl = MaintainCtrlFactory.CreateItemMaintainCtrl();
+            newItemMainCtrl.SetAcConfig(dto.AcConfigId);
+            newItemMainCtrl.SetCtrlStrategy((ControlStrategy)dto.CtrlStrategy);
+            newItemMainCtrl.SetItemNo(dto.ItemNo);
 
-            ////设置供应商
-            //newItemMainCtrl.SetSupplier(supplier);
+            //添加维修控制明细
+            dto.MaintainCtrlLines.ToList().ForEach(line => InsertMainCtrlLine(newItemMainCtrl, line));
 
-            ////设置接机的状态
-            //newItemMainCtrl.SetStatus(ItemMainCtrlStatus.开始);
-
-            ////添加接机行
-            //dto.ItemMainCtrlLines.ToList().ForEach(line => InsertItemMainCtrlLine(newItemMainCtrl, line));
-            ////添加相关的接机日程
-            //dto.ItemMainCtrlSchedules.ToList().ForEach(scheduel => InsertItemMainCtrlSchedule(newItemMainCtrl, scheduel));
-
-            //_receptionRepository.Add(newItemMainCtrl);
+            _maintainCtrlRepository.Add(newItemMainCtrl);
 
         }
 
@@ -85,6 +94,27 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
         [Update(typeof(ItemMaintainCtrlDTO))]
         public void ModifyItemMaintainCtrl(ItemMaintainCtrlDTO dto)
         {
+            //获取需要更新的对象
+            var updateItemMainCtrl = _maintainCtrlRepository.Get(dto.Id) as ItemMaintainCtrl;
+
+            if (updateItemMainCtrl != null)
+            {
+                //更新主表：
+                updateItemMainCtrl.SetCtrlStrategy((ControlStrategy)dto.CtrlStrategy);
+                updateItemMainCtrl.SetAcConfig(dto.AcConfigId);
+                updateItemMainCtrl.SetItemNo(dto.ItemNo);
+
+                //更新维修控制明细：
+                var dtoMaintainCtrlLines = dto.MaintainCtrlLines;
+                var maintainCtrlLines = updateItemMainCtrl.MaintainCtrlLines;
+                DataHelper.DetailHandle(dtoMaintainCtrlLines.ToArray(),
+                    maintainCtrlLines.ToArray(),
+                    c => c.Id, p => p.Id,
+                    i => InsertMainCtrlLine(updateItemMainCtrl, i),
+                    UpdateMainCtrlLine,
+                    d => _maintainCtrlRepository.RemoveMaintainCtrlLine(d));
+            }
+            _maintainCtrlRepository.Modify(updateItemMainCtrl);
         }
 
         /// <summary>
@@ -94,6 +124,17 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
         [Delete(typeof(ItemMaintainCtrlDTO))]
         public void DeleteItemMaintainCtrl(ItemMaintainCtrlDTO dto)
         {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+            var delItemMainCtrl = _maintainCtrlRepository.Get(dto.Id) as ItemMaintainCtrl;
+            //获取需要删除的对象。
+
+            if (delItemMainCtrl != null)
+            {
+                _maintainCtrlRepository.DeleteItemMaintainCtrl(delItemMainCtrl); //删除项维修控制组。
+            }
         }
 
         #endregion
@@ -117,6 +158,19 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
         [Insert(typeof(PnMaintainCtrlDTO))]
         public void InsertPnMaintainCtrl(PnMaintainCtrlDTO dto)
         {
+            //获取附件
+            var pnReg = _pnRegRepository.Get(dto.PnRegId);
+
+            //创建附件维修控制组
+            var newPnMainCtrl = MaintainCtrlFactory.CreatePnMaintainCtrl();
+
+            newPnMainCtrl.SetPnReg(pnReg);
+            newPnMainCtrl.SetCtrlStrategy((ControlStrategy)dto.CtrlStrategy);
+
+            //添加维修控制明细
+            dto.MaintainCtrlLines.ToList().ForEach(line => InsertMainCtrlLine(newPnMainCtrl, line));
+
+            _maintainCtrlRepository.Add(newPnMainCtrl);
         }
 
         /// <summary>
@@ -126,6 +180,29 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
         [Update(typeof(PnMaintainCtrlDTO))]
         public void ModifyPnMaintainCtrl(PnMaintainCtrlDTO dto)
         {
+            //获取附件
+            var pnReg = _pnRegRepository.Get(dto.PnRegId);
+
+            //获取需要更新的对象
+            var updatePnMainCtrl = _maintainCtrlRepository.Get(dto.Id) as PnMaintainCtrl;
+
+            if (updatePnMainCtrl != null)
+            {
+                //更新主表：
+                updatePnMainCtrl.SetCtrlStrategy((ControlStrategy)dto.CtrlStrategy);
+                updatePnMainCtrl.SetPnReg(pnReg);
+
+                //更新维修控制明细：
+                var dtoMaintainCtrlLines = dto.MaintainCtrlLines;
+                var maintainCtrlLines = updatePnMainCtrl.MaintainCtrlLines;
+                DataHelper.DetailHandle(dtoMaintainCtrlLines.ToArray(),
+                    maintainCtrlLines.ToArray(),
+                    c => c.Id, p => p.Id,
+                    i => InsertMainCtrlLine(updatePnMainCtrl, i),
+                    UpdateMainCtrlLine,
+                    d => _maintainCtrlRepository.RemoveMaintainCtrlLine(d));
+            }
+            _maintainCtrlRepository.Modify(updatePnMainCtrl);
         }
 
         /// <summary>
@@ -135,6 +212,17 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
         [Delete(typeof(PnMaintainCtrlDTO))]
         public void DeletePnMaintainCtrl(PnMaintainCtrlDTO dto)
         {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+            var delPnMainCtrl = _maintainCtrlRepository.Get(dto.Id) as PnMaintainCtrl;
+            //获取需要删除的对象。
+
+            if (delPnMainCtrl != null)
+            {
+                _maintainCtrlRepository.DeletePnMaintainCtrl(delPnMainCtrl); //删除附件维修控制组。
+            }
         }
 
         #endregion
@@ -158,6 +246,16 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
         [Insert(typeof(SnMaintainCtrlDTO))]
         public void InsertSnMaintainCtrl(SnMaintainCtrlDTO dto)
         {
+            //创建序号维修控制组
+            var newSnMainCtrl = MaintainCtrlFactory.CreateSnMaintainCtrl();
+
+            newSnMainCtrl.SetSnScope(dto.SnScope);
+            newSnMainCtrl.SetCtrlStrategy((ControlStrategy)dto.CtrlStrategy);
+
+            //添加维修控制明细
+            dto.MaintainCtrlLines.ToList().ForEach(line => InsertMainCtrlLine(newSnMainCtrl, line));
+
+            _maintainCtrlRepository.Add(newSnMainCtrl);
         }
 
         /// <summary>
@@ -167,6 +265,26 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
         [Update(typeof(SnMaintainCtrlDTO))]
         public void ModifySnMaintainCtrl(SnMaintainCtrlDTO dto)
         {
+            //获取需要更新的对象
+            var updateSnMainCtrl = _maintainCtrlRepository.Get(dto.Id) as SnMaintainCtrl;
+
+            if (updateSnMainCtrl != null)
+            {
+                //更新主表：
+                updateSnMainCtrl.SetCtrlStrategy((ControlStrategy)dto.CtrlStrategy);
+                updateSnMainCtrl.SetSnScope(dto.SnScope);
+
+                //更新维修控制明细：
+                var dtoMaintainCtrlLines = dto.MaintainCtrlLines;
+                var maintainCtrlLines = updateSnMainCtrl.MaintainCtrlLines;
+                DataHelper.DetailHandle(dtoMaintainCtrlLines.ToArray(),
+                    maintainCtrlLines.ToArray(),
+                    c => c.Id, p => p.Id,
+                    i => InsertMainCtrlLine(updateSnMainCtrl, i),
+                    UpdateMainCtrlLine,
+                    d => _maintainCtrlRepository.RemoveMaintainCtrlLine(d));
+            }
+            _maintainCtrlRepository.Modify(updateSnMainCtrl);
         }
 
         /// <summary>
@@ -176,9 +294,62 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
         [Delete(typeof(SnMaintainCtrlDTO))]
         public void DeleteSnMaintainCtrl(SnMaintainCtrlDTO dto)
         {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+            var delSnMainCtrl = _maintainCtrlRepository.Get(dto.Id) as SnMaintainCtrl;
+            //获取需要删除的对象。
+
+            if (delSnMainCtrl != null)
+            {
+                _maintainCtrlRepository.DeleteSnMaintainCtrl(delSnMainCtrl); //删除序号维修控制组。
+            }
         }
 
         #endregion
 
+        #region 处理维修控制明细
+
+        /// <summary>
+        ///     插入维修控制明细
+        /// </summary>
+        /// <param name="maintainCtrl">维修控制组</param>
+        /// <param name="line">维修控制明细DTO</param>
+        private void InsertMainCtrlLine(MaintainCtrl maintainCtrl, MaintainCtrlLineDTO line)
+        {
+            //获取
+            var maintainWork = _maintainWorkRepository.Get(line.MaintainWorkId);
+            var ctrlUnit = _ctrlUnitRepository.Get(line.CtrlUnitId);
+
+            // 添加维修控制明细
+            var newMainCtrlLine = maintainCtrl.AddNewMaintainCtrlLine();
+            newMainCtrlLine.SetCtrlUnit(ctrlUnit);
+            newMainCtrlLine.SetMaintainWork(maintainWork);
+            newMainCtrlLine.SetMaxInterval(line.MaxInterval);
+            newMainCtrlLine.SetMinInterval(line.MinInterval);
+            newMainCtrlLine.SetStandardInterval(line.StandardInterval);
+        }
+
+        /// <summary>
+        ///     更新维修控制明细
+        /// </summary>
+        /// <param name="lineDto">维修控制明细DTO</param>
+        /// <param name="line">维修控制明细</param>
+        private void UpdateMainCtrlLine(MaintainCtrlLineDTO lineDto, MaintainCtrlLine line)
+        {
+            //获取
+            var maintainWork = _maintainWorkRepository.Get(lineDto.MaintainWorkId);
+            var ctrlUnit = _ctrlUnitRepository.Get(lineDto.CtrlUnitId);
+
+            // 更新维修控制明细
+            line.SetCtrlUnit(ctrlUnit);
+            line.SetMaintainWork(maintainWork);
+            line.SetMaxInterval(lineDto.MaxInterval);
+            line.SetMinInterval(lineDto.MinInterval);
+            line.SetStandardInterval(lineDto.StandardInterval);
+        }
+
+        #endregion
     }
 }
