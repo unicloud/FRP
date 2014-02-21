@@ -1,24 +1,25 @@
-#region 版本信息
+﻿#region Version Info
 /* ========================================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2014/2/17 11:42:36
-
-// 文件名：ScnSpecifications
+// 作者：linxw 时间：2014/2/21 16:41:50
+// 文件名：ScnType
 // 版本：V1.0.0
 //
-// 修改者： 时间：
+// 修改者：linxw 时间：2014/2/21 16:41:50
 // 修改说明：
 // ========================================================================*/
 #endregion
 
-namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
+namespace UniCloud.Domain.Common.Enums
 {
     /// <summary>
-    /// Scn规约集合。
+    ///     SCN类型
     /// </summary>
-    public static class ScnSpecifications
+    public enum ScnType
     {
+        SCN = 0,
+        MSCN = 1
     }
 }

@@ -120,6 +120,11 @@ namespace UniCloud.Presentation.Shell
                     if (menuItemAircraftConfig != null)
                         menuItemAircraftConfig.IsEnabled = true;
                     break;
+                case "PartModule":
+                    var menuItemPart = Items.SingleOrDefault(m => m.Text == "附件管理");
+                    if (menuItemPart != null)
+                        menuItemPart.IsEnabled = true;
+                    break;
                 default:
                     throw new ArgumentException("没有匹配的模块名称！");
             }
@@ -818,7 +823,38 @@ namespace UniCloud.Presentation.Shell
                 IsEnabled = true,
             };
 
+            var menu81 = new MenuItem
+            {
+                Text = "管理SCN",
+            };
 
+            var menu811 = new MenuItem
+            {
+                Text = "维护SCN",
+                NavUri = "UniCloud.Presentation.Part.ManageSCN.MaintainSCN"
+            };
+
+            var menu812 = new MenuItem
+            {
+                Text = "对比SCN",
+            };
+
+            menu81.Items.Add(menu811);
+            menu81.Items.Add(menu812);
+
+            var menu82 = new MenuItem
+            {
+                Text = "查询AD/SB",
+            };
+
+            var menu83 = new MenuItem
+            {
+                Text = "维护结构损伤",
+            };
+
+            menu8.Items.Add(menu81);
+            menu8.Items.Add(menu82);
+            menu8.Items.Add(menu83);
             _items.Add(menu8);
 
             #endregion

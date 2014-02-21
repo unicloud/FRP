@@ -132,6 +132,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.ScnAgg
             ContractAircraft = contractAircraft;
             ContractAircraftId = contractAircraft.Id;
         }
+
+        /// <summary>
+        ///     设置合同飞机
+        /// </summary>
+        /// <param name="contractAircraftId">合同飞机</param>
+        public void SetContractAircraft(int contractAircraftId)
+        {
+            ContractAircraftId = contractAircraftId;
+        }
         #endregion
 
         #region IValidatableObject 成员

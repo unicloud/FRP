@@ -38,6 +38,7 @@ namespace UniCloud.Application.PartBC.DTO
         /// 主键
         /// </summary>
         public int Id { get; set; }
+
         /// <summary>
         /// 确认日期
         /// </summary>
@@ -93,6 +94,24 @@ namespace UniCloud.Application.PartBC.DTO
         }
 
         /// <summary>
+        /// SCN类型
+        /// </summary>
+        public int Type
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// SCN状态
+        /// </summary>
+        public int ScnStatus
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// SCN适用类型
         /// </summary>
         public int ScnType
@@ -114,6 +133,51 @@ namespace UniCloud.Application.PartBC.DTO
         /// SCN文件名称
         /// </summary>
         public string ScnDocName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 审核部门
+        /// </summary>
+        public string AuditOrganization
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 审核人
+        /// </summary>
+        public string Auditor
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 审核时间
+        /// </summary>
+        public DateTime? AuditTime
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 审核意见
+        /// </summary>
+        public string AuditNotes
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 审核历史
+        /// </summary>
+        public string AuditHistory
         {
             get;
             set;

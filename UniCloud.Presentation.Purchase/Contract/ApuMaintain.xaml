@@ -330,7 +330,7 @@
                                     <telerik:RadDataForm.CommandProvider>
                                         <uc:MasterCommandProvider  DataForm="{Binding ElementName=ApuMaintainForm}"
                                                                    QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=ApuMaintainForm}"></uc:MasterCommandProvider>
-                                    </telerik:RadDataForm.CommandProvider>
+                                    </telerik:RadDataForm.CommandProvider> 
                                 </telerik:RadDataForm>
                             </Grid>
                         </telerik:RadPane>

@@ -26,6 +26,7 @@ using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.AircraftConfig;
 using UniCloud.Presentation.Service.CommonService;
 using UniCloud.Presentation.Service.FleetPlan;
+using UniCloud.Presentation.Service.Part;
 using UniCloud.Presentation.Service.Payment;
 using UniCloud.Presentation.Service.Portal;
 using UniCloud.Presentation.Service.Project;
@@ -49,6 +50,7 @@ namespace UniCloud.Presentation.Shell
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IProjectService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof (IPortalService).Assembly));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IAircraftConfigService).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(IPartService).Assembly));
         }
 
         protected override void InitializeShell()
@@ -145,6 +147,15 @@ namespace UniCloud.Presentation.Shell
                 ModuleName = "PortalModule",
                 ModuleType =
                     "UniCloud.Presentation.Portal.PortalModule, UniCloud.Presentation.Portal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            });
+
+            moduleCatalog.AddModule(new ModuleInfo
+            {
+                InitializationMode = InitializationMode.WhenAvailable,
+                Ref = "Part.xap",
+                ModuleName = "PartModule",
+                ModuleType =
+                    "UniCloud.Presentation.Part.PartModule, UniCloud.Presentation.Part, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
             });
 
             return moduleCatalog;
