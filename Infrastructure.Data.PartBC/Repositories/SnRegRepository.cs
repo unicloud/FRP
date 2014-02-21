@@ -15,6 +15,8 @@
 
 #region 命名空间
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
+using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PartBC.Repositories
@@ -32,5 +34,45 @@ namespace UniCloud.Infrastructure.Data.PartBC.Repositories
 
         #region 方法重载
         #endregion
+
+
+        /// <summary>
+        /// 删除序号件
+        /// </summary>
+        /// <param name="snReg"></param>
+        public void DeleteSnReg(SnReg snReg)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            var dbSnHistories = currentUnitOfWork.CreateSet<SnHistory>();
+            var dbLifeMonitors = currentUnitOfWork.CreateSet<LifeMonitor>();
+            var dbSnRegs = currentUnitOfWork.CreateSet<SnReg>();
+            dbSnHistories.RemoveRange(snReg.SnHistories);
+            dbLifeMonitors.RemoveRange(snReg.LifeMonitors);
+            dbSnRegs.Remove(snReg);
+        }
+
+
+        /// <summary>
+        ///     移除装机历史
+        /// </summary>
+        /// <param name="snHistory">装机历史</param>
+        public void RemoveSnHistory(SnHistory snHistory)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            currentUnitOfWork.CreateSet<SnHistory>().Remove(snHistory);
+        }
+
+        /// <summary>
+        ///     移除到寿监控
+        /// </summary>
+        /// <param name="lifeMonitor">到寿监控</param>
+        public void RemoveLifeMonitor(LifeMonitor lifeMonitor)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            currentUnitOfWork.CreateSet<LifeMonitor>().Remove(lifeMonitor);
+        }
     }
 }

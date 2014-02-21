@@ -14,7 +14,11 @@
 #endregion
 
 #region 命名空间
+
+using System.Linq;
 using UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg;
+using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PartBC.Repositories
@@ -32,5 +36,44 @@ namespace UniCloud.Infrastructure.Data.PartBC.Repositories
 
         #region 方法重载
         #endregion
+
+
+        /// <summary>
+        /// 删除解决方案
+        /// </summary>
+        /// <param name="ts"></param>
+        public void DeleteTechnicalSolution(TechnicalSolution ts)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            var dbTechnicalSolutions = currentUnitOfWork.CreateSet<TechnicalSolution>();
+            ts.TsLines.ToList().ForEach(DeleteTsLine);
+            dbTechnicalSolutions.Remove(ts);
+        }
+
+        /// <summary>
+        /// 删除解决方案明细
+        /// </summary>
+        /// <param name="tsLine"></param>
+        public void DeleteTsLine(TsLine tsLine)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            var dbDependencies = currentUnitOfWork.CreateSet<Dependency>();
+            var dbTsLines = currentUnitOfWork.CreateSet<TsLine>();
+            dbDependencies.RemoveRange(tsLine.Dependencies);
+            dbTsLines.Remove(tsLine);
+        }
+
+        /// <summary>
+        ///     移除依赖项
+        /// </summary>
+        /// <param name="dependency">依赖项</param>
+        public void RemoveDependency(Dependency dependency)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            currentUnitOfWork.CreateSet<Dependency>().Remove(dependency);
+        }
     }
 }
