@@ -147,6 +147,15 @@ namespace UniCloud.Presentation.Shell
                     "UniCloud.Presentation.Portal.PortalModule, UniCloud.Presentation.Portal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
             });
 
+            moduleCatalog.AddModule(new ModuleInfo
+            {
+                InitializationMode = InitializationMode.WhenAvailable,
+                Ref = "Part.xap",
+                ModuleName = "PartModule",
+                ModuleType =
+                    "UniCloud.Presentation.Part.PartModule, UniCloud.Presentation.Part, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            });
+
             return moduleCatalog;
         }
     }
