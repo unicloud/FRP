@@ -16,6 +16,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 
 namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
 {
@@ -46,7 +47,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public string Sn
         {
             get;
-            set;
+            internal set;
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public DateTime InstallDate
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public DateTime? RemoveDate
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -73,7 +74,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public string FiNumber
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -82,7 +83,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public string CSN
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -91,7 +92,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public string CSR
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -100,7 +101,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public string TSN
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -109,7 +110,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public string TSR
         {
             get;
-            set;
+            private set;
         }
         #endregion
 
@@ -120,7 +121,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public Guid AircraftId
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -129,7 +130,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public int SnRegId
         {
             get;
-            set;
+            internal set;
         }
         #endregion
 
@@ -139,6 +140,108 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置装上时间
+        /// </summary>
+        /// <param name="date">装上时间</param>
+        public void SetInstallDate(DateTime date)
+        {
+            InstallDate = date;
+        }
+
+        /// <summary>
+        ///     设置拆下时间
+        /// </summary>
+        /// <param name="date">拆下时间</param>
+        public void SetRemoveDate(DateTime? date)
+        {
+            RemoveDate = date;
+        }
+
+        /// <summary>
+        ///     设置FI号
+        /// </summary>
+        /// <param name="fiNumber">FI号</param>
+        public void SetFiNumber(string fiNumber)
+        {
+            if (string.IsNullOrWhiteSpace(fiNumber))
+            {
+                throw new ArgumentException("FI号参数为空！");
+            }
+
+            FiNumber = fiNumber;
+        }
+
+        /// <summary>
+        ///     设置CSN
+        /// </summary>
+        /// <param name="csn">CSN</param>
+        public void SetCSN(string csn)
+        {
+            if (string.IsNullOrWhiteSpace(csn))
+            {
+                throw new ArgumentException("CSN参数为空！");
+            }
+
+            CSN = csn;
+        }
+
+
+        /// <summary>
+        ///     设置CSR
+        /// </summary>
+        /// <param name="csr">CSR</param>
+        public void SetCSR(string csr)
+        {
+            if (string.IsNullOrWhiteSpace(csr))
+            {
+                throw new ArgumentException("CSR参数为空！");
+            }
+
+            CSR = csr;
+        }
+
+        /// <summary>
+        ///     设置TSN
+        /// </summary>
+        /// <param name="tsn">TSN</param>
+        public void SetTSN(string tsn)
+        {
+            if (string.IsNullOrWhiteSpace(tsn))
+            {
+                throw new ArgumentException("TSN参数为空！");
+            }
+
+            TSN = tsn;
+        }
+
+        /// <summary>
+        ///     设置TSR
+        /// </summary>
+        /// <param name="tsr">TSR</param>
+        public void SetTSR(string tsr)
+        {
+            if (string.IsNullOrWhiteSpace(tsr))
+            {
+                throw new ArgumentException("TSR参数为空！");
+            }
+
+            TSR = tsr;
+        }
+        
+        /// <summary>
+        ///     设置飞机
+        /// </summary>
+        /// <param name="aircraft">飞机</param>
+        public void SetAircraft(Aircraft aircraft)
+        {
+            if (aircraft == null || aircraft.IsTransient())
+            {
+                throw new ArgumentException("飞机参数为空！");
+            }
+
+            AircraftId = aircraft.Id;
+        }
         #endregion
 
         #region IValidatableObject 成员

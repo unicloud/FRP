@@ -13,6 +13,7 @@
 // ========================================================================*/
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -43,7 +44,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ModAgg
         public string ModNumber
         {
             get;
-            set;
+            private set;
         }
 
         #endregion
@@ -57,7 +58,19 @@ namespace UniCloud.Domain.UberModel.Aggregates.ModAgg
         #endregion
 
         #region 操作
+        /// <summary>
+        ///     设置MOD号
+        /// </summary>
+        /// <param name="modNumber">MOD号</param>
+        public void SetModNumber(string modNumber)
+        {
+            if (string.IsNullOrWhiteSpace(modNumber))
+            {
+                throw new ArgumentException("MOD号参数为空！");
+            }
 
+            ModNumber = modNumber;
+        }
         #endregion
 
         #region IValidatableObject 成员

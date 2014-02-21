@@ -14,6 +14,8 @@
 #endregion
 
 #region 命名空间
+
+using System;
 using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
@@ -55,6 +57,25 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
         [Insert(typeof(ItemMaintainCtrlDTO))]
         public void InsertItemMaintainCtrl(ItemMaintainCtrlDTO dto)
         {
+            ////获取供应商
+            //var supplier = _supplierRepository.Get(dto.SupplierId);
+
+            ////创建项维修控制组
+            //var newItemMainCtrl = MaintainCtrlFactory.CreateItemMaintainCtrl();
+
+            ////设置供应商
+            //newItemMainCtrl.SetSupplier(supplier);
+
+            ////设置接机的状态
+            //newItemMainCtrl.SetStatus(ItemMainCtrlStatus.开始);
+
+            ////添加接机行
+            //dto.ItemMainCtrlLines.ToList().ForEach(line => InsertItemMainCtrlLine(newItemMainCtrl, line));
+            ////添加相关的接机日程
+            //dto.ItemMainCtrlSchedules.ToList().ForEach(scheduel => InsertItemMainCtrlSchedule(newItemMainCtrl, scheduel));
+
+            //_receptionRepository.Add(newItemMainCtrl);
+
         }
 
         /// <summary>

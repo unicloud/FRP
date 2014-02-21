@@ -15,6 +15,8 @@
 
 #region 命名空间
 using System;
+using System.Security.Cryptography;
+
 #endregion
 
 namespace UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg

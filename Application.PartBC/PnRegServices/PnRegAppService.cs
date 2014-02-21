@@ -30,10 +30,11 @@ namespace UniCloud.Application.PartBC.PnRegServices
     public class PnRegAppService : IPnRegAppService
     {
         private readonly IPnRegQuery _pnRegQuery;
-
-        public PnRegAppService(IPnRegQuery pnRegQuery)
+        private readonly IPnRegRepository _pnRegRepository;
+        public PnRegAppService(IPnRegQuery pnRegQuery,IPnRegRepository pnRegRepository)
         {
             _pnRegQuery = pnRegQuery;
+            _pnRegRepository = pnRegRepository;
         }
 
         #region PnRegDTO
@@ -55,6 +56,11 @@ namespace UniCloud.Application.PartBC.PnRegServices
         [Insert(typeof(PnRegDTO))]
         public void InsertPnReg(PnRegDTO dto)
         {
+            var newPnReg = PnRegFactory.CreatePnReg();
+
+            newPnReg.SetPn(dto.Pn);
+            newPnReg.SetIsLife(dto.IsLife);
+            _pnRegRepository.Add(newPnReg);
         }
 
         /// <summary>
@@ -64,6 +70,12 @@ namespace UniCloud.Application.PartBC.PnRegServices
         [Update(typeof(PnRegDTO))]
         public void ModifyPnReg(PnRegDTO dto)
         {
+            var updatePnReg = _pnRegRepository.Get(dto.Id); //获取需要更新的对象。
+
+            //更新。
+            updatePnReg.SetPn(dto.Pn);
+            updatePnReg.SetIsLife(dto.IsLife);
+            _pnRegRepository.Modify(updatePnReg);
         }
 
         /// <summary>
@@ -73,6 +85,8 @@ namespace UniCloud.Application.PartBC.PnRegServices
         [Delete(typeof(PnRegDTO))]
         public void DeletePnReg(PnRegDTO dto)
         {
+            var delPnReg = _pnRegRepository.Get(dto.Id); //获取需要删除的对象。
+            _pnRegRepository.Remove(delPnReg); //删除PnReg。
         }
 
         #endregion

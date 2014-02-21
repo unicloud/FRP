@@ -45,7 +45,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public string WorkCode
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public string Sn
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public DateTime MointorStart
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public string LifeTimeLimit
         {
             get;
-            set;
+            private set;
         }
         #endregion
 
@@ -84,7 +84,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public int MaintainWorkId
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public int SnRegId
         {
             get;
-            set;
+            internal set;
         }
         #endregion
 
@@ -108,6 +108,57 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         #endregion
 
         #region 操作
+        /// <summary>
+        ///     设置序号
+        /// </summary>
+        /// <param name="sn">序号</param>
+        public void SetSn(string sn)
+        {
+            if (string.IsNullOrWhiteSpace(sn))
+            {
+                throw new ArgumentException("序号参数为空！");
+            }
+
+            Sn = sn;
+        }
+
+        /// <summary>
+        ///     设置预计到寿开始
+        /// </summary>
+        /// <param name="date">预计到寿开始</param>
+        public void SetMointorStart(DateTime date)
+        {
+            MointorStart = date;
+        }
+
+        /// <summary>
+        ///     设置预计到寿期限
+        /// </summary>
+        /// <param name="lifeTimeLimit">预计到寿期限</param>
+        public void SetLifeTimeLimit(string lifeTimeLimit)
+        {
+            if (string.IsNullOrWhiteSpace(lifeTimeLimit))
+            {
+                throw new ArgumentException("预计到寿期限参数为空！");
+            }
+
+            LifeTimeLimit = lifeTimeLimit;
+        }
+        
+        /// <summary>
+        ///     设置维修工作
+        /// </summary>
+        /// <param name="maintainWork">维修工作</param>
+        public void SetMaintainWork(MaintainWork maintainWork)
+        {
+            if (maintainWork == null || maintainWork.IsTransient())
+            {
+                throw new ArgumentException("维修工作参数为空！");
+            }
+
+            WorkCode = maintainWork.WorkCode;
+            MaintainWorkId = maintainWork.Id;
+        }
 
         #endregion
 

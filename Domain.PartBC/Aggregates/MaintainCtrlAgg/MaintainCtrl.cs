@@ -13,8 +13,10 @@
 // ========================================================================*/
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.Common.Enums;
 
 namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
 {
@@ -47,10 +49,10 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         /// <summary>
         /// 控制策略
         /// </summary>
-        public int CtrlStrategy
+        public ControlStrategy CtrlStrategy
         {
             get;
-            set;
+            private set;
         }
 
         #endregion
@@ -72,7 +74,41 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         #endregion
 
         #region 操作
+        /// <summary>
+        ///     设置控制策略
+        /// </summary>
+        /// <param name="ctrlStrategy">控制策略</param>
+        public void SetCtrlStrategy(ControlStrategy ctrlStrategy)
+        {
+            switch (ctrlStrategy)
+            {
+                case ControlStrategy.区间交集:
+                    CtrlStrategy = ControlStrategy.区间交集;
+                    break;
+                case ControlStrategy.区间并集:
+                    CtrlStrategy = ControlStrategy.区间并集;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("ctrlStrategy");
+            }
+        }
 
+        /// <summary>
+        /// 新增维修控制明细
+        /// </summary>
+        /// <returns></returns>
+        public MaintainCtrlLine AddNewMaintainCtrlLine()
+        {
+            var maintainCtrlLine = new MaintainCtrlLine
+            {
+                MaintainCtrlId = Id,
+            };
+
+            maintainCtrlLine.GenerateNewIdentity();
+            MaintainCtrlLines.Add(maintainCtrlLine);
+
+            return maintainCtrlLine;
+        }
         #endregion
 
         #region IValidatableObject 成员

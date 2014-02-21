@@ -13,9 +13,11 @@
 // ========================================================================*/
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
+using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
 
 namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
 {
@@ -44,7 +46,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         public string StandardInterval
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -53,7 +55,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         public string MaxInterval
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -62,7 +64,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         public string MinInterval
         {
             get;
-            set;
+            private set;
         }
 
         #endregion
@@ -75,7 +77,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         public int CtrlUnitId
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -84,7 +86,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         public int MaintainWorkId
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -93,7 +95,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         public int MaintainCtrlId
         {
             get;
-            set;
+            internal set;
         }
         #endregion
 
@@ -112,6 +114,76 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置基准间隔
+        /// </summary>
+        /// <param name="standardInterval">基准间隔</param>
+        public void SetStandardInterval(string standardInterval)
+        {
+            if (string.IsNullOrWhiteSpace(standardInterval))
+            {
+                throw new ArgumentException("基准间隔参数为空！");
+            }
+
+            StandardInterval = standardInterval;
+        }
+        
+        /// <summary>
+        ///     设置最大间隔
+        /// </summary>
+        /// <param name="maxInterval">最大间隔</param>
+        public void SetMaxInterval(string maxInterval)
+        {
+            if (string.IsNullOrWhiteSpace(maxInterval))
+            {
+                throw new ArgumentException("最大间隔参数为空！");
+            }
+
+            MaxInterval = maxInterval;
+        }
+
+        /// <summary>
+        ///     设置最小间隔
+        /// </summary>
+        /// <param name="minInterval">最小间隔</param>
+        public void SetMinInterval(string minInterval)
+        {
+            if (string.IsNullOrWhiteSpace(minInterval))
+            {
+                throw new ArgumentException("最小间隔参数为空！");
+            }
+
+            MinInterval = minInterval;
+        }
+        
+        /// <summary>
+        ///     设置维修控制单位
+        /// </summary>
+        /// <param name="ctrlUnit">维修控制单位</param>
+        public void SetCtrlUnit(CtrlUnit ctrlUnit)
+        {
+            if (ctrlUnit == null || ctrlUnit.IsTransient())
+            {
+                throw new ArgumentException("维修控制单位参数为空！");
+            }
+
+            CtrlUnit = ctrlUnit;
+            CtrlUnitId = ctrlUnit.Id;
+        }
+
+        /// <summary>
+        ///     设置维修工作
+        /// </summary>
+        /// <param name="maintainWork">维修工作</param>
+        public void SetMaintainWork(MaintainWork maintainWork)
+        {
+            if (maintainWork == null || maintainWork.IsTransient())
+            {
+                throw new ArgumentException("维修工作参数为空！");
+            }
+
+            MaintainWorkId = maintainWork.Id;
+        }
         #endregion
 
         #region IValidatableObject 成员

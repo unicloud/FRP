@@ -13,8 +13,10 @@
 // ========================================================================*/
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 
 namespace UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg
 {
@@ -42,7 +44,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg
         public string Pn
         {
             get;
-            set;
+            private set;
         }
 
         #endregion
@@ -55,7 +57,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg
         public int PnRegId
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -64,7 +66,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg
         public int TsLineId
         {
             get;
-            set;
+            internal set;
         }
 
         #endregion
@@ -75,6 +77,20 @@ namespace UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置附件
+        /// </summary>
+        /// <param name="pnReg">附件</param>
+        public void SetPnReg(PnReg pnReg)
+        {
+            if (pnReg == null || pnReg.IsTransient())
+            {
+                throw new ArgumentException("附件参数为空！");
+            }
+
+            Pn = pnReg.Pn;
+            PnRegId = pnReg.Id;
+        }
         #endregion
 
         #region IValidatableObject 成员

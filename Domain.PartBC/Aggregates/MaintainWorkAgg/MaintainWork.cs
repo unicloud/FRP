@@ -13,6 +13,7 @@
 // ========================================================================*/
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -42,7 +43,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg
         public string WorkCode
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg
         public string Description
         {
             get;
-            set;
+            private set;
         }
         #endregion
 
@@ -65,6 +66,33 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置工作代码
+        /// </summary>
+        /// <param name="workCode">工作代码</param>
+        public void SetWorkCode(string workCode)
+        {
+            if (string.IsNullOrWhiteSpace(workCode))
+            {
+                throw new ArgumentException("工作代码参数为空！");
+            }
+
+            WorkCode = workCode;
+        }
+
+        /// <summary>
+        ///     设置描述
+        /// </summary>
+        /// <param name="description">描述</param>
+        public void SetDescription(string description)
+        {
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                throw new ArgumentException("描述参数为空！");
+            }
+
+            Description = description;
+        }
         #endregion
 
         #region IValidatableObject 成员

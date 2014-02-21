@@ -13,8 +13,10 @@
 // ========================================================================*/
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.UberModel.Aggregates.TechnicalSolutionAgg;
 
 namespace UniCloud.Domain.UberModel.Aggregates
 {
@@ -49,7 +51,7 @@ namespace UniCloud.Domain.UberModel.Aggregates
         public string TsNumber
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -58,7 +60,7 @@ namespace UniCloud.Domain.UberModel.Aggregates
         public string FiNumber
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -67,7 +69,7 @@ namespace UniCloud.Domain.UberModel.Aggregates
         public string ItemNo
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -76,7 +78,7 @@ namespace UniCloud.Domain.UberModel.Aggregates
         public string ParentItemNo
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -85,7 +87,7 @@ namespace UniCloud.Domain.UberModel.Aggregates
         public string Description
         {
             get;
-            set;
+            private set;
         }
 
         #endregion
@@ -98,7 +100,7 @@ namespace UniCloud.Domain.UberModel.Aggregates
         public int? TsId
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -107,7 +109,7 @@ namespace UniCloud.Domain.UberModel.Aggregates
         public int? ParentId
         {
             get;
-            set;
+            private set;
         }
         #endregion
 
@@ -126,6 +128,68 @@ namespace UniCloud.Domain.UberModel.Aggregates
 
         #region 操作
 
+        /// <summary>
+        ///     设置FI号
+        /// </summary>
+        /// <param name="fiNumber">FI号</param>
+        public void SetFiNumber(string fiNumber)
+        {
+            if (string.IsNullOrWhiteSpace(fiNumber))
+            {
+                throw new ArgumentException("FI号参数为空！");
+            }
+
+            FiNumber = fiNumber;
+        }
+
+
+        /// <summary>
+        ///     设置项号
+        /// </summary>
+        /// <param name="itemNo">项号</param>
+        public void SetItemNo(string itemNo)
+        {
+            if (string.IsNullOrWhiteSpace(itemNo))
+            {
+                throw new ArgumentException("项号参数为空！");
+            }
+
+            ItemNo = itemNo;
+        }
+
+        /// <summary>
+        ///     设置描述
+        /// </summary>
+        /// <param name="description">描述</param>
+        public void SetDescription(string description)
+        {
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                throw new ArgumentException("描述参数为空！");
+            }
+
+            Description = description;
+        }
+
+        /// <summary>
+        ///     设置当前飞机
+        /// </summary>
+        /// <param name="ts">当前飞机</param>
+        public void SetTechnicalSolution(TechnicalSolution ts)
+        {
+            TsId = ts.Id;
+            TsNumber = ts.TsNumber;
+        }
+
+        /// <summary>
+        ///     设置父项构型
+        /// </summary>
+        /// <param name="acConfig">父项构型</param>
+        public void SetParentAcConfig(AcConfig acConfig)
+        {
+            ParentId = acConfig.Id;
+            ParentItemNo = acConfig.ItemNo;
+        }
         #endregion
 
         #region IValidatableObject 成员
