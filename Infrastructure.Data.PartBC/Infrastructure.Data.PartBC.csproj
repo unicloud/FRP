@@ -56,6 +56,7 @@
     <Compile Include="Repositories\MaintainCtrlRepository.cs" />
     <Compile Include="Repositories\MaintainWorkRepository.cs" />
     <Compile Include="Repositories\ModRepository.cs" />
+    <Compile Include="Repositories\OilMonitorRepository.cs" />
     <Compile Include="Repositories\PnRegRepository.cs" />
     <Compile Include="Repositories\ScnRepository.cs" />
     <Compile Include="Repositories\SnRegRepository.cs" />
@@ -66,17 +67,22 @@
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ApplicableAircraftEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\APUOilEntityConfiguration.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="UnitOfWork\Mapping\Sql\BasicConfigEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BasicConfigGroupEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ContractAircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\CtrlUnitEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\DependencyEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineOilEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ItemMaintainCtrlEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\LifeMonitorEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainCtrlEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainCtrlLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainWorkEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ModEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\OilMonitorEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PnMaintainCtrlEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PnRegEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ScnEntityConfiguration.cs" />

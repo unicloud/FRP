@@ -27,6 +27,7 @@ using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
 using UniCloud.Domain.PartBC.Aggregates.ModAgg;
+using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.ScnAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
@@ -51,6 +52,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         private IDbSet<MaintainCtrl> _maintainCtrls;
         private IDbSet<MaintainWork> _maintainWorks;
         private IDbSet<Mod> _mods;
+        private IDbSet<OilMonitor> _oilMonitors;
         private IDbSet<PnReg> _pneRegs;
         private IDbSet<Scn> _scns;
         private IDbSet<SnReg> _snRegs;
@@ -100,6 +102,11 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         public IDbSet<Mod> Mods
         {
             get { return _mods ?? (_mods = base.Set<Mod>()); }
+        }
+
+        public IDbSet<OilMonitor> OilMonitors
+        {
+            get { return _oilMonitors ?? (_oilMonitors = base.Set<OilMonitor>()); }
         }
 
         public IDbSet<PnReg> PnRegs
@@ -211,6 +218,14 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
                 #region ModAgg
 
                 .Add(new ModEntityConfiguration())
+                #endregion
+
+                #region OilMonitorAgg
+
+                .Add(new OilMonitorEntityConfiguration())
+                .Add(new EngineOilEntityConfiguration())
+                .Add(new APUOilEntityConfiguration())
+                
                 #endregion
 
                 #region PnRegAgg
