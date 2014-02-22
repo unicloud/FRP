@@ -20,5 +20,22 @@ namespace UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg
     /// </summary>
     public interface ITechnicalSolutionRepository : IRepository<TechnicalSolution>
     {
+        /// <summary>
+        /// 删除解决方案
+        /// </summary>
+        /// <param name="ts"></param>
+        void DeleteTechnicalSolution(TechnicalSolution ts);
+
+        /// <summary>
+        /// 删除解决方案明细
+        /// </summary>
+        /// <param name="tsLine"></param>
+        void DeleteTsLine(TsLine tsLine);
+
+        /// <summary>
+        ///     移除依赖项
+        /// </summary>
+        /// <param name="dependency">依赖项</param>
+        void RemoveDependency(Dependency dependency);
     }
 }

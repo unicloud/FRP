@@ -15,6 +15,8 @@
 
 #region 命名空间
 using UniCloud.Domain.PartBC.Aggregates.ScnAgg;
+using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
+
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PartBC.Repositories
@@ -32,5 +34,32 @@ namespace UniCloud.Infrastructure.Data.PartBC.Repositories
 
         #region 方法重载
         #endregion
+
+
+        /// <summary>
+        /// 删除SCN
+        /// </summary>
+        /// <param name="scn"></param>
+        public void DeleteScn(Scn scn)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            var dbApplicableAircrafts = currentUnitOfWork.CreateSet<ApplicableAircraft>();
+            var dbScns = currentUnitOfWork.CreateSet<Scn>();
+            dbApplicableAircrafts.RemoveRange(scn.ApplicableAircrafts);
+            dbScns.Remove(scn);
+        }
+
+
+        /// <summary>
+        ///     移除适用飞机
+        /// </summary>
+        /// <param name="applicableAircraft">适用飞机</param>
+        public void RemoveApplicableAircraft(ApplicableAircraft applicableAircraft)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            currentUnitOfWork.CreateSet<ApplicableAircraft>().Remove(applicableAircraft);
+        }
     }
 }

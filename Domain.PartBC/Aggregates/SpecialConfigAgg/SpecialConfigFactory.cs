@@ -32,6 +32,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg
         {
             var specialConfig = new SpecialConfig
             {
+                CreateDate = DateTime.Now,
             };
             specialConfig.GenerateNewIdentity();
             return specialConfig;

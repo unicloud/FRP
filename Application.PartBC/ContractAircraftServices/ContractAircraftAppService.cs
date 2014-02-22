@@ -48,33 +48,6 @@ namespace UniCloud.Application.PartBC.ContractAircraftServices
             return _contractAircraftQuery.ContractAircraftDTOQuery(queryBuilder);
         }
 
-        /// <summary>
-        ///  新增ContractAircraft。
-        /// </summary>
-        /// <param name="dto">ContractAircraftDTO。</param>
-        [Insert(typeof(ContractAircraftDTO))]
-        public void InsertContractAircraft(ContractAircraftDTO dto)
-        {
-        }
-
-        /// <summary>
-        ///  更新ContractAircraft。
-        /// </summary>
-        /// <param name="dto">ContractAircraftDTO。</param>
-        [Update(typeof(ContractAircraftDTO))]
-        public void ModifyContractAircraft(ContractAircraftDTO dto)
-        {
-        }
-
-        /// <summary>
-        ///  删除ContractAircraft。
-        /// </summary>
-        /// <param name="dto">ContractAircraftDTO。</param>
-        [Delete(typeof(ContractAircraftDTO))]
-        public void DeleteContractAircraft(ContractAircraftDTO dto)
-        {
-        }
-
         #endregion
 
     }

@@ -50,7 +50,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
         public DateTime CompleteDate
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
         public decimal Cost
         {
             get;
-            set;
+            private set;
         }
 
         #endregion
@@ -72,7 +72,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
         public int ContractAircraftId
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
         public int ScnId
         {
             get;
-            set;
+            internal set;
         }
         #endregion
 
@@ -100,6 +100,47 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置完成日期
+        /// </summary>
+        /// <param name="date">完成日期</param>
+        public void SetCompleteDate(DateTime date)
+        {
+            CompleteDate = date;
+        }
+
+        /// <summary>
+        ///     设置费用
+        /// </summary>
+        /// <param name="cost">费用</param>
+        public void SetCost(decimal cost)
+        {
+            Cost = cost;
+        }
+
+        /// <summary>
+        ///     设置合同飞机
+        /// </summary>
+        /// <param name="contractAircraft">合同飞机</param>
+        public void SetContractAircraft(ContractAircraft contractAircraft)
+        {
+            if (contractAircraft == null || contractAircraft.IsTransient())
+            {
+                throw new ArgumentException("合同飞机参数为空！");
+            }
+
+            ContractAircraft = contractAircraft;
+            ContractAircraftId = contractAircraft.Id;
+        }
+
+        /// <summary>
+        ///     设置合同飞机
+        /// </summary>
+        /// <param name="contractAircraftId">合同飞机</param>
+        public void SetContractAircraft(int contractAircraftId)
+        {
+            ContractAircraftId = contractAircraftId;
+        }
         #endregion
 
         #region IValidatableObject 成员

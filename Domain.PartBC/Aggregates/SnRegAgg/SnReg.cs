@@ -16,6 +16,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 
 namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
 {
@@ -27,7 +30,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         #region 私有字段
 
         private HashSet<SnHistory> _snHistories;
-        
+
         private HashSet<LifeMonitor> _lifeMonitors;
         #endregion
 
@@ -50,7 +53,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public string Sn
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -59,7 +62,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public DateTime InstallDate
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -68,7 +71,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public string Pn
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -77,7 +80,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public bool IsStop
         {
             get;
-            set;
+            private set;
         }
 
         #endregion
@@ -90,7 +93,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public int PnRegId
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -99,7 +102,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         public Guid AircraftId
         {
             get;
-            set;
+            private set;
         }
 
         #endregion
@@ -127,6 +130,101 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置序号
+        /// </summary>
+        /// <param name="sn">序号</param>
+        public void SetSn(string sn)
+        {
+            if (string.IsNullOrWhiteSpace(sn))
+            {
+                throw new ArgumentException("序号参数为空！");
+            }
+
+            Sn = sn;
+        }
+
+        /// <summary>
+        ///     设置初始安装日期
+        /// </summary>
+        /// <param name="date">初始安装日期</param>
+        public void SetInstallDate(DateTime date)
+        {
+            InstallDate = date;
+        }
+
+        /// <summary>
+        ///     设置是否停用
+        /// </summary>
+        /// <param name="isStop">是否停用</param>
+        public void SetIsStop(bool isStop)
+        {
+            IsStop = isStop;
+        }
+
+        /// <summary>
+        ///     设置附件
+        /// </summary>
+        /// <param name="pnReg">附件</param>
+        public void SetPnReg(PnReg pnReg)
+        {
+            if (pnReg == null || pnReg.IsTransient())
+            {
+                throw new ArgumentException("附件参数为空！");
+            }
+
+            Pn = pnReg.Pn;
+            PnRegId = pnReg.Id;
+        }
+
+        /// <summary>
+        ///     设置当前飞机
+        /// </summary>
+        /// <param name="aircraft">当前飞机</param>
+        public void SetAircraft(Aircraft aircraft)
+        {
+            if (aircraft == null || aircraft.IsTransient())
+            {
+                throw new ArgumentException("当前飞机参数为空！");
+            }
+
+            AircraftId = aircraft.Id;
+        }
+
+        /// <summary>
+        /// 新增到寿监控
+        /// </summary>
+        /// <returns></returns>
+        public LifeMonitor AddNewLifeMonitor()
+        {
+            var lifeMonitor = new LifeMonitor
+            {
+                SnRegId = Id,
+            };
+
+            lifeMonitor.GenerateNewIdentity();
+            LifeMonitors.Add(lifeMonitor);
+
+            return lifeMonitor;
+        }
+
+        /// <summary>
+        /// 新增装机历史
+        /// </summary>
+        /// <returns></returns>
+        public SnHistory AddNewSnHistory()
+        {
+            var snHistory = new SnHistory
+            {
+                SnRegId = Id,
+                Sn = Sn,
+            };
+
+            snHistory.GenerateNewIdentity();
+            SnHistories.Add(snHistory);
+
+            return snHistory;
+        }
         #endregion
 
         #region IValidatableObject 成员

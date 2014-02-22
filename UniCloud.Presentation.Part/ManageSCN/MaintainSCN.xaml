@@ -1,0 +1,400 @@
+﻿<UserControl x:Class="UniCloud.Presentation.Part.ManageSCN.MaintainSCN"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance uc:MaintainSCNVm}"
+             d:DesignHeight="600"
+             d:DesignWidth="900"
+             Name="ScnMscn">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False">
+            <telerik:RadSplitContainer Orientation="Horizontal">
+                <telerik:RadSplitContainer  InitialPosition="DockedLeft"
+                                            Orientation="Vertical"
+                                            telerik:ProportionalStackPanel.RelativeSize="300, 300">
+                    <telerik:RadSplitContainer InitialPosition="DockedTop"
+                                               telerik:ProportionalStackPanel.RelativeSize="300,300">
+                        <telerik:RadPaneGroup>
+                            <telerik:RadPane Header="SCN/MSCN基本信息"
+                                             FontSize="{StaticResource HeaderFontSize}"
+                                             IsPinned="True"
+                                             CanFloat="False"
+                                             CanDockInDocumentHost="False"
+                                             CanUserClose="False"
+                                             CanUserPin="False"
+                                             ContextMenuTemplate="{x:Null}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
+                                    </Grid.RowDefinitions>
+                                    <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                        Margin="0 0 0 -1"
+                                                        OverflowButtonVisibility="Collapsed">
+                                        <telerik:RadButton Margin="4,2,2,-2"
+                                                           Command="{Binding SaveCommand}"
+                                                           CommandParameter="{Binding Scns}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Save.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="保存" />
+                                        </telerik:RadButton>
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding AbortCommand}"
+                                                           CommandParameter="{Binding Scns}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="放弃更改" />
+                                        </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding AddScnCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/New.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="创建SCN/MSCN" />
+                                        </telerik:RadButton>
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding AddAttachCommand}"
+                                                           CommandParameter="{Binding Scn.ScnDocumentId,Mode=TwoWay}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="添加附件" />
+                                        </telerik:RadButton>
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding RemoveScnCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="删除SCN/MSCN" />
+                                        </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding SubmitScnCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Up.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="提交SCN/MSCN" />
+                                        </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
+                                    </telerik:RadToolBar>
+                                    <Grid Row="1">
+                                        <telerik:RadGridView x:Name="SCNList"
+                                                             AutoExpandGroups="True"
+                                                             AutoGenerateColumns="False"
+                                                             CanUserSortColumns="True"
+                                                             RowIndicatorVisibility="Visible"
+                                                             CanUserFreezeColumns="False"
+                                                             FontSize="{StaticResource TextFontSize}"
+                                                             ValidatesOnDataErrors="InEditMode"
+                                                             IsBusy="{Binding Scns.IsBusy}"
+                                                             ItemsSource="{Binding Scns,Mode=TwoWay}"
+                                                             SelectedItem="{Binding Scn,Mode=TwoWay}">
+                                            <telerik:RadGridView.Columns>
+                                                <uc:DataPageSerialColumn Header="序号"
+                                                                         HeaderTextAlignment="Center" />
+                                                <telerik:GridViewComboBoxColumn Header="类型"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                IsFilterable="True"
+                                                                                IsGroupable="True"
+                                                                                ItemsSource="{Binding DataContext.Types,ElementName=ScnMscn,Mode=TwoWay}"
+                                                                                DataMemberBinding="{Binding TypeString}" />
+                                                <telerik:GridViewDataColumn Header="编号"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding ScnNumber}">
+                                                </telerik:GridViewDataColumn>
+                                                <telerik:GridViewDataColumn Header="批次号"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding CSCNumber}">
+                                                </telerik:GridViewDataColumn>
+                                                <telerik:GridViewDataColumn Header="MOD号"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding ModNumber}">
+                                                </telerik:GridViewDataColumn>
+                                                <telerik:GridViewDataColumn Header="TS号"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding TsNumber}">
+                                                </telerik:GridViewDataColumn>
+                                                <telerik:GridViewComboBoxColumn Header="适用类型"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                IsFilterable="True"
+                                                                                IsGroupable="True"
+                                                                                ItemsSource="{Binding DataContext.ScnTypes,ElementName=ScnMscn,Mode=TwoWay}"
+                                                                                DataMemberBinding="{Binding ScnTypeString}">
+                                                </telerik:GridViewComboBoxColumn>
+                                                <telerik:GridViewDataColumn Header="费用"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding Cost}">
+                                                </telerik:GridViewDataColumn>
+                                                <telerik:GridViewDataColumn Header="确认日期"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding CheckDate, StringFormat={StaticResource DateStringFormat}}">
+                                                </telerik:GridViewDataColumn>
+                                                <telerik:GridViewDataColumn Header="状态"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsReadOnly="True"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding ScnStatus, ConverterParameter=ScnStatus, Converter={StaticResource EnumToStringConverter}}">
+                                                </telerik:GridViewDataColumn>
+                                                <telerik:GridViewDataColumn Header="文件名"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsReadOnly="True"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding ScnDocName}">
+                                                </telerik:GridViewDataColumn>
+                                                <telerik:GridViewDataColumn Header="描述"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding Description}">
+                                                </telerik:GridViewDataColumn>
+                                            </telerik:RadGridView.Columns>
+                                        </telerik:RadGridView>
+                                    </Grid>
+                                    <Grid Row="2">
+                                        <telerik:RadDataPager Name="SCNRadPage"
+                                                              BorderThickness="1,0,1,1"
+                                                              AutoEllipsisMode="Both"
+                                                              DisplayMode="All"
+                                                              Source="{Binding Scns}" />
+                                    </Grid>
+                                </Grid>
+                            </telerik:RadPane>
+                        </telerik:RadPaneGroup>
+                    </telerik:RadSplitContainer>
+                    <telerik:RadSplitContainer InitialPosition="DockedBottom"
+                                               telerik:ProportionalStackPanel.RelativeSize="300,300">
+                        <telerik:RadPaneGroup Margin="0,0,0,6">
+                            <telerik:RadPane Header="适用飞机"
+                                             FontSize="{StaticResource HeaderFontSize}"
+                                             IsPinned="True"
+                                             CanFloat="False"
+                                             CanDockInDocumentHost="False"
+                                             CanUserClose="False"
+                                             CanUserPin="False"
+                                             ContextMenuTemplate="{x:Null}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                        Margin="0 0 0 -1"
+                                                        OverflowButtonVisibility="Collapsed">
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding AddApplicableAircraftCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Add.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="增加适用飞机" />
+                                        </telerik:RadButton>
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding RemoveApplicableAircraftCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="移除适用飞机" />
+                                        </telerik:RadButton>
+                                    </telerik:RadToolBar>
+                                    <Grid Row="1">
+                                        <telerik:RadGridView x:Name="AircraftList"
+                                                             AutoExpandGroups="True"
+                                                             AutoGenerateColumns="False"
+                                                             CanUserSortColumns="True"
+                                                             RowIndicatorVisibility="Visible"
+                                                             CanUserFreezeColumns="False"
+                                                             FontSize="{StaticResource TextFontSize}"
+                                                             ValidatesOnDataErrors="InEditMode"
+                                                             IsBusy="{Binding Scns.IsBusy}"
+                                                             ItemsSource="{Binding Scn.ApplicableAircrafts}">
+                                            <telerik:RadGridView.Columns>
+                                                <uc:DataPageSerialColumn Header="序号"
+                                                                         HeaderTextAlignment="Center" />
+                                                <telerik:GridViewDataColumn Header="合同飞机"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsReadOnly="True"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True" />
+                                                <telerik:GridViewDataColumn Header="费用"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsReadOnly="True"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding Cost}" />
+                                                <telerik:GridViewDataColumn Header="完成日期"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding CompleteDate}" />
+                                            </telerik:RadGridView.Columns>
+                                        </telerik:RadGridView>
+                                    </Grid>
+                                </Grid>
+                            </telerik:RadPane>
+                        </telerik:RadPaneGroup>
+                    </telerik:RadSplitContainer>
+                </telerik:RadSplitContainer>
+                <telerik:RadSplitContainer InitialPosition="DockedRight"
+                                           Orientation="Vertical"
+                                           telerik:ProportionalStackPanel.RelativeSize="300,300">
+                    <telerik:RadSplitContainer InitialPosition="DockedTop"
+                                               telerik:ProportionalStackPanel.RelativeSize="300,300">
+                        <telerik:RadPaneGroup>
+                            <telerik:RadPane Header="审核"
+                                             FontSize="{StaticResource HeaderFontSize}"
+                                             IsPinned="True"
+                                             CanFloat="False"
+                                             CanDockInDocumentHost="False"
+                                             CanUserClose="False"
+                                             CanUserPin="False"
+                                             ContextMenuTemplate="{x:Null}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="30" />
+                                    </Grid.RowDefinitions>
+                                    <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                        Margin="0 0 0 -1"
+                                                        OverflowButtonVisibility="Collapsed">
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding ReviewScnCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Check.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="审核SCN/MSCN" />
+                                        </telerik:RadButton>
+                                    </telerik:RadToolBar>
+                                    <Grid Row="1">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="15"></ColumnDefinition>
+                                                <ColumnDefinition Width="65"></ColumnDefinition>
+                                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                                                <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="35" />
+                                                <RowDefinition Height="35" />
+                                                <RowDefinition Height="35" />
+                                                <RowDefinition Height="35" />
+                                                <RowDefinition Height="35" />
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Column="1"
+                                                       Text="审核部门"
+                                                       FontSize="{StaticResource TextFontSize}"
+                                                       TextAlignment="Left"
+                                                       VerticalAlignment="Center" />
+                                            <TextBox Grid.Row="0"
+                                                     Grid.Column="2"
+                                                     Margin="0,3"
+                                                     telerik:StyleManager.Theme="Windows8"
+                                                     IsReadOnly="{Binding OnlyView,Mode=TwoWay}"
+                                                     Text="{Binding Scn.AuditOrganization, Mode=TwoWay}" />
+                                            <TextBlock Grid.Row="1"
+                                                       Grid.Column="1"
+                                                       Text="审核人"
+                                                       FontSize="{StaticResource TextFontSize}"
+                                                       TextAlignment="Left"
+                                                       VerticalAlignment="Center" />
+                                            <TextBox Grid.Column="2"
+                                                     Margin="0,3"
+                                                     Grid.Row="1"
+                                                     IsReadOnly="{Binding OnlyView,Mode=TwoWay}"
+                                                     telerik:StyleManager.Theme="Windows8"
+                                                     Text="{Binding Scn.Auditor, Mode=TwoWay}" />
+                                            <TextBlock Grid.Row="2"
+                                                       Grid.Column="1"
+                                                       Text="审核时间"
+                                                       FontSize="{StaticResource TextFontSize}"
+                                                       TextAlignment="Left"
+                                                       VerticalAlignment="Center" />
+                                            <TextBox Grid.Column="2"
+                                                     Margin="0,3"
+                                                     Grid.Row="2"
+                                                     IsReadOnly="True"
+                                                     telerik:StyleManager.Theme="Windows8"
+                                                     Text="{Binding Scn.AuditTime, Mode=TwoWay,StringFormat={StaticResource DateStringFormat}}" />
+                                            <TextBlock Grid.Row="3"
+                                                       Grid.Column="1"
+                                                       Text="意见"
+                                                       FontSize="{StaticResource TextFontSize}"
+                                                       TextAlignment="Left"
+                                                       VerticalAlignment="Center" />
+                                            <TextBox Grid.Column="2"
+                                                     Margin="0,3"
+                                                     Grid.Row="3"
+                                                     Grid.RowSpan="2"
+                                                     IsReadOnly="{Binding OnlyView,Mode=TwoWay}"
+                                                     telerik:StyleManager.Theme="Windows8"
+                                                     Text="{Binding Scn.AuditNotes, Mode=TwoWay}" />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </telerik:RadPane>
+                        </telerik:RadPaneGroup>
+                    </telerik:RadSplitContainer>
+                    <telerik:RadSplitContainer InitialPosition="DockedBottom"
+                                               telerik:ProportionalStackPanel.RelativeSize="300,300">
+                        <telerik:RadPaneGroup Margin="0,0,0,6">
+                            <telerik:RadPane  Header="审核历史"
+                                              FontSize="{StaticResource HeaderFontSize}"
+                                              IsPinned="True"
+                                              CanFloat="False"
+                                              CanDockInDocumentHost="False"
+                                              CanUserClose="False"
+                                              CanUserPin="False"
+                                              ContextMenuTemplate="{x:Null}">
+                                <telerik:GroupBox Header="历史信息">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                                  BorderThickness="0"
+                                                  HorizontalScrollBarVisibility="Disabled"
+                                                  telerik:StyleManager.Theme="Windows8">
+                                        <TextBlock Text="{Binding Scn.AuditHistory }"
+                                                   TextWrapping="Wrap" />
+                                    </ScrollViewer>
+                                </telerik:GroupBox>
+                            </telerik:RadPane>
+                        </telerik:RadPaneGroup>
+                    </telerik:RadSplitContainer>
+                </telerik:RadSplitContainer>
+            </telerik:RadSplitContainer>
+        </telerik:RadDocking>
+    </Grid>
+</UserControl>

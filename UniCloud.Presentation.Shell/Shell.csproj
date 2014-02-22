@@ -312,6 +312,10 @@
       <Project>{fd4dfbe9-c8ec-4195-b4a2-64b46faa9d1d}</Project>
       <Name>Service.FlightLog</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.Part\Service.Part.csproj">
+      <Project>{174907d5-ab39-46f4-b7ff-e4214d8fdf9c}</Project>
+      <Name>Service.Part</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service.Payment\Service.Payment.csproj">
       <Project>{8a34eaf1-0a35-4b80-bc53-f8bf11b626dc}</Project>
       <Name>Service.Payment</Name>

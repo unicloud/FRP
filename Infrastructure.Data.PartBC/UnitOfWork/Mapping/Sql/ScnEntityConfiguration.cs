@@ -40,8 +40,15 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             Property(p => p.ScnNumber).HasColumnName("ScnNumber").HasMaxLength(100);
             Property(p => p.ScnType).HasColumnName("ScnType");
             Property(p => p.Description).HasColumnName("Description").HasMaxLength(100);
+            Property(p => p.ScnDocName).HasColumnName("ScnDocName").HasMaxLength(100);
             Property(p => p.ScnDocumentId).HasColumnName("ScnDocumentId");
-
+            Property(p => p.ScnStatus).HasColumnName("ScnStatus");
+            Property(p => p.AuditOrganization).HasColumnName("AuditOrganization");
+            Property(p => p.Auditor).HasColumnName("Auditor");
+            Property(p => p.AuditTime).HasColumnName("AuditTime").HasColumnType("datetime2");
+            Property(p => p.AuditNotes).HasColumnName("AuditNotes");
+            Property(p => p.AuditHistory).HasColumnName("AuditHistory");
+            Property(p => p.Type).HasColumnName("Type");
             HasMany(o => o.ApplicableAircrafts).WithRequired().HasForeignKey(o => o.ScnId);
         }
 

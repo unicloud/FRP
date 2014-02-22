@@ -108,7 +108,7 @@
     </Reference>
     <Reference Include="Telerik.ReportViewer.Silverlight">
       <HintPath>..\packages\Telerik.ReportViewer.Silverlight.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Controls">
       <HintPath>..\packages\Telerik.Windows.Controls.2.0.0\lib\Telerik.Windows.Controls.dll</HintPath>
@@ -386,6 +386,11 @@
     <ProjectReference Include="..\UniCloud.Presentation.Service.FleetPlan\Service.FleetPlan.csproj">
       <Project>{b2d2a463-a571-4467-b552-338d89d322f8}</Project>
       <Name>Service.FleetPlan</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.Part\Service.Part.csproj">
+      <Project>{174907d5-ab39-46f4-b7ff-e4214d8fdf9c}</Project>
+      <Name>Service.Part</Name>
       <Private>False</Private>
     </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation.Service.Payment\Service.Payment.csproj">

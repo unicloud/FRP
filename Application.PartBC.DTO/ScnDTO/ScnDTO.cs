@@ -17,6 +17,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Common;
+using UniCloud.Domain.Common.Enums;
+
 #endregion
 
 namespace UniCloud.Application.PartBC.DTO
@@ -38,6 +40,7 @@ namespace UniCloud.Application.PartBC.DTO
         /// 主键
         /// </summary>
         public int Id { get; set; }
+
         /// <summary>
         /// 确认日期
         /// </summary>
@@ -93,12 +96,40 @@ namespace UniCloud.Application.PartBC.DTO
         }
 
         /// <summary>
+        /// SCN类型
+        /// </summary>
+        public int Type
+        {
+            get;
+            set;
+        }
+
+        public string TypeString
+        {
+            get { return ((ScnType)Type).ToString(); }
+            set { Type = (int)(ScnType)Enum.Parse(typeof(ScnType), value, true); }
+        }
+        /// <summary>
+        /// SCN状态
+        /// </summary>
+        public int ScnStatus
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// SCN适用类型
         /// </summary>
         public int ScnType
         {
             get;
             set;
+        }
+        public string ScnTypeString
+        {
+            get { return ((ScnApplicableType)ScnType).ToString(); }
+            set { ScnType = (int)(ScnApplicableType)Enum.Parse(typeof(ScnApplicableType), value, true); }
         }
 
         /// <summary>
@@ -110,6 +141,59 @@ namespace UniCloud.Application.PartBC.DTO
             set;
         }
 
+        /// <summary>
+        /// SCN文件名称
+        /// </summary>
+        public string ScnDocName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 审核部门
+        /// </summary>
+        public string AuditOrganization
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 审核人
+        /// </summary>
+        public string Auditor
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 审核时间
+        /// </summary>
+        public DateTime? AuditTime
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 审核意见
+        /// </summary>
+        public string AuditNotes
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 审核历史
+        /// </summary>
+        public string AuditHistory
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region 外键属性

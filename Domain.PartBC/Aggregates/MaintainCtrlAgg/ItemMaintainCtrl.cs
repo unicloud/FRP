@@ -13,6 +13,8 @@
 // ========================================================================*/
 #endregion
 
+using System;
+
 namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
 {
     /// <summary>
@@ -40,7 +42,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         public string ItemNo
         {
             get;
-            set;
+            private set;
         }
 
         #endregion
@@ -53,7 +55,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         public int AcConfigId
         {
             get;
-            set;
+            private set;
         }
         #endregion
 
@@ -63,6 +65,27 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置项号
+        /// </summary>
+        public void SetItemNo(string itemNo)
+        {
+            if (string.IsNullOrWhiteSpace(itemNo))
+            {
+                throw new ArgumentException("项号参数为空！");
+            }
+
+            ItemNo = itemNo;
+        }
+
+        /// <summary>
+        ///     设置构型
+        /// </summary>
+        /// <param name="acConfigId">构型</param>
+        public void SetAcConfig(int acConfigId)
+        {
+            AcConfigId = acConfigId;
+        }
         #endregion
     }
 }

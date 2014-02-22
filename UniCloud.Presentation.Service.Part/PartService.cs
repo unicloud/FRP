@@ -23,13 +23,13 @@ using UniCloud.Presentation.Service.Part.Part;
 
 namespace UniCloud.Presentation.Service.Part
 {
-    [Export(typeof(PartService))]
+    [Export(typeof(IPartService))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class PartService : ServiceBase, IPartService
     {
         public PartService()
         {
-            context = new PartData(AgentHelper.FleetPlanServiceUri);
+            context = new PartData(AgentHelper.PartUri);
         }
 
         #region IFleetPlanService 成员

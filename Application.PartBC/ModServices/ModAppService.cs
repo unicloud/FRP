@@ -30,10 +30,11 @@ namespace UniCloud.Application.PartBC.ModServices
     public class ModAppService : IModAppService
     {
         private readonly IModQuery _modQuery;
-
-        public ModAppService(IModQuery modQuery)
+        private readonly IModRepository _modRepository;
+        public ModAppService(IModQuery modQuery, IModRepository modRepository)
         {
             _modQuery = modQuery;
+            _modRepository = modRepository;
         }
 
         #region ModDTO
@@ -55,6 +56,10 @@ namespace UniCloud.Application.PartBC.ModServices
         [Insert(typeof(ModDTO))]
         public void InsertMod(ModDTO dto)
         {
+            var newMod = ModFactory.CreateMod();
+
+            newMod.SetModNumber(dto.ModNumber);
+            _modRepository.Add(newMod);
         }
 
         /// <summary>
@@ -64,6 +69,11 @@ namespace UniCloud.Application.PartBC.ModServices
         [Update(typeof(ModDTO))]
         public void ModifyMod(ModDTO dto)
         {
+            var updateMod = _modRepository.Get(dto.Id); //获取需要更新的对象。
+
+            //更新。
+            updateMod.SetModNumber(dto.ModNumber);
+            _modRepository.Modify(updateMod);
         }
 
         /// <summary>
@@ -73,6 +83,8 @@ namespace UniCloud.Application.PartBC.ModServices
         [Delete(typeof(ModDTO))]
         public void DeleteMod(ModDTO dto)
         {
+            var delMod = _modRepository.Get(dto.Id); //获取需要删除的对象。
+            _modRepository.Remove(delMod); //删除Mod。
         }
 
         #endregion

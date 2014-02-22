@@ -13,6 +13,7 @@
 // ========================================================================*/
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -42,7 +43,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.CtrlUnitAgg
         public string Name
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.CtrlUnitAgg
         public string Description
         {
             get;
-            set;
+            private set;
         }
         #endregion
 
@@ -64,6 +65,33 @@ namespace UniCloud.Domain.UberModel.Aggregates.CtrlUnitAgg
         #endregion
 
         #region 操作
+        /// <summary>
+        ///     设置名称
+        /// </summary>
+        /// <param name="name">名称</param>
+        public void SetName(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("名称参数为空！");
+            }
+
+            Name = name;
+        }
+
+        /// <summary>
+        ///     设置描述
+        /// </summary>
+        /// <param name="description">描述</param>
+        public void SetDescription(string description)
+        {
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                throw new ArgumentException("描述参数为空！");
+            }
+
+            Description = description;
+        }
 
         #endregion
 

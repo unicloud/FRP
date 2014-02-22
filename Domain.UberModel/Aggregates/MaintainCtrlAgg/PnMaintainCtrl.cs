@@ -13,6 +13,9 @@
 // ========================================================================*/
 #endregion
 
+using System;
+using UniCloud.Domain.UberModel.Aggregates.PnRegAgg;
+
 namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
 {
     /// <summary>
@@ -40,7 +43,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
         public string Pn
         {
             get;
-            set;
+            private set;
         }
 
         #endregion
@@ -53,7 +56,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
         public int PnRegId
         {
             get;
-            set;
+            private set;
         }
 
         #endregion
@@ -64,6 +67,20 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
 
         #region 操作
 
+        /// <summary>
+        ///     设置附件
+        /// </summary>
+        /// <param name="pnReg">附件</param>
+        public void SetPnReg(PnReg pnReg)
+        {
+            if (pnReg == null || pnReg.IsTransient())
+            {
+                throw new ArgumentException("附件参数为空！");
+            }
+
+            Pn = pnReg.Pn;
+            PnRegId = pnReg.Id;
+        }
         #endregion
 
     }

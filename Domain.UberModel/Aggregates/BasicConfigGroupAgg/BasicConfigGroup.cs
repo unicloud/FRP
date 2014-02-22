@@ -52,7 +52,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
         public DateTime StartDate
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
         public string Description
         {
             get;
-            set;
+            private set;
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
         public string GroupNo
         {
             get;
-            set;
+            private set;
         }
         #endregion
 
@@ -82,7 +82,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
         public Guid AircraftTypeId
         {
             get;
-            set;
+            private set;
         }
         #endregion
 
@@ -104,7 +104,74 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
         #endregion
 
         #region 操作
+        /// <summary>
+        ///     设置启用日期
+        /// </summary>
+        /// <param name="date">启用日期</param>
+        public void SetStartDate(DateTime date)
+        {
+            StartDate = date;
+        }
 
+        /// <summary>
+        ///     设置描述
+        /// </summary>
+        /// <param name="description">描述</param>
+        public void SetDescription(string description)
+        {
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                throw new ArgumentException("描述参数为空！");
+            }
+
+            Description = description;
+        }
+
+        /// <summary>
+        ///     设置基本构型组号
+        /// </summary>
+        /// <param name="groupNo">基本构型组号</param>
+        public void SetGroupNo(string groupNo)
+        {
+            if (string.IsNullOrWhiteSpace(groupNo))
+            {
+                throw new ArgumentException("基本构型组号参数为空！");
+            }
+
+            GroupNo = groupNo;
+        }
+
+        /// <summary>
+        ///     设置机型
+        /// </summary>
+        /// <param name="aircraftType">机型</param>
+        public void SetAircraftType(AircraftType aircraftType)
+        {
+            if (aircraftType == null || aircraftType.IsTransient())
+            {
+                throw new ArgumentException("机型参数为空！");
+            }
+
+            AircraftType = aircraftType;
+            AircraftTypeId = aircraftType.Id;
+        }
+
+        /// <summary>
+        /// 新增基本构型
+        /// </summary>
+        /// <returns></returns>
+        public BasicConfig AddNewBasicConfig()
+        {
+            var basicConfig = new BasicConfig
+            {
+                BasicConfigGroupId = Id,
+            };
+
+            basicConfig.GenerateNewIdentity();
+            BasicConfigs.Add(basicConfig);
+
+            return basicConfig;
+        }
         #endregion
 
         #region IValidatableObject 成员

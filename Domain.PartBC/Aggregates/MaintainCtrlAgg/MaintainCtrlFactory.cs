@@ -25,16 +25,42 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
     public static class MaintainCtrlFactory
     {
         /// <summary>
-        /// 创建MaintainCtrl。
+        /// 创建ItemMaintainCtrl。
         /// </summary>
-        ///  <returns>MaintainCtrl</returns>
-        public static MaintainCtrl CreateMaintainCtrl()
+        ///  <returns>ItemMaintainCtrl</returns>
+        public static ItemMaintainCtrl CreateItemMaintainCtrl()
         {
-            var maintainCtrl = new MaintainCtrl
+            var itemMaintainCtrl = new ItemMaintainCtrl
             {
             };
-            maintainCtrl.GenerateNewIdentity();
-            return maintainCtrl;
+            itemMaintainCtrl.GenerateNewIdentity();
+            return itemMaintainCtrl;
+        }
+
+        /// <summary>
+        /// 创建PnMaintainCtrl。
+        /// </summary>
+        ///  <returns>PnMaintainCtrl</returns>
+        public static PnMaintainCtrl CreatePnMaintainCtrl()
+        {
+            var pnMaintainCtrl = new PnMaintainCtrl
+            {
+            };
+            pnMaintainCtrl.GenerateNewIdentity();
+            return pnMaintainCtrl;
+        }
+
+        /// <summary>
+        /// 创建SnMaintainCtrl。
+        /// </summary>
+        ///  <returns>SnMaintainCtrl</returns>
+        public static SnMaintainCtrl CreateSnMaintainCtrl()
+        {
+            var snMaintainCtrl = new SnMaintainCtrl
+            {
+            };
+            snMaintainCtrl.GenerateNewIdentity();
+            return snMaintainCtrl;
         }
     }
 }

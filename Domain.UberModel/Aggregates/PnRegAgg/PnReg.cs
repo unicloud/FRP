@@ -13,6 +13,7 @@
 // ========================================================================*/
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -40,7 +41,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.PnRegAgg
         /// <summary>
         /// 件号
         /// </summary>
-        public string Pn { get; set; }
+        public string Pn { get; private set; }
 
         /// <summary>
         /// 是否寿控
@@ -48,7 +49,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.PnRegAgg
         public bool IsLife
         {
             get;
-            set;
+            private set;
         }
 
         #endregion
@@ -62,7 +63,28 @@ namespace UniCloud.Domain.UberModel.Aggregates.PnRegAgg
         #endregion
 
         #region 操作
+        /// <summary>
+        ///     设置件号
+        /// </summary>
+        /// <param name="pn">件号</param>
+        public void SetPn(string pn)
+        {
+            if (string.IsNullOrWhiteSpace(pn))
+            {
+                throw new ArgumentException("件号参数为空！");
+            }
 
+            Pn = pn;
+        }
+
+        /// <summary>
+        ///     设置是否寿控
+        /// </summary>
+        /// <param name="isLife">是否寿控</param>
+        public void SetIsLife(bool isLife)
+        {
+            IsLife = isLife;
+        }
         #endregion
 
         #region IValidatableObject 成员

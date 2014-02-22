@@ -30,10 +30,11 @@ namespace UniCloud.Application.PartBC.CtrlUnitServices
     public class CtrlUnitAppService : ICtrlUnitAppService
     {
         private readonly ICtrlUnitQuery _ctrlUnitQuery;
-
-        public CtrlUnitAppService(ICtrlUnitQuery ctrlUnitQuery)
+        private readonly ICtrlUnitRepository _ctrlUnitRepository;
+        public CtrlUnitAppService(ICtrlUnitQuery ctrlUnitQuery, ICtrlUnitRepository ctrlUnitRepository)
         {
             _ctrlUnitQuery = ctrlUnitQuery;
+            _ctrlUnitRepository = ctrlUnitRepository;
         }
 
         #region CtrlUnitDTO
@@ -55,6 +56,11 @@ namespace UniCloud.Application.PartBC.CtrlUnitServices
         [Insert(typeof(CtrlUnitDTO))]
         public void InsertCtrlUnit(CtrlUnitDTO dto)
         {
+            var newCtrlUnit = CtrlUnitFactory.CreateCtrlUnit();
+
+            newCtrlUnit.SetName(dto.Name);
+            newCtrlUnit.SetDescription(dto.Description);
+            _ctrlUnitRepository.Add(newCtrlUnit);
         }
 
         /// <summary>
@@ -64,6 +70,12 @@ namespace UniCloud.Application.PartBC.CtrlUnitServices
         [Update(typeof(CtrlUnitDTO))]
         public void ModifyCtrlUnit(CtrlUnitDTO dto)
         {
+            var updateCtrlUnit = _ctrlUnitRepository.Get(dto.Id); //获取需要更新的对象。
+
+            //更新。
+            updateCtrlUnit.SetName(dto.Name);
+            updateCtrlUnit.SetDescription(dto.Description);
+            _ctrlUnitRepository.Modify(updateCtrlUnit);
         }
 
         /// <summary>
@@ -73,6 +85,8 @@ namespace UniCloud.Application.PartBC.CtrlUnitServices
         [Delete(typeof(CtrlUnitDTO))]
         public void DeleteCtrlUnit(CtrlUnitDTO dto)
         {
+            var delCtrlUnit = _ctrlUnitRepository.Get(dto.Id); //获取需要删除的对象。
+            _ctrlUnitRepository.Remove(delCtrlUnit); //删除CtrlUnit。
         }
 
         #endregion

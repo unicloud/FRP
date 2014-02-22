@@ -68,5 +68,14 @@ namespace UniCloud.Presentation.Service
                     UriKind.Absolute);
             }
         }
+
+        public static Uri PartUri
+        {
+            get
+            {
+                return new Uri(Application.Current.Resources["PartDataService"].ToString(),
+                    UriKind.Absolute);
+            }
+        }
     }
 }

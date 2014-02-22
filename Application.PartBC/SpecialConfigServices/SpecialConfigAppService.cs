@@ -19,6 +19,8 @@ using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.SpecialConfigQueries;
 using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
+using UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg;
+
 #endregion
 
 namespace UniCloud.Application.PartBC.SpecialConfigServices
@@ -30,10 +32,16 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
     public class SpecialConfigAppService : ISpecialConfigAppService
     {
         private readonly ISpecialConfigQuery _specialConfigQuery;
+        private readonly ISpecialConfigRepository _specialConfigRepository;
+        private readonly ITechnicalSolutionRepository _technicalSolutionRepository;
 
-        public SpecialConfigAppService(ISpecialConfigQuery specialConfigQuery)
+        public SpecialConfigAppService(ISpecialConfigQuery specialConfigQuery,
+            ISpecialConfigRepository specialConfigRepository,
+            ITechnicalSolutionRepository technicalSolutionRepository)
         {
             _specialConfigQuery = specialConfigQuery;
+            _specialConfigRepository = specialConfigRepository;
+            _technicalSolutionRepository = technicalSolutionRepository;
         }
 
         #region SpecialConfigDTO
@@ -55,6 +63,20 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
         [Insert(typeof(SpecialConfigDTO))]
         public void InsertSpecialConfig(SpecialConfigDTO dto)
         {
+            //获取相关数据
+            var ts = _technicalSolutionRepository.Get(dto.TsId);
+
+            var newSpecialConfig = SpecialConfigFactory.CreateSpecialConfig();
+
+            newSpecialConfig.SetEndDate(dto.EndDate);
+            newSpecialConfig.SetDescription(dto.Description);
+            newSpecialConfig.SetFiNumber(dto.FiNumber);
+            newSpecialConfig.SetIsValid(dto.IsValid);
+            newSpecialConfig.SetItemNo(dto.ItemNo);
+            newSpecialConfig.SetStartDate(dto.StartDate);
+            newSpecialConfig.SetParentAcConfigId(dto.ParentId);
+            newSpecialConfig.SetTechnicalSolution(ts);
+            _specialConfigRepository.Add(newSpecialConfig);
         }
 
         /// <summary>
@@ -63,7 +85,22 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
         /// <param name="dto">SpecialConfigDTO。</param>
         [Update(typeof(SpecialConfigDTO))]
         public void ModifySpecialConfig(SpecialConfigDTO dto)
-        {
+        {            
+            //获取相关数据
+            var ts = _technicalSolutionRepository.Get(dto.TsId);
+            
+            var updateSpecialConfig = _specialConfigRepository.Get(dto.Id); //获取需要更新的对象。
+
+            //更新。
+            updateSpecialConfig.SetEndDate(dto.EndDate);
+            updateSpecialConfig.SetDescription(dto.Description);
+            updateSpecialConfig.SetFiNumber(dto.FiNumber);
+            updateSpecialConfig.SetIsValid(dto.IsValid);
+            updateSpecialConfig.SetItemNo(dto.ItemNo);
+            updateSpecialConfig.SetStartDate(dto.StartDate);
+            updateSpecialConfig.SetParentAcConfigId(dto.ParentId);
+            updateSpecialConfig.SetTechnicalSolution(ts);
+            _specialConfigRepository.Modify(updateSpecialConfig);
         }
 
         /// <summary>
@@ -73,6 +110,8 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
         [Delete(typeof(SpecialConfigDTO))]
         public void DeleteSpecialConfig(SpecialConfigDTO dto)
         {
+            var delSpecialConfig = _specialConfigRepository.Get(dto.Id); //获取需要删除的对象。
+            _specialConfigRepository.Remove(delSpecialConfig); //删除SpecialConfig。
         }
 
         #endregion
