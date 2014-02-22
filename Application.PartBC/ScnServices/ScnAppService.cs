@@ -20,8 +20,6 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.ScnQueries;
-using UniCloud.Domain.Common.Enums;
-using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.ScnAgg;
 #endregion
 
@@ -35,13 +33,11 @@ namespace UniCloud.Application.PartBC.ScnServices
     {
         private readonly IScnQuery _scnQuery;
         private readonly IScnRepository _scnRepository;
-        private readonly IContractAircraftRepository _contractAircraftRepository;
-        public ScnAppService(IScnQuery scnQuery,IScnRepository scnRepository,
-            IContractAircraftRepository contractAircraftRepository)
+
+        public ScnAppService(IScnQuery scnQuery, IScnRepository scnRepository)
         {
             _scnQuery = scnQuery;
             _scnRepository = scnRepository;
-            _contractAircraftRepository = contractAircraftRepository;
         }
 
         #region ScnDTO
@@ -65,15 +61,9 @@ namespace UniCloud.Application.PartBC.ScnServices
         {
             //创建SCN
             var newScn = ScnFactory.CreateScn();
-            newScn.SetCheckDate(dto.CheckDate);
-            newScn.SetCost(dto.Cost);
-            newScn.SetCscNumber(dto.CSCNumber);
-            newScn.SetDescription(dto.Description);
-            newScn.SetModNumber(dto.ModNumber);
-            newScn.SetScnDocument(dto.ScnDocName,dto.ScnDocumentId);
-            newScn.SetScnNumber(dto.ScnNumber);
-            newScn.SetScnType((ScnApplicableType)dto.ScnType);
-            newScn.SetTsNumber(dto.TsNumber);
+            ScnFactory.SetScn(newScn, dto.Type, dto.CheckDate, dto.CSCNumber, dto.ModNumber, dto.TsNumber, dto.Cost,
+                dto.ScnNumber, dto.ScnType, dto.ScnStatus, dto.Description, dto.ScnDocName, dto.ScnDocumentId,
+                dto.AuditOrganization, dto.Auditor, dto.AuditTime, dto.AuditNotes);
 
             //添加使用飞机
             dto.ApplicableAircrafts.ToList().ForEach(appliAc => InsertApplicableAircraft(newScn, appliAc));
@@ -94,15 +84,9 @@ namespace UniCloud.Application.PartBC.ScnServices
             if (updateScn != null)
             {
                 //更新主表：
-                updateScn.SetCheckDate(dto.CheckDate);
-                updateScn.SetCost(dto.Cost);
-                updateScn.SetCscNumber(dto.CSCNumber);
-                updateScn.SetDescription(dto.Description);
-                updateScn.SetModNumber(dto.ModNumber);
-                updateScn.SetScnDocument(dto.ScnDocName, dto.ScnDocumentId);
-                updateScn.SetScnNumber(dto.ScnNumber);
-                updateScn.SetScnType((ScnApplicableType)dto.ScnType);
-                updateScn.SetTsNumber(dto.TsNumber);
+                ScnFactory.SetScn(updateScn, dto.Type, dto.CheckDate, dto.CSCNumber, dto.ModNumber, dto.TsNumber, dto.Cost,
+                dto.ScnNumber, dto.ScnType, dto.ScnStatus, dto.Description, dto.ScnDocName, dto.ScnDocumentId,
+                dto.AuditOrganization, dto.Auditor, dto.AuditTime, dto.AuditNotes);
 
                 //更新Scn适用飞机集合：
                 var dtoApplicableAircrafts = dto.ApplicableAircrafts;
@@ -147,14 +131,9 @@ namespace UniCloud.Application.PartBC.ScnServices
         /// <param name="applicableAircraftDto">适用飞机DTO</param>
         private void InsertApplicableAircraft(Scn scn, ApplicableAircraftDTO applicableAircraftDto)
         {
-            //获取合同飞机
-            var contractAircraft = _contractAircraftRepository.Get(applicableAircraftDto.ContractAircraftId);
-
             // 添加基本构型
             var newApplicableAircraft = scn.AddNewApplicableAircraft();
-            newApplicableAircraft.SetCompleteDate(applicableAircraftDto.CompleteDate);
-            newApplicableAircraft.SetContractAircraft(contractAircraft);
-            newApplicableAircraft.SetCost(applicableAircraftDto.Cost);
+            ScnFactory.SetApplicableAircraft(newApplicableAircraft, applicableAircraftDto.CompleteDate, applicableAircraftDto.Cost, applicableAircraftDto.ContractAircraftId);
         }
 
         /// <summary>
@@ -164,13 +143,7 @@ namespace UniCloud.Application.PartBC.ScnServices
         /// <param name="applicableAircraft">适用飞机</param>
         private void UpdateApplicableAircraft(ApplicableAircraftDTO applicableAircraftDto, ApplicableAircraft applicableAircraft)
         {
-            //获取合同飞机
-            var contractAircraft = _contractAircraftRepository.Get(applicableAircraftDto.ContractAircraftId);
-
-            // 更新适用飞机
-            applicableAircraft.SetCompleteDate(applicableAircraftDto.CompleteDate);
-            applicableAircraft.SetContractAircraft(contractAircraft);
-            applicableAircraft.SetCost(applicableAircraftDto.Cost);
+            ScnFactory.SetApplicableAircraft(applicableAircraft, applicableAircraftDto.CompleteDate, applicableAircraftDto.Cost, applicableAircraftDto.ContractAircraftId);
         }
 
         #endregion

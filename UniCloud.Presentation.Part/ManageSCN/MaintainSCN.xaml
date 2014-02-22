@@ -82,7 +82,7 @@
                                         </telerik:RadButton>
                                         <telerik:RadToolBarSeparator />
                                         <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding SubmitInvoiceCommand}">
+                                                           Command="{Binding SubmitScnCommand}">
                                             <Image Source="/UniCloud.Presentation;component/Images/Up.png"
                                                    Stretch="Fill"
                                                    ToolTipService.ToolTip="提交SCN/MSCN" />
@@ -192,7 +192,7 @@
                                                               BorderThickness="1,0,1,1"
                                                               AutoEllipsisMode="Both"
                                                               DisplayMode="All"
-                                                              Source="{Binding PaymentNotices}" />
+                                                              Source="{Binding Scns}" />
                                     </Grid>
                                 </Grid>
                             </telerik:RadPane>
@@ -218,13 +218,13 @@
                                                         Margin="0 0 0 -1"
                                                         OverflowButtonVisibility="Collapsed">
                                         <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding AddInvoiceLineCommand}">
+                                                           Command="{Binding AddApplicableAircraftCommand}">
                                             <Image Source="/UniCloud.Presentation;component/Images/Add.png"
                                                    Stretch="Fill"
                                                    ToolTipService.ToolTip="增加适用飞机" />
                                         </telerik:RadButton>
                                         <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding RemoveInvoiceLineCommand}">
+                                                           Command="{Binding RemoveApplicableAircraftCommand}">
                                             <Image Source="/UniCloud.Presentation;component/Images/Remove.png"
                                                    Stretch="Fill"
                                                    ToolTipService.ToolTip="移除适用飞机" />
@@ -249,8 +249,7 @@
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsReadOnly="True"
                                                                             IsFilterable="True"
-                                                                            IsGroupable="True"
-                                                                            DataMemberBinding="{Binding RoleName}" />
+                                                                            IsGroupable="True" />
                                                 <telerik:GridViewDataColumn Header="费用"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -261,7 +260,6 @@
                                                 <telerik:GridViewDataColumn Header="完成日期"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
                                                                             IsFilterable="True"
                                                                             IsGroupable="True"
                                                                             DataMemberBinding="{Binding CompleteDate}" />
@@ -297,7 +295,7 @@
                                                         Margin="0 0 0 -1"
                                                         OverflowButtonVisibility="Collapsed">
                                         <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding ReviewInvoiceCommand}">
+                                                           Command="{Binding ReviewScnCommand}">
                                             <Image Source="/UniCloud.Presentation;component/Images/Check.png"
                                                    Stretch="Fill"
                                                    ToolTipService.ToolTip="审核SCN/MSCN" />
@@ -327,9 +325,8 @@
                                                      Grid.Column="2"
                                                      Margin="0,3"
                                                      telerik:StyleManager.Theme="Windows8"
-                                                     Text="{Binding Scn.AuditOrganization, Mode=TwoWay}"
-                                                     IsReadOnly="True">
-                                            </TextBox>
+                                                     IsReadOnly="{Binding OnlyView,Mode=TwoWay}"
+                                                     Text="{Binding Scn.AuditOrganization, Mode=TwoWay}" />
                                             <TextBlock Grid.Row="1"
                                                        Grid.Column="1"
                                                        Text="审核人"
@@ -339,27 +336,21 @@
                                             <TextBox Grid.Column="2"
                                                      Margin="0,3"
                                                      Grid.Row="1"
+                                                     IsReadOnly="{Binding OnlyView,Mode=TwoWay}"
                                                      telerik:StyleManager.Theme="Windows8"
-                                                     Text="{Binding Scn.Auditor, Mode=TwoWay}">
-                                            </TextBox>
+                                                     Text="{Binding Scn.Auditor, Mode=TwoWay}" />
                                             <TextBlock Grid.Row="2"
                                                        Grid.Column="1"
                                                        Text="审核时间"
                                                        FontSize="{StaticResource TextFontSize}"
                                                        TextAlignment="Left"
                                                        VerticalAlignment="Center" />
-                                            <StackPanel Grid.Column="2"
-                                                        Grid.Row="2"
-                                                        Margin="0,3"
-                                                        VerticalAlignment="Center">
-                                                <telerik:RadTimePicker  Height="{StaticResource ControlHeight}"
-                                                                        SelectedValue="{Binding Scn.AuditTime, Mode=TwoWay}"
-                                                                        telerik:StyleManager.Theme="Windows8"
-                                                                        InputMode="DatePicker"
-                                                                        IsReadOnly="True"
-                                                                        IsEnabled="False"
-                                                                        DateTimeWatermarkContent="" />
-                                            </StackPanel>
+                                            <TextBox Grid.Column="2"
+                                                     Margin="0,3"
+                                                     Grid.Row="2"
+                                                     IsReadOnly="True"
+                                                     telerik:StyleManager.Theme="Windows8"
+                                                     Text="{Binding Scn.AuditTime, Mode=TwoWay,StringFormat={StaticResource DateStringFormat}}" />
                                             <TextBlock Grid.Row="3"
                                                        Grid.Column="1"
                                                        Text="意见"
@@ -369,9 +360,10 @@
                                             <TextBox Grid.Column="2"
                                                      Margin="0,3"
                                                      Grid.Row="3"
+                                                     Grid.RowSpan="2"
+                                                     IsReadOnly="{Binding OnlyView,Mode=TwoWay}"
                                                      telerik:StyleManager.Theme="Windows8"
-                                                     Text="{Binding Scn.AuditNotes, Mode=TwoWay}">
-                                            </TextBox>
+                                                     Text="{Binding Scn.AuditNotes, Mode=TwoWay}" />
                                         </Grid>
                                     </Grid>
                                 </Grid>

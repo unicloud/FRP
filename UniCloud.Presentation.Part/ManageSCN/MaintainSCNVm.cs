@@ -21,6 +21,7 @@ using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Part;
 using UniCloud.Presentation.Service.Part.Part;
 using UniCloud.Presentation.Service.Part.Part.Enums;
@@ -62,6 +63,8 @@ namespace UniCloud.Presentation.Part.ManageSCN
             RemoveScnCommand = new DelegateCommand<object>(OnRemoveScn, CanRemoveScn);
             AddApplicableAircraftCommand = new DelegateCommand<object>(OnAddApplicableAircraft, CanAddApplicableAircraft);
             RemoveApplicableAircraftCommand = new DelegateCommand<object>(OnRemoveApplicableAircraft, CanRemoveApplicableAircraft);
+            SubmitScnCommand = new DelegateCommand<object>(OnSubmitScn, CanSubmitScn);
+            ReviewScnCommand = new DelegateCommand<object>(OnReviewScn, CanReviewScn);
             // 创建并注册CollectionView
             Scns = _service.CreateCollection(_context.Scns, o => o.ApplicableAircrafts);
             _service.RegisterCollectionView(Scns);
@@ -109,6 +112,12 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 if (_scn != value)
                 {
                     _scn = value;
+                    if (_scn != null)
+                    {
+                        _scn.AuditTime = DateTime.Now;
+                        SubmitScnCommand.RaiseCanExecuteChanged();
+                        ReviewScnCommand.RaiseCanExecuteChanged();
+                    }
                     RaisePropertyChanged(() => Scn);
                 }
             }
@@ -253,45 +262,109 @@ namespace UniCloud.Presentation.Part.ManageSCN
         #endregion
 
         #region 提交SCN/MSCN
-
-        protected void OnSubmitInvoice(object obj)
+        /// <summary>
+        ///     提交SCN/MSCN
+        /// </summary>
+        public DelegateCommand<object> SubmitScnCommand { get; private set; }
+        protected void OnSubmitScn(object obj)
         {
-            //if (PaymentNotice == null)
-            //{
-            //    MessageAlert("请选择一条付款通知记录！");
-            //    return;
-            //}
-            //PaymentNotice.Status = (int)PaymentNoticeStatus.待审核;
+            if (Scn == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+            Scn.ScnStatus = (int)ScnStatus.技术标准室审核;
         }
 
-        protected bool CanSubmitInvoice(object obj)
+        protected bool CanSubmitScn(object obj)
         {
-            return true;
+            if (Scn != null)
+            {
+                if (Scn.ScnStatus < 1)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         #endregion
 
         #region 审核SCN/MSCN
+        /// <summary>
+        ///     审核SCN/MSCN
+        /// </summary>
+        public DelegateCommand<object> ReviewScnCommand { get; private set; }
 
-        protected void OnReviewInvoice(object obj)
+        private bool _onlyView;
+        public bool OnlyView
         {
-            //if (PaymentNotice == null)
-            //{
-            //    MessageAlert("请选择一条付款通知记录！");
-            //    return;
-            //}
-            //PaymentNotice.Status = (int)PaymentNoticeStatus.已审核;
-            //PaymentNotice.Reviewer = "admin";
-            //PaymentNotice.ReviewDate = DateTime.Now;
+            get
+            {
+                return _onlyView;
+            }
+            set
+            {
+                _onlyView = value;
+                RaisePropertyChanged("OnlyView");
+            }
         }
 
-        protected bool CanReviewInvoice(object obj)
+        protected void OnReviewScn(object obj)
         {
-            return true;
+            if (Scn == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+            switch (Scn.ScnStatus)
+            {
+                case 1:
+                    Scn.ScnStatus = 2; break;
+                case 2:
+                    Scn.ScnStatus = 3; break;
+                case 3:
+                    Scn.ScnStatus = 4; break;
+                case 4:
+                    Scn.ScnStatus = 5; break;
+            }
+        }
+
+        protected bool CanReviewScn(object obj)
+        {
+            OnlyView = true;
+            if (Scn != null)
+            {
+                if (Scn.ScnStatus > 0 && Scn.ScnStatus < 5)
+                {
+                    OnlyView = false;
+                    return !OnlyView;
+                }
+            }
+            OnlyView = true;
+            return !OnlyView;
         }
 
         #endregion
 
+        #region 添加附件成功后执行的操作
+
+        /// <summary>
+        ///     子窗口关闭后执行的操作
+        /// </summary>
+        /// <param name="doc">添加的附件</param>
+        /// <param name="sender">添加附件命令的参数</param>
+        protected override void WindowClosed(DocumentDTO doc, object sender)
+        {
+            base.WindowClosed(doc, sender);
+            if (sender is Guid)
+            {
+                Scn.ScnDocumentId = doc.DocumentId;
+                Scn.ScnDocName = doc.Name;
+            }
+        }
+
+        #endregion
         #endregion
     }
 }

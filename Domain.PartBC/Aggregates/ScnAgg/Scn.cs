@@ -332,10 +332,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
         /// <param name="description">描述</param>
         public void SetDescription(string description)
         {
-            if (string.IsNullOrWhiteSpace(description))
-            {
-                throw new ArgumentException("描述参数为空！");
-            }
 
             Description = description;
         }
@@ -364,7 +360,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
             Auditor = auditor;
             AuditTime = auditTime;
             AuditNotes = auditNotes;
-            AuditHistory = auditOrganization + "-" + auditor + "  " + auditTime.ToString() + "\r\n" + auditNotes + "\r\n\r\n" + AuditHistory;
+            AuditHistory = auditOrganization + "-" + auditor + "  " + auditTime.GetValueOrDefault().ToString("yyyy-MM-dd") + "\r\n" + auditNotes + "\r\n\r\n" + AuditHistory;
         }
 
         /// <summary>
