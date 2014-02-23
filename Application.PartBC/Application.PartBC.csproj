@@ -58,6 +58,8 @@
     <Compile Include="MaintainWorkServices\MaintainWorkAppService.cs" />
     <Compile Include="ModServices\IModAppService.cs" />
     <Compile Include="ModServices\ModAppService.cs" />
+    <Compile Include="OilMonitorServices\IOilMonitorAppService.cs" />
+    <Compile Include="OilMonitorServices\OilMonitorAppService.cs" />
     <Compile Include="PnRegServices\IPnRegAppService.cs" />
     <Compile Include="PnRegServices\PnRegAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

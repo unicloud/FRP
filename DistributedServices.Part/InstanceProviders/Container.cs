@@ -27,6 +27,7 @@ using UniCloud.Application.PartBC.CtrlUnitServices;
 using UniCloud.Application.PartBC.MaintainCtrlServices;
 using UniCloud.Application.PartBC.MaintainWorkServices;
 using UniCloud.Application.PartBC.ModServices;
+using UniCloud.Application.PartBC.OilMonitorServices;
 using UniCloud.Application.PartBC.PnRegServices;
 using UniCloud.Application.PartBC.Query.AcDailyUtilizationQueries;
 using UniCloud.Application.PartBC.Query.AircraftQueries;
@@ -37,6 +38,7 @@ using UniCloud.Application.PartBC.Query.CtrlUnitQueries;
 using UniCloud.Application.PartBC.Query.MaintainCtrlQueries;
 using UniCloud.Application.PartBC.Query.MaintainWorkQueries;
 using UniCloud.Application.PartBC.Query.ModQueries;
+using UniCloud.Application.PartBC.Query.OilMonitorQueries;
 using UniCloud.Application.PartBC.Query.PnRegQueries;
 using UniCloud.Application.PartBC.Query.ScnQueries;
 using UniCloud.Application.PartBC.Query.SnRegQueries;
@@ -55,6 +57,7 @@ using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
 using UniCloud.Domain.PartBC.Aggregates.ModAgg;
+using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.ScnAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
@@ -186,6 +189,14 @@ namespace UniCloud.DistributedServices.Part.InstanceProviders
                 .RegisterType<ITechnicalSolutionQuery, TechnicalSolutionQuery>()
                 .RegisterType<ITechnicalSolutionAppService, TechnicalSolutionAppService>()
                 .RegisterType<ITechnicalSolutionRepository, TechnicalSolutionRepository>()
+                #endregion
+
+                #region 滑油监控相关配置，包括查询、应用服务、仓储注册
+
+                .RegisterType<IOilMonitorQuery, OilMonitorQuery>()
+                .RegisterType<IOilMonitorAppService, OilMonitorAppService>()
+                .RegisterType<IOilMonitorRepository, OilMonitorRepository>()
+                
                 #endregion
 
                 ;
