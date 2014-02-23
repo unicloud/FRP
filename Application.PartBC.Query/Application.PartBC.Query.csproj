@@ -62,6 +62,8 @@
     <Compile Include="MaintainWorkQueries\MaintainWorkQuery.cs" />
     <Compile Include="ModQueries\IModQuery.cs" />
     <Compile Include="ModQueries\ModQuery.cs" />
+    <Compile Include="OilMonitorQueries\IOilMonitorQuery.cs" />
+    <Compile Include="OilMonitorQueries\OilMonitorQuery.cs" />
     <Compile Include="PnRegQueries\IPnRegQuery.cs" />
     <Compile Include="PnRegQueries\PnRegQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
