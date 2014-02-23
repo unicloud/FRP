@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcDailyUtilizationDTO\AcDailyUtilizationDTO.cs" />
     <Compile Include="AircraftDTO\AircraftDTO.cs" />
     <Compile Include="AircraftTypeDTO\AircraftTypeDTO.cs" />
     <Compile Include="BasicConfigGroupDTO\BasicConfigDTO.cs" />

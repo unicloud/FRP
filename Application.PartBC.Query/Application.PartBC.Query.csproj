@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcDailyUtilizationQueries\AcDailyUtilizationQuery.cs" />
+    <Compile Include="AcDailyUtilizationQueries\IAcDailyUtilizationQuery.cs" />
     <Compile Include="AircraftQueries\AircraftQuery.cs" />
     <Compile Include="AircraftQueries\IAircraftQuery.cs" />
     <Compile Include="AircraftTypeQueries\AircraftTypeQuery.cs" />
