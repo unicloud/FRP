@@ -114,6 +114,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ApprovalHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\APUMaintainContractEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\APUMaintainInvoiceEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\APUOilEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AtaEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BankAccountEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BasicConfigEntityConfiguration.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\EngineBusinessHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineMaintainInvoiceEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineOilEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineOwnershipHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EnginePaymentScheduleEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EnginePlanEntityConfiguration.cs" />
@@ -185,6 +187,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\MemberEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ModEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OfficialDocumentEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\OilMonitorEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OperationHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OperationPlanEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OrderEntityConfiguration.cs" />

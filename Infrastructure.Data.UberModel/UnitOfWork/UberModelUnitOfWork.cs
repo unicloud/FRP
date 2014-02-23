@@ -19,7 +19,6 @@
 
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using UniCloud.Domain.UberModel.Aggregates;
 using UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
@@ -62,6 +61,7 @@ using UniCloud.Domain.UberModel.Aggregates.ManagerAgg;
 using UniCloud.Domain.UberModel.Aggregates.ManufacturerAgg;
 using UniCloud.Domain.UberModel.Aggregates.MaterialAgg;
 using UniCloud.Domain.UberModel.Aggregates.ModAgg;
+using UniCloud.Domain.UberModel.Aggregates.OilMonitorAgg;
 using UniCloud.Domain.UberModel.Aggregates.OrderAgg;
 using UniCloud.Domain.UberModel.Aggregates.PartAgg;
 using UniCloud.Domain.UberModel.Aggregates.PaymentNoticeAgg;
@@ -140,6 +140,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Manufacturer> _manufacturers;
         private IDbSet<Material> _materials;
         private IDbSet<Mod> _mods;
+        private IDbSet<OilMonitor> _oilMonitors;
         private IDbSet<Order> _orders;
         private IDbSet<Part> _parts;
         private IDbSet<PaymentNotice> _paymentNotices;
@@ -367,6 +368,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<Mod> Mods
         {
             get { return _mods ?? (_mods = base.Set<Mod>()); }
+        }
+
+        public IDbSet<OilMonitor> OilMonitors
+        {
+            get { return _oilMonitors ?? (_oilMonitors = base.Set<OilMonitor>()); }
         }
 
         public IDbSet<Order> Orders
@@ -818,6 +824,14 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new ModEntityConfiguration())
                 #endregion
 
+                #region OilMonitorAgg
+
+                .Add(new OilMonitorEntityConfiguration())
+                .Add(new EngineOilEntityConfiguration())
+                .Add(new APUOilEntityConfiguration())
+
+                #endregion
+            
                 #region OrderAgg
 
                 .Add(new OrderEntityConfiguration())

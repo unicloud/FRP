@@ -124,7 +124,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Windows.Browser" />
     <Reference Include="Telerik.ReportViewer.Silverlight">
-      <HintPath>..\packages\Telerik.ReportViewer.Silverlight.dll</HintPath>
+      <HintPath>..\packages\Telerik.ReportViewer.Silverlight.2.0.0\lib\Telerik.ReportViewer.Silverlight.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Controls, Version=2013.3.1016.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">

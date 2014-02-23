@@ -53,10 +53,15 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
         /// <param name="description">描述</param>
         /// <param name="scnDocName">Scn文档名称</param>
         /// <param name="scnDocumentId">SCN文件</param>
-        public static void SetScn(Scn scn,ScnType type, DateTime checkDate, string cscNumber, string modNumber,
-            string tsNumber, decimal cost, string scnNumber, int scnType,int scnStatus, string description, string scnDocName, Guid scnDocumentId)
+        /// <param name="auditOrganization">审核部门</param>
+        /// <param name="auditor">审核人</param>
+        /// <param name="auditTime">审核时间</param>
+        /// <param name="auditNotes">审核意见</param>
+        public static void SetScn(Scn scn, int type, DateTime checkDate, string cscNumber, string modNumber,
+            string tsNumber, decimal cost, string scnNumber, int scnType, int scnStatus, string description, string scnDocName, Guid scnDocumentId,
+            string auditOrganization, string auditor, DateTime? auditTime, string auditNotes)
         {
-            scn.SetType(type);
+            scn.SetType((ScnType)type);
             scn.SetCheckDate(checkDate);
             scn.SetCscNumber(cscNumber);
             scn.SetModNumber(modNumber);
@@ -67,6 +72,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
             scn.SetScnStatus((ScnStatus)scnStatus);
             scn.SetDescription(description);
             scn.SetScnDocument(scnDocName, scnDocumentId);
+            scn.SetAuditMsg(auditOrganization, auditor, auditTime, auditNotes);
         }
 
         /// <summary>

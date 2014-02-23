@@ -40,6 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\OilMonitorAgg\APUOil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Aggregates\OilMonitorAgg\EngineOil.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Aggregates\OilMonitorAgg\IOilMonitorRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Aggregates\OilMonitorAgg\OilMonitor.cs" />
+    <Compile Include="Aggregates\OilMonitorAgg\OilMonitorFactory.cs" />
+    <Compile Include="Aggregates\OilMonitorAgg\OilMonitorSpecifications.cs" />
     <Compile Include="Aggregates\SpecialConfigAgg\AcConfig.cs" />
     <Compile Include="Aggregates\AcDailyUtilizationAgg\AcDailyUtilization.cs" />
     <Compile Include="Aggregates\AcDailyUtilizationAgg\AcDailyUtilizationFactory.cs" />
