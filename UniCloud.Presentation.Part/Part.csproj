@@ -187,6 +187,10 @@
       <DependentUpon>MaintainSCN.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManageSCN\MaintainSCNVm.cs" />
+    <Compile Include="OilMonitor\EngineOil.xaml.cs">
+      <DependentUpon>EngineOil.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OilMonitor\EngineOilVM.cs" />
     <Compile Include="PartModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -219,6 +223,10 @@
   <ItemGroup />
   <ItemGroup>
     <Page Include="ManageSCN\MaintainSCN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OilMonitor\EngineOil.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -124,6 +124,9 @@ namespace UniCloud.Presentation.Shell
                     var menuItemPart = Items.SingleOrDefault(m => m.Text == "附件管理");
                     if (menuItemPart != null)
                         menuItemPart.IsEnabled = true;
+                    var menuItemEngine = Items.SingleOrDefault(m => m.Text == "发动机管理");
+                    if (menuItemEngine != null)
+                        menuItemEngine.IsEnabled = true;
                     break;
                 default:
                     throw new ArgumentException("没有匹配的模块名称！");
@@ -807,9 +810,139 @@ namespace UniCloud.Presentation.Shell
             var menu7 = new MenuItem
             {
                 Text = "发动机管理",
-                IsEnabled = true,
+                IsEnabled = false,
             };
 
+            var menu70 = new MenuItem
+            {
+                Text = "管理基础配置",
+                NavUri = ""
+            };
+
+            var menu71 = new MenuItem
+            {
+                Text = "维护件序号",
+                NavUri = ""
+            };
+
+            var menu72 = new MenuItem
+            {
+                Text = "管理技术解决方案",
+                NavUri = ""
+            };
+
+            var menu73 = new MenuItem
+            {
+                Text = "管理发动机构型",
+                NavUri = ""
+            };
+
+            var menu730 = new MenuItem
+            {
+                Text = "管理发动机构型",
+                NavUri = ""
+            };
+
+            var menu731 = new MenuItem
+            {
+                Text = "管理发动机构型",
+                NavUri = ""
+            };
+
+            var menu732 = new MenuItem
+            {
+                Text = "管理发动机构型",
+                NavUri = ""
+            };
+
+            menu73.Items.Add(menu730);
+            menu73.Items.Add(menu731);
+            menu73.Items.Add(menu732);
+
+            var menu74 = new MenuItem
+            {
+                Text = "监控滑油",
+                NavUri = ""
+            };
+
+            var menu740 = new MenuItem
+            {
+                Text = "管理发动机滑油",
+                NavUri = "UniCloud.Presentation.Part.OilMonitor.EngineOil"
+            };
+
+            var menu741 = new MenuItem
+            {
+                Text = "管理APU滑油",
+                NavUri = ""
+            };
+
+            menu74.Items.Add(menu740);
+            menu74.Items.Add(menu741);
+
+            var menu75 = new MenuItem
+            {
+                Text = "修正飞机利用率",
+                NavUri = ""
+            };
+
+            var menu76 = new MenuItem
+            {
+                Text = "维护拆装记录",
+                NavUri = ""
+            };
+
+            var menu77 = new MenuItem
+            {
+                Text = "控制维修",
+                NavUri = ""
+            };
+
+            var menu770 = new MenuItem
+            {
+                Text = "查询控制方案",
+                NavUri = ""
+            };
+
+            var menu771 = new MenuItem
+            {
+                Text = "查询到寿日期",
+                NavUri = ""
+            };
+
+            menu77.Items.Add(menu770);
+            menu77.Items.Add(menu771);
+
+            var menu78 = new MenuItem
+            {
+                Text = "查询分析",
+                NavUri = ""
+            };
+
+            var menu780 = new MenuItem
+            {
+                Text = "查询在位信息",
+                NavUri = ""
+            };
+
+            var menu781 = new MenuItem
+            {
+                Text = "查询拆装历史",
+                NavUri = ""
+            };
+
+            menu78.Items.Add(menu780);
+            menu78.Items.Add(menu781);
+
+            menu7.Items.Add(menu70);
+            menu7.Items.Add(menu71);
+            menu7.Items.Add(menu72);
+            menu7.Items.Add(menu73);
+            menu7.Items.Add(menu74);
+            menu7.Items.Add(menu75);
+            menu7.Items.Add(menu76);
+            menu7.Items.Add(menu77);
+            menu7.Items.Add(menu78);
 
             _items.Add(menu7);
 
@@ -820,7 +953,7 @@ namespace UniCloud.Presentation.Shell
             var menu8 = new MenuItem
             {
                 Text = "附件管理",
-                IsEnabled = true,
+                IsEnabled = false,
             };
 
             var menu81 = new MenuItem
@@ -855,6 +988,7 @@ namespace UniCloud.Presentation.Shell
             menu8.Items.Add(menu81);
             menu8.Items.Add(menu82);
             menu8.Items.Add(menu83);
+
             _items.Add(menu8);
 
             #endregion
