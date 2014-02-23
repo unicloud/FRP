@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class database : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -1201,6 +1201,24 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
+                "FRP.OilMonitor",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Sn = c.String(),
+                        Date = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        TSN = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        TSR = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        TotalRate = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        IntervalRate = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        DeltaIntervalRate = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        AverageRate3 = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        AverageRate7 = c.Decimal(nullable: false, precision: 18, scale: 2),
+                        SnRegID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
                 "FRP.PaymentNotice",
                 c => new
                     {
@@ -1543,8 +1561,16 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         TsNumber = c.String(maxLength: 100),
                         Cost = c.Decimal(nullable: false, precision: 16, scale: 4),
                         ScnNumber = c.String(maxLength: 100),
+                        Type = c.Int(nullable: false),
+                        ScnStatus = c.Int(nullable: false),
                         ScnType = c.Int(nullable: false),
                         Description = c.String(maxLength: 100),
+                        ScnDocName = c.String(maxLength: 100),
+                        AuditOrganization = c.String(),
+                        Auditor = c.String(),
+                        AuditTime = c.DateTime(precision: 7, storeType: "datetime2"),
+                        AuditNotes = c.String(),
+                        AuditHistory = c.String(),
                         ScnDocumentId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
@@ -2109,6 +2135,26 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .Index(t => t.PartID);
             
             CreateTable(
+                "FRP.EngineOil",
+                c => new
+                    {
+                        ID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.OilMonitor", t => t.ID)
+                .Index(t => t.ID);
+            
+            CreateTable(
+                "FRP.APUOil",
+                c => new
+                    {
+                        ID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.OilMonitor", t => t.ID)
+                .Index(t => t.ID);
+            
+            CreateTable(
                 "FRP.AircraftLeaseOrder",
                 c => new
                     {
@@ -2477,6 +2523,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.AircraftLeaseOrderLine", "AircraftMaterialId", "FRP.AircraftMaterial");
             DropForeignKey("FRP.AircraftLeaseOrderLine", "ID", "FRP.OrderLine");
             DropForeignKey("FRP.AircraftLeaseOrder", "ID", "FRP.Order");
+            DropForeignKey("FRP.APUOil", "ID", "FRP.OilMonitor");
+            DropForeignKey("FRP.EngineOil", "ID", "FRP.OilMonitor");
             DropForeignKey("FRP.EngineMaterial", "PartID", "FRP.Part");
             DropForeignKey("FRP.EngineMaterial", "ID", "FRP.Material");
             DropForeignKey("FRP.BFEMaterial", "PartID", "FRP.Part");
@@ -2691,6 +2739,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.AircraftLeaseOrderLine", new[] { "AircraftMaterialId" });
             DropIndex("FRP.AircraftLeaseOrderLine", new[] { "ID" });
             DropIndex("FRP.AircraftLeaseOrder", new[] { "ID" });
+            DropIndex("FRP.APUOil", new[] { "ID" });
+            DropIndex("FRP.EngineOil", new[] { "ID" });
             DropIndex("FRP.EngineMaterial", new[] { "PartID" });
             DropIndex("FRP.EngineMaterial", new[] { "ID" });
             DropIndex("FRP.BFEMaterial", new[] { "PartID" });
@@ -2891,6 +2941,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.AircraftPurchaseOrder");
             DropTable("FRP.AircraftLeaseOrderLine");
             DropTable("FRP.AircraftLeaseOrder");
+            DropTable("FRP.APUOil");
+            DropTable("FRP.EngineOil");
             DropTable("FRP.EngineMaterial");
             DropTable("FRP.BFEMaterial");
             DropTable("FRP.AircraftMaterial");
@@ -2954,6 +3006,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.PaymentScheduleLine");
             DropTable("FRP.PaymentNoticeLine");
             DropTable("FRP.PaymentNotice");
+            DropTable("FRP.OilMonitor");
             DropTable("FRP.Mod");
             DropTable("FRP.MaintainWork");
             DropTable("FRP.MaintainInvoice");
