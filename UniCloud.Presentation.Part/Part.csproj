@@ -206,6 +206,10 @@
       <DependentUpon>TechnicalSolutionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManageTS\TechnicalSolutionVm.cs" />
+    <Compile Include="OilMonitor\EngineOil.xaml.cs">
+      <DependentUpon>EngineOil.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OilMonitor\EngineOilVM.cs" />
     <Compile Include="PartModule.cs" />
     <Compile Include="PnRegAndSnReg\ManagePnAndSnView.xaml.cs">
       <DependentUpon>ManagePnAndSnView.xaml</DependentUpon>
@@ -266,6 +270,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PnRegAndSnReg\ManagePnAndSnView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OilMonitor\EngineOil.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

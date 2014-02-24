@@ -124,6 +124,9 @@ namespace UniCloud.Presentation.Shell
                     var menuItemPart = Items.SingleOrDefault(m => m.Text == "附件管理");
                     if (menuItemPart != null)
                         menuItemPart.IsEnabled = true;
+                    var menuItemEngine = Items.SingleOrDefault(m => m.Text == "发动机管理");
+                    if (menuItemEngine != null)
+                        menuItemEngine.IsEnabled = true;
                     break;
                 default:
                     throw new ArgumentException("没有匹配的模块名称！");
@@ -861,6 +864,7 @@ namespace UniCloud.Presentation.Shell
             var menu751 = new MenuItem
             {
                 Text = "管理发动机滑油",
+                NavUri = "UniCloud.Presentation.Part.OilMonitor.EngineOil"
             };
             var menu752 = new MenuItem
             {
@@ -953,6 +957,7 @@ namespace UniCloud.Presentation.Shell
             menu8.Items.Add(menu81);
             menu8.Items.Add(menu82);
             menu8.Items.Add(menu83);
+
             _items.Add(menu8);
 
             #endregion

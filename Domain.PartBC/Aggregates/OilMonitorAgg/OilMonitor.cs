@@ -115,9 +115,10 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
         {
             if (snReg == null || snReg.IsTransient())
             {
-                throw new ArgumentException("交易参数为空！");
+                throw new ArgumentException("序号件参数为空！");
             }
 
+            Sn = snReg.Sn;
             SnRegID = snReg.Id;
         }
 

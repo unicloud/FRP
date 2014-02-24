@@ -28,6 +28,7 @@ using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.MaintainCtrlServices;
 using UniCloud.Application.PartBC.MaintainWorkServices;
 using UniCloud.Application.PartBC.ModServices;
+using UniCloud.Application.PartBC.OilMonitorServices;
 using UniCloud.Application.PartBC.PnRegServices;
 using UniCloud.Application.PartBC.ScnServices;
 using UniCloud.Application.PartBC.SnRegServices;
@@ -53,6 +54,7 @@ namespace UniCloud.DistributedServices.Part
         private readonly IMaintainCtrlAppService _maintainCtrlAppService;
         private readonly IMaintainWorkAppService _maintainWorkAppService;
         private readonly IModAppService _modAppService;
+        private readonly IOilMonitorAppService _oilMonitorAppService;
         private readonly IPnRegAppService _pnRegAppService;
         private readonly IScnAppService _scnAppService;
         private readonly ISnRegAppService _snRegAppService;
@@ -71,6 +73,7 @@ namespace UniCloud.DistributedServices.Part
             _maintainCtrlAppService = DefaultContainer.Resolve<IMaintainCtrlAppService>();
             _maintainWorkAppService = DefaultContainer.Resolve<IMaintainWorkAppService>();
             _modAppService = DefaultContainer.Resolve<IModAppService>();
+            _oilMonitorAppService = DefaultContainer.Resolve<IOilMonitorAppService>();
             _pnRegAppService = DefaultContainer.Resolve<IPnRegAppService>();
             _scnAppService = DefaultContainer.Resolve<IScnAppService>();
             _snRegAppService = DefaultContainer.Resolve<ISnRegAppService>();
@@ -151,6 +154,7 @@ namespace UniCloud.DistributedServices.Part
         #endregion
 
         #region 维修控制组集合
+
         /// <summary>
         ///     项维修控制组集合
         /// </summary>
@@ -174,6 +178,7 @@ namespace UniCloud.DistributedServices.Part
         {
             get { return _maintainCtrlAppService.GetSnMaintainCtrls(); }
         }
+
         #endregion
 
         #region 维修工作集合
@@ -196,6 +201,26 @@ namespace UniCloud.DistributedServices.Part
         public IQueryable<ModDTO> Mods
         {
             get { return _modAppService.GetMods(); }
+        }
+
+        #endregion
+
+        #region 滑油监控集合
+
+        /// <summary>
+        ///     发动机滑油集合
+        /// </summary>
+        public IQueryable<EngineOilDTO> EngineOils
+        {
+            get { return _oilMonitorAppService.GetEngineOils(); }
+        }
+
+        /// <summary>
+        ///     APU滑油集合
+        /// </summary>
+        public IQueryable<APUOilDTO> APUOils
+        {
+            get { return _oilMonitorAppService.GetAPUOils(); }
         }
 
         #endregion
@@ -259,7 +284,5 @@ namespace UniCloud.DistributedServices.Part
         }
 
         #endregion
-
-
     }
 }

@@ -32,7 +32,7 @@ namespace UniCloud.Presentation.Service.Part
             context = new PartData(AgentHelper.PartUri);
         }
 
-        #region IFleetPlanService 成员
+        #region IPartService 成员
 
         public PartData Context
         {
