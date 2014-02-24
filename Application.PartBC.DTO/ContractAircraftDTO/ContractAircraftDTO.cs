@@ -62,6 +62,11 @@ namespace UniCloud.Application.PartBC.DTO
         ///     是否有效
         /// </summary>
         public bool IsValid { get; set; }
+
+        /// <summary>
+        ///     基本构型组Id
+        /// </summary>
+        public int? BasicConfigGroupId { get; set; }
         #endregion
 
     }

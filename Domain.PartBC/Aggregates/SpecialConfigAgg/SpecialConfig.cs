@@ -14,6 +14,7 @@
 #endregion
 
 using System;
+using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
 
 namespace UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg
 {
@@ -80,7 +81,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg
         public int ContractAircraftId
         {
             get;
-            set;
+            private set;
         }
         #endregion
 
@@ -114,6 +115,20 @@ namespace UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg
         public void SetIsValid(bool isValid)
         {
             IsValid = isValid;
+        }
+
+        /// <summary>
+        ///     设置合同飞机
+        /// </summary>
+        /// <param name="contractAircraft">合同飞机</param>
+        public void SetContractAircraf(ContractAircraft contractAircraft)
+        {
+            if (contractAircraft == null || contractAircraft.IsTransient())
+            {
+                throw new ArgumentException("合同飞机参数为空！");
+            }
+
+            ContractAircraftId = contractAircraft.Id;
         }
         #endregion
     }

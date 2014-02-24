@@ -30,10 +30,12 @@ namespace UniCloud.Application.PartBC.ContractAircraftServices
     public class ContractAircraftAppService : IContractAircraftAppService
     {
         private readonly IContractAircraftQuery _contractAircraftQuery;
-
-        public ContractAircraftAppService(IContractAircraftQuery contractAircraftQuery)
+        private readonly IContractAircraftRepository _contractAircraftRepository;
+        public ContractAircraftAppService(IContractAircraftQuery contractAircraftQuery,
+            IContractAircraftRepository contractAircraftRepository)
         {
             _contractAircraftQuery = contractAircraftQuery;
+            _contractAircraftRepository = contractAircraftRepository;
         }
 
         #region ContractAircraftDTO
@@ -48,6 +50,20 @@ namespace UniCloud.Application.PartBC.ContractAircraftServices
             return _contractAircraftQuery.ContractAircraftDTOQuery(queryBuilder);
         }
 
+
+        /// <summary>
+        ///  更新ContractAircraft。
+        /// </summary>
+        /// <param name="dto">ContractAircraftDTO。</param>
+        [Update(typeof(ContractAircraftDTO))]
+        public void ModifyContractAircraft(ContractAircraftDTO dto)
+        {
+            var updateContractAircraft = _contractAircraftRepository.Get(dto.Id); //获取需要更新的对象。
+
+            //更新。
+            updateContractAircraft.SetBasicConfigGroup(dto.BasicConfigGroupId);
+            _contractAircraftRepository.Modify(updateContractAircraft);
+        }
         #endregion
 
     }

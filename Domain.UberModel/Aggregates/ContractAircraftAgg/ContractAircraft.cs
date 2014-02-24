@@ -23,6 +23,7 @@ using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractAircraftBFEAgg;
 using UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.SupplierAgg;
@@ -124,6 +125,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg
         ///     供应商ID
         /// </summary>
         public int SupplierId { get; private set; }
+
+        /// <summary>
+        ///     基本构型组
+        /// </summary>
+        public int? BasicConfigGroupId { get; private set; }
 
         #endregion
 
@@ -352,6 +358,14 @@ namespace UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg
             }
         }
 
+        /// <summary>
+        ///     设置基本构型组
+        /// </summary>
+        /// <param name="basicConfigGroupId">基本构型组Id</param>
+        public void SetBasicConfigGroup(int? basicConfigGroupId)
+        {
+            BasicConfigGroupId = basicConfigGroupId;
+        }
         #endregion
 
         #region IValidatableObject 成员

@@ -64,6 +64,7 @@
         <Property Name="CSCNumber" Type="Edm.String" />
         <Property Name="SerialNumber" Type="Edm.String" />
         <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="BasicConfigGroupId" Type="Edm.Int32" />
       </EntityType>
       <EntityType Name="CtrlUnitDTO">
         <Key>
@@ -127,36 +128,6 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="ModNumber" Type="Edm.String" />
-      </EntityType>
-      <EntityType Name="EngineOilDTO">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Sn" Type="Edm.String" />
-        <Property Name="Date" Type="Edm.DateTime" Nullable="false" />
-        <Property Name="TSN" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TSR" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TotalRate" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="IntervalRate" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="DeltaIntervalRate" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="AverageRate3" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="AverageRate7" Type="Edm.Decimal" Nullable="false" />
-      </EntityType>
-      <EntityType Name="APUOilDTO">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Sn" Type="Edm.String" />
-        <Property Name="Date" Type="Edm.DateTime" Nullable="false" />
-        <Property Name="TSN" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TSR" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TotalRate" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="IntervalRate" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="DeltaIntervalRate" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="AverageRate3" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="AverageRate7" Type="Edm.Decimal" Nullable="false" />
       </EntityType>
       <EntityType Name="PnRegDTO">
         <Key>
@@ -291,8 +262,6 @@
         <EntitySet Name="SnMaintainCtrls" EntityType="UniCloud.Application.PartBC.DTO.SnMaintainCtrlDTO" />
         <EntitySet Name="MaintainWorks" EntityType="UniCloud.Application.PartBC.DTO.MaintainWorkDTO" />
         <EntitySet Name="Mods" EntityType="UniCloud.Application.PartBC.DTO.ModDTO" />
-        <EntitySet Name="EngineOils" EntityType="UniCloud.Application.PartBC.DTO.EngineOilDTO" />
-        <EntitySet Name="APUOils" EntityType="UniCloud.Application.PartBC.DTO.APUOilDTO" />
         <EntitySet Name="PnRegs" EntityType="UniCloud.Application.PartBC.DTO.PnRegDTO" />
         <EntitySet Name="Scns" EntityType="UniCloud.Application.PartBC.DTO.ScnDTO" />
         <EntitySet Name="SnRegs" EntityType="UniCloud.Application.PartBC.DTO.SnRegDTO" />

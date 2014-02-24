@@ -810,140 +810,109 @@ namespace UniCloud.Presentation.Shell
             var menu7 = new MenuItem
             {
                 Text = "发动机管理",
-                IsEnabled = false,
-            };
-
-            var menu70 = new MenuItem
-            {
-                Text = "管理基础配置",
-                NavUri = ""
+                IsEnabled = true,
             };
 
             var menu71 = new MenuItem
             {
-                Text = "维护件序号",
-                NavUri = ""
+                Text = "管理基础配置",
             };
+            menu7.Items.Add(menu71);
 
             var menu72 = new MenuItem
             {
-                Text = "管理技术解决方案",
-                NavUri = ""
+                Text = "维护件序号",
+                NavUri = "UniCloud.Presentation.Part.PnRegAndSnReg.ManagePnAndSnView",
             };
+            menu7.Items.Add(menu72);
 
             var menu73 = new MenuItem
             {
-                Text = "管理发动机构型",
-                NavUri = ""
+                Text = "管理技术解决方案",
+                NavUri = "UniCloud.Presentation.Part.ManageTS.TechnicalSolutionView",
             };
-
-            var menu730 = new MenuItem
-            {
-                Text = "管理发动机构型",
-                NavUri = ""
-            };
-
-            var menu731 = new MenuItem
-            {
-                Text = "管理发动机构型",
-                NavUri = ""
-            };
-
-            var menu732 = new MenuItem
-            {
-                Text = "管理发动机构型",
-                NavUri = ""
-            };
-
-            menu73.Items.Add(menu730);
-            menu73.Items.Add(menu731);
-            menu73.Items.Add(menu732);
+            menu7.Items.Add(menu73);
 
             var menu74 = new MenuItem
             {
-                Text = "监控滑油",
-                NavUri = ""
+                Text = "管理发动机构型",
             };
+            var menu741 = new MenuItem
+            {
+                Text = "管理基本构型组",
+                NavUri = "UniCloud.Presentation.Part.EngineConfig.BasicConfigGroupView",
+            };
+            var menu742 = new MenuItem
+            {
+                Text = "管理特定选型",
+                NavUri = "UniCloud.Presentation.Part.EngineConfig.SpecialConfigView",
+            };
+            var menu743 = new MenuItem
+            {
+                Text = "比较构型差异",
+                NavUri = "UniCloud.Presentation.Part.EngineConfig.ConfigCompareView",
+            };
+            menu74.Items.Add(menu741);
+            menu74.Items.Add(menu742);
+            menu74.Items.Add(menu743);
+            menu7.Items.Add(menu74);
 
-            var menu740 = new MenuItem
+            var menu75 = new MenuItem
+            {
+                Text = "滑油监控",
+            };
+            var menu751 = new MenuItem
             {
                 Text = "管理发动机滑油",
                 NavUri = "UniCloud.Presentation.Part.OilMonitor.EngineOil"
             };
-
-            var menu741 = new MenuItem
+            var menu752 = new MenuItem
             {
                 Text = "管理APU滑油",
-                NavUri = ""
             };
-
-            menu74.Items.Add(menu740);
-            menu74.Items.Add(menu741);
-
-            var menu75 = new MenuItem
-            {
-                Text = "修正飞机利用率",
-                NavUri = ""
-            };
+            menu75.Items.Add(menu751);
+            menu75.Items.Add(menu752);
+            menu7.Items.Add(menu75);
 
             var menu76 = new MenuItem
             {
-                Text = "维护拆装记录",
-                NavUri = ""
+                Text = "修正飞机利用率",
             };
+            menu7.Items.Add(menu76);
 
             var menu77 = new MenuItem
             {
-                Text = "控制维修",
-                NavUri = ""
+                Text = "维护拆换记录",
             };
-
-            var menu770 = new MenuItem
-            {
-                Text = "查询控制方案",
-                NavUri = ""
-            };
-
-            var menu771 = new MenuItem
-            {
-                Text = "查询到寿日期",
-                NavUri = ""
-            };
-
-            menu77.Items.Add(menu770);
-            menu77.Items.Add(menu771);
+            menu7.Items.Add(menu77);
 
             var menu78 = new MenuItem
             {
-                Text = "查询分析",
-                NavUri = ""
+                Text = "维护在位信息",
             };
-
-            var menu780 = new MenuItem
-            {
-                Text = "查询在位信息",
-                NavUri = ""
-            };
-
-            var menu781 = new MenuItem
-            {
-                Text = "查询拆装历史",
-                NavUri = ""
-            };
-
-            menu78.Items.Add(menu780);
-            menu78.Items.Add(menu781);
-
-            menu7.Items.Add(menu70);
-            menu7.Items.Add(menu71);
-            menu7.Items.Add(menu72);
-            menu7.Items.Add(menu73);
-            menu7.Items.Add(menu74);
-            menu7.Items.Add(menu75);
-            menu7.Items.Add(menu76);
-            menu7.Items.Add(menu77);
             menu7.Items.Add(menu78);
 
+            var menu79 = new MenuItem
+            {
+                Text = "查询拆装历史",
+            };
+            menu7.Items.Add(menu79);
+
+            var menu710 = new MenuItem
+            {
+                Text = "控制维修",
+            };
+            var menu7101 = new MenuItem
+            {
+                Text = "查看控制方案",
+            };
+            var menu7102 = new MenuItem
+            {
+                Text = "查询到寿日期",
+            };
+            menu710.Items.Add(menu7101);
+            menu710.Items.Add(menu7102);
+            menu7.Items.Add(menu710);
             _items.Add(menu7);
 
             #endregion
@@ -953,7 +922,7 @@ namespace UniCloud.Presentation.Shell
             var menu8 = new MenuItem
             {
                 Text = "附件管理",
-                IsEnabled = false,
+                IsEnabled = true,
             };
 
             var menu81 = new MenuItem
