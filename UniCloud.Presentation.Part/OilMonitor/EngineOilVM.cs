@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 // =====================================================
 // 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
@@ -11,16 +12,15 @@
 // 修改者： 时间： 
 // 修改说明：
 // =====================================================
+
 #endregion
 
 #region 命名空间
 
 using System.ComponentModel.Composition;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Regions;
+using System.Windows;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
-using UniCloud.Presentation.Service;
 using UniCloud.Presentation.Service.Part;
 using UniCloud.Presentation.Service.Part.Part;
 
@@ -43,6 +43,9 @@ namespace UniCloud.Presentation.Part.OilMonitor
             _service = service;
             _context = service.Context;
 
+            Zoom = new Size(3, 1);
+            PanOffset = new Point(-10000, 0);
+
             InitializeVM();
         }
 
@@ -62,6 +65,50 @@ namespace UniCloud.Presentation.Part.OilMonitor
         #region 数据
 
         #region 公共属性
+
+        #region Zoom
+
+        private Size _zoom;
+
+        /// <summary>
+        ///     Zoom
+        /// </summary>
+        public Size Zoom
+        {
+            get { return _zoom; }
+            private set
+            {
+                if (_zoom != value)
+                {
+                    _zoom = value;
+                    RaisePropertyChanged(() => Zoom);
+                }
+            }
+        }
+
+        #endregion
+
+        #region PanOffset
+
+        private Point _panOffset;
+
+        /// <summary>
+        ///     PanOffset
+        /// </summary>
+        public Point PanOffset
+        {
+            get { return _panOffset; }
+            private set
+            {
+                if (_panOffset != value)
+                {
+                    _panOffset = value;
+                    RaisePropertyChanged(() => PanOffset);
+                }
+            }
+        }
+
+        #endregion
 
         #endregion
 
@@ -90,17 +137,17 @@ namespace UniCloud.Presentation.Part.OilMonitor
         public QueryableDataServiceCollectionView<EngineOilDTO> ViewEngineOilDTO { get; set; }
 
         /// <summary>
-        ///    选中的发动机滑油
+        ///     选中的发动机滑油
         /// </summary>
         public EngineOilDTO SelEngineOilDTO
         {
-            get { return this._selEngineOilDTO; }
+            get { return _selEngineOilDTO; }
             private set
             {
-                if (this._selEngineOilDTO != value)
+                if (_selEngineOilDTO != value)
                 {
-                    this._selEngineOilDTO = value;
-                    this.RaisePropertyChanged(() => this.SelEngineOilDTO);
+                    _selEngineOilDTO = value;
+                    RaisePropertyChanged(() => SelEngineOilDTO);
                 }
             }
         }

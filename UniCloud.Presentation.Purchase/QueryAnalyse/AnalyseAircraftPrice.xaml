@@ -149,16 +149,26 @@
                                            PanOffset="{Binding PanOffset, Mode=TwoWay}"
                                            TrackBallLineStyle="{StaticResource TrackBallLineStyle}"
                                            TrackBallInfoStyle="{StaticResource TrackBallInfoStyle}">
-                    <telerik:RadCartesianChart.Behaviors>
+                    <!--<telerik:RadCartesianChart.Behaviors>
                         <telerik:ChartTrackBallBehavior ShowIntersectionPoints="True"
                                                         TrackInfoUpdated="TotalChartTrackBallBehaviorTrackInfoUpdated" />
-                    </telerik:RadCartesianChart.Behaviors>
+                    </telerik:RadCartesianChart.Behaviors>-->
                     <telerik:LineSeries ItemsSource="{Binding Data}"
                                         CategoryBinding="Date"
                                         ValueBinding="Volume"
                                         Stroke="#FF25A0DA"
                                         StrokeThickness="2"
                                         TrackBallTemplate="{StaticResource TrackBallTemplate}">
+                        <!--<telerik:LineSeries.VerticalAxis>
+                            <telerik:LinearAxis HorizontalLocation="Right"
+                                            Foreground="Black"
+                                            LabelFormat="0,,"
+                                            MajorStep="1000000"
+                                            Minimum="0"
+                                            Maximum="15000000" 
+                                                                LabelStyle="{StaticResource RightLabelStyle}"
+                                                                MajorTickStyle="{StaticResource TickStyle}" />
+                        </telerik:LineSeries.VerticalAxis>-->
                     </telerik:LineSeries>
                     <telerik:RadCartesianChart.HorizontalAxis>
                         <telerik:DateTimeCategoricalAxis PlotMode="OnTicks"
@@ -167,7 +177,7 @@
                     </telerik:RadCartesianChart.HorizontalAxis>
                     <telerik:RadCartesianChart.VerticalAxis>
                         <telerik:LinearAxis Title="单位(千万)"
-                                            Foreground="Black"
+                                            
                                             LabelFormat="0,,"
                                             MajorStep="1000000"
                                             Minimum="0"
@@ -207,15 +217,25 @@
                             </Grid>
                         </DataTemplate>
                     </telerik:RadCartesianChart.TooltipTemplate>
-                    <telerik:BarSeries ItemsSource="{Binding Data}"
+                    <telerik:LineSeries ItemsSource="{Binding Data}"
                                        CategoryBinding="Date"
                                        ValueBinding="Volume">
-                        <telerik:BarSeries.PointTemplate>
+                        <!--<telerik:BarSeries.PointTemplate>
                             <DataTemplate>
                                 <Border Background="#FF25A0DA" />
                             </DataTemplate>
-                        </telerik:BarSeries.PointTemplate>
-                    </telerik:BarSeries>
+                        </telerik:BarSeries.PointTemplate>-->
+                        <!--<telerik:BarSeries.VerticalAxis>
+                            <telerik:LinearAxis HorizontalLocation="Right" 
+                                            Foreground="Black"
+                                            LabelFormat="0,,"
+                                            MajorStep="5000000"
+                                            Minimum="0"
+                                            Maximum="15000000" 
+                                                                LabelStyle="{StaticResource RightLabelStyle}"
+                                                                MajorTickStyle="{StaticResource TickStyle}" />
+                        </telerik:BarSeries.VerticalAxis>-->
+                    </telerik:LineSeries>
                     <telerik:RadCartesianChart.HorizontalAxis>
                         <telerik:DateTimeCategoricalAxis PlotMode="OnTicks"
                                                          MajorTickInterval="1"
@@ -223,7 +243,7 @@
                     </telerik:RadCartesianChart.HorizontalAxis>
                     <telerik:RadCartesianChart.VerticalAxis>
                         <telerik:LinearAxis Title="单位(千万)"
-                                            Foreground="Black"
+                                            
                                             LabelFormat="0,,"
                                             MajorStep="5000000"
                                             Minimum="0"
