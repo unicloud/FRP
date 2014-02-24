@@ -119,11 +119,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.TechnicalSolutionAgg
         /// <param name="description">描述</param>
         public void SetDescription(string description)
         {
-            if (string.IsNullOrWhiteSpace(description))
-            {
-                throw new ArgumentException("描述参数为空！");
-            }
-
             Description = description;
         }
 

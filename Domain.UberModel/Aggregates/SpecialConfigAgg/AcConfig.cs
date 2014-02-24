@@ -129,21 +129,6 @@ namespace UniCloud.Domain.UberModel.Aggregates
         #region 操作
 
         /// <summary>
-        ///     设置FI号
-        /// </summary>
-        /// <param name="fiNumber">FI号</param>
-        public void SetFiNumber(string fiNumber)
-        {
-            if (string.IsNullOrWhiteSpace(fiNumber))
-            {
-                throw new ArgumentException("FI号参数为空！");
-            }
-
-            FiNumber = fiNumber;
-        }
-
-
-        /// <summary>
         ///     设置项号
         /// </summary>
         /// <param name="itemNo">项号</param>
@@ -156,6 +141,15 @@ namespace UniCloud.Domain.UberModel.Aggregates
 
             ItemNo = itemNo;
         }
+        
+        /// <summary>
+        ///     设置父项项号
+        /// </summary>
+        /// <param name="parentItemNo">父项项号</param>
+        public void SetParentItemNo(string parentItemNo)
+        {
+            ParentItemNo = parentItemNo;
+        }
 
         /// <summary>
         ///     设置描述
@@ -163,11 +157,6 @@ namespace UniCloud.Domain.UberModel.Aggregates
         /// <param name="description">描述</param>
         public void SetDescription(string description)
         {
-            if (string.IsNullOrWhiteSpace(description))
-            {
-                throw new ArgumentException("描述参数为空！");
-            }
-
             Description = description;
         }
 
@@ -179,6 +168,7 @@ namespace UniCloud.Domain.UberModel.Aggregates
         {
             TsId = ts.Id;
             TsNumber = ts.TsNumber;
+            FiNumber = ts.FiNumber;
         }
 
         /// <summary>

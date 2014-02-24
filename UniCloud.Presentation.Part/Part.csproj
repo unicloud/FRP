@@ -183,11 +183,34 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EngineConfig\BasicConfigGroupView.xaml.cs">
+      <DependentUpon>BasicConfigGroupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineConfig\BasicConfigGroupVm.cs" />
+    <Compile Include="EngineConfig\ConfigCompareView.xaml.cs">
+      <DependentUpon>ConfigCompareView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineConfig\ConfigCompareVm.cs" />
+    <Compile Include="EngineConfig\SpecialConfigView.xaml.cs">
+      <DependentUpon>SpecialConfigView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineConfig\SpecialConfigVm.cs" />
     <Compile Include="ManageSCN\MaintainSCN.xaml.cs">
       <DependentUpon>MaintainSCN.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManageSCN\MaintainSCNVm.cs" />
+    <Compile Include="ManageTS\PnRegChildView.xaml.cs">
+      <DependentUpon>PnRegChildView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageTS\TechnicalSolutionView.xaml.cs">
+      <DependentUpon>TechnicalSolutionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageTS\TechnicalSolutionVm.cs" />
     <Compile Include="PartModule.cs" />
+    <Compile Include="PnRegAndSnReg\ManagePnAndSnView.xaml.cs">
+      <DependentUpon>ManagePnAndSnView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PnRegAndSnReg\ManagePnAndSnVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -218,7 +241,31 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="EngineConfig\BasicConfigGroupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EngineConfig\ConfigCompareView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EngineConfig\SpecialConfigView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ManageSCN\MaintainSCN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageTS\PnRegChildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageTS\TechnicalSolutionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PnRegAndSnReg\ManagePnAndSnView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

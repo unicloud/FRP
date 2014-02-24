@@ -810,7 +810,105 @@ namespace UniCloud.Presentation.Shell
                 IsEnabled = true,
             };
 
+            var menu71 = new MenuItem
+            {
+                Text = "管理基础配置",
+            };
+            menu7.Items.Add(menu71);
 
+            var menu72 = new MenuItem
+            {
+                Text = "维护件序号",
+                NavUri = "UniCloud.Presentation.Part.PnRegAndSnReg.ManagePnAndSnView",
+            };
+            menu7.Items.Add(menu72);
+
+            var menu73 = new MenuItem
+            {
+                Text = "管理技术解决方案",
+                NavUri = "UniCloud.Presentation.Part.ManageTS.TechnicalSolutionView",
+            };
+            menu7.Items.Add(menu73);
+
+            var menu74 = new MenuItem
+            {
+                Text = "管理发动机构型",
+            };
+            var menu741 = new MenuItem
+            {
+                Text = "管理基本构型组",
+                NavUri = "UniCloud.Presentation.Part.EngineConfig.BasicConfigGroupView",
+            };
+            var menu742 = new MenuItem
+            {
+                Text = "管理特定选型",
+                NavUri = "UniCloud.Presentation.Part.EngineConfig.SpecialConfigView",
+            };
+            var menu743 = new MenuItem
+            {
+                Text = "比较构型差异",
+                NavUri = "UniCloud.Presentation.Part.EngineConfig.ConfigCompareView",
+            };
+            menu74.Items.Add(menu741);
+            menu74.Items.Add(menu742);
+            menu74.Items.Add(menu743);
+            menu7.Items.Add(menu74);
+
+            var menu75 = new MenuItem
+            {
+                Text = "滑油监控",
+            };
+            var menu751 = new MenuItem
+            {
+                Text = "管理发动机滑油",
+            };
+            var menu752 = new MenuItem
+            {
+                Text = "管理APU滑油",
+            };
+            menu75.Items.Add(menu751);
+            menu75.Items.Add(menu752);
+            menu7.Items.Add(menu75);
+
+            var menu76 = new MenuItem
+            {
+                Text = "修正飞机利用率",
+            };
+            menu7.Items.Add(menu76);
+
+            var menu77 = new MenuItem
+            {
+                Text = "维护拆换记录",
+            };
+            menu7.Items.Add(menu77);
+
+            var menu78 = new MenuItem
+            {
+                Text = "维护在位信息",
+            };
+            menu7.Items.Add(menu78);
+
+            var menu79 = new MenuItem
+            {
+                Text = "查询拆装历史",
+            };
+            menu7.Items.Add(menu79);
+
+            var menu710 = new MenuItem
+            {
+                Text = "控制维修",
+            };
+            var menu7101 = new MenuItem
+            {
+                Text = "查看控制方案",
+            };
+            var menu7102 = new MenuItem
+            {
+                Text = "查询到寿日期",
+            };
+            menu710.Items.Add(menu7101);
+            menu710.Items.Add(menu7102);
+            menu7.Items.Add(menu710);
             _items.Add(menu7);
 
             #endregion
