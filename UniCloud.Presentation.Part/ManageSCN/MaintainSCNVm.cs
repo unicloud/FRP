@@ -31,9 +31,9 @@ using UniCloud.Presentation.Service.Part.Part.Enums;
 
 namespace UniCloud.Presentation.Part.ManageSCN
 {
-    [Export(typeof(MaintainSCNVm))]
+    [Export(typeof(MaintainScnVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public class MaintainSCNVm : EditViewModelBase
+    public class MaintainScnVm : EditViewModelBase
     {
         #region 声明、初始化
 
@@ -43,7 +43,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
 
 
         [ImportingConstructor]
-        public MaintainSCNVm(IRegionManager regionManager, IPartService service)
+        public MaintainScnVm(IRegionManager regionManager, IPartService service)
             : base(service)
         {
             _regionManager = regionManager;

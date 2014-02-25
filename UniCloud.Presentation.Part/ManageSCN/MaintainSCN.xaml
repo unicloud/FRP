@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="UniCloud.Presentation.Part.ManageSCN.MaintainSCN"
+﻿<UserControl x:Class="UniCloud.Presentation.Part.ManageSCN.MaintainScn"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,7 @@
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance uc:MaintainSCNVm}"
+             d:DataContext="{d:DesignInstance uc:MaintainScnVm}"
              d:DesignHeight="600"
              d:DesignWidth="900"
              Name="ScnMscn">

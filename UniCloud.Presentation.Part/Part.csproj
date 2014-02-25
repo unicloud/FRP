@@ -200,10 +200,14 @@
       <DependentUpon>SpecialConfigView.xaml</DependentUpon>
     </Compile>
     <Compile Include="EngineConfig\SpecialConfigVm.cs" />
-    <Compile Include="ManageSCN\MaintainSCN.xaml.cs">
-      <DependentUpon>MaintainSCN.xaml</DependentUpon>
+    <Compile Include="ManageSCN\CompareScn.xaml.cs">
+      <DependentUpon>CompareScn.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ManageSCN\MaintainSCNVm.cs" />
+    <Compile Include="ManageSCN\CompareScnVm.cs" />
+    <Compile Include="ManageSCN\MaintainScn.xaml.cs">
+      <DependentUpon>MaintainScn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageSCN\MaintainScnVm.cs" />
     <Compile Include="ManageTS\PnRegChildView.xaml.cs">
       <DependentUpon>PnRegChildView.xaml</DependentUpon>
     </Compile>
@@ -262,7 +266,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ManageSCN\MaintainSCN.xaml">
+    <Page Include="ManageSCN\CompareScn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageSCN\MaintainScn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
