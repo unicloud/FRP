@@ -154,7 +154,7 @@ namespace UniCloud.Application.PartBC.BasicConfigGroupServices
             // 添加基本构型
             var newBasicConfig = basicConfigGroup.AddNewBasicConfig();
             newBasicConfig.SetDescription(basicConfigDto.Description);
-            newBasicConfig.SetFiNumber(basicConfigDto.FiNumber);
+            newBasicConfig.SetParentItemNo(basicConfigDto.ParentItemNo);
             newBasicConfig.SetItemNo(basicConfigDto.ItemNo);
             newBasicConfig.SetParentAcConfigId(basicConfigDto.ParentId);
             newBasicConfig.SetTechnicalSolution(ts);
@@ -172,7 +172,7 @@ namespace UniCloud.Application.PartBC.BasicConfigGroupServices
 
             // 更新订单行
             basicConfig.SetDescription(basicConfigDto.Description);
-            basicConfig.SetFiNumber(basicConfigDto.FiNumber);
+            basicConfig.SetParentItemNo(basicConfigDto.ParentItemNo);
             basicConfig.SetItemNo(basicConfigDto.ItemNo);
             basicConfig.SetParentAcConfigId(basicConfigDto.ParentId);
             basicConfig.SetTechnicalSolution(ts);

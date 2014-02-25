@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AcDailyUtilizationQueries\AcDailyUtilizationQuery.cs" />
+    <Compile Include="AcDailyUtilizationQueries\IAcDailyUtilizationQuery.cs" />
     <Compile Include="AircraftQueries\AircraftQuery.cs" />
     <Compile Include="AircraftQueries\IAircraftQuery.cs" />
     <Compile Include="AircraftTypeQueries\AircraftTypeQuery.cs" />
@@ -62,6 +64,8 @@
     <Compile Include="MaintainWorkQueries\MaintainWorkQuery.cs" />
     <Compile Include="ModQueries\IModQuery.cs" />
     <Compile Include="ModQueries\ModQuery.cs" />
+    <Compile Include="OilMonitorQueries\IOilMonitorQuery.cs" />
+    <Compile Include="OilMonitorQueries\OilMonitorQuery.cs" />
     <Compile Include="PnRegQueries\IPnRegQuery.cs" />
     <Compile Include="PnRegQueries\PnRegQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -18,6 +18,7 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.SpecialConfigQueries;
+using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
 using UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg;
 
@@ -34,14 +35,16 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
         private readonly ISpecialConfigQuery _specialConfigQuery;
         private readonly ISpecialConfigRepository _specialConfigRepository;
         private readonly ITechnicalSolutionRepository _technicalSolutionRepository;
-
+        private readonly IContractAircraftRepository _contractAircraftRepository;
         public SpecialConfigAppService(ISpecialConfigQuery specialConfigQuery,
             ISpecialConfigRepository specialConfigRepository,
-            ITechnicalSolutionRepository technicalSolutionRepository)
+            ITechnicalSolutionRepository technicalSolutionRepository,
+            IContractAircraftRepository contractAircraftRepository)
         {
             _specialConfigQuery = specialConfigQuery;
             _specialConfigRepository = specialConfigRepository;
             _technicalSolutionRepository = technicalSolutionRepository;
+            _contractAircraftRepository = contractAircraftRepository;
         }
 
         #region SpecialConfigDTO
@@ -65,17 +68,19 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
         {
             //获取相关数据
             var ts = _technicalSolutionRepository.Get(dto.TsId);
+            var contractAircraft = _contractAircraftRepository.Get(dto.ContractAircraftId);
 
             var newSpecialConfig = SpecialConfigFactory.CreateSpecialConfig();
 
             newSpecialConfig.SetEndDate(dto.EndDate);
             newSpecialConfig.SetDescription(dto.Description);
-            newSpecialConfig.SetFiNumber(dto.FiNumber);
+            newSpecialConfig.SetParentItemNo(dto.ParentItemNo);
             newSpecialConfig.SetIsValid(dto.IsValid);
             newSpecialConfig.SetItemNo(dto.ItemNo);
             newSpecialConfig.SetStartDate(dto.StartDate);
             newSpecialConfig.SetParentAcConfigId(dto.ParentId);
             newSpecialConfig.SetTechnicalSolution(ts);
+            newSpecialConfig.SetContractAircraf(contractAircraft);
             _specialConfigRepository.Add(newSpecialConfig);
         }
 
@@ -88,18 +93,20 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
         {            
             //获取相关数据
             var ts = _technicalSolutionRepository.Get(dto.TsId);
-            
+            var contractAircraft = _contractAircraftRepository.Get(dto.ContractAircraftId);
+
             var updateSpecialConfig = _specialConfigRepository.Get(dto.Id); //获取需要更新的对象。
 
             //更新。
             updateSpecialConfig.SetEndDate(dto.EndDate);
             updateSpecialConfig.SetDescription(dto.Description);
-            updateSpecialConfig.SetFiNumber(dto.FiNumber);
+            updateSpecialConfig.SetParentItemNo(dto.ParentItemNo);
             updateSpecialConfig.SetIsValid(dto.IsValid);
             updateSpecialConfig.SetItemNo(dto.ItemNo);
             updateSpecialConfig.SetStartDate(dto.StartDate);
             updateSpecialConfig.SetParentAcConfigId(dto.ParentId);
             updateSpecialConfig.SetTechnicalSolution(ts);
+            updateSpecialConfig.SetContractAircraf(contractAircraft);
             _specialConfigRepository.Modify(updateSpecialConfig);
         }
 

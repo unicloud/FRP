@@ -49,6 +49,7 @@ namespace UniCloud.Application.PartBC.Query.ContractAircraftQueries
                 IsValid = p.IsValid,
                 RankNumber = p.RankNumber,
                 SerialNumber = p.SerialNumber,
+                BasicConfigGroupId = p.BasicConfigGroupId,
             });
         }
     }

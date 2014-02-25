@@ -15,8 +15,7 @@
 
     <!-- 字体、字号 -->
     <FontFamily x:Key="NormalFontFamily">Microsoft YaHei UI</FontFamily>
-    <SolidColorBrush Color="Red"
-                     x:Key="HighLight" />
+    <SolidColorBrush Color="Red" x:Key="HighLight" />
     <system:Double x:Key="TitleFontSize">16</system:Double>
     <system:Double x:Key="HeaderFontSize">14</system:Double>
     <system:Double x:Key="TextFontSize">13</system:Double>
@@ -216,6 +215,29 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <!--RadToggleButton相关样式-->
+
+    <!--图表相关样式-->
+    <Style TargetType="FrameworkElement" x:Key="TickStyle">
+        <Setter Property="Visibility" Value="Collapsed" />
+    </Style>
+    <Style TargetType="TextBlock" x:Key="BaseLabelFontStyle">
+        <Setter Property="FontFamily" Value="Segoe UI" />
+    </Style>
+    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseLabelFontStyle}" x:Key="BaseLabelStyle">
+        <Setter Property="Width" Value="20" />
+    </Style>
+    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseLabelStyle}" x:Key="LeftLabelStyle">
+        <Setter Property="TextAlignment" Value="Right" />
+        <Setter Property="Margin" Value="0,0,3,0" />
+    </Style>
+    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseLabelStyle}" x:Key="RightLabelStyle">
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="Margin" Value="3,0,0,0" />
+    </Style>
+
+    <!--图表相关样式-->
 
     <valueConverts:EnumToStringConverter x:Key="EnumToStringConverter" />
     <valueConverts:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />

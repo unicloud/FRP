@@ -107,7 +107,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Telerik.ReportViewer.Silverlight">
-      <HintPath>..\packages\Telerik.ReportViewer.Silverlight.dll</HintPath>
+      <HintPath>..\packages\Telerik.ReportViewer.Silverlight.2.0.0\lib\Telerik.ReportViewer.Silverlight.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Telerik.Windows.Controls">

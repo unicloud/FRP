@@ -144,6 +144,11 @@
       <HintPath>..\packages\Telerik.Windows.Controls.2.0.0\lib\Telerik.Windows.Controls.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Telerik.Windows.Controls.Chart, Version=2013.3.1016.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Telerik.Windows.Controls.Chart.2.0.0\lib\Telerik.Windows.Controls.Chart.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Telerik.Windows.Controls.Data, Version=2013.3.1204.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Telerik.Windows.Controls.Data.2.0.0\lib\Telerik.Windows.Controls.Data.dll</HintPath>
@@ -183,11 +188,38 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EngineConfig\BasicConfigGroupView.xaml.cs">
+      <DependentUpon>BasicConfigGroupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineConfig\BasicConfigGroupVm.cs" />
+    <Compile Include="EngineConfig\ConfigCompareView.xaml.cs">
+      <DependentUpon>ConfigCompareView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineConfig\ConfigCompareVm.cs" />
+    <Compile Include="EngineConfig\SpecialConfigView.xaml.cs">
+      <DependentUpon>SpecialConfigView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EngineConfig\SpecialConfigVm.cs" />
     <Compile Include="ManageSCN\MaintainSCN.xaml.cs">
       <DependentUpon>MaintainSCN.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManageSCN\MaintainSCNVm.cs" />
+    <Compile Include="ManageTS\PnRegChildView.xaml.cs">
+      <DependentUpon>PnRegChildView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageTS\TechnicalSolutionView.xaml.cs">
+      <DependentUpon>TechnicalSolutionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageTS\TechnicalSolutionVm.cs" />
+    <Compile Include="OilMonitor\EngineOil.xaml.cs">
+      <DependentUpon>EngineOil.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OilMonitor\EngineOilVM.cs" />
     <Compile Include="PartModule.cs" />
+    <Compile Include="PnRegAndSnReg\ManagePnAndSnView.xaml.cs">
+      <DependentUpon>ManagePnAndSnView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PnRegAndSnReg\ManagePnAndSnVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -218,7 +250,35 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="EngineConfig\BasicConfigGroupView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EngineConfig\ConfigCompareView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EngineConfig\SpecialConfigView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ManageSCN\MaintainSCN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageTS\PnRegChildView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageTS\TechnicalSolutionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PnRegAndSnReg\ManagePnAndSnView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OilMonitor\EngineOil.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

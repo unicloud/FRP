@@ -51,6 +51,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.PlanAircraftID).HasColumnName("PlanAircraftID");
             Property(p => p.ImportCategoryId).HasColumnName("ImportCategoryId");
             Property(p => p.SupplierId).HasColumnName("SupplierId");
+            Property(p => p.BasicConfigGroupId).HasColumnName("BasicConfigGroupId");
 
             HasRequired(c => c.AircraftType).WithMany().HasForeignKey(c => c.AircraftTypeId);
             HasOptional(c => c.PlanAircraft).WithMany().HasForeignKey(c => c.PlanAircraftID);

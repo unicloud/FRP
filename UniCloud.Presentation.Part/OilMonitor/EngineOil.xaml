@@ -1,0 +1,160 @@
+﻿<UserControl x:Class="UniCloud.Presentation.Part.OilMonitor.EngineOil"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance uc:EngineOilVM}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" BusyContent="{x:Null}">
+        <telerik:RadDocking BorderThickness="0" Padding="0" HasDocumentHost="False">
+            <telerik:RadSplitContainer>
+                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="400, 500">
+                    <telerik:RadPaneGroup>
+                        <telerik:RadPane Header="发动机滑油消耗分析图表" CanFloat="False" CanUserClose="False" CanUserPin="False"
+                                         ContextMenuTemplate="{x:Null}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="3*" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <telerik:RadCartesianChart Grid.Row="1" Margin="10,0,10,0"
+                                                           Zoom="{Binding Zoom, Mode=TwoWay}"
+                                                           PanOffset="{Binding PanOffset, Mode=TwoWay}">
+                                    <telerik:LineSeries ItemsSource="{Binding ViewEngineOilDTO}" CategoryBinding="Date"
+                                                        ValueBinding="TotalRate" />
+                                    <telerik:LineSeries ItemsSource="{Binding ViewEngineOilDTO}" CategoryBinding="Date"
+                                                        ValueBinding="IntervalRate" />
+                                    <telerik:LineSeries ItemsSource="{Binding ViewEngineOilDTO}" CategoryBinding="Date"
+                                                        ValueBinding="AverageRate3" />
+                                    <telerik:LineSeries ItemsSource="{Binding ViewEngineOilDTO}" CategoryBinding="Date"
+                                                        ValueBinding="AverageRate7">
+                                        <telerik:LineSeries.VerticalAxis>
+                                            <telerik:LinearAxis HorizontalLocation="Right"
+                                                                Minimum="10" Maximum="50" MajorStep="5"
+                                                                LabelStyle="{StaticResource RightLabelStyle}"
+                                                                MajorTickStyle="{StaticResource TickStyle}" />
+                                        </telerik:LineSeries.VerticalAxis>
+                                    </telerik:LineSeries>
+                                    <telerik:RadCartesianChart.HorizontalAxis>
+                                        <telerik:DateTimeCategoricalAxis ShowLabels="False"
+                                                                         PlotMode="OnTicks"
+                                                                         MajorTickStyle="{StaticResource TickStyle}" />
+                                    </telerik:RadCartesianChart.HorizontalAxis>
+                                    <telerik:RadCartesianChart.VerticalAxis>
+                                        <telerik:LinearAxis Minimum="10" Maximum="50" MajorStep="5"
+                                                            LabelStyle="{StaticResource LeftLabelStyle}"
+                                                            MajorTickStyle="{StaticResource TickStyle}" />
+                                    </telerik:RadCartesianChart.VerticalAxis>
+                                    <telerik:RadCartesianChart.Grid>
+                                        <telerik:CartesianChartGrid StripLinesVisibility="Y"
+                                                                    MajorLinesVisibility="Y">
+                                            <telerik:CartesianChartGrid.YStripeBrushes>
+                                                <SolidColorBrush Color="#FFD7D7D7"
+                                                                 Opacity="0.3" />
+                                                <SolidColorBrush Color="Transparent" />
+                                            </telerik:CartesianChartGrid.YStripeBrushes>
+                                        </telerik:CartesianChartGrid>
+                                    </telerik:RadCartesianChart.Grid>
+                                </telerik:RadCartesianChart>
+                                <telerik:RadCartesianChart Grid.Row="2" Margin="10,11,10,0"
+                                                           Zoom="{Binding Zoom, Mode=TwoWay}"
+                                                           PanOffset="{Binding PanOffset, Mode=TwoWay}">
+                                    <telerik:RadCartesianChart.Behaviors>
+                                        <telerik:ChartPanAndZoomBehavior ZoomMode="Horizontal" />
+                                    </telerik:RadCartesianChart.Behaviors>
+                                    <telerik:LineSeries ItemsSource="{Binding ViewEngineOilDTO}" CategoryBinding="Date"
+                                                        ValueBinding="DeltaIntervalRate">
+                                        <telerik:LineSeries.VerticalAxis>
+                                            <telerik:LinearAxis HorizontalLocation="Right"
+                                                                Minimum="-10" Maximum="10" MajorStep="5"
+                                                                LabelStyle="{StaticResource RightLabelStyle}"
+                                                                MajorTickStyle="{StaticResource TickStyle}" />
+                                        </telerik:LineSeries.VerticalAxis>
+                                    </telerik:LineSeries>
+                                    <telerik:RadCartesianChart.HorizontalAxis>
+                                        <telerik:DateTimeCategoricalAxis LabelFormat="MM/dd"
+                                                                         PlotMode="OnTicks"
+                                                                         MajorTickStyle="{StaticResource TickStyle}" />
+                                    </telerik:RadCartesianChart.HorizontalAxis>
+                                    <telerik:RadCartesianChart.VerticalAxis>
+                                        <telerik:LinearAxis Minimum="-10" Maximum="10" MajorStep="5"
+                                                            LabelStyle="{StaticResource LeftLabelStyle}"
+                                                            MajorTickStyle="{StaticResource TickStyle}" />
+                                    </telerik:RadCartesianChart.VerticalAxis>
+                                    <telerik:RadCartesianChart.Grid>
+                                        <telerik:CartesianChartGrid StripLinesVisibility="Y"
+                                                                    MajorLinesVisibility="Y">
+                                            <telerik:CartesianChartGrid.YStripeBrushes>
+                                                <SolidColorBrush Color="#FFD7D7D7"
+                                                                 Opacity="0.3" />
+                                                <SolidColorBrush Color="Transparent" />
+                                            </telerik:CartesianChartGrid.YStripeBrushes>
+                                        </telerik:CartesianChartGrid>
+                                    </telerik:RadCartesianChart.Grid>
+                                </telerik:RadCartesianChart>
+                            </Grid>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                </telerik:RadSplitContainer>
+                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 500">
+                    <telerik:RadPaneGroup>
+                        <telerik:RadPane Header="发动机滑油消耗数据" CanFloat="False" CanUserClose="False" CanUserPin="False"
+                                         ContextMenuTemplate="{x:Null}">
+                            <telerik:RadGridView x:Name="OilMonitor"
+                                                 ItemsSource="{Binding ViewEngineOilDTO}"
+                                                 SelectedItem="{Binding SelEngineOilDTO,Mode=TwoWay}"
+                                                 ShowGroupPanel="False"
+                                                 IsFilteringAllowed="False"
+                                                 IsReadOnly="True">
+                                <telerik:RadContextMenu.ContextMenu>
+                                    <telerik:RadContextMenu>
+                                        <telerik:RadMenuItem Header="导出Excel"
+                                                             Command="{Binding ExcelExportCommand}"
+                                                             CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
+                                        <telerik:RadMenuItem Header="导出Word" Command="{Binding WordExportCommand}"
+                                                             CommandParameter="{Binding ElementName=CurrentPlanDetail, Mode=OneWay}" />
+                                    </telerik:RadContextMenu>
+                                </telerik:RadContextMenu.ContextMenu>
+                                <telerik:RadGridView.Columns>
+                                    <uc:DataPageSerialColumn Header="序号" />
+                                    <telerik:GridViewDataColumn Header="日期" TextAlignment="Center"
+                                                                DataMemberBinding="{Binding Date}"
+                                                                DataFormatString="{StaticResource DateStringFormat}" />
+                                    <telerik:GridViewDataColumn Header="TSN" TextAlignment="Center"
+                                                                DataMemberBinding="{Binding TSN}" />
+                                    <telerik:GridViewDataColumn Header="TSR" TextAlignment="Center"
+                                                                DataMemberBinding="{Binding TSR}" />
+                                    <telerik:GridViewDataColumn Header="总耗率" TextAlignment="Center"
+                                                                DataMemberBinding="{Binding TotalRate}" />
+                                    <telerik:GridViewDataColumn Header="区间耗率" TextAlignment="Center"
+                                                                DataMemberBinding="{Binding IntervalRate}" />
+                                    <telerik:GridViewDataColumn Header="Δ区间耗率" TextAlignment="Center"
+                                                                DataMemberBinding="{Binding DeltaIntervalRate}" />
+                                    <telerik:GridViewDataColumn Header="3日平均" TextAlignment="Center"
+                                                                DataMemberBinding="{Binding AverageRate3}" />
+                                    <telerik:GridViewDataColumn Header="7日平均" TextAlignment="Center"
+                                                                DataMemberBinding="{Binding AverageRate7}" />
+                                </telerik:RadGridView.Columns>
+                            </telerik:RadGridView>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                </telerik:RadSplitContainer>
+            </telerik:RadSplitContainer>
+        </telerik:RadDocking>
+    </telerik:RadBusyIndicator>
+
+</UserControl>
