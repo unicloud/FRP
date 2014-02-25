@@ -23,7 +23,6 @@ namespace UniCloud.Presentation.Service.Part.Part.Enums
         技术标准室审核 = 1,
         机身系统室审核 = 2,
         航材计划室审核 = 3,
-        待确认 = 4,
-        生效 = 5,
+        生效 = 4,
     }
 }

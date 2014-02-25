@@ -350,8 +350,6 @@ namespace UniCloud.Presentation.Part.ManageSCN
                     Scn.ScnStatus = 3; break;
                 case 3:
                     Scn.ScnStatus = 4; break;
-                case 4:
-                    Scn.ScnStatus = 5; break;
             }
         }
 
@@ -360,7 +358,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
             OnlyView = true;
             if (Scn != null)
             {
-                if (Scn.ScnStatus > 0 && Scn.ScnStatus < 5)
+                if (Scn.ScnStatus > 0 && Scn.ScnStatus < 4)
                 {
                     OnlyView = false;
                     return !OnlyView;
