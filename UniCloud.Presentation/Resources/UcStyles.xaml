@@ -102,8 +102,6 @@
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Foreground" Value="#1FA3EB" />
         <Setter Property="Margin" Value="10 0 0 10" />
-        <Setter Property="Width" Value="90" />
-        <Setter Property="Height" Value="40" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="telerik:RadToggleButton">
@@ -183,28 +181,24 @@
                         </VisualStateManager.VisualStateGroups>
                         <Grid>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="6" />
                                 <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="10" />
                             </Grid.ColumnDefinitions>
                             <!--mouse over-->
-                            <Border x:Name="OuterBorder"
-                                    Grid.RowSpan="2"
+                            <Border x:Name="OuterBorder" Grid.ColumnSpan="2"
                                     Width="{TemplateBinding Width}"
                                     Opacity="0"
                                     Background="{TemplateBinding Background}" />
                             <!-- content -->
-                            <TextBlock x:Name="textBlock"
+                            <TextBlock x:Name="textBlock" Grid.Column="1" Margin="5 5 10 5"
                                        Text="{TemplateBinding Content}"
-                                       Grid.Column="0"
                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                       FontFamily="Segoe UI"
-                                       TextWrapping="Wrap"
                                        TextAlignment="Center"
-                                       FontSize="15" />
+                                       FontFamily="{StaticResource NormalFontFamily}"
+                                       FontSize="{StaticResource TextFontSize}" />
                             <!--normal visual-->
-                            <Border x:Name="InnerBorder"
-                                    Grid.Column="1"
+                            <Border x:Name="InnerBorder" Grid.Column="0"
                                     Background="{TemplateBinding Background}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
@@ -236,10 +230,15 @@
         <Setter Property="TextAlignment" Value="Left" />
         <Setter Property="Margin" Value="3,0,0,0" />
     </Style>
+    <Style TargetType="telerik:RadCartesianChart" x:Key="BaseRadCartesianChart" />
+    <Style TargetType="telerik:RadCartesianChart" BasedOn="{StaticResource BaseRadCartesianChart}">
+        <Setter Property="Palette" Value="Windows8" />
+    </Style>
 
     <!--图表相关样式-->
 
     <valueConverts:EnumToStringConverter x:Key="EnumToStringConverter" />
     <valueConverts:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     <valueConverts:StringToXamlConverter x:Key="StringToXamlConverter" />
+    <telerik:VisibilityToBooleanConverter x:Key="VisibilityToBooleanConverter" />
 </ResourceDictionary>

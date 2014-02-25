@@ -21,27 +21,94 @@
     <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" BusyContent="{x:Null}">
         <telerik:RadDocking BorderThickness="0" Padding="0" HasDocumentHost="False">
             <telerik:RadSplitContainer>
-                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="400, 500">
+                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="400, 600">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="发动机滑油消耗分析图表" CanFloat="False" CanUserClose="False" CanUserPin="False"
                                          ContextMenuTemplate="{x:Null}">
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="60" />
                                     <RowDefinition Height="3*" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <telerik:RadCartesianChart Grid.Row="1" Margin="10,0,10,0"
+                                <telerik:RadLegend Items="{Binding Path=LegendItems, ElementName=Oil}">
+                                    <telerik:RadLegend.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </telerik:RadLegend.ItemsPanel>
+                                    <telerik:RadLegend.ItemTemplate>
+                                        <DataTemplate>
+                                            <telerik:RadToggleButton Content="{Binding Title}" Style="{StaticResource ChartButton}"
+                                                                     Width="70" Height="30"
+                                                                     IsChecked="{Binding Presenter.Visibility, Mode=TwoWay, Converter={StaticResource VisibilityToBooleanConverter}}"
+                                                                     Background="{Binding MarkerFill}"
+                                                                     BorderBrush="{Binding MarkerFill}"/>
+                                        </DataTemplate>
+                                    </telerik:RadLegend.ItemTemplate>
+                                </telerik:RadLegend>
+                                <telerik:RadCartesianChart x:Name="Oil" Grid.Row="1" Margin="10,0,10,0"
+                                                           EmptyContent="滑油消耗率图表"
                                                            Zoom="{Binding Zoom, Mode=TwoWay}"
                                                            PanOffset="{Binding PanOffset, Mode=TwoWay}">
+                                    <telerik:RadCartesianChart.Behaviors>
+                                        <telerik:ChartTrackBallBehavior />
+                                    </telerik:RadCartesianChart.Behaviors>
                                     <telerik:LineSeries ItemsSource="{Binding ViewEngineOilDTO}" CategoryBinding="Date"
-                                                        ValueBinding="TotalRate" />
+                                                        ValueBinding="TotalRate">
+                                        <telerik:LineSeries.LegendSettings>
+                                            <telerik:SeriesLegendSettings Title="总耗率" />
+                                        </telerik:LineSeries.LegendSettings>
+                                        <telerik:LineSeries.TrackBallInfoTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Background="Transparent">
+                                                    <TextBlock
+                                                        Text="{Binding Path=DataPoint.Value, StringFormat=总消耗率：\{0:0\}}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </telerik:LineSeries.TrackBallInfoTemplate>
+                                    </telerik:LineSeries>
                                     <telerik:LineSeries ItemsSource="{Binding ViewEngineOilDTO}" CategoryBinding="Date"
-                                                        ValueBinding="IntervalRate" />
+                                                        ValueBinding="IntervalRate">
+                                        <telerik:LineSeries.LegendSettings>
+                                            <telerik:SeriesLegendSettings Title="区间耗率" />
+                                        </telerik:LineSeries.LegendSettings>
+                                        <telerik:LineSeries.TrackBallInfoTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Background="Transparent">
+                                                    <TextBlock
+                                                        Text="{Binding Path=DataPoint.Value, StringFormat=区间消耗率：\{0:0\}}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </telerik:LineSeries.TrackBallInfoTemplate>
+                                    </telerik:LineSeries>
                                     <telerik:LineSeries ItemsSource="{Binding ViewEngineOilDTO}" CategoryBinding="Date"
-                                                        ValueBinding="AverageRate3" />
+                                                        ValueBinding="AverageRate3">
+                                        <telerik:LineSeries.LegendSettings>
+                                            <telerik:SeriesLegendSettings Title="3日均线" />
+                                        </telerik:LineSeries.LegendSettings>
+                                        <telerik:LineSeries.TrackBallInfoTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Background="Transparent">
+                                                    <TextBlock
+                                                        Text="{Binding Path=DataPoint.Value, StringFormat=3日移动平均：\{0:0\}}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </telerik:LineSeries.TrackBallInfoTemplate>
+                                    </telerik:LineSeries>
                                     <telerik:LineSeries ItemsSource="{Binding ViewEngineOilDTO}" CategoryBinding="Date"
                                                         ValueBinding="AverageRate7">
+                                        <telerik:LineSeries.LegendSettings>
+                                            <telerik:SeriesLegendSettings Title="7日均线" />
+                                        </telerik:LineSeries.LegendSettings>
+                                        <telerik:LineSeries.TrackBallInfoTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Background="Transparent">
+                                                    <TextBlock
+                                                        Text="{Binding Path=DataPoint.Value, StringFormat=7日移动平均：\{0:0\}}" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </telerik:LineSeries.TrackBallInfoTemplate>
                                         <telerik:LineSeries.VerticalAxis>
                                             <telerik:LinearAxis HorizontalLocation="Right"
                                                                 Minimum="10" Maximum="50" MajorStep="5"
@@ -50,9 +117,7 @@
                                         </telerik:LineSeries.VerticalAxis>
                                     </telerik:LineSeries>
                                     <telerik:RadCartesianChart.HorizontalAxis>
-                                        <telerik:DateTimeCategoricalAxis ShowLabels="False"
-                                                                         PlotMode="OnTicks"
-                                                                         MajorTickStyle="{StaticResource TickStyle}" />
+                                        <telerik:DateTimeCategoricalAxis Visibility="Collapsed" />
                                     </telerik:RadCartesianChart.HorizontalAxis>
                                     <telerik:RadCartesianChart.VerticalAxis>
                                         <telerik:LinearAxis Minimum="10" Maximum="50" MajorStep="5"
@@ -70,7 +135,7 @@
                                         </telerik:CartesianChartGrid>
                                     </telerik:RadCartesianChart.Grid>
                                 </telerik:RadCartesianChart>
-                                <telerik:RadCartesianChart Grid.Row="2" Margin="10,11,10,0"
+                                <telerik:RadCartesianChart Grid.Row="2" Margin="10,11,10,0" EmptyContent="区间滑油消耗率增量图表"
                                                            Zoom="{Binding Zoom, Mode=TwoWay}"
                                                            PanOffset="{Binding PanOffset, Mode=TwoWay}">
                                     <telerik:RadCartesianChart.Behaviors>
@@ -110,7 +175,7 @@
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
                 </telerik:RadSplitContainer>
-                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 500">
+                <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="发动机滑油消耗数据" CanFloat="False" CanUserClose="False" CanUserPin="False"
                                          ContextMenuTemplate="{x:Null}">
