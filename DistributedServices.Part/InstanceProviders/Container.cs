@@ -85,9 +85,9 @@ namespace UniCloud.DistributedServices.Part.InstanceProviders
                 .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 //.RegisterType<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager())
 
-            #region 领域事件相关配置
+                #region 领域事件相关配置
 
-            //.RegisterType<IPartEvent, PartEvent>(new WcfPerRequestLifetimeManager())
+                //.RegisterType<IPartEvent, PartEvent>(new WcfPerRequestLifetimeManager())
 
                 #endregion
                 
@@ -161,16 +161,15 @@ namespace UniCloud.DistributedServices.Part.InstanceProviders
                 .RegisterType<IPnRegQuery, PnRegQuery>()
                 .RegisterType<IPnRegAppService, PnRegAppService>()
                 .RegisterType<IPnRegRepository, PnRegRepository>()
-            #endregion
+                #endregion
 
-            #region SCN相关配置，包括查询，应用服务，仓储注册
+                #region SCN相关配置，包括查询，应用服务，仓储注册
 
                 .RegisterType<IScnQuery, ScnQuery>()
                 .RegisterType<IScnAppService, ScnAppService>()
                 .RegisterType<IScnRepository, ScnRepository>()
-            #endregion
-            #region ContractAircraft相关配置，包括查询，应用服务，仓储注册
-                
+                #endregion
+
                 #region 序号件相关配置，包括查询，应用服务，仓储注册
 
                 .RegisterType<ISnRegQuery, SnRegQuery>()
@@ -200,7 +199,7 @@ namespace UniCloud.DistributedServices.Part.InstanceProviders
                 
                 #endregion
 
-            ;
+                ;
         }
 
         #endregion
