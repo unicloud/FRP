@@ -18,9 +18,12 @@
 #region 命名空间
 
 using Microsoft.Practices.Unity;
+using UniCloud.Application.PartBC.ContractAircraftServices;
+using UniCloud.Application.PartBC.Query.ContractAircraftQueries;
 using UniCloud.Application.PartBC.Query.ScnQueries;
 using UniCloud.Application.PartBC.ScnServices;
 using UniCloud.Domain.Events;
+using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.ScnAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PartBC.Repositories;
@@ -56,7 +59,12 @@ namespace UniCloud.DistributedServices.Part.InstanceProviders
                 .RegisterType<IScnAppService, ScnAppService>()
                 .RegisterType<IScnRepository, ScnRepository>()
             #endregion
-                
+            #region ContractAircraft相关配置，包括查询，应用服务，仓储注册
+
+.RegisterType<IContractAircraftQuery, ContractAircraftQuery>()
+                .RegisterType<IContractAircraftAppService, ContractAircraftAppService>()
+                .RegisterType<IContractAircraftRepository, ContractAircraftRepository>()
+            #endregion    
             ;
         }
 

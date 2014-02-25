@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System.Linq;
+using UniCloud.Application.PartBC.ContractAircraftServices;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.ScnServices;
 using UniCloud.Infrastructure.Utilities.Container;
@@ -32,11 +33,12 @@ namespace UniCloud.DistributedServices.Part
     public class PartData : ExposeData.ExposeData
     {
         private readonly IScnAppService _scnAppService;
-
+        private readonly IContractAircraftAppService _contractAircraftAppService;
         public PartData()
             : base("UniCloud.Application.PartBC.DTO")
         {
             _scnAppService = DefaultContainer.Resolve<IScnAppService>();
+            _contractAircraftAppService = DefaultContainer.Resolve<IContractAircraftAppService>();
         }
 
         #region Scn相关集合
@@ -47,6 +49,18 @@ namespace UniCloud.DistributedServices.Part
         public IQueryable<ScnDTO> Scns
         {
             get { return _scnAppService.GetScns(); }
+        }
+
+        #endregion
+
+        #region ContractAircraft相关集合
+
+        /// <summary>
+        ///     ContractAircraft信息。
+        /// </summary>
+        public IQueryable<ContractAircraftDTO> ContractAircrafts
+        {
+            get { return _contractAircraftAppService.GetContractAircrafts(); }
         }
 
         #endregion

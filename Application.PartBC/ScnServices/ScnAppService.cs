@@ -16,6 +16,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
@@ -87,16 +88,16 @@ namespace UniCloud.Application.PartBC.ScnServices
                 ScnFactory.SetScn(updateScn, dto.Type, dto.CheckDate, dto.CSCNumber, dto.ModNumber, dto.TsNumber, dto.Cost,
                 dto.ScnNumber, dto.ScnType, dto.ScnStatus, dto.Description, dto.ScnDocName, dto.ScnDocumentId,
                 dto.AuditOrganization, dto.Auditor, dto.AuditTime, dto.AuditNotes);
-
-                //更新Scn适用飞机集合：
-                var dtoApplicableAircrafts = dto.ApplicableAircrafts;
-                var applicableAircrafts = updateScn.ApplicableAircrafts;
-                DataHelper.DetailHandle(dtoApplicableAircrafts.ToArray(),
-                    applicableAircrafts.ToArray(),
-                    c => c.Id, p => p.Id,
-                    i => InsertApplicableAircraft(updateScn, i),
-                    UpdateApplicableAircraft,
-                    d => _scnRepository.RemoveApplicableAircraft(d));
+                UpdateApplicableAircrafts(dto.ApplicableAircrafts, updateScn);
+                ////更新Scn适用飞机集合：
+                //var dtoApplicableAircrafts = dto.ApplicableAircrafts;
+                //var applicableAircrafts = updateScn.ApplicableAircrafts;
+                //DataHelper.DetailHandle(dtoApplicableAircrafts.ToArray(),
+                //    applicableAircrafts.ToArray(),
+                //    c => c.Id, p => p.Id,
+                //    i => InsertApplicableAircraft(updateScn, i),
+                //    UpdateApplicableAircraft,
+                //    d => _scnRepository.RemoveApplicableAircraft(d));
             }
             _scnRepository.Modify(updateScn);
         }
@@ -147,7 +148,36 @@ namespace UniCloud.Application.PartBC.ScnServices
         }
 
         #endregion
-
+        #region 更新适用飞机集合
+        /// <summary>
+        /// 更新适用飞机集合
+        /// </summary>
+        /// <param name="sourceApplicableAircrafts">客户端集合</param>
+        /// <param name="dstScn">数据库集合</param>
+        private void UpdateApplicableAircrafts(IEnumerable<ApplicableAircraftDTO> sourceApplicableAircrafts, Scn dstScn)
+        {
+            var applicableAircrafts = new List<ApplicableAircraft>();
+            foreach (var sourceApplicableAircraft in sourceApplicableAircrafts)
+            {
+                var result = dstScn.ApplicableAircrafts.FirstOrDefault(p => p.Id == sourceApplicableAircraft.Id);
+                if (result == null)
+                {
+                    result = ScnFactory.CreateApplicableAircraft();
+                    result.ChangeCurrentIdentity(sourceApplicableAircraft.Id);
+                }
+                ScnFactory.SetApplicableAircraft(result, sourceApplicableAircraft.CompleteDate, sourceApplicableAircraft.Cost, sourceApplicableAircraft.ContractAircraftId);
+                applicableAircrafts.Add(result);
+            }
+            dstScn.ApplicableAircrafts.ToList().ForEach(p =>
+            {
+                if (applicableAircrafts.FirstOrDefault(t => t.Id == p.Id) == null)
+                {
+                    _scnRepository.RemoveApplicableAircraft(p);
+                }
+            });
+            dstScn.ApplicableAircrafts = applicableAircrafts;
+        }
+        #endregion
         #endregion
     }
 }

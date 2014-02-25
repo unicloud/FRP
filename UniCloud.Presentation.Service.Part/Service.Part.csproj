@@ -101,6 +101,7 @@
     <Compile Include="Part\Enums\ScnApplicableType.cs" />
     <Compile Include="Part\Enums\ScnStatus.cs" />
     <Compile Include="Part\Enums\ScnType.cs" />
+    <Compile Include="Part\ScnDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\Part\Reference.cs">
       <AutoGen>True</AutoGen>

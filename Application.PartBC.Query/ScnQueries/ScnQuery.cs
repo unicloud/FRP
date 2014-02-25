@@ -49,15 +49,12 @@ namespace UniCloud.Application.PartBC.Query.ScnQueries
                 Description = p.Description,
                 ModNumber = p.ModNumber,
                 ScnDocumentId = p.ScnDocumentId,
+                ScnDocName = p.ScnDocName,
                 ScnNumber = p.ScnNumber,
                 Type = (int)p.Type,
                 ScnType = (int)p.ScnType,
                 TsNumber = p.TsNumber,
                 ScnStatus = (int)p.ScnStatus,
-                AuditOrganization = p.AuditOrganization,
-                Auditor = p.Auditor,
-                AuditTime = p.AuditTime,
-                AuditNotes = p.AuditNotes,
                 AuditHistory = p.AuditHistory,
                 ApplicableAircrafts = p.ApplicableAircrafts.Select(q => new ApplicableAircraftDTO
                 {

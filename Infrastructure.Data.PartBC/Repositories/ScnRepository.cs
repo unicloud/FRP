@@ -14,9 +14,11 @@
 #endregion
 
 #region 命名空间
+
+using System.Linq;
 using UniCloud.Domain.PartBC.Aggregates.ScnAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
-
+using System.Data.Entity;
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PartBC.Repositories
@@ -33,6 +35,13 @@ namespace UniCloud.Infrastructure.Data.PartBC.Repositories
         }
 
         #region 方法重载
+        public override Scn Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<Scn>();
+            return set.Include(t => t.ApplicableAircrafts).FirstOrDefault(p => p.Id == (int)id);
+        }
         #endregion
 
 

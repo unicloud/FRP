@@ -34,10 +34,23 @@
         <Property Name="ContractAircraftId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ScnId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
+      <EntityType Name="ContractAircraftDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="RankNumber" Type="Edm.String" />
+        <Property Name="CSCNumber" Type="Edm.String" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+      </EntityType>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Part" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="PartData" m:IsDefaultEntityContainer="true">
         <EntitySet Name="Scns" EntityType="UniCloud.Application.PartBC.DTO.ScnDTO" />
+        <EntitySet Name="ContractAircrafts" EntityType="UniCloud.Application.PartBC.DTO.ContractAircraftDTO" />
       </EntityContainer>
     </Schema>
   </edmx:DataServices>
