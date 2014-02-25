@@ -155,8 +155,17 @@ namespace UniCloud.Application.PartBC.DTO
         /// </summary>
         public string AuditOrganization
         {
-            get;
-            set;
+            get
+            {
+                switch (ScnStatus)
+                {
+                    case 1: return "技术标准室";
+                    case 2: return "机身系统室";
+                    case 3: return "航材计划室";
+                    default: return string.Empty;
+                }
+            }
+            set {  }
         }
 
         /// <summary>
@@ -173,8 +182,8 @@ namespace UniCloud.Application.PartBC.DTO
         /// </summary>
         public DateTime? AuditTime
         {
-            get;
-            set;
+            get { return DateTime.Now; }
+            set{}
         }
 
         /// <summary>

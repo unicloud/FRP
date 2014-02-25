@@ -16,6 +16,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
@@ -68,6 +69,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
             // 创建并注册CollectionView
             Scns = _service.CreateCollection(_context.Scns, o => o.ApplicableAircrafts);
             _service.RegisterCollectionView(Scns);
+            ContractAircrafts = new QueryableDataServiceCollectionView<ContractAircraftDTO>(_context, _context.ContractAircrafts);
         }
 
         #endregion
@@ -93,9 +95,6 @@ namespace UniCloud.Presentation.Part.ManageSCN
         }
 
         #region SCN/MSCN
-
-        private ScnDTO _scn;
-
         /// <summary>
         ///     SCN/MSCN集合
         /// </summary>
@@ -104,6 +103,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
         /// <summary>
         ///     选中的SCN/MSCN
         /// </summary>
+        private ScnDTO _scn;
         public ScnDTO Scn
         {
             get { return _scn; }
@@ -114,11 +114,36 @@ namespace UniCloud.Presentation.Part.ManageSCN
                     _scn = value;
                     if (_scn != null)
                     {
-                        _scn.AuditTime = DateTime.Now;
                         SubmitScnCommand.RaiseCanExecuteChanged();
                         ReviewScnCommand.RaiseCanExecuteChanged();
                     }
                     RaisePropertyChanged(() => Scn);
+                }
+            }
+        }
+        #endregion
+
+        #region 合同飞机
+        /// <summary>
+        ///     合同飞机集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ContractAircraftDTO> ContractAircrafts { get; set; }
+        #endregion
+
+        #region 适用飞机
+        /// <summary>
+        ///     选中的适用飞机
+        /// </summary>
+        private ApplicableAircraftDTO _applicableAircraft;
+        public ApplicableAircraftDTO ApplicableAircraft
+        {
+            get { return _applicableAircraft; }
+            set
+            {
+                if (_applicableAircraft != value)
+                {
+                    _applicableAircraft = value;
+                    RaisePropertyChanged(() => ApplicableAircraft);
                 }
             }
         }
@@ -140,6 +165,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
             if (!Scns.AutoLoad)
                 Scns.AutoLoad = true;
             Scns.Load(true);
+            ContractAircrafts.Load(true);
         }
 
         #endregion
@@ -209,22 +235,20 @@ namespace UniCloud.Presentation.Part.ManageSCN
 
         protected void OnAddApplicableAircraft(object obj)
         {
-            //if (PaymentNotice == null)
-            //{
-            //    MessageAlert("请选择一条付款通知记录！");
-            //    return;
-            //}
+            if (Scn == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
 
-            //SelectInvoicesWindow = new SelectInvoices();
-            //SelectInvoicesWindow.ViewModel.InitData(PaymentNotice);
-            //SelectInvoicesWindow.ShowDialog();
+            var applicableAircraft = new ApplicableAircraftDTO
+            {
+                Id = RandomHelper.Next(),
+                CompleteDate = DateTime.Now,
+            };
 
-            ////var maintainInvoiceLine = new PaymentNoticeLineDTO
-            ////{
-            ////    PaymentNoticeLineId = RandomHelper.Next(),
-            ////};
-
-            ////PaymentNotice.PaymentNoticeLines.Add(maintainInvoiceLine);
+            Scn.ApplicableAircrafts.Add(applicableAircraft);
+            CaculateApplicableAircraftCost();
         }
 
         protected bool CanAddApplicableAircraft(object obj)
@@ -242,16 +266,17 @@ namespace UniCloud.Presentation.Part.ManageSCN
 
         protected void OnRemoveApplicableAircraft(object obj)
         {
-            //if (PaymentNoticeLine == null)
-            //{
-            //    MessageAlert("请选择一条付款通知明细！");
-            //    return;
-            //}
-            //MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
-            //{
-            //    if (arg.DialogResult != true) return;
-            //    PaymentNotice.PaymentNoticeLines.Remove(PaymentNoticeLine);
-            //});
+            if (Scn == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+            {
+                if (arg.DialogResult != true) return;
+                Scn.ApplicableAircrafts.Remove(ApplicableAircraft);
+                CaculateApplicableAircraftCost();
+            });
         }
 
         protected bool CanRemoveApplicableAircraft(object obj)
@@ -364,6 +389,37 @@ namespace UniCloud.Presentation.Part.ManageSCN
             }
         }
 
+        #endregion
+
+        #region 计算适用飞机费用
+        private void CaculateApplicableAircraftCost()
+        {
+            if (Scn.ApplicableAircrafts != null && Scn.ApplicableAircrafts.Count > 0)
+            {
+                if (Scn.ScnType == 0)
+                {
+                    var average = Scn.Cost / Scn.ApplicableAircrafts.Count;
+                    Scn.ApplicableAircrafts.ToList().ForEach(p => p.Cost = average);
+                }
+                else
+                {
+                    var first = Scn.ApplicableAircrafts.First();
+                    first.Cost = Scn.Cost;
+                    Scn.ApplicableAircrafts.ToList().ForEach(p => { if (p.Id != first.Id) p.Cost = 0; });
+                }
+            }
+        }
+        #endregion
+
+        #region Combobox SelectedChanged
+        public void SelectedChanged(object comboboxSelectedItem)
+        {
+            if (comboboxSelectedItem is ScnApplicableType)
+            {
+                Scn.ScnType = (int)(ScnApplicableType)comboboxSelectedItem;
+                CaculateApplicableAircraftCost();
+            }
+        }
         #endregion
         #endregion
     }

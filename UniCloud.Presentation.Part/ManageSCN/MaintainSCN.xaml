@@ -116,74 +116,67 @@
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsFilterable="True"
                                                                             IsGroupable="True"
-                                                                            DataMemberBinding="{Binding ScnNumber}">
-                                                </telerik:GridViewDataColumn>
+                                                                            DataMemberBinding="{Binding ScnNumber}" />
                                                 <telerik:GridViewDataColumn Header="批次号"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsFilterable="True"
                                                                             IsGroupable="True"
-                                                                            DataMemberBinding="{Binding CSCNumber}">
-                                                </telerik:GridViewDataColumn>
+                                                                            DataMemberBinding="{Binding CSCNumber}" />
                                                 <telerik:GridViewDataColumn Header="MOD号"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsFilterable="True"
                                                                             IsGroupable="True"
-                                                                            DataMemberBinding="{Binding ModNumber}">
-                                                </telerik:GridViewDataColumn>
+                                                                            DataMemberBinding="{Binding ModNumber}" />
                                                 <telerik:GridViewDataColumn Header="TS号"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsFilterable="True"
                                                                             IsGroupable="True"
-                                                                            DataMemberBinding="{Binding TsNumber}">
-                                                </telerik:GridViewDataColumn>
+                                                                            DataMemberBinding="{Binding TsNumber}" />
                                                 <telerik:GridViewComboBoxColumn Header="适用类型"
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 IsFilterable="True"
                                                                                 IsGroupable="True"
                                                                                 ItemsSource="{Binding DataContext.ScnTypes,ElementName=ScnMscn,Mode=TwoWay}"
-                                                                                DataMemberBinding="{Binding ScnTypeString}">
-                                                </telerik:GridViewComboBoxColumn>
-                                                <telerik:GridViewDataColumn Header="费用"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
-                                                                            DataMemberBinding="{Binding Cost}">
-                                                </telerik:GridViewDataColumn>
+                                                                                DataMemberBinding="{Binding ScnTypeString}" />
+                                                <telerik:GridViewMaskedInputColumn Header="费用"
+                                                                                   IsSortable="True"
+                                                                                   MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                   TextAlignment="Right"
+                                                                                   HeaderTextAlignment="Center"
+                                                                                   DataMemberBinding="{Binding Cost,StringFormat={StaticResource CurrencyStringFormat}}"
+                                                                                   MaskType="Numeric"
+                                                                                   Mask="###,###,###.##"
+                                                                                   FooterTextAlignment="Right" />
                                                 <telerik:GridViewDataColumn Header="确认日期"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsFilterable="True"
                                                                             IsGroupable="True"
-                                                                            DataMemberBinding="{Binding CheckDate, StringFormat={StaticResource DateStringFormat}}">
-                                                </telerik:GridViewDataColumn>
+                                                                            DataMemberBinding="{Binding CheckDate, StringFormat={StaticResource DateStringFormat}}" />
                                                 <telerik:GridViewDataColumn Header="状态"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsReadOnly="True"
                                                                             IsFilterable="True"
                                                                             IsGroupable="True"
-                                                                            DataMemberBinding="{Binding ScnStatus, ConverterParameter=ScnStatus, Converter={StaticResource EnumToStringConverter}}">
-                                                </telerik:GridViewDataColumn>
+                                                                            DataMemberBinding="{Binding ScnStatus, ConverterParameter=ScnStatus, Converter={StaticResource EnumToStringConverter}}" />
                                                 <telerik:GridViewDataColumn Header="文件名"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsReadOnly="True"
                                                                             IsFilterable="True"
                                                                             IsGroupable="True"
-                                                                            DataMemberBinding="{Binding ScnDocName}">
-                                                </telerik:GridViewDataColumn>
+                                                                            DataMemberBinding="{Binding ScnDocName}" />
                                                 <telerik:GridViewDataColumn Header="描述"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsFilterable="True"
                                                                             IsGroupable="True"
-                                                                            DataMemberBinding="{Binding Description}">
-                                                </telerik:GridViewDataColumn>
+                                                                            DataMemberBinding="{Binding Description}" />
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                     </Grid>
@@ -240,29 +233,36 @@
                                                              FontSize="{StaticResource TextFontSize}"
                                                              ValidatesOnDataErrors="InEditMode"
                                                              IsBusy="{Binding Scns.IsBusy}"
-                                                             ItemsSource="{Binding Scn.ApplicableAircrafts}">
+                                                             ItemsSource="{Binding Scn.ApplicableAircrafts,Mode=TwoWay}"
+                                                             SelectedItem="{Binding ApplicableAircraft,Mode=TwoWay}">
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="序号"
                                                                          HeaderTextAlignment="Center" />
-                                                <telerik:GridViewDataColumn Header="合同飞机"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True" />
-                                                <telerik:GridViewDataColumn Header="费用"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
-                                                                            DataMemberBinding="{Binding Cost}" />
+                                                <telerik:GridViewComboBoxColumn Header="合同飞机"
+                                                                                HeaderTextAlignment="Center"
+                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                IsFilterable="True"
+                                                                                IsGroupable="True"
+                                                                                ItemsSource="{Binding DataContext.ContractAircrafts,ElementName=ScnMscn,Mode=TwoWay}"
+                                                                                DataMemberBinding="{Binding ContractAircraftId}"
+                                                                                SelectedValueMemberPath="Id"
+                                                                                DisplayMemberPath="RankNumber" />
+                                                <telerik:GridViewMaskedInputColumn Header="费用"
+                                                                                   IsSortable="True"
+                                                                                   IsReadOnly="True"
+                                                                                   MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                                   TextAlignment="Right"
+                                                                                   HeaderTextAlignment="Center"
+                                                                                   DataMemberBinding="{Binding Cost,StringFormat={StaticResource CurrencyStringFormat}}"
+                                                                                   MaskType="Numeric"
+                                                                                   Mask="###,###,###.##"
+                                                                                   FooterTextAlignment="Right" />
                                                 <telerik:GridViewDataColumn Header="完成日期"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             IsFilterable="True"
                                                                             IsGroupable="True"
-                                                                            DataMemberBinding="{Binding CompleteDate}" />
+                                                                            DataMemberBinding="{Binding CompleteDate,StringFormat={StaticResource DateStringFormat}}" />
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                     </Grid>
@@ -325,7 +325,7 @@
                                                      Grid.Column="2"
                                                      Margin="0,3"
                                                      telerik:StyleManager.Theme="Windows8"
-                                                     IsReadOnly="{Binding OnlyView,Mode=TwoWay}"
+                                                     IsReadOnly="True"
                                                      Text="{Binding Scn.AuditOrganization, Mode=TwoWay}" />
                                             <TextBlock Grid.Row="1"
                                                        Grid.Column="1"
