@@ -144,6 +144,11 @@
       <HintPath>..\packages\Telerik.Windows.Controls.2.0.0\lib\Telerik.Windows.Controls.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Telerik.Windows.Controls.Chart, Version=2013.3.1016.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Telerik.Windows.Controls.Chart.2.0.0\lib\Telerik.Windows.Controls.Chart.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Telerik.Windows.Controls.Data, Version=2013.3.1204.1050, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Telerik.Windows.Controls.Data.2.0.0\lib\Telerik.Windows.Controls.Data.dll</HintPath>
@@ -195,10 +200,17 @@
       <DependentUpon>SpecialConfigView.xaml</DependentUpon>
     </Compile>
     <Compile Include="EngineConfig\SpecialConfigVm.cs" />
-    <Compile Include="ManageSCN\MaintainSCN.xaml.cs">
-      <DependentUpon>MaintainSCN.xaml</DependentUpon>
+    <Compile Include="ManageSCN\AuditOrganizations.xaml.cs">
+      <DependentUpon>AuditOrganizations.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ManageSCN\MaintainSCNVm.cs" />
+    <Compile Include="ManageSCN\CompareScn.xaml.cs">
+      <DependentUpon>CompareScn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageSCN\CompareScnVm.cs" />
+    <Compile Include="ManageSCN\MaintainScn.xaml.cs">
+      <DependentUpon>MaintainScn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageSCN\MaintainScnVm.cs" />
     <Compile Include="ManageTS\PnRegChildView.xaml.cs">
       <DependentUpon>PnRegChildView.xaml</DependentUpon>
     </Compile>
@@ -257,7 +269,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ManageSCN\MaintainSCN.xaml">
+    <Page Include="ManageSCN\AuditOrganizations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageSCN\CompareScn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageSCN\MaintainScn.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

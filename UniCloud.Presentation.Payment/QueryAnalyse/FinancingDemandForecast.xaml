@@ -168,7 +168,7 @@
                                                                  ShowLabels="True"
                                                                  LabelFormat="yyyy/MM"
                                                                  Foreground="Black"
-                                                                 MajorTickStyle="{StaticResource tickStyle}" />
+                                                                 MajorTickStyle="{StaticResource TickStyle}" />
                             </telerik:RadCartesianChart.HorizontalAxis>
                             <telerik:RadCartesianChart.VerticalAxis>
                                 <telerik:LinearAxis Title="单位(万)"

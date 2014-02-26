@@ -933,12 +933,13 @@ namespace UniCloud.Presentation.Shell
             var menu811 = new MenuItem
             {
                 Text = "维护SCN",
-                NavUri = "UniCloud.Presentation.Part.ManageSCN.MaintainSCN"
+                NavUri = "UniCloud.Presentation.Part.ManageSCN.MaintainScn"
             };
 
             var menu812 = new MenuItem
             {
                 Text = "对比SCN",
+                NavUri = "UniCloud.Presentation.Part.ManageSCN.CompareScn"
             };
 
             menu81.Items.Add(menu811);

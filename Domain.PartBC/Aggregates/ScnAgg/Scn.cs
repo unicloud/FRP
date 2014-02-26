@@ -46,6 +46,15 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
         #region 属性
 
         /// <summary>
+        /// 标题
+        /// </summary>
+        public string Title
+        {
+            get;
+            internal set;
+        }
+
+        /// <summary>
         /// 确认日期
         /// </summary>
         public DateTime CheckDate
@@ -356,11 +365,16 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
         /// <param name="auditNotes">审核意见</param>
         public void SetAuditMsg(string auditOrganization, string auditor, DateTime? auditTime, string auditNotes)
         {
-            AuditOrganization = auditOrganization;
-            Auditor = auditor;
-            AuditTime = auditTime;
-            AuditNotes = auditNotes;
-            AuditHistory = auditOrganization + "-" + auditor + "  " + auditTime.GetValueOrDefault().ToString("yyyy-MM-dd") + "\r\n" + auditNotes + "\r\n\r\n" + AuditHistory;
+            if (!string.IsNullOrEmpty(auditNotes))
+            {
+                AuditOrganization = auditOrganization;
+                Auditor = auditor;
+                AuditTime = auditTime;
+                AuditNotes = auditNotes;
+                AuditHistory = auditOrganization + "-" + auditor + "  " +
+                               auditTime.GetValueOrDefault().ToString("yyyy-MM-dd") + "\r\n" + auditNotes + "\r\n\r\n" +
+                               AuditHistory;
+            }
         }
 
         /// <summary>

@@ -46,6 +46,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.ScnAgg
         #region 属性
 
         /// <summary>
+        /// 标题
+        /// </summary>
+        public string Title
+        {
+            get;
+            internal set;
+        }
+
+        /// <summary>
         /// 确认日期
         /// </summary>
         public DateTime CheckDate

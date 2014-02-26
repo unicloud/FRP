@@ -42,6 +42,15 @@ namespace UniCloud.Application.PartBC.DTO
         public int Id { get; set; }
 
         /// <summary>
+        /// 标题
+        /// </summary>
+        public string Title
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 确认日期
         /// </summary>
         public DateTime CheckDate
@@ -153,10 +162,25 @@ namespace UniCloud.Application.PartBC.DTO
         /// <summary>
         /// 审核部门
         /// </summary>
+        private string _auditOrganization;
         public string AuditOrganization
         {
-            get;
-            set;
+            get
+            {
+                if (string.IsNullOrEmpty(_auditOrganization))
+                {
+                    switch (ScnStatus)
+                    {
+                        case 0: return Domain.Common.Enums.ScnStatus.技术标准室审核.ToString().Replace("审核", string.Empty);
+                        case 1: return Domain.Common.Enums.ScnStatus.机身系统室审核.ToString().Replace("审核", string.Empty);
+                        case 2: return Domain.Common.Enums.ScnStatus.航材计划室审核.ToString().Replace("审核", string.Empty);
+                        case 3: return Domain.Common.Enums.ScnStatus.机务工程部审核.ToString().Replace("审核", string.Empty);
+                        default: return string.Empty;
+                    }
+                }
+                return _auditOrganization;
+            }
+            set { _auditOrganization = value; }
         }
 
         /// <summary>
@@ -173,8 +197,8 @@ namespace UniCloud.Application.PartBC.DTO
         /// </summary>
         public DateTime? AuditTime
         {
-            get;
-            set;
+            get { return DateTime.Now; }
+            set { }
         }
 
         /// <summary>

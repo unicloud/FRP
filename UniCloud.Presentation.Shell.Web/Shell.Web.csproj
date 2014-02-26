@@ -63,7 +63,7 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="Telerik.Reporting.Service, Version=7.2.13.1016, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Telerik.Reporting.Service.dll</HintPath>
+      <HintPath>..\packages\Telerik.Reporting.Service.2.0.0\lib\Telerik.Reporting.Service.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +95,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\FRPClient.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
