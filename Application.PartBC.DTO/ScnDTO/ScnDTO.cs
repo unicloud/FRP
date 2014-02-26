@@ -42,6 +42,15 @@ namespace UniCloud.Application.PartBC.DTO
         public int Id { get; set; }
 
         /// <summary>
+        /// 标题
+        /// </summary>
+        public string Title
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 确认日期
         /// </summary>
         public DateTime CheckDate

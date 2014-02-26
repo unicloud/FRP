@@ -32,6 +32,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+            Property(p => p.Title).HasColumnName("Title");
             Property(p => p.CheckDate).HasColumnName("CheckDate").HasColumnType("datetime2");
             Property(p => p.CSCNumber).HasColumnName("CSCNumber").HasMaxLength(100);
             Property(p => p.ModNumber).HasColumnName("ModNumber").HasMaxLength(100);
