@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,18 +11,25 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.PartBC.BasicConfigGroupServices;
+using UniCloud.Application.PartBC.ConfigGroupServices;
+using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.BasicConfigGroupQueries;
+using UniCloud.Application.PartBC.Query.ConfigGroupQueries;
 using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
+using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
+using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
 using UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.PartBC.Repositories;
@@ -45,16 +53,20 @@ namespace UniCloud.Application.PartBC.Tests.Services
 
 
 
-            #region 基本构型组相关配置，包括查询，应用服务，仓储注册
+                #region 基本构型组相关配置，包括查询，应用服务，仓储注册
 
-.RegisterType<IBasicConfigGroupQuery, BasicConfigGroupQuery>()
+                .RegisterType<IBasicConfigGroupQuery, BasicConfigGroupQuery>()
                 .RegisterType<IBasicConfigGroupAppService, BasicConfigGroupAppService>()
                 .RegisterType<IBasicConfigGroupRepository, BasicConfigGroupRepository>()
                 .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
                 .RegisterType<ITechnicalSolutionRepository, TechnicalSolutionRepository>()
-            #endregion
+                #endregion
 
-;
+                .RegisterType<IConfigGroupQuery, ConfigGroupQuery>()
+                .RegisterType<IConfigGroupAppService, ConfigGroupAppService>()
+                .RegisterType<IContractAircraftRepository, ContractAircraftRepository>()
+                .RegisterType<ISpecialConfigRepository, SpecialConfigRepository>()
+                ;
         }
 
         [TestCleanup]
@@ -66,10 +78,10 @@ namespace UniCloud.Application.PartBC.Tests.Services
         public void GetBasicConfigGroups()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IBasicConfigGroupAppService>();
+            var service = DefaultContainer.Resolve<IConfigGroupAppService>();
 
             // Act
-            var result = service.GetBasicConfigGroups().ToList();
+            List<ConfigGroupDTO> result = service.GetConfigGroups().ToList();
 
             // Assert
             Assert.IsTrue(result.Any());
@@ -82,9 +94,9 @@ namespace UniCloud.Application.PartBC.Tests.Services
             var aircraftTypeContext = DefaultContainer.Resolve<IAircraftTypeRepository>();
             var tsContext = DefaultContainer.Resolve<ITechnicalSolutionRepository>();
             //获取
-            var aircraftType = aircraftTypeContext.GetAll().ToList().First();
+            AircraftType aircraftType = aircraftTypeContext.GetAll().ToList().First();
 
-            var newBasicConfigGroup = BasicConfigGroupFactory.CreateBasicConfigGroup();
+            BasicConfigGroup newBasicConfigGroup = BasicConfigGroupFactory.CreateBasicConfigGroup();
             if (newBasicConfigGroup != null)
             {
                 newBasicConfigGroup.SetAircraftType(aircraftType);
@@ -92,9 +104,9 @@ namespace UniCloud.Application.PartBC.Tests.Services
                 newBasicConfigGroup.SetGroupNo("Engine0001");
                 newBasicConfigGroup.SetStartDate(DateTime.Now);
 
-                var ts = tsContext.GetAll().ToList().First();
+                TechnicalSolution ts = tsContext.GetAll().ToList().First();
                 // 添加基本构型
-                var newBasicConfig = newBasicConfigGroup.AddNewBasicConfig();
+                BasicConfig newBasicConfig = newBasicConfigGroup.AddNewBasicConfig();
                 newBasicConfig.SetDescription("adg");
                 newBasicConfig.SetItemNo("asdg");
                 newBasicConfig.SetTechnicalSolution(ts);
@@ -102,6 +114,7 @@ namespace UniCloud.Application.PartBC.Tests.Services
             context.Add(newBasicConfigGroup);
             context.UnitOfWork.Commit();
         }
+
         #endregion
     }
 }

@@ -54,6 +54,8 @@
     <Compile Include="AircraftTypeQueries\IAircraftTypeQuery.cs" />
     <Compile Include="BasicConfigGroupQueries\BasicConfigGroupQuery.cs" />
     <Compile Include="BasicConfigGroupQueries\IBasicConfigGroupQuery.cs" />
+    <Compile Include="ConfigGroupQueries\ConfigGroupQuery.cs" />
+    <Compile Include="ConfigGroupQueries\IConfigGroupQuery.cs" />
     <Compile Include="ContractAircraftQueries\ContractAircraftQuery.cs" />
     <Compile Include="ContractAircraftQueries\IContractAircraftQuery.cs" />
     <Compile Include="CtrlUnitQueries\CtrlUnitQuery.cs" />

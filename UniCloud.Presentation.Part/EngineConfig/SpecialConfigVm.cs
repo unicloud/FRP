@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Windows;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
@@ -71,6 +72,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
             TechnicalSolutions = new QueryableDataServiceCollectionView<TechnicalSolutionDTO>(_context, _context.TechnicalSolutions);
 
             ContractAircrafts = new QueryableDataServiceCollectionView<ContractAircraftDTO>(_context, _context.ContractAircrafts);
+
         }
 
         /// <summary>
@@ -191,6 +193,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
                         if (specialConfig.ContractAircraftId == value.Id)
                             ViewSpecialConfigs.Add(specialConfig);
                     }
+                    _buttonVisible = _selContractAircraft.BasicConfigGroupId == null ? Visibility.Collapsed : Visibility.Visible;
                     RaisePropertyChanged(() => SelContractAircraft);
                     RaisePropertyChanged(() => ViewSpecialConfigs);
 
@@ -226,6 +229,27 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         #endregion
 
+        #region 按钮是否可见
+
+        private Visibility _buttonVisible = Visibility.Collapsed;
+
+        /// <summary>
+        /// 按钮是否可见
+        /// </summary>
+        public Visibility ButtonVisible
+        {
+            get { return this._buttonVisible; }
+            private set
+            {
+                if (this._buttonVisible != value)
+                {
+                    _buttonVisible = value;
+                    this.RaisePropertyChanged(() => this.ButtonVisible);
+                }
+            }
+        }
+
+        #endregion
         #endregion
 
         #endregion

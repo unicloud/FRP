@@ -48,6 +48,8 @@
     <Compile Include="AircraftTypeServices\IAircraftTypeAppService.cs" />
     <Compile Include="BasicConfigGroupServices\BasicConfigGroupAppService.cs" />
     <Compile Include="BasicConfigGroupServices\IBasicConfigGroupAppService.cs" />
+    <Compile Include="ConfigGroupServices\ConfigGroupAppService.cs" />
+    <Compile Include="ConfigGroupServices\IConfigGroupAppService.cs" />
     <Compile Include="ContractAircraftServices\ContractAircraftAppService.cs" />
     <Compile Include="ContractAircraftServices\IContractAircraftAppService.cs" />
     <Compile Include="CtrlUnitServices\CtrlUnitAppService.cs" />

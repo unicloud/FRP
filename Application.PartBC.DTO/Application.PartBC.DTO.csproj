@@ -56,6 +56,11 @@
     <Compile Include="AircraftTypeDTO\AircraftTypeDTO.cs" />
     <Compile Include="BasicConfigGroupDTO\BasicConfigDTO.cs" />
     <Compile Include="BasicConfigGroupDTO\BasicConfigGroupDTO.cs" />
+    <Compile Include="ConfigGroupDTO\BcGroupDTO.cs" />
+    <Compile Include="ConfigGroupDTO\CaDTO.cs" />
+    <Compile Include="ConfigGroupDTO\ConfigGroupDTO.cs" />
+    <Compile Include="ConfigGroupDTO\GroupAcDTO.cs" />
+    <Compile Include="ConfigGroupDTO\TsDTO.cs" />
     <Compile Include="ContractAircraftDTO\ContractAircraftDTO.cs" />
     <Compile Include="CtrlUnitDTO\CtrlUnitDTO.cs" />
     <Compile Include="MaintainCtrlDTO\ItemMaintainCtrlDTO.cs" />

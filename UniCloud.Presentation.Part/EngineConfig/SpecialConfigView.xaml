@@ -38,7 +38,7 @@
                             FlowDirection="LeftToRight">
             <telerik:RadSplitContainer Orientation="Horizontal">
                 <telerik:RadSplitContainer Orientation="Vertical"
-                                           telerik:ProportionalStackPanel.RelativeSize="300, 600">
+                                           telerik:ProportionalStackPanel.RelativeSize="380, 600">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="合同飞机"
                                          IsPinned="True"
@@ -111,10 +111,30 @@
                                          FontSize="{StaticResource TextFontSize}"
                                          ContextMenuTemplate="{x:Null}">
                             <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Text="基本构型组"
+                                           FontSize="15"/>
+                                <telerik:RadComboBox ItemsSource="{Binding BasicConfigGroups}"
+                                                     DisplayMemberPath="GroupNo"
+                                                     SelectedValuePath="Id"
+                                                     Text=""
+                                                     Grid.Column="1"
+                                                     Margin="20"
+                                                     EmptyText="还未设置基本构型组"
+                                                     IsEditable="True"
+                                                     IsReadOnly="True"
+                                                     SelectedIndex="0"
+                                                     VerticalAlignment="Center" />
+                                <Button Grid.Column="2"
+                                        Content="查看基本构型"
+                                        Margin="0,13"
+                                        Visibility="{Binding ButtonVisible}"/>
                             </Grid>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>

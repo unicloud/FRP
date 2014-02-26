@@ -4,7 +4,12 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.ServiceModel.Web;
 using System.Web;
+using UniCloud.Application.PartBC.ConfigGroupServices;
+using UniCloud.Application.PartBC.DTO;
+using UniCloud.Infrastructure.Utilities.Container;
 
 namespace UniCloud.DistributedServices.Part
 {
@@ -27,6 +32,8 @@ namespace UniCloud.DistributedServices.Part
             #endregion
 
             #region 服务操作访问控制
+
+            config.SetServiceOperationAccessRule("GetConfigGroups", ServiceOperationRights.All);
 
             #endregion
 
@@ -59,6 +66,17 @@ namespace UniCloud.DistributedServices.Part
             cachePolicy.VaryByParams["*"] = true;
 
             cachePolicy.SetValidUntilExpires(true);
+        }
+
+        #endregion
+
+        #region 构型组查询
+
+        [WebGet]
+        public List<ConfigGroupDTO> GetConfigGroups()
+        {
+            var configGroupService = DefaultContainer.Resolve<IConfigGroupAppService>();
+            return configGroupService.GetConfigGroups();
         }
 
         #endregion
