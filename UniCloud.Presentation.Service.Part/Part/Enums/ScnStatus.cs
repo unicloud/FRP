@@ -19,10 +19,10 @@ namespace UniCloud.Presentation.Service.Part.Part.Enums
     /// </summary>
     public enum ScnStatus
     {
-        录入 = 0,
-        技术标准室审核 = 1,
-        机身系统室审核 = 2,
-        航材计划室审核 = 3,
+        技术标准室审核 = 0,
+        机身系统室审核 = 1,
+        航材计划室审核 = 2,
+        机务工程部审核 = 3,
         生效 = 4,
     }
 }

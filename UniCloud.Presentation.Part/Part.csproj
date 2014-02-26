@@ -200,6 +200,9 @@
       <DependentUpon>SpecialConfigView.xaml</DependentUpon>
     </Compile>
     <Compile Include="EngineConfig\SpecialConfigVm.cs" />
+    <Compile Include="ManageSCN\AuditOrganizations.xaml.cs">
+      <DependentUpon>AuditOrganizations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManageSCN\CompareScn.xaml.cs">
       <DependentUpon>CompareScn.xaml</DependentUpon>
     </Compile>
@@ -263,6 +266,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EngineConfig\SpecialConfigView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageSCN\AuditOrganizations.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

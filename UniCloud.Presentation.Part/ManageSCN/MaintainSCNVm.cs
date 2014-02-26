@@ -19,6 +19,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -298,14 +299,15 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 MessageAlert("请选择一条记录！");
                 return;
             }
-            Scn.ScnStatus = (int)ScnStatus.技术标准室审核;
+            var auditOrganizations = new AuditOrganizations(Scn) {WindowStartupLocation = WindowStartupLocation.CenterScreen};
+            auditOrganizations.ShowDialog();
         }
 
         protected bool CanSubmitScn(object obj)
         {
             if (Scn != null)
             {
-                if (Scn.ScnStatus < 1)
+                if (Scn.ScnStatus == (int)ScnStatus.技术标准室审核)
                 {
                     return true;
                 }
@@ -321,20 +323,6 @@ namespace UniCloud.Presentation.Part.ManageSCN
         /// </summary>
         public DelegateCommand<object> ReviewScnCommand { get; private set; }
 
-        private bool _onlyView;
-        public bool OnlyView
-        {
-            get
-            {
-                return _onlyView;
-            }
-            set
-            {
-                _onlyView = value;
-                RaisePropertyChanged("OnlyView");
-            }
-        }
-
         protected void OnReviewScn(object obj)
         {
             if (Scn == null)
@@ -342,30 +330,19 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 MessageAlert("请选择一条记录！");
                 return;
             }
-            switch (Scn.ScnStatus)
-            {
-                case 1:
-                    Scn.ScnStatus = 2; break;
-                case 2:
-                    Scn.ScnStatus = 3; break;
-                case 3:
-                    Scn.ScnStatus = 4; break;
-            }
+            Scn.ScnStatus =(int) ScnStatus.技术标准室审核;
         }
 
         protected bool CanReviewScn(object obj)
         {
-            OnlyView = true;
             if (Scn != null)
             {
-                if (Scn.ScnStatus > 0 && Scn.ScnStatus < 4)
+                if (Scn.ScnStatus > (int)ScnStatus.技术标准室审核 && Scn.ScnStatus < (int)ScnStatus.生效)
                 {
-                    OnlyView = false;
-                    return !OnlyView;
+                    return true;
                 }
             }
-            OnlyView = true;
-            return !OnlyView;
+            return false;
         }
 
         #endregion

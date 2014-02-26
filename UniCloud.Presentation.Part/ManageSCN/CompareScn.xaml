@@ -11,7 +11,5 @@
              d:DesignWidth="900"
              Name="CompareScnMscn">
 
-    <Grid x:Name="LayoutRoot" Background="White">
-
-    </Grid>
+    <Grid x:Name="LayoutRoot" Background="White" />
 </UserControl>

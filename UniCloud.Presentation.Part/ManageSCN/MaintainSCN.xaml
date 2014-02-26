@@ -304,10 +304,10 @@
                                     <Grid Row="1">
                                         <Grid>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="15"></ColumnDefinition>
-                                                <ColumnDefinition Width="65"></ColumnDefinition>
-                                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                                                <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                                                <ColumnDefinition Width="15" />
+                                                <ColumnDefinition Width="65" />
+                                                <ColumnDefinition Width="3*" />
+                                                <ColumnDefinition Width="0.1*" />
                                             </Grid.ColumnDefinitions>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="35" />
@@ -336,7 +336,6 @@
                                             <TextBox Grid.Column="2"
                                                      Margin="0,3"
                                                      Grid.Row="1"
-                                                     IsReadOnly="{Binding OnlyView,Mode=TwoWay}"
                                                      telerik:StyleManager.Theme="Windows8"
                                                      Text="{Binding Scn.Auditor, Mode=TwoWay}" />
                                             <TextBlock Grid.Row="2"
@@ -361,7 +360,6 @@
                                                      Margin="0,3"
                                                      Grid.Row="3"
                                                      Grid.RowSpan="2"
-                                                     IsReadOnly="{Binding OnlyView,Mode=TwoWay}"
                                                      telerik:StyleManager.Theme="Windows8"
                                                      Text="{Binding Scn.AuditNotes, Mode=TwoWay}" />
                                         </Grid>
