@@ -16,6 +16,7 @@
 #region 命名空间
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
+using UniCloud.Domain.PartBC.Aggregates.AirBusScnAgg;
 using UniCloud.Domain.PartBC.Aggregates.ScnAgg;
 #endregion
 
@@ -32,5 +33,12 @@ namespace UniCloud.Application.PartBC.Query.ScnQueries
         /// <param name="query">查询表达式</param>
         ///  <returns>ScnDTO集合</returns>
         IQueryable<ScnDTO> ScnDTOQuery(QueryBuilder<Scn> query);
+
+        /// <summary>
+        /// AirBusScnScn查询。
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        ///  <returns>AirBusScnScnDTO集合</returns>
+        IQueryable<AirBusScnDTO> AirBusScnDTOQuery(QueryBuilder<AirBusScn> query);
     }
 }

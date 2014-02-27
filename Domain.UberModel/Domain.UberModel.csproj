@@ -206,6 +206,7 @@
     <Compile Include="Aggregates\RelatedDocAgg\RelatedDocSpecifications.cs" />
     <Compile Include="Aggregates\RequestAgg\ApprovalHistory.cs" />
     <Compile Include="Aggregates\RequestAgg\Request.cs" />
+    <Compile Include="Aggregates\ScnAgg\AirBusScn.cs" />
     <Compile Include="Aggregates\ScnAgg\ApplicableAircraft.cs" />
     <Compile Include="Aggregates\ScnAgg\Scn.cs" />
     <Compile Include="Aggregates\SnRegAgg\LifeMonitor.cs" />

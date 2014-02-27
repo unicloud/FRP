@@ -10,6 +10,119 @@
              d:DesignHeight="600"
              d:DesignWidth="900"
              Name="CompareScnMscn">
-
-    <Grid x:Name="LayoutRoot" Background="White" />
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False">
+            <telerik:RadSplitContainer>
+                <telerik:RadPaneGroup>
+                    <telerik:RadPane Header="对比SCN/MSCN"
+                                     FontSize="{StaticResource HeaderFontSize}"
+                                     IsPinned="True"
+                                     CanFloat="False"
+                                     CanDockInDocumentHost="False"
+                                     CanUserClose="False"
+                                     CanUserPin="False"
+                                     ContextMenuTemplate="{x:Null}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="30" />
+                            </Grid.RowDefinitions>
+                            <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                Margin="0 0 0 -1"
+                                                OverflowButtonVisibility="Collapsed">
+                                <TextBox Text="空客在线SCN/MSCN清单"
+                                         IsReadOnly="True" />
+                                <telerik:RadToolBarSeparator />
+                                <telerik:RadButton Margin="2,2,2,-2"
+                                                   Command="{Binding ImportMscnListCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/AddDocument.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="导入" />
+                                </telerik:RadButton>
+                                <telerik:RadButton Margin="4,2,2,-2"
+                                                   Command="{Binding SaveMscnListCommand}"
+                                                   CommandParameter="{Binding AirBusScns}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Save.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="保存" />
+                                </telerik:RadButton>
+                                <telerik:RadToolBarSeparator />
+                                <TextBlock Text="批次号："/>
+                                <TextBox Width="100"
+                                         Text="{Binding CscNumber,Mode=TwoWay}"/>
+                                <telerik:RadButton Margin="4,2,2,-2"
+                                                   Command="{Binding CompareMscnListCommand}">
+                                    <Image Source="/UniCloud.Presentation;component/Images/Quill.png"
+                                           Stretch="Fill"
+                                           ToolTipService.ToolTip="对比" />
+                                </telerik:RadButton>
+                            </telerik:RadToolBar>
+                            <Grid Row="1">
+                                <telerik:RadGridView x:Name="SCNList"
+                                                     AutoExpandGroups="True"
+                                                     AutoGenerateColumns="False"
+                                                     CanUserSortColumns="True"
+                                                     RowIndicatorVisibility="Visible"
+                                                     CanUserFreezeColumns="False"
+                                                     FontSize="{StaticResource TextFontSize}"
+                                                     ValidatesOnDataErrors="InEditMode"
+                                                     ItemsSource="{Binding CompareMscns,Mode=TwoWay}">
+                                    <telerik:RadGridView.Columns>
+                                        <uc:DataPageSerialColumn Header="序号"
+                                                                 HeaderTextAlignment="Center" />
+                                        <telerik:GridViewDataColumn Header="编号"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsFilterable="True"
+                                                                    IsGroupable="True"
+                                                                    DataMemberBinding="{Binding SysMscnNo}" />
+                                        <telerik:GridViewDataColumn Header="标题"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsFilterable="True"
+                                                                    IsGroupable="True"
+                                                                    DataMemberBinding="{Binding SysTitle}" />
+                                        <telerik:GridViewDataColumn Header="MOD号"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsFilterable="True"
+                                                                    IsGroupable="True"
+                                                                    DataMemberBinding="{Binding SysModNo}" />
+                                        <telerik:GridViewDataColumn Header="编号"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsFilterable="True"
+                                                                    IsGroupable="True"
+                                                                    DataMemberBinding="{Binding AirBusMscnNo}" />
+                                        <telerik:GridViewDataColumn Header="标题"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsFilterable="True"
+                                                                    IsGroupable="True"
+                                                                    DataMemberBinding="{Binding AirBusTitle}" />
+                                        <telerik:GridViewDataColumn Header="MOD号"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    IsFilterable="True"
+                                                                    IsGroupable="True"
+                                                                    DataMemberBinding="{Binding AirBusModNo}" />
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
+                            </Grid>
+                        </Grid>
+                    </telerik:RadPane>
+                </telerik:RadPaneGroup>
+            </telerik:RadSplitContainer>
+        </telerik:RadDocking>
+    </Grid>
 </UserControl>

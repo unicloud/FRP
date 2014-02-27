@@ -156,6 +156,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<RelatedDoc> _relatedDocs;
         private IDbSet<Request> _requests;
         private IDbSet<Scn> _scns;
+        private IDbSet<AirBusScn> _airBusScns;
         private IDbSet<SnReg> _snRegs;
         private IDbSet<SpecialConfig> _specialConfigs;
         private IDbSet<SupplierCompany> _supplierCompanies;
@@ -440,6 +441,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             get { return _scns ?? (_scns = base.Set<Scn>()); }
         }
 
+        public IDbSet<AirBusScn> AirBusScns
+        {
+            get { return _airBusScns ?? (_airBusScns = base.Set<AirBusScn>()); }
+        }
         public IDbSet<SnReg> SnRegs
         {
             get { return _snRegs ?? (_snRegs = base.Set<SnReg>()); }
@@ -930,6 +935,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 .Add(new ScnEntityConfiguration())
                 .Add(new ApplicableAircraftEntityConfiguration())
+                .Add(new AirBusScnEntityConfiguration())
                 #endregion
 
                 #region SnRegAgg

@@ -21,6 +21,7 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.ScnQueries;
+using UniCloud.Domain.PartBC.Aggregates.AirBusScnAgg;
 using UniCloud.Domain.PartBC.Aggregates.ScnAgg;
 #endregion
 
@@ -34,11 +35,13 @@ namespace UniCloud.Application.PartBC.ScnServices
     {
         private readonly IScnQuery _scnQuery;
         private readonly IScnRepository _scnRepository;
+        private readonly IAirBusScnRepository _airBusScnRepository;
 
-        public ScnAppService(IScnQuery scnQuery, IScnRepository scnRepository)
+        public ScnAppService(IScnQuery scnQuery, IScnRepository scnRepository, IAirBusScnRepository airBusScnRepository)
         {
             _scnQuery = scnQuery;
             _scnRepository = scnRepository;
+            _airBusScnRepository = airBusScnRepository;
         }
 
         #region ScnDTO
@@ -178,6 +181,80 @@ namespace UniCloud.Application.PartBC.ScnServices
             dstScn.ApplicableAircrafts = applicableAircrafts;
         }
         #endregion
+        #endregion
+
+        #region AirBusScnDTO
+
+        /// <summary>
+        /// 获取所有AirBusScn。
+        /// </summary>
+        public IQueryable<AirBusScnDTO> GetAirBusScns()
+        {
+            var queryBuilder =
+               new QueryBuilder<AirBusScn>();
+            return _scnQuery.AirBusScnDTOQuery(queryBuilder);
+        }
+
+        /// <summary>
+        ///  新增AirBusScn。
+        /// </summary>
+        /// <param name="dto">AirBusScnDTO。</param>
+        [Insert(typeof(AirBusScnDTO))]
+        public void InsertAirBusScn(AirBusScnDTO dto)
+        {
+            //创建SCN
+            var newScn = _airBusScnRepository.Get(dto.CSCNumber, dto.ScnNumber);
+            if (newScn == null)
+            {
+                newScn = AirBusScnFactory.CreateAirBusScn();
+                AirBusScnFactory.SetAirBusScn(newScn, dto.Title, dto.CSCNumber, dto.ModNumber, dto.ScnNumber, dto.ScnStatus, dto.Description);
+                _airBusScnRepository.Add(newScn);
+            }
+            else
+            {
+                AirBusScnFactory.SetAirBusScn(newScn, dto.Title, dto.CSCNumber, dto.ModNumber, dto.ScnNumber, dto.ScnStatus, dto.Description);
+                _airBusScnRepository.Modify(newScn);
+            }
+        }
+
+        /// <summary>
+        ///  更新AirBusScn。
+        /// </summary>
+        /// <param name="dto">AirBusScnDTO。</param>
+        [Update(typeof(AirBusScnDTO))]
+        public void ModifyScn(AirBusScnDTO dto)
+        {
+            //获取需要更新的对象
+            var updateScn = _airBusScnRepository.Get(dto.Id);
+
+            if (updateScn != null)
+            {
+                //更新主表：
+                AirBusScnFactory.SetAirBusScn(updateScn, dto.Title, dto.CSCNumber, dto.ModNumber,
+                dto.ScnNumber, dto.ScnStatus, dto.Description);
+            }
+            _airBusScnRepository.Modify(updateScn);
+        }
+
+        /// <summary>
+        ///  删除AirBusScn。
+        /// </summary>
+        /// <param name="dto">AirBusScnDTO。</param>
+        [Delete(typeof(AirBusScnDTO))]
+        public void DeleteAirBusScn(ScnDTO dto)
+        {
+            if (dto == null)
+            {
+                throw new ArgumentException("参数为空！");
+            }
+            var delScn = _airBusScnRepository.Get(dto.Id);
+            //获取需要删除的对象。
+
+            if (delScn != null)
+            {
+                _airBusScnRepository.Remove(delScn); //删除Scn。
+            }
+        }
         #endregion
     }
 }
