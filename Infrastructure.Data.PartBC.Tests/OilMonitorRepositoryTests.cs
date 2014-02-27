@@ -55,29 +55,25 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
         [TestMethod]
         public void CreateEngineOilTest()
         {
-            //// Arrange
-            //var oilRep = DefaultContainer.Resolve<IOilMonitorRepository>();
-            //var snReg = SnRegFactory.CreateSnReg();
-            //var engineOil1 = OilMonitorFactory.CreateEngineOil(snReg, new DateTime(2014, 1, 1), 100, 20, 21, 24, 5, 21, 21);
-            //var engineOil2 = OilMonitorFactory.CreateEngineOil(snReg, new DateTime(2014, 1, 2), 102, 22, 21, 24, 5, 20, 21);
-            //var engineOil3 = OilMonitorFactory.CreateEngineOil(snReg, new DateTime(2014, 1, 3), 103, 23, 20, 23, 5, 20, 20);
-            //var engineOil4 = OilMonitorFactory.CreateEngineOil(snReg, new DateTime(2014, 1, 4), 106, 26, 25, 26, 5, 22, 21);
-            //var engineOil5 = OilMonitorFactory.CreateEngineOil(snReg, new DateTime(2014, 1, 5), 108, 28, 23, 24, 5, 23, 22);
-            //var engineOil6 = OilMonitorFactory.CreateEngineOil(snReg, new DateTime(2014, 1, 6), 109, 29, 21, 22, 5, 22, 23);
-            //var engineOil7 = OilMonitorFactory.CreateEngineOil(snReg, new DateTime(2014, 1, 7), 112, 32, 22, 23, 5, 21, 22);
+            // Arrange
+            var oilRep = DefaultContainer.Resolve<IOilMonitorRepository>();
+            var snRep = DefaultContainer.Resolve<ISnRegRepository>();
+            var snReg = snRep.GetAll().FirstOrDefault();
+            var engineOil = OilMonitorFactory.CreateEngineOil(snReg, 100, 30, 50, 15);
+            engineOil.AddOilMonitor(new DateTime(2014, 1, 1), 100, 20, 21, 24, 5, 21, 21);
+            engineOil.AddOilMonitor(new DateTime(2014, 1, 2), 102, 22, 21, 24, 5, 20, 21);
+            engineOil.AddOilMonitor(new DateTime(2014, 1, 3), 103, 23, 20, 23, 5, 20, 20);
+            engineOil.AddOilMonitor(new DateTime(2014, 1, 4), 106, 26, 25, 26, 5, 22, 21);
+            engineOil.AddOilMonitor(new DateTime(2014, 1, 5), 108, 28, 23, 24, 5, 23, 22);
+            engineOil.AddOilMonitor(new DateTime(2014, 1, 6), 109, 29, 21, 22, 5, 22, 23);
+            engineOil.AddOilMonitor(new DateTime(2014, 1, 7), 112, 32, 22, 23, 5, 21, 22);
 
-            //// Act
-            //oilRep.Add(engineOil1);
-            //oilRep.Add(engineOil2);
-            //oilRep.Add(engineOil3);
-            //oilRep.Add(engineOil4);
-            //oilRep.Add(engineOil5);
-            //oilRep.Add(engineOil6);
-            //oilRep.Add(engineOil7);
-            //oilRep.UnitOfWork.Commit();
+            // Act
+            oilRep.Add(engineOil);
+            oilRep.UnitOfWork.Commit();
 
-            //// Assert
-            //Assert.IsNotNull(engineOil1);
+            // Assert
+            Assert.IsNotNull(engineOil);
         }
 
         [TestMethod]
@@ -87,7 +83,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
             var oilRep = DefaultContainer.Resolve<IOilMonitorRepository>();
 
             // Act
-            var result = oilRep.GetAll().ToList();
+            var result = oilRep.GetAll().OfType<EngineOil>().ToList();
 
             // Assert
             Assert.IsTrue(result.Any());

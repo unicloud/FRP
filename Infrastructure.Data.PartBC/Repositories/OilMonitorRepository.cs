@@ -26,7 +26,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.Repositories
     /// <summary>
     ///     滑油监控仓储实现
     /// </summary>
-    public class OilMonitorRepository : Repository<OilMonitor>, IOilMonitorRepository
+    public class OilMonitorRepository : Repository<OilUser>, IOilMonitorRepository
     {
         public OilMonitorRepository(IQueryableUnitOfWork unitOfWork)
             : base(unitOfWork)

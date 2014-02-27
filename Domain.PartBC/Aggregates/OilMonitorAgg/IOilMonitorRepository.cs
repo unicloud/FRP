@@ -21,7 +21,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
     ///     滑油监控仓储接口
     ///     <see cref="UniCloud.Domain.IRepository{OilMonitor}" />
     /// </summary>
-    public interface IOilMonitorRepository : IRepository<OilMonitor>
+    public interface IOilMonitorRepository : IRepository<OilUser>
     {
     }
 }

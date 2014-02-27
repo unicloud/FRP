@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
@@ -10,6 +11,7 @@
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
@@ -42,8 +44,6 @@ namespace UniCloud.Application.PartBC.Tests.Services
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
 
-
-
                 #region 附件相关配置，包括查询，应用服务，仓储注册
 
                 .RegisterType<IMaintainWorkQuery, MaintainWorkQuery>()
@@ -58,6 +58,8 @@ namespace UniCloud.Application.PartBC.Tests.Services
         public void TestCleanup()
         {
         }
+
+        #endregion
 
         [TestMethod]
         public void GetMaintainWorks()
@@ -80,11 +82,9 @@ namespace UniCloud.Application.PartBC.Tests.Services
 
             const string description = "描述信息";
             const string workCode = "Work002394";
-            MaintainWork newMaintainWork = MaintainWorkFactory.CreateMaintainWork(description,workCode);
+            MaintainWork newMaintainWork = MaintainWorkFactory.CreateMaintainWork(description, workCode);
             context.Add(newMaintainWork);
             context.UnitOfWork.Commit();
         }
-
-        #endregion
     }
 }

@@ -152,6 +152,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
             if (!NeedMonitor)
                 NeedMonitor = true;
 
+            OilMonitors.Add(oilMonitor);
             return oilMonitor;
         }
 

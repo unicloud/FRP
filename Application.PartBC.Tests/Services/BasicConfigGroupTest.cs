@@ -51,8 +51,6 @@ namespace UniCloud.Application.PartBC.Tests.Services
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
 
-
-
                 #region 基本构型组相关配置，包括查询，应用服务，仓储注册
 
                 .RegisterType<IBasicConfigGroupQuery, BasicConfigGroupQuery>()
@@ -73,6 +71,8 @@ namespace UniCloud.Application.PartBC.Tests.Services
         public void TestCleanup()
         {
         }
+
+        #endregion
 
         [TestMethod]
         public void GetBasicConfigGroups()
@@ -114,7 +114,5 @@ namespace UniCloud.Application.PartBC.Tests.Services
             context.Add(newBasicConfigGroup);
             context.UnitOfWork.Commit();
         }
-
-        #endregion
     }
 }
