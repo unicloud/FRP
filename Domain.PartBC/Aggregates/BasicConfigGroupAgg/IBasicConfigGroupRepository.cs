@@ -13,6 +13,8 @@
 // ========================================================================*/
 #endregion
 
+using System.Collections.Generic;
+
 namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg
 {
     /// <summary>
@@ -20,6 +22,12 @@ namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg
     /// </summary>
     public interface IBasicConfigGroupRepository : IRepository<BasicConfigGroup>
     {
+        /// <summary>
+        /// 获取所有的基本构型组
+        /// </summary>
+        /// <returns></returns>
+        List<BasicConfigGroup> GetAllBasicConfigGroup();
+
         /// <summary>
         /// 删除基本构型组
         /// </summary>

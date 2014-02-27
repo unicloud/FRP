@@ -17,8 +17,11 @@
 
 #region 命名空间
 
+using System;
 using System.ComponentModel.Composition;
 using System.Windows;
+using Microsoft.Practices.Prism.Commands;
+using Telerik.Windows.Controls.ChartView;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Part;
@@ -36,6 +39,11 @@ namespace UniCloud.Presentation.Part.OilMonitor
 
         private readonly PartData _context;
         private readonly IPartService _service;
+        private bool _endChanged;
+        private FilterDescriptor _endDateDescriptor;
+        private bool _snChanged;
+        private bool _startChanged;
+        private FilterDescriptor _startDateDescriptor;
 
         [ImportingConstructor]
         public EngineOilVM(IPartService service) : base(service)
@@ -43,8 +51,7 @@ namespace UniCloud.Presentation.Part.OilMonitor
             _service = service;
             _context = service.Context;
 
-            Zoom = new Size(3, 1);
-            PanOffset = new Point(-10000, 0);
+            FilterCommand = new DelegateCommand<object>(OnFilter, CanFilter);
 
             InitializeVM();
         }
@@ -57,6 +64,15 @@ namespace UniCloud.Presentation.Part.OilMonitor
         /// </summary>
         private void InitializeVM()
         {
+            Zoom = new Size(1, 1);
+            PanOffset = new Point(-10000, 0);
+            CurrentOil = new EngineOilDTO
+            {
+                Date = DateTime.Now,
+                IntervalRate = 0,
+                DeltaIntervalRate = 0
+            };
+
             InitializeViewEngineOilDTO();
         }
 
@@ -104,6 +120,126 @@ namespace UniCloud.Presentation.Part.OilMonitor
                 {
                     _panOffset = value;
                     RaisePropertyChanged(() => PanOffset);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 当前滑油耗率数据
+
+        private EngineOilDTO _currentOil;
+
+        /// <summary>
+        ///     当前滑油耗率数据
+        /// </summary>
+        public EngineOilDTO CurrentOil
+        {
+            get { return _currentOil; }
+            private set
+            {
+                if (_currentOil != value)
+                {
+                    _currentOil = value;
+                    RaisePropertyChanged(() => CurrentOil);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 可选开始日期
+
+        private DateTime _displayStart;
+
+        /// <summary>
+        ///     可选开始日期
+        /// </summary>
+        public DateTime DisplayStart
+        {
+            get { return _displayStart; }
+            private set
+            {
+                if (_displayStart != value)
+                {
+                    _displayStart = value;
+                    RaisePropertyChanged(() => DisplayStart);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 可选结束日期
+
+        private DateTime _displayEnd;
+
+        /// <summary>
+        ///     可选结束日期
+        /// </summary>
+        public DateTime DisplayEnd
+        {
+            get { return _displayEnd; }
+            private set
+            {
+                if (_displayEnd != value)
+                {
+                    _displayEnd = value;
+                    RaisePropertyChanged(() => DisplayEnd);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 开始日期
+
+        private DateTime _start;
+
+        /// <summary>
+        ///     开始日期
+        /// </summary>
+        public DateTime Start
+        {
+            get { return _start; }
+            private set
+            {
+                if (_start != value)
+                {
+                    if (_start != DateTime.MinValue)
+                    {
+                        _startChanged = true;
+                        FilterCommand.RaiseCanExecuteChanged();
+                    }
+                    _start = value;
+                    RaisePropertyChanged(() => Start);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 结束日期
+
+        private DateTime _end;
+
+        /// <summary>
+        ///     结束日期
+        /// </summary>
+        public DateTime End
+        {
+            get { return _end; }
+            private set
+            {
+                if (_end != value)
+                {
+                    if (_end != DateTime.MinValue)
+                    {
+                        _endChanged = true;
+                        FilterCommand.RaiseCanExecuteChanged();
+                    }
+                    _end = value;
+                    RaisePropertyChanged(() => End);
                 }
             }
         }
@@ -159,6 +295,17 @@ namespace UniCloud.Presentation.Part.OilMonitor
         {
             ViewEngineOilDTO = _service.CreateCollection(_context.EngineOils);
             _service.RegisterCollectionView(ViewEngineOilDTO);
+            // 添加过滤条件
+            _start = new DateTime(2014, 1, 1);
+            _end = DateTime.Now;
+            _displayStart = new DateTime(2013, 1, 1);
+            _displayEnd = DateTime.Now;
+            var cfd = new CompositeFilterDescriptor {LogicalOperator = FilterCompositionLogicalOperator.And};
+            _startDateDescriptor = new FilterDescriptor("Date", FilterOperator.IsGreaterThanOrEqualTo, _start);
+            cfd.FilterDescriptors.Add(_startDateDescriptor);
+            _endDateDescriptor = new FilterDescriptor("Date", FilterOperator.IsLessThanOrEqualTo, _end);
+            cfd.FilterDescriptors.Add(_endDateDescriptor);
+            ViewEngineOilDTO.FilterDescriptors.Add(cfd);
         }
 
         #endregion
@@ -169,7 +316,41 @@ namespace UniCloud.Presentation.Part.OilMonitor
 
         #region 操作
 
-        #region 重载操作
+        public void TrackInfoUpdated(object sender, TrackBallInfoEventArgs e)
+        {
+            var closestDataPoint = e.Context.ClosestDataPoint;
+            if (closestDataPoint != null)
+            {
+                CurrentOil = closestDataPoint.DataPoint.DataItem as EngineOilDTO;
+            }
+        }
+
+        #region 筛选发动机滑油数据
+
+        /// <summary>
+        ///     筛选发动机滑油数据
+        /// </summary>
+        public DelegateCommand<object> FilterCommand { get; private set; }
+
+        private void OnFilter(object obj)
+        {
+            if (_startChanged)
+            {
+                _startDateDescriptor.Value = _start;
+                _startChanged = false;
+            }
+            if (_endChanged)
+            {
+                _endDateDescriptor.Value = _end;
+                _endChanged = false;
+            }
+            FilterCommand.RaiseCanExecuteChanged();
+        }
+
+        private bool CanFilter(object obj)
+        {
+            return _startChanged || _endChanged || _snChanged;
+        }
 
         #endregion
 

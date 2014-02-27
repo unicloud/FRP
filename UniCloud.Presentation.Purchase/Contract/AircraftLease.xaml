@@ -315,7 +315,7 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="合同关键字搜索" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                               FontFamily="Microsoft YaHei UI" FontSize="18" FontWeight="ExtraBold"
+                                               FontFamily="{StaticResource NormalFontFamily}" FontSize="18" FontWeight="ExtraBold"
                                                Foreground="#FF5E5E7C" Margin="0,7,0,0" />
                                     <telerik:GroupBox Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
                                                       Header="合同分解内容说明">
@@ -363,7 +363,7 @@
                                                 <StackPanel HorizontalAlignment="Stretch"
                                                             Margin="20,20,0,0"
                                                             UseLayoutRounding="True">
-                                                    <TextBlock FontFamily="Microsoft YaHei UI"
+                                                    <TextBlock FontFamily="{StaticResource NormalFontFamily}"
                                                                FontSize="18"
                                                                FontWeight="ExtraBold"
                                                                Foreground="#FF5E5E7C"
@@ -391,7 +391,7 @@
                                                                        FontWeight="ExtraBold"
                                                                        Foreground="#FF5E5E7C"
                                                                        Text="Word 文档" />
-                                                            <TextBlock FontFamily="Microsoft YaHei UI"
+                                                            <TextBlock FontFamily="{StaticResource NormalFontFamily}"
                                                                        FontSize="13"
                                                                        Text="文件保存为word文档."
                                                                        TextWrapping="Wrap"
@@ -431,7 +431,7 @@
                                                 <StackPanel HorizontalAlignment="Stretch"
                                                             Margin="20,20,0,0"
                                                             UseLayoutRounding="True">
-                                                    <TextBlock FontFamily="Microsoft YaHei UI"
+                                                    <TextBlock FontFamily="{StaticResource NormalFontFamily}"
                                                                FontSize="18"
                                                                FontWeight="ExtraBold"
                                                                Foreground="#FF5E5E7C"
@@ -459,7 +459,7 @@
                                                                        FontWeight="ExtraBold"
                                                                        Foreground="#FF5E5E7C"
                                                                        Text="本地打印机" />
-                                                            <TextBlock FontFamily="Microsoft YaHei UI"
+                                                            <TextBlock FontFamily="{StaticResource NormalFontFamily}"
                                                                        FontSize="13"
                                                                        Text="直接将文档发送至默认打印机."
                                                                        TextWrapping="Wrap"

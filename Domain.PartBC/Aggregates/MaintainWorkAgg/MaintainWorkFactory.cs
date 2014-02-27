@@ -36,5 +36,22 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg
             maintainWork.GenerateNewIdentity();
             return maintainWork;
         }
+
+        /// <summary>
+        /// 创建维修工作
+        /// </summary>
+        /// <param name="description">描述</param>
+        /// <param name="workCode">工作代码</param>
+        /// <returns></returns>
+        public static MaintainWork CreateMaintainWork(string description, string workCode)
+        {
+            var maintainWork = new MaintainWork
+            {
+            };
+            maintainWork.GenerateNewIdentity();
+            maintainWork.SetDescription(description);
+            maintainWork.SetWorkCode(workCode);
+            return maintainWork;
+        }
     }
 }

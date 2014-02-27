@@ -38,5 +38,22 @@ namespace UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg
             ctrlUnit.GenerateNewIdentity();
             return ctrlUnit;
         }
+
+        /// <summary>
+        /// 创建
+        /// </summary>
+        /// <param name="description">描述</param>
+        /// <param name="name">名称</param>
+        /// <returns></returns>
+        public static CtrlUnit CreateCtrlUnit(string description, string name)
+        {
+            var ctrlUnit = new CtrlUnit
+            {
+            };
+            ctrlUnit.GenerateNewIdentity();
+            ctrlUnit.SetDescription(description);
+            ctrlUnit.SetName(name);
+            return ctrlUnit;
+        }
     }
 }

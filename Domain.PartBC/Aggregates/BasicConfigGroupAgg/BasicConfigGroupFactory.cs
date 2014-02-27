@@ -15,6 +15,8 @@
 
 #region 命名空间
 using System;
+using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
+
 #endregion
 
 namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg
@@ -34,6 +36,28 @@ namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg
             {
             };
             basicConfigGroup.GenerateNewIdentity();
+            return basicConfigGroup;
+        }
+
+        /// <summary>
+        /// 创建基本构型组
+        /// </summary>
+        /// <param name="aircraftType">机型</param>
+        /// <param name="description">描述</param>
+        /// <param name="groupNo">基本构型组号</param>
+        /// <param name="startDate">启用日期</param>
+        /// <returns></returns>
+        public static BasicConfigGroup CreateBasicConfigGroup(AircraftType aircraftType,string description,
+            string groupNo,DateTime startDate)
+        {
+            var basicConfigGroup = new BasicConfigGroup
+            {
+            };
+            basicConfigGroup.GenerateNewIdentity();
+            basicConfigGroup.SetAircraftType(aircraftType);
+            basicConfigGroup.SetDescription(description);
+            basicConfigGroup.SetGroupNo(groupNo);
+            basicConfigGroup.SetStartDate(startDate);
             return basicConfigGroup;
         }
     }

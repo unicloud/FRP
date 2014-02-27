@@ -304,6 +304,7 @@
     <Compile Include="RegionNames.cs" />
     <Compile Include="SessionExtension\SessionHelper.cs" />
     <Compile Include="SessionExtension\SessionUser.cs" />
+    <Compile Include="ValueConverts\AxisLabelConverter.cs" />
     <Compile Include="ValueConverts\BoolConverter.cs" />
     <Compile Include="ValueConverts\CheckStateConverter.cs" />
     <Compile Include="ValueConverts\EnumUtility.cs" />

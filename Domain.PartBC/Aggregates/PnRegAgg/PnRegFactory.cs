@@ -36,5 +36,22 @@ namespace UniCloud.Domain.PartBC.Aggregates.PnRegAgg
             pnReg.GenerateNewIdentity();
             return pnReg;
         }
+
+        /// <summary>
+        /// 创建附件
+        /// </summary>
+        /// <param name="isLife">是否寿控</param>
+        /// <param name="pn">附件件号</param>
+        /// <returns></returns>
+        public static PnReg CreatePnReg(bool isLife,string pn)
+        {
+            var pnReg = new PnReg
+            {
+            };
+            pnReg.GenerateNewIdentity();
+            pnReg.SetIsLife(isLife);
+            pnReg.SetPn(pn);
+            return pnReg;
+        }
     }
 }

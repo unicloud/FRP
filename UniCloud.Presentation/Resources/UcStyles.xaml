@@ -4,6 +4,38 @@
                     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
                     xmlns:valueConverts="http://schemas.unicloud.com/2012/xaml/presentation">
 
+    <valueConverts:EnumToStringConverter x:Key="EnumToStringConverter" />
+    <valueConverts:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    <valueConverts:StringToXamlConverter x:Key="StringToXamlConverter" />
+    <valueConverts:DayAxisLabelConverter x:Key="DayAxisLabelConverter" />
+    <valueConverts:MonthAxisLabelConverter x:Key="MonthAxisLabelConverter" />
+    <telerik:VisibilityToBooleanConverter x:Key="VisibilityToBooleanConverter" />
+
+    <!--画笔资源-->
+    <telerik:Windows8Colors x:Key="Windows8Colors" />
+    <SolidColorBrush x:Key="AccentBrush"
+                     Color="{Binding Source={StaticResource Windows8Colors}, Path=Palette.AccentColor}" />
+    <SolidColorBrush x:Key="BasicBrush"
+                     Color="{Binding Source={StaticResource Windows8Colors}, Path=Palette.BasicColor}" />
+    <SolidColorBrush x:Key="StrongBrush"
+                     Color="{Binding Source={StaticResource Windows8Colors}, Path=Palette.StrongColor}" />
+    <SolidColorBrush x:Key="MainBrush"
+                     Color="{Binding Source={StaticResource Windows8Colors}, Path=Palette.MainColor}" />
+    <SolidColorBrush x:Key="MarkerBrush"
+                     Color="{Binding Source={StaticResource Windows8Colors}, Path=Palette.MarkerColor}" />
+    <SolidColorBrush x:Key="ValidationBrush"
+                     Color="{Binding Source={StaticResource Windows8Colors}, Path=Palette.ValidationColor}" />
+
+    <!--画笔资源-->
+
+    <!--主题-->
+    <Style TargetType="telerik:RadCartesianChart" x:Key="BaseRadCartesianChart" />
+    <Style TargetType="telerik:RadCartesianChart" BasedOn="{StaticResource BaseRadCartesianChart}">
+        <Setter Property="Palette" Value="Windows8" />
+    </Style>
+
+    <!--主题-->
+
     <!-- 日期格式 -->
     <system:String x:Key="DateStringFormat">{0:yyyy/MM/dd}</system:String>
 
@@ -15,6 +47,7 @@
 
     <!-- 字体、字号 -->
     <FontFamily x:Key="NormalFontFamily">Microsoft YaHei UI</FontFamily>
+    <FontFamily x:Key="EnFontFamily">Segoe UI</FontFamily>
     <SolidColorBrush Color="Red" x:Key="HighLight" />
     <system:Double x:Key="TitleFontSize">16</system:Double>
     <system:Double x:Key="HeaderFontSize">14</system:Double>
@@ -30,6 +63,15 @@
     <system:Int32 x:Key="PageSize">10</system:Int32>
     <system:String x:Key="DateTFormat">yyyy/mm/dd</system:String>
     <system:Double x:Key="CellMaxWidth">150</system:Double>
+
+    <!--TextBlock相关样式-->
+    <Style TargetType="TextBlock" x:Key="BaseTextBlock" />
+    <Style TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlock}">
+        <Setter Property="FontFamily" Value="{StaticResource NormalFontFamily}" />
+        <Setter Property="FontSize" Value="{StaticResource TextFontSize}" />
+    </Style>
+
+    <!--TextBlock相关样式-->
 
     <!--ComboBox相关样式-->
     <Style TargetType="telerik:RadComboBox" x:Key="BaseRadComboBox" />
@@ -101,7 +143,7 @@
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="Foreground" Value="#1FA3EB" />
-        <Setter Property="Margin" Value="10 0 0 10" />
+        <Setter Property="Margin" Value="10 0 0 0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="telerik:RadToggleButton">
@@ -230,15 +272,27 @@
         <Setter Property="TextAlignment" Value="Left" />
         <Setter Property="Margin" Value="3,0,0,0" />
     </Style>
-    <Style TargetType="telerik:RadCartesianChart" x:Key="BaseRadCartesianChart" />
-    <Style TargetType="telerik:RadCartesianChart" BasedOn="{StaticResource BaseRadCartesianChart}">
-        <Setter Property="Palette" Value="Windows8" />
-    </Style>
 
+    <DataTemplate x:Key="DayAxisLabelTemplate">
+        <TextBlock Text="{Binding Converter={StaticResource DayAxisLabelConverter}}" />
+    </DataTemplate>
+    <DataTemplate x:Key="MonthAxisLabelTemplate">
+        <TextBlock Text="{Binding Converter={StaticResource MonthAxisLabelConverter}}" />
+    </DataTemplate>
+
+    <Style x:Key="TrackBallLineStyle" TargetType="Polyline">
+        <Setter Property="Visibility" Value="Collapsed" />
+    </Style>
+    <Style x:Key="TrackBallInfoStyle" TargetType="telerik:TrackBallInfoControl">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="telerik:TrackBallInfoControl" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <DataTemplate x:Key="TrackBallTemplate">
+        <Ellipse Height="8" Width="8" Stroke="White" StrokeThickness="1" Fill="{StaticResource AccentBrush}" />
+    </DataTemplate>
     <!--图表相关样式-->
 
-    <valueConverts:EnumToStringConverter x:Key="EnumToStringConverter" />
-    <valueConverts:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-    <valueConverts:StringToXamlConverter x:Key="StringToXamlConverter" />
-    <telerik:VisibilityToBooleanConverter x:Key="VisibilityToBooleanConverter" />
 </ResourceDictionary>
