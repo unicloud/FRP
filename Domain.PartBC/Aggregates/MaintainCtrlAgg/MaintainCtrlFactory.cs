@@ -15,6 +15,9 @@
 
 #region 命名空间
 using System;
+using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
+
 #endregion
 
 namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
@@ -38,6 +41,25 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         }
 
         /// <summary>
+        /// 创建项维修控制组
+        /// </summary>
+        /// <param name="acConfigId">构型外键</param>
+        /// <param name="ctrlStrategy">控制策略</param>
+        /// <param name="itemNo">项号</param>
+        /// <returns></returns>
+        public static ItemMaintainCtrl CreateItemMaintainCtrl(int acConfigId,int ctrlStrategy,string itemNo)
+        {
+            var itemMaintainCtrl = new ItemMaintainCtrl
+            {
+            };
+            itemMaintainCtrl.GenerateNewIdentity();
+            itemMaintainCtrl.SetAcConfig(acConfigId);
+            itemMaintainCtrl.SetCtrlStrategy((ControlStrategy)ctrlStrategy);
+            itemMaintainCtrl.SetItemNo(itemNo);
+            return itemMaintainCtrl;
+        }
+
+        /// <summary>
         /// 创建PnMaintainCtrl。
         /// </summary>
         ///  <returns>PnMaintainCtrl</returns>
@@ -51,6 +73,23 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         }
 
         /// <summary>
+        /// 创建附件维修控制组
+        /// </summary>
+        /// <param name="ctrlStrategy">控制策略</param>
+        /// <param name="pnReg">附件</param>
+        /// <returns></returns>
+        public static PnMaintainCtrl CreatePnMaintainCtrl(int ctrlStrategy, PnReg pnReg)
+        {
+            var pnMaintainCtrl = new PnMaintainCtrl
+            {
+            };
+            pnMaintainCtrl.GenerateNewIdentity();
+            pnMaintainCtrl.SetCtrlStrategy((ControlStrategy)ctrlStrategy);
+            pnMaintainCtrl.SetPnReg(pnReg);
+            return pnMaintainCtrl;
+        }
+
+        /// <summary>
         /// 创建SnMaintainCtrl。
         /// </summary>
         ///  <returns>SnMaintainCtrl</returns>
@@ -60,6 +99,23 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
             {
             };
             snMaintainCtrl.GenerateNewIdentity();
+            return snMaintainCtrl;
+        }
+
+        /// <summary>
+        /// 创建序号件维修控制组
+        /// </summary>
+        /// <param name="ctrlStrategy">控制策略</param>
+        /// <param name="snScope">序号范围</param>
+        /// <returns></returns>
+        public static SnMaintainCtrl CreateSnMaintainCtrl(int ctrlStrategy,string snScope)
+        {
+            var snMaintainCtrl = new SnMaintainCtrl
+            {
+            };
+            snMaintainCtrl.GenerateNewIdentity();
+            snMaintainCtrl.SetCtrlStrategy((ControlStrategy)ctrlStrategy);
+            snMaintainCtrl.SetSnScope(snScope);
             return snMaintainCtrl;
         }
     }

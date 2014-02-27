@@ -36,5 +36,20 @@ namespace UniCloud.Domain.PartBC.Aggregates.ModAgg
             mod.GenerateNewIdentity();
             return mod;
         }
+
+        /// <summary>
+        /// 创建Mod号
+        /// </summary>
+        /// <param name="modNumber">Mod号</param>
+        /// <returns></returns>
+        public static Mod CreateMod(string modNumber)
+        {
+            var mod = new Mod
+            {
+            };
+            mod.GenerateNewIdentity();
+            mod.SetModNumber(modNumber);
+            return mod;
+        }
     }
 }

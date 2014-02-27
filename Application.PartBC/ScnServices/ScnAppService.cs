@@ -62,7 +62,7 @@ namespace UniCloud.Application.PartBC.ScnServices
         {
             //创建SCN
             var newScn = ScnFactory.CreateScn();
-            ScnFactory.SetScn(newScn, dto.Type, dto.CheckDate, dto.CSCNumber, dto.ModNumber, dto.TsNumber, dto.Cost,
+            ScnFactory.SetScn(newScn, dto.Title, dto.Type, dto.CheckDate, dto.CSCNumber, dto.ModNumber, dto.TsNumber, dto.Cost,
                 dto.ScnNumber, dto.ScnType, dto.ScnStatus, dto.Description, dto.ScnDocName, dto.ScnDocumentId,
                 dto.AuditOrganization, dto.Auditor, dto.AuditTime, dto.AuditNotes);
 
@@ -85,7 +85,7 @@ namespace UniCloud.Application.PartBC.ScnServices
             if (updateScn != null)
             {
                 //更新主表：
-                ScnFactory.SetScn(updateScn, dto.Type, dto.CheckDate, dto.CSCNumber, dto.ModNumber, dto.TsNumber, dto.Cost,
+                ScnFactory.SetScn(updateScn, dto.Title, dto.Type, dto.CheckDate, dto.CSCNumber, dto.ModNumber, dto.TsNumber, dto.Cost,
                 dto.ScnNumber, dto.ScnType, dto.ScnStatus, dto.Description, dto.ScnDocName, dto.ScnDocumentId,
                 dto.AuditOrganization, dto.Auditor, dto.AuditTime, dto.AuditNotes);
                 UpdateApplicableAircrafts(dto.ApplicableAircrafts, updateScn);

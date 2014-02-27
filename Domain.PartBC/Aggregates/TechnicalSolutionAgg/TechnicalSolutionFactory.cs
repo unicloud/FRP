@@ -36,5 +36,24 @@ namespace UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg
             technicalSolution.GenerateNewIdentity();
             return technicalSolution;
         }
+
+        /// <summary>
+        /// 创建技术解决方案
+        /// </summary>
+        /// <param name="fiNumber">功能标识号</param>
+        /// <param name="position">位置</param>
+        /// <param name="tsNumber">技术解决方案编号</param>
+        /// <returns></returns>
+        public static TechnicalSolution CreateTechnicalSolution(string fiNumber,string position,string tsNumber)
+        {
+            var technicalSolution = new TechnicalSolution
+            {
+            };
+            technicalSolution.GenerateNewIdentity();
+            technicalSolution.SetFiNumber(fiNumber);
+            technicalSolution.SetPosition(position);
+            technicalSolution.SetTsNumber(tsNumber);
+            return technicalSolution;
+        }
     }
 }

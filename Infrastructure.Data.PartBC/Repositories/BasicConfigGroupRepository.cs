@@ -14,6 +14,10 @@
 #endregion
 
 #region 命名空间
+
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
 
@@ -34,6 +38,19 @@ namespace UniCloud.Infrastructure.Data.PartBC.Repositories
 
         #region 方法重载
         #endregion
+        /// <summary>
+        /// 获取所有的基本构型组
+        /// </summary>
+        /// <returns></returns>
+        public List<BasicConfigGroup> GetAllBasicConfigGroup()
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<BasicConfigGroup>();
+            return set.Include(p => p.BasicConfigs).ToList();
+        }
+
+
 
         /// <summary>
         /// 删除基本构型组

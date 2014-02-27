@@ -172,6 +172,7 @@
           <PropertyRef Name="Id" />
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Title" Type="Edm.String" />
         <Property Name="CheckDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="CSCNumber" Type="Edm.String" />
         <Property Name="ModNumber" Type="Edm.String" />

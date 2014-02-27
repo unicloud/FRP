@@ -43,6 +43,7 @@ namespace UniCloud.Application.PartBC.Query.ScnQueries
             return query.ApplyTo(_unitOfWork.CreateSet<Scn>()).Select(p => new ScnDTO
             {
                 Id = p.Id,
+                Title = p.Title,
                 CSCNumber = p.CSCNumber,
                 CheckDate = p.CheckDate,
                 Cost = p.Cost,
