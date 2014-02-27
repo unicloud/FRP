@@ -927,18 +927,18 @@ namespace UniCloud.Presentation.Shell
 
             var menu81 = new MenuItem
             {
-                Text = "管理SCN",
+                Text = "管理SCN/MSCN",
             };
 
             var menu811 = new MenuItem
             {
-                Text = "维护SCN",
+                Text = "维护SCN/MSCN",
                 NavUri = "UniCloud.Presentation.Part.ManageSCN.MaintainScn"
             };
 
             var menu812 = new MenuItem
             {
-                Text = "对比SCN",
+                Text = "对比SCN/MSCN",
                 NavUri = "UniCloud.Presentation.Part.ManageSCN.CompareScn"
             };
 

@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\AirBusScnAgg\IAirBusScnRepository.cs" />
+    <Compile Include="Aggregates\AirBusScnAgg\AirBusScn.cs" />
+    <Compile Include="Aggregates\AirBusScnAgg\AirBusScnFactory.cs" />
+    <Compile Include="Aggregates\AirBusScnAgg\AirBusScnSpecifications.cs" />
     <Compile Include="Aggregates\OilMonitorAgg\APUOil.cs">
       <SubType>Code</SubType>
     </Compile>

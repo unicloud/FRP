@@ -201,6 +201,18 @@
         <Property Name="ContractAircraftId" Type="Edm.Int32" Nullable="false" />
         <Property Name="ScnId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
+      <EntityType Name="AirBusScnDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Title" Type="Edm.String" />
+        <Property Name="CSCNumber" Type="Edm.String" />
+        <Property Name="ModNumber" Type="Edm.String" />
+        <Property Name="ScnNumber" Type="Edm.String" />
+        <Property Name="ScnStatus" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+      </EntityType>
       <EntityType Name="SnRegDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -297,6 +309,7 @@
         <EntitySet Name="APUOils" EntityType="UniCloud.Application.PartBC.DTO.APUOilDTO" />
         <EntitySet Name="PnRegs" EntityType="UniCloud.Application.PartBC.DTO.PnRegDTO" />
         <EntitySet Name="Scns" EntityType="UniCloud.Application.PartBC.DTO.ScnDTO" />
+        <EntitySet Name="AirBusScns" EntityType="UniCloud.Application.PartBC.DTO.AirBusScnDTO" />
         <EntitySet Name="SnRegs" EntityType="UniCloud.Application.PartBC.DTO.SnRegDTO" />
         <EntitySet Name="SpecialConfigs" EntityType="UniCloud.Application.PartBC.DTO.SpecialConfigDTO" />
         <EntitySet Name="TechnicalSolutions" EntityType="UniCloud.Application.PartBC.DTO.TechnicalSolutionDTO" />

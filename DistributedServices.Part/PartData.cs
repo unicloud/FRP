@@ -247,6 +247,13 @@ namespace UniCloud.DistributedServices.Part
             get { return _scnAppService.GetScns(); }
         }
 
+        /// <summary>
+        ///     AirBusScn信息。
+        /// </summary>
+        public IQueryable<AirBusScnDTO> AirBusScns
+        {
+            get { return _scnAppService.GetAirBusScns(); }
+        }
         #endregion
 
         #region 序号件集合

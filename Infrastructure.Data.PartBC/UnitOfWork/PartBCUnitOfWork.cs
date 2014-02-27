@@ -19,6 +19,7 @@
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.PartBC.Aggregates.AcDailyUtilizationAgg;
+using UniCloud.Domain.PartBC.Aggregates.AirBusScnAgg;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
@@ -55,6 +56,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         private IDbSet<OilMonitor> _oilMonitors;
         private IDbSet<PnReg> _pneRegs;
         private IDbSet<Scn> _scns;
+        private IDbSet<AirBusScn> _airBusScns; 
         private IDbSet<SnReg> _snRegs;
         private IDbSet<SpecialConfig> _specialConfigs;
         private IDbSet<TechnicalSolution> _technicalSolutions;
@@ -119,6 +121,10 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
             get { return _scns ?? (_scns = base.Set<Scn>()); }
         }
 
+        public IDbSet<AirBusScn> AirBusScns
+        {
+            get { return _airBusScns ?? (_airBusScns = base.Set<AirBusScn>()); }
+        }
         public IDbSet<SnReg> SnRegs
         {
             get { return _snRegs ?? (_snRegs = base.Set<SnReg>()); }
@@ -237,6 +243,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
 
                 .Add(new ScnEntityConfiguration())
                 .Add(new ApplicableAircraftEntityConfiguration())
+                .Add(new AirBusScnEntityConfiguration())
                 #endregion
 
                 #region SnRegAgg

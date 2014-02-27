@@ -29,5 +29,10 @@ namespace UniCloud.Application.PartBC.ScnServices
         /// 获取所有Scn。
         /// </summary>
         IQueryable<ScnDTO> GetScns();
+
+        /// <summary>
+        /// 获取所有AirBusScn。
+        /// </summary>
+        IQueryable<AirBusScnDTO> GetAirBusScns();
     }
 }
