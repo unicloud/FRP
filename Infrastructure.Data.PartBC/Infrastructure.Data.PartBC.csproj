@@ -83,6 +83,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainWorkEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ModEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OilMonitorEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\OilUserEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PnMaintainCtrlEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PnRegEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ScnEntityConfiguration.cs" />

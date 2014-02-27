@@ -20,7 +20,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 
 #endregion
 
@@ -28,8 +27,9 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
 {
     /// <summary>
     ///     滑油监控聚合根
+    ///     滑油消耗
     /// </summary>
-    public abstract class OilMonitor : EntityInt, IValidatableObject
+    public class OilMonitor : EntityInt, IValidatableObject
     {
         #region 构造函数
 
@@ -44,11 +44,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
         #endregion
 
         #region 属性
-
-        /// <summary>
-        ///     序列号
-        /// </summary>
-        public string Sn { get; internal set; }
 
         /// <summary>
         ///     日期
@@ -95,9 +90,9 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
         #region 外键属性
 
         /// <summary>
-        ///     序号件ID
+        ///     滑油用户ID
         /// </summary>
-        public int SnRegID { get; private set; }
+        public int OilUserID { get; internal set; }
 
         #endregion
 
@@ -106,21 +101,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
         #endregion
 
         #region 操作
-
-        /// <summary>
-        ///     设置序号件ID
-        /// </summary>
-        /// <param name="snReg">序号件</param>
-        public void SetSnReg(SnReg snReg)
-        {
-            if (snReg == null || snReg.IsTransient())
-            {
-                throw new ArgumentException("序号件参数为空！");
-            }
-
-            Sn = snReg.Sn;
-            SnRegID = snReg.Id;
-        }
 
         #endregion
 

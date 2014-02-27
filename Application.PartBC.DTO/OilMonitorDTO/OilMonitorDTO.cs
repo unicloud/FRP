@@ -1,10 +1,9 @@
 ﻿#region 版本信息
-
 // =====================================================
 // 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2014/02/23，11:26
+// 作者：丁志浩 时间：2014/02/27，16:31
 // 方案：FRP
 // 项目：Application.PartBC.DTO
 // 版本：V1.0.0
@@ -12,35 +11,28 @@
 // 修改者： 时间： 
 // 修改说明：
 // =====================================================
-
 #endregion
 
-#region 命名空间
-
-using System.Collections.Generic;
+using System;
 using System.Data.Services.Common;
-
-#endregion
 
 namespace UniCloud.Application.PartBC.DTO
 {
     /// <summary>
-    ///     发动机滑油用户DTO
+    ///     滑油消耗DTO
     /// </summary>
     [DataServiceKey("Id")]
-    public class EngineOilDTO
+    public class OilMonitorDTO
     {
-        private List<OilMonitorDTO> _oilMonitors;
-
         /// <summary>
-        ///     发动机滑油用户ID
+        ///     发动机滑油监控ID
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        ///     序列号
+        ///     日期
         /// </summary>
-        public string Sn { get; set; }
+        public DateTime Date { get; set; }
 
         /// <summary>
         ///     TSN，自装机以来使用小时数
@@ -53,27 +45,28 @@ namespace UniCloud.Application.PartBC.DTO
         public decimal TSR { get; set; }
 
         /// <summary>
-        ///     CSN，自装机以来使用循环
+        ///     总滑油消耗率
         /// </summary>
-        public decimal CSN { get; set; }
+        public decimal TotalRate { get; set; }
 
         /// <summary>
-        ///     CSR，自上一次修理以来使用循环
+        ///     区间滑油消耗率
         /// </summary>
-        public decimal CSR { get; set; }
+        public decimal IntervalRate { get; set; }
 
         /// <summary>
-        ///     滑油监控状态状态
+        ///     区间滑油消耗率变化量
         /// </summary>
-        public int Status { get; set; }
+        public decimal DeltaIntervalRate { get; set; }
 
         /// <summary>
-        ///     滑油消耗数据
+        ///     3天移动平均
         /// </summary>
-        public virtual List<OilMonitorDTO> OilMonitors
-        {
-            get { return _oilMonitors ?? (_oilMonitors = new List<OilMonitorDTO>()); }
-            set { _oilMonitors = value; }
-        }
+        public decimal AverageRate3 { get; set; }
+
+        /// <summary>
+        ///     7天移动平均
+        /// </summary>
+        public decimal AverageRate7 { get; set; }
     }
 }

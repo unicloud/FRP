@@ -42,13 +42,13 @@ namespace UniCloud.Application.PartBC.OilMonitorServices
 
         public IQueryable<EngineOilDTO> GetEngineOils()
         {
-            var query = new QueryBuilder<OilMonitor>();
+            var query = new QueryBuilder<OilUser>().Where(o => o.NeedMonitor);
             return _oilMonitorQuery.EngineOilDTOQuery(query);
         }
 
         public IQueryable<APUOilDTO> GetAPUOils()
         {
-            var query = new QueryBuilder<OilMonitor>();
+            var query = new QueryBuilder<OilUser>().Where(o => o.NeedMonitor);
             return _oilMonitorQuery.APUOilDTOQuery(query);
         }
 

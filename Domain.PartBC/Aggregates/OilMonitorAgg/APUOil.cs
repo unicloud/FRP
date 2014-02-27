@@ -27,7 +27,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
     ///     滑油监控聚合根
     ///     APU滑油
     /// </summary>
-    public class APUOil : OilMonitor
+    public class APUOil : OilUser
     {
         #region 构造函数
 

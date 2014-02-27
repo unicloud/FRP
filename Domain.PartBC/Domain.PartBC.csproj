@@ -52,6 +52,7 @@
     <Compile Include="Aggregates\OilMonitorAgg\OilMonitor.cs" />
     <Compile Include="Aggregates\OilMonitorAgg\OilMonitorFactory.cs" />
     <Compile Include="Aggregates\OilMonitorAgg\OilMonitorSpecifications.cs" />
+    <Compile Include="Aggregates\OilMonitorAgg\OilUser.cs" />
     <Compile Include="Aggregates\SpecialConfigAgg\AcConfig.cs" />
     <Compile Include="Aggregates\AcDailyUtilizationAgg\AcDailyUtilization.cs" />
     <Compile Include="Aggregates\AcDailyUtilizationAgg\AcDailyUtilizationFactory.cs" />

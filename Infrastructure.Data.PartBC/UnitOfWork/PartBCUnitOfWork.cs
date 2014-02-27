@@ -223,6 +223,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
                 #region OilMonitorAgg
 
                 .Add(new OilMonitorEntityConfiguration())
+                .Add(new OilUserEntityConfiguration())
                 .Add(new EngineOilEntityConfiguration())
                 .Add(new APUOilEntityConfiguration())
                 

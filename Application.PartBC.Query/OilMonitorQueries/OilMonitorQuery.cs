@@ -37,37 +37,57 @@ namespace UniCloud.Application.PartBC.Query.OilMonitorQueries
 
         #region IOilMonitorQuery 成员
 
-        public IQueryable<EngineOilDTO> EngineOilDTOQuery(QueryBuilder<OilMonitor> query)
+        public IQueryable<EngineOilDTO> EngineOilDTOQuery(QueryBuilder<OilUser> query)
         {
             var result =
-                query.ApplyTo(_unitOfWork.CreateSet<OilMonitor>().OfType<EngineOil>()).Select(o => new EngineOilDTO
+                query.ApplyTo(_unitOfWork.CreateSet<OilUser>().OfType<EngineOil>()).Select(o => new EngineOilDTO
                 {
                     Id = o.Id,
-                    Date = o.Date,
+                    Sn = o.Sn,
                     TSN = o.TSN,
                     TSR = o.TSR,
-                    TotalRate = o.TotalRate,
-                    IntervalRate = o.IntervalRate,
-                    DeltaIntervalRate = o.DeltaIntervalRate,
-                    AverageRate3 = o.AverageRate3,
-                    AverageRate7 = o.AverageRate7
+                    CSN = o.CSN,
+                    CSR = o.CSR,
+                    Status = (int) o.MonitorStatus,
+                    OilMonitors = o.OilMonitors.Select(m => new OilMonitorDTO
+                    {
+                        Id = m.Id,
+                        Date = m.Date,
+                        TSN = m.TSN,
+                        TSR = m.TSR,
+                        TotalRate = m.TotalRate,
+                        IntervalRate = m.IntervalRate,
+                        DeltaIntervalRate = m.DeltaIntervalRate,
+                        AverageRate3 = m.AverageRate3,
+                        AverageRate7 = m.AverageRate7
+                    }).ToList()
                 });
             return result;
         }
 
-        public IQueryable<APUOilDTO> APUOilDTOQuery(QueryBuilder<OilMonitor> query)
+        public IQueryable<APUOilDTO> APUOilDTOQuery(QueryBuilder<OilUser> query)
         {
-            var result = query.ApplyTo(_unitOfWork.CreateSet<OilMonitor>().OfType<APUOil>()).Select(o => new APUOilDTO
+            var result = query.ApplyTo(_unitOfWork.CreateSet<OilUser>().OfType<APUOil>()).Select(o => new APUOilDTO
             {
                 Id = o.Id,
-                Date = o.Date,
+                Sn = o.Sn,
                 TSN = o.TSN,
                 TSR = o.TSR,
-                TotalRate = o.TotalRate,
-                IntervalRate = o.IntervalRate,
-                DeltaIntervalRate = o.DeltaIntervalRate,
-                AverageRate3 = o.AverageRate3,
-                AverageRate7 = o.AverageRate7
+                CSN = o.CSN,
+                CSR = o.CSR,
+                Status = (int) o.MonitorStatus,
+                OilMonitors = o.OilMonitors.Select(m => new OilMonitorDTO
+                {
+                    Id = m.Id,
+                    Date = m.Date,
+                    TSN = m.TSN,
+                    TSR = m.TSR,
+                    TotalRate = m.TotalRate,
+                    IntervalRate = m.IntervalRate,
+                    DeltaIntervalRate = m.DeltaIntervalRate,
+                    AverageRate3 = m.AverageRate3,
+                    AverageRate7 = m.AverageRate7
+                }).ToList()
             });
             return result;
         }

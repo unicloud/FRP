@@ -35,13 +35,13 @@ namespace UniCloud.Application.PartBC.Query.OilMonitorQueries
         /// </summary>
         /// <param name="query">查询表达式</param>
         /// <returns>发动机滑油DTO集合</returns>
-        IQueryable<EngineOilDTO> EngineOilDTOQuery(QueryBuilder<OilMonitor> query);
+        IQueryable<EngineOilDTO> EngineOilDTOQuery(QueryBuilder<OilUser> query);
 
         /// <summary>
         ///     APU滑油查询
         /// </summary>
         /// <param name="query">查询表达式</param>
         /// <returns>APU滑油DTO集合</returns>
-        IQueryable<APUOilDTO> APUOilDTOQuery(QueryBuilder<OilMonitor> query);
+        IQueryable<APUOilDTO> APUOilDTOQuery(QueryBuilder<OilUser> query);
     }
 }

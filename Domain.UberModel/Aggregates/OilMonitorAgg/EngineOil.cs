@@ -21,7 +21,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.OilMonitorAgg
     ///     滑油监控聚合根
     ///     发动机滑油
     /// </summary>
-    public class EngineOil : OilMonitor
+    public class EngineOil : OilUser
     {
         #region 构造函数
 

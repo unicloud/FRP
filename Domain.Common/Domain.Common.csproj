@@ -60,6 +60,7 @@
     <Compile Include="Enums\ManageStatus.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Enums\OilMonitorStatus.cs" />
     <Compile Include="Enums\OperationStatus.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -4,7 +4,7 @@
 // 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2014/02/22，21:07
+// 作者：丁志浩 时间：2014/02/27，16:06
 // 方案：FRP
 // 项目：Infrastructure.Data.PartBC
 // 版本：V1.0.0
@@ -26,25 +26,28 @@ using UniCloud.Domain.UberModel.Aggregates.OilMonitorAgg;
 namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 {
     /// <summary>
-    ///     OilMonitor实体相关配置
+    ///     OilUser实体相关配置
     /// </summary>
-    internal class OilMonitorEntityConfiguration : EntityTypeConfiguration<OilMonitor>
+    internal class OilUserEntityConfiguration : EntityTypeConfiguration<OilUser>
     {
-        public OilMonitorEntityConfiguration()
+        public OilUserEntityConfiguration()
         {
-            ToTable("OilMonitor", DbConfig.Schema);
+            ToTable("OilUser", DbConfig.Schema);
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            Property(p => p.Date).HasColumnName("Date").HasColumnType("datetime2");
+            Property(p => p.Sn).HasColumnName("Sn");
             Property(p => p.TSN).HasColumnName("TSN");
             Property(p => p.TSR).HasColumnName("TSR");
-            Property(p => p.TotalRate).HasColumnName("TotalRate");
-            Property(p => p.IntervalRate).HasColumnName("IntervalRate");
-            Property(p => p.DeltaIntervalRate).HasColumnName("DeltaIntervalRate");
-            Property(p => p.AverageRate3).HasColumnName("AverageRate3");
-            Property(p => p.AverageRate7).HasColumnName("AverageRate7");
+            Property(p => p.CSN).HasColumnName("CSN");
+            Property(p => p.CSR).HasColumnName("CSR");
+            Property(p => p.NeedMonitor).HasColumnName("NeedMonitor");
+            Property(p => p.MonitorStatus).HasColumnName("MonitorStatus");
+
+            Property(p => p.SnRegID).HasColumnName("SnRegID");
+
+            HasMany(u => u.OilMonitors).WithRequired().HasForeignKey(u => u.OilUserID);
         }
     }
 }
