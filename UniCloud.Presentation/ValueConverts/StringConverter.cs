@@ -61,6 +61,15 @@ namespace UniCloud.Presentation.ValueConverts
                 case "OilMonitorStatus":
                     result = Enum.GetName(typeof (OilMonitorStatus), (OilMonitorStatus) value);
                     break;
+                case "AirStructureDamageStatus":
+                    result = Enum.GetName(typeof (AirStructureDamageStatus), (AirStructureDamageStatus) value);
+                    break;
+                case "AirStructureReportType":
+                    result = Enum.GetName(typeof (AirStructureReportType), (AirStructureReportType) value);
+                    break;
+                case "AircraftDamageLevel":
+                    result = Enum.GetName(typeof (AircraftDamageLevel), (AircraftDamageLevel) value);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

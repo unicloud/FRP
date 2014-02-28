@@ -16,6 +16,7 @@
 #region 命名空间
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
+using UniCloud.Domain.PartBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
 #endregion
 
@@ -32,5 +33,12 @@ namespace UniCloud.Application.PartBC.Query.AircraftTypeQueries
         /// <param name="query">查询表达式</param>
         ///  <returns>AircraftTypeDTO集合</returns>
         IQueryable<AircraftTypeDTO> AircraftTypeDTOQuery(QueryBuilder<AircraftType> query);
+
+        /// <summary>
+        /// AircraftSeries查询。
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        ///  <returns>AircraftSeriesDTO集合</returns>
+        IQueryable<AircraftSeriesDTO> AircraftSeriesDTOQuery(QueryBuilder<AircraftSeries> query);
     }
 }

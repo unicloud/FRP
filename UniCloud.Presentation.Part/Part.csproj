@@ -200,6 +200,14 @@
       <DependentUpon>SpecialConfigView.xaml</DependentUpon>
     </Compile>
     <Compile Include="EngineConfig\SpecialConfigVm.cs" />
+    <Compile Include="ManageAdSb\QueryAdSb.xaml.cs">
+      <DependentUpon>QueryAdSb.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageAdSb\QueryAdSbVm.cs" />
+    <Compile Include="ManageAirStructureDamage\MaintainAirStructureDamage.xaml.cs">
+      <DependentUpon>MaintainAirStructureDamage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManageAirStructureDamage\MaintainAirStructureDamageVm.cs" />
     <Compile Include="ManageSCN\AuditOrganizations.xaml.cs">
       <DependentUpon>AuditOrganizations.xaml</DependentUpon>
     </Compile>
@@ -266,6 +274,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EngineConfig\SpecialConfigView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageAdSb\QueryAdSb.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageAirStructureDamage\MaintainAirStructureDamage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

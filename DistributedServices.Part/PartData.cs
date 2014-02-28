@@ -19,8 +19,10 @@
 
 using System.Linq;
 using UniCloud.Application.PartBC.AcDailyUtilizationServices;
+using UniCloud.Application.PartBC.AdSbServices;
 using UniCloud.Application.PartBC.AircraftServices;
 using UniCloud.Application.PartBC.AircraftTypeServices;
+using UniCloud.Application.PartBC.AirStructureDamageServices;
 using UniCloud.Application.PartBC.BasicConfigGroupServices;
 using UniCloud.Application.PartBC.ContractAircraftServices;
 using UniCloud.Application.PartBC.CtrlUnitServices;
@@ -60,7 +62,8 @@ namespace UniCloud.DistributedServices.Part
         private readonly ISnRegAppService _snRegAppService;
         private readonly ISpecialConfigAppService _specialConfigAppService;
         private readonly ITechnicalSolutionAppService _technicalSolutionAppService;
-
+        private readonly IAirStructureDamageAppService _airStructureDamageAppService;
+        private readonly IAdSbAppService _adSbAppService;
         public PartData()
             : base("UniCloud.Application.PartBC.DTO")
         {
@@ -79,6 +82,8 @@ namespace UniCloud.DistributedServices.Part
             _snRegAppService = DefaultContainer.Resolve<ISnRegAppService>();
             _specialConfigAppService = DefaultContainer.Resolve<ISpecialConfigAppService>();
             _technicalSolutionAppService = DefaultContainer.Resolve<ITechnicalSolutionAppService>();
+            _airStructureDamageAppService = DefaultContainer.Resolve<IAirStructureDamageAppService>();
+            _adSbAppService = DefaultContainer.Resolve<IAdSbAppService>();
         }
 
         #region 飞机日利用率集合
@@ -115,6 +120,13 @@ namespace UniCloud.DistributedServices.Part
             get { return _aircraftTypeAppService.GetAircraftTypes(); }
         }
 
+        /// <summary>
+        ///     系列集合
+        /// </summary>
+        public IQueryable<AircraftSeriesDTO> AircraftSeriess
+        {
+            get { return _aircraftTypeAppService.GetAircraftSeriess(); }
+        }
         #endregion
 
         #region 基本构型组集合
@@ -299,6 +311,26 @@ namespace UniCloud.DistributedServices.Part
             get { return _technicalSolutionAppService.GetTechnicalSolutions(); }
         }
 
+        #endregion
+
+        #region 结构损伤集合
+        /// <summary>
+        ///     结构损伤集合
+        /// </summary>
+        public IQueryable<AirStructureDamageDTO> AirStructureDamages
+        {
+            get { return _airStructureDamageAppService.GetAirStructureDamages(); }
+        }
+        #endregion
+
+        #region AdSb集合
+        /// <summary>
+        ///     AdSb集合
+        /// </summary>
+        public IQueryable<AdSbDTO> AdSbs
+        {
+            get { return _adSbAppService.GetAdSbs(); }
+        }
         #endregion
     }
 }

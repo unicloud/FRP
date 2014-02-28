@@ -18,6 +18,7 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.AircraftTypeQueries;
+using UniCloud.Domain.PartBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
 #endregion
 
@@ -50,5 +51,18 @@ namespace UniCloud.Application.PartBC.AircraftTypeServices
 
         #endregion
 
+        #region AircraftSeriesDTO
+
+        /// <summary>
+        /// 获取所有AircraftSeries。
+        /// </summary>
+        public IQueryable<AircraftSeriesDTO> GetAircraftSeriess()
+        {
+            var queryBuilder =
+               new QueryBuilder<AircraftSeries>();
+            return _aircraftTypeQuery.AircraftSeriesDTOQuery(queryBuilder);
+        }
+
+        #endregion
     }
 }
