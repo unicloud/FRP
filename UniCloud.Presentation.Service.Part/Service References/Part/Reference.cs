@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/2/27 18:23:20
+// 生成日期: 2014/2/28 10:52:23
 namespace UniCloud.Presentation.Service.Part.Part
 {
     
@@ -282,6 +282,23 @@ namespace UniCloud.Presentation.Service.Part.Part
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<APUOilDTO> _APUOils;
         /// <summary>
+        /// 架构中不存在 OilMonitors 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<OilMonitorDTO> OilMonitors
+        {
+            get
+            {
+                if ((this._OilMonitors == null))
+                {
+                    this._OilMonitors = base.CreateQuery<OilMonitorDTO>("OilMonitors");
+                }
+                return this._OilMonitors;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<OilMonitorDTO> _OilMonitors;
+        /// <summary>
         /// 架构中不存在 PnRegs 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -488,6 +505,14 @@ namespace UniCloud.Presentation.Service.Part.Part
             base.AddObject("APUOils", aPUOilDTO);
         }
         /// <summary>
+        /// 架构中不存在 OilMonitors 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToOilMonitors(OilMonitorDTO oilMonitorDTO)
+        {
+            base.AddObject("OilMonitors", oilMonitorDTO);
+        }
+        /// <summary>
         /// 架构中不存在 PnRegs 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -614,124 +639,124 @@ namespace UniCloud.Presentation.Service.Part.Part
                 "able=\"false\" /><Property Name=\"TSR\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Prope" +
                 "rty Name=\"CSN\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"CSR\" Type=\"" +
                 "Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullabl" +
-                "e=\"false\" /><Property Name=\"OilMonitors\" Type=\"Collection(UniCloud.Application.P" +
-                "artBC.DTO.OilMonitorDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"Oil" +
-                "MonitorDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Na" +
-                "me=\"Date\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"TSN\" Type=\"Edm." +
-                "Decimal\" Nullable=\"false\" /><Property Name=\"TSR\" Type=\"Edm.Decimal\" Nullable=\"fa" +
-                "lse\" /><Property Name=\"TotalRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Propert" +
-                "y Name=\"IntervalRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Delt" +
-                "aIntervalRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AverageRate" +
-                "3\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"AverageRate7\" Type=\"Edm" +
-                ".Decimal\" Nullable=\"false\" /></ComplexType><EntityType Name=\"APUOilDTO\"><Key><Pr" +
-                "opertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false" +
-                "\" /><Property Name=\"Sn\" Type=\"Edm.String\" /><Property Name=\"TSN\" Type=\"Edm.Decim" +
-                "al\" Nullable=\"false\" /><Property Name=\"TSR\" Type=\"Edm.Decimal\" Nullable=\"false\" " +
-                "/><Property Name=\"CSN\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"CSR" +
-                "\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\"" +
-                " Nullable=\"false\" /><Property Name=\"OilMonitors\" Type=\"Collection(UniCloud.Appli" +
-                "cation.PartBC.DTO.OilMonitorDTO)\" Nullable=\"false\" /></EntityType><EntityType Na" +
-                "me=\"PnRegDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm." +
-                "Int32\" Nullable=\"false\" /><Property Name=\"Pn\" Type=\"Edm.String\" /><Property Name" +
-                "=\"IsLife\" Type=\"Edm.Boolean\" Nullable=\"false\" /></EntityType><EntityType Name=\"S" +
-                "cnDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"";
+                "e=\"false\" /></EntityType><EntityType Name=\"APUOilDTO\"><Key><PropertyRef Name=\"Id" +
+                "\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name" +
+                "=\"Sn\" Type=\"Edm.String\" /><Property Name=\"TSN\" Type=\"Edm.Decimal\" Nullable=\"fals" +
+                "e\" /><Property Name=\"TSR\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"" +
+                "CSN\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"CSR\" Type=\"Edm.Decima" +
+                "l\" Nullable=\"false\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"false\" " +
+                "/></EntityType><EntityType Name=\"OilMonitorDTO\"><Key><PropertyRef Name=\"Id\" /></" +
+                "Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"OilU" +
+                "serID\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Date\" Type=\"Edm.DateT" +
+                "ime\" Nullable=\"false\" /><Property Name=\"TSN\" Type=\"Edm.Decimal\" Nullable=\"false\"" +
+                " /><Property Name=\"TSR\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"To" +
+                "talRate\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"IntervalRate\" Typ" +
+                "e=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"DeltaIntervalRate\" Type=\"Edm." +
+                "Decimal\" Nullable=\"false\" /><Property Name=\"AverageRate3\" Type=\"Edm.Decimal\" Nul" +
+                "lable=\"false\" /><Property Name=\"AverageRate7\" Type=\"Edm.Decimal\" Nullable=\"false" +
+                "\" /></EntityType><EntityType Name=\"PnRegDTO\"><Key><PropertyRef Name=\"Id\" /></Key" +
+                "><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Pn\" Typ" +
+                "e=\"Edm.String\" /><Property Name=\"IsLife\" Type=\"Edm.Boolean\" Nullable=\"false\" /><" +
+                "/EntityType><EntityType Name=\"ScnDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Prope" +
+                "rty Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Title\" Type=\"E" +
+                "dm.String\" /><Property Name=\"CheckDate\" Type=\"Edm.DateTime\"";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart1 = "Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Title\" Type=\"Edm.String\" " +
-                "/><Property Name=\"CheckDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Na" +
-                "me=\"CSCNumber\" Type=\"Edm.String\" /><Property Name=\"ModNumber\" Type=\"Edm.String\" " +
-                "/><Property Name=\"TsNumber\" Type=\"Edm.String\" /><Property Name=\"Cost\" Type=\"Edm." +
-                "Decimal\" Nullable=\"false\" /><Property Name=\"ScnNumber\" Type=\"Edm.String\" /><Prop" +
-                "erty Name=\"Type\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"TypeString\"" +
-                " Type=\"Edm.String\" /><Property Name=\"ScnStatus\" Type=\"Edm.Int32\" Nullable=\"false" +
-                "\" /><Property Name=\"ScnType\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=" +
-                "\"ScnTypeString\" Type=\"Edm.String\" /><Property Name=\"Description\" Type=\"Edm.Strin" +
-                "g\" /><Property Name=\"ScnDocName\" Type=\"Edm.String\" /><Property Name=\"AuditOrgani" +
-                "zation\" Type=\"Edm.String\" /><Property Name=\"Auditor\" Type=\"Edm.String\" /><Proper" +
-                "ty Name=\"AuditTime\" Type=\"Edm.DateTime\" /><Property Name=\"AuditNotes\" Type=\"Edm." +
-                "String\" /><Property Name=\"AuditHistory\" Type=\"Edm.String\" /><Property Name=\"ScnD" +
-                "ocumentId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"ApplicableAircraft" +
-                "s\" Type=\"Collection(UniCloud.Application.PartBC.DTO.ApplicableAircraftDTO)\" Null" +
-                "able=\"false\" /></EntityType><ComplexType Name=\"ApplicableAircraftDTO\"><Property " +
-                "Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"CompleteDate\" Type" +
-                "=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Cost\" Type=\"Edm.Decimal\" Null" +
-                "able=\"false\" /><Property Name=\"ContractAircraftId\" Type=\"Edm.Int32\" Nullable=\"fa" +
-                "lse\" /><Property Name=\"ScnId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType>" +
-                "<EntityType Name=\"AirBusScnDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Na" +
-                "me=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Title\" Type=\"Edm.Str" +
-                "ing\" /><Property Name=\"CSCNumber\" Type=\"Edm.String\" /><Property Name=\"ModNumber\"" +
-                " Type=\"Edm.String\" /><Property Name=\"ScnNumber\" Type=\"Edm.String\" /><Property Na" +
-                "me=\"ScnStatus\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Description\" " +
-                "Type=\"Edm.String\" /></EntityType><EntityType Name=\"SnRegDTO\"><Key><PropertyRef N" +
-                "ame=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Proper" +
-                "ty Name=\"Sn\" Type=\"Edm.String\" /><Property Name=\"InstallDate\" Type=\"Edm.DateTime" +
-                "\" Nullable=\"false\" /><Property Name=\"Pn\" Type=\"Edm.String\" /><Property Name=\"IsS" +
-                "top\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"PnRegId\" Type=\"Edm.In" +
-                "t32\" Nullable=\"false\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" Nullable=\"fa" +
-                "lse\" /><Property Name=\"SnHistories\" Type=\"Collection(UniCloud.Application.PartBC" +
-                ".DTO.SnHistoryDTO)\" Nullable=\"false\" /><Property Name=\"LiftMonitors\" Type=\"Colle" +
-                "ction(UniCloud.Application.PartBC.DTO.LifeMonitorDTO)\" Nullable=\"false\" /></Enti" +
-                "tyType><ComplexType Name=\"SnHistoryDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nul" +
-                "lable=\"false\" /><Property Name=\"Sn\" Type=\"Edm.String\" /><Property Name=\"InstallD" +
-                "ate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"RemoveDate\" Type=\"Ed" +
-                "m.DateTime\" /><Property Name=\"FiNumber\" Type=\"Edm.String\" /><Property Name=\"CSN\"" +
-                " Type=\"Edm.String\" /><Property Name=\"CSR\" Type=\"Edm.String\" /><Property Name=\"TS" +
-                "N\" Type=\"Edm.String\" /><Property Name=\"TSR\" Type=\"Edm.String\" /><Property Name=\"" +
-                "AircraftId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"SnRegId\" Type=\"Ed" +
-                "m.Int32\" Nullable=\"false\" /></ComplexType><ComplexType Name=\"LifeMonitorDTO\"><Pr" +
-                "operty Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"WorkCode\" T" +
-                "ype=\"Edm.String\" /><Property Name=\"Sn\" Type=\"Edm.String\" /><Property Name=\"Moint" +
-                "orStart\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"LifeTimeLimit\" T" +
-                "ype=\"Edm.String\" /><Property Name=\"MaintainWorkId\" Type=\"Edm.Int32\" Nullable=\"fa" +
-                "lse\" /><Property Name=\"SnRegId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexTyp" +
-                "e><EntityType Name=\"SpecialConfigDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Prope" +
-                "rty Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"StartDate\" Typ" +
-                "e=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"EndDate\" Type=\"Edm.DateTime\"" +
-                " /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name" +
-                "=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"TsNumber\" T" +
-                "ype=\"Edm.String\" /><Property Name=\"FiNumber\" Type=\"Edm.String\" /><Property Name=" +
-                "\"ItemNo\" Type=\"Edm.String\" /><Property Name=\"ParentItemNo\" Type=\"Edm.String\" /><" +
-                "Property Name=\"Description\" Type=\"Edm.String\" /><Property Name=\"TsId\" Type=\"Edm." +
-                "Int32\" /><Property Name=\"ParentId\" Type=\"Edm.Int32\" /><Property Name=\"ContractAi" +
-                "rcraftId\" Type=\"Edm.Int32\" Nullable=\"false\" /></EntityType><EntityType Name=\"Tec" +
-                "hnicalSolutionDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=" +
-                "\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"FiNumber\" Type=\"Edm.String\" /><Pr" +
-                "operty Name=\"TsNumber\" Type=\"Edm.String\" /><Property Name=\"Position\" Type=\"Edm.S" +
-                "tring\" /><Property Name=\"TsLines\" Type=\"Collection(UniCloud.Application.PartBC.D" +
-                "TO.TsLineDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"TsLineDTO\"><Pr" +
-                "operty Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Pn\" Type=\"E" +
-                "dm.String\" /><Property Name=\"Description\" Type=\"Edm.String\" /><Property Name=\"Ts" +
-                "Number\" Type=\"Edm.String\" /><Property Name=\"TsId\" Type=\"Edm.Int32\" Nullable=\"fal" +
-                "se\" /><Property Name=\"Dependencies\" Type=\"Collection(UniCloud.Application.PartBC" +
-                ".DTO.DependencyDTO)\" Nullable=\"false\" /></ComplexType><ComplexType Name=\"Depende" +
-                "ncyDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"" +
-                "Pn\" Type=\"Edm.String\" /><Property Name=\"PnRegId\" Type=\"Edm.Int32\" Nullable=\"fals" +
-                "e\" /><Property Name=\"TsLineId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType" +
-                "><ComplexType Name=\"ConfigGroupDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullabl" +
-                "e=\"false\" /><Property Name=\"GroupNo\" Type=\"Edm.String\" /><Property Name=\"GroupNa" +
-                "me\" Type=\"Edm.String\" /><Property Name=\"AircraftTypeName\" Type=\"Edm.String\" /><P" +
-                "roperty Name=\"TechnicalSolutions\" Type=\"Collection(UniCloud.Application.PartBC.D" +
-                "TO.TsDTO)\" Nullable=\"false\" /><Property Name=\"GroupAcs\" Type=\"Collection(UniClou" +
-                "d.Application.PartBC.DTO.GroupAcDTO)\" Nullable=\"false\" /></ComplexType><ComplexT" +
-                "ype Name=\"TsDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Proper" +
-                "ty Name=\"FiNumber\" Type=\"Edm.String\" /><Property Name=\"TsNumber\" Type=\"Edm.Strin" +
-                "g\" /><Property Name=\"Position\" Type=\"Edm.String\" /><Property Name=\"Type\" Type=\"E" +
-                "dm.String\" /><Property Name=\"TsLines\" Type=\"Collection(UniCloud.Application.Part" +
-                "BC.DTO.TsLineDTO)\" Nullable=\"false\" /></ComplexType><ComplexType Name=\"GroupAcDT" +
-                "O\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Contr" +
-                "actName\" Type=\"Edm.String\" /><Property Name=\"ContractNumber\" Type=\"Edm.String\" /" +
-                "><Property Name=\"RankNumber\" Type=\"Edm.String\" /><Property Name=\"CSCNumber\" Type" +
-                "=\"Edm.String\" /><Property Name=\"SerialNumber\" Type=\"Edm.String\" /><Property Name" +
-                "=\"ConfigGroupId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType></Schema><Sch" +
-                "ema Namespace=\"UniCloud.DistributedServices.Part\" xmlns=\"http://schemas.microsof" +
-                "t.com/ado/2009/11/edm\"><EntityContainer Name=\"PartData\" m:IsDefaultEntityContain" +
-                "er=\"true\"><EntitySet Name=\"AcDailyUtilizations\" EntityType=\"UniCloud.Application" +
-                ".PartBC.DTO.AcDailyUtilizationDTO\" /><EntitySet Name=\"Aircrafts\" EntityType=\"Uni" +
-                "Cloud.Application.PartBC.DTO.AircraftDTO\" /><EntitySet Name=\"AircraftTypes\" Enti" +
-                "tyType=\"UniCloud.Application.PartBC.DTO.AircraftTypeDTO\" /><EntitySet Name=\"Basi" +
-                "cConfigGroups\" EntityType=\"UniCloud.Application.PartBC.DTO.BasicConfigGroupDTO\" " +
-                "/><EntitySet Name=\"ContractAircrafts\" EntityType=\"UniCloud.";
+            private const string ModelPart1 = " Nullable=\"false\" /><Property Name=\"CSCNumber\" Type=\"Edm.String\" /><Property Name" +
+                "=\"ModNumber\" Type=\"Edm.String\" /><Property Name=\"TsNumber\" Type=\"Edm.String\" /><" +
+                "Property Name=\"Cost\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"ScnNu" +
+                "mber\" Type=\"Edm.String\" /><Property Name=\"Type\" Type=\"Edm.Int32\" Nullable=\"false" +
+                "\" /><Property Name=\"TypeString\" Type=\"Edm.String\" /><Property Name=\"ScnStatus\" T" +
+                "ype=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ScnType\" Type=\"Edm.Int32\" Nul" +
+                "lable=\"false\" /><Property Name=\"ScnTypeString\" Type=\"Edm.String\" /><Property Nam" +
+                "e=\"Description\" Type=\"Edm.String\" /><Property Name=\"ScnDocName\" Type=\"Edm.String" +
+                "\" /><Property Name=\"AuditOrganization\" Type=\"Edm.String\" /><Property Name=\"Audit" +
+                "or\" Type=\"Edm.String\" /><Property Name=\"AuditTime\" Type=\"Edm.DateTime\" /><Proper" +
+                "ty Name=\"AuditNotes\" Type=\"Edm.String\" /><Property Name=\"AuditHistory\" Type=\"Edm" +
+                ".String\" /><Property Name=\"ScnDocumentId\" Type=\"Edm.Guid\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"ApplicableAircrafts\" Type=\"Collection(UniCloud.Application.PartBC.D" +
+                "TO.ApplicableAircraftDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"Ap" +
+                "plicableAircraftDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pr" +
+                "operty Name=\"CompleteDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name" +
+                "=\"Cost\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"ContractAircraftId" +
+                "\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"ScnId\" Type=\"Edm.Int32\" Nu" +
+                "llable=\"false\" /></ComplexType><EntityType Name=\"AirBusScnDTO\"><Key><PropertyRef" +
+                " Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prop" +
+                "erty Name=\"Title\" Type=\"Edm.String\" /><Property Name=\"CSCNumber\" Type=\"Edm.Strin" +
+                "g\" /><Property Name=\"ModNumber\" Type=\"Edm.String\" /><Property Name=\"ScnNumber\" T" +
+                "ype=\"Edm.String\" /><Property Name=\"ScnStatus\" Type=\"Edm.Int32\" Nullable=\"false\" " +
+                "/><Property Name=\"Description\" Type=\"Edm.String\" /></EntityType><EntityType Name" +
+                "=\"SnRegDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.In" +
+                "t32\" Nullable=\"false\" /><Property Name=\"Sn\" Type=\"Edm.String\" /><Property Name=\"" +
+                "InstallDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Pn\" Type=\"Ed" +
+                "m.String\" /><Property Name=\"IsStop\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Prope" +
+                "rty Name=\"PnRegId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AircraftI" +
+                "d\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"SnHistories\" Type=\"Collect" +
+                "ion(UniCloud.Application.PartBC.DTO.SnHistoryDTO)\" Nullable=\"false\" /><Property " +
+                "Name=\"LiftMonitors\" Type=\"Collection(UniCloud.Application.PartBC.DTO.LifeMonitor" +
+                "DTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"SnHistoryDTO\"><Property" +
+                " Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Sn\" Type=\"Edm.Str" +
+                "ing\" /><Property Name=\"InstallDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Prop" +
+                "erty Name=\"RemoveDate\" Type=\"Edm.DateTime\" /><Property Name=\"FiNumber\" Type=\"Edm" +
+                ".String\" /><Property Name=\"CSN\" Type=\"Edm.String\" /><Property Name=\"CSR\" Type=\"E" +
+                "dm.String\" /><Property Name=\"TSN\" Type=\"Edm.String\" /><Property Name=\"TSR\" Type=" +
+                "\"Edm.String\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" Nullable=\"false\" /><P" +
+                "roperty Name=\"SnRegId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><Comple" +
+                "xType Name=\"LifeMonitorDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false" +
+                "\" /><Property Name=\"WorkCode\" Type=\"Edm.String\" /><Property Name=\"Sn\" Type=\"Edm." +
+                "String\" /><Property Name=\"MointorStart\" Type=\"Edm.DateTime\" Nullable=\"false\" /><" +
+                "Property Name=\"LifeTimeLimit\" Type=\"Edm.String\" /><Property Name=\"MaintainWorkId" +
+                "\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SnRegId\" Type=\"Edm.Int32\" " +
+                "Nullable=\"false\" /></ComplexType><EntityType Name=\"SpecialConfigDTO\"><Key><Prope" +
+                "rtyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /" +
+                "><Property Name=\"StartDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Nam" +
+                "e=\"EndDate\" Type=\"Edm.DateTime\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nu" +
+                "llable=\"false\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false" +
+                "\" /><Property Name=\"TsNumber\" Type=\"Edm.String\" /><Property Name=\"FiNumber\" Type" +
+                "=\"Edm.String\" /><Property Name=\"ItemNo\" Type=\"Edm.String\" /><Property Name=\"Pare" +
+                "ntItemNo\" Type=\"Edm.String\" /><Property Name=\"Description\" Type=\"Edm.String\" /><" +
+                "Property Name=\"TsId\" Type=\"Edm.Int32\" /><Property Name=\"ParentId\" Type=\"Edm.Int3" +
+                "2\" /><Property Name=\"ContractAircraftId\" Type=\"Edm.Int32\" Nullable=\"false\" /></E" +
+                "ntityType><EntityType Name=\"TechnicalSolutionDTO\"><Key><PropertyRef Name=\"Id\" />" +
+                "</Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Fi" +
+                "Number\" Type=\"Edm.String\" /><Property Name=\"TsNumber\" Type=\"Edm.String\" /><Prope" +
+                "rty Name=\"Position\" Type=\"Edm.String\" /><Property Name=\"TsLines\" Type=\"Collectio" +
+                "n(UniCloud.Application.PartBC.DTO.TsLineDTO)\" Nullable=\"false\" /></EntityType><C" +
+                "omplexType Name=\"TsLineDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false" +
+                "\" /><Property Name=\"Pn\" Type=\"Edm.String\" /><Property Name=\"Description\" Type=\"E" +
+                "dm.String\" /><Property Name=\"TsNumber\" Type=\"Edm.String\" /><Property Name=\"TsId\"" +
+                " Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Dependencies\" Type=\"Collect" +
+                "ion(UniCloud.Application.PartBC.DTO.DependencyDTO)\" Nullable=\"false\" /></Complex" +
+                "Type><ComplexType Name=\"DependencyDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Null" +
+                "able=\"false\" /><Property Name=\"Pn\" Type=\"Edm.String\" /><Property Name=\"PnRegId\" " +
+                "Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"TsLineId\" Type=\"Edm.Int32\" N" +
+                "ullable=\"false\" /></ComplexType><ComplexType Name=\"ConfigGroupDTO\"><Property Nam" +
+                "e=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"GroupNo\" Type=\"Edm.St" +
+                "ring\" /><Property Name=\"GroupName\" Type=\"Edm.String\" /><Property Name=\"AircraftT" +
+                "ypeName\" Type=\"Edm.String\" /><Property Name=\"TechnicalSolutions\" Type=\"Collectio" +
+                "n(UniCloud.Application.PartBC.DTO.TsDTO)\" Nullable=\"false\" /><Property Name=\"Gro" +
+                "upAcs\" Type=\"Collection(UniCloud.Application.PartBC.DTO.GroupAcDTO)\" Nullable=\"f" +
+                "alse\" /></ComplexType><ComplexType Name=\"TsDTO\"><Property Name=\"Id\" Type=\"Edm.In" +
+                "t32\" Nullable=\"false\" /><Property Name=\"FiNumber\" Type=\"Edm.String\" /><Property " +
+                "Name=\"TsNumber\" Type=\"Edm.String\" /><Property Name=\"Position\" Type=\"Edm.String\" " +
+                "/><Property Name=\"Type\" Type=\"Edm.String\" /><Property Name=\"TsLines\" Type=\"Colle" +
+                "ction(UniCloud.Application.PartBC.DTO.TsLineDTO)\" Nullable=\"false\" /></ComplexTy" +
+                "pe><ComplexType Name=\"GroupAcDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=" +
+                "\"false\" /><Property Name=\"ContractName\" Type=\"Edm.String\" /><Property Name=\"Cont" +
+                "ractNumber\" Type=\"Edm.String\" /><Property Name=\"RankNumber\" Type=\"Edm.String\" />" +
+                "<Property Name=\"CSCNumber\" Type=\"Edm.String\" /><Property Name=\"SerialNumber\" Typ" +
+                "e=\"Edm.String\" /><Property Name=\"ConfigGroupId\" Type=\"Edm.Int32\" Nullable=\"false" +
+                "\" /></ComplexType></Schema><Schema Namespace=\"UniCloud.DistributedServices.Part\"" +
+                " xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"Par" +
+                "tData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"AcDailyUtilizations\" E" +
+                "ntityType=\"UniCloud.Application.PartBC.DTO.AcDailyUtilizationDTO\" /><EntitySet N" +
+                "ame=\"Aircrafts\" EntityType=\"UniCloud.Application.PartBC.DTO.AircraftDTO\" /><Enti" +
+                "tySet Name=\"AircraftTypes\" EntityType=\"UniCloud.Application.PartBC.DTO.AircraftT" +
+                "ypeDTO\" /><EntitySet Name=\"BasicConfigGroups\" EntityType=\"UniCloud.Application.P" +
+                "artBC.DTO.BasicConfigGroupDTO\" /><EntitySet Name=\"ContractAircrafts\" EntityType=" +
+                "\"UniCloud.Application.PartBC.DTO.ContractAircraftDTO\" /><EntitySet Name=\"CtrlUni" +
+                "ts\" EntityType=\"UniCloud.Application.PartBC.DTO.CtrlUnitDTO";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart2 = @"Application.PartBC.DTO.ContractAircraftDTO"" /><EntitySet Name=""CtrlUnits"" EntityType=""UniCloud.Application.PartBC.DTO.CtrlUnitDTO"" /><EntitySet Name=""ItemMaintainCtrls"" EntityType=""UniCloud.Application.PartBC.DTO.ItemMaintainCtrlDTO"" /><EntitySet Name=""PnMaintainCtrls"" EntityType=""UniCloud.Application.PartBC.DTO.PnMaintainCtrlDTO"" /><EntitySet Name=""SnMaintainCtrls"" EntityType=""UniCloud.Application.PartBC.DTO.SnMaintainCtrlDTO"" /><EntitySet Name=""MaintainWorks"" EntityType=""UniCloud.Application.PartBC.DTO.MaintainWorkDTO"" /><EntitySet Name=""Mods"" EntityType=""UniCloud.Application.PartBC.DTO.ModDTO"" /><EntitySet Name=""EngineOils"" EntityType=""UniCloud.Application.PartBC.DTO.EngineOilDTO"" /><EntitySet Name=""APUOils"" EntityType=""UniCloud.Application.PartBC.DTO.APUOilDTO"" /><EntitySet Name=""PnRegs"" EntityType=""UniCloud.Application.PartBC.DTO.PnRegDTO"" /><EntitySet Name=""Scns"" EntityType=""UniCloud.Application.PartBC.DTO.ScnDTO"" /><EntitySet Name=""AirBusScns"" EntityType=""UniCloud.Application.PartBC.DTO.AirBusScnDTO"" /><EntitySet Name=""SnRegs"" EntityType=""UniCloud.Application.PartBC.DTO.SnRegDTO"" /><EntitySet Name=""SpecialConfigs"" EntityType=""UniCloud.Application.PartBC.DTO.SpecialConfigDTO"" /><EntitySet Name=""TechnicalSolutions"" EntityType=""UniCloud.Application.PartBC.DTO.TechnicalSolutionDTO"" /><FunctionImport Name=""GetConfigGroups"" ReturnType=""Collection(UniCloud.Application.PartBC.DTO.ConfigGroupDTO)"" m:HttpMethod=""GET"" /></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
+            private const string ModelPart2 = @""" /><EntitySet Name=""ItemMaintainCtrls"" EntityType=""UniCloud.Application.PartBC.DTO.ItemMaintainCtrlDTO"" /><EntitySet Name=""PnMaintainCtrls"" EntityType=""UniCloud.Application.PartBC.DTO.PnMaintainCtrlDTO"" /><EntitySet Name=""SnMaintainCtrls"" EntityType=""UniCloud.Application.PartBC.DTO.SnMaintainCtrlDTO"" /><EntitySet Name=""MaintainWorks"" EntityType=""UniCloud.Application.PartBC.DTO.MaintainWorkDTO"" /><EntitySet Name=""Mods"" EntityType=""UniCloud.Application.PartBC.DTO.ModDTO"" /><EntitySet Name=""EngineOils"" EntityType=""UniCloud.Application.PartBC.DTO.EngineOilDTO"" /><EntitySet Name=""APUOils"" EntityType=""UniCloud.Application.PartBC.DTO.APUOilDTO"" /><EntitySet Name=""OilMonitors"" EntityType=""UniCloud.Application.PartBC.DTO.OilMonitorDTO"" /><EntitySet Name=""PnRegs"" EntityType=""UniCloud.Application.PartBC.DTO.PnRegDTO"" /><EntitySet Name=""Scns"" EntityType=""UniCloud.Application.PartBC.DTO.ScnDTO"" /><EntitySet Name=""AirBusScns"" EntityType=""UniCloud.Application.PartBC.DTO.AirBusScnDTO"" /><EntitySet Name=""SnRegs"" EntityType=""UniCloud.Application.PartBC.DTO.SnRegDTO"" /><EntitySet Name=""SpecialConfigs"" EntityType=""UniCloud.Application.PartBC.DTO.SpecialConfigDTO"" /><EntitySet Name=""TechnicalSolutions"" EntityType=""UniCloud.Application.PartBC.DTO.TechnicalSolutionDTO"" /><FunctionImport Name=""GetConfigGroups"" ReturnType=""Collection(UniCloud.Application.PartBC.DTO.ConfigGroupDTO)"" m:HttpMethod=""GET"" /></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -2750,14 +2775,412 @@ namespace UniCloud.Presentation.Service.Part.Part
         }
     }
     /// <summary>
-    /// 架构中不存在 ComplexType UniCloud.Application.PartBC.DTO.OilMonitorDTO 的注释。
+    /// 架构中不存在 UniCloud.Application.PartBC.DTO.EngineOilDTO 的注释。
     /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("EngineOils")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class EngineOilDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 EngineOilDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        /// <param name="tSN">TSN 的初始值。</param>
+        /// <param name="tSR">TSR 的初始值。</param>
+        /// <param name="cSN">CSN 的初始值。</param>
+        /// <param name="cSR">CSR 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static EngineOilDTO CreateEngineOilDTO(int ID, decimal tSN, decimal tSR, decimal cSN, decimal cSR, int status)
+        {
+            EngineOilDTO engineOilDTO = new EngineOilDTO();
+            engineOilDTO.Id = ID;
+            engineOilDTO.TSN = tSN;
+            engineOilDTO.TSR = tSR;
+            engineOilDTO.CSN = cSN;
+            engineOilDTO.CSR = cSR;
+            engineOilDTO.Status = status;
+            return engineOilDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Sn 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Sn
+        {
+            get
+            {
+                return this._Sn;
+            }
+            set
+            {
+                this.OnSnChanging(value);
+                this._Sn = value;
+                this.OnSnChanged();
+                this.OnPropertyChanged("Sn");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Sn;
+        partial void OnSnChanging(string value);
+        partial void OnSnChanged();
+        /// <summary>
+        /// 架构中不存在属性 TSN 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal TSN
+        {
+            get
+            {
+                return this._TSN;
+            }
+            set
+            {
+                this.OnTSNChanging(value);
+                this._TSN = value;
+                this.OnTSNChanged();
+                this.OnPropertyChanged("TSN");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _TSN;
+        partial void OnTSNChanging(decimal value);
+        partial void OnTSNChanged();
+        /// <summary>
+        /// 架构中不存在属性 TSR 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal TSR
+        {
+            get
+            {
+                return this._TSR;
+            }
+            set
+            {
+                this.OnTSRChanging(value);
+                this._TSR = value;
+                this.OnTSRChanged();
+                this.OnPropertyChanged("TSR");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _TSR;
+        partial void OnTSRChanging(decimal value);
+        partial void OnTSRChanged();
+        /// <summary>
+        /// 架构中不存在属性 CSN 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal CSN
+        {
+            get
+            {
+                return this._CSN;
+            }
+            set
+            {
+                this.OnCSNChanging(value);
+                this._CSN = value;
+                this.OnCSNChanged();
+                this.OnPropertyChanged("CSN");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _CSN;
+        partial void OnCSNChanging(decimal value);
+        partial void OnCSNChanged();
+        /// <summary>
+        /// 架构中不存在属性 CSR 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal CSR
+        {
+            get
+            {
+                return this._CSR;
+            }
+            set
+            {
+                this.OnCSRChanging(value);
+                this._CSR = value;
+                this.OnCSRChanged();
+                this.OnPropertyChanged("CSR");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _CSR;
+        partial void OnCSRChanging(decimal value);
+        partial void OnCSRChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.PartBC.DTO.APUOilDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("APUOils")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class APUOilDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 APUOilDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        /// <param name="tSN">TSN 的初始值。</param>
+        /// <param name="tSR">TSR 的初始值。</param>
+        /// <param name="cSN">CSN 的初始值。</param>
+        /// <param name="cSR">CSR 的初始值。</param>
+        /// <param name="status">Status 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static APUOilDTO CreateAPUOilDTO(int ID, decimal tSN, decimal tSR, decimal cSN, decimal cSR, int status)
+        {
+            APUOilDTO aPUOilDTO = new APUOilDTO();
+            aPUOilDTO.Id = ID;
+            aPUOilDTO.TSN = tSN;
+            aPUOilDTO.TSR = tSR;
+            aPUOilDTO.CSN = cSN;
+            aPUOilDTO.CSR = cSR;
+            aPUOilDTO.Status = status;
+            return aPUOilDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Sn 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Sn
+        {
+            get
+            {
+                return this._Sn;
+            }
+            set
+            {
+                this.OnSnChanging(value);
+                this._Sn = value;
+                this.OnSnChanged();
+                this.OnPropertyChanged("Sn");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Sn;
+        partial void OnSnChanging(string value);
+        partial void OnSnChanged();
+        /// <summary>
+        /// 架构中不存在属性 TSN 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal TSN
+        {
+            get
+            {
+                return this._TSN;
+            }
+            set
+            {
+                this.OnTSNChanging(value);
+                this._TSN = value;
+                this.OnTSNChanged();
+                this.OnPropertyChanged("TSN");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _TSN;
+        partial void OnTSNChanging(decimal value);
+        partial void OnTSNChanged();
+        /// <summary>
+        /// 架构中不存在属性 TSR 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal TSR
+        {
+            get
+            {
+                return this._TSR;
+            }
+            set
+            {
+                this.OnTSRChanging(value);
+                this._TSR = value;
+                this.OnTSRChanged();
+                this.OnPropertyChanged("TSR");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _TSR;
+        partial void OnTSRChanging(decimal value);
+        partial void OnTSRChanged();
+        /// <summary>
+        /// 架构中不存在属性 CSN 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal CSN
+        {
+            get
+            {
+                return this._CSN;
+            }
+            set
+            {
+                this.OnCSNChanging(value);
+                this._CSN = value;
+                this.OnCSNChanged();
+                this.OnPropertyChanged("CSN");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _CSN;
+        partial void OnCSNChanging(decimal value);
+        partial void OnCSNChanged();
+        /// <summary>
+        /// 架构中不存在属性 CSR 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal CSR
+        {
+            get
+            {
+                return this._CSR;
+            }
+            set
+            {
+                this.OnCSRChanging(value);
+                this._CSR = value;
+                this.OnCSRChanged();
+                this.OnPropertyChanged("CSR");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _CSR;
+        partial void OnCSRChanging(decimal value);
+        partial void OnCSRChanged();
+        /// <summary>
+        /// 架构中不存在属性 Status 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Status
+        {
+            get
+            {
+                return this._Status;
+            }
+            set
+            {
+                this.OnStatusChanging(value);
+                this._Status = value;
+                this.OnStatusChanged();
+                this.OnPropertyChanged("Status");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Status;
+        partial void OnStatusChanging(int value);
+        partial void OnStatusChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.PartBC.DTO.OilMonitorDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("OilMonitors")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
     public partial class OilMonitorDTO : global::System.ComponentModel.INotifyPropertyChanged
     {
         /// <summary>
         /// 创建新的 OilMonitorDTO 对象。
         /// </summary>
         /// <param name="ID">Id 的初始值。</param>
+        /// <param name="oilUserID">OilUserID 的初始值。</param>
         /// <param name="date">Date 的初始值。</param>
         /// <param name="tSN">TSN 的初始值。</param>
         /// <param name="tSR">TSR 的初始值。</param>
@@ -2767,10 +3190,11 @@ namespace UniCloud.Presentation.Service.Part.Part
         /// <param name="averageRate3">AverageRate3 的初始值。</param>
         /// <param name="averageRate7">AverageRate7 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static OilMonitorDTO CreateOilMonitorDTO(int ID, global::System.DateTime date, decimal tSN, decimal tSR, decimal totalRate, decimal intervalRate, decimal deltaIntervalRate, decimal averageRate3, decimal averageRate7)
+        public static OilMonitorDTO CreateOilMonitorDTO(int ID, int oilUserID, global::System.DateTime date, decimal tSN, decimal tSR, decimal totalRate, decimal intervalRate, decimal deltaIntervalRate, decimal averageRate3, decimal averageRate7)
         {
             OilMonitorDTO oilMonitorDTO = new OilMonitorDTO();
             oilMonitorDTO.Id = ID;
+            oilMonitorDTO.OilUserID = oilUserID;
             oilMonitorDTO.Date = date;
             oilMonitorDTO.TSN = tSN;
             oilMonitorDTO.TSR = tSR;
@@ -2803,6 +3227,28 @@ namespace UniCloud.Presentation.Service.Part.Part
         private int _Id;
         partial void OnIdChanging(int value);
         partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 OilUserID 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int OilUserID
+        {
+            get
+            {
+                return this._OilUserID;
+            }
+            set
+            {
+                this.OnOilUserIDChanging(value);
+                this._OilUserID = value;
+                this.OnOilUserIDChanged();
+                this.OnPropertyChanged("OilUserID");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _OilUserID;
+        partial void OnOilUserIDChanging(int value);
+        partial void OnOilUserIDChanged();
         /// <summary>
         /// 架构中不存在属性 Date 的注释。
         /// </summary>
@@ -2979,454 +3425,6 @@ namespace UniCloud.Presentation.Service.Part.Part
         private decimal _AverageRate7;
         partial void OnAverageRate7Changing(decimal value);
         partial void OnAverageRate7Changed();
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        protected virtual void OnPropertyChanged(string property)
-        {
-            if ((this.PropertyChanged != null))
-            {
-                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
-            }
-        }
-    }
-    /// <summary>
-    /// 架构中不存在 UniCloud.Application.PartBC.DTO.EngineOilDTO 的注释。
-    /// </summary>
-    /// <KeyProperties>
-    /// Id
-    /// </KeyProperties>
-    [global::System.Data.Services.Common.EntitySetAttribute("EngineOils")]
-    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
-    public partial class EngineOilDTO : global::System.ComponentModel.INotifyPropertyChanged
-    {
-        /// <summary>
-        /// 创建新的 EngineOilDTO 对象。
-        /// </summary>
-        /// <param name="ID">Id 的初始值。</param>
-        /// <param name="tSN">TSN 的初始值。</param>
-        /// <param name="tSR">TSR 的初始值。</param>
-        /// <param name="cSN">CSN 的初始值。</param>
-        /// <param name="cSR">CSR 的初始值。</param>
-        /// <param name="status">Status 的初始值。</param>
-        /// <param name="oilMonitors">OilMonitors 的初始值。</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static EngineOilDTO CreateEngineOilDTO(int ID, decimal tSN, decimal tSR, decimal cSN, decimal cSR, int status, global::System.Collections.ObjectModel.ObservableCollection<OilMonitorDTO> oilMonitors)
-        {
-            EngineOilDTO engineOilDTO = new EngineOilDTO();
-            engineOilDTO.Id = ID;
-            engineOilDTO.TSN = tSN;
-            engineOilDTO.TSR = tSR;
-            engineOilDTO.CSN = cSN;
-            engineOilDTO.CSR = cSR;
-            engineOilDTO.Status = status;
-            if ((oilMonitors == null))
-            {
-                throw new global::System.ArgumentNullException("oilMonitors");
-            }
-            engineOilDTO.OilMonitors = oilMonitors;
-            return engineOilDTO;
-        }
-        /// <summary>
-        /// 架构中不存在属性 Id 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int Id
-        {
-            get
-            {
-                return this._Id;
-            }
-            set
-            {
-                this.OnIdChanging(value);
-                this._Id = value;
-                this.OnIdChanged();
-                this.OnPropertyChanged("Id");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _Id;
-        partial void OnIdChanging(int value);
-        partial void OnIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 Sn 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string Sn
-        {
-            get
-            {
-                return this._Sn;
-            }
-            set
-            {
-                this.OnSnChanging(value);
-                this._Sn = value;
-                this.OnSnChanged();
-                this.OnPropertyChanged("Sn");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _Sn;
-        partial void OnSnChanging(string value);
-        partial void OnSnChanged();
-        /// <summary>
-        /// 架构中不存在属性 TSN 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public decimal TSN
-        {
-            get
-            {
-                return this._TSN;
-            }
-            set
-            {
-                this.OnTSNChanging(value);
-                this._TSN = value;
-                this.OnTSNChanged();
-                this.OnPropertyChanged("TSN");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private decimal _TSN;
-        partial void OnTSNChanging(decimal value);
-        partial void OnTSNChanged();
-        /// <summary>
-        /// 架构中不存在属性 TSR 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public decimal TSR
-        {
-            get
-            {
-                return this._TSR;
-            }
-            set
-            {
-                this.OnTSRChanging(value);
-                this._TSR = value;
-                this.OnTSRChanged();
-                this.OnPropertyChanged("TSR");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private decimal _TSR;
-        partial void OnTSRChanging(decimal value);
-        partial void OnTSRChanged();
-        /// <summary>
-        /// 架构中不存在属性 CSN 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public decimal CSN
-        {
-            get
-            {
-                return this._CSN;
-            }
-            set
-            {
-                this.OnCSNChanging(value);
-                this._CSN = value;
-                this.OnCSNChanged();
-                this.OnPropertyChanged("CSN");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private decimal _CSN;
-        partial void OnCSNChanging(decimal value);
-        partial void OnCSNChanged();
-        /// <summary>
-        /// 架构中不存在属性 CSR 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public decimal CSR
-        {
-            get
-            {
-                return this._CSR;
-            }
-            set
-            {
-                this.OnCSRChanging(value);
-                this._CSR = value;
-                this.OnCSRChanged();
-                this.OnPropertyChanged("CSR");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private decimal _CSR;
-        partial void OnCSRChanging(decimal value);
-        partial void OnCSRChanged();
-        /// <summary>
-        /// 架构中不存在属性 Status 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int Status
-        {
-            get
-            {
-                return this._Status;
-            }
-            set
-            {
-                this.OnStatusChanging(value);
-                this._Status = value;
-                this.OnStatusChanged();
-                this.OnPropertyChanged("Status");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _Status;
-        partial void OnStatusChanging(int value);
-        partial void OnStatusChanged();
-        /// <summary>
-        /// 架构中不存在属性 OilMonitors 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Collections.ObjectModel.ObservableCollection<OilMonitorDTO> OilMonitors
-        {
-            get
-            {
-                return this._OilMonitors;
-            }
-            set
-            {
-                this.OnOilMonitorsChanging(value);
-                this._OilMonitors = value;
-                this.OnOilMonitorsChanged();
-                this.OnPropertyChanged("OilMonitors");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Collections.ObjectModel.ObservableCollection<OilMonitorDTO> _OilMonitors = new global::System.Collections.ObjectModel.ObservableCollection<OilMonitorDTO>();
-        partial void OnOilMonitorsChanging(global::System.Collections.ObjectModel.ObservableCollection<OilMonitorDTO> value);
-        partial void OnOilMonitorsChanged();
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        protected virtual void OnPropertyChanged(string property)
-        {
-            if ((this.PropertyChanged != null))
-            {
-                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
-            }
-        }
-    }
-    /// <summary>
-    /// 架构中不存在 UniCloud.Application.PartBC.DTO.APUOilDTO 的注释。
-    /// </summary>
-    /// <KeyProperties>
-    /// Id
-    /// </KeyProperties>
-    [global::System.Data.Services.Common.EntitySetAttribute("APUOils")]
-    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
-    public partial class APUOilDTO : global::System.ComponentModel.INotifyPropertyChanged
-    {
-        /// <summary>
-        /// 创建新的 APUOilDTO 对象。
-        /// </summary>
-        /// <param name="ID">Id 的初始值。</param>
-        /// <param name="tSN">TSN 的初始值。</param>
-        /// <param name="tSR">TSR 的初始值。</param>
-        /// <param name="cSN">CSN 的初始值。</param>
-        /// <param name="cSR">CSR 的初始值。</param>
-        /// <param name="status">Status 的初始值。</param>
-        /// <param name="oilMonitors">OilMonitors 的初始值。</param>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static APUOilDTO CreateAPUOilDTO(int ID, decimal tSN, decimal tSR, decimal cSN, decimal cSR, int status, global::System.Collections.ObjectModel.ObservableCollection<OilMonitorDTO> oilMonitors)
-        {
-            APUOilDTO aPUOilDTO = new APUOilDTO();
-            aPUOilDTO.Id = ID;
-            aPUOilDTO.TSN = tSN;
-            aPUOilDTO.TSR = tSR;
-            aPUOilDTO.CSN = cSN;
-            aPUOilDTO.CSR = cSR;
-            aPUOilDTO.Status = status;
-            if ((oilMonitors == null))
-            {
-                throw new global::System.ArgumentNullException("oilMonitors");
-            }
-            aPUOilDTO.OilMonitors = oilMonitors;
-            return aPUOilDTO;
-        }
-        /// <summary>
-        /// 架构中不存在属性 Id 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int Id
-        {
-            get
-            {
-                return this._Id;
-            }
-            set
-            {
-                this.OnIdChanging(value);
-                this._Id = value;
-                this.OnIdChanged();
-                this.OnPropertyChanged("Id");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _Id;
-        partial void OnIdChanging(int value);
-        partial void OnIdChanged();
-        /// <summary>
-        /// 架构中不存在属性 Sn 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public string Sn
-        {
-            get
-            {
-                return this._Sn;
-            }
-            set
-            {
-                this.OnSnChanging(value);
-                this._Sn = value;
-                this.OnSnChanged();
-                this.OnPropertyChanged("Sn");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private string _Sn;
-        partial void OnSnChanging(string value);
-        partial void OnSnChanged();
-        /// <summary>
-        /// 架构中不存在属性 TSN 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public decimal TSN
-        {
-            get
-            {
-                return this._TSN;
-            }
-            set
-            {
-                this.OnTSNChanging(value);
-                this._TSN = value;
-                this.OnTSNChanged();
-                this.OnPropertyChanged("TSN");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private decimal _TSN;
-        partial void OnTSNChanging(decimal value);
-        partial void OnTSNChanged();
-        /// <summary>
-        /// 架构中不存在属性 TSR 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public decimal TSR
-        {
-            get
-            {
-                return this._TSR;
-            }
-            set
-            {
-                this.OnTSRChanging(value);
-                this._TSR = value;
-                this.OnTSRChanged();
-                this.OnPropertyChanged("TSR");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private decimal _TSR;
-        partial void OnTSRChanging(decimal value);
-        partial void OnTSRChanged();
-        /// <summary>
-        /// 架构中不存在属性 CSN 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public decimal CSN
-        {
-            get
-            {
-                return this._CSN;
-            }
-            set
-            {
-                this.OnCSNChanging(value);
-                this._CSN = value;
-                this.OnCSNChanged();
-                this.OnPropertyChanged("CSN");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private decimal _CSN;
-        partial void OnCSNChanging(decimal value);
-        partial void OnCSNChanged();
-        /// <summary>
-        /// 架构中不存在属性 CSR 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public decimal CSR
-        {
-            get
-            {
-                return this._CSR;
-            }
-            set
-            {
-                this.OnCSRChanging(value);
-                this._CSR = value;
-                this.OnCSRChanged();
-                this.OnPropertyChanged("CSR");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private decimal _CSR;
-        partial void OnCSRChanging(decimal value);
-        partial void OnCSRChanged();
-        /// <summary>
-        /// 架构中不存在属性 Status 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int Status
-        {
-            get
-            {
-                return this._Status;
-            }
-            set
-            {
-                this.OnStatusChanging(value);
-                this._Status = value;
-                this.OnStatusChanged();
-                this.OnPropertyChanged("Status");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _Status;
-        partial void OnStatusChanging(int value);
-        partial void OnStatusChanged();
-        /// <summary>
-        /// 架构中不存在属性 OilMonitors 的注释。
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public global::System.Collections.ObjectModel.ObservableCollection<OilMonitorDTO> OilMonitors
-        {
-            get
-            {
-                return this._OilMonitors;
-            }
-            set
-            {
-                this.OnOilMonitorsChanging(value);
-                this._OilMonitors = value;
-                this.OnOilMonitorsChanged();
-                this.OnPropertyChanged("OilMonitors");
-            }
-        }
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private global::System.Collections.ObjectModel.ObservableCollection<OilMonitorDTO> _OilMonitors = new global::System.Collections.ObjectModel.ObservableCollection<OilMonitorDTO>();
-        partial void OnOilMonitorsChanging(global::System.Collections.ObjectModel.ObservableCollection<OilMonitorDTO> value);
-        partial void OnOilMonitorsChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
