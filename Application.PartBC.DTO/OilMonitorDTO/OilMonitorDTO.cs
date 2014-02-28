@@ -4,7 +4,7 @@
 // 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2014/02/23，11:31
+// 作者：丁志浩 时间：2014/02/27，16:31
 // 方案：FRP
 // 项目：Application.PartBC.DTO
 // 版本：V1.0.0
@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using System.Data.Services.Common;
 
 #endregion
@@ -24,20 +25,25 @@ using System.Data.Services.Common;
 namespace UniCloud.Application.PartBC.DTO
 {
     /// <summary>
-    ///     APU滑油用户DTO
+    ///     滑油消耗DTO
     /// </summary>
     [DataServiceKey("Id")]
-    public class APUOilDTO
+    public class OilMonitorDTO
     {
         /// <summary>
-        ///     APU滑油用户ID
+        ///     发动机滑油监控ID
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        ///     序列号
+        ///     滑油用户ID
         /// </summary>
-        public string Sn { get; set; }
+        public int OilUserID { get; set; }
+
+        /// <summary>
+        ///     日期
+        /// </summary>
+        public DateTime Date { get; set; }
 
         /// <summary>
         ///     TSN，自装机以来使用小时数
@@ -50,18 +56,28 @@ namespace UniCloud.Application.PartBC.DTO
         public decimal TSR { get; set; }
 
         /// <summary>
-        ///     CSN，自装机以来使用循环
+        ///     总滑油消耗率
         /// </summary>
-        public decimal CSN { get; set; }
+        public decimal TotalRate { get; set; }
 
         /// <summary>
-        ///     CSR，自上一次修理以来使用循环
+        ///     区间滑油消耗率
         /// </summary>
-        public decimal CSR { get; set; }
+        public decimal IntervalRate { get; set; }
 
         /// <summary>
-        ///     滑油监控状态状态
+        ///     区间滑油消耗率变化量
         /// </summary>
-        public int Status { get; set; }
+        public decimal DeltaIntervalRate { get; set; }
+
+        /// <summary>
+        ///     3天移动平均
+        /// </summary>
+        public decimal AverageRate3 { get; set; }
+
+        /// <summary>
+        ///     7天移动平均
+        /// </summary>
+        public decimal AverageRate7 { get; set; }
     }
 }

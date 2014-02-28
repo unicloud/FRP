@@ -71,6 +71,7 @@
     <Compile Include="ModDTO\ModDTO.cs" />
     <Compile Include="OilMonitorDTO\APUOilDTO.cs" />
     <Compile Include="OilMonitorDTO\EngineOilDTO.cs" />
+    <Compile Include="OilMonitorDTO\OilMonitorDTO.cs" />
     <Compile Include="PnRegDTO\PnRegDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ScnDTO\AirBusScnDTO.cs" />

@@ -4,7 +4,7 @@
 // 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2014/02/22，21:12
+// 作者：丁志浩 时间：2014/02/27，16:06
 // 方案：FRP
 // 项目：Infrastructure.Data.PartBC
 // 版本：V1.0.0
@@ -26,16 +26,26 @@ using UniCloud.Domain.UberModel.Aggregates.OilUserAgg;
 namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 {
     /// <summary>
-    ///     EngineOil实体相关配置
+    ///     OilUser实体相关配置
     /// </summary>
-    internal class EngineOilEntityConfiguration : EntityTypeConfiguration<EngineOil>
+    internal class OilUserEntityConfiguration : EntityTypeConfiguration<OilUser>
     {
-        public EngineOilEntityConfiguration()
+        public OilUserEntityConfiguration()
         {
-            ToTable("EngineOil", DbConfig.Schema);
+            ToTable("OilUser", DbConfig.Schema);
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+            Property(p => p.Sn).HasColumnName("Sn");
+            Property(p => p.TSN).HasColumnName("TSN");
+            Property(p => p.TSR).HasColumnName("TSR");
+            Property(p => p.CSN).HasColumnName("CSN");
+            Property(p => p.CSR).HasColumnName("CSR");
+            Property(p => p.NeedMonitor).HasColumnName("NeedMonitor");
+            Property(p => p.MonitorStatus).HasColumnName("MonitorStatus");
+
+            Property(p => p.SnRegID).HasColumnName("SnRegID");
         }
     }
 }

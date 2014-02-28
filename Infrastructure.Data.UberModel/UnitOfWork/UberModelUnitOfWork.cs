@@ -840,6 +840,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             #region OilMonitorAgg
 
 .Add(new OilMonitorEntityConfiguration())
+
+                #endregion
+
+                #region OilUserAgg
+
+                .Add(new OilUserEntityConfiguration())
                 .Add(new EngineOilEntityConfiguration())
                 .Add(new APUOilEntityConfiguration())
 

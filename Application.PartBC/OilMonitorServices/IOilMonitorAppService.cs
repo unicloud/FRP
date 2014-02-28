@@ -40,5 +40,11 @@ namespace UniCloud.Application.PartBC.OilMonitorServices
         /// </summary>
         /// <returns>APU滑油数据集合</returns>
         IQueryable<APUOilDTO> GetAPUOils();
+
+        /// <summary>
+        ///     获取滑油消耗数据
+        /// </summary>
+        /// <returns>滑油消耗数据集合</returns>
+        IQueryable<OilMonitorDTO> GetOilMonitors();
     }
 }

@@ -4,7 +4,7 @@
 // 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2014/02/21，9:17
+// 作者：丁志浩 时间：2014/02/27，13:55
 // 方案：FRP
 // 项目：Domain.PartBC
 // 版本：V1.0.0
@@ -20,16 +20,18 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.PartBC.Aggregates.OilUserAgg;
+using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.UberModel.Aggregates.SnRegAgg;
 
 #endregion
 
-namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
+namespace UniCloud.Domain.UberModel.Aggregates.OilUserAgg
 {
     /// <summary>
     ///     滑油监控聚合根
+    ///     滑油用户
     /// </summary>
-    public class OilMonitor : EntityInt, IValidatableObject
+    public abstract class OilUser : EntityInt, IValidatableObject
     {
         #region 构造函数
 
@@ -37,7 +39,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal OilMonitor()
+        internal OilUser()
         {
         }
 
@@ -46,9 +48,9 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
         #region 属性
 
         /// <summary>
-        ///     日期
+        ///     序列号
         /// </summary>
-        public DateTime Date { get; internal set; }
+        public string Sn { get; internal set; }
 
         /// <summary>
         ///     TSN，自装机以来使用小时数
@@ -61,38 +63,33 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
         public decimal TSR { get; internal set; }
 
         /// <summary>
-        ///     总滑油消耗率
+        ///     CSN，自装机以来使用循环
         /// </summary>
-        public decimal TotalRate { get; internal set; }
+        public decimal CSN { get; internal set; }
 
         /// <summary>
-        ///     区间滑油消耗率
+        ///     CSR，自上一次修理以来使用循环
         /// </summary>
-        public decimal IntervalRate { get; internal set; }
+        public decimal CSR { get; internal set; }
 
         /// <summary>
-        ///     区间滑油消耗率变化量
+        ///     是否需要监控
         /// </summary>
-        public decimal DeltaIntervalRate { get; internal set; }
+        public bool NeedMonitor { get; internal set; }
 
         /// <summary>
-        ///     3天移动平均
+        ///     监控状态
         /// </summary>
-        public decimal AverageRate3 { get; internal set; }
-
-        /// <summary>
-        ///     7天移动平均
-        /// </summary>
-        public decimal AverageRate7 { get; internal set; }
+        public OilMonitorStatus MonitorStatus { get; private set; }
 
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        ///     滑油用户ID
+        ///     序号件ID
         /// </summary>
-        public int OilUserID { get; internal set; }
+        public int SnRegID { get; private set; }
 
         #endregion
 
@@ -103,19 +100,36 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
         #region 操作
 
         /// <summary>
-        ///     设置滑油用户
+        ///     设置序号件
         /// </summary>
-        /// <param name="oilUser">滑油用户</param>
-        /// <returns>滑油用户</returns>
-        public OilUser SetOilUser(OilUser oilUser)
+        /// <param name="snReg">序号件</param>
+        public void SetSnReg(SnReg snReg)
         {
-            if (oilUser == null || oilUser.IsTransient())
+            if (snReg == null || snReg.IsTransient())
             {
-                throw new ArgumentException("滑油用户参数为空！");
+                throw new ArgumentException("序号件参数为空！");
             }
 
-            OilUserID = oilUser.Id;
-            return oilUser;
+            Sn = snReg.Sn;
+            SnRegID = snReg.Id;
+        }
+
+        public void SetMonitorStatus(OilMonitorStatus status)
+        {
+            switch (status)
+            {
+                case OilMonitorStatus.正常:
+                    MonitorStatus = OilMonitorStatus.正常;
+                    break;
+                case OilMonitorStatus.关注:
+                    MonitorStatus = OilMonitorStatus.关注;
+                    break;
+                case OilMonitorStatus.警告:
+                    MonitorStatus = OilMonitorStatus.警告;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
         }
 
         #endregion

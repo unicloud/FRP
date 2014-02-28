@@ -48,17 +48,18 @@ namespace UniCloud.Application.PartBC.Tests.Services
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
 
+                #region 序号件相关配置，包括查询，应用服务，仓储注册
 
-
-            #region 序号件相关配置，包括查询，应用服务，仓储注册
-
-.RegisterType<ISnRegQuery, SnRegQuery>()
+                .RegisterType<ISnRegQuery, SnRegQuery>()
                 .RegisterType<ISnRegAppService, SnRegAppService>()
                 .RegisterType<ISnRegRepository, SnRegRepository>()
-            #endregion
 
-.RegisterType<IAircraftRepository, AircraftRepository>()
+                #endregion
+
+                .RegisterType<IAircraftRepository, AircraftRepository>()
                 .RegisterType<IPnRegRepository, PnRegRepository>()
+                .RegisterType<IMaintainWorkRepository,MaintainWorkRepository>()
+
                 ;
         }
 
@@ -66,6 +67,8 @@ namespace UniCloud.Application.PartBC.Tests.Services
         public void TestCleanup()
         {
         }
+
+        #endregion
 
         [TestMethod]
         public void GetSnRegs()
@@ -114,7 +117,5 @@ namespace UniCloud.Application.PartBC.Tests.Services
             context.Add(newSnReg);
             context.UnitOfWork.Commit();
         }
-
-        #endregion
     }
 }
