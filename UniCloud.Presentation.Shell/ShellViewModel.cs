@@ -948,6 +948,7 @@ namespace UniCloud.Presentation.Shell
             var menu82 = new MenuItem
             {
                 Text = "查询AD/SB",
+                NavUri = "UniCloud.Presentation.Part.ManageAdSb.QueryAdSb"
             };
 
             var menu83 = new MenuItem

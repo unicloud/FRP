@@ -41,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aggregates\AdSbAgg\AdSb.cs" />
+    <Compile Include="Aggregates\AdSbAgg\AdSbFactory.cs" />
+    <Compile Include="Aggregates\AdSbAgg\AdSbSpecifications.cs" />
+    <Compile Include="Aggregates\AdSbAgg\IAdSbRepository.cs" />
     <Compile Include="Aggregates\AirBusScnAgg\IAirBusScnRepository.cs" />
     <Compile Include="Aggregates\AirBusScnAgg\AirBusScn.cs" />
     <Compile Include="Aggregates\AirBusScnAgg\AirBusScnFactory.cs" />

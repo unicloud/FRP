@@ -21,6 +21,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.UberModel.Aggregates.AdSbAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftLicenseAgg;
@@ -112,6 +113,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Annual> _annuals;
         private IDbSet<ApprovalDoc> _approvalDocs;
         private IDbSet<Ata> _atas;
+        private IDbSet<AdSb> _adSbs; 
         private IDbSet<AirStructureDamage> _airStructureDamages; 
         private IDbSet<BankAccount> _bankAccounts;
         private IDbSet<BasicConfigGroup> _basicConfigGroups;
@@ -453,6 +455,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         {
             get { return _airBusScns ?? (_airBusScns = base.Set<AirBusScn>()); }
         }
+        public IDbSet<AdSb> AdSbs
+        {
+            get { return _adSbs ?? (_adSbs = Set<AdSb>()); }
+        }
+
         public IDbSet<SnReg> SnRegs
         {
             get { return _snRegs ?? (_snRegs = base.Set<SnReg>()); }
@@ -1060,8 +1067,13 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new LicenseTypeEntityConfiguration())
             #endregion
 
-                .Add(new AirStructureDamageEntityConfiguration())
-.Add(new AtaEntityConfiguration())
+            #region AirStructureDamageAgg
+.Add(new AirStructureDamageEntityConfiguration())
+            #endregion
+
+            #region  AdSbAgg
+.Add(new AdSbEntityConfiguration())
+            #endregion
                 .Add(new AddressConfiguration());
         }
 

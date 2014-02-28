@@ -336,6 +336,24 @@
         <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
         <Property Name="DocumentName" Type="Edm.String" />
       </EntityType>
+      <EntityType Name="AdSbDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AircraftSeries" Type="Edm.String" />
+        <Property Name="FileType" Type="Edm.String" />
+        <Property Name="FileNo" Type="Edm.String" />
+        <Property Name="FileVersion" Type="Edm.String" />
+        <Property Name="ComplyAircraft" Type="Edm.String" />
+        <Property Name="ComplyStatus" Type="Edm.String" />
+        <Property Name="ComplyDate" Type="Edm.DateTime" />
+        <Property Name="ComplyNotes" Type="Edm.String" />
+        <Property Name="ComplyClose" Type="Edm.String" />
+        <Property Name="ComplyFee" Type="Edm.Decimal" />
+        <Property Name="ComplyFeeNotes" Type="Edm.String" />
+        <Property Name="ComplyFeeCurrency" Type="Edm.String" />
+      </EntityType>
       <ComplexType Name="ConfigGroupDTO">
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="GroupNo" Type="Edm.String" />
@@ -386,6 +404,7 @@
         <EntitySet Name="SpecialConfigs" EntityType="UniCloud.Application.PartBC.DTO.SpecialConfigDTO" />
         <EntitySet Name="TechnicalSolutions" EntityType="UniCloud.Application.PartBC.DTO.TechnicalSolutionDTO" />
         <EntitySet Name="AirStructureDamages" EntityType="UniCloud.Application.PartBC.DTO.AirStructureDamageDTO" />
+        <EntitySet Name="AdSbs" EntityType="UniCloud.Application.PartBC.DTO.AdSbDTO" />
         <FunctionImport Name="GetConfigGroups" ReturnType="Collection(UniCloud.Application.PartBC.DTO.ConfigGroupDTO)" m:HttpMethod="GET" />
       </EntityContainer>
     </Schema>

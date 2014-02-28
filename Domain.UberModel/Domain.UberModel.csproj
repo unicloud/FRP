@@ -47,6 +47,10 @@
     <Compile Include="Aggregates\AcDailyUtilizationAgg\AcDailyUtilization.cs" />
     <Compile Include="Aggregates\ActionCategoryAgg\ActionCategory.cs" />
     <Compile Include="Aggregates\ActionCategoryAgg\ActionCategoryFactory.cs" />
+    <Compile Include="Aggregates\AdSbAgg\AdSb.cs" />
+    <Compile Include="Aggregates\AdSbAgg\AdSbFactory.cs" />
+    <Compile Include="Aggregates\AdSbAgg\AdSbSpecifications.cs" />
+    <Compile Include="Aggregates\AdSbAgg\IAdSbRepository.cs" />
     <Compile Include="Aggregates\AircraftLicenseAgg\AircraftLicense.cs" />
     <Compile Include="Aggregates\AircraftLicenseAgg\AircraftLicenseFactory.cs" />
     <Compile Include="Aggregates\AircraftSeriesAgg\AircraftSeries.cs" />

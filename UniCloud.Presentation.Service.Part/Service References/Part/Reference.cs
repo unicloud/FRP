@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/2/28 15:23:28
+// 生成日期: 2014/2/28 17:36:58
 namespace UniCloud.Presentation.Service.Part.Part
 {
     
@@ -435,6 +435,23 @@ namespace UniCloud.Presentation.Service.Part.Part
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<AirStructureDamageDTO> _AirStructureDamages;
         /// <summary>
+        /// 架构中不存在 AdSbs 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<AdSbDTO> AdSbs
+        {
+            get
+            {
+                if ((this._AdSbs == null))
+                {
+                    this._AdSbs = base.CreateQuery<AdSbDTO>("AdSbs");
+                }
+                return this._AdSbs;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<AdSbDTO> _AdSbs;
+        /// <summary>
         /// 架构中不存在 AcDailyUtilizations 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -609,6 +626,14 @@ namespace UniCloud.Presentation.Service.Part.Part
         public void AddToAirStructureDamages(AirStructureDamageDTO airStructureDamageDTO)
         {
             base.AddObject("AirStructureDamages", airStructureDamageDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 AdSbs 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToAdSbs(AdSbDTO adSbDTO)
+        {
+            base.AddObject("AdSbs", adSbDTO);
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private abstract class GeneratedEdmModel
@@ -798,55 +823,65 @@ namespace UniCloud.Presentation.Service.Part.Part
                 "eDate\" Type=\"Edm.DateTime\" /><Property Name=\"Source\" Type=\"Edm.String\" /><Proper" +
                 "ty Name=\"Level\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"RepairDeadli" +
                 "ne\" Type=\"Edm.String\" /><Property Name=\"DocumentId\" Type=\"Edm.Guid\" Nullable=\"fa" +
-                "lse\" /><Property Name=\"DocumentName\" Type=\"Edm.String\" /></EntityType><ComplexTy" +
-                "pe Name=\"ConfigGroupDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /" +
-                "><Property Name=\"GroupNo\" Type=\"Edm.String\" /><Property Name=\"GroupName\" Type=\"E" +
-                "dm.String\" /><Property Name=\"AircraftTypeName\" Type=\"Edm.String\" /><Property Nam" +
-                "e=\"TechnicalSolutions\" Type=\"Collection(UniCloud.Application.PartBC.DTO.TsDTO)\" " +
-                "Nullable=\"false\" /><Property Name=\"GroupAcs\" Type=\"Collection(UniCloud.Applicati" +
-                "on.PartBC.DTO.GroupAcDTO)\" Nullable=\"false\" /></ComplexType";
+                "lse\" /><Property Name=\"DocumentName\" Type=\"Edm.String\" /></EntityType><EntityTyp" +
+                "e Name=\"AdSbDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"E" +
+                "dm.Int32\" Nullable=\"false\" /><Property Name=\"AircraftSeries\" Type=\"Edm.String\" /" +
+                "><Property Name=\"FileType\" Type=\"Edm.String\" /><Property Name=\"FileNo\" Type=\"Edm" +
+                ".String\" /><Property Name=\"FileVersion\" Type=\"Edm.String\" /><Property Name=\"Comp" +
+                "lyAircraft\" Type=\"Edm.String\" /><Property Name=\"ComplyStatus\" Type=\"Edm.String\" " +
+                "/><Property Name=\"ComplyDate\" Type=\"Edm.DateTime\" /><Proper";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart2 = "><ComplexType Name=\"TsDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" " +
-                "/><Property Name=\"FiNumber\" Type=\"Edm.String\" /><Property Name=\"TsNumber\" Type=\"" +
-                "Edm.String\" /><Property Name=\"Position\" Type=\"Edm.String\" /><Property Name=\"Type" +
-                "\" Type=\"Edm.String\" /><Property Name=\"TsLines\" Type=\"Collection(UniCloud.Applica" +
-                "tion.PartBC.DTO.TsLineDTO)\" Nullable=\"false\" /></ComplexType><ComplexType Name=\"" +
-                "GroupAcDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Na" +
-                "me=\"ContractName\" Type=\"Edm.String\" /><Property Name=\"ContractNumber\" Type=\"Edm." +
-                "String\" /><Property Name=\"RankNumber\" Type=\"Edm.String\" /><Property Name=\"CSCNum" +
-                "ber\" Type=\"Edm.String\" /><Property Name=\"SerialNumber\" Type=\"Edm.String\" /><Prop" +
-                "erty Name=\"ConfigGroupId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType></Sc" +
-                "hema><Schema Namespace=\"UniCloud.DistributedServices.Part\" xmlns=\"http://schemas" +
-                ".microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"PartData\" m:IsDefaultEnti" +
-                "tyContainer=\"true\"><EntitySet Name=\"AcDailyUtilizations\" EntityType=\"UniCloud.Ap" +
-                "plication.PartBC.DTO.AcDailyUtilizationDTO\" /><EntitySet Name=\"Aircrafts\" Entity" +
-                "Type=\"UniCloud.Application.PartBC.DTO.AircraftDTO\" /><EntitySet Name=\"AircraftTy" +
-                "pes\" EntityType=\"UniCloud.Application.PartBC.DTO.AircraftTypeDTO\" /><EntitySet N" +
-                "ame=\"AircraftSeriess\" EntityType=\"UniCloud.Application.PartBC.DTO.AircraftSeries" +
-                "DTO\" /><EntitySet Name=\"BasicConfigGroups\" EntityType=\"UniCloud.Application.Part" +
-                "BC.DTO.BasicConfigGroupDTO\" /><EntitySet Name=\"ContractAircrafts\" EntityType=\"Un" +
-                "iCloud.Application.PartBC.DTO.ContractAircraftDTO\" /><EntitySet Name=\"CtrlUnits\"" +
-                " EntityType=\"UniCloud.Application.PartBC.DTO.CtrlUnitDTO\" /><EntitySet Name=\"Ite" +
-                "mMaintainCtrls\" EntityType=\"UniCloud.Application.PartBC.DTO.ItemMaintainCtrlDTO\"" +
-                " /><EntitySet Name=\"PnMaintainCtrls\" EntityType=\"UniCloud.Application.PartBC.DTO" +
-                ".PnMaintainCtrlDTO\" /><EntitySet Name=\"SnMaintainCtrls\" EntityType=\"UniCloud.App" +
-                "lication.PartBC.DTO.SnMaintainCtrlDTO\" /><EntitySet Name=\"MaintainWorks\" EntityT" +
-                "ype=\"UniCloud.Application.PartBC.DTO.MaintainWorkDTO\" /><EntitySet Name=\"Mods\" E" +
-                "ntityType=\"UniCloud.Application.PartBC.DTO.ModDTO\" /><EntitySet Name=\"EngineOils" +
-                "\" EntityType=\"UniCloud.Application.PartBC.DTO.EngineOilDTO\" /><EntitySet Name=\"A" +
-                "PUOils\" EntityType=\"UniCloud.Application.PartBC.DTO.APUOilDTO\" /><EntitySet Name" +
-                "=\"OilMonitors\" EntityType=\"UniCloud.Application.PartBC.DTO.OilMonitorDTO\" /><Ent" +
-                "itySet Name=\"PnRegs\" EntityType=\"UniCloud.Application.PartBC.DTO.PnRegDTO\" /><En" +
-                "titySet Name=\"Scns\" EntityType=\"UniCloud.Application.PartBC.DTO.ScnDTO\" /><Entit" +
-                "ySet Name=\"AirBusScns\" EntityType=\"UniCloud.Application.PartBC.DTO.AirBusScnDTO\"" +
-                " /><EntitySet Name=\"SnRegs\" EntityType=\"UniCloud.Application.PartBC.DTO.SnRegDTO" +
-                "\" /><EntitySet Name=\"SpecialConfigs\" EntityType=\"UniCloud.Application.PartBC.DTO" +
-                ".SpecialConfigDTO\" /><EntitySet Name=\"TechnicalSolutions\" EntityType=\"UniCloud.A" +
-                "pplication.PartBC.DTO.TechnicalSolutionDTO\" /><EntitySet Name=\"AirStructureDamag" +
-                "es\" EntityType=\"UniCloud.Application.PartBC.DTO.AirStructureDamageDTO\" /><Functi" +
-                "onImport Name=\"GetConfigGroups\" ReturnType=\"Collection(UniCloud.Application.Part" +
-                "BC.DTO.ConfigGroupDTO)\" m:HttpMethod=\"GET\" /></EntityContainer></Schema></edmx:D" +
-                "ataServices></edmx:Edmx>";
+            private const string ModelPart2 = "ty Name=\"ComplyNotes\" Type=\"Edm.String\" /><Property Name=\"ComplyClose\" Type=\"Edm." +
+                "String\" /><Property Name=\"ComplyFee\" Type=\"Edm.Decimal\" /><Property Name=\"Comply" +
+                "FeeNotes\" Type=\"Edm.String\" /><Property Name=\"ComplyFeeCurrency\" Type=\"Edm.Strin" +
+                "g\" /></EntityType><ComplexType Name=\"ConfigGroupDTO\"><Property Name=\"Id\" Type=\"E" +
+                "dm.Int32\" Nullable=\"false\" /><Property Name=\"GroupNo\" Type=\"Edm.String\" /><Prope" +
+                "rty Name=\"GroupName\" Type=\"Edm.String\" /><Property Name=\"AircraftTypeName\" Type=" +
+                "\"Edm.String\" /><Property Name=\"TechnicalSolutions\" Type=\"Collection(UniCloud.App" +
+                "lication.PartBC.DTO.TsDTO)\" Nullable=\"false\" /><Property Name=\"GroupAcs\" Type=\"C" +
+                "ollection(UniCloud.Application.PartBC.DTO.GroupAcDTO)\" Nullable=\"false\" /></Comp" +
+                "lexType><ComplexType Name=\"TsDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=" +
+                "\"false\" /><Property Name=\"FiNumber\" Type=\"Edm.String\" /><Property Name=\"TsNumber" +
+                "\" Type=\"Edm.String\" /><Property Name=\"Position\" Type=\"Edm.String\" /><Property Na" +
+                "me=\"Type\" Type=\"Edm.String\" /><Property Name=\"TsLines\" Type=\"Collection(UniCloud" +
+                ".Application.PartBC.DTO.TsLineDTO)\" Nullable=\"false\" /></ComplexType><ComplexTyp" +
+                "e Name=\"GroupAcDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pro" +
+                "perty Name=\"ContractName\" Type=\"Edm.String\" /><Property Name=\"ContractNumber\" Ty" +
+                "pe=\"Edm.String\" /><Property Name=\"RankNumber\" Type=\"Edm.String\" /><Property Name" +
+                "=\"CSCNumber\" Type=\"Edm.String\" /><Property Name=\"SerialNumber\" Type=\"Edm.String\"" +
+                " /><Property Name=\"ConfigGroupId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexT" +
+                "ype></Schema><Schema Namespace=\"UniCloud.DistributedServices.Part\" xmlns=\"http:/" +
+                "/schemas.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"PartData\" m:IsDef" +
+                "aultEntityContainer=\"true\"><EntitySet Name=\"AcDailyUtilizations\" EntityType=\"Uni" +
+                "Cloud.Application.PartBC.DTO.AcDailyUtilizationDTO\" /><EntitySet Name=\"Aircrafts" +
+                "\" EntityType=\"UniCloud.Application.PartBC.DTO.AircraftDTO\" /><EntitySet Name=\"Ai" +
+                "rcraftTypes\" EntityType=\"UniCloud.Application.PartBC.DTO.AircraftTypeDTO\" /><Ent" +
+                "itySet Name=\"AircraftSeriess\" EntityType=\"UniCloud.Application.PartBC.DTO.Aircra" +
+                "ftSeriesDTO\" /><EntitySet Name=\"BasicConfigGroups\" EntityType=\"UniCloud.Applicat" +
+                "ion.PartBC.DTO.BasicConfigGroupDTO\" /><EntitySet Name=\"ContractAircrafts\" Entity" +
+                "Type=\"UniCloud.Application.PartBC.DTO.ContractAircraftDTO\" /><EntitySet Name=\"Ct" +
+                "rlUnits\" EntityType=\"UniCloud.Application.PartBC.DTO.CtrlUnitDTO\" /><EntitySet N" +
+                "ame=\"ItemMaintainCtrls\" EntityType=\"UniCloud.Application.PartBC.DTO.ItemMaintain" +
+                "CtrlDTO\" /><EntitySet Name=\"PnMaintainCtrls\" EntityType=\"UniCloud.Application.Pa" +
+                "rtBC.DTO.PnMaintainCtrlDTO\" /><EntitySet Name=\"SnMaintainCtrls\" EntityType=\"UniC" +
+                "loud.Application.PartBC.DTO.SnMaintainCtrlDTO\" /><EntitySet Name=\"MaintainWorks\"" +
+                " EntityType=\"UniCloud.Application.PartBC.DTO.MaintainWorkDTO\" /><EntitySet Name=" +
+                "\"Mods\" EntityType=\"UniCloud.Application.PartBC.DTO.ModDTO\" /><EntitySet Name=\"En" +
+                "gineOils\" EntityType=\"UniCloud.Application.PartBC.DTO.EngineOilDTO\" /><EntitySet" +
+                " Name=\"APUOils\" EntityType=\"UniCloud.Application.PartBC.DTO.APUOilDTO\" /><Entity" +
+                "Set Name=\"OilMonitors\" EntityType=\"UniCloud.Application.PartBC.DTO.OilMonitorDTO" +
+                "\" /><EntitySet Name=\"PnRegs\" EntityType=\"UniCloud.Application.PartBC.DTO.PnRegDT" +
+                "O\" /><EntitySet Name=\"Scns\" EntityType=\"UniCloud.Application.PartBC.DTO.ScnDTO\" " +
+                "/><EntitySet Name=\"AirBusScns\" EntityType=\"UniCloud.Application.PartBC.DTO.AirBu" +
+                "sScnDTO\" /><EntitySet Name=\"SnRegs\" EntityType=\"UniCloud.Application.PartBC.DTO." +
+                "SnRegDTO\" /><EntitySet Name=\"SpecialConfigs\" EntityType=\"UniCloud.Application.Pa" +
+                "rtBC.DTO.SpecialConfigDTO\" /><EntitySet Name=\"TechnicalSolutions\" EntityType=\"Un" +
+                "iCloud.Application.PartBC.DTO.TechnicalSolutionDTO\" /><EntitySet Name=\"AirStruct" +
+                "ureDamages\" EntityType=\"UniCloud.Application.PartBC.DTO.AirStructureDamageDTO\" /" +
+                "><EntitySet Name=\"AdSbs\" EntityType=\"UniCloud.Application.PartBC.DTO.AdSbDTO\" />" +
+                "<FunctionImport Name=\"GetConfigGroups\" ReturnType=\"Collection(UniCloud.Applicati" +
+                "on.PartBC.DTO.ConfigGroupDTO)\" m:HttpMethod=\"GET\" /></EntityContainer></Schema><" +
+                "/edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -6604,6 +6639,324 @@ namespace UniCloud.Presentation.Service.Part.Part
         private string _DocumentName;
         partial void OnDocumentNameChanging(string value);
         partial void OnDocumentNameChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.PartBC.DTO.AdSbDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("AdSbs")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class AdSbDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 AdSbDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static AdSbDTO CreateAdSbDTO(int ID)
+        {
+            AdSbDTO adSbDTO = new AdSbDTO();
+            adSbDTO.Id = ID;
+            return adSbDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 AircraftSeries 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string AircraftSeries
+        {
+            get
+            {
+                return this._AircraftSeries;
+            }
+            set
+            {
+                this.OnAircraftSeriesChanging(value);
+                this._AircraftSeries = value;
+                this.OnAircraftSeriesChanged();
+                this.OnPropertyChanged("AircraftSeries");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _AircraftSeries;
+        partial void OnAircraftSeriesChanging(string value);
+        partial void OnAircraftSeriesChanged();
+        /// <summary>
+        /// 架构中不存在属性 FileType 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string FileType
+        {
+            get
+            {
+                return this._FileType;
+            }
+            set
+            {
+                this.OnFileTypeChanging(value);
+                this._FileType = value;
+                this.OnFileTypeChanged();
+                this.OnPropertyChanged("FileType");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _FileType;
+        partial void OnFileTypeChanging(string value);
+        partial void OnFileTypeChanged();
+        /// <summary>
+        /// 架构中不存在属性 FileNo 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string FileNo
+        {
+            get
+            {
+                return this._FileNo;
+            }
+            set
+            {
+                this.OnFileNoChanging(value);
+                this._FileNo = value;
+                this.OnFileNoChanged();
+                this.OnPropertyChanged("FileNo");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _FileNo;
+        partial void OnFileNoChanging(string value);
+        partial void OnFileNoChanged();
+        /// <summary>
+        /// 架构中不存在属性 FileVersion 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string FileVersion
+        {
+            get
+            {
+                return this._FileVersion;
+            }
+            set
+            {
+                this.OnFileVersionChanging(value);
+                this._FileVersion = value;
+                this.OnFileVersionChanged();
+                this.OnPropertyChanged("FileVersion");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _FileVersion;
+        partial void OnFileVersionChanging(string value);
+        partial void OnFileVersionChanged();
+        /// <summary>
+        /// 架构中不存在属性 ComplyAircraft 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ComplyAircraft
+        {
+            get
+            {
+                return this._ComplyAircraft;
+            }
+            set
+            {
+                this.OnComplyAircraftChanging(value);
+                this._ComplyAircraft = value;
+                this.OnComplyAircraftChanged();
+                this.OnPropertyChanged("ComplyAircraft");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ComplyAircraft;
+        partial void OnComplyAircraftChanging(string value);
+        partial void OnComplyAircraftChanged();
+        /// <summary>
+        /// 架构中不存在属性 ComplyStatus 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ComplyStatus
+        {
+            get
+            {
+                return this._ComplyStatus;
+            }
+            set
+            {
+                this.OnComplyStatusChanging(value);
+                this._ComplyStatus = value;
+                this.OnComplyStatusChanged();
+                this.OnPropertyChanged("ComplyStatus");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ComplyStatus;
+        partial void OnComplyStatusChanging(string value);
+        partial void OnComplyStatusChanged();
+        /// <summary>
+        /// 架构中不存在属性 ComplyDate 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<global::System.DateTime> ComplyDate
+        {
+            get
+            {
+                return this._ComplyDate;
+            }
+            set
+            {
+                this.OnComplyDateChanging(value);
+                this._ComplyDate = value;
+                this.OnComplyDateChanged();
+                this.OnPropertyChanged("ComplyDate");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<global::System.DateTime> _ComplyDate;
+        partial void OnComplyDateChanging(global::System.Nullable<global::System.DateTime> value);
+        partial void OnComplyDateChanged();
+        /// <summary>
+        /// 架构中不存在属性 ComplyNotes 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ComplyNotes
+        {
+            get
+            {
+                return this._ComplyNotes;
+            }
+            set
+            {
+                this.OnComplyNotesChanging(value);
+                this._ComplyNotes = value;
+                this.OnComplyNotesChanged();
+                this.OnPropertyChanged("ComplyNotes");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ComplyNotes;
+        partial void OnComplyNotesChanging(string value);
+        partial void OnComplyNotesChanged();
+        /// <summary>
+        /// 架构中不存在属性 ComplyClose 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ComplyClose
+        {
+            get
+            {
+                return this._ComplyClose;
+            }
+            set
+            {
+                this.OnComplyCloseChanging(value);
+                this._ComplyClose = value;
+                this.OnComplyCloseChanged();
+                this.OnPropertyChanged("ComplyClose");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ComplyClose;
+        partial void OnComplyCloseChanging(string value);
+        partial void OnComplyCloseChanged();
+        /// <summary>
+        /// 架构中不存在属性 ComplyFee 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Nullable<decimal> ComplyFee
+        {
+            get
+            {
+                return this._ComplyFee;
+            }
+            set
+            {
+                this.OnComplyFeeChanging(value);
+                this._ComplyFee = value;
+                this.OnComplyFeeChanged();
+                this.OnPropertyChanged("ComplyFee");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Nullable<decimal> _ComplyFee;
+        partial void OnComplyFeeChanging(global::System.Nullable<decimal> value);
+        partial void OnComplyFeeChanged();
+        /// <summary>
+        /// 架构中不存在属性 ComplyFeeNotes 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ComplyFeeNotes
+        {
+            get
+            {
+                return this._ComplyFeeNotes;
+            }
+            set
+            {
+                this.OnComplyFeeNotesChanging(value);
+                this._ComplyFeeNotes = value;
+                this.OnComplyFeeNotesChanged();
+                this.OnPropertyChanged("ComplyFeeNotes");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ComplyFeeNotes;
+        partial void OnComplyFeeNotesChanging(string value);
+        partial void OnComplyFeeNotesChanged();
+        /// <summary>
+        /// 架构中不存在属性 ComplyFeeCurrency 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string ComplyFeeCurrency
+        {
+            get
+            {
+                return this._ComplyFeeCurrency;
+            }
+            set
+            {
+                this.OnComplyFeeCurrencyChanging(value);
+                this._ComplyFeeCurrency = value;
+                this.OnComplyFeeCurrencyChanged();
+                this.OnPropertyChanged("ComplyFeeCurrency");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _ComplyFeeCurrency;
+        partial void OnComplyFeeCurrencyChanging(string value);
+        partial void OnComplyFeeCurrencyChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

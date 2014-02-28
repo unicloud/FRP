@@ -20,7 +20,7 @@ using System.ComponentModel.DataAnnotations;
 
 #endregion
 
-namespace UniCloud.Domain.PartBC.Aggregates.AdSbAgg
+namespace UniCloud.Domain.UberModel.Aggregates.AdSbAgg
 {
     /// <summary>
     /// AdSb聚合根。

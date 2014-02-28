@@ -19,6 +19,7 @@
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.PartBC.Aggregates.AcDailyUtilizationAgg;
+using UniCloud.Domain.PartBC.Aggregates.AdSbAgg;
 using UniCloud.Domain.PartBC.Aggregates.AirBusScnAgg;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.AircraftSeriesAgg;
@@ -52,6 +53,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         private IDbSet<AircraftSeries> _aircraftSeries;
         private IDbSet<Aircraft> _aircrafts;
         private IDbSet<AirStructureDamage> _airStructureDamages;
+        private IDbSet<AdSb> _adSbs; 
         private IDbSet<BasicConfigGroup> _basicConfigGroups;
         private IDbSet<ContractAircraft> _contractAircrafts;
         private IDbSet<CtrlUnit> _ctrlUnits;
@@ -88,6 +90,11 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
             {
                 return _airStructureDamages ?? (_airStructureDamages = Set<AirStructureDamage>());
             }
+        }
+
+        public IDbSet<AdSb> AdSbs
+        {
+            get { return _adSbs ?? (_adSbs = Set<AdSb>()); }
         }
 
         public IDbSet<BasicConfigGroup> BasicConfigGroups
@@ -256,7 +263,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
 
             #endregion
 
-
             #region PnRegAgg
 
 .Add(new PnRegEntityConfiguration())
@@ -289,8 +295,15 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
                 .Add(new TsLineEntityConfiguration())
                 .Add(new DependencyEntityConfiguration())
             #endregion
+
+            #region AirStructureDamageAgg
 .Add(new AirStructureDamageEntityConfiguration())
-                ;
+            #endregion
+
+            #region  AdSbAgg
+.Add(new AdSbEntityConfiguration())
+            #endregion
+;
         }
 
         #endregion

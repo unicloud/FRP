@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AcDailyUtilizationRepository.cs" />
+    <Compile Include="Repositories\AdSbRepository.cs" />
     <Compile Include="Repositories\AirBusScnRepository.cs" />
     <Compile Include="Repositories\AircraftRepository.cs" />
     <Compile Include="Repositories\AircraftSeriesRepository.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Repositories\TechnicalSolutionRepository.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AcConfigEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AcDailyUtilizationEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AdSbEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AirBusScnEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftSeriesEntityConfiguration.cs" />
