@@ -223,6 +223,14 @@ namespace UniCloud.DistributedServices.Part
             get { return _oilMonitorAppService.GetAPUOils(); }
         }
 
+        /// <summary>
+        ///     滑油消耗数据
+        /// </summary>
+        public IQueryable<OilMonitorDTO> OilMonitors
+        {
+            get { return _oilMonitorAppService.GetOilMonitors(); }
+        }
+
         #endregion
 
         #region 附件集合
@@ -254,6 +262,7 @@ namespace UniCloud.DistributedServices.Part
         {
             get { return _scnAppService.GetAirBusScns(); }
         }
+
         #endregion
 
         #region 序号件集合
