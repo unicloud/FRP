@@ -109,6 +109,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\AirlinesEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AirProgrammingEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AirProgrammingLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AirStructureDamageEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AnnualEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ApplicableAircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ApprovalDocEntityConfiguration.cs" />

@@ -68,6 +68,10 @@
     <Compile Include="Aggregates\AirlinesAgg\AirlinesFactory.cs" />
     <Compile Include="Aggregates\AirProgrammingAgg\AirProgramming.cs" />
     <Compile Include="Aggregates\AirProgrammingAgg\AirProgrammingLine.cs" />
+    <Compile Include="Aggregates\AirStructureDamageAgg\AirStructureDamage.cs" />
+    <Compile Include="Aggregates\AirStructureDamageAgg\AirStructureDamageFactory.cs" />
+    <Compile Include="Aggregates\AirStructureDamageAgg\AirStructureDamageSpecifications.cs" />
+    <Compile Include="Aggregates\AirStructureDamageAgg\IAirStructureDamageRepository.cs" />
     <Compile Include="Aggregates\AnnualAgg\Annual.cs" />
     <Compile Include="Aggregates\AnnualAgg\AnnualFactory.cs" />
     <Compile Include="Aggregates\ApprovalDocAgg\ApprovalDoc.cs" />

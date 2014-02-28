@@ -29,6 +29,7 @@ using UniCloud.Domain.UberModel.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirProgrammingAgg;
+using UniCloud.Domain.UberModel.Aggregates.AirStructureDamageAgg;
 using UniCloud.Domain.UberModel.Aggregates.AnnualAgg;
 using UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg;
 using UniCloud.Domain.UberModel.Aggregates.AtaAgg;
@@ -111,6 +112,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Annual> _annuals;
         private IDbSet<ApprovalDoc> _approvalDocs;
         private IDbSet<Ata> _atas;
+        private IDbSet<AirStructureDamage> _airStructureDamages; 
         private IDbSet<BankAccount> _bankAccounts;
         private IDbSet<BasicConfigGroup> _basicConfigGroups;
         private IDbSet<CaacProgramming> _caacProgrammings;
@@ -170,6 +172,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<WorkGroup> _workGroups;
         private IDbSet<XmlConfig> _xmlConfigs;
         private IDbSet<XmlSetting> _xmlSettings;
+
 
         public IDbSet<AcDailyUtilization> AcDailyUtilizations
         {
@@ -234,6 +237,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<ApprovalDoc> ApprovalDocs
         {
             get { return _approvalDocs ?? (_approvalDocs = Set<ApprovalDoc>()); }
+        }
+
+        public IDbSet<AirStructureDamage> AirStructureDamages
+        {
+            get { return _airStructureDamages ?? (_airStructureDamages = Set<AirStructureDamage>()); }
         }
 
         public IDbSet<BankAccount> BankAccounts
@@ -1046,6 +1054,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new LicenseTypeEntityConfiguration())
             #endregion
 
+                .Add(new AirStructureDamageEntityConfiguration())
 .Add(new AtaEntityConfiguration())
                 .Add(new AddressConfiguration());
         }

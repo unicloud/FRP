@@ -33,7 +33,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             Property(p => p.CSCNumber).HasColumnName("CSCNumber").HasMaxLength(100);
             Property(p => p.ModNumber).HasColumnName("ModNumber").HasMaxLength(100);
             Property(p => p.ScnNumber).HasColumnName("ScnNumber").HasMaxLength(100);
-            Property(p => p.Description).HasColumnName("Description").HasMaxLength(100);
+            Property(p => p.Description).HasColumnName("Description");
             Property(p => p.ScnStatus).HasColumnName("ScnStatus");
         }
 
