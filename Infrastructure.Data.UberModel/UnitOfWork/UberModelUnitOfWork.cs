@@ -590,7 +590,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             #region AircraftSeriesAgg
 
 .Add(new AircraftSeriesEntityConfiguration())
-
+.Add(new AtaEntityConfiguration())
             #endregion
 
             #region AircraftCategoryAgg
