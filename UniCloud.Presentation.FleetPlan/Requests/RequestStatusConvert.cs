@@ -16,7 +16,7 @@ namespace UniCloud.Presentation.FleetPlan.Requests
         {
             if (value == null)
                 throw new Exception("值不能为空");
-            return EnumUtility.GetName(typeof (RequestStatus), (RequestStatus) value);
+            return Enum.GetName(typeof (RequestStatus), (RequestStatus) value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
