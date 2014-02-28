@@ -49,7 +49,6 @@
     <Compile Include="Aggregates\AirStructureDamageAgg\IAirStructureDamageRepository.cs" />
     <Compile Include="Aggregates\AirStructureDamageAgg\AirStructureDamageFactory.cs" />
     <Compile Include="Aggregates\AirStructureDamageAgg\AirStructureDamageSpecifications.cs" />
-    <Compile Include="Aggregates\OilMonitorAgg\APUOil.cs"/>
     <Compile Include="Aggregates\OilUserAgg\APUOil.cs">
       <SubType>Code</SubType>
     </Compile>
