@@ -1,4 +1,5 @@
 ﻿#region 版本信息
+
 // =====================================================
 // 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
@@ -11,10 +12,15 @@
 // 修改者： 时间： 
 // 修改说明：
 // =====================================================
+
 #endregion
+
+#region 命名空间
 
 using System;
 using System.Data.Services.Common;
+
+#endregion
 
 namespace UniCloud.Application.PartBC.DTO
 {
@@ -28,6 +34,11 @@ namespace UniCloud.Application.PartBC.DTO
         ///     发动机滑油监控ID
         /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        ///     滑油用户ID
+        /// </summary>
+        public int OilUserID { get; set; }
 
         /// <summary>
         ///     日期

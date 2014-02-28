@@ -50,18 +50,6 @@ namespace UniCloud.Application.PartBC.Query.OilMonitorQueries
                     CSN = o.CSN,
                     CSR = o.CSR,
                     Status = (int) o.MonitorStatus,
-                    OilMonitors = o.OilMonitors.Select(m => new OilMonitorDTO
-                    {
-                        Id = m.Id,
-                        Date = m.Date,
-                        TSN = m.TSN,
-                        TSR = m.TSR,
-                        TotalRate = m.TotalRate,
-                        IntervalRate = m.IntervalRate,
-                        DeltaIntervalRate = m.DeltaIntervalRate,
-                        AverageRate3 = m.AverageRate3,
-                        AverageRate7 = m.AverageRate7
-                    }).ToList()
                 });
             return result;
         }
@@ -77,18 +65,24 @@ namespace UniCloud.Application.PartBC.Query.OilMonitorQueries
                 CSN = o.CSN,
                 CSR = o.CSR,
                 Status = (int) o.MonitorStatus,
-                OilMonitors = o.OilMonitors.Select(m => new OilMonitorDTO
-                {
-                    Id = m.Id,
-                    Date = m.Date,
-                    TSN = m.TSN,
-                    TSR = m.TSR,
-                    TotalRate = m.TotalRate,
-                    IntervalRate = m.IntervalRate,
-                    DeltaIntervalRate = m.DeltaIntervalRate,
-                    AverageRate3 = m.AverageRate3,
-                    AverageRate7 = m.AverageRate7
-                }).ToList()
+            });
+            return result;
+        }
+
+        public IQueryable<OilMonitorDTO> OilMonitorDTOQuery(QueryBuilder<OilMonitor> query)
+        {
+            var result = query.ApplyTo(_unitOfWork.CreateSet<OilMonitor>()).Select(m => new OilMonitorDTO
+            {
+                Id = m.Id,
+                OilUserID = m.OilUserID,
+                Date = m.Date,
+                TSN = m.TSN,
+                TSR = m.TSR,
+                TotalRate = m.TotalRate,
+                IntervalRate = m.IntervalRate,
+                DeltaIntervalRate = m.DeltaIntervalRate,
+                AverageRate3 = m.AverageRate3,
+                AverageRate7 = m.AverageRate7
             });
             return result;
         }

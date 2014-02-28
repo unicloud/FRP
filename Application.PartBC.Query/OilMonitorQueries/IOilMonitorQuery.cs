@@ -44,5 +44,12 @@ namespace UniCloud.Application.PartBC.Query.OilMonitorQueries
         /// <param name="query">查询表达式</param>
         /// <returns>APU滑油DTO集合</returns>
         IQueryable<APUOilDTO> APUOilDTOQuery(QueryBuilder<OilUser> query);
+
+        /// <summary>
+        ///     滑油消耗数据查询
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        /// <returns>滑油消耗数据集合</returns>
+        IQueryable<OilMonitorDTO> OilMonitorDTOQuery(QueryBuilder<OilMonitor> query);
     }
 }

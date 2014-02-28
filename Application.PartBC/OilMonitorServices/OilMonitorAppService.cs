@@ -53,6 +53,12 @@ namespace UniCloud.Application.PartBC.OilMonitorServices
             return _oilMonitorQuery.APUOilDTOQuery(query);
         }
 
+        public IQueryable<OilMonitorDTO> GetOilMonitors()
+        {
+            var query = new QueryBuilder<OilMonitor>();
+            return _oilMonitorQuery.OilMonitorDTOQuery(query);
+        }
+
         #endregion
     }
 }

@@ -17,7 +17,6 @@
 
 #region 命名空间
 
-using System.Collections.Generic;
 using System.Data.Services.Common;
 
 #endregion
@@ -30,8 +29,6 @@ namespace UniCloud.Application.PartBC.DTO
     [DataServiceKey("Id")]
     public class EngineOilDTO
     {
-        private List<OilMonitorDTO> _oilMonitors;
-
         /// <summary>
         ///     发动机滑油用户ID
         /// </summary>
@@ -66,14 +63,5 @@ namespace UniCloud.Application.PartBC.DTO
         ///     滑油监控状态状态
         /// </summary>
         public int Status { get; set; }
-
-        /// <summary>
-        ///     滑油消耗数据
-        /// </summary>
-        public virtual List<OilMonitorDTO> OilMonitors
-        {
-            get { return _oilMonitors ?? (_oilMonitors = new List<OilMonitorDTO>()); }
-            set { _oilMonitors = value; }
-        }
     }
 }

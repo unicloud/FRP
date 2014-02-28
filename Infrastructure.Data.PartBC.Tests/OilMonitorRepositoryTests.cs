@@ -66,9 +66,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
             // Act
             oilRep.Add(engineOil);
             oilRep.UnitOfWork.Commit();
-
-            // Assert
-            Assert.IsNotNull(engineOil);
         }
 
         [TestMethod]
@@ -91,7 +88,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
             var monitorRep = DefaultContainer.Resolve<IOilMonitorRepository>();
             var userRep = DefaultContainer.Resolve<IOilUserRepository>();
             var oilUser = userRep.GetAll().FirstOrDefault();
-            var oil1=OilMonitorFactory.CreateOilMonitor(oilUser,new DateTime(2014, 1, 1), 100, 20, 21, 24, 5, 21, 21);
+            var oil1 = OilMonitorFactory.CreateOilMonitor(oilUser, new DateTime(2014, 1, 1), 100, 20, 21, 24, 5, 21, 21);
             var oil2 = OilMonitorFactory.CreateOilMonitor(oilUser, new DateTime(2014, 1, 2), 102, 22, 21, 24, 5, 20, 21);
             var oil3 = OilMonitorFactory.CreateOilMonitor(oilUser, new DateTime(2014, 1, 3), 103, 23, 20, 23, 5, 20, 20);
             var oil4 = OilMonitorFactory.CreateOilMonitor(oilUser, new DateTime(2014, 1, 4), 106, 26, 25, 26, 5, 22, 21);
@@ -108,7 +105,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
             monitorRep.Add(oil6);
             monitorRep.Add(oil7);
             monitorRep.UnitOfWork.Commit();
-
         }
     }
 }
