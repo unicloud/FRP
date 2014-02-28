@@ -68,9 +68,9 @@ namespace UniCloud.Presentation.Part.OilMonitor
             PanOffset = new Point(-10000, 0);
             CurrentOil = new EngineOilDTO
             {
-                Date = DateTime.Now,
-                IntervalRate = 0,
-                DeltaIntervalRate = 0
+                //Date = DateTime.Now,
+                //IntervalRate = 0,
+                //DeltaIntervalRate = 0
             };
 
             InitializeViewEngineOilDTO();
@@ -295,17 +295,21 @@ namespace UniCloud.Presentation.Part.OilMonitor
         {
             ViewEngineOilDTO = _service.CreateCollection(_context.EngineOils);
             _service.RegisterCollectionView(ViewEngineOilDTO);
+            ViewEngineOilDTO.LoadedData += (o, e) =>
+            {
+                var q = 1;
+            };
             // 添加过滤条件
-            _start = new DateTime(2014, 1, 1);
-            _end = DateTime.Now;
-            _displayStart = new DateTime(2013, 1, 1);
-            _displayEnd = DateTime.Now;
-            var cfd = new CompositeFilterDescriptor {LogicalOperator = FilterCompositionLogicalOperator.And};
-            _startDateDescriptor = new FilterDescriptor("Date", FilterOperator.IsGreaterThanOrEqualTo, _start);
-            cfd.FilterDescriptors.Add(_startDateDescriptor);
-            _endDateDescriptor = new FilterDescriptor("Date", FilterOperator.IsLessThanOrEqualTo, _end);
-            cfd.FilterDescriptors.Add(_endDateDescriptor);
-            ViewEngineOilDTO.FilterDescriptors.Add(cfd);
+            //_start = new DateTime(2014, 1, 1);
+            //_end = DateTime.Now;
+            //_displayStart = new DateTime(2013, 1, 1);
+            //_displayEnd = DateTime.Now;
+            //var cfd = new CompositeFilterDescriptor {LogicalOperator = FilterCompositionLogicalOperator.And};
+            //_startDateDescriptor = new FilterDescriptor("Date", FilterOperator.IsGreaterThanOrEqualTo, _start);
+            //cfd.FilterDescriptors.Add(_startDateDescriptor);
+            //_endDateDescriptor = new FilterDescriptor("Date", FilterOperator.IsLessThanOrEqualTo, _end);
+            //cfd.FilterDescriptors.Add(_endDateDescriptor);
+            //ViewEngineOilDTO.FilterDescriptors.Add(cfd);
         }
 
         #endregion

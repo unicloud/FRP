@@ -15,10 +15,10 @@
 
 #endregion
 
-namespace UniCloud.Domain.UberModel.Aggregates.OilMonitorAgg
+namespace UniCloud.Domain.PartBC.Aggregates.OilUserAgg
 {
     /// <summary>
-    ///     滑油监控聚合根
+    ///     滑油用户聚合根
     ///     发动机滑油
     /// </summary>
     public class EngineOil : OilUser

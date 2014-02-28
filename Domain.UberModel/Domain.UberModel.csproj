@@ -151,11 +151,12 @@
     <Compile Include="Aggregates\MaterialAgg\EngineMaterial.cs" />
     <Compile Include="Aggregates\MaterialAgg\Material.cs" />
     <Compile Include="Aggregates\ModAgg\Mod.cs" />
-    <Compile Include="Aggregates\OilMonitorAgg\APUOil.cs" />
-    <Compile Include="Aggregates\OilMonitorAgg\EngineOil.cs" />
+    <Compile Include="Aggregates\OilUserAgg\APUOil.cs" />
+    <Compile Include="Aggregates\OilUserAgg\EngineOil.cs" />
     <Compile Include="Aggregates\OilMonitorAgg\OilMonitor.cs" />
     <Compile Include="Aggregates\OilMonitorAgg\OilMonitorFactory.cs" />
-    <Compile Include="Aggregates\OilMonitorAgg\OilUser.cs" />
+    <Compile Include="Aggregates\OilUserAgg\OilUser.cs" />
+    <Compile Include="Aggregates\OilUserAgg\OilUserFactory.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftLeaseOrder.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftLeaseOrderLine.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftPurchaseOrder.cs" />

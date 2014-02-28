@@ -40,6 +40,7 @@ namespace UniCloud.Infrastructure.Data
         #region Members
 
         private readonly IQueryableUnitOfWork _unitOfWork;
+
         #endregion
 
         #region Constructor

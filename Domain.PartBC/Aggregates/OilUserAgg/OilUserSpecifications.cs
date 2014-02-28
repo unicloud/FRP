@@ -4,7 +4,7 @@
 // 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2014/02/22，18:32
+// 作者：丁志浩 时间：2014/02/28，9:16
 // 方案：FRP
 // 项目：Domain.PartBC
 // 版本：V1.0.0
@@ -15,13 +15,12 @@
 
 #endregion
 
-namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
+namespace UniCloud.Domain.PartBC.Aggregates.OilUserAgg
 {
     /// <summary>
-    ///     滑油监控仓储接口
-    ///     <see cref="UniCloud.Domain.IRepository{OilMonitor}" />
+    ///     滑油用户规约集合
     /// </summary>
-    public interface IOilMonitorRepository : IRepository<OilMonitor>
+    public static class OilUserSpecifications
     {
     }
 }

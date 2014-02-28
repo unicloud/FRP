@@ -135,6 +135,15 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="Sn" Type="Edm.String" />
+        <Property Name="TSN" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="TSR" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CSN" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CSR" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="OilMonitors" Type="Collection(UniCloud.Application.PartBC.DTO.OilMonitorDTO)" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="OilMonitorDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="Date" Type="Edm.DateTime" Nullable="false" />
         <Property Name="TSN" Type="Edm.Decimal" Nullable="false" />
         <Property Name="TSR" Type="Edm.Decimal" Nullable="false" />
@@ -143,21 +152,19 @@
         <Property Name="DeltaIntervalRate" Type="Edm.Decimal" Nullable="false" />
         <Property Name="AverageRate3" Type="Edm.Decimal" Nullable="false" />
         <Property Name="AverageRate7" Type="Edm.Decimal" Nullable="false" />
-      </EntityType>
+      </ComplexType>
       <EntityType Name="APUOilDTO">
         <Key>
           <PropertyRef Name="Id" />
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="Sn" Type="Edm.String" />
-        <Property Name="Date" Type="Edm.DateTime" Nullable="false" />
         <Property Name="TSN" Type="Edm.Decimal" Nullable="false" />
         <Property Name="TSR" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="TotalRate" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="IntervalRate" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="DeltaIntervalRate" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="AverageRate3" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="AverageRate7" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CSN" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CSR" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="OilMonitors" Type="Collection(UniCloud.Application.PartBC.DTO.OilMonitorDTO)" Nullable="false" />
       </EntityType>
       <EntityType Name="PnRegDTO">
         <Key>
@@ -291,6 +298,31 @@
         <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
         <Property Name="TsLineId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
+      <ComplexType Name="ConfigGroupDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="GroupNo" Type="Edm.String" />
+        <Property Name="GroupName" Type="Edm.String" />
+        <Property Name="AircraftTypeName" Type="Edm.String" />
+        <Property Name="TechnicalSolutions" Type="Collection(UniCloud.Application.PartBC.DTO.TsDTO)" Nullable="false" />
+        <Property Name="GroupAcs" Type="Collection(UniCloud.Application.PartBC.DTO.GroupAcDTO)" Nullable="false" />
+      </ComplexType>
+      <ComplexType Name="TsDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="FiNumber" Type="Edm.String" />
+        <Property Name="TsNumber" Type="Edm.String" />
+        <Property Name="Position" Type="Edm.String" />
+        <Property Name="Type" Type="Edm.String" />
+        <Property Name="TsLines" Type="Collection(UniCloud.Application.PartBC.DTO.TsLineDTO)" Nullable="false" />
+      </ComplexType>
+      <ComplexType Name="GroupAcDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="RankNumber" Type="Edm.String" />
+        <Property Name="CSCNumber" Type="Edm.String" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="ConfigGroupId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Part" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="PartData" m:IsDefaultEntityContainer="true">
@@ -313,6 +345,7 @@
         <EntitySet Name="SnRegs" EntityType="UniCloud.Application.PartBC.DTO.SnRegDTO" />
         <EntitySet Name="SpecialConfigs" EntityType="UniCloud.Application.PartBC.DTO.SpecialConfigDTO" />
         <EntitySet Name="TechnicalSolutions" EntityType="UniCloud.Application.PartBC.DTO.TechnicalSolutionDTO" />
+        <FunctionImport Name="GetConfigGroups" ReturnType="Collection(UniCloud.Application.PartBC.DTO.ConfigGroupDTO)" m:HttpMethod="GET" />
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

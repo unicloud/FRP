@@ -34,6 +34,20 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
+                "FRP.AirBusScn",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Title = c.String(),
+                        CSCNumber = c.String(maxLength: 100),
+                        ModNumber = c.String(maxLength: 100),
+                        ScnNumber = c.String(maxLength: 100),
+                        ScnStatus = c.Int(nullable: false),
+                        Description = c.String(maxLength: 100),
+                    })
+                .PrimaryKey(t => t.ID);
+            
+            CreateTable(
                 "FRP.AircraftCategory",
                 c => new
                     {
@@ -1216,9 +1230,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         AverageRate7 = c.Decimal(nullable: false, precision: 18, scale: 2),
                         OilUserID = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.OilUser", t => t.OilUserID)
-                .Index(t => t.OilUserID);
+                .PrimaryKey(t => t.ID);
             
             CreateTable(
                 "FRP.PaymentNotice",
@@ -2580,7 +2592,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.ChangePlan", "AircraftBusinessId", "FRP.AircraftBusiness");
             DropForeignKey("FRP.ChangePlan", "ID", "FRP.PlanHistory");
             DropForeignKey("FRP.SpecialConfig", "ID", "FRP.AcConfig");
-            DropForeignKey("FRP.OilMonitor", "OilUserID", "FRP.OilUser");
             DropForeignKey("FRP.TsLine", "TsId", "FRP.TechnicalSolution");
             DropForeignKey("FRP.Dependency", "TsLineId", "FRP.TsLine");
             DropForeignKey("FRP.TaskStandard", "WorkGroupId", "FRP.WorkGroup");
@@ -2797,7 +2808,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.ChangePlan", new[] { "AircraftBusinessId" });
             DropIndex("FRP.ChangePlan", new[] { "ID" });
             DropIndex("FRP.SpecialConfig", new[] { "ID" });
-            DropIndex("FRP.OilMonitor", new[] { "OilUserID" });
             DropIndex("FRP.TsLine", new[] { "TsId" });
             DropIndex("FRP.Dependency", new[] { "TsLineId" });
             DropIndex("FRP.TaskStandard", new[] { "WorkGroupId" });
@@ -3092,6 +3102,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.LicenseType");
             DropTable("FRP.AircraftLicense");
             DropTable("FRP.AircraftCategory");
+            DropTable("FRP.AirBusScn");
             DropTable("FRP.ActionCategory");
             DropTable("FRP.AcDailyUtilization");
         }

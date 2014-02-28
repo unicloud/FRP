@@ -20,6 +20,7 @@
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
+using UniCloud.Domain.PartBC.Aggregates.OilUserAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion

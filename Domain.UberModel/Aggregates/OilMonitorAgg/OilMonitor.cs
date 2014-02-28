@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.UberModel.Aggregates.OilUserAgg;
 
 #endregion
 
@@ -100,6 +101,22 @@ namespace UniCloud.Domain.UberModel.Aggregates.OilMonitorAgg
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置滑油用户
+        /// </summary>
+        /// <param name="oilUser">滑油用户</param>
+        /// <returns>滑油用户</returns>
+        public OilUser SetOilUser(OilUser oilUser)
+        {
+            if (oilUser == null || oilUser.IsTransient())
+            {
+                throw new ArgumentException("滑油用户参数为空！");
+            }
+
+            OilUserID = oilUser.Id;
+            return oilUser;
+        }
 
         #endregion
 

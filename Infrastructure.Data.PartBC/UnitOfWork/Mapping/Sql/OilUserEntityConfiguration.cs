@@ -19,7 +19,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
+using UniCloud.Domain.PartBC.Aggregates.OilUserAgg;
 
 #endregion
 
@@ -46,8 +46,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             Property(p => p.MonitorStatus).HasColumnName("MonitorStatus");
 
             Property(p => p.SnRegID).HasColumnName("SnRegID");
-
-            HasMany(u => u.OilMonitors).WithRequired().HasForeignKey(u => u.OilUserID);
         }
     }
 }

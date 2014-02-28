@@ -21,11 +21,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.Common.Enums;
-using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
+using UniCloud.Domain.UberModel.Aggregates.SnRegAgg;
 
 #endregion
 
-namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
+namespace UniCloud.Domain.UberModel.Aggregates.OilUserAgg
 {
     /// <summary>
     ///     滑油监控聚合根
@@ -33,12 +33,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
     /// </summary>
     public abstract class OilUser : EntityInt, IValidatableObject
     {
-        #region 私有字段
-
-        private HashSet<OilMonitor> _oilMonitors;
-
-        #endregion
-
         #region 构造函数
 
         /// <summary>
@@ -81,7 +75,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
         /// <summary>
         ///     是否需要监控
         /// </summary>
-        public bool NeedMonitor { get; private set; }
+        public bool NeedMonitor { get; internal set; }
 
         /// <summary>
         ///     监控状态
@@ -101,60 +95,9 @@ namespace UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg
 
         #region 导航属性
 
-        /// <summary>
-        ///     滑油消耗数据
-        /// </summary>
-        public virtual ICollection<OilMonitor> OilMonitors
-        {
-            get { return _oilMonitors ?? (_oilMonitors = new HashSet<OilMonitor>()); }
-            set { _oilMonitors = new HashSet<OilMonitor>(value); }
-        }
-
         #endregion
 
         #region 操作
-
-        /// <summary>
-        ///     添加滑油消耗数据
-        /// </summary>
-        /// <param name="date">日期</param>
-        /// <param name="tsn">TSN</param>
-        /// <param name="tsr">TSR</param>
-        /// <param name="totalRate">总消耗率</param>
-        /// <param name="intervalRate">区间消耗率</param>
-        /// <param name="deltaIntervalRate">区间消耗率增量</param>
-        /// <param name="averageRate3">总消耗率3天移动平均</param>
-        /// <param name="averageRate7">总消耗率7天移动平均</param>
-        /// <returns>滑油消耗数据</returns>
-        public OilMonitor AddOilMonitor(
-            DateTime date,
-            decimal tsn,
-            decimal tsr,
-            decimal totalRate,
-            decimal intervalRate,
-            decimal deltaIntervalRate,
-            decimal averageRate3,
-            decimal averageRate7)
-        {
-            var oilMonitor = new OilMonitor
-            {
-                Date = date,
-                TSN = tsn,
-                TSR = tsr,
-                TotalRate = totalRate,
-                IntervalRate = intervalRate,
-                DeltaIntervalRate = deltaIntervalRate,
-                AverageRate3 = averageRate3,
-                AverageRate7 = averageRate7,
-                OilUserID = Id
-            };
-            oilMonitor.GenerateNewIdentity();
-            if (!NeedMonitor)
-                NeedMonitor = true;
-
-            OilMonitors.Add(oilMonitor);
-            return oilMonitor;
-        }
 
         /// <summary>
         ///     设置序号件

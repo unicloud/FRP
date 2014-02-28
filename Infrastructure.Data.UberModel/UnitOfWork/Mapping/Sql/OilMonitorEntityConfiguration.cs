@@ -45,6 +45,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.DeltaIntervalRate).HasColumnName("DeltaIntervalRate");
             Property(p => p.AverageRate3).HasColumnName("AverageRate3");
             Property(p => p.AverageRate7).HasColumnName("AverageRate7");
+
+            Property(p => p.OilUserID).HasColumnName("OilUserID");
         }
     }
 }

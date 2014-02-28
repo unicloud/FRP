@@ -4,7 +4,7 @@
 // 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2014/02/22，18:39
+// 作者：丁志浩 时间：2014/02/28，9:44
 // 方案：FRP
 // 项目：Infrastructure.Data.PartBC
 // 版本：V1.0.0
@@ -17,18 +17,18 @@
 
 #region 命名空间
 
-using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
+using UniCloud.Domain.PartBC.Aggregates.OilUserAgg;
 
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PartBC.Repositories
 {
     /// <summary>
-    ///     滑油监控仓储实现
+    ///     滑油用户仓储实现
     /// </summary>
-    public class OilMonitorRepository : Repository<OilMonitor>, IOilMonitorRepository
+    public class OilUserRepository : Repository<OilUser>, IOilUserRepository
     {
-        public OilMonitorRepository(IQueryableUnitOfWork unitOfWork)
+        public OilUserRepository(IQueryableUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
         }

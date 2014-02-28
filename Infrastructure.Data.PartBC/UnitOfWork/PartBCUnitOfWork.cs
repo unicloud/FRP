@@ -45,6 +45,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         #region IDbSet成员
 
         private IDbSet<AcDailyUtilization> _acDailyUtilizations;
+        private IDbSet<AirBusScn> _airBusScns;
         private IDbSet<AircraftType> _aircraftTypes;
         private IDbSet<Aircraft> _aircrafts;
         private IDbSet<BasicConfigGroup> _basicConfigGroups;
@@ -56,7 +57,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         private IDbSet<OilMonitor> _oilMonitors;
         private IDbSet<PnReg> _pneRegs;
         private IDbSet<Scn> _scns;
-        private IDbSet<AirBusScn> _airBusScns; 
         private IDbSet<SnReg> _snRegs;
         private IDbSet<SpecialConfig> _specialConfigs;
         private IDbSet<TechnicalSolution> _technicalSolutions;
@@ -125,6 +125,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         {
             get { return _airBusScns ?? (_airBusScns = base.Set<AirBusScn>()); }
         }
+
         public IDbSet<SnReg> SnRegs
         {
             get { return _snRegs ?? (_snRegs = base.Set<SnReg>()); }
@@ -229,11 +230,17 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
                 #region OilMonitorAgg
 
                 .Add(new OilMonitorEntityConfiguration())
+                
+                #endregion
+
+                #region OilUserAgg
+
                 .Add(new OilUserEntityConfiguration())
                 .Add(new EngineOilEntityConfiguration())
                 .Add(new APUOilEntityConfiguration())
                 
                 #endregion
+
 
                 #region PnRegAgg
 
