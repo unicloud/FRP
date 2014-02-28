@@ -953,6 +953,7 @@ namespace UniCloud.Presentation.Shell
             var menu83 = new MenuItem
             {
                 Text = "维护结构损伤",
+                NavUri = "UniCloud.Presentation.Part.ManageAirStructureDamage.MaintainAirStructureDamage"
             };
 
             menu8.Items.Add(menu81);

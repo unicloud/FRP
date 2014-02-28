@@ -29,5 +29,10 @@ namespace UniCloud.Application.PartBC.AircraftTypeServices
         /// 获取所有AircraftType。
         /// </summary>
         IQueryable<AircraftTypeDTO> GetAircraftTypes();
+
+        /// <summary>
+        /// 获取所有AircraftSeries。
+        /// </summary>
+        IQueryable<AircraftSeriesDTO> GetAircraftSeriess();
     }
 }

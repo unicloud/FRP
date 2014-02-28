@@ -35,6 +35,9 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             Property(p => p.RegNumber).HasColumnName("RegNumber").HasMaxLength(100);
             Property(p => p.SerialNumber).HasColumnName("SerialNumber").HasMaxLength(100);
             Property(p => p.IsOperation).HasColumnName("IsOperation");
+            Property(p => p.AircraftTypeId).HasColumnName("AircraftTypeId");
+
+            HasRequired(o => o.AircraftType).WithMany().HasForeignKey(o => o.AircraftTypeId);
         }
 
     }

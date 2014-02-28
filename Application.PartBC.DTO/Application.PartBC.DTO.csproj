@@ -53,7 +53,9 @@
   <ItemGroup>
     <Compile Include="AcDailyUtilizationDTO\AcDailyUtilizationDTO.cs" />
     <Compile Include="AircraftDTO\AircraftDTO.cs" />
+    <Compile Include="AircraftTypeDTO\AircraftSeriesDTO.cs" />
     <Compile Include="AircraftTypeDTO\AircraftTypeDTO.cs" />
+    <Compile Include="AirStructureDamageDTO\AirStructureDamageDTO.cs" />
     <Compile Include="BasicConfigGroupDTO\BasicConfigDTO.cs" />
     <Compile Include="BasicConfigGroupDTO\BasicConfigGroupDTO.cs" />
     <Compile Include="ConfigGroupDTO\BcGroupDTO.cs" />

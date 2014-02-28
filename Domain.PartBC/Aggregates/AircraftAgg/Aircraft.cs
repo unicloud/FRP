@@ -13,6 +13,9 @@
 // ========================================================================*/
 #endregion
 
+using System;
+using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
+
 namespace UniCloud.Domain.PartBC.Aggregates.AircraftAgg
 {
     /// <summary>
@@ -51,11 +54,14 @@ namespace UniCloud.Domain.PartBC.Aggregates.AircraftAgg
         #endregion
 
         #region 外键属性
-
+        /// <summary>
+        ///     机型Id
+        /// </summary>
+        public Guid AircraftTypeId { get; protected set; }
         #endregion
 
         #region 导航属性
-
+        public virtual AircraftType AircraftType { get; set; }
         #endregion
 
         #region 操作

@@ -21,6 +21,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.PartBC.Aggregates.AcDailyUtilizationAgg;
 using UniCloud.Domain.PartBC.Aggregates.AirBusScnAgg;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.PartBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PartBC.Aggregates.AirStructureDamageAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
@@ -48,6 +49,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         private IDbSet<AcDailyUtilization> _acDailyUtilizations;
         private IDbSet<AirBusScn> _airBusScns;
         private IDbSet<AircraftType> _aircraftTypes;
+        private IDbSet<AircraftSeries> _aircraftSeries;
         private IDbSet<Aircraft> _aircrafts;
         private IDbSet<AirStructureDamage> _airStructureDamages;
         private IDbSet<BasicConfigGroup> _basicConfigGroups;
@@ -77,6 +79,8 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         {
             get { return _aircraftTypes ?? (_aircraftTypes = base.Set<AircraftType>()); }
         }
+        public IDbSet<AircraftSeries> AircraftSeries
+        { get { return _aircraftSeries ?? (_aircraftSeries = Set<AircraftSeries>()); } }
 
         public IDbSet<AirStructureDamage> AirStructureDamages
         {
@@ -187,103 +191,104 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         {
             modelBuilder.Configurations
 
-                #region AcDailyUtilizationAgg
+            #region AcDailyUtilizationAgg
 
-                .Add(new AcDailyUtilizationEntityConfiguration())
-                #endregion
+.Add(new AcDailyUtilizationEntityConfiguration())
+            #endregion
 
-                #region AircraftAgg
+            #region AircraftAgg
 
-                .Add(new AircraftEntityConfiguration())
-                #endregion
+.Add(new AircraftEntityConfiguration())
+            #endregion
 
-                #region AircraftTypeAgg
+            #region AircraftTypeAgg
 
-                .Add(new AircraftTypeEntityConfiguration())
-                #endregion
+.Add(new AircraftTypeEntityConfiguration())
+.Add(new AircraftSeriesEntityConfiguration())
+            #endregion
 
-                #region BasicConfigGroupAgg
+            #region BasicConfigGroupAgg
 
-                .Add(new BasicConfigGroupEntityConfiguration())
+.Add(new BasicConfigGroupEntityConfiguration())
                 .Add(new BasicConfigEntityConfiguration())
-                #endregion
+            #endregion
 
-                #region ContractAircraftAgg
+            #region ContractAircraftAgg
 
-                .Add(new ContractAircraftEntityConfiguration())
-                #endregion
+.Add(new ContractAircraftEntityConfiguration())
+            #endregion
 
-                #region CtrlUnitAgg
+            #region CtrlUnitAgg
 
-                .Add(new CtrlUnitEntityConfiguration())
-                #endregion
+.Add(new CtrlUnitEntityConfiguration())
+            #endregion
 
-                #region MaintainCtrlAgg
+            #region MaintainCtrlAgg
 
-                .Add(new MaintainCtrlEntityConfiguration())
+.Add(new MaintainCtrlEntityConfiguration())
                 .Add(new ItemMaintainCtrlEntityConfiguration())
                 .Add(new PnMaintainCtrlEntityConfiguration())
                 .Add(new SnMaintainCtrlEntityConfiguration())
                 .Add(new MaintainCtrlLineEntityConfiguration())
-                #endregion
+            #endregion
 
-                #region MaintainWorkAgg
+            #region MaintainWorkAgg
 
-                .Add(new MaintainWorkEntityConfiguration())
-                #endregion
+.Add(new MaintainWorkEntityConfiguration())
+            #endregion
 
-                #region ModAgg
+            #region ModAgg
 
-                .Add(new ModEntityConfiguration())
-                #endregion
+.Add(new ModEntityConfiguration())
+            #endregion
 
-                #region OilMonitorAgg
+            #region OilMonitorAgg
 
-                .Add(new OilMonitorEntityConfiguration())
-                
-                #endregion
+.Add(new OilMonitorEntityConfiguration())
 
-                #region OilUserAgg
+            #endregion
 
-                .Add(new OilUserEntityConfiguration())
+            #region OilUserAgg
+
+.Add(new OilUserEntityConfiguration())
                 .Add(new EngineOilEntityConfiguration())
                 .Add(new APUOilEntityConfiguration())
-                
-                #endregion
+
+            #endregion
 
 
-                #region PnRegAgg
+            #region PnRegAgg
 
-                .Add(new PnRegEntityConfiguration())
-                #endregion
+.Add(new PnRegEntityConfiguration())
+            #endregion
 
-                #region ScnAgg
+            #region ScnAgg
 
-                .Add(new ScnEntityConfiguration())
+.Add(new ScnEntityConfiguration())
                 .Add(new ApplicableAircraftEntityConfiguration())
                 .Add(new AirBusScnEntityConfiguration())
-                #endregion
+            #endregion
 
-                #region SnRegAgg
+            #region SnRegAgg
 
-                .Add(new SnRegEntityConfiguration())
+.Add(new SnRegEntityConfiguration())
                 .Add(new SnHistoryEntityConfiguration())
                 .Add(new LifeMonitorEntityConfiguration())
-                #endregion
+            #endregion
 
-                #region SpecialConfigAgg
+            #region SpecialConfigAgg
 
-                .Add(new AcConfigEntityConfiguration())
+.Add(new AcConfigEntityConfiguration())
                 .Add(new SpecialConfigEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region TechnicalSolutionAgg
+            #region TechnicalSolutionAgg
 
-                .Add(new TechnicalSolutionEntityConfiguration())
+.Add(new TechnicalSolutionEntityConfiguration())
                 .Add(new TsLineEntityConfiguration())
                 .Add(new DependencyEntityConfiguration())
-                #endregion
+            #endregion
 .Add(new AirStructureDamageEntityConfiguration())
                 ;
         }

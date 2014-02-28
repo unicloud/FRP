@@ -1,28 +1,30 @@
-#region 版本信息
+﻿#region 版本信息
 /* ========================================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2014/2/17 10:10:40
-
-// 文件名：AircraftType
+// 作者：HuangQiBin 时间：2014/1/4 10:26:13
+// 文件名：AircraftSeries
 // 版本：V1.0.0
 //
-// 修改者： 时间：
+// 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
 #endregion
 
-using System;
-using UniCloud.Domain.PartBC.Aggregates.AircraftSeriesAgg;
+#region 命名空间
 
-namespace UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg
+using System;
+using System.Collections.Generic;
+
+#endregion
+
+namespace UniCloud.Domain.PartBC.Aggregates.AircraftSeriesAgg
 {
     /// <summary>
-    /// AircraftType聚合根。
-    /// 飞机机型
+    ///     飞机系列聚合根
     /// </summary>
-    public class AircraftType : EntityGuid
+    public class AircraftSeries : EntityGuid
     {
         #region 构造函数
 
@@ -30,7 +32,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal AircraftType()
+        internal AircraftSeries()
         {
         }
 
@@ -39,27 +41,33 @@ namespace UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg
         #region 属性
 
         /// <summary>
-        ///     机型名称
+        /// 系列
         /// </summary>
-        public string Name { get; protected set; }
+        public string Name { get; internal set; }
 
+        /// <summary>
+        /// 描述
+        /// </summary>
+        public string Description { get; internal set; }
+
+      
         #endregion
 
         #region 外键属性
-        /// <summary>
-        /// 系列Id
-        /// </summary>
-        public Guid AircraftSeriesId { get; protected set; }
+
+       
+
         #endregion
 
         #region 导航属性
-        public AircraftSeries AircraftSeries { get; set; }
+       
+
         #endregion
 
         #region 操作
 
-        #endregion
 
+
+        #endregion
     }
 }
-

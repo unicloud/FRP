@@ -50,6 +50,7 @@
     <Compile Include="Repositories\AcDailyUtilizationRepository.cs" />
     <Compile Include="Repositories\AirBusScnRepository.cs" />
     <Compile Include="Repositories\AircraftRepository.cs" />
+    <Compile Include="Repositories\AircraftSeriesRepository.cs" />
     <Compile Include="Repositories\AircraftTypeRepository.cs" />
     <Compile Include="Repositories\AirStructureDamageRepository.cs" />
     <Compile Include="Repositories\BasicConfigGroupRepository.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\AcDailyUtilizationEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AirBusScnEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftSeriesEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AirStructureDamageEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ApplicableAircraftEntityConfiguration.cs" />

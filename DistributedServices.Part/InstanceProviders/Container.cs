@@ -21,6 +21,7 @@ using Microsoft.Practices.Unity;
 using UniCloud.Application.PartBC.AcDailyUtilizationServices;
 using UniCloud.Application.PartBC.AircraftServices;
 using UniCloud.Application.PartBC.AircraftTypeServices;
+using UniCloud.Application.PartBC.AirStructureDamageServices;
 using UniCloud.Application.PartBC.BasicConfigGroupServices;
 using UniCloud.Application.PartBC.ContractAircraftServices;
 using UniCloud.Application.PartBC.CtrlUnitServices;
@@ -32,6 +33,7 @@ using UniCloud.Application.PartBC.PnRegServices;
 using UniCloud.Application.PartBC.Query.AcDailyUtilizationQueries;
 using UniCloud.Application.PartBC.Query.AircraftQueries;
 using UniCloud.Application.PartBC.Query.AircraftTypeQueries;
+using UniCloud.Application.PartBC.Query.AirStructureDamageQueries;
 using UniCloud.Application.PartBC.Query.BasicConfigGroupQueries;
 using UniCloud.Application.PartBC.Query.ContractAircraftQueries;
 using UniCloud.Application.PartBC.Query.CtrlUnitQueries;
@@ -51,7 +53,9 @@ using UniCloud.Application.PartBC.TechnicalSolutionServices;
 using UniCloud.Domain.PartBC.Aggregates.AcDailyUtilizationAgg;
 using UniCloud.Domain.PartBC.Aggregates.AirBusScnAgg;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.PartBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.PartBC.Aggregates.AirStructureDamageAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
@@ -112,7 +116,7 @@ namespace UniCloud.DistributedServices.Part.InstanceProviders
 .RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
                 .RegisterType<IAircraftTypeAppService, AircraftTypeAppService>()
                 .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
-
+                 .RegisterType<IAircraftSeriesRepository, AircraftSeriesRepository>()
             #endregion
 
             #region 基本构型组相关配置，包括查询，应用服务，仓储注册
@@ -201,6 +205,12 @@ namespace UniCloud.DistributedServices.Part.InstanceProviders
 
             #endregion
 
+            #region AirStructureDamage相关配置，包括查询，应用服务，仓储注册
+
+.RegisterType<IAirStructureDamageQuery, AirStructureDamageQuery>()
+                .RegisterType<IAirStructureDamageAppService, AirStructureDamageAppService>()
+                .RegisterType<IAirStructureDamageRepository, AirStructureDamageRepository>()
+            #endregion
 ;
         }
 

@@ -45,6 +45,9 @@
     <Compile Include="Aggregates\AirBusScnAgg\AirBusScn.cs" />
     <Compile Include="Aggregates\AirBusScnAgg\AirBusScnFactory.cs" />
     <Compile Include="Aggregates\AirBusScnAgg\AirBusScnSpecifications.cs" />
+    <Compile Include="Aggregates\AircraftSeriesAgg\AircraftSeries.cs" />
+    <Compile Include="Aggregates\AircraftSeriesAgg\AircraftSeriesSpecifications.cs" />
+    <Compile Include="Aggregates\AircraftSeriesAgg\IAircraftSeriesRepository.cs" />
     <Compile Include="Aggregates\AirStructureDamageAgg\AirStructureDamage.cs" />
     <Compile Include="Aggregates\AirStructureDamageAgg\IAirStructureDamageRepository.cs" />
     <Compile Include="Aggregates\AirStructureDamageAgg\AirStructureDamageFactory.cs" />
