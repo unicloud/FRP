@@ -24,5 +24,7 @@ namespace UniCloud.Domain.Common.Enums
     /// </summary>
     public enum AirStructureDamageStatus
     {
+        草稿 = 0,
+        完成 = 1,
     }
 }

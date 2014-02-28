@@ -12,14 +12,14 @@
 // ========================================================================*/
 #endregion
 
-namespace UniCloud.Domain.Common.Enums
+namespace UniCloud.Presentation.Service.Part.Part.Enums
 {
     /// <summary>
     /// 文件类型（结构/腐蚀）报告
     /// </summary>
     public enum AirStructureReportType
     {
-        损伤 = 0,
-        腐蚀 = 1,
+        损伤=0,
+        腐蚀=1,
     }
 }

@@ -23,6 +23,7 @@ using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.Part;
 using UniCloud.Presentation.Service.Part.Part;
+using UniCloud.Presentation.Service.Part.Part.Enums;
 
 #endregion
 
@@ -71,6 +72,9 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
                         DocumentName = "添加附件";
                         _document.DocumentId = new Guid();
                         _document.Name = string.Empty;
+                        AircraftDamageLevel = AircraftDamageLevel.低;
+                        AirStructureReportType = AirStructureReportType.损伤;
+                        AirStructureDamageStatus = AirStructureDamageStatus.草稿;
                     }
                 }
                 else if (e.PropertyName == "HasChanges")
@@ -78,7 +82,7 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
                     CanSelectAirStructureDamage = !AirStructureDamages.HasChanges;
                 }
             };
-
+            Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_context, _context.Aircrafts);
         }
 
         #endregion
@@ -87,9 +91,7 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
 
         #region 公共属性
 
-        /// <summary>
-        ///     文档名称
-        /// </summary>
+        #region 文档名称
         private string _documentName;
         public string DocumentName
         {
@@ -100,6 +102,61 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
                 RaisePropertyChanged("DocumentName");
             }
         }
+        #endregion
+
+        #region 报告种类
+        private AirStructureReportType _airStructureReportType;
+        public AirStructureReportType AirStructureReportType
+        {
+            get { return _airStructureReportType; }
+            set
+            {
+                _airStructureReportType = value;
+                AirStructureDamage.ReportType = (int)_airStructureReportType;
+                RaisePropertyChanged(() => AirStructureReportType);
+            }
+        }
+        public Array AirStructureReportTypes
+        {
+            get { return Enum.GetValues(typeof(AirStructureReportType)); }
+        }
+        #endregion
+
+        #region 腐蚀级别
+        private AircraftDamageLevel _aircraftDamageLevel;
+        public AircraftDamageLevel AircraftDamageLevel
+        {
+            get { return _aircraftDamageLevel; }
+            set
+            {
+                _aircraftDamageLevel = value;
+                AirStructureDamage.Level = (int) _aircraftDamageLevel;
+                RaisePropertyChanged(() => AircraftDamageLevel);
+            }
+        }
+        public Array AircraftDamageLevels
+        {
+            get { return Enum.GetValues(typeof(AircraftDamageLevel)); }
+        }
+        #endregion
+
+        #region 状态
+        private AirStructureDamageStatus _airStructureDamageStatus;
+        public AirStructureDamageStatus AirStructureDamageStatus
+        {
+            get { return _airStructureDamageStatus; }
+            set
+            {
+                _airStructureDamageStatus = value;
+                AirStructureDamage.Status = (int)_airStructureDamageStatus;
+                RaisePropertyChanged(() => AirStructureDamageStatus);
+            }
+        }
+        public Array AirStructureDamageStatuses
+        {
+            get { return Enum.GetValues(typeof(AirStructureDamageStatus)); }
+        }
+        #endregion
         #endregion
 
         #region 加载数据
@@ -117,6 +174,7 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
             if (!AirStructureDamages.AutoLoad)
                 AirStructureDamages.AutoLoad = true;
             AirStructureDamages.Load(true);
+            Aircrafts.Load();
         }
 
         #region 结构损伤
@@ -170,6 +228,7 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
         #endregion
 
         #region 飞机
+        public QueryableDataServiceCollectionView<AircraftDTO> Aircrafts { get; set; }
         private AircraftDTO _aircraft;
         /// <summary>
         ///     选中的飞机

@@ -37,77 +37,197 @@
                         <RowDefinition Height="35" />
                         <RowDefinition Height="35" />
                         <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="1"
-                               Text="合同号"
+                               Text="机号"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
-                    <TextBox Grid.Column="2"
+                    <TextBox Grid.Row="0"
+                             Grid.Column="2"
                              Margin="0,3"
                              telerik:StyleManager.Theme="Windows8"
-                             Text="{Binding Number, Mode=TwoWay}"
+                             Text="{Binding AircraftReg, Mode=TwoWay}"
                              IsReadOnly="True" />
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
-                               Text="合同名称"
+                               Text="系列"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="1"
                              telerik:StyleManager.Theme="Windows8"
-                             Text="{Binding Name, Mode=TwoWay}"
+                             Text="{Binding AircraftSeries, Mode=TwoWay}"
                              IsReadOnly="True" />
                     <TextBlock Grid.Row="2"
                                Grid.Column="1"
-                               Text="签约对象"
+                               Text="机型"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="2"
                              telerik:StyleManager.Theme="Windows8"
-                             Text="{Binding Signatory, Mode=TwoWay}"
+                             Text="{Binding AircraftType, Mode=TwoWay}"
                              IsReadOnly="True" />
                     <TextBlock Grid.Row="3"
                                Grid.Column="1"
-                               Text="签约时间"
+                               Text="报告号"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
-                    <StackPanel Grid.Column="2"
-                                Grid.Row="3"
-                                Margin="0,3"
-                                VerticalAlignment="Center">
-                        <telerik:RadTimePicker  Height="{StaticResource ControlHeight}"
-                                                SelectedValue="{Binding SignDate, Mode=TwoWay}"
-                                                telerik:StyleManager.Theme="Windows8"
-                                                InputMode="DatePicker"
-                                                IsReadOnly="True"
-                                                IsEnabled="False"
-                                                DateTimeWatermarkContent="" />
-                    </StackPanel>
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="3"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding ReportNo, Mode=TwoWay}"
+                             IsReadOnly="True" />
                     <TextBlock Grid.Row="4"
                                Grid.Column="1"
-                               Text="摘要"
+                               Text="报告种类"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="4"
                              telerik:StyleManager.Theme="Windows8"
-                             VerticalContentAlignment="Top"
-                             HorizontalContentAlignment="Left"
-                             Text="{Binding Abstract, Mode=TwoWay}"
+                             Text="{Binding ReportType, Mode=TwoWay, ConverterParameter=AirStructureReportType, Converter={StaticResource EnumToStringConverter}}"
                              IsReadOnly="True" />
                     <TextBlock Grid.Row="5"
                                Grid.Column="1"
-                               Text="附件"
+                               Text="来源"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="5"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding Source, Mode=TwoWay}"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="6"
+                               Grid.Column="1"
+                               Text="腐蚀级别"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="6"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding Level, Mode=TwoWay, ConverterParameter=AircraftDamageLevel, Converter={StaticResource EnumToStringConverter}}"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="7"
+                               Grid.Column="1"
+                               Text="是否保留"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="7"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding IsDefer, Mode=TwoWay}"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="8"
+                               Grid.Column="1"
+                               Text="状态"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="8"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding Status, Mode=TwoWay, ConverterParameter=AirStructureDamageStatus, Converter={StaticResource EnumToStringConverter}}"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="9"
+                               Grid.Column="1"
+                               Text="修理期限"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="9"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding RepairDeadline, Mode=TwoWay}"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="10"
+                               Grid.Column="1"
+                               Text="报告日期"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="10"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding ReportDate, Mode=TwoWay, StringFormat={StaticResource DateStringFormat}}"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="11"
+                               Grid.Column="1"
+                               Text="关闭日期"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="11"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding CloseDate, Mode=TwoWay, StringFormat={StaticResource DateStringFormat}}"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="12"
+                               Grid.Column="1"
+                               Text="费用"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="12"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding TotalCost, Mode=TwoWay,StringFormat={StaticResource CurrencyStringFormat}}"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="13"
+                               Grid.Column="1"
+                               Text="伤损描述"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="13"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding Description, Mode=TwoWay}"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="14"
+                               Grid.Column="1"
+                               Text="技术评估"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="14"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding TecAssess, Mode=TwoWay}"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="15"
+                               Grid.Column="1"
+                               Text="处理结果"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="15"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding TreatResult, Mode=TwoWay}"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="16"
+                               Grid.Column="1"
+                               Text="文档名称"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <HyperlinkButton  Grid.Column="2"
-                                      Grid.Row="5"
+                                      Grid.Row="16"
                                       Margin="0,3"
-                                      Command="{Binding DataContext.ViewAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                      Command="{Binding DataContext.ViewAttachCommand,ElementName=AirStructureDamageView}"
                                       CommandParameter="{Binding DocumentId,Mode=TwoWay}"
                                       VerticalContentAlignment="Top"
                                       HorizontalContentAlignment="Left">
@@ -137,77 +257,212 @@
                         <RowDefinition Height="35" />
                         <RowDefinition Height="35" />
                         <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="1"
-                               Text="合同号"
+                               Text="机号"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
-                    <TextBox Grid.Column="2"
-                             Margin="0,3"
-                             Text="{Binding Number, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="1"
-                               Grid.Column="1"
-                               Text="合同名称"
-                               TextAlignment="Left"
-                               VerticalAlignment="Center" />
-                    <TextBox Grid.Column="2"
-                             Margin="0,3"
-                             Grid.Row="1"
-                             Text="{Binding Name, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="2"
-                               Grid.Column="1"
-                               Text="签约对象"
-                               TextAlignment="Left"
-                               VerticalAlignment="Center" />
-                    <telerik:RadComboBox Name="cbSignatory"
-                                         Grid.Row="2"
+                    <telerik:RadComboBox Name="CbAircraft"
+                                         Grid.Row="0"
                                          Grid.Column="2"
                                          Margin="0,3"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
                                          Height="{StaticResource ControlHeight}"
-                                         ItemsSource="{Binding DataContext.Suppliers, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                         SelectedItem="{Binding DataContext.Supplier, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                         SelectedValue="{Binding SignatoryId, Mode=TwoWay}"
-                                         SelectedValuePath="SupplierId"
-                                         DisplayMemberPath="Name" />
-                    <TextBlock Grid.Row="3"
+                                         ItemsSource="{Binding DataContext.Aircrafts, Mode=TwoWay, ElementName=AirStructureDamageView}"
+                                         SelectedItem="{Binding DataContext.Aircraft, Mode=TwoWay, ElementName=AirStructureDamageView}"
+                                         SelectedValue="{Binding AircraftId, Mode=TwoWay}"
+                                         SelectedValuePath="Id"
+                                         DisplayMemberPath="RegNumber" />
+                    <TextBlock Grid.Row="1"
                                Grid.Column="1"
-                               Text="签约时间"
-                               TextAlignment="Left"
-                               VerticalAlignment="Center" />
-                    <StackPanel Grid.Column="2"
-                                Grid.Row="3"
-                                Margin="0,3"
-                                VerticalAlignment="Center">
-                        <telerik:RadTimePicker  Height="{StaticResource ControlHeight}"
-                                                SelectedValue="{Binding SignDate, Mode=TwoWay}"
-                                                InputMode="DatePicker" />
-                    </StackPanel>
-                    <TextBlock Grid.Row="4"
-                               Grid.Column="1"
-                               Text="摘要"
+                               Text="系列"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="2"
                              Margin="0,3"
-                             Grid.Row="4"
-                             VerticalContentAlignment="Top"
-                             HorizontalContentAlignment="Left"
-                             Text="{Binding Abstract, Mode=TwoWay}" />
+                             Grid.Row="1"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding AircraftSeries, Mode=TwoWay}"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               Text="机型"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="2"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding AircraftType, Mode=TwoWay}"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="1"
+                               Text="报告号"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="3"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding ReportNo, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="1"
+                               Text="报告种类"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <telerik:RadComboBox Name="CbReportType"
+                                         Grid.Row="4"
+                                         Grid.Column="2"
+                                         Margin="0,3"
+                                         HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Center"
+                                         Height="{StaticResource ControlHeight}"
+                                         ItemsSource="{Binding DataContext.AirStructureReportTypes, Mode=TwoWay, ElementName=AirStructureDamageView}"
+                                         SelectedItem="{Binding  DataContext.AirStructureReportType,Mode=TwoWay, ElementName=AirStructureDamageView}" />
                     <TextBlock Grid.Row="5"
                                Grid.Column="1"
-                               Text="附件"
+                               Text="来源"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="5"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding Source, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="6"
+                               Grid.Column="1"
+                               Text="腐蚀级别"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <telerik:RadComboBox Name="CbDamageLevel"
+                                         Grid.Row="6"
+                                         Grid.Column="2"
+                                         Margin="0,3"
+                                         HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Center"
+                                         Height="{StaticResource ControlHeight}"
+                                         ItemsSource="{Binding DataContext.AircraftDamageLevels, Mode=TwoWay, ElementName=AirStructureDamageView}"
+                                         SelectedItem="{Binding  DataContext.AircraftDamageLevel,Mode=TwoWay, ElementName=AirStructureDamageView}" />
+                    <TextBlock Grid.Row="7"
+                               Grid.Column="1"
+                               Text="是否保留"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="2"
+                              Margin="0,3"
+                              Grid.Row="7"
+                              telerik:StyleManager.Theme="Windows8"
+                              IsChecked="{Binding IsDefer, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="8"
+                               Grid.Column="1"
+                               Text="状态"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <telerik:RadComboBox Name="CbStatus"
+                                         Grid.Row="8"
+                                         Grid.Column="2"
+                                         Margin="0,3"
+                                         HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Center"
+                                         Height="{StaticResource ControlHeight}"
+                                         ItemsSource="{Binding DataContext.AirStructureDamageStatuses, Mode=TwoWay, ElementName=AirStructureDamageView}"
+                                         SelectedItem="{Binding  DataContext.AirStructureDamageStatus,Mode=TwoWay, ElementName=AirStructureDamageView}" />
+                    <TextBlock Grid.Row="9"
+                               Grid.Column="1"
+                               Text="修理期限"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="9"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding RepairDeadline, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="10"
+                               Grid.Column="1"
+                               Text="报告日期"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <StackPanel Grid.Column="2"
+                                Grid.Row="10"
+                                Margin="0,3"
+                                VerticalAlignment="Center">
+                        <telerik:RadTimePicker  Height="{StaticResource ControlHeight}"
+                                                SelectedValue="{Binding ReportDate, Mode=TwoWay}"
+                                                InputMode="DatePicker" />
+                    </StackPanel>
+                    <TextBlock Grid.Row="11"
+                               Grid.Column="1"
+                               Text="关闭日期"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <StackPanel Grid.Column="2"
+                                Grid.Row="11"
+                                Margin="0,3"
+                                VerticalAlignment="Center">
+                        <telerik:RadTimePicker  Height="{StaticResource ControlHeight}"
+                                                SelectedValue="{Binding CloseDate, Mode=TwoWay}"
+                                                InputMode="DatePicker" />
+                    </StackPanel>
+                    <TextBlock Grid.Row="12"
+                               Grid.Column="1"
+                               Text="费用"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="12"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding TotalCost, Mode=TwoWay,StringFormat={StaticResource CurrencyStringFormat}}" />
+                    <TextBlock Grid.Row="13"
+                               Grid.Column="1"
+                               Text="伤损描述"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="13"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding Description, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="14"
+                               Grid.Column="1"
+                               Text="技术评估"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="14"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding TecAssess, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="15"
+                               Grid.Column="1"
+                               Text="处理结果"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="15"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding TreatResult, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="16"
+                               Grid.Column="1"
+                               Text="文档名称"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <HyperlinkButton  Grid.Column="2"
-                                      Grid.Row="5"
+                                      Grid.Row="16"
                                       Margin="0,3"
-                                      Command="{Binding DataContext.AddAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                      Command="{Binding DataContext.AddAttachCommand,ElementName=AirStructureDamageView}"
                                       CommandParameter="{Binding DocumentId,Mode=TwoWay}"
                                       VerticalContentAlignment="Top"
                                       HorizontalContentAlignment="Left">
-                        <TextBlock Text="{Binding DataContext.DocumentName,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl},Mode=TwoWay}"
+                        <TextBlock Text="{Binding DataContext.DocumentName,ElementName=AirStructureDamageView,Mode=TwoWay}"
                                    TextDecorations="Underline" />
                     </HyperlinkButton>
                 </Grid>
@@ -220,7 +475,7 @@
             <telerik:RadSplitContainer>
                 <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="查询APU维修合同"
+                        <telerik:RadPane Header="查询结构损伤记录"
                                          FontSize="{StaticResource HeaderFontSize}"
                                          IsPinned="True"
                                          CanFloat="False"
@@ -233,60 +488,96 @@
                                     <RowDefinition Height="30" />
                                 </Grid.RowDefinitions>
                                 <Grid Row="0">
-                                    <telerik:RadGridView Name="ApuMaintainContractList"
+                                    <telerik:RadGridView Name="AirStructureDamageList"
                                                          AutoExpandGroups="True"
                                                          AutoGenerateColumns="False"
                                                          CanUserSortColumns="True"
                                                          CanUserFreezeColumns="False"
                                                          IsFilteringAllowed="True"
                                                          IsReadOnly="True"
-                                                         ItemsSource="{Binding ApuMaintainContracts}"
-                                                         IsBusy="{Binding ApuMaintainContracts.IsBusy}"
-                                                         SelectedItem="{Binding ApuMaintainContract,Mode=TwoWay}"
-                                                         CanUserSelect="{Binding CanSelectApuMaintain}"
+                                                         ItemsSource="{Binding AirStructureDamages}"
+                                                         IsBusy="{Binding AirStructureDamages.IsBusy}"
+                                                         SelectedItem="{Binding AirStructureDamage,Mode=TwoWay}"
+                                                         CanUserSelect="{Binding CanSelectAirStructureDamage}"
                                                          FontSize="{StaticResource TextFontSize}"
                                                          ValidatesOnDataErrors="InEditMode"
                                                          RowIndicatorVisibility="Visible">
                                         <telerik:RadGridView.Columns>
-                                            <input:DataPageSerialColumn Header="序号" />
-                                            <telerik:GridViewDataColumn Header="合同号"
-                                                                        IsSortable="True"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                            <input:DataPageSerialColumn  Header="序号" />
+                                            <telerik:GridViewDataColumn Header="机号"
                                                                         HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding Number}" />
-                                            <telerik:GridViewDataColumn Header="合同名称"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding AircraftReg}" />
+                                            <telerik:GridViewDataColumn Header="系列"
                                                                         HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding Name}" />
-                                            <telerik:GridViewDataColumn Header="签约对象"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding AircraftSeries}" />
+                                            <telerik:GridViewDataColumn Header="机型"
                                                                         HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding Signatory}" />
-                                            <telerik:GridViewDataColumn Header="签约时间"
-                                                                        IsSortable="True"
+                                                                        DataMemberBinding="{Binding AircraftType}"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}" />
+                                            <telerik:GridViewDataColumn Header="报告号"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding ReportNo}"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}" />
+                                            <telerik:GridViewDataColumn Header="报告种类"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding ReportType, ConverterParameter=AirStructureReportType, Converter={StaticResource EnumToStringConverter}}"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}" />
+                                            <telerik:GridViewDataColumn Header="来源"
+                                                                        HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding Source}" />
+                                            <telerik:GridViewDataColumn Header="腐蚀级别"
                                                                         HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding SignDate, StringFormat={StaticResource DateStringFormat}}" />
-                                            <telerik:GridViewDataColumn Header="摘要"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding Level, ConverterParameter=AircraftDamageLevel, Converter={StaticResource EnumToStringConverter}}" />
+                                            <telerik:GridViewDataColumn Header="是否保留"
                                                                         HeaderTextAlignment="Center"
-                                                                        MaxWidth="250"
-                                                                        TextWrapping="Wrap"
-                                                                        DataMemberBinding="{Binding Abstract}" />
-                                            <telerik:GridViewDataColumn Header="附件"
-                                                                        IsSortable="True"
-                                                                        MaxWidth="250"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding IsDefer}" />
+                                            <telerik:GridViewDataColumn Header="状态"
                                                                         HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding DocumentName}" />
-                                            <telerik:GridViewDataColumn Header="创建日期"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding Status, ConverterParameter=AirStructureDamageStatus, Converter={StaticResource EnumToStringConverter}}" />
+                                            <telerik:GridViewDataColumn Header="修理期限"
                                                                         HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding CreateDate, StringFormat={StaticResource DateStringFormat}}" />
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding RepairDeadline}" />
+                                            <telerik:GridViewDataColumn  Header="报告日期"
+                                                                         DataMemberBinding="{Binding ReportDate, StringFormat={StaticResource DateStringFormat}}"
+                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                         HeaderTextAlignment="Center" />
+                                            <telerik:GridViewDataColumn  Header="关闭日期"
+                                                                         DataMemberBinding="{Binding CloseDate, StringFormat={StaticResource DateStringFormat}}"
+                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                         HeaderTextAlignment="Center" />
+                                            <telerik:GridViewMaskedInputColumn Header="费用"
+                                                                               IsSortable="True"
+                                                                               IsReadOnly="True"
+                                                                               MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                               TextAlignment="Right"
+                                                                               HeaderTextAlignment="Center"
+                                                                               DataMemberBinding="{Binding TotalCost,StringFormat={StaticResource CurrencyStringFormat}}"
+                                                                               MaskType="Numeric"
+                                                                               Mask="###,###,###.##"
+                                                                               FooterTextAlignment="Right" />
+                                            <telerik:GridViewDataColumn  Header="伤损描述"
+                                                                         DataMemberBinding="{Binding Description}"
+                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                         HeaderTextAlignment="Center" />
+                                            <telerik:GridViewDataColumn  Header="技术评估"
+                                                                         DataMemberBinding="{Binding TecAssess}"
+                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                         HeaderTextAlignment="Center" />
+                                            <telerik:GridViewDataColumn  Header="处理结果"
+                                                                         DataMemberBinding="{Binding TreatResult}"
+                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                         HeaderTextAlignment="Center" />
+                                            <telerik:GridViewDataColumn  Header="文档名称"
+                                                                         DataMemberBinding="{Binding DocumentName}"
+                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                         HeaderTextAlignment="Center" />
                                         </telerik:RadGridView.Columns>
                                     </telerik:RadGridView>
                                 </Grid>
@@ -295,7 +586,7 @@
                                                           BorderThickness="1,0,1,1"
                                                           AutoEllipsisMode="Both"
                                                           DisplayMode="All"
-                                                          Source="{Binding ApuMaintainContracts}" />
+                                                          Source="{Binding AirStructureDamages}" />
                                 </Grid>
                             </Grid>
                         </telerik:RadPane>
@@ -303,7 +594,7 @@
                 </telerik:RadSplitContainer>
                 <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="编辑APU维修合同"
+                        <telerik:RadPane Header="编辑结构损伤记录"
                                          IsPinned="True"
                                          CanFloat="False"
                                          CanDockInDocumentHost="False"
@@ -311,18 +602,18 @@
                                          CanUserPin="True"
                                          ContextMenuTemplate="{x:Null}">
                             <Grid>
-                                <telerik:RadDataForm x:Name="ApuMaintainForm"
+                                <telerik:RadDataForm x:Name="AirStructureDamageForm"
                                                      CancelButtonContent="取消"
                                                      CommitButtonContent="确定"
-                                                     ItemsSource="{Binding ApuMaintainContracts}"
+                                                     ItemsSource="{Binding AirStructureDamages}"
                                                      AutoGenerateFields="False"
                                                      AutoCommit="True"
                                                      ReadOnlyTemplate="{StaticResource ReadTemplate}"
                                                      EditTemplate="{StaticResource EditNewTemplate}"
                                                      NewItemTemplate="{StaticResource EditNewTemplate}">
                                     <telerik:RadDataForm.CommandProvider>
-                                        <uc:MasterCommandProvider  DataForm="{Binding ElementName=ApuMaintainForm}"
-                                                                   QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=ApuMaintainForm}" />
+                                        <uc:MasterCommandProvider  DataForm="{Binding ElementName=AirStructureDamageForm}"
+                                                                   QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=AirStructureDamageForm}" />
                                     </telerik:RadDataForm.CommandProvider>
                                 </telerik:RadDataForm>
                             </Grid>

@@ -54,6 +54,15 @@ namespace UniCloud.Presentation.ValueConverts
                 case "ScnStatus":
                     result = EnumUtility.GetName(typeof(ScnStatus), (ScnStatus)value);
                     break;
+                case "AirStructureDamageStatus":
+                    result = EnumUtility.GetName(typeof(AirStructureDamageStatus), (AirStructureDamageStatus)value);
+                    break;
+                case "AirStructureReportType":
+                    result = EnumUtility.GetName(typeof(AirStructureReportType), (AirStructureReportType)value);
+                    break;
+                case "AircraftDamageLevel":
+                    result = EnumUtility.GetName(typeof(AircraftDamageLevel), (AircraftDamageLevel)value);
+                    break;
                 default:
                     break;
             }

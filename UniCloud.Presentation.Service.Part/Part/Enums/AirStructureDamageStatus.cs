@@ -3,23 +3,23 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2014/2/28 12:06:21
-// 文件名：AirStructureReportType
+// 作者：linxw 时间：2014/2/28 11:45:06
+// 文件名：AirStructureDamageStatus
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2014/2/28 12:06:21
+// 修改者：linxw 时间：2014/2/28 11:45:06
 // 修改说明：
 // ========================================================================*/
 #endregion
 
-namespace UniCloud.Domain.Common.Enums
+namespace UniCloud.Presentation.Service.Part.Part.Enums
 {
     /// <summary>
-    /// 文件类型（结构/腐蚀）报告
+    /// 结构损伤状态
     /// </summary>
-    public enum AirStructureReportType
+    public enum AirStructureDamageStatus
     {
-        损伤 = 0,
-        腐蚀 = 1,
+        草稿=0,
+        完成=1,
     }
 }

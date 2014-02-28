@@ -24,5 +24,8 @@ namespace UniCloud.Domain.Common.Enums
     /// </summary>
     public enum AircraftDamageLevel
     {
+        低=0,
+        中=1,
+        高=2,
     }
 }
