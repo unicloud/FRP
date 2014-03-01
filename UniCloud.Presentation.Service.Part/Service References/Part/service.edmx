@@ -242,8 +242,9 @@
         <Property Name="InstallDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Pn" Type="Edm.String" />
         <Property Name="IsStop" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="RegNumber" Type="Edm.String" />
         <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftId" Type="Edm.Guid" />
         <Property Name="SnHistories" Type="Collection(UniCloud.Application.PartBC.DTO.SnHistoryDTO)" Nullable="false" />
         <Property Name="LiftMonitors" Type="Collection(UniCloud.Application.PartBC.DTO.LifeMonitorDTO)" Nullable="false" />
       </EntityType>
