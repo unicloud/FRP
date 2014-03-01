@@ -19,7 +19,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.UberModel.Aggregates.OilMonitorAgg;
+using UniCloud.Domain.UberModel.Aggregates.OilUserAgg;
 
 #endregion
 

@@ -47,6 +47,16 @@ namespace UniCloud.Application.PartBC.DTO
         ///     运营状态
         /// </summary>
         public bool IsOperation { get; set; }
+
+        /// <summary>
+        ///     机型
+        /// </summary>
+        public string AircraftType { get; set; }
+
+        /// <summary>
+        ///     系列
+        /// </summary>
+        public string AircraftSeries { get; set; }
         #endregion
 
     }

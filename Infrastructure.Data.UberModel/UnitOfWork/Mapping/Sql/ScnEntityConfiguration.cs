@@ -40,8 +40,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.Cost).HasColumnName("Cost").HasColumnType("decimal").HasPrecision(16, 4);
             Property(p => p.ScnNumber).HasColumnName("ScnNumber").HasMaxLength(100);
             Property(p => p.ScnType).HasColumnName("ScnType");
-            Property(p => p.Description).HasColumnName("Description").HasMaxLength(100);
-            Property(p => p.ScnDocName).HasColumnName("ScnDocName").HasMaxLength(100);
+            Property(p => p.Description).HasColumnName("Description");
+            Property(p => p.ScnDocName).HasColumnName("ScnDocName");
             Property(p => p.ScnDocumentId).HasColumnName("ScnDocumentId");
             Property(p => p.ScnStatus).HasColumnName("ScnStatus");
             Property(p => p.AuditOrganization).HasColumnName("AuditOrganization");

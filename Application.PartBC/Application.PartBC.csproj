@@ -42,10 +42,14 @@
   <ItemGroup>
     <Compile Include="AcDailyUtilizationServices\AcDailyUtilizationAppService.cs" />
     <Compile Include="AcDailyUtilizationServices\IAcDailyUtilizationAppService.cs" />
+    <Compile Include="AdSbServices\AdSbAppService.cs" />
+    <Compile Include="AdSbServices\IAdSbAppService.cs" />
     <Compile Include="AircraftServices\AircraftAppService.cs" />
     <Compile Include="AircraftServices\IAircraftAppService.cs" />
     <Compile Include="AircraftTypeServices\AircraftTypeAppService.cs" />
     <Compile Include="AircraftTypeServices\IAircraftTypeAppService.cs" />
+    <Compile Include="AirStructureDamageServices\AirStructureDamageAppService.cs" />
+    <Compile Include="AirStructureDamageServices\IAirStructureDamageAppService.cs" />
     <Compile Include="BasicConfigGroupServices\BasicConfigGroupAppService.cs" />
     <Compile Include="BasicConfigGroupServices\IBasicConfigGroupAppService.cs" />
     <Compile Include="ConfigGroupServices\ConfigGroupAppService.cs" />

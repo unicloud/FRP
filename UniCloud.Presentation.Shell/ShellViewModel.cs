@@ -927,18 +927,18 @@ namespace UniCloud.Presentation.Shell
 
             var menu81 = new MenuItem
             {
-                Text = "管理SCN",
+                Text = "管理SCN/MSCN",
             };
 
             var menu811 = new MenuItem
             {
-                Text = "维护SCN",
+                Text = "维护SCN/MSCN",
                 NavUri = "UniCloud.Presentation.Part.ManageSCN.MaintainScn"
             };
 
             var menu812 = new MenuItem
             {
-                Text = "对比SCN",
+                Text = "对比SCN/MSCN",
                 NavUri = "UniCloud.Presentation.Part.ManageSCN.CompareScn"
             };
 
@@ -948,11 +948,13 @@ namespace UniCloud.Presentation.Shell
             var menu82 = new MenuItem
             {
                 Text = "查询AD/SB",
+                NavUri = "UniCloud.Presentation.Part.ManageAdSb.QueryAdSb"
             };
 
             var menu83 = new MenuItem
             {
                 Text = "维护结构损伤",
+                NavUri = "UniCloud.Presentation.Part.ManageAirStructureDamage.MaintainAirStructureDamage"
             };
 
             menu8.Items.Add(menu81);

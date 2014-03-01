@@ -37,7 +37,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            Property(p => p.Sn).HasColumnName("Sn");
             Property(p => p.Date).HasColumnName("Date").HasColumnType("datetime2");
             Property(p => p.TSN).HasColumnName("TSN");
             Property(p => p.TSR).HasColumnName("TSR");
@@ -47,7 +46,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             Property(p => p.AverageRate3).HasColumnName("AverageRate3");
             Property(p => p.AverageRate7).HasColumnName("AverageRate7");
 
-            Property(p => p.SnRegID).HasColumnName("SnRegID");
+            Property(p => p.OilUserID).HasColumnName("OilUserID");
         }
     }
 }

@@ -46,6 +46,8 @@ namespace UniCloud.Application.PartBC.Query.AircraftQueries
                 RegNumber = p.RegNumber,
                 SerialNumber = p.SerialNumber,
                 IsOperation = p.IsOperation,
+                AircraftType = p.AircraftType.Name,
+                AircraftSeries = p.AircraftType.AircraftSeries.Name
             });
         }
     }

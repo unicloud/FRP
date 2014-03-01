@@ -17,7 +17,6 @@
 
 #region 命名空间
 
-using System;
 using System.Data.Services.Common;
 
 #endregion
@@ -25,13 +24,13 @@ using System.Data.Services.Common;
 namespace UniCloud.Application.PartBC.DTO
 {
     /// <summary>
-    ///     发动机滑油监控DTO
+    ///     发动机滑油用户DTO
     /// </summary>
     [DataServiceKey("Id")]
     public class EngineOilDTO
     {
         /// <summary>
-        ///     发动机滑油监控ID
+        ///     发动机滑油用户ID
         /// </summary>
         public int Id { get; set; }
 
@@ -39,11 +38,6 @@ namespace UniCloud.Application.PartBC.DTO
         ///     序列号
         /// </summary>
         public string Sn { get; set; }
-
-        /// <summary>
-        ///     日期
-        /// </summary>
-        public DateTime Date { get; set; }
 
         /// <summary>
         ///     TSN，自装机以来使用小时数
@@ -56,28 +50,18 @@ namespace UniCloud.Application.PartBC.DTO
         public decimal TSR { get; set; }
 
         /// <summary>
-        ///     总滑油消耗率
+        ///     CSN，自装机以来使用循环
         /// </summary>
-        public decimal TotalRate { get; set; }
+        public decimal CSN { get; set; }
 
         /// <summary>
-        ///     区间滑油消耗率
+        ///     CSR，自上一次修理以来使用循环
         /// </summary>
-        public decimal IntervalRate { get; set; }
+        public decimal CSR { get; set; }
 
         /// <summary>
-        ///     区间滑油消耗率变化量
+        ///     滑油监控状态状态
         /// </summary>
-        public decimal DeltaIntervalRate { get; set; }
-
-        /// <summary>
-        ///     3天移动平均
-        /// </summary>
-        public decimal AverageRate3 { get; set; }
-
-        /// <summary>
-        ///     7天移动平均
-        /// </summary>
-        public decimal AverageRate7 { get; set; }
+        public int Status { get; set; }
     }
 }

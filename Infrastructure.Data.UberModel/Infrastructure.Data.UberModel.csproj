@@ -82,6 +82,8 @@
     <Compile Include="UnitOfWork\Mapping\Sql\AcConfigEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AcDailyUtilizationEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ActionCategoryEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AdSbEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AirBusScnEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftLicenseEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftSeriesEntityConfiguration.cs">
       <SubType>Code</SubType>
@@ -108,6 +110,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\AirlinesEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AirProgrammingEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AirProgrammingLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AirStructureDamageEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AnnualEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ApplicableAircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ApprovalDocEntityConfiguration.cs" />
@@ -188,6 +191,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ModEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OfficialDocumentEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OilMonitorEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\OilUserEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OperationHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OperationPlanEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OrderEntityConfiguration.cs" />

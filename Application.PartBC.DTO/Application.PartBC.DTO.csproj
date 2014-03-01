@@ -52,8 +52,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AcDailyUtilizationDTO\AcDailyUtilizationDTO.cs" />
+    <Compile Include="AdSbDTO\AdSbDTO.cs" />
     <Compile Include="AircraftDTO\AircraftDTO.cs" />
+    <Compile Include="AircraftTypeDTO\AircraftSeriesDTO.cs" />
     <Compile Include="AircraftTypeDTO\AircraftTypeDTO.cs" />
+    <Compile Include="AirStructureDamageDTO\AirStructureDamageDTO.cs" />
     <Compile Include="BasicConfigGroupDTO\BasicConfigDTO.cs" />
     <Compile Include="BasicConfigGroupDTO\BasicConfigGroupDTO.cs" />
     <Compile Include="ConfigGroupDTO\BcGroupDTO.cs" />
@@ -71,8 +74,10 @@
     <Compile Include="ModDTO\ModDTO.cs" />
     <Compile Include="OilMonitorDTO\APUOilDTO.cs" />
     <Compile Include="OilMonitorDTO\EngineOilDTO.cs" />
+    <Compile Include="OilMonitorDTO\OilMonitorDTO.cs" />
     <Compile Include="PnRegDTO\PnRegDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScnDTO\AirBusScnDTO.cs" />
     <Compile Include="ScnDTO\ApplicableAircraftDTO.cs" />
     <Compile Include="ScnDTO\ScnDTO.cs" />
     <Compile Include="SnRegDTO\LifeMonitorDTO.cs" />

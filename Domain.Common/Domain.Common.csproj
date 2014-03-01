@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\AircraftDamageLevel.cs" />
+    <Compile Include="Enums\AirStructureDamageStatus.cs" />
+    <Compile Include="Enums\AirStructureReportType.cs" />
     <Compile Include="Enums\BFEStatus.cs" />
     <Compile Include="Enums\ContractAircraftStatus.cs" />
     <Compile Include="Enums\ContractEngineStatus.cs" />
@@ -60,6 +63,7 @@
     <Compile Include="Enums\ManageStatus.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Enums\OilMonitorStatus.cs" />
     <Compile Include="Enums\OperationStatus.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -40,7 +40,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
         /// <summary>
         ///     设置Scn属性
         /// </summary>
-        /// <param name="scn">付款通知</param>
+        /// <param name="scn">Scn</param>
         /// <param name="title">标题</param>
         /// <param name="type">SCN类型</param>
         /// <param name="checkDate">确认日期</param>

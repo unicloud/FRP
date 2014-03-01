@@ -44,8 +44,6 @@ namespace UniCloud.Application.PartBC.Tests.Services
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
 
-
-
                 #region 附件相关配置，包括查询，应用服务，仓储注册
 
                 .RegisterType<IPnRegQuery, PnRegQuery>()
@@ -60,6 +58,8 @@ namespace UniCloud.Application.PartBC.Tests.Services
         public void TestCleanup()
         {
         }
+
+        #endregion
 
         [TestMethod]
         public void GetPnRegs()
@@ -85,7 +85,5 @@ namespace UniCloud.Application.PartBC.Tests.Services
             context.Add(newPnReg);
             context.UnitOfWork.Commit();
         }
-
-        #endregion
     }
 }

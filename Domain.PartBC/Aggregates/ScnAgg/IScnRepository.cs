@@ -18,7 +18,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
     /// <summary>
     /// Scn仓储接口。
     /// </summary>
-    public interface IScnRepository : IRepository<Scn>
+    public partial interface IScnRepository : IRepository<Scn>
     {
         /// <summary>
         /// 删除SCN

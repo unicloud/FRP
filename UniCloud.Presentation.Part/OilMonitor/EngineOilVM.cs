@@ -17,12 +17,15 @@
 
 #region 命名空间
 
+using System;
 using System.ComponentModel.Composition;
 using System.Windows;
+using Telerik.Windows.Controls.ChartView;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Part;
 using UniCloud.Presentation.Service.Part.Part;
+using UniCloud.Presentation.Service.Part.Part.Enums;
 
 #endregion
 
@@ -36,15 +39,14 @@ namespace UniCloud.Presentation.Part.OilMonitor
 
         private readonly PartData _context;
         private readonly IPartService _service;
+        private FilterDescriptor _oilUserDescriptor;
+        private FilterDescriptor _startDateDescriptor;
 
         [ImportingConstructor]
         public EngineOilVM(IPartService service) : base(service)
         {
             _service = service;
             _context = service.Context;
-
-            Zoom = new Size(3, 1);
-            PanOffset = new Point(-10000, 0);
 
             InitializeVM();
         }
@@ -57,7 +59,21 @@ namespace UniCloud.Presentation.Part.OilMonitor
         /// </summary>
         private void InitializeVM()
         {
+            Zoom = new Size(1, 1);
+            PanOffset = new Point(-10000, 0);
+            CurrentOil = new OilMonitorDTO
+            {
+                Date = DateTime.Now,
+                IntervalRate = 0,
+                DeltaIntervalRate = 0
+            };
+
             InitializeViewEngineOilDTO();
+            InitializeViewOilMonitorDTO();
+
+            // 设置选中的期间
+            SelPeriod = OilMonitorPeriod.最近90天;
+            _startDateDescriptor.Value = DateTime.Now.AddDays(-90);
         }
 
         #endregion
@@ -110,6 +126,78 @@ namespace UniCloud.Presentation.Part.OilMonitor
 
         #endregion
 
+        #region 当前滑油耗率数据
+
+        private OilMonitorDTO _currentOil;
+
+        /// <summary>
+        ///     当前滑油耗率数据
+        /// </summary>
+        public OilMonitorDTO CurrentOil
+        {
+            get { return _currentOil; }
+            private set
+            {
+                if (_currentOil != value)
+                {
+                    _currentOil = value;
+                    RaisePropertyChanged(() => CurrentOil);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 时间跨度
+
+        private Array _period;
+
+        /// <summary>
+        ///     时间跨度
+        /// </summary>
+        public Array Period
+        {
+            get { return _period ?? (_period = Enum.GetValues(typeof (OilMonitorPeriod))); }
+        }
+
+        #endregion
+
+        #region 选中的期间
+
+        private OilMonitorPeriod _selPeriod;
+
+        /// <summary>
+        ///     选中的期间
+        /// </summary>
+        public OilMonitorPeriod SelPeriod
+        {
+            get { return _selPeriod; }
+            private set
+            {
+                if (_selPeriod != value)
+                {
+                    _selPeriod = value;
+                    RaisePropertyChanged(() => SelPeriod);
+                    switch (_selPeriod)
+                    {
+                        case OilMonitorPeriod.最近90天:
+                            _startDateDescriptor.Value = DateTime.Now.AddDays(-90);
+                            break;
+                        case OilMonitorPeriod.最近30天:
+                            _startDateDescriptor.Value = DateTime.Now.AddDays(-30);
+                            break;
+                        case OilMonitorPeriod.最近一周:
+                            _startDateDescriptor.Value = DateTime.Now.AddDays(-7);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #region 加载数据
@@ -125,19 +213,21 @@ namespace UniCloud.Presentation.Part.OilMonitor
         {
             if (!ViewEngineOilDTO.AutoLoad) ViewEngineOilDTO.AutoLoad = true;
             else ViewEngineOilDTO.Load(true);
+            if (!ViewOilMonitorDTO.AutoLoad) ViewOilMonitorDTO.AutoLoad = true;
+            else ViewOilMonitorDTO.Load(true);
         }
 
-        #region 发动机滑油
+        #region 滑油监控发动机
 
         private EngineOilDTO _selEngineOilDTO;
 
         /// <summary>
-        ///     发动机滑油集合
+        ///     滑油监控发动机集合
         /// </summary>
         public QueryableDataServiceCollectionView<EngineOilDTO> ViewEngineOilDTO { get; set; }
 
         /// <summary>
-        ///     选中的发动机滑油
+        ///     选中的滑油监控发动机
         /// </summary>
         public EngineOilDTO SelEngineOilDTO
         {
@@ -148,17 +238,61 @@ namespace UniCloud.Presentation.Part.OilMonitor
                 {
                     _selEngineOilDTO = value;
                     RaisePropertyChanged(() => SelEngineOilDTO);
+                    _oilUserDescriptor.Value = _selEngineOilDTO.Id;
                 }
             }
         }
 
         /// <summary>
-        ///     初始化发动机滑油集合
+        ///     初始化滑油监控发动机集合
         /// </summary>
         private void InitializeViewEngineOilDTO()
         {
             ViewEngineOilDTO = _service.CreateCollection(_context.EngineOils);
             _service.RegisterCollectionView(ViewEngineOilDTO);
+        }
+
+        #endregion
+
+        #region 滑油消耗数据
+
+        private OilMonitorDTO _selOilMonitorDTO;
+
+        /// <summary>
+        ///     滑油消耗数据集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<OilMonitorDTO> ViewOilMonitorDTO { get; set; }
+
+        /// <summary>
+        ///     选中的滑油消耗数据
+        /// </summary>
+        public OilMonitorDTO SelOilMonitorDTO
+        {
+            get { return _selOilMonitorDTO; }
+            private set
+            {
+                if (_selOilMonitorDTO != value)
+                {
+                    _selOilMonitorDTO = value;
+                    RaisePropertyChanged(() => SelOilMonitorDTO);
+                }
+            }
+        }
+
+        /// <summary>
+        ///     初始化滑油消耗数据集合
+        /// </summary>
+        private void InitializeViewOilMonitorDTO()
+        {
+            ViewOilMonitorDTO = _service.CreateCollection(_context.OilMonitors);
+            _service.RegisterCollectionView(ViewOilMonitorDTO);
+            // 添加过滤条件
+            var cfd = new CompositeFilterDescriptor {LogicalOperator = FilterCompositionLogicalOperator.And};
+            _oilUserDescriptor = new FilterDescriptor("OilUserID", FilterOperator.IsLessThanOrEqualTo, -1);
+            cfd.FilterDescriptors.Add(_oilUserDescriptor);
+            _startDateDescriptor = new FilterDescriptor("Date", FilterOperator.IsGreaterThanOrEqualTo, DateTime.Now);
+            cfd.FilterDescriptors.Add(_startDateDescriptor);
+            ViewOilMonitorDTO.FilterDescriptors.Add(cfd);
         }
 
         #endregion
@@ -169,9 +303,14 @@ namespace UniCloud.Presentation.Part.OilMonitor
 
         #region 操作
 
-        #region 重载操作
-
-        #endregion
+        public void TrackInfoUpdated(object sender, TrackBallInfoEventArgs e)
+        {
+            var closestDataPoint = e.Context.ClosestDataPoint;
+            if (closestDataPoint != null)
+            {
+                CurrentOil = closestDataPoint.DataPoint.DataItem as OilMonitorDTO;
+            }
+        }
 
         #endregion
     }
