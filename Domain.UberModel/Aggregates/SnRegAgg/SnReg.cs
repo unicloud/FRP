@@ -82,6 +82,32 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
             private set;
         }
 
+        /// <summary>
+        /// 当前装机机号
+        /// </summary>
+        public string RegNumber
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 创建日期
+        /// </summary>
+        public DateTime CreateDate
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 最近一次更新日期
+        /// </summary>
+        public DateTime? UpdateDate
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region 外键属性
@@ -98,12 +124,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
         /// <summary>
         /// 当前飞机Id
         /// </summary>
-        public Guid AircraftId
+        public Guid? AircraftId
         {
             get;
             private set;
         }
-
         #endregion
 
         #region 导航属性
@@ -182,12 +207,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
         /// <param name="aircraft">当前飞机</param>
         public void SetAircraft(Aircraft aircraft)
         {
-            if (aircraft == null || aircraft.IsTransient())
+            if (aircraft != null)
             {
-                throw new ArgumentException("当前飞机参数为空！");
+                AircraftId = aircraft.Id;
+                RegNumber = aircraft.RegNumber;
             }
-
-            AircraftId = aircraft.Id;
         }
 
         /// <summary>

@@ -38,6 +38,9 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             Property(p => p.IsStop).HasColumnName("IsStop");
             Property(p => p.PnRegId).HasColumnName("PnRegId");
             Property(p => p.AircraftId).HasColumnName("AircraftId");
+            Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
+            Property(p => p.UpdateDate).HasColumnName("UpdateDate").HasColumnType("datetime2");
+            Property(p => p.RegNumber).HasColumnName("RegNumber").HasMaxLength(100);
 
             HasMany(o => o.SnHistories).WithRequired().HasForeignKey(o => o.SnRegId);
             HasMany(o => o.LifeMonitors).WithRequired().HasForeignKey(o => o.SnRegId);

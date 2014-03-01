@@ -52,6 +52,23 @@ namespace UniCloud.Domain.UberModel.Aggregates.PnRegAgg
             private set;
         }
 
+        /// <summary>
+        /// 创建日期
+        /// </summary>
+        public DateTime CreateDate
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 最近一次更新日期
+        /// </summary>
+        public DateTime? UpdateDate
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region 外键属性

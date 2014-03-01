@@ -49,6 +49,7 @@ namespace UniCloud.Application.PartBC.Query.SnRegQueries
                 InstallDate = p.InstallDate,
                 AircraftId = p.AircraftId,
                 PnRegId = p.PnRegId,
+                RegNumber = p.RegNumber,
                 LiftMonitors = p.LifeMonitors.Select(q => new LifeMonitorDTO
                 {
                     Id = q.Id,

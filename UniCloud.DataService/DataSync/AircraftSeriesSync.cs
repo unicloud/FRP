@@ -16,9 +16,15 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Linq;
 using UniCloud.Application.AircraftConfigBC.DTO;
 using UniCloud.DataService.Connection;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg;
+using UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork;
 
 #endregion
 
@@ -26,6 +32,13 @@ namespace UniCloud.DataService.DataSync
 {
     public class AircraftSeriesSync : DataSync
     {
+        private readonly AircraftConfigBCUnitOfWork _unitOfWork;
+
+        public AircraftSeriesSync(AircraftConfigBCUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
         public IEnumerable<AircraftSeriesDTO> AmasisDatas { get; protected set; }
         public IEnumerable<AircraftSeriesDTO> FrpDatas { get; protected set; }
 
@@ -41,7 +54,7 @@ namespace UniCloud.DataService.DataSync
 
         public override void ImportFrpData()
         {
-            const string strSql = @"SELECT [ID],[NAME],[DESCRIPTION] FROM [FRP].[FRP].[AircraftSeries]"; 
+            const string strSql = @"SELECT [ID],[NAME],[DESCRIPTION] FROM [FRP].[FRP].[AircraftSeries]";
 
             using (var conn = new SqlServerConn(GetSqlServerConnection()))
             {
@@ -53,6 +66,22 @@ namespace UniCloud.DataService.DataSync
         {
             ImportAmasisData();
             ImportFrpData();
+            if (AmasisDatas.Any())
+            {
+                DbSet<AircraftSeries> datas = _unitOfWork.CreateSet<AircraftSeries>();
+
+                foreach (AircraftSeriesDTO aircraftSeries in AmasisDatas)
+                {
+                    AircraftSeries acSeries = AircraftSeriesFactory.CreateAircraftSeries();
+                    Guid manufacture = Guid.Parse("9F14444A-228D-4681-9B33-835AB10B608C");
+                    AircraftSeriesFactory.SetAircraftSeries(acSeries, aircraftSeries.Name,
+                        aircraftSeries.Description, manufacture);
+
+                    datas.AddOrUpdate(p => p.Name, acSeries);
+                }
+            }
+            _unitOfWork.CommitAndRefreshChanges();
+            _unitOfWork.AircraftSeries.Local.Clear();
         }
     }
 }

@@ -28,7 +28,76 @@
             <telerik:RadSplitContainer Orientation="Horizontal">
                 <telerik:RadSplitContainer Orientation="Vertical"
                                            telerik:ProportionalStackPanel.RelativeSize="300, 600">
-                    <telerik:RadPaneGroup>
+                    <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="300, 70">
+                        <telerik:RadPane PaneHeaderVisibility="Collapsed">
+                            <Grid Margin="5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition MaxWidth="200" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"
+                                           Grid.Row="0"
+                                           VerticalAlignment="Center"
+                                           Text="件号首字母"
+                                           FontSize="{StaticResource TextFontSize}" />
+                                <telerik:RadRadioButton Grid.Column="1"
+                                                        Grid.Row="0"
+                                                        Margin="3,0"
+                                                        IsChecked="{Binding IsAgChecked, Mode=TwoWay}"
+                                                        Content="A~G" />
+                                <telerik:RadRadioButton Grid.Column="2"
+                                                        Grid.Row="0"
+                                                        Margin="3,0"
+                                                        IsChecked="{Binding IsHnChecked, Mode=TwoWay}"
+                                                        Content="H~N"/>
+                                <telerik:RadRadioButton Grid.Column="3"
+                                                        Grid.Row="0"
+                                                        Margin="3,0"
+                                                        IsChecked="{Binding IsOtChecked, Mode=TwoWay}"
+                                                        Content="O~T"/>
+                                <telerik:RadRadioButton Grid.Column="4"
+                                                        Grid.Row="0"
+                                                        Margin="3,0"
+                                                        IsChecked="{Binding IsUzChecked, Mode=TwoWay}"
+                                                        Content="U~Z"/>
+                                <telerik:RadRadioButton Grid.Column="5"
+                                                        Grid.Row="0"
+                                                        Margin="3,0"
+                                                        IsChecked="{Binding IsNumChecked, Mode=TwoWay}"
+                                                        Content="0~9"/>
+                                <TextBlock Grid.Column="0"
+                                           Grid.Row="1"
+                                           VerticalAlignment="Center"
+                                           Text="件号"
+                                           FontSize="{StaticResource TextFontSize}" />
+                                <telerik:RadComboBox ItemsSource="{Binding PnRegs,Mode=OneWay}"
+                                                     DisplayMemberPath="Pn"
+                                                     SelectedItem="{Binding SelPnReg,Mode=TwoWay}"
+                                                     Text=""
+                                                     Grid.Column="1"
+                                                     Grid.ColumnSpan="5"
+                                                     Grid.Row="1"
+                                                     IsEditable="True"
+                                                     IsReadOnly="True"
+                                                     SelectedIndex="0"
+                                                     VerticalAlignment="Center" />
+                            </Grid>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                    <telerik:RadPaneGroup VerticalAlignment="Stretch"
+                                          telerik:ProportionalStackPanel.RelativeSize="300, 600">
                         <telerik:RadPane Header="件号"
                                          IsPinned="True"
                                          CanFloat="False"
@@ -46,23 +115,37 @@
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
-                                                     IsReadOnly="False"
+                                                     IsReadOnly="True"
                                                      ItemsSource="{Binding PnRegs,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelPnReg,Mode=TwoWay}"
                                                      IsBusy="{Binding PnRegs.IsBusy}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <ei:CallMethodAction TargetObject="{Binding}"
+                                                                 MethodName="GridViewSelectionChanged" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
                                                                  Command="{Binding ExcelExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=PnRegs, Mode=OneWay}" />
                                             <telerik:RadMenuItem Header="导出Word"
                                                                  Command="{Binding WordExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=PnRegs, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
                                         <input:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
+                                        <telerik:GridViewDataColumn Header="Pn(件号）"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Pn}" />
+                                        <telerik:GridViewDataColumn Header="是否寿控键"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding IsLife}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
                             </Grid>
@@ -71,7 +154,30 @@
                 </telerik:RadSplitContainer>
                 <telerik:RadSplitContainer Orientation="Vertical"
                                            telerik:ProportionalStackPanel.RelativeSize="500, 600">
-                    <telerik:RadPaneGroup>
+                    <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="500, 70">
+                        <telerik:RadPane PaneHeaderVisibility="Collapsed">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition MaxWidth="200" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"
+                                           VerticalAlignment="Center"
+                                           Text="Sn(序号件）"
+                                           FontSize="{StaticResource TextFontSize}" />
+                                <telerik:RadComboBox ItemsSource="{Binding SnRegs,Mode=OneWay}"
+                                                     DisplayMemberPath="Sn"
+                                                     SelectedItem="{Binding SelSnReg,Mode=TwoWay}"
+                                                     Text=""
+                                                     Grid.Column="1"
+                                                     IsEditable="True"
+                                                     IsReadOnly="True"
+                                                     SelectedIndex="0"
+                                                     VerticalAlignment="Center" />
+                            </Grid>
+                        </telerik:RadPane>
+                    </telerik:RadPaneGroup>
+                    <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="500, 320">
                         <telerik:RadPane Header="序号件"
                                          IsPinned="True"
                                          CanFloat="False"
@@ -80,7 +186,7 @@
                                          FontSize="{StaticResource TextFontSize}"
                                          ContextMenuTemplate="{x:Null}">
                             <Grid>
-                                <telerik:RadGridView x:Name="ViewSnRegs"
+                                <telerik:RadGridView x:Name="SnRegs"
                                                      AutoExpandGroups="True"
                                                      ShowGroupPanel="False"
                                                      AutoGenerateColumns="False"
@@ -89,29 +195,57 @@
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
-                                                     IsReadOnly="False"
-                                                     ItemsSource="{Binding ViewSnRegs,Mode=TwoWay}"
+                                                     IsReadOnly="True"
+                                                     ItemsSource="{Binding SnRegs,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelSnReg,Mode=TwoWay}"
                                                      IsBusy="{Binding SnRegs.IsBusy}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <ei:CallMethodAction TargetObject="{Binding}"
+                                                                 MethodName="GridViewSelectionChanged" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
                                                                  Command="{Binding ExcelExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=SnRegs, Mode=OneWay}" />
                                             <telerik:RadMenuItem Header="导出Word"
                                                                  Command="{Binding WordExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=SnRegs, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
                                         <input:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
+                                        <telerik:GridViewDataColumn Header="Sn(序号件）"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Sn}" />
+                                        <telerik:GridViewDataColumn Header="Pn"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Pn}" />
+                                        <telerik:GridViewDataColumn Header="初始安装日期"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding InstallDate}"
+                                                                    DataFormatString="{StaticResource DateStringFormat}"/>
+                                        <telerik:GridViewDataColumn Header="是否停用"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding IsStop}" />
+                                        <telerik:GridViewDataColumn Header="装机机号"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding RegNumber}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
                             </Grid>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
-                    <telerik:RadPaneGroup VerticalAlignment="Stretch">
+                    <telerik:RadPaneGroup VerticalAlignment="Stretch"
+                                          telerik:ProportionalStackPanel.RelativeSize="500, 300">
                         <telerik:RadPane Header="装机历史"
                                          CanFloat="False"
                                          CanUserClose="False"

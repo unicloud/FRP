@@ -16,6 +16,7 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -31,7 +32,7 @@ using UniCloud.Presentation.Service.Part.Part;
 
 namespace UniCloud.Presentation.Part.PnRegAndSnReg
 {
-    [Export(typeof (ManagePnAndSnVm))]
+    [Export(typeof(ManagePnAndSnVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class ManagePnAndSnVm : EditViewModelBase
     {
@@ -39,6 +40,9 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
+        private readonly CompositeFilterDescriptor _cfd = new CompositeFilterDescriptor { LogicalOperator = FilterCompositionLogicalOperator.Or };
+        private FilterDescriptor _pnFilterDescriptor;
+        private FilterDescriptor _snFilterDescriptor;
         private PartData _context;
 
         [ImportingConstructor]
@@ -60,7 +64,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         /// </summary>
         private void InitializeVM()
         {
-            SnRegs = _service.CreateCollection(_context.SnRegs,o=>o.SnHistories,o=>o.LiftMonitors);
+            SnRegs = _service.CreateCollection(_context.SnRegs, o => o.SnHistories, o => o.LiftMonitors);
             _service.RegisterCollectionView(SnRegs);//注册查询集合
 
             PnRegs = new QueryableDataServiceCollectionView<PnRegDTO>(_context, _context.PnRegs);
@@ -86,6 +90,218 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         #region 公共属性
 
+        #region A~G选中
+
+        private bool _isAgChecked;
+
+        /// <summary>
+        /// A~G选中
+        /// </summary>
+        public bool IsAgChecked
+        {
+            get { return this._isAgChecked; }
+            private set
+            {
+                if (this._isAgChecked != value)
+                {
+                    _isAgChecked = value;
+                    if (_isAgChecked)
+                    {
+                        _cfd.FilterDescriptors.Clear();
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "A", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "B", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "C", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "D", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "E", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "F", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "G", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        PnRegs.FilterDescriptors.Add(_cfd);
+                        PnRegs.Load(true);
+                    }
+                    this.RaisePropertyChanged(() => this.IsAgChecked);
+                }
+            }
+        }
+
+        #endregion
+
+        #region H~N选中
+
+        private bool _isHnChecked;
+
+        /// <summary>
+        /// H~N选中
+        /// </summary>
+        public bool IsHnChecked
+        {
+            get { return this._isHnChecked; }
+            private set
+            {
+                if (this._isHnChecked != value)
+                {
+                    _isHnChecked = value;
+                    if (_isHnChecked)
+                    {
+                        _cfd.FilterDescriptors.Clear();
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "H", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "I", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "J", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "K", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "L", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "M", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "N", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        PnRegs.FilterDescriptors.Add(_cfd);
+                        PnRegs.Load(true);
+                    }
+                    this.RaisePropertyChanged(() => this.IsHnChecked);
+                }
+            }
+        }
+
+        #endregion
+
+        #region O~T选中
+
+        private bool _isOtChecked;
+
+        /// <summary>
+        ///O~T选中
+        /// </summary>
+        public bool IsOtChecked
+        {
+            get { return this._isOtChecked; }
+            private set
+            {
+                if (this._isOtChecked != value)
+                {
+                    _isOtChecked = value;
+                    _isHnChecked = value;
+                    if (_isHnChecked)
+                    {
+                        _cfd.FilterDescriptors.Clear();
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "O", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "P", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "Q", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "R", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "S", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "T", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        PnRegs.FilterDescriptors.Add(_cfd);
+                        PnRegs.Load(true);
+                    }
+                    this.RaisePropertyChanged(() => this.IsOtChecked);
+                }
+            }
+        }
+
+        #endregion
+
+        #region U~Z选中
+
+        private bool _isUzChecked;
+
+        /// <summary>
+        /// U~Z选中
+        /// </summary>
+        public bool IsUzChecked
+        {
+            get { return this._isUzChecked; }
+            private set
+            {
+                if (this._isUzChecked != value)
+                {
+                    _isUzChecked = value;
+                    if (_isUzChecked)
+                    {
+                        _cfd.FilterDescriptors.Clear();
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "U", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "V", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "W", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "X", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "Y", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "Z", false);
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        PnRegs.FilterDescriptors.Add(_cfd);
+                        PnRegs.Load(true);
+                    }
+                    this.RaisePropertyChanged(() => this.IsUzChecked);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 0~9选中
+
+        private bool _isNumChecked;
+
+        /// <summary>
+        /// 0~9选中
+        /// </summary>
+        public bool IsNumChecked
+        {
+            get { return this._isNumChecked; }
+            private set
+            {
+                if (this._isNumChecked != value)
+                {
+                    _isNumChecked = value;
+                    if (_isNumChecked)
+                    {
+                        _cfd.FilterDescriptors.Clear();
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "0");
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "1");
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "2");
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "3");
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "4");
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "5");
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "6");
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "7");
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "8");
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        _pnFilterDescriptor = new FilterDescriptor("Pn", FilterOperator.StartsWith, "9");
+                        _cfd.FilterDescriptors.Add(_pnFilterDescriptor);
+                        PnRegs.FilterDescriptors.Add(_cfd);
+                        PnRegs.Load(true);
+                    }
+                    this.RaisePropertyChanged(() => this.IsNumChecked);
+                }
+            }
+        }
+
+        #endregion
         #endregion
 
         #region 加载数据
@@ -99,15 +315,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         /// </summary>
         public override void LoadData()
         {
-            if (!SnRegs.AutoLoad)
-                SnRegs.AutoLoad = true;
-            else
-                SnRegs.Load(true);
-
-            PnRegs.AutoLoad = true;
-
             CtrlUnits.AutoLoad = true;
-
         }
 
         #region 业务
@@ -127,24 +335,6 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
         ///     序号件集合
         /// </summary>
         public QueryableDataServiceCollectionView<SnRegDTO> SnRegs { get; set; }
-
-        private ObservableCollection<SnRegDTO> _viewSnRegs=new ObservableCollection<SnRegDTO>();
-
-        /// <summary>
-        /// 序号件集合（据所选件号刷选）
-        /// </summary>
-        public ObservableCollection<SnRegDTO> ViewSnRegs
-        {
-            get { return this._viewSnRegs; }
-            private set
-            {
-                if (this._viewSnRegs != value)
-                {
-                    _viewSnRegs = value;
-                    this.RaisePropertyChanged(() => this.ViewSnRegs);
-                }
-            }
-        }
 
         #endregion
 
@@ -172,11 +362,12 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
                 if (_selPnReg != value)
                 {
                     _selPnReg = value;
-                    ViewSnRegs.Clear();
-                    var snRegs = SnRegs.SourceCollection.Cast<SnRegDTO>().Where(p => p.PnRegId == value.Id).ToList();
-                    foreach (var snReg in snRegs)
+                    if (value != null)
                     {
-                        ViewSnRegs.Add(snReg);
+                        _snFilterDescriptor = new FilterDescriptor("PnRegId", FilterOperator.IsEqualTo, value.Id);
+                        SnRegs.FilterDescriptors.Clear();
+                        SnRegs.FilterDescriptors.Add(_snFilterDescriptor);
+                        SnRegs.Load(true);
                     }
                     RaisePropertyChanged(() => SelPnReg);
 
@@ -335,7 +526,7 @@ namespace UniCloud.Presentation.Part.PnRegAndSnReg
 
         private void OnAddLm(object obj)
         {
-            var newLifeMonitor= new LifeMonitorDTO()
+            var newLifeMonitor = new LifeMonitorDTO()
             {
                 Id = RandomHelper.Next(),
             };

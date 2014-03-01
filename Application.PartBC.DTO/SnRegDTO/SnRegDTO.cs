@@ -75,6 +75,15 @@ namespace UniCloud.Application.PartBC.DTO
             set;
         }
 
+        /// <summary>
+        /// 当前装机机号
+        /// </summary>
+        public string RegNumber
+        {
+            get;
+            set;
+        }
+
         #endregion
 
         #region 外键属性
@@ -91,7 +100,7 @@ namespace UniCloud.Application.PartBC.DTO
         /// <summary>
         /// 当前飞机Id
         /// </summary>
-        public Guid AircraftId
+        public Guid? AircraftId
         {
             get;
             set;
