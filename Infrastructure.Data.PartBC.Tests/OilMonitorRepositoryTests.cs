@@ -22,8 +22,9 @@ using System.Linq;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
-using UniCloud.Domain.PartBC.Aggregates.OilUserAgg;
+using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
+using UniCloud.Domain.PartBC.Aggregates.ThrustAgg;
 using UniCloud.Infrastructure.Data.PartBC.Repositories;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
@@ -43,7 +44,8 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 .RegisterType<ISnRegRepository, SnRegRepository>()
-                .RegisterType<IOilUserRepository, OilUserRepository>()
+                .RegisterType<IPnRegRepository,PnRegRepository>()
+                .RegisterType<IThrustRepository,ThrustRepository>()
                 .RegisterType<IOilMonitorRepository, OilMonitorRepository>();
         }
 
@@ -55,30 +57,19 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
         #endregion
 
         [TestMethod]
-        public void CreateEngineOilTest()
+        public void CreateEngineRegTest()
         {
             // Arrange
-            var oilRep = DefaultContainer.Resolve<IOilUserRepository>();
+            var pnRep = DefaultContainer.Resolve<IPnRegRepository>();
+            var thrustRep = DefaultContainer.Resolve<IThrustRepository>();
             var snRep = DefaultContainer.Resolve<ISnRegRepository>();
-            var snReg = snRep.GetAll().FirstOrDefault();
-            var engineOil = OilUserFactory.CreateEngineOil(snReg, 100, 30, 50, 15);
+            var pn = pnRep.GetAll().FirstOrDefault();
+            var thrust = thrustRep.GetAll().FirstOrDefault();
 
             // Act
-            oilRep.Add(engineOil);
-            oilRep.UnitOfWork.Commit();
-        }
-
-        [TestMethod]
-        public void GetAllEngineOils()
-        {
-            // Arrange
-            var oilRep = DefaultContainer.Resolve<IOilMonitorRepository>();
-
-            // Act
-            var result = oilRep.GetAll().OfType<EngineOil>().ToList();
-
-            // Assert
-            Assert.IsTrue(result.Any());
+            var engine = SnRegFactory.CreateEngineReg(new DateTime(2014, 1, 1), pn, thrust, "2334", 100, 20, 30, 20);
+            snRep.Add(engine);
+            snRep.UnitOfWork.Commit();
         }
 
         [TestMethod]
@@ -86,15 +77,15 @@ namespace UniCloud.Infrastructure.Data.PartBC.Tests
         {
             // Arrange
             var monitorRep = DefaultContainer.Resolve<IOilMonitorRepository>();
-            var userRep = DefaultContainer.Resolve<IOilUserRepository>();
-            var oilUser = userRep.GetAll().FirstOrDefault();
+            var snRep = DefaultContainer.Resolve<ISnRegRepository>();
+            var snReg = snRep.GetAll().OfType<EngineReg>().FirstOrDefault();
             var rTsn = new Random();
             var rTsr = new Random();
             var rOil = new Random();
             var rDelta = new Random();
             for (var i = -90; i < 0; i++)
             {
-                var oil = OilMonitorFactory.CreateOilMonitor(oilUser, DateTime.Now.AddDays(i), rTsn.Next(90, 110),
+                var oil = OilMonitorFactory.CreateEngineOil(snReg, DateTime.Now.AddDays(i), rTsn.Next(90, 110),
                     rTsr.Next(10, 30), rOil.Next(10, 30), rOil.Next(10, 30), rDelta.Next(-5, 5), rOil.Next(10, 30),
                     rOil.Next(10, 30));
                 monitorRep.Add(oil);

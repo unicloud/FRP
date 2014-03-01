@@ -61,12 +61,12 @@
     <Compile Include="Repositories\MaintainWorkRepository.cs" />
     <Compile Include="Repositories\ModRepository.cs" />
     <Compile Include="Repositories\OilMonitorRepository.cs" />
-    <Compile Include="Repositories\OilUserRepository.cs" />
     <Compile Include="Repositories\PnRegRepository.cs" />
     <Compile Include="Repositories\ScnRepository.cs" />
     <Compile Include="Repositories\SnRegRepository.cs" />
     <Compile Include="Repositories\SpecialConfigRepository.cs" />
     <Compile Include="Repositories\TechnicalSolutionRepository.cs" />
+    <Compile Include="Repositories\ThrustRepository.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AcConfigEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AcDailyUtilizationEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AdSbEntityConfiguration.cs" />
@@ -76,7 +76,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AirStructureDamageEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ApplicableAircraftEntityConfiguration.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\APUOilEntityConfiguration.cs">
+    <Compile Include="UnitOfWork\Mapping\Sql\APURegEntityConfiguration.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="UnitOfWork\Mapping\Sql\BasicConfigEntityConfiguration.cs" />
@@ -84,7 +84,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ContractAircraftEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\CtrlUnitEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\DependencyEntityConfiguration.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\EngineOilEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\EngineRegEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ItemMaintainCtrlEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\LifeMonitorEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainCtrlEntityConfiguration.cs" />
@@ -92,7 +92,6 @@
     <Compile Include="UnitOfWork\Mapping\Sql\MaintainWorkEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ModEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OilMonitorEntityConfiguration.cs" />
-    <Compile Include="UnitOfWork\Mapping\Sql\OilUserEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PnMaintainCtrlEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PnRegEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ScnEntityConfiguration.cs" />
@@ -101,6 +100,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\SnRegEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SpecialConfigEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\TechnicalSolutionEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ThrustEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\TsLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\PartBCUnitOfWork.cs" />
   </ItemGroup>

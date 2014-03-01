@@ -46,7 +46,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             Property(p => p.AverageRate3).HasColumnName("AverageRate3");
             Property(p => p.AverageRate7).HasColumnName("AverageRate7");
 
-            Property(p => p.OilUserID).HasColumnName("OilUserID");
+            Property(p => p.SnRegID).HasColumnName("SnRegID");
         }
     }
 }

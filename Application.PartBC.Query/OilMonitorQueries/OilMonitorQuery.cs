@@ -20,7 +20,7 @@
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
-using UniCloud.Domain.PartBC.Aggregates.OilUserAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
@@ -38,10 +38,10 @@ namespace UniCloud.Application.PartBC.Query.OilMonitorQueries
 
         #region IOilMonitorQuery 成员
 
-        public IQueryable<EngineOilDTO> EngineOilDTOQuery(QueryBuilder<OilUser> query)
+        public IQueryable<EngineOilDTO> EngineOilDTOQuery(QueryBuilder<SnReg> query)
         {
             var result =
-                query.ApplyTo(_unitOfWork.CreateSet<OilUser>().OfType<EngineOil>()).Select(o => new EngineOilDTO
+                query.ApplyTo(_unitOfWork.CreateSet<SnReg>()).OfType<EngineReg>().Select(o => new EngineOilDTO
                 {
                     Id = o.Id,
                     Sn = o.Sn,
@@ -49,14 +49,14 @@ namespace UniCloud.Application.PartBC.Query.OilMonitorQueries
                     TSR = o.TSR,
                     CSN = o.CSN,
                     CSR = o.CSR,
-                    Status = (int) o.MonitorStatus,
+                    Status=(int)o.MonitorStatus
                 });
             return result;
         }
 
-        public IQueryable<APUOilDTO> APUOilDTOQuery(QueryBuilder<OilUser> query)
+        public IQueryable<APUOilDTO> APUOilDTOQuery(QueryBuilder<SnReg> query)
         {
-            var result = query.ApplyTo(_unitOfWork.CreateSet<OilUser>().OfType<APUOil>()).Select(o => new APUOilDTO
+            var result = query.ApplyTo(_unitOfWork.CreateSet<SnReg>()).OfType<APUReg>().Select(o => new APUOilDTO
             {
                 Id = o.Id,
                 Sn = o.Sn,
@@ -64,7 +64,7 @@ namespace UniCloud.Application.PartBC.Query.OilMonitorQueries
                 TSR = o.TSR,
                 CSN = o.CSN,
                 CSR = o.CSR,
-                Status = (int) o.MonitorStatus,
+                Status = (int)o.MonitorStatus
             });
             return result;
         }
@@ -74,7 +74,7 @@ namespace UniCloud.Application.PartBC.Query.OilMonitorQueries
             var result = query.ApplyTo(_unitOfWork.CreateSet<OilMonitor>()).Select(m => new OilMonitorDTO
             {
                 Id = m.Id,
-                OilUserID = m.OilUserID,
+                OilUserID = m.SnRegID,
                 Date = m.Date,
                 TSN = m.TSN,
                 TSR = m.TSR,

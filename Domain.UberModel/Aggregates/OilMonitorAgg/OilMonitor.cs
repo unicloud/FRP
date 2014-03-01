@@ -20,7 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.UberModel.Aggregates.OilUserAgg;
+using UniCloud.Domain.UberModel.Aggregates.SnRegAgg;
 
 #endregion
 
@@ -92,7 +92,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.OilMonitorAgg
         /// <summary>
         ///     滑油用户ID
         /// </summary>
-        public int OilUserID { get; internal set; }
+        public int SnRegID { get; internal set; }
 
         #endregion
 
@@ -103,19 +103,35 @@ namespace UniCloud.Domain.UberModel.Aggregates.OilMonitorAgg
         #region 操作
 
         /// <summary>
-        ///     设置滑油用户
+        ///     设置发动机滑油用户
         /// </summary>
-        /// <param name="oilUser">滑油用户</param>
+        /// <param name="snReg">发动机滑油用户</param>
         /// <returns>滑油用户</returns>
-        public OilUser SetOilUser(OilUser oilUser)
+        public EngineReg SetEngineOil(EngineReg snReg)
         {
-            if (oilUser == null || oilUser.IsTransient())
+            if (snReg == null || snReg.IsTransient())
             {
-                throw new ArgumentException("滑油用户参数为空！");
+                throw new ArgumentException("发动机滑油用户参数为空！");
             }
 
-            OilUserID = oilUser.Id;
-            return oilUser;
+            SnRegID = snReg.Id;
+            return snReg;
+        }
+
+        /// <summary>
+        ///     设置APU滑油用户
+        /// </summary>
+        /// <param name="snReg">APU滑油用户</param>
+        /// <returns>滑油用户</returns>
+        public APUReg SetApuOil(APUReg snReg)
+        {
+            if (snReg == null || snReg.IsTransient())
+            {
+                throw new ArgumentException("APU滑油用户参数为空！");
+            }
+
+            SnRegID = snReg.Id;
+            return snReg;
         }
 
         #endregion

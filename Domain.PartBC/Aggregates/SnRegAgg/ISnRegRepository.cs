@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,17 +12,18 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
 {
     /// <summary>
-    /// SnReg仓储接口。
+    ///     SnReg仓储接口。
     /// </summary>
     public interface ISnRegRepository : IRepository<SnReg>
     {
         /// <summary>
-        /// 删除序号件
+        ///     删除序号件
         /// </summary>
         /// <param name="snReg"></param>
         void DeleteSnReg(SnReg snReg);

@@ -18,12 +18,12 @@
 #region 命名空间
 
 using System;
-using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
-using UniCloud.Domain.PartBC.Aggregates.ThrustAgg;
+using UniCloud.Domain.UberModel.Aggregates.PnRegAgg;
+using UniCloud.Domain.UberModel.Aggregates.ThrustAgg;
 
 #endregion
 
-namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
+namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
 {
     /// <summary>
     ///     SnReg工厂
