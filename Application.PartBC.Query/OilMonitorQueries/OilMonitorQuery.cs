@@ -41,31 +41,38 @@ namespace UniCloud.Application.PartBC.Query.OilMonitorQueries
         public IQueryable<EngineOilDTO> EngineOilDTOQuery(QueryBuilder<SnReg> query)
         {
             var result =
-                query.ApplyTo(_unitOfWork.CreateSet<SnReg>()).OfType<EngineReg>().Select(o => new EngineOilDTO
-                {
-                    Id = o.Id,
-                    Sn = o.Sn,
-                    TSN = o.TSN,
-                    TSR = o.TSR,
-                    CSN = o.CSN,
-                    CSR = o.CSR,
-                    Status=(int)o.MonitorStatus
-                });
+                query.ApplyTo(_unitOfWork.CreateSet<SnReg>())
+                    .OfType<EngineReg>()
+                    .Where(o => o.NeedMonitor)
+                    .Select(o => new EngineOilDTO
+                    {
+                        Id = o.Id,
+                        Sn = o.Sn,
+                        TSN = o.TSN,
+                        TSR = o.TSR,
+                        CSN = o.CSN,
+                        CSR = o.CSR,
+                        Status = (int) o.MonitorStatus
+                    });
             return result;
         }
 
         public IQueryable<APUOilDTO> APUOilDTOQuery(QueryBuilder<SnReg> query)
         {
-            var result = query.ApplyTo(_unitOfWork.CreateSet<SnReg>()).OfType<APUReg>().Select(o => new APUOilDTO
-            {
-                Id = o.Id,
-                Sn = o.Sn,
-                TSN = o.TSN,
-                TSR = o.TSR,
-                CSN = o.CSN,
-                CSR = o.CSR,
-                Status = (int)o.MonitorStatus
-            });
+            var result =
+                query.ApplyTo(_unitOfWork.CreateSet<SnReg>())
+                    .OfType<APUReg>()
+                    .Where(o => o.NeedMonitor)
+                    .Select(o => new APUOilDTO
+                    {
+                        Id = o.Id,
+                        Sn = o.Sn,
+                        TSN = o.TSN,
+                        TSR = o.TSR,
+                        CSN = o.CSN,
+                        CSR = o.CSR,
+                        Status = (int) o.MonitorStatus
+                    });
             return result;
         }
 
