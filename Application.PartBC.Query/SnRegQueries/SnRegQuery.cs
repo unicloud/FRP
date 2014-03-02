@@ -53,10 +53,9 @@ namespace UniCloud.Application.PartBC.Query.SnRegQueries
                 LiftMonitors = p.LifeMonitors.Select(q => new LifeMonitorDTO
                 {
                     Id = q.Id,
-                    LifeTimeLimit = q.LifeTimeLimit,
+                    MointorEnd = q.MointorEnd,
                     MointorStart = q.MointorStart,
                     WorkCode = q.WorkCode,
-                    Sn = q.Sn,
                     MaintainWorkId = q.MaintainWorkId,
                     SnRegId = q.SnRegId,
                 }).ToList(),

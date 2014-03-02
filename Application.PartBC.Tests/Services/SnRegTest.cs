@@ -58,8 +58,7 @@ namespace UniCloud.Application.PartBC.Tests.Services
 
                 .RegisterType<IAircraftRepository, AircraftRepository>()
                 .RegisterType<IPnRegRepository, PnRegRepository>()
-                .RegisterType<IMaintainWorkRepository,MaintainWorkRepository>()
-
+                .RegisterType<IMaintainWorkRepository, MaintainWorkRepository>()
                 ;
         }
 
@@ -96,15 +95,12 @@ namespace UniCloud.Application.PartBC.Tests.Services
             MaintainWork maintainWork = maintainWorkContext.GetAll().ToList().First();
 
             const string sn = "339832";
-            SnReg newSnReg = SnRegFactory.CreateSnReg(DateTime.Now, pnReg, sn,(decimal)2340.5,(decimal)2340.5,(decimal)2340.5,(decimal)2340.5);
+            SnReg newSnReg = SnRegFactory.CreateSnReg(DateTime.Now, pnReg, sn, (decimal) 2340.5, (decimal) 2340.5,
+                (decimal) 2340.5, (decimal) 2340.5);
 
-            var lifeMonitor = newSnReg.AddNewLifeMonitor();
-            lifeMonitor.SetLifeTimeLimit("1234");
-            lifeMonitor.SetMaintainWork(maintainWork);
-            lifeMonitor.SetMointorStart(DateTime.Now);
-            lifeMonitor.SetSn(sn);
+            LifeMonitor lifeMonitor = newSnReg.AddNewLifeMonitor(maintainWork, DateTime.Now, DateTime.Now);
 
-            var snHistory = newSnReg.AddNewSnHistory();
+            SnHistory snHistory = newSnReg.AddNewSnHistory();
             snHistory.SetAircraft(aircraft);
             snHistory.SetCSN("1234");
             snHistory.SetCSR("123");

@@ -45,7 +45,16 @@ namespace UniCloud.Application.PartBC.DTO
         /// <summary>
         /// 计算日利用率
         /// </summary>
-        public decimal CalculatedValue
+        public decimal CalculatedHour
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 计算日利用率
+        /// </summary>
+        public decimal CalculatedCycle
         {
             get;
             set;
@@ -54,7 +63,16 @@ namespace UniCloud.Application.PartBC.DTO
         /// <summary>
         /// 修正日利用率
         /// </summary>
-        public decimal AmendValue
+        public decimal AmendHour
+        {
+            get;
+            set;
+        }
+        
+        /// <summary>
+        /// 修正日利用率
+        /// </summary>
+        public decimal AmendCycle
         {
             get;
             set;

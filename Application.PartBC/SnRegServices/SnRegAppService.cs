@@ -209,11 +209,7 @@ namespace UniCloud.Application.PartBC.SnRegServices
             var maintainWork = _maintainWorkRepository.Get(lifeMonitorDto.MaintainWorkId);
 
             // 添加到寿监控
-            var newLifeMonitor = snReg.AddNewLifeMonitor();
-            newLifeMonitor.SetLifeTimeLimit(lifeMonitorDto.LifeTimeLimit);
-            newLifeMonitor.SetMaintainWork(maintainWork);
-            newLifeMonitor.SetMointorStart(lifeMonitorDto.MointorStart);
-            newLifeMonitor.SetSn(lifeMonitorDto.Sn);
+            var newLifeMonitor = snReg.AddNewLifeMonitor(maintainWork,lifeMonitorDto.MointorStart,lifeMonitorDto.MointorEnd);
         }
 
         /// <summary>
@@ -225,12 +221,6 @@ namespace UniCloud.Application.PartBC.SnRegServices
         {
             //获取
             var maintainWork = _maintainWorkRepository.Get(lifeMonitorDto.MaintainWorkId);
-
-            // 更新到寿监控
-            lifeMonitor.SetLifeTimeLimit(lifeMonitorDto.LifeTimeLimit);
-            lifeMonitor.SetMaintainWork(maintainWork);
-            lifeMonitor.SetMointorStart(lifeMonitorDto.MointorStart);
-            lifeMonitor.SetSn(lifeMonitorDto.Sn);
         }
 
         #endregion

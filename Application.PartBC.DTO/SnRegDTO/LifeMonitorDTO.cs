@@ -61,9 +61,9 @@ namespace UniCloud.Application.PartBC.DTO
         }
 
         /// <summary>
-        /// 预计到寿期限
+        /// 预计到寿结束
         /// </summary>
-        public string LifeTimeLimit
+        public DateTime MointorEnd
         {
             get;
             set;

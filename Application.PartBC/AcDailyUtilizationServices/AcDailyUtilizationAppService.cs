@@ -65,15 +65,9 @@ namespace UniCloud.Application.PartBC.AcDailyUtilizationServices
             //获取
             var aircraft = _aircraftRepository.Get(dto.AircraftId);
 
-            var newAcDailyUtilization = AcDailyUtilizationFactory.CreateAcDailyUtilization();
-
-            newAcDailyUtilization.SetAircraft(aircraft);
-            newAcDailyUtilization.SetAmendValue(dto.AmendValue);
-            newAcDailyUtilization.SetCalculatedValue(dto.CalculatedValue);
+            var newAcDailyUtilization = AcDailyUtilizationFactory.CreateAcDailyUtilization(aircraft,dto.CalculatedHour,dto.CalculatedCycle,
+                dto.Year,dto.Month);
             newAcDailyUtilization.SetIsCurrent(dto.IsCurrent);
-            newAcDailyUtilization.SetMonth(dto.Month);
-            newAcDailyUtilization.SetRegNumber(dto.RegNumber);
-            newAcDailyUtilization.SetYear(dto.Year);
             _acDailyUtilizationRepository.Add(newAcDailyUtilization);
         }
 
@@ -90,14 +84,13 @@ namespace UniCloud.Application.PartBC.AcDailyUtilizationServices
             var updateAcDailyUtilization = _acDailyUtilizationRepository.Get(dto.Id); //获取需要更新的对象。
 
             //更新。
-            updateAcDailyUtilization.SetAircraft(aircraft);
-            updateAcDailyUtilization.SetAmendValue(dto.AmendValue);
-            updateAcDailyUtilization.SetCalculatedValue(dto.CalculatedValue);
-            updateAcDailyUtilization.SetIsCurrent(dto.IsCurrent);
-            updateAcDailyUtilization.SetMonth(dto.Month);
-            updateAcDailyUtilization.SetRegNumber(dto.RegNumber);
-            updateAcDailyUtilization.SetYear(dto.Year);
-            _acDailyUtilizationRepository.Modify(updateAcDailyUtilization);
+            var newAcDailyUtilization = AcDailyUtilizationFactory.UpdateAcDailyUtilization(aircraft, dto.CalculatedHour,
+                dto.CalculatedCycle,
+                dto.AmendHour, dto.AmendCycle, dto.Year, dto.Month);          
+            
+            newAcDailyUtilization.ChangeCurrentIdentity(updateAcDailyUtilization.Id);
+
+            _acDailyUtilizationRepository.Merge(updateAcDailyUtilization,newAcDailyUtilization);
         }
 
         /// <summary>
