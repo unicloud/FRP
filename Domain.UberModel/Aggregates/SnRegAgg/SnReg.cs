@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
+using UniCloud.Domain.UberModel.Aggregates.MaintainWorkAgg;
 using UniCloud.Domain.UberModel.Aggregates.PnRegAgg;
 
 #endregion
@@ -101,7 +102,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
         /// <summary>
         ///     最近一次更新日期
         /// </summary>
-        public DateTime? UpdateDate { get; internal set; }
+        public DateTime UpdateDate { get; internal set; }
 
         /// <summary>
         ///     当前装机机号
@@ -190,15 +191,19 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
         /// <summary>
         ///     新增到寿监控
         /// </summary>
-        /// <returns></returns>
-        public LifeMonitor AddNewLifeMonitor()
+        /// <param name="maintainWork">维修工作</param>
+        /// <param name="start">到寿日期开始</param>
+        /// <param name="end">到寿日期结束</param>
+        /// <returns>到寿监控</returns>
+        public LifeMonitor AddNewLifeMonitor(MaintainWork maintainWork, DateTime start, DateTime end)
         {
             var lifeMonitor = new LifeMonitor
             {
                 SnRegId = Id,
             };
-
             lifeMonitor.GenerateNewIdentity();
+            lifeMonitor.SetMaintainWork(maintainWork);
+            lifeMonitor.SetMointorPeriod(start, end);
             LifeMonitors.Add(lifeMonitor);
 
             return lifeMonitor;

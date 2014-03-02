@@ -44,8 +44,8 @@ namespace UniCloud.Application.PartBC.Query.AcDailyUtilizationQueries
             {
                 Id = p.Id,
                 RegNumber = p.RegNumber,
-                AmendValue = p.AmendValue,
-                CalculatedValue = p.CalculatedValue,
+                AmendValue = p.AmendHour,
+                CalculatedValue = p.CalculatedHour,
                 IsCurrent = p.IsCurrent,
                 Month = p.Month,
                 Year = p.Year,

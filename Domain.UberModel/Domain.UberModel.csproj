@@ -219,7 +219,6 @@
     <Compile Include="Aggregates\SnRegAgg\LifeMonitor.cs" />
     <Compile Include="Aggregates\SnRegAgg\SnHistory.cs" />
     <Compile Include="Aggregates\SnRegAgg\SnReg.cs" />
-    <Compile Include="Aggregates\SnRegAgg\SnRegFactory.cs" />
     <Compile Include="Aggregates\SpecialConfigAgg\AcConfig.cs" />
     <Compile Include="Aggregates\SpecialConfigAgg\SpecialConfig.cs" />
     <Compile Include="Aggregates\SupplierAgg\Supplier.cs" />

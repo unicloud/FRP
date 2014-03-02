@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,138 +12,88 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
+
+#region 命名空间
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.UberModel.Aggregates.MaintainWorkAgg;
 
+#endregion
+
 namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
 {
     /// <summary>
-    /// LifeMonitor聚合根。
-    /// 到寿监控
+    ///     LifeMonitor聚合根。
+    ///     到寿监控
     /// </summary>
     public class LifeMonitor : EntityInt, IValidatableObject
     {
         #region 构造函数
 
         /// <summary>
-        /// 内部构造函数
-        /// 限制只能从内部创建新实例
+        ///     内部构造函数
+        ///     限制只能从内部创建新实例
         /// </summary>
         internal LifeMonitor()
         {
         }
+
         #endregion
 
         #region 属性
 
         /// <summary>
-        /// 工作代码
+        ///     工作代码
         /// </summary>
-        public string WorkCode
-        {
-            get;
-            private set;
-        }
+        public string WorkCode { get; private set; }
 
         /// <summary>
-        /// 序号
+        ///     预计到寿开始
         /// </summary>
-        public string Sn
-        {
-            get;
-            private set;
-        }
+        public DateTime MointorStart { get; private set; }
 
         /// <summary>
-        /// 预计到寿开始
+        ///     预计到寿结束
         /// </summary>
-        public DateTime MointorStart
-        {
-            get;
-            private set;
-        }
+        public DateTime MointorEnd { get; private set; }
 
-        /// <summary>
-        /// 预计到寿期限
-        /// </summary>
-        public string LifeTimeLimit
-        {
-            get;
-            private set;
-        }
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        /// 维修工作外键
+        ///     维修工作外键
         /// </summary>
-        public int MaintainWorkId
-        {
-            get;
-            private set;
-        }
+        public int MaintainWorkId { get; private set; }
 
         /// <summary>
-        /// 序号外键
+        ///     序号外键
         /// </summary>
-        public int SnRegId
-        {
-            get;
-            internal set;
-        }
+        public int SnRegId { get; internal set; }
+
         #endregion
 
         #region 导航属性
 
-        public MaintainWork MaintainWork
-        {
-            get;
-            set;
-        }
+        public MaintainWork MaintainWork { get; private set; }
 
         #endregion
 
         #region 操作
-        /// <summary>
-        ///     设置序号
-        /// </summary>
-        /// <param name="sn">序号</param>
-        public void SetSn(string sn)
-        {
-            if (string.IsNullOrWhiteSpace(sn))
-            {
-                throw new ArgumentException("序号参数为空！");
-            }
-
-            Sn = sn;
-        }
 
         /// <summary>
-        ///     设置预计到寿开始
+        ///     设置到寿期间
         /// </summary>
-        /// <param name="date">预计到寿开始</param>
-        public void SetMointorStart(DateTime date)
+        /// <param name="start">预计到寿开始</param>
+        /// <param name="end">预计到寿期限</param>
+        public void SetMointorPeriod(DateTime start, DateTime end)
         {
-            MointorStart = date;
-        }
-
-        /// <summary>
-        ///     设置预计到寿期限
-        /// </summary>
-        /// <param name="lifeTimeLimit">预计到寿期限</param>
-        public void SetLifeTimeLimit(string lifeTimeLimit)
-        {
-            if (string.IsNullOrWhiteSpace(lifeTimeLimit))
-            {
-                throw new ArgumentException("预计到寿期限参数为空！");
-            }
-
-            LifeTimeLimit = lifeTimeLimit;
+            MointorStart = start;
+            MointorEnd = end;
         }
 
         /// <summary>
@@ -156,6 +107,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
                 throw new ArgumentException("维修工作参数为空！");
             }
 
+            MaintainWork = maintainWork;
             WorkCode = maintainWork.WorkCode;
             MaintainWorkId = maintainWork.Id;
         }

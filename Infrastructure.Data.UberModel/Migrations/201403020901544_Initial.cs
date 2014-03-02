@@ -3,7 +3,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Initiel : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
@@ -13,8 +13,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         RegNumber = c.String(maxLength: 100),
-                        CalculatedValue = c.Decimal(nullable: false, precision: 16, scale: 4),
-                        AmendValue = c.Decimal(nullable: false, precision: 16, scale: 4),
+                        CalculatedHour = c.Decimal(nullable: false, precision: 16, scale: 4),
+                        CalculatedCycle = c.Decimal(nullable: false, precision: 16, scale: 4),
+                        AmendHour = c.Decimal(nullable: false, precision: 16, scale: 4),
+                        AmendCycle = c.Decimal(nullable: false, precision: 16, scale: 4),
                         Year = c.Int(nullable: false),
                         Month = c.Int(nullable: false),
                         IsCurrent = c.Boolean(nullable: false),
@@ -1677,7 +1679,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                         Pn = c.String(maxLength: 100),
                         IsStop = c.Boolean(nullable: false),
                         CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
-                        UpdateDate = c.DateTime(precision: 7, storeType: "datetime2"),
+                        UpdateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         RegNumber = c.String(maxLength: 100),
                         PnRegId = c.Int(nullable: false),
                         AircraftId = c.Guid(),
@@ -1690,9 +1692,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         WorkCode = c.String(maxLength: 100),
-                        Sn = c.String(maxLength: 100),
                         MointorStart = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
-                        LifeTimeLimit = c.String(maxLength: 100),
+                        MointorEnd = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         MaintainWorkId = c.Int(nullable: false),
                         SnRegId = c.Int(nullable: false),
                     })

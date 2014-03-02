@@ -263,7 +263,9 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="MaintainControl\" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="EngineConfig\BasicConfigGroupView.xaml">
       <SubType>Designer</SubType>
