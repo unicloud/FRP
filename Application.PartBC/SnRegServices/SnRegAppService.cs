@@ -73,12 +73,9 @@ namespace UniCloud.Application.PartBC.SnRegServices
             var pnReg = _pnRegRepository.Get(dto.PnRegId);//获取附件
 
             //创建序号件
-            var newSnReg = SnRegFactory.CreateSnReg();
+            var newSnReg = SnRegFactory.CreateSnReg(dto.InstallDate,pnReg,dto.Sn,dto.TSN,dto.TSR,dto.CSN,dto.CSR);
             newSnReg.SetAircraft(aircraft);
-            newSnReg.SetInstallDate(dto.InstallDate);
             newSnReg.SetIsStop(dto.IsStop);
-            newSnReg.SetPnReg(pnReg);
-            newSnReg.SetSn(dto.Sn);
 
             //添加装机历史
             dto.SnHistories.ToList().ForEach(snHistory => InsertSnHistory(newSnReg, snHistory));
@@ -106,10 +103,8 @@ namespace UniCloud.Application.PartBC.SnRegServices
             {
                 //更新主表：
                 updateSnReg.SetAircraft(aircraft);
-                updateSnReg.SetInstallDate(dto.InstallDate);
                 updateSnReg.SetIsStop(dto.IsStop);
                 updateSnReg.SetPnReg(pnReg);
-                updateSnReg.SetSn(dto.Sn);
 
                 //更新装机历史集合：
                 var dtoSnHistories = dto.SnHistories;

@@ -91,7 +91,7 @@ namespace UniCloud.DataService.DataSync
                         PnReg pnReg = PnRegDatas.ToList().FirstOrDefault(p => p.Pn == snReg.Pn.Trim());
                         if (pnReg != null)
                         {
-                            SnReg sn = SnRegFactory.CreateSnReg(aircraft, snReg.InstallDate, snReg.IsStop, pnReg, snReg.Sn);
+                            SnReg sn = SnRegFactory.CreateSnReg(snReg.InstallDate, pnReg, snReg.Sn,snReg.TSN,snReg.TSR,snReg.CSN,snReg.CSR);
                             _unitOfWork.SnRegs.Add(sn);
                         }
                     }

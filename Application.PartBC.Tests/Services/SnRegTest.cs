@@ -96,7 +96,7 @@ namespace UniCloud.Application.PartBC.Tests.Services
             MaintainWork maintainWork = maintainWorkContext.GetAll().ToList().First();
 
             const string sn = "339832";
-            SnReg newSnReg = SnRegFactory.CreateSnReg(aircraft, DateTime.Now, false, pnReg, sn);
+            SnReg newSnReg = SnRegFactory.CreateSnReg(DateTime.Now, pnReg, sn,(decimal)2340.5,(decimal)2340.5,(decimal)2340.5,(decimal)2340.5);
 
             var lifeMonitor = newSnReg.AddNewLifeMonitor();
             lifeMonitor.SetLifeTimeLimit("1234");

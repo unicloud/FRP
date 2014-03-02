@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/3/1 19:03:01
+// 生成日期: 2014/3/2 9:13:31
 namespace UniCloud.Presentation.Service.Part.Part
 {
     
@@ -769,119 +769,122 @@ namespace UniCloud.Presentation.Service.Part.Part
                 "e=\"false\" /><Property Name=\"Sn\" Type=\"Edm.String\" /><Property Name=\"InstallDate\"" +
                 " Type=\"Edm.DateTime\" Nullable=\"false\" /><Property Name=\"Pn\" Type=\"Edm.String\" />" +
                 "<Property Name=\"IsStop\" Type=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Re" +
-                "gNumber\" Type=\"Edm.String\" /><Property Name=\"PnRegId\" Type=\"Edm.Int32\" Nullable=" +
-                "\"false\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" /><Property Name=\"SnHistor" +
-                "ies\" Type=\"Collection(UniCloud.Application.PartBC.DTO.SnHistoryDTO)\" Nullable=\"f" +
-                "alse\" /><Property Name=\"LiftMonitors\" Type=\"Collection(UniCloud.Application.Part" +
-                "BC.DTO.LifeMonitorDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"SnHis" +
-                "toryDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=" +
-                "\"Sn\" Type=\"Edm.String\" /><Property Name=\"InstallDate\" Type=\"Edm.DateTime\" Nullab" +
-                "le=\"false\" /><Property Name=\"RemoveDate\" Type=\"Edm.DateTime\" /><Property Name=\"F" +
-                "iNumber\" Type=\"Edm.String\" /><Property Name=\"CSN\" Type=\"Edm.String\" /><Property " +
-                "Name=\"CSR\" Type=\"Edm.String\" /><Property Name=\"TSN\" Type=\"Edm.String\" /><Propert" +
-                "y Name=\"TSR\" Type=\"Edm.String\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" Nul" +
-                "lable=\"false\" /><Property Name=\"SnRegId\" Type=\"Edm.Int32\" Nullable=\"false\" /></C" +
-                "omplexType><ComplexType Name=\"LifeMonitorDTO\"><Property Name=\"Id\" Type=\"Edm.Int3" +
-                "2\" Nullable=\"false\" /><Property Name=\"WorkCode\" Type=\"Edm.String\" /><Property Na" +
-                "me=\"Sn\" Type=\"Edm.String\" /><Property Name=\"MointorStart\" Type=\"Edm.DateTime\" Nu" +
-                "llable=\"false\" /><Property Name=\"LifeTimeLimit\" Type=\"Edm.String\" /><Property Na" +
-                "me=\"MaintainWorkId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SnRegId\"" +
-                " Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"SpecialConf" +
-                "igDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" " +
-                "Nullable=\"false\" /><Property Name=\"StartDate\" Type=\"Edm.DateTime\" Nullable=\"fals" +
-                "e\" /><Property Name=\"EndDate\" Type=\"Edm.DateTime\" /><Property Name=\"IsValid\" Typ" +
-                "e=\"Edm.Boolean\" Nullable=\"false\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTim" +
-                "e\" Nullable=\"false\" /><Property Name=\"TsNumber\" Type=\"Edm.String\" /><Property Na" +
-                "me=\"FiNumber\" Type=\"Edm.String\" /><Property Name=\"ItemNo\" Type=\"Edm.String\" /><P" +
-                "roperty Name=\"ParentItemNo\" Type=\"Edm.String\" /><Property Name=\"Description\" Typ" +
-                "e=\"Edm.String\" /><Property Name=\"TsId\" Type=\"Edm.Int32\" /><Property Name=\"Parent" +
-                "Id\" Type=\"Edm.Int32\" /><Property Name=\"ContractAircraftId\" Type=\"Edm.Int32\" Null" +
-                "able=\"false\" /></EntityType><EntityType Name=\"TechnicalSolutionDTO\"><Key><Proper" +
-                "tyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" />" +
-                "<Property Name=\"FiNumber\" Type=\"Edm.String\" /><Property Name=\"TsNumber\" Type=\"Ed" +
-                "m.String\" /><Property Name=\"Position\" Type=\"Edm.String\" /><Property Name=\"TsLine" +
-                "s\" Type=\"Collection(UniCloud.Application.PartBC.DTO.TsLineDTO)\" Nullable=\"false\"" +
-                " /></EntityType><ComplexType Name=\"TsLineDTO\"><Property Name=\"Id\" Type=\"Edm.Int3" +
-                "2\" Nullable=\"false\" /><Property Name=\"Pn\" Type=\"Edm.String\" /><Property Name=\"De" +
-                "scription\" Type=\"Edm.String\" /><Property Name=\"TsNumber\" Type=\"Edm.String\" /><Pr" +
-                "operty Name=\"TsId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Dependenc" +
-                "ies\" Type=\"Collection(UniCloud.Application.PartBC.DTO.DependencyDTO)\" Nullable=\"" +
-                "false\" /></ComplexType><ComplexType Name=\"DependencyDTO\"><Property Name=\"Id\" Typ" +
-                "e=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Pn\" Type=\"Edm.String\" /><Proper" +
-                "ty Name=\"PnRegId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"TsLineId\" " +
-                "Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"AirStructure" +
-                "DamageDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int" +
-                "32\" Nullable=\"false\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" Nullable=\"fal" +
-                "se\" /><Property Name=\"AircraftReg\" Type=\"Edm.String\" /><Property Name=\"AircraftT" +
-                "ype\" Type=\"Edm.String\" /><Property Name=\"AircraftSeries\" Type=\"Edm.String\" /><Pr" +
-                "operty Name=\"ReportNo\" Type=\"Edm.String\" /><Property Name=\"ReportType\" Type=\"Edm" +
-                ".Int32\" Nullable=\"false\" /><Property Name=\"ReportDate\" Type=\"Edm.DateTime\" /><Pr" +
-                "operty Name=\"Description\" Type=\"Edm.String\" /><Property Name=\"TotalCost\" Type=\"E" +
-                "dm.Decimal\" Nullable=\"false\" /><Property Name=\"IsDefer\" Type=\"Edm.Boolean\" Nulla" +
-                "ble=\"false\" /><Property Name=\"TecAssess\" Type=\"Edm.String\" /><Property Name=\"Tre" +
-                "atResult\" Type=\"Edm.String\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=" +
-                "\"false\" /><Property Name=\"CloseDate\" Type=\"Edm.DateTime\" /><Property Name=\"Sourc" +
-                "e\" Type=\"Edm.String\" /><Property Name=\"Level\" Type=\"Edm.Int32\" Nullable=\"false\" " +
-                "/><Property Name=\"RepairDeadline\" Type=\"Edm.String\" /><Property Name=\"DocumentId" +
-                "\" Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"DocumentName\" Type=\"Edm.Str" +
-                "ing\" /></EntityType><EntityType Name=\"AdSbDTO\"><Key><PropertyRef Name=\"Id\" /></K" +
-                "ey><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Aircr" +
-                "aftSeries\" Type=\"Edm.String\" /><Property Name=\"FileType\" Type=\"Edm.String\" /><Pr" +
-                "operty Name=\"FileNo\" Type=\"Edm.String\" /><Property Name=\"FileVersion\" Type=\"Edm." +
-                "String\" /><Property Name=\"ComplyAircraft\" Type=\"Edm.String\" /><Property Name=\"Co" +
-                "mplyStatus\" Type=\"Edm.String\" /><Property Name=\"ComplyDate\"";
+                "gNumber\" Type=\"Edm.String\" /><Property Name=\"TSN\" Type=\"Edm.Decimal\" Nullable=\"f" +
+                "alse\" /><Property Name=\"TSR\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Nam" +
+                "e=\"CSN\" Type=\"Edm.Decimal\" Nullable=\"false\" /><Property Name=\"CSR\" Type=\"Edm.Dec" +
+                "imal\" Nullable=\"false\" /><Property Name=\"PnRegId\" Type=\"Edm.Int32\" Nullable=\"fal" +
+                "se\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" /><Property Name=\"SnHistories\"" +
+                " Type=\"Collection(UniCloud.Application.PartBC.DTO.SnHistoryDTO)\" Nullable=\"false" +
+                "\" /><Property Name=\"LiftMonitors\" Type=\"Collection(UniCloud.Application.PartBC.D" +
+                "TO.LifeMonitorDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"SnHistory" +
+                "DTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Sn\"" +
+                " Type=\"Edm.String\" /><Property Name=\"InstallDate\" Type=\"Edm.DateTime\" Nullable=\"" +
+                "false\" /><Property Name=\"RemoveDate\" Type=\"Edm.DateTime\" /><Property Name=\"FiNum" +
+                "ber\" Type=\"Edm.String\" /><Property Name=\"CSN\" Type=\"Edm.String\" /><Property Name" +
+                "=\"CSR\" Type=\"Edm.String\" /><Property Name=\"TSN\" Type=\"Edm.String\" /><Property Na" +
+                "me=\"TSR\" Type=\"Edm.String\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" Nullabl" +
+                "e=\"false\" /><Property Name=\"SnRegId\" Type=\"Edm.Int32\" Nullable=\"false\" /></Compl" +
+                "exType><ComplexType Name=\"LifeMonitorDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" N" +
+                "ullable=\"false\" /><Property Name=\"WorkCode\" Type=\"Edm.String\" /><Property Name=\"" +
+                "Sn\" Type=\"Edm.String\" /><Property Name=\"MointorStart\" Type=\"Edm.DateTime\" Nullab" +
+                "le=\"false\" /><Property Name=\"LifeTimeLimit\" Type=\"Edm.String\" /><Property Name=\"" +
+                "MaintainWorkId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SnRegId\" Typ" +
+                "e=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"SpecialConfigDT" +
+                "O\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Null" +
+                "able=\"false\" /><Property Name=\"StartDate\" Type=\"Edm.DateTime\" Nullable=\"false\" /" +
+                "><Property Name=\"EndDate\" Type=\"Edm.DateTime\" /><Property Name=\"IsValid\" Type=\"E" +
+                "dm.Boolean\" Nullable=\"false\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" N" +
+                "ullable=\"false\" /><Property Name=\"TsNumber\" Type=\"Edm.String\" /><Property Name=\"" +
+                "FiNumber\" Type=\"Edm.String\" /><Property Name=\"ItemNo\" Type=\"Edm.String\" /><Prope" +
+                "rty Name=\"ParentItemNo\" Type=\"Edm.String\" /><Property Name=\"Description\" Type=\"E" +
+                "dm.String\" /><Property Name=\"TsId\" Type=\"Edm.Int32\" /><Property Name=\"ParentId\" " +
+                "Type=\"Edm.Int32\" /><Property Name=\"ContractAircraftId\" Type=\"Edm.Int32\" Nullable" +
+                "=\"false\" /></EntityType><EntityType Name=\"TechnicalSolutionDTO\"><Key><PropertyRe" +
+                "f Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Pro" +
+                "perty Name=\"FiNumber\" Type=\"Edm.String\" /><Property Name=\"TsNumber\" Type=\"Edm.St" +
+                "ring\" /><Property Name=\"Position\" Type=\"Edm.String\" /><Property Name=\"TsLines\" T" +
+                "ype=\"Collection(UniCloud.Application.PartBC.DTO.TsLineDTO)\" Nullable=\"false\" /><" +
+                "/EntityType><ComplexType Name=\"TsLineDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" N" +
+                "ullable=\"false\" /><Property Name=\"Pn\" Type=\"Edm.String\" /><Property Name=\"Descri" +
+                "ption\" Type=\"Edm.String\" /><Property Name=\"TsNumber\" Type=\"Edm.String\" /><Proper" +
+                "ty Name=\"TsId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Dependencies\"" +
+                " Type=\"Collection(UniCloud.Application.PartBC.DTO.DependencyDTO)\" Nullable=\"fals" +
+                "e\" /></ComplexType><ComplexType Name=\"DependencyDTO\"><Property Name=\"Id\" Type=\"E" +
+                "dm.Int32\" Nullable=\"false\" /><Property Name=\"Pn\" Type=\"Edm.String\" /><Property N" +
+                "ame=\"PnRegId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"TsLineId\" Type" +
+                "=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><EntityType Name=\"AirStructureDama" +
+                "geDTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" " +
+                "Nullable=\"false\" /><Property Name=\"AircraftId\" Type=\"Edm.Guid\" Nullable=\"false\" " +
+                "/><Property Name=\"AircraftReg\" Type=\"Edm.String\" /><Property Name=\"AircraftType\"" +
+                " Type=\"Edm.String\" /><Property Name=\"AircraftSeries\" Type=\"Edm.String\" /><Proper" +
+                "ty Name=\"ReportNo\" Type=\"Edm.String\" /><Property Name=\"ReportType\" Type=\"Edm.Int" +
+                "32\" Nullable=\"false\" /><Property Name=\"ReportDate\" Type=\"Edm.DateTime\" /><Proper" +
+                "ty Name=\"Description\" Type=\"Edm.String\" /><Property Name=\"TotalCost\" Type=\"Edm.D" +
+                "ecimal\" Nullable=\"false\" /><Property Name=\"IsDefer\" Type=\"Edm.Boolean\" Nullable=" +
+                "\"false\" /><Property Name=\"TecAssess\" Type=\"Edm.String\" /><Property Name=\"TreatRe" +
+                "sult\" Type=\"Edm.String\" /><Property Name=\"Status\" Type=\"Edm.Int32\" Nullable=\"fal" +
+                "se\" /><Property Name=\"CloseDate\" Type=\"Edm.DateTime\" /><Property Name=\"Source\" T" +
+                "ype=\"Edm.String\" /><Property Name=\"Level\" Type=\"Edm.Int32\" Nullable=\"false\" /><P" +
+                "roperty Name=\"RepairDeadline\" Type=\"Edm.String\" /><Property Name=\"DocumentId\" Ty" +
+                "pe=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"DocumentName\" Type=\"Edm.String\"" +
+                " /></EntityType><EntityType Name=\"AdSbDTO\"><Key><PropertyRef Name=\"Id\" /></Key><" +
+                "Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AircraftS" +
+                "eries\" Type=\"Edm.String\" /><Property Name=\"FileType\" Type=\"";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart2 = " Type=\"Edm.DateTime\" /><Property Name=\"ComplyNotes\" Type=\"Edm.String\" /><Property" +
-                " Name=\"ComplyClose\" Type=\"Edm.String\" /><Property Name=\"ComplyFee\" Type=\"Edm.Dec" +
-                "imal\" /><Property Name=\"ComplyFeeNotes\" Type=\"Edm.String\" /><Property Name=\"Comp" +
-                "lyFeeCurrency\" Type=\"Edm.String\" /></EntityType><ComplexType Name=\"ConfigGroupDT" +
-                "O\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Group" +
-                "No\" Type=\"Edm.String\" /><Property Name=\"GroupName\" Type=\"Edm.String\" /><Property" +
-                " Name=\"AircraftTypeName\" Type=\"Edm.String\" /><Property Name=\"TechnicalSolutions\"" +
-                " Type=\"Collection(UniCloud.Application.PartBC.DTO.TsDTO)\" Nullable=\"false\" /><Pr" +
-                "operty Name=\"GroupAcs\" Type=\"Collection(UniCloud.Application.PartBC.DTO.GroupAcD" +
-                "TO)\" Nullable=\"false\" /></ComplexType><ComplexType Name=\"TsDTO\"><Property Name=\"" +
-                "Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"FiNumber\" Type=\"Edm.Stri" +
-                "ng\" /><Property Name=\"TsNumber\" Type=\"Edm.String\" /><Property Name=\"Position\" Ty" +
-                "pe=\"Edm.String\" /><Property Name=\"Type\" Type=\"Edm.String\" /><Property Name=\"TsLi" +
-                "nes\" Type=\"Collection(UniCloud.Application.PartBC.DTO.TsLineDTO)\" Nullable=\"fals" +
-                "e\" /></ComplexType><ComplexType Name=\"GroupAcDTO\"><Property Name=\"Id\" Type=\"Edm." +
-                "Int32\" Nullable=\"false\" /><Property Name=\"ContractName\" Type=\"Edm.String\" /><Pro" +
-                "perty Name=\"ContractNumber\" Type=\"Edm.String\" /><Property Name=\"RankNumber\" Type" +
-                "=\"Edm.String\" /><Property Name=\"CSCNumber\" Type=\"Edm.String\" /><Property Name=\"S" +
-                "erialNumber\" Type=\"Edm.String\" /><Property Name=\"ConfigGroupId\" Type=\"Edm.Int32\"" +
-                " Nullable=\"false\" /></ComplexType></Schema><Schema Namespace=\"UniCloud.Distribut" +
-                "edServices.Part\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityCon" +
-                "tainer Name=\"PartData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"AcDail" +
-                "yUtilizations\" EntityType=\"UniCloud.Application.PartBC.DTO.AcDailyUtilizationDTO" +
-                "\" /><EntitySet Name=\"Aircrafts\" EntityType=\"UniCloud.Application.PartBC.DTO.Airc" +
-                "raftDTO\" /><EntitySet Name=\"AircraftTypes\" EntityType=\"UniCloud.Application.Part" +
-                "BC.DTO.AircraftTypeDTO\" /><EntitySet Name=\"AircraftSeriess\" EntityType=\"UniCloud" +
-                ".Application.PartBC.DTO.AircraftSeriesDTO\" /><EntitySet Name=\"BasicConfigGroups\"" +
-                " EntityType=\"UniCloud.Application.PartBC.DTO.BasicConfigGroupDTO\" /><EntitySet N" +
-                "ame=\"ContractAircrafts\" EntityType=\"UniCloud.Application.PartBC.DTO.ContractAirc" +
-                "raftDTO\" /><EntitySet Name=\"CtrlUnits\" EntityType=\"UniCloud.Application.PartBC.D" +
-                "TO.CtrlUnitDTO\" /><EntitySet Name=\"ItemMaintainCtrls\" EntityType=\"UniCloud.Appli" +
-                "cation.PartBC.DTO.ItemMaintainCtrlDTO\" /><EntitySet Name=\"PnMaintainCtrls\" Entit" +
-                "yType=\"UniCloud.Application.PartBC.DTO.PnMaintainCtrlDTO\" /><EntitySet Name=\"SnM" +
-                "aintainCtrls\" EntityType=\"UniCloud.Application.PartBC.DTO.SnMaintainCtrlDTO\" /><" +
-                "EntitySet Name=\"MaintainWorks\" EntityType=\"UniCloud.Application.PartBC.DTO.Maint" +
-                "ainWorkDTO\" /><EntitySet Name=\"Mods\" EntityType=\"UniCloud.Application.PartBC.DTO" +
-                ".ModDTO\" /><EntitySet Name=\"EngineOils\" EntityType=\"UniCloud.Application.PartBC." +
-                "DTO.EngineOilDTO\" /><EntitySet Name=\"APUOils\" EntityType=\"UniCloud.Application.P" +
-                "artBC.DTO.APUOilDTO\" /><EntitySet Name=\"OilMonitors\" EntityType=\"UniCloud.Applic" +
-                "ation.PartBC.DTO.OilMonitorDTO\" /><EntitySet Name=\"PnRegs\" EntityType=\"UniCloud." +
-                "Application.PartBC.DTO.PnRegDTO\" /><EntitySet Name=\"Scns\" EntityType=\"UniCloud.A" +
-                "pplication.PartBC.DTO.ScnDTO\" /><EntitySet Name=\"AirBusScns\" EntityType=\"UniClou" +
-                "d.Application.PartBC.DTO.AirBusScnDTO\" /><EntitySet Name=\"SnRegs\" EntityType=\"Un" +
-                "iCloud.Application.PartBC.DTO.SnRegDTO\" /><EntitySet Name=\"SpecialConfigs\" Entit" +
-                "yType=\"UniCloud.Application.PartBC.DTO.SpecialConfigDTO\" /><EntitySet Name=\"Tech" +
-                "nicalSolutions\" EntityType=\"UniCloud.Application.PartBC.DTO.TechnicalSolutionDTO" +
-                "\" /><EntitySet Name=\"AirStructureDamages\" EntityType=\"UniCloud.Application.PartB" +
-                "C.DTO.AirStructureDamageDTO\" /><EntitySet Name=\"AdSbs\" EntityType=\"UniCloud.Appl" +
-                "ication.PartBC.DTO.AdSbDTO\" /><FunctionImport Name=\"GetConfigGroups\" ReturnType=" +
-                "\"Collection(UniCloud.Application.PartBC.DTO.ConfigGroupDTO)\" m:HttpMethod=\"GET\" " +
-                "/></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
+            private const string ModelPart2 = "Edm.String\" /><Property Name=\"FileNo\" Type=\"Edm.String\" /><Property Name=\"FileVer" +
+                "sion\" Type=\"Edm.String\" /><Property Name=\"ComplyAircraft\" Type=\"Edm.String\" /><P" +
+                "roperty Name=\"ComplyStatus\" Type=\"Edm.String\" /><Property Name=\"ComplyDate\" Type" +
+                "=\"Edm.DateTime\" /><Property Name=\"ComplyNotes\" Type=\"Edm.String\" /><Property Nam" +
+                "e=\"ComplyClose\" Type=\"Edm.String\" /><Property Name=\"ComplyFee\" Type=\"Edm.Decimal" +
+                "\" /><Property Name=\"ComplyFeeNotes\" Type=\"Edm.String\" /><Property Name=\"ComplyFe" +
+                "eCurrency\" Type=\"Edm.String\" /></EntityType><ComplexType Name=\"ConfigGroupDTO\"><" +
+                "Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"GroupNo\" " +
+                "Type=\"Edm.String\" /><Property Name=\"GroupName\" Type=\"Edm.String\" /><Property Nam" +
+                "e=\"AircraftTypeName\" Type=\"Edm.String\" /><Property Name=\"TechnicalSolutions\" Typ" +
+                "e=\"Collection(UniCloud.Application.PartBC.DTO.TsDTO)\" Nullable=\"false\" /><Proper" +
+                "ty Name=\"GroupAcs\" Type=\"Collection(UniCloud.Application.PartBC.DTO.GroupAcDTO)\"" +
+                " Nullable=\"false\" /></ComplexType><ComplexType Name=\"TsDTO\"><Property Name=\"Id\" " +
+                "Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"FiNumber\" Type=\"Edm.String\" " +
+                "/><Property Name=\"TsNumber\" Type=\"Edm.String\" /><Property Name=\"Position\" Type=\"" +
+                "Edm.String\" /><Property Name=\"Type\" Type=\"Edm.String\" /><Property Name=\"TsLines\"" +
+                " Type=\"Collection(UniCloud.Application.PartBC.DTO.TsLineDTO)\" Nullable=\"false\" /" +
+                "></ComplexType><ComplexType Name=\"GroupAcDTO\"><Property Name=\"Id\" Type=\"Edm.Int3" +
+                "2\" Nullable=\"false\" /><Property Name=\"ContractName\" Type=\"Edm.String\" /><Propert" +
+                "y Name=\"ContractNumber\" Type=\"Edm.String\" /><Property Name=\"RankNumber\" Type=\"Ed" +
+                "m.String\" /><Property Name=\"CSCNumber\" Type=\"Edm.String\" /><Property Name=\"Seria" +
+                "lNumber\" Type=\"Edm.String\" /><Property Name=\"ConfigGroupId\" Type=\"Edm.Int32\" Nul" +
+                "lable=\"false\" /></ComplexType></Schema><Schema Namespace=\"UniCloud.DistributedSe" +
+                "rvices.Part\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityContain" +
+                "er Name=\"PartData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"AcDailyUti" +
+                "lizations\" EntityType=\"UniCloud.Application.PartBC.DTO.AcDailyUtilizationDTO\" />" +
+                "<EntitySet Name=\"Aircrafts\" EntityType=\"UniCloud.Application.PartBC.DTO.Aircraft" +
+                "DTO\" /><EntitySet Name=\"AircraftTypes\" EntityType=\"UniCloud.Application.PartBC.D" +
+                "TO.AircraftTypeDTO\" /><EntitySet Name=\"AircraftSeriess\" EntityType=\"UniCloud.App" +
+                "lication.PartBC.DTO.AircraftSeriesDTO\" /><EntitySet Name=\"BasicConfigGroups\" Ent" +
+                "ityType=\"UniCloud.Application.PartBC.DTO.BasicConfigGroupDTO\" /><EntitySet Name=" +
+                "\"ContractAircrafts\" EntityType=\"UniCloud.Application.PartBC.DTO.ContractAircraft" +
+                "DTO\" /><EntitySet Name=\"CtrlUnits\" EntityType=\"UniCloud.Application.PartBC.DTO.C" +
+                "trlUnitDTO\" /><EntitySet Name=\"ItemMaintainCtrls\" EntityType=\"UniCloud.Applicati" +
+                "on.PartBC.DTO.ItemMaintainCtrlDTO\" /><EntitySet Name=\"PnMaintainCtrls\" EntityTyp" +
+                "e=\"UniCloud.Application.PartBC.DTO.PnMaintainCtrlDTO\" /><EntitySet Name=\"SnMaint" +
+                "ainCtrls\" EntityType=\"UniCloud.Application.PartBC.DTO.SnMaintainCtrlDTO\" /><Enti" +
+                "tySet Name=\"MaintainWorks\" EntityType=\"UniCloud.Application.PartBC.DTO.MaintainW" +
+                "orkDTO\" /><EntitySet Name=\"Mods\" EntityType=\"UniCloud.Application.PartBC.DTO.Mod" +
+                "DTO\" /><EntitySet Name=\"EngineOils\" EntityType=\"UniCloud.Application.PartBC.DTO." +
+                "EngineOilDTO\" /><EntitySet Name=\"APUOils\" EntityType=\"UniCloud.Application.PartB" +
+                "C.DTO.APUOilDTO\" /><EntitySet Name=\"OilMonitors\" EntityType=\"UniCloud.Applicatio" +
+                "n.PartBC.DTO.OilMonitorDTO\" /><EntitySet Name=\"PnRegs\" EntityType=\"UniCloud.Appl" +
+                "ication.PartBC.DTO.PnRegDTO\" /><EntitySet Name=\"Scns\" EntityType=\"UniCloud.Appli" +
+                "cation.PartBC.DTO.ScnDTO\" /><EntitySet Name=\"AirBusScns\" EntityType=\"UniCloud.Ap" +
+                "plication.PartBC.DTO.AirBusScnDTO\" /><EntitySet Name=\"SnRegs\" EntityType=\"UniClo" +
+                "ud.Application.PartBC.DTO.SnRegDTO\" /><EntitySet Name=\"SpecialConfigs\" EntityTyp" +
+                "e=\"UniCloud.Application.PartBC.DTO.SpecialConfigDTO\" /><EntitySet Name=\"Technica" +
+                "lSolutions\" EntityType=\"UniCloud.Application.PartBC.DTO.TechnicalSolutionDTO\" />" +
+                "<EntitySet Name=\"AirStructureDamages\" EntityType=\"UniCloud.Application.PartBC.DT" +
+                "O.AirStructureDamageDTO\" /><EntitySet Name=\"AdSbs\" EntityType=\"UniCloud.Applicat" +
+                "ion.PartBC.DTO.AdSbDTO\" /><FunctionImport Name=\"GetConfigGroups\" ReturnType=\"Col" +
+                "lection(UniCloud.Application.PartBC.DTO.ConfigGroupDTO)\" m:HttpMethod=\"GET\" /></" +
+                "EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -5170,16 +5173,24 @@ namespace UniCloud.Presentation.Service.Part.Part
         /// <param name="ID">Id 的初始值。</param>
         /// <param name="installDate">InstallDate 的初始值。</param>
         /// <param name="isStop">IsStop 的初始值。</param>
+        /// <param name="tSN">TSN 的初始值。</param>
+        /// <param name="tSR">TSR 的初始值。</param>
+        /// <param name="cSN">CSN 的初始值。</param>
+        /// <param name="cSR">CSR 的初始值。</param>
         /// <param name="pnRegId">PnRegId 的初始值。</param>
         /// <param name="snHistories">SnHistories 的初始值。</param>
         /// <param name="liftMonitors">LiftMonitors 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static SnRegDTO CreateSnRegDTO(int ID, global::System.DateTime installDate, bool isStop, int pnRegId, global::System.Collections.ObjectModel.ObservableCollection<SnHistoryDTO> snHistories, global::System.Collections.ObjectModel.ObservableCollection<LifeMonitorDTO> liftMonitors)
+        public static SnRegDTO CreateSnRegDTO(int ID, global::System.DateTime installDate, bool isStop, decimal tSN, decimal tSR, decimal cSN, decimal cSR, int pnRegId, global::System.Collections.ObjectModel.ObservableCollection<SnHistoryDTO> snHistories, global::System.Collections.ObjectModel.ObservableCollection<LifeMonitorDTO> liftMonitors)
         {
             SnRegDTO snRegDTO = new SnRegDTO();
             snRegDTO.Id = ID;
             snRegDTO.InstallDate = installDate;
             snRegDTO.IsStop = isStop;
+            snRegDTO.TSN = tSN;
+            snRegDTO.TSR = tSR;
+            snRegDTO.CSN = cSN;
+            snRegDTO.CSR = cSR;
             snRegDTO.PnRegId = pnRegId;
             if ((snHistories == null))
             {
@@ -5325,6 +5336,94 @@ namespace UniCloud.Presentation.Service.Part.Part
         private string _RegNumber;
         partial void OnRegNumberChanging(string value);
         partial void OnRegNumberChanged();
+        /// <summary>
+        /// 架构中不存在属性 TSN 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal TSN
+        {
+            get
+            {
+                return this._TSN;
+            }
+            set
+            {
+                this.OnTSNChanging(value);
+                this._TSN = value;
+                this.OnTSNChanged();
+                this.OnPropertyChanged("TSN");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _TSN;
+        partial void OnTSNChanging(decimal value);
+        partial void OnTSNChanged();
+        /// <summary>
+        /// 架构中不存在属性 TSR 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal TSR
+        {
+            get
+            {
+                return this._TSR;
+            }
+            set
+            {
+                this.OnTSRChanging(value);
+                this._TSR = value;
+                this.OnTSRChanged();
+                this.OnPropertyChanged("TSR");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _TSR;
+        partial void OnTSRChanging(decimal value);
+        partial void OnTSRChanged();
+        /// <summary>
+        /// 架构中不存在属性 CSN 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal CSN
+        {
+            get
+            {
+                return this._CSN;
+            }
+            set
+            {
+                this.OnCSNChanging(value);
+                this._CSN = value;
+                this.OnCSNChanged();
+                this.OnPropertyChanged("CSN");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _CSN;
+        partial void OnCSNChanging(decimal value);
+        partial void OnCSNChanged();
+        /// <summary>
+        /// 架构中不存在属性 CSR 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public decimal CSR
+        {
+            get
+            {
+                return this._CSR;
+            }
+            set
+            {
+                this.OnCSRChanging(value);
+                this._CSR = value;
+                this.OnCSRChanged();
+                this.OnPropertyChanged("CSR");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private decimal _CSR;
+        partial void OnCSRChanging(decimal value);
+        partial void OnCSRChanged();
         /// <summary>
         /// 架构中不存在属性 PnRegId 的注释。
         /// </summary>
