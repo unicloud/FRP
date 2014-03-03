@@ -17,7 +17,7 @@
 
 #region 命名空间
 
-using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
+using System;
 
 #endregion
 
@@ -33,14 +33,16 @@ namespace UniCloud.Domain.PartBC.Aggregates.AcDailyUtilizationAgg
         /// <summary>
         ///     创建飞机日利用率
         /// </summary>
-        /// <param name="aircraft">运营飞机</param>
+        /// <param name="aircraftId">运营飞机</param>
+        /// <param name="regNumber">飞机注册号</param>
         /// <param name="calculatedHour">计算日利用小时</param>
         /// <param name="calculatedCycle">计算日利用循环</param>
         /// <param name="year">年度</param>
         /// <param name="month">月份</param>
         /// <returns>飞机日利用率</returns>
         public static AcDailyUtilization CreateAcDailyUtilization(
-            Aircraft aircraft,
+            Guid aircraftId,
+            string regNumber,
             decimal calculatedHour,
             decimal calculatedCycle,
             int year,
@@ -54,7 +56,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.AcDailyUtilizationAgg
                 Month = month
             };
             acDailyUtilization.GenerateNewIdentity();
-            acDailyUtilization.SetAircraft(aircraft);
+            acDailyUtilization.SetAircraft(aircraftId, regNumber);
             acDailyUtilization.SetIsCurrent(true);
             return acDailyUtilization;
         }
@@ -64,9 +66,11 @@ namespace UniCloud.Domain.PartBC.Aggregates.AcDailyUtilizationAgg
         #region 更新
 
         /// <summary>
-        ///     创建飞机日利用率
+        ///     更新飞机日利用率
         /// </summary>
-        /// <param name="aircraft">运营飞机</param>
+        /// <param name="acDailyUtilization">飞机日利用率</param>
+        /// <param name="aircraftId">运营飞机</param>
+        /// <param name="regNumber">飞机注册号</param>
         /// <param name="calculatedHour">计算日利用小时</param>
         /// <param name="calculatedCycle">计算日利用循环</param>
         /// <param name="amendHour">修正日利用小时</param>
@@ -75,7 +79,9 @@ namespace UniCloud.Domain.PartBC.Aggregates.AcDailyUtilizationAgg
         /// <param name="month">月份</param>
         /// <returns>飞机日利用率</returns>
         public static AcDailyUtilization UpdateAcDailyUtilization(
-            Aircraft aircraft,
+            AcDailyUtilization acDailyUtilization,
+            Guid aircraftId,
+            string regNumber,
             decimal calculatedHour,
             decimal calculatedCycle,
             decimal amendHour,
@@ -83,15 +89,12 @@ namespace UniCloud.Domain.PartBC.Aggregates.AcDailyUtilizationAgg
             int year,
             int month)
         {
-            var acDailyUtilization = new AcDailyUtilization
-            {
-                CalculatedHour = calculatedHour,
-                CalculatedCycle = calculatedCycle,
-                Year = year,
-                Month = month
-            };
+            acDailyUtilization.CalculatedHour = calculatedHour;
+            acDailyUtilization.CalculatedCycle = calculatedCycle;
+            acDailyUtilization.Year = year;
+            acDailyUtilization.Month = month;
             acDailyUtilization.GenerateNewIdentity();
-            acDailyUtilization.SetAircraft(aircraft);
+            acDailyUtilization.SetAircraft(aircraftId, regNumber);
             acDailyUtilization.SetIsCurrent(true);
             acDailyUtilization.SetAmendHour(amendHour);
             acDailyUtilization.SetAmendCycle(amendCycle);
