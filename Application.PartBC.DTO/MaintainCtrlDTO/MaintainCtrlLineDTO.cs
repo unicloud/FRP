@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,103 +12,74 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
-using System;
-using System.Collections.Generic;
+
 using System.Data.Services.Common;
+
 #endregion
 
 namespace UniCloud.Application.PartBC.DTO
 {
     /// <summary>
-    /// MaintainCtrlLine
+    ///     MaintainCtrlLine
     /// </summary>
     [DataServiceKey("Id")]
     public class MaintainCtrlLineDTO
     {
         #region 属性
+
         /// <summary>
-        /// 主键
+        ///     主键
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// 基准间隔
+        ///     基准间隔
         /// </summary>
-        public string StandardInterval
-        {
-            get;
-            set;
-        }
+        public string StandardInterval { get; set; }
 
         /// <summary>
-        /// 最大间隔
+        ///     最大间隔
         /// </summary>
-        public string MaxInterval
-        {
-            get;
-            set;
-        }
+        public string MaxInterval { get; set; }
 
         /// <summary>
-        /// 最小间隔
+        ///     最小间隔
         /// </summary>
-        public string MinInterval
-        {
-            get;
-            set;
-        }
+        public string MinInterval { get; set; }
 
         /// <summary>
-        /// 控制单位
+        ///     控制单位
         /// </summary>
-        public string CtrlUnitName
-        {
-            get;
-            set;
-        }
+        public string CtrlUnitName { get; set; }
 
         /// <summary>
-        /// 维修工作代码
+        ///     维修工作代码
         /// </summary>
-        public string WorkCode
-        {
-            get;
-            set;
-        }
+        public string WorkCode { get; set; }
 
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        /// 控制单位Id
+        ///     控制单位Id
         /// </summary>
-        public int CtrlUnitId
-        {
-            get;
-            set;
-        }
+        public int CtrlUnitId { get; set; }
 
         /// <summary>
-        /// 维修工作Id
+        ///     维修工作Id
         /// </summary>
-        public int MaintainWorkId
-        {
-            get;
-            set;
-        }
+        public int MaintainWorkId { get; set; }
 
         /// <summary>
-        /// 维修控制组Id
+        ///     维修控制组Id
         /// </summary>
-        public int MaintainCtrlId
-        {
-            get;
-            set;
-        }
+        public int MaintainCtrlId { get; set; }
+
         #endregion
     }
 }

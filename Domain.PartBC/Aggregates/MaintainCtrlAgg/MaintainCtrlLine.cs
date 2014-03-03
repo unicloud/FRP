@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,7 +12,10 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
+
+#region 命名空间
 
 using System;
 using System.Collections.Generic;
@@ -19,96 +23,77 @@ using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
 
+#endregion
+
 namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
 {
     /// <summary>
-    /// MaintainCtrl聚合根。
-    /// MaintainCtrlLine
-    /// 维修控制明细
+    ///     MaintainCtrl聚合根。
+    ///     维修控制明细
     /// </summary>
     public class MaintainCtrlLine : EntityInt, IValidatableObject
     {
         #region 构造函数
 
         /// <summary>
-        /// 内部构造函数
-        /// 限制只能从内部创建新实例
+        ///     内部构造函数
+        ///     限制只能从内部创建新实例
         /// </summary>
         internal MaintainCtrlLine()
         {
         }
+
         #endregion
 
         #region 属性
-        /// <summary>
-        /// 基准间隔
-        /// </summary>
-        public string StandardInterval
-        {
-            get;
-            private set;
-        }
 
         /// <summary>
-        /// 最大间隔
+        ///     基准间隔
         /// </summary>
-        public string MaxInterval
-        {
-            get;
-            private set;
-        }
+        public int StandardInterval { get; private set; }
 
         /// <summary>
-        /// 最小间隔
+        ///     最大间隔
         /// </summary>
-        public string MinInterval
-        {
-            get;
-            private set;
-        }
+        public int MaxInterval { get; private set; }
+
+        /// <summary>
+        ///     最小间隔
+        /// </summary>
+        public int MinInterval { get; private set; }
 
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        /// 控制单位Id
+        ///     控制单位Id
         /// </summary>
-        public int CtrlUnitId
-        {
-            get;
-            private set;
-        }
+        public int CtrlUnitId { get; private set; }
 
         /// <summary>
-        /// 维修工作Id
+        ///     维修工作Id
         /// </summary>
-        public int MaintainWorkId
-        {
-            get;
-            private set;
-        }
+        public int MaintainWorkId { get; private set; }
 
         /// <summary>
-        /// 维修控制组Id
+        ///     维修控制组Id
         /// </summary>
-        public int MaintainCtrlId
-        {
-            get;
-            internal set;
-        }
+        public int MaintainCtrlId { get; internal set; }
+
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        /// 维修控制单位
+        ///     维修控制单位
         /// </summary>
-        public CtrlUnit CtrlUnit
-        {
-            get;
-            set;
-        }
+        public CtrlUnit CtrlUnit { get; set; }
+
+        /// <summary>
+        ///     维修工作
+        /// </summary>
+        public MaintainWork MaintainWork { get; set; }
 
         #endregion
 
@@ -118,23 +103,23 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         ///     设置基准间隔
         /// </summary>
         /// <param name="standardInterval">基准间隔</param>
-        public void SetStandardInterval(string standardInterval)
+        public void SetStandardInterval(int standardInterval)
         {
-            if (string.IsNullOrWhiteSpace(standardInterval))
+            if (standardInterval == 0)
             {
                 throw new ArgumentException("基准间隔参数为空！");
             }
 
             StandardInterval = standardInterval;
         }
-        
+
         /// <summary>
         ///     设置最大间隔
         /// </summary>
         /// <param name="maxInterval">最大间隔</param>
-        public void SetMaxInterval(string maxInterval)
+        public void SetMaxInterval(int maxInterval)
         {
-            if (string.IsNullOrWhiteSpace(maxInterval))
+            if (maxInterval == 0)
             {
                 throw new ArgumentException("最大间隔参数为空！");
             }
@@ -146,16 +131,16 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
         ///     设置最小间隔
         /// </summary>
         /// <param name="minInterval">最小间隔</param>
-        public void SetMinInterval(string minInterval)
+        public void SetMinInterval(int minInterval)
         {
-            if (string.IsNullOrWhiteSpace(minInterval))
+            if (minInterval == 0)
             {
                 throw new ArgumentException("最小间隔参数为空！");
             }
 
             MinInterval = minInterval;
         }
-        
+
         /// <summary>
         ///     设置维修控制单位
         /// </summary>
@@ -183,7 +168,9 @@ namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
             }
 
             MaintainWorkId = maintainWork.Id;
+            MaintainWork = maintainWork;
         }
+
         #endregion
 
         #region IValidatableObject 成员

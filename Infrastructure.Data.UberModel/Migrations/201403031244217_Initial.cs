@@ -1191,18 +1191,30 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        StandardInterval = c.String(maxLength: 100),
-                        MaxInterval = c.String(maxLength: 100),
-                        MinInterval = c.String(maxLength: 100),
+                        StandardInterval = c.Int(nullable: false),
+                        MaxInterval = c.Int(nullable: false),
+                        MinInterval = c.Int(nullable: false),
                         CtrlUnitId = c.Int(nullable: false),
                         MaintainWorkId = c.Int(nullable: false),
                         MaintainCtrlId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.CtrlUnit", t => t.CtrlUnitId)
+                .ForeignKey("FRP.MaintainWork", t => t.MaintainWorkId)
                 .ForeignKey("FRP.MaintainCtrl", t => t.MaintainCtrlId)
                 .Index(t => t.CtrlUnitId)
+                .Index(t => t.MaintainWorkId)
                 .Index(t => t.MaintainCtrlId);
+            
+            CreateTable(
+                "FRP.MaintainWork",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        WorkCode = c.String(maxLength: 100),
+                        Description = c.String(maxLength: 100),
+                    })
+                .PrimaryKey(t => t.ID);
             
             CreateTable(
                 "FRP.MaintainInvoiceLine",
@@ -1252,16 +1264,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .ForeignKey("FRP.Supplier", t => t.SupplierId)
                 .Index(t => t.CurrencyId)
                 .Index(t => t.SupplierId);
-            
-            CreateTable(
-                "FRP.MaintainWork",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
-                        WorkCode = c.String(maxLength: 100),
-                        Description = c.String(maxLength: 100),
-                    })
-                .PrimaryKey(t => t.ID);
             
             CreateTable(
                 "FRP.Mod",
@@ -2703,6 +2705,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.MaintainInvoiceLine", "PartID", "FRP.Part");
             DropForeignKey("FRP.MaintainInvoice", "CurrencyId", "FRP.Currency");
             DropForeignKey("FRP.MaintainCtrlLine", "MaintainCtrlId", "FRP.MaintainCtrl");
+            DropForeignKey("FRP.MaintainCtrlLine", "MaintainWorkId", "FRP.MaintainWork");
             DropForeignKey("FRP.MaintainCtrlLine", "CtrlUnitId", "FRP.CtrlUnit");
             DropForeignKey("FRP.MaintainContract", "SignatoryId", "FRP.Supplier");
             DropForeignKey("FRP.Invoice", "SupplierId", "FRP.Supplier");
@@ -2921,6 +2924,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.MaintainInvoiceLine", new[] { "PartID" });
             DropIndex("FRP.MaintainInvoice", new[] { "CurrencyId" });
             DropIndex("FRP.MaintainCtrlLine", new[] { "MaintainCtrlId" });
+            DropIndex("FRP.MaintainCtrlLine", new[] { "MaintainWorkId" });
             DropIndex("FRP.MaintainCtrlLine", new[] { "CtrlUnitId" });
             DropIndex("FRP.MaintainContract", new[] { "SignatoryId" });
             DropIndex("FRP.Invoice", new[] { "SupplierId" });
@@ -3110,9 +3114,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.PaymentNotice");
             DropTable("FRP.OilMonitor");
             DropTable("FRP.Mod");
-            DropTable("FRP.MaintainWork");
             DropTable("FRP.MaintainInvoice");
             DropTable("FRP.MaintainInvoiceLine");
+            DropTable("FRP.MaintainWork");
             DropTable("FRP.MaintainCtrlLine");
             DropTable("FRP.MaintainCtrl");
             DropTable("FRP.MaintainContract");
