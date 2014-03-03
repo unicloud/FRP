@@ -1,0 +1,353 @@
+﻿<UserControl x:Class="UniCloud.Presentation.Part.BaseConfigurations.BaseConfiguration"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             xmlns:input="clr-namespace:UniCloud.Presentation.Input;assembly=UniCloud.Presentation"
+             d:DataContext="{d:DesignInstance uc:BaseConfigurationVm}"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="800"
+             Name="BaseConfigurations">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="MaintainWorkReadTemplate">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15"></ColumnDefinition>
+                        <ColumnDefinition Width="65"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="1"
+                               Text="工作代码"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Row="0"
+                             Grid.Column="2"
+                             Margin="0,3"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding WorkCode, Mode=TwoWay}"
+                             IsReadOnly="True">
+                    </TextBox>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Text="描述"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="1"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding Description, Mode=TwoWay}"
+                             IsReadOnly="True">
+                    </TextBox>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="MaintainWorkEditNewTemplate">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15"></ColumnDefinition>
+                        <ColumnDefinition Width="65"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="1"
+                               Text="工作代码"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Row="0"
+                             Grid.Column="2"
+                             Margin="0,3"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding WorkCode, Mode=TwoWay}">
+                    </TextBox>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Text="描述"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="1"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding Description, Mode=TwoWay}">
+                    </TextBox>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="CtrlUnitReadTemplate">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15"></ColumnDefinition>
+                        <ColumnDefinition Width="65"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="1"
+                               Text="名称"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Row="0"
+                             Grid.Column="2"
+                             Margin="0,3"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding Name, Mode=TwoWay}"
+                             IsReadOnly="True">
+                    </TextBox>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Text="描述"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="1"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding Description, Mode=TwoWay}"
+                             IsReadOnly="True">
+                    </TextBox>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="CtrlUnitEditNewTemplate">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15"></ColumnDefinition>
+                        <ColumnDefinition Width="65"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="35" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="1"
+                               Text="名称"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Row="0"
+                             Grid.Column="2"
+                             Margin="0,3"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding Name, Mode=TwoWay}">
+                    </TextBox>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Text="描述"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Column="2"
+                             Margin="0,3"
+                             Grid.Row="1"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding Description, Mode=TwoWay}">
+                    </TextBox>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+            <telerik:RadTabControl>
+                <telerik:RadTabItem Header="维护工作代码">
+                <telerik:RadDocking HasDocumentHost="False">
+                    <telerik:RadSplitContainer>
+                        <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
+                            <telerik:RadPaneGroup>
+                                <telerik:RadPane Header=""
+                                         FontSize="{StaticResource HeaderFontSize}"
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         ContextMenuTemplate="{x:Null}">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="30" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Row="0">
+                                            <telerik:RadGridView Name="MaintainWorkLists"
+                                                         AutoExpandGroups="True"
+                                                         AutoGenerateColumns="False"
+                                                         CanUserSortColumns="True"
+                                                         CanUserFreezeColumns="False"
+                                                         IsFilteringAllowed="True"
+                                                         IsReadOnly="True"
+                                                         ItemsSource="{Binding MaintainWorks}"
+                                                         IsBusy="{Binding MaintainWorks.IsBusy}"
+                                                         SelectedItem="{Binding MaintainWork,Mode=TwoWay}"
+                                                         CanUserSelect="{Binding CanSelectMaintainWork}"
+                                                         FontSize="{StaticResource TextFontSize}"
+                                                         ValidatesOnDataErrors="InEditMode"
+                                                         RowIndicatorVisibility="Visible">
+                                                <telerik:RadGridView.Columns>
+                                                    <input:DataPageSerialColumn  Header="序号" />
+                                                    <telerik:GridViewDataColumn Header="工作代码"
+                                                                        IsSortable="True"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding WorkCode}" />
+                                                    <telerik:GridViewDataColumn Header="描述"
+                                                                        IsSortable="True"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MaxWidth="250"
+                                                                        TextWrapping="Wrap"
+                                                                        DataMemberBinding="{Binding Description}" />
+                                                </telerik:RadGridView.Columns>
+                                            </telerik:RadGridView>
+                                        </Grid>
+                                        <Grid Grid.Row="1">
+                                            <telerik:RadDataPager Name="MaintainWorkRadPage"
+                                                          BorderThickness="1,0,1,1"
+                                                          AutoEllipsisMode="Both"
+                                                          DisplayMode="All"
+                                                          Source="{Binding MaintainWorks}" />
+                                        </Grid>
+                                    </Grid>
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
+                        <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
+                            <telerik:RadPaneGroup>
+                                <telerik:RadPane Header="编辑工作代码"
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanDockInDocumentHost="False"
+                                         CanUserClose="False"
+                                         CanUserPin="True"
+                                         ContextMenuTemplate="{x:Null}">
+                                    <Grid>
+                                        <telerik:RadDataForm x:Name="MaintainWorkForm"
+                                                     CancelButtonContent="取消"
+                                                     CommitButtonContent="确定"
+                                                     ItemsSource="{Binding MaintainWorks}"
+                                                     AutoGenerateFields="False"
+                                                     AutoCommit="True"
+                                                     ReadOnlyTemplate="{StaticResource MaintainWorkReadTemplate}"
+                                                     EditTemplate="{StaticResource MaintainWorkEditNewTemplate}"
+                                                     NewItemTemplate="{StaticResource MaintainWorkEditNewTemplate}">
+                                            <telerik:RadDataForm.CommandProvider>
+                                                <uc:MasterCommandProvider  DataForm="{Binding ElementName=MaintainWorkForm}"
+                                                                   QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=MaintainWorkForm}"></uc:MasterCommandProvider>
+                                            </telerik:RadDataForm.CommandProvider>
+                                        </telerik:RadDataForm>
+                                    </Grid>
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
+                    </telerik:RadSplitContainer>
+                </telerik:RadDocking>
+            </telerik:RadTabItem>
+                <telerik:RadTabItem Header="维护控制单位">
+                <telerik:RadDocking HasDocumentHost="False">
+                    <telerik:RadSplitContainer>
+                        <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
+                            <telerik:RadPaneGroup>
+                                <telerik:RadPane Header=""
+                                         FontSize="{StaticResource HeaderFontSize}"
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         ContextMenuTemplate="{x:Null}">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="30" />
+                                        </Grid.RowDefinitions>
+                                        <Grid Row="0">
+                                            <telerik:RadGridView Name="CtrlUnitLists"
+                                                         AutoExpandGroups="True"
+                                                         AutoGenerateColumns="False"
+                                                         CanUserSortColumns="True"
+                                                         CanUserFreezeColumns="False"
+                                                         IsFilteringAllowed="True"
+                                                         IsReadOnly="True"
+                                                         ItemsSource="{Binding CtrlUnits}"
+                                                         IsBusy="{Binding CtrlUnits.IsBusy}"
+                                                         SelectedItem="{Binding CtrlUnit,Mode=TwoWay}"
+                                                         CanUserSelect="{Binding CanSelectCtrlUnit}"
+                                                         FontSize="{StaticResource TextFontSize}"
+                                                         ValidatesOnDataErrors="InEditMode"
+                                                         RowIndicatorVisibility="Visible">
+                                                <telerik:RadGridView.Columns>
+                                                    <input:DataPageSerialColumn  Header="序号" />
+                                                    <telerik:GridViewDataColumn Header="名称"
+                                                                        IsSortable="True"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding Name}" />
+                                                    <telerik:GridViewDataColumn Header="描述"
+                                                                        IsSortable="True"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        MaxWidth="250"
+                                                                        TextWrapping="Wrap"
+                                                                        DataMemberBinding="{Binding Description}" />
+                                                </telerik:RadGridView.Columns>
+                                            </telerik:RadGridView>
+                                        </Grid>
+                                        <Grid Grid.Row="1">
+                                            <telerik:RadDataPager Name="CtrlUnitRadPage"
+                                                          BorderThickness="1,0,1,1"
+                                                          AutoEllipsisMode="Both"
+                                                          DisplayMode="All"
+                                                          Source="{Binding CtrlUnits}" />
+                                        </Grid>
+                                    </Grid>
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
+                        <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
+                            <telerik:RadPaneGroup>
+                                <telerik:RadPane Header="编辑控制单位"
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanDockInDocumentHost="False"
+                                         CanUserClose="False"
+                                         CanUserPin="True"
+                                         ContextMenuTemplate="{x:Null}">
+                                    <Grid>
+                                        <telerik:RadDataForm x:Name="CtrlUnitForm"
+                                                     CancelButtonContent="取消"
+                                                     CommitButtonContent="确定"
+                                                     ItemsSource="{Binding CtrlUnits}"
+                                                     AutoGenerateFields="False"
+                                                     AutoCommit="True"
+                                                     ReadOnlyTemplate="{StaticResource CtrlUnitReadTemplate}"
+                                                     EditTemplate="{StaticResource CtrlUnitEditNewTemplate}"
+                                                     NewItemTemplate="{StaticResource CtrlUnitEditNewTemplate}">
+                                            <telerik:RadDataForm.CommandProvider>
+                                                <uc:MasterCommandProvider  DataForm="{Binding ElementName=CtrlUnitForm}"
+                                                                   QueryableDataServiceCollectionView="{Binding ItemsSource,ElementName=CtrlUnitForm}"></uc:MasterCommandProvider>
+                                            </telerik:RadDataForm.CommandProvider>
+                                        </telerik:RadDataForm>
+                                    </Grid>
+                                </telerik:RadPane>
+                            </telerik:RadPaneGroup>
+                        </telerik:RadSplitContainer>
+                    </telerik:RadSplitContainer>
+                </telerik:RadDocking>
+            </telerik:RadTabItem>
+            </telerik:RadTabControl>
+    </Grid>
+</UserControl>
