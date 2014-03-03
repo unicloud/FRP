@@ -228,6 +228,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
             }
             _loadScn = false;
             _loadAirBusScn = false;
+            IsBusy = true;
             _descriptor.Value = CscNumber;
             Scns.Load(true);
             AirBusScns.Load(true);
@@ -247,7 +248,6 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 RaisePropertyChanged(() => CompareMscns);
             }
         }
-
         private void GenerateResult()
         {
             if (_loadScn && _loadAirBusScn)
@@ -326,6 +326,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
                                                                  AirBusTitle = p.Title
                                                              }));
                 CompareMscns = tempCompareMscns;
+                IsBusy = false;
             }
         }
         #endregion

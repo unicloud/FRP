@@ -23,7 +23,7 @@
                             HasDocumentHost="False">
             <telerik:RadSplitContainer>
                 <telerik:RadPaneGroup>
-                    <telerik:RadPane Header="Ad/Sb信息"
+                    <telerik:RadPane Header="AD/SB信息"
                                      FontSize="{StaticResource HeaderFontSize}"
                                      IsPinned="True"
                                      CanFloat="False"
