@@ -24,6 +24,7 @@ using UniCloud.Application.PartBC.AircraftServices;
 using UniCloud.Application.PartBC.AircraftTypeServices;
 using UniCloud.Application.PartBC.AirStructureDamageServices;
 using UniCloud.Application.PartBC.BasicConfigGroupServices;
+using UniCloud.Application.PartBC.BasicConfigServices;
 using UniCloud.Application.PartBC.ContractAircraftServices;
 using UniCloud.Application.PartBC.CtrlUnitServices;
 using UniCloud.Application.PartBC.DTO;
@@ -51,6 +52,7 @@ namespace UniCloud.DistributedServices.Part
         private readonly IAircraftAppService _aircraftAppService;
         private readonly IAircraftTypeAppService _aircraftTypeAppService;
         private readonly IBasicConfigGroupAppService _basicConfigGroupAppService;
+        private readonly IBasicConfigAppService _basicConfigAppService;
         private readonly IContractAircraftAppService _contractAircraftAppService;
         private readonly ICtrlUnitAppService _ctrlUnitAppService;
         private readonly IMaintainCtrlAppService _maintainCtrlAppService;
@@ -70,6 +72,7 @@ namespace UniCloud.DistributedServices.Part
             _acDailyUtilizationAppService = DefaultContainer.Resolve<IAcDailyUtilizationAppService>();
             _aircraftAppService = DefaultContainer.Resolve<IAircraftAppService>();
             _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
+            _basicConfigAppService = DefaultContainer.Resolve<IBasicConfigAppService>();
             _basicConfigGroupAppService = DefaultContainer.Resolve<IBasicConfigGroupAppService>();
             _contractAircraftAppService = DefaultContainer.Resolve<IContractAircraftAppService>();
             _ctrlUnitAppService = DefaultContainer.Resolve<ICtrlUnitAppService>();
@@ -137,6 +140,18 @@ namespace UniCloud.DistributedServices.Part
         public IQueryable<BasicConfigGroupDTO> BasicConfigGroups
         {
             get { return _basicConfigGroupAppService.GetBasicConfigGroups(); }
+        }
+
+        #endregion
+
+        #region 基本构型集合
+
+        /// <summary>
+        ///     基本构型集合
+        /// </summary>
+        public IQueryable<BasicConfigDTO> BasicConfigs
+        {
+            get { return _basicConfigAppService.GetBasicConfigs(); }
         }
 
         #endregion
