@@ -18,7 +18,9 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <telerik:RadDocking HasDocumentHost="False">
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False">
             <telerik:RadSplitContainer>
                 <telerik:RadPaneGroup>
                     <telerik:RadPane Header="对比SCN/MSCN"
