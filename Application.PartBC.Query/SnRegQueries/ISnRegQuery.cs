@@ -32,5 +32,12 @@ namespace UniCloud.Application.PartBC.Query.SnRegQueries
         /// <param name="query">查询表达式</param>
         ///  <returns>SnRegDTO集合</returns>
         IQueryable<SnRegDTO> SnRegDTOQuery(QueryBuilder<SnReg> query);
+
+        /// <summary>
+        /// ApuEngineSnReg查询。
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        ///  <returns>ApuEngineSnRegDTO集合</returns>
+        IQueryable<ApuEngineSnRegDTO> ApuEngineSnRegDTOQuery(QueryBuilder<SnReg> query);
     }
 }

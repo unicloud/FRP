@@ -113,5 +113,18 @@ namespace UniCloud.Application.PartBC.Tests.Services
             context.Add(newSnReg);
             context.UnitOfWork.Commit();
         }
+
+        [TestMethod]
+        public void GetApuEngineSnRegs()
+        {
+            // Arrange
+            var service = DefaultContainer.Resolve<SnRegAppService>();
+
+            // Act
+           var result = service.GetApuEngineSnRegs().ToList();
+
+            // Assert
+            Assert.IsTrue(result.Any());
+        }
     }
 }

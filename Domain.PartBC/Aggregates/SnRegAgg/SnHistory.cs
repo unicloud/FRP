@@ -140,6 +140,15 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
 
         #region 操作
 
+
+        public void SetSn(string sn)
+        {
+            if (string.IsNullOrEmpty(sn))
+            {
+                throw new ArgumentException("Sn号参数为空！");
+            }
+            Sn = sn;
+        }
         /// <summary>
         ///     设置装上时间
         /// </summary>

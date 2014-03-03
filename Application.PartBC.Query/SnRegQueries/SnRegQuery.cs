@@ -81,5 +81,76 @@ namespace UniCloud.Application.PartBC.Query.SnRegQueries
                 }).ToList(),
             });
         }
+
+        /// <summary>
+        /// ApuEngineSnReg查询。
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        ///  <returns>ApuEngineSnRegDTO集合</returns>
+        public IQueryable<ApuEngineSnRegDTO> ApuEngineSnRegDTOQuery(QueryBuilder<SnReg> query)
+        {
+            var apuSnRegs = query.ApplyTo(_unitOfWork.CreateSet<SnReg>()).Select(p => new ApuEngineSnRegDTO
+            {
+                Id = p.Id,
+                Pn = p.Pn,
+                Sn = p.Sn,
+                TSN = p.TSN,
+                TSR = p.TSR,
+                CSN = p.CSN,
+                CSR = p.CSR,
+                IsStop = p.IsStop,
+                InstallDate = p.InstallDate,
+                AircraftId = p.AircraftId,
+                PnRegId = p.PnRegId,
+                RegNumber = p.RegNumber,
+                Status = (int)p.Status,
+                SnHistories = p.SnHistories.Select(q => new SnHistoryDTO
+                {
+                    Id = q.Id,
+                    FiNumber = q.FiNumber,
+                    CSN = q.CSN,
+                    CSR = q.CSR,
+                    TSN = q.TSN,
+                    TSR = q.TSR,
+                    InstallDate = q.InstallDate,
+                    RemoveDate = q.RemoveDate,
+                    Sn = q.Sn,
+                    SnRegId = q.SnRegId,
+                    AircraftId = q.AircraftId,
+                }).ToList(),
+            }).ToList();
+            var engineSnRegs = query.ApplyTo(_unitOfWork.CreateSet<EngineReg>()).Select(p => new ApuEngineSnRegDTO
+            {
+                Id = p.Id,
+                Pn = p.Pn,
+                Sn = p.Sn,
+                TSN = p.TSN,
+                TSR = p.TSR,
+                CSN = p.CSN,
+                CSR = p.CSR,
+                IsStop = p.IsStop,
+                InstallDate = p.InstallDate,
+                AircraftId = p.AircraftId,
+                PnRegId = p.PnRegId,
+                RegNumber = p.RegNumber,
+                Status = (int)p.Status,
+                SnHistories = p.SnHistories.Select(q => new SnHistoryDTO
+                {
+                    Id = q.Id,
+                    FiNumber = q.FiNumber,
+                    CSN = q.CSN,
+                    CSR = q.CSR,
+                    TSN = q.TSN,
+                    TSR = q.TSR,
+                    InstallDate = q.InstallDate,
+                    RemoveDate = q.RemoveDate,
+                    Sn = q.Sn,
+                    SnRegId = q.SnRegId,
+                    AircraftId = q.AircraftId,
+                }).ToList(),
+            }).ToList();
+
+            return apuSnRegs.Union(engineSnRegs).AsQueryable();
+        }
     }
 }

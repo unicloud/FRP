@@ -12,6 +12,9 @@ using UniCloud.Presentation.Service.Part.Part;
 
 namespace UniCloud.Presentation.Part.BaseConfigurations
 {
+    /// <summary>
+    /// 基础配置，包括维修工作单元、控制单位的维护
+    /// </summary>
     [Export(typeof (BaseConfigurationVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class BaseConfigurationVm : EditViewModelBase
