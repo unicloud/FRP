@@ -16,6 +16,7 @@
 #region 命名空间
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Infrastructure.Data;
 #endregion
@@ -45,11 +46,16 @@ namespace UniCloud.Application.PartBC.Query.SnRegQueries
                 Id = p.Id,
                 Pn = p.Pn,
                 Sn = p.Sn,
+                TSN = p.TSN,
+                TSR = p.TSR,
+                CSN = p.CSN,
+                CSR = p.CSR,
                 IsStop = p.IsStop,
                 InstallDate = p.InstallDate,
                 AircraftId = p.AircraftId,
                 PnRegId = p.PnRegId,
                 RegNumber = p.RegNumber,
+                Status = (int)p.Status,
                 LiftMonitors = p.LifeMonitors.Select(q => new LifeMonitorDTO
                 {
                     Id = q.Id,
