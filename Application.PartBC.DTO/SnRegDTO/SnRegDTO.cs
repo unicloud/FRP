@@ -119,6 +119,15 @@ namespace UniCloud.Application.PartBC.DTO
             get;
             set;
         }
+
+        /// <summary>
+        ///     序号件状态
+        /// </summary>
+        public int Status
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region 外键属性
@@ -142,7 +151,7 @@ namespace UniCloud.Application.PartBC.DTO
         }
 
         #endregion
-        
+
         #region 导航属性
 
         /// <summary>

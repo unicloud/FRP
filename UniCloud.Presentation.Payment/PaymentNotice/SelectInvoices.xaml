@@ -28,7 +28,9 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <telerik:RadDocking HasDocumentHost="False">
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+            HasDocumentHost="False">
             <telerik:RadSplitContainer>
                 <telerik:RadPaneGroup Name="PaneGroups"
                                       TabStripPlacement="Top">

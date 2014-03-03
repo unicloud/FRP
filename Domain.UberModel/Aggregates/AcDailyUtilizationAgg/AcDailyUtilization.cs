@@ -16,7 +16,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
 
 namespace UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg
 {
@@ -127,16 +126,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg
         /// <summary>
         ///     设置飞机
         /// </summary>
-        /// <param name="aircraft">飞机</param>
-        public void SetAircraft(Aircraft aircraft)
+        /// <param name="aircraftId">飞机</param>
+        /// <param name="regNumber">飞机注册号</param>
+        public void SetAircraft(Guid aircraftId, string regNumber)
         {
-            if (aircraft == null || aircraft.IsTransient())
-            {
-                throw new ArgumentException("飞机参数为空！");
-            }
-
-            AircraftId = aircraft.Id;
-            RegNumber = aircraft.RegNumber;
+            AircraftId = aircraftId;
+            RegNumber = regNumber;
         }
 
         #endregion

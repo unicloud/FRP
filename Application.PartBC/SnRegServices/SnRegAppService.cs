@@ -20,6 +20,7 @@ using System.Linq;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.SnRegQueries;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
@@ -39,8 +40,8 @@ namespace UniCloud.Application.PartBC.SnRegServices
         private readonly IAircraftRepository _aircraftRepository;
         private readonly IPnRegRepository _pnRegRepository;
         private readonly IMaintainWorkRepository _maintainWorkRepository;
-        public SnRegAppService(ISnRegQuery snRegQuery,ISnRegRepository snRegRepository,
-            IAircraftRepository aircraftRepository,IPnRegRepository pnRegRepository,
+        public SnRegAppService(ISnRegQuery snRegQuery, ISnRegRepository snRegRepository,
+            IAircraftRepository aircraftRepository, IPnRegRepository pnRegRepository,
             IMaintainWorkRepository maintainWorkRepository)
         {
             _snRegQuery = snRegQuery;
@@ -73,9 +74,10 @@ namespace UniCloud.Application.PartBC.SnRegServices
             var pnReg = _pnRegRepository.Get(dto.PnRegId);//获取附件
 
             //创建序号件
-            var newSnReg = SnRegFactory.CreateSnReg(dto.InstallDate,pnReg,dto.Sn,dto.TSN,dto.TSR,dto.CSN,dto.CSR);
+            var newSnReg = SnRegFactory.CreateSnReg(dto.InstallDate, pnReg, dto.Sn, dto.TSN, dto.TSR, dto.CSN, dto.CSR);
             newSnReg.SetAircraft(aircraft);
             newSnReg.SetIsStop(dto.IsStop);
+            newSnReg.SetSnStatus((SnStatus)dto.Status);
 
             //添加装机历史
             dto.SnHistories.ToList().ForEach(snHistory => InsertSnHistory(newSnReg, snHistory));
@@ -95,16 +97,18 @@ namespace UniCloud.Application.PartBC.SnRegServices
         {
             var aircraft = _aircraftRepository.Get(dto.AircraftId);//获取运营飞机
             var pnReg = _pnRegRepository.Get(dto.PnRegId);//获取附件
-            
+
             //获取需要更新的对象
             var updateSnReg = _snRegRepository.Get(dto.Id);
 
             if (updateSnReg != null)
             {
                 //更新主表：
+                SnRegFactory.UpdateSnReg(updateSnReg,dto.InstallDate, pnReg, dto.Sn, dto.TSN, dto.TSR, dto.CSN, dto.CSR);
                 updateSnReg.SetAircraft(aircraft);
                 updateSnReg.SetIsStop(dto.IsStop);
-                updateSnReg.SetPnReg(pnReg);
+                updateSnReg.SetSnStatus((SnStatus)dto.Status);
+
 
                 //更新装机历史集合：
                 var dtoSnHistories = dto.SnHistories;
@@ -209,7 +213,7 @@ namespace UniCloud.Application.PartBC.SnRegServices
             var maintainWork = _maintainWorkRepository.Get(lifeMonitorDto.MaintainWorkId);
 
             // 添加到寿监控
-            var newLifeMonitor = snReg.AddNewLifeMonitor(maintainWork,lifeMonitorDto.MointorStart,lifeMonitorDto.MointorEnd);
+            snReg.AddNewLifeMonitor(maintainWork, lifeMonitorDto.MointorStart, lifeMonitorDto.MointorEnd);
         }
 
         /// <summary>
@@ -221,6 +225,10 @@ namespace UniCloud.Application.PartBC.SnRegServices
         {
             //获取
             var maintainWork = _maintainWorkRepository.Get(lifeMonitorDto.MaintainWorkId);
+
+            lifeMonitor.SetMaintainWork(maintainWork);
+            lifeMonitor.SetMointorPeriod(lifeMonitorDto.MointorStart, lifeMonitorDto.MointorEnd);
+
         }
 
         #endregion

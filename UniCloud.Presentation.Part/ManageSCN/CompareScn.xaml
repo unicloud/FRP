@@ -35,7 +35,6 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
-                                <RowDefinition Height="30" />
                             </Grid.RowDefinitions>
                             <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                 Margin="0 0 0 -1"
@@ -75,42 +74,76 @@
                                                      RowIndicatorVisibility="Visible"
                                                      CanUserFreezeColumns="False"
                                                      FontSize="{StaticResource TextFontSize}"
+                                                     IsBusy="{Binding IsBusy}"
                                                      ValidatesOnDataErrors="InEditMode"
-                                                     ItemsSource="{Binding CompareMscns,Mode=TwoWay}">
+                                                     IsReadOnly="True"
+                                                     ItemsSource="{Binding CompareMscns,Mode=TwoWay}"
+                                                     FrozenColumnCount="4">
+                                    <telerik:RadGridView.ColumnGroups >
+                                        <telerik:GridViewColumnGroup  Name="ChuanAir"
+                                                                      Header="川航"  />
+                                        <telerik:GridViewColumnGroup  Name="AirBus"
+                                                                      Header="空客" />
+                                    </telerik:RadGridView.ColumnGroups>
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号"
                                                                  HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="编号"
+                                                                    ColumnGroupName="ChuanAir"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsFilterable="True"
                                                                     IsGroupable="True"
                                                                     DataMemberBinding="{Binding SysMscnNo}" />
                                         <telerik:GridViewDataColumn Header="标题"
+                                                                    ColumnGroupName="ChuanAir"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsFilterable="True"
                                                                     IsGroupable="True"
-                                                                    DataMemberBinding="{Binding SysTitle}" />
-                                        <telerik:GridViewDataColumn Header="MOD号"
+                                                                    DataMemberBinding="{Binding SysTitle}"
+                                                                    TextWrapping="Wrap"
+                                                                    MaxWidth="300">
+                                            <telerik:GridViewDataColumn.CellStyleSelector>
+                                                <telerik:ConditionalStyleSelector>
+                                                    <telerik:StyleRule Condition="SysTitle = 'N/A'">
+                                                        <Style TargetType="telerik:GridViewCell">
+                                                            <Setter Property="Foreground"
+                                                                    Value="Red" />
+                                                        </Style>
+                                                    </telerik:StyleRule>
+                                                    <telerik:StyleRule Condition="UnitPrice &lt;= 10">
+                                                        <Style TargetType="telerik:GridViewCell"/>
+                                                    </telerik:StyleRule>
+                                                </telerik:ConditionalStyleSelector>
+                                            </telerik:GridViewDataColumn.CellStyleSelector>
+                                        </telerik:GridViewDataColumn>
+                                            <telerik:GridViewDataColumn Header="MOD号"
+                                                                    ColumnGroupName="ChuanAir"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsFilterable="True"
                                                                     IsGroupable="True"
                                                                     DataMemberBinding="{Binding SysModNo}" />
                                         <telerik:GridViewDataColumn Header="编号"
+                                                                    ColumnGroupName="AirBus"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsFilterable="True"
                                                                     IsGroupable="True"
                                                                     DataMemberBinding="{Binding AirBusMscnNo}" />
                                         <telerik:GridViewDataColumn Header="标题"
+                                                                    ColumnGroupName="AirBus"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsFilterable="True"
                                                                     IsGroupable="True"
-                                                                    DataMemberBinding="{Binding AirBusTitle}" />
+                                                                    DataMemberBinding="{Binding AirBusTitle}"
+                                                                    TextWrapping="Wrap"
+                                                                    MaxWidth="300">
+                                        </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="MOD号"
+                                                                    ColumnGroupName="AirBus"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsFilterable="True"

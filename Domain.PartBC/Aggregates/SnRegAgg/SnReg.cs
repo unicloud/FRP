@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.MaintainWorkAgg;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
@@ -108,7 +109,11 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         ///     当前装机机号
         /// </summary>
         public string RegNumber { get; private set; }
-
+        
+        /// <summary>
+        ///     序号件状态
+        /// </summary>
+        public SnStatus Status { get; private set; }
         #endregion
 
         #region 外键属性
@@ -148,6 +153,28 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         #endregion
 
         #region 操作
+
+        /// <summary>
+        ///     设置序号件状态
+        /// </summary>
+        /// <param name="status">序号件状态</param>
+        public void SetSnStatus(SnStatus status)
+        {
+            switch (status)
+            {
+                case SnStatus.在库:
+                    Status = SnStatus.在库;
+                    break;
+                case SnStatus.在位:
+                    Status = SnStatus.在位;
+                    break;
+                case SnStatus.维修中:
+                    Status = SnStatus.维修中;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("status");
+            }
+        }
 
         /// <summary>
         ///     设置是否停用

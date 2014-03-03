@@ -13,7 +13,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201403031244217_Initial"; }
+            get { return "201403030838235_Initial"; }
         }
         
         string IMigrationMetadata.Source
