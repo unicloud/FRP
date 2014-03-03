@@ -272,6 +272,42 @@ namespace UniCloud.Domain.UberModel.Aggregates.FlightLogAgg
         }
 
         /// <summary>
+        /// 航前发动机3滑油添加量
+        /// </summary>
+        public decimal ENG3OilDep
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 航后发动机3滑油添加量
+        /// </summary>
+        public decimal ENG3OilArr
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 航前发动机4滑油添加量
+        /// </summary>
+        public decimal ENG4OilDep
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 航后发动机4滑油添加量
+        /// </summary>
+        public decimal ENG4OilArr
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 航前APU滑油添加量
         /// </summary>
         public decimal ApuOilDep
@@ -289,7 +325,23 @@ namespace UniCloud.Domain.UberModel.Aggregates.FlightLogAgg
             set;
         }
 
+        /// <summary>
+        /// 创建日期
+        /// </summary>
+        public DateTime CreateDate
+        {
+            get;
+            set;
+        }
 
+        /// <summary>
+        /// 最近一次更新日期
+        /// </summary>
+        public DateTime? UpdateDate
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region 外键属性

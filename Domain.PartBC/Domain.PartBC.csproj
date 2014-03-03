@@ -55,10 +55,10 @@
     <Compile Include="Aggregates\AirStructureDamageAgg\IAirStructureDamageRepository.cs" />
     <Compile Include="Aggregates\AirStructureDamageAgg\AirStructureDamageFactory.cs" />
     <Compile Include="Aggregates\AirStructureDamageAgg\AirStructureDamageSpecifications.cs" />
-    <Compile Include="Aggregates\OilUserAgg\APUOil.cs">
+    <Compile Include="Aggregates\SnRegAgg\APUReg.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Aggregates\OilUserAgg\EngineOil.cs">
+    <Compile Include="Aggregates\SnRegAgg\EngineReg.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Aggregates\OilMonitorAgg\IOilMonitorRepository.cs">
@@ -67,10 +67,6 @@
     <Compile Include="Aggregates\OilMonitorAgg\OilMonitor.cs" />
     <Compile Include="Aggregates\OilMonitorAgg\OilMonitorFactory.cs" />
     <Compile Include="Aggregates\OilMonitorAgg\OilMonitorSpecifications.cs" />
-    <Compile Include="Aggregates\OilUserAgg\IOilUserRepository.cs" />
-    <Compile Include="Aggregates\OilUserAgg\OilUser.cs" />
-    <Compile Include="Aggregates\OilUserAgg\OilUserFactory.cs" />
-    <Compile Include="Aggregates\OilUserAgg\OilUserSpecifications.cs" />
     <Compile Include="Aggregates\SpecialConfigAgg\AcConfig.cs" />
     <Compile Include="Aggregates\AcDailyUtilizationAgg\AcDailyUtilization.cs" />
     <Compile Include="Aggregates\AcDailyUtilizationAgg\AcDailyUtilizationFactory.cs" />
@@ -135,6 +131,10 @@
     <Compile Include="Aggregates\TechnicalSolutionAgg\TechnicalSolutionFactory.cs" />
     <Compile Include="Aggregates\TechnicalSolutionAgg\TechnicalSolutionSpecifications.cs" />
     <Compile Include="Aggregates\TechnicalSolutionAgg\TsLine.cs" />
+    <Compile Include="Aggregates\ThrustAgg\IThrustRepository.cs" />
+    <Compile Include="Aggregates\ThrustAgg\Thrust.cs" />
+    <Compile Include="Aggregates\ThrustAgg\ThrustFactory.cs" />
+    <Compile Include="Aggregates\ThrustAgg\ThrustSpecifications.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

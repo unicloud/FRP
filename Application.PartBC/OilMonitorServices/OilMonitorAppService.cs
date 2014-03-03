@@ -21,7 +21,7 @@ using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.OilMonitorQueries;
 using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
-using UniCloud.Domain.PartBC.Aggregates.OilUserAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 
 #endregion
 
@@ -43,13 +43,13 @@ namespace UniCloud.Application.PartBC.OilMonitorServices
 
         public IQueryable<EngineOilDTO> GetEngineOils()
         {
-            var query = new QueryBuilder<OilUser>().Where(o => o.NeedMonitor);
+            var query = new QueryBuilder<SnReg>();
             return _oilMonitorQuery.EngineOilDTOQuery(query);
         }
 
         public IQueryable<APUOilDTO> GetAPUOils()
         {
-            var query = new QueryBuilder<OilUser>().Where(o => o.NeedMonitor);
+            var query = new QueryBuilder<SnReg>();
             return _oilMonitorQuery.APUOilDTOQuery(query);
         }
 

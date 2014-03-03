@@ -159,12 +159,8 @@
     <Compile Include="Aggregates\MaterialAgg\EngineMaterial.cs" />
     <Compile Include="Aggregates\MaterialAgg\Material.cs" />
     <Compile Include="Aggregates\ModAgg\Mod.cs" />
-    <Compile Include="Aggregates\OilUserAgg\APUOil.cs" />
-    <Compile Include="Aggregates\OilUserAgg\EngineOil.cs" />
     <Compile Include="Aggregates\OilMonitorAgg\OilMonitor.cs" />
     <Compile Include="Aggregates\OilMonitorAgg\OilMonitorFactory.cs" />
-    <Compile Include="Aggregates\OilUserAgg\OilUser.cs" />
-    <Compile Include="Aggregates\OilUserAgg\OilUserFactory.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftLeaseOrder.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftLeaseOrderLine.cs" />
     <Compile Include="Aggregates\OrderAgg\AircraftPurchaseOrder.cs" />
@@ -218,6 +214,8 @@
     <Compile Include="Aggregates\ScnAgg\AirBusScn.cs" />
     <Compile Include="Aggregates\ScnAgg\ApplicableAircraft.cs" />
     <Compile Include="Aggregates\ScnAgg\Scn.cs" />
+    <Compile Include="Aggregates\SnRegAgg\APUReg.cs" />
+    <Compile Include="Aggregates\SnRegAgg\EngineReg.cs" />
     <Compile Include="Aggregates\SnRegAgg\LifeMonitor.cs" />
     <Compile Include="Aggregates\SnRegAgg\SnHistory.cs" />
     <Compile Include="Aggregates\SnRegAgg\SnReg.cs" />
@@ -245,6 +243,8 @@
     <Compile Include="Aggregates\TechnicalSolutionAgg\Dependency.cs" />
     <Compile Include="Aggregates\TechnicalSolutionAgg\TechnicalSolution.cs" />
     <Compile Include="Aggregates\TechnicalSolutionAgg\TsLine.cs" />
+    <Compile Include="Aggregates\ThrustAgg\Thrust.cs" />
+    <Compile Include="Aggregates\ThrustAgg\ThrustFactory.cs" />
     <Compile Include="Aggregates\TradeAgg\Trade.cs" />
     <Compile Include="Aggregates\TradeAgg\TradeFactory.cs" />
     <Compile Include="Aggregates\UserAgg\User.cs" />

@@ -29,81 +29,66 @@ namespace UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg
         #region 构造函数
 
         /// <summary>
-        /// 内部构造函数
-        /// 限制只能从内部创建新实例
+        ///     内部构造函数
+        ///     限制只能从内部创建新实例
         /// </summary>
         internal AcDailyUtilization()
         {
         }
+
         #endregion
 
         #region 属性
 
         /// <summary>
-        /// 飞机注册号
+        ///     飞机注册号
         /// </summary>
-        public string RegNumber
-        {
-            get;
-            private set;
-        }
+        public string RegNumber { get; private set; }
 
         /// <summary>
-        /// 计算日利用率
+        ///     计算日利用小时
         /// </summary>
-        public decimal CalculatedValue
-        {
-            get;
-            private set;
-        }
+        public decimal CalculatedHour { get; internal set; }
 
         /// <summary>
-        /// 修正日利用率
+        ///     计算日利用循环
         /// </summary>
-        public decimal AmendValue
-        {
-            get;
-            private set;
-        }
+        public decimal CalculatedCycle { get; internal set; }
 
         /// <summary>
-        /// 年度
+        ///     修正日利用小时
         /// </summary>
-        public int Year
-        {
-            get;
-            private set;
-        }
+        public decimal AmendHour { get; private set; }
 
         /// <summary>
-        /// 月份
+        ///     修正日利用循环
         /// </summary>
-        public int Month
-        {
-            get;
-            private set;
-        }
+        public decimal AmendCycle { get; private set; }
 
         /// <summary>
-        /// 是否当前
+        ///     年度
         /// </summary>
-        public bool IsCurrent
-        {
-            get;
-            private set;
-        }
+        public int Year { get; internal set; }
+
+        /// <summary>
+        ///     月份
+        /// </summary>
+        public int Month { get; internal set; }
+
+        /// <summary>
+        ///     是否当前
+        /// </summary>
+        public bool IsCurrent { get; private set; }
+
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        /// 飞机ID
+        ///     飞机ID
         /// </summary>
-        public Guid AircraftId
-        {
-            get;
-            private set;
-        }
+        public Guid AircraftId { get; private set; }
+
         #endregion
 
         #region 导航属性
@@ -113,53 +98,21 @@ namespace UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg
         #region 操作
 
         /// <summary>
-        ///     设置飞机注册号
+        ///     设置修正日利用小时
         /// </summary>
-        /// <param name="regNumber">飞机注册号</param>
-        public void SetRegNumber(string regNumber)
+        /// <param name="amendHour">修正日利用小时</param>
+        public void SetAmendHour(decimal amendHour)
         {
-            if (string.IsNullOrWhiteSpace(regNumber))
-            {
-                throw new ArgumentException("飞机注册号参数为空！");
-            }
-
-            RegNumber = regNumber;
+            AmendHour = amendHour;
         }
 
         /// <summary>
-        ///     设置计算日利用率
+        ///     设置修正日利用循环
         /// </summary>
-        /// <param name="calculatedValue">计算日利用率</param>
-        public void SetCalculatedValue(decimal calculatedValue)
+        /// <param name="amendCycle">修正日利用循环</param>
+        public void SetAmendCycle(decimal amendCycle)
         {
-            CalculatedValue = calculatedValue;
-        }
-
-        /// <summary>
-        ///     设置修正日利用率
-        /// </summary>
-        /// <param name="amendValue">修正日利用率</param>
-        public void SetAmendValue(decimal amendValue)
-        {
-            AmendValue = amendValue;
-        }
-
-        /// <summary>
-        ///     设置年度
-        /// </summary>
-        /// <param name="year">年度</param>
-        public void SetYear(int year)
-        {
-            Year = year;
-        }
-
-        /// <summary>
-        ///     设置月份
-        /// </summary>
-        /// <param name="month">月份</param>
-        public void SetMonth(int month)
-        {
-            Month = month;
+            AmendCycle = amendCycle;
         }
 
         /// <summary>
@@ -183,7 +136,9 @@ namespace UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg
             }
 
             AircraftId = aircraft.Id;
+            RegNumber = aircraft.RegNumber;
         }
+
         #endregion
 
         #region IValidatableObject 成员

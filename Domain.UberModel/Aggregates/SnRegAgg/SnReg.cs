@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,26 +12,32 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
+
+#region 命名空间
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
+using UniCloud.Domain.UberModel.Aggregates.MaintainWorkAgg;
 using UniCloud.Domain.UberModel.Aggregates.PnRegAgg;
+
+#endregion
 
 namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
 {
     /// <summary>
-    /// SnReg聚合根。
+    ///     SnReg聚合根。
     /// </summary>
     public class SnReg : EntityInt, IValidatableObject
     {
         #region 私有字段
 
+        private HashSet<LifeMonitor> _lifeMonitors;
         private HashSet<SnHistory> _snHistories;
 
-        private HashSet<LifeMonitor> _lifeMonitors;
         #endregion
 
         #region 构造函数
@@ -46,70 +53,82 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
         #endregion
 
         #region 属性
-        /// <summary>
-        /// 序号
-        /// </summary>
-        public string Sn
-        {
-            get;
-            private set;
-        }
 
         /// <summary>
-        /// 初始安装日期
+        ///     序号
         /// </summary>
-        public DateTime InstallDate
-        {
-            get;
-            private set;
-        }
+        public string Sn { get; internal set; }
 
         /// <summary>
-        /// 件号
+        ///     TSN，自装机以来使用小时数
         /// </summary>
-        public string Pn
-        {
-            get;
-            private set;
-        }
+        public decimal TSN { get; internal set; }
 
         /// <summary>
-        /// 是否停用
+        ///     TSR，自上一次修理以来使用小时数
         /// </summary>
-        public bool IsStop
-        {
-            get;
-            private set;
-        }
+        public decimal TSR { get; internal set; }
+
+        /// <summary>
+        ///     CSN，自装机以来使用循环
+        /// </summary>
+        public decimal CSN { get; internal set; }
+
+        /// <summary>
+        ///     CSR，自上一次修理以来使用循环
+        /// </summary>
+        public decimal CSR { get; internal set; }
+
+        /// <summary>
+        ///     初始安装日期
+        /// </summary>
+        public DateTime InstallDate { get; internal set; }
+
+        /// <summary>
+        ///     件号
+        /// </summary>
+        public string Pn { get; private set; }
+
+        /// <summary>
+        ///     是否停用
+        /// </summary>
+        public bool IsStop { get; private set; }
+
+        /// <summary>
+        ///     创建日期
+        /// </summary>
+        public DateTime CreateDate { get; internal set; }
+
+        /// <summary>
+        ///     最近一次更新日期
+        /// </summary>
+        public DateTime UpdateDate { get; internal set; }
+
+        /// <summary>
+        ///     当前装机机号
+        /// </summary>
+        public string RegNumber { get; private set; }
 
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        /// 附件Id
+        ///     附件Id
         /// </summary>
-        public int PnRegId
-        {
-            get;
-            private set;
-        }
+        public int PnRegId { get; private set; }
 
         /// <summary>
-        /// 当前飞机Id
+        ///     当前飞机Id
         /// </summary>
-        public Guid AircraftId
-        {
-            get;
-            private set;
-        }
+        public Guid? AircraftId { get; private set; }
 
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        /// 到寿监控集合
+        ///     到寿监控集合
         /// </summary>
         public virtual ICollection<LifeMonitor> LifeMonitors
         {
@@ -118,39 +137,17 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
         }
 
         /// <summary>
-        /// 装机历史
+        ///     装机历史
         /// </summary>
         public virtual ICollection<SnHistory> SnHistories
         {
             get { return _snHistories ?? (_snHistories = new HashSet<SnHistory>()); }
             set { _snHistories = new HashSet<SnHistory>(value); }
         }
+
         #endregion
 
         #region 操作
-
-        /// <summary>
-        ///     设置序号
-        /// </summary>
-        /// <param name="sn">序号</param>
-        public void SetSn(string sn)
-        {
-            if (string.IsNullOrWhiteSpace(sn))
-            {
-                throw new ArgumentException("序号参数为空！");
-            }
-
-            Sn = sn;
-        }
-
-        /// <summary>
-        ///     设置初始安装日期
-        /// </summary>
-        /// <param name="date">初始安装日期</param>
-        public void SetInstallDate(DateTime date)
-        {
-            InstallDate = date;
-        }
 
         /// <summary>
         ///     设置是否停用
@@ -184,31 +181,36 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
         {
             if (aircraft == null || aircraft.IsTransient())
             {
-                throw new ArgumentException("当前飞机参数为空！");
+                throw new ArgumentException("飞机参数为空！");
             }
 
             AircraftId = aircraft.Id;
+            RegNumber = aircraft.RegNumber;
         }
 
         /// <summary>
-        /// 新增到寿监控
+        ///     新增到寿监控
         /// </summary>
-        /// <returns></returns>
-        public LifeMonitor AddNewLifeMonitor()
+        /// <param name="maintainWork">维修工作</param>
+        /// <param name="start">到寿日期开始</param>
+        /// <param name="end">到寿日期结束</param>
+        /// <returns>到寿监控</returns>
+        public LifeMonitor AddNewLifeMonitor(MaintainWork maintainWork, DateTime start, DateTime end)
         {
             var lifeMonitor = new LifeMonitor
             {
                 SnRegId = Id,
             };
-
             lifeMonitor.GenerateNewIdentity();
+            lifeMonitor.SetMaintainWork(maintainWork);
+            lifeMonitor.SetMointorPeriod(start, end);
             LifeMonitors.Add(lifeMonitor);
 
             return lifeMonitor;
         }
 
         /// <summary>
-        /// 新增装机历史
+        ///     新增装机历史
         /// </summary>
         /// <returns></returns>
         public SnHistory AddNewSnHistory()
@@ -218,12 +220,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.SnRegAgg
                 SnRegId = Id,
                 Sn = Sn,
             };
-
             snHistory.GenerateNewIdentity();
             SnHistories.Add(snHistory);
 
             return snHistory;
         }
+
         #endregion
 
         #region IValidatableObject 成员

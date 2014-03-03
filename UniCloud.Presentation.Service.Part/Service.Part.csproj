@@ -101,6 +101,8 @@
     <Compile Include="Part\Enums\AircraftDamageLevel.cs" />
     <Compile Include="Part\Enums\AirStructureDamageStatus.cs" />
     <Compile Include="Part\Enums\AirStructureReportType.cs" />
+    <Compile Include="Part\Enums\OilMonitorPeriod.cs" />
+    <Compile Include="Part\Enums\OilMonitorStatus.cs" />
     <Compile Include="Part\Enums\ScnApplicableType.cs" />
     <Compile Include="Part\Enums\ScnStatus.cs" />
     <Compile Include="Part\Enums\ScnType.cs" />

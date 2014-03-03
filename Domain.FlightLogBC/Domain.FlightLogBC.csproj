@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Aggregates\FlightLogAgg\FlightLog.cs" />
+    <Compile Include="Aggregates\FlightLogAgg\FlightLogFactory.cs" />
     <Compile Include="Aggregates\FlightLogAgg\IFlightLogRepository.cs" />
     <Compile Include="Aggregates\FlightLogAgg\FlightLogSpecifications.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

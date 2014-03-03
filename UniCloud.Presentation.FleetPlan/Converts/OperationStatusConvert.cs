@@ -33,7 +33,7 @@ namespace UniCloud.Presentation.FleetPlan.Converts
         {
             if (value == null)
                 throw new Exception("值不能为空");
-            return EnumUtility.GetName(typeof (OperationStatus), (OperationStatus) value);
+            return Enum.GetName(typeof (OperationStatus), (OperationStatus) value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -7,8 +7,10 @@
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
         <Property Name="RegNumber" Type="Edm.String" />
-        <Property Name="CalculatedValue" Type="Edm.Decimal" Nullable="false" />
-        <Property Name="AmendValue" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CalculatedHour" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CalculatedCycle" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="AmendHour" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="AmendCycle" Type="Edm.Decimal" Nullable="false" />
         <Property Name="Year" Type="Edm.Int32" Nullable="false" />
         <Property Name="Month" Type="Edm.Int32" Nullable="false" />
         <Property Name="IsCurrent" Type="Edm.Boolean" Nullable="false" />
@@ -242,8 +244,13 @@
         <Property Name="InstallDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Pn" Type="Edm.String" />
         <Property Name="IsStop" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="RegNumber" Type="Edm.String" />
+        <Property Name="TSN" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="TSR" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CSN" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CSR" Type="Edm.Decimal" Nullable="false" />
         <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftId" Type="Edm.Guid" />
         <Property Name="SnHistories" Type="Collection(UniCloud.Application.PartBC.DTO.SnHistoryDTO)" Nullable="false" />
         <Property Name="LiftMonitors" Type="Collection(UniCloud.Application.PartBC.DTO.LifeMonitorDTO)" Nullable="false" />
       </EntityType>
@@ -265,7 +272,7 @@
         <Property Name="WorkCode" Type="Edm.String" />
         <Property Name="Sn" Type="Edm.String" />
         <Property Name="MointorStart" Type="Edm.DateTime" Nullable="false" />
-        <Property Name="LifeTimeLimit" Type="Edm.String" />
+        <Property Name="MointorEnd" Type="Edm.DateTime" Nullable="false" />
         <Property Name="MaintainWorkId" Type="Edm.Int32" Nullable="false" />
         <Property Name="SnRegId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>

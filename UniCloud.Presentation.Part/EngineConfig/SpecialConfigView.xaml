@@ -119,7 +119,7 @@
                                 <TextBlock Grid.Column="0"
                                            VerticalAlignment="Center"
                                            Text="基本构型组"
-                                           FontSize="15"/>
+                                           FontSize="{StaticResource TextFontSize}" />
                                 <telerik:RadComboBox ItemsSource="{Binding BasicConfigGroups}"
                                                      DisplayMemberPath="GroupNo"
                                                      SelectedValuePath="Id"

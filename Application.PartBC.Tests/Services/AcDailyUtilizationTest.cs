@@ -45,14 +45,14 @@ namespace UniCloud.Application.PartBC.Tests.Services
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, PartBCUnitOfWork>(new WcfPerRequestLifetimeManager())
 
-                #region 附件相关配置，包括查询，应用服务，仓储注册
+            #region 附件相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IAcDailyUtilizationQuery, AcDailyUtilizationQuery>()
+.RegisterType<IAcDailyUtilizationQuery, AcDailyUtilizationQuery>()
                 .RegisterType<IAcDailyUtilizationAppService, AcDailyUtilizationAppService>()
                 .RegisterType<IAcDailyUtilizationRepository, AcDailyUtilizationRepository>()
-                #endregion
+            #endregion
 
-                .RegisterType<IAircraftRepository, AircraftRepository>()
+.RegisterType<IAircraftRepository, AircraftRepository>()
                 ;
         }
 
@@ -86,7 +86,7 @@ namespace UniCloud.Application.PartBC.Tests.Services
 
             const string pn = "EN33423423";
             AcDailyUtilization newAcDailyUtilization = AcDailyUtilizationFactory.CreateAcDailyUtilization(aircraft,
-                (decimal) 9.02, (decimal) 9.3, true, 9, "B-2313", 2013);
+                (decimal)9.02, (decimal)9.3, 2013, 9);
             context.Add(newAcDailyUtilization);
             context.UnitOfWork.Commit();
         }

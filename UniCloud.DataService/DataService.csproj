@@ -33,6 +33,14 @@
     <Reference Include="AutoMapper">
       <HintPath>..\packages\AutoMapper.2.1.265\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="IBM.Data.DB2.iSeries, Version=12.0.0.0, Culture=neutral, PublicKeyToken=9cdb2ebfb1f93a26, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\IBM.Data.DB2.iSeries\IBM.Data.DB2.iSeries.dll</HintPath>
@@ -71,14 +79,46 @@
       <Project>{c4ec503e-850e-47f9-b691-1b3617f125ee}</Project>
       <Name>Application.PartBC.DTO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Domain.AircraftConfigBC\Domain.AircraftConfigBC.csproj">
+      <Project>{4D4558F2-9855-4962-8CDC-52BDB85182D4}</Project>
+      <Name>Domain.AircraftConfigBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.FleetPlanBC\Domain.FleetPlanBC.csproj">
+      <Project>{EAE70E2D-1C23-45C9-A9A9-695DFF09B7AB}</Project>
+      <Name>Domain.FleetPlanBC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain.FlightLogBC\Domain.FlightLogBC.csproj">
       <Project>{2e3ca0c8-057a-4817-87ed-28a63aff50d2}</Project>
       <Name>Domain.FlightLogBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.PartBC\Domain.PartBC.csproj">
+      <Project>{C8C80CBF-F4C4-4C7A-A19C-52FB09AEC87D}</Project>
+      <Name>Domain.PartBC</Name>
     </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{46A5B5A0-4B2C-411F-A74B-C26A81619CD9}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.AircraftConfigBC\Infrastructure.Data.AircraftConfigBC.csproj">
+      <Project>{7C23A380-593E-4155-B138-B094E1A02711}</Project>
+      <Name>Infrastructure.Data.AircraftConfigBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.FlightLogBC\Infrastructure.Data.FlightLogBC.csproj">
+      <Project>{728B5133-A465-47AF-99E6-E3A9F4B908FF}</Project>
+      <Name>Infrastructure.Data.FlightLogBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.PartBC\Infrastructure.Data.PartBC.csproj">
+      <Project>{86B54E11-E21E-4800-AC61-100EF0AB1EFA}</Project>
+      <Name>Infrastructure.Data.PartBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{CAD91A38-6B90-4A18-83CA-0215CE512F4D}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,7 +4,7 @@
 // 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2014/02/27，16:06
+// 作者：丁志浩 时间：2014/02/22，21:12
 // 方案：FRP
 // 项目：Infrastructure.Data.PartBC
 // 版本：V1.0.0
@@ -19,33 +19,30 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.PartBC.Aggregates.OilUserAgg;
+using UniCloud.Domain.UberModel.Aggregates.SnRegAgg;
 
 #endregion
 
-namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
+namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 {
     /// <summary>
-    ///     OilUser实体相关配置
+    ///     EngineReg实体相关配置
     /// </summary>
-    internal class OilUserEntityConfiguration : EntityTypeConfiguration<OilUser>
+    internal class EngineRegEntityConfiguration : EntityTypeConfiguration<EngineReg>
     {
-        public OilUserEntityConfiguration()
+        public EngineRegEntityConfiguration()
         {
-            ToTable("OilUser", DbConfig.Schema);
+            ToTable("EngineReg", DbConfig.Schema);
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            Property(p => p.Sn).HasColumnName("Sn");
-            Property(p => p.TSN).HasColumnName("TSN");
-            Property(p => p.TSR).HasColumnName("TSR");
-            Property(p => p.CSN).HasColumnName("CSN");
-            Property(p => p.CSR).HasColumnName("CSR");
             Property(p => p.NeedMonitor).HasColumnName("NeedMonitor");
             Property(p => p.MonitorStatus).HasColumnName("MonitorStatus");
 
-            Property(p => p.SnRegID).HasColumnName("SnRegID");
+            Property(p => p.ThrustId).HasColumnName("ThrustId");
+
+            HasRequired(e => e.Thrust).WithMany().HasForeignKey(e => e.ThrustId);
         }
     }
 }

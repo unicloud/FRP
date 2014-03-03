@@ -4,9 +4,9 @@
 // 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2014/02/28，9:12
+// 作者：丁志浩 时间：2014/02/27，14:14
 // 方案：FRP
-// 项目：Domain.PartBC
+// 项目：Domain.Common
 // 版本：V1.0.0
 // 
 // 修改者： 时间： 
@@ -15,13 +15,15 @@
 
 #endregion
 
-namespace UniCloud.Domain.PartBC.Aggregates.OilUserAgg
+namespace UniCloud.Presentation.Service.Part.Part.Enums
 {
     /// <summary>
-    ///     滑油用户仓储接口
-    ///     <see cref="UniCloud.Domain.IRepository{OilUser}" />
+    ///     滑油监控状态
     /// </summary>
-    public interface IOilUserRepository : IRepository<OilUser>
+    public enum OilMonitorStatus
     {
+        正常 = 0,
+        关注 = 1,
+        警告 = 2
     }
 }

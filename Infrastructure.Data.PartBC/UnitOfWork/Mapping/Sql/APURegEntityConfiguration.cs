@@ -19,23 +19,26 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.PartBC.Aggregates.OilUserAgg;
+using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
 {
     /// <summary>
-    ///     APUOil实体相关配置
+    ///     APUReg实体相关配置
     /// </summary>
-    internal class APUOilEntityConfiguration : EntityTypeConfiguration<APUOil>
+    internal class APURegEntityConfiguration : EntityTypeConfiguration<APUReg>
     {
-        public APUOilEntityConfiguration()
+        public APURegEntityConfiguration()
         {
-            ToTable("APUOil", DbConfig.Schema);
+            ToTable("APUReg", DbConfig.Schema);
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+            Property(p => p.NeedMonitor).HasColumnName("NeedMonitor");
+            Property(p => p.MonitorStatus).HasColumnName("MonitorStatus");
         }
     }
 }

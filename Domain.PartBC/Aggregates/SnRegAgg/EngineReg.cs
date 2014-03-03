@@ -4,7 +4,7 @@
 // 版权所有 (C) 2014 UniCloud 
 // 【本类功能概述】
 // 
-// 作者：丁志浩 时间：2014/02/27，13:55
+// 作者：丁志浩 时间：2014/02/22，18:25
 // 方案：FRP
 // 项目：Domain.PartBC
 // 版本：V1.0.0
@@ -18,20 +18,18 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.Common.Enums;
-using UniCloud.Domain.UberModel.Aggregates.SnRegAgg;
+using UniCloud.Domain.PartBC.Aggregates.ThrustAgg;
 
 #endregion
 
-namespace UniCloud.Domain.UberModel.Aggregates.OilUserAgg
+namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
 {
     /// <summary>
-    ///     滑油监控聚合根
-    ///     滑油用户
+    ///     滑油用户聚合根
+    ///     发动机滑油
     /// </summary>
-    public abstract class OilUser : EntityInt, IValidatableObject
+    public class EngineReg : SnReg
     {
         #region 构造函数
 
@@ -39,38 +37,13 @@ namespace UniCloud.Domain.UberModel.Aggregates.OilUserAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal OilUser()
+        internal EngineReg()
         {
         }
 
         #endregion
 
         #region 属性
-
-        /// <summary>
-        ///     序列号
-        /// </summary>
-        public string Sn { get; internal set; }
-
-        /// <summary>
-        ///     TSN，自装机以来使用小时数
-        /// </summary>
-        public decimal TSN { get; internal set; }
-
-        /// <summary>
-        ///     TSR，自上一次修理以来使用小时数
-        /// </summary>
-        public decimal TSR { get; internal set; }
-
-        /// <summary>
-        ///     CSN，自装机以来使用循环
-        /// </summary>
-        public decimal CSN { get; internal set; }
-
-        /// <summary>
-        ///     CSR，自上一次修理以来使用循环
-        /// </summary>
-        public decimal CSR { get; internal set; }
 
         /// <summary>
         ///     是否需要监控
@@ -87,33 +60,42 @@ namespace UniCloud.Domain.UberModel.Aggregates.OilUserAgg
         #region 外键属性
 
         /// <summary>
-        ///     序号件ID
+        ///     发动机推力ID
         /// </summary>
-        public int SnRegID { get; private set; }
+        public int ThrustId { get; private set; }
 
         #endregion
 
         #region 导航属性
+
+        /// <summary>
+        ///     发动机推力
+        /// </summary>
+        public Thrust Thrust { get; private set; }
 
         #endregion
 
         #region 操作
 
         /// <summary>
-        ///     设置序号件
+        ///     设置发动机推力
         /// </summary>
-        /// <param name="snReg">序号件</param>
-        public void SetSnReg(SnReg snReg)
+        /// <param name="thrust">发动机推力</param>
+        public void SetThrust(Thrust thrust)
         {
-            if (snReg == null || snReg.IsTransient())
+            if (thrust == null || thrust.IsTransient())
             {
-                throw new ArgumentException("序号件参数为空！");
+                throw new ArgumentException("发动机推力参数为空！");
             }
 
-            Sn = snReg.Sn;
-            SnRegID = snReg.Id;
+            Thrust = thrust;
+            ThrustId = thrust.Id;
         }
 
+        /// <summary>
+        ///     设置滑油监控状态
+        /// </summary>
+        /// <param name="status">滑油监控状态</param>
         public void SetMonitorStatus(OilMonitorStatus status)
         {
             switch (status)
@@ -130,21 +112,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.OilUserAgg
                 default:
                     throw new ArgumentOutOfRangeException("status");
             }
-        }
-
-        #endregion
-
-        #region IValidatableObject 成员
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            var validationResults = new List<ValidationResult>();
-
-            #region 验证逻辑
-
-            #endregion
-
-            return validationResults;
         }
 
         #endregion
