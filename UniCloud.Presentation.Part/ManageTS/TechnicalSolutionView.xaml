@@ -33,7 +33,9 @@
     </UserControl.Resources>
 
     <Grid>
-        <telerik:RadDocking HasDocumentHost="False"
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False"
                             FlowDirection="LeftToRight">
             <telerik:RadSplitContainer>
                 <telerik:RadSplitContainer Orientation="Horizontal">

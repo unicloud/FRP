@@ -33,7 +33,9 @@
     </UserControl.Resources>
 
     <Grid>
-        <telerik:RadDocking HasDocumentHost="False"
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False"
                             telerik:ProportionalStackPanel.RelativeSize="500,600"
                             FlowDirection="LeftToRight">
             <telerik:RadSplitContainer Orientation="Horizontal">
@@ -122,7 +124,7 @@
                                            FontSize="{StaticResource TextFontSize}" />
                                 <telerik:RadComboBox ItemsSource="{Binding BasicConfigGroups}"
                                                      DisplayMemberPath="GroupNo"
-                                                     SelectedValuePath="Id"
+                                                     SelectedItem="{Binding SelBasicConfigGroup,Mode=TwoWay}"
                                                      Text=""
                                                      Grid.Column="1"
                                                      Margin="20"
@@ -131,10 +133,10 @@
                                                      IsReadOnly="True"
                                                      SelectedIndex="0"
                                                      VerticalAlignment="Center" />
-                                <Button Grid.Column="2"
+                                <telerik:RadButton Grid.Column="2"
                                         Content="查看基本构型"
                                         Margin="0,13"
-                                        Visibility="{Binding ButtonVisible}"/>
+                                        Visibility="{Binding ButtonVisible,Mode=TwoWay}"/>
                             </Grid>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
