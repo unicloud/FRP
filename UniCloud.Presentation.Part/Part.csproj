@@ -188,6 +188,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseConfigurations\BaseConfiguration.xaml.cs">
+      <DependentUpon>BaseConfiguration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BaseConfigurations\BaseConfigurationVm.cs" />
     <Compile Include="EngineConfig\BasicConfigGroupView.xaml.cs">
       <DependentUpon>BasicConfigGroupView.xaml</DependentUpon>
     </Compile>
@@ -267,6 +271,10 @@
     <Folder Include="MaintainControl\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="BaseConfigurations\BaseConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="EngineConfig\BasicConfigGroupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
