@@ -59,10 +59,10 @@ namespace UniCloud.Infrastructure.Data.FlightLogBC.UnitOfWork.Mapping.Sql
             Property(p => p.ENG1OilArr).HasColumnName("ENG1OilArr");
             Property(p => p.ENG2OilDep).HasColumnName("ENG2OilDep");
             Property(p => p.ENG2OilArr).HasColumnName("ENG2OilArr");
-            Property(p => p.ENG1OilDep).HasColumnName("ENG3OilDep");
-            Property(p => p.ENG1OilArr).HasColumnName("ENG3OilArr");
-            Property(p => p.ENG2OilDep).HasColumnName("ENG4OilDep");
-            Property(p => p.ENG2OilArr).HasColumnName("ENG4OilArr");
+            Property(p => p.ENG3OilDep).HasColumnName("ENG3OilDep");
+            Property(p => p.ENG3OilArr).HasColumnName("ENG3OilArr");
+            Property(p => p.ENG4OilDep).HasColumnName("ENG4OilDep");
+            Property(p => p.ENG4OilArr).HasColumnName("ENG4OilArr");
             Property(p => p.ApuOilDep).HasColumnName("ApuOilDep");
             Property(p => p.ApuOilArr).HasColumnName("ApuOilArr");
             Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
