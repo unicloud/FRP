@@ -249,6 +249,7 @@
         <Property Name="TSR" Type="Edm.Decimal" Nullable="false" />
         <Property Name="CSN" Type="Edm.Decimal" Nullable="false" />
         <Property Name="CSR" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
         <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
         <Property Name="AircraftId" Type="Edm.Guid" />
         <Property Name="SnHistories" Type="Collection(UniCloud.Application.PartBC.DTO.SnHistoryDTO)" Nullable="false" />

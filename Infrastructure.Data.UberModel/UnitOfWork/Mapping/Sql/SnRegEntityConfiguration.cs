@@ -43,6 +43,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
             Property(p => p.UpdateDate).HasColumnName("UpdateDate").HasColumnType("datetime2");
             Property(p => p.RegNumber).HasColumnName("RegNumber").HasMaxLength(100);
+            Property(p => p.Status).HasColumnName("Status");
 
             Property(p => p.PnRegId).HasColumnName("PnRegId");
             Property(p => p.AircraftId).HasColumnName("AircraftId");

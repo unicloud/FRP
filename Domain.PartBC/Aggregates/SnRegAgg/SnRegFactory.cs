@@ -153,6 +153,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         /// <summary>
         ///     更新序号件
         /// </summary>
+        /// <param name="updateSnReg">需要更新的序号件</param>
         /// <param name="installDate">初始安装日期</param>
         /// <param name="pnReg">附件</param>
         /// <param name="sn">序号</param>
@@ -162,6 +163,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
         /// <param name="csr">CSR</param>
         /// <returns>序号件</returns>
         public static SnReg UpdateSnReg(
+            SnReg updateSnReg,
             DateTime installDate,
             PnReg pnReg,
             string sn,
@@ -170,20 +172,17 @@ namespace UniCloud.Domain.PartBC.Aggregates.SnRegAgg
             decimal csn,
             decimal csr)
         {
-            var snReg = new SnReg
-            {
-                InstallDate = installDate,
-                Sn = sn,
-                TSN = tsn,
-                TSR = tsr,
-                CSN = csn,
-                CSR = csr
-            };
-            snReg.GenerateNewIdentity();
-            snReg.SetPnReg(pnReg);
-            snReg.UpdateDate = DateTime.Now;
+            updateSnReg.InstallDate = installDate;
+            updateSnReg.Sn = sn;
+            updateSnReg.TSN = tsn;
+            updateSnReg.TSR = tsr;
+            updateSnReg.CSN = csn;
+            updateSnReg.CSR = csr;
 
-            return snReg;
+            updateSnReg.SetPnReg(pnReg);
+            updateSnReg.UpdateDate = DateTime.Now;
+
+            return updateSnReg;
         }
 
         /// <summary>
