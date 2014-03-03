@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,6 +12,7 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 using System;
@@ -21,17 +23,11 @@ using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
 namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg
 {
     /// <summary>
-    /// BasicConfigGroup聚合根。
-    /// 基本构型组
+    ///     BasicConfigGroup聚合根。
+    ///     基本构型组
     /// </summary>
     public class BasicConfigGroup : EntityInt, IValidatableObject
     {
-        #region 私有字段
-
-        private HashSet<BasicConfig> _basicConfigs;
-
-        #endregion
-
         #region 构造函数
 
         /// <summary>
@@ -47,63 +43,42 @@ namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg
         #region 属性
 
         /// <summary>
-        /// 启用日期
+        ///     启用日期
         /// </summary>
-        public DateTime StartDate
-        {
-            get;
-            private set;
-        }
+        public DateTime StartDate { get; private set; }
 
         /// <summary>
-        /// 描述
+        ///     描述
         /// </summary>
-        public string Description
-        {
-            get;
-            private set;
-        }
+        public string Description { get; private set; }
 
         /// <summary>
-        /// 基本构型组号
+        ///     基本构型组号
         /// </summary>
-        public string GroupNo
-        {
-            get;
-            private set;
-        }
+        public string GroupNo { get; private set; }
+
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        /// 机型外键
+        ///     机型外键
         /// </summary>
-        public Guid AircraftTypeId
-        {
-            get;
-            private set;
-        }
+        public Guid AircraftTypeId { get; private set; }
+
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        /// 机型
+        ///     机型
         /// </summary>
         public AircraftType AircraftType { get; set; }
 
-        /// <summary>
-        /// 基本构型集合
-        /// </summary>
-        public virtual ICollection<BasicConfig> BasicConfigs
-        {
-            get { return _basicConfigs ?? (_basicConfigs = new HashSet<BasicConfig>()); }
-            set { _basicConfigs = new HashSet<BasicConfig>(value); }
-        }
         #endregion
 
         #region 操作
+
         /// <summary>
         ///     设置启用日期
         /// </summary>
@@ -151,22 +126,6 @@ namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg
             AircraftTypeId = aircraftType.Id;
         }
 
-        /// <summary>
-        /// 新增基本构型
-        /// </summary>
-        /// <returns></returns>
-        public BasicConfig AddNewBasicConfig()
-        {
-            var basicConfig = new BasicConfig
-            {
-                BasicConfigGroupId = Id,
-            };
-
-            basicConfig.GenerateNewIdentity();
-            BasicConfigs.Add(basicConfig);
-
-            return basicConfig;
-        }
         #endregion
 
         #region IValidatableObject 成员

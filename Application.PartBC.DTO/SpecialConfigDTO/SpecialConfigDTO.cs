@@ -144,6 +144,15 @@ namespace UniCloud.Application.PartBC.DTO
             get;
             set;
         }
+
+        /// <summary>
+        /// 根节点ID
+        /// </summary>
+        public int RootId
+        {
+            get;
+            set;
+        }
         #endregion
 
     }

@@ -40,6 +40,8 @@ namespace UniCloud.Application.PartBC.Query.BasicConfigGroupQueries
         ///  <returns>BasicConfigGroupDTO集合</returns>
         public IQueryable<BasicConfigGroupDTO> BasicConfigGroupDTOQuery(QueryBuilder<BasicConfigGroup> query)
         {
+            var basicConfigs = _unitOfWork.CreateSet<BasicConfigDTO>();
+
             return query.ApplyTo(_unitOfWork.CreateSet<BasicConfigGroup>()).Select(p => new BasicConfigGroupDTO
             {
                 Id = p.Id,
@@ -48,7 +50,7 @@ namespace UniCloud.Application.PartBC.Query.BasicConfigGroupQueries
                 StartDate = p.StartDate,
                 AircraftTypeId = p.AircraftTypeId,
                 AircraftTypeName = p.AircraftType.Name,
-                BasicConfigs = p.BasicConfigs.Select(q => new BasicConfigDTO()
+                BasicConfigs = basicConfigs.Where(q=>q.BasicConfigGroupId==p.Id).Select(q => new BasicConfigDTO()
                 {
                     Id=q.Id,
                     BasicConfigGroupId = q.BasicConfigGroupId,

@@ -111,6 +111,12 @@ namespace UniCloud.Domain.UberModel.Aggregates
             get;
             private set;
         }
+        
+        /// <summary>
+        ///   根节点ID
+        /// </summary>
+        public int RootId { get; private set; }
+
         #endregion
 
         #region 导航属性
@@ -179,6 +185,17 @@ namespace UniCloud.Domain.UberModel.Aggregates
         {
             ParentId = parentId;
         }
+
+        /// <summary>
+        ///     设置根节点
+        /// </summary>
+        /// <param name="parentAcConfig">父项构型</param>
+        public void SetRootId(AcConfig parentAcConfig)
+        {
+            RootId = parentAcConfig != null ? parentAcConfig.RootId : Id;
+            //如果有父项，则从父项中取根节点ID；如果没父项，则根节点为自身
+        }
+
         #endregion
 
         #region IValidatableObject 成员

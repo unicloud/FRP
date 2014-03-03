@@ -129,8 +129,6 @@ namespace UniCloud.DistributedServices.Part.InstanceProviders
 .RegisterType<IBasicConfigGroupQuery, BasicConfigGroupQuery>()
                 .RegisterType<IBasicConfigGroupAppService, BasicConfigGroupAppService>()
                 .RegisterType<IBasicConfigGroupRepository, BasicConfigGroupRepository>()
-                .RegisterType(IConfigGroupAppService, ConfigGroupAppService)
-                .RegisterType(IConfigGroupQuery, ConfigGroupQuery)
             #endregion
 
             #region 合同飞机相关配置，包括查询，应用服务，仓储注册

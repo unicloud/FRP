@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,71 +12,29 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
 
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
-using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
 
 #endregion
 
 namespace UniCloud.Infrastructure.Data.PartBC.Repositories
 {
     /// <summary>
-    /// BasicConfigGroup仓储实现
+    ///     BasicConfigGroup仓储实现
     /// </summary>
     public class BasicConfigGroupRepository : Repository<BasicConfigGroup>, IBasicConfigGroupRepository
     {
         public BasicConfigGroupRepository(IQueryableUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
-
         }
 
         #region 方法重载
+
         #endregion
-        /// <summary>
-        /// 获取所有的基本构型组
-        /// </summary>
-        /// <returns></returns>
-        public List<BasicConfigGroup> GetAllBasicConfigGroup()
-        {
-            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
-            if (currentUnitOfWork == null) return null;
-            var set = currentUnitOfWork.CreateSet<BasicConfigGroup>();
-            return set.Include(p => p.BasicConfigs).ToList();
-        }
-
-
-
-        /// <summary>
-        /// 删除基本构型组
-        /// </summary>
-        /// <param name="basicConfigGroup"></param>
-        public void DeleteBasicConfigGroup(BasicConfigGroup basicConfigGroup)
-        {
-            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
-            if (currentUnitOfWork == null) return;
-            var dbBasicConfigs = currentUnitOfWork.CreateSet<BasicConfig>();
-            var dbBasicConfigGroups = currentUnitOfWork.CreateSet<BasicConfigGroup>();
-            dbBasicConfigs.RemoveRange(basicConfigGroup.BasicConfigs);
-            dbBasicConfigGroups.Remove(basicConfigGroup);
-        }
-
-
-        /// <summary>
-        ///     移除基本构型
-        /// </summary>
-        /// <param name="basicConfig">基本构型</param>
-        public void RemoveBasicConfig(BasicConfig basicConfig)
-        {
-            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
-            if (currentUnitOfWork == null) return;
-            currentUnitOfWork.CreateSet<BasicConfig>().Remove(basicConfig);
-        }
     }
 }

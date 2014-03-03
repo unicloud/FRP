@@ -55,6 +55,9 @@
     <Compile Include="Aggregates\AirStructureDamageAgg\IAirStructureDamageRepository.cs" />
     <Compile Include="Aggregates\AirStructureDamageAgg\AirStructureDamageFactory.cs" />
     <Compile Include="Aggregates\AirStructureDamageAgg\AirStructureDamageSpecifications.cs" />
+    <Compile Include="Aggregates\BasicConfigAgg\BasicConfigFactory.cs" />
+    <Compile Include="Aggregates\BasicConfigAgg\BasicConfigSpecifications.cs" />
+    <Compile Include="Aggregates\BasicConfigAgg\IBasicConfigRepository.cs" />
     <Compile Include="Aggregates\SnRegAgg\APUReg.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -72,7 +75,7 @@
     <Compile Include="Aggregates\AcDailyUtilizationAgg\AcDailyUtilizationFactory.cs" />
     <Compile Include="Aggregates\AcDailyUtilizationAgg\AcDailyUtilizationSpecifications.cs" />
     <Compile Include="Aggregates\AcDailyUtilizationAgg\IAcDailyUtilizationRepository.cs" />
-    <Compile Include="Aggregates\BasicConfigGroupAgg\BasicConfig.cs" />
+    <Compile Include="Aggregates\BasicConfigAgg\BasicConfig.cs" />
     <Compile Include="Aggregates\AircraftAgg\Aircraft.cs" />
     <Compile Include="Aggregates\AircraftAgg\AircraftSpecifications.cs" />
     <Compile Include="Aggregates\AircraftAgg\IAircraftRepository.cs" />

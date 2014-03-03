@@ -32,15 +32,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 
             HasKey(p => p.Id);
             Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            //Property(p => p.StartDate).HasColumnName("StartDate").HasColumnType("datatime2");
-            //Property(p => p.Description).HasColumnName("Description").HasMaxLength(100);
-            //Property(p => p.GroupNo).HasColumnName("GroupNo").HasMaxLength(100);
-            //Property(p => p.AircraftTypeId).HasColumnName("AircraftTypeId");
+            Property(p => p.StartDate).HasColumnName("StartDate").HasColumnType("datatime2");
+            Property(p => p.Description).HasColumnName("Description").HasMaxLength(100);
+            Property(p => p.GroupNo).HasColumnName("GroupNo").HasMaxLength(100);
+            Property(p => p.AircraftTypeId).HasColumnName("AircraftTypeId");
 
             HasRequired(p => p.AircraftType).WithMany().HasForeignKey(o => o.AircraftTypeId);
-
-            HasMany(o => o.BasicConfigs).WithRequired().HasForeignKey(o => o.BasicConfigGroupId);
-
         }
 
     }

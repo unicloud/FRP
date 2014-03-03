@@ -39,17 +39,17 @@ namespace UniCloud.Application.PartBC.DTO
         /// <summary>
         ///     基准间隔
         /// </summary>
-        public string StandardInterval { get; set; }
+        public int StandardInterval { get; set; }
 
         /// <summary>
         ///     最大间隔
         /// </summary>
-        public string MaxInterval { get; set; }
+        public int MaxInterval { get; set; }
 
         /// <summary>
         ///     最小间隔
         /// </summary>
-        public string MinInterval { get; set; }
+        public int MinInterval { get; set; }
 
         /// <summary>
         ///     控制单位

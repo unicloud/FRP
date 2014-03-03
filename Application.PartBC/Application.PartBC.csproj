@@ -52,6 +52,8 @@
     <Compile Include="AirStructureDamageServices\IAirStructureDamageAppService.cs" />
     <Compile Include="BasicConfigGroupServices\BasicConfigGroupAppService.cs" />
     <Compile Include="BasicConfigGroupServices\IBasicConfigGroupAppService.cs" />
+    <Compile Include="BasicConfigServices\BasicConfigAppService.cs" />
+    <Compile Include="BasicConfigServices\IBasicConfigAppService.cs" />
     <Compile Include="ConfigGroupServices\ConfigGroupAppService.cs" />
     <Compile Include="ConfigGroupServices\IConfigGroupAppService.cs" />
     <Compile Include="ContractAircraftServices\ContractAircraftAppService.cs" />

@@ -55,6 +55,7 @@
     <Compile Include="Repositories\AircraftTypeRepository.cs" />
     <Compile Include="Repositories\AirStructureDamageRepository.cs" />
     <Compile Include="Repositories\BasicConfigGroupRepository.cs" />
+    <Compile Include="Repositories\BasicConfigRepository.cs" />
     <Compile Include="Repositories\ContractAircraftRepository.cs" />
     <Compile Include="Repositories\CtrlUnitRepository.cs" />
     <Compile Include="Repositories\MaintainCtrlRepository.cs" />
