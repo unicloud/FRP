@@ -19,7 +19,6 @@ using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.AcDailyUtilizationQueries;
 using UniCloud.Domain.PartBC.Aggregates.AcDailyUtilizationAgg;
-using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 
 #endregion
 
@@ -33,14 +32,11 @@ namespace UniCloud.Application.PartBC.AcDailyUtilizationServices
     {
         private readonly IAcDailyUtilizationQuery _acDailyUtilizationQuery;
         private readonly IAcDailyUtilizationRepository _acDailyUtilizationRepository;
-        private readonly IAircraftRepository _aircraftRepository;
         public AcDailyUtilizationAppService(IAcDailyUtilizationQuery acDailyUtilizationQuery,
-            IAcDailyUtilizationRepository acDailyUtilizationRepository,
-            IAircraftRepository aircraftRepository)
+            IAcDailyUtilizationRepository acDailyUtilizationRepository)
         {
             _acDailyUtilizationQuery = acDailyUtilizationQuery;
             _acDailyUtilizationRepository = acDailyUtilizationRepository;
-            _aircraftRepository = aircraftRepository;
         }
 
         #region AcDailyUtilizationDTO
@@ -62,11 +58,8 @@ namespace UniCloud.Application.PartBC.AcDailyUtilizationServices
         [Insert(typeof(AcDailyUtilizationDTO))]
         public void InsertAcDailyUtilization(AcDailyUtilizationDTO dto)
         {
-            //获取
-            var aircraft = _aircraftRepository.Get(dto.AircraftId);
-
-            var newAcDailyUtilization = AcDailyUtilizationFactory.CreateAcDailyUtilization(aircraft,dto.CalculatedHour,dto.CalculatedCycle,
-                dto.Year,dto.Month);
+            var newAcDailyUtilization = AcDailyUtilizationFactory.CreateAcDailyUtilization(dto.AircraftId, dto.RegNumber, dto.CalculatedHour, dto.CalculatedCycle,
+                dto.Year, dto.Month);
             newAcDailyUtilization.SetIsCurrent(dto.IsCurrent);
             _acDailyUtilizationRepository.Add(newAcDailyUtilization);
         }
@@ -77,20 +70,14 @@ namespace UniCloud.Application.PartBC.AcDailyUtilizationServices
         /// <param name="dto">AcDailyUtilizationDTO。</param>
         [Update(typeof(AcDailyUtilizationDTO))]
         public void ModifyAcDailyUtilization(AcDailyUtilizationDTO dto)
-        {           
-            //获取
-            var aircraft = _aircraftRepository.Get(dto.AircraftId);
-
+        {
             var updateAcDailyUtilization = _acDailyUtilizationRepository.Get(dto.Id); //获取需要更新的对象。
 
             //更新。
-            var newAcDailyUtilization = AcDailyUtilizationFactory.UpdateAcDailyUtilization(aircraft, dto.CalculatedHour,
-                dto.CalculatedCycle,
-                dto.AmendHour, dto.AmendCycle, dto.Year, dto.Month);          
-            
-            newAcDailyUtilization.ChangeCurrentIdentity(updateAcDailyUtilization.Id);
+            AcDailyUtilizationFactory.UpdateAcDailyUtilization(updateAcDailyUtilization, dto.AircraftId, dto.RegNumber, dto.CalculatedHour,
+                dto.CalculatedCycle, dto.AmendHour, dto.AmendCycle, dto.Year, dto.Month);
 
-            _acDailyUtilizationRepository.Merge(updateAcDailyUtilization,newAcDailyUtilization);
+            _acDailyUtilizationRepository.Modify(updateAcDailyUtilization);
         }
 
         /// <summary>

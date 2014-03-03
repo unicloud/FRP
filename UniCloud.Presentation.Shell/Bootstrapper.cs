@@ -68,86 +68,86 @@ namespace UniCloud.Presentation.Shell
         {
             var moduleCatalog = new ModuleCatalog();
 
-            moduleCatalog.AddModule(new ModuleInfo
-            {
-                InitializationMode = InitializationMode.WhenAvailable,
-                Ref = "CommonService.xap",
-                ModuleName = "CommonServiceModule",
-                ModuleType =
-                    "UniCloud.Presentation.CommonService.CommonServiceModule, UniCloud.Presentation.CommonService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
-            });
+            //moduleCatalog.AddModule(new ModuleInfo
+            //{
+            //    InitializationMode = InitializationMode.WhenAvailable,
+            //    Ref = "CommonService.xap",
+            //    ModuleName = "CommonServiceModule",
+            //    ModuleType =
+            //        "UniCloud.Presentation.CommonService.CommonServiceModule, UniCloud.Presentation.CommonService, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            //});
 
-            moduleCatalog.AddModule(new ModuleInfo
-            {
-                InitializationMode = InitializationMode.WhenAvailable,
-                Ref = "BaseManagement.xap",
-                ModuleName = "BaseManagementModule",
-                ModuleType =
-                    "UniCloud.Presentation.BaseManagement.BaseManagementModule, UniCloud.Presentation.BaseManagement, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
-            });
+            //moduleCatalog.AddModule(new ModuleInfo
+            //{
+            //    InitializationMode = InitializationMode.WhenAvailable,
+            //    Ref = "BaseManagement.xap",
+            //    ModuleName = "BaseManagementModule",
+            //    ModuleType =
+            //        "UniCloud.Presentation.BaseManagement.BaseManagementModule, UniCloud.Presentation.BaseManagement, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            //});
 
-            moduleCatalog.AddModule(new ModuleInfo
-            {
-                InitializationMode = InitializationMode.WhenAvailable,
-                Ref = "AircraftConfig.xap",
-                ModuleName = "AircraftConfigModule",
-                ModuleType =
-                    "UniCloud.Presentation.AircraftConfig.AircraftConfigModule, UniCloud.Presentation.AircraftConfig, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
-            });
+            //moduleCatalog.AddModule(new ModuleInfo
+            //{
+            //    InitializationMode = InitializationMode.WhenAvailable,
+            //    Ref = "AircraftConfig.xap",
+            //    ModuleName = "AircraftConfigModule",
+            //    ModuleType =
+            //        "UniCloud.Presentation.AircraftConfig.AircraftConfigModule, UniCloud.Presentation.AircraftConfig, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            //});
 
-            moduleCatalog.AddModule(new ModuleInfo
-            {
-                InitializationMode = InitializationMode.OnDemand,
-                Ref = "FlightLog.xap",
-                ModuleName = "FlightLogModule",
-                ModuleType =
-                    "UniCloud.Presentation.FlightLog.FlightLogModule, UniCloud.Presentation.FlightLog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
-            });
+            //moduleCatalog.AddModule(new ModuleInfo
+            //{
+            //    InitializationMode = InitializationMode.OnDemand,
+            //    Ref = "FlightLog.xap",
+            //    ModuleName = "FlightLogModule",
+            //    ModuleType =
+            //        "UniCloud.Presentation.FlightLog.FlightLogModule, UniCloud.Presentation.FlightLog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            //});
 
-            moduleCatalog.AddModule(new ModuleInfo
-            {
-                InitializationMode = InitializationMode.WhenAvailable,
-                Ref = "FleetPlan.xap",
-                ModuleName = "FleetPlanModule",
-                ModuleType =
-                    "UniCloud.Presentation.FleetPlan.FleetPlanModule, UniCloud.Presentation.FleetPlan, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
-            });
+            //moduleCatalog.AddModule(new ModuleInfo
+            //{
+            //    InitializationMode = InitializationMode.WhenAvailable,
+            //    Ref = "FleetPlan.xap",
+            //    ModuleName = "FleetPlanModule",
+            //    ModuleType =
+            //        "UniCloud.Presentation.FleetPlan.FleetPlanModule, UniCloud.Presentation.FleetPlan, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            //});
 
-            moduleCatalog.AddModule(new ModuleInfo
-            {
-                InitializationMode = InitializationMode.WhenAvailable,
-                Ref = "Purchase.xap",
-                ModuleName = "PurchaseModule",
-                ModuleType =
-                    "UniCloud.Presentation.Purchase.PurchaseModule, UniCloud.Presentation.Purchase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
-            });
+            //moduleCatalog.AddModule(new ModuleInfo
+            //{
+            //    InitializationMode = InitializationMode.WhenAvailable,
+            //    Ref = "Purchase.xap",
+            //    ModuleName = "PurchaseModule",
+            //    ModuleType =
+            //        "UniCloud.Presentation.Purchase.PurchaseModule, UniCloud.Presentation.Purchase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            //});
 
-            moduleCatalog.AddModule(new ModuleInfo
-            {
-                InitializationMode = InitializationMode.WhenAvailable,
-                Ref = "Payment.xap",
-                ModuleName = "PaymentModule",
-                ModuleType =
-                    "UniCloud.Presentation.Payment.PaymentModule, UniCloud.Presentation.Payment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
-            });
+            //moduleCatalog.AddModule(new ModuleInfo
+            //{
+            //    InitializationMode = InitializationMode.WhenAvailable,
+            //    Ref = "Payment.xap",
+            //    ModuleName = "PaymentModule",
+            //    ModuleType =
+            //        "UniCloud.Presentation.Payment.PaymentModule, UniCloud.Presentation.Payment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            //});
 
-            moduleCatalog.AddModule(new ModuleInfo
-            {
-                InitializationMode = InitializationMode.WhenAvailable,
-                Ref = "Project.xap",
-                ModuleName = "ProjectModule",
-                ModuleType =
-                    "UniCloud.Presentation.Project.ProjectModule, UniCloud.Presentation.Project, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
-            });
+            //moduleCatalog.AddModule(new ModuleInfo
+            //{
+            //    InitializationMode = InitializationMode.WhenAvailable,
+            //    Ref = "Project.xap",
+            //    ModuleName = "ProjectModule",
+            //    ModuleType =
+            //        "UniCloud.Presentation.Project.ProjectModule, UniCloud.Presentation.Project, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            //});
 
-            moduleCatalog.AddModule(new ModuleInfo
-            {
-                InitializationMode = InitializationMode.WhenAvailable,
-                Ref = "Portal.xap",
-                ModuleName = "PortalModule",
-                ModuleType =
-                    "UniCloud.Presentation.Portal.PortalModule, UniCloud.Presentation.Portal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
-            });
+            //moduleCatalog.AddModule(new ModuleInfo
+            //{
+            //    InitializationMode = InitializationMode.WhenAvailable,
+            //    Ref = "Portal.xap",
+            //    ModuleName = "PortalModule",
+            //    ModuleType =
+            //        "UniCloud.Presentation.Portal.PortalModule, UniCloud.Presentation.Portal, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+            //});
 
             moduleCatalog.AddModule(new ModuleInfo
             {

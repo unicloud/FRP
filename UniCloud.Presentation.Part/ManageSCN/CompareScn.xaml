@@ -35,7 +35,6 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
-                                <RowDefinition Height="30" />
                             </Grid.RowDefinitions>
                             <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                 Margin="0 0 0 -1"
@@ -104,8 +103,22 @@
                                                                     IsGroupable="True"
                                                                     DataMemberBinding="{Binding SysTitle}"
                                                                     TextWrapping="Wrap"
-                                                                    Width="300"/>
-                                        <telerik:GridViewDataColumn Header="MOD号"
+                                                                    MaxWidth="300">
+                                            <telerik:GridViewDataColumn.CellStyleSelector>
+                                                <telerik:ConditionalStyleSelector>
+                                                    <telerik:StyleRule Condition="SysTitle = 'N/A'">
+                                                        <Style TargetType="telerik:GridViewCell">
+                                                            <Setter Property="Foreground"
+                                                                    Value="Red" />
+                                                        </Style>
+                                                    </telerik:StyleRule>
+                                                    <telerik:StyleRule Condition="UnitPrice &lt;= 10">
+                                                        <Style TargetType="telerik:GridViewCell"/>
+                                                    </telerik:StyleRule>
+                                                </telerik:ConditionalStyleSelector>
+                                            </telerik:GridViewDataColumn.CellStyleSelector>
+                                        </telerik:GridViewDataColumn>
+                                            <telerik:GridViewDataColumn Header="MOD号"
                                                                     ColumnGroupName="ChuanAir"
                                                                     HeaderTextAlignment="Center"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -127,7 +140,8 @@
                                                                     IsGroupable="True"
                                                                     DataMemberBinding="{Binding AirBusTitle}"
                                                                     TextWrapping="Wrap"
-                                                                    Width="300" />
+                                                                    MaxWidth="300">
+                                        </telerik:GridViewDataColumn>
                                         <telerik:GridViewDataColumn Header="MOD号"
                                                                     ColumnGroupName="AirBus"
                                                                     HeaderTextAlignment="Center"

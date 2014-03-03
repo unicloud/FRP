@@ -816,6 +816,7 @@ namespace UniCloud.Presentation.Shell
             var menu71 = new MenuItem
             {
                 Text = "管理基础配置",
+                NavUri = "UniCloud.Presentation.Part.BaseConfigurations.BaseConfiguration",
             };
             menu7.Items.Add(menu71);
 

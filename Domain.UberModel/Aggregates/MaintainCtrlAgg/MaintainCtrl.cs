@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,19 +12,23 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
+
+#region 命名空间
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.Common.Enums;
 
+#endregion
+
 namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
 {
     /// <summary>
-    /// SnReg聚合根。
-    /// MaintainCtrl
-    /// 维修控制组
+    ///     MaintainCtrl聚合根
+    ///     维修控制组
     /// </summary>
     public class MaintainCtrl : EntityInt, IValidatableObject
     {
@@ -36,24 +41,21 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
         #region 构造函数
 
         /// <summary>
-        /// 内部构造函数
-        /// 限制只能从内部创建新实例
+        ///     内部构造函数
+        ///     限制只能从内部创建新实例
         /// </summary>
         internal MaintainCtrl()
         {
         }
+
         #endregion
 
         #region 属性
 
         /// <summary>
-        /// 控制策略
+        ///     控制策略
         /// </summary>
-        public ControlStrategy CtrlStrategy
-        {
-            get;
-            private set;
-        }
+        public ControlStrategy CtrlStrategy { get; private set; }
 
         #endregion
 
@@ -64,16 +66,18 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
         #region 导航属性
 
         /// <summary>
-        /// 维修控制明细
+        ///     维修控制明细
         /// </summary>
         public virtual ICollection<MaintainCtrlLine> MaintainCtrlLines
         {
             get { return _maintainCtrlLines ?? (_maintainCtrlLines = new HashSet<MaintainCtrlLine>()); }
             set { _maintainCtrlLines = new HashSet<MaintainCtrlLine>(value); }
         }
+
         #endregion
 
         #region 操作
+
         /// <summary>
         ///     设置控制策略
         /// </summary>
@@ -94,7 +98,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
         }
 
         /// <summary>
-        /// 新增维修控制明细
+        ///     新增维修控制明细
         /// </summary>
         /// <returns></returns>
         public MaintainCtrlLine AddNewMaintainCtrlLine()
@@ -109,6 +113,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.MaintainCtrlAgg
 
             return maintainCtrlLine;
         }
+
         #endregion
 
         #region IValidatableObject 成员

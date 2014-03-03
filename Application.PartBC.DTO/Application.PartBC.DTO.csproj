@@ -64,8 +64,12 @@
     <Compile Include="ConfigGroupDTO\ConfigGroupDTO.cs" />
     <Compile Include="ConfigGroupDTO\GroupAcDTO.cs" />
     <Compile Include="ConfigGroupDTO\TsDTO.cs" />
+    <Compile Include="ConstituentAssemblyDTO\ConstituentDTO.cs" />
+    <Compile Include="ConstituentAssemblyDTO\ControlSchemeDTO.cs" />
     <Compile Include="ContractAircraftDTO\ContractAircraftDTO.cs" />
     <Compile Include="CtrlUnitDTO\CtrlUnitDTO.cs" />
+    <Compile Include="EngineMaintainCtrlDTO\EnginePartDTO.cs" />
+    <Compile Include="EngineMaintainCtrlDTO\EngineRegDTO.cs" />
     <Compile Include="MaintainCtrlDTO\ItemMaintainCtrlDTO.cs" />
     <Compile Include="MaintainCtrlDTO\MaintainCtrlLineDTO.cs" />
     <Compile Include="MaintainCtrlDTO\PnMaintainCtrlDTO.cs" />
@@ -97,6 +101,7 @@
       <Name>Domain.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
