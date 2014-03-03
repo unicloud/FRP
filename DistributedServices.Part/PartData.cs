@@ -287,6 +287,14 @@ namespace UniCloud.DistributedServices.Part
             get { return _snRegAppService.GetSnRegs(); }
         }
 
+        /// <summary>
+        /// Apu、Engine的序号件集合
+        /// </summary>
+        public IQueryable<ApuEngineSnRegDTO> ApuEngineSnRegs
+        {
+            get { return _snRegAppService.GetApuEngineSnRegs(); }
+        }
+
         #endregion
 
         #region 特定选型集合

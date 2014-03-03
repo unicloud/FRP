@@ -82,6 +82,7 @@
     <Compile Include="ScnDTO\ScnDTO.cs" />
     <Compile Include="SnRegDTO\LifeMonitorDTO.cs" />
     <Compile Include="SnRegDTO\SnHistoryDTO.cs" />
+    <Compile Include="SnRegDTO\ApuEngineSnRegDTO.cs" />
     <Compile Include="SnRegDTO\SnRegDTO.cs" />
     <Compile Include="SpecialConfigDTO\SpecialConfigDTO.cs" />
     <Compile Include="TechnicalSolutionDTO\DependencyDTO.cs" />

@@ -63,7 +63,14 @@ namespace UniCloud.Application.PartBC.SnRegServices
             return _snRegQuery.SnRegDTOQuery(queryBuilder);
         }
 
-        /// <summary>
+        public IQueryable<ApuEngineSnRegDTO> GetApuEngineSnRegs()
+        {
+            var queryBuilder =
+             new QueryBuilder<SnReg>();
+            return _snRegQuery.ApuEngineSnRegDTOQuery(queryBuilder);
+        }
+ 
+            /// <summary>
         ///  新增SnReg。
         /// </summary>
         /// <param name="dto">SnRegDTO。</param>
@@ -153,6 +160,32 @@ namespace UniCloud.Application.PartBC.SnRegServices
             }
         }
 
+        /// <summary>
+        ///  更新Apu、Engine的SnReg。
+        /// </summary>
+        /// <param name="dto">SnRegDTO。</param>
+        [Update(typeof(ApuEngineSnRegDTO))]
+        public void ModifyApuEngineSnReg(ApuEngineSnRegDTO dto)
+        {
+            //获取需要更新的对象
+            var updateSnReg = _snRegRepository.Get(dto.Id);
+
+            if (updateSnReg != null)
+            {
+
+                //更新装机历史集合：
+                var dtoSnHistories = dto.SnHistories;
+                var snHistories = updateSnReg.SnHistories;
+                DataHelper.DetailHandle(dtoSnHistories.ToArray(),
+                    snHistories.ToArray(),
+                    c => c.Id, p => p.Id,
+                    i => InsertSnHistory(updateSnReg, i),
+                    UpdateSnHistory,
+                    d => _snRegRepository.RemoveSnHistory(d));
+                _snRegRepository.Modify(updateSnReg);
+            }
+        }
+
         #region 处理装机历史
 
         /// <summary>
@@ -196,6 +229,8 @@ namespace UniCloud.Application.PartBC.SnRegServices
             snHistory.SetRemoveDate(snHistoryDto.RemoveDate);
             snHistory.SetTSN(snHistoryDto.TSN);
             snHistory.SetTSR(snHistoryDto.TSR);
+            snHistory.SetSn(snHistoryDto.Sn);
+
         }
 
         #endregion

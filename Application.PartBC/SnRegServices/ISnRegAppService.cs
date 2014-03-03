@@ -29,5 +29,10 @@ namespace UniCloud.Application.PartBC.SnRegServices
         /// 获取所有SnReg。
         /// </summary>
         IQueryable<SnRegDTO> GetSnRegs();
+
+        /// <summary>
+        /// 获取所有SnReg。
+        /// </summary>
+        IQueryable<ApuEngineSnRegDTO> GetApuEngineSnRegs();
     }
 }
