@@ -22,13 +22,15 @@
     </UserControl.Resources>
 
     <Grid>
-        <telerik:RadDocking HasDocumentHost="False"
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False"
                             telerik:ProportionalStackPanel.RelativeSize="500,600"
                             FlowDirection="LeftToRight">
             <telerik:RadSplitContainer Orientation="Horizontal">
                 <telerik:RadSplitContainer Orientation="Vertical"
                                            telerik:ProportionalStackPanel.RelativeSize="300, 600">
-                    <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="300, 70">
+                    <telerik:RadPaneGroup BorderThickness="0" telerik:ProportionalStackPanel.RelativeSize="300, 70">
                         <telerik:RadPane PaneHeaderVisibility="Collapsed">
                             <Grid Margin="5">
                                 <Grid.RowDefinitions>
@@ -154,7 +156,7 @@
                 </telerik:RadSplitContainer>
                 <telerik:RadSplitContainer Orientation="Vertical"
                                            telerik:ProportionalStackPanel.RelativeSize="500, 600">
-                    <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="500, 70">
+                    <telerik:RadPaneGroup BorderThickness="0" telerik:ProportionalStackPanel.RelativeSize="500, 70">
                         <telerik:RadPane PaneHeaderVisibility="Collapsed">
                             <Grid>
                                 <Grid.ColumnDefinitions>

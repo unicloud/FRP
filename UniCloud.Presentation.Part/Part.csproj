@@ -223,9 +223,6 @@
       <DependentUpon>MaintainScn.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManageSCN\MaintainScnVm.cs" />
-    <Compile Include="ManageTS\PnRegChildView.xaml.cs">
-      <DependentUpon>PnRegChildView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ManageTS\TechnicalSolutionView.xaml.cs">
       <DependentUpon>TechnicalSolutionView.xaml</DependentUpon>
     </Compile>
@@ -308,10 +305,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManageSCN\MaintainScn.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ManageTS\PnRegChildView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

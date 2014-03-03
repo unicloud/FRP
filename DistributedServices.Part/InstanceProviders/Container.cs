@@ -24,6 +24,7 @@ using UniCloud.Application.PartBC.AircraftServices;
 using UniCloud.Application.PartBC.AircraftTypeServices;
 using UniCloud.Application.PartBC.AirStructureDamageServices;
 using UniCloud.Application.PartBC.BasicConfigGroupServices;
+using UniCloud.Application.PartBC.ConfigGroupServices;
 using UniCloud.Application.PartBC.ContractAircraftServices;
 using UniCloud.Application.PartBC.CtrlUnitServices;
 using UniCloud.Application.PartBC.MaintainCtrlServices;
@@ -37,6 +38,7 @@ using UniCloud.Application.PartBC.Query.AircraftQueries;
 using UniCloud.Application.PartBC.Query.AircraftTypeQueries;
 using UniCloud.Application.PartBC.Query.AirStructureDamageQueries;
 using UniCloud.Application.PartBC.Query.BasicConfigGroupQueries;
+using UniCloud.Application.PartBC.Query.ConfigGroupQueries;
 using UniCloud.Application.PartBC.Query.ContractAircraftQueries;
 using UniCloud.Application.PartBC.Query.CtrlUnitQueries;
 using UniCloud.Application.PartBC.Query.MaintainCtrlQueries;
@@ -127,6 +129,8 @@ namespace UniCloud.DistributedServices.Part.InstanceProviders
 .RegisterType<IBasicConfigGroupQuery, BasicConfigGroupQuery>()
                 .RegisterType<IBasicConfigGroupAppService, BasicConfigGroupAppService>()
                 .RegisterType<IBasicConfigGroupRepository, BasicConfigGroupRepository>()
+                .RegisterType(IConfigGroupAppService, ConfigGroupAppService)
+                .RegisterType(IConfigGroupQuery, ConfigGroupQuery)
             #endregion
 
             #region 合同飞机相关配置，包括查询，应用服务，仓储注册

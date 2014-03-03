@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,17 +12,22 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
+
+#region 命名空间
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg;
 
+#endregion
+
 namespace UniCloud.Domain.PartBC.Aggregates
 {
     /// <summary>
-    /// AcConfig聚合根。
+    ///     AcConfig聚合根。
     /// </summary>
     public class AcConfig : EntityInt, IValidatableObject
     {
@@ -46,77 +52,50 @@ namespace UniCloud.Domain.PartBC.Aggregates
         #region 属性
 
         /// <summary>
-        /// TS号
+        ///     TS号
         /// </summary>
-        public string TsNumber
-        {
-            get;
-            private set;
-        }
+        public string TsNumber { get; private set; }
 
         /// <summary>
-        /// FI号
+        ///     FI号
         /// </summary>
-        public string FiNumber
-        {
-            get;
-            private set;
-        }
+        public string FiNumber { get; private set; }
 
         /// <summary>
-        /// 项号
+        ///     项号
         /// </summary>
-        public string ItemNo
-        {
-            get;
-            private set;
-        }
+        public string ItemNo { get; private set; }
 
         /// <summary>
-        /// 上层项号
+        ///     上层项号
         /// </summary>
-        public string ParentItemNo
-        {
-            get;
-            private set;
-        }
+        public string ParentItemNo { get; private set; }
 
         /// <summary>
-        /// 描述
+        ///     描述
         /// </summary>
-        public string Description
-        {
-            get;
-            private set;
-        }
+        public string Description { get; private set; }
 
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        /// 技术解决方案ID
+        ///     技术解决方案ID
         /// </summary>
-        public int? TsId
-        {
-            get;
-            private set;
-        }
+        public int? TsId { get; private set; }
 
         /// <summary>
-        /// 父项ID
+        ///     父项ID
         /// </summary>
-        public int? ParentId
-        {
-            get;
-            private set;
-        }
+        public int? ParentId { get; private set; }
+
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        /// 下层项集合
+        ///     下层项集合
         /// </summary>
         public virtual ICollection<AcConfig> SubAcConfigs
         {
@@ -179,6 +158,7 @@ namespace UniCloud.Domain.PartBC.Aggregates
         {
             ParentId = parentId;
         }
+
         #endregion
 
         #region IValidatableObject 成员

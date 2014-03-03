@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,10 +12,11 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
 
 #region 命名空间
-using System;
+
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 
@@ -23,98 +25,51 @@ using UniCloud.Domain.PartBC.Aggregates.PnRegAgg;
 namespace UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg
 {
     /// <summary>
-    /// MaintainCtrl工厂。
+    ///     MaintainCtrl工厂。
     /// </summary>
     public static class MaintainCtrlFactory
     {
         /// <summary>
-        /// 创建ItemMaintainCtrl。
+        ///     创建项维修控制组
         /// </summary>
-        ///  <returns>ItemMaintainCtrl</returns>
-        public static ItemMaintainCtrl CreateItemMaintainCtrl()
+        /// <param name="acConfig">构型</param>
+        /// <param name="ctrlStrategy">控制策略</param>
+        /// <returns>项维修控制组</returns>
+        public static ItemMaintainCtrl CreateItemMaintainCtrl(AcConfig acConfig, ControlStrategy ctrlStrategy)
         {
-            var itemMaintainCtrl = new ItemMaintainCtrl
-            {
-            };
+            var itemMaintainCtrl = new ItemMaintainCtrl();
             itemMaintainCtrl.GenerateNewIdentity();
+            itemMaintainCtrl.SetAcConfig(acConfig);
+            itemMaintainCtrl.SetCtrlStrategy(ctrlStrategy);
             return itemMaintainCtrl;
         }
 
         /// <summary>
-        /// 创建项维修控制组
+        ///     创建附件维修控制组
         /// </summary>
-        /// <param name="acConfigId">构型外键</param>
-        /// <param name="ctrlStrategy">控制策略</param>
-        /// <param name="itemNo">项号</param>
-        /// <returns></returns>
-        public static ItemMaintainCtrl CreateItemMaintainCtrl(int acConfigId,int ctrlStrategy,string itemNo)
-        {
-            var itemMaintainCtrl = new ItemMaintainCtrl
-            {
-            };
-            itemMaintainCtrl.GenerateNewIdentity();
-            itemMaintainCtrl.SetAcConfig(acConfigId);
-            itemMaintainCtrl.SetCtrlStrategy((ControlStrategy)ctrlStrategy);
-            itemMaintainCtrl.SetItemNo(itemNo);
-            return itemMaintainCtrl;
-        }
-
-        /// <summary>
-        /// 创建PnMaintainCtrl。
-        /// </summary>
-        ///  <returns>PnMaintainCtrl</returns>
-        public static PnMaintainCtrl CreatePnMaintainCtrl()
-        {
-            var pnMaintainCtrl = new PnMaintainCtrl
-            {
-            };
-            pnMaintainCtrl.GenerateNewIdentity();
-            return pnMaintainCtrl;
-        }
-
-        /// <summary>
-        /// 创建附件维修控制组
-        /// </summary>
-        /// <param name="ctrlStrategy">控制策略</param>
         /// <param name="pnReg">附件</param>
-        /// <returns></returns>
-        public static PnMaintainCtrl CreatePnMaintainCtrl(int ctrlStrategy, PnReg pnReg)
+        /// <param name="ctrlStrategy">控制策略</param>
+        /// <returns>附件维修控制组</returns>
+        public static PnMaintainCtrl CreatePnMaintainCtrl(PnReg pnReg, ControlStrategy ctrlStrategy)
         {
-            var pnMaintainCtrl = new PnMaintainCtrl
-            {
-            };
+            var pnMaintainCtrl = new PnMaintainCtrl();
             pnMaintainCtrl.GenerateNewIdentity();
-            pnMaintainCtrl.SetCtrlStrategy((ControlStrategy)ctrlStrategy);
+            pnMaintainCtrl.SetCtrlStrategy(ctrlStrategy);
             pnMaintainCtrl.SetPnReg(pnReg);
             return pnMaintainCtrl;
         }
 
         /// <summary>
-        /// 创建SnMaintainCtrl。
-        /// </summary>
-        ///  <returns>SnMaintainCtrl</returns>
-        public static SnMaintainCtrl CreateSnMaintainCtrl()
-        {
-            var snMaintainCtrl = new SnMaintainCtrl
-            {
-            };
-            snMaintainCtrl.GenerateNewIdentity();
-            return snMaintainCtrl;
-        }
-
-        /// <summary>
-        /// 创建序号件维修控制组
+        ///     创建序号件维修控制组
         /// </summary>
         /// <param name="ctrlStrategy">控制策略</param>
         /// <param name="snScope">序号范围</param>
-        /// <returns></returns>
-        public static SnMaintainCtrl CreateSnMaintainCtrl(int ctrlStrategy,string snScope)
+        /// <returns>序号件维修控制组</returns>
+        public static SnMaintainCtrl CreateSnMaintainCtrl(string snScope, ControlStrategy ctrlStrategy)
         {
-            var snMaintainCtrl = new SnMaintainCtrl
-            {
-            };
+            var snMaintainCtrl = new SnMaintainCtrl();
             snMaintainCtrl.GenerateNewIdentity();
-            snMaintainCtrl.SetCtrlStrategy((ControlStrategy)ctrlStrategy);
+            snMaintainCtrl.SetCtrlStrategy(ctrlStrategy);
             snMaintainCtrl.SetSnScope(snScope);
             return snMaintainCtrl;
         }
