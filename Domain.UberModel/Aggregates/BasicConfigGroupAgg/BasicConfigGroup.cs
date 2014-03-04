@@ -1,4 +1,5 @@
 #region 版本信息
+
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -11,22 +12,26 @@
 // 修改者： 时间：
 // 修改说明：
 // ========================================================================*/
+
 #endregion
+
+#region 命名空间
 
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
 
+#endregion
+
 namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
 {
     /// <summary>
-    /// BasicConfigGroup聚合根。
-    /// 基本构型组
+    ///     BasicConfigGroup聚合根。
+    ///     基本构型组
     /// </summary>
     public class BasicConfigGroup : EntityInt, IValidatableObject
     {
-
         #region 构造函数
 
         /// <summary>
@@ -42,55 +47,42 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
         #region 属性
 
         /// <summary>
-        /// 启用日期
+        ///     启用日期
         /// </summary>
-        public DateTime StartDate
-        {
-            get;
-            private set;
-        }
+        public DateTime StartDate { get; private set; }
 
         /// <summary>
-        /// 描述
+        ///     描述
         /// </summary>
-        public string Description
-        {
-            get;
-            private set;
-        }
+        public string Description { get; private set; }
 
         /// <summary>
-        /// 基本构型组号
+        ///     基本构型组号
         /// </summary>
-        public string GroupNo
-        {
-            get;
-            private set;
-        }
+        public string GroupNo { get; private set; }
+
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        /// 机型外键
+        ///     机型外键
         /// </summary>
-        public Guid AircraftTypeId
-        {
-            get;
-            private set;
-        }
+        public Guid AircraftTypeId { get; private set; }
+
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        /// 机型
+        ///     机型
         /// </summary>
         public AircraftType AircraftType { get; set; }
 
         #endregion
 
         #region 操作
+
         /// <summary>
         ///     设置启用日期
         /// </summary>
@@ -137,6 +129,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
             AircraftType = aircraftType;
             AircraftTypeId = aircraftType.Id;
         }
+
         #endregion
 
         #region IValidatableObject 成员
