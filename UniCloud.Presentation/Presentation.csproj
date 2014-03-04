@@ -264,6 +264,7 @@
     <Compile Include="CommonExtension\AxisCollection.cs" />
     <Compile Include="CommonExtension\CommonExtension.cs" />
     <Compile Include="CommonExtension\CommonMethod.cs" />
+    <Compile Include="CommonExtension\EnumExtensions.cs" />
     <Compile Include="CommonExtension\RandomHelper.cs" />
     <Compile Include="ControlExtension\DataForm\MasterCommandProvider.cs" />
     <Compile Include="ControlExtension\ScheduleView\MonthlyTickProvider.cs" />
@@ -307,6 +308,7 @@
     <Compile Include="ValueConverts\AxisLabelConverter.cs" />
     <Compile Include="ValueConverts\BoolConverter.cs" />
     <Compile Include="ValueConverts\CheckStateConverter.cs" />
+    <Compile Include="ValueConverts\EnumToDescriptionConverter.cs" />
     <Compile Include="ValueConverts\StringConverter.cs" />
     <Compile Include="ValueConverts\StringToXamlConverter.cs" />
   </ItemGroup>

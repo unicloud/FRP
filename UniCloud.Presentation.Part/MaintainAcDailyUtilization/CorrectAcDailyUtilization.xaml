@@ -1,0 +1,172 @@
+﻿<UserControl x:Class="UniCloud.Presentation.Part.MaintainAcDailyUtilization.CorrectAcDailyUtilization"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance uc:CorrectAcDailyUtilizationVm}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
+                              BusyContent="{x:Null}">
+        <Grid x:Name="Layout">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="120" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="10" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="飞机"
+                           Margin="10,0,5,0"
+                           VerticalAlignment="Center" />
+                <telerik:RadComboBox Grid.Column="1"
+                                     VerticalAlignment="Center"
+                                     ItemsSource="{Binding Period}"
+                                     SelectedItem="{Binding SelPeriod, Mode=TwoWay}" />
+                <TextBlock Grid.Column="2"
+                           Text="当前月份"
+                           Margin="10,0,5,0"
+                           VerticalAlignment="Center" />
+                <TextBox Grid.Column="3"
+                         Text="2014/03"
+                         VerticalAlignment="Center" />
+                <TextBlock Grid.Column="4"
+                           Text="日利用率"
+                           Margin="10,0,5,0"
+                           VerticalAlignment="Center" />
+                <TextBox Grid.Column="5"
+                         Text="2014/03"
+                         VerticalAlignment="Center" />
+                <TextBlock Grid.Column="6"
+                           Text="日循环数"
+                           Margin="10,0,5,0"
+                           VerticalAlignment="Center" />
+                <TextBox Grid.Column="7"
+                         Text="2014/03"
+                         VerticalAlignment="Center" />
+                <Button Grid.Column="9" 
+                        telerik:StyleManager.Theme="Windows8"
+                        VerticalAlignment="Center"
+                        Content="修正"/>
+            </Grid>
+            <telerik:RadCartesianChart x:Name="Oil"
+                                       Grid.Row="1"
+                                       EmptyContent="滑油消耗率图表"
+                                       Zoom="{Binding Zoom, Mode=TwoWay}"
+                                       PanOffset="{Binding PanOffset, Mode=TwoWay}">
+                <telerik:RadCartesianChart.Behaviors>
+                    <telerik:ChartTrackBallBehavior />
+                </telerik:RadCartesianChart.Behaviors>
+                <telerik:LineSeries ItemsSource="{Binding ViewOilMonitorDTO}"
+                                    CategoryBinding="Date"
+                                    ValueBinding="TotalRate">
+                    <telerik:LineSeries.LegendSettings>
+                        <telerik:SeriesLegendSettings Title="总耗率" />
+                    </telerik:LineSeries.LegendSettings>
+                    <telerik:LineSeries.TrackBallInfoTemplate>
+                        <DataTemplate>
+                            <StackPanel Background="Transparent">
+                                <TextBlock Text="{Binding DataPoint.Value, StringFormat=总消耗率：\{0:0\}}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </telerik:LineSeries.TrackBallInfoTemplate>
+                </telerik:LineSeries>
+                <telerik:LineSeries ItemsSource="{Binding ViewOilMonitorDTO}"
+                                    CategoryBinding="Date"
+                                    ValueBinding="IntervalRate">
+                    <telerik:LineSeries.LegendSettings>
+                        <telerik:SeriesLegendSettings Title="区间耗率" />
+                    </telerik:LineSeries.LegendSettings>
+                    <telerik:LineSeries.TrackBallInfoTemplate>
+                        <DataTemplate>
+                            <StackPanel Background="Transparent">
+                                <TextBlock Text="{Binding DataPoint.Value, StringFormat=区间消耗率：\{0:0\}}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </telerik:LineSeries.TrackBallInfoTemplate>
+                </telerik:LineSeries>
+                <telerik:LineSeries ItemsSource="{Binding ViewOilMonitorDTO}"
+                                    CategoryBinding="Date"
+                                    ValueBinding="AverageRate3">
+                    <telerik:LineSeries.LegendSettings>
+                        <telerik:SeriesLegendSettings Title="3日均线" />
+                    </telerik:LineSeries.LegendSettings>
+                    <telerik:LineSeries.TrackBallInfoTemplate>
+                        <DataTemplate>
+                            <StackPanel Background="Transparent">
+                                <TextBlock Text="{Binding DataPoint.Value, StringFormat=3日移动平均：\{0:0\}}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </telerik:LineSeries.TrackBallInfoTemplate>
+                </telerik:LineSeries>
+                <telerik:LineSeries ItemsSource="{Binding ViewOilMonitorDTO}"
+                                    CategoryBinding="Date"
+                                    ValueBinding="AverageRate7">
+                    <telerik:LineSeries.LegendSettings>
+                        <telerik:SeriesLegendSettings Title="7日均线" />
+                    </telerik:LineSeries.LegendSettings>
+                    <telerik:LineSeries.TrackBallInfoTemplate>
+                        <DataTemplate>
+                            <StackPanel Background="Transparent">
+                                <TextBlock Text="{Binding DataPoint.Value, StringFormat=7日移动平均：\{0:0\}}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </telerik:LineSeries.TrackBallInfoTemplate>
+                    <telerik:LineSeries.VerticalAxis>
+                        <telerik:LinearAxis HorizontalLocation="Right"
+                                            Minimum="10"
+                                            Maximum="50"
+                                            MajorStep="5"
+                                            LabelStyle="{StaticResource RightLabelStyle}"
+                                            MajorTickStyle="{StaticResource TickStyle}" />
+                    </telerik:LineSeries.VerticalAxis>
+                </telerik:LineSeries>
+                <telerik:RadCartesianChart.HorizontalAxis>
+                    <telerik:DateTimeCategoricalAxis Visibility="Collapsed" />
+                </telerik:RadCartesianChart.HorizontalAxis>
+                <telerik:RadCartesianChart.VerticalAxis>
+                    <telerik:LinearAxis Minimum="10"
+                                        Maximum="50"
+                                        MajorStep="5"
+                                        LabelStyle="{StaticResource LeftLabelStyle}"
+                                        MajorTickStyle="{StaticResource TickStyle}" />
+                </telerik:RadCartesianChart.VerticalAxis>
+                <telerik:RadCartesianChart.Grid>
+                    <telerik:CartesianChartGrid StripLinesVisibility="Y"
+                                                MajorLinesVisibility="Y">
+                        <telerik:CartesianChartGrid.YStripeBrushes>
+                            <SolidColorBrush Color="#FFD7D7D7"
+                                             Opacity="0.3" />
+                            <SolidColorBrush Color="Transparent" />
+                        </telerik:CartesianChartGrid.YStripeBrushes>
+                    </telerik:CartesianChartGrid>
+                </telerik:RadCartesianChart.Grid>
+            </telerik:RadCartesianChart>
+        </Grid>
+    </telerik:RadBusyIndicator>
+</UserControl>

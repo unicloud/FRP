@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Windows;
 using Telerik.Windows.Controls.ChartView;
@@ -250,6 +251,13 @@ namespace UniCloud.Presentation.Part.OilMonitor
         {
             ViewEngineOilDTO = _service.CreateCollection(_context.EngineOils);
             _service.RegisterCollectionView(ViewEngineOilDTO);
+            // 添加排序条件
+            var sort = new SortDescriptor
+            {
+                Member = "Status",
+                SortDirection = ListSortDirection.Descending
+            };
+            ViewEngineOilDTO.SortDescriptors.Add(sort);
         }
 
         #endregion
@@ -286,9 +294,10 @@ namespace UniCloud.Presentation.Part.OilMonitor
         {
             ViewOilMonitorDTO = _service.CreateCollection(_context.OilMonitors);
             _service.RegisterCollectionView(ViewOilMonitorDTO);
+
             // 添加过滤条件
             var cfd = new CompositeFilterDescriptor {LogicalOperator = FilterCompositionLogicalOperator.And};
-            _oilUserDescriptor = new FilterDescriptor("OilUserID", FilterOperator.IsLessThanOrEqualTo, -1);
+            _oilUserDescriptor = new FilterDescriptor("OilUserID", FilterOperator.IsEqualTo, -1);
             cfd.FilterDescriptors.Add(_oilUserDescriptor);
             _startDateDescriptor = new FilterDescriptor("Date", FilterOperator.IsGreaterThanOrEqualTo, DateTime.Now);
             cfd.FilterDescriptors.Add(_startDateDescriptor);

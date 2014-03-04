@@ -104,6 +104,15 @@ namespace UniCloud.Application.PartBC.DTO
             get;
             set;
         }
+
+         /// <summary>
+        /// 飞机注册号
+        /// </summary>
+        public string AcReg
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region 外键属性
