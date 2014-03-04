@@ -557,9 +557,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        StartDate = c.DateTime(nullable: false),
-                        Description = c.String(),
-                        GroupNo = c.String(),
+                        StartDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        Description = c.String(maxLength: 100),
+                        GroupNo = c.String(maxLength: 100),
                         AircraftTypeId = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)

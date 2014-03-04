@@ -15,10 +15,14 @@
 
 #endregion
 
+#region 命名空间
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
+
+#endregion
 
 namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg
 {
