@@ -39,6 +39,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
             //Property(p => p.Description).HasColumnName("Description").HasMaxLength(100);
             //Property(p => p.TsId).HasColumnName("TsId");
             //Property(p => p.ParentId).HasColumnName("ParentId");
+            //Property(p => p.RootId).HasColumnName("RootId");
 
             HasMany(o => o.SubAcConfigs).WithOptional().HasForeignKey(o => o.ParentId);
         }

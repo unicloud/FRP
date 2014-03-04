@@ -85,8 +85,8 @@ namespace UniCloud.Application.PartBC.Tests.Services
             Aircraft aircraft = aircraftContext.GetAll().ToList().First();
 
             const string pn = "EN33423423";
-            AcDailyUtilization newAcDailyUtilization = AcDailyUtilizationFactory.CreateAcDailyUtilization(aircraft,
-                (decimal)9.02, (decimal)9.3, 2013, 9);
+            AcDailyUtilization newAcDailyUtilization = AcDailyUtilizationFactory.CreateAcDailyUtilization(aircraft.Id,
+                aircraft.RegNumber,(decimal)9.02, (decimal)9.3, 2013, 9);
             context.Add(newAcDailyUtilization);
             context.UnitOfWork.Commit();
         }

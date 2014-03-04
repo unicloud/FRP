@@ -22,11 +22,15 @@ using System.Linq;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.PartBC.BasicConfigGroupServices;
+using UniCloud.Application.PartBC.BasicConfigServices;
 using UniCloud.Application.PartBC.ConfigGroupServices;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.BasicConfigGroupQueries;
+using UniCloud.Application.PartBC.Query.BasicConfigQueries;
 using UniCloud.Application.PartBC.Query.ConfigGroupQueries;
+using UniCloud.Domain.PartBC.Aggregates;
 using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
@@ -58,6 +62,9 @@ namespace UniCloud.Application.PartBC.Tests.Services
                 .RegisterType<IBasicConfigGroupRepository, BasicConfigGroupRepository>()
                 .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
                 .RegisterType<ITechnicalSolutionRepository, TechnicalSolutionRepository>()
+                .RegisterType<IBasicConfigQuery, BasicConfigQuery>()
+                .RegisterType<IBasicConfigAppService, BasicConfigAppService>()
+                .RegisterType<IBasicConfigRepository, BasicConfigRepository>()
                 #endregion
 
                 .RegisterType<IConfigGroupQuery, ConfigGroupQuery>()
@@ -91,6 +98,7 @@ namespace UniCloud.Application.PartBC.Tests.Services
         public void AddBasicConfigGroups()
         {
             var context = DefaultContainer.Resolve<IBasicConfigGroupRepository>();
+            var bcContext = DefaultContainer.Resolve<IBasicConfigRepository>();
             var aircraftTypeContext = DefaultContainer.Resolve<IAircraftTypeRepository>();
             var tsContext = DefaultContainer.Resolve<ITechnicalSolutionRepository>();
             //获取
@@ -103,15 +111,21 @@ namespace UniCloud.Application.PartBC.Tests.Services
                 newBasicConfigGroup.SetDescription("adfd");
                 newBasicConfigGroup.SetGroupNo("Engine0001");
                 newBasicConfigGroup.SetStartDate(DateTime.Now);
-
-                TechnicalSolution ts = tsContext.GetAll().ToList().First();
-                // 添加基本构型
-                BasicConfig newBasicConfig = newBasicConfigGroup.AddNewBasicConfig();
+            }
+            context.Add(newBasicConfigGroup); 
+            
+            TechnicalSolution ts = tsContext.GetAll().ToList().First();
+            BasicConfig bc = bcContext.Get(1);
+            // 添加基本构型
+            BasicConfig newBasicConfig = BasicConfigFactory.CreateBasicConfig();
+            if (newBasicConfig != null)
+            {
                 newBasicConfig.SetDescription("adg");
                 newBasicConfig.SetItemNo("asdg");
                 newBasicConfig.SetTechnicalSolution(ts);
+                newBasicConfig.SetRootId(bc);
             }
-            context.Add(newBasicConfigGroup);
+            bcContext.Add(newBasicConfig);
             context.UnitOfWork.Commit();
         }
     }

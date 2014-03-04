@@ -38,8 +38,6 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             //Property(p => p.AircraftTypeId).HasColumnName("AircraftTypeId");
 
             HasRequired(p => p.AircraftType).WithMany().HasForeignKey(o => o.AircraftTypeId);
-
-            HasMany(o => o.BasicConfigs).WithRequired().HasForeignKey(o => o.BasicConfigGroupId);
         }
 
     }

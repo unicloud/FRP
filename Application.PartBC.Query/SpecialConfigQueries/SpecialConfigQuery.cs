@@ -55,6 +55,7 @@ namespace UniCloud.Application.PartBC.Query.SpecialConfigQueries
                 ParentItemNo = p.ParentItemNo,
                 TsNumber = p.TsNumber,
                 TsId = p.TsId,
+                RootId = p.RootId,
             });
         }
     }

@@ -82,7 +82,7 @@
     <Compile Include="Aggregates\AtaAgg\Ata.cs" />
     <Compile Include="Aggregates\AtaAgg\AtaFactory.cs" />
     <Compile Include="Aggregates\BankAccountAgg\BankAccount.cs" />
-    <Compile Include="Aggregates\BasicConfigGroupAgg\BasicConfig.cs" />
+    <Compile Include="Aggregates\BasicConfigAgg\BasicConfig.cs" />
     <Compile Include="Aggregates\BasicConfigGroupAgg\BasicConfigGroup.cs" />
     <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgramming.cs" />
     <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgrammingLine.cs" />
@@ -219,7 +219,7 @@
     <Compile Include="Aggregates\SnRegAgg\LifeMonitor.cs" />
     <Compile Include="Aggregates\SnRegAgg\SnHistory.cs" />
     <Compile Include="Aggregates\SnRegAgg\SnReg.cs" />
-    <Compile Include="Aggregates\SpecialConfigAgg\AcConfig.cs" />
+    <Compile Include="Aggregates\AcConfig.cs" />
     <Compile Include="Aggregates\SpecialConfigAgg\SpecialConfig.cs" />
     <Compile Include="Aggregates\SupplierAgg\Supplier.cs" />
     <Compile Include="Aggregates\SupplierAgg\SupplierFactory.cs" />

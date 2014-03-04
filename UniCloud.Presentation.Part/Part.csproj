@@ -223,9 +223,6 @@
       <DependentUpon>MaintainScn.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManageSCN\MaintainScnVm.cs" />
-    <Compile Include="ManageTS\PnRegChildView.xaml.cs">
-      <DependentUpon>PnRegChildView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ManageTS\TechnicalSolutionView.xaml.cs">
       <DependentUpon>TechnicalSolutionView.xaml</DependentUpon>
     </Compile>
@@ -240,6 +237,10 @@
     </Compile>
     <Compile Include="PnRegAndSnReg\ManagePnAndSnVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SnHistories\SnHistory.xaml.cs">
+      <DependentUpon>SnHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SnHistories\SnHistoryVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -307,10 +308,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ManageTS\PnRegChildView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ManageTS\TechnicalSolutionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -320,6 +317,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OilMonitor\EngineOil.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SnHistories\SnHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

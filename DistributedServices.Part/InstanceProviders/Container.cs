@@ -24,6 +24,8 @@ using UniCloud.Application.PartBC.AircraftServices;
 using UniCloud.Application.PartBC.AircraftTypeServices;
 using UniCloud.Application.PartBC.AirStructureDamageServices;
 using UniCloud.Application.PartBC.BasicConfigGroupServices;
+using UniCloud.Application.PartBC.BasicConfigServices;
+using UniCloud.Application.PartBC.ConfigGroupServices;
 using UniCloud.Application.PartBC.ContractAircraftServices;
 using UniCloud.Application.PartBC.CtrlUnitServices;
 using UniCloud.Application.PartBC.MaintainCtrlServices;
@@ -37,6 +39,8 @@ using UniCloud.Application.PartBC.Query.AircraftQueries;
 using UniCloud.Application.PartBC.Query.AircraftTypeQueries;
 using UniCloud.Application.PartBC.Query.AirStructureDamageQueries;
 using UniCloud.Application.PartBC.Query.BasicConfigGroupQueries;
+using UniCloud.Application.PartBC.Query.BasicConfigQueries;
+using UniCloud.Application.PartBC.Query.ConfigGroupQueries;
 using UniCloud.Application.PartBC.Query.ContractAircraftQueries;
 using UniCloud.Application.PartBC.Query.CtrlUnitQueries;
 using UniCloud.Application.PartBC.Query.MaintainCtrlQueries;
@@ -59,6 +63,7 @@ using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PartBC.Aggregates.AirStructureDamageAgg;
+using UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
@@ -127,6 +132,13 @@ namespace UniCloud.DistributedServices.Part.InstanceProviders
 .RegisterType<IBasicConfigGroupQuery, BasicConfigGroupQuery>()
                 .RegisterType<IBasicConfigGroupAppService, BasicConfigGroupAppService>()
                 .RegisterType<IBasicConfigGroupRepository, BasicConfigGroupRepository>()
+            #endregion
+
+            #region 基本构型组关配置，包括查询，应用服务，仓储注册
+
+.RegisterType<IBasicConfigQuery, BasicConfigQuery>()
+                .RegisterType<IBasicConfigAppService, BasicConfigAppService>()
+                .RegisterType<IBasicConfigRepository, BasicConfigRepository>()
             #endregion
 
             #region 合同飞机相关配置，包括查询，应用服务，仓储注册

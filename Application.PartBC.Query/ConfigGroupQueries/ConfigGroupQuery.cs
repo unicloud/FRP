@@ -22,6 +22,7 @@ using System.Linq;
 using System.Threading;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.SpecialConfigAgg;
@@ -36,18 +37,21 @@ namespace UniCloud.Application.PartBC.Query.ConfigGroupQueries
     {
         private readonly IQueryableUnitOfWork _unitOfWork;
         private readonly IBasicConfigGroupRepository _basicConfigGroupRepository;
+        private readonly IBasicConfigRepository _basicConfigRepository;
         private readonly IContractAircraftRepository _contractAircraftRepository;
         private readonly ISpecialConfigRepository _specialConfigRepository;
         private readonly ITechnicalSolutionRepository _technicalSolutionRepository;
 
         public ConfigGroupQuery(IQueryableUnitOfWork unitOfWork,
             IBasicConfigGroupRepository basicConfigGroupRepository,
+            IBasicConfigRepository basicConfigRepository,
             IContractAircraftRepository contractAircraftRepository,
             ISpecialConfigRepository specialConfigRepository,
             ITechnicalSolutionRepository technicalSolutionRepository)
         {
             _unitOfWork = unitOfWork;
             _basicConfigGroupRepository = basicConfigGroupRepository;
+            _basicConfigRepository = basicConfigRepository;
             _contractAircraftRepository = contractAircraftRepository;
             _specialConfigRepository = specialConfigRepository;
             _technicalSolutionRepository = technicalSolutionRepository;
@@ -107,7 +111,8 @@ namespace UniCloud.Application.PartBC.Query.ConfigGroupQueries
         /// <returns></returns>
         public List<CaDTO> CaDTOQuery()
         {
-            var dbBcGroup = _basicConfigGroupRepository.GetAllBasicConfigGroup();
+            var dbBcGroup = _basicConfigGroupRepository.GetAll().ToList();
+            var dbBc = _basicConfigRepository.GetAll().ToList();
             var dbTs = _technicalSolutionRepository.GetAll().ToList();
             var dbCa = _contractAircraftRepository.GetAll().ToList();
             var dbSpecialConfig = _specialConfigRepository.GetAll().ToList();
@@ -130,8 +135,9 @@ namespace UniCloud.Application.PartBC.Query.ConfigGroupQueries
                 var bcg = dbBcGroup.FirstOrDefault(p => p.Id == ca.BasicConfigGroupId);
                 if (bcg != null)
                 {
+                    var bcs = dbBc.Where(p => p.BasicConfigGroupId == bcg.Id);
                     //获取基本构型组中基本构型关联的技术解决方案TechnicalSolution，装换为TsDTO,存入CaDTO的List<TsDTO>中
-                    foreach (var bc in bcg.BasicConfigs)
+                    foreach (var bc in bcs)
                     {
                         var ts = dbTs.FirstOrDefault(p => p.Id == bc.TsId);
                         if (ts != null)

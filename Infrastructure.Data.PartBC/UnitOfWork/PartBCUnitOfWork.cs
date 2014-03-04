@@ -25,6 +25,7 @@ using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.PartBC.Aggregates.AirStructureDamageAgg;
+using UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Domain.PartBC.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.CtrlUnitAgg;
@@ -56,6 +57,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         private IDbSet<AircraftType> _aircraftTypes;
         private IDbSet<Aircraft> _aircrafts;
         private IDbSet<BasicConfigGroup> _basicConfigGroups;
+        private IDbSet<BasicConfig> _basicConfigs;
         private IDbSet<ContractAircraft> _contractAircrafts;
         private IDbSet<CtrlUnit> _ctrlUnits;
         private IDbSet<MaintainCtrl> _maintainCtrls;
@@ -103,6 +105,12 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork
         {
             get { return _basicConfigGroups ?? (_basicConfigGroups = base.Set<BasicConfigGroup>()); }
         }
+
+        public IDbSet<BasicConfig> BasicConfigs
+        {
+            get { return _basicConfigs ?? (_basicConfigs = base.Set<BasicConfig>()); }
+        }
+
 
         public IDbSet<ContractAircraft> ContractAircrafts
         {

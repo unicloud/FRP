@@ -16,7 +16,12 @@
 
 #region 命名空间
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Data.Services.Client;
+using System.Linq;
+using System.Windows;
 using Microsoft.Practices.Prism.Regions;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Part;
@@ -83,10 +88,32 @@ namespace UniCloud.Presentation.Part.EngineConfig
         /// </summary>
         public override void LoadData()
         {
+            LoadConfigGroups();
         }
 
         #region 业务
 
+        #region 构型组集合
+
+        private IEnumerable<ConfigGroupDTO> _configGroups;
+
+        /// <summary>
+        /// 构型组集合
+        /// </summary>
+        public IEnumerable<ConfigGroupDTO> ConfigGroups
+        {
+            get { return this._configGroups; }
+            private set
+            {
+                if (!this._configGroups.Equals(value))
+                {
+                    _configGroups = value;
+                    this.RaisePropertyChanged(() => this.ConfigGroups);
+                }
+            }
+        }
+
+        #endregion
         #endregion
 
         #endregion
@@ -95,6 +122,35 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         #region 操作
 
+        public void LoadConfigGroups()
+        {
+            var path = CreateConfigGroupsQueryUri();
+            IsBusy = true;
+            _context.BeginExecute<ConfigGroupDTO>(path,
+               result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+               {
+                   var context = result.AsyncState as PartData;
+                   try
+                   {
+                       if (context != null)
+                       {
+                           ConfigGroups = context.EndExecute<ConfigGroupDTO>(result).ToList();
+                       }
+                   }
+                   catch (DataServiceQueryException ex)
+                   {
+                       QueryOperationResponse response = ex.Response;
+                       MessageAlert(response.Error.Message);
+                   }
+                   IsBusy = false;
+               }), _context);
+        }
+        
+        private Uri CreateConfigGroupsQueryUri()
+        {
+            return new Uri(string.Format("GetConfigGroups"),
+                UriKind.Relative);
+        }
         #endregion
     }
 }

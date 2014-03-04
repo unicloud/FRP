@@ -17,6 +17,8 @@
 
 #region 命名空间
 
+using System.Data.Entity;
+using System.Linq;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
 
@@ -54,6 +56,12 @@ namespace UniCloud.Infrastructure.Data.PartBC.Repositories
             dbSnRegs.Remove(snReg);
         }
 
+        public override SnReg Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+           return currentUnitOfWork.SnRegs.Include(p => p.SnHistories).FirstOrDefault(p => p.Id == (int) id);
+        }
 
         /// <summary>
         ///     移除装机历史

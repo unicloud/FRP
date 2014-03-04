@@ -16,7 +16,7 @@
 #region 命名空间
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg;
+using UniCloud.Domain.UberModel.Aggregates.BasicConfigAgg;
 
 #endregion
 

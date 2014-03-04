@@ -57,7 +57,7 @@
     <Compile Include="AircraftTypeDTO\AircraftSeriesDTO.cs" />
     <Compile Include="AircraftTypeDTO\AircraftTypeDTO.cs" />
     <Compile Include="AirStructureDamageDTO\AirStructureDamageDTO.cs" />
-    <Compile Include="BasicConfigGroupDTO\BasicConfigDTO.cs" />
+    <Compile Include="BasicConfigDTO\BasicConfigDTO.cs" />
     <Compile Include="BasicConfigGroupDTO\BasicConfigGroupDTO.cs" />
     <Compile Include="ConfigGroupDTO\BcGroupDTO.cs" />
     <Compile Include="ConfigGroupDTO\CaDTO.cs" />
@@ -86,6 +86,7 @@
     <Compile Include="ScnDTO\ScnDTO.cs" />
     <Compile Include="SnRegDTO\LifeMonitorDTO.cs" />
     <Compile Include="SnRegDTO\SnHistoryDTO.cs" />
+    <Compile Include="SnRegDTO\ApuEngineSnRegDTO.cs" />
     <Compile Include="SnRegDTO\SnRegDTO.cs" />
     <Compile Include="SpecialConfigDTO\SpecialConfigDTO.cs" />
     <Compile Include="TechnicalSolutionDTO\DependencyDTO.cs" />

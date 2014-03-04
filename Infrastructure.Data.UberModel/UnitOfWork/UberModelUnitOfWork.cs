@@ -35,6 +35,7 @@ using UniCloud.Domain.UberModel.Aggregates.AnnualAgg;
 using UniCloud.Domain.UberModel.Aggregates.ApprovalDocAgg;
 using UniCloud.Domain.UberModel.Aggregates.AtaAgg;
 using UniCloud.Domain.UberModel.Aggregates.BankAccountAgg;
+using UniCloud.Domain.UberModel.Aggregates.BasicConfigAgg;
 using UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Domain.UberModel.Aggregates.CaacProgrammingAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg;
@@ -118,7 +119,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<ApprovalDoc> _approvalDocs;
         private IDbSet<Ata> _atas;
         private IDbSet<BankAccount> _bankAccounts;
-        private IDbSet<BasicConfigGroup> _basicConfigGroups;
+        private IDbSet<BasicConfig> _basicConfigs;
+        private IDbSet<BasicConfigGroup> _basicConfigGroups; 
         private IDbSet<CaacProgramming> _caacProgrammings;
         private IDbSet<ContractAircraftBFE> _contractAircraftBfes;
         private IDbSet<ContractAircraft> _contractAircrafts;
@@ -251,6 +253,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<BankAccount> BankAccounts
         {
             get { return _bankAccounts ?? (_bankAccounts = Set<BankAccount>()); }
+        }
+
+        public IDbSet<BasicConfig> BasicConfigs
+        {
+            get { return _basicConfigs ?? (_basicConfigs = base.Set<BasicConfig>()); }
         }
 
         public IDbSet<BasicConfigGroup> BasicConfigGroups
@@ -664,8 +671,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 #region BasicConfigGroupAgg
 
-                .Add(new BasicConfigGroupEntityConfiguration())
                 .Add(new BasicConfigEntityConfiguration())
+                .Add(new BasicConfigGroupEntityConfiguration())
                 #endregion
 
                 #region CaacProgrammingAgg

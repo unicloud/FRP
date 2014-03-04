@@ -194,8 +194,45 @@ namespace UniCloud.Presentation.Part.EngineConfig
                             ViewSpecialConfigs.Add(specialConfig);
                     }
                     _buttonVisible = _selContractAircraft.BasicConfigGroupId == null ? Visibility.Collapsed : Visibility.Visible;
+                    if (value != null)
+                    {
+                        SelBasicConfigGroup =
+                            BasicConfigGroups.SourceCollection.Cast<BasicConfigGroupDTO>()
+                                .ToList()
+                                .FirstOrDefault(p => p.Id == value.BasicConfigGroupId);
+                    }
                     RaisePropertyChanged(() => SelContractAircraft);
                     RaisePropertyChanged(() => ViewSpecialConfigs);
+
+                    // 刷新按钮状态
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        #endregion
+
+        #region 选择的基本构型组
+
+        private BasicConfigGroupDTO _selBasicConfigGroup;
+
+        /// <summary>
+        ///     选择的基本构型组
+        /// </summary>
+        public BasicConfigGroupDTO SelBasicConfigGroup
+        {
+            get { return _selBasicConfigGroup; }
+            private set
+            {
+                if (_selBasicConfigGroup != value)
+                {
+                    _selBasicConfigGroup = value;
+                    if (SelContractAircraft != null && value != null)
+                    {
+                        SelContractAircraft.BasicConfigGroupId = value.Id;
+                        ButtonVisible = Visibility.Visible;
+                    }
+                    RaisePropertyChanged(() => SelBasicConfigGroup);
 
                     // 刷新按钮状态
                     RefreshCommandState();

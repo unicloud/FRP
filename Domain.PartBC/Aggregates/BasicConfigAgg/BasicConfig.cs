@@ -15,11 +15,10 @@
 
 using System;
 
-namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg
+namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg
 {
     /// <summary>
-    /// BasicConfigGroup聚合根。
-    /// BasicConfig
+    /// BasicConfig聚合根.
     /// 基本构型
     /// </summary>
     public class BasicConfig : AcConfig
