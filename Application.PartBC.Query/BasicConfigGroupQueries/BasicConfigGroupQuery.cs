@@ -16,6 +16,7 @@
 #region 命名空间
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
+using UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Infrastructure.Data;
 #endregion
@@ -40,7 +41,7 @@ namespace UniCloud.Application.PartBC.Query.BasicConfigGroupQueries
         ///  <returns>BasicConfigGroupDTO集合</returns>
         public IQueryable<BasicConfigGroupDTO> BasicConfigGroupDTOQuery(QueryBuilder<BasicConfigGroup> query)
         {
-            var basicConfigs = _unitOfWork.CreateSet<BasicConfigDTO>();
+            var basicConfigs = _unitOfWork.CreateSet<BasicConfig>();
 
             return query.ApplyTo(_unitOfWork.CreateSet<BasicConfigGroup>()).Select(p => new BasicConfigGroupDTO
             {
