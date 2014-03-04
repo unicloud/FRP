@@ -73,12 +73,12 @@ namespace UniCloud.Application.PartBC.BasicConfigServices
             TechnicalSolution ts = _technicalSolutionRepository.Get(dto.TsId); //获取技术解决方案
             AcConfig acConfig = _basicConfigRepository.Get(dto.ParentId);
 
-            //创建基本构型组
-            BasicConfig newBasicConfigGroup = BasicConfigFactory.CreateBasicConfig(dto.Description, dto.ItemNo,
+            //创建基本构型
+            BasicConfig newBasicConfig = BasicConfigFactory.CreateBasicConfig(dto.Description, dto.ItemNo,
                 dto.ParentId, dto.ParentItemNo, ts, dto.BasicConfigGroupId);
-            newBasicConfigGroup.SetRootId(acConfig);
+            newBasicConfig.SetRootId(acConfig);
 
-            _basicConfigRepository.Add(newBasicConfigGroup);
+            _basicConfigRepository.Add(newBasicConfig);
         }
 
         /// <summary>

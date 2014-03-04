@@ -74,6 +74,8 @@ namespace UniCloud.Application.PartBC.BasicConfigGroupServices
             BasicConfigGroup newBasicConfigGroup = BasicConfigGroupFactory.CreateBasicConfigGroup(aircraftType,
                 dto.Description, dto.GroupNo, dto.StartDate);
 
+            newBasicConfigGroup.ChangeCurrentIdentity(dto.Id);
+
             _basicConfigGroupRepository.Add(newBasicConfigGroup);
         }
 
