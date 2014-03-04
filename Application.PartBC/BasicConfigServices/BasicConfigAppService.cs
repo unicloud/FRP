@@ -24,6 +24,7 @@ using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.BasicConfigQueries;
 using UniCloud.Domain.PartBC.Aggregates;
 using UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg;
+using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg;
 
 #endregion
@@ -39,13 +40,15 @@ namespace UniCloud.Application.PartBC.BasicConfigServices
         private readonly IBasicConfigQuery _basicConfigQuery;
         private readonly IBasicConfigRepository _basicConfigRepository;
         private readonly ITechnicalSolutionRepository _technicalSolutionRepository;
-
+        private readonly IBasicConfigGroupRepository _basicConfigGroupRepository;
         public BasicConfigAppService(IBasicConfigQuery basicConfigQuery, IBasicConfigRepository basicConfigRepository,
-            ITechnicalSolutionRepository technicalSolutionRepository)
+            ITechnicalSolutionRepository technicalSolutionRepository,
+            IBasicConfigGroupRepository basicConfigGroupRepository)
         {
             _basicConfigQuery = basicConfigQuery;
             _basicConfigRepository = basicConfigRepository;
             _technicalSolutionRepository = technicalSolutionRepository;
+            _basicConfigGroupRepository = basicConfigGroupRepository;
         }
 
         #region BasicConfigDTO
@@ -69,9 +72,10 @@ namespace UniCloud.Application.PartBC.BasicConfigServices
         {
             TechnicalSolution ts = _technicalSolutionRepository.Get(dto.TsId); //获取技术解决方案
             AcConfig acConfig = _basicConfigRepository.Get(dto.ParentId);
+
             //创建基本构型组
             BasicConfig newBasicConfigGroup = BasicConfigFactory.CreateBasicConfig(dto.Description, dto.ItemNo,
-                dto.ParentId, dto.ParentItemNo, ts);
+                dto.ParentId, dto.ParentItemNo, ts, dto.BasicConfigGroupId);
             newBasicConfigGroup.SetRootId(acConfig);
 
             _basicConfigRepository.Add(newBasicConfigGroup);

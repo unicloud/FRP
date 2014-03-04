@@ -37,7 +37,12 @@ namespace UniCloud.Infrastructure.Data.PartBC.Repositories
         }
 
         #region 方法重载
-
+        public override SnReg Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            return currentUnitOfWork.SnRegs.Include(p => p.SnHistories).Include(p=>p.LifeMonitors).FirstOrDefault(p => p.Id == (int)id);
+        }
         #endregion
 
         /// <summary>
@@ -55,14 +60,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.Repositories
             dbLifeMonitors.RemoveRange(snReg.LifeMonitors);
             dbSnRegs.Remove(snReg);
         }
-
-        public override SnReg Get(object id)
-        {
-            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
-            if (currentUnitOfWork == null) return null;
-           return currentUnitOfWork.SnRegs.Include(p => p.SnHistories).FirstOrDefault(p => p.Id == (int) id);
-        }
-
+        
         /// <summary>
         ///     移除装机历史
         /// </summary>

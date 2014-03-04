@@ -16,6 +16,7 @@
 #region 命名空间
 using System;
 using UniCloud.Domain.PartBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 using UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg;
 
 #endregion
@@ -49,9 +50,10 @@ namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg
         /// <param name="parentId">父项Id</param>
         /// <param name="parentItemNo">父项项号</param>
         /// <param name="ts">Ts</param>
+        /// <param name="bcGroupId">基本构型组</param>
         /// <returns></returns>
         public static BasicConfig CreateBasicConfig(string description, string itemNo, int? parentId, string parentItemNo,
-            TechnicalSolution ts)
+            TechnicalSolution ts,int bcGroupId)
         {
             var basicConfig = new BasicConfig
             {
@@ -62,6 +64,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg
             basicConfig.SetParentAcConfigId(parentId);
             basicConfig.SetParentItemNo(parentItemNo);
             basicConfig.SetTechnicalSolution(ts);
+            basicConfig.BasicConfigGroupId = bcGroupId;
             return basicConfig;
         }
     }

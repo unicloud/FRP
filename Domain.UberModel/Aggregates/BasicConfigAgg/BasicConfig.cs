@@ -13,6 +13,8 @@
 // ========================================================================*/
 #endregion
 
+using UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg;
+
 namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigAgg
 {
     /// <summary>
@@ -51,6 +53,14 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigAgg
 
         #region 导航属性
 
+        /// <summary>
+        /// 基本构型组
+        /// </summary>
+        public virtual BasicConfigGroup BasicConfigGroup
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region 操作

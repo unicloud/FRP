@@ -14,6 +14,7 @@
 #endregion
 
 using System;
+using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 
 namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg
 {
@@ -53,6 +54,14 @@ namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg
 
         #region 导航属性
 
+        /// <summary>
+        /// 基本构型组
+        /// </summary>
+        public virtual BasicConfigGroup BasicConfigGroup
+        {
+            get;
+            set;
+        }
         #endregion
 
         #region 操作

@@ -15,6 +15,7 @@
 
 #region 命名空间
 
+using System.Data.Entity;
 using System.Linq;
 using UniCloud.Domain.PartBC.Aggregates.TechnicalSolutionAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
@@ -35,6 +36,13 @@ namespace UniCloud.Infrastructure.Data.PartBC.Repositories
         }
 
         #region 方法重载
+        public override TechnicalSolution Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            return currentUnitOfWork.TechnicalSolutions.Include(p => p.TsLines).FirstOrDefault(p => p.Id == (int)id);
+        }
+
         #endregion
 
 

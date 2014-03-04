@@ -14,6 +14,9 @@
 #endregion
 
 #region 命名空间
+
+using System.Data.Entity;
+using System.Linq;
 using UniCloud.Domain.PartBC.Aggregates.MaintainCtrlAgg;
 using UniCloud.Infrastructure.Data.PartBC.UnitOfWork;
 
@@ -33,6 +36,15 @@ namespace UniCloud.Infrastructure.Data.PartBC.Repositories
         }
 
         #region 方法重载
+
+        public override MaintainCtrl Get(object id)
+        {
+            var currentUnitOfWork = UnitOfWork as PartBCUnitOfWork;
+            if (currentUnitOfWork == null) return null;
+            var set = currentUnitOfWork.CreateSet<ItemMaintainCtrl>();
+
+            return set.Include(p => p.MaintainCtrlLines).SingleOrDefault(l => l.Id == (int)id);
+        }
         #endregion
 
         /// <summary>
