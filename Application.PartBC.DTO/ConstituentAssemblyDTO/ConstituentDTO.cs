@@ -44,14 +44,19 @@ namespace UniCloud.Application.PartBC.DTO
         public int RootId { get; set; }
 
         /// <summary>
-        ///     序号
+        ///     项号
         /// </summary>
-        public string Sn { get; set; }
+        public string ItmeNo { get; set; }
 
         /// <summary>
         ///     件号
         /// </summary>
         public string Pn { get; set; }
+
+        /// <summary>
+        ///     序号
+        /// </summary>
+        public string Sn { get; set; }
 
         /// <summary>
         ///     是否寿控件
