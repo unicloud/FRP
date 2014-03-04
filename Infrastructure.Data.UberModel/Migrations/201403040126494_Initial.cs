@@ -571,13 +571,14 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
-                        TsNumber = c.String(),
-                        FiNumber = c.String(),
-                        ItemNo = c.String(),
-                        ParentItemNo = c.String(),
-                        Description = c.String(),
+                        TsNumber = c.String(maxLength: 100),
+                        FiNumber = c.String(maxLength: 100),
+                        ItemNo = c.String(maxLength: 100),
+                        ParentItemNo = c.String(maxLength: 100),
+                        Description = c.String(maxLength: 100),
                         TsId = c.Int(),
                         ParentId = c.Int(),
+                        RootId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("FRP.AcConfig", t => t.ParentId)
@@ -1889,14 +1890,25 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .PrimaryKey(t => t.ID);
             
             CreateTable(
+                "FRP.BasicConfig",
+                c => new
+                    {
+                        ID = c.Int(nullable: false),
+                        BasicConfigGroupId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ID)
+                .ForeignKey("FRP.AcConfig", t => t.ID)
+                .Index(t => t.ID);
+            
+            CreateTable(
                 "FRP.SpecialConfig",
                 c => new
                     {
                         ID = c.Int(nullable: false),
-                        StartDate = c.DateTime(nullable: false),
-                        EndDate = c.DateTime(),
+                        StartDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
+                        EndDate = c.DateTime(precision: 7, storeType: "datetime2"),
                         IsValid = c.Boolean(nullable: false),
-                        CreateDate = c.DateTime(nullable: false),
+                        CreateDate = c.DateTime(nullable: false, precision: 7, storeType: "datetime2"),
                         ContractAircraftId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
@@ -1928,19 +1940,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .ForeignKey("FRP.OperationHistory", t => t.OperationHistoryId)
                 .Index(t => t.ID)
                 .Index(t => t.OperationHistoryId);
-            
-            CreateTable(
-                "FRP.BasicConfig",
-                c => new
-                    {
-                        ID = c.Int(nullable: false),
-                        BasicConfigGroupId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.ID)
-                .ForeignKey("FRP.AcConfig", t => t.ID)
-                .ForeignKey("FRP.BasicConfigGroup", t => t.BasicConfigGroupId)
-                .Index(t => t.ID)
-                .Index(t => t.BasicConfigGroupId);
             
             CreateTable(
                 "FRP.LeaseContractAircraft",
@@ -2655,13 +2654,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropForeignKey("FRP.LeaseContractEngine", "ID", "FRP.ContractEngine");
             DropForeignKey("FRP.PurchaseContractAircraft", "ID", "FRP.ContractAircraft");
             DropForeignKey("FRP.LeaseContractAircraft", "ID", "FRP.ContractAircraft");
-            DropForeignKey("FRP.BasicConfig", "BasicConfigGroupId", "FRP.BasicConfigGroup");
-            DropForeignKey("FRP.BasicConfig", "ID", "FRP.AcConfig");
             DropForeignKey("FRP.OperationPlan", "OperationHistoryId", "FRP.OperationHistory");
             DropForeignKey("FRP.OperationPlan", "ID", "FRP.PlanHistory");
             DropForeignKey("FRP.ChangePlan", "AircraftBusinessId", "FRP.AircraftBusiness");
             DropForeignKey("FRP.ChangePlan", "ID", "FRP.PlanHistory");
             DropForeignKey("FRP.SpecialConfig", "ID", "FRP.AcConfig");
+            DropForeignKey("FRP.BasicConfig", "ID", "FRP.AcConfig");
             DropForeignKey("FRP.TsLine", "TsId", "FRP.TechnicalSolution");
             DropForeignKey("FRP.Dependency", "TsLineId", "FRP.TsLine");
             DropForeignKey("FRP.TaskStandard", "WorkGroupId", "FRP.WorkGroup");
@@ -2874,13 +2872,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropIndex("FRP.LeaseContractEngine", new[] { "ID" });
             DropIndex("FRP.PurchaseContractAircraft", new[] { "ID" });
             DropIndex("FRP.LeaseContractAircraft", new[] { "ID" });
-            DropIndex("FRP.BasicConfig", new[] { "BasicConfigGroupId" });
-            DropIndex("FRP.BasicConfig", new[] { "ID" });
             DropIndex("FRP.OperationPlan", new[] { "OperationHistoryId" });
             DropIndex("FRP.OperationPlan", new[] { "ID" });
             DropIndex("FRP.ChangePlan", new[] { "AircraftBusinessId" });
             DropIndex("FRP.ChangePlan", new[] { "ID" });
             DropIndex("FRP.SpecialConfig", new[] { "ID" });
+            DropIndex("FRP.BasicConfig", new[] { "ID" });
             DropIndex("FRP.TsLine", new[] { "TsId" });
             DropIndex("FRP.Dependency", new[] { "TsLineId" });
             DropIndex("FRP.TaskStandard", new[] { "WorkGroupId" });
@@ -3075,10 +3072,10 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
             DropTable("FRP.LeaseContractEngine");
             DropTable("FRP.PurchaseContractAircraft");
             DropTable("FRP.LeaseContractAircraft");
-            DropTable("FRP.BasicConfig");
             DropTable("FRP.OperationPlan");
             DropTable("FRP.ChangePlan");
             DropTable("FRP.SpecialConfig");
+            DropTable("FRP.BasicConfig");
             DropTable("FRP.ContentTag");
             DropTable("FRP.XmlSetting");
             DropTable("FRP.XmlConfig");
