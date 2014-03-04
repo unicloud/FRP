@@ -878,6 +878,7 @@ namespace UniCloud.Presentation.Shell
             var menu76 = new MenuItem
             {
                 Text = "修正飞机利用率",
+                NavUri = "UniCloud.Presentation.Part.MaintainAcDailyUtilization.CorrectAcDailyUtilization"
             };
             menu7.Items.Add(menu76);
 
@@ -897,6 +898,7 @@ namespace UniCloud.Presentation.Shell
             var menu79 = new MenuItem
             {
                 Text = "查询拆装历史",
+                NavUri = "UniCloud.Presentation.Part.SnHistories.QuerySnHistory"
             };
             menu7.Items.Add(menu79);
 
