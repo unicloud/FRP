@@ -31,11 +31,17 @@ namespace UniCloud.Application.PartBC.DTO
     public class ConstituentDTO
     {
         private List<ConstituentDTO> _constituents;
+        private List<ControlSchemeDTO> _controlSchemes;
 
         /// <summary>
         ///     结构组件ID
         /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        ///     根节点结构组件ID
+        /// </summary>
+        public int RootId { get; set; }
 
         /// <summary>
         ///     序号
@@ -79,6 +85,15 @@ namespace UniCloud.Application.PartBC.DTO
         {
             get { return _constituents ?? (_constituents = new List<ConstituentDTO>()); }
             set { _constituents = value; }
+        }
+
+        /// <summary>
+        ///     控制方案集合
+        /// </summary>
+        public virtual List<ControlSchemeDTO> ControlSchemes
+        {
+            get { return _controlSchemes ?? (_controlSchemes = new List<ControlSchemeDTO>()); }
+            set { _controlSchemes = value; }
         }
     }
 }
