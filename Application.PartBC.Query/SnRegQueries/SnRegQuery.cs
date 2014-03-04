@@ -17,6 +17,7 @@
 using System.Linq;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.PartBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.PartBC.Aggregates.SnRegAgg;
 using UniCloud.Infrastructure.Data;
 #endregion
@@ -89,6 +90,7 @@ namespace UniCloud.Application.PartBC.Query.SnRegQueries
         ///  <returns>ApuEngineSnRegDTO集合</returns>
         public IQueryable<ApuEngineSnRegDTO> ApuEngineSnRegDTOQuery(QueryBuilder<SnReg> query)
         {
+            var dbAircraft = _unitOfWork.CreateSet<Aircraft>();
             var apuSnRegs = query.ApplyTo(_unitOfWork.CreateSet<SnReg>()).Select(p => new ApuEngineSnRegDTO
             {
                 Id = p.Id,
@@ -117,6 +119,7 @@ namespace UniCloud.Application.PartBC.Query.SnRegQueries
                     Sn = q.Sn,
                     SnRegId = q.SnRegId,
                     AircraftId = q.AircraftId,
+                    AcReg = dbAircraft.FirstOrDefault(c=>c.Id==q.AircraftId).RegNumber,
                 }).ToList(),
             }).ToList();
             var engineSnRegs = query.ApplyTo(_unitOfWork.CreateSet<EngineReg>()).Select(p => new ApuEngineSnRegDTO
@@ -147,6 +150,7 @@ namespace UniCloud.Application.PartBC.Query.SnRegQueries
                     Sn = q.Sn,
                     SnRegId = q.SnRegId,
                     AircraftId = q.AircraftId,
+                    AcReg = dbAircraft.FirstOrDefault(c => c.Id == q.AircraftId).RegNumber,
                 }).ToList(),
             }).ToList();
 
