@@ -44,7 +44,7 @@
                                      AutoExpandGroups="True">
                     <telerik:RadGridView.GroupDescriptors>
                         <telerik:ColumnGroupDescriptor Column="{Binding Columns[\Status\], ElementName=OilUser}"
-                                                       SortDirection="Descending" />
+                                                       SortDirection="Ascending" />
                     </telerik:RadGridView.GroupDescriptors>
                     <telerik:RadContextMenu.ContextMenu>
                         <telerik:RadContextMenu>
@@ -58,7 +58,11 @@
                     <telerik:RadGridView.Columns>
                         <uc:DataPageSerialColumn Header="序号" />
                         <telerik:GridViewDataColumn Header="序列号" TextAlignment="Center"
-                                                    DataMemberBinding="{Binding Sn}" />
+                                                    DataMemberBinding="{Binding Sn}">
+                            <telerik:GridViewDataColumn.AggregateFunctions>
+                                <telerik:CountFunction ResultFormatString="数量：{0}" />
+                            </telerik:GridViewDataColumn.AggregateFunctions>
+                        </telerik:GridViewDataColumn>
                         <telerik:GridViewDataColumn Header="TSN" TextAlignment="Center"
                                                     DataMemberBinding="{Binding TSN}" />
                         <telerik:GridViewDataColumn Header="TSR" TextAlignment="Center"
@@ -68,7 +72,7 @@
                         <telerik:GridViewDataColumn Header="CSR" TextAlignment="Center"
                                                     DataMemberBinding="{Binding CSR}" />
                         <telerik:GridViewDataColumn Header="监控状态" TextAlignment="Center" IsVisible="False"
-                                                    DataMemberBinding="{Binding Status, Converter={StaticResource EnumToStringConverter}, ConverterParameter=OilMonitorStatus}" />
+                                                    DataMemberBinding="{Binding Status, Converter={StaticResource EnumToDescriptionConverter}, ConverterParameter=OilMonitorStatus}" />
                     </telerik:RadGridView.Columns>
                 </telerik:RadGridView>
                 <telerik:RadGridView Grid.Row="2" x:Name="OilMonitor" ItemsSource="{Binding ViewOilMonitorDTO}"

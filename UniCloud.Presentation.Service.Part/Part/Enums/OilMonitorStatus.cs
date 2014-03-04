@@ -15,6 +15,12 @@
 
 #endregion
 
+#region 命名空间
+
+using System.ComponentModel;
+
+#endregion
+
 namespace UniCloud.Presentation.Service.Part.Part.Enums
 {
     /// <summary>
@@ -22,8 +28,8 @@ namespace UniCloud.Presentation.Service.Part.Part.Enums
     /// </summary>
     public enum OilMonitorStatus
     {
-        正常 = 0,
-        关注 = 1,
-        警告 = 2
+        [Description("3-正常")] 正常 = 0,
+        [Description("2-关注")] 关注 = 1,
+        [Description("1-警告")] 警告 = 2
     }
 }
