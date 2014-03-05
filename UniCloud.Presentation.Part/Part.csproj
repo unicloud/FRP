@@ -241,6 +241,10 @@
     </Compile>
     <Compile Include="PnRegAndSnReg\ManagePnAndSnVm.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SnHistories\QuerySnHistory.xaml.cs">
+      <DependentUpon>QuerySnHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SnHistories\QuerySnHistoryVm.cs" />
     <Compile Include="SnHistories\SnHistory.xaml.cs">
       <DependentUpon>SnHistory.xaml</DependentUpon>
     </Compile>
@@ -325,6 +329,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OilMonitor\EngineOil.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SnHistories\QuerySnHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

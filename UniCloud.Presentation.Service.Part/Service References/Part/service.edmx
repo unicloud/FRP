@@ -53,7 +53,6 @@
         <Property Name="GroupNo" Type="Edm.String" />
         <Property Name="AircraftTypeName" Type="Edm.String" />
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
-        <NavigationProperty Name="BasicConfigs" Relationship="UniCloud.Application.PartBC.DTO.BasicConfigGroupDTO_BasicConfigs" ToRole="BasicConfigs" FromRole="BasicConfigGroupDTO" />
       </EntityType>
       <EntityType Name="BasicConfigDTO">
         <Key>
@@ -269,6 +268,7 @@
         <Property Name="CSR" Type="Edm.String" />
         <Property Name="TSN" Type="Edm.String" />
         <Property Name="TSR" Type="Edm.String" />
+        <Property Name="AcReg" Type="Edm.String" />
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
         <Property Name="SnRegId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
@@ -411,10 +411,6 @@
         <Property Name="SerialNumber" Type="Edm.String" />
         <Property Name="ConfigGroupId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
-      <Association Name="BasicConfigGroupDTO_BasicConfigs">
-        <End Type="UniCloud.Application.PartBC.DTO.BasicConfigGroupDTO" Role="BasicConfigGroupDTO" Multiplicity="*" />
-        <End Type="UniCloud.Application.PartBC.DTO.BasicConfigDTO" Role="BasicConfigs" Multiplicity="*" />
-      </Association>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Part" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="PartData" m:IsDefaultEntityContainer="true">
@@ -444,10 +440,6 @@
         <EntitySet Name="AirStructureDamages" EntityType="UniCloud.Application.PartBC.DTO.AirStructureDamageDTO" />
         <EntitySet Name="AdSbs" EntityType="UniCloud.Application.PartBC.DTO.AdSbDTO" />
         <FunctionImport Name="GetConfigGroups" ReturnType="Collection(UniCloud.Application.PartBC.DTO.ConfigGroupDTO)" m:HttpMethod="GET" />
-        <AssociationSet Name="BasicConfigGroupDTO_BasicConfigs" Association="UniCloud.Application.PartBC.DTO.BasicConfigGroupDTO_BasicConfigs">
-          <End Role="BasicConfigGroupDTO" EntitySet="BasicConfigGroups" />
-          <End Role="BasicConfigs" EntitySet="BasicConfigs" />
-        </AssociationSet>
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

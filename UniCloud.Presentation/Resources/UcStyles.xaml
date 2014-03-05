@@ -5,6 +5,7 @@
                     xmlns:valueConverts="http://schemas.unicloud.com/2012/xaml/presentation">
 
     <valueConverts:EnumToStringConverter x:Key="EnumToStringConverter" />
+    <valueConverts:EnumToDescriptionConverter x:Key="EnumToDescriptionConverter"/>
     <valueConverts:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     <valueConverts:StringToXamlConverter x:Key="StringToXamlConverter" />
     <valueConverts:DayAxisLabelConverter x:Key="DayAxisLabelConverter" />

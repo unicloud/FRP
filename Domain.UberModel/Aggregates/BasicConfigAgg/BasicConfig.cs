@@ -13,6 +13,8 @@
 // ========================================================================*/
 #endregion
 
+using UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg;
+
 namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigAgg
 {
     /// <summary>

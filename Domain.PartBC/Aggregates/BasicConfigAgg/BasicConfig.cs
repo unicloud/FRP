@@ -14,6 +14,7 @@
 #endregion
 
 using System;
+using UniCloud.Domain.PartBC.Aggregates.BasicConfigGroupAgg;
 
 namespace UniCloud.Domain.PartBC.Aggregates.BasicConfigAgg
 {

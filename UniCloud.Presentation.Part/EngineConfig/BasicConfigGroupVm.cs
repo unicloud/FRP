@@ -17,6 +17,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
@@ -32,7 +33,7 @@ using UniCloud.Presentation.Service.Part.Part;
 
 namespace UniCloud.Presentation.Part.EngineConfig
 {
-    [Export(typeof (BasicConfigGroupVm))]
+    [Export(typeof(BasicConfigGroupVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class BasicConfigGroupVm : EditViewModelBase
     {
@@ -40,7 +41,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
-        private PartData _context;
+        private readonly PartData _context;
 
         [ImportingConstructor]
         public BasicConfigGroupVm(IRegionManager regionManager, IPartService service)
@@ -61,10 +62,13 @@ namespace UniCloud.Presentation.Part.EngineConfig
         /// </summary>
         private void InitializeVM()
         {
-            BasicConfigGroups = _service.CreateCollection(_context.BasicConfigGroups, o => o.BasicConfigs);
+            BasicConfigGroups = _service.CreateCollection(_context.BasicConfigGroups);
             _service.RegisterCollectionView(BasicConfigGroups);//注册查询集合
-           
-            TechnicalSolutions= new QueryableDataServiceCollectionView<TechnicalSolutionDTO>(_context, _context.TechnicalSolutions);
+
+            BasicConfigs = _service.CreateCollection(_context.BasicConfigs);
+            _service.RegisterCollectionView(BasicConfigs);//注册查询集合
+
+            TechnicalSolutions = new QueryableDataServiceCollectionView<TechnicalSolutionDTO>(_context, _context.TechnicalSolutions);
 
             AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_context, _context.AircraftTypes);
 
@@ -79,7 +83,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
             RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
             AddEntityCommand = new DelegateCommand<object>(OnAddEntity, CanAddEntity);
             RemoveEntityCommand = new DelegateCommand<object>(OnRemoveEntity, CanRemoveEntity);
-            CellEditEndCommand=new DelegateCommand<object>(OnCellEditEnd);
+            CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
         }
 
         #endregion
@@ -106,6 +110,11 @@ namespace UniCloud.Presentation.Part.EngineConfig
             else
                 BasicConfigGroups.Load(true);
 
+            if (!BasicConfigs.AutoLoad)
+                BasicConfigs.AutoLoad = true;
+            else
+                BasicConfigs.Load(true);
+
             TechnicalSolutions.AutoLoad = true;
 
             AircraftTypes.AutoLoad = true;
@@ -119,6 +128,33 @@ namespace UniCloud.Presentation.Part.EngineConfig
         ///     基本构型组集合
         /// </summary>
         public QueryableDataServiceCollectionView<BasicConfigGroupDTO> BasicConfigGroups { get; set; }
+        
+        #endregion
+
+        #region 基本构型集合
+
+        /// <summary>
+        ///     基本构型集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<BasicConfigDTO> BasicConfigs { get; set; }
+
+        private ObservableCollection<BasicConfigDTO> _viewBasicConfigs=new ObservableCollection<BasicConfigDTO>();
+
+        /// <summary>
+        /// 基本构型集合
+        /// </summary>
+        public ObservableCollection<BasicConfigDTO> ViewBasicConfigs
+        {
+            get { return this._viewBasicConfigs; }
+            private set
+            {
+                if (this._viewBasicConfigs != value)
+                {
+                    _viewBasicConfigs = value;
+                    this.RaisePropertyChanged(() => this.ViewBasicConfigs);
+                }
+            }
+        }
 
         #endregion
 
@@ -155,6 +191,14 @@ namespace UniCloud.Presentation.Part.EngineConfig
                 if (_selbBasicConfigGroup != value)
                 {
                     _selbBasicConfigGroup = value;
+                    ViewBasicConfigs.Clear();
+                    var bcs =
+                        BasicConfigs.SourceCollection.Cast<BasicConfigDTO>()
+                            .Where(p => p.BasicConfigGroupId == value.Id);
+                    foreach (var bc in bcs)
+                    {
+                        ViewBasicConfigs.Add(bc);
+                    }
                     RaisePropertyChanged(() => SelBasicConfigGroup);
 
                     // 刷新按钮状态
@@ -244,7 +288,12 @@ namespace UniCloud.Presentation.Part.EngineConfig
         {
             if (_selbBasicConfigGroup != null)
             {
-                TechnicalSolutions.Remove(_selbBasicConfigGroup);
+                var bcs = BasicConfigs.Where(p => p.BasicConfigGroupId == _selbBasicConfigGroup.Id).ToList();
+                foreach (var bc in bcs)
+                {
+                    BasicConfigs.Remove(bc);
+                }
+                BasicConfigGroups.Remove(_selbBasicConfigGroup);
             }
         }
 
@@ -269,7 +318,8 @@ namespace UniCloud.Presentation.Part.EngineConfig
                 Id = RandomHelper.Next(),
                 BasicConfigGroupId = SelBasicConfigGroup.Id,
             };
-            SelBasicConfigGroup.BasicConfigs.Add(newBasicConfig);
+            ViewBasicConfigs.Add(newBasicConfig);
+            BasicConfigs.AddNew(newBasicConfig);
         }
 
         private bool CanAddEntity(object obj)
@@ -290,7 +340,8 @@ namespace UniCloud.Presentation.Part.EngineConfig
         {
             if (_selBasicConfig != null)
             {
-                SelBasicConfigGroup.BasicConfigs.Remove(_selBasicConfig);
+                BasicConfigs.Remove(_selBasicConfig);
+                ViewBasicConfigs.Remove(_selBasicConfig);
             }
         }
 

@@ -898,6 +898,7 @@ namespace UniCloud.Presentation.Shell
             var menu79 = new MenuItem
             {
                 Text = "查询拆装历史",
+                NavUri = "UniCloud.Presentation.Part.SnHistories.QuerySnHistory"
             };
             menu7.Items.Add(menu79);
 

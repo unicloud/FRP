@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.UberModel.Aggregates.BasicConfigAgg;
 
 #endregion
 
@@ -32,6 +33,12 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
     /// </summary>
     public class BasicConfigGroup : EntityInt, IValidatableObject
     {
+        #region 私有字段
+
+        private HashSet<BasicConfig> _basicConfigs;
+
+        #endregion
+
         #region 构造函数
 
         /// <summary>
@@ -79,6 +86,14 @@ namespace UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg
         /// </summary>
         public AircraftType AircraftType { get; set; }
 
+        /// <summary>
+        /// 基本构型集合
+        /// </summary>
+        public virtual ICollection<BasicConfig> BasicConfigs
+        {
+            get { return _basicConfigs ?? (_basicConfigs = new HashSet<BasicConfig>()); }
+            set { _basicConfigs = new HashSet<BasicConfig>(value); }
+        }
         #endregion
 
         #region 操作

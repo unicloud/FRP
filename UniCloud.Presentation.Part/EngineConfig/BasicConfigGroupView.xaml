@@ -58,15 +58,13 @@
                                                     Margin="-1 -2 -1 0"
                                                     OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
-                                                       Command="{Binding SaveCommand}"
-                                                       CommandParameter="{Binding BasicConfigGroups}">
+                                                       Command="{Binding SaveCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="保存" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AbortCommand}"
-                                                       CommandParameter="{Binding BasicConfigGroups}">
+                                                       Command="{Binding AbortCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="放弃更改" />
@@ -187,7 +185,7 @@
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="False"
-                                                     ItemsSource="{Binding SelBasicConfigGroup.BasicConfigs,Mode=TwoWay}"
+                                                     ItemsSource="{Binding ViewBasicConfigs,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelBasicConfig,Mode=TwoWay}"
                                                      IsBusy="{Binding BasicConfigGroups.IsBusy}"
                                                      AutoGenerateColumns="False"
