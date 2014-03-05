@@ -58,6 +58,7 @@
                                 <telerik:RadToolBarSeparator />
                                 <TextBlock Text="批次号："/>
                                 <TextBox Width="100"
+                                         telerik:StyleManager.Theme="Windows8"
                                          Text="{Binding CscNumber,Mode=TwoWay}"/>
                                 <telerik:RadButton Margin="4,2,2,-2"
                                                    Command="{Binding CompareMscnListCommand}">

@@ -55,6 +55,7 @@
                            VerticalAlignment="Center" />
                 <TextBox Grid.Column="3"
                          Name="CurrentMonthTextBox"
+                         telerik:StyleManager.Theme="Windows8"
                          IsReadOnly="True"
                          Text=" "
                          VerticalAlignment="Center" />
@@ -89,6 +90,7 @@
                                            EmptyContent="飞机日利用率">
                     <telerik:RadCartesianChart.Behaviors>
                         <telerik:ChartTrackBallBehavior />
+                        <telerik:ChartPanAndZoomBehavior/>
                     </telerik:RadCartesianChart.Behaviors>
                     <telerik:LineSeries ItemsSource="{Binding AcDailyUtilizationDtos}"
                                         CategoryBinding="Date"
