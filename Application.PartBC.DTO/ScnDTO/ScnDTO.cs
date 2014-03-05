@@ -78,9 +78,9 @@ namespace UniCloud.Application.PartBC.DTO
         }
 
         /// <summary>
-        /// TS号
+        /// 有效期
         /// </summary>
-        public string TsNumber
+        public string ValidDate
         {
             get;
             set;
@@ -154,6 +154,15 @@ namespace UniCloud.Application.PartBC.DTO
         /// SCN文件名称
         /// </summary>
         public string ScnDocName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 接收日期
+        /// </summary>
+        public DateTime ReceiveDate
         {
             get;
             set;

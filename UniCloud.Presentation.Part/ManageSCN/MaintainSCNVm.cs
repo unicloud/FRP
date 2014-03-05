@@ -187,9 +187,12 @@ namespace UniCloud.Presentation.Part.ManageSCN
             {
                 Id = RandomHelper.Next(),
                 CheckDate = DateTime.Now,
+                ReceiveDate = DateTime.Now,
                 TypeString = ScnType.SCN.ToString(),
                 ScnTypeString = ScnApplicableType.个体.ToString(),
                 ScnStatus = 0,
+                AuditOrganization = ScnStatus.技术标准室审核.ToString().Replace("审核", string.Empty),
+                AuditTime = DateTime.Now
             };
             Scns.AddNew(Scn);
         }

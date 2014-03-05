@@ -46,7 +46,7 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
         /// <param name="checkDate">确认日期</param>
         /// <param name="cscNumber">批次号</param>
         /// <param name="modNumber">MOD号</param>
-        /// <param name="tsNumber">TS号</param>
+        /// <param name="validDate">有效期</param>
         /// <param name="cost">费用</param>
         /// <param name="scnNumber">SCN号</param>
         /// <param name="scnType">SCN适用类型</param>
@@ -54,26 +54,28 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
         /// <param name="description">描述</param>
         /// <param name="scnDocName">Scn文档名称</param>
         /// <param name="scnDocumentId">SCN文件</param>
+        /// <param name="receiveDate">接收日期</param>
         /// <param name="auditOrganization">审核部门</param>
         /// <param name="auditor">审核人</param>
         /// <param name="auditTime">审核时间</param>
         /// <param name="auditNotes">审核意见</param>
         public static void SetScn(Scn scn,string title, int type, DateTime checkDate, string cscNumber, string modNumber,
-            string tsNumber, decimal cost, string scnNumber, int scnType, int scnStatus, string description, string scnDocName, Guid scnDocumentId,
-            string auditOrganization, string auditor, DateTime? auditTime, string auditNotes)
+            string validDate, decimal cost, string scnNumber, int scnType, int scnStatus, string description, string scnDocName, Guid scnDocumentId,
+           DateTime receiveDate, string auditOrganization, string auditor, DateTime? auditTime, string auditNotes)
         {
             scn.Title = title;
             scn.SetType((ScnType)type);
             scn.SetCheckDate(checkDate);
             scn.SetCscNumber(cscNumber);
             scn.SetModNumber(modNumber);
-            scn.SetTsNumber(tsNumber);
+            scn.SetValidDate(validDate);
             scn.SetCost(cost);
             scn.SetScnNumber(scnNumber);
             scn.SetScnType((ScnApplicableType)scnType);
             scn.SetScnStatus((ScnStatus)scnStatus);
             scn.SetDescription(description);
             scn.SetScnDocument(scnDocName, scnDocumentId);
+            scn.SetReceiveDate(receiveDate);
             scn.SetAuditMsg(auditOrganization, auditor, auditTime, auditNotes);
         }
 

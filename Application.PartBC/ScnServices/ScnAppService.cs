@@ -65,8 +65,8 @@ namespace UniCloud.Application.PartBC.ScnServices
         {
             //创建SCN
             var newScn = ScnFactory.CreateScn();
-            ScnFactory.SetScn(newScn, dto.Title, dto.Type, dto.CheckDate, dto.CSCNumber, dto.ModNumber, dto.TsNumber, dto.Cost,
-                dto.ScnNumber, dto.ScnType, dto.ScnStatus, dto.Description, dto.ScnDocName, dto.ScnDocumentId,
+            ScnFactory.SetScn(newScn, dto.Title, dto.Type, dto.CheckDate, dto.CSCNumber, dto.ModNumber, dto.ValidDate, dto.Cost,
+                dto.ScnNumber, dto.ScnType, dto.ScnStatus, dto.Description, dto.ScnDocName, dto.ScnDocumentId,dto.ReceiveDate,
                 dto.AuditOrganization, dto.Auditor, dto.AuditTime, dto.AuditNotes);
 
             //添加使用飞机
@@ -88,8 +88,8 @@ namespace UniCloud.Application.PartBC.ScnServices
             if (updateScn != null)
             {
                 //更新主表：
-                ScnFactory.SetScn(updateScn, dto.Title, dto.Type, dto.CheckDate, dto.CSCNumber, dto.ModNumber, dto.TsNumber, dto.Cost,
-                dto.ScnNumber, dto.ScnType, dto.ScnStatus, dto.Description, dto.ScnDocName, dto.ScnDocumentId,
+                ScnFactory.SetScn(updateScn, dto.Title, dto.Type, dto.CheckDate, dto.CSCNumber, dto.ModNumber, dto.ValidDate, dto.Cost,
+                dto.ScnNumber, dto.ScnType, dto.ScnStatus, dto.Description, dto.ScnDocName, dto.ScnDocumentId,dto.ReceiveDate,
                 dto.AuditOrganization, dto.Auditor, dto.AuditTime, dto.AuditNotes);
                 UpdateApplicableAircrafts(dto.ApplicableAircrafts, updateScn);
                 ////更新Scn适用飞机集合：

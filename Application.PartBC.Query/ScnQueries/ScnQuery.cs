@@ -55,7 +55,8 @@ namespace UniCloud.Application.PartBC.Query.ScnQueries
                 ScnNumber = p.ScnNumber,
                 Type = (int)p.Type,
                 ScnType = (int)p.ScnType,
-                TsNumber = p.TsNumber,
+                ValidDate = p.ValidDate,
+                ReceiveDate = p.ReceiveDate,
                 ScnStatus = (int)p.ScnStatus,
                 AuditHistory = p.AuditHistory,
                 ApplicableAircrafts = p.ApplicableAircrafts.Select(q => new ApplicableAircraftDTO

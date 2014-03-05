@@ -201,7 +201,7 @@
         <Property Name="CheckDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="CSCNumber" Type="Edm.String" />
         <Property Name="ModNumber" Type="Edm.String" />
-        <Property Name="TsNumber" Type="Edm.String" />
+        <Property Name="ValidDate" Type="Edm.String" />
         <Property Name="Cost" Type="Edm.Decimal" Nullable="false" />
         <Property Name="ScnNumber" Type="Edm.String" />
         <Property Name="Type" Type="Edm.Int32" Nullable="false" />
@@ -211,6 +211,7 @@
         <Property Name="ScnTypeString" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
         <Property Name="ScnDocName" Type="Edm.String" />
+        <Property Name="ReceiveDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="AuditOrganization" Type="Edm.String" />
         <Property Name="Auditor" Type="Edm.String" />
         <Property Name="AuditTime" Type="Edm.DateTime" />
