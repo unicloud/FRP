@@ -5,6 +5,7 @@
 //------------------------------------------------------------------------------
 
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.ServiceModel.Web;
 using System.Web;
 using UniCloud.Application.PartBC.ConfigGroupServices;
@@ -76,7 +77,8 @@ namespace UniCloud.DistributedServices.Part
         public List<ConfigGroupDTO> GetConfigGroups()
         {
             var configGroupService = DefaultContainer.Resolve<IConfigGroupAppService>();
-            return configGroupService.GetConfigGroups();
+            List<ConfigGroupDTO> result = configGroupService.GetConfigGroups();
+            return result;
         }
 
         #endregion

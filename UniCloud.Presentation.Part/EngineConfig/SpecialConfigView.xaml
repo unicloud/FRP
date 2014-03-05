@@ -59,7 +59,7 @@
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
-                                                     IsReadOnly="False"
+                                                     IsReadOnly="True"
                                                      ItemsSource="{Binding ContractAircrafts,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelContractAircraft,Mode=TwoWay}"
                                                      IsBusy="{Binding ContractAircrafts.IsBusy}">

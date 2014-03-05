@@ -202,6 +202,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
                                 .FirstOrDefault(p => p.Id == value.BasicConfigGroupId);
                     }
                     RaisePropertyChanged(() => SelContractAircraft);
+                    RaisePropertyChanged(() => SelBasicConfigGroup);
                     RaisePropertyChanged(() => ViewSpecialConfigs);
 
                     // 刷新按钮状态
@@ -227,10 +228,11 @@ namespace UniCloud.Presentation.Part.EngineConfig
                 if (_selBasicConfigGroup != value)
                 {
                     _selBasicConfigGroup = value;
-                    if (SelContractAircraft != null && value != null)
+                    if (SelContractAircraft != null && value.Id != SelContractAircraft.BasicConfigGroupId)
                     {
                         SelContractAircraft.BasicConfigGroupId = value.Id;
                         ButtonVisible = Visibility.Visible;
+                        _service.SubmitChanges(ContractAircrafts);
                     }
                     RaisePropertyChanged(() => SelBasicConfigGroup);
 

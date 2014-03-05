@@ -31,7 +31,7 @@ using UniCloud.Presentation.Service.Part.Part;
 
 namespace UniCloud.Presentation.Part.EngineConfig
 {
-    [Export(typeof (ConfigCompareVm))]
+    [Export(typeof(ConfigCompareVm))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class ConfigCompareVm : EditViewModelBase
     {
@@ -95,17 +95,17 @@ namespace UniCloud.Presentation.Part.EngineConfig
 
         #region 构型组集合
 
-        private IEnumerable<ConfigGroupDTO> _configGroups;
+        private List<ConfigGroupDTO> _configGroups;
 
         /// <summary>
         /// 构型组集合
         /// </summary>
-        public IEnumerable<ConfigGroupDTO> ConfigGroups
+        public List<ConfigGroupDTO> ConfigGroups
         {
             get { return this._configGroups; }
             private set
             {
-                if (!this._configGroups.Equals(value))
+                if (this._configGroups != value)
                 {
                     _configGroups = value;
                     this.RaisePropertyChanged(() => this.ConfigGroups);
@@ -145,7 +145,7 @@ namespace UniCloud.Presentation.Part.EngineConfig
                    IsBusy = false;
                }), _context);
         }
-        
+
         private Uri CreateConfigGroupsQueryUri()
         {
             return new Uri(string.Format("GetConfigGroups"),

@@ -85,10 +85,10 @@ namespace UniCloud.Application.PartBC.Tests.Services
         public void GetBasicConfigGroups()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IBasicConfigGroupAppService>();
+            var service = DefaultContainer.Resolve<IConfigGroupAppService>();
 
             // Act
-            List<BasicConfigGroupDTO> result = service.GetBasicConfigGroups().ToList();
+            List<ConfigGroupDTO> result = service.GetConfigGroups().ToList();
 
             // Assert
             Assert.IsTrue(result.Any());
