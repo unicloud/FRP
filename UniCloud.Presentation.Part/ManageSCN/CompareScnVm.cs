@@ -187,6 +187,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
                                             });
                         }
                     }
+                    MessageAlert("导入成功。");
                 }
             }
         }
@@ -298,15 +299,15 @@ namespace UniCloud.Presentation.Part.ManageSCN
                                                     t.ScnNumber.Equals(p.ScnNumber, StringComparison.OrdinalIgnoreCase));
                                         if (temp != null)
                                         {
-                                            tempCompareMscns.Add(new CompareMscn
-                                                             {
-                                                                 SysModNo = p.ModNumber,
-                                                                 SysMscnNo = p.ScnNumber,
-                                                                 SysTitle = p.Title,
-                                                                 AirBusModNo = temp.ModNumber,
-                                                                 AirBusMscnNo = temp.ScnNumber,
-                                                                 AirBusTitle = temp.Title
-                                                             });
+                                            //tempCompareMscns.Add(new CompareMscn
+                                            //                 {
+                                            //                     SysModNo = p.ModNumber,
+                                            //                     SysMscnNo = p.ScnNumber,
+                                            //                     SysTitle = p.Title,
+                                            //                     AirBusModNo = temp.ModNumber,
+                                            //                     AirBusMscnNo = temp.ScnNumber,
+                                            //                     AirBusTitle = temp.Title
+                                            //                 });
                                             tempAirBusScns.Remove(temp);
                                         }
                                         else

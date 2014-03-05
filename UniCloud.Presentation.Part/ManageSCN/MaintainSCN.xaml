@@ -25,7 +25,7 @@
             <telerik:RadSplitContainer Orientation="Horizontal">
                 <telerik:RadSplitContainer  InitialPosition="DockedLeft"
                                             Orientation="Vertical"
-                                            telerik:ProportionalStackPanel.RelativeSize="300, 300">
+                                            telerik:ProportionalStackPanel.RelativeSize="600, 300">
                     <telerik:RadSplitContainer InitialPosition="DockedTop"
                                                telerik:ProportionalStackPanel.RelativeSize="300,300">
                         <telerik:RadPaneGroup>
@@ -135,6 +135,12 @@
                                                                             IsFilterable="True"
                                                                             IsGroupable="True"
                                                                             DataMemberBinding="{Binding ModNumber}" />
+                                                <telerik:GridViewDataColumn Header="RFC号"
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            IsFilterable="True"
+                                                                            IsGroupable="True"
+                                                                            DataMemberBinding="{Binding RfcNumber}" />
                                                 <telerik:GridViewComboBoxColumn Header="适用类型"
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"

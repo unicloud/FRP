@@ -78,6 +78,15 @@ namespace UniCloud.Application.PartBC.DTO
         }
 
         /// <summary>
+        /// Rfc号
+        /// </summary>
+        public string RfcNumber
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 有效期
         /// </summary>
         public string ValidDate

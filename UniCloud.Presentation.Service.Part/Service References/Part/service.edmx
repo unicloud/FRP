@@ -201,6 +201,7 @@
         <Property Name="CheckDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="CSCNumber" Type="Edm.String" />
         <Property Name="ModNumber" Type="Edm.String" />
+        <Property Name="RfcNumber" Type="Edm.String" />
         <Property Name="ValidDate" Type="Edm.String" />
         <Property Name="Cost" Type="Edm.Decimal" Nullable="false" />
         <Property Name="ScnNumber" Type="Edm.String" />

@@ -82,6 +82,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.ScnAgg
         }
 
         /// <summary>
+        /// Rfc号
+        /// </summary>
+        public string RfcNumber
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
         /// 有效期
         /// </summary>
         public string ValidDate
@@ -260,7 +269,8 @@ namespace UniCloud.Domain.UberModel.Aggregates.ScnAgg
         ///     设置MOD号
         /// </summary>
         /// <param name="modNumber">MOD号</param>
-        public void SetModNumber(string modNumber)
+        /// <param name="rfcNumber">RFC号</param>
+        public void SetModNumber(string modNumber,string rfcNumber)
         {
             if (string.IsNullOrWhiteSpace(modNumber))
             {
@@ -268,6 +278,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.ScnAgg
             }
 
             ModNumber = modNumber;
+            RfcNumber = rfcNumber;
         }
 
         /// <summary>

@@ -50,6 +50,7 @@ namespace UniCloud.Application.PartBC.Query.ScnQueries
                 Cost = p.Cost,
                 Description = p.Description,
                 ModNumber = p.ModNumber,
+                RfcNumber = p.RfcNumber,
                 ScnDocumentId = p.ScnDocumentId,
                 ScnDocName = p.ScnDocName,
                 ScnNumber = p.ScnNumber,

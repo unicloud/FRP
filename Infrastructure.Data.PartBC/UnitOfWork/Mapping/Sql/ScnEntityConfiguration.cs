@@ -36,6 +36,7 @@ namespace UniCloud.Infrastructure.Data.PartBC.UnitOfWork.Mapping.Sql
             Property(p => p.CheckDate).HasColumnName("CheckDate").HasColumnType("datetime2");
             Property(p => p.CSCNumber).HasColumnName("CSCNumber").HasMaxLength(100);
             Property(p => p.ModNumber).HasColumnName("ModNumber").HasMaxLength(100);
+            Property(p => p.RfcNumber).HasColumnName("RfcNumber").HasMaxLength(100);
             Property(p => p.ValidDate).HasColumnName("ValidDate").HasMaxLength(100);
             Property(p => p.Cost).HasColumnName("Cost").HasColumnType("decimal").HasPrecision(16, 4);
             Property(p => p.ScnNumber).HasColumnName("ScnNumber").HasMaxLength(100);
