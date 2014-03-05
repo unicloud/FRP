@@ -20,22 +20,22 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}"
-                              BusyContent="{x:Null}">
+    <telerik:RadBusyIndicator BusyContent="{x:Null}"
+                              IsBusy="{Binding Aircrafts.IsBusy,Mode=TwoWay}">
         <Grid x:Name="Layout">
             <Grid.RowDefinitions>
-                <RowDefinition Height="60" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="80" />
                     <ColumnDefinition Width="120" />
                     <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="120" />
                     <ColumnDefinition Width="80" />
                     <ColumnDefinition Width="10" />
                     <ColumnDefinition Width="80" />
@@ -46,127 +46,136 @@
                            VerticalAlignment="Center" />
                 <telerik:RadComboBox Grid.Column="1"
                                      VerticalAlignment="Center"
-                                     ItemsSource="{Binding Period}"
-                                     SelectedItem="{Binding SelPeriod, Mode=TwoWay}" />
+                                     ItemsSource="{Binding Aircrafts}"
+                                     SelectedItem="{Binding Aircraft, Mode=TwoWay}"
+                                     DisplayMemberPath="RegNumber" />
                 <TextBlock Grid.Column="2"
-                           Text="当前月份"
+                           Text="当前月份："
                            Margin="10,0,5,0"
                            VerticalAlignment="Center" />
                 <TextBox Grid.Column="3"
-                         Text="2014/03"
+                         Name="CurrentMonthTextBox"
+                         telerik:StyleManager.Theme="Windows8"
+                         IsReadOnly="True"
+                         Text=" "
                          VerticalAlignment="Center" />
                 <TextBlock Grid.Column="4"
-                           Text="日利用率"
+                           Text="修正日利用小时："
                            Margin="10,0,5,0"
                            VerticalAlignment="Center" />
                 <TextBox Grid.Column="5"
-                         Text="2014/03"
+                         Text="{Binding AcDailyUtilization.AmendHour,Mode=TwoWay}"
                          VerticalAlignment="Center" />
                 <TextBlock Grid.Column="6"
-                           Text="日循环数"
+                           Text="修正日利用循环："
                            Margin="10,0,5,0"
                            VerticalAlignment="Center" />
                 <TextBox Grid.Column="7"
-                         Text="2014/03"
+                         Text="{Binding AcDailyUtilization.AmendCycle,Mode=TwoWay}"
                          VerticalAlignment="Center" />
-                <Button Grid.Column="9" 
+                <Button Grid.Column="9"
                         telerik:StyleManager.Theme="Windows8"
                         VerticalAlignment="Center"
-                        Content="修正"/>
+                        Content="修正" 
+                        Command="{Binding SaveCommand}"
+                        CommandParameter="{Binding AcDailyUtilizations}"/>
+                <telerik:RadLegend Name="PieLegend"
+                                   Margin="0,0,10,0"
+                                   Items="{Binding LegendItems, ElementName=AircraftChart}"
+                                   Grid.Column="10"
+                                   HorizontalAlignment="Right" />
             </Grid>
-            <telerik:RadCartesianChart x:Name="Oil"
-                                       Grid.Row="1"
-                                       EmptyContent="滑油消耗率图表"
-                                       Zoom="{Binding Zoom, Mode=TwoWay}"
-                                       PanOffset="{Binding PanOffset, Mode=TwoWay}">
-                <telerik:RadCartesianChart.Behaviors>
-                    <telerik:ChartTrackBallBehavior />
-                </telerik:RadCartesianChart.Behaviors>
-                <telerik:LineSeries ItemsSource="{Binding ViewOilMonitorDTO}"
-                                    CategoryBinding="Date"
-                                    ValueBinding="TotalRate">
-                    <telerik:LineSeries.LegendSettings>
-                        <telerik:SeriesLegendSettings Title="总耗率" />
-                    </telerik:LineSeries.LegendSettings>
-                    <telerik:LineSeries.TrackBallInfoTemplate>
-                        <DataTemplate>
-                            <StackPanel Background="Transparent">
-                                <TextBlock Text="{Binding DataPoint.Value, StringFormat=总消耗率：\{0:0\}}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </telerik:LineSeries.TrackBallInfoTemplate>
-                </telerik:LineSeries>
-                <telerik:LineSeries ItemsSource="{Binding ViewOilMonitorDTO}"
-                                    CategoryBinding="Date"
-                                    ValueBinding="IntervalRate">
-                    <telerik:LineSeries.LegendSettings>
-                        <telerik:SeriesLegendSettings Title="区间耗率" />
-                    </telerik:LineSeries.LegendSettings>
-                    <telerik:LineSeries.TrackBallInfoTemplate>
-                        <DataTemplate>
-                            <StackPanel Background="Transparent">
-                                <TextBlock Text="{Binding DataPoint.Value, StringFormat=区间消耗率：\{0:0\}}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </telerik:LineSeries.TrackBallInfoTemplate>
-                </telerik:LineSeries>
-                <telerik:LineSeries ItemsSource="{Binding ViewOilMonitorDTO}"
-                                    CategoryBinding="Date"
-                                    ValueBinding="AverageRate3">
-                    <telerik:LineSeries.LegendSettings>
-                        <telerik:SeriesLegendSettings Title="3日均线" />
-                    </telerik:LineSeries.LegendSettings>
-                    <telerik:LineSeries.TrackBallInfoTemplate>
-                        <DataTemplate>
-                            <StackPanel Background="Transparent">
-                                <TextBlock Text="{Binding DataPoint.Value, StringFormat=3日移动平均：\{0:0\}}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </telerik:LineSeries.TrackBallInfoTemplate>
-                </telerik:LineSeries>
-                <telerik:LineSeries ItemsSource="{Binding ViewOilMonitorDTO}"
-                                    CategoryBinding="Date"
-                                    ValueBinding="AverageRate7">
-                    <telerik:LineSeries.LegendSettings>
-                        <telerik:SeriesLegendSettings Title="7日均线" />
-                    </telerik:LineSeries.LegendSettings>
-                    <telerik:LineSeries.TrackBallInfoTemplate>
-                        <DataTemplate>
-                            <StackPanel Background="Transparent">
-                                <TextBlock Text="{Binding DataPoint.Value, StringFormat=7日移动平均：\{0:0\}}" />
-                            </StackPanel>
-                        </DataTemplate>
-                    </telerik:LineSeries.TrackBallInfoTemplate>
-                    <telerik:LineSeries.VerticalAxis>
-                        <telerik:LinearAxis HorizontalLocation="Right"
-                                            Minimum="10"
-                                            Maximum="50"
-                                            MajorStep="5"
-                                            LabelStyle="{StaticResource RightLabelStyle}"
+            <Grid Grid.Row="1">
+                <telerik:RadCartesianChart x:Name="AircraftChart"
+                                           EmptyContent="飞机日利用率">
+                    <telerik:RadCartesianChart.Behaviors>
+                        <telerik:ChartTrackBallBehavior />
+                        <telerik:ChartPanAndZoomBehavior/>
+                    </telerik:RadCartesianChart.Behaviors>
+                    <telerik:LineSeries ItemsSource="{Binding AcDailyUtilizationDtos}"
+                                        CategoryBinding="Date"
+                                        ValueBinding="CalculatedHour">
+                        <telerik:LineSeries.LegendSettings>
+                            <telerik:SeriesLegendSettings Title="日利用小时" />
+                        </telerik:LineSeries.LegendSettings>
+                        <telerik:LineSeries.TrackBallInfoTemplate>
+                            <DataTemplate>
+                                <StackPanel Background="Transparent">
+                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=日利用小时：\{0:0\}}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </telerik:LineSeries.TrackBallInfoTemplate>
+                    </telerik:LineSeries>
+                    <telerik:LineSeries ItemsSource="{Binding AcDailyUtilizationDtos}"
+                                        CategoryBinding="Date"
+                                        ValueBinding="AmendHour">
+                        <telerik:LineSeries.LegendSettings>
+                            <telerik:SeriesLegendSettings Title="修正日利用小时" />
+                        </telerik:LineSeries.LegendSettings>
+                        <telerik:LineSeries.TrackBallInfoTemplate>
+                            <DataTemplate>
+                                <StackPanel Background="Transparent">
+                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=修正日利用小时：\{0:0\}}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </telerik:LineSeries.TrackBallInfoTemplate>
+                    </telerik:LineSeries>
+                    <telerik:BarSeries ItemsSource="{Binding AcDailyUtilizationDtos}"
+                                       CategoryBinding="Date"
+                                       ValueBinding="CalculatedCycle">
+                        <telerik:BarSeries.LegendSettings>
+                            <telerik:SeriesLegendSettings Title="日利用循环" />
+                        </telerik:BarSeries.LegendSettings>
+                        <telerik:BarSeries.TrackBallInfoTemplate>
+                            <DataTemplate>
+                                <StackPanel Background="Transparent">
+                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=日利用循环：\{0:0\}}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </telerik:BarSeries.TrackBallInfoTemplate>
+                    </telerik:BarSeries>
+                    <telerik:BarSeries ItemsSource="{Binding AcDailyUtilizationDtos}"
+                                       CategoryBinding="Date"
+                                       ValueBinding="AmendCycle">
+                        <telerik:BarSeries.LegendSettings>
+                            <telerik:SeriesLegendSettings Title="修正日利用循环" />
+                        </telerik:BarSeries.LegendSettings>
+                        <telerik:BarSeries.TrackBallInfoTemplate>
+                            <DataTemplate>
+                                <StackPanel Background="Transparent">
+                                    <TextBlock Text="{Binding DataPoint.Value, StringFormat=修正日利用循环：\{0:0\}}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </telerik:BarSeries.TrackBallInfoTemplate>
+                    </telerik:BarSeries>
+                    <telerik:RadCartesianChart.HorizontalAxis>
+                        <telerik:DateTimeContinuousAxis MajorStep="1"
+                                                        MajorStepUnit="Month"
+                                                        LabelInterval="1"
+                                                        GapLength="0.4"
+                                                        PlotMode="OnTicksPadded"
+                                                        LabelTemplate="{StaticResource MonthAxisLabelTemplate}"
+                                                        MajorTickStyle="{StaticResource TickStyle}" />
+                    </telerik:RadCartesianChart.HorizontalAxis>
+                    <telerik:RadCartesianChart.VerticalAxis>
+                        <telerik:LinearAxis Minimum="0"
+                                            Maximum="10"
+                                            MajorStep="1"
+                                            LabelStyle="{StaticResource LeftLabelStyle}"
                                             MajorTickStyle="{StaticResource TickStyle}" />
-                    </telerik:LineSeries.VerticalAxis>
-                </telerik:LineSeries>
-                <telerik:RadCartesianChart.HorizontalAxis>
-                    <telerik:DateTimeCategoricalAxis Visibility="Collapsed" />
-                </telerik:RadCartesianChart.HorizontalAxis>
-                <telerik:RadCartesianChart.VerticalAxis>
-                    <telerik:LinearAxis Minimum="10"
-                                        Maximum="50"
-                                        MajorStep="5"
-                                        LabelStyle="{StaticResource LeftLabelStyle}"
-                                        MajorTickStyle="{StaticResource TickStyle}" />
-                </telerik:RadCartesianChart.VerticalAxis>
-                <telerik:RadCartesianChart.Grid>
-                    <telerik:CartesianChartGrid StripLinesVisibility="Y"
-                                                MajorLinesVisibility="Y">
-                        <telerik:CartesianChartGrid.YStripeBrushes>
-                            <SolidColorBrush Color="#FFD7D7D7"
-                                             Opacity="0.3" />
-                            <SolidColorBrush Color="Transparent" />
-                        </telerik:CartesianChartGrid.YStripeBrushes>
-                    </telerik:CartesianChartGrid>
-                </telerik:RadCartesianChart.Grid>
-            </telerik:RadCartesianChart>
+                    </telerik:RadCartesianChart.VerticalAxis>
+                    <telerik:RadCartesianChart.Grid>
+                        <telerik:CartesianChartGrid StripLinesVisibility="Y"
+                                                    MajorLinesVisibility="Y">
+                            <telerik:CartesianChartGrid.YStripeBrushes>
+                                <SolidColorBrush Color="#FFD7D7D7"
+                                                 Opacity="0.3" />
+                                <SolidColorBrush Color="Transparent" />
+                            </telerik:CartesianChartGrid.YStripeBrushes>
+                        </telerik:CartesianChartGrid>
+                    </telerik:RadCartesianChart.Grid>
+                </telerik:RadCartesianChart>
+            </Grid>
         </Grid>
     </telerik:RadBusyIndicator>
 </UserControl>

@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
@@ -83,6 +84,8 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
                 }
             };
             Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_context, _context.Aircrafts);
+            var sort = new SortDescriptor { Member = "RegNumber", SortDirection = ListSortDirection.Ascending };
+            Aircrafts.SortDescriptors.Add(sort);
         }
 
         #endregion
