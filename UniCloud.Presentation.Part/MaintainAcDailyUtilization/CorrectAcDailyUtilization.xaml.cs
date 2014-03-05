@@ -1,5 +1,6 @@
 ﻿#region 命名空间
 
+using System;
 using System.ComponentModel.Composition;
 using System.Windows.Controls;
 
@@ -14,6 +15,7 @@ namespace UniCloud.Presentation.Part.MaintainAcDailyUtilization
         public CorrectAcDailyUtilization()
         {
             InitializeComponent();
+            CurrentMonthTextBox.Text = DateTime.Now.ToString("yyyy-MM");
         }
         [Import]
         public CorrectAcDailyUtilizationVm ViewModel

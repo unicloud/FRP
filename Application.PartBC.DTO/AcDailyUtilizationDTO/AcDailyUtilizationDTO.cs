@@ -43,7 +43,7 @@ namespace UniCloud.Application.PartBC.DTO
         }
 
         /// <summary>
-        /// 计算日利用率
+        /// 日利用小时
         /// </summary>
         public decimal CalculatedHour
         {
@@ -52,7 +52,7 @@ namespace UniCloud.Application.PartBC.DTO
         }
 
         /// <summary>
-        /// 计算日利用率
+        /// 日利用循环
         /// </summary>
         public decimal CalculatedCycle
         {
@@ -61,7 +61,7 @@ namespace UniCloud.Application.PartBC.DTO
         }
 
         /// <summary>
-        /// 修正日利用率
+        /// 修正日利用小时
         /// </summary>
         public decimal AmendHour
         {
@@ -70,7 +70,7 @@ namespace UniCloud.Application.PartBC.DTO
         }
         
         /// <summary>
-        /// 修正日利用率
+        /// 修正日利用循环
         /// </summary>
         public decimal AmendCycle
         {
