@@ -28,48 +28,31 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <telerik:RadDocking BorderThickness="0"
-                            Padding="0"
-                            HasDocumentHost="False">
-            <telerik:RadSplitContainer>
-                <telerik:RadPaneGroup>
-                    <telerik:RadPane Header="飞机信息"
-                                     FontSize="{StaticResource HeaderFontSize}"
-                                     IsPinned="True"
-                                     CanFloat="False"
-                                     CanDockInDocumentHost="False"
-                                     CanUserClose="False"
-                                     CanUserPin="False"
-                                     ContextMenuTemplate="{x:Null}">
-                            <telerik:RadGridView x:Name="AircraftInfos"
-                                                 IsReadOnly="True"
-                                                 ItemsSource="{Binding AircraftList,Mode=TwoWay}"
-                                                 IsBusy="{Binding AircraftQueries.IsBusy}"
-                                                 AutoGenerateColumns="False"
-                                                 ShowGroupPanel="True"
-                                                 CanUserSortColumns="True"
-                                                 RowIndicatorVisibility="Visible"
-                                                 CanUserFreezeColumns="False"
-                                                 SelectionMode="Extended">
-                                <i:Interaction.Behaviors>
-                                    <uc:GridViewSelectedItemsBehavior SelectedItems="{Binding SelectAircraftList ,Mode=TwoWay}" />
-                                </i:Interaction.Behaviors>
-                                <telerik:RadGridView.Columns>
-                                    <uc:DataPageSerialColumn Header="序号"
-                                                             CellStyle="{StaticResource CellStyle}"
-                                                             HeaderTextAlignment="Center" />
-                                    <telerik:GridViewSelectColumn />
-                                    <telerik:GridViewDataColumn Header="注册号"
-                                                                IsReadOnly="True"
-                                                                HeaderTextAlignment="Center"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding RankNumber}" />
-                                </telerik:RadGridView.Columns>
-                            </telerik:RadGridView>
-                    </telerik:RadPane>
-                </telerik:RadPaneGroup>
-            </telerik:RadSplitContainer>
-        </telerik:RadDocking>
+        <telerik:RadGridView x:Name="AircraftInfos"
+                             IsReadOnly="True"
+                             ItemsSource="{Binding AircraftList,Mode=TwoWay}"
+                             IsBusy="{Binding AircraftQueries.IsBusy}"
+                             AutoGenerateColumns="False"
+                             ShowGroupPanel="True"
+                             CanUserSortColumns="True"
+                             RowIndicatorVisibility="Visible"
+                             CanUserFreezeColumns="False"
+                             SelectionMode="Extended">
+            <i:Interaction.Behaviors>
+                <uc:GridViewSelectedItemsBehavior SelectedItems="{Binding SelectAircraftList ,Mode=TwoWay}" />
+            </i:Interaction.Behaviors>
+            <telerik:RadGridView.Columns>
+                <uc:DataPageSerialColumn Header="序号"
+                                         CellStyle="{StaticResource CellStyle}"
+                                         HeaderTextAlignment="Center" />
+                <telerik:GridViewSelectColumn />
+                <telerik:GridViewDataColumn Header="注册号"
+                                            IsReadOnly="True"
+                                            HeaderTextAlignment="Center"
+                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                            DataMemberBinding="{Binding RankNumber}" />
+            </telerik:RadGridView.Columns>
+        </telerik:RadGridView>
         <StackPanel Grid.Row="1"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">

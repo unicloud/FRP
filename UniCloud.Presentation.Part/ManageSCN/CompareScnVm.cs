@@ -431,15 +431,15 @@ namespace UniCloud.Presentation.Part.ManageSCN
                                                                                      switch (index)
                                                                                      {
                                                                                          case 0:
-                                                                                             aircraftScn.Aircraft1 = "Y";break;
+                                                                                             aircraftScn.Aircraft1 = "X";break;
                                                                                          case 1:
-                                                                                              aircraftScn.Aircraft2 = "Y";break;
+                                                                                              aircraftScn.Aircraft2 = "X";break;
                                                                                          case 2:
-                                                                                              aircraftScn.Aircraft3 = "Y";break;
+                                                                                              aircraftScn.Aircraft3 = "X";break;
                                                                                          case 3:
-                                                                                              aircraftScn.Aircraft4 = "Y";break;
+                                                                                              aircraftScn.Aircraft4 = "X";break;
                                                                                          case 4:
-                                                                                              aircraftScn.Aircraft5 = "Y";break;
+                                                                                              aircraftScn.Aircraft5 = "X";break;
                                                                                      }
                                                                                  }
                                                                              });

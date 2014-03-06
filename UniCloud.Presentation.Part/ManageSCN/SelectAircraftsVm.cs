@@ -45,9 +45,8 @@ namespace UniCloud.Presentation.Part.ManageSCN
             AircraftQueries = new QueryableDataServiceCollectionView<ContractAircraftDTO>(service.Context, service.Context.ContractAircrafts);
             AircraftQueries.LoadedData += (e, o) =>
             {
-                var aircraftList = new ObservableCollection<ContractAircraftDTO>();
-                AircraftQueries.ToList().ForEach(aircraftList.Add);
-                AircraftList = aircraftList;
+                AircraftList = new ObservableCollection<ContractAircraftDTO>();
+                AircraftQueries.ToList().ForEach(AircraftList.Add);
                 SelectAircraftList = new ObservableCollection<ContractAircraftDTO>();
 
                 Aircrafts.ForEach(p => SelectAircraftList.Add(AircraftList.FirstOrDefault(t => t.Id == p.Id)));
@@ -65,7 +64,19 @@ namespace UniCloud.Presentation.Part.ManageSCN
         #region 公共属性
         #region 飞机
         public QueryableDataServiceCollectionView<ContractAircraftDTO> AircraftQueries { get; set; }
-        public ObservableCollection<ContractAircraftDTO> AircraftList { get; set; }
+        private ObservableCollection<ContractAircraftDTO> _aircraftList;
+        public ObservableCollection<ContractAircraftDTO> AircraftList
+        {
+            get
+            {
+                return _aircraftList;
+            }
+            set
+            {
+                _aircraftList = value;
+                RaisePropertyChanged(() => AircraftList);
+            }
+        }
         public ObservableCollection<ContractAircraftDTO> SelectAircraftList { get; set; }
         #endregion
 
