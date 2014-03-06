@@ -63,7 +63,6 @@
                                 </i:Interaction.Behaviors>
                                 <telerik:RadGridView.Columns>
                                     <uc:DataPageSerialColumn Header="序号"
-                                                             CellStyle="{StaticResource CellStyle}"
                                                              HeaderTextAlignment="Center" />
                                     <telerik:GridViewSelectColumn />
                                     <telerik:GridViewDataColumn Header="发票编号"
@@ -143,7 +142,6 @@
                                 </i:Interaction.Behaviors>
                                 <telerik:RadGridView.Columns>
                                     <uc:DataPageSerialColumn Header="序号"
-                                                             CellStyle="{StaticResource CellStyle}"
                                                              HeaderTextAlignment="Center" />
                                     <telerik:GridViewSelectColumn />
                                     <telerik:GridViewDataColumn Header="发票编号"
@@ -223,7 +221,6 @@
                                 </i:Interaction.Behaviors>
                                 <telerik:RadGridView.Columns>
                                     <uc:DataPageSerialColumn Header="序号"
-                                                             CellStyle="{StaticResource CellStyle}"
                                                              HeaderTextAlignment="Center" />
                                     <telerik:GridViewSelectColumn />
                                     <telerik:GridViewDataColumn Header="发票编号"
@@ -403,7 +400,6 @@
                                 </i:Interaction.Behaviors>
                                 <telerik:RadGridView.Columns>
                                     <uc:DataPageSerialColumn Header="序号"
-                                                             CellStyle="{StaticResource CellStyle}"
                                                              HeaderTextAlignment="Center" />
                                     <telerik:GridViewSelectColumn />
                                     <telerik:GridViewDataColumn Header="发票编号"
