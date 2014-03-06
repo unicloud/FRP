@@ -216,6 +216,9 @@
       <DependentUpon>MaintainAirStructureDamage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManageAirStructureDamage\MaintainAirStructureDamageVm.cs" />
+    <Compile Include="ManageSCN\SelectAircrafts.xaml.cs">
+      <DependentUpon>SelectAircrafts.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ManageSCN\AuditOrganizations.xaml.cs">
       <DependentUpon>AuditOrganizations.xaml</DependentUpon>
     </Compile>
@@ -227,6 +230,7 @@
       <DependentUpon>MaintainScn.xaml</DependentUpon>
     </Compile>
     <Compile Include="ManageSCN\MaintainScnVm.cs" />
+    <Compile Include="ManageSCN\SelectAircraftsVm.cs" />
     <Compile Include="ManageTS\TechnicalSolutionView.xaml.cs">
       <DependentUpon>TechnicalSolutionView.xaml</DependentUpon>
     </Compile>
@@ -305,6 +309,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ManageAirStructureDamage\MaintainAirStructureDamage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ManageSCN\SelectAircrafts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

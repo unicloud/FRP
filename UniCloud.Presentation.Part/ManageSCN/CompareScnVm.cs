@@ -19,8 +19,10 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Data;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
@@ -40,7 +42,9 @@ namespace UniCloud.Presentation.Part.ManageSCN
         private readonly PartData _context;
         private readonly IRegionManager _regionManager;
         private readonly IPartService _service;
-        private FilterDescriptor _descriptor;
+        private readonly FilterDescriptor _descriptor = new FilterDescriptor("CSCNumber", FilterOperator.IsEqualTo, string.Empty);
+        [Import]
+        public CompareScn CurrentCompareScn;
 
         [ImportingConstructor]
         public CompareScnVm(IRegionManager regionManager, IPartService service)
@@ -63,14 +67,22 @@ namespace UniCloud.Presentation.Part.ManageSCN
             ImportMscnListCommand = new DelegateCommand<object>(OnImportMscnList);
             SaveMscnListCommand = new DelegateCommand<object>(OnSaveMscnList);
             CompareMscnListCommand = new DelegateCommand<object>(OnCompareMscnList);
+            SelectAircraftCommand = new DelegateCommand<object>(OnSelectAircraft);
+            CompareAircraftScnCommand = new DelegateCommand<object>(OnCompareAircraftScn);
             // 创建并注册CollectionView
             Scns = new QueryableDataServiceCollectionView<ScnDTO>(_context, _context.Scns);
-            _descriptor = new FilterDescriptor("CSCNumber", FilterOperator.IsEqualTo, string.Empty);
-            Scns.FilterDescriptors.Add(_descriptor);
+
             Scns.LoadedData += (o, e) =>
                                {
-                                   _loadScn = true;
-                                   GenerateResult();
+                                   if (_currentTabName.Equals("Same", StringComparison.OrdinalIgnoreCase))
+                                   {
+                                       _loadScn = true;
+                                       GenerateResult();
+                                   }
+                                   else
+                                   {
+                                       GenerateAircraftScn();
+                                   }
                                };
             AirBusScns = _service.CreateCollection(_context.AirBusScns);
             AirBusScns.FilterDescriptors.Add(_descriptor);
@@ -88,6 +100,8 @@ namespace UniCloud.Presentation.Part.ManageSCN
 
         #region 公共属性
 
+        private string _currentTabName = string.Empty;
+        #region 批次号
         private string _cscNumber;
         public string CscNumber
         {
@@ -98,6 +112,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 RaisePropertyChanged("CscNumber");
             }
         }
+        #endregion
 
         #region SCN/MSCN
         /// <summary>
@@ -158,7 +173,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
         ///     导入SCN/MSCN清单
         /// </summary>
         public DelegateCommand<object> ImportMscnListCommand { get; set; }
-        private List<AirBusMscn> AirBusMscns = new List<AirBusMscn>();
+        private readonly List<AirBusMscn> _airBusMscns = new List<AirBusMscn>();
         protected void OnImportMscnList(object obj)
         {
             if (string.IsNullOrEmpty(CscNumber))
@@ -177,7 +192,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
                         if (msg.Contains("CSC"))
                         {
                             var results = msg.Split(',');
-                            AirBusMscns.Add(new AirBusMscn
+                            _airBusMscns.Add(new AirBusMscn
                                             {
                                                 CSCNumber = CscNumber,
                                                 ScnNumber = results[1],
@@ -201,7 +216,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
         public DelegateCommand<object> SaveMscnListCommand { get; set; }
         protected void OnSaveMscnList(object obj)
         {
-            AirBusMscns.ForEach(p => AirBusScns.AddNew(new AirBusScnDTO
+            _airBusMscns.ForEach(p => AirBusScns.AddNew(new AirBusScnDTO
             {
                 Id = RandomHelper.Next(),
                 CSCNumber = p.CSCNumber,
@@ -215,9 +230,9 @@ namespace UniCloud.Presentation.Part.ManageSCN
 
         #endregion
 
-        #region 对比SCN/MSCN清单
+        #region 同批次对比SCN/MSCN清单
         /// <summary>
-        ///     对比SCN/MSCN清单
+        ///     同批次对比SCN/MSCN清单
         /// </summary>
         public DelegateCommand<object> CompareMscnListCommand { get; set; }
         protected void OnCompareMscnList(object obj)
@@ -227,6 +242,9 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 MessageAlert("请输入批次号！");
                 return;
             }
+
+            Scns.FilterDescriptors.Add(_descriptor);
+            _currentTabName = "Same";
             _loadScn = false;
             _loadAirBusScn = false;
             IsBusy = true;
@@ -257,7 +275,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 var tempSysScns = Scns.ToList();
                 var tempAirBusScns = new List<AirBusScnDTO>();
                 var importAirBusScns = new List<AirBusMscn>();
-                AirBusMscns.ForEach(importAirBusScns.Add);
+                _airBusMscns.ForEach(importAirBusScns.Add);
                 AirBusScns.ToList().ForEach(p =>
                 {
                     var temp = importAirBusScns.FirstOrDefault(
@@ -331,6 +349,105 @@ namespace UniCloud.Presentation.Part.ManageSCN
             }
         }
         #endregion
+
+        #region 选择飞机
+        private readonly List<ContractAircraftDTO> _aircrafts = new List<ContractAircraftDTO>();
+        /// <summary>
+        ///     选择飞机
+        /// </summary>
+        public DelegateCommand<object> SelectAircraftCommand { get; set; }
+        protected void OnSelectAircraft(object obj)
+        {
+            var aircrafts = new SelectAircrafts();
+            aircrafts.ViewModel.InitData(_aircrafts);
+            aircrafts.ShowDialog();
+        }
+        #endregion
+
+        #region 不同飞机对比SCN/MSCN清单
+        /// <summary>
+        ///     不同飞机对比SCN/MSCN清单
+        /// </summary>
+        public DelegateCommand<object> CompareAircraftScnCommand { get; set; }
+        protected void OnCompareAircraftScn(object obj)
+        {
+            if (_aircrafts.Count == 0)
+            {
+                MessageAlert("请选择飞机！");
+                return;
+            }
+            _currentTabName = "Different";
+            Scns.FilterDescriptors.Clear();
+            Scns.Load(true);
+        }
+
+        private readonly List<GridViewDataColumn> _extendColumns = new List<GridViewDataColumn>();
+        private List<AircraftScn> _compareAircraftScns;
+        public List<AircraftScn> CompareAircraftScns
+        {
+            get { return _compareAircraftScns; }
+            set
+            {
+                _compareAircraftScns = value;
+                RaisePropertyChanged(() => CompareAircraftScns);
+            }
+        }
+        private void GenerateAircraftScn()
+        {
+            CurrentCompareScn.AircraftScnList.Columns.RemoveItems(_extendColumns);
+            _extendColumns.Clear();
+            int i = 0;
+            _aircrafts.ForEach(p =>
+                               {
+                                   i++;
+                                   if (i > 5)
+                                   {
+                                       return;
+                                   }
+                                   var tempColumn = new GridViewDataColumn
+                                                    {
+                                                        Header = p.RankNumber,
+                                                        DataMemberBinding = new Binding("Aircraft" + i),
+
+                                                    };
+                                   _extendColumns.Add(tempColumn);
+                                   CurrentCompareScn.AircraftScnList.Columns.Add(tempColumn);
+                               });
+            var tempAircraftScns = new List<AircraftScn>();
+            Scns.ToList().ForEach(p =>
+                                  {
+                                      var aircraftScn = new AircraftScn
+                                                        {
+                                                            ModNumber = p.ModNumber,
+                                                            ScnNumber = p.ScnNumber,
+                                                            Title = p.Title
+                                                        };
+                                      p.ApplicableAircrafts.ToList().ForEach(t =>
+                                                                             {
+                                                                                 var aircraft = _aircrafts.FirstOrDefault(o => o.Id == t.ContractAircraftId);
+                                                                                 if (aircraft != null)
+                                                                                 {
+                                                                                     int index = _aircrafts.IndexOf(aircraft);
+                                                                                     switch (index)
+                                                                                     {
+                                                                                         case 0:
+                                                                                             aircraftScn.Aircraft1 = "Y";break;
+                                                                                         case 1:
+                                                                                              aircraftScn.Aircraft2 = "Y";break;
+                                                                                         case 2:
+                                                                                              aircraftScn.Aircraft3 = "Y";break;
+                                                                                         case 3:
+                                                                                              aircraftScn.Aircraft4 = "Y";break;
+                                                                                         case 4:
+                                                                                              aircraftScn.Aircraft5 = "Y";break;
+                                                                                     }
+                                                                                 }
+                                                                             });
+                                      tempAircraftScns.Add(aircraftScn);
+                                  });
+            CompareAircraftScns = tempAircraftScns;
+        }
+        #endregion
         #endregion
     }
 
@@ -353,5 +470,19 @@ namespace UniCloud.Presentation.Part.ManageSCN
         public string AirBusTitle { get; set; }
         public string AirBusStatus { get; set; }
         public string AirBusModNo { get; set; }
+    }
+
+    public class AircraftScn
+    {
+        public string CSCNumber { get; set; }
+        public string ScnNumber { get; set; }
+        public string Title { get; set; }
+        public string Status { get; set; }
+        public string ModNumber { get; set; }
+        public string Aircraft1 { get; set; }
+        public string Aircraft2 { get; set; }
+        public string Aircraft3 { get; set; }
+        public string Aircraft4 { get; set; }
+        public string Aircraft5 { get; set; }
     }
 }
