@@ -265,6 +265,7 @@
       </EntityType>
       <ComplexType Name="ApplicableAircraftDTO">
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ApplicableAircraftName" Type="Edm.String" />
         <Property Name="CompleteDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Cost" Type="Edm.Decimal" Nullable="false" />
         <Property Name="ContractAircraftId" Type="Edm.Int32" Nullable="false" />

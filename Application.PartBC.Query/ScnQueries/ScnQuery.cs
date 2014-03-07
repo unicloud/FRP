@@ -63,6 +63,7 @@ namespace UniCloud.Application.PartBC.Query.ScnQueries
                 ApplicableAircrafts = p.ApplicableAircrafts.Select(q => new ApplicableAircraftDTO
                 {
                     Id = q.Id,
+                    ApplicableAircraftName = q.ContractAircraft.ContractNumber+q.ContractAircraft.RankNumber,
                     CompleteDate = q.CompleteDate,
                     Cost = q.Cost,
                     ContractAircraftId = q.ContractAircraftId,

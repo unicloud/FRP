@@ -64,11 +64,26 @@
                                     <uc:DataPageSerialColumn Header="序号"
                                                              HeaderTextAlignment="Center" />
                                     <telerik:GridViewSelectColumn />
+                                    <telerik:GridViewDataColumn Header="合同名称"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding ContractName}" />
+                                    <telerik:GridViewDataColumn Header="合同编号"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding ContractNumber}" />
                                     <telerik:GridViewDataColumn Header="Rank号"
-                                                                IsReadOnly="True"
                                                                 HeaderTextAlignment="Center"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 DataMemberBinding="{Binding RankNumber}" />
+                                    <telerik:GridViewDataColumn Header="飞机批次号"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding CSCNumber}" />
+                                    <telerik:GridViewDataColumn Header="飞机序列号"
+                                                                HeaderTextAlignment="Center"
+                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                DataMemberBinding="{Binding SerialNumber}" />
                                 </telerik:RadGridView.Columns>
                             </telerik:RadGridView>
                         </Grid>

@@ -147,6 +147,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
                             Id = RandomHelper.Next(),
                             CompleteDate = DateTime.Now,
                             ContractAircraftId = p.Id,
+                            ApplicableAircraftName = p.ContractNumber + p.RankNumber
                         };
                         _scn.ApplicableAircrafts.Add(applicableAircraft);
                     }

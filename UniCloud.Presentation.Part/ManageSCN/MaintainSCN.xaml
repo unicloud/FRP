@@ -16,16 +16,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <DataTemplate x:Key="ComboBoxCustomTemplate">
-                <Grid Margin="0 3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="{Binding ContractNumber}" />
-                    <TextBlock Grid.Column="1" Text="{Binding RankNumber}" />
-                </Grid>
-            </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -247,14 +237,11 @@
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="序号"
                                                                          HeaderTextAlignment="Center" />
-                                                <telerik:GridViewComboBoxColumn Header="合同飞机"
-                                                                                HeaderTextAlignment="Center"
-                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                                IsReadOnly="True"
-                                                                                ItemTemplate="{StaticResource ComboBoxCustomTemplate}"
-                                                                                ItemsSource="{Binding DataContext.ContractAircrafts,ElementName=ScnMscn,Mode=TwoWay}"
-                                                                                DataMemberBinding="{Binding ContractAircraftId}"
-                                                                                SelectedValueMemberPath="Id" />
+                                                <telerik:GridViewDataColumn Header="合同飞机"
+                                                                            HeaderTextAlignment="Center"
+                                                                            IsReadOnly="True"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding ApplicableAircraftName}" />
                                                 <telerik:GridViewMaskedInputColumn Header="费用"
                                                                                    IsReadOnly="True"
                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"

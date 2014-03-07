@@ -34,6 +34,14 @@ namespace UniCloud.Application.PartBC.DTO
         public int Id { get; set; }
 
         /// <summary>
+        /// 合同号+Rank号
+        /// </summary>
+        public string ApplicableAircraftName
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// 完成日期
         /// </summary>
         public DateTime CompleteDate
