@@ -14,12 +14,14 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Part;
 using UniCloud.Presentation.Service.Part.Part;
@@ -33,6 +35,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
     {
         #region 初始化
         public SelectAircrafts SelectAircraftsWindow;
+        private ScnDTO _scn;
         public List<ContractAircraftDTO> Aircrafts;
         private readonly FilterDescriptor _descriptor = new FilterDescriptor("CSCNumber", FilterOperator.IsEqualTo, string.Empty);
         public SelectAircraftsVm(SelectAircrafts selectAircraftsWindow, IPartService service)
@@ -50,15 +53,29 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 AircraftQueries.ToList().ForEach(AircraftList.Add);
                 SelectAircraftList = new ObservableCollection<ContractAircraftDTO>();
 
-                Aircrafts.ForEach(p => SelectAircraftList.Add(AircraftList.FirstOrDefault(t => t.Id == p.Id)));
+                if (_scn != null)
+                {
+                    _scn.ApplicableAircrafts.ToList().ForEach(p => SelectAircraftList.Add(AircraftList.FirstOrDefault(t => t.Id == p.ContractAircraftId)));
+                }
+                else
+                {
+                    Aircrafts.ForEach(p => SelectAircraftList.Add(AircraftList.FirstOrDefault(t => t.Id == p.Id)));
+                }
             };
             #endregion
         }
 
-        public void InitData(string cscNumber,List<ContractAircraftDTO> aircrafts)
+        public void InitData(string cscNumber, List<ContractAircraftDTO> aircrafts)
         {
             _descriptor.Value = cscNumber;
             Aircrafts = aircrafts;
+            AircraftQueries.Load(true);
+        }
+
+        public void InitData(string cscNumber, ScnDTO scn)
+        {
+            _scn = scn;
+            _descriptor.Value = cscNumber;
             AircraftQueries.Load(true);
         }
         #endregion
@@ -81,7 +98,6 @@ namespace UniCloud.Presentation.Part.ManageSCN
         }
         public ObservableCollection<ContractAircraftDTO> SelectAircraftList { get; set; }
         #endregion
-
         #endregion
 
         #region 操作
@@ -120,25 +136,71 @@ namespace UniCloud.Presentation.Part.ManageSCN
         /// <param name="sender"></param>
         public void OnCommitExecute(object sender)
         {
-            #region 飞机
-            SelectAircraftList.ToList().ForEach(p =>
+            if (_scn != null)
             {
-                if (Aircrafts.All(t => t.Id != p.Id))
+                SelectAircraftList.ToList().ForEach(p =>
                 {
-                    Aircrafts.Add(p);
+                    if (_scn.ApplicableAircrafts.All(t => t.ContractAircraftId != p.Id))
+                    {
+                        var applicableAircraft = new ApplicableAircraftDTO
+                        {
+                            Id = RandomHelper.Next(),
+                            CompleteDate = DateTime.Now,
+                            ContractAircraftId = p.Id,
+                        };
+                        _scn.ApplicableAircrafts.Add(applicableAircraft);
+                    }
+                });
+                for (int i = _scn.ApplicableAircrafts.Count - 1; i >= 0; i--)
+                {
+                    var temp = _scn.ApplicableAircrafts[i];
+                    if (SelectAircraftList.Count > 0 && SelectAircraftList.All(p => p.Id != temp.ContractAircraftId))
+                    {
+                        _scn.ApplicableAircrafts.Remove(temp);
+                    }
                 }
-            });
-            #endregion
-            for (int i = Aircrafts.Count - 1; i >= 0; i--)
+                CaculateApplicableAircraftCost();
+            }
+            else
             {
-                var temp = Aircrafts[i];
-                if (SelectAircraftList.Count > 0 && SelectAircraftList.All(p => p.Id != temp.Id))
+                SelectAircraftList.ToList().ForEach(p =>
                 {
-                    Aircrafts.Remove(temp);
+                    if (Aircrafts.All(t => t.Id != p.Id))
+                    {
+                        Aircrafts.Add(p);
+                    }
+                });
+                for (int i = Aircrafts.Count - 1; i >= 0; i--)
+                {
+                    var temp = Aircrafts[i];
+                    if (SelectAircraftList.Count > 0 && SelectAircraftList.All(p => p.Id != temp.Id))
+                    {
+                        Aircrafts.Remove(temp);
+                    }
                 }
             }
             SelectAircraftsWindow.Close();
         }
+
+        #region 计算适用飞机费用
+        private void CaculateApplicableAircraftCost()
+        {
+            if (_scn.ApplicableAircrafts != null && _scn.ApplicableAircrafts.Count > 0)
+            {
+                if (_scn.ScnType == 0)
+                {
+                    var average = _scn.Cost / _scn.ApplicableAircrafts.Count;
+                    _scn.ApplicableAircrafts.ToList().ForEach(p => p.Cost = average);
+                }
+                else
+                {
+                    var first = _scn.ApplicableAircrafts.First();
+                    first.Cost = _scn.Cost;
+                    _scn.ApplicableAircrafts.ToList().ForEach(p => { if (p.Id != first.Id) p.Cost = 0; });
+                }
+            }
+        }
+        #endregion
 
         /// <summary>
         ///     判断确定命令是否可用。

@@ -100,15 +100,11 @@
                                                                                 ColumnGroupName="ChuanAir"
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                                IsFilterable="True"
-                                                                                IsGroupable="True"
                                                                                 DataMemberBinding="{Binding SysMscnNo}" />
                                                     <telerik:GridViewDataColumn Header="标题"
                                                                                 ColumnGroupName="ChuanAir"
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                                IsFilterable="True"
-                                                                                IsGroupable="True"
                                                                                 DataMemberBinding="{Binding SysTitle}"
                                                                                 TextWrapping="Wrap"
                                                                                 MaxWidth="300">
@@ -130,22 +126,16 @@
                                                                                 ColumnGroupName="ChuanAir"
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                                IsFilterable="True"
-                                                                                IsGroupable="True"
                                                                                 DataMemberBinding="{Binding SysModNo}" />
                                                     <telerik:GridViewDataColumn Header="编号"
                                                                                 ColumnGroupName="AirBus"
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                                IsFilterable="True"
-                                                                                IsGroupable="True"
                                                                                 DataMemberBinding="{Binding AirBusMscnNo}" />
                                                     <telerik:GridViewDataColumn Header="标题"
                                                                                 ColumnGroupName="AirBus"
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                                IsFilterable="True"
-                                                                                IsGroupable="True"
                                                                                 DataMemberBinding="{Binding AirBusTitle}"
                                                                                 TextWrapping="Wrap"
                                                                                 MaxWidth="300">
@@ -154,8 +144,6 @@
                                                                                 ColumnGroupName="AirBus"
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                                IsFilterable="True"
-                                                                                IsGroupable="True"
                                                                                 DataMemberBinding="{Binding AirBusModNo}" />
                                                 </telerik:RadGridView.Columns>
                                             </telerik:RadGridView>
@@ -213,15 +201,11 @@
                                                                                 ColumnGroupName="ChuanAir"
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                                IsFilterable="True"
-                                                                                IsGroupable="True"
                                                                                 DataMemberBinding="{Binding ScnNumber}" />
                                                     <telerik:GridViewDataColumn Header="标题"
                                                                                 ColumnGroupName="ChuanAir"
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                                IsFilterable="True"
-                                                                                IsGroupable="True"
                                                                                 DataMemberBinding="{Binding Title}"
                                                                                 TextWrapping="Wrap"
                                                                                 MaxWidth="300"/>
@@ -229,8 +213,6 @@
                                                                                 ColumnGroupName="ChuanAir"
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                                IsFilterable="True"
-                                                                                IsGroupable="True"
                                                                                 DataMemberBinding="{Binding ModNumber}" />
                                                 </telerik:RadGridView.Columns>
                                             </telerik:RadGridView>
@@ -239,7 +221,6 @@
                                 </telerik:RadTabItem.Content>
                             </telerik:RadTabItem>
                             </telerik:RadTabControl>
-                           
                     </telerik:RadPane>
                 </telerik:RadPaneGroup>
             </telerik:RadSplitContainer>

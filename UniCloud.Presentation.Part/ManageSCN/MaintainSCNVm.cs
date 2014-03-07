@@ -244,15 +244,15 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 MessageAlert("请选择一条记录！");
                 return;
             }
-
-            var applicableAircraft = new ApplicableAircraftDTO
+            if (string.IsNullOrEmpty(Scn.CSCNumber))
             {
-                Id = RandomHelper.Next(),
-                CompleteDate = DateTime.Now,
-            };
+                MessageAlert("请输入相应的批次号！");
+                return;
+            }
 
-            Scn.ApplicableAircrafts.Add(applicableAircraft);
-            CaculateApplicableAircraftCost();
+            var aircrafts = new SelectAircrafts();
+            aircrafts.ViewModel.InitData(Scn.CSCNumber, Scn);
+            aircrafts.ShowDialog();
         }
 
         protected bool CanAddApplicableAircraft(object obj)

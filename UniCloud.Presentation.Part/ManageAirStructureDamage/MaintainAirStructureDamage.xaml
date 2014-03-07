@@ -555,7 +555,6 @@
                                                                          MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                          HeaderTextAlignment="Center" />
                                             <telerik:GridViewMaskedInputColumn Header="费用"
-                                                                               IsSortable="True"
                                                                                IsReadOnly="True"
                                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                TextAlignment="Right"
