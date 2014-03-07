@@ -71,7 +71,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
             CompareAircraftScnCommand = new DelegateCommand<object>(OnCompareAircraftScn);
             // 创建并注册CollectionView
             Scns = new QueryableDataServiceCollectionView<ScnDTO>(_context, _context.Scns);
-
+            Scns.FilterDescriptors.Add(_descriptor);
             Scns.LoadedData += (o, e) =>
                                {
                                    if (_currentTabName.Equals("Same", StringComparison.OrdinalIgnoreCase))
@@ -243,7 +243,6 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 return;
             }
 
-            Scns.FilterDescriptors.Add(_descriptor);
             _currentTabName = "Same";
             _loadScn = false;
             _loadAirBusScn = false;
@@ -358,8 +357,13 @@ namespace UniCloud.Presentation.Part.ManageSCN
         public DelegateCommand<object> SelectAircraftCommand { get; set; }
         protected void OnSelectAircraft(object obj)
         {
+            if (string.IsNullOrEmpty(CscNumber))
+            {
+                MessageAlert("请输入批次号！");
+                return;
+            }
             var aircrafts = new SelectAircrafts();
-            aircrafts.ViewModel.InitData(_aircrafts);
+            aircrafts.ViewModel.InitData(CscNumber, _aircrafts);
             aircrafts.ShowDialog();
         }
         #endregion
@@ -377,7 +381,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 return;
             }
             _currentTabName = "Different";
-            Scns.FilterDescriptors.Clear();
+            _descriptor.Value = CscNumber;
             Scns.Load(true);
         }
 
@@ -431,15 +435,15 @@ namespace UniCloud.Presentation.Part.ManageSCN
                                                                                      switch (index)
                                                                                      {
                                                                                          case 0:
-                                                                                             aircraftScn.Aircraft1 = "X";break;
+                                                                                             aircraftScn.Aircraft1 = "X"; break;
                                                                                          case 1:
-                                                                                              aircraftScn.Aircraft2 = "X";break;
+                                                                                             aircraftScn.Aircraft2 = "X"; break;
                                                                                          case 2:
-                                                                                              aircraftScn.Aircraft3 = "X";break;
+                                                                                             aircraftScn.Aircraft3 = "X"; break;
                                                                                          case 3:
-                                                                                              aircraftScn.Aircraft4 = "X";break;
+                                                                                             aircraftScn.Aircraft4 = "X"; break;
                                                                                          case 4:
-                                                                                              aircraftScn.Aircraft5 = "X";break;
+                                                                                             aircraftScn.Aircraft5 = "X"; break;
                                                                                      }
                                                                                  }
                                                                              });

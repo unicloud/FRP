@@ -34,7 +34,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
         #region 初始化
         public SelectAircrafts SelectAircraftsWindow;
         public List<ContractAircraftDTO> Aircrafts;
-
+        private readonly FilterDescriptor _descriptor = new FilterDescriptor("CSCNumber", FilterOperator.IsEqualTo, string.Empty);
         public SelectAircraftsVm(SelectAircrafts selectAircraftsWindow, IPartService service)
             : base(service)
         {
@@ -43,6 +43,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
             CancelCommand = new DelegateCommand<object>(OnCancelExecute, CanCancelExecute);
             #region 飞机
             AircraftQueries = new QueryableDataServiceCollectionView<ContractAircraftDTO>(service.Context, service.Context.ContractAircrafts);
+            AircraftQueries.FilterDescriptors.Add(_descriptor);
             AircraftQueries.LoadedData += (e, o) =>
             {
                 AircraftList = new ObservableCollection<ContractAircraftDTO>();
@@ -54,8 +55,9 @@ namespace UniCloud.Presentation.Part.ManageSCN
             #endregion
         }
 
-        public void InitData(List<ContractAircraftDTO> aircrafts)
+        public void InitData(string cscNumber,List<ContractAircraftDTO> aircrafts)
         {
+            _descriptor.Value = cscNumber;
             Aircrafts = aircrafts;
             AircraftQueries.Load(true);
         }

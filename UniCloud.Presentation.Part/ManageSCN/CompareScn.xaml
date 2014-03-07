@@ -173,9 +173,13 @@
                                         <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                             Margin="0 0 0 -1"
                                                             OverflowButtonVisibility="Collapsed">
+                                            <TextBlock Text="批次号：" />
+                                            <TextBox Width="100"
+                                                     telerik:StyleManager.Theme="Windows8"
+                                                     Text="{Binding CscNumber,Mode=TwoWay}" />
+                                            <telerik:RadToolBarSeparator />
                                             <TextBox Text="选择飞机"
                                                      IsReadOnly="True" />
-                                            <telerik:RadToolBarSeparator />
                                             <telerik:RadButton Margin="2,2,2,-2"
                                                                Command="{Binding SelectAircraftCommand}">
                                                 <Image Source="/UniCloud.Presentation;component/Images/MagicWand.png"
