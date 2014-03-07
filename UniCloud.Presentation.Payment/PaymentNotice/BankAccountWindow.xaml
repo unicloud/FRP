@@ -42,7 +42,6 @@
                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                             TextAlignment="Right"
                                             HeaderTextAlignment="Center"
-                                            IsReadOnly="True"
                                             DataMemberBinding="{Binding Account}" />
                 <telerik:GridViewDataColumn Header="开户人"
                                             MinWidth="{StaticResource GridViewColumnsWidth}"

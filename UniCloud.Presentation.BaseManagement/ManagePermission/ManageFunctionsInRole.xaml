@@ -124,15 +124,11 @@
                                             <telerik:GridViewDataColumn Header="角色名"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        IsFilterable="True"
-                                                                        IsGroupable="True"
                                                                         EditTriggers="CellClick"
                                                                         DataMemberBinding="{Binding RoleName}" />
                                             <telerik:GridViewDataColumn Header="说明"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        IsFilterable="True"
-                                                                        IsGroupable="True"
                                                                         EditTriggers="CellClick"
                                                                         DataMemberBinding="{Binding Description}" />
                                         </telerik:RadGridView.Columns>
@@ -174,8 +170,6 @@
                                                                 HeaderTextAlignment="Center"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 IsReadOnly="True"
-                                                                IsFilterable="True"
-                                                                IsGroupable="True"
                                                                 DataMemberBinding="{Binding Description}" />
                                 </telerik:RadGridView.Columns>
                             </telerik:RadGridView>

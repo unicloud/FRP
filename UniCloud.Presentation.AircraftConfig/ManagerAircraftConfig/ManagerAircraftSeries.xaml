@@ -47,8 +47,7 @@
                              Margin="0,3"
                              telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Name, Mode=TwoWay}"
-                             IsReadOnly="True">
-                    </TextBox>
+                             IsReadOnly="True"/>
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
                                Text="制造商"
@@ -70,8 +69,7 @@
                              Grid.Row="2"
                              telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Description, Mode=TwoWay}"
-                             IsReadOnly="True">
-                    </TextBox>
+                             IsReadOnly="True"/>
                 </Grid>
             </DataTemplate>
 
@@ -103,8 +101,7 @@
                     <TextBox Grid.Row="0"
                              Grid.Column="2"
                              Margin="0,3"
-                             Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}">
-                    </TextBox>
+                             Text="{Binding Name, Mode=TwoWay,NotifyOnValidationError=True,ValidatesOnExceptions=True}"/>
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
                                Text="制造商"
@@ -117,7 +114,7 @@
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
                                          Height="{StaticResource ControlHeight}"
-                                         ItemsSource="{Binding DataContext.Manufacturers, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                         ItemsSource="{Binding DataContext.Manufacturers, Mode=TwoWay, ElementName=AircraftSeries}"
                                          SelectedValue="{Binding ManufacturerId,Mode=TwoWay}"
                                          SelectedValuePath="Id"
                                          DisplayMemberPath="CnName" />
@@ -129,15 +126,16 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="2"
-                             Text="{Binding Description, Mode=TwoWay}">
-                    </TextBox>
+                             Text="{Binding Description, Mode=TwoWay}"/>
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
-        <telerik:RadDocking HasDocumentHost="False">
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False">
             <telerik:RadSplitContainer>
                 <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
                     <telerik:RadPaneGroup>
@@ -171,20 +169,17 @@
                                         <telerik:RadGridView.Columns>
                                             <input:DataPageSerialColumn  Header="序号" />
                                             <telerik:GridViewDataColumn Header="系列名称"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding Name}" />
                                             <telerik:GridViewComboBoxColumn Header="制造商"
-                                                                            IsSortable="True"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
-                                                                            ItemsSource="{Binding DataContext.Manufacturers, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                            ItemsSource="{Binding DataContext.Manufacturers, Mode=TwoWay, ElementName=AircraftSeries}"
                                                                             DataMemberBinding="{Binding ManufacturerId}"
                                                                             SelectedValueMemberPath="Id"
                                                                             DisplayMemberPath="CnName" />
                                             <telerik:GridViewDataColumn Header="描述"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         MaxWidth="250"

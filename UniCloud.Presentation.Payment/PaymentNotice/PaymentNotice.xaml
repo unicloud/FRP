@@ -10,7 +10,8 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             d:DataContext="{d:DesignInstance uc:PaymentNoticeVm}">
+             d:DataContext="{d:DesignInstance uc:PaymentNoticeVm}"
+             Name="PaymentNoticeView">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -122,7 +123,7 @@
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         TextAlignment="Right"
                                                                         HeaderTextAlignment="Center"
-                                                                        ItemsSource="{Binding DataContext.Suppliers,Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                        ItemsSource="{Binding DataContext.Suppliers,Mode=TwoWay, ElementName=PaymentNoticeView}"
                                                                         DataMemberBinding="{Binding SupplierId}"
                                                                         SelectedValueMemberPath="SupplierId"
                                                                         DisplayMemberPath="Name" />
@@ -141,7 +142,7 @@
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         TextAlignment="Right"
                                                                         HeaderTextAlignment="Center"
-                                                                        ItemsSource="{Binding DataContext.Currencies, RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl},Mode=TwoWay}"
+                                                                        ItemsSource="{Binding DataContext.Currencies, Mode=TwoWay,ElementName=PaymentNoticeView}"
                                                                         DataMemberBinding="{Binding CurrencyId}"
                                                                         SelectedValueMemberPath="Id"
                                                                         DisplayMemberPath="Name" />
@@ -251,14 +252,12 @@
                                                                 IsReadOnly="True"
                                                                 DataMemberBinding="{Binding InvoiceType, ConverterParameter=InvoiceType, Converter={StaticResource EnumToStringConverter}}" />
                                     <telerik:GridViewDataColumn Header="发票编号"
-                                                                IsSortable="True"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 TextAlignment="Right"
                                                                 HeaderTextAlignment="Center"
                                                                 IsReadOnly="True"
                                                                 DataMemberBinding="{Binding InvoiceNumber}" />
                                     <telerik:GridViewMaskedInputColumn Header="付款金额"
-                                                                       IsSortable="True"
                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                        TextAlignment="Right"
                                                                        HeaderTextAlignment="Center"
@@ -273,7 +272,6 @@
                                         </telerik:GridViewMaskedInputColumn.AggregateFunctions>
                                     </telerik:GridViewMaskedInputColumn>
                                     <telerik:GridViewDataColumn Header="备注"
-                                                                IsSortable="True"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 TextAlignment="Right"
                                                                 HeaderTextAlignment="Center"

@@ -92,32 +92,20 @@
                                                 <telerik:GridViewDataColumn Header="工号"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
                                                                             DataMemberBinding="{Binding WorkNumber}" />
                                                 <telerik:GridViewDataColumn Header="用户名"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
                                                                             DataMemberBinding="{Binding UserName}">
                                                 </telerik:GridViewDataColumn>
                                                 <telerik:GridViewDataColumn Header="手机号"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
                                                                             DataMemberBinding="{Binding MobileAlias}">
                                                 </telerik:GridViewDataColumn>
                                                 <telerik:GridViewDataColumn Header="E-mail"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
                                                                             DataMemberBinding="{Binding Email}">
                                                 </telerik:GridViewDataColumn>
                                             </telerik:RadGridView.Columns>
@@ -249,23 +237,14 @@
                                                 <telerik:GridViewDataColumn Header="角色名"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
                                                                             DataMemberBinding="{Binding RoleName}" />
                                                 <telerik:GridViewDataColumn Header="说明"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
                                                                             DataMemberBinding="{Binding Description}" />
                                                 <telerik:GridViewDataColumn Header="应用名称"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
                                                                             DataMemberBinding="{Binding Roles.Application.Description}" />
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
