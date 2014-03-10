@@ -97,7 +97,7 @@
                                              IsBusy="{Binding IsBusy}"
                                              FontSize="{StaticResource TextFontSize}"
                                              ValidatesOnDataErrors="InEditMode"
-                                             RowIndicatorVisibility="Visible">
+                                             ShowGroupPanel="False">
                             <uc:GridViewDoubleClick.Helper>
                                 <uc:DocumentDoubleClickHelper />
                             </uc:GridViewDoubleClick.Helper>

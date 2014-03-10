@@ -9,7 +9,8 @@
                    xmlns:converters="clr-namespace:Telerik.Windows.Documents.Converters;assembly=Telerik.Windows.Controls.FixedDocumentViewers"
                    WindowStartupLocation="CenterScreen" Header="{Binding Title}"
                    mc:Ignorable="d" Height="600" Width="900"
-                   d:DataContext="{d:DesignInstance uc:DocViewerVM}">
+                   d:DataContext="{d:DesignInstance uc:DocViewerVM}"
+                   Name="DocViewerView">
 
     <telerik:RadWindow.Resources>
         <ResourceDictionary>
@@ -174,6 +175,14 @@
                                 telerik:RadRichTextBoxRibbonUI.RichTextCommand="{Binding RedoCommand}"
                                 Text="重复键入" Size="Small"
                                 SmallImage="/Telerik.Windows.Controls.RichTextBoxUI;component/Images/MSOffice/16/redo.png" />
+                            <telerik:RadComboBox Name="CbWordDocumentTypes"
+                                                 Visibility="{Binding DataContext.DocumentTypeVisibility,  ElementName=DocViewerView}"
+                                                 Width="80"
+                                                 telerik:StyleManager.Theme="Windows8"
+                                                 EmptyText="文档类型"
+                                                 ItemsSource="{Binding DataContext.DocumentTypes, Mode=TwoWay, ElementName=DocViewerView}"
+                                                 SelectedItem="{Binding DataContext.DocumentType, Mode=TwoWay, ElementName=DocViewerView}"
+                                                 DisplayMemberPath="Name" />
                         </telerik:QuickAccessToolBar>
                     </telerik:RadRichTextBoxRibbonUI.QuickAccessToolBar>
                     <telerik:RadRibbonTab Header="开始">
@@ -700,6 +709,14 @@
                             Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/text-selection.png"
                             Stretch="None" />
                     </telerik:RadToggleButton>
+                    <telerik:RadComboBox Name="CbPdfDocumentTypes"
+                                         Visibility="{Binding DataContext.DocumentTypeVisibility,  ElementName=DocViewerView}"
+                                         Width="80"
+                                         telerik:StyleManager.Theme="Windows8"
+                                         EmptyText="文档类型"
+                                         ItemsSource="{Binding DataContext.DocumentTypes, Mode=TwoWay, ElementName=DocViewerView}"
+                                         SelectedItem="{Binding DataContext.DocumentType, Mode=TwoWay, ElementName=DocViewerView}" 
+                                         DisplayMemberPath="Name"/>
                 </telerik:RadToolBar>
                 <telerik:RadPdfViewer Grid.Row="1" x:Name="PDFViewer"
                                       DocumentSource="{Binding PDFContent, Converter={StaticResource PdfDocumentSourceValueConverter}}" />

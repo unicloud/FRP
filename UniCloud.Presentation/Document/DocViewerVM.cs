@@ -193,9 +193,6 @@ namespace UniCloud.Presentation.Document
         }
 
         #region 文档
-
-        private DocumentDTO _selDocumentDTO;
-
         /// <summary>
         ///     文档集合
         /// </summary>
@@ -204,6 +201,7 @@ namespace UniCloud.Presentation.Document
         /// <summary>
         ///     选中的文档
         /// </summary>
+        private DocumentDTO _selDocumentDTO;
         public DocumentDTO SelDocumentDTO
         {
             get { return _selDocumentDTO; }
@@ -232,10 +230,44 @@ namespace UniCloud.Presentation.Document
                 if (_loadedDocument != null)
                     ViewDocument(_loadedDocument);
             };
+            DocumentTypes = new QueryableDataServiceCollectionView<DocumentTypeDTO>(_context, _context.DocumentTypes);
         }
 
         #endregion
 
+        #region 文档类型
+        public QueryableDataServiceCollectionView<DocumentTypeDTO> DocumentTypes { get; set; }
+
+        private DocumentTypeDTO _documentType;
+        public DocumentTypeDTO DocumentType
+        {
+            get { return _documentType; }
+            set
+            {
+                _documentType = value;
+                if (_documentType != null)
+                    _addedDocument.DocumentTypeId = _documentType.DocumentTypeId;
+                RaisePropertyChanged(() => DocumentType);
+            }
+        }
+
+        /// <summary>
+        ///    是否可见
+        /// </summary>
+        private Visibility _documentTypeVisibility;
+        public Visibility DocumentTypeVisibility
+        {
+            get { return _documentTypeVisibility; }
+            set
+            {
+                if (_documentTypeVisibility != value)
+                {
+                    _documentTypeVisibility = value;
+                    RaisePropertyChanged(() => DocumentTypeVisibility);
+                }
+            }
+        }
+        #endregion
         #endregion
 
         #endregion
@@ -255,6 +287,11 @@ namespace UniCloud.Presentation.Document
 
         private void OnSave(object obj)
         {
+            if (_addedDocument.DocumentTypeId == 0)
+            {
+                MessageAlert("请选择文档类型！");
+                return;
+            }
             IsBusy = true;
             ViewDocumentDTO.AddNew(_addedDocument);
             _service.SubmitChanges(sm =>
@@ -281,6 +318,8 @@ namespace UniCloud.Presentation.Document
         /// <param name="callback">回调操作</param>
         internal void InitDocument(FileInfo fi, Action<DocumentDTO> callback)
         {
+            DocumentTypeVisibility = Visibility.Visible;
+            DocumentTypes.Load();
             _windowClosed = callback;
             ViewDocument(fi);
         }
@@ -291,6 +330,7 @@ namespace UniCloud.Presentation.Document
         /// <param name="docId">文档ID</param>
         internal void InitDocument(Guid docId)
         {
+            DocumentTypeVisibility = Visibility.Collapsed;
             Title = string.Empty;
             PDFVisibility = Visibility.Collapsed;
             WordVisibility = Visibility.Collapsed;
