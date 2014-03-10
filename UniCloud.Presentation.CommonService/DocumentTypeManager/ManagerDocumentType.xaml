@@ -156,7 +156,7 @@
                 </telerik:RadSplitContainer>
                 <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="编辑文档类型系列"
+                        <telerik:RadPane Header="编辑文档类型"
                                          IsPinned="True"
                                          CanFloat="False"
                                          CanDockInDocumentHost="False"
