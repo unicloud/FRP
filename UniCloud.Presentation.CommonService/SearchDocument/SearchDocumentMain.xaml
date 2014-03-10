@@ -29,6 +29,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="284" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"
                        Text="文 档 搜 索"
@@ -46,6 +47,26 @@
                                          FontFamily="Microsoft YaHei UI"
                                          Width="303"
                                          Text="{Binding Keyword,Mode=TwoWay}" />
+            <TextBlock Grid.Row="2"
+                       Text="搜索范围"
+                       FontSize="20"
+                       FontFamily="Microsoft YaHei UI"
+                       Foreground="CornflowerBlue" 
+                       Width="90"
+                       Margin="496,10,104,-10" />
+            <telerik:RadComboBox Grid.Row="2"
+                                 ItemsSource="{Binding DocumentTypes,Mode=TwoWay}"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Top"
+                                 Margin="0,10,10,-10"
+                                 Width="100">
+                <telerik:RadComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                                  Content="{Binding Name}" />
+                    </DataTemplate>
+                </telerik:RadComboBox.ItemTemplate>
+            </telerik:RadComboBox>
         </Grid>
         <Grid  Grid.Column="2">
             <Grid.RowDefinitions>

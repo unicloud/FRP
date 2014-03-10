@@ -60,12 +60,42 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             set
             {
                 _documents = value;
-                RaisePropertyChanged(()=>Documents);
+                RaisePropertyChanged(() => Documents);
+            }
+        }
+
+        private IEnumerable<DocumentTypeDTO> _documentTypes;
+        public IEnumerable<DocumentTypeDTO> DocumentTypes
+        {
+            get { return _documentTypes; }
+            set
+            {
+                _documentTypes = value;
+                RaisePropertyChanged(() => DocumentTypes);
             }
         }
         public void RadButtonClick(object sender, RoutedEventArgs e)
         {
-            var keyword = SearchDocuments(Keyword);
+            if (string.IsNullOrEmpty(Keyword))
+            {
+                MessageAlert("请输入搜索关键字！");
+                return;
+            }
+            if (DocumentTypes.All(p => p.IsChecked == false))
+            {
+                MessageAlert("请选择搜索范围！");
+                return;
+            }
+            var documentType = string.Empty;
+            DocumentTypes.ToList().ForEach(p =>
+                                           {
+                                               if (p.IsChecked)
+                                               {
+                                                   documentType += p.DocumentTypeId + ",";
+                                               }
+                                           });
+            documentType = documentType.TrimEnd(',');
+            var keyword = SearchDocuments(Keyword, documentType);
             IsBusy = true;
             _context.BeginExecute<DocumentDTO>(keyword,
                result => Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -76,7 +106,7 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                        if (context != null)
                        {
                            Documents = context.EndExecute<DocumentDTO>(result).ToList();
-                       } 
+                       }
                    }
                    catch (DataServiceQueryException ex)
                    {
@@ -91,10 +121,11 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
         ///     搜索文档
         /// </summary>
         /// <param name="keyword"></param>
+        /// <param name="documentType"></param>
         /// <returns></returns>
-        private Uri SearchDocuments(string keyword)
+        private Uri SearchDocuments(string keyword, string documentType)
         {
-            return new Uri(string.Format("SearchDocument?keyword='{0}'", keyword),
+            return new Uri(string.Format("SearchDocument?keyword='{0}'&documentType='{1}'", keyword, documentType),
                 UriKind.Relative);
         }
 
@@ -102,6 +133,7 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
         {
             var main = ServiceLocator.Current.GetInstance<SearchDocumentMainVm>();
             Keyword = main.Keyword;
+            DocumentTypes = main.DocumentTypes.ToList();
             RadButtonClick(null, null);
         }
     }

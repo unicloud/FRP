@@ -22,6 +22,7 @@
           <PropertyRef Name="DocumentTypeId" />
         </Key>
         <Property Name="DocumentTypeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="IsChecked" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
       </EntityType>
@@ -32,6 +33,7 @@
         <EntitySet Name="DocumentTypes" EntityType="UniCloud.Application.CommonServiceBC.DTO.DocumentTypeDTO" />
         <FunctionImport Name="SearchDocument" ReturnType="Collection(UniCloud.Application.CommonServiceBC.DTO.DocumentDTO)" EntitySet="Documents" m:HttpMethod="GET">
           <Parameter Name="keyword" Type="Edm.String" />
+          <Parameter Name="documentType" Type="Edm.String" />
         </FunctionImport>
       </EntityContainer>
     </Schema>

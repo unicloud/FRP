@@ -34,7 +34,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
         private const String Start = "|~S~|";
         private const String End = "|~E~|";
 
-        public List<DocumentDTO> Search(string keyword)
+        public List<DocumentDTO> Search(string keyword, string documentType)
         {
             //DocumentIndexService service = new DocumentIndexService();
             //List<string> paths = new List<string>
@@ -48,16 +48,18 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
             //    true, null, File.ReadAllText(@"C:\Users\Linxw\Desktop\读书.txt"), 1);
             //service.AddDocumentSearchIndex(document);
             //document = DocumentFactory.CreateStandardDocument(Guid.NewGuid(), "新建文本文档.txt", ".txt", "", "", "",
-            //    true, null, File.ReadAllText(@"C:\Users\Linxw\Desktop\新建文本文档.txt"), 1);
+            //    true, null, File.ReadAllText(@"C:\Users\Linxw\Desktop\新建文本文档.txt"), 3);
             //service.AddDocumentSearchIndex(document);
             //document = DocumentFactory.CreateStandardDocument(Guid.NewGuid(), "111.txt", ".txt", "", "", "",
-            //    true, null, File.ReadAllText(@"C:\Users\Linxw\Desktop\111.txt"), 1);
-            //service.AddDocumentSearchIndex(document);
-           // var simpleHTMLFormatter = new SimpleHTMLFormatter(Start, End);
-           // var highlighter = new Highlighter(simpleHTMLFormatter, new Segment()) { FragmentSize = 20 };
-            //var aa = LuceneSearch.LuceneSearch.Query(keyword);
-            IndexManager.GenerateSearcher();
-            var docCount = IndexManager.IndexSearcher.MaxDoc();
+            //    true, null, File.ReadAllText(@"C:\Users\Linxw\Desktop\111.txt"), 3);
+            //service.AddDocumen.tSearchIndex(document);
+            //var simpleHTMLFormatter = new SimpleHTMLFormatter(Start, End);
+            //var highlighter = new Highlighter(simpleHTMLFormatter, new Segment()) { FragmentSize = 20 };
+            //var aa = LuceneSearch.LuceneSearch.PanguQuery(keyword, documentType.ToString());
+            //IndexManager.SetIndexStorePath("E:\\Indexs\\" + documentType);
+            //IndexManager.GenerateSearcher();
+            var multiSearcher = IndexManager.GenerateMultiSearcher(documentType);
+            var docCount = multiSearcher.MaxDoc();
             //var asdasd = aa.scoreDocs.Select(a => IndexManager.IndexSearcher.Doc(a.doc)).Select(result => new DocumentDTO
             //                                                                                      {
             //                                                                                          DocumentId = Guid.Parse(result.Get("ID")),
@@ -69,7 +71,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
             var documents = new List<DocumentDTO>();
             for (int i = 0; i < docCount; i++)
             {
-                var result = IndexManager.IndexSearcher.Doc(i);
+                var result = multiSearcher.Doc(i);
                 if (!string.IsNullOrEmpty(ResultHighlighter.HighlightContent(keyword, result.Get("fileContent"))))
                 {
                     var temp = new DocumentDTO

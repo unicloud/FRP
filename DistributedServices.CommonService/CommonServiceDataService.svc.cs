@@ -81,10 +81,10 @@ namespace UniCloud.DistributedServices.CommonService
 
         #region ·þÎñ²Ù×÷
         [WebGet]
-        public List<DocumentDTO> SearchDocument(string keyword)
+        public List<DocumentDTO> SearchDocument(string keyword, string documentType)
         {
             var searchDocument = DefaultContainer.Resolve<IDocumentSearchAppService>();
-            return searchDocument.Search(keyword);
+            return searchDocument.Search(keyword, documentType);
         }
         #endregion
     }
