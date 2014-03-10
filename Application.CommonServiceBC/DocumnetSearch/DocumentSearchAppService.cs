@@ -55,38 +55,18 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
             //service.AddDocumen.tSearchIndex(document);
             //var simpleHTMLFormatter = new SimpleHTMLFormatter(Start, End);
             //var highlighter = new Highlighter(simpleHTMLFormatter, new Segment()) { FragmentSize = 20 };
-            //var aa = LuceneSearch.LuceneSearch.PanguQuery(keyword, documentType.ToString());
-            //IndexManager.SetIndexStorePath("E:\\Indexs\\" + documentType);
-            //IndexManager.GenerateSearcher();
+            var aa = LuceneSearch.LuceneSearch.PanguQuery(keyword, documentType);
             var multiSearcher = IndexManager.GenerateMultiSearcher(documentType);
-            var docCount = multiSearcher.MaxDoc();
-            //var asdasd = aa.scoreDocs.Select(a => IndexManager.IndexSearcher.Doc(a.doc)).Select(result => new DocumentDTO
-            //                                                                                      {
-            //                                                                                          DocumentId = Guid.Parse(result.Get("ID")),
-            //                                                                                          Extension = result.Get("extendType"),
-            //                                                                                          //Abstract = highlighter.GetBestFragment(keyword, result.Get("fileContent")),
-            //                                                                                          FileContent = result.Get("fileContent"),
-            //                                                                                          Name = result.Get("fileName"),
-            //                                                                                      }).ToList();
-            var documents = new List<DocumentDTO>();
-            for (int i = 0; i < docCount; i++)
-            {
-                var result = multiSearcher.Doc(i);
-                if (!string.IsNullOrEmpty(ResultHighlighter.HighlightContent(keyword, result.Get("fileContent"))))
-                {
-                    var temp = new DocumentDTO
-                               {
-                                   DocumentId = Guid.Parse(result.Get("ID")),
-                                   Extension = result.Get("extendType"),
-                                   Abstract = ResultHighlighter.HighlightContent(keyword, result.Get("fileContent")),
-                                   FileContent = result.Get("fileContent"),
-                                   Name = result.Get("fileName"),
-                               };
-                    documents.Add(temp);
-                }
-            }
+            var documents = aa.scoreDocs.Select(a => multiSearcher.Doc(a.doc)).Select(result => new DocumentDTO
+                                                                                                  {
+                                                                                                      DocumentId = Guid.Parse(result.Get("ID")),
+                                                                                                      Extension = result.Get("extendType"),
+                                                                                                      Abstract = ResultHighlighter.HighlightContent(keyword, result.Get("fileContent")),
+                                                                                                      //FileContent = result.Get("fileContent").Replace(keyword, Start + keyword + End),
+                                                                                                      Name = result.Get("fileName"),
+                                                                                                  }).ToList();
+            
             return documents;
-            //return null;
         }
     }
 }
