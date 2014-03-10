@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Lucene.Net.Analysis.PanGu;
 using Lucene.Net.Index;
@@ -31,6 +32,10 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
             {
                 ParallelMultiSearcher multiSearch = IndexManager.GenerateMultiSearcher(fileType);
 
+                if (!multiSearch.GetSearchables().Any())
+                {
+                    return null;
+                }
                 #region 生成Query语句
 
                 var field = new string[6];

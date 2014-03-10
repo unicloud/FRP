@@ -47,22 +47,20 @@
                                          FontFamily="Microsoft YaHei UI"
                                          Width="303"
                                          Text="{Binding Keyword,Mode=TwoWay}" />
-            <TextBlock Grid.Row="2"
-                       Text="搜索范围"
-                       FontSize="20"
-                       FontFamily="Microsoft YaHei UI"
-                       Foreground="CornflowerBlue" 
-                       Width="90"
-                       Margin="496,10,104,-10" />
             <telerik:RadComboBox Grid.Row="2"
                                  ItemsSource="{Binding DocumentTypes,Mode=TwoWay}"
+                                 EmptyText="搜索范围"
+                                 FontSize="18"
+                                 FontFamily="Microsoft YaHei UI"
                                  HorizontalAlignment="Right"
                                  VerticalAlignment="Top"
                                  Margin="0,10,10,-10"
+                                 Height="35"
                                  Width="100">
                 <telerik:RadComboBox.ItemTemplate>
                     <DataTemplate>
-                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                        <CheckBox telerik:StyleManager.Theme="Windows8"
+                                  IsChecked="{Binding IsChecked, Mode=TwoWay}"
                                   Content="{Binding Name}" />
                     </DataTemplate>
                 </telerik:RadComboBox.ItemTemplate>

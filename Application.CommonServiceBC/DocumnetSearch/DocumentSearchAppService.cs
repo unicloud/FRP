@@ -56,6 +56,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
             //var simpleHTMLFormatter = new SimpleHTMLFormatter(Start, End);
             //var highlighter = new Highlighter(simpleHTMLFormatter, new Segment()) { FragmentSize = 20 };
             var aa = LuceneSearch.LuceneSearch.PanguQuery(keyword, documentType);
+            if (aa == null) return new List<DocumentDTO>();
             var multiSearcher = IndexManager.GenerateMultiSearcher(documentType);
             var documents = aa.scoreDocs.Select(a => multiSearcher.Doc(a.doc)).Select(result => new DocumentDTO
                                                                                                   {
@@ -65,7 +66,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
                                                                                                       //FileContent = result.Get("fileContent").Replace(keyword, Start + keyword + End),
                                                                                                       Name = result.Get("fileName"),
                                                                                                   }).ToList();
-            
+
             return documents;
         }
     }

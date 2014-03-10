@@ -57,25 +57,20 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </telerik:RadButton>
-            <TextBlock Text="搜索范围"
-                       FontSize="20"
-                       FontFamily="Microsoft YaHei UI"
-                       Foreground="CornflowerBlue"
-                       Width="90"
-                       Height="35"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Top"
-                       Margin="466,41,244,19" />
             <telerik:RadComboBox ItemsSource="{Binding DocumentTypes,Mode=TwoWay}"
+                                 EmptyText="搜索范围"
+                                 FontFamily="Microsoft YaHei UI"
+                                 FontSize="18"
                                  HorizontalAlignment="Left"
                                  VerticalAlignment="Top"
                                  VerticalContentAlignment="Center"
                                  Height="35"
                                  Width="100"
-                                 Margin="571,37,0,0">
+                                 Margin="476,36,0,0">
                 <telerik:RadComboBox.ItemTemplate>
                     <DataTemplate>
-                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                        <CheckBox telerik:StyleManager.Theme="Windows8"
+                                  IsChecked="{Binding IsChecked, Mode=TwoWay}"
                                   Content="{Binding Name}" />
                     </DataTemplate>
                 </telerik:RadComboBox.ItemTemplate>

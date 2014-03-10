@@ -42,6 +42,7 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             _context = service.Context;
         }
 
+        #region 关键字
         private string _keyword;
         public string Keyword
         {
@@ -52,7 +53,9 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 RaisePropertyChanged("Keyword");
             }
         }
+        #endregion
 
+        #region 搜索到的文档集合
         private List<DocumentDTO> _documents;
         public List<DocumentDTO> Documents
         {
@@ -63,7 +66,9 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 RaisePropertyChanged(() => Documents);
             }
         }
+        #endregion
 
+        #region 文档类型
         private IEnumerable<DocumentTypeDTO> _documentTypes;
         public IEnumerable<DocumentTypeDTO> DocumentTypes
         {
@@ -74,6 +79,8 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 RaisePropertyChanged(() => DocumentTypes);
             }
         }
+        #endregion
+
         public void RadButtonClick(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(Keyword))
@@ -133,6 +140,7 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
         {
             var main = ServiceLocator.Current.GetInstance<SearchDocumentMainVm>();
             Keyword = main.Keyword;
+            main.Keyword = string.Empty;
             DocumentTypes = main.DocumentTypes.ToList();
             RadButtonClick(null, null);
         }

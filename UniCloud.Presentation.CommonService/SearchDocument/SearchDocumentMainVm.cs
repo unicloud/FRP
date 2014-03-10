@@ -40,7 +40,12 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             _regionManager = regionManager;
             DocumentTypes = new QueryableDataServiceCollectionView<DocumentTypeDTO>(service.Context, service.Context.DocumentTypes);
         }
+
+        /// <summary>
+        /// 文档类型
+        /// </summary>
         public QueryableDataServiceCollectionView<DocumentTypeDTO> DocumentTypes { get; set; }
+        #region 关键字
         private string _keyword;
         public string Keyword
         {
@@ -51,7 +56,7 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 RaisePropertyChanged("Keyword");
             }
         }
-
+        #endregion
         public void RadButtonClick(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrEmpty(Keyword))
