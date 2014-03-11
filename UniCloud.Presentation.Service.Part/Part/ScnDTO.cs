@@ -27,7 +27,17 @@ namespace UniCloud.Presentation.Service.Part.Part
 {
     public partial class ScnDTO
     {
+        
+        partial void OnScnTypeChanged()
+        {
+            CaculateApplicableAircraftCost();
+        }
         partial void OnCostChanged()
+        {
+            CaculateApplicableAircraftCost();
+        }
+
+        private void CaculateApplicableAircraftCost()
         {
             if (ApplicableAircrafts != null && ApplicableAircrafts.Count > 0)
             {

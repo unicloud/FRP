@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
@@ -82,17 +83,20 @@ namespace UniCloud.Presentation.Part.ManageSCN
         /// <summary>
         ///     SCN类型
         /// </summary>
-        public Array Types
+        public Dictionary<int, ScnType> Types
         {
-            get { return Enum.GetValues(typeof(ScnType)); }
+            get
+            {
+                return Enum.GetValues(typeof(ScnType)).Cast<object>().ToDictionary(value => (int)value, value => (ScnType)value);
+            }
         }
 
         /// <summary>
         ///     SCN适用类型
         /// </summary>
-        public Array ScnTypes
+        public Dictionary<int, ScnApplicableType> ScnTypes
         {
-            get { return Enum.GetValues(typeof(ScnApplicableType)); }
+            get { return Enum.GetValues(typeof(ScnApplicableType)).Cast<object>().ToDictionary(value => (int)value, value => (ScnApplicableType)value); }
         }
 
         #region SCN/MSCN
@@ -188,8 +192,8 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 Id = RandomHelper.Next(),
                 CheckDate = DateTime.Now,
                 ReceiveDate = DateTime.Now,
-                TypeString = ScnType.SCN.ToString(),
-                ScnTypeString = ScnApplicableType.个体.ToString(),
+                Type = 0,
+                ScnType = 0,
                 ScnStatus = 0,
                 AuditOrganization = ScnStatus.技术标准室审核.ToString().Replace("审核", string.Empty),
                 AuditTime = DateTime.Now
@@ -302,7 +306,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 MessageAlert("请选择一条记录！");
                 return;
             }
-            var auditOrganizations = new AuditOrganizations(Scn) {WindowStartupLocation = WindowStartupLocation.CenterScreen};
+            var auditOrganizations = new AuditOrganizations(Scn) { WindowStartupLocation = WindowStartupLocation.CenterScreen };
             auditOrganizations.ShowDialog();
         }
 
@@ -333,7 +337,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
                 MessageAlert("请选择一条记录！");
                 return;
             }
-            Scn.ScnStatus =(int) ScnStatus.技术标准室审核;
+            Scn.ScnStatus = (int)ScnStatus.技术标准室审核;
         }
 
         protected bool CanReviewScn(object obj)
@@ -389,16 +393,6 @@ namespace UniCloud.Presentation.Part.ManageSCN
         }
         #endregion
 
-        #region Combobox SelectedChanged
-        public void SelectedChanged(object comboboxSelectedItem)
-        {
-            if (comboboxSelectedItem is ScnApplicableType)
-            {
-                Scn.ScnType = (int)(ScnApplicableType)comboboxSelectedItem;
-                CaculateApplicableAircraftCost();
-            }
-        }
-        #endregion
         #endregion
     }
 }

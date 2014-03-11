@@ -108,7 +108,9 @@
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 ItemsSource="{Binding DataContext.Types,ElementName=ScnMscn,Mode=TwoWay}"
-                                                                                DataMemberBinding="{Binding TypeString}" />
+                                                                                DataMemberBinding="{Binding Type}"
+                                                                                SelectedValueMemberPath="Key"
+                                                                                DisplayMemberPath="Value"/>
                                                 <telerik:GridViewDataColumn Header="批次号"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -133,7 +135,9 @@
                                                                                 HeaderTextAlignment="Center"
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 ItemsSource="{Binding DataContext.ScnTypes,ElementName=ScnMscn,Mode=TwoWay}"
-                                                                                DataMemberBinding="{Binding ScnTypeString}" />
+                                                                                DataMemberBinding="{Binding ScnType}"
+                                                                                SelectedValueMemberPath="Key"
+                                                                                DisplayMemberPath="Value" />
                                                 <telerik:GridViewMaskedInputColumn Header="费用"
                                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                    TextAlignment="Right"
