@@ -290,8 +290,10 @@
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     TextAlignment="Right"
                                                                     HeaderTextAlignment="Center"
-                                                                    ItemsSource="{Binding MaintainItems}"
-                                                                    DataMemberBinding="{Binding MaintainItemString}" />
+                                                                    ItemsSource="{Binding DataContext.MaintainItems,ElementName=AirframeMaintainView}"
+                                                                    DataMemberBinding="{Binding MaintainItem}"
+                                                                    SelectedValueMemberPath="Key"
+                                                                    DisplayMemberPath="Value"/>
                                     <telerik:GridViewDataColumn Header="项名称"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 TextAlignment="Right"

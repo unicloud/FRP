@@ -23,13 +23,5 @@ namespace UniCloud.Presentation.Service.Payment.Payment
 {
     public partial class MaintainInvoiceLineDTO
     {
-        partial void OnMaintainItemStringChanging(string value)
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                throw new Exception("请选择维修项");
-            }
-            MaintainItem = (int)(MaintainItem)Enum.Parse(typeof(MaintainItem), value, true);
-        }
     } 
 }

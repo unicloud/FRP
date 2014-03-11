@@ -216,13 +216,8 @@ namespace UniCloud.Presentation.Shell
                 Text = "维护飞机证照",
                 NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftData.ManagerAircraftLicense"
             };
-            var menu123 = new MenuItem
-            {
-                Text = "查询现役飞机",
-            };
             //menu12.Items.Add(menu121);
             menu12.Items.Add(menu122);
-            menu12.Items.Add(menu123);
             menu1.Items.Add(menu12);
 
             _items.Add(menu1);
@@ -799,8 +794,12 @@ namespace UniCloud.Presentation.Shell
                 Text = "适航管理",
                 IsEnabled = true,
             };
-
-
+            var menu61 = new MenuItem
+            {
+                Text = "查询AD/SB",
+                NavUri = "UniCloud.Presentation.Part.ManageAdSb.QueryAdSb"
+            };
+            menu6.Items.Add(menu61);
             _items.Add(menu6);
 
             #endregion
@@ -949,11 +948,6 @@ namespace UniCloud.Presentation.Shell
             menu81.Items.Add(menu811);
             menu81.Items.Add(menu812);
 
-            var menu82 = new MenuItem
-            {
-                Text = "查询AD/SB",
-                NavUri = "UniCloud.Presentation.Part.ManageAdSb.QueryAdSb"
-            };
 
             var menu83 = new MenuItem
             {
@@ -962,7 +956,6 @@ namespace UniCloud.Presentation.Shell
             };
 
             menu8.Items.Add(menu81);
-            menu8.Items.Add(menu82);
             menu8.Items.Add(menu83);
 
             _items.Add(menu8);
