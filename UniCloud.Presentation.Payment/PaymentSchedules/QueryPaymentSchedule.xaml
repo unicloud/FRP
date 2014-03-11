@@ -21,7 +21,9 @@
         <telerik:RadTabControl>
             <telerik:RadTabItem Header="飞机付款计划">
                 <Grid>
-                    <telerik:RadDocking HasDocumentHost="False">
+                    <telerik:RadDocking BorderThickness="0"
+                                        Padding="0"
+                                        HasDocumentHost="False">
                         <telerik:RadSplitContainer>
                             <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600">
                                 <telerik:RadPaneGroup>
@@ -246,7 +248,9 @@
             </telerik:RadTabItem>
             <telerik:RadTabItem Header="发动机付款计划">
                 <Grid>
-                    <telerik:RadDocking HasDocumentHost="False">
+                    <telerik:RadDocking BorderThickness="0"
+                                        Padding="0"
+                                        HasDocumentHost="False">
                         <telerik:RadSplitContainer>
                             <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600">
                                 <telerik:RadPaneGroup>
@@ -462,7 +466,9 @@
             </telerik:RadTabItem>
             <telerik:RadTabItem Header="BFE付款计划">
                 <Grid>
-                    <telerik:RadDocking HasDocumentHost="False">
+                    <telerik:RadDocking BorderThickness="0"
+                                        Padding="0"
+                                        HasDocumentHost="False">
                         <telerik:RadSplitContainer>
                             <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600">
                                 <telerik:RadPaneGroup>

@@ -41,9 +41,10 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <telerik:RadButton Height="30" Width="90" Content="比较" Command="{Binding CompareCommand}"></telerik:RadButton>
-        <telerik:RadDocking Grid.Row="1" 
-                            HasDocumentHost="False"
-                           >
+        <telerik:RadDocking Grid.Row="1"
+                                BorderThickness="0"
+                                Padding="0"
+                                HasDocumentHost="False">
             <telerik:RadSplitContainer Orientation="Vertical">
                 <telerik:RadSplitContainer Orientation="Horizontal" telerik:ProportionalStackPanel.RelativeSize="500, 600">
                     <telerik:RadPaneGroup >

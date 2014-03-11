@@ -18,7 +18,9 @@
 
     </UserControl.Resources>
     <Grid>
-        <telerik:RadDocking HasDocumentHost="False">
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False">
                 <telerik:RadSplitContainer>
                 <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600">
                     <telerik:RadPaneGroup >

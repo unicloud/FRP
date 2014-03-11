@@ -22,7 +22,9 @@
     </UserControl.Resources>
 
     <Grid>
-        <telerik:RadDocking HasDocumentHost="False"
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False"
                             telerik:ProportionalStackPanel.RelativeSize="500,200"
                             FlowDirection="LeftToRight">
             <telerik:RadSplitContainer Orientation="Vertical">

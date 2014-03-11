@@ -48,7 +48,9 @@
                                  CanUserPin="False"
                                  ContextMenuTemplate="{x:Null}">
                     <Grid>
-                        <telerik:RadDocking HasDocumentHost="False">
+                        <telerik:RadDocking BorderThickness="0"
+                                            Padding="0"
+                                            HasDocumentHost="False">
                             <telerik:RadSplitContainer Orientation="Horizontal">
                                 <telerik:RadPaneGroup>
                                     <telerik:RadPane Header="采购合同中的飞机"
@@ -186,7 +188,9 @@
                                  CanUserPin="False"
                                  ContextMenuTemplate="{x:Null}">
                     <Grid>
-                        <telerik:RadDocking HasDocumentHost="False">
+                        <telerik:RadDocking BorderThickness="0"
+                                            Padding="0"
+                                            HasDocumentHost="False">
                             <telerik:RadSplitContainer Orientation="Horizontal">
                                 <telerik:RadPaneGroup>
                                     <telerik:RadPane Header="采购合同中的发动机"

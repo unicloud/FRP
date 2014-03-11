@@ -83,7 +83,9 @@
                 </telerik:RadButton>
             </telerik:RadToolBar>
             <Grid Grid.Row="2">
-                <telerik:RadDocking HasDocumentHost="False">
+                <telerik:RadDocking BorderThickness="0"
+                                    Padding="0"
+                                    HasDocumentHost="False">
                     <telerik:RadSplitContainer>
                         <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="200, 600">
                             <telerik:RadSplitContainer>
