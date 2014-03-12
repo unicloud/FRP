@@ -17,6 +17,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftConfigurationAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
@@ -46,7 +47,8 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
         private IDbSet<LicenseType> _licenseTypes;
         private IDbSet<AircraftLicense> _aircraftLicenses;
         private IDbSet<Ata> _atas;
-
+        private IDbSet<AircraftConfiguration> _aircraftConfigurations;
+        private IDbSet<AircraftCabin> _aircraftCabins; 
         public IDbSet<ActionCategory> ActionCategories
         {
             get { return _actionCategories ?? (_actionCategories = Set<ActionCategory>()); }
@@ -105,6 +107,16 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
         {
             get { return _atas ?? (_atas = Set<Ata>()); }
         }
+
+        public IDbSet<AircraftConfiguration> AircraftConfigurations
+        {
+            get { return _aircraftConfigurations ?? (_aircraftConfigurations = Set<AircraftConfiguration>()); }
+        }
+
+        public IDbSet<AircraftCabin> AircraftCabins
+        {
+            get { return _aircraftCabins ?? (_aircraftCabins = Set<AircraftCabin>()); }
+        }
         #endregion
 
         #region DbContext 重载
@@ -141,60 +153,67 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
         {
             modelBuilder.Configurations
 
-            #region ActionCategoryAgg
+                #region ActionCategoryAgg
 
-.Add(new ActionCategoryEntityConfiguration())
+                .Add(new ActionCategoryEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region AircraftSeriesAgg
+                #region AircraftSeriesAgg
 
-.Add(new AircraftSeriesEntityConfiguration())
-.Add(new AtaEntityConfiguration())
-            #endregion
+                .Add(new AircraftSeriesEntityConfiguration())
+                .Add(new AtaEntityConfiguration())
+                #endregion
 
-            #region AircraftCategoryAgg
+                #region AircraftCategoryAgg
 
-.Add(new AircraftCategoryEntityConfiguration())
+                .Add(new AircraftCategoryEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region AircraftAgg
+                #region AircraftAgg
 
-.Add(new AircraftEntityConfiguration())
+                .Add(new AircraftEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region AircraftTypeAgg
+                #region AircraftTypeAgg
 
-.Add(new AircraftTypeEntityConfiguration())
-.Add(new CAACAircraftTypeEntityConfiguration())
-            #endregion
+                .Add(new AircraftTypeEntityConfiguration())
+                .Add(new CAACAircraftTypeEntityConfiguration())
+                #endregion
 
-            #region AirlinesAgg
+                #region AirlinesAgg
 
-.Add(new AirlinesEntityConfiguration())
+                .Add(new AirlinesEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region ManufacturerAgg
+                #region ManufacturerAgg
 
-.Add(new ManufacturerEntityConfiguration())
+                .Add(new ManufacturerEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region SupplierAgg
+                #region SupplierAgg
 
-.Add(new SupplierEntityConfiguration())
+                .Add(new SupplierEntityConfiguration())
 
-            #endregion
+                #endregion
 
-            #region AircraftLicenseAgg
-.Add(new LicenseTypeEntityConfiguration())
+                #region AircraftLicenseAgg
+
+                .Add(new LicenseTypeEntityConfiguration())
                 .Add(new AircraftLicenseEntityConfiguration())
-            #endregion
+                #endregion
 
-;
+                #region AircraftConfigurationAgg
+
+                .Add(new AircraftConfigurationEntityConfiguration())
+                .Add(new AircraftCabinEntityConfiguration())
+                #endregion
+
+                ;
         }
 
         #endregion

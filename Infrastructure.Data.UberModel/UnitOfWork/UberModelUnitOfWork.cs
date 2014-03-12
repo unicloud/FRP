@@ -24,6 +24,7 @@ using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AdSbAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.UberModel.Aggregates.AircraftConfigurationAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftLicenseAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftSeriesAgg;
@@ -116,6 +117,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<AircraftType> _aircraftTypes;
         private IDbSet<CAACAircraftType> _caacAircraftTypes; 
         private IDbSet<Aircraft> _aircrafts;
+        private IDbSet<AircraftConfiguration> _aircraftConfigurations;
+        private IDbSet<AircraftCabin> _aircraftCabins; 
         private IDbSet<Airlines> _airlineses;
         private IDbSet<Annual> _annuals;
         private IDbSet<ApprovalDoc> _approvalDocs;
@@ -220,6 +223,16 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<Aircraft> Aircrafts
         {
             get { return _aircrafts ?? (_aircrafts = Set<Aircraft>()); }
+        }
+
+        public IDbSet<AircraftConfiguration> AircraftConfigurations
+        {
+            get { return _aircraftConfigurations ?? (_aircraftConfigurations = Set<AircraftConfiguration>()); }
+        }
+
+        public IDbSet<AircraftCabin> AircraftCabins
+        {
+            get { return _aircraftCabins ?? (_aircraftCabins = Set<AircraftCabin>()); }
         }
 
         public IDbSet<AircraftType> AircraftTypes
@@ -1098,6 +1111,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new AdSbEntityConfiguration())
                 #endregion
 
+            #region AircraftConfigurationAgg
+
+.Add(new AircraftConfigurationEntityConfiguration())
+                .Add(new AircraftCabinEntityConfiguration())
+            #endregion
                 .Add(new AddressConfiguration());
         }
 

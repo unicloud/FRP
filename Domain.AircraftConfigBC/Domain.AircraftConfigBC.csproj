@@ -50,6 +50,11 @@
     <Compile Include="Aggregates\AircraftCategoryAgg\AircraftCategory.cs" />
     <Compile Include="Aggregates\AircraftCategoryAgg\AircraftCategorySepcifications.cs" />
     <Compile Include="Aggregates\AircraftCategoryAgg\IAircraftCategoryRepository.cs" />
+    <Compile Include="Aggregates\AircraftConfigurationAgg\AircraftCabin.cs" />
+    <Compile Include="Aggregates\AircraftConfigurationAgg\AircraftConfiguration.cs" />
+    <Compile Include="Aggregates\AircraftConfigurationAgg\AircraftConfigurationFactory.cs" />
+    <Compile Include="Aggregates\AircraftConfigurationAgg\AircraftConfigurationSpecifications.cs" />
+    <Compile Include="Aggregates\AircraftConfigurationAgg\IAircraftConfigurationRepository.cs" />
     <Compile Include="Aggregates\AircraftLicenseAgg\AircraftLicense.cs" />
     <Compile Include="Aggregates\AircraftLicenseAgg\AircraftLicenseFactory.cs" />
     <Compile Include="Aggregates\AircraftLicenseAgg\AircraftLicenseSpecifications.cs" />

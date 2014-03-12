@@ -196,6 +196,7 @@ namespace UniCloud.Presentation.Shell
             var menu113 = new MenuItem
             {
                 Text = "维护飞机配置",
+                NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig.ManagerAircraftConfiguration"
             };
             menu11.Items.Add(menu111);
             menu11.Items.Add(menu112);

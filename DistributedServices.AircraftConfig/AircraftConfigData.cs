@@ -5,6 +5,7 @@
 using System.Linq;
 using UniCloud.Application.AircraftConfigBC.ActionCategoryServices;
 using UniCloud.Application.AircraftConfigBC.AircraftCategoryServices;
+using UniCloud.Application.AircraftConfigBC.AircraftConfigurationServices;
 using UniCloud.Application.AircraftConfigBC.AircraftLicenseServices;
 using UniCloud.Application.AircraftConfigBC.AircraftSeriesServices;
 using UniCloud.Application.AircraftConfigBC.AircraftServices;
@@ -28,6 +29,7 @@ namespace UniCloud.DistributedServices.AircraftConfig
         private readonly IManufacturerAppService _manufacturerAppService;
         private readonly IAircraftLicenseAppService _aircraftLicenseAppService;
         private readonly IAircraftAppService _aircraftAppService;
+        private readonly IAircraftConfigurationAppService _aircraftConfigurationAppService;
         public AircraftConfigData()
             : base("UniCloud.Application.AircraftConfigBC.DTO")
         {
@@ -38,6 +40,7 @@ namespace UniCloud.DistributedServices.AircraftConfig
             _manufacturerAppService = DefaultContainer.Resolve<IManufacturerAppService>();
             _aircraftLicenseAppService = DefaultContainer.Resolve<IAircraftLicenseAppService>();
             _aircraftAppService = DefaultContainer.Resolve<IAircraftAppService>();
+            _aircraftConfigurationAppService = DefaultContainer.Resolve<IAircraftConfigurationAppService>();
         }
 
         #region 活动类型
@@ -135,6 +138,16 @@ namespace UniCloud.DistributedServices.AircraftConfig
             get { return _aircraftAppService.GetAircrafts(); }
         }
 
+        #endregion
+
+        #region 飞机配置
+        /// <summary>
+        ///     飞机配置集合
+        /// </summary>
+        public IQueryable<AircraftConfigurationDTO> AircraftConfigurations
+        {
+            get { return _aircraftConfigurationAppService.GetAircraftConfigurations(); }
+        }
         #endregion
     }
 }

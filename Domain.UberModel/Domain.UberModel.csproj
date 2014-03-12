@@ -51,6 +51,11 @@
     <Compile Include="Aggregates\AdSbAgg\AdSbFactory.cs" />
     <Compile Include="Aggregates\AdSbAgg\AdSbSpecifications.cs" />
     <Compile Include="Aggregates\AdSbAgg\IAdSbRepository.cs" />
+    <Compile Include="Aggregates\AircraftConfigurationAgg\AircraftCabin.cs" />
+    <Compile Include="Aggregates\AircraftConfigurationAgg\AircraftConfiguration.cs" />
+    <Compile Include="Aggregates\AircraftConfigurationAgg\AircraftConfigurationFactory.cs" />
+    <Compile Include="Aggregates\AircraftConfigurationAgg\AircraftConfigurationSpecifications.cs" />
+    <Compile Include="Aggregates\AircraftConfigurationAgg\IAircraftConfigurationRepository.cs" />
     <Compile Include="Aggregates\AircraftLicenseAgg\AircraftLicense.cs" />
     <Compile Include="Aggregates\AircraftLicenseAgg\AircraftLicenseFactory.cs" />
     <Compile Include="Aggregates\AircraftSeriesAgg\AircraftSeries.cs" />
