@@ -129,16 +129,26 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
             set
             {
                 _aircraftLicense = value;
-                if (_aircraftLicense != null && _aircraftLicense.FileContent != null)
+                if (_aircraftLicense != null )
                 {
-                    IImageFormatProvider providerByExtension = ImageFormatProviderManager.GetFormatProviderByExtension(Path.GetExtension(_aircraftLicense.FileName));
-                    if (providerByExtension == null)
+                    if (_aircraftLicense.FileContent != null)
                     {
-                        MessageAlert("不支持文件格式！");
+                        IImageFormatProvider providerByExtension =
+                            ImageFormatProviderManager.GetFormatProviderByExtension(
+                                Path.GetExtension(_aircraftLicense.FileName));
+                        if (providerByExtension == null)
+                        {
+                            MessageAlert("不支持文件格式！");
+                        }
+                        else
+                        {
+                            CurrentAircraftLicense.ImageEditor.Image =
+                                providerByExtension.Import(AircraftLicense.FileContent);
+                        }
                     }
                     else
                     {
-                        CurrentAircraftLicense.ImageEditor.Image = providerByExtension.Import(AircraftLicense.FileContent);
+                        CurrentAircraftLicense.ImageEditor.Image = null;
                     }
                 }
                 AddDocumentCommand.RaiseCanExecuteChanged();

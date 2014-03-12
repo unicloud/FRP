@@ -274,7 +274,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
 
         protected void OnRemoveApplicableAircraft(object obj)
         {
-            if (Scn == null)
+            if (ApplicableAircraft == null)
             {
                 MessageAlert("请选择一条记录！");
                 return;
