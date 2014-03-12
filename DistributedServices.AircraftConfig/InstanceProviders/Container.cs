@@ -22,6 +22,7 @@ using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.CAACAircraftTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.LicenseTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.ManufacturerAgg;
 using UniCloud.Domain.Events;
@@ -79,6 +80,7 @@ namespace UniCloud.DistributedServices.AircraftConfig.InstanceProviders
 .RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
                 .RegisterType<IAircraftTypeAppService, AircraftTypeAppService>()
                 .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
+                .RegisterType<ICAACAircraftTypeRepository, CAACAircraftTypeRepository>()
             #endregion
 
             #region 制造商相关配置，包括查询，应用服务，仓储注册

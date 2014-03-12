@@ -21,31 +21,29 @@ using System;
 
 #endregion
 
-namespace UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg
+namespace UniCloud.Domain.UberModel.Aggregates.CAACAircraftTypeAgg
 {
     /// <summary>
-    ///     机型工厂
+    ///     民航机型工厂
     /// </summary>
-    public static class AircraftTypeFactory
+    public static class CAACAircraftTypeFactory
     {
         /// <summary>
-        ///     创建机型
+        ///     创建民航机型
         /// </summary>
         /// <param name="id">机型ID</param>
         /// <param name="name">机型名称</param>
         /// <param name="manufacturerId">制造商</param>
         /// <param name="aircraftCategoryId">座级</param>
         /// <param name="aircraftSeriesId">系列</param>
-        /// <param name="caacAircraftTypeId">民航机型</param>
         /// <returns></returns>
-        public static AircraftType CreateAircraftType(Guid id, string name,Guid manufacturerId,Guid aircraftCategoryId,Guid aircraftSeriesId,Guid caacAircraftTypeId)
+        public static CAACAircraftType CreateAircraftType(Guid id, string name, Guid manufacturerId, Guid aircraftCategoryId, Guid aircraftSeriesId)
         {
-            var aircraftType = new AircraftType {Name = name};
+            var aircraftType = new CAACAircraftType { Name = name };
             aircraftType.ChangeCurrentIdentity(id);
             aircraftType.ManufacturerId = manufacturerId;
             aircraftType.AircraftCategoryId = aircraftCategoryId;
             aircraftType.AircraftSeriesId = aircraftSeriesId;
-            aircraftType.CaacAircraftTypeId = caacAircraftTypeId;
             return aircraftType;
         }
     }

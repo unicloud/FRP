@@ -57,6 +57,7 @@
     <Compile Include="Repositories\AircraftSeriesRepository.cs" />
     <Compile Include="Repositories\AircraftTypeRepository.cs" />
     <Compile Include="Repositories\AirlinesRepository.cs" />
+    <Compile Include="Repositories\CAACAircraftTypeRepository.cs" />
     <Compile Include="Repositories\LicenseTypeRepository.cs" />
     <Compile Include="Repositories\ManufacturerRepository.cs" />
     <Compile Include="UnitOfWork\AircraftConfigBCUnitOfWork.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AirlinesEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AtaEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\CAACAircraftTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\LicenseTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ManufacturerEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierEntityConfiguration.cs" />

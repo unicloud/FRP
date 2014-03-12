@@ -75,14 +75,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
 
         #region 公共属性
 
-        /// <summary>
-        ///     发票类型
-        /// </summary>
-        public Array InvoiceTypes
-        {
-            get { return Enum.GetValues(typeof(InvoiceType)); }
-        }
-
         #endregion
 
         #region 加载数据

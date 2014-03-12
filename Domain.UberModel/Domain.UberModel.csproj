@@ -84,6 +84,10 @@
     <Compile Include="Aggregates\BankAccountAgg\BankAccount.cs" />
     <Compile Include="Aggregates\BasicConfigAgg\BasicConfig.cs" />
     <Compile Include="Aggregates\BasicConfigGroupAgg\BasicConfigGroup.cs" />
+    <Compile Include="Aggregates\CAACAircraftTypeAgg\CAACAircraftTypeFactory.cs" />
+    <Compile Include="Aggregates\CAACAircraftTypeAgg\CAACAircraftType.cs" />
+    <Compile Include="Aggregates\CAACAircraftTypeAgg\CAACAircraftTypeSpecifications.cs" />
+    <Compile Include="Aggregates\CAACAircraftTypeAgg\ICAACAircraftTypeRepository.cs" />
     <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgramming.cs" />
     <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgrammingLine.cs" />
     <Compile Include="Aggregates\ContentTagAgg\ContentTag.cs" />

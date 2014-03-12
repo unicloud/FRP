@@ -43,15 +43,6 @@ namespace UniCloud.Application.PaymentBC.DTO
         public int InvoiceType { get; set; }
 
         /// <summary>
-        ///     发票类型
-        /// </summary>
-        public string InvoiceTypeString
-        {
-            get { return ((InvoiceType) InvoiceType).ToString(); }
-            set { InvoiceType = (int) (InvoiceType) Enum.Parse(typeof (InvoiceType), value, true); }
-        }
-
-        /// <summary>
         ///     发票ID
         /// </summary>
         public int InvoiceId { get; set; }

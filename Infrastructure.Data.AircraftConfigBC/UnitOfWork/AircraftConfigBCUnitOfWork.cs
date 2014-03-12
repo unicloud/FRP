@@ -22,6 +22,7 @@ using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AtaAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.CAACAircraftTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.LicenseTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.ManufacturerAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.SupplierAgg;
@@ -38,6 +39,7 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
         private IDbSet<AircraftCategory> _aircraftCategories;
         private IDbSet<Aircraft> _aircrafts;
         private IDbSet<AircraftType> _aircraftTypes;
+        private IDbSet<CAACAircraftType> _caacAircraftTypes; 
         private IDbSet<Airlines> _airlineses;
         private IDbSet<Manufacturer> _manufacturers;
         private IDbSet<Supplier> _suppliers;
@@ -47,57 +49,61 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
 
         public IDbSet<ActionCategory> ActionCategories
         {
-            get { return _actionCategories ?? (_actionCategories = base.Set<ActionCategory>()); }
+            get { return _actionCategories ?? (_actionCategories = Set<ActionCategory>()); }
         }
 
         public IDbSet<AircraftSeries> AircraftSeries
         {
-            get { return _aircraftSeries ?? (_aircraftSeries = base.Set<AircraftSeries>()); }
+            get { return _aircraftSeries ?? (_aircraftSeries = Set<AircraftSeries>()); }
         }
 
         public IDbSet<AircraftCategory> AircraftCategories
         {
-            get { return _aircraftCategories ?? (_aircraftCategories = base.Set<AircraftCategory>()); }
+            get { return _aircraftCategories ?? (_aircraftCategories = Set<AircraftCategory>()); }
         }
 
         public IDbSet<Aircraft> Aircrafts
         {
-            get { return _aircrafts ?? (_aircrafts = base.Set<Aircraft>()); }
+            get { return _aircrafts ?? (_aircrafts = Set<Aircraft>()); }
         }
 
         public IDbSet<AircraftType> AircraftTypes
         {
-            get { return _aircraftTypes ?? (_aircraftTypes = base.Set<AircraftType>()); }
+            get { return _aircraftTypes ?? (_aircraftTypes = Set<AircraftType>()); }
         }
 
+        public IDbSet<CAACAircraftType> CaacAircraftTypes
+        {
+            get { return _caacAircraftTypes ?? (_caacAircraftTypes = Set<CAACAircraftType>()); }
+        }
         public IDbSet<Airlines> Airlineses
         {
-            get { return _airlineses ?? (_airlineses = base.Set<Airlines>()); }
+            get { return _airlineses ?? (_airlineses = Set<Airlines>()); }
         }
 
         public IDbSet<Manufacturer> Manufacturers
         {
-            get { return _manufacturers ?? (_manufacturers = base.Set<Manufacturer>()); }
+            get { return _manufacturers ?? (_manufacturers = Set<Manufacturer>()); }
         }
 
         public IDbSet<Supplier> Suppliers
         {
-            get { return _suppliers ?? (_suppliers = base.Set<Supplier>()); }
+            get { return _suppliers ?? (_suppliers = Set<Supplier>()); }
         }
 
         public IDbSet<LicenseType> LicenseTypes
         {
-            get { return _licenseTypes ?? (_licenseTypes = base.Set<LicenseType>()); }
+            get { return _licenseTypes ?? (_licenseTypes = Set<LicenseType>()); }
         }
 
         public IDbSet<AircraftLicense> AircraftLicenses
         {
-            get { return _aircraftLicenses ?? (_aircraftLicenses = base.Set<AircraftLicense>()); }
+            get { return _aircraftLicenses ?? (_aircraftLicenses = Set<AircraftLicense>()); }
         }
 
         public IDbSet<Ata> Atas
         {
-            get { return _atas ?? (_atas = base.Set<Ata>()); }
+            get { return _atas ?? (_atas = Set<Ata>()); }
         }
         #endregion
 
@@ -162,7 +168,7 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
             #region AircraftTypeAgg
 
 .Add(new AircraftTypeEntityConfiguration())
-
+.Add(new CAACAircraftTypeEntityConfiguration())
             #endregion
 
             #region AirlinesAgg

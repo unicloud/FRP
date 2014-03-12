@@ -50,6 +50,14 @@ namespace UniCloud.Presentation.Service.AircraftConfig
         {
             return GetStaticData(Context.AircraftCategories, loaded, forceLoad);
         }
+
+        /// <summary>
+        ///     所有民航机型
+        /// </summary>
+        public QueryableDataServiceCollectionView<CAACAircraftTypeDTO> GetCAACAircraftTypes(Action loaded, bool forceLoad = false)
+        {
+            return GetStaticData(Context.CAACAircraftTypes, loaded, forceLoad);
+        }
         #endregion
 
         #endregion

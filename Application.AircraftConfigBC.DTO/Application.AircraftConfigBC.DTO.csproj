@@ -67,6 +67,7 @@
     <Compile Include="AircraftSeriesDTO\AircraftSeriesDTO.cs" />
     <Compile Include="AircraftTypeDTO\AircraftTypeDTO.cs" />
     <Compile Include="AircraftLicenseDTO\LicenseTypeDTO.cs" />
+    <Compile Include="AircraftTypeDTO\CAACAircraftTypeDTO.cs" />
     <Compile Include="ManufacturerDTO\ManufacturerDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

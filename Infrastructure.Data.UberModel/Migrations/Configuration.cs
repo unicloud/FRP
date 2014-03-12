@@ -27,6 +27,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .Register(new ProgrammingData(context))
                 .Register(new AnnualData(context))
                 .Register(new AircraftCategoryData(context))
+                .Register(new CAACAircraftTypeData(context))
                 .Register(new AircraftTypeData(context))
                 .Register(new AircraftSeriesData(context))
                 .Register(new AirlinesData(context))

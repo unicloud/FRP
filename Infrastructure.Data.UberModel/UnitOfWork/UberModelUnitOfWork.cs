@@ -37,6 +37,7 @@ using UniCloud.Domain.UberModel.Aggregates.AtaAgg;
 using UniCloud.Domain.UberModel.Aggregates.BankAccountAgg;
 using UniCloud.Domain.UberModel.Aggregates.BasicConfigAgg;
 using UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg;
+using UniCloud.Domain.UberModel.Aggregates.CAACAircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.CaacProgrammingAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractAircraftBFEAgg;
@@ -113,6 +114,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<AircraftLicense> _aircraftLicenses;
         private IDbSet<AircraftSeries> _aircraftSeries;
         private IDbSet<AircraftType> _aircraftTypes;
+        private IDbSet<CAACAircraftType> _caacAircraftTypes; 
         private IDbSet<Aircraft> _aircrafts;
         private IDbSet<Airlines> _airlineses;
         private IDbSet<Annual> _annuals;
@@ -182,7 +184,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<AcDailyUtilization> AcDailyUtilizations
         {
-            get { return _acDailyUtilizations ?? (_acDailyUtilizations = base.Set<AcDailyUtilization>()); }
+            get { return _acDailyUtilizations ?? (_acDailyUtilizations = Set<AcDailyUtilization>()); }
         }
 
         public IDbSet<AircraftLicense> AircraftLicenses
@@ -225,6 +227,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             get { return _aircraftTypes ?? (_aircraftTypes = Set<AircraftType>()); }
         }
 
+        public IDbSet<CAACAircraftType> CaacAircraftTypes
+        { get { return _caacAircraftTypes ?? (_caacAircraftTypes = Set<CAACAircraftType>()); } }
+
         public IDbSet<Airlines> Airlineses
         {
             get { return _airlineses ?? (_airlineses = Set<Airlines>()); }
@@ -257,12 +262,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<BasicConfig> BasicConfigs
         {
-            get { return _basicConfigs ?? (_basicConfigs = base.Set<BasicConfig>()); }
+            get { return _basicConfigs ?? (_basicConfigs = Set<BasicConfig>()); }
         }
 
         public IDbSet<BasicConfigGroup> BasicConfigGroups
         {
-            get { return _basicConfigGroups ?? (_basicConfigGroups = base.Set<BasicConfigGroup>()); }
+            get { return _basicConfigGroups ?? (_basicConfigGroups = Set<BasicConfigGroup>()); }
         }
 
         public IDbSet<CaacProgramming> CaacProgrammings
@@ -287,7 +292,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<CtrlUnit> CtrlUnits
         {
-            get { return _ctrlUnits ?? (_ctrlUnits = base.Set<CtrlUnit>()); }
+            get { return _ctrlUnits ?? (_ctrlUnits = Set<CtrlUnit>()); }
         }
 
         public IDbSet<Currency> Currencies
@@ -357,7 +362,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<MaintainCtrl> MaintainCtrls
         {
-            get { return _maintainCtrls ?? (_maintainCtrls = base.Set<MaintainCtrl>()); }
+            get { return _maintainCtrls ?? (_maintainCtrls = Set<MaintainCtrl>()); }
         }
 
         public IDbSet<MaintainInvoice> MaintainInvoices
@@ -367,7 +372,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<MaintainWork> MaintainWorks
         {
-            get { return _maintainWorks ?? (_maintainWorks = base.Set<MaintainWork>()); }
+            get { return _maintainWorks ?? (_maintainWorks = Set<MaintainWork>()); }
         }
 
         public IDbSet<Manager> Managers
@@ -387,12 +392,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<Mod> Mods
         {
-            get { return _mods ?? (_mods = base.Set<Mod>()); }
+            get { return _mods ?? (_mods = Set<Mod>()); }
         }
 
         public IDbSet<OilMonitor> OilMonitors
         {
-            get { return _oilMonitors ?? (_oilMonitors = base.Set<OilMonitor>()); }
+            get { return _oilMonitors ?? (_oilMonitors = Set<OilMonitor>()); }
         }
 
         public IDbSet<Order> Orders
@@ -432,7 +437,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<PnReg> PnRegs
         {
-            get { return _pneRegs ?? (_pneRegs = base.Set<PnReg>()); }
+            get { return _pneRegs ?? (_pneRegs = Set<PnReg>()); }
         }
 
         public IDbSet<Programming> Programmings
@@ -457,12 +462,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<Scn> Scns
         {
-            get { return _scns ?? (_scns = base.Set<Scn>()); }
+            get { return _scns ?? (_scns = Set<Scn>()); }
         }
 
         public IDbSet<AirBusScn> AirBusScns
         {
-            get { return _airBusScns ?? (_airBusScns = base.Set<AirBusScn>()); }
+            get { return _airBusScns ?? (_airBusScns = Set<AirBusScn>()); }
         }
 
         public IDbSet<AdSb> AdSbs
@@ -472,12 +477,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<SnReg> SnRegs
         {
-            get { return _snRegs ?? (_snRegs = base.Set<SnReg>()); }
+            get { return _snRegs ?? (_snRegs = Set<SnReg>()); }
         }
 
         public IDbSet<SpecialConfig> SpecialConfigs
         {
-            get { return _specialConfigs ?? (_specialConfigs = base.Set<SpecialConfig>()); }
+            get { return _specialConfigs ?? (_specialConfigs = Set<SpecialConfig>()); }
         }
 
         public IDbSet<Supplier> Suppliers
@@ -532,12 +537,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<TechnicalSolution> TechnicalSolutions
         {
-            get { return _technicalSolutions ?? (_technicalSolutions = base.Set<TechnicalSolution>()); }
+            get { return _technicalSolutions ?? (_technicalSolutions = Set<TechnicalSolution>()); }
         }
 
         public IDbSet<Thrust> Thrusts
         {
-            get { return _thrusts ?? (_thrusts = base.Set<Thrust>()); }
+            get { return _thrusts ?? (_thrusts = Set<Thrust>()); }
         }
 
         public IDbSet<User> Users
@@ -635,7 +640,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 #region AircraftTypeAgg
 
                 .Add(new AircraftTypeEntityConfiguration())
-
+                .Add(new CAACAircraftTypeEntityConfiguration())
                 #endregion
 
                 #region AirlinesAgg

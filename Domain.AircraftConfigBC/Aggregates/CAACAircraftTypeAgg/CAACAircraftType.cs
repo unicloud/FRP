@@ -20,17 +20,18 @@
 using System;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg;
-using UniCloud.Domain.AircraftConfigBC.Aggregates.CAACAircraftTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.ManufacturerAgg;
 
 #endregion
 
-namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg
+
+
+namespace UniCloud.Domain.AircraftConfigBC.Aggregates.CAACAircraftTypeAgg
 {
     /// <summary>
-    ///     机型聚合根
+    ///     民航机型聚合根
     /// </summary>
-    public class AircraftType : EntityGuid
+    public class CAACAircraftType : EntityGuid
     {
         #region 构造函数
 
@@ -38,7 +39,7 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal AircraftType()
+        internal CAACAircraftType()
         {
         }
 
@@ -59,46 +60,35 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg
         #endregion
 
         #region 外键属性
-
         /// <summary>
         ///     系列
         /// </summary>
-        public Guid AircraftSeriesId { get; internal set; }
+        public Guid AircraftSeriesId { get; set; }
 
         /// <summary>
-        ///     飞机座级
+        ///     飞机类别
         /// </summary>
-        public Guid AircraftCategoryId { get; internal set; }
+        public Guid AircraftCategoryId { get; set; }
 
         /// <summary>
         /// 制造商
         /// </summary>
-        public Guid ManufacturerId { get; internal set; }
+        public Guid ManufacturerId { get; set; }
 
-        /// <summary>
-        /// 民航机型
-        /// </summary>
-        public Guid CaacAircraftTypeId { get; internal set; }
         #endregion
 
         #region 导航属性
         /// <summary>
-        /// 民航机型
-        /// </summary>
-        public virtual CAACAircraftType CaacAircraftType { get; set; }
-
-        /// <summary>
         /// 制造商
         /// </summary>
         public virtual Manufacturer Manufacturer { get; set; }
-
         /// <summary>
-        ///     系列
+        /// 系列
         /// </summary>
         public virtual AircraftSeries AircraftSeries { get; set; }
 
         /// <summary>
-        ///     飞机座级
+        /// 飞机类别
         /// </summary>
         public virtual AircraftCategory AircraftCategory { get; set; }
 

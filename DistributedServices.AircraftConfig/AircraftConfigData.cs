@@ -93,6 +93,13 @@ namespace UniCloud.DistributedServices.AircraftConfig
             get { return _aircraftTypeAppService.GetAircraftTypes(); }
         }
 
+        /// <summary>
+        ///     民航机型集合
+        /// </summary>
+        public IQueryable<CAACAircraftTypeDTO> CAACAircraftTypes
+        {
+            get { return _aircraftTypeAppService.GetCAACAircraftTypes(); }
+        }
         #endregion
 
         #region 制造商

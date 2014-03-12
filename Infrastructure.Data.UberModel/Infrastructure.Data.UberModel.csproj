@@ -61,6 +61,7 @@
     <Compile Include="InitialData\AircraftCategoryData.cs" />
     <Compile Include="InitialData\AirlinesData.cs" />
     <Compile Include="InitialData\AnnualData.cs" />
+    <Compile Include="InitialData\CAACAircraftTypeData.cs" />
     <Compile Include="InitialData\DocumentData.cs" />
     <Compile Include="InitialData\DocumentTypeData.cs" />
     <Compile Include="InitialData\ForwardData.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseOrderEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseOrderLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\BFEPurchaseSupplierEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\CAACAircraftTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\CaacProgrammingEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\CaacProgrammingLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ChangePlanEntityConfiguration.cs" />

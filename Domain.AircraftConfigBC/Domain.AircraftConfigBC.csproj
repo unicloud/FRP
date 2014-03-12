@@ -73,6 +73,9 @@
     <Compile Include="Aggregates\AtaAgg\AtaFactory.cs" />
     <Compile Include="Aggregates\AtaAgg\AtaSpecification.cs" />
     <Compile Include="Aggregates\AtaAgg\IAtaRepository.cs" />
+    <Compile Include="Aggregates\CAACAircraftTypeAgg\CAACAircraftType.cs" />
+    <Compile Include="Aggregates\CAACAircraftTypeAgg\CAACAircraftTypeSpecifications.cs" />
+    <Compile Include="Aggregates\CAACAircraftTypeAgg\ICAACAircraftTypeRepository.cs" />
     <Compile Include="Aggregates\LicenseTypeAgg\ILicenseTypeRepository.cs" />
     <Compile Include="Aggregates\LicenseTypeAgg\LicenseType.cs" />
     <Compile Include="Aggregates\LicenseTypeAgg\LicenseTypeFactory.cs" />
