@@ -18,7 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
-using System.Linq;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
@@ -28,7 +27,6 @@ using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.AircraftConfig;
 using UniCloud.Presentation.Service.AircraftConfig.AircraftConfig;
-using UniCloud.Presentation.Service.AircraftConfig.AircraftConfig.Enum;
 
 #endregion
 
@@ -72,6 +70,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             AircraftSerieses = _service.CreateCollection(_context.AircraftSeries);
             AircraftConfigurations = _service.CreateCollection(_context.AircraftConfigurations, o => o.AircraftCabins);
             _service.RegisterCollectionView(AircraftConfigurations);
+            AircraftCabinTypes = _service.CreateCollection(_context.AircraftCabinTypes);
         }
 
         #endregion
@@ -82,10 +81,8 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         /// <summary>
         ///    飞机舱位
         /// </summary>
-        public Dictionary<int, AircraftCabinType> AircraftCabinTypes
-        {
-            get { return Enum.GetValues(typeof(AircraftCabinType)).Cast<object>().ToDictionary(value => (int)value, value => (AircraftCabinType)value); }
-        }
+        public QueryableDataServiceCollectionView<AircraftCabinTypeDTO> AircraftCabinTypes { get; set; } 
+
         #endregion
 
         #region 加载数据
@@ -104,6 +101,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 AircraftConfigurations.AutoLoad = true;
             AircraftTypes.Load(true);
             AircraftSerieses.Load(true);
+            AircraftCabinTypes.Load(true);
         }
 
         #region 飞机配置
@@ -115,7 +113,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             set
             {
                 _aircraftConfiguration = value;
-                if (_aircraftConfiguration != null  )
+                if (_aircraftConfiguration != null)
                 {
                     if (_aircraftConfiguration.FileContent != null)
                     {
@@ -168,6 +166,37 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         public QueryableDataServiceCollectionView<AircraftSeriesDTO> AircraftSerieses { get; set; }
         #endregion
 
+        #region 图片缩放
+        public Dictionary<double, string> Percents
+        {
+            get
+            {
+                return new Dictionary<double, string>
+                         {
+                             {0,"适应"},
+                             {0.1,"10%"},
+                             {0.25,"25%"},
+                             {0.5,"50%"},
+                             {1,"100%"},
+                             {1.5,"150%"},
+                             {2,"200%"},
+                             {5,"500%"},
+                         };
+            }
+        }
+
+        private double _percent;
+        public double Percent
+        {
+            get { return _percent; }
+            set
+            {
+                _percent = value;
+                CurrentAircraftConfiguration.ImageEditor.ScaleFactor = _percent;
+                RaisePropertyChanged("Percent");
+            }
+        }
+        #endregion
         #endregion
 
         #endregion
@@ -239,7 +268,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             AircraftCabin = new AircraftCabinDTO
                                 {
                                     Id = RandomHelper.Next(),
-                                    AircraftCabinType = 0
                                 };
             AircraftConfiguration.AircraftCabins.Add(AircraftCabin);
         }

@@ -141,10 +141,18 @@
       </EntityType>
       <ComplexType Name="AircraftCabinDTO">
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
-        <Property Name="AircraftCabinType" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AircraftCabinTypeId" Type="Edm.Int32" Nullable="false" />
         <Property Name="SeatNumber" Type="Edm.Int32" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
       </ComplexType>
+      <EntityType Name="AircraftCabinTypeDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Note" Type="Edm.String" />
+      </EntityType>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.AircraftConfig" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="AircraftConfigData" m:IsDefaultEntityContainer="true">
@@ -157,6 +165,7 @@
         <EntitySet Name="LicenseTypes" EntityType="UniCloud.Application.AircraftConfigBC.DTO.LicenseTypeDTO" />
         <EntitySet Name="Aircrafts" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftDTO" />
         <EntitySet Name="AircraftConfigurations" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftConfigurationDTO" />
+        <EntitySet Name="AircraftCabinTypes" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftCabinTypeDTO" />
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

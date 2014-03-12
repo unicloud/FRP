@@ -63,6 +63,7 @@
     <Compile Include="ActionCategoryDTO\ActionCategoryDTO.cs" />
     <Compile Include="AircraftCategoryDTO\AircraftCategoryDTO.cs" />
     <Compile Include="AircraftConfigurationDTO\AircraftCabinDTO.cs" />
+    <Compile Include="AircraftConfigurationDTO\AircraftCabinTypeDTO.cs" />
     <Compile Include="AircraftConfigurationDTO\AircraftConfigurationDTO.cs" />
     <Compile Include="AircraftDTO\AircraftDTO.cs" />
     <Compile Include="AircraftLicenseDTO\AircraftLicenseDTO.cs" />

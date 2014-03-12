@@ -3,24 +3,21 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2014/3/12 11:38:29
-// 文件名：AircraftCabinType
+// 作者：linxw 时间：2014/1/15 9:36:09
+// 文件名：AircraftCabinTypeSpecifications
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2014/3/12 11:38:29
+// 修改者：linxw 时间：2014/1/15 9:36:09
 // 修改说明：
 // ========================================================================*/
 #endregion
 
-namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig.Enum
+namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCabinTypeAgg
 {
     /// <summary>
-    /// 舱位类型
+    ///     飞机舱位类型规约集合
     /// </summary>
-    public enum AircraftCabinType
+    public static class AircraftCabinTypeSpecifications
     {
-        头等舱 = 0,
-        商务舱 = 1,
-        经济舱 = 2
     }
 }

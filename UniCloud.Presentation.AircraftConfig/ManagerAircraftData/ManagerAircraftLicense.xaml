@@ -239,10 +239,20 @@
                                                         OverflowButtonVisibility="Collapsed">
                                         <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/open.png"
                                                                       Command="{Binding DataContext.AddDocumentCommand, ElementName=AircraftLicenseView}" />
+                                        <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/save.png"
+                                                                      Command="{Binding Path=Commands.Save, ElementName=ImageEditor}" />
                                         <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/Default/Rotate90CW.png"
                                                                       Command="{Binding Path=Commands.Rotate90Clockwise, ElementName=ImageEditor}" />
                                         <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/Default/Rotate90CCW.png"
                                                                       Command="{Binding Path=Commands.Rotate90Counterclockwise, ElementName=ImageEditor}" />
+                                        <telerik:RadComboBox Margin="0,3"
+                                                             Width="70"
+                                                             HorizontalAlignment="Stretch"
+                                                             VerticalAlignment="Center"
+                                                             ItemsSource="{Binding DataContext.Percents, Mode=TwoWay, ElementName=AircraftLicenseView}"
+                                                             SelectedValue="{Binding Percent,Mode=TwoWay}"
+                                                             SelectedValuePath="Key"
+                                                             DisplayMemberPath="Value" />
                                     </telerik:RadToolBar>
                                     <telerik:RadImageEditor Grid.Row="1"
                                                             x:Name="ImageEditor"

@@ -16,6 +16,7 @@ using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCabinTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftConfigurationAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg;
@@ -40,7 +41,7 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
         private IDbSet<AircraftCategory> _aircraftCategories;
         private IDbSet<Aircraft> _aircrafts;
         private IDbSet<AircraftType> _aircraftTypes;
-        private IDbSet<CAACAircraftType> _caacAircraftTypes; 
+        private IDbSet<CAACAircraftType> _caacAircraftTypes;
         private IDbSet<Airlines> _airlineses;
         private IDbSet<Manufacturer> _manufacturers;
         private IDbSet<Supplier> _suppliers;
@@ -48,7 +49,9 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
         private IDbSet<AircraftLicense> _aircraftLicenses;
         private IDbSet<Ata> _atas;
         private IDbSet<AircraftConfiguration> _aircraftConfigurations;
-        private IDbSet<AircraftCabin> _aircraftCabins; 
+        private IDbSet<AircraftCabin> _aircraftCabins;
+        private IDbSet<AircraftCabinType> _aircraftCabinTypes;
+
         public IDbSet<ActionCategory> ActionCategories
         {
             get { return _actionCategories ?? (_actionCategories = Set<ActionCategory>()); }
@@ -117,6 +120,11 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
         {
             get { return _aircraftCabins ?? (_aircraftCabins = Set<AircraftCabin>()); }
         }
+
+        public IDbSet<AircraftCabinType> AircraftCabinTypes
+        {
+            get { return _aircraftCabinTypes ?? (_aircraftCabinTypes = Set<AircraftCabinType>()); }
+        }
         #endregion
 
         #region DbContext 重载
@@ -153,67 +161,68 @@ namespace UniCloud.Infrastructure.Data.AircraftConfigBC.UnitOfWork
         {
             modelBuilder.Configurations
 
-                #region ActionCategoryAgg
+            #region ActionCategoryAgg
 
-                .Add(new ActionCategoryEntityConfiguration())
+.Add(new ActionCategoryEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AircraftSeriesAgg
+            #region AircraftSeriesAgg
 
-                .Add(new AircraftSeriesEntityConfiguration())
+.Add(new AircraftSeriesEntityConfiguration())
                 .Add(new AtaEntityConfiguration())
-                #endregion
+            #endregion
 
-                #region AircraftCategoryAgg
+            #region AircraftCategoryAgg
 
-                .Add(new AircraftCategoryEntityConfiguration())
+.Add(new AircraftCategoryEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AircraftAgg
+            #region AircraftAgg
 
-                .Add(new AircraftEntityConfiguration())
+.Add(new AircraftEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AircraftTypeAgg
+            #region AircraftTypeAgg
 
-                .Add(new AircraftTypeEntityConfiguration())
+.Add(new AircraftTypeEntityConfiguration())
                 .Add(new CAACAircraftTypeEntityConfiguration())
-                #endregion
+            #endregion
 
-                #region AirlinesAgg
+            #region AirlinesAgg
 
-                .Add(new AirlinesEntityConfiguration())
+.Add(new AirlinesEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region ManufacturerAgg
+            #region ManufacturerAgg
 
-                .Add(new ManufacturerEntityConfiguration())
+.Add(new ManufacturerEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region SupplierAgg
+            #region SupplierAgg
 
-                .Add(new SupplierEntityConfiguration())
+.Add(new SupplierEntityConfiguration())
 
-                #endregion
+            #endregion
 
-                #region AircraftLicenseAgg
+            #region AircraftLicenseAgg
 
-                .Add(new LicenseTypeEntityConfiguration())
+.Add(new LicenseTypeEntityConfiguration())
                 .Add(new AircraftLicenseEntityConfiguration())
-                #endregion
+            #endregion
 
-                #region AircraftConfigurationAgg
+            #region AircraftConfigurationAgg
 
-                .Add(new AircraftConfigurationEntityConfiguration())
+.Add(new AircraftConfigurationEntityConfiguration())
                 .Add(new AircraftCabinEntityConfiguration())
-                #endregion
+                .Add(new AircraftCabinTypeEntityConfiguration())
+            #endregion
 
-                ;
+;
         }
 
         #endregion

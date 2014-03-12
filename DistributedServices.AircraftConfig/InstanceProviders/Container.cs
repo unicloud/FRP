@@ -20,6 +20,7 @@ using UniCloud.Application.AircraftConfigBC.Query.AircraftTypeQueries;
 using UniCloud.Application.AircraftConfigBC.Query.ManufacturerQueries;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCabinTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftConfigurationAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg;
@@ -49,64 +50,65 @@ namespace UniCloud.DistributedServices.AircraftConfig.InstanceProviders
                 .RegisterType<IQueryableUnitOfWork, AircraftConfigBCUnitOfWork>(new WcfPerRequestLifetimeManager())
                 .RegisterType<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager())
 
-                #region 活动类型相关配置，包括查询，应用服务，仓储注册
+            #region 活动类型相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IActionCategoryQuery, ActionCategoryQuery>()
+.RegisterType<IActionCategoryQuery, ActionCategoryQuery>()
                 .RegisterType<IActionCategoryAppService, ActionCategoryAppService>()
                 .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
-                #endregion
+            #endregion
 
-                #region 实际飞机相关配置，包括查询，应用服务，仓储注册
+            #region 实际飞机相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IAircraftQuery, AircraftQuery>()
+.RegisterType<IAircraftQuery, AircraftQuery>()
                 .RegisterType<IAircraftAppService, AircraftAppService>()
                 .RegisterType<IAircraftRepository, AircraftRepository>()
-                #endregion
+            #endregion
 
-                #region 飞机系列相关配置，包括查询，应用服务，仓储注册
+            #region 飞机系列相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IAircraftSeriesQuery, AircraftSeriesQuery>()
+.RegisterType<IAircraftSeriesQuery, AircraftSeriesQuery>()
                 .RegisterType<IAircraftSeriesAppService, AircraftSeriesAppService>()
                 .RegisterType<IAircraftSeriesRepository, AircraftSeriesRepository>()
-                #endregion
+            #endregion
 
-                #region 座级相关配置，包括查询，应用服务，仓储注册
+            #region 座级相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IAircraftCategoryQuery, AircraftCategoryQuery>()
+.RegisterType<IAircraftCategoryQuery, AircraftCategoryQuery>()
                 .RegisterType<IAircraftCategoryAppService, AircraftCategoryAppService>()
                 .RegisterType<IAircraftCategoryRepository, AircraftCategoryRepository>()
-                #endregion
+            #endregion
 
-                #region 机型相关配置，包括查询，应用服务，仓储注册
+            #region 机型相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
+.RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
                 .RegisterType<IAircraftTypeAppService, AircraftTypeAppService>()
                 .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
                 .RegisterType<ICAACAircraftTypeRepository, CAACAircraftTypeRepository>()
-                #endregion
+            #endregion
 
-                #region 制造商相关配置，包括查询，应用服务，仓储注册
+            #region 制造商相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IManufacturerQuery, ManufacturerQuery>()
+.RegisterType<IManufacturerQuery, ManufacturerQuery>()
                 .RegisterType<IManufacturerAppService, ManufacturerAppService>()
                 .RegisterType<IManufacturerRepository, ManufacturerRepository>()
-                #endregion
+            #endregion
 
-                #region 飞机证照相关配置，包括查询，应用服务，仓储注册
+            #region 飞机证照相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IAircraftLicenseQuery, AircraftLicenseQuery>()
+.RegisterType<IAircraftLicenseQuery, AircraftLicenseQuery>()
                 .RegisterType<IAircraftLicenseAppService, AircraftLicenseAppService>()
                 .RegisterType<ILicenseTypeRepository, LicenseTypeRepository>()
-                #endregion
+            #endregion
 
-                #region 飞机配置相关配置，包括查询，应用服务，仓储注册
+            #region 飞机配置相关配置，包括查询，应用服务，仓储注册
 
-                .RegisterType<IAircraftConfigurationQuery, AircraftConfigurationQuery>()
+.RegisterType<IAircraftConfigurationQuery, AircraftConfigurationQuery>()
                 .RegisterType<IAircraftConfigurationAppService, AircraftConfigurationAppService>()
                 .RegisterType<IAircraftConfigurationRepository, AircraftConfigurationRepository>()
-                #endregion
+                .RegisterType<IAircraftCabinTypeRepository, AircraftCabinTypeRepository>()
+            #endregion
 
-                ;
+;
         }
 
         #endregion

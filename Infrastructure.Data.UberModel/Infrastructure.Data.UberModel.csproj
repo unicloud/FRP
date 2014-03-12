@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InitialData\ActionCategoryData.cs" />
+    <Compile Include="InitialData\AircraftCabinTypeData.cs" />
     <Compile Include="InitialData\AircraftSeriesData.cs" />
     <Compile Include="InitialData\AircraftData.cs" />
     <Compile Include="InitialData\AircraftPlanData.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\AdSbEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AirBusScnEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftCabinEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftCabinTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftConfigurationEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftLicenseEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftSeriesEntityConfiguration.cs">

@@ -14,6 +14,7 @@
 
 using System.Linq;
 using UniCloud.Application.AircraftConfigBC.DTO;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCabinTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftConfigurationAgg;
 using UniCloud.Infrastructure.Data;
 
@@ -58,10 +59,26 @@ namespace UniCloud.Application.AircraftConfigBC.Query.AircraftConfigurationQueri
                 AircraftCabins = p.AircraftCabins.Select(q=>new AircraftCabinDTO
                                                          {
                                                              Id = q.Id,
-                                                             AircraftCabinType = (int)q.AircraftCabinType,
+                                                             AircraftCabinTypeId = q.AircraftCabinTypeId,
                                                              SeatNumber = q.SeatNumber,
                                                              Note = q.Note
                                                          }).ToList(),
+            });
+        }
+
+        /// <summary>
+        ///     飞机舱位类型查询。
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns>飞机舱位类型DTO集合。</returns>
+        public IQueryable<AircraftCabinTypeDTO> AircraftCabinTypeDTOQuery(
+            QueryBuilder<AircraftCabinType> query)
+        {
+            return query.ApplyTo(_unitOfWork.CreateSet<AircraftCabinType>()).Select(p => new AircraftCabinTypeDTO
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Note = p.Note
             });
         }
     }

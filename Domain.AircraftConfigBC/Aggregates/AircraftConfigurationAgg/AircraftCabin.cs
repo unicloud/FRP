@@ -14,7 +14,7 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.Common.Enums;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCabinTypeAgg;
 
 namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftConfigurationAgg
 {
@@ -36,10 +36,7 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftConfigurationAgg
         #endregion
 
         #region 属性
-        /// <summary>
-        /// 舱位类型
-        /// </summary>
-        public AircraftCabinType AircraftCabinType { get; internal set; }
+        
 
         /// <summary>
         /// 座位数
@@ -57,8 +54,19 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftConfigurationAgg
         /// 飞机配置
         /// </summary>
         public int AircraftConfiguratonId { get; internal set; }
+
+        /// <summary>
+        /// 舱位类型
+        /// </summary>
+        public int AircraftCabinTypeId { get; internal set; }
         #endregion
 
+        #region 导航属性
+        /// <summary>
+        /// 舱位类型
+        /// </summary>
+        public virtual AircraftCabinType AircraftCabinType { get; set; }
+        #endregion
         #region IValidatableObject 成员
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

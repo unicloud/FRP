@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Windows.Controls;
@@ -157,7 +158,37 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         }
         #endregion
 
+        #region 图片缩放
+        public Dictionary<double, string> Percents
+        {
+            get
+            {
+                return new Dictionary<double, string>
+                         {
+                             {0,"适应"},
+                             {0.1,"10%"},
+                             {0.25,"25%"},
+                             {0.5,"50%"},
+                             {1,"100%"},
+                             {1.5,"150%"},
+                             {2,"200%"},
+                             {5,"500%"},
+                         };
+            }
+        }
 
+        private double _percent;
+        public double Percent
+        {
+            get { return _percent; }
+            set
+            {
+                _percent = value;
+                CurrentAircraftLicense.ImageEditor.ScaleFactor = _percent;
+                RaisePropertyChanged("Percent");
+            }
+        }
+        #endregion
         #endregion
 
         #endregion

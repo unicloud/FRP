@@ -13,7 +13,6 @@
 #endregion
 
 using System;
-using UniCloud.Domain.Common.Enums;
 
 namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftConfigurationAgg
 {
@@ -90,12 +89,12 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftConfigurationAgg
         /// 设置座位布局属性
         /// </summary>
         /// <param name="aircraftCabin">座位布局</param>
-        /// <param name="aircraftCabinType">舱位类型</param>
+        /// <param name="aircraftCabinTypeId">舱位类型</param>
         /// <param name="seatNumber">座位数</param>
         /// <param name="note">备注</param>
-        public static void SetAircraftCabin(AircraftCabin aircraftCabin, int aircraftCabinType, int seatNumber,string note)
+        public static void SetAircraftCabin(AircraftCabin aircraftCabin, int aircraftCabinTypeId, int seatNumber, string note)
         {
-            aircraftCabin.AircraftCabinType = (AircraftCabinType)aircraftCabinType;
+            aircraftCabin.AircraftCabinTypeId = aircraftCabinTypeId;
             aircraftCabin.SeatNumber = seatNumber;
             aircraftCabin.Note = note;
         }

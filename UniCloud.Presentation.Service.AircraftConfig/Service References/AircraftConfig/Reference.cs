@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/3/12 15:13:00
+// 生成日期: 2014/3/12 22:10:44
 namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
 {
     
@@ -214,6 +214,23 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private global::System.Data.Services.Client.DataServiceQuery<AircraftConfigurationDTO> _AircraftConfigurations;
         /// <summary>
+        /// 架构中不存在 AircraftCabinTypes 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public global::System.Data.Services.Client.DataServiceQuery<AircraftCabinTypeDTO> AircraftCabinTypes
+        {
+            get
+            {
+                if ((this._AircraftCabinTypes == null))
+                {
+                    this._AircraftCabinTypes = base.CreateQuery<AircraftCabinTypeDTO>("AircraftCabinTypes");
+                }
+                return this._AircraftCabinTypes;
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private global::System.Data.Services.Client.DataServiceQuery<AircraftCabinTypeDTO> _AircraftCabinTypes;
+        /// <summary>
         /// 架构中不存在 ActionCategories 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -284,6 +301,14 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
         public void AddToAircraftConfigurations(AircraftConfigurationDTO aircraftConfigurationDTO)
         {
             base.AddObject("AircraftConfigurations", aircraftConfigurationDTO);
+        }
+        /// <summary>
+        /// 架构中不存在 AircraftCabinTypes 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public void AddToAircraftCabinTypes(AircraftCabinTypeDTO aircraftCabinTypeDTO)
+        {
+            base.AddObject("AircraftCabinTypes", aircraftCabinTypeDTO);
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         private abstract class GeneratedEdmModel
@@ -374,19 +399,19 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
                 "Type=\"Edm.Guid\" Nullable=\"false\" /><Property Name=\"AircraftSeriesId\" Type=\"Edm.G" +
                 "uid\" Nullable=\"false\" /></EntityType><ComplexType Name=\"AircraftCabinDTO\"><Prope" +
                 "rty Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"AircraftCabinT" +
-                "ype\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SeatNumber\" Type=\"Edm.I" +
-                "nt32\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /></ComplexType" +
-                "></Schema><Schema Namespace=\"UniCloud.DistributedServices.AircraftConfig\" xmlns=" +
-                "\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"AircraftCo" +
-                "nfigData\" m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"ActionCategories\" E" +
-                "ntityType=\"UniCloud.Application.AircraftConfigBC.DTO.ActionCategoryDTO\" /><Entit" +
-                "ySet Name=\"AircraftSeries\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO" +
-                ".AircraftSeriesDTO\" /><EntitySet Name=\"AircraftCategories\" EntityType=\"UniCloud." +
-                "Application.AircraftConfigBC.DTO.AircraftCategoryDTO\" /><EntitySet Name=\"Aircraf" +
-                "tTypes\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.AircraftTypeDTO\" /" +
-                "><EntitySet Name=\"CAACAircraftTypes\" EntityType=\"UniCloud.A";
+                "ypeId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"SeatNumber\" Type=\"Edm" +
+                ".Int32\" Nullable=\"false\" /><Property Name=\"Note\" Type=\"Edm.String\" /></ComplexTy" +
+                "pe><EntityType Name=\"AircraftCabinTypeDTO\"><Key><PropertyRef Name=\"Id\" /></Key><" +
+                "Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Name\" Typ" +
+                "e=\"Edm.String\" /><Property Name=\"Note\" Type=\"Edm.String\" /></EntityType></Schema" +
+                "><Schema Namespace=\"UniCloud.DistributedServices.AircraftConfig\" xmlns=\"http://s" +
+                "chemas.microsoft.com/ado/2009/11/edm\"><EntityContainer Name=\"AircraftConfigData\"" +
+                " m:IsDefaultEntityContainer=\"true\"><EntitySet Name=\"ActionCategories\" EntityType" +
+                "=\"UniCloud.Application.AircraftConfigBC.DTO.ActionCategoryDTO\" /><EntitySet Name" +
+                "=\"AircraftSeries\" EntityType=\"UniCloud.Application.AircraftConfigBC.DTO.Aircraft" +
+                "SeriesDTO\" /><EntitySet Name=\"AircraftCategories\" EntityTyp";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart1 = @"pplication.AircraftConfigBC.DTO.CAACAircraftTypeDTO"" /><EntitySet Name=""Manufacturers"" EntityType=""UniCloud.Application.AircraftConfigBC.DTO.ManufacturerDTO"" /><EntitySet Name=""LicenseTypes"" EntityType=""UniCloud.Application.AircraftConfigBC.DTO.LicenseTypeDTO"" /><EntitySet Name=""Aircrafts"" EntityType=""UniCloud.Application.AircraftConfigBC.DTO.AircraftDTO"" /><EntitySet Name=""AircraftConfigurations"" EntityType=""UniCloud.Application.AircraftConfigBC.DTO.AircraftConfigurationDTO"" /></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
+            private const string ModelPart1 = @"e=""UniCloud.Application.AircraftConfigBC.DTO.AircraftCategoryDTO"" /><EntitySet Name=""AircraftTypes"" EntityType=""UniCloud.Application.AircraftConfigBC.DTO.AircraftTypeDTO"" /><EntitySet Name=""CAACAircraftTypes"" EntityType=""UniCloud.Application.AircraftConfigBC.DTO.CAACAircraftTypeDTO"" /><EntitySet Name=""Manufacturers"" EntityType=""UniCloud.Application.AircraftConfigBC.DTO.ManufacturerDTO"" /><EntitySet Name=""LicenseTypes"" EntityType=""UniCloud.Application.AircraftConfigBC.DTO.LicenseTypeDTO"" /><EntitySet Name=""Aircrafts"" EntityType=""UniCloud.Application.AircraftConfigBC.DTO.AircraftDTO"" /><EntitySet Name=""AircraftConfigurations"" EntityType=""UniCloud.Application.AircraftConfigBC.DTO.AircraftConfigurationDTO"" /><EntitySet Name=""AircraftCabinTypes"" EntityType=""UniCloud.Application.AircraftConfigBC.DTO.AircraftCabinTypeDTO"" /></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -2377,14 +2402,14 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
         /// 创建新的 AircraftCabinDTO 对象。
         /// </summary>
         /// <param name="ID">Id 的初始值。</param>
-        /// <param name="aircraftCabinType">AircraftCabinType 的初始值。</param>
+        /// <param name="aircraftCabinTypeId">AircraftCabinTypeId 的初始值。</param>
         /// <param name="seatNumber">SeatNumber 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static AircraftCabinDTO CreateAircraftCabinDTO(int ID, int aircraftCabinType, int seatNumber)
+        public static AircraftCabinDTO CreateAircraftCabinDTO(int ID, int aircraftCabinTypeId, int seatNumber)
         {
             AircraftCabinDTO aircraftCabinDTO = new AircraftCabinDTO();
             aircraftCabinDTO.Id = ID;
-            aircraftCabinDTO.AircraftCabinType = aircraftCabinType;
+            aircraftCabinDTO.AircraftCabinTypeId = aircraftCabinTypeId;
             aircraftCabinDTO.SeatNumber = seatNumber;
             return aircraftCabinDTO;
         }
@@ -2411,27 +2436,27 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
         partial void OnIdChanging(int value);
         partial void OnIdChanged();
         /// <summary>
-        /// 架构中不存在属性 AircraftCabinType 的注释。
+        /// 架构中不存在属性 AircraftCabinTypeId 的注释。
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public int AircraftCabinType
+        public int AircraftCabinTypeId
         {
             get
             {
-                return this._AircraftCabinType;
+                return this._AircraftCabinTypeId;
             }
             set
             {
-                this.OnAircraftCabinTypeChanging(value);
-                this._AircraftCabinType = value;
-                this.OnAircraftCabinTypeChanged();
-                this.OnPropertyChanged("AircraftCabinType");
+                this.OnAircraftCabinTypeIdChanging(value);
+                this._AircraftCabinTypeId = value;
+                this.OnAircraftCabinTypeIdChanged();
+                this.OnPropertyChanged("AircraftCabinTypeId");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        private int _AircraftCabinType;
-        partial void OnAircraftCabinTypeChanging(int value);
-        partial void OnAircraftCabinTypeChanged();
+        private int _AircraftCabinTypeId;
+        partial void OnAircraftCabinTypeIdChanging(int value);
+        partial void OnAircraftCabinTypeIdChanged();
         /// <summary>
         /// 架构中不存在属性 SeatNumber 的注释。
         /// </summary>
@@ -2941,6 +2966,104 @@ namespace UniCloud.Presentation.Service.AircraftConfig.AircraftConfig
         private global::System.Guid _AircraftSeriesId;
         partial void OnAircraftSeriesIdChanging(global::System.Guid value);
         partial void OnAircraftSeriesIdChanged();
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        protected virtual void OnPropertyChanged(string property)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new global::System.ComponentModel.PropertyChangedEventArgs(property));
+            }
+        }
+    }
+    /// <summary>
+    /// 架构中不存在 UniCloud.Application.AircraftConfigBC.DTO.AircraftCabinTypeDTO 的注释。
+    /// </summary>
+    /// <KeyProperties>
+    /// Id
+    /// </KeyProperties>
+    [global::System.Data.Services.Common.EntitySetAttribute("AircraftCabinTypes")]
+    [global::System.Data.Services.Common.DataServiceKeyAttribute("Id")]
+    public partial class AircraftCabinTypeDTO : global::System.ComponentModel.INotifyPropertyChanged
+    {
+        /// <summary>
+        /// 创建新的 AircraftCabinTypeDTO 对象。
+        /// </summary>
+        /// <param name="ID">Id 的初始值。</param>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public static AircraftCabinTypeDTO CreateAircraftCabinTypeDTO(int ID)
+        {
+            AircraftCabinTypeDTO aircraftCabinTypeDTO = new AircraftCabinTypeDTO();
+            aircraftCabinTypeDTO.Id = ID;
+            return aircraftCabinTypeDTO;
+        }
+        /// <summary>
+        /// 架构中不存在属性 Id 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                this.OnIdChanging(value);
+                this._Id = value;
+                this.OnIdChanged();
+                this.OnPropertyChanged("Id");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private int _Id;
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        /// <summary>
+        /// 架构中不存在属性 Name 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                this.OnNameChanging(value);
+                this._Name = value;
+                this.OnNameChanged();
+                this.OnPropertyChanged("Name");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Name;
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        /// <summary>
+        /// 架构中不存在属性 Note 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public string Note
+        {
+            get
+            {
+                return this._Note;
+            }
+            set
+            {
+                this.OnNoteChanging(value);
+                this._Note = value;
+                this.OnNoteChanged();
+                this.OnPropertyChanged("Note");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private string _Note;
+        partial void OnNoteChanging(string value);
+        partial void OnNoteChanged();
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         public event global::System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

@@ -23,6 +23,7 @@ using UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AdSbAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
+using UniCloud.Domain.UberModel.Aggregates.AircraftCabinTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftConfigurationAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftLicenseAgg;
@@ -118,7 +119,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<CAACAircraftType> _caacAircraftTypes; 
         private IDbSet<Aircraft> _aircrafts;
         private IDbSet<AircraftConfiguration> _aircraftConfigurations;
-        private IDbSet<AircraftCabin> _aircraftCabins; 
+        private IDbSet<AircraftCabin> _aircraftCabins;
+        private IDbSet<AircraftCabinType> _aircraftCabinTypes; 
         private IDbSet<Airlines> _airlineses;
         private IDbSet<Annual> _annuals;
         private IDbSet<ApprovalDoc> _approvalDocs;
@@ -228,6 +230,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<AircraftConfiguration> AircraftConfigurations
         {
             get { return _aircraftConfigurations ?? (_aircraftConfigurations = Set<AircraftConfiguration>()); }
+        }
+
+        public IDbSet<AircraftCabinType> AircraftCabinTypes
+        {
+            get { return _aircraftCabinTypes ?? (_aircraftCabinTypes = Set<AircraftCabinType>()); }    
         }
 
         public IDbSet<AircraftCabin> AircraftCabins
@@ -1115,6 +1122,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
 .Add(new AircraftConfigurationEntityConfiguration())
                 .Add(new AircraftCabinEntityConfiguration())
+                .Add(new AircraftCabinTypeEntityConfiguration())
             #endregion
                 .Add(new AddressConfiguration());
         }

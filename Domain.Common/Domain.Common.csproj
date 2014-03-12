@@ -39,7 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums\AircraftCabinType.cs" />
     <Compile Include="Enums\AircraftDamageLevel.cs" />
     <Compile Include="Enums\AirStructureDamageStatus.cs" />
     <Compile Include="Enums\AirStructureReportType.cs" />

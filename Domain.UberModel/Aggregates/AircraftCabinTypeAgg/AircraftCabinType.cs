@@ -4,7 +4,7 @@
 //【本类功能概述】
 // 
 // 作者：linxw 时间：2014/3/12 11:39:33
-// 文件名：AircraftCabin
+// 文件名：AircraftCabinType
 // 版本：V1.0.0
 //
 // 修改者：linxw 时间：2014/3/12 11:39:33
@@ -14,14 +14,13 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using UniCloud.Domain.UberModel.Aggregates.AircraftCabinTypeAgg;
 
-namespace UniCloud.Domain.UberModel.Aggregates.AircraftConfigurationAgg
+namespace UniCloud.Domain.UberModel.Aggregates.AircraftCabinTypeAgg
 {
     /// <summary>
-    ///     舱位聚合根
+    ///     飞机舱位类型聚合根
     /// </summary>
-    public class AircraftCabin : EntityInt, IValidatableObject
+    public class AircraftCabinType : EntityInt, IValidatableObject
     {
           #region 构造函数
 
@@ -29,7 +28,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftConfigurationAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal AircraftCabin()
+        internal AircraftCabinType()
         {
         }
 
@@ -37,9 +36,9 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftConfigurationAgg
 
         #region 属性
         /// <summary>
-        /// 座位数
+        /// 舱位类型
         /// </summary>
-        public int SeatNumber { get; internal set; }
+        public string Name { get; internal set; }
 
         /// <summary>
         /// 备注
@@ -48,22 +47,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftConfigurationAgg
         #endregion
 
         #region 外键属性
-        /// <summary>
-        /// 飞机配置
-        /// </summary>
-        public int AircraftConfiguratonId { get; internal set; }
-
-        /// <summary>
-        /// 舱位类型
-        /// </summary>
-        public int AircraftCabinTypeId { get; internal set; }
-        #endregion
-
-        #region 导航属性
-        /// <summary>
-        /// 舱位类型
-        /// </summary>
-        public virtual AircraftCabinType AircraftCabinType { get; set; }
         #endregion
 
         #region IValidatableObject 成员

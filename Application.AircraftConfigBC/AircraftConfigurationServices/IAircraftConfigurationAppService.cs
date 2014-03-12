@@ -27,5 +27,11 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftConfigurationServices
         /// </summary>
         /// <returns></returns>
         IQueryable<AircraftConfigurationDTO> GetAircraftConfigurations();
+
+        /// <summary>
+        ///     获取所有飞机舱位类型
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<AircraftCabinTypeDTO> GetAircraftCabinTypes();
     }
 }

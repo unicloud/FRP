@@ -221,9 +221,9 @@
                                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                                 HeaderTextAlignment="Center"
                                                                                 ItemsSource="{Binding DataContext.AircraftCabinTypes, Mode=TwoWay, ElementName=AircraftConfigurationView}"
-                                                                                DataMemberBinding="{Binding AircraftCabinType}"
-                                                                                SelectedValueMemberPath="Key"
-                                                                                DisplayMemberPath="Value" />
+                                                                                DataMemberBinding="{Binding AircraftCabinTypeId}"
+                                                                                SelectedValueMemberPath="Id"
+                                                                                DisplayMemberPath="Name" />
                                                 <telerik:GridViewDataColumn Header="座位数"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
@@ -259,16 +259,26 @@
                                                             OverflowButtonVisibility="Collapsed">
                                             <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/open.png"
                                                                           Command="{Binding DataContext.AddDocumentCommand, ElementName=AircraftConfigurationView}" />
+                                            <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/save.png"
+                                                                          Command="{Binding Path=Commands.Save, ElementName=ImageEditor}" />
                                             <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/Default/Rotate90CW.png"
                                                                           Command="{Binding Path=Commands.Rotate90Clockwise, ElementName=ImageEditor}" />
                                             <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/Default/Rotate90CCW.png"
                                                                           Command="{Binding Path=Commands.Rotate90Counterclockwise, ElementName=ImageEditor}" />
+                                            <telerik:RadComboBox Margin="0,3"
+                                                                 Width="70"
+                                                                 HorizontalAlignment="Stretch"
+                                                                 VerticalAlignment="Center"
+                                                                 ItemsSource="{Binding DataContext.Percents, Mode=TwoWay, ElementName=AircraftConfigurationView}"
+                                                                 SelectedValue="{Binding Percent,Mode=TwoWay}"
+                                                                 SelectedValuePath="Key"
+                                                                 DisplayMemberPath="Value"/>
                                         </telerik:RadToolBar>
                                         <telerik:RadImageEditor Grid.Row="1"
                                                                 x:Name="ImageEditor"
-                                                                ScaleFactor="0"
                                                                 HorizontalAlignment="Stretch"
-                                                                VerticalAlignment="Stretch" />
+                                                                VerticalAlignment="Stretch">
+                                        </telerik:RadImageEditor>
                                     </Grid>
                                 </Grid>
                             </telerik:RadPane>
