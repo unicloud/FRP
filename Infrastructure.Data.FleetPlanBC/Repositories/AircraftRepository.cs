@@ -56,10 +56,12 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.Repositories
             var dbAircraftBusinesses = currentUnitOfWork.CreateSet<AircraftBusiness>();
             var dbOperationHistories = currentUnitOfWork.CreateSet<OperationHistory>();
             var dbOwnershipHistories = currentUnitOfWork.CreateSet<OwnershipHistory>();
+            var dbAcConfigHistories = currentUnitOfWork.CreateSet<AcConfigHistory>(); 
             var dbAircrafts = currentUnitOfWork.CreateSet<Aircraft>();
             dbAircraftBusinesses.RemoveRange(aircraft.AircraftBusinesses);
             dbOperationHistories.RemoveRange(aircraft.OperationHistories);
             dbOwnershipHistories.RemoveRange(aircraft.OwnershipHistories);
+            dbAcConfigHistories.RemoveRange(aircraft.AcConfigHistories);
             dbAircrafts.Remove(aircraft);
         }
 
@@ -94,6 +96,17 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.Repositories
             var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
             if (currentUnitOfWork == null) return;
             currentUnitOfWork.CreateSet<OwnershipHistory>().Remove(oh);
+        }
+
+        /// <summary>
+        /// 移除飞机配置历史
+        /// </summary>
+        /// <param name="ah">飞机配置历史</param>
+        public void RemoveAcConfigHistory(AcConfigHistory ah)
+        {
+            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
+            if (currentUnitOfWork == null) return;
+            currentUnitOfWork.CreateSet<AcConfigHistory>().Remove(ah);
         }
 
         /// <summary>

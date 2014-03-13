@@ -88,6 +88,8 @@
     <Compile Include="PlanAircraftQueries\PlanAircraftQuery.cs" />
     <Compile Include="PlanEngineQueries\IPlanEngineQuery.cs" />
     <Compile Include="PlanEngineQueries\PlanEngineQuery.cs" />
+    <Compile Include="ProgrammingFileQueries\IProgrammingFileQuery.cs" />
+    <Compile Include="ProgrammingFileQueries\ProgrammingFileQuery.cs" />
     <Compile Include="ProgrammingQueries\IProgrammingQuery.cs" />
     <Compile Include="ProgrammingQueries\ProgrammingQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

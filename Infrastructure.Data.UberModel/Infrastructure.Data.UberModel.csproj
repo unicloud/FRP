@@ -82,6 +82,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AcConfigEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AcConfigHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AcDailyUtilizationEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ActionCategoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AdSbEntityConfiguration.cs" />
@@ -219,6 +220,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\PnRegEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PrepaymentInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ProgrammingEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ProgrammingFileEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ProjectEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ProjectTempEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PurchaseContractAircraftEntityConfiguration.cs" />

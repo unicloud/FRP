@@ -108,7 +108,15 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftQueries
                                                                                                Regional = q.AircraftType.AircraftCategory.Regional,
                                                                                                Category = q.AircraftType.AircraftCategory.Category,
                                                                                                ImportCategoryId = q.ImportCategoryId,
-                                                                                           }).ToList()
+                                                                                           }).ToList(),
+                                     AcConfigHistories = p.AcConfigHistories.Select(q => new AcConfigHistoryDTO
+                                     {
+                                         Id = q.Id,
+                                         StartDate = q.StartDate,
+                                         EndDate = q.EndDate,
+                                         AircraftConfigurationId = q.AircraftConfigurationId,
+                                         AircraftId = q.AircraftId,
+                                     }).ToList(),
                                  });
         }
     }

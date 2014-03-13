@@ -80,6 +80,7 @@ using UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.PlanEngineAgg;
 using UniCloud.Domain.UberModel.Aggregates.PnRegAgg;
 using UniCloud.Domain.UberModel.Aggregates.ProgrammingAgg;
+using UniCloud.Domain.UberModel.Aggregates.ProgrammingFileAgg;
 using UniCloud.Domain.UberModel.Aggregates.ProjectAgg;
 using UniCloud.Domain.UberModel.Aggregates.ProjectTempAgg;
 using UniCloud.Domain.UberModel.Aggregates.ReceptionAgg;
@@ -172,6 +173,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Plan> _plans;
         private IDbSet<PnReg> _pneRegs;
         private IDbSet<Programming> _programmings;
+        private IDbSet<ProgrammingFile> _programmingFiles;
         private IDbSet<ProjectTemp> _projectTemps;
         private IDbSet<Project> _projects;
         private IDbSet<Reception> _receptions;
@@ -480,6 +482,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             get { return _programmings ?? (_programmings = Set<Programming>()); }
         }
 
+        public IDbSet<ProgrammingFile> ProgrammingFiles
+        {
+            get { return _programmingFiles ?? (_programmingFiles = Set<ProgrammingFile>()); }
+        }
+
         public IDbSet<Reception> Receptions
         {
             get { return _receptions ?? (_receptions = Set<Reception>()); }
@@ -697,6 +704,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new AircraftBusinessEntityConfiguration())
                 .Add(new OperationHistoryEntityConfiguration())
                 .Add(new OwnershipHistoryEntityConfiguration())
+                .Add(new AcConfigHistoryEntityConfiguration())
 
                 #endregion
 
@@ -1003,6 +1011,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 #region ProgrammingAgg
 
                 .Add(new ProgrammingEntityConfiguration())
+
+                #endregion
+
+                #region ProgrammingAgg
+
+                .Add(new ProgrammingFileEntityConfiguration())
 
                 #endregion
 
