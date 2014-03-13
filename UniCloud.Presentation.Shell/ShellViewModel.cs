@@ -240,12 +240,12 @@ namespace UniCloud.Presentation.Shell
             };
             var menu211 = new MenuItem
             {
-                Text = "民航五年规划",
+                Text = "民航机队规划",
                 NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.CaacProgramming"
             };
             var menu212 = new MenuItem
             {
-                Text = "管理五年规划",
+                Text = "川航机队规划",
                 NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.AirProgramming"
             };
             var menu213 = new MenuItem
@@ -255,17 +255,17 @@ namespace UniCloud.Presentation.Shell
             };
             var menu214 = new MenuItem
             {
-                Text = "编制规划",
+                Text = "编制计划",
                 NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanLay"
             };
             var menu215 = new MenuItem
             {
-                Text = "报送规划",
+                Text = "报送计划",
                 NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanSend"
             };
             var menu216 = new MenuItem
             {
-                Text = "发布规划",
+                Text = "发布计划",
                 NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanPublish"
             };
             var menu217 = new MenuItem
@@ -298,7 +298,7 @@ namespace UniCloud.Presentation.Shell
             };
             var menu223 = new MenuItem
             {
-                Text = "完成规划",
+                Text = "完成计划",
                 NavUri = "UniCloud.Presentation.FleetPlan.PerformFleetPlan.FleetPlanDeliver"
             };
             menu22.Items.Add(menu221);
@@ -312,7 +312,7 @@ namespace UniCloud.Presentation.Shell
             };
             var menu231 = new MenuItem
             {
-                Text = "变更所有权",
+                Text = "更新飞机数据",
                 NavUri = "UniCloud.Presentation.FleetPlan.AircraftOwnerShips.AircraftOwnership"
             };
             menu23.Items.Add(menu231);
@@ -320,16 +320,16 @@ namespace UniCloud.Presentation.Shell
 
             var menu24 = new MenuItem
             {
-                Text = "分析规划执行",
+                Text = "分析计划执行",
             };
             var menu241 = new MenuItem
             {
-                Text = "查询规划",
+                Text = "查询计划",
                 NavUri = "UniCloud.Presentation.FleetPlan.QueryPlans.QueryPlan"
             };
             var menu242 = new MenuItem
             {
-                Text = "分析规划执行",
+                Text = "分析计划执行",
                 NavUri = "UniCloud.Presentation.FleetPlan.PerformFleetPlan.QueryPerformPlan"
             };
             var menu243 = new MenuItem

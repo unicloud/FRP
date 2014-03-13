@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftConfigurationAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg;
@@ -36,6 +37,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         private HashSet<OperationHistory> _operationHistories;
         private HashSet<OwnershipHistory> _ownershipHistories;
         private HashSet<AircraftBusiness> _aircraftBusinesses;
+        private HashSet<AcConfigHistory> _acConfigHistories;
         #endregion
 
         #region 构造函数
@@ -168,6 +170,15 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         {
             get { return _aircraftBusinesses ?? (_aircraftBusinesses = new HashSet<AircraftBusiness>()); }
             set { _aircraftBusinesses = new HashSet<AircraftBusiness>(value); }
+        }
+
+        /// <summary>
+        ///     飞机配置历史
+        /// </summary>
+        public virtual ICollection<AcConfigHistory> AcConfigHistories
+        {
+            get { return _acConfigHistories ?? (_acConfigHistories = new HashSet<AcConfigHistory>()); }
+            set { _acConfigHistories = new HashSet<AcConfigHistory>(value); }
         }
         #endregion
 
@@ -358,7 +369,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
             var ownershipHistory = new OwnershipHistory
             {
                 AircraftId = Id,
-                
+
             };
             ownershipHistory.SetSupplier(supplierId);
             ownershipHistory.SetStartDate(starDate);
@@ -367,6 +378,25 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
             OwnershipHistories.Add(ownershipHistory);
             ownershipHistory.SetOperationStatus(status);
             return ownershipHistory;
+        }
+
+        /// <summary>
+        /// 新增飞机配置历史
+        /// </summary>
+        /// <returns></returns>
+        public AcConfigHistory AddNewAcConfigHistory(AircraftConfiguration aircraftConfiguration, DateTime starDate, DateTime? endatDate)
+        {
+            var acConfigHistory = new AcConfigHistory
+            {
+                AircraftId = Id,
+            };
+            acConfigHistory.SetAircraftConfiguration(aircraftConfiguration);
+            acConfigHistory.SetStartDate(starDate);
+            acConfigHistory.SetEndDate(endatDate);
+            acConfigHistory.GenerateNewIdentity();
+
+            AcConfigHistories.Add(acConfigHistory);
+            return acConfigHistory;
         }
         #endregion
     }
