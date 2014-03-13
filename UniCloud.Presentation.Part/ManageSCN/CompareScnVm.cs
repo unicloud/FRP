@@ -410,7 +410,7 @@ namespace UniCloud.Presentation.Part.ManageSCN
                                    }
                                    var tempColumn = new GridViewDataColumn
                                                     {
-                                                        Header = p.RankNumber,
+                                                        Header = p.SerialNumber,
                                                         DataMemberBinding = new Binding("Aircraft" + i),
 
                                                     };

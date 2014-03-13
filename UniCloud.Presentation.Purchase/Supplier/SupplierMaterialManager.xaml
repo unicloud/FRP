@@ -5,7 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
-             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="800"
              d:DataContext="{d:DesignInstance uc:SupplierMaterialManagerVM}">
 
     <UserControl.Resources>
@@ -24,54 +26,53 @@
                 <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="600, 600">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="合作公司信息"
-                                             IsPinned="True"
-                                             CanFloat="False"
-                                             CanDockInDocumentHost="False"
-                                             CanUserClose="False"
-                                             CanUserPin="False"
-                                             ContextMenuTemplate="{x:Null}">
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanDockInDocumentHost="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         ContextMenuTemplate="{x:Null}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <telerik:RadGridView
-                                        ItemsSource="{Binding SupplierCompanysView}"
-                                        IsBusy="{Binding SupplierCompanysView.IsBusy}"
-                                        AutoGenerateColumns="False"
-                                        SelectedItem="{Binding SelSupplierCompany, Mode=TwoWay}"
-                                        AutoExpandGroups="True"
-                                        ShowGroupPanel="True"
-                                        CanUserSortColumns="True"
-                                        RowIndicatorVisibility="Visible"
-                                        CanUserFreezeColumns="False">
+                                <telerik:RadGridView ItemsSource="{Binding SupplierCompanysView}"
+                                                     IsBusy="{Binding SupplierCompanysView.IsBusy}"
+                                                     AutoGenerateColumns="False"
+                                                     SelectedItem="{Binding SelSupplierCompany, Mode=TwoWay}"
+                                                     AutoExpandGroups="True"
+                                                     ShowGroupPanel="True"
+                                                     CanUserSortColumns="True"
+                                                     RowIndicatorVisibility="Visible"
+                                                     CanUserFreezeColumns="False">
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号"
-                                                                     CellStyle="{StaticResource CellStyle}"
-                                                                     HeaderTextAlignment="Center" />
+                                                                 CellStyle="{StaticResource CellStyle}"
+                                                                 HeaderTextAlignment="Center" />
                                         <telerik:GridViewDataColumn Header="名称"
-                                                                        IsReadOnly="True"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding Name}" />
+                                                                    IsReadOnly="True"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Name}" />
 
                                         <telerik:GridViewDataColumn Header="组织机构代码"
-                                                                        IsReadOnly="True"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding Code}" />
+                                                                    IsReadOnly="True"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding Code}" />
                                         <telerik:GridViewDataColumn Header="供应商类型"
-                                                                        IsReadOnly="True"
-                                                                        HeaderTextAlignment="Center"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding SupplierType}" />
+                                                                    IsReadOnly="True"
+                                                                    HeaderTextAlignment="Center"
+                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                    DataMemberBinding="{Binding SupplierType}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
                                 <telerik:RadDataPager BorderThickness="1,0,1,1"
-                                                          AutoEllipsisMode="Both"
-                                                          DisplayMode="All"
-                                                          Source="{Binding SupplierCompanysView}"
-                                                          Grid.Row="1" />
+                                                      AutoEllipsisMode="Both"
+                                                      DisplayMode="All"
+                                                      Source="{Binding SupplierCompanysView}"
+                                                      Grid.Row="1" />
                             </Grid>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
@@ -79,155 +80,162 @@
                 <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="400, 600">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane Header="物料信息"
-                                     IsPinned="True"
-                                     CanFloat="False"
-                                     CanUserClose="False"
-                                     CanUserPin="False"
-                                     ContextMenuTemplate="{x:Null}">
-                            <telerik:RadTabControl TabStripPlacement="Bottom" SelectedIndex="{Binding SelMaterialTab, Mode=TwoWay}">
-                                <telerik:RadTabItem Header="飞机物料" Visibility="{Binding AcMaterialVisibility}">
+                                         IsPinned="True"
+                                         CanFloat="False"
+                                         CanUserClose="False"
+                                         CanUserPin="False"
+                                         ContextMenuTemplate="{x:Null}">
+                            <telerik:RadTabControl TabStripPlacement="Bottom"
+                                                   SelectedIndex="{Binding SelMaterialTab, Mode=TwoWay}">
+                                <telerik:RadTabItem Header="飞机物料"
+                                                    Visibility="{Binding AcMaterialVisibility}">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"></RowDefinition>
                                             <RowDefinition Height="*"></RowDefinition>
                                         </Grid.RowDefinitions>
                                         <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                Margin="-1 -2 -1 0">
+                                                            Margin="-1 -2 -1 0"
+                                                            OverflowButtonVisibility="Collapsed">
                                             <telerik:RadButton Margin="4,2,2,-2"
-                                                   Command="{Binding AddAcMaterialCommand}">
+                                                               Command="{Binding AddAcMaterialCommand}">
                                                 <Image Source="/UniCloud.Presentation;component/Images/New.png"
-                                           Stretch="Fill"
-                                           ToolTipService.ToolTip="新增" />
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="新增" />
                                             </telerik:RadButton>
                                             <telerik:RadToolBarSeparator />
                                             <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding DelAcMaterialCommand}">
+                                                               Command="{Binding DelAcMaterialCommand}">
                                                 <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
-                                           Stretch="Fill"
-                                           ToolTipService.ToolTip="删除" />
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="删除" />
                                             </telerik:RadButton>
                                         </telerik:RadToolBar>
                                         <telerik:RadGridView Grid.Row="1"
-                                                 Name="AircraftMaterial"
-                                                 IsReadOnly="True"
-                                                 ItemsSource="{Binding SupplierCompanyAcMaterialsView}"
-                                                 IsBusy="{Binding SupplierCompanyAcMaterialsView.IsBusy}"
-                                                 SelectedItem="{Binding SelSupplierCompanyAcMaterial, Mode=TwoWay}"
-                                                 AutoGenerateColumns="False"
-                                                 ShowGroupPanel="True"
-                                                 CanUserSortColumns="True"
-                                                 RowIndicatorVisibility="Visible"
-                                                 CanUserFreezeColumns="False" >
+                                                             Name="AircraftMaterial"
+                                                             IsReadOnly="True"
+                                                             ItemsSource="{Binding SupplierCompanyAcMaterialsView}"
+                                                             IsBusy="{Binding SupplierCompanyAcMaterialsView.IsBusy}"
+                                                             SelectedItem="{Binding SelSupplierCompanyAcMaterial, Mode=TwoWay}"
+                                                             AutoGenerateColumns="False"
+                                                             ShowGroupPanel="True"
+                                                             CanUserSortColumns="True"
+                                                             RowIndicatorVisibility="Visible"
+                                                             CanUserFreezeColumns="False">
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="序号"
-                                                             CellStyle="{StaticResource CellStyle}"
-                                                             HeaderTextAlignment="Center" />
+                                                                         CellStyle="{StaticResource CellStyle}"
+                                                                         HeaderTextAlignment="Center" />
                                                 <telerik:GridViewDataColumn Header="机型"
-                                                                HeaderTextAlignment="Center"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding  Name}" />
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding  Name}" />
                                                 <telerik:GridViewDataColumn Header="备注"
-                                                                HeaderTextAlignment="Center"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding  Description}" />
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding  Description}" />
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                     </Grid>
                                 </telerik:RadTabItem>
-                                <telerik:RadTabItem Header="发动机物料" Visibility="{Binding EngineMaterialVisibility}">
+                                <telerik:RadTabItem Header="发动机物料"
+                                                    Visibility="{Binding EngineMaterialVisibility}">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"></RowDefinition>
                                             <RowDefinition Height="*"></RowDefinition>
                                         </Grid.RowDefinitions>
                                         <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                Margin="-1 -2 -1 0">
+                                                            Margin="-1 -2 -1 0"
+                                                            OverflowButtonVisibility="Collapsed">
                                             <telerik:RadButton Margin="4,2,2,-2"
-                                                   Command="{Binding AddEngineMaterialCommand}">
+                                                               Command="{Binding AddEngineMaterialCommand}">
                                                 <Image Source="/UniCloud.Presentation;component/Images/New.png"
-                                           Stretch="Fill"
-                                           ToolTipService.ToolTip="新增" />
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="新增" />
                                             </telerik:RadButton>
                                             <telerik:RadToolBarSeparator />
                                             <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding DelEngineMaterialCommand}">
+                                                               Command="{Binding DelEngineMaterialCommand}">
                                                 <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
-                                           Stretch="Fill"
-                                           ToolTipService.ToolTip="删除" />
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="删除" />
                                             </telerik:RadButton>
                                         </telerik:RadToolBar>
                                         <telerik:RadGridView Grid.Row="1"
-                                                 Name="EngineMaterial"
-                                                 IsReadOnly="True"
-                                                 ItemsSource="{Binding SupplierCompanyEngineMaterialsView}"
-                                                 IsBusy="{Binding SupplierCompanyEngineMaterialsView.IsBusy}"
-                                                 SelectedItem="{Binding SelSupplierCompanyEngineMaterial, Mode=TwoWay}"
-                                                 AutoGenerateColumns="False"
-                                                 ShowGroupPanel="True"
-                                                 CanUserSortColumns="True"
-                                                 RowIndicatorVisibility="Visible"
-                                                 CanUserFreezeColumns="False">
+                                                             Name="EngineMaterial"
+                                                             IsReadOnly="True"
+                                                             ItemsSource="{Binding SupplierCompanyEngineMaterialsView}"
+                                                             IsBusy="{Binding SupplierCompanyEngineMaterialsView.IsBusy}"
+                                                             SelectedItem="{Binding SelSupplierCompanyEngineMaterial, Mode=TwoWay}"
+                                                             AutoGenerateColumns="False"
+                                                             ShowGroupPanel="True"
+                                                             CanUserSortColumns="True"
+                                                             RowIndicatorVisibility="Visible"
+                                                             CanUserFreezeColumns="False">
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="序号"
-                                                             CellStyle="{StaticResource CellStyle}"
-                                                             HeaderTextAlignment="Center" />
+                                                                         CellStyle="{StaticResource CellStyle}"
+                                                                         HeaderTextAlignment="Center" />
                                                 <telerik:GridViewDataColumn Header="Pn"
-                                                                HeaderTextAlignment="Center"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding  Name}" />
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding  Name}" />
                                                 <telerik:GridViewDataColumn Header="备注"
-                                                                HeaderTextAlignment="Center"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding  Description}" />
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding  Description}" />
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                     </Grid>
                                 </telerik:RadTabItem>
-                                <telerik:RadTabItem Header="BFE物料" Visibility="{Binding BfeMaterialVisibility}">
+                                <telerik:RadTabItem Header="BFE物料"
+                                                    Visibility="{Binding BfeMaterialVisibility}">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"></RowDefinition>
                                             <RowDefinition Height="*"></RowDefinition>
                                         </Grid.RowDefinitions>
                                         <telerik:RadToolBar HorizontalAlignment="Stretch"
-                                                Margin="-1 -2 -1 0">
+                                                            Margin="-1 -2 -1 0"
+                                                            OverflowButtonVisibility="Collapsed">
                                             <telerik:RadButton Margin="4,2,2,-2"
-                                                   Command="{Binding AddBFEMaterialCommand}">
+                                                               Command="{Binding AddBFEMaterialCommand}">
                                                 <Image Source="/UniCloud.Presentation;component/Images/New.png"
-                                           Stretch="Fill"
-                                           ToolTipService.ToolTip="新增" />
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="新增" />
                                             </telerik:RadButton>
                                             <telerik:RadToolBarSeparator />
                                             <telerik:RadButton Margin="2,2,2,-2"
-                                                   Command="{Binding DelBFEMaterialCommand}">
+                                                               Command="{Binding DelBFEMaterialCommand}">
                                                 <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
-                                           Stretch="Fill"
-                                           ToolTipService.ToolTip="删除" />
+                                                       Stretch="Fill"
+                                                       ToolTipService.ToolTip="删除" />
                                             </telerik:RadButton>
                                         </telerik:RadToolBar>
                                         <telerik:RadGridView Grid.Row="1"
-                                                 Name="BFEMaterial"
-                                                 ItemsSource="{Binding SupplierCompanyBFEMaterialsView}"
-                                                 IsBusy="{Binding SupplierCompanyBFEMaterialsView.IsBusy}"
-                                                  SelectedItem="{Binding SelSupplierCompanyBFEMaterial, Mode=TwoWay}"
-                                                 AutoGenerateColumns="False"
-                                                 IsReadOnly="True"
-                                                 ShowGroupPanel="True"
-                                                 CanUserSortColumns="True"
-                                                 RowIndicatorVisibility="Visible"
-                                                 CanUserFreezeColumns="False">
+                                                             Name="BFEMaterial"
+                                                             ItemsSource="{Binding SupplierCompanyBFEMaterialsView}"
+                                                             IsBusy="{Binding SupplierCompanyBFEMaterialsView.IsBusy}"
+                                                             SelectedItem="{Binding SelSupplierCompanyBFEMaterial, Mode=TwoWay}"
+                                                             AutoGenerateColumns="False"
+                                                             IsReadOnly="True"
+                                                             ShowGroupPanel="True"
+                                                             CanUserSortColumns="True"
+                                                             RowIndicatorVisibility="Visible"
+                                                             CanUserFreezeColumns="False">
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="序号"
-                                                             CellStyle="{StaticResource CellStyle}"
-                                                             HeaderTextAlignment="Center" />
+                                                                         CellStyle="{StaticResource CellStyle}"
+                                                                         HeaderTextAlignment="Center" />
                                                 <telerik:GridViewDataColumn Header="Pn"
-                                                                HeaderTextAlignment="Center"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding  Name}" />
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding  Name}" />
                                                 <telerik:GridViewDataColumn Header="备注"
-                                                                HeaderTextAlignment="Center"
-                                                                MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                DataMemberBinding="{Binding  Description}" />
+                                                                            HeaderTextAlignment="Center"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            DataMemberBinding="{Binding  Description}" />
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                     </Grid>

@@ -7,7 +7,9 @@
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
-             mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="800"
+             mc:Ignorable="d"
+             d:DesignHeight="600"
+             d:DesignWidth="800"
              d:DataContext="{d:DesignInstance uc:AcPaymentScheduleVM}"
              Name="AcPaymentUserControl">
 
@@ -38,15 +40,14 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <telerik:RadGridView
-                                    ItemsSource="{Binding ContractAircraftsView}"
-                                    IsBusy="{Binding ContractAircraftsView.IsBusy}"
-                                    SelectedItem="{Binding SelectedContractAircraft, Mode=TwoWay}"
-                                    AutoExpandGroups="True"
-                                    ShowGroupPanel="True"
-                                    CanUserSortColumns="True"
-                                    RowIndicatorVisibility="Visible"
-                                    CanUserFreezeColumns="False">
+                                <telerik:RadGridView ItemsSource="{Binding ContractAircraftsView}"
+                                                     IsBusy="{Binding ContractAircraftsView.IsBusy}"
+                                                     SelectedItem="{Binding SelectedContractAircraft, Mode=TwoWay}"
+                                                     AutoExpandGroups="True"
+                                                     ShowGroupPanel="True"
+                                                     CanUserSortColumns="True"
+                                                     RowIndicatorVisibility="Visible"
+                                                     CanUserFreezeColumns="False">
                                     <telerik:RadGridView.Columns>
                                         <uc:DataPageSerialColumn Header="序号"
                                                                  CellStyle="{StaticResource CellStyle}" />
@@ -101,20 +102,25 @@
                                          CanUserClose="False"
                                          CanUserPin="False"
                                          ContextMenuTemplate="{x:Null}">
-                            <telerik:RadBusyIndicator BusyContent="" IsBusy="{Binding AcPaymentSchedulesView.IsBusy}">
+                            <telerik:RadBusyIndicator BusyContent=""
+                                                      IsBusy="{Binding AcPaymentSchedulesView.IsBusy}">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <telerik:RadToolBar HorizontalAlignment="Stretch" Margin="0 0 0 -1">
-                                        <telerik:RadButton Margin="4,2,2,-2" Command="{Binding SaveCommand}"
+                                    <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                        Margin="0 0 0 -1"
+                                                        OverflowButtonVisibility="Collapsed">
+                                        <telerik:RadButton Margin="4,2,2,-2"
+                                                           Command="{Binding SaveCommand}"
                                                            CommandParameter="{Binding AcPaymentSchedulesView}">
                                             <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                    Stretch="Fill"
                                                    ToolTipService.ToolTip="保存" />
                                         </telerik:RadButton>
-                                        <telerik:RadButton Margin="2,2,2,-2" Command="{Binding AbortCommand}"
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding AbortCommand}"
                                                            CommandParameter="{Binding AcPaymentSchedulesView}">
                                             <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                    Stretch="Fill"
@@ -257,34 +263,34 @@
                                             <telerik:RadScheduleView.AppointmentItemContentTemplate>
                                                 <DataTemplate>
                                                     <StackPanel Margin="3,0">
-                                                        <TextBlock Text="{Binding Subject}" FontWeight="Bold" />
+                                                        <TextBlock Text="{Binding Subject}"
+                                                                   FontWeight="Bold" />
                                                         <StackPanel Orientation="Vertical">
-                                                            <TextBlock Text="付款金额:" FontSize="10" />
-                                                            <TextBlock
-                                                                Text="{Binding Appointment.Amount,StringFormat={StaticResource CurrencyStringFormat}}"
-                                                                TextWrapping="Wrap" FontSize="10" />
+                                                            <TextBlock Text="付款金额:"
+                                                                       FontSize="10" />
+                                                            <TextBlock Text="{Binding Appointment.Amount,StringFormat={StaticResource CurrencyStringFormat}}"
+                                                                       TextWrapping="Wrap"
+                                                                       FontSize="10" />
                                                         </StackPanel>
                                                     </StackPanel>
                                                 </DataTemplate>
                                             </telerik:RadScheduleView.AppointmentItemContentTemplate>
                                             <telerik:RadScheduleView.ViewDefinitions>
-                                                <telerik:MonthViewDefinition
-                                                    GroupHeaderDateStringFormat="{}{0:MMM d} - {1:MMM d}" />
+                                                <telerik:MonthViewDefinition GroupHeaderDateStringFormat="{}{0:MMM d} - {1:MMM d}" />
                                             </telerik:RadScheduleView.ViewDefinitions>
                                         </telerik:RadScheduleView>
                                     </Grid>
                                 </telerik:RadTabItem>
                                 <telerik:RadTabItem Header="数据视图">
                                     <Grid>
-                                        <telerik:RadGridView
-                                            ItemsSource="{Binding SelectedAcPaymentSchedule.PaymentScheduleLines}"
-                                            IsBusy="{Binding AcPaymentSchedulesView.IsBusy}"
-                                            SelectedItem="{Binding SelectPaymentScheduleLine, Mode=TwoWay}"
-                                            AutoExpandGroups="True"
-                                            CanUserSortColumns="True"
-                                            RowIndicatorVisibility="Visible"
-                                            CanUserFreezeColumns="False"
-                                            IsReadOnly="True">
+                                        <telerik:RadGridView ItemsSource="{Binding SelectedAcPaymentSchedule.PaymentScheduleLines}"
+                                                             IsBusy="{Binding AcPaymentSchedulesView.IsBusy}"
+                                                             SelectedItem="{Binding SelectPaymentScheduleLine, Mode=TwoWay}"
+                                                             AutoExpandGroups="True"
+                                                             CanUserSortColumns="True"
+                                                             RowIndicatorVisibility="Visible"
+                                                             CanUserFreezeColumns="False"
+                                                             IsReadOnly="True">
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="序号"
                                                                          IsGroupable="False"
