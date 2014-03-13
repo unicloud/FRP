@@ -14,14 +14,12 @@
 #endregion
 
 #region 命名空间
-
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.UberModel.Aggregates.UserAgg;
-
+using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
 #endregion
 
-namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
+namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork.Mapping.Sql
 {
    /// <summary>
    /// User实体相关配置

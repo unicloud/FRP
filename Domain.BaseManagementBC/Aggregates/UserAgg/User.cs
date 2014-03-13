@@ -1,21 +1,4 @@
-﻿#region 版本信息
-
-// ========================================================================
-// 版权所有 (C) 2014 UniCloud 
-//【本类功能概述】
-// 
-// 作者：丁志浩 时间：2014/01/08，17:01
-// 方案：FRP
-// 项目：Domain.UberModel
-// 版本：V1.0.0
-//
-// 修改者： 时间： 
-// 修改说明：
-// ========================================================================
-
-#endregion
-
-#region 命名空间
+﻿#region 命名空间
 
 using System;
 using System.Collections.Generic;
@@ -23,11 +6,8 @@ using System.ComponentModel.DataAnnotations;
 
 #endregion
 
-namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
+namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
 {
-    /// <summary>
-    ///     用户聚合根
-    /// </summary>
     public class User : EntityInt, IValidatableObject
     {
         #region 构造函数
@@ -41,7 +21,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
         }
 
         public User(string employeeCode, string displayName, string password,
-            string email, string mobile, string description = null, bool isvalid = true)
+            string email, string mobile,string description=null,bool isvalid=true)
         {
             if (string.IsNullOrEmpty(displayName))
             {
@@ -69,17 +49,17 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
         /// <summary>
         ///     名
         /// </summary>
-        public string FirstName { get; internal set; }
+        public string FirstName { get;internal set; }
 
         /// <summary>
         ///     姓
         /// </summary>
-        public string LaseName { get; internal set; }
+        public string LaseName { get;internal set; }
 
         /// <summary>
         ///     显示名称
         /// </summary>
-        public string DisplayName { get; internal set; }
+        public string DisplayName { get;internal set; }
 
         /// <summary>
         /// 密码
@@ -87,7 +67,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
         public string Password
         {
             get;
-            internal set;
+          internal  set;
         }
 
         /// <summary>
@@ -96,7 +76,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
         public string Email
         {
             get;
-            internal set;
+          internal  set;
         }
 
         /// <summary>
@@ -105,7 +85,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
         public string Mobile
         {
             get;
-            internal set;
+           internal set;
         }
 
         /// <summary>
@@ -114,7 +94,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
         public string Description
         {
             get;
-            internal set;
+          internal  set;
         }
 
         /// <summary>
@@ -123,7 +103,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
         public bool IsValid
         {
             get;
-            internal set;
+          internal  set;
         }
 
         /// <summary>
@@ -132,7 +112,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
         public DateTime CreateDate
         {
             get;
-            internal set;
+         internal set;
         }
 
         #endregion
