@@ -55,6 +55,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingFileAgg
             programmingFile.SetDocNumber(docNumber);
             programmingFile.SetDocument(documentId,docName);
             programmingFile.SetIssuedDate(issuedDate);
+            programmingFile.SetIssuedUnit(issuedUnit);
             programmingFile.SetProgramming(programming);
             return programmingFile;
         }

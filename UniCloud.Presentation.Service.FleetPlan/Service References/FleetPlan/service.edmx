@@ -142,6 +142,7 @@
         <Property Name="IssuedDate" Type="Edm.DateTime" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="DocName" Type="Edm.String" />
+        <Property Name="ProgrammingName" Type="Edm.String" />
         <Property Name="ProgrammingId" Type="Edm.Guid" Nullable="false" />
         <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
         <Property Name="IssuedUnitId" Type="Edm.Guid" Nullable="false" />
@@ -203,6 +204,7 @@
         <Property Name="DocNumber" Type="Edm.String" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="DocName" Type="Edm.String" />
+        <Property Name="ProgrammingName" Type="Edm.String" />
         <Property Name="ProgrammingId" Type="Edm.Guid" Nullable="false" />
         <Property Name="IssuedUnitId" Type="Edm.Guid" Nullable="false" />
         <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
@@ -452,6 +454,7 @@
         <Property Name="DocNumber" Type="Edm.String" />
         <Property Name="DocName" Type="Edm.String" />
         <Property Name="Type" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ProgrammingName" Type="Edm.String" />
         <Property Name="ProgrammingId" Type="Edm.Guid" Nullable="false" />
         <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
       </EntityType>

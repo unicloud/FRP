@@ -115,9 +115,9 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingFileAgg
         }
 
         /// <summary>
-        ///     设置民航五年规划文号
+        ///     设置民航规划相关文档文号
         /// </summary>
-        /// <param name="docNumber">规划文号</param>
+        /// <param name="docNumber">规划相关文档文号</param>
         public void SetDocNumber(string docNumber)
         {
             DocNumber = docNumber;
@@ -139,15 +139,15 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingFileAgg
         }
 
         /// <summary>
-        ///     设置五年规划文档
+        ///     设置规划文档
         /// </summary>
-        /// <param name="documentId">五年规划文档</param>
+        /// <param name="documentId">规划文档</param>
         /// <param name="docName">规划文档名称</param>
         public void SetDocument(Guid documentId, string docName)
         {
             if (documentId == Guid.Empty)
             {
-                throw new ArgumentException("五年规划文档Id参数为空！");
+                throw new ArgumentException("规划文档Id参数为空！");
             }
 
             DocumentId = documentId;
