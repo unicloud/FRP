@@ -22,6 +22,7 @@ using UniCloud.Application.FleetPlanBC.Query.AircraftQueries;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftConfigurationAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg;
@@ -42,10 +43,11 @@ namespace UniCloud.Application.FleetPlanBC.AircraftServices
         private readonly IAircraftTypeRepository _aircraftTypeRepository;
         private readonly IAirlinesRepository _airlinesRepository;
         private readonly ISupplierRepository _supplierRepository;
-
+        private readonly IAircraftConfigurationRepository _aircraftConfigurationRepository;
         public AircraftAppService(IAircraftQuery aircraftQuery, IActionCategoryRepository actionCategoryRepository,
             IAircraftRepository aircraftRepository, IAircraftTypeRepository aircraftTypeRepository,
-            IAirlinesRepository airlinesRepository, ISupplierRepository supplierRepository)
+            IAirlinesRepository airlinesRepository, ISupplierRepository supplierRepository,
+            IAircraftConfigurationRepository aircraftConfigurationRepository)
         {
             _aircraftQuery = aircraftQuery;
             _actionCategoryRepository = actionCategoryRepository;
@@ -53,6 +55,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftServices
             _aircraftTypeRepository = aircraftTypeRepository;
             _airlinesRepository = airlinesRepository;
             _supplierRepository = supplierRepository;
+            _aircraftConfigurationRepository = aircraftConfigurationRepository;
         }
 
         #region AircraftDTO
@@ -102,6 +105,9 @@ namespace UniCloud.Application.FleetPlanBC.AircraftServices
 
             //添加所有权历史
             dto.OwnershipHistories.ToList().ForEach(line => InsertOwnershipHistory(newAircraft, line));
+
+            //添加飞机配置历史
+            dto.AcConfigHistories.ToList().ForEach(line => InsertAcConfigHistory(newAircraft, line));
 
             _aircraftRepository.Add(newAircraft);
         }
@@ -167,6 +173,16 @@ namespace UniCloud.Application.FleetPlanBC.AircraftServices
                     i => InsertOwnershipHistory(updateAircraft, i),
                     UpdateOwnershipHistory,
                     d => _aircraftRepository.RemoveOwnershipHistory(d));
+
+                //更新飞机配置历史：
+                var dtoAcConfigHistories = dto.AcConfigHistories;
+                var acConfigHistories = updateAircraft.AcConfigHistories;
+                DataHelper.DetailHandle(dtoAcConfigHistories.ToArray(),
+                    acConfigHistories.ToArray(),
+                    c => c.Id, p => p.Id,
+                    i => InsertAcConfigHistory(updateAircraft, i),
+                    UpdateAcConfigHistory,
+                    d => _aircraftRepository.RemoveAcConfigHistory(d));
             }
             _aircraftRepository.Modify(updateAircraft);
         }
@@ -260,6 +276,20 @@ namespace UniCloud.Application.FleetPlanBC.AircraftServices
         }
 
         /// <summary>
+        ///     插入飞机配置历史
+        /// </summary>
+        /// <param name="aircraft">实际飞机</param>
+        /// <param name="acConfigHistoryDto">飞机配置历史DTO</param>
+        private void InsertAcConfigHistory(Aircraft aircraft, AcConfigHistoryDTO acConfigHistoryDto)
+        {
+            //获取相关数据
+            var aircraftConfiguration = _aircraftConfigurationRepository.Get(acConfigHistoryDto.AircraftConfigurationId);
+
+            //添加飞机配置历史
+            aircraft.AddNewAcConfigHistory(aircraftConfiguration, acConfigHistoryDto.StartDate, acConfigHistoryDto.EndDate);
+        }
+
+        /// <summary>
         ///     更新商业数据历史
         /// </summary>
         /// <param name="aircraftBusinessDto">商业数据历史DTO</param>
@@ -323,6 +353,22 @@ namespace UniCloud.Application.FleetPlanBC.AircraftServices
             ownershipHistory.SetOperationStatus((OperationStatus)ownershipHistoryDto.Status);
             ownershipHistory.SetStartDate(ownershipHistoryDto.StartDate);
             ownershipHistory.SetSupplier(supplier);
+        }
+
+        /// <summary>
+        ///     更新飞机配置历史
+        /// </summary>
+        /// <param name="acConfigHistoryDto">飞机配置历史DTO</param>
+        /// <param name="acConfigHistory">飞机配置历史</param>
+        private void UpdateAcConfigHistory(AcConfigHistoryDTO acConfigHistoryDto, AcConfigHistory acConfigHistory)
+        {
+            //获取相关数据
+            var aircraftConfiguration = _aircraftConfigurationRepository.Get(acConfigHistoryDto.AircraftConfigurationId);
+
+            //更新飞机配置历史
+            acConfigHistory.SetEndDate(acConfigHistoryDto.EndDate);
+            acConfigHistory.SetStartDate(acConfigHistoryDto.StartDate);
+            acConfigHistory.SetAircraftConfiguration(aircraftConfiguration);
         }
         #endregion
 

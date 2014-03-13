@@ -139,6 +139,16 @@ namespace UniCloud.Application.FleetPlanBC.DTO
             get { return _aircraftBusinesses ?? (_aircraftBusinesses = new List<AircraftBusinessDTO>()); }
             set { _aircraftBusinesses = value; }
         }
+
+        /// <summary>
+        ///     飞机配置历史
+        /// </summary>
+        private List<AcConfigHistoryDTO> _acConfigHistories;
+        public List<AcConfigHistoryDTO> AcConfigHistories
+        {
+            get { return _acConfigHistories ?? (_acConfigHistories = new List<AcConfigHistoryDTO>()); }
+            set { _acConfigHistories = value; }
+        }
         #endregion
 
         #region 外键属性

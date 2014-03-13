@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,6 +54,8 @@
     <Compile Include="AircraftPlanServices\PlanAppService.cs" />
     <Compile Include="ApprovalDocServices\IApprovalDocAppService.cs" />
     <Compile Include="ApprovalDocServices\ApprovalDocAppService.cs" />
+    <Compile Include="ProgrammingFileServices\IProgrammingFileAppService.cs" />
+    <Compile Include="ProgrammingFileServices\ProgrammingFileAppService.cs" />
     <Compile Include="RequestServices\RequestAppService.cs" />
     <Compile Include="RequestServices\IRequestAppService.cs" />
     <Compile Include="AircraftServices\AircraftAppService.cs" />

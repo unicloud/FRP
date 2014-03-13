@@ -51,6 +51,7 @@
     <Compile Include="Aggregates\AdSbAgg\AdSbFactory.cs" />
     <Compile Include="Aggregates\AdSbAgg\AdSbSpecifications.cs" />
     <Compile Include="Aggregates\AdSbAgg\IAdSbRepository.cs" />
+    <Compile Include="Aggregates\AircraftAgg\AcConfigHistory.cs" />
     <Compile Include="Aggregates\AircraftCabinTypeAgg\AircraftCabinType.cs" />
     <Compile Include="Aggregates\AircraftCabinTypeAgg\AircraftCabinTypeFactory.cs" />
     <Compile Include="Aggregates\AircraftCabinTypeAgg\AircraftCabinTypeSpecifications.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Aggregates\PnRegAgg\PnReg.cs" />
     <Compile Include="Aggregates\ProgrammingAgg\Programming.cs" />
     <Compile Include="Aggregates\ProgrammingAgg\ProgrammingFactory.cs" />
+    <Compile Include="Aggregates\ProgrammingFileAgg\ProgrammingFile.cs" />
     <Compile Include="Aggregates\ProjectAgg\Project.cs" />
     <Compile Include="Aggregates\ProjectAgg\ProjectFactory.cs" />
     <Compile Include="Aggregates\ProjectAgg\Task.cs" />

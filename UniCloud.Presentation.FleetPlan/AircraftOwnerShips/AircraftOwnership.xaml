@@ -35,6 +35,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                     Margin="0 0 0 -1">
@@ -83,18 +84,17 @@
                                     </telerik:RadButton>
                                 </telerik:RadToolBar>
                                 <Grid Row="1">
-                                    <telerik:RadGridView
-                                        CanUserSortColumns="True"
-                                        CanUserFreezeColumns="False"
-                                        IsFilteringAllowed="False"
-                                        ShowGroupPanel="False"
-                                        EditTriggers="CellClick"
-                                        RowDetailsVisibilityMode="VisibleWhenSelected"
-                                        FontSize="{StaticResource TextFontSize}"
-                                        ItemsSource="{Binding SelectedAircraft.OwnershipHistories}"
-                                        IsBusy="{Binding AircraftsView.IsBusy}"
-                                        SelectedItem="{Binding SelectedOwnershipHistory,Mode=TwoWay}"
-                                        ValidatesOnDataErrors="InEditMode">
+                                    <telerik:RadGridView CanUserSortColumns="True"
+                                                         CanUserFreezeColumns="False"
+                                                         IsFilteringAllowed="False"
+                                                         ShowGroupPanel="False"
+                                                         EditTriggers="CellClick"
+                                                         RowDetailsVisibilityMode="VisibleWhenSelected"
+                                                         FontSize="{StaticResource TextFontSize}"
+                                                         ItemsSource="{Binding SelectedAircraft.OwnershipHistories}"
+                                                         IsBusy="{Binding AircraftsView.IsBusy}"
+                                                         SelectedItem="{Binding SelectedOwnershipHistory,Mode=TwoWay}"
+                                                         ValidatesOnDataErrors="InEditMode">
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="序号" />
                                             <telerik:GridViewComboBoxColumn Header="所有权人"
@@ -127,7 +127,58 @@
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding EndDate,StringFormat={StaticResource DateStringFormat}}">
                                             </telerik:GridViewDataColumn>
-                                            <telerik:GridViewDataColumn Header="状态" 
+                                            <telerik:GridViewDataColumn Header="状态"
+                                                                        IsReadOnly="True"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        DataMemberBinding="{Binding Status,Converter={StaticResource OperationStatusConvert}}" />
+                                        </telerik:RadGridView.Columns>
+                                    </telerik:RadGridView>
+                                </Grid>
+                                <Grid Row="2">
+                                    <telerik:RadGridView CanUserSortColumns="True"
+                                                         CanUserFreezeColumns="False"
+                                                         IsFilteringAllowed="False"
+                                                         ShowGroupPanel="False"
+                                                         EditTriggers="CellClick"
+                                                         RowDetailsVisibilityMode="VisibleWhenSelected"
+                                                         FontSize="{StaticResource TextFontSize}"
+                                                         ItemsSource="{Binding SelectedAircraft.OwnershipHistories}"
+                                                         IsBusy="{Binding AircraftsView.IsBusy}"
+                                                         SelectedItem="{Binding SelectedOwnershipHistory,Mode=TwoWay}"
+                                                         ValidatesOnDataErrors="InEditMode">
+                                        <telerik:RadGridView.Columns>
+                                            <uc:DataPageSerialColumn Header="序号" />
+                                            <telerik:GridViewComboBoxColumn Header="配置"
+                                                                            FilterMemberPath="CnName"
+                                                                            IsReadOnlyBinding="{Binding IsOwnershipReadOnly}"
+                                                                            ItemsSource="{Binding DataContext.Suppliers,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl,Mode=FindAncestor}}"
+                                                                            DisplayMemberPath="CnName"
+                                                                            DataMemberBinding="{Binding SupplierId}"
+                                                                            SelectedValueMemberPath="Id" />
+                                            <telerik:GridViewDataColumn Header="开始时间"
+                                                                        IsReadOnlyBinding="{Binding IsOwnershipReadOnly}"
+                                                                        IsSortable="True"
+                                                                        TextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding StartDate,StringFormat={StaticResource DateStringFormat}}">
+                                                <telerik:GridViewDataColumn.CellEditTemplate>
+                                                    <DataTemplate>
+                                                        <telerik:RadDateTimePicker InputMode="DatePicker"
+                                                                                   DisplayDateStart="{Binding DataContext.StartDisplayDate,Mode=TwoWay,StringFormat={StaticResource DateStringFormat},RelativeSource={RelativeSource AncestorLevel=1,Mode=FindAncestor,AncestorType=UserControl}}"
+                                                                                   SelectedValue="{Binding StartDate,Mode=TwoWay,StringFormat={StaticResource DateStringFormat}}" />
+                                                    </DataTemplate>
+                                                </telerik:GridViewDataColumn.CellEditTemplate>
+                                            </telerik:GridViewDataColumn>
+                                            <telerik:GridViewDataColumn Header="结束时间"
+                                                                        IsSortable="True"
+                                                                        IsReadOnly="True"
+                                                                        TextAlignment="Center"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        HeaderTextAlignment="Center"
+                                                                        DataMemberBinding="{Binding EndDate,StringFormat={StaticResource DateStringFormat}}">
+                                            </telerik:GridViewDataColumn>
+                                            <telerik:GridViewDataColumn Header="状态"
                                                                         IsReadOnly="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding Status,Converter={StaticResource OperationStatusConvert}}" />
