@@ -40,22 +40,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
         {
         }
 
-        public User(string employeeCode, string displayName, string password,
-            string email, string mobile, string description = null, bool isvalid = true)
-        {
-            if (string.IsNullOrEmpty(displayName))
-            {
-                throw new ArgumentNullException("displayName");
-            }
-            EmployeeCode = employeeCode;
-            DisplayName = displayName;
-            Password = password;
-            Email = email;
-            Mobile = mobile;
-            Description = description;
-            IsValid = isvalid;
-            CreateDate = DateTime.Now;
-        }
 
         #endregion
 
@@ -74,7 +58,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
         /// <summary>
         ///     姓
         /// </summary>
-        public string LaseName { get; internal set; }
+        public string LastName { get; internal set; }
 
         /// <summary>
         ///     显示名称

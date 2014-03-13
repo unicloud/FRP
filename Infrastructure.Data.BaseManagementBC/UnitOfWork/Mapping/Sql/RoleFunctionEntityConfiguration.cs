@@ -1,4 +1,4 @@
-#region 版本信息
+﻿#region 版本信息
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -14,6 +14,7 @@
 #endregion
 
 #region 命名空间
+
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using UniCloud.Domain.BaseManagementBC.Aggregates.RoleFunctionAgg;

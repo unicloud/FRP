@@ -1,4 +1,4 @@
-﻿#region NameSpace
+﻿#region 命名空间
 
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
@@ -31,42 +31,42 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork
 
         public IDbSet<FunctionItem> FunctionItems
         {
-            get { return _functionItems ?? (_functionItems = base.Set<FunctionItem>()); }
+            get { return _functionItems ?? (_functionItems = Set<FunctionItem>()); }
         }
 
         public IDbSet<Organization> Organizations
         {
-            get { return _organizations ?? (_organizations = base.Set<Organization>()); }
+            get { return _organizations ?? (_organizations = Set<Organization>()); }
         }
 
         public IDbSet<OrganizationRole> OrganizationRoles
         {
-            get { return _organizationRoles ?? (_organizationRoles = base.Set<OrganizationRole>()); }
+            get { return _organizationRoles ?? (_organizationRoles = Set<OrganizationRole>()); }
         }
 
         public IDbSet<OrganizationUser> OrganizationUsers
         {
-            get { return _organizationUsers ?? (_organizationUsers = base.Set<OrganizationUser>()); }
+            get { return _organizationUsers ?? (_organizationUsers = Set<OrganizationUser>()); }
         }
 
         public IDbSet<Role> Roles
         {
-            get { return _roles ?? (_roles = base.Set<Role>()); }
+            get { return _roles ?? (_roles = Set<Role>()); }
         }
 
         public IDbSet<RoleFunction> RoleFunctions
         {
-            get { return _roleFunctions ?? (_roleFunctions = base.Set<RoleFunction>()); }
+            get { return _roleFunctions ?? (_roleFunctions = Set<RoleFunction>()); }
         }
 
         public IDbSet<User> Users
         {
-            get { return _users ?? (_users = base.Set<User>()); }
+            get { return _users ?? (_users = Set<User>()); }
         }
 
         public IDbSet<UserRole> UserRoles
         {
-            get { return _userRoles ?? (_userRoles = base.Set<UserRole>()); }
+            get { return _userRoles ?? (_userRoles = Set<UserRole>()); }
         }
 
         #endregion

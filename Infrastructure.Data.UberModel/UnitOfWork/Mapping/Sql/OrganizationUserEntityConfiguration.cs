@@ -5,7 +5,7 @@
 // 
 // 作者：chency 时间：2014/2/21 14:58:58
 
-// 文件名：OrganizationRoleEntityConfiguration
+// 文件名：OrganizationUserEntityConfiguration
 // 版本：V1.0.0
 //
 // 修改者： 时间：
@@ -17,25 +17,25 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationRoleAgg;
+using UniCloud.Domain.UberModel.Aggregates.OrganizationUserAgg;
 
 #endregion
 
-namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork.Mapping.Sql
+namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 {
    /// <summary>
-   /// OrganizationRole实体相关配置
+   /// OrganizationUser实体相关配置
    /// </summary>
-   internal class OrganizationRoleEntityConfiguration: EntityTypeConfiguration<OrganizationRole>
+   internal class OrganizationUserEntityConfiguration: EntityTypeConfiguration<OrganizationUser>
    {
-      public OrganizationRoleEntityConfiguration()
+      public OrganizationUserEntityConfiguration()
       {
-         ToTable("OrganizationRole", DbConfig.Schema);
+         ToTable("OrganizationUser", DbConfig.Schema);
          
          HasKey(p => p.Id);
          Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
          Property(p => p.OrganizationId).HasColumnName("OrganizationId");
-         Property(p => p.RoleId).HasColumnName("RoleId");
+         Property(p => p.UserId).HasColumnName("UserId");
       }
       
    }

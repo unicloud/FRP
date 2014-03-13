@@ -20,22 +20,6 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
         {
         }
 
-        public User(string employeeCode, string displayName, string password,
-            string email, string mobile,string description=null,bool isvalid=true)
-        {
-            if (string.IsNullOrEmpty(displayName))
-            {
-                throw new ArgumentNullException("displayName");
-            }
-            EmployeeCode = employeeCode;
-            DisplayName = displayName;
-            Password = password;
-            Email = email;
-            Mobile = mobile;
-            Description = description;
-            IsValid = isvalid;
-            CreateDate = DateTime.Now;
-        }
 
         #endregion
 
@@ -49,17 +33,17 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
         /// <summary>
         ///     名
         /// </summary>
-        public string FirstName { get;internal set; }
+        public string FirstName { get; internal set; }
 
         /// <summary>
         ///     姓
         /// </summary>
-        public string LaseName { get;internal set; }
+        public string LastName { get; internal set; }
 
         /// <summary>
         ///     显示名称
         /// </summary>
-        public string DisplayName { get;internal set; }
+        public string DisplayName { get; internal set; }
 
         /// <summary>
         /// 密码
@@ -67,7 +51,7 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
         public string Password
         {
             get;
-          internal  set;
+            internal set;
         }
 
         /// <summary>
@@ -76,7 +60,7 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
         public string Email
         {
             get;
-          internal  set;
+            internal set;
         }
 
         /// <summary>
@@ -85,7 +69,7 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
         public string Mobile
         {
             get;
-           internal set;
+            internal set;
         }
 
         /// <summary>
@@ -94,7 +78,7 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
         public string Description
         {
             get;
-          internal  set;
+            internal set;
         }
 
         /// <summary>
@@ -103,7 +87,7 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
         public bool IsValid
         {
             get;
-          internal  set;
+            internal set;
         }
 
         /// <summary>
@@ -112,7 +96,7 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
         public DateTime CreateDate
         {
             get;
-         internal set;
+            internal set;
         }
 
         #endregion

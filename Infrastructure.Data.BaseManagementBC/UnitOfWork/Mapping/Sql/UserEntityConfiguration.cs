@@ -14,9 +14,11 @@
 #endregion
 
 #region 命名空间
+
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
+
 #endregion
 
 namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork.Mapping.Sql
@@ -31,10 +33,10 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork.Mapping.Sql
          ToTable("User", DbConfig.Schema);
          
          HasKey(p => p.Id);
-         Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+         Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          Property(p => p.EmployeeCode).HasColumnName("EmployeeCode").HasMaxLength(100);
          Property(p => p.FirstName).HasColumnName("FirstName").HasMaxLength(100);
-         Property(p => p.LaseName).HasColumnName("LaseName").HasMaxLength(100);
+         Property(p => p.LastName).HasColumnName("LastName").HasMaxLength(100);
          Property(p => p.DisplayName).HasColumnName("DisplayName").HasMaxLength(100);
          Property(p => p.Password).HasColumnName("Password").HasMaxLength(100);
          Property(p => p.Email).HasColumnName("Email").HasMaxLength(100);

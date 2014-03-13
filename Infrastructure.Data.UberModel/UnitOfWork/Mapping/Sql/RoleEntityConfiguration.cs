@@ -17,11 +17,11 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg;
+using UniCloud.Domain.UberModel.Aggregates.RoleAgg;
 
 #endregion
 
-namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork.Mapping.Sql
+namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
 {
    /// <summary>
    /// Role实体相关配置
