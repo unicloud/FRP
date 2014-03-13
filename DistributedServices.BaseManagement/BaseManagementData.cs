@@ -1,18 +1,38 @@
 ﻿//------------------------------------------------------------------------------
 // 
 //------------------------------------------------------------------------------
+
+using System.Linq;
+using UniCloud.Application.BaseManagementBC.DTO;
+using UniCloud.Application.BaseManagementBC.UserServices;
+using UniCloud.Infrastructure.Utilities.Container;
+
 namespace UniCloud.DistributedServices.BaseManagement
 {
-    using Application.BaseManagementBC.Services;
-    using InstanceProviders;
-    using Microsoft.Practices.Unity;
+    
 
     /// <summary>
     /// 基础管理模块数据类
     /// </summary>
-    public class BaseManagementData
+    public class BaseManagementData: ExposeData.ExposeData
     {
-        private readonly IBaseManagementAppService _flightLogAppService = Container.Current.Resolve<IBaseManagementAppService>();
+        private readonly IUserAppService _userAppService;
 
+        public BaseManagementData()
+            : base("UniCloud.Application.BaseManagementBC.DTO")
+        {
+            _userAppService = DefaultContainer.Resolve<IUserAppService>();
+        }
+
+
+        #region User集合
+        /// <summary>
+        /// User集合
+        /// </summary>
+        public IQueryable<UserDTO> Users
+        {
+            get { return _userAppService.GetUsers(); }
+        }
+        #endregion
     }
 }

@@ -77,5 +77,14 @@ namespace UniCloud.Presentation.Service
                     UriKind.Absolute);
             }
         }
+
+        public static Uri BaseManagementUri
+        {
+            get
+            {
+                return new Uri(Application.Current.Resources["BaseManagementDataService"].ToString(),
+                    UriKind.Absolute);
+            }
+        }
     }
 }

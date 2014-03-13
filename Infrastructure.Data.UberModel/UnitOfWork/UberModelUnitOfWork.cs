@@ -1155,12 +1155,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 #endregion
 
-                #region UserAgg
-
-                .Add(new UserEntityConfiguration())
-
-                #endregion
-
                 #region WorkGroupAgg
 
                 .Add(new WorkGroupEntityConfiguration())
