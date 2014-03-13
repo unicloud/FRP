@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
+using System.Linq;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
@@ -130,7 +131,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
             set
             {
                 _aircraftLicense = value;
-                if (_aircraftLicense != null )
+                if (_aircraftLicense != null)
                 {
                     if (_aircraftLicense.FileContent != null)
                     {
@@ -215,7 +216,9 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
                 IssuedDate = DateTime.Now,
                 ExpireDate = DateTime.Now
             };
-
+            var firstOrDefault = LicenseTypes.FirstOrDefault();
+            if (firstOrDefault != null)
+                aircraftLicense.LicenseTypeId = firstOrDefault.LicenseTypeId;
             Aircraft.AircraftLicenses.Add(aircraftLicense);
             CurrentAircraftLicense.ImageEditor.Image = null;
         }
@@ -259,7 +262,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
 
         [Import]
         public ManagerAircraftLicense CurrentAircraftLicense;
-       
+
         public DelegateCommand<object> AddDocumentCommand { get; set; }
 
         private void AddDocument(object sender)

@@ -73,6 +73,9 @@ namespace UniCloud.Presentation.Purchase.Contract
                         newItem.APUMaintainContractId = RandomHelper.Next();
                         newItem.SignDate = DateTime.Now;
                         newItem.CreateDate = DateTime.Now;
+                        var firstOrDefault = Suppliers.FirstOrDefault();
+                        if (firstOrDefault != null)
+                            newItem.SignatoryId = firstOrDefault.SupplierId;
                         DocumentName = "添加附件";
                         _document.DocumentId = new Guid();
                         _document.Name = string.Empty;
