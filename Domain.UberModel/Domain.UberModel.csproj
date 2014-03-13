@@ -129,6 +129,7 @@
     <Compile Include="Aggregates\EngineTypeAgg\EngineType.cs" />
     <Compile Include="Aggregates\FlightLogAgg\FlightLog.cs" />
     <Compile Include="Aggregates\ForwarderAgg\Forwarder.cs" />
+    <Compile Include="Aggregates\FunctionItemAgg\FunctionItem.cs" />
     <Compile Include="Aggregates\GuaranteeAgg\Guarantee.cs" />
     <Compile Include="Aggregates\GuaranteeAgg\GuaranteeFactory.cs" />
     <Compile Include="Aggregates\GuaranteeAgg\LeaseGuarantee.cs" />
@@ -189,6 +190,9 @@
     <Compile Include="Aggregates\OrderAgg\Order.cs" />
     <Compile Include="Aggregates\OrderAgg\OrderFactory.cs" />
     <Compile Include="Aggregates\OrderAgg\OrderLine.cs" />
+    <Compile Include="Aggregates\OrganizationAgg\Organization.cs" />
+    <Compile Include="Aggregates\OrganizationRoleAgg\OrganizationRole.cs" />
+    <Compile Include="Aggregates\OrganizationUserAgg\OrganizationUser.cs" />
     <Compile Include="Aggregates\PartAgg\Part.cs" />
     <Compile Include="Aggregates\PaymentNoticeAgg\PaymentNotice.cs" />
     <Compile Include="Aggregates\PaymentNoticeAgg\PaymentNoticeFactory.cs" />
@@ -226,6 +230,8 @@
     <Compile Include="Aggregates\RelatedDocAgg\RelatedDocSpecifications.cs" />
     <Compile Include="Aggregates\RequestAgg\ApprovalHistory.cs" />
     <Compile Include="Aggregates\RequestAgg\Request.cs" />
+    <Compile Include="Aggregates\RoleAgg\Role.cs" />
+    <Compile Include="Aggregates\RoleFunctionAgg\RoleFunction.cs" />
     <Compile Include="Aggregates\ScnAgg\AirBusScn.cs" />
     <Compile Include="Aggregates\ScnAgg\ApplicableAircraft.cs" />
     <Compile Include="Aggregates\ScnAgg\Scn.cs" />
@@ -263,6 +269,7 @@
     <Compile Include="Aggregates\TradeAgg\Trade.cs" />
     <Compile Include="Aggregates\TradeAgg\TradeFactory.cs" />
     <Compile Include="Aggregates\UserAgg\User.cs" />
+    <Compile Include="Aggregates\UserRoleAgg\UserRole.cs" />
     <Compile Include="Aggregates\WorkGroupAgg\Member.cs" />
     <Compile Include="Aggregates\WorkGroupAgg\WorkGroup.cs" />
     <Compile Include="Aggregates\WorkGroupAgg\WorkGroupFactory.cs" />

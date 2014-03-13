@@ -54,6 +54,7 @@ using UniCloud.Domain.UberModel.Aggregates.EnginePlanAgg;
 using UniCloud.Domain.UberModel.Aggregates.EngineTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.FlightLogAgg;
 using UniCloud.Domain.UberModel.Aggregates.ForwarderAgg;
+using UniCloud.Domain.UberModel.Aggregates.FunctionItemAgg;
 using UniCloud.Domain.UberModel.Aggregates.GuaranteeAgg;
 using UniCloud.Domain.UberModel.Aggregates.InvoiceAgg;
 using UniCloud.Domain.UberModel.Aggregates.LicenseTypeAgg;
@@ -69,6 +70,9 @@ using UniCloud.Domain.UberModel.Aggregates.MaterialAgg;
 using UniCloud.Domain.UberModel.Aggregates.ModAgg;
 using UniCloud.Domain.UberModel.Aggregates.OilMonitorAgg;
 using UniCloud.Domain.UberModel.Aggregates.OrderAgg;
+using UniCloud.Domain.UberModel.Aggregates.OrganizationAgg;
+using UniCloud.Domain.UberModel.Aggregates.OrganizationRoleAgg;
+using UniCloud.Domain.UberModel.Aggregates.OrganizationUserAgg;
 using UniCloud.Domain.UberModel.Aggregates.PartAgg;
 using UniCloud.Domain.UberModel.Aggregates.PaymentNoticeAgg;
 using UniCloud.Domain.UberModel.Aggregates.PaymentScheduleAgg;
@@ -82,6 +86,8 @@ using UniCloud.Domain.UberModel.Aggregates.ProjectTempAgg;
 using UniCloud.Domain.UberModel.Aggregates.ReceptionAgg;
 using UniCloud.Domain.UberModel.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.UberModel.Aggregates.RequestAgg;
+using UniCloud.Domain.UberModel.Aggregates.RoleAgg;
+using UniCloud.Domain.UberModel.Aggregates.RoleFunctionAgg;
 using UniCloud.Domain.UberModel.Aggregates.ScnAgg;
 using UniCloud.Domain.UberModel.Aggregates.SnRegAgg;
 using UniCloud.Domain.UberModel.Aggregates.SpecialConfigAgg;
@@ -94,6 +100,7 @@ using UniCloud.Domain.UberModel.Aggregates.TechnicalSolutionAgg;
 using UniCloud.Domain.UberModel.Aggregates.ThrustAgg;
 using UniCloud.Domain.UberModel.Aggregates.TradeAgg;
 using UniCloud.Domain.UberModel.Aggregates.UserAgg;
+using UniCloud.Domain.UberModel.Aggregates.UserRoleAgg;
 using UniCloud.Domain.UberModel.Aggregates.WorkGroupAgg;
 using UniCloud.Domain.UberModel.Aggregates.XmlConfigAgg;
 using UniCloud.Domain.UberModel.Aggregates.XmlSettingAgg;
@@ -188,6 +195,14 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<XmlConfig> _xmlConfigs;
         private IDbSet<XmlSetting> _xmlSettings;
 
+
+        private IDbSet<FunctionItem> _functionItems;
+        private IDbSet<OrganizationRole> _organizationRoles;
+        private IDbSet<OrganizationUser> _organizationUsers;
+        private IDbSet<Organization> _organizations;
+        private IDbSet<RoleFunction> _roleFunctions;
+        private IDbSet<Role> _roles;
+        private IDbSet<UserRole> _userRoles;
 
         public IDbSet<AcDailyUtilization> AcDailyUtilizations
         {
@@ -585,6 +600,43 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<DocumentType> DocumentTypes
         {
             get { return _documentTypes ?? (_documentTypes = Set<DocumentType>()); }
+        }
+
+        public IDbSet<FunctionItem> FunctionItems
+        {
+            get { return _functionItems ?? (_functionItems = Set<FunctionItem>()); }
+        }
+
+        public IDbSet<Organization> Organizations
+        {
+            get { return _organizations ?? (_organizations = Set<Organization>()); }
+        }
+
+        public IDbSet<OrganizationRole> OrganizationRoles
+        {
+            get { return _organizationRoles ?? (_organizationRoles = Set<OrganizationRole>()); }
+        }
+
+        public IDbSet<OrganizationUser> OrganizationUsers
+        {
+            get { return _organizationUsers ?? (_organizationUsers = Set<OrganizationUser>()); }
+        }
+
+        public IDbSet<Role> Roles
+        {
+            get { return _roles ?? (_roles = Set<Role>()); }
+        }
+
+        public IDbSet<RoleFunction> RoleFunctions
+        {
+            get { return _roleFunctions ?? (_roleFunctions = Set<RoleFunction>()); }
+        }
+
+
+
+        public IDbSet<UserRole> UserRoles
+        {
+            get { return _userRoles ?? (_userRoles = Set<UserRole>()); }
         }
 
         #endregion
@@ -1132,12 +1184,61 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new AdSbEntityConfiguration())
                 #endregion
 
-            #region AircraftConfigurationAgg
+                #region AircraftConfigurationAgg
 
 .Add(new AircraftConfigurationEntityConfiguration())
                 .Add(new AircraftCabinEntityConfiguration())
                 .Add(new AircraftCabinTypeEntityConfiguration())
             #endregion
+
+                #region FunctionItemAgg
+
+.Add(new FunctionItemEntityConfiguration())
+
+            #endregion
+
+                #region OrganizationUserAgg
+
+.Add(new OrganizationUserEntityConfiguration())
+
+            #endregion
+
+                #region OrganizationRoleAgg
+
+.Add(new OrganizationRoleEntityConfiguration())
+
+            #endregion
+
+                #region OrganizationAgg
+
+.Add(new OrganizationEntityConfiguration())
+
+            #endregion
+
+                #region RoleFunctionAgg
+
+.Add(new RoleFunctionEntityConfiguration())
+
+            #endregion
+
+                #region RoleAgg
+
+.Add(new RoleEntityConfiguration())
+
+            #endregion
+
+                #region UserRoleAgg
+
+.Add(new UserRoleEntityConfiguration())
+
+            #endregion
+
+                #region UserAgg
+
+.Add(new UserEntityConfiguration())
+
+            #endregion
+
                 .Add(new AddressConfiguration());
         }
 

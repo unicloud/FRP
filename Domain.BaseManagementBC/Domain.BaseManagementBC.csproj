@@ -44,12 +44,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\FunctionItemAgg\FunctionItem.cs" />
+    <Compile Include="Aggregates\FunctionItemAgg\FunctionItemSpecifications.cs" />
+    <Compile Include="Aggregates\FunctionItemAgg\IFunctionItemRepository.cs" />
+    <Compile Include="Aggregates\OrganizationAgg\IOrganizationRepository.cs" />
+    <Compile Include="Aggregates\OrganizationAgg\Organization.cs" />
+    <Compile Include="Aggregates\OrganizationAgg\OrganizationSpecifications.cs" />
+    <Compile Include="Aggregates\OrganizationRoleAgg\IOrganizationRoleRepository.cs" />
+    <Compile Include="Aggregates\OrganizationRoleAgg\OrganizationRole.cs" />
+    <Compile Include="Aggregates\OrganizationRoleAgg\OrganizationRoleSpecifications.cs" />
+    <Compile Include="Aggregates\OrganizationUserAgg\IOrganizationUserRepository.cs" />
+    <Compile Include="Aggregates\OrganizationUserAgg\OrganizationUser.cs" />
+    <Compile Include="Aggregates\OrganizationUserAgg\OrganizationUserSpecifications.cs" />
+    <Compile Include="Aggregates\RoleAgg\IRoleRepository.cs" />
+    <Compile Include="Aggregates\RoleAgg\Role.cs" />
+    <Compile Include="Aggregates\RoleAgg\RoleSpecifications.cs" />
+    <Compile Include="Aggregates\RoleFunctionAgg\IRoleFunctionRepository.cs" />
+    <Compile Include="Aggregates\RoleFunctionAgg\RoleFunction.cs" />
+    <Compile Include="Aggregates\RoleFunctionAgg\RoleFunctionSpecifications.cs" />
+    <Compile Include="Aggregates\UserAgg\IUserRepository.cs" />
+    <Compile Include="Aggregates\UserAgg\User.cs" />
+    <Compile Include="Aggregates\UserAgg\UserSpecifications.cs" />
+    <Compile Include="Aggregates\UserRoleAgg\IUserRoleRepository.cs" />
+    <Compile Include="Aggregates\UserRoleAgg\UserRole.cs" />
+    <Compile Include="Aggregates\UserRoleAgg\UserRoleSpecifications.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IOrganizationRoleService.cs" />
+    <Compile Include="Services\IOrganizationUserService.cs" />
+    <Compile Include="Services\IRoleFunctionService.cs" />
+    <Compile Include="Services\IUserRoleService.cs" />
+    <Compile Include="Services\OrganizationRoleService.cs" />
+    <Compile Include="Services\OrganizationUserService.cs" />
+    <Compile Include="Services\RoleFunctionService.cs" />
+    <Compile Include="Services\UserRoleService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Aggregates\" />
     <Folder Include="Events\" />
-    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
