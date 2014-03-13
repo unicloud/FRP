@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
+using System.Linq;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
@@ -81,7 +82,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
         /// <summary>
         ///    飞机舱位
         /// </summary>
-        public QueryableDataServiceCollectionView<AircraftCabinTypeDTO> AircraftCabinTypes { get; set; } 
+        public QueryableDataServiceCollectionView<AircraftCabinTypeDTO> AircraftCabinTypes { get; set; }
 
         #endregion
 
@@ -214,6 +215,12 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             {
                 Id = RandomHelper.Next(),
             };
+            var aircraftTypeDto = AircraftTypes.FirstOrDefault();
+            if (aircraftTypeDto != null)
+            { 
+                AircraftConfiguration.AircraftTypeId = aircraftTypeDto.AircraftTypeId;
+                AircraftConfiguration.AircraftSeriesId = aircraftTypeDto.AircraftSeriesId;
+            }
             AircraftConfigurations.AddNew(AircraftConfiguration);
         }
 
@@ -265,10 +272,13 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 return;
             }
 
+            var aircraftCabinTypeDto = AircraftCabinTypes.FirstOrDefault();
             AircraftCabin = new AircraftCabinDTO
-                                {
-                                    Id = RandomHelper.Next(),
-                                };
+                            {
+                                Id = RandomHelper.Next(),
+                            };
+            if (aircraftCabinTypeDto != null)
+                AircraftCabin.AircraftCabinTypeId = aircraftCabinTypeDto.Id;
             AircraftConfiguration.AircraftCabins.Add(AircraftCabin);
         }
 
