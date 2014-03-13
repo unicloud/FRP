@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -39,6 +40,23 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
         {
         }
 
+        public User(string employeeCode, string displayName, string password,
+            string email, string mobile, string description = null, bool isvalid = true)
+        {
+            if (string.IsNullOrEmpty(displayName))
+            {
+                throw new ArgumentNullException("displayName");
+            }
+            EmployeeCode = employeeCode;
+            DisplayName = displayName;
+            Password = password;
+            Email = email;
+            Mobile = mobile;
+            Description = description;
+            IsValid = isvalid;
+            CreateDate = DateTime.Now;
+        }
+
         #endregion
 
         #region 属性
@@ -46,34 +64,76 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
         /// <summary>
         ///     员工号
         /// </summary>
-        public string EmployeeCode { get; set; }
+        public string EmployeeCode { get; internal set; }
 
         /// <summary>
         ///     名
         /// </summary>
-        public string FirstName { get; set; }
+        public string FirstName { get; internal set; }
 
         /// <summary>
         ///     姓
         /// </summary>
-        public string LaseName { get; set; }
+        public string LaseName { get; internal set; }
 
         /// <summary>
         ///     显示名称
         /// </summary>
-        public string DisplayName { get; set; }
+        public string DisplayName { get; internal set; }
 
-        #endregion
+        /// <summary>
+        /// 密码
+        /// </summary>
+        public string Password
+        {
+            get;
+            internal set;
+        }
 
-        #region 外键属性
+        /// <summary>
+        /// 邮件
+        /// </summary>
+        public string Email
+        {
+            get;
+            internal set;
+        }
 
-        #endregion
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        public string Mobile
+        {
+            get;
+            internal set;
+        }
 
-        #region 导航属性
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Description
+        {
+            get;
+            internal set;
+        }
 
-        #endregion
+        /// <summary>
+        /// 是否可用
+        /// </summary>
+        public bool IsValid
+        {
+            get;
+            internal set;
+        }
 
-        #region 操作
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public DateTime CreateDate
+        {
+            get;
+            internal set;
+        }
 
         #endregion
 

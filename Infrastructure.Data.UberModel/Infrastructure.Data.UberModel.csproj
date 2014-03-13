@@ -161,6 +161,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\EnginePlanHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\EngineTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\FlightLogEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\FunctionItemEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\GuaranteeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\InvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\InvoiceLineEntityConfiguration.cs" />
@@ -206,6 +207,9 @@
     <Compile Include="UnitOfWork\Mapping\Sql\OperationPlanEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OrderEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OrderLineEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\OrganizationEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\OrganizationRoleEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\OrganizationUserEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\OwnershipHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PartEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PaymentNoticeEntityConfiguration.cs" />
@@ -231,6 +235,8 @@
     <Compile Include="UnitOfWork\Mapping\Sql\ReceptionScheduleEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\RelatedDocEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\RequestEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\RoleEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\RoleFunctionEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ScnEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SnHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SnMaintainCtrlEntityConfiguration.cs" />
@@ -253,6 +259,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\UndercartMaintainContractEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\UndercartMaintainInvoiceEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\UserEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\UserRoleEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\WorkGroupEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\XmlConfigEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\XmlSettingEntityConfiguration.cs" />

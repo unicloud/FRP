@@ -50,7 +50,8 @@
             </telerik:RadBreadcrumb>
             <telerik:RadToolBar HorizontalAlignment="Stretch"
                                 Margin="-1 -2 -1 0"
-                                Grid.Row="1">
+                                Grid.Row="1"
+                                OverflowButtonVisibility="Collapsed">
                 <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding CreateDocumentPathCommand}"
                                                        CommandParameter="文件夹">

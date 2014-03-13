@@ -51,10 +51,38 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserQueries\IUserQuery.cs" />
+    <Compile Include="UserQueries\UserQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application.BaseManagementBC.DTO\Application.BaseManagementBC.DTO.csproj">
+      <Project>{cd31bfed-2c9e-4d50-9685-d1d8d8e2c837}</Project>
+      <Name>Application.BaseManagementBC.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{c926e107-6971-4b5c-8e00-db7761eeac8e}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.BaseManagementBC\Domain.BaseManagementBC.csproj">
+      <Project>{169fa81a-b240-422a-aebf-756be4a98b03}</Project>
+      <Name>Domain.BaseManagementBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data.BaseManagementBC\Infrastructure.Data.BaseManagementBC.csproj">
+      <Project>{d23925a6-6e00-4bcf-a403-becc631480fd}</Project>
+      <Name>Infrastructure.Data.BaseManagementBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure.Data\Infrastructure.Data.csproj">
+      <Project>{cad91a38-6b90-4a18-83ca-0215ce512f4d}</Project>
+      <Name>Infrastructure.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -35,6 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,6 +47,30 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IBaseManagementAppService.cs" />
     <Compile Include="Services\BaseManagementAppService.cs" />
+    <Compile Include="UserServices\IUserAppService.cs" />
+    <Compile Include="UserServices\UserAppService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Application.BaseManagementBC.DTO\Application.BaseManagementBC.DTO.csproj">
+      <Project>{cd31bfed-2c9e-4d50-9685-d1d8d8e2c837}</Project>
+      <Name>Application.BaseManagementBC.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application.BaseManagementBC.Query\Application.BaseManagementBC.Query.csproj">
+      <Project>{5ef65814-7983-4e09-ae07-5272d3477cf9}</Project>
+      <Name>Application.BaseManagementBC.Query</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Application\Application.csproj">
+      <Project>{c926e107-6971-4b5c-8e00-db7761eeac8e}</Project>
+      <Name>Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain.BaseManagementBC\Domain.BaseManagementBC.csproj">
+      <Project>{169fa81a-b240-422a-aebf-756be4a98b03}</Project>
+      <Name>Domain.BaseManagementBC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{46a5b5a0-4b2c-411f-a74b-c26a81619cd9}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
