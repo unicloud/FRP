@@ -18,6 +18,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
@@ -158,6 +159,16 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                 DeadLine = DateTime.Now,
                 Status = 0,
             };
+            var firstOrDefault = Suppliers.FirstOrDefault();
+            if (firstOrDefault != null)
+            {
+                PaymentNotice.SupplierId = firstOrDefault.SupplierId;
+                var bankAccount = firstOrDefault.BankAccounts.FirstOrDefault();
+                if (bankAccount != null)
+                    PaymentNotice.BankAccountName = bankAccount.Account + "/" + bankAccount.Bank + bankAccount.Branch;
+            }
+            var currencyDto = Currencies.FirstOrDefault();
+            if (currencyDto != null) PaymentNotice.CurrencyId = currencyDto.Id;
             PaymentNotices.AddNew(PaymentNotice);
         }
 
@@ -292,8 +303,7 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
 
         protected virtual void OnViewReport(object obj)
         {
-            var noticeReport = new PaymentNoticeReport();
-            noticeReport.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            var noticeReport = new PaymentNoticeReport {WindowStartupLocation = WindowStartupLocation.CenterScreen};
             noticeReport.ShowDialog();
         }
 
