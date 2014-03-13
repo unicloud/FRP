@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\AircraftConfigurationRepository.cs" />
     <Compile Include="Repositories\AircraftSeriesRepository.cs" />
     <Compile Include="Repositories\ProgrammingFileRepository.cs" />
     <Compile Include="UnitOfWork\FleetPlanBCUnitOfWork.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Repositories\XmlSettingRepository.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AcConfigHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ActionCategoryEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftConfigurationEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftSeriesEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftBusinessEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftCategoryEntityConfiguration.cs" />

@@ -62,7 +62,6 @@ namespace UniCloud.Application.PaymentBC.Tests.Services
             var result = service.GetApuMaintainInvoices().FirstOrDefault();
             //var line = result.MaintainInvoiceLines.FirstOrDefault();
             MaintainInvoiceLineDTO lineDto = new MaintainInvoiceLineDTO();
-            lineDto.MaintainItemString = "工时费";
             lineDto.ItemName = "22";
             lineDto.UnitPrice = 111;
             lineDto.Amount = 11;

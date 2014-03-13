@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionCategoryDTO\ActionCategoryDTO.cs" />
+    <Compile Include="AircraftConfigurationDTO\AircraftConfigurationDTO.cs" />
     <Compile Include="AircraftDTO\AcConfigHistoryDTO.cs" />
     <Compile Include="AircraftPlanDTO\PerformPlan.cs" />
     <Compile Include="AircraftSeriesDTO\AircraftSeriesDTO.cs" />

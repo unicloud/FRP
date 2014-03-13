@@ -7,6 +7,7 @@
 using Microsoft.Practices.Unity;
 using UniCloud.Application.FleetPlanBC.ActionCategoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftCategoryServices;
+using UniCloud.Application.FleetPlanBC.AircraftConfigurationServices;
 using UniCloud.Application.FleetPlanBC.AircraftPlanServices;
 using UniCloud.Application.FleetPlanBC.AircraftSeriesServices;
 using UniCloud.Application.FleetPlanBC.AircraftServices;
@@ -24,9 +25,11 @@ using UniCloud.Application.FleetPlanBC.ManagerServices;
 using UniCloud.Application.FleetPlanBC.ManufacturerServices;
 using UniCloud.Application.FleetPlanBC.PlanAircraftServices;
 using UniCloud.Application.FleetPlanBC.PlanEngineServices;
+using UniCloud.Application.FleetPlanBC.ProgrammingFileServices;
 using UniCloud.Application.FleetPlanBC.ProgrammingServices;
 using UniCloud.Application.FleetPlanBC.Query.ActionCategoryQueries;
 using UniCloud.Application.FleetPlanBC.Query.AircraftCategoryQueries;
+using UniCloud.Application.FleetPlanBC.Query.AircraftConfigurationQueries;
 using UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries;
 using UniCloud.Application.FleetPlanBC.Query.AircraftQueries;
 using UniCloud.Application.FleetPlanBC.Query.AircraftSeriesQueries;
@@ -44,6 +47,7 @@ using UniCloud.Application.FleetPlanBC.Query.ManagerQueries;
 using UniCloud.Application.FleetPlanBC.Query.ManufacturerQueries;
 using UniCloud.Application.FleetPlanBC.Query.PlanAircraftQueries;
 using UniCloud.Application.FleetPlanBC.Query.PlanEngineQueries;
+using UniCloud.Application.FleetPlanBC.Query.ProgrammingFileQueries;
 using UniCloud.Application.FleetPlanBC.Query.ProgrammingQueries;
 using UniCloud.Application.FleetPlanBC.Query.RequestQueries;
 using UniCloud.Application.FleetPlanBC.Query.SupplierQueries;
@@ -56,6 +60,7 @@ using UniCloud.Application.FleetPlanBC.XmlSettingServices;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftConfigurationAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
@@ -73,6 +78,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.ManufacturerAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanEngineAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingFileAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.XmlConfigAgg;
@@ -103,6 +109,13 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 .RegisterType<IActionCategoryQuery, ActionCategoryQuery>()
                 .RegisterType<IActionCategoryAppService, ActionCategoryAppService>()
                 .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
+                #endregion
+
+                #region 飞机配置相关配置，包括查询，应用服务，仓储注册
+
+                .RegisterType<IAircraftConfigurationQuery, AircraftConfigurationQuery>()
+                .RegisterType<IAircraftConfigurationAppService, AircraftConfigurationAppService>()
+                .RegisterType<IAircraftConfigurationRepository, AircraftConfigurationRepository>()
                 #endregion
 
                 #region 飞机系列相关配置，包括查询，应用服务，仓储注册
@@ -236,6 +249,13 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 .RegisterType<IProgrammingQuery, ProgrammingQuery>()
                 .RegisterType<IProgrammingAppService, ProgrammingAppService>()
                 .RegisterType<IProgrammingRepository, ProgrammingRepository>()
+                #endregion
+
+                #region 规划文档相关配置，包括查询，应用服务，仓储注册
+
+                .RegisterType<IProgrammingFileQuery, ProgrammingFileQuery>()
+                .RegisterType<IProgrammingFileAppService, ProgrammingFileAppService>()
+                .RegisterType<IProgrammingFileRepository, ProgrammingFileRepository>()
                 #endregion
 
                 #region 申请相关配置，包括查询，应用服务，仓储注册
