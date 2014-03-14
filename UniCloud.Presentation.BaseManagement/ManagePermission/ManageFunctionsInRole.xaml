@@ -23,21 +23,21 @@
                 </StackPanel>
             </telerik:HierarchicalDataTemplate>
             <telerik:HierarchicalDataTemplate x:Key="ViewFunctionSubItemTemplate"
-                                              ItemsSource="{Binding SubItems}"
+                                              ItemsSource="{Binding SubFunctionItems}"
                                               ItemTemplate="{StaticResource ButtonFunctionItemTemplate}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Name}" />
                 </StackPanel>
             </telerik:HierarchicalDataTemplate>
             <telerik:HierarchicalDataTemplate x:Key="MenuFunctionItemTemplate"
-                                              ItemsSource="{Binding SubItems}"
+                                              ItemsSource="{Binding SubFunctionItems}"
                                               ItemTemplate="{StaticResource ViewFunctionSubItemTemplate}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Name}" />
                 </StackPanel>
             </telerik:HierarchicalDataTemplate>
             <telerik:HierarchicalDataTemplate x:Key="ApplicationTemplate"
-                                              ItemsSource="{Binding SubItems}"
+                                              ItemsSource="{Binding SubFunctionItems}"
                                               ItemTemplate="{StaticResource MenuFunctionItemTemplate}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Name}" />
@@ -60,7 +60,7 @@
             <telerik:RadSplitContainer Orientation="Horizontal">
                 <telerik:RadSplitContainer InitialPosition="DockedLeft"
                                            Orientation="Vertical"
-                                           telerik:ProportionalStackPanel.RelativeSize="200,300">
+                                           telerik:ProportionalStackPanel.RelativeSize="300,300">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane  Header="管理权限"
                                           FontSize="{StaticResource HeaderFontSize}"
@@ -153,16 +153,18 @@
                                          CanUserClose="False"
                                          CanUserPin="False"
                                          ContextMenuTemplate="{x:Null}">
-                            <telerik:RadGridView x:Name="Applications"
+                            <telerik:RadGridView x:Name="ApplicationList"
                                                  AutoExpandGroups="True"
                                                  AutoGenerateColumns="False"
                                                  CanUserSortColumns="True"
                                                  RowIndicatorVisibility="Visible"
                                                  CanUserFreezeColumns="False"
-                                                 FontSize="{StaticResource TextFontSize}"
                                                  ValidatesOnDataErrors="InEditMode"
-                                                 ItemsSource="{Binding ApplicationCollection,Mode=TwoWay}"
-                                                 SelectedItem="{Binding CurrentApplication,Mode=TwoWay}">
+                                                 ShowGroupPanel="False"
+                                                 IsReadOnly="True"
+                                                 IsBusy="{Binding FunctionItems.IsBusy,Mode=TwoWay}"
+                                                 ItemsSource="{Binding Applications,Mode=TwoWay}"
+                                                 SelectedItem="{Binding Application,Mode=TwoWay}">
                                 <telerik:RadGridView.Columns>
                                     <uc:DataPageSerialColumn Header="序号"
                                                              HeaderTextAlignment="Center" />
@@ -170,7 +172,7 @@
                                                                 HeaderTextAlignment="Center"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 IsReadOnly="True"
-                                                                DataMemberBinding="{Binding Description}" />
+                                                                DataMemberBinding="{Binding Name}" />
                                 </telerik:RadGridView.Columns>
                             </telerik:RadGridView>
                         </telerik:RadPane>
@@ -178,7 +180,7 @@
                 </telerik:RadSplitContainer>
                 <telerik:RadSplitContainer InitialPosition="DockedRight"
                                            Orientation="Vertical"
-                                           telerik:ProportionalStackPanel.RelativeSize="600,300">
+                                           telerik:ProportionalStackPanel.RelativeSize="450,300">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane  Header="角色功能"
                                           FontSize="{StaticResource HeaderFontSize}"
@@ -191,12 +193,12 @@
                             <telerik:RadTreeView  x:Name="FunctionRole"
                                                   SelectionMode="Multiple"
                                                   ItemTemplate="{StaticResource ApplicationTemplate}"
-                                                  ItemsSource="{Binding FunctionItemCollection}"
+                                                  ItemsSource="{Binding FunctionItemStructures,Mode=TwoWay}"
                                                   ItemContainerStyle="{StaticResource ItemContainerStyle}"
                                                   FontSize="13"
                                                   IsOptionElementsEnabled="True"
                                                   IsRootLinesEnabled="True"
-                                                  IsTriStateMode="True">
+                                                  IsTriStateMode="True" >
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="Checked">
                                         <i:InvokeCommandAction Command="{Binding CheckedCommand}" />

@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FunctionItemQueries\FunctionItemQuery.cs" />
+    <Compile Include="FunctionItemQueries\IFunctionItemQuery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserQueries\IUserQuery.cs" />
     <Compile Include="UserQueries\UserQuery.cs" />

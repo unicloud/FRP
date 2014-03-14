@@ -33,7 +33,7 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork.Mapping.Sql
          ToTable("UserRole", DbConfig.Schema);
          
          HasKey(p => p.Id);
-         Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+         Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          Property(p => p.UserId).HasColumnName("UserId");
          Property(p => p.RoleId).HasColumnName("RoleId");
       }

@@ -33,7 +33,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
          ToTable("OrganizationUser", DbConfig.Schema);
          
          HasKey(p => p.Id);
-         Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+         Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          Property(p => p.OrganizationId).HasColumnName("OrganizationId");
          Property(p => p.UserId).HasColumnName("UserId");
       }
