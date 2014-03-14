@@ -38,8 +38,8 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork.Mapping.Sql
          Property(p => p.IsLeaf).HasColumnName("IsLeaf");
          Property(p => p.Sort).HasColumnName("Sort");
          Property(p => p.Name).HasColumnName("Name").HasMaxLength(100);
-         Property(p => p.Description).HasColumnName("Description").HasMaxLength(100);
-         Property(p => p.NaviUrl).HasColumnName("NaviUrl").HasMaxLength(100);
+         Property(p => p.Description).HasColumnName("Description");
+         Property(p => p.NaviUrl).HasColumnName("NaviUrl");
          Property(p => p.IsValid).HasColumnName("IsValid");
          Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
          Property(p => p.ImageUrl).HasColumnName("ImageUrl").HasMaxLength(100);

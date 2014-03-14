@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
@@ -60,7 +61,11 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         {
             //创建并注册CollectionView
             FunctionItems = _service.CreateCollection(_context.FunctionItems);
-            FunctionItems.LoadedData += (o, e) => FunctionItems.ToList().ForEach(GenerateFunctionItemStructure);
+            FunctionItems.LoadedData += (o, e) =>
+                                        {
+                                            FunctionItems.ToList().ForEach(GenerateFunctionItemStructure);
+                                            Applications = FunctionItems.Where(p => p.ParentItemId == null).ToList();
+                                        };
         }
 
         #endregion
@@ -92,8 +97,52 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         #region 功能菜单
         public QueryableDataServiceCollectionView<FunctionItemDTO> FunctionItems { get; set; }
 
+        private ObservableCollection<FunctionItemDTO> _functionItemStructures = new ObservableCollection<FunctionItemDTO>();
+        public ObservableCollection<FunctionItemDTO> FunctionItemStructures
+        {
+            get { return _functionItemStructures; }
+            set
+            {
+                _functionItemStructures = value;
+                RaisePropertyChanged(() => FunctionItemStructures);
+            }
+        }
         #endregion
 
+        #region 应用集合
+        /// <summary>
+        /// 应用集合
+        /// </summary>
+        private List<FunctionItemDTO> _applications;
+        public List<FunctionItemDTO> Applications
+        {
+            get { return _applications; }
+            set
+            {
+                _applications = value;
+                RaisePropertyChanged(() => Applications);
+            }
+        }
+
+        /// <summary>
+        /// 选中的应用
+        /// </summary>
+        private FunctionItemDTO _application;
+        public FunctionItemDTO Application
+        {
+            get { return _application; }
+            set
+            {
+                _application = value;
+                if (_application != null)
+                {
+                    FunctionItemStructures.Clear();
+                    FunctionItemStructures.Add(_application);
+                }
+                RaisePropertyChanged(() => Application);
+            }
+        }
+        #endregion
 
         #endregion
 
@@ -114,35 +163,6 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         }
         #endregion
 
-        #region 获取有层次结构的菜单
-        private IEnumerable<FunctionItemDTO> _functionItemsWithHierarchy;
-        public void GetFunctionItemsWithHierarchy()
-        {
-            IsBusy = true;
-            _context.BeginExecute<FunctionItemDTO>(GetFunctionItemsWithHierarchyUri(), result => Deployment.Current.Dispatcher.BeginInvoke(() =>
-               {
-                   var context = result.AsyncState as BaseManagementData;
-                   try
-                   {
-                       if (context != null)
-                       {
-                           _functionItemsWithHierarchy = context.EndExecute<FunctionItemDTO>(result).ToList();
-                       }
-                   }
-                   catch (DataServiceQueryException ex)
-                   {
-                       QueryOperationResponse response = ex.Response;
-                       MessageAlert(response.Error.Message);
-                   }
-                   IsBusy = false;
-               }), _context);
-        }
-
-        private Uri GetFunctionItemsWithHierarchyUri()
-        {
-            return new Uri("GetFunctionItemsWithHierarchy", UriKind.Relative);
-        }
-        #endregion
 
         #endregion
     }
