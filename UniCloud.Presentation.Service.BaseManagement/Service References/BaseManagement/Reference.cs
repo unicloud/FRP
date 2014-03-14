@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/3/14 15:52:56
+// 生成日期: 2014/3/14 16:23:14
 namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
 {
     
@@ -160,34 +160,34 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
                 "me=\"NaviUrl\" Type=\"Edm.String\" /><Property Name=\"IsValid\" Type=\"Edm.Boolean\" Nul" +
                 "lable=\"false\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" /><Property Name" +
                 "=\"ImageUrl\" Type=\"Edm.String\" /><Property Name=\"IsButton\" Type=\"Edm.Boolean\" Nul" +
-                "lable=\"false\" /><NavigationProperty Name=\"SubFunctionItems\" Relationship=\"UniClo" +
-                "ud.Application.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems\" ToRole=\"Su" +
-                "bFunctionItems\" FromRole=\"FunctionItemDTO\" /></EntityType><EntityType Name=\"Role" +
-                "DTO\"><Key><PropertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nu" +
-                "llable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Descr" +
-                "iption\" Type=\"Edm.String\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Null" +
-                "able=\"false\" /><Property Name=\"RoleFunctions\" Type=\"Collection(UniCloud.Applicat" +
-                "ion.BaseManagementBC.DTO.RoleFunctionDTO)\" Nullable=\"false\" /></EntityType><Comp" +
-                "lexType Name=\"RoleFunctionDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"fa" +
-                "lse\" /><Property Name=\"FunctionItemId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Prop" +
-                "erty Name=\"RoleId\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><Associatio" +
-                "n Name=\"FunctionItemDTO_SubFunctionItems\"><End Type=\"UniCloud.Application.BaseMa" +
-                "nagementBC.DTO.FunctionItemDTO\" Role=\"SubFunctionItems\" Multiplicity=\"*\" /><End " +
-                "Type=\"UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO\" Role=\"FunctionI" +
-                "temDTO\" Multiplicity=\"*\" /></Association></Schema><Schema Namespace=\"UniCloud.Di" +
-                "stributedServices.BaseManagement\" xmlns=\"http://schemas.microsoft.com/ado/2009/1" +
-                "1/edm\"><EntityContainer Name=\"BaseManagementData\" m:IsDefaultEntityContainer=\"tr" +
-                "ue\"><EntitySet Name=\"Users\" EntityType=\"UniCloud.Application.BaseManagementBC.DT" +
-                "O.UserDTO\" /><EntitySet Name=\"FunctionItems\" EntityType=\"UniCloud.Application.Ba" +
-                "seManagementBC.DTO.FunctionItemDTO\" /><EntitySet Name=\"Roles\" EntityType=\"UniClo" +
-                "ud.Application.BaseManagementBC.DTO.RoleDTO\" /><FunctionImport Name=\"GetFunction" +
-                "ItemsWithHierarchy\" ReturnType=\"Collection(UniCloud.Application.BaseManagementBC" +
-                ".DTO.FunctionItemDTO)\" EntitySet=\"FunctionItems\" m:HttpMethod=\"GET\" /><Associati" +
-                "onSet Name=\"FunctionItemDTO_SubFunctionItems\" Association=\"UniCloud.Application." +
-                "BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems\"><End Role=\"FunctionItemDT" +
-                "O\" EntitySet=\"FunctionItems\" /><End Role=\"SubFunctionItems\" EntitySet=\"FunctionI" +
-                "tems\" /></AssociationSet></EntityContainer></Schema></edmx:DataServices></edmx:E" +
-                "dmx>";
+                "lable=\"false\" /><Property Name=\"IsChecked\" Type=\"Edm.Boolean\" Nullable=\"false\" /" +
+                "><NavigationProperty Name=\"SubFunctionItems\" Relationship=\"UniCloud.Application." +
+                "BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems\" ToRole=\"SubFunctionItems\"" +
+                " FromRole=\"FunctionItemDTO\" /></EntityType><EntityType Name=\"RoleDTO\"><Key><Prop" +
+                "ertyRef Name=\"Id\" /></Key><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" " +
+                "/><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Description\" Type=\"E" +
+                "dm.String\" /><Property Name=\"CreateDate\" Type=\"Edm.DateTime\" Nullable=\"false\" />" +
+                "<Property Name=\"RoleFunctions\" Type=\"Collection(UniCloud.Application.BaseManagem" +
+                "entBC.DTO.RoleFunctionDTO)\" Nullable=\"false\" /></EntityType><ComplexType Name=\"R" +
+                "oleFunctionDTO\"><Property Name=\"Id\" Type=\"Edm.Int32\" Nullable=\"false\" /><Propert" +
+                "y Name=\"FunctionItemId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Property Name=\"Role" +
+                "Id\" Type=\"Edm.Int32\" Nullable=\"false\" /></ComplexType><Association Name=\"Functio" +
+                "nItemDTO_SubFunctionItems\"><End Type=\"UniCloud.Application.BaseManagementBC.DTO." +
+                "FunctionItemDTO\" Role=\"SubFunctionItems\" Multiplicity=\"*\" /><End Type=\"UniCloud." +
+                "Application.BaseManagementBC.DTO.FunctionItemDTO\" Role=\"FunctionItemDTO\" Multipl" +
+                "icity=\"*\" /></Association></Schema><Schema Namespace=\"UniCloud.DistributedServic" +
+                "es.BaseManagement\" xmlns=\"http://schemas.microsoft.com/ado/2009/11/edm\"><EntityC" +
+                "ontainer Name=\"BaseManagementData\" m:IsDefaultEntityContainer=\"true\"><EntitySet " +
+                "Name=\"Users\" EntityType=\"UniCloud.Application.BaseManagementBC.DTO.UserDTO\" /><E" +
+                "ntitySet Name=\"FunctionItems\" EntityType=\"UniCloud.Application.BaseManagementBC." +
+                "DTO.FunctionItemDTO\" /><EntitySet Name=\"Roles\" EntityType=\"UniCloud.Application." +
+                "BaseManagementBC.DTO.RoleDTO\" /><FunctionImport Name=\"GetFunctionItemsWithHierar" +
+                "chy\" ReturnType=\"Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionIt" +
+                "emDTO)\" EntitySet=\"FunctionItems\" m:HttpMethod=\"GET\" /><AssociationSet Name=\"Fun" +
+                "ctionItemDTO_SubFunctionItems\" Association=\"UniCloud.Application.BaseManagementB" +
+                "C.DTO.FunctionItemDTO_SubFunctionItems\"><End Role=\"FunctionItemDTO\" EntitySet=\"F" +
+                "unctionItems\" /><End Role=\"SubFunctionItems\" EntitySet=\"FunctionItems\" /></Assoc" +
+                "iationSet></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {
@@ -469,8 +469,9 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         /// <param name="sort">Sort 的初始值。</param>
         /// <param name="isValid">IsValid 的初始值。</param>
         /// <param name="isButton">IsButton 的初始值。</param>
+        /// <param name="isChecked">IsChecked 的初始值。</param>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-        public static FunctionItemDTO CreateFunctionItemDTO(int ID, bool isLeaf, int sort, bool isValid, bool isButton)
+        public static FunctionItemDTO CreateFunctionItemDTO(int ID, bool isLeaf, int sort, bool isValid, bool isButton, bool isChecked)
         {
             FunctionItemDTO functionItemDTO = new FunctionItemDTO();
             functionItemDTO.Id = ID;
@@ -478,6 +479,7 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
             functionItemDTO.Sort = sort;
             functionItemDTO.IsValid = isValid;
             functionItemDTO.IsButton = isButton;
+            functionItemDTO.IsChecked = isChecked;
             return functionItemDTO;
         }
         /// <summary>
@@ -722,6 +724,28 @@ namespace UniCloud.Presentation.Service.BaseManagement.BaseManagement
         private bool _IsButton;
         partial void OnIsButtonChanging(bool value);
         partial void OnIsButtonChanged();
+        /// <summary>
+        /// 架构中不存在属性 IsChecked 的注释。
+        /// </summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        public bool IsChecked
+        {
+            get
+            {
+                return this._IsChecked;
+            }
+            set
+            {
+                this.OnIsCheckedChanging(value);
+                this._IsChecked = value;
+                this.OnIsCheckedChanged();
+                this.OnPropertyChanged("IsChecked");
+            }
+        }
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
+        private bool _IsChecked;
+        partial void OnIsCheckedChanging(bool value);
+        partial void OnIsCheckedChanged();
         /// <summary>
         /// 架构中不存在 SubFunctionItems 的注释。
         /// </summary>

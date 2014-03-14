@@ -42,7 +42,6 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         private readonly BaseManagementData _context;
         private readonly IRegionManager _regionManager;
         private readonly IBaseManagementService _service;
-
         [ImportingConstructor]
         public ManageFunctionsInRoleVm(IRegionManager regionManager, IBaseManagementService service)
             : base(service)
@@ -63,6 +62,8 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         {
             AddRoleCommand = new DelegateCommand<object>(OnAddRole, CanAddRole);
             RemoveRoleCommand = new DelegateCommand<object>(OnRemoveRole, CanRemoveRole);
+            CheckedCommand = new DelegateCommand<object>(FunctionItemChecked);
+            UncheckedCommand = new DelegateCommand<object>(FunctionItemUnchecked);
             //创建并注册CollectionView
             FunctionItems = _service.CreateCollection(_context.FunctionItems);
             FunctionItems.LoadedData += (o, e) =>
@@ -70,7 +71,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                                             FunctionItems.ToList().ForEach(GenerateFunctionItemStructure);
                                             Applications = FunctionItems.Where(p => p.ParentItemId == null).ToList();
                                         };
-            Roles = _service.CreateCollection(_context.Roles);
+            Roles = _service.CreateCollection(_context.Roles, o => o.RoleFunctions);
             _service.RegisterCollectionView(Roles);
         }
 
@@ -117,6 +118,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             set
             {
                 _role = value;
+                SetCheckedState();
                 RaisePropertyChanged(() => Role);
             }
         }
@@ -166,6 +168,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 {
                     FunctionItemStructures.Clear();
                     FunctionItemStructures.Add(_application);
+                    SetCheckedState();
                 }
                 RaisePropertyChanged(() => Application);
             }
@@ -232,6 +235,129 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         }
         #endregion
 
+        #region 功能选中
+        public DelegateCommand<object> CheckedCommand { get; set; }
+        private void FunctionItemChecked(object e)
+        {
+            var checkedItems = GenerateCheckedItems(FunctionItemStructures);
+            if (Role != null)
+            {
+                foreach (var checkedItem in checkedItems)
+                {
+                    var functionItem = checkedItem;
+                    if (functionItem != null && Role.RoleFunctions.All(p => p.FunctionItemId != functionItem.Id))
+                    {
+                        if (functionItem.ParentItemId != null)
+                        {
+                            var parent = FunctionItems.FirstOrDefault(p => p.Id == functionItem.ParentItemId);
+                            FindParentCheckedItem(parent);
+                        }
+                        var roleFunction = new RoleFunctionDTO
+                                           {
+                                               Id = RandomHelper.Next(),
+                                               RoleId = Role.Id,
+                                               FunctionItemId = functionItem.Id
+                                           };
+                        Role.RoleFunctions.Add(roleFunction);
+                    }
+                }
+            }
+        }
+
+        private void FindParentCheckedItem(FunctionItemDTO functionItem)
+        {
+            if (functionItem != null && Role.RoleFunctions.All(p => p.FunctionItemId != functionItem.Id))
+            {
+                var roleFunction = new RoleFunctionDTO
+                {
+                    Id = RandomHelper.Next(),
+                    RoleId = Role.Id,
+                    FunctionItemId = functionItem.Id
+                };
+                Role.RoleFunctions.Add(roleFunction);
+            }
+            if (functionItem != null && functionItem.ParentItemId != null)
+            {
+                var parent = FunctionItems.FirstOrDefault(p => p.Id == functionItem.ParentItemId);
+                FindParentCheckedItem(parent);
+            }
+        }
+
+        private IEnumerable<FunctionItemDTO> GenerateCheckedItems(IEnumerable<FunctionItemDTO> sourceItems)
+        {
+            var items = new List<FunctionItemDTO>();
+            foreach (var sourceItem in sourceItems)
+            {
+                if (sourceItem.IsChecked)
+                {
+                    items.Add(sourceItem);
+                }
+                GenerateCheckedItems(sourceItem.SubFunctionItems.AsEnumerable()).ToList().ForEach(items.Add);
+            }
+            return items;
+        }
+        #endregion
+
+        #region 功能反选处理
+        public DelegateCommand<object> UncheckedCommand { get; set; }
+        private void FunctionItemUnchecked(object e)
+        {
+            IEnumerable<FunctionItemDTO> tempFunctionItems = GenerateUncheckedItems(FunctionItemStructures.FirstOrDefault(), FunctionItemStructures.FirstOrDefault().SubFunctionItems);
+
+            if (Role != null)
+            {
+                tempFunctionItems.ToList().ForEach(p =>
+                {
+                    if (Role.RoleFunctions.Any(t => t.FunctionItemId == p.Id))
+                    {
+                        var temp = Role.RoleFunctions.FirstOrDefault(t => t.FunctionItemId == p.Id);
+                        Role.RoleFunctions.Remove(temp);
+                    }
+                });
+            }
+        }
+
+        private IEnumerable<FunctionItemDTO> GenerateUncheckedItems(FunctionItemDTO parentItem, IEnumerable<FunctionItemDTO> subItems)
+        {
+            var items = new List<FunctionItemDTO>();
+            foreach (var sourceItem in subItems)
+            {
+                if (!sourceItem.IsChecked)
+                {
+                    items.Add(sourceItem);
+                    items.Add(parentItem);
+                }
+                GenerateUncheckedItems(sourceItem, sourceItem.SubFunctionItems.AsEnumerable()).ToList().ForEach(items.Add);
+            }
+            return items;
+        }
+        #endregion
+
+        #region 设置TreeView选中状态
+        private void SetCheckedState()
+        {
+            if (Role == null || Role.RoleFunctions.Count == 0)
+            {
+                FunctionItemStructures.ToList().ForEach(ClearCheckedState);
+            }
+            else
+            {
+                FunctionItemStructures.ToList().ForEach(p => SetCheckedState(Role.RoleFunctions, p));
+            }
+        }
+
+        private void SetCheckedState(IEnumerable<RoleFunctionDTO> sourceItems, FunctionItemDTO item)
+        {
+            item.IsChecked = sourceItems.Any(p => p.FunctionItemId == item.Id);
+            item.SubFunctionItems.ToList().ForEach(p => SetCheckedState(Role.RoleFunctions, p));
+        }
+
+        private void ClearCheckedState(FunctionItemDTO item)
+        {
+            item.IsChecked = false;
+            item.SubFunctionItems.ToList().ForEach(ClearCheckedState);
+        }
+        #endregion
         #endregion
     }
 }

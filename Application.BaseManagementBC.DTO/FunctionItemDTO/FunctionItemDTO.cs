@@ -82,6 +82,7 @@ namespace UniCloud.Application.BaseManagementBC.DTO
         /// </summary>
         public bool IsButton { get; set; }
 
+        public bool IsChecked { get; set; }
 
         private List<FunctionItemDTO> _subFunctionItems;
         /// <summary>

@@ -30,6 +30,7 @@
         <Property Name="CreateDate" Type="Edm.DateTime" />
         <Property Name="ImageUrl" Type="Edm.String" />
         <Property Name="IsButton" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="IsChecked" Type="Edm.Boolean" Nullable="false" />
         <NavigationProperty Name="SubFunctionItems" Relationship="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems" ToRole="SubFunctionItems" FromRole="FunctionItemDTO" />
       </EntityType>
       <EntityType Name="RoleDTO">
