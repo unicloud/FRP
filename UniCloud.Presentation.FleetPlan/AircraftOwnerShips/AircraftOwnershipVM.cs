@@ -31,7 +31,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
 {
-    [Export(typeof (AircraftOwnershipVM))]
+    [Export(typeof(AircraftOwnershipVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class AircraftOwnershipVM : EditViewModelBase
     {
@@ -49,6 +49,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
             _service = service;
             _context = _service.Context;
             InitialAircraft(); //初始化飞机信息 
+            InitialAircraftConfiguration();
             InitialCommand(); //初始化命令
         }
 
@@ -58,6 +59,8 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
 
 
         private OwnershipHistoryDTO _selectedOwnershipHistory;
+
+        private AcConfigHistoryDTO _selectedAcConfigHistory;
 
         /// <summary>
         ///     选择飞机。
@@ -72,7 +75,6 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
                     _selectedAircraft = value;
                     RefreshCommandState();
                     RaisePropertyChanged(() => SelectedAircraft);
-                    RaisePropertyChanged(() => OwnershipTitle);
                 }
             }
         }
@@ -95,6 +97,23 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         }
 
         /// <summary>
+        ///     选择飞机配置历史。
+        /// </summary>
+        public AcConfigHistoryDTO SelectedAcConfigHistory
+        {
+            get { return _selectedAcConfigHistory; }
+            set
+            {
+                if (_selectedAcConfigHistory != value)
+                {
+                    _selectedAcConfigHistory = value;
+                    RaisePropertyChanged(() => SelectedAcConfigHistory);
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        /// <summary>
         ///     获取所有飞机信息。
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftDTO> AircraftsView { get; set; }
@@ -105,7 +124,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         private void InitialAircraft()
         {
             AircraftsView = _service.CreateCollection(_context.Aircrafts, o => o.OwnershipHistories);
-            AircraftsView.FilterDescriptors.Add(new FilterDescriptor("IsOperation",FilterOperator.IsEqualTo,true));
+            AircraftsView.FilterDescriptors.Add(new FilterDescriptor("IsOperation", FilterOperator.IsEqualTo, true));
             AircraftsView.PageSize = 20;
             AircraftsView.LoadedData += (sender, e) =>
             {
@@ -141,6 +160,30 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
 
         #endregion
 
+        #region 获取飞机配置集合
+
+        /// <summary>
+        ///     飞机配置集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<AircraftConfigurationDTO> AircraftConfigurations { get; set; }
+
+        /// <summary>
+        /// 初始化飞机配置集合
+        /// </summary>
+        private void InitialAircraftConfiguration()
+        {
+            AircraftConfigurations = new QueryableDataServiceCollectionView<AircraftConfigurationDTO>(_context, _context.AircraftConfigurations);
+        }
+
+        /// <summary>
+        ///     加载飞机配置集合
+        /// </summary>
+        private void LoadAircraftConfiguration()
+        {
+            AircraftConfigurations.AutoLoad = true;
+        }
+
+        #endregion
         #region 命令
 
         #region 新增所有权命令
@@ -153,13 +196,13 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         /// <param name="sender"></param>
         public void OndAddOwnership(object sender)
         {
-            StartDisplayDate  =
+            StartDisplayDate =
                 SelectedAircraft.OwnershipHistories.Select(p => p.StartDate).OrderBy(p => p).LastOrDefault();
             //新建所有权历史
             var newOwnership = new OwnershipHistoryDTO
             {
                 OwnershipHistoryId = Guid.NewGuid(),
-                StartDate = (StartDisplayDate == null ||StartDisplayDate.Value==DateTime.MinValue)? DateTime.Now:StartDisplayDate.Value.AddDays(1)
+                StartDate = (StartDisplayDate == null || StartDisplayDate.Value == DateTime.MinValue) ? DateTime.Now : StartDisplayDate.Value.AddDays(1)
             };
 
             SelectedOwnershipHistory = newOwnership;
@@ -174,9 +217,9 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         /// <returns>新增命令是否可用。</returns>
         public bool CanAddOwnership(object sender)
         {
-            return GetButtonState() && SelectedAircraft != null 
-                &&!SelectedAircraft.OwnershipHistories.Any(p=>p.Status<(int)OperationStatus.已审核)
-                &&!_service.HasChanges;
+            return GetButtonState() && SelectedAircraft != null
+                && !SelectedAircraft.OwnershipHistories.Any(p => p.Status < (int)OperationStatus.已审核)
+                && !_service.HasChanges;
         }
 
         #endregion
@@ -191,7 +234,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         /// <param name="sender"></param>
         public void OndRemoveOwnership(object sender)
         {
-            if (SelectedOwnershipHistory==null)
+            if (SelectedOwnershipHistory == null)
             {
                 MessageAlert("请选择需要删除的所有权");
             }
@@ -206,7 +249,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         /// <returns>删除命令是否可用。</returns>
         public bool CanRemoveOwnership(object sender)
         {
-            return GetButtonState() && SelectedOwnershipHistory != null && SelectedOwnershipHistory.Status<(int)OperationStatus.已审核;
+            return GetButtonState() && SelectedOwnershipHistory != null && SelectedOwnershipHistory.Status < (int)OperationStatus.已审核;
         }
 
         #endregion
@@ -226,7 +269,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
                 MessageAlert("所有权不能为空");
                 return;
             }
-            SelectedOwnershipHistory.Status = (int) OperationStatus.待审核;
+            SelectedOwnershipHistory.Status = (int)OperationStatus.待审核;
             RefreshCommandState();
         }
 
@@ -241,7 +284,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
             {
                 return false;
             }
-            return SelectedOwnershipHistory != null && SelectedOwnershipHistory.Status < (int) RequestStatus.待审核;
+            return SelectedOwnershipHistory != null && SelectedOwnershipHistory.Status < (int)RequestStatus.待审核;
         }
 
         #endregion
@@ -261,7 +304,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
                 MessageAlert("所有权不能为空");
                 return;
             }
-            SelectedOwnershipHistory.Status = (int) OperationStatus.已审核;
+            SelectedOwnershipHistory.Status = (int)OperationStatus.已审核;
             RefreshCommandState();
         }
 
@@ -275,7 +318,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
             {
                 return false;
             }
-            return SelectedOwnershipHistory != null && SelectedOwnershipHistory.Status < (int) OperationStatus.已审核;
+            return SelectedOwnershipHistory != null && SelectedOwnershipHistory.Status < (int)OperationStatus.已审核;
         }
 
         #endregion
@@ -308,21 +351,6 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
 
         #region 属性
 
-        /// <summary>
-        ///     所有权历史
-        /// </summary>
-        public string OwnershipTitle
-        {
-            get
-            {
-                if (SelectedAircraft != null)
-                {
-                    return SelectedAircraft.RegNumber + "所有权历史";
-                }
-                return "飞机所有权历史";
-            }
-        }
-
         private DateTime? _startDisplayDate;
         /// <summary>
         /// 开始时间 
@@ -332,10 +360,10 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
             get { return _startDisplayDate; }
             set
             {
-                if (_startDisplayDate!=value)
+                if (_startDisplayDate != value)
                 {
                     _startDisplayDate = value;
-                    RaisePropertyChanged(()=>StartDisplayDate);
+                    RaisePropertyChanged(() => StartDisplayDate);
                 }
             }
         }
@@ -347,6 +375,8 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         public override void LoadData()
         {
             LoadSupplier();
+            LoadAircraftConfiguration(); 
+            
             if (!AircraftsView.AutoLoad)
             {
                 AircraftsView.AutoLoad = true;
