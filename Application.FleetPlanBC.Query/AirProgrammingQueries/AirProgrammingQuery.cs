@@ -53,6 +53,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.AirProgrammingQueries
                 Name = p.Name,
                 Note = p.Note,
                 ProgrammingId = p.ProgrammingId,
+                ProgrammingName = p.Programming.Name,
                 AirProgrammingLines = p.AirProgrammingLines.Select(q=>new AirProgrammingLineDTO
                 {
                     Id = q.Id,

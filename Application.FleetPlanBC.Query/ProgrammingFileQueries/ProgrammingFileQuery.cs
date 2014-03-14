@@ -52,6 +52,7 @@ namespace UniCloud.Application.FleetPlanBC.Query.ProgrammingFileQueries
                 IssuedDate = p.IssuedDate,
                 IssuedUnitId = p.IssuedUnitId,
                 ProgrammingId = p.ProgrammingId,
+                ProgrammingName = p.Programming.Name,
                 Type = p.Type,
             });
         }

@@ -54,7 +54,8 @@ namespace UniCloud.Application.FleetPlanBC.Query.CaacProgrammingQueries
                 Name = p.Name,
                 Note = p.Note,
                 ProgrammingId = p.ProgrammingId,
-                CaacProgrammingLines = p.CaacProgrammingLines.Select(q=>new CaacProgrammingLineDTO
+                ProgrammingName = p.Programming.Name,
+                CaacProgrammingLines = p.CaacProgrammingLines.Select(q => new CaacProgrammingLineDTO
                 {
                     Id = q.Id,
                     AircraftCategoryId = q.AircraftCategoryId,

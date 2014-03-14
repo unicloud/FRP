@@ -69,6 +69,10 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public int Type { get; set; }
 
+        /// <summary>
+        ///     规划名称
+        /// </summary>
+        public string ProgrammingName { get; set; }
         #endregion
 
         #region 外键属性
