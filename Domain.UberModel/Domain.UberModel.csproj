@@ -130,6 +130,7 @@
     <Compile Include="Aggregates\FlightLogAgg\FlightLog.cs" />
     <Compile Include="Aggregates\ForwarderAgg\Forwarder.cs" />
     <Compile Include="Aggregates\FunctionItemAgg\FunctionItem.cs" />
+    <Compile Include="Aggregates\FunctionItemAgg\FunctionItemFactory.cs" />
     <Compile Include="Aggregates\GuaranteeAgg\Guarantee.cs" />
     <Compile Include="Aggregates\GuaranteeAgg\GuaranteeFactory.cs" />
     <Compile Include="Aggregates\GuaranteeAgg\LeaseGuarantee.cs" />

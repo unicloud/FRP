@@ -32,7 +32,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork.Mapping.Sql
       {
          ToTable("Organization", DbConfig.Schema);
          HasKey(p => p.Id);
-         Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+         Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          Property(p => p.Code).HasColumnName("Code").HasMaxLength(100);
          Property(p => p.Name).HasColumnName("Name").HasMaxLength(100);
          Property(p => p.LastUpdateTime).HasColumnName("LastUpdateTime").HasColumnType("datetime2");

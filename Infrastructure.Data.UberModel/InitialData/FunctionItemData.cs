@@ -1,0 +1,906 @@
+﻿#region Version Info
+/* ========================================================================
+// 版权所有 (C) 2014 UniCloud 
+//【本类功能概述】
+// 
+// 作者：linxw 时间：2014/3/13 17:46:44
+// 文件名：FunctionItemData
+// 版本：V1.0.0
+//
+// 修改者：linxw 时间：2014/3/13 17:46:44
+// 修改说明：
+// ========================================================================*/
+#endregion
+using System;
+using System.Collections.Generic;
+using System.Data.Entity.Migrations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UniCloud.Domain.UberModel.Aggregates.FunctionItemAgg;
+using UniCloud.Infrastructure.Data.UberModel.UnitOfWork;
+
+namespace UniCloud.Infrastructure.Data.UberModel.InitialData
+{
+    public class FunctionItemData: InitialDataBase
+    {
+        public FunctionItemData(UberModelUnitOfWork context)
+            : base(context)
+        {
+        }
+
+
+        /// <summary>
+        ///     初始化承运人相关信息。
+        /// </summary>
+        /// <returns></returns>
+        public override void InitialData()
+        {
+            var functionItems = new List<FunctionItem>();
+            #region 飞行构型
+            var menu1 = FunctionItemFactory.CreateFunctionItem("飞机构型", null, 8, false, false, string.Empty);
+
+            var menu11 = FunctionItemFactory.CreateFunctionItem("管理飞机构型", menu1.Id, 801, false, false, string.Empty);
+            var menu111 =  FunctionItemFactory.CreateFunctionItem("维护飞机系列", menu11.Id, 80101, false, false, "UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig.ManagerAircraftSeries");
+            var menu112 = FunctionItemFactory.CreateFunctionItem("维护飞机型号", menu11.Id, 80102, false, false, "UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig.ManagerAircraftType");
+            var menu113 = FunctionItemFactory.CreateFunctionItem("维护飞机配置", menu11.Id, 80103, false, false, "UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig.ManagerAircraftConfiguration");
+            menu11.SubFunctionItems.Add(menu111);
+            menu11.SubFunctionItems.Add(menu112);
+            menu11.SubFunctionItems.Add(menu113);
+            menu1.SubFunctionItems.Add(menu11);
+
+            var menu12 =  FunctionItemFactory.CreateFunctionItem("管理飞机数据", menu1.Id, 802, false, false, string.Empty);
+            //var menu121 = new MenuItem
+            //{
+            //    Text = "维护证照种类",
+            //    NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftData.ManagerLicenseType"
+            //};
+            var menu122 =  FunctionItemFactory.CreateFunctionItem("维护飞机证照", menu12.Id, 80201, false, false, "UniCloud.Presentation.AircraftConfig.ManagerAircraftData.ManagerAircraftLicense");
+            //menu12.Items.Add(menu121);
+            menu12.SubFunctionItems.Add(menu122);
+            menu1.SubFunctionItems.Add(menu12);
+
+            functionItems.Add(menu1);
+
+            #endregion
+
+            //#region 运力规划
+
+            //var menu2 = new MenuItem
+            //{
+            //    Text = "运力规划",
+            //    IsEnabled = false
+            //};
+            //_items.Add(menu2);
+
+            //var menu21 = new MenuItem
+            //{
+            //    Text = "编制运力规划",
+            //};
+            //var menu211 = new MenuItem
+            //{
+            //    Text = "民航机队规划",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.CaacProgramming"
+            //};
+            //var menu212 = new MenuItem
+            //{
+            //    Text = "川航机队规划",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.AirProgramming"
+            //};
+            //var menu213 = new MenuItem
+            //{
+            //    Text = "准备编制",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanPrepare"
+            //};
+            //var menu214 = new MenuItem
+            //{
+            //    Text = "编制计划",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanLay"
+            //};
+            //var menu215 = new MenuItem
+            //{
+            //    Text = "报送计划",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanSend"
+            //};
+            //var menu216 = new MenuItem
+            //{
+            //    Text = "发布计划",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.FleetPlanPublish"
+            //};
+            //var menu217 = new MenuItem
+            //{
+            //    Text = "编制备发计划",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.PrepareFleetPlan.SpareEnginePlanLay"
+            //};
+            //menu21.Items.Add(menu211);
+            //menu21.Items.Add(menu212);
+            //menu21.Items.Add(menu213);
+            //menu21.Items.Add(menu214);
+            //menu21.Items.Add(menu215);
+            //menu21.Items.Add(menu216);
+            //menu21.Items.Add(menu217);
+            //menu2.Items.Add(menu21);
+
+            //var menu22 = new MenuItem
+            //{
+            //    Text = "执行运力规划",
+            //};
+            //var menu221 = new MenuItem
+            //{
+            //    Text = "维护申请",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.Requests.Request"
+            //};
+            //var menu222 = new MenuItem
+            //{
+            //    Text = "维护批文",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.Approvals.Approval"
+            //};
+            //var menu223 = new MenuItem
+            //{
+            //    Text = "完成计划",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.PerformFleetPlan.FleetPlanDeliver"
+            //};
+            //menu22.Items.Add(menu221);
+            //menu22.Items.Add(menu222);
+            //menu22.Items.Add(menu223);
+            //menu2.Items.Add(menu22);
+
+            //var menu23 = new MenuItem
+            //{
+            //    Text = "更新飞机数据",
+            //};
+            //var menu231 = new MenuItem
+            //{
+            //    Text = "更新飞机数据",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.AircraftOwnerShips.AircraftOwnership"
+            //};
+            //menu23.Items.Add(menu231);
+            //menu2.Items.Add(menu23);
+
+            //var menu24 = new MenuItem
+            //{
+            //    Text = "分析计划执行",
+            //};
+            //var menu241 = new MenuItem
+            //{
+            //    Text = "查询计划",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.QueryPlans.QueryPlan"
+            //};
+            //var menu242 = new MenuItem
+            //{
+            //    Text = "分析计划执行",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.PerformFleetPlan.QueryPerformPlan"
+            //};
+            //var menu243 = new MenuItem
+            //{
+            //    Text = "查询申请",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.Requests.QueryRequest"
+            //};
+            //var menu244 = new MenuItem
+            //{
+            //    Text = "查询批文",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.Approvals.QueryApproval"
+            //};
+
+            //menu24.Items.Add(menu241);
+            //menu24.Items.Add(menu242);
+            //menu24.Items.Add(menu243);
+            //menu24.Items.Add(menu244);
+            //menu2.Items.Add(menu24);
+
+            //var menu25 = new MenuItem
+            //{
+            //    Text = "查询分析",
+            //};
+            //var menu251 = new MenuItem
+            //{
+            //    Text = "查询飞机档案",
+            //};
+            //var menu252 = new MenuItem
+            //{
+            //    Text = "分析运力趋势",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.FleetTrend"
+            //};
+            //var menu253 = new MenuItem
+            //{
+            //    Text = "分析客机运力趋势",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.PassengerAircraftTrend"
+            //};
+            //var menu254 = new MenuItem
+            //{
+            //    Text = "统计在册飞机",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.CountRegisteredFleet"
+            //};
+            //var menu255 = new MenuItem
+            //{
+            //    Text = "分析飞机引进方式",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.AircraftImportType"
+            //};
+            //var menu256 = new MenuItem
+            //{
+            //    Text = "分析机队结构",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.FleetStructure"
+            //};
+            //var menu257 = new MenuItem
+            //{
+            //    Text = "分析飞机机龄",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.FleetAge"
+            //};
+            //var menu258 = new MenuItem
+            //{
+            //    Text = "分析发动机引进方式",
+            //    NavUri = "UniCloud.Presentation.FleetPlan.QueryAnalyse.EngineImportType"
+            //};
+
+            //menu25.Items.Add(menu251);
+            //menu25.Items.Add(menu252);
+            //menu25.Items.Add(menu253);
+            //menu25.Items.Add(menu254);
+            //menu25.Items.Add(menu255);
+            //menu25.Items.Add(menu256);
+            //menu25.Items.Add(menu257);
+            ////menu25.Items.Add(menu258);
+            //menu2.Items.Add(menu25);
+
+            //#endregion
+
+            //#region 采购合同
+
+            //var menu3 = new MenuItem
+            //{
+            //    Text = "采购合同",
+            //    IsEnabled = false
+            //};
+
+            //var menu31 = new MenuItem
+            //{
+            //    Text = "管理合作公司",
+            //};
+            //var menu311 = new MenuItem
+            //{
+            //    Text = "维护供应商类别",
+            //    NavUri = "UniCloud.Presentation.Purchase.Supplier.SupplierRoleManager"
+            //};
+            //var menu312 = new MenuItem
+            //{
+            //    Text = "维护供应商可供物料",
+            //    NavUri = "UniCloud.Presentation.Purchase.Supplier.SupplierMaterialManager"
+            //};
+            //var menu313 = new MenuItem
+            //{
+            //    Text = "维护联系人",
+            //    NavUri = "UniCloud.Presentation.Purchase.Supplier.LinkManManager"
+            //};
+            //var menu314 = new MenuItem
+            //{
+            //    Text = "查询供应商",
+            //    NavUri = "UniCloud.Presentation.Purchase.Supplier.QuerySupplier"
+            //};
+            //var menu315 = new MenuItem
+            //{
+            //    Text = "维护BFE承运人",
+            //    NavUri = "UniCloud.Presentation.Purchase.Forwarder.ForwarderManager"
+            //};
+            //menu31.Items.Add(menu311);
+            //menu31.Items.Add(menu312);
+            //menu31.Items.Add(menu313);
+            //menu31.Items.Add(menu314);
+            //menu31.Items.Add(menu315);
+            //menu3.Items.Add(menu31);
+
+            //var menu32 = new MenuItem
+            //{
+            //    Text = "管理采购合同",
+            //};
+            //var menu321 = new MenuItem
+            //{
+            //    Text = "管理飞机购买合同",
+            //    NavUri = "UniCloud.Presentation.Purchase.Contract.AircraftPurchase"
+            //};
+            //var menu322 = new MenuItem
+            //{
+            //    Text = "管理飞机租赁合同",
+            //    NavUri = "UniCloud.Presentation.Purchase.Contract.AircraftLease"
+            //};
+            //var menu323 = new MenuItem
+            //{
+            //    Text = "管理发动机购买合同",
+            //    NavUri = "UniCloud.Presentation.Purchase.Contract.EnginePurchase"
+            //};
+            //var menu324 = new MenuItem
+            //{
+            //    Text = "管理发动机租赁合同",
+            //    NavUri = "UniCloud.Presentation.Purchase.Contract.EngineLease"
+            //};
+            //var menu325 = new MenuItem
+            //{
+            //    Text = "管理BFE合同",
+            //    NavUri = "UniCloud.Presentation.Purchase.Contract.BFEPurchase"
+            //};
+
+            //menu32.Items.Add(menu321);
+            //menu32.Items.Add(menu322);
+            //menu32.Items.Add(menu323);
+            //menu32.Items.Add(menu324);
+            //menu32.Items.Add(menu325);
+            //menu3.Items.Add(menu32);
+
+            //var menu33 = new MenuItem
+            //{
+            //    Text = "管理维修合同",
+            //};
+            //var menu331 = new MenuItem
+            //{
+            //    Text = "管理发动机维修合同",
+            //    NavUri = "UniCloud.Presentation.Purchase.Contract.EngineMaintain"
+            //};
+            //var menu332 = new MenuItem
+            //{
+            //    Text = "管理APU维修合同",
+            //    NavUri = "UniCloud.Presentation.Purchase.Contract.ApuMaintain"
+            //};
+            //var menu333 = new MenuItem
+            //{
+            //    Text = "管理起落架维修合同",
+            //    NavUri = "UniCloud.Presentation.Purchase.Contract.UndercartMaintain"
+            //};
+            //var menu334 = new MenuItem
+            //{
+            //    Text = "管理机身维修合同",
+            //    NavUri = "UniCloud.Presentation.Purchase.Contract.AirframeMaintain"
+            //};
+
+            //menu33.Items.Add(menu331);
+            //menu33.Items.Add(menu332);
+            //menu33.Items.Add(menu333);
+            //menu33.Items.Add(menu334);
+            //menu3.Items.Add(menu33);
+
+            //var menu34 = new MenuItem
+            //{
+            //    Text = "管理接机",
+            //};
+            //var menu341 = new MenuItem
+            //{
+            //    Text = "匹配计划飞机",
+            //    NavUri = "UniCloud.Presentation.Purchase.Reception.MatchingPlanAircraftManager"
+            //};
+            //var menu342 = new MenuItem
+            //{
+            //    Text = "维护租赁飞机交付项目",
+            //    NavUri = "UniCloud.Presentation.Purchase.Reception.AircraftLeaseReceptionManager",
+            //};
+            //var menu343 = new MenuItem
+            //{
+            //    Text = "维护采购飞机交付项目",
+            //    NavUri = "UniCloud.Presentation.Purchase.Reception.AircraftPurchaseReceptionManager",
+            //};
+            //var menu344 = new MenuItem
+            //{
+            //    Text = "维护租赁发动机交付项目",
+            //    NavUri = "UniCloud.Presentation.Purchase.Reception.EngineLeaseReceptionManager",
+            //};
+            //var menu345 = new MenuItem
+            //{
+            //    Text = "维护采购发动机交付项目",
+            //    NavUri = "UniCloud.Presentation.Purchase.Reception.EnginePurchaseReceptionManager",
+            //};
+            //menu34.Items.Add(menu341);
+            //menu34.Items.Add(menu342);
+            //menu34.Items.Add(menu343);
+            //menu34.Items.Add(menu344);
+            //menu34.Items.Add(menu345);
+            //menu3.Items.Add(menu34);
+
+            //var menu35 = new MenuItem
+            //{
+            //    Text = "查询分析",
+            //};
+            //var menu351 = new MenuItem
+            //{
+            //    Text = "查询合同",
+            //    NavUri = "UniCloud.Presentation.Purchase.Contract.QueryContract"
+            //};
+            //var menu352 = new MenuItem
+            //{
+            //    Text = "分析飞机价格",
+            //    NavUri = "UniCloud.Presentation.Purchase.QueryAnalyse.AnalyseAircraftPrice"
+            //};
+            //var menu353 = new MenuItem
+            //{
+            //    Text = "分析发动机价格",
+            //};
+            //menu35.Items.Add(menu351);
+            //menu35.Items.Add(menu352);
+            //menu35.Items.Add(menu353);
+            //menu3.Items.Add(menu35);
+
+            //_items.Add(menu3);
+
+            //#endregion
+
+            //#region 应付款
+
+            //var menu4 = new MenuItem
+            //{
+            //    Text = "应付款",
+            //    IsEnabled = false
+            //};
+            //var menu41 = new MenuItem
+            //{
+            //    Text = "管理付款计划",
+            //};
+            //var menu411 = new MenuItem
+            //{
+            //    Text = "管理飞机付款计划",
+            //    NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.AcPaymentSchedule"
+            //};
+            //var menu412 = new MenuItem
+            //{
+            //    Text = "管理发动机付款计划",
+            //    NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.EnginePaymentSchedule"
+            //};
+            //var menu413 = new MenuItem
+            //{
+            //    Text = "管理一般付款计划",
+            //    NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.StandardPaymentSchedule"
+            //};
+            //menu41.Items.Add(menu411);
+            //menu41.Items.Add(menu412);
+            //menu41.Items.Add(menu413);
+            //menu4.Items.Add(menu41);
+
+            //var menu42 = new MenuItem
+            //{
+            //    Text = "管理采购发票",
+            //};
+            //var menu421 = new MenuItem
+            //{
+            //    Text = "维护采购发票",
+            //    NavUri = "UniCloud.Presentation.Payment.Invoice.PurchaseInvoiceManager"
+            //};
+            //var menu422 = new MenuItem
+            //{
+            //    Text = "维护预付款发票",
+            //    NavUri = "UniCloud.Presentation.Payment.Invoice.PrePayInvoiceManager"
+            //};
+            //var menu423 = new MenuItem
+            //{
+            //    Text = "维护租赁发票",
+            //    NavUri = "UniCloud.Presentation.Payment.Invoice.LeaseInvoiceManager"
+            //};
+            //var menu424 = new MenuItem
+            //{
+            //    Text = "维护贷项单",
+            //    NavUri = "UniCloud.Presentation.Payment.Invoice.CreditNoteManager"
+            //};
+            //menu42.Items.Add(menu421);
+            //menu42.Items.Add(menu422);
+            //menu42.Items.Add(menu423);
+            //menu42.Items.Add(menu424);
+            //menu4.Items.Add(menu42);
+
+
+            //var menu43 = new MenuItem
+            //{
+            //    Text = "管理维修发票",
+            //};
+            //var menu431 = new MenuItem
+            //{
+            //    Text = "维护发动机维修发票",
+            //    NavUri = "UniCloud.Presentation.Payment.Invoice.EngineMaintain"
+            //};
+            //var menu432 = new MenuItem
+            //{
+            //    Text = "维护APU维修发票",
+            //    NavUri = "UniCloud.Presentation.Payment.Invoice.APUMaintain"
+            //};
+            //var menu433 = new MenuItem
+            //{
+            //    Text = "维护起落架维修发票",
+            //    NavUri = "UniCloud.Presentation.Payment.Invoice.UndercartMaintain"
+            //};
+            //var menu434 = new MenuItem
+            //{
+            //    Text = "维护机身维修发票",
+            //    NavUri = "UniCloud.Presentation.Payment.Invoice.AirframeMaintain"
+            //};
+            //menu43.Items.Add(menu431);
+            //menu43.Items.Add(menu432);
+            //menu43.Items.Add(menu433);
+            //menu43.Items.Add(menu434);
+            //menu4.Items.Add(menu43);
+
+
+            //var menu44 = new MenuItem
+            //{
+            //    Text = "维护付款通知",
+            //    NavUri = "UniCloud.Presentation.Payment.PaymentNotice.PaymentNotice"
+            //};
+            //menu4.Items.Add(menu44);
+
+            //var menu45 = new MenuItem
+            //{
+            //    Text = "管理保函",
+            //};
+            //var menu451 = new MenuItem
+            //{
+            //    Text = "维护租赁保证金",
+            //    NavUri = "UniCloud.Presentation.Payment.Guarantees.LeaseGuarantee"
+            //};
+            //var menu452 = new MenuItem
+            //{
+            //    Text = "维护大修储备金",
+            //    NavUri = "UniCloud.Presentation.Payment.Guarantees.MaintainGuarantee"
+            //};
+            //menu45.Items.Add(menu451);
+            //menu45.Items.Add(menu452);
+            //menu4.Items.Add(menu45);
+
+            //var menu46 = new MenuItem
+            //{
+            //    Text = "管理飞机价格",
+            //};
+            //var menu461 = new MenuItem
+            //{
+            //    Text = "设置飞机价格公式",
+            //};
+            //var menu462 = new MenuItem
+            //{
+            //    Text = "设置发动机价格公式",
+            //};
+            //var menu463 = new MenuItem
+            //{
+            //    Text = "计算飞机价格",
+            //};
+            //menu46.Items.Add(menu461);
+            //menu46.Items.Add(menu462);
+            //menu46.Items.Add(menu463);
+            //menu4.Items.Add(menu46);
+
+            //var menu47 = new MenuItem
+            //{
+            //    Text = "查询分析",
+            //};
+            //var menu471 = new MenuItem
+            //{
+            //    Text = "查询付款计划",
+            //    NavUri = "UniCloud.Presentation.Payment.PaymentSchedules.QueryPaymentSchedule"
+            //};
+            //var menu472 = new MenuItem
+            //{
+            //    Text = "预测资金需求",
+            //    NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.FinancingDemandForecast"
+            //};
+            //var menu473 = new MenuItem
+            //{
+            //    Text = "分析付款计划执行",
+            //    NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.PaymentScheduleExecute"
+            //};
+            //var menu474 = new MenuItem
+            //{
+            //    Text = "分析维修成本",
+            //    NavUri = "UniCloud.Presentation.Payment.QueryAnalyse.AnalyseMaintenanceCosts"
+            //};
+            //menu47.Items.Add(menu471);
+            //menu47.Items.Add(menu472);
+            //menu47.Items.Add(menu473);
+            //menu47.Items.Add(menu474);
+            //menu4.Items.Add(menu47);
+
+
+            //_items.Add(menu4);
+
+            //#endregion
+
+            //#region 项目管理
+
+            //var menu5 = new MenuItem
+            //{
+            //    Text = "项目管理",
+            //    IsEnabled = false,
+            //};
+
+            //var menu51 = new MenuItem
+            //{
+            //    Text = "配置工作组",
+            //    NavUri = "UniCloud.Presentation.Project.Template.WorkGroup"
+            //};
+            //var menu52 = new MenuItem
+            //{
+            //    Text = "配置任务模板"
+            //};
+            //var menu53 = new MenuItem
+            //{
+            //    Text = "配置项目模板"
+            //};
+            //var menu54 = new MenuItem
+            //{
+            //    Text = "管理项目计划"
+            //};
+            //menu5.Items.Add(menu51);
+            //menu5.Items.Add(menu52);
+            //menu5.Items.Add(menu53);
+            //menu5.Items.Add(menu54);
+
+            //_items.Add(menu5);
+
+            //#endregion
+
+            //#region 适航管理
+
+            //var menu6 = new MenuItem
+            //{
+            //    Text = "适航管理",
+            //    IsEnabled = true,
+            //};
+            //var menu61 = new MenuItem
+            //{
+            //    Text = "查询AD/SB",
+            //    NavUri = "UniCloud.Presentation.Part.ManageAdSb.QueryAdSb"
+            //};
+            //menu6.Items.Add(menu61);
+            //_items.Add(menu6);
+
+            //#endregion
+
+            //#region 发动机管理
+
+            //var menu7 = new MenuItem
+            //{
+            //    Text = "发动机管理",
+            //    IsEnabled = true,
+            //};
+
+            //var menu71 = new MenuItem
+            //{
+            //    Text = "管理基础配置",
+            //    NavUri = "UniCloud.Presentation.Part.BaseConfigurations.BaseConfiguration",
+            //};
+            //menu7.Items.Add(menu71);
+
+            //var menu72 = new MenuItem
+            //{
+            //    Text = "维护件序号",
+            //    NavUri = "UniCloud.Presentation.Part.PnRegAndSnReg.ManagePnAndSnView",
+            //};
+            //menu7.Items.Add(menu72);
+
+            //var menu73 = new MenuItem
+            //{
+            //    Text = "管理技术解决方案",
+            //    NavUri = "UniCloud.Presentation.Part.ManageTS.TechnicalSolutionView",
+            //};
+            //menu7.Items.Add(menu73);
+
+            //var menu74 = new MenuItem
+            //{
+            //    Text = "管理发动机构型",
+            //};
+            //var menu741 = new MenuItem
+            //{
+            //    Text = "管理基本构型组",
+            //    NavUri = "UniCloud.Presentation.Part.EngineConfig.BasicConfigGroupView",
+            //};
+            //var menu742 = new MenuItem
+            //{
+            //    Text = "管理特定选型",
+            //    NavUri = "UniCloud.Presentation.Part.EngineConfig.SpecialConfigView",
+            //};
+            //var menu743 = new MenuItem
+            //{
+            //    Text = "比较构型差异",
+            //    NavUri = "UniCloud.Presentation.Part.EngineConfig.ConfigCompareView",
+            //};
+            //menu74.Items.Add(menu741);
+            //menu74.Items.Add(menu742);
+            //menu74.Items.Add(menu743);
+            //menu7.Items.Add(menu74);
+
+            //var menu75 = new MenuItem
+            //{
+            //    Text = "滑油监控",
+            //};
+            //var menu751 = new MenuItem
+            //{
+            //    Text = "管理发动机滑油",
+            //    NavUri = "UniCloud.Presentation.Part.OilMonitor.EngineOil"
+            //};
+            //var menu752 = new MenuItem
+            //{
+            //    Text = "管理APU滑油",
+            //};
+            //menu75.Items.Add(menu751);
+            //menu75.Items.Add(menu752);
+            //menu7.Items.Add(menu75);
+
+            //var menu76 = new MenuItem
+            //{
+            //    Text = "修正飞机利用率",
+            //    NavUri = "UniCloud.Presentation.Part.MaintainAcDailyUtilization.CorrectAcDailyUtilization"
+            //};
+            //menu7.Items.Add(menu76);
+
+            //var menu77 = new MenuItem
+            //{
+            //    Text = "维护拆换记录",
+            //    NavUri = "UniCloud.Presentation.Part.SnHistories.SnHistory"
+            //};
+            //menu7.Items.Add(menu77);
+
+            //var menu78 = new MenuItem
+            //{
+            //    Text = "维护在位信息",
+            //};
+            //menu7.Items.Add(menu78);
+
+            //var menu79 = new MenuItem
+            //{
+            //    Text = "查询拆装历史",
+            //    NavUri = "UniCloud.Presentation.Part.SnHistories.QuerySnHistory"
+            //};
+            //menu7.Items.Add(menu79);
+
+            //var menu710 = new MenuItem
+            //{
+            //    Text = "控制维修",
+            //};
+            //var menu7101 = new MenuItem
+            //{
+            //    Text = "查看控制方案",
+            //};
+            //var menu7102 = new MenuItem
+            //{
+            //    Text = "查询到寿日期",
+            //};
+            //menu710.Items.Add(menu7101);
+            //menu710.Items.Add(menu7102);
+            //menu7.Items.Add(menu710);
+            //_items.Add(menu7);
+
+            //#endregion
+
+            //#region 附件管理
+
+            //var menu8 = new MenuItem
+            //{
+            //    Text = "附件管理",
+            //    IsEnabled = true,
+            //};
+
+            //var menu81 = new MenuItem
+            //{
+            //    Text = "管理SCN/MSCN",
+            //};
+
+            //var menu811 = new MenuItem
+            //{
+            //    Text = "维护SCN/MSCN",
+            //    NavUri = "UniCloud.Presentation.Part.ManageSCN.MaintainScn"
+            //};
+
+            //var menu812 = new MenuItem
+            //{
+            //    Text = "对比SCN/MSCN",
+            //    NavUri = "UniCloud.Presentation.Part.ManageSCN.CompareScn"
+            //};
+
+            //menu81.Items.Add(menu811);
+            //menu81.Items.Add(menu812);
+
+
+            //var menu83 = new MenuItem
+            //{
+            //    Text = "维护结构损伤",
+            //    NavUri = "UniCloud.Presentation.Part.ManageAirStructureDamage.MaintainAirStructureDamage"
+            //};
+
+            //menu8.Items.Add(menu81);
+            //menu8.Items.Add(menu83);
+
+            //_items.Add(menu8);
+
+            //#endregion
+
+            //#region 基础管理
+
+            //var menu9 = new MenuItem
+            //{
+            //    Text = "基础管理",
+            //    IsEnabled = true,
+            //};
+
+            //var menu91 = new MenuItem
+            //{
+            //    Text = "管理授权",
+            //};
+            //var menu911 = new MenuItem
+            //{
+            //    Text = "管理用户",
+            //    NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageUser"
+            //};
+            //var menu912 = new MenuItem
+            //{
+            //    Text = "管理角色",
+            //    NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageUserInRole"
+            //};
+            //var menu913 = new MenuItem
+            //{
+            //    Text = "管理权限",
+            //    NavUri = "UniCloud.Presentation.BaseManagement.ManagePermission.ManageFunctionsInRole"
+            //};
+            //menu91.Items.Add(menu911);
+            //menu91.Items.Add(menu912);
+            //menu91.Items.Add(menu913);
+            //menu9.Items.Add(menu91);
+
+            //var menu92 = new MenuItem
+            //{
+            //    Text = "管理运营资质",
+            //};
+            //var menu921 = new MenuItem
+            //{
+            //    Text = "维护证照种类",
+            //    NavUri = "UniCloud.Presentation.AircraftConfig.ManagerAircraftData.ManagerLicenseType"
+            //};
+            //var menu922 = new MenuItem
+            //{
+            //    Text = "维护经营证照",
+            //    NavUri = "UniCloud.Presentation.BaseManagement.ManageOperationQualification.ManageOperationLicense"
+            //};
+            //menu92.Items.Add(menu921);
+            //menu92.Items.Add(menu922);
+            //menu9.Items.Add(menu92);
+
+            //var menu93 = new MenuItem
+            //{
+            //    Text = "维护基础配置",
+            //};
+            //var menu931 = new MenuItem
+            //{
+            //    Text = "维护分支机构",
+            //    NavUri = "UniCloud.Presentation.BaseManagement.ManageSubsidiary.BranchCompany"
+            //};
+            //var menu932 = new MenuItem
+            //{
+            //    Text = "管理系统配置",
+            //};
+            //var menu933 = new MenuItem
+            //{
+            //    Text = "管理提醒策略",
+            //};
+            //menu93.Items.Add(menu931);
+            //menu93.Items.Add(menu932);
+            //menu93.Items.Add(menu933);
+            //menu9.Items.Add(menu93);
+
+            //_items.Add(menu9);
+
+            //#endregion
+
+            //#region 文档库
+
+            //var menu10 = new MenuItem
+            //{
+            //    Text = "文档库",
+            //    IsEnabled = true,
+            //};
+            //var menu101 = new MenuItem
+            //{
+            //    Text = "维护文档类型",
+            //    NavUri = "UniCloud.Presentation.CommonService.DocumentTypeManager.ManagerDocumentType"
+            //};
+            //var menu102 = new MenuItem
+            //{
+            //    Text = "搜索文档",
+            //    NavUri = "UniCloud.Presentation.CommonService.SearchDocument.SearchDocumentMain"
+            //};
+            //menu10.Items.Add(menu101);
+            //menu10.Items.Add(menu102);
+            //_items.Add(menu10);
+
+            //#endregion
+            functionItems.ForEach(p => Context.FunctionItems.Add(p));
+        }
+    }
+}

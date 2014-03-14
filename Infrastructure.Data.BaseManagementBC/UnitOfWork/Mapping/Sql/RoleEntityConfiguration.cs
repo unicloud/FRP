@@ -33,7 +33,7 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork.Mapping.Sql
          ToTable("Role", DbConfig.Schema);
          
          HasKey(p => p.Id);
-         Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+         Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          Property(p => p.Name).HasColumnName("Name").HasMaxLength(100);
          Property(p => p.Description).HasColumnName("Description").HasMaxLength(100);
          Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");

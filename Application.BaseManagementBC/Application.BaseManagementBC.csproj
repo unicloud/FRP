@@ -44,9 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FunctionItemServices\FunctionItemAppService.cs" />
+    <Compile Include="FunctionItemServices\IFunctionItemAppService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IBaseManagementAppService.cs" />
-    <Compile Include="Services\BaseManagementAppService.cs" />
     <Compile Include="UserServices\IUserAppService.cs" />
     <Compile Include="UserServices\UserAppService.cs" />
   </ItemGroup>

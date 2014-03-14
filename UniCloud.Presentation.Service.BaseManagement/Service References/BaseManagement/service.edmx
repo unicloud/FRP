@@ -15,10 +15,37 @@
         <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="OrganizationName" Type="Edm.String" />
       </EntityType>
+      <EntityType Name="FunctionItemDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ParentItemId" Type="Edm.Int32" />
+        <Property Name="IsLeaf" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="Sort" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="NaviUrl" Type="Edm.String" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="CreateDate" Type="Edm.DateTime" />
+        <Property Name="ImageUrl" Type="Edm.String" />
+        <Property Name="IsButton" Type="Edm.Boolean" Nullable="false" />
+        <NavigationProperty Name="SubFunctionItems" Relationship="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems" ToRole="SubFunctionItems" FromRole="FunctionItemDTO" />
+      </EntityType>
+      <Association Name="FunctionItemDTO_SubFunctionItems">
+        <End Type="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" Role="SubFunctionItems" Multiplicity="*" />
+        <End Type="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" Role="FunctionItemDTO" Multiplicity="*" />
+      </Association>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.BaseManagement" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
       <EntityContainer Name="BaseManagementData" m:IsDefaultEntityContainer="true">
         <EntitySet Name="Users" EntityType="UniCloud.Application.BaseManagementBC.DTO.UserDTO" />
+        <EntitySet Name="FunctionItems" EntityType="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" />
+        <FunctionImport Name="GetFunctionItemsWithHierarchy" ReturnType="Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)" EntitySet="FunctionItems" m:HttpMethod="GET" />
+        <AssociationSet Name="FunctionItemDTO_SubFunctionItems" Association="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems">
+          <End Role="FunctionItemDTO" EntitySet="FunctionItems" />
+          <End Role="SubFunctionItems" EntitySet="FunctionItems" />
+        </AssociationSet>
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

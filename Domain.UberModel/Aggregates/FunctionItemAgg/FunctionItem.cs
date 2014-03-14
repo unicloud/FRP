@@ -20,19 +20,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.FunctionItemAgg
         {
         }
 
-        public FunctionItem(string name,int? parentItemId,bool isLeaf,bool isButtion,
-            string naviUrl,string description=null
-            ,bool isvalid=true,string imageUrl=null)
-        {
-            Name = name;
-            ParentItemId = parentItemId;
-            IsLeaf = isLeaf;
-            IsButton = isButtion;
-            NaviUrl= naviUrl;
-            Description = description;
-            IsValid = isvalid;
-            ImageUrl = imageUrl;
-        }
         #endregion
 
         #region 属性

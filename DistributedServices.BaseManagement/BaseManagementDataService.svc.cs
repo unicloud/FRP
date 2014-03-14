@@ -1,6 +1,14 @@
 //------------------------------------------------------------------------------
 // 
 //------------------------------------------------------------------------------
+
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel.Web;
+using UniCloud.Application.BaseManagementBC.DTO;
+using UniCloud.Application.BaseManagementBC.FunctionItemServices;
+using UniCloud.Infrastructure.Utilities.Container;
+
 namespace UniCloud.DistributedServices.BaseManagement
 {
     using System.Data.Services;
@@ -25,7 +33,7 @@ namespace UniCloud.DistributedServices.BaseManagement
 
             #region 服务操作访问控制
 
-            // config.SetServiceOperationAccessRule("MyServiceOperation", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("GetFunctionItemsWithHierarchy", ServiceOperationRights.All);
 
             #endregion
 
@@ -58,7 +66,12 @@ namespace UniCloud.DistributedServices.BaseManagement
         }
 
         #region 服务操作
-
+        [WebGet]
+        public List<FunctionItemDTO> GetFunctionItemsWithHierarchy()
+        {
+            var functionItemAppService = DefaultContainer.Resolve<IFunctionItemAppService>();
+            return functionItemAppService.GetFunctionItemsWithHierarchy().ToList();
+        }
         #endregion
 
     }
