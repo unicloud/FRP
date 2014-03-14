@@ -4,9 +4,12 @@
 
 using UniCloud.Application.BaseManagementBC.FunctionItemServices;
 using UniCloud.Application.BaseManagementBC.Query.FunctionItemQueries;
+using UniCloud.Application.BaseManagementBC.Query.RoleQueries;
 using UniCloud.Application.BaseManagementBC.Query.UserQueries;
+using UniCloud.Application.BaseManagementBC.RoleServices;
 using UniCloud.Application.BaseManagementBC.UserServices;
 using UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg;
+using UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
 using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.BaseManagementBC.Repositories;
@@ -37,6 +40,12 @@ namespace UniCloud.DistributedServices.BaseManagement.InstanceProviders
 .RegisterType<IFunctionItemAppService, FunctionItemAppService>()
                          .RegisterType<IFunctionItemQuery, FunctionItemQuery>()
                          .RegisterType<IFunctionItemRepository, FunctionItemRepository>()
+            #endregion
+
+            #region Role相关配置，包括查询，应用服务，仓储注册
+.RegisterType<IRoleAppService, RoleAppService>()
+                         .RegisterType<IRoleQuery, RoleQuery>()
+                         .RegisterType<IRoleRepository, RoleRepository>()
             #endregion
 
 ;

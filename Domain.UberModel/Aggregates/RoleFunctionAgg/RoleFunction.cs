@@ -2,6 +2,8 @@
 
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.UberModel.Aggregates.FunctionItemAgg;
+using UniCloud.Domain.UberModel.Aggregates.RoleAgg;
 
 #endregion
 
@@ -33,16 +35,24 @@ namespace UniCloud.Domain.UberModel.Aggregates.RoleFunctionAgg
         public int FunctionItemId
         {
             get;
-            private set;
+            internal set;
         }
 
         public int RoleId
         {
             get;
-            private set;
+            internal set;
         }
 
 
+        #endregion
+
+        #region 导航属性
+
+        /// <summary>
+        /// 功能项
+        /// </summary>
+        public virtual FunctionItem FunctionItem { get; set; }
         #endregion
 
         #region 方法

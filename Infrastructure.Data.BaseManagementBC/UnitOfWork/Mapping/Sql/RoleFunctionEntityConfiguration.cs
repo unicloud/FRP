@@ -36,6 +36,8 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork.Mapping.Sql
          Property(p => p.Id).HasColumnName("ID").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
          Property(p => p.FunctionItemId).HasColumnName("FunctionItemId");
          Property(p => p.RoleId).HasColumnName("RoleId");
+
+         HasRequired(o => o.FunctionItem).WithMany().HasForeignKey(o => o.FunctionItemId);
       }
       
    }

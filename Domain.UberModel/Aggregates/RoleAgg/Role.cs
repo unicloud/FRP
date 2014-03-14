@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.UberModel.Aggregates.RoleFunctionAgg;
 
 #endregion
 
@@ -66,6 +67,29 @@ namespace UniCloud.Domain.UberModel.Aggregates.RoleAgg
         /// </summary>
         public string Code { get; private set; }
 
+        /// <summary>
+        /// 功能项集合
+        /// </summary>
+        private ICollection<RoleFunction> _roleFunctions;
+        public ICollection<RoleFunction> RoleFunctions
+        {
+            get { return _roleFunctions ?? (_roleFunctions = new HashSet<RoleFunction>()); }
+            set { _roleFunctions = new HashSet<RoleFunction>(value); }
+        }
+        #endregion
+
+        #region 操作
+
+        /// <summary>
+        /// 设置属性
+        /// </summary>
+        /// <param name="name">名字</param>
+        /// <param name="description">描述</param>
+        public void SerRole(string name, string description)
+        {
+            Name = name;
+            Description = description;
+        }
         #endregion
 
         #region IValidatableObject 成员
