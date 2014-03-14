@@ -25,12 +25,7 @@
                 <telerik:RadSplitContainer Orientation="Vertical"
                                            telerik:ProportionalStackPanel.RelativeSize="600, 600">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="{Binding OwnershipTitle}"
-                                         CanFloat="False"
-                                         CanUserClose="False"
-                                         CanUserPin="False"
-                                         FontSize="{StaticResource TextFontSize}"
-                                         ContextMenuTemplate="{x:Null}">
+                        <telerik:RadPane PaneHeaderVisibility="Collapsed">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -56,36 +51,65 @@
                                                ToolTipService.ToolTip="放弃更改" />
                                     </telerik:RadButton>
                                     <telerik:RadToolBarSeparator />
-                                    <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AddOwnershipCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/New.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="创建所有权" />
-                                    </telerik:RadButton>
-                                    <telerik:RadToolBarSeparator />
-                                    <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding RemoveOwnershipCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="删除所有权" />
-                                    </telerik:RadButton>
-                                    <telerik:RadToolBarSeparator />
-                                    <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding SubmitOwnershipCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Up.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="提交审核" />
-                                    </telerik:RadButton>
-                                    <telerik:RadToolBarSeparator />
-                                    <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding ReviewOwnershipCommand}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Check.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="审核" />
-                                    </telerik:RadButton>
                                 </telerik:RadToolBar>
                                 <Grid Row="1">
-                                    <telerik:RadGridView CanUserSortColumns="True"
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        Margin="0 0 0 -1"
+                                                        OverflowButtonVisibility="Collapsed">
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding AddOwnershipCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/New.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="创建所有权" />
+                                        </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding RemoveOwnershipCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="删除所有权" />
+                                        </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding SubmitOwnershipCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Up.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="提交审核" />
+                                        </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding ReviewOwnershipCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Check.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="审核" />
+                                        </telerik:RadButton>
+                                    </telerik:RadToolBar>
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="1"
+                                               VerticalAlignment="Center"
+                                               Margin="30,0,0,0">
+                                        <Run Text="{Binding SelectedAircraft.RegNumber}"
+                                             FontFamily="{StaticResource EnFontFamily}"
+                                             FontSize="18"
+                                             Foreground="{StaticResource AccentBrush}" />
+                                        <Run Text="所有权历史："
+                                             FontSize="18"
+                                             Foreground="{StaticResource AccentBrush}" />
+                                    </TextBlock>
+                                    <telerik:RadGridView Grid.Row="1"
+                                                         Grid.Column="0"
+                                                         Grid.ColumnSpan="2"
+                                                         CanUserSortColumns="True"
                                                          CanUserFreezeColumns="False"
                                                          IsFilteringAllowed="False"
                                                          ShowGroupPanel="False"
@@ -126,8 +150,7 @@
                                                                         TextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding EndDate,StringFormat={StaticResource DateStringFormat}}">
-                                            </telerik:GridViewDataColumn>
+                                                                        DataMemberBinding="{Binding EndDate,StringFormat={StaticResource DateStringFormat}}" />
                                             <telerik:GridViewDataColumn Header="状态"
                                                                         IsReadOnly="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -136,28 +159,69 @@
                                     </telerik:RadGridView>
                                 </Grid>
                                 <Grid Row="2">
-                                    <telerik:RadGridView CanUserSortColumns="True"
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="180" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                                        Grid.Row="0"
+                                                        Grid.Column="0"
+                                                        Margin="0 0 0 -1"
+                                                        OverflowButtonVisibility="Collapsed">
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding AddOwnershipCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/New.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="创建所有权" />
+                                        </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding RemoveOwnershipCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="删除所有权" />
+                                        </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
+                                    </telerik:RadToolBar>
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="1"
+                                               VerticalAlignment="Center"
+                                               Margin="30,0,0,0">
+                                        <Run Text="{Binding SelectedAircraft.RegNumber}"
+                                             FontFamily="{StaticResource EnFontFamily}"
+                                             FontSize="18"
+                                             Foreground="{StaticResource AccentBrush}" />
+                                        <Run Text="飞机配置历史："
+                                             FontSize="18"
+                                             Foreground="{StaticResource AccentBrush}" />
+                                    </TextBlock>
+                                    <telerik:RadGridView Grid.Row="1"
+                                                         Grid.Column="0"
+                                                         Grid.ColumnSpan="2"
+                                                         CanUserSortColumns="True"
                                                          CanUserFreezeColumns="False"
                                                          IsFilteringAllowed="False"
                                                          ShowGroupPanel="False"
                                                          EditTriggers="CellClick"
                                                          RowDetailsVisibilityMode="VisibleWhenSelected"
                                                          FontSize="{StaticResource TextFontSize}"
-                                                         ItemsSource="{Binding SelectedAircraft.OwnershipHistories}"
+                                                         ItemsSource="{Binding SelectedAircraft.AcConfigHistories}"
                                                          IsBusy="{Binding AircraftsView.IsBusy}"
-                                                         SelectedItem="{Binding SelectedOwnershipHistory,Mode=TwoWay}"
+                                                         SelectedItem="{Binding SelectedAcConfigHistory,Mode=TwoWay}"
                                                          ValidatesOnDataErrors="InEditMode">
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="序号" />
                                             <telerik:GridViewComboBoxColumn Header="配置"
-                                                                            FilterMemberPath="CnName"
-                                                                            IsReadOnlyBinding="{Binding IsOwnershipReadOnly}"
-                                                                            ItemsSource="{Binding DataContext.Suppliers,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl,Mode=FindAncestor}}"
-                                                                            DisplayMemberPath="CnName"
-                                                                            DataMemberBinding="{Binding SupplierId}"
+                                                                            FilterMemberPath="ConfigCode"
+                                                                            ItemsSource="{Binding DataContext.AircraftConfigurations,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl,Mode=FindAncestor}}"
+                                                                            DisplayMemberPath="ConfigCode"
+                                                                            DataMemberBinding="{Binding AircraftConfigurationId}"
                                                                             SelectedValueMemberPath="Id" />
                                             <telerik:GridViewDataColumn Header="开始时间"
-                                                                        IsReadOnlyBinding="{Binding IsOwnershipReadOnly}"
                                                                         IsSortable="True"
                                                                         TextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -177,12 +241,7 @@
                                                                         TextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding EndDate,StringFormat={StaticResource DateStringFormat}}">
-                                            </telerik:GridViewDataColumn>
-                                            <telerik:GridViewDataColumn Header="状态"
-                                                                        IsReadOnly="True"
-                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        DataMemberBinding="{Binding Status,Converter={StaticResource OperationStatusConvert}}" />
+                                                                        DataMemberBinding="{Binding EndDate,StringFormat={StaticResource DateStringFormat}}" />
                                         </telerik:RadGridView.Columns>
                                     </telerik:RadGridView>
                                 </Grid>
@@ -201,39 +260,40 @@
                                          CanUserPin="False"
                                          ContextMenuTemplate="{x:Null}">
                             <Grid>
-                             <Grid.RowDefinitions>
-                                 <RowDefinition Height="*"></RowDefinition>
-                                 <RowDefinition Height="30"></RowDefinition>
-                             </Grid.RowDefinitions>
-                            <telerik:RadGridView x:Name="Aircraft"
-                                                 ItemsSource="{Binding AircraftsView}"
-                                                 IsBusy="{Binding AircraftsView.IsBusy}"
-                                                 IsReadOnly="True"
-                                                 CanUserFreezeColumns="False"
-                                                 SelectedItem="{Binding SelectedAircraft, Mode=TwoWay}"
-                                                 AutoExpandGroups="True" ShowColumnFooters="True">
-                                <telerik:RadGridView.Columns>
-                                    <uc:DataPageSerialColumn Header="序号" />
-                                    <telerik:GridViewDataColumn Header="机型"
-                                                                DataMemberBinding="{Binding AircraftTypeName}" />
-                                    <telerik:GridViewDataColumn Header="机号" DataMemberBinding="{Binding RegNumber}"
-                                                                IsGroupable="False">
-                                    </telerik:GridViewDataColumn>
-                                    <telerik:GridViewDataColumn Header="序列号"
-                                                                DataMemberBinding="{Binding SerialNumber}" />
-                                    <telerik:GridViewDataColumn Header="引进方式"
-                                                                DataMemberBinding="{Binding ImportCategoryName}" />
-                                    <telerik:GridViewDataColumn Header="出厂日期"
-                                                                DataMemberBinding="{Binding FactoryDate, StringFormat={StaticResource DateStringFormat}}" />
-                                    <telerik:GridViewDataColumn Header="引进日期"
-                                                                DataMemberBinding="{Binding ImportDate, StringFormat={StaticResource DateStringFormat}}" />
-                                    <telerik:GridViewDataColumn Header="注销日期"
-                                                                DataMemberBinding="{Binding ExportDate, StringFormat={StaticResource DateStringFormat}}" />
-                                    <telerik:GridViewDataColumn Header="创建日期"
-                                                                DataMemberBinding="{Binding CreateDate, StringFormat={StaticResource DateStringFormat}}" />
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="30" />
+                                </Grid.RowDefinitions>
+                                <telerik:RadGridView x:Name="Aircraft"
+                                                     ItemsSource="{Binding AircraftsView}"
+                                                     IsBusy="{Binding AircraftsView.IsBusy}"
+                                                     IsReadOnly="True"
+                                                     CanUserFreezeColumns="False"
+                                                     SelectedItem="{Binding SelectedAircraft, Mode=TwoWay}"
+                                                     AutoExpandGroups="True"
+                                                     ShowColumnFooters="True">
+                                    <telerik:RadGridView.Columns>
+                                        <uc:DataPageSerialColumn Header="序号" />
+                                        <telerik:GridViewDataColumn Header="机型"
+                                                                    DataMemberBinding="{Binding AircraftTypeName}" />
+                                        <telerik:GridViewDataColumn Header="机号"
+                                                                    DataMemberBinding="{Binding RegNumber}"
+                                                                    IsGroupable="False" />
+                                        <telerik:GridViewDataColumn Header="序列号"
+                                                                    DataMemberBinding="{Binding SerialNumber}" />
+                                        <telerik:GridViewDataColumn Header="引进方式"
+                                                                    DataMemberBinding="{Binding ImportCategoryName}" />
+                                        <telerik:GridViewDataColumn Header="出厂日期"
+                                                                    DataMemberBinding="{Binding FactoryDate, StringFormat={StaticResource DateStringFormat}}" />
+                                        <telerik:GridViewDataColumn Header="引进日期"
+                                                                    DataMemberBinding="{Binding ImportDate, StringFormat={StaticResource DateStringFormat}}" />
+                                        <telerik:GridViewDataColumn Header="注销日期"
+                                                                    DataMemberBinding="{Binding ExportDate, StringFormat={StaticResource DateStringFormat}}" />
+                                        <telerik:GridViewDataColumn Header="创建日期"
+                                                                    DataMemberBinding="{Binding CreateDate, StringFormat={StaticResource DateStringFormat}}" />
 
-                                </telerik:RadGridView.Columns>
-                            </telerik:RadGridView>
+                                    </telerik:RadGridView.Columns>
+                                </telerik:RadGridView>
                                 <Grid Grid.Row="1">
                                     <telerik:RadDataPager Name="RadPage"
                                                           BorderThickness="1,0,1,1"
@@ -241,8 +301,8 @@
                                                           DisplayMode="All"
                                                           Source="{Binding AircraftsView}" />
                                 </Grid>
-                                    
-                                </Grid>
+
+                            </Grid>
                         </telerik:RadPane>
                     </telerik:RadPaneGroup>
                 </telerik:RadSplitContainer>
