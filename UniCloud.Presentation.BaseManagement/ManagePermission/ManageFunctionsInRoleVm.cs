@@ -247,11 +247,11 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                     var functionItem = checkedItem;
                     if (functionItem != null && Role.RoleFunctions.All(p => p.FunctionItemId != functionItem.Id))
                     {
-                        if (functionItem.ParentItemId != null)
-                        {
-                            var parent = FunctionItems.FirstOrDefault(p => p.Id == functionItem.ParentItemId);
-                            FindParentCheckedItem(parent);
-                        }
+                        //if (functionItem.ParentItemId != null)
+                        //{
+                        //    var parent = FunctionItems.FirstOrDefault(p => p.Id == functionItem.ParentItemId);
+                        //    FindParentCheckedItem(parent);
+                        //}
                         var roleFunction = new RoleFunctionDTO
                                            {
                                                Id = RandomHelper.Next(),
