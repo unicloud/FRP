@@ -1,4 +1,4 @@
-#region 版本信息
+﻿#region 版本信息
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -15,7 +15,12 @@
 
 #region 命名空间
 
+using System.Data.Entity;
+using System.Linq;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
+using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
+using UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork;
+
 #endregion
 
 namespace UniCloud.Infrastructure.Data.BaseManagementBC.Repositories
@@ -30,8 +35,27 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.Repositories
       {
          
       }
-      
-         #region 方法重载
+
+      #region 方法重载
+      public override User Get(object id)
+      {
+          var currentUnitOfWork = UnitOfWork as BaseManagementBCUnitOfWork;
+          if (currentUnitOfWork == null) return null;
+          var set = currentUnitOfWork.CreateSet<User>();
+          return set.Include(t => t.UserRoles).FirstOrDefault(p => p.Id == (int)id);
+      }
       #endregion
+
+      /// <summary>
+      /// 删除UserRole
+      /// </summary>
+      /// <param name="userRole"></param>
+      public void DeleteUserRole(UserRole userRole)
+      {
+          var currentUnitOfWork = UnitOfWork as BaseManagementBCUnitOfWork;
+          if (currentUnitOfWork == null) return;
+          var userRoles = currentUnitOfWork.CreateSet<UserRole>();
+          userRoles.Remove(userRole);
+      }
    }
 }

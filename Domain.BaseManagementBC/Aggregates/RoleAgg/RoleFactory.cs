@@ -11,12 +11,12 @@
 // 修改说明：
 // ========================================================================*/
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+#region 命名空间
+
 using UniCloud.Domain.BaseManagementBC.Aggregates.RoleFunctionAgg;
+
+#endregion
 
 namespace UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg
 {

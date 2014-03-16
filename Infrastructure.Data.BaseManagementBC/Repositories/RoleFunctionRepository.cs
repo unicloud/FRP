@@ -1,4 +1,4 @@
-#region 版本信息
+﻿#region 版本信息
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -16,6 +16,7 @@
 #region 命名空间
 
 using UniCloud.Domain.BaseManagementBC.Aggregates.RoleFunctionAgg;
+
 #endregion
 
 namespace UniCloud.Infrastructure.Data.BaseManagementBC.Repositories

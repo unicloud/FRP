@@ -1,4 +1,4 @@
-#region 版本信息
+﻿#region 版本信息
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -20,6 +20,7 @@ using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.BaseManagementBC.DTO;
 using UniCloud.Application.BaseManagementBC.Query.UserQueries;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
+using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
 
 #endregion
 
@@ -74,6 +75,15 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         {
             var updateUser = _userRepository.Get(user.Id); //获取需要更新的对象。
             UserFactory.SetUser(updateUser, user.Mobile, user.Email);
+
+            var dtoUserRoles = user.UserRoles;
+            var userRoles = updateUser.UserRoles;
+            DataHelper.DetailHandle(dtoUserRoles.ToArray(),
+                userRoles.ToArray(),
+                c => c.Id, p => p.Id,
+                i => InsertUserRole(updateUser, i),
+                UpdateUserRole,
+                d => _userRepository.DeleteUserRole(d));
             _userRepository.Modify(updateUser);
         }
 
@@ -86,6 +96,29 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         {
             var deleteUser = _userRepository.Get(user.Id); //获取需要删除的对象。
             _userRepository.Remove(deleteUser); //删除User。
+        }
+
+        /// <summary>
+        ///     插入UserRole
+        /// </summary>
+        /// <param name="user">User</param>
+        /// <param name="userRoleDto">UserRoleDTO</param>
+        private void InsertUserRole(User user, UserRoleDTO userRoleDto)
+        {
+            // 添加UserRole
+            var userRole = user.AddNewUserRole();
+            UserFactory.SetUserRole(userRole, userRoleDto.UserId, userRoleDto.RoleId);
+        }
+
+        /// <summary>
+        ///     更新UserRole
+        /// </summary>
+        /// <param name="userRoleDto">UserRoleDTO</param>
+        /// <param name="userRole">UserRole</param>
+        private void UpdateUserRole(UserRoleDTO userRoleDto, UserRole userRole)
+        {
+            // 更新UserRole
+            UserFactory.SetUserRole(userRole, userRoleDto.UserId, userRoleDto.RoleId);
         }
         #endregion
 

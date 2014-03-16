@@ -3,11 +3,11 @@
 // 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：linxw 时间：2014/3/14 15:02:29
-// 文件名：RoleFunctionDTO
+// 作者：linxw 时间：2014/3/16 16:24:38
+// 文件名：UserRoleDTO
 // 版本：V1.0.0
 //
-// 修改者：linxw 时间：2014/3/14 15:02:29
+// 修改者：linxw 时间：2014/3/16 16:24:38
 // 修改说明：
 // ========================================================================*/
 #endregion
@@ -21,10 +21,10 @@ using System.Data.Services.Common;
 namespace UniCloud.Application.BaseManagementBC.DTO
 {
     /// <summary>
-    ///     RoleFunction
+    ///     UserRole
     /// </summary>
     [DataServiceKey("Id")]
-    public class RoleFunctionDTO
+    public class UserRoleDTO
     {
         #region 属性
         /// <summary>
@@ -33,9 +33,9 @@ namespace UniCloud.Application.BaseManagementBC.DTO
         public int Id { get; set; }
 
         /// <summary>
-        /// 功能项
+        /// 用户
         /// </summary>
-        public int FunctionItemId { get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
         /// 角色

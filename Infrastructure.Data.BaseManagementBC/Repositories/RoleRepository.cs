@@ -1,10 +1,11 @@
-#region NameSpace
+﻿#region 命名空间
 
+using System.Data.Entity;
 using System.Linq;
 using UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.RoleFunctionAgg;
 using UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork;
-using System.Data.Entity;
+
 #endregion
 
 namespace UniCloud.Infrastructure.Data.BaseManagementBC.Repositories

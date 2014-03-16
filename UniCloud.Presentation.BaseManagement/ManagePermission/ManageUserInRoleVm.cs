@@ -20,6 +20,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.BaseManagement;
 using UniCloud.Presentation.Service.BaseManagement.BaseManagement;
@@ -57,12 +58,10 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         private void InitializeVm()
         {
             //创建并注册CollectionView
-            Users = _service.CreateCollection(_context.Users);
+            Users = _service.CreateCollection(_context.Users, o => o.UserRoles);
+            _service.RegisterCollectionView(Users);
             FunctionItems = _service.CreateCollection(_context.FunctionItems);
-            FunctionItems.LoadedData += (o, e) =>
-            {
-                FunctionItems.ToList().ForEach(GenerateFunctionItemStructure);
-            };
+            FunctionItems.LoadedData += (o, e) => FunctionItems.ToList().ForEach(GenerateFunctionItemStructure);
             Roles = _service.CreateCollection(_context.Roles, o => o.RoleFunctions);
         }
 
@@ -94,7 +93,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 Roles.AutoLoad = true;
         }
 
-        #region User
+        #region 用户
         public QueryableDataServiceCollectionView<UserDTO> Users { get; set; }
 
         private UserDTO _user;
@@ -105,6 +104,39 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             {
                 _user = value;
                 RaisePropertyChanged(() => User);
+            }
+        }
+        #endregion
+
+        #region 用户功能
+        private IEnumerable<RoleDTO> _userRoles;
+        public IEnumerable<RoleDTO> UserRoles
+        {
+            get { return _userRoles; }
+            set
+            {
+                _userRoles = value;
+                RaisePropertyChanged(() => UserRoles);
+            }
+        }
+
+        /// <summary>
+        /// 选中的角色
+        /// </summary>
+        private RoleDTO _userRole;
+        public RoleDTO UserRole
+        {
+            get { return _userRole; }
+            set
+            {
+                _userRole = value;
+                if (_userRole != null)
+                {
+                    _applications = FunctionItems.Where(p => p.ParentItemId == null).ToList();
+                    SelectFunctionItems(_userRole, _applications);
+                    DisplayFunctionItems = _applications;
+                }
+                RaisePropertyChanged(() => UserRole);
             }
         }
         #endregion
@@ -152,9 +184,12 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             set
             {
                 _role = value;
-                _applications = FunctionItems.Where(p => p.ParentItemId == null).ToList();
-                SelectFunctionItems(_applications);
-                DisplayFunctionItems = _applications;
+                if (_role != null)
+                {
+                    _applications = FunctionItems.Where(p => p.ParentItemId == null).ToList();
+                    SelectFunctionItems(_role, _applications);
+                    DisplayFunctionItems = _applications;
+                }
                 RaisePropertyChanged(() => Role);
             }
         }
@@ -177,23 +212,52 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         #endregion
 
         #region 筛选角色功能
-        private void SelectFunctionItems(List<FunctionItemDTO> functionItems)
+        private void SelectFunctionItems(RoleDTO role, List<FunctionItemDTO> functionItems)
         {
-            if (Role != null)
+            for (int i = functionItems.Count - 1; i >= 0; i--)
             {
-                for (int i = functionItems.Count - 1; i >= 0; i--)
+                var temp = functionItems[i];
+                if (role.RoleFunctions.All(p => p.FunctionItemId != temp.Id))
                 {
-                    var temp = functionItems[i];
-                    if (Role.RoleFunctions.All(p => p.FunctionItemId != temp.Id))
-                    {
-                        functionItems.Remove(temp);
-                        continue;
-                    }
-                    SelectFunctionItems(temp.SubFunctionItems.ToList());
+                    functionItems.Remove(temp);
+                    continue;
+                }
+                SelectFunctionItems(role, temp.SubFunctionItems.ToList());
+            }
+        }
+        #endregion
+
+        #region 添加用户角色
+        public void AddUserRole()
+        {
+            if (User != null && Role != null)
+            {
+                if (User.UserRoles.All(p => p.RoleId != Role.Id))
+                {
+                    var userRole = new UserRoleDTO
+                               {
+                                   Id = RandomHelper.Next(),
+                                   UserId = User.Id,
+                                   RoleId = Role.Id
+                               };
+                    User.UserRoles.Add(userRole);
+                    UserRole = new RoleDTO
+                               {
+                                   Name = Role.Name,
+                                   RoleFunctions = Role.RoleFunctions
+                               };
+                    var tempUserRoles = UserRoles == null ? new List<RoleDTO>() : UserRoles.ToList();
+                    tempUserRoles.Add(UserRole);
+                    UserRoles = tempUserRoles;
+                }
+                else
+                {
+                    MessageAlert("当前用户已有该角色！");
                 }
             }
         }
         #endregion
+
         #endregion
     }
 }

@@ -3,7 +3,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg;
-using UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg;
 
 #endregion
 

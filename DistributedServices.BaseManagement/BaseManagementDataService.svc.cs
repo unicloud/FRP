@@ -2,19 +2,22 @@
 // 
 //------------------------------------------------------------------------------
 
+#region ÃüÃû¿Õ¼ä
+
 using System.Collections.Generic;
+using System.Data.Services;
+using System.Data.Services.Common;
 using System.Linq;
 using System.ServiceModel.Web;
+using System.Web;
 using UniCloud.Application.BaseManagementBC.DTO;
 using UniCloud.Application.BaseManagementBC.FunctionItemServices;
 using UniCloud.Infrastructure.Utilities.Container;
 
+#endregion
+
 namespace UniCloud.DistributedServices.BaseManagement
 {
-    using System.Data.Services;
-    using System.Data.Services.Common;
-    using System.Web;
-
     public class BaseManagementDataService : DataService<BaseManagementData>
     {
 

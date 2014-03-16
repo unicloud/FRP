@@ -15,6 +15,7 @@
 #region 命名空间
 
 using System;
+using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
 
 #endregion
 
@@ -68,6 +69,18 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
         {
             user.Mobile = mobile;
             user.Email = email;
+        }
+
+       /// <summary>
+       /// 设置UserRole
+       /// </summary>
+       /// <param name="userRole">用户角色</param>
+       /// <param name="userId">用户</param>
+       /// <param name="roleId">角色</param>
+        public static void SetUserRole(UserRole userRole, int userId, int roleId)
+        {
+            userRole.UserId = userId;
+            userRole.RoleId = roleId;
         }
     }
 }

@@ -1,4 +1,4 @@
-#region 版本信息
+﻿#region 版本信息
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
@@ -44,6 +44,8 @@ namespace UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork.Mapping.Sql
          Property(p => p.Description).HasColumnName("Description").HasMaxLength(100);
          Property(p => p.IsValid).HasColumnName("IsValid");
          Property(p => p.CreateDate).HasColumnName("CreateDate").HasColumnType("datetime2");
+
+         HasMany(p => p.UserRoles).WithOptional().HasForeignKey(p => p.UserId);
       }
       
    }

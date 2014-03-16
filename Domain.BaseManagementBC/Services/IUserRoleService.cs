@@ -1,6 +1,10 @@
-﻿using UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg;
+﻿#region 命名空间
+
+using UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
+
+#endregion
 
 namespace UniCloud.Domain.BaseManagementBC.Services
 {

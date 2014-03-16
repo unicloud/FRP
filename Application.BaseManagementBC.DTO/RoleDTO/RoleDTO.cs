@@ -1,4 +1,4 @@
-#region NameSpace
+﻿#region 命名空间
 
 using System;
 using System.Collections.Generic;

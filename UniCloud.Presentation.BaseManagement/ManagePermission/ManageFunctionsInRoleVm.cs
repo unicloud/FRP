@@ -14,13 +14,10 @@
 
 #region 命名空间
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
-using System.Data.Services.Client;
 using System.Linq;
-using System.Windows;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;

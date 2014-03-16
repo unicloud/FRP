@@ -14,8 +14,6 @@
 
 #endregion
 
-using UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationAgg;
-
 namespace UniCloud.Domain.BaseManagementBC.Aggregates.OrganizationUserAgg
 {
     public interface IOrganizationUserRepository : IRepository<OrganizationUser>

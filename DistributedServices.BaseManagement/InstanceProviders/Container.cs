@@ -2,6 +2,9 @@
 // 
 //------------------------------------------------------------------------------
 
+#region 命名空间
+
+using Microsoft.Practices.Unity;
 using UniCloud.Application.BaseManagementBC.FunctionItemServices;
 using UniCloud.Application.BaseManagementBC.Query.FunctionItemQueries;
 using UniCloud.Application.BaseManagementBC.Query.RoleQueries;
@@ -15,7 +18,8 @@ using UniCloud.Infrastructure.Data;
 using UniCloud.Infrastructure.Data.BaseManagementBC.Repositories;
 using UniCloud.Infrastructure.Data.BaseManagementBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
-using Microsoft.Practices.Unity;
+
+#endregion
 
 namespace UniCloud.DistributedServices.BaseManagement.InstanceProviders
 {

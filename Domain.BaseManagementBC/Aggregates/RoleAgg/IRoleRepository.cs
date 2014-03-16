@@ -1,5 +1,8 @@
-﻿using UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg;
+﻿#region 命名空间
+
 using UniCloud.Domain.BaseManagementBC.Aggregates.RoleFunctionAgg;
+
+#endregion
 
 namespace UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg
 {

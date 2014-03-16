@@ -1,4 +1,4 @@
-﻿#region NameSpace
+﻿#region 命名空间
 
 using UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg;
 using UniCloud.Domain.BaseManagementBC.Aggregates.RoleAgg;

@@ -14,7 +14,13 @@
         <Property Name="Description" Type="Edm.String" />
         <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="OrganizationName" Type="Edm.String" />
+        <Property Name="UserRoles" Type="Collection(UniCloud.Application.BaseManagementBC.DTO.UserRoleDTO)" Nullable="false" />
       </EntityType>
+      <ComplexType Name="UserRoleDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="UserId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RoleId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
       <EntityType Name="FunctionItemDTO">
         <Key>
           <PropertyRef Name="Id" />

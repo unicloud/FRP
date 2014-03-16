@@ -2,12 +2,16 @@
 // 
 //------------------------------------------------------------------------------
 
+#region 命名空间
+
 using System.Linq;
 using UniCloud.Application.BaseManagementBC.DTO;
 using UniCloud.Application.BaseManagementBC.FunctionItemServices;
 using UniCloud.Application.BaseManagementBC.RoleServices;
 using UniCloud.Application.BaseManagementBC.UserServices;
 using UniCloud.Infrastructure.Utilities.Container;
+
+#endregion
 
 namespace UniCloud.DistributedServices.BaseManagement
 {

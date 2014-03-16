@@ -12,10 +12,14 @@
 // ========================================================================*/
 #endregion
 
+#region 命名空间
+
 using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.BaseManagementBC.DTO;
 using UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg;
+
+#endregion
 
 namespace UniCloud.Application.BaseManagementBC.Query.FunctionItemQueries
 {

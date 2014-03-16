@@ -64,6 +64,7 @@
     <Compile Include="RoleDTO\RoleDTO.cs" />
     <Compile Include="RoleDTO\RoleFunctionDTO.cs" />
     <Compile Include="UserDTO\UserDTO.cs" />
+    <Compile Include="UserDTO\UserRoleDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
