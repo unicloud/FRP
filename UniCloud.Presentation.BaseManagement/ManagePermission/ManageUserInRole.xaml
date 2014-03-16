@@ -155,6 +155,13 @@
                                                    Stretch="Fill"
                                                    ToolTipService.ToolTip="放弃更改" />
                                         </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding RemoveRoleCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="删除角色" />
+                                        </telerik:RadButton>
                                     </telerik:RadToolBar>
                                     <Grid Row="1">
                                         <telerik:RadGridView x:Name="UserInRoleList"

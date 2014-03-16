@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -57,6 +58,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         /// </summary>
         private void InitializeVm()
         {
+            RemoveRoleCommand = new DelegateCommand<object>(OnRemoveRole, CanRemoveRole);
             //创建并注册CollectionView
             Users = _service.CreateCollection(_context.Users, o => o.UserRoles);
             _service.RegisterCollectionView(Users);
@@ -103,14 +105,20 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             set
             {
                 _user = value;
+                if (_user != null)
+                {
+                    var tempUserRoles = new ObservableCollection<RoleDTO>();
+                    _user.UserRoles.ToList().ForEach(p => tempUserRoles.Add(Roles.FirstOrDefault(t => t.Id == p.RoleId)));
+                    UserRoles = tempUserRoles;
+                }
                 RaisePropertyChanged(() => User);
             }
         }
         #endregion
 
         #region 用户功能
-        private IEnumerable<RoleDTO> _userRoles;
-        public IEnumerable<RoleDTO> UserRoles
+        private ObservableCollection<RoleDTO> _userRoles;
+        public ObservableCollection<RoleDTO> UserRoles
         {
             get { return _userRoles; }
             set
@@ -246,7 +254,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                                    Name = Role.Name,
                                    RoleFunctions = Role.RoleFunctions
                                };
-                    var tempUserRoles = UserRoles == null ? new List<RoleDTO>() : UserRoles.ToList();
+                    var tempUserRoles = UserRoles ?? new ObservableCollection<RoleDTO>();
                     tempUserRoles.Add(UserRole);
                     UserRoles = tempUserRoles;
                 }
@@ -258,6 +266,30 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         }
         #endregion
 
+        #region 删除角色
+        public DelegateCommand<object> RemoveRoleCommand { get; set; }
+
+        protected void OnRemoveRole(object obj)
+        {
+            if (UserRole == null)
+            {
+                MessageAlert("请选择一条记录！");
+                return;
+            }
+            MessageConfirm("确定删除此记录及相关信息！", (s, arg) =>
+            {
+                if (arg.DialogResult != true) return;
+                var userRole = User.UserRoles.FirstOrDefault(p => p.RoleId == UserRole.Id);
+                User.UserRoles.Remove(userRole);
+                UserRoles.Remove(UserRole);
+            });
+        }
+
+        protected bool CanRemoveRole(object obj)
+        {
+            return true;
+        }
+        #endregion
         #endregion
     }
 }
