@@ -98,6 +98,7 @@
   <ItemGroup>
     <Compile Include="BaseManagementService.cs" />
     <Compile Include="BaseManagement\FunctionItemDTO.cs" />
+    <Compile Include="BaseManagement\UserDTO.cs" />
     <Compile Include="IBaseManagementService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\BaseManagement\Reference.cs">
