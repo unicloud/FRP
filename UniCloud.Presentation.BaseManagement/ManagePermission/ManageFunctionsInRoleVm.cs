@@ -39,6 +39,9 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         private readonly BaseManagementData _context;
         private readonly IRegionManager _regionManager;
         private readonly IBaseManagementService _service;
+        private bool enableTreeViewCheck = true;
+        [Import]
+        public ManageFunctionsInRole CurrentManageFunctionsInRole;
         [ImportingConstructor]
         public ManageFunctionsInRoleVm(IRegionManager regionManager, IBaseManagementService service)
             : base(service)
@@ -233,72 +236,64 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         #endregion
 
         #region 功能选中
+
         public DelegateCommand<object> CheckedCommand { get; set; }
         private void FunctionItemChecked(object e)
         {
-            var checkedItems = GenerateCheckedItems(FunctionItemStructures);
+            if (!enableTreeViewCheck)
+            {
+                return;
+            }
+            //var checkedItems = GenerateCheckedItems(FunctionItemStructures);
+            //if (Role != null)
+            //{
+            //    foreach (var checkedItem in checkedItems)
+            //    {
+            //        var functionItem = checkedItem;
+            //        if (functionItem != null && Role.RoleFunctions.All(p => p.FunctionItemId != functionItem.Id))
+            //        {
+            //            //if (functionItem.ParentItemId != null)
+            //            //{
+            //            //    var parent = FunctionItems.FirstOrDefault(p => p.Id == functionItem.ParentItemId);
+            //            //    FindParentCheckedItem(parent);
+            //            //}
+            //            var roleFunction = new RoleFunctionDTO
+            //                               {
+            //                                   Id = RandomHelper.Next(),
+            //                                   RoleId = Role.Id,
+            //                                   FunctionItemId = functionItem.Id
+            //                               };
+            //            Role.RoleFunctions.Add(roleFunction);
+            //        }
+            //    }
+            //}
             if (Role != null)
-            {
-                foreach (var checkedItem in checkedItems)
-                {
-                    var functionItem = checkedItem;
-                    if (functionItem != null && Role.RoleFunctions.All(p => p.FunctionItemId != functionItem.Id))
-                    {
-                        //if (functionItem.ParentItemId != null)
-                        //{
-                        //    var parent = FunctionItems.FirstOrDefault(p => p.Id == functionItem.ParentItemId);
-                        //    FindParentCheckedItem(parent);
-                        //}
-                        var roleFunction = new RoleFunctionDTO
-                                           {
-                                               Id = RandomHelper.Next(),
-                                               RoleId = Role.Id,
-                                               FunctionItemId = functionItem.Id
-                                           };
-                        Role.RoleFunctions.Add(roleFunction);
-                    }
-                }
-            }
+                CurrentManageFunctionsInRole.FunctionRole.CheckedItems.ToList().ForEach(p =>
+                                                                                        {
+                                                                                            var functionItem = p as FunctionItemDTO;
+                                                                                            if (functionItem != null && Role.RoleFunctions.All(t => t.FunctionItemId != functionItem.Id))
+                                                                                            {
+                                                                                                var roleFunction = new RoleFunctionDTO
+                                                                                                                   {
+                                                                                                                       Id = RandomHelper.Next(),
+                                                                                                                       RoleId = Role.Id,
+                                                                                                                       FunctionItemId = functionItem.Id
+                                                                                                                   };
+                                                                                                Role.RoleFunctions.Add(roleFunction);
+                                                                                            }
+                                                                                        });
         }
 
-        private void FindParentCheckedItem(FunctionItemDTO functionItem)
-        {
-            if (functionItem != null && Role.RoleFunctions.All(p => p.FunctionItemId != functionItem.Id))
-            {
-                var roleFunction = new RoleFunctionDTO
-                {
-                    Id = RandomHelper.Next(),
-                    RoleId = Role.Id,
-                    FunctionItemId = functionItem.Id
-                };
-                Role.RoleFunctions.Add(roleFunction);
-            }
-            if (functionItem != null && functionItem.ParentItemId != null)
-            {
-                var parent = FunctionItems.FirstOrDefault(p => p.Id == functionItem.ParentItemId);
-                FindParentCheckedItem(parent);
-            }
-        }
-
-        private IEnumerable<FunctionItemDTO> GenerateCheckedItems(IEnumerable<FunctionItemDTO> sourceItems)
-        {
-            var items = new List<FunctionItemDTO>();
-            foreach (var sourceItem in sourceItems)
-            {
-                if (sourceItem.IsChecked)
-                {
-                    items.Add(sourceItem);
-                }
-                GenerateCheckedItems(sourceItem.SubFunctionItems.AsEnumerable()).ToList().ForEach(items.Add);
-            }
-            return items;
-        }
         #endregion
 
         #region 功能反选处理
         public DelegateCommand<object> UncheckedCommand { get; set; }
         private void FunctionItemUnchecked(object e)
         {
+            if (!enableTreeViewCheck)
+            {
+                return;
+            }
             IEnumerable<FunctionItemDTO> tempFunctionItems = GenerateUncheckedItems(FunctionItemStructures.FirstOrDefault(), FunctionItemStructures.FirstOrDefault().SubFunctionItems);
 
             if (Role != null)
@@ -333,14 +328,17 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         #region 设置TreeView选中状态
         private void SetCheckedState()
         {
+            enableTreeViewCheck = false;
             if (Role == null || Role.RoleFunctions.Count == 0)
             {
                 FunctionItemStructures.ToList().ForEach(ClearCheckedState);
             }
             else
             {
+                FunctionItemStructures.ToList().ForEach(ClearCheckedState);
                 FunctionItemStructures.ToList().ForEach(p => SetCheckedState(Role.RoleFunctions, p));
             }
+            enableTreeViewCheck = true;
         }
 
         private void SetCheckedState(IEnumerable<RoleFunctionDTO> sourceItems, FunctionItemDTO item)
