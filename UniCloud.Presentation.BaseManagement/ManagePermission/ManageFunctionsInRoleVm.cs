@@ -271,19 +271,23 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             {
                 return;
             }
-            var checkedItems =new  List<FunctionItemDTO>();
+            var unCheckedItems =new  List<FunctionItemDTO>();
+            var rootItem = FunctionItemStructures.First();
             CurrentManageFunctionsInRole.FunctionRole.CheckedItems.ToList().ForEach(p =>
                                                                                     {
                                                                                         if (p is FunctionItemDTO)
                                                                                         {
-                                                                                           checkedItems.Add(p as FunctionItemDTO); 
+                                                                                            var temp = p as FunctionItemDTO;
+                                                                                            if (rootItem.Id!=temp.Id)
+                                                                                            {
+                                                                                                unCheckedItems.Add(temp); 
+                                                                                            }
                                                                                         }
                                                                                     });
-            IEnumerable<FunctionItemDTO> tempFunctionItems = GenerateUncheckedItems(checkedItems, FunctionItemStructures);
 
             if (Role != null)
             {
-                tempFunctionItems.ToList().ForEach(p =>
+                unCheckedItems.ToList().ForEach(p =>
                 {
                     if (Role.RoleFunctions.Any(t => t.FunctionItemId == p.Id))
                     {
@@ -294,19 +298,6 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             }
         }
 
-        private IEnumerable<FunctionItemDTO> GenerateUncheckedItems(List<FunctionItemDTO> checkedItems , IEnumerable<FunctionItemDTO> subItems)
-        {
-            var items = new List<FunctionItemDTO>();
-            foreach (var sourceItem in subItems)
-            {
-                if (checkedItems.All(p=>p.Id!=sourceItem.Id))
-                {
-                    items.Add(sourceItem);
-                }
-                GenerateUncheckedItems(checkedItems, sourceItem.SubFunctionItems).ToList().ForEach(items.Add);
-            }
-            return items;
-        }
         #endregion
 
         #region 设置TreeView选中状态
