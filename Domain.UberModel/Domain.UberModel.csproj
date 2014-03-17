@@ -270,6 +270,7 @@
     <Compile Include="Aggregates\TradeAgg\Trade.cs" />
     <Compile Include="Aggregates\TradeAgg\TradeFactory.cs" />
     <Compile Include="Aggregates\UserAgg\User.cs" />
+    <Compile Include="Aggregates\UserAgg\UserFactory.cs" />
     <Compile Include="Aggregates\UserRoleAgg\UserRole.cs" />
     <Compile Include="Aggregates\WorkGroupAgg\Member.cs" />
     <Compile Include="Aggregates\WorkGroupAgg\WorkGroup.cs" />

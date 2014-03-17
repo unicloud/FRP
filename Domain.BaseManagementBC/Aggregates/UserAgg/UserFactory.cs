@@ -38,17 +38,16 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
         /// <param name="mobile">手机号</param>
         /// <param name="description">描述</param>
         /// <param name="isValid">是否有效</param>
-        /// <param name="createDate">创建日期</param>
         /// <returns></returns>
         public static User CreateUser(string employeeCode, string firstName, string lastName, string displayName, string password,
-            string email, string mobile, string description, bool isValid, DateTime createDate)
+            string email, string mobile, string description, bool isValid)
         {
             var user = new User
                        {
                            EmployeeCode = employeeCode,
                            FirstName = firstName,
                            LastName = lastName,
-                           CreateDate = createDate,
+                           CreateDate = DateTime.Now,
                            Description = description,
                            DisplayName = displayName,
                            Email = email,

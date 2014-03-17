@@ -61,7 +61,7 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
         public void InsertUser(UserDTO user)
         {
             var newUser = UserFactory.CreateUser(user.EmployeeCode, string.Empty, string.Empty, user.DisplayName, user.Password, user.Email,
-                user.Mobile, user.Description, true, user.CreateDate);
+                user.Mobile, user.Description, true);
             _userRepository.Add(newUser);
         }
 
