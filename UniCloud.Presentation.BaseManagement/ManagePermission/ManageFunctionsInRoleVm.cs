@@ -39,7 +39,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         private readonly BaseManagementData _context;
         private readonly IRegionManager _regionManager;
         private readonly IBaseManagementService _service;
-        private bool enableTreeViewCheck = true;
+        private bool _enableTreeViewCheck = true;
         [Import]
         public ManageFunctionsInRole CurrentManageFunctionsInRole;
         [ImportingConstructor]
@@ -240,33 +240,10 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         public DelegateCommand<object> CheckedCommand { get; set; }
         private void FunctionItemChecked(object e)
         {
-            if (!enableTreeViewCheck)
+            if (!_enableTreeViewCheck)
             {
                 return;
             }
-            //var checkedItems = GenerateCheckedItems(FunctionItemStructures);
-            //if (Role != null)
-            //{
-            //    foreach (var checkedItem in checkedItems)
-            //    {
-            //        var functionItem = checkedItem;
-            //        if (functionItem != null && Role.RoleFunctions.All(p => p.FunctionItemId != functionItem.Id))
-            //        {
-            //            //if (functionItem.ParentItemId != null)
-            //            //{
-            //            //    var parent = FunctionItems.FirstOrDefault(p => p.Id == functionItem.ParentItemId);
-            //            //    FindParentCheckedItem(parent);
-            //            //}
-            //            var roleFunction = new RoleFunctionDTO
-            //                               {
-            //                                   Id = RandomHelper.Next(),
-            //                                   RoleId = Role.Id,
-            //                                   FunctionItemId = functionItem.Id
-            //                               };
-            //            Role.RoleFunctions.Add(roleFunction);
-            //        }
-            //    }
-            //}
             if (Role != null)
                 CurrentManageFunctionsInRole.FunctionRole.CheckedItems.ToList().ForEach(p =>
                                                                                         {
@@ -290,11 +267,19 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         public DelegateCommand<object> UncheckedCommand { get; set; }
         private void FunctionItemUnchecked(object e)
         {
-            if (!enableTreeViewCheck)
+            if (!_enableTreeViewCheck)
             {
                 return;
             }
-            IEnumerable<FunctionItemDTO> tempFunctionItems = GenerateUncheckedItems(FunctionItemStructures.FirstOrDefault(), FunctionItemStructures.FirstOrDefault().SubFunctionItems);
+            var checkedItems =new  List<FunctionItemDTO>();
+            CurrentManageFunctionsInRole.FunctionRole.CheckedItems.ToList().ForEach(p =>
+                                                                                    {
+                                                                                        if (p is FunctionItemDTO)
+                                                                                        {
+                                                                                           checkedItems.Add(p as FunctionItemDTO); 
+                                                                                        }
+                                                                                    });
+            IEnumerable<FunctionItemDTO> tempFunctionItems = GenerateUncheckedItems(checkedItems, FunctionItemStructures);
 
             if (Role != null)
             {
@@ -309,17 +294,16 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             }
         }
 
-        private IEnumerable<FunctionItemDTO> GenerateUncheckedItems(FunctionItemDTO parentItem, IEnumerable<FunctionItemDTO> subItems)
+        private IEnumerable<FunctionItemDTO> GenerateUncheckedItems(List<FunctionItemDTO> checkedItems , IEnumerable<FunctionItemDTO> subItems)
         {
             var items = new List<FunctionItemDTO>();
             foreach (var sourceItem in subItems)
             {
-                if (!sourceItem.IsChecked)
+                if (checkedItems.All(p=>p.Id!=sourceItem.Id))
                 {
                     items.Add(sourceItem);
-                    items.Add(parentItem);
                 }
-                GenerateUncheckedItems(sourceItem, sourceItem.SubFunctionItems.AsEnumerable()).ToList().ForEach(items.Add);
+                GenerateUncheckedItems(checkedItems, sourceItem.SubFunctionItems).ToList().ForEach(items.Add);
             }
             return items;
         }
@@ -328,7 +312,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
         #region 设置TreeView选中状态
         private void SetCheckedState()
         {
-            enableTreeViewCheck = false;
+            _enableTreeViewCheck = false;
             if (Role == null || Role.RoleFunctions.Count == 0)
             {
                 FunctionItemStructures.ToList().ForEach(ClearCheckedState);
@@ -338,12 +322,12 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
                 FunctionItemStructures.ToList().ForEach(ClearCheckedState);
                 FunctionItemStructures.ToList().ForEach(p => SetCheckedState(Role.RoleFunctions, p));
             }
-            enableTreeViewCheck = true;
+            _enableTreeViewCheck = true;
         }
 
         private void SetCheckedState(IEnumerable<RoleFunctionDTO> sourceItems, FunctionItemDTO item)
         {
-            item.IsChecked = sourceItems.Any(p => p.FunctionItemId == item.Id);
+            item.IsChecked = sourceItems.Any(p => p.FunctionItemId == item.Id) ;
             item.SubFunctionItems.ToList().ForEach(p => SetCheckedState(Role.RoleFunctions, p));
         }
 
