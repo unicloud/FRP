@@ -15,7 +15,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.BaseManagementBC.DTO;
 using UniCloud.Application.BaseManagementBC.Query.UserQueries;
@@ -30,7 +32,8 @@ namespace UniCloud.Application.BaseManagementBC.UserServices
     /// 实现User的服务接口。
     ///  用于处理User相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class UserAppService : IUserAppService
+    [LogAOP]
+    public class UserAppService : ContextBoundObject, IUserAppService
     {
         private readonly IUserQuery _userQuery;
         private readonly IUserRepository _userRepository;
