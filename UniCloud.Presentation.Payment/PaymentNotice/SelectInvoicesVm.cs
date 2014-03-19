@@ -225,7 +225,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                     {
                         PaymentNoticeLineId = RandomHelper.Next(),
                         InvoiceType = 0,
-                        InvoiceTypeString = InvoiceType.采购发票.ToString(),
                         InvoiceId = p.PurchaseInvoiceId,
                         InvoiceNumber = p.InvoiceNumber,
                     };
@@ -243,7 +242,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                     {
                         PaymentNoticeLineId = RandomHelper.Next(),
                         InvoiceType = 1,
-                        InvoiceTypeString = InvoiceType.预付款发票.ToString(),
                         InvoiceId = p.PrepaymentInvoiceId,
                         InvoiceNumber = p.InvoiceNumber,
                     };
@@ -261,7 +259,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                     {
                         PaymentNoticeLineId = RandomHelper.Next(),
                         InvoiceType = 2,
-                        InvoiceTypeString = InvoiceType.租赁发票.ToString(),
                         InvoiceId = p.LeaseInvoiceId,
                         InvoiceNumber = p.InvoiceNumber,
                     };
@@ -279,7 +276,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                     {
                         PaymentNoticeLineId = RandomHelper.Next(),
                         InvoiceType = 3,
-                        InvoiceTypeString = InvoiceType.维修发票.ToString(),
                         InvoiceId = p.MaintainInvoiceId,
                         InvoiceNumber = p.InvoiceNumber,
                     };
@@ -297,7 +293,6 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                     {
                         PaymentNoticeLineId = RandomHelper.Next(),
                         InvoiceType = 4,
-                        InvoiceTypeString = InvoiceType.贷项单.ToString(),
                         InvoiceId = p.CreditNoteId,
                         InvoiceNumber = p.InvoiceNumber,
                     };

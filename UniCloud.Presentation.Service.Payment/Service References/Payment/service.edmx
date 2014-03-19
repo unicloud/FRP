@@ -368,7 +368,6 @@
       <ComplexType Name="PaymentNoticeLineDTO">
         <Property Name="PaymentNoticeLineId" Type="Edm.Int32" Nullable="false" />
         <Property Name="InvoiceType" Type="Edm.Int32" Nullable="false" />
-        <Property Name="InvoiceTypeString" Type="Edm.String" />
         <Property Name="InvoiceId" Type="Edm.Int32" Nullable="false" />
         <Property Name="InvoiceNumber" Type="Edm.String" />
         <Property Name="Amount" Type="Edm.Decimal" Nullable="false" />
