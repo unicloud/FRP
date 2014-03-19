@@ -36,7 +36,7 @@ namespace UniCloud.Application.AOP.Log
             {
                 return;
             }
-            File.WriteAllText(@"c:\1.txt","开始获取数据。");
+            File.WriteAllText(@"d:\1.txt","开始获取数据。");
         }
 
         private void After_Log(IMethodReturnMessage replyMsg)
@@ -45,7 +45,7 @@ namespace UniCloud.Application.AOP.Log
             {
                 return;
             }
-            File.WriteAllText(@"c:\1.txt", "获取数据成功。");
+            File.WriteAllText(@"d:\1.txt", "获取数据成功。");
         }
 
         protected override void AddAllBeforeAopHandles()

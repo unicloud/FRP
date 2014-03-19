@@ -21,13 +21,33 @@ using System.Runtime.Remoting.Messaging;
 
 namespace UniCloud.Application.AOP.Base
 {
+    /// <summary>
+    /// 方法执行前操作
+    /// </summary>
+    /// <param name="callMsg">其值为要截取上下文的方法的消息</param>
     public delegate void BeforeAopHandle(IMethodCallMessage callMsg);
+
+    /// <summary>
+    /// 方法执行后操作
+    /// </summary>
+    /// <param name="replyMsg">该方法执行后返回的消息</param>
     public delegate void AfterAopHandle(IMethodReturnMessage replyMsg);
 
     public abstract class AopSink : IMessageSink
     {
+        /// <summary>
+        /// 存放方法名与BeforeAOPHandle对象之间的映射
+        /// </summary>
         private readonly SortedList _mBeforeHandles;
+
+        /// <summary>
+        /// 存放方法名与AfterAOPHandle对象之间的映射
+        /// </summary>
         private readonly SortedList _mAfterHandles;
+
+        /// <summary>
+        /// 接收器链中的下一个消息接收器
+        /// </summary>
         private readonly IMessageSink _mNextSink;
 
         public AopSink(IMessageSink nextSink)
@@ -40,8 +60,21 @@ namespace UniCloud.Application.AOP.Base
             AddAllAfterAopHandles();
         }
 
+        /// <summary>
+        /// 添加所有的映射关系
+        /// </summary>
         protected abstract void AddAllBeforeAopHandles();
+
+        /// <summary>
+        /// 添加所有的映射关系
+        /// </summary>
         protected abstract void AddAllAfterAopHandles();
+
+        /// <summary>
+        /// 添加映射关系
+        /// </summary>
+        /// <param name="methodName"></param>
+        /// <param name="beforeHandle"></param>
         protected virtual void AddBeforeAopHandle(string methodName, BeforeAopHandle beforeHandle)
         {
             lock (_mBeforeHandles)
@@ -52,6 +85,12 @@ namespace UniCloud.Application.AOP.Base
                 }
             }
         }
+
+        /// <summary>
+        /// 添加映射关系
+        /// </summary>
+        /// <param name="methodName"></param>
+        /// <param name="afterHandle"></param>
         protected virtual void AddAfterAopHandle(string methodName, AfterAopHandle afterHandle)
         {
             lock (_mAfterHandles)
@@ -63,6 +102,11 @@ namespace UniCloud.Application.AOP.Base
             }
         }
 
+        /// <summary>
+        /// 根据方法名获得相对应的委托对象
+        /// </summary>
+        /// <param name="methodName">方法名</param>
+        /// <returns></returns>
         protected BeforeAopHandle FindBeforeAopHandle(string methodName)
         {
             BeforeAopHandle beforeHandle;
@@ -73,6 +117,11 @@ namespace UniCloud.Application.AOP.Base
             return beforeHandle;
         }
 
+        /// <summary>
+        /// 根据方法名获得相对应的委托对象
+        /// </summary>
+        /// <param name="methodName">方法名</param>
+        /// <returns></returns>
         protected AfterAopHandle FindAfterAopHandle(string methodName)
         {
             AfterAopHandle afterHandle;
@@ -83,11 +132,19 @@ namespace UniCloud.Application.AOP.Base
             return afterHandle;
         }
 
+        /// <summary>
+        /// 接收器链中的下一个消息接收器
+        /// </summary>
         public IMessageSink NextSink
         {
             get { return _mNextSink; }
         }
 
+        /// <summary>
+        /// 当消息传递的时候，该方法被调用
+        /// </summary>
+        /// <param name="msg">定义了被传送的消息的实现</param>
+        /// <returns></returns>
         public IMessage SyncProcessMessage(IMessage msg)
         {
             var call = msg as IMethodCallMessage;
@@ -113,6 +170,12 @@ namespace UniCloud.Application.AOP.Base
             return null;
         }
 
+        /// <summary>
+        /// 该方法用于异步处理
+        /// </summary>
+        /// <param name="msg">定义了被传送的消息的实现</param>
+        /// <param name="replySink">定义了消息接收器的接口</param>
+        /// <returns></returns>
         public IMessageCtrl AsyncProcessMessage(IMessage msg, IMessageSink replySink)
         {
             return null;

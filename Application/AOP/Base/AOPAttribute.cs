@@ -30,6 +30,10 @@ namespace UniCloud.Application.AOP.Base
         {
         }
 
+        /// <summary>
+        /// 向新的Context添加属性集合
+        /// </summary>
+        /// <param name="ctorMsg"></param>
         public sealed override void GetPropertiesForNewContext(IConstructionCallMessage ctorMsg)
         {
             ctorMsg.ContextProperties.Add(GetAOPProperty());

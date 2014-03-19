@@ -51,16 +51,28 @@ namespace UniCloud.Application.AOP.Base
         #endregion
 
         #region IContextProperty Members
+        /// <summary>
+        /// 该方法用来定位被创建的Context的最后位置。
+        /// </summary>
+        /// <param name="newContext"></param>
         public void Freeze(Context newContext)
         {
             FreezeImpl(newContext);
         }
 
+        /// <summary>
+        /// 默认返回true。一个对象可能存在多个Context,使用这个方法来检查新的Context中属性是否存在冲突。
+        /// </summary>
+        /// <param name="newCtx"></param>
+        /// <returns></returns>
         public bool IsNewContextOK(Context newCtx)
         {
             return CheckNewContext(newCtx);
         }
 
+        /// <summary>
+        /// 只读属性。返回ContextAttribute的名称
+        /// </summary>
         public string Name
         {
             get { return GetName(); }
