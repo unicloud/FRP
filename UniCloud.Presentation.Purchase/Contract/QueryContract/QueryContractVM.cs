@@ -45,7 +45,6 @@ namespace UniCloud.Presentation.Purchase.Contract
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
         private string _loadType; //加载子项文件夹方式方式，1、DoubleClick 双击,2、SearchText 搜索框
-        [Import] public DocumentViewer documentView;
 
         [ImportingConstructor]
         public QueryContractVM(IRegionManager regionManager, IPurchaseService service) : base(service)
@@ -279,9 +278,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         private void OpenDocument(Guid? documentId)
         {
-            documentView.Tag = null;
-            if (documentId != null) documentView.ViewModel.InitData(true, documentId.Value, null);
-            documentView.ShowDialog();
+            if (documentId != null) OnViewAttach(documentId);
         }
 
         /// <summary>
