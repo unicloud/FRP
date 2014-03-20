@@ -141,6 +141,10 @@
                                                                                  Icon="{Binding AddFolderImage}"
                                                                                  Command="{Binding CreateDocumentPathCommand}"
                                                                                  CommandParameter="文件夹" />
+                                                <telerik:RadMenuItem Header="重命名文件夹"
+                                                                     Icon="{Binding AddFolderImage}"
+                                                                     Command="{Binding CreateDocumentPathCommand}"
+                                                                     CommandParameter="重命名文件夹" />
                                                 <telerik:RadMenuItem Header="添加合同"
                                                                                  Icon="{Binding AddDocumentImage}"
                                                                                  Command="{Binding CreateDocumentPathCommand}"
@@ -169,14 +173,14 @@
                                                                                         Icon="{Binding DataContext.DelDocumentImage,ElementName=QueryContractView}" 
                                                                                  Command="{Binding DataContext.DelDocumentPathListBoxCommand,ElementName=QueryContractView}"
                                                                                  CommandParameter="{Binding}" />
-                                                            <telerik:RadMenuItem Header="新建文件夹"
+                                                            <!--<telerik:RadMenuItem Header="新建文件夹"
                                                                                          Icon="{Binding DataContext.AddFolderImage,ElementName=QueryContractView}" 
                                                                                  Command="{Binding DataContext.CreateDocumentPathCommand,ElementName=QueryContractView}"
                                                                                  CommandParameter="文件夹" />
                                                             <telerik:RadMenuItem Header="添加合同"
                                                                                          Icon="{Binding DataContext.AddDocumentImage,ElementName=QueryContractView}" 
                                                                                  Command="{Binding DataContext.CreateDocumentPathCommand,ElementName=QueryContractView}"
-                                                                                 CommandParameter="文件" />
+                                                                                 CommandParameter="文件" />-->
                                                         </telerik:RadContextMenu>
                                                     </telerik:RadContextMenu.ContextMenu>
                                                     <Image Source="{Binding BigIconPath}"

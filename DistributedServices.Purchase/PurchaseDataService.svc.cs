@@ -46,7 +46,7 @@ namespace UniCloud.DistributedServices.Purchase
 
             config.SetServiceOperationAccessRule("AddDocPath", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("DelDocPath", ServiceOperationRights.All);
-
+            config.SetServiceOperationAccessRule("ModifyDocPath", ServiceOperationRights.All);
             #endregion
 
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
@@ -110,6 +110,12 @@ namespace UniCloud.DistributedServices.Purchase
             documentPathAppService.DelDocPath(docPathId);
         }
 
+        [WebGet]
+        public void ModifyDocPath(int docPathId, string name)
+        {
+            var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
+            documentPathAppService.ModifyDocPath(docPathId, name);
+        }
         #endregion
     }
 }

@@ -81,8 +81,16 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
 
             var newDocumentPath = DocumentPathFactory.CreateDocumentPath(name, docPathIsLeaf, extension,
                 docPathId, parentId,
-                (PathSource) pathSource);
+                (PathSource)pathSource);
             _documentPathRepository.Add(newDocumentPath);
+            _documentPathRepository.UnitOfWork.Commit();
+        }
+
+        public void ModifyDocPath(int documentPathId, string name)
+        {
+            var documentPath = _documentPathRepository.Get(documentPathId);
+            DocumentPathFactory.ModifyDocumentPath(documentPath, name);
+            _documentPathRepository.Modify(documentPath);
             _documentPathRepository.UnitOfWork.Commit();
         }
 
