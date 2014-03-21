@@ -52,6 +52,7 @@
                                              Grid.Row="1"
                                              ItemsSource="{Binding Documents,Mode=TwoWay}"
                                              IsBusy="{Binding Documents.IsBusy}"
+                                             IsReadOnly="True"
                                              AutoGenerateColumns="False"
                                              ShowGroupPanel="True"
                                              CanUserSortColumns="True"

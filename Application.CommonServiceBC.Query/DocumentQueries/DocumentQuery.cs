@@ -17,10 +17,11 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using System.Linq.Expressions;
 using UniCloud.Application.CommonServiceBC.DTO;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
-using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentTypeAgg;
 using UniCloud.Infrastructure.Data;
 
@@ -48,11 +49,31 @@ namespace UniCloud.Application.CommonServiceBC.Query.DocumentQueries
                     IsValid = p.IsValid,
                     Name = p.FileName,
                     Note = p.Note,
+                    DocumentTypeId = p.DocumentTypeId,
                     Uploader = p.Uploader,
-                    FileStorage = p.FileStorage
+                    //FileStorage = p.FileStorage
                 });
         }
 
+        public DocumentDTO GetSingleDocumentQuery(Expression<Func<Document, bool>> source)
+        {
+            var document = _unitOfWork.CreateSet<Document>().FirstOrDefault(source);
+            if (document == null) return null;
+
+            return new DocumentDTO
+                {
+                    DocumentId = document.Id,
+                    Abstract = document.Abstract,
+                    CreateTime = document.CreateTime,
+                    Extension = document.Extension,
+                    IsValid = document.IsValid,
+                    Name = document.FileName,
+                    Note = document.Note,
+                    DocumentTypeId = document.DocumentTypeId,
+                    Uploader = document.Uploader,
+                    FileStorage = document.FileStorage
+                };
+        }
         public IQueryable<DocumentTypeDTO> DocumentTypesQuery(QueryBuilder<DocumentType> query)
         {
             return query.ApplyTo(_unitOfWork.CreateSet<DocumentType>()).Select(p => new DocumentTypeDTO
