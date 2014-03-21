@@ -1,6 +1,9 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿#region 命名空间
+
+using System.Reflection;
 using System.Runtime.InteropServices;
+
+#endregion
 
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改

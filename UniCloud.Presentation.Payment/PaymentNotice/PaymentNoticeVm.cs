@@ -165,7 +165,10 @@ namespace UniCloud.Presentation.Payment.PaymentNotice
                 PaymentNotice.SupplierId = firstOrDefault.SupplierId;
                 var bankAccount = firstOrDefault.BankAccounts.FirstOrDefault();
                 if (bankAccount != null)
+                {
                     PaymentNotice.BankAccountName = bankAccount.Account + "/" + bankAccount.Bank + bankAccount.Branch;
+                    PaymentNotice.BankAccountId = bankAccount.BankAccountId;
+                }
             }
             var currencyDto = Currencies.FirstOrDefault();
             if (currencyDto != null) PaymentNotice.CurrencyId = currencyDto.Id;

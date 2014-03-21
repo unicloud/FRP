@@ -18,7 +18,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using System.Linq.Expressions;
 using UniCloud.Application.CommonServiceBC.DTO;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentPathAgg;
@@ -41,6 +43,7 @@ namespace UniCloud.Application.CommonServiceBC.Query.DocumentQueries
         IQueryable<DocumentDTO> DocumentsQuery(
             QueryBuilder<Document> query);
 
+        DocumentDTO GetSingleDocumentQuery(Expression<Func<Document, bool>> source);
         /// <summary>
         ///     查询文档类型。
         /// </summary>

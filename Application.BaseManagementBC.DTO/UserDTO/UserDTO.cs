@@ -1,6 +1,7 @@
-#region NameSpace
+﻿#region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Data.Services.Common;
 
 #endregion
@@ -60,6 +61,15 @@ namespace UniCloud.Application.BaseManagementBC.DTO
         /// </summary>
         public string OrganizationName { get; set; }
 
+        /// <summary>
+        /// UserRole集合
+        /// </summary>
+        private List<UserRoleDTO> _userRoles;
+        public List<UserRoleDTO> UserRoles
+        {
+            get { return _userRoles ?? new List<UserRoleDTO>(); }
+            set { _userRoles = value; }
+        }
         #endregion
     }
 }

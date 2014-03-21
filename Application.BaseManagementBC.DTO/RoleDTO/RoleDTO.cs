@@ -1,6 +1,7 @@
-#region NameSpace
+﻿#region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Data.Services.Common;
 
 #endregion
@@ -34,6 +35,16 @@ namespace UniCloud.Application.BaseManagementBC.DTO
         ///     创建日期
         /// </summary>
         public DateTime CreateDate { get; set; }
+
+        /// <summary>
+        /// 功能项集合
+        /// </summary>
+        private List<RoleFunctionDTO> _roleFunctions;
+        public List<RoleFunctionDTO> RoleFunctions
+        {
+            get { return _roleFunctions ?? new List<RoleFunctionDTO>(); }
+            set { _roleFunctions = value; }
+        }
 
         #endregion
     }

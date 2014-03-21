@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Linq;
@@ -37,7 +38,7 @@ using UniCloud.Presentation.Service.Purchase.Purchase;
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
-    [Export(typeof (QueryContractVM))]
+    [Export(typeof(QueryContractVM))]
     [PartCreationPolicy(CreationPolicy.Shared)]
     public class QueryContractVM : ViewModelBase
     {
@@ -45,10 +46,10 @@ namespace UniCloud.Presentation.Purchase.Contract
         private readonly IRegionManager _regionManager;
         private readonly IPurchaseService _service;
         private string _loadType; //加载子项文件夹方式方式，1、DoubleClick 双击,2、SearchText 搜索框
-        [Import] public DocumentViewer documentView;
 
         [ImportingConstructor]
-        public QueryContractVM(IRegionManager regionManager, IPurchaseService service) : base(service)
+        public QueryContractVM(IRegionManager regionManager, IPurchaseService service)
+            : base(service)
         {
             _regionManager = regionManager;
             _service = service;
@@ -279,9 +280,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         private void OpenDocument(Guid? documentId)
         {
-            documentView.Tag = null;
-            if (documentId != null) documentView.ViewModel.InitData(true, documentId.Value, null);
-            documentView.ShowDialog();
+            if (documentId != null) OnViewAttach(documentId);
         }
 
         /// <summary>
@@ -322,6 +321,12 @@ namespace UniCloud.Presentation.Purchase.Contract
             return new Uri(string.Format("AddDocPath?name='{0}'&isLeaf='{1}'" +
                                          "&documentId='{2}'&parentId={3}" +
                                          "&pathSource={4}", name, isLeaf, documentId, parentId, pathSource),
+                UriKind.Relative);
+        }
+
+        private Uri ModifyDocumentPath(int documentPathId, string name)
+        {
+            return new Uri(string.Format("ModifyDocPath?docPathId={0}&name='{1}'", documentPathId, name),
                 UriKind.Relative);
         }
 
@@ -390,13 +395,28 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 新建文档
 
+        private bool _isRenameFolder = false;
         public DelegateCommand<object> CreateDocumentPathCommand { get; private set; }
 
         private void CreateDocumentPath(object sender)
         {
             if (sender.ToString().Equals("文件夹"))
             {
+                _isRenameFolder = false;
                 DocumentName = string.Empty;
+                AddDocumentPathChildView.Header = "新建文件夹";
+                AddDocumentPathChildView.ShowDialog();
+            }
+            else if (sender.ToString().Equals("重命名文件夹"))
+            {
+                if (CurrentPathItem == null)
+                {
+                    MessageAlert("请选择相应的文件夹！");
+                    return;
+                }
+                _isRenameFolder = true;
+                DocumentName = CurrentPathItem.Name;
+                AddDocumentPathChildView.Header = "重命名文件夹";
                 AddDocumentPathChildView.ShowDialog();
             }
             else
@@ -643,7 +663,6 @@ namespace UniCloud.Presentation.Purchase.Contract
                 return;
             }
             _loadType = "SearchText";
-            DocumentChildIsBusy = true;
             if (sender.ToString().Equals("文件夹", StringComparison.CurrentCultureIgnoreCase))
             {
                 AddFolder(); //文件夹添加
@@ -664,14 +683,31 @@ namespace UniCloud.Presentation.Purchase.Contract
                 MessageAlert("提示", "文件夹名称不能为空");
                 return;
             }
-            if (CurrentPathItem.SubFolders.Any(p => p.Name.Contains(DocumentName.Trim())))
+            Uri newDocPath = null;
+            if (_isRenameFolder)
             {
-                MessageAlert("提示", "已存在同名文件夹");
-                return;
+                var sameLevelItems = FindSameLevelItems(_listBoxDocumentItems, CurrentPathItem.ParentId);
+                if (sameLevelItems != null)
+                {
+                    if (sameLevelItems.Any(p => p.Name.Equals(DocumentName)))
+                    {
+                        MessageAlert("提示", "已存在同名文件夹");
+                        return;
+                    }
+                }
+                newDocPath = ModifyDocumentPath(CurrentPathItem.DocumentPathId, DocumentName);
             }
-            var newDocPath = CreateDocumentPathQuery(DocumentName, false, null,
-                CurrentPathItem.DocumentPathId, 0);
-
+            else
+            {
+                if (CurrentPathItem.SubFolders.Any(p => p.Name.Contains(DocumentName.Trim())))
+                {
+                    MessageAlert("提示", "已存在同名文件夹");
+                    return;
+                }
+                newDocPath = CreateDocumentPathQuery(DocumentName, false, null,
+                   CurrentPathItem.DocumentPathId, 0);
+            }
+            DocumentChildIsBusy = true;
             _context.BeginExecute<string>(newDocPath, p => Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 DocumentPathsView.Load(true);
@@ -681,6 +717,20 @@ namespace UniCloud.Presentation.Purchase.Contract
                 }
                 DocumentChildIsBusy = false;
             }), null);
+        }
+
+        private IEnumerable<ListBoxDocumentItem> FindSameLevelItems(IEnumerable<ListBoxDocumentItem> subItems, int? parentId)
+        {
+            var listBoxDocumentItems = subItems as ListBoxDocumentItem[] ?? subItems.ToArray();
+            foreach (var listBoxDocumentItem in listBoxDocumentItems)
+            {
+                if (listBoxDocumentItem.DocumentPathId == parentId)
+                {
+                    return listBoxDocumentItem.SubFolders;
+                }
+                return FindSameLevelItems(listBoxDocumentItem.SubFolders, parentId);
+            }
+            return null;
         }
 
         /// <summary>
@@ -693,13 +743,13 @@ namespace UniCloud.Presentation.Purchase.Contract
                 MessageAlert("提示", "请选择需要添加的合同");
                 return;
             }
-            if (
-                CurrentPathItem.SubDocumentPaths.Any(
+            if (CurrentPathItem.SubDocumentPaths.Any(
                     p => p.Name.Contains(SelOrderDocument.ContractName.Trim()) && p.IsLeaf))
             {
                 MessageAlert("提示", "已存在同名文件");
                 return;
             }
+            DocumentChildIsBusy = true;
             var newDocPath = CreateDocumentPathQuery(SelOrderDocument.ContractName, true,
                 SelOrderDocument.ContractDocGuid.ToString(),
                 CurrentPathItem.DocumentPathId, 0);

@@ -52,5 +52,10 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.DocumentPathAgg
                 PathSource = pathSource,
             };
         }
+
+        public static void ModifyDocumentPath(DocumentPath documentPath,string name)
+        {
+            documentPath.Name = name;
+        }
     }
 }

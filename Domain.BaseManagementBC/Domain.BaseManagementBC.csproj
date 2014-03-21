@@ -58,6 +58,7 @@
     <Compile Include="Aggregates\OrganizationUserAgg\OrganizationUserSpecifications.cs" />
     <Compile Include="Aggregates\RoleAgg\IRoleRepository.cs" />
     <Compile Include="Aggregates\RoleAgg\Role.cs" />
+    <Compile Include="Aggregates\RoleAgg\RoleFactory.cs" />
     <Compile Include="Aggregates\RoleAgg\RoleSpecifications.cs" />
     <Compile Include="Aggregates\RoleFunctionAgg\IRoleFunctionRepository.cs" />
     <Compile Include="Aggregates\RoleFunctionAgg\RoleFunction.cs" />

@@ -20,5 +20,7 @@ namespace UniCloud.Presentation.BaseManagement.ManagePermission
             get { return DataContext as ManageFunctionsInRoleVm; }
             set { DataContext = value; }
         }
+
+        
     }
 }

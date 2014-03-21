@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.SessionState;
+﻿#region 命名空间
+
+using System;
 using UniCloud.DistributedServices.BaseManagement.InstanceProviders;
+
+#endregion
 
 namespace UniCloud.DistributedServices.BaseManagement
 {

@@ -11,12 +11,14 @@
 // 修改说明：
 // ========================================================================*/
 #endregion
+
+#region 命名空间
+
 using System;
 using System.Collections.Generic;
 using System.Data.Services.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+#endregion
 
 namespace UniCloud.Application.BaseManagementBC.DTO
 {
@@ -82,6 +84,7 @@ namespace UniCloud.Application.BaseManagementBC.DTO
         /// </summary>
         public bool IsButton { get; set; }
 
+        public bool IsChecked { get; set; }
 
         private List<FunctionItemDTO> _subFunctionItems;
         /// <summary>

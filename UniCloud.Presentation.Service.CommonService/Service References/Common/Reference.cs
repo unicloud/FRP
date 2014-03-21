@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/3/10 11:03:48
+// 生成日期: 2014/3/21 17:26:17
 namespace UniCloud.Presentation.Service.CommonService.Common
 {
     
@@ -120,7 +120,7 @@ namespace UniCloud.Presentation.Service.CommonService.Common
                 "x\"><edmx:DataServices m:DataServiceVersion=\"1.0\" m:MaxDataServiceVersion=\"3.0\" x" +
                 "mlns:m=\"http://schemas.microsoft.com/ado/2007/08/dataservices/metadata\"><Schema " +
                 "Namespace=\"UniCloud.Application.CommonServiceBC.DTO\" xmlns=\"http://schemas.micro" +
-                "soft.com/ado/2006/04/edm\"><EntityType Name=\"DocumentDTO\"><Key><PropertyRef Name=" +
+                "soft.com/ado/2007/05/edm\"><EntityType Name=\"DocumentDTO\"><Key><PropertyRef Name=" +
                 "\"DocumentId\" /></Key><Property Name=\"DocumentId\" Type=\"Edm.Guid\" Nullable=\"false" +
                 "\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Property Name=\"Extension\" Type=\"E" +
                 "dm.String\" /><Property Name=\"FileStorage\" Type=\"Edm.Binary\" /><Property Name=\"Fi" +
@@ -134,14 +134,17 @@ namespace UniCloud.Presentation.Service.CommonService.Common
                 "Edm.Boolean\" Nullable=\"false\" /><Property Name=\"Name\" Type=\"Edm.String\" /><Prope" +
                 "rty Name=\"Description\" Type=\"Edm.String\" /></EntityType></Schema><Schema Namespa" +
                 "ce=\"UniCloud.DistributedServices.CommonService\" xmlns=\"http://schemas.microsoft." +
-                "com/ado/2006/04/edm\"><EntityContainer Name=\"CommonServiceData\" m:IsDefaultEntity" +
+                "com/ado/2007/05/edm\"><EntityContainer Name=\"CommonServiceData\" m:IsDefaultEntity" +
                 "Container=\"true\"><EntitySet Name=\"Documents\" EntityType=\"UniCloud.Application.Co" +
                 "mmonServiceBC.DTO.DocumentDTO\" /><EntitySet Name=\"DocumentTypes\" EntityType=\"Uni" +
                 "Cloud.Application.CommonServiceBC.DTO.DocumentTypeDTO\" /><FunctionImport Name=\"S" +
                 "earchDocument\" ReturnType=\"Collection(UniCloud.Application.CommonServiceBC.DTO.D" +
                 "ocumentDTO)\" EntitySet=\"Documents\" m:HttpMethod=\"GET\"><Parameter Name=\"keyword\" " +
                 "Type=\"Edm.String\" /><Parameter Name=\"documentType\" Type=\"Edm.String\" /></Functio" +
-                "nImport></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
+                "nImport><FunctionImport Name=\"GetSingleDocument\" ReturnType=\"UniCloud.Applicatio" +
+                "n.CommonServiceBC.DTO.DocumentDTO\" EntitySet=\"Documents\" m:HttpMethod=\"GET\"><Par" +
+                "ameter Name=\"documentId\" Type=\"Edm.String\" /></FunctionImport></EntityContainer>" +
+                "</Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {

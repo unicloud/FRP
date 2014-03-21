@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.CommonServiceBC.DTO;
 using UniCloud.Application.CommonServiceBC.Query.DocumentQueries;
@@ -55,6 +56,12 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
             var queryBuilder =
                 new QueryBuilder<Document>();
             return _documentQuery.DocumentsQuery(queryBuilder);
+        }
+
+        public DocumentDTO GetSingleDocument(Guid documentId)
+        {
+            Expression<Func<Document, bool>> source = p => p.Id == documentId;
+            return _documentQuery.GetSingleDocumentQuery(source);
         }
 
         [Insert(typeof(DocumentDTO))]

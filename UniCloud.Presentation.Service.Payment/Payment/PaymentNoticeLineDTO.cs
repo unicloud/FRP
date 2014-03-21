@@ -23,14 +23,6 @@ namespace UniCloud.Presentation.Service.Payment.Payment
 {
     public partial class PaymentNoticeLineDTO
     {
-        partial void OnInvoiceTypeStringChanging(string value)
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                throw new Exception("请选择发票类型");
-            }
-            InvoiceType = (int)(InvoiceType)Enum.Parse(typeof(InvoiceType), value, true);
-        }
-
+        
     }
 }

@@ -31,13 +31,13 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserRoleAgg
         public  int UserId
         {
             get;
-            private set;
+            internal set;
         }
 
         public int RoleId
         {
             get;
-            private set;
+            internal set;
         }
 
         #endregion

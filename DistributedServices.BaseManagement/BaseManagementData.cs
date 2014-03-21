@@ -2,11 +2,16 @@
 // 
 //------------------------------------------------------------------------------
 
+#region 命名空间
+
 using System.Linq;
 using UniCloud.Application.BaseManagementBC.DTO;
 using UniCloud.Application.BaseManagementBC.FunctionItemServices;
+using UniCloud.Application.BaseManagementBC.RoleServices;
 using UniCloud.Application.BaseManagementBC.UserServices;
 using UniCloud.Infrastructure.Utilities.Container;
+
+#endregion
 
 namespace UniCloud.DistributedServices.BaseManagement
 {
@@ -19,11 +24,13 @@ namespace UniCloud.DistributedServices.BaseManagement
     {
         private readonly IUserAppService _userAppService;
         private readonly IFunctionItemAppService _functionItemAppService;
+        private readonly IRoleAppService _roleAppService;
         public BaseManagementData()
             : base("UniCloud.Application.BaseManagementBC.DTO")
         {
             _userAppService = DefaultContainer.Resolve<IUserAppService>();
             _functionItemAppService = DefaultContainer.Resolve<IFunctionItemAppService>();
+            _roleAppService = DefaultContainer.Resolve<IRoleAppService>();
         }
 
 
@@ -47,5 +54,11 @@ namespace UniCloud.DistributedServices.BaseManagement
         }
         #endregion
 
+        #region Role集合
+        public IQueryable<RoleDTO> Roles
+        {
+            get { return _roleAppService.GetRoles(); }
+        }
+        #endregion
     }
 }

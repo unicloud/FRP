@@ -197,6 +197,7 @@
     </Compile>
     <Compile Include="ManagePermission\ManageUserInRoleVm.cs" />
     <Compile Include="ManagePermission\ManageUserVm.cs" />
+    <Compile Include="ManagePermission\UserRoleDoubleClickHelper.cs" />
     <Compile Include="ManageSubsidiary\BranchCompany.xaml.cs">
       <DependentUpon>BranchCompany.xaml</DependentUpon>
     </Compile>

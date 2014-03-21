@@ -1,6 +1,6 @@
 ﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
-  <edmx:DataServices m:DataServiceVersion="1.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
-    <Schema Namespace="UniCloud.Application.BaseManagementBC.DTO" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+  <edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="UniCloud.Application.BaseManagementBC.DTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityType Name="UserDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -14,7 +14,13 @@
         <Property Name="Description" Type="Edm.String" />
         <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="OrganizationName" Type="Edm.String" />
+        <Property Name="UserRoles" Type="Collection(UniCloud.Application.BaseManagementBC.DTO.UserRoleDTO)" Nullable="false" />
       </EntityType>
+      <ComplexType Name="UserRoleDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="UserId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RoleId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
       <EntityType Name="FunctionItemDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -30,17 +36,34 @@
         <Property Name="CreateDate" Type="Edm.DateTime" />
         <Property Name="ImageUrl" Type="Edm.String" />
         <Property Name="IsButton" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="IsChecked" Type="Edm.Boolean" Nullable="false" />
         <NavigationProperty Name="SubFunctionItems" Relationship="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems" ToRole="SubFunctionItems" FromRole="FunctionItemDTO" />
       </EntityType>
+      <EntityType Name="RoleDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="RoleFunctions" Type="Collection(UniCloud.Application.BaseManagementBC.DTO.RoleFunctionDTO)" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="RoleFunctionDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="FunctionItemId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RoleId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
       <Association Name="FunctionItemDTO_SubFunctionItems">
         <End Type="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" Role="SubFunctionItems" Multiplicity="*" />
         <End Type="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" Role="FunctionItemDTO" Multiplicity="*" />
       </Association>
     </Schema>
-    <Schema Namespace="UniCloud.DistributedServices.BaseManagement" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+    <Schema Namespace="UniCloud.DistributedServices.BaseManagement" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="BaseManagementData" m:IsDefaultEntityContainer="true">
         <EntitySet Name="Users" EntityType="UniCloud.Application.BaseManagementBC.DTO.UserDTO" />
         <EntitySet Name="FunctionItems" EntityType="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO" />
+        <EntitySet Name="Roles" EntityType="UniCloud.Application.BaseManagementBC.DTO.RoleDTO" />
         <FunctionImport Name="GetFunctionItemsWithHierarchy" ReturnType="Collection(UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO)" EntitySet="FunctionItems" m:HttpMethod="GET" />
         <AssociationSet Name="FunctionItemDTO_SubFunctionItems" Association="UniCloud.Application.BaseManagementBC.DTO.FunctionItemDTO_SubFunctionItems">
           <End Role="FunctionItemDTO" EntitySet="FunctionItems" />

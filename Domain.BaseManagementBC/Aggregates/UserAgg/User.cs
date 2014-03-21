@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.BaseManagementBC.Aggregates.UserRoleAgg;
 
 #endregion
 
@@ -99,6 +100,34 @@ namespace UniCloud.Domain.BaseManagementBC.Aggregates.UserAgg
             internal set;
         }
 
+        /// <summary>
+        /// 角色集合
+        /// </summary>
+        private ICollection<UserRole> _userRoles;
+        public ICollection<UserRole> UserRoles
+        {
+            get { return _userRoles ?? (_userRoles = new HashSet<UserRole>()); }
+            set { _userRoles = new HashSet<UserRole>(value); }
+        }
+        #endregion
+
+        #region 操作
+        /// <summary>
+        /// 新增UserRole
+        /// </summary>
+        /// <returns></returns>
+        public UserRole AddNewUserRole()
+        {
+            var userRole = new UserRole
+            {
+                UserId = Id,
+            };
+
+            userRole.GenerateNewIdentity();
+            UserRoles.Add(userRole);
+
+            return userRole;
+        }
         #endregion
 
         #region IValidatableObject 成员
