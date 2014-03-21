@@ -44,7 +44,7 @@ namespace UniCloud.Presentation.Document
         private FilterDescriptor _docDescriptor;
         private DocumentDTO _loadedDocument;
         private Action<DocumentDTO> _windowClosed;
-
+        private bool _fromServer;
         [ImportingConstructor]
         public DocViewerVM(ICommonService service)
             : base(service)
@@ -287,19 +287,27 @@ namespace UniCloud.Presentation.Document
 
         private void OnSave(object obj)
         {
-            if (_addedDocument.DocumentTypeId == 0)
+            if (_fromServer)
             {
-                MessageAlert("请选择文档类型！");
-                return;
-            }
-            IsBusy = true;
-            ViewDocumentDTO.AddNew(_addedDocument);
-            _service.SubmitChanges(sm =>
-            {
-                IsBusy = false;
                 _windowClosed(_addedDocument);
-                MessageAlert("提示", sm.Error == null ? "保存成功。" : "保存失败，请检查！");
-            });
+                MessageAlert("提示", "保存成功。");
+            }
+            else
+            {
+                if (_addedDocument.DocumentTypeId == 0)
+                {
+                    MessageAlert("请选择文档类型！");
+                    return;
+                }
+                IsBusy = true;
+                ViewDocumentDTO.AddNew(_addedDocument);
+                _service.SubmitChanges(sm =>
+                                       {
+                                           IsBusy = false;
+                                           _windowClosed(_addedDocument);
+                                           MessageAlert("提示", sm.Error == null ? "保存成功。" : "保存失败，请检查！");
+                                       });
+            }
         }
 
         private bool CanSave(object obj)
@@ -318,6 +326,7 @@ namespace UniCloud.Presentation.Document
         /// <param name="callback">回调操作</param>
         internal void InitDocument(FileInfo fi, Action<DocumentDTO> callback)
         {
+            _fromServer = false;
             DocumentTypeVisibility = Visibility.Visible;
             DocumentTypes.Load();
             _windowClosed = callback;
@@ -345,6 +354,14 @@ namespace UniCloud.Presentation.Document
             }
         }
 
+        internal void AddDocument(DocumentDTO document, bool fromServer, Action<DocumentDTO> callback)
+        {
+            DocumentTypeVisibility = Visibility.Collapsed;
+            _fromServer = fromServer;
+            _windowClosed = callback;
+            ViewDocument(document);
+            _addedDocument = document;
+        }
         /// <summary>
         ///     展示从本地添加的文档
         ///     <remarks>

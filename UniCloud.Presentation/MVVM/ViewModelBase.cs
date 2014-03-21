@@ -23,6 +23,7 @@ using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Prism.ViewModel;
+using Microsoft.Practices.ServiceLocation;
 using Telerik.Windows.Controls;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.Service;
@@ -37,14 +38,20 @@ namespace UniCloud.Presentation.MVVM
     /// </summary>
     public abstract class ViewModelBase : NotificationObject, INavigationAware, ILoadData
     {
-        [Import] public DocViewer docViewer;
-        [Import] public DocViewerVM docViewerVM;
+        [Import]
+        public DocViewer docViewer;
+        [Import]
+        public DocViewerVM docViewerVM;
 
+        //[Import]
+        public ListDocuments ListDocuments ;
+        protected Action<DocumentDTO> _windowClosed;
         #region ctor
 
         protected ViewModelBase(IService service)
         {
             AddAttachCommand = new DelegateCommand<object>(OnAddAttach, CanAddAttach);
+            AddLocalAttachCommand = new DelegateCommand<object>(OnAddLocalAttach, CanAddLocalAttach);
             ViewAttachCommand = new DelegateCommand<object>(OnViewAttach);
             ExcelExportCommand = new DelegateCommand<object>(OnExcelExport);
             WordExportCommand = new DelegateCommand<object>(OnWordExport);
@@ -89,7 +96,7 @@ namespace UniCloud.Presentation.MVVM
 
         protected virtual void SetIsBusy()
         {
-            
+
         }
 
         #endregion
@@ -118,39 +125,32 @@ namespace UniCloud.Presentation.MVVM
 
         #region ViewModel
 
-        #region 添加附件
+        #region 服务器添加附件
 
         public DelegateCommand<object> AddAttachCommand { get; set; }
 
         /// <summary>
-        ///     添加附件
+        ///     服务器添加附件
         /// </summary>
         /// <param name="sender">命令参数</param>
         protected void OnAddAttach(object sender)
         {
-            if ((sender is Guid) && (Guid) sender != Guid.Empty)
+            ListDocuments = ServiceLocator.Current.GetInstance<ListDocuments>();
+            if ((sender is Guid) && (Guid)sender != Guid.Empty)
             {
                 MessageConfirm("附件已存在，继续操作将有可能替换当前附件。是否继续？", (o, e) =>
                 {
                     if (e.DialogResult != null && e.DialogResult == true)
                     {
-                        var openFileDialog = new OpenFileDialog {Filter = "可用文档|*.docx;*.pdf"};
-                        if (openFileDialog.ShowDialog() == true)
-                        {
-                            docViewer.ShowDialog();
-                            docViewerVM.InitDocument(openFileDialog.File, d => WindowClosed(d, sender));
-                        }
+                        ListDocuments.ViewModel.InitData(d => WindowClosed(d, sender));
+                        ListDocuments.ShowDialog();
                     }
                 });
             }
             else
             {
-                var openFileDialog = new OpenFileDialog {Filter = "可用文档|*.docx;*.pdf"};
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    docViewer.ShowDialog();
-                    docViewerVM.InitDocument(openFileDialog.File, d => WindowClosed(d, sender));
-                }
+                ListDocuments.ViewModel.InitData(d => WindowClosed(d, sender));
+                ListDocuments.ShowDialog();
             }
         }
 
@@ -171,6 +171,34 @@ namespace UniCloud.Presentation.MVVM
 
         #endregion
 
+        #region 本地添加附件
+
+        public DelegateCommand<object> AddLocalAttachCommand { get; set; }
+
+        /// <summary>
+        ///     本地添加附件
+        /// </summary>
+        /// <param name="sender">命令参数</param>
+        protected void OnAddLocalAttach(object sender)
+        {
+            var openFileDialog = new OpenFileDialog { Filter = "可用文档|*.docx;*.pdf" };
+            if (openFileDialog.ShowDialog() == true)
+            {
+                ListDocuments = ServiceLocator.Current.GetInstance<ListDocuments>();
+                ListDocuments.Close();
+
+                docViewer.ShowDialog();
+                docViewerVM.InitDocument(openFileDialog.File, _windowClosed);
+            }
+        }
+
+
+        protected virtual bool CanAddLocalAttach(object obj)
+        {
+            return true;
+        }
+        #endregion
+
         #region 查看附件
 
         public DelegateCommand<object> ViewAttachCommand { get; set; }
@@ -183,8 +211,8 @@ namespace UniCloud.Presentation.MVVM
         {
             if (sender is Guid)
             {
-                docViewer.Show();
-                docViewerVM.InitDocument((Guid) sender);
+                docViewer.ShowDialog();
+                docViewerVM.InitDocument((Guid)sender);
             }
             else
             {
