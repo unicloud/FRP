@@ -19,7 +19,10 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.Data.Services.Client;
 using System.Linq;
+using System.Reflection;
+using System.Xml.Linq;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
@@ -34,6 +37,43 @@ namespace UniCloud.Presentation.Service.FleetPlan
         public FleetPlanService()
         {
             context = new FleetPlanData(AgentHelper.FleetPlanServiceUri);
+            context.WritingEntity += context_WritingEntity;
+        }
+
+        /// <summary>
+        /// Properties marked with this Attribute are not serialized in the payload when sent to the server
+        /// </summary>
+        [AttributeUsage(AttributeTargets.Property)]
+        public class DoNotSerializeAttribute : Attribute
+        {
+        }
+
+        private void context_WritingEntity(object sender, ReadingWritingEntityEventArgs e)
+        {
+            // e.Data gives you the XElement for the Serialization of the Entity 
+            //Using XLinq  , you can  add/Remove properties to the element Payload  
+            XName xnEntityProperties = XName.Get("properties", e.Data.GetNamespaceOfPrefix("m").NamespaceName);
+            XElement xePayload = null;
+            foreach (PropertyInfo property in e.Entity.GetType().GetProperties())
+            {
+                object[] doNotSerializeAttributes = property.GetCustomAttributes(typeof(DoNotSerializeAttribute), false);
+                if (doNotSerializeAttributes.Length > 0)
+                {
+                    if (xePayload == null)
+                    {
+                        xePayload =
+                            e.Data.Descendants().First(xe => xe.Name == xnEntityProperties);
+                    }
+                    //The XName of the property we are going to remove from the payload
+                    XName xnProperty = XName.Get(property.Name, e.Data.GetNamespaceOfPrefix("d").NamespaceName);
+                    //Get the Property of the entity  you don't want sent to the server
+                    foreach (XElement xeRemoveThisProperty in xePayload.Descendants(xnProperty).ToList())
+                    {
+                        //Remove this property from the Payload sent to the server 
+                        xeRemoveThisProperty.Remove();
+                    }
+                }
+            }
         }
 
         #region IFleetPlanService 成员
@@ -163,11 +203,11 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="actionType">活动类型</param>
         /// <param name="planType">判断是否运营\变更计划</param>
         /// <returns></returns>
-        public PlanHistoryDTO CreatePlanHistory(PlanDTO plan,ref PlanAircraftDTO planAircraft,AircraftDTO aircraft, string actionType, int planType)
+        public PlanHistoryDTO CreatePlanHistory(PlanDTO plan, ref PlanAircraftDTO planAircraft, AircraftDTO aircraft, string actionType, int planType)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                return pb.CreatePlanHistory(plan,ref planAircraft,aircraft,actionType, planType, this);
+                return pb.CreatePlanHistory(plan, ref planAircraft, aircraft, actionType, planType, this);
             }
         }
 
@@ -190,11 +230,11 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="aircraft">飞机</param>
         /// <param name="editAircraft">飞机</param>
         /// <returns><see cref="IFleetPlanService"/></returns>
-        public void CompletePlan(PlanHistoryDTO planDetail,AircraftDTO aircraft,ref AircraftDTO editAircraft)
+        public void CompletePlan(PlanHistoryDTO planDetail, AircraftDTO aircraft, ref AircraftDTO editAircraft)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-              pb.CompletePlan(planDetail,aircraft,ref editAircraft, this);
+                pb.CompletePlan(planDetail, aircraft, ref editAircraft, this);
             }
         }
 

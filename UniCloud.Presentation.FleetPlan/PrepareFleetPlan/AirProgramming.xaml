@@ -120,7 +120,8 @@
                                                                  MethodName="GridViewSelectionChanged" />
                                         </i:EventTrigger>
                                         <i:EventTrigger EventName="CellEditEnded">
-                                            <i:InvokeCommandAction Command="{Binding CellEditEndCommand}" />
+                                            <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"
+                                                                   CommandParameter="{Binding ElementName=AirProgrammings}"/>
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                     <telerik:RadContextMenu.ContextMenu>
@@ -277,18 +278,9 @@
                                                 </DataTemplate>
                                             </telerik:GridViewColumn.CellTemplate>
                                         </telerik:GridViewDataColumn>
-                                        <telerik:GridViewDataColumn Header="净增"
-                                                                    MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                    DataMemberBinding="{Binding NetIncrease}">
-                                            <telerik:GridViewColumn.CellTemplate>
-                                                <DataTemplate>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="{Binding NetIncrease}"></TextBlock>
-                                                        <TextBlock Text=" 架"></TextBlock>
-                                                    </StackPanel>
-                                                </DataTemplate>
-                                            </telerik:GridViewColumn.CellTemplate>
-                                        </telerik:GridViewDataColumn>
+                                        <telerik:GridViewExpressionColumn Header="净增"
+                                                                          MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                          Expression="BuyNum+LeaseNum-ExportNum"/>
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
                             </Grid>

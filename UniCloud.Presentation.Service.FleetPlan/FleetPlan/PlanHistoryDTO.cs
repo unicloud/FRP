@@ -15,7 +15,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
@@ -23,6 +22,7 @@ using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
+
     public partial class PlanHistoryDTO
     {
         static readonly FleetPlanService FleetPlanService = new FleetPlanService();
@@ -168,13 +168,13 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 3、已申请
         /// 4、无需申请
         /// </summary>
-        internal CanRequest CanRequest
+        public CanRequest CanRequest
         {
             get
             {
                 return _canRequest;
-                }
             }
+        }
 
 
         /// <summary>
@@ -236,7 +236,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         /// 净增客机
         /// </summary>
-        internal int DeltaPnr
+        public int DeltaPnr
         {
             get
             {
@@ -274,7 +274,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         /// 净增货机
         /// </summary>
-        internal int DeltaCargo
+        public int DeltaCargo
         {
             get
             {
@@ -311,56 +311,11 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         #endregion
 
         #region 属性绑定
-        /// <summary>
-        /// 座级集合，用于属性绑定
-        /// </summary>
-        internal IEnumerable<AircraftCategoryDTO> AircraftCategories
-        {
-            get { return FleetPlanService.GetAircraftCategories(null).SourceCollection.Cast<AircraftCategoryDTO>().ToList(); }
-            private set
-            {
 
-        }
-        }
-
-        /// <summary>
-        /// 机型集合，用于属性绑定
-        /// </summary>
-        internal IEnumerable<AircraftTypeDTO> AircraftTypes
-        {
-            get
-            {
-                if (Regional != null)
-                    return FleetPlanService.GetAircraftTypes(null).SourceCollection.Cast<AircraftTypeDTO>().Where(p => p.Regional == Regional).ToList();
-                else return FleetPlanService.GetAircraftTypes(null).SourceCollection.Cast<AircraftTypeDTO>().ToList();
-            }
-            private set
-            {
-
-            }
-        }
-        /// <summary>
-        /// 操作集合，用于属性绑定
-        /// </summary>
-        internal IEnumerable<ActionCategoryDTO> ActionCategories
-        {
-            get
-            {
-                if (PlanType == 1)
-                    return FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType != "变更").ToList();
-                else if (PlanType == 2)
-                    return FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "变更").ToList();
-                else return FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().ToList();
-            }
-            private set
-            {
-
-            }
-        }
         /// <summary>
         /// 计划历史比较状态
         /// </summary>
-        public PlanHistoryCompareStatus PlanHistoryCompareStatus
+        internal PlanHistoryCompareStatus PlanHistoryCompareStatus
         { get; set; }
         #endregion
 
@@ -376,15 +331,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             this.OnPropertyChanged("DeltaPnr");
 
             this.OnPropertyChanged("DeltaCargo");
-        }
-
-        partial void OnPlanTypeChanged()
-        {
-            if (PlanType == 1)
-                ActionCategories = FleetPlanService.GetActionCategories(null).Where(p => p.ActionType != "变更");
-            else if (PlanType == 2)
-                ActionCategories = FleetPlanService.GetActionCategories(null).Where(p => p.ActionType == "变更");
-            else ActionCategories = FleetPlanService.GetActionCategories(null);
         }
 
         partial void OnActionCategoryIdChanged()
@@ -445,7 +391,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                             }
                             break;
                         case "售后融资租赁":
-                             actionCategoryDTO = FleetPlanService.GetActionCategories(null).FirstOrDefault(a => a.ActionName == "融资租赁");
+                            actionCategoryDTO = FleetPlanService.GetActionCategories(null).FirstOrDefault(a => a.ActionName == "融资租赁");
                             if (actionCategoryDTO != null)
                                 this.TargetCategoryId = actionCategoryDTO.Id;
                             break;
@@ -463,14 +409,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 }
             }
         }
-
-        partial void OnRegionalChanged()
-        {
-            if (Regional != null)
-                AircraftTypes = FleetPlanService.GetAircraftTypes(null).Where(p => p.Regional == Regional);
-            else AircraftTypes = FleetPlanService.GetAircraftTypes(null);
-        }
-
+        
         partial void OnRelatedGuidChanged()
         {
             OnPropertyChanged("CompleteStatus");
@@ -489,11 +428,11 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 刷新是否申请状态
         /// </summary>
         /// <param name="plan"></param>
-        public void  RefrashCanRequest(PlanDTO plan)
+        public void RefrashCanRequest(PlanDTO plan)
         {
             if (ActionCategoryId != Guid.Empty && NeedRequest)
             {
-                if (ManageStatus > (int)Enums.ManageStatus.计划) _canRequest= CanRequest.已申请;
+                if (ManageStatus > (int)Enums.ManageStatus.计划) _canRequest = CanRequest.已申请;
                 else
                     _canRequest = (this.IsSubmit && plan.Status == (int)OperationStatus.已提交)
                     ? CanRequest.可申请
@@ -504,7 +443,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 _canRequest = CanRequest.无需申请;
             }
             OnPropertyChanged("CanRequest");
-          
+
         }
         #endregion
     }

@@ -205,7 +205,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     var planAircraft = items.SelectMany(a =>
                     {
                         var aircraft = a as AircraftDTO;
-                        return aircraft != null ? viewModel.PlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>().Where(p => p.Id == aircraft.AircraftId) : null;
+                        return aircraft != null ? viewModel.ViewPlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>().Where(p => p.Id == aircraft.AircraftId) : null;
                     }).FirstOrDefault(pa => pa.IsOwn);
                     viewModel.OpenEditDialog(planAircraft, PlanDetailCreateSource.Aircraft);
                 }
