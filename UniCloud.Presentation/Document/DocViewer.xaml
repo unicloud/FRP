@@ -83,7 +83,7 @@
                                                        Width="300" />
                                         </StackPanel>
                                     </StackPanel>
-                                    <StackPanel Margin="0,30,0,0"
+                                    <!--<StackPanel Margin="0,30,0,0"
                                                 Orientation="Horizontal">
                                         <telerik:RadRibbonButton BorderBrush="Gray"
                                                                  VerticalContentAlignment="Center"
@@ -108,7 +108,7 @@
                                                        TextWrapping="Wrap"
                                                        Width="300" />
                                         </StackPanel>
-                                    </StackPanel>
+                                    </StackPanel>-->
                                 </StackPanel>
                             </telerik:RadRibbonBackstageItem>
                             <telerik:RadRibbonBackstageItem Header="打印"
@@ -578,6 +578,13 @@
                         Command="{Binding DataContext.SaveCommand, ElementName=LayoutRoot}">
                         <ToolTipService.ToolTip>
                             <TextBlock Text="保存到服务器" />
+                        </ToolTipService.ToolTip>
+                        <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/save.png"
+                               Stretch="None" />
+                    </telerik:RadButton>
+                    <telerik:RadButton Command="{Binding DataContext.SavePdfCommand, ElementName=LayoutRoot}">
+                        <ToolTipService.ToolTip>
+                            <TextBlock Text="保存为Pdf" />
                         </ToolTipService.ToolTip>
                         <Image Source="/Telerik.Windows.Controls.FixedDocumentViewers;component/Images/save.png"
                                Stretch="None" />
