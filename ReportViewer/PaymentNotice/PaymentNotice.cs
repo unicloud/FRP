@@ -11,10 +11,15 @@
 // 修改说明：
 // ========================================================================*/
 #endregion
+
+#region 命名空间
+
 using System;
 using System.Collections.Generic;
-using ReportViewer.Payment;
 using System.Linq;
+using ReportViewer.Payment;
+
+#endregion
 
 namespace ReportViewer.PaymentNotice
 {

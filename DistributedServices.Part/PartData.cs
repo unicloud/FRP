@@ -359,5 +359,10 @@ namespace UniCloud.DistributedServices.Part
             get { return _adSbAppService.GetAdSbs(); }
         }
         #endregion
+
+        public IQueryable<UtilizationReportDTO> UtilizationReports
+        {
+            get { return null; }
+        }
     }
 }

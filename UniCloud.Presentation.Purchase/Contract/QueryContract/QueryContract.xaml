@@ -29,6 +29,7 @@
                                    Header="{Binding RootPath}"
                                    ImagePath="SmallIconPath"
                                    IsIconVisible="True"
+                                   IsHistoryEnabled="True"
                                    ItemsSource="{Binding RootPath.SubFolders}"
                                    TextModePath="Path"
                                    CurrentItem="{Binding CurrentPathItem, Mode=TwoWay}">

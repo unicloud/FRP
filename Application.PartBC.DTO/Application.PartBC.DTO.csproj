@@ -81,6 +81,8 @@
     <Compile Include="OilMonitorDTO\OilMonitorDTO.cs" />
     <Compile Include="PnRegDTO\PnRegDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportDTO\SubUtilizationReportDTO.cs" />
+    <Compile Include="ReportDTO\UtilizationReportDTO.cs" />
     <Compile Include="ScnDTO\AirBusScnDTO.cs" />
     <Compile Include="ScnDTO\ApplicableAircraftDTO.cs" />
     <Compile Include="ScnDTO\ScnDTO.cs" />
