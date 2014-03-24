@@ -54,7 +54,7 @@ namespace UniCloud.Presentation.Document
             _context = service.Context;
 
             SaveCommand = new DelegateCommand<object>(OnSave, CanSave);
-            SavePdfCommand = new DelegateCommand<object>(OnSavePdf, CanSavePdf);
+            SaveDocumentToLocalCommand = new DelegateCommand<object>(OnSaveDocumentToLocal, CanSaveDocumentToLocal);
             InitializeVM();
         }
 
@@ -473,26 +473,33 @@ namespace UniCloud.Presentation.Document
         }
         #endregion
 
-        #region 保存Pdf文档
+        #region 保存文档到本地
         /// <summary>
         ///     保存命令
         /// </summary>
-        public DelegateCommand<object> SavePdfCommand { get; set; }
+        public DelegateCommand<object> SaveDocumentToLocalCommand { get; set; }
 
-        private void OnSavePdf(object obj)
+        private void OnSaveDocumentToLocal(object obj)
         {
-            var saveFileDialog = new SaveFileDialog { Filter = "PDF文档(*.pdf)|*.pdf" };
+
+            var saveFileDialog = new SaveFileDialog
+                                 {
+                                     DefaultFileName = Title,
+                                     Filter = Title.ToLower().EndsWith(".docx")
+                                             ? "Word文档(*.docx)|*.docx"
+                                             : "PDF文档(*.pdf)|*.pdf"
+                                 };
+
             if (saveFileDialog.ShowDialog() == true)
             {
-                
                 var fileStream = (FileStream)saveFileDialog.OpenFile();
                 fileStream.Write(_content, 0, _content.Length);
-               
-                //File.WriteAllBytes(saveFileDialog.SafeFileName, _content);
+                MessageAlert("保存成功。");
+                fileStream.Dispose();
             }
         }
 
-        private bool CanSavePdf(object obj)
+        private bool CanSaveDocumentToLocal(object obj)
         {
             return true;
         }
