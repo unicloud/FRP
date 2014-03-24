@@ -3,9 +3,11 @@
 using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using UniCloud.Application.PurchaseBC.OrderDocumentServices;
-using UniCloud.Application.PurchaseBC.Query.OrderDocumentQueries;
+using UniCloud.Application.PurchaseBC.ContractDocumentServices;
+using UniCloud.Application.PurchaseBC.Query.ContractDocumentQueries;
+using UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg;
 using UniCloud.Infrastructure.Data;
+using UniCloud.Infrastructure.Data.PurchaseBC.Repositories;
 using UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork;
 using UniCloud.Infrastructure.Utilities.Container;
 using Microsoft.Practices.Unity;
@@ -14,7 +16,7 @@ using Microsoft.Practices.Unity;
 namespace UniCloud.Application.PurchaseBC.Tests.Services
 {
     [TestClass]
-    public class OrderDocumentBCTest
+    public class ContractDocumentBCTest
     {
         #region 基础配置
 
@@ -27,6 +29,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
 
                          .RegisterType<IContractDocumentAppService, ContractDocumentAppService>()
                          .RegisterType<IContractDocumentQuery, ContractDocumentQuery>()
+                          .RegisterType<IMaintainContractRepository, MaintainContractRepository>()
                 #endregion
 
                 ;
@@ -38,13 +41,13 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
         }
 
         [TestMethod]
-        public void GetOrderDocument()
+        public void GetContractDocument()
         {
             try
             {
                 // Arrange
                 var service = DefaultContainer.Resolve<IContractDocumentAppService>();
-                var result = service.GetOrderDocuments().ToList();
+                var result = service.GetContractDocuments();
                 Assert.IsTrue(result.Any());
             }
             catch (Exception)

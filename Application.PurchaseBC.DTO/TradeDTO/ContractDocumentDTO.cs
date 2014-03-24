@@ -25,20 +25,20 @@ using System.Data.Services.Common;
 namespace UniCloud.Application.PurchaseBC.DTO
 {
     /// <summary>
-    ///     订单合同
+    ///     合同文档
     /// </summary>
-    [DataServiceKey("OrderDocumentId")]
-    public class OrderDocumentDTO
+    [DataServiceKey("Id")]
+    public class ContractDocumentDTO
     {
         /// <summary>
-        ///     订单ID
+        ///     ID
         /// </summary>
-        public int OrderDocumentId { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         ///     合同名称
         /// </summary>
-        public string Name { get; set; }
+        public string ContractName { get; set; }
 
         /// <summary>
         ///     合同编号
@@ -53,11 +53,11 @@ namespace UniCloud.Application.PurchaseBC.DTO
         /// <summary>
         ///     合同文件名
         /// </summary>
-        public string ContractName { get; set; }
+        public string DocumentName { get; set; }
 
         /// <summary>
         ///     合同文档检索ID
         /// </summary>
-        public Guid ContractDocGuid { get; set; }
+        public Guid DocumentId { get; set; }
     }
 }
