@@ -695,6 +695,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                         return;
                     }
                 }
+                CurrentPathItem.Name = DocumentName;
                 newDocPath = ModifyDocumentPath(CurrentPathItem.DocumentPathId, DocumentName);
             }
             else
