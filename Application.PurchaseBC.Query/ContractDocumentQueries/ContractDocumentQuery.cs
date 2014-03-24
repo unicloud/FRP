@@ -5,6 +5,7 @@ using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaintainContractAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
+using UniCloud.Domain.PurchaseBC.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 using UniCloud.Infrastructure.Data;
 
@@ -59,6 +60,20 @@ namespace UniCloud.Application.PurchaseBC.Query.ContractDocumentQueries
                                  DocumentName = o.ContractName,
                                  DocumentId = o.ContractDocGuid,
                              }).ToList().ForEach(documents.Add);
+            _unitOfWork.CreateSet<Order>().ToList().ForEach(o => _unitOfWork.CreateSet<RelatedDoc>()
+                .Where(r => r.SourceId == o.SourceGuid)
+                .Select(p => new ContractDocumentDTO
+                         {
+                             Id = p.DocumentId,
+                             SupplierName = dbTrade.Where(
+                                     t => t.Id == o.TradeId)
+                                 .Select(t => t.Supplier.CnName)
+                                 .FirstOrDefault(),
+                             ContractName = o.Name,
+                             ContractNumber = o.ContractNumber,
+                             DocumentName = p.DocumentName,
+                             DocumentId = p.DocumentId,
+                         }).ToList().ForEach(documents.Add));
             _contractRepository.GetAll()
                 .Select(o => new ContractDocumentDTO
                              {
