@@ -151,7 +151,6 @@
                                                                                  CommandParameter="文件" />
                                             </telerik:RadContextMenu>
                                         </telerik:RadContextMenu.ContextMenu>
-
                                         <uc:RadListBoxDoubleClick.Helper>
                                             <uc:QueryContractDbClickHelper />
                                         </uc:RadListBoxDoubleClick.Helper>
