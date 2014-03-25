@@ -221,7 +221,7 @@ namespace UniCloud.Presentation.Shell
             menu12.Items.Add(menu122);
             menu1.Items.Add(menu12);
 
-            //_items.Add(menu1);
+            _items.Add(menu1);
 
             #endregion
 
@@ -576,7 +576,7 @@ namespace UniCloud.Presentation.Shell
             menu35.Items.Add(menu353);
             menu3.Items.Add(menu35);
 
-            //_items.Add(menu3);
+            _items.Add(menu3);
 
             #endregion
 
@@ -750,7 +750,7 @@ namespace UniCloud.Presentation.Shell
             menu4.Items.Add(menu47);
 
 
-            //_items.Add(menu4);
+            _items.Add(menu4);
 
             #endregion
 
@@ -784,7 +784,7 @@ namespace UniCloud.Presentation.Shell
             menu5.Items.Add(menu53);
             menu5.Items.Add(menu54);
 
-            //_items.Add(menu5);
+            _items.Add(menu5);
 
             #endregion
 
@@ -801,7 +801,7 @@ namespace UniCloud.Presentation.Shell
                 NavUri = "UniCloud.Presentation.Part.ManageAdSb.QueryAdSb"
             };
             menu6.Items.Add(menu61);
-            //_items.Add(menu6);
+            _items.Add(menu6);
 
             #endregion
 
@@ -917,7 +917,7 @@ namespace UniCloud.Presentation.Shell
             menu710.Items.Add(menu7101);
             menu710.Items.Add(menu7102);
             menu7.Items.Add(menu710);
-            //_items.Add(menu7);
+            _items.Add(menu7);
 
             #endregion
 
@@ -959,7 +959,7 @@ namespace UniCloud.Presentation.Shell
             menu8.Items.Add(menu81);
             menu8.Items.Add(menu83);
 
-            //_items.Add(menu8);
+            _items.Add(menu8);
 
             #endregion
 
@@ -1035,7 +1035,7 @@ namespace UniCloud.Presentation.Shell
             menu93.Items.Add(menu933);
             menu9.Items.Add(menu93);
 
-            //_items.Add(menu9);
+            _items.Add(menu9);
 
             #endregion
 
@@ -1058,7 +1058,7 @@ namespace UniCloud.Presentation.Shell
                           };
             menu10.Items.Add(menu101);
             menu10.Items.Add(menu102);
-            //_items.Add(menu10);
+            _items.Add(menu10);
 
             #endregion
         }

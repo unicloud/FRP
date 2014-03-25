@@ -72,6 +72,11 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public string AirlinesName { get; set; }
 
         /// <summary>
+        ///     民航机型
+        /// </summary>
+        public string CaacAircraftTypeName { get; set; }
+
+        /// <summary>
         /// 机型
         /// </summary>
         public string AircraftTypeName { get; set; }
@@ -136,7 +141,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         public Guid TargetCategoryId { get; set; }
 
         /// <summary>
-        ///     机型外键
+        ///     川航机型外键
         /// </summary>
         public Guid AircraftTypeId { get; set; }
 

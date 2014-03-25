@@ -58,6 +58,8 @@
     <Compile Include="ApprovalDocServices\ApprovalDocAppService.cs" />
     <Compile Include="AircraftPlanHistoryServices\IPlanHistoryAppService.cs" />
     <Compile Include="AircraftPlanHistoryServices\PlanHistoryAppService.cs" />
+    <Compile Include="CAACAircraftTypeServices\CAACAircraftTypeAppService.cs" />
+    <Compile Include="CAACAircraftTypeServices\ICAACAircraftTypeAppService.cs" />
     <Compile Include="ProgrammingFileServices\IProgrammingFileAppService.cs" />
     <Compile Include="ProgrammingFileServices\ProgrammingFileAppService.cs" />
     <Compile Include="RequestServices\RequestAppService.cs" />

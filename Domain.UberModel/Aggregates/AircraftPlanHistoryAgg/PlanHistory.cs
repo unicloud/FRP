@@ -19,6 +19,7 @@ using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
 using UniCloud.Domain.UberModel.Aggregates.AnnualAgg;
+using UniCloud.Domain.UberModel.Aggregates.CAACAircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg;
 
 #endregion
@@ -98,9 +99,14 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanHistoryAgg
         public Guid TargetCategoryId { get; private set; }
 
         /// <summary>
-        ///     机型外键
+        ///     川航机型外键
         /// </summary>
         public Guid AircraftTypeId { get; private set; }
+
+        /// <summary>
+        ///     民航机型外键
+        /// </summary>
+        public Guid CaacAircraftTypeId { get; private set; }
 
         /// <summary>
         ///     航空公司外键
@@ -139,6 +145,11 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanHistoryAgg
         /// 机型
         /// </summary>
         public virtual AircraftType AircraftType { get; private set; }
+
+        /// <summary>
+        /// 民航机型
+        /// </summary>
+        public virtual CAACAircraftType CaacAircraftType { get; private set; }
 
         /// <summary>
         /// 航空公司
@@ -249,6 +260,8 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanHistoryAgg
 
             AircraftType = aircraftType;
             AircraftTypeId = aircraftType.Id;
+            CaacAircraftType = aircraftType.CaacAircraftType;
+            CaacAircraftTypeId = aircraftType.CaacAircraftTypeId;
         }
 
         /// <summary>
