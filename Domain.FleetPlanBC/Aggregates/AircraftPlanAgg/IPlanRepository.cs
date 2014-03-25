@@ -21,16 +21,5 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
     /// </summary>
     public interface IPlanRepository : IRepository<Plan>
     {
-        /// <summary>
-        ///     移除计划
-        /// </summary>
-        /// <param name="plan">计划</param>
-        void DeletePlan(Plan plan);
-
-        /// <summary>
-        /// 移除计划明细
-        /// </summary>
-        /// <param name="planHistory"></param>
-        void RemovePlanHistory(PlanHistory planHistory);
     }
 }

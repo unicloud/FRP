@@ -268,6 +268,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 PerformAnnualId = plan.AnnualId,
                 PerformMonth = 1,
                 PlanType = planType,
+                ActionType = actionType,
                 ManageStatus = (int)ManageStatus.计划,
             };
             // 1、计划飞机为空

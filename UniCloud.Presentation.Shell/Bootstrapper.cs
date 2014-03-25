@@ -81,7 +81,7 @@ namespace UniCloud.Presentation.Shell
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "BaseManagement.xap",
                 ModuleName = "BaseManagementModule",
                 ModuleType =
@@ -90,7 +90,7 @@ namespace UniCloud.Presentation.Shell
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "AircraftConfig.xap",
                 ModuleName = "AircraftConfigModule",
                 ModuleType =
@@ -117,7 +117,7 @@ namespace UniCloud.Presentation.Shell
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "Purchase.xap",
                 ModuleName = "PurchaseModule",
                 ModuleType =
@@ -126,7 +126,7 @@ namespace UniCloud.Presentation.Shell
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "Payment.xap",
                 ModuleName = "PaymentModule",
                 ModuleType =
@@ -135,7 +135,7 @@ namespace UniCloud.Presentation.Shell
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "Project.xap",
                 ModuleName = "ProjectModule",
                 ModuleType =
@@ -144,7 +144,7 @@ namespace UniCloud.Presentation.Shell
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "Portal.xap",
                 ModuleName = "PortalModule",
                 ModuleType =
@@ -153,7 +153,7 @@ namespace UniCloud.Presentation.Shell
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "Part.xap",
                 ModuleName = "PartModule",
                 ModuleType =

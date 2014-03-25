@@ -1,10 +1,10 @@
 ﻿#region 版本信息
 /* ========================================================================
-// 版权所有 (C) 2013 UniCloud 
+// 版权所有 (C) 2014 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2013/12/28 9:47:40
-// 文件名：PlanRepository
+// 作者：HuangQiBin 时间：2014/3/23 23:03:51
+// 文件名：PlanHistoryRepository
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -15,21 +15,22 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Data.Entity;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
-using UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork;
+using System.Text;
+using System.Threading.Tasks;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg;
 
 #endregion
 
 namespace UniCloud.Infrastructure.Data.FleetPlanBC.Repositories
 {
     /// <summary>
-    ///     运力增减计划仓储实现
+    ///     运力增减计划明细仓储实现
     /// </summary>
-    public class PlanRepository : Repository<Plan>, IPlanRepository
+    public class PlanHistoryRepository : Repository<PlanHistory>, IPlanHistoryRepository
     {
-        public PlanRepository(IQueryableUnitOfWork unitOfWork)
+        public PlanHistoryRepository(IQueryableUnitOfWork unitOfWork)
             : base(unitOfWork)
         {
         }

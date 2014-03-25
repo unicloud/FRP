@@ -132,7 +132,6 @@ namespace UniCloud.Application.FleetPlanBC.DTO
             set { _planHistories = value ; }
         }
 
-
         #endregion
 
     }

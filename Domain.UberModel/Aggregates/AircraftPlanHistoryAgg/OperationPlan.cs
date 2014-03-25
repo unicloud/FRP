@@ -1,32 +1,30 @@
 ﻿#region 版本信息
-
 /* ========================================================================
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2013/12/26 10:50:46
-// 文件名：ChangePlan
+// 作者：HuangQiBin 时间：2013/12/28 15:55:43
+// 文件名：OperationPlan
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
 // 修改说明：
 // ========================================================================*/
-
 #endregion
 
 #region 命名空间
 
 using System;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
 
 #endregion
 
-namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
+namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanHistoryAgg
 {
     /// <summary>
-    ///     变更计划聚合根
+    ///     运营计划聚合根
     /// </summary>
-    public class ChangePlan : PlanHistory
+    public class OperationPlan : PlanHistory
     {
         #region 构造函数
 
@@ -34,7 +32,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal ChangePlan()
+        internal OperationPlan()
         {
         }
 
@@ -42,36 +40,38 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
 
         #region 属性
 
+
+
         #endregion
 
         #region 外键属性
 
         /// <summary>
-        ///     商业数据历史外键
+        ///     运营历史外键
         /// </summary>
-        public Guid? AircraftBusinessId { get; private set; }
+        public Guid? OperationHistoryId { get; private set; }
 
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        ///     商业数据历史
+        ///     运营权历史
         /// </summary>
-        public virtual AircraftBusiness AircraftBusiness { get; private set; }
+        public virtual OperationHistory OperationHistory { get; private set; }
 
         #endregion
 
         #region 操作
 
         /// <summary>
-        ///     设置商业数据历史
+        ///     设置运营权历史
         /// </summary>
-        /// <param name="aircraftBusiness">商业数据历史</param>
-        public void SetAircraftBusiness(AircraftBusiness aircraftBusiness)
+        /// <param name="operationHistory">运营权历史</param>
+        public void SetOperationHistory(OperationHistory operationHistory)
         {
-            AircraftBusiness = AircraftBusiness;
-            AircraftBusinessId = aircraftBusiness.Id;
+            OperationHistory = operationHistory;
+            OperationHistoryId = operationHistory.Id;
         }
 
         #endregion

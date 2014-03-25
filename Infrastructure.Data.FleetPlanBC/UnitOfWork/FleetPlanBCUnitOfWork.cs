@@ -23,6 +23,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftConfigurationAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
@@ -74,6 +75,7 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         private IDbSet<PlanAircraft> _planAircrafts;
         private IDbSet<PlanEngine> _planEngines;
         private IDbSet<Plan> _plans;
+        private IDbSet<PlanHistory> _planHistories;
         private IDbSet<ProgrammingFile> _programmingFiles;
         private IDbSet<Programming> _programmings;
         private IDbSet<Request> _requests;
@@ -169,6 +171,11 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         public IDbSet<Plan> Plans
         {
             get { return _plans ?? (_plans = base.Set<Plan>()); }
+        }
+
+        public IDbSet<PlanHistory> PlanHistories
+        {
+            get { return _planHistories ?? (_planHistories = base.Set<PlanHistory>()); }
         }
 
         public IDbSet<PlanAircraft> PlanAircrafts

@@ -21,7 +21,9 @@ using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Microsoft.Practices.Prism.Commands;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
+using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.FleetPlan;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
@@ -184,6 +186,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         }
 
         #endregion
+
         #region 命令
 
         #region 新增所有权命令
@@ -194,7 +197,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         ///     执行新增命令。
         /// </summary>
         /// <param name="sender"></param>
-        public void OndAddOwnership(object sender)
+        public void OnAddOwnership(object sender)
         {
             StartDisplayDate =
                 SelectedAircraft.OwnershipHistories.Select(p => p.StartDate).OrderBy(p => p).LastOrDefault();
@@ -232,7 +235,7 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         ///     执行删除命令。
         /// </summary>
         /// <param name="sender"></param>
-        public void OndRemoveOwnership(object sender)
+        public void OnRemoveOwnership(object sender)
         {
             if (SelectedOwnershipHistory == null)
             {
@@ -250,6 +253,72 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         public bool CanRemoveOwnership(object sender)
         {
             return GetButtonState() && SelectedOwnershipHistory != null && SelectedOwnershipHistory.Status < (int)OperationStatus.已审核;
+        }
+
+        #endregion
+
+        #region 新增飞机配置历史
+
+        public DelegateCommand<object> AddAcConfigCommand { get; private set; }
+
+        /// <summary>
+        ///     执行新增命令。
+        /// </summary>
+        /// <param name="sender"></param>
+        public void OnAddAcConfig(object sender)
+        {
+            StartDisplayDate =
+                SelectedAircraft.AcConfigHistories.Select(p => p.StartDate).OrderBy(p => p).LastOrDefault();
+            //新建所有权历史
+            var newAcConfig = new AcConfigHistoryDTO
+            {
+                Id = RandomHelper.Next(),
+                StartDate = (StartDisplayDate == null || StartDisplayDate.Value == DateTime.MinValue) ? DateTime.Now : StartDisplayDate.Value.AddDays(1)
+            };
+
+            SelectedAcConfigHistory = newAcConfig;
+            SelectedAircraft.AcConfigHistories.Add(newAcConfig);
+            RefreshCommandState();
+        }
+
+        /// <summary>
+        ///     判断新增命令是否可用。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <returns>新增命令是否可用。</returns>
+        public bool CanAddAcConfig(object sender)
+        {
+            return GetButtonState() && SelectedAircraft != null;
+        }
+
+        #endregion
+
+        #region 删除飞机配置历史
+
+        public DelegateCommand<object> RemoveAcConfigCommand { get; private set; }
+
+        /// <summary>
+        ///     执行删除命令。
+        /// </summary>
+        /// <param name="sender"></param>
+        public void OnRemoveAcConfig(object sender)
+        {
+            if (SelectedOwnershipHistory == null)
+            {
+                MessageAlert("请选择需要删除的飞机配置历史");
+            }
+            SelectedAircraft.AcConfigHistories.Remove(SelectedAcConfigHistory);
+            RefreshCommandState();
+        }
+
+        /// <summary>
+        ///     判断删除命令是否可用。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <returns>删除命令是否可用。</returns>
+        public bool CanRemoveAcConfig(object sender)
+        {
+            return GetButtonState() && SelectedAcConfigHistory != null;
         }
 
         #endregion
@@ -323,6 +392,49 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
 
         #endregion
 
+        #region GridView单元格变更处理
+
+        public DelegateCommand<object> CellEditEndCommand { set; get; }
+
+        /// <summary>
+        ///     GridView单元格变更处理
+        /// </summary>
+        /// <param name="sender"></param>
+        protected virtual void OnCellEditEnd(object sender)
+        {
+            var gridView = sender as RadGridView;
+            if (gridView != null)
+            {
+                var cell = gridView.CurrentCell;
+                if (string.Equals(cell.Column.UniqueName, "OwnershipStartDate"))
+                {
+                    var ownershipHistory = gridView.CurrentCellInfo.Item as OwnershipHistoryDTO;
+                    if (ownershipHistory != null)
+                    {
+                        var lastOh = SelectedAircraft.OwnershipHistories.Where(p => p.StartDate != ownershipHistory.StartDate).OrderBy(p=>p.StartDate).LastOrDefault();
+                        if (lastOh != null)
+                        {
+                            lastOh.EndDate = ownershipHistory.StartDate;
+                        }
+                    }
+                }
+                if (string.Equals(cell.Column.UniqueName, "AcConfigStartDate"))
+                {
+                    var acConfigHistory = gridView.CurrentCellInfo.Item as AcConfigHistoryDTO;
+                    if (acConfigHistory != null)
+                    {
+                        var lastAcConfig = SelectedAircraft.AcConfigHistories.Where(p => p.StartDate != acConfigHistory.StartDate).OrderBy(p => p.StartDate).LastOrDefault();
+                        if (lastAcConfig != null)
+                        {
+                            lastAcConfig.EndDate = acConfigHistory.StartDate;
+                        }
+                    }
+                }
+            }
+        }
+
+        #endregion
+
         /// <summary>
         ///     获取按钮状态
         /// </summary>
@@ -339,12 +451,17 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         /// </summary>
         private void InitialCommand()
         {
-            AddOwnershipCommand = new DelegateCommand<object>(OndAddOwnership, CanAddOwnership);
+            AddOwnershipCommand = new DelegateCommand<object>(OnAddOwnership, CanAddOwnership);
             SubmitOwnershipCommand = new DelegateCommand<object>(OnSubmitOwnership,
                 CanSubmitOwnership);
             ReviewOwnershipCommand = new DelegateCommand<object>(OnReviewOwnership,
                 CanReviewOwnership);
-            RemoveOwnershipCommand = new DelegateCommand<object>(OndRemoveOwnership, CanRemoveOwnership);
+            RemoveOwnershipCommand = new DelegateCommand<object>(OnRemoveOwnership, CanRemoveOwnership);
+
+            AddAcConfigCommand = new DelegateCommand<object>(OnAddAcConfig, CanAddAcConfig);
+            RemoveAcConfigCommand = new DelegateCommand<object>(OnRemoveAcConfig, CanRemoveAcConfig);
+
+            CellEditEndCommand=new DelegateCommand<object>(OnCellEditEnd);
         }
 
         #endregion
@@ -375,8 +492,8 @@ namespace UniCloud.Presentation.FleetPlan.AircraftOwnerShips
         public override void LoadData()
         {
             LoadSupplier();
-            LoadAircraftConfiguration(); 
-            
+            LoadAircraftConfiguration();
+
             if (!AircraftsView.AutoLoad)
             {
                 AircraftsView.AutoLoad = true;

@@ -46,7 +46,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private AirlinesDTO _curAirlines = new AirlinesDTO();
         private bool _loadedAnnuals;
         private bool _loadedPlans;
-
+        FilterDescriptor filter=new FilterDescriptor("PlanId",FilterOperator.IsEqualTo, Guid.Empty);
         [ImportingConstructor]
         public FleetPlanPrepareVM(IRegionManager regionManager, IFleetPlanService service)
             : base(service)
@@ -90,6 +90,19 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 Id = Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"),
                 CnName = "四川航空股份有限公司",
                 CnShortName = "川航",
+            };
+
+            PlanHistorys = _service.CreateCollection(_context.PlanHistories);
+            PlanHistorys.FilterDescriptors.Add(filter);
+            PlanHistorys.LoadedData += (o, e) =>
+            {
+                var aaa = PlanHistorys.ToList();
+                PlanHistories.Clear();
+                foreach (var planHistoryDTO in aaa)
+                {
+                    PlanHistories.Add(planHistoryDTO);
+
+                }
             };
         }
 
@@ -192,7 +205,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #endregion
 
         #region 选择年度内的计划集合
-
+        public QueryableDataServiceCollectionView<PlanHistoryDTO> PlanHistorys { get; set; } 
         private ObservableCollection<PlanDTO> _viewPlans = new ObservableCollection<PlanDTO>();
 
         /// <summary>
@@ -228,11 +241,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 if (_selPlan != value)
                 {
                     _selPlan = value;
-                    PlanHistories.Clear();
-                    foreach (var ph in value.PlanHistories)
-                    {
-                        PlanHistories.Add(ph);
-                    }
+                    //PlanHistories.Clear();
+                    filter.Value = value.Id;
+                    PlanHistorys.Load(true);
+                    //foreach (var ph in value.PlanHistories)
+                    //{
+                    //    PlanHistories.Add(ph);
+                    //}
                     RaisePropertyChanged(() => SelPlan);
                 }
             }

@@ -51,6 +51,10 @@
     <Compile Include="Aggregates\AircraftConfigurationAgg\AircraftConfiguration.cs" />
     <Compile Include="Aggregates\AircraftConfigurationAgg\AircraftConfigurationSpecifications.cs" />
     <Compile Include="Aggregates\AircraftConfigurationAgg\IAircraftConfigurationRepository.cs" />
+    <Compile Include="Aggregates\AircraftPlanHistoryAgg\PlanHistory.cs" />
+    <Compile Include="Aggregates\AircraftPlanHistoryAgg\IPlanHistoryRepository.cs" />
+    <Compile Include="Aggregates\AircraftPlanHistoryAgg\PlanHistoryFactory.cs" />
+    <Compile Include="Aggregates\AircraftPlanHistoryAgg\PlanHistorySpecifications.cs" />
     <Compile Include="Aggregates\AircraftSeriesAgg\AircraftSeries.cs" />
     <Compile Include="Aggregates\AircraftSeriesAgg\AircraftSeriesSpecifications.cs" />
     <Compile Include="Aggregates\AircraftSeriesAgg\IAircraftSeriesRepository.cs" />
@@ -64,11 +68,10 @@
     <Compile Include="Aggregates\AircraftCategoryAgg\AircraftCategory.cs" />
     <Compile Include="Aggregates\AircraftCategoryAgg\AircraftCategorySepcifications.cs" />
     <Compile Include="Aggregates\AircraftCategoryAgg\IAircraftCategoryRepository.cs" />
-    <Compile Include="Aggregates\AircraftPlanAgg\ChangePlan.cs" />
-    <Compile Include="Aggregates\AircraftPlanAgg\OperationPlan.cs" />
+    <Compile Include="Aggregates\AircraftPlanHistoryAgg\ChangePlan.cs" />
+    <Compile Include="Aggregates\AircraftPlanHistoryAgg\OperationPlan.cs" />
     <Compile Include="Aggregates\AircraftPlanAgg\Plan.cs" />
     <Compile Include="Aggregates\AircraftPlanAgg\PlanFactory.cs" />
-    <Compile Include="Aggregates\AircraftPlanAgg\PlanHistory.cs" />
     <Compile Include="Aggregates\AircraftPlanAgg\PlanSpecifications.cs" />
     <Compile Include="Aggregates\AircraftPlanAgg\IPlanRepository.cs" />
     <Compile Include="Aggregates\AircraftTypeAgg\AircraftType.cs" />

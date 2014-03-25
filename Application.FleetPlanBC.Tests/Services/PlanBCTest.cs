@@ -22,19 +22,25 @@ using System.Linq;
 using Microsoft.Practices.Unity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using UniCloud.Application.FleetPlanBC.ActionCategoryServices;
+using UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftPlanServices;
+using UniCloud.Application.FleetPlanBC.AircraftServices;
 using UniCloud.Application.FleetPlanBC.AircraftTypeServices;
 using UniCloud.Application.FleetPlanBC.AirlinesServices;
 using UniCloud.Application.FleetPlanBC.AnnualServices;
 using UniCloud.Application.FleetPlanBC.PlanAircraftServices;
 using UniCloud.Application.FleetPlanBC.Query.ActionCategoryQueries;
 using UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries;
+using UniCloud.Application.FleetPlanBC.Query.AircraftQueries;
 using UniCloud.Application.FleetPlanBC.Query.AircraftTypeQueries;
 using UniCloud.Application.FleetPlanBC.Query.AirlinesQueries;
 using UniCloud.Application.FleetPlanBC.Query.AnnualQueries;
 using UniCloud.Application.FleetPlanBC.Query.PlanAircraftQueries;
+using UniCloud.Application.FleetPlanBC.Query.PlanHistoryQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
@@ -63,6 +69,9 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
 .RegisterType<IPlanQuery, PlanQuery>()
                 .RegisterType<IPlanAppService, PlanAppService>()
                 .RegisterType<IPlanRepository, PlanRepository>()
+                .RegisterType<IPlanHistoryQuery, PlanHistoryQuery>()
+                .RegisterType<IPlanHistoryAppService, PlanHistoryAppService>()
+                .RegisterType<IPlanHistoryRepository, PlanHistoryRepository>()
             #endregion
 
             #region 活动类型相关配置，包括查询，应用服务，仓储注册
@@ -95,6 +104,9 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
 .RegisterType<IPlanAircraftQuery, PlanAircraftQuery>()
                 .RegisterType<IPlanAircraftAppService, PlanAircraftAppService>()
                 .RegisterType<IPlanAircraftRepository, PlanAircraftRepository>()
+                .RegisterType<IAircraftQuery, AircraftQuery>()
+                .RegisterType<IAircraftAppService, AircraftAppService>()
+                .RegisterType<IAircraftRepository, AircraftRepository>()
             #endregion
 
 ;
@@ -111,10 +123,10 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         public void GetPlans()
         {
             // Arrange
-            var service = DefaultContainer.Resolve<IPlanAppService>();
+            var service = DefaultContainer.Resolve<IPlanHistoryAppService>();
 
             // Act
-            var result = service.GetPlans().ToList();
+            var result = service.GetPlanHistories().ToList();
 
             // Assert
             Assert.IsTrue(result.Any());
@@ -123,15 +135,15 @@ namespace UniCloud.Application.FleetPlanBC.Tests.Services
         [TestMethod]
         public void ModefyPlans()
         {
-            var context = DefaultContainer.Resolve<IPlanRepository>();
-            var plan = context.GetAll().ToList().FirstOrDefault();
-            if (plan != null)
-            {
-                plan.SetTitle("2013年运力规划");
-                var ph = plan.PlanHistories.FirstOrDefault();
-                if (ph != null) ph.SetSeatingCapacity(231);
-            }
-            context.UnitOfWork.Commit();
+            //var context = DefaultContainer.Resolve<IPlanRepository>();
+            //var plan = context.GetAll().ToList().FirstOrDefault();
+            //if (plan != null)
+            //{
+            //    plan.SetTitle("2013年运力规划");
+            //    var ph = plan.PlanHistories.FirstOrDefault();
+            //    if (ph != null) ph.SetSeatingCapacity(231);
+            //}
+            //context.UnitOfWork.Commit();
         }
     }
 }

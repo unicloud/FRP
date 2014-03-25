@@ -8,6 +8,7 @@ using Microsoft.Practices.Unity;
 using UniCloud.Application.FleetPlanBC.ActionCategoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftCategoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftConfigurationServices;
+using UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftPlanServices;
 using UniCloud.Application.FleetPlanBC.AircraftSeriesServices;
 using UniCloud.Application.FleetPlanBC.AircraftServices;
@@ -47,6 +48,7 @@ using UniCloud.Application.FleetPlanBC.Query.ManagerQueries;
 using UniCloud.Application.FleetPlanBC.Query.ManufacturerQueries;
 using UniCloud.Application.FleetPlanBC.Query.PlanAircraftQueries;
 using UniCloud.Application.FleetPlanBC.Query.PlanEngineQueries;
+using UniCloud.Application.FleetPlanBC.Query.PlanHistoryQueries;
 using UniCloud.Application.FleetPlanBC.Query.ProgrammingFileQueries;
 using UniCloud.Application.FleetPlanBC.Query.ProgrammingQueries;
 using UniCloud.Application.FleetPlanBC.Query.RequestQueries;
@@ -62,6 +64,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftConfigurationAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
@@ -144,6 +147,9 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 .RegisterType<IPlanQuery, PlanQuery>()
                 .RegisterType<IPlanAppService, PlanAppService>()
                 .RegisterType<IPlanRepository, PlanRepository>()
+                .RegisterType<IPlanHistoryQuery, PlanHistoryQuery>()
+                .RegisterType<IPlanHistoryAppService, PlanHistoryAppService>()
+                .RegisterType<IPlanHistoryRepository, PlanHistoryRepository>()
                 #endregion
 
                 #region 机型相关配置，包括查询，应用服务，仓储注册

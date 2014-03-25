@@ -144,59 +144,30 @@
                                         <input:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewComboBoxColumn Header="活动类别"
-                                                                        ItemsSource="{Binding DataContext.ViewActionCategories,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
+                                                                        ItemsSourceBinding="{Binding ActionCategories}"
                                                                         DisplayMemberPath="ActionCategoryOperation"
                                                                         DataMemberBinding="{Binding ActionCategoryId}"
                                                                         SelectedValueMemberPath="Id"
                                                                         EditorStyle="{StaticResource EditComboBox}"
                                                                         UniqueName="ActionType">
-                                            <telerik:GridViewComboBoxColumn.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Grid>
-                                                        <Grid.ColumnDefinitions>
-                                                            <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="Auto" />
-                                                            <ColumnDefinition Width="*" />
-                                                        </Grid.ColumnDefinitions>
-                                                        <TextBlock Text="{Binding ActionType}" />
-                                                        <TextBlock Text=":"
-                                                                   Grid.Column="1" />
-                                                        <TextBlock Text="{Binding ActionName}"
-                                                                   Grid.Column="2" />
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </telerik:GridViewComboBoxColumn.ItemTemplate>
                                         </telerik:GridViewComboBoxColumn>
                                         <telerik:GridViewComboBoxColumn Header="座级"
-                                                                        ItemsSource="{Binding DataContext.ViewAircraftCategories,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
+                                                                        MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                        ItemsSourceBinding="{Binding AircraftCategories}"
                                                                         DataMemberBinding="{Binding Regional}"
                                                                         DisplayMemberPath="Regional"
                                                                         SelectedValueMemberPath="Regional"
                                                                         EditorStyle="{StaticResource EditComboBox}"
                                                                         UniqueName="Regional">
-                                            <telerik:GridViewComboBoxColumn.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Grid>
-                                                        <TextBlock Text="{Binding Regional}" />
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </telerik:GridViewComboBoxColumn.ItemTemplate>
                                         </telerik:GridViewComboBoxColumn>
                                         <telerik:GridViewComboBoxColumn Header="机型"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSource="{Binding DataContext.ViewAircraftTypes,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl,Mode=FindAncestor}}"
+                                                                        ItemsSourceBinding="{Binding AircraftTypes}"
                                                                         DataMemberBinding="{Binding AircraftTypeId}"
                                                                         DisplayMemberPath="Name"
                                                                         SelectedValueMemberPath="Id"
                                                                         EditorStyle="{StaticResource EditComboBox}"
                                                                         UniqueName="AircraftType">
-                                            <telerik:GridViewComboBoxColumn.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Grid>
-                                                        <TextBlock Text="{Binding AircraftTypeName}" />
-                                                    </Grid>
-                                                </DataTemplate>
-                                            </telerik:GridViewComboBoxColumn.ItemTemplate>
                                         </telerik:GridViewComboBoxColumn>
                                         <telerik:GridViewDataColumn Header="机号"
                                                                     IsReadOnly="True"
@@ -224,7 +195,7 @@
                                                                     DataMemberBinding="{Binding CarryingCapacity}" />
                                         <telerik:GridViewComboBoxColumn Header="引进/退出方式"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        ItemsSource="{Binding DataContext.ActionCategories,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
+                                                                        ItemsSource="{Binding DataContext.AllActionCategories,RelativeSource={RelativeSource AncestorLevel=1, AncestorType=UserControl}}"
                                                                         DisplayMemberPath="ActionName"
                                                                         FilterMemberPath="ActionName"
                                                                         DataMemberBinding="{Binding TargetCategoryId,Mode=TwoWay}"

@@ -16,7 +16,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg;
+using UniCloud.Domain.UberModel.Aggregates.AircraftPlanHistoryAgg;
 
 #endregion
 

@@ -17,6 +17,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
@@ -84,6 +85,11 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         #region 获取静态数据
+
+        //internal IEnumerable<Tuple<int, string, string>> Test(PlanHistoryDTO )
+        //{
+            
+        //}
 
         /// <summary>
         ///     所有航空公司

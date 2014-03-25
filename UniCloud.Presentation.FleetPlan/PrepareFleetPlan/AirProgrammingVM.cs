@@ -22,9 +22,7 @@ using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
-using Telerik.Windows.Controls.DataServices;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
@@ -53,23 +51,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             _context = _service.Context;
             InitializeVM();
             InitializerCommand();
-            if (service != null)
-            {
-                AirProgrammings.PropertyChanged += (o, e) =>
-                {
-                    if (e.PropertyName == "HasChanges")
-                    {
-                        RefreshCommandState();
-                    }
-                };
-                ProgrammingFiles.PropertyChanged += (o, e) =>
-                {
-                    if (e.PropertyName == "HasChanges")
-                    {
-                        RefreshCommandState();
-                    }
-                };
-            }
         }
 
         /// <summary>
@@ -103,11 +84,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
             AddEntityCommand = new DelegateCommand<object>(OnAddEntity, CanAddEntity);
             RemoveEntityCommand = new DelegateCommand<object>(OnRemoveEntity, CanRemoveEntity);
-            SaveAirProgrammingCommand = new DelegateCommand<object>(OnSave, CanAirProgrammingSave);
-            AbortAirProgrammingCommand = new DelegateCommand<object>(OnAbort, CanAirProgrammingAbort);
-            SaveProgrammingFileCommand = new DelegateCommand<object>(OnSave, CanProgrammingFileSave);
-            AbortProgrammingFileCommand = new DelegateCommand<object>(OnAbort, CanProgrammingFileAbort);
-            AddDocCommand = new DelegateCommand<object>(OnAddAttach, CanAddDoc);
+            AddDocCommand = new DelegateCommand<object>(OnAddAttach);
             RemoveDocCommand = new DelegateCommand<object>(OnRemoveDoc, CanRemoveDoc);
             CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
         }
@@ -283,122 +260,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             RemoveCommand.RaiseCanExecuteChanged();
             AddEntityCommand.RaiseCanExecuteChanged();
             RemoveEntityCommand.RaiseCanExecuteChanged();
-            SaveAirProgrammingCommand.RaiseCanExecuteChanged();
-            AbortAirProgrammingCommand.RaiseCanExecuteChanged();
-            SaveProgrammingFileCommand.RaiseCanExecuteChanged();
-            AbortProgrammingFileCommand.RaiseCanExecuteChanged();
             AddDocCommand.RaiseCanExecuteChanged();
             RemoveDocCommand.RaiseCanExecuteChanged();
-        }
-
-        #endregion
-
-        #region 保存/取消五年规划更改
-
-        /// <summary>
-        ///     创建新规划
-        /// </summary>
-        public DelegateCommand<object> SaveAirProgrammingCommand { get; private set; }
-        private bool CanAirProgrammingSave(object obj)
-        {
-            return AirProgrammings.HasChanges;
-        }
-
-        /// <summary>
-        ///     创建新规划
-        /// </summary>
-        public DelegateCommand<object> AbortAirProgrammingCommand { get; private set; }
-        private bool CanAirProgrammingAbort(object obj)
-        {
-            return AirProgrammings.HasChanges;
-        }
-
-        private void OnSave(object sender)
-        {
-            IsBusy = true;
-            if (sender is QueryableDataServiceCollectionViewBase)
-            {
-                var collectionView = sender as QueryableDataServiceCollectionViewBase;
-                if (!OnSaveExecuting(collectionView))
-                {
-                    return;
-                }
-                _service.SubmitChanges(collectionView, sm =>
-                {
-                    IsBusy = false;
-                    if (sm.Error == null)
-                    {
-                        MessageAlert("提示", "保存成功。");
-                        OnSaveSuccess(collectionView);
-                    }
-                    else
-                    {
-                        MessageAlert("提示", "保存失败，请检查！");
-                        OnSaveFail(collectionView);
-                    }
-                    RefreshCommandState();
-                });
-            }
-            else
-            {
-                _service.SubmitChanges(sm =>
-                {
-                    IsBusy = false;
-                    if (sm.Error == null)
-                    {
-                        MessageAlert("提示", "保存成功。");
-                        OnSaveSuccess(sender);
-                    }
-                    else
-                    {
-                        MessageAlert("提示", "保存失败，请检查！");
-                        OnSaveFail(sender);
-                    }
-                    RefreshCommandState();
-                });
-            }
-        }
-
-        private void OnAbort(object sender)
-        {
-            if (sender is QueryableDataServiceCollectionViewBase)
-            {
-                var collectionView = sender as QueryableDataServiceCollectionViewBase;
-                IsBusy = true;
-                OnAbortExecuting(collectionView); //取消前。
-                _service.RejectChanges(collectionView); //取消。
-                OnAbortExecuted(collectionView); //取消后。
-                IsBusy = false;
-            }
-            else
-            {
-                IsBusy = true;
-                OnAbortExecuting(sender);
-                _service.RejectChanges();
-                OnAbortExecuted(sender);
-                IsBusy = false;
-            }
-        }
-        #endregion
-
-        #region 保存/取消规划相关文档更改
-
-        /// <summary>
-        ///     创建新规划
-        /// </summary>
-        public DelegateCommand<object> SaveProgrammingFileCommand { get; private set; }
-        private bool CanProgrammingFileSave(object obj)
-        {
-            return ProgrammingFiles.HasChanges;
-        }
-
-        /// <summary>
-        ///     创建新规划
-        /// </summary>
-        public DelegateCommand<object> AbortProgrammingFileCommand { get; private set; }
-        private bool CanProgrammingFileAbort(object obj)
-        {
-            return ProgrammingFiles.HasChanges;
         }
 
         #endregion
@@ -544,11 +407,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public DelegateCommand<object> AddDocCommand { get; private set; }
 
-        private bool CanAddDoc(object obj)
-        {
-            return true;
-        }
-
         #endregion
 
         #region 删除规划关联文档
@@ -601,10 +459,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     if (programming != null)
                         SelProgrammingFile.ProgrammingName = programming.Name;
                 }
-                //else if (string.Equals(cell.Column.UniqueName, "BuyNum") || string.Equals(cell.Column.UniqueName, "LeaseNum") || string.Equals(cell.Column.UniqueName, "ExportNum"))
-                //{
-                //    SelAirProgrammingLine.NetIncrease=SelAirProgrammingLine.BuyNum+SelAirProgrammingLine.LeaseNum+SelAirProgrammingLine.ExportNum;
-                //}
             }
         }
 

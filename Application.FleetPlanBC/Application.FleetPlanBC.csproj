@@ -56,6 +56,8 @@
     <Compile Include="AircraftPlanServices\PlanAppService.cs" />
     <Compile Include="ApprovalDocServices\IApprovalDocAppService.cs" />
     <Compile Include="ApprovalDocServices\ApprovalDocAppService.cs" />
+    <Compile Include="AircraftPlanHistoryServices\IPlanHistoryAppService.cs" />
+    <Compile Include="AircraftPlanHistoryServices\PlanHistoryAppService.cs" />
     <Compile Include="ProgrammingFileServices\IProgrammingFileAppService.cs" />
     <Compile Include="ProgrammingFileServices\ProgrammingFileAppService.cs" />
     <Compile Include="RequestServices\RequestAppService.cs" />

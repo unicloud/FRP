@@ -231,12 +231,18 @@
     <Compile Include="Approvals\Approval.xaml.cs">
       <DependentUpon>Approval.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Approvals\ApprovalDoubleClickHelper.cs" />
+    <Compile Include="Approvals\ApprovalDragDrop.cs" />
+    <Compile Include="Approvals\ApprovalDragVisual.cs" />
+    <Compile Include="Approvals\ApprovalVM.cs" />
     <Compile Include="Approvals\QueryApproval.xaml.cs">
       <DependentUpon>QueryApproval.xaml</DependentUpon>
     </Compile>
     <Compile Include="Approvals\QueryApprovalVM.cs" />
+    <Compile Include="Approvals\RequestApprovalDoubleClickHelper.cs" />
+    <Compile Include="Approvals\RequestApprovalDragDrop.cs" />
+    <Compile Include="Approvals\RequestApprovalDragVisual.cs" />
     <Compile Include="Converts\OperationStatusConvert.cs" />
-    <Compile Include="Approvals\ApprovalVM.cs" />
     <Compile Include="PerformFleetPlan\FleetPlanDeliver.xaml.cs">
       <DependentUpon>FleetPlanDeliver.xaml</DependentUpon>
     </Compile>
@@ -252,13 +258,6 @@
       <DependentUpon>QueryPerformPlan.xaml</DependentUpon>
     </Compile>
     <Compile Include="PerformFleetPlan\QueryPerformPlanVM.cs" />
-    <Compile Include="PrepareFleetPlan\FleetPlanLayInput.cs" />
-    <Compile Include="Approvals\ApprovalDoubleClickHelper.cs" />
-    <Compile Include="Approvals\ApprovalDragDrop.cs" />
-    <Compile Include="Approvals\ApprovalDragVisual.cs" />
-    <Compile Include="Approvals\RequestApprovalDoubleClickHelper.cs" />
-    <Compile Include="Approvals\RequestApprovalDragDrop.cs" />
-    <Compile Include="Approvals\RequestApprovalDragVisual.cs" />
     <Compile Include="PrepareFleetPlan\AirProgramming.xaml.cs">
       <DependentUpon>AirProgramming.xaml</DependentUpon>
     </Compile>
@@ -267,10 +266,15 @@
       <DependentUpon>CaacProgramming.xaml</DependentUpon>
     </Compile>
     <Compile Include="PrepareFleetPlan\CaacProgrammingVM.cs" />
+    <Compile Include="PrepareFleetPlan\FleetPlanLayInput.cs" />
     <Compile Include="PrepareFleetPlan\FleetPlanLay.xaml.cs">
       <DependentUpon>FleetPlanLay.xaml</DependentUpon>
     </Compile>
     <Compile Include="PrepareFleetPlan\FleetPlanLayVM.cs" />
+    <Compile Include="PrepareFleetPlan\FleetPlanPrepare.xaml.cs">
+      <DependentUpon>FleetPlanPrepare.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PrepareFleetPlan\FleetPlanPrepareVM.cs" />
     <Compile Include="PrepareFleetPlan\FleetPlanPublish.xaml.cs">
       <DependentUpon>FleetPlanPublish.xaml</DependentUpon>
     </Compile>
@@ -282,40 +286,16 @@
     <Compile Include="PrepareFleetPlan\PlanDetailEditDialog.xaml.cs">
       <DependentUpon>PlanDetailEditDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FleetPlanModule.cs" />
     <Compile Include="PrepareFleetPlan\SpareEnginePlanLay.xaml.cs">
       <DependentUpon>SpareEnginePlanLay.xaml</DependentUpon>
     </Compile>
     <Compile Include="PrepareFleetPlan\SpareEnginePlanLayVM.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryAnalyse\AgeDeploy.xaml.cs">
       <DependentUpon>AgeDeploy.xaml</DependentUpon>
     </Compile>
     <Compile Include="QueryAnalyse\AgeDeployVm.cs" />
-    <Compile Include="QueryAnalyse\FleetTrendVm.cs" />
-    <Compile Include="QueryAnalyse\FleetTrend.xaml.cs">
-      <DependentUpon>FleetTrend.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="QueryAnalyse\PassengerAircraftTrend.xaml.cs">
-      <DependentUpon>PassengerAircraftTrend.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="QueryAnalyse\PassengerAircraftTrendVm.cs" />
-    <Compile Include="QueryPlans\PlanHistoryStyleRule.cs" />
-    <Compile Include="QueryPlans\QueryPlan.xaml.cs">
-      <DependentUpon>QueryPlan.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="QueryPlans\QueryPlanVM.cs" />
-    <Compile Include="Requests\QueryRequest.xaml.cs">
-      <DependentUpon>QueryRequest.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Requests\QueryRequestVM.cs" />
-    <Compile Include="Requests\RequestDoubleClickHelper.cs" />
-    <Compile Include="Requests\RequestDragDrop.cs" />
-    <Compile Include="Requests\RequestDragVisual.cs" />
-    <Compile Include="FleetPlanModule.cs" />
-    <Compile Include="PrepareFleetPlan\FleetPlanPrepare.xaml.cs">
-      <DependentUpon>FleetPlanPrepare.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PrepareFleetPlan\FleetPlanPrepareVM.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryAnalyse\AircraftImportType.xaml.cs">
       <DependentUpon>AircraftImportType.xaml</DependentUpon>
     </Compile>
@@ -336,9 +316,29 @@
       <DependentUpon>FleetStructure.xaml</DependentUpon>
     </Compile>
     <Compile Include="QueryAnalyse\FleetStructureVm.cs" />
+    <Compile Include="QueryAnalyse\FleetTrend.xaml.cs">
+      <DependentUpon>FleetTrend.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\FleetTrendVm.cs" />
+    <Compile Include="QueryAnalyse\PassengerAircraftTrend.xaml.cs">
+      <DependentUpon>PassengerAircraftTrend.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryAnalyse\PassengerAircraftTrendVm.cs" />
+    <Compile Include="QueryPlans\PlanHistoryStyleRule.cs" />
+    <Compile Include="QueryPlans\QueryPlan.xaml.cs">
+      <DependentUpon>QueryPlan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="QueryPlans\QueryPlanVM.cs" />
+    <Compile Include="Requests\QueryRequest.xaml.cs">
+      <DependentUpon>QueryRequest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Requests\QueryRequestVM.cs" />
     <Compile Include="Requests\Request.xaml.cs">
       <DependentUpon>Request.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Requests\RequestDoubleClickHelper.cs" />
+    <Compile Include="Requests\RequestDragDrop.cs" />
+    <Compile Include="Requests\RequestDragVisual.cs" />
     <Compile Include="Requests\RequestPlanDoubleClickHelper.cs" />
     <Compile Include="Requests\RequestPlanDragDrop.cs" />
     <Compile Include="Requests\RequestPlanDragVisual.cs" />
@@ -385,8 +385,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PerformFleetPlan\FleetPlanDeliver.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PerformFleetPlan\OperationChild.xaml">
       <SubType>Designer</SubType>
@@ -417,20 +417,20 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PrepareFleetPlan\FleetPlanPublish.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PrepareFleetPlan\FleetPlanSend.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PrepareFleetPlan\PlanDetailEditDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PrepareFleetPlan\SpareEnginePlanLay.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="QueryAnalyse\AgeDeploy.xaml">
       <SubType>Designer</SubType>

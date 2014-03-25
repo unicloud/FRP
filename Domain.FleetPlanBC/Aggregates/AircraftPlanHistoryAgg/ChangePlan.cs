@@ -4,8 +4,8 @@
 // 版权所有 (C) 2013 UniCloud 
 //【本类功能概述】
 // 
-// 作者：HuangQiBin 时间：2013/12/26 10:50:57
-// 文件名：OperationPlan
+// 作者：HuangQiBin 时间：2013/12/26 10:50:46
+// 文件名：ChangePlan
 // 版本：V1.0.0
 //
 // 修改者： 时间： 
@@ -21,12 +21,12 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 
 #endregion
 
-namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
+namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg
 {
     /// <summary>
-    ///     运营计划聚合根
+    ///     变更计划聚合根
     /// </summary>
-    public class OperationPlan : PlanHistory
+    public class ChangePlan : PlanHistory
     {
         #region 构造函数
 
@@ -34,7 +34,7 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         ///     内部构造函数
         ///     限制只能从内部创建新实例
         /// </summary>
-        internal OperationPlan()
+        internal ChangePlan()
         {
         }
 
@@ -47,35 +47,31 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
         #region 外键属性
 
         /// <summary>
-        ///     运营历史外键
+        ///     商业数据历史外键
         /// </summary>
-        public Guid? OperationHistoryId { get; private set; }
+        public Guid? AircraftBusinessId { get; private set; }
 
         #endregion
 
         #region 导航属性
 
         /// <summary>
-        ///     运营权历史
+        ///     商业数据历史
         /// </summary>
-        public virtual OperationHistory OperationHistory { get; private set; }
+        public virtual AircraftBusiness AircraftBusiness { get; private set; }
 
         #endregion
 
         #region 操作
 
         /// <summary>
-        ///     设置运营权历史
+        ///     设置商业数据历史
         /// </summary>
-        /// <param name="operationHistory">运营权历史</param>
-        public void SetOperationHistory(OperationHistory operationHistory)
+        /// <param name="aircraftBusiness">商业数据历史</param>
+        public void SetAircraftBusiness(AircraftBusiness aircraftBusiness)
         {
-            OperationHistory = operationHistory;
-            if (operationHistory!=null)
-            {
-                OperationHistoryId = operationHistory.Id;
-            }
-         
+            AircraftBusiness = AircraftBusiness;
+            AircraftBusinessId = aircraftBusiness.Id;
         }
 
         #endregion
