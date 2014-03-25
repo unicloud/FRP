@@ -26,6 +26,7 @@ namespace UniCloud.Application.PartBC.DTO
     public class UtilizationReportDTO
     {
         public int Id { get; set; }
+        public string RegNumber { get; set; }
         public string Title { get; set; }
         public DateTime? ReportDate { get; set; }
         public string From { get; set; }
