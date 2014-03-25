@@ -143,6 +143,9 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg
                 case EnginePlanDeliverStatus.预备:
                     Status = EnginePlanDeliverStatus.预备;
                     break;
+                case EnginePlanDeliverStatus.计划:
+                    Status = EnginePlanDeliverStatus.计划;
+                    break;
                 case EnginePlanDeliverStatus.签约:
                     Status = EnginePlanDeliverStatus.签约;
                     break;

@@ -32,6 +32,15 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 {
     public partial class EnginePlanHistoryDTO
     {
+        #region Method
+
+        partial void OnStatusChanged()
+        {
+            OnPropertyChanged("DeliverStatus");
+        }
+
+        #endregion
+
         #region 属性
 
         /// <summary>
