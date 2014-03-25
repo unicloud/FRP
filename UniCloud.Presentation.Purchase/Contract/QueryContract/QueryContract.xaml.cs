@@ -21,5 +21,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             get { return DataContext as QueryContractVM; }
             set { DataContext = value; }
         }
+
+        
     }
 }
