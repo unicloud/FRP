@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
 using ReportViewer.Part;
 
@@ -26,7 +27,7 @@ namespace ReportViewer.UtilizationReport
 {
    public class UtilizationReport
    {
-       private static readonly Uri ServiceRoot = null;//new Uri(Application.Current.Resources["PartDataService"].ToString());
+       private static readonly Uri ServiceRoot = new Uri(ConfigurationManager.AppSettings["PartDataService"]);
        readonly PartData _serviceContext = new PartData(ServiceRoot);
        public IEnumerable<UtilizationReportDTO> GetUtilizationReports()
        {
