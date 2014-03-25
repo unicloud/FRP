@@ -80,6 +80,7 @@ namespace UniCloud.Application.FleetPlanBC.PlanEngineServices
 
             //创建计划发动机
             var newPlanEngine = PlanEngineFactory.CreatePlanEngine();
+            newPlanEngine.ChangeCurrentIdentity(dto.Id);
             newPlanEngine.SetEngineType(engineType);
             newPlanEngine.SetAirlines(airlines);
 

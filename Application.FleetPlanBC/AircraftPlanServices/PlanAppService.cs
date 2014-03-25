@@ -41,27 +41,18 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
     /// </summary>
     public class PlanAppService : IPlanAppService
     {
-        private readonly IActionCategoryRepository _actionCategoryRepository;
-        private readonly IAircraftRepository _aircraftRepository;
-        private readonly IAircraftTypeRepository _aircraftTypeRepository;
         private readonly IAirlinesRepository _airlinesRepository;
         private readonly IAnnualRepository _annualRepository;
         private readonly IPlanQuery _planQuery;
         private readonly IPlanRepository _planRepository;
-        private readonly IPlanAircraftRepository _planAircraftRepository;
-        public PlanAppService(IPlanQuery planQuery, IActionCategoryRepository actionCategoryRepository
-            , IAircraftTypeRepository aircraftTypeRepository, IAirlinesRepository airlinesRepository,
-            IAnnualRepository annualRepository,IAircraftRepository aircraftRepository,
-            IPlanRepository planRepository, IPlanAircraftRepository planAircraftRepository)
+        public PlanAppService(IPlanQuery planQuery, IAirlinesRepository airlinesRepository,
+            IAnnualRepository annualRepository,IPlanRepository planRepository)
         {
             _planQuery = planQuery;
-            _actionCategoryRepository = actionCategoryRepository;
-            _aircraftRepository = aircraftRepository;
-            _aircraftTypeRepository = aircraftTypeRepository;
             _airlinesRepository = airlinesRepository;
             _annualRepository = annualRepository;
             _planRepository = planRepository;
-            _planAircraftRepository = planAircraftRepository;
+
         }
 
         #region PlanDTO
@@ -89,13 +80,11 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
 
             //创建运力增减计划
             var newPlan = PlanFactory.CreatePlan(dto.VersionNumber);
+            newPlan.ChangeCurrentIdentity(dto.Id);
             newPlan.SetPlanStatus(PlanStatus.草稿);
             newPlan.SetAirlines(airlines);
             newPlan.SetAnnual(annual);
             newPlan.SetTitle(dto.Title);
-
-            //添加
-            dto.PlanHistories.ToList().ForEach(line => InsertPlanHistory(newPlan, line));
 
             _planRepository.Add(newPlan);
         }
@@ -115,7 +104,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
 
             if (updatePlan != null)
             {
-                //更新主表：
+                //更新计划：
                 updatePlan.SetPlanStatus((PlanStatus)dto.Status);
                 updatePlan.SetPlanPublishStatus((PlanPublishStatus)dto.PublishStatus);
                 updatePlan.SetAirlines(airlines);
@@ -123,16 +112,6 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
                 updatePlan.SetDocNumber(dto.DocNumber);
                 updatePlan.SetDocument(dto.DocumentId, dto.DocName);
                 updatePlan.SetTitle(dto.Title);
-
-                //更新计划明细：
-                var dtoPlanHistories = dto.PlanHistories;
-                var planHistories = updatePlan.PlanHistories;
-                DataHelper.DetailHandle(dtoPlanHistories.ToArray(),
-                    planHistories.ToArray(),
-                    c => c.Id, p => p.Id,
-                    i => InsertPlanHistory(updatePlan, i),
-                    UpdatePlanHistory,
-                    d => _planRepository.RemovePlanHistory(d));
             }
             _planRepository.Modify(updatePlan);
         }
@@ -152,110 +131,9 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
             //获取需要删除的对象。
             if (delPlan != null)
             {
-                _planRepository.DeletePlan(delPlan); //删除运力增减计划。
+                _planRepository.Remove(delPlan); //删除运力增减计划。
             }
         }
-
-        #region 处理计划明细
-
-        /// <summary>
-        ///     插入计划明细
-        /// </summary>
-        /// <param name="plan">运力增减计划</param>
-        /// <param name="planHistoryDto">计划历史DTO</param>
-        private void InsertPlanHistory(Plan plan, PlanHistoryDTO planHistoryDto)
-        {
-            //获取
-            var actionCategory = _actionCategoryRepository.Get(planHistoryDto.ActionCategoryId);
-            var targetCategory = _actionCategoryRepository.Get(planHistoryDto.TargetCategoryId);
-            var aircraftType = _aircraftTypeRepository.Get(planHistoryDto.AircraftTypeId);
-            var airlines = _airlinesRepository.Get(planHistoryDto.AirlinesId);
-            var annual = _annualRepository.Get(planHistoryDto.PerformAnnualId);
-            // 添加接机行
-            if (planHistoryDto.PlanType == 1)
-            {
-                var newPlanHistory = plan.AddNewOperationPlan();
-                newPlanHistory.SetActionCategory(actionCategory, targetCategory);
-                newPlanHistory.SetAircraftType(aircraftType);
-                newPlanHistory.SetAirlines(airlines);
-                newPlanHistory.SetCarryingCapacity(planHistoryDto.CarryingCapacity);
-                newPlanHistory.SetNote(planHistoryDto.Note);
-                newPlanHistory.SetPerformDate(annual, planHistoryDto.PerformMonth);
-                newPlanHistory.SetPlanAircraft(planHistoryDto.PlanAircraftId);
-                newPlanHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
-            }
-            else if (planHistoryDto.PlanType == 2)
-            {
-                var newPlanHistory = plan.AddNewChangePlan();
-                newPlanHistory.SetActionCategory(actionCategory, targetCategory);
-                newPlanHistory.SetAircraftType(aircraftType);
-                newPlanHistory.SetAirlines(airlines);
-                newPlanHistory.SetCarryingCapacity(planHistoryDto.CarryingCapacity);
-                newPlanHistory.SetNote(planHistoryDto.Note);
-                newPlanHistory.SetPerformDate(annual, planHistoryDto.PerformMonth);
-                newPlanHistory.SetPlanAircraft(planHistoryDto.PlanAircraftId);
-                newPlanHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
-            }
-        }
-
-        /// <summary>
-        ///     更新
-        /// </summary>
-        /// <param name="planHistoryDto">计划历史DTO</param>
-        /// <param name="planHistory">计划历史</param>
-        private void UpdatePlanHistory(PlanHistoryDTO planHistoryDto, PlanHistory planHistory)
-        {
-            //获取
-            var actionCategory = _actionCategoryRepository.Get(planHistoryDto.ActionCategoryId);
-            var targetCategory = _actionCategoryRepository.Get(planHistoryDto.TargetCategoryId);
-            var aircraftType = _aircraftTypeRepository.Get(planHistoryDto.AircraftTypeId);
-            var airlines = _airlinesRepository.Get(planHistoryDto.AirlinesId);
-            var annual = _annualRepository.Get(planHistoryDto.PerformAnnualId);
-            var operationHistory = _aircraftRepository.GetPh(planHistoryDto.RelatedGuid);
-            var aircraftBusiness = _aircraftRepository.GetAb(planHistoryDto.RelatedGuid);
-
-            // 更新计划历史
-            if (planHistoryDto.PlanType == 1)
-            {
-                planHistory.SetActionCategory(actionCategory, targetCategory);
-                planHistory.SetAircraftType(aircraftType);
-                planHistory.SetAirlines(airlines);
-                planHistory.SetCarryingCapacity(planHistoryDto.CarryingCapacity);
-                planHistory.SetNote(planHistoryDto.Note);
-                planHistory.SetPerformDate(annual, planHistoryDto.PerformMonth);
-                planHistory.SetPlanAircraft(planHistoryDto.PlanAircraftId);
-                planHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
-                planHistory.SetApprovalHistory(planHistoryDto.ApprovalHistoryId);
-                var operationPlan = planHistory as OperationPlan;
-                if (operationPlan != null)
-                    operationPlan.SetOperationHistory(operationHistory);
-            }
-            else if (planHistoryDto.PlanType == 2)
-            {
-                planHistory.SetActionCategory(actionCategory, targetCategory);
-                planHistory.SetAircraftType(aircraftType);
-                planHistory.SetAirlines(airlines);
-                planHistory.SetCarryingCapacity(planHistoryDto.CarryingCapacity);
-                planHistory.SetNote(planHistoryDto.Note);
-                planHistory.SetPerformDate(annual, planHistoryDto.PerformMonth);
-                planHistory.SetPlanAircraft(planHistoryDto.PlanAircraftId);
-                planHistory.SetSeatingCapacity(planHistoryDto.SeatingCapacity);
-                planHistory.SetApprovalHistory(planHistoryDto.ApprovalHistoryId);
-                var changePlan = planHistory as ChangePlan;
-                if (changePlan != null)
-                    changePlan.SetAircraftBusiness(aircraftBusiness);
-            }
-            if (planHistory.PlanAircraftId!=null)
-            {
-                var persitPlanAircraft = _planAircraftRepository.Get(planHistory.PlanAircraftId);
-                if (persitPlanAircraft.Status != (ManageStatus)planHistoryDto.ManageStatus)
-                {
-                    persitPlanAircraft.SetManageStatus((ManageStatus)planHistoryDto.ManageStatus);
-                }
-        }
-        }
-
-        #endregion
 
         #endregion
 

@@ -311,8 +311,24 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             {
                 foreach (var ph in enginePlan.EnginePlanHistories)
                 {
-                    if (ph.Status < (int)EnginePlanDeliverStatus.运营)
-                        newEnginePlan.EnginePlanHistories.Add(ph);
+                    if (ph.Status < (int) EnginePlanDeliverStatus.运营)
+                    {
+                        var enginePh = new EnginePlanHistoryDTO
+                        {
+                            Id = Guid.NewGuid(),
+                            ActionCategoryId = ph.ActionCategoryId,
+                            PerformAnnualId = ph.PerformAnnualId,
+                            PerformMonth = ph.PerformMonth,
+                            PlanEngineId = ph.PlanEngineId,
+                            EngineTypeId = ph.EngineTypeId,
+                            MaxThrust = ph.MaxThrust,
+                            ImportDate = ph.ImportDate,
+                            IsFinished = ph.IsFinished,
+                            Note = ph.Note,
+                            Status = ph.Status,
+                        };
+                        newEnginePlan.EnginePlanHistories.Add(enginePh);
+                    }
                 }
             }
             EnginePlans.AddNew(newEnginePlan);
@@ -379,6 +395,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private void OnCheck(object obj)
         {
             _selEnginePlan.Status = (int)EnginePlanStatus.已审核;
+            _selEnginePlan.IsValid = true;
             RefreshCommandState();
         }
 

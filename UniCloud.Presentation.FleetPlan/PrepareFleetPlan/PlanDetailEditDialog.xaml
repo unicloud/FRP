@@ -88,7 +88,7 @@
                        Grid.Column="2" />
             <telerik:RadComboBox Grid.Row="1"
                                  Grid.Column="3"
-                                 ItemsSource="{Binding ViewActionCategories}"
+                                 ItemsSource="{Binding EditPlanHistory.ActionCategories}"
                                  DisplayMemberPath="ActionCategoryOperation"
                                  SelectedItem="{Binding SelActionCategory,Mode=TwoWay}"
                                  SelectedValuePath="Id"
@@ -98,7 +98,7 @@
                      Grid.Column="0" />
             <telerik:RadComboBox Grid.Row="2"
                                  Grid.Column="1"
-                                 ItemsSource="{Binding AircraftCategories}"
+                                 ItemsSource="{Binding EditPlanHistory.AircraftCategories}"
                                  DisplayMemberPath="Regional"
                                  SelectedValuePath="Regional"
                                  SelectedItem="{Binding SelAircraftCategory,Mode=TwoWay}"
@@ -109,7 +109,7 @@
                        Grid.Row="2" />
             <telerik:RadComboBox Grid.Row="2"
                                  Grid.Column="3"
-                                 ItemsSource="{Binding ViewAircraftTypes}"
+                                 ItemsSource="{Binding EditPlanHistory.AircraftTypes}"
                                  SelectedItem="{Binding SelAircraftType,Mode=TwoWay}"
                                  DisplayMemberPath="Name"
                                  SelectedValuePath="Id"

@@ -18,7 +18,7 @@
 
 using System.Linq;
 using UniCloud.Application.FleetPlanBC.DTO;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Infrastructure.Data;

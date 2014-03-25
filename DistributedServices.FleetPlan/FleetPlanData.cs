@@ -8,6 +8,7 @@ using System.Linq;
 using UniCloud.Application.FleetPlanBC.ActionCategoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftCategoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftConfigurationServices;
+using UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftPlanServices;
 using UniCloud.Application.FleetPlanBC.AircraftSeriesServices;
 using UniCloud.Application.FleetPlanBC.AircraftServices;
@@ -62,6 +63,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         private readonly IManufacturerAppService _manufacturerAppService;
         private readonly IPlanAircraftAppService _planAircraftAppService;
         private readonly IPlanAppService _planAppService;
+        private readonly IPlanHistoryAppService _planHistoryAppService;
         private readonly IPlanEngineAppService _planEngineAppService;
         private readonly IProgrammingAppService _programmingAppService;
         private readonly IProgrammingFileAppService _programmingFileAppService;
@@ -91,6 +93,7 @@ namespace UniCloud.DistributedServices.FleetPlan
             _managerAppService = DefaultContainer.Resolve<IManagerAppService>();
             _manufacturerAppService = DefaultContainer.Resolve<IManufacturerAppService>();
             _planAppService = DefaultContainer.Resolve<IPlanAppService>();
+            _planHistoryAppService = DefaultContainer.Resolve<IPlanHistoryAppService>();
             _planAircraftAppService = DefaultContainer.Resolve<IPlanAircraftAppService>();
             _planEngineAppService = DefaultContainer.Resolve<IPlanEngineAppService>();
             _programmingAppService = DefaultContainer.Resolve<IProgrammingAppService>();
@@ -335,6 +338,13 @@ namespace UniCloud.DistributedServices.FleetPlan
             get { return _planAppService.GetPlans(); }
         }
 
+        /// <summary>
+        ///     飞机计划明细集合
+        /// </summary>
+        public IQueryable<PlanHistoryDTO> PlanHistories
+        {
+            get { return _planHistoryAppService.GetPlanHistories(); }
+        }
         #endregion
 
         #region 计划飞机

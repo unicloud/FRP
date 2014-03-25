@@ -19,7 +19,7 @@ using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
 
 #endregion
 
-namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
+namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanHistoryAgg
 {
     /// <summary>
     ///     变更计划聚合根

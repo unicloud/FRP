@@ -72,10 +72,10 @@
     <Compile Include="Aggregates\AircraftAgg\OwnershipHistory.cs" />
     <Compile Include="Aggregates\AircraftCategoryAgg\AircraftCategory.cs" />
     <Compile Include="Aggregates\AircraftCategoryAgg\AircraftCategoryFactory.cs" />
-    <Compile Include="Aggregates\AircraftPlanAgg\ChangePlan.cs" />
-    <Compile Include="Aggregates\AircraftPlanAgg\OperationPlan.cs" />
+    <Compile Include="Aggregates\AircraftPlanHistoryAgg\ChangePlan.cs" />
+    <Compile Include="Aggregates\AircraftPlanHistoryAgg\OperationPlan.cs" />
     <Compile Include="Aggregates\AircraftPlanAgg\Plan.cs" />
-    <Compile Include="Aggregates\AircraftPlanAgg\PlanHistory.cs" />
+    <Compile Include="Aggregates\AircraftPlanHistoryAgg\PlanHistory.cs" />
     <Compile Include="Aggregates\AircraftTypeAgg\AircraftType.cs" />
     <Compile Include="Aggregates\AircraftTypeAgg\AircraftTypeFactory.cs" />
     <Compile Include="Aggregates\AirlinesAgg\Airlines.cs" />

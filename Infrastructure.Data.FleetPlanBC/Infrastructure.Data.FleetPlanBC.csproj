@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Repositories\AircraftConfigurationRepository.cs" />
     <Compile Include="Repositories\AircraftSeriesRepository.cs" />
+    <Compile Include="Repositories\PlanHistoryRepository.cs" />
     <Compile Include="Repositories\ProgrammingFileRepository.cs" />
     <Compile Include="UnitOfWork\FleetPlanBCUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

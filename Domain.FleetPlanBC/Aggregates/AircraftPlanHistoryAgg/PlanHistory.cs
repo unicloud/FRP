@@ -23,7 +23,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 
 #endregion
 
-namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg
+namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg
 {
     /// <summary>
     ///     飞机计划明细

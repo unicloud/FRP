@@ -22,9 +22,13 @@ using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
+<<<<<<< HEAD
+using Telerik.Windows.Data;
+=======
 using Telerik.Windows.Controls.DataServices;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Document;
+>>>>>>> 929cdeaaf8ecbe64dadb0ecaf3ad868dbf08cbc4
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
@@ -53,6 +57,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             _context = _service.Context;
             InitializeVM();
             InitializerCommand();
+<<<<<<< HEAD
+=======
             if (service != null)
             {
                 AirProgrammings.PropertyChanged += (o, e) =>
@@ -70,6 +76,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     }
                 };
             }
+>>>>>>> 929cdeaaf8ecbe64dadb0ecaf3ad868dbf08cbc4
         }
 
         /// <summary>
@@ -103,11 +110,15 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
             AddEntityCommand = new DelegateCommand<object>(OnAddEntity, CanAddEntity);
             RemoveEntityCommand = new DelegateCommand<object>(OnRemoveEntity, CanRemoveEntity);
+<<<<<<< HEAD
+            AddDocCommand = new DelegateCommand<object>(OnAddAttach);
+=======
             SaveAirProgrammingCommand = new DelegateCommand<object>(OnSave, CanAirProgrammingSave);
             AbortAirProgrammingCommand = new DelegateCommand<object>(OnAbort, CanAirProgrammingAbort);
             SaveProgrammingFileCommand = new DelegateCommand<object>(OnSave, CanProgrammingFileSave);
             AbortProgrammingFileCommand = new DelegateCommand<object>(OnAbort, CanProgrammingFileAbort);
             AddDocCommand = new DelegateCommand<object>(OnAddAttach, CanAddDoc);
+>>>>>>> 929cdeaaf8ecbe64dadb0ecaf3ad868dbf08cbc4
             RemoveDocCommand = new DelegateCommand<object>(OnRemoveDoc, CanRemoveDoc);
             CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
         }
@@ -283,16 +294,21 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             RemoveCommand.RaiseCanExecuteChanged();
             AddEntityCommand.RaiseCanExecuteChanged();
             RemoveEntityCommand.RaiseCanExecuteChanged();
+<<<<<<< HEAD
+=======
             SaveAirProgrammingCommand.RaiseCanExecuteChanged();
             AbortAirProgrammingCommand.RaiseCanExecuteChanged();
             SaveProgrammingFileCommand.RaiseCanExecuteChanged();
             AbortProgrammingFileCommand.RaiseCanExecuteChanged();
+>>>>>>> 929cdeaaf8ecbe64dadb0ecaf3ad868dbf08cbc4
             AddDocCommand.RaiseCanExecuteChanged();
             RemoveDocCommand.RaiseCanExecuteChanged();
         }
 
         #endregion
 
+<<<<<<< HEAD
+=======
         #region 保存/取消五年规划更改
 
         /// <summary>
@@ -403,6 +419,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #endregion
 
+>>>>>>> 929cdeaaf8ecbe64dadb0ecaf3ad868dbf08cbc4
         #region 创建新规划
 
         /// <summary>
@@ -544,11 +561,14 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public DelegateCommand<object> AddDocCommand { get; private set; }
 
+<<<<<<< HEAD
+=======
         private bool CanAddDoc(object obj)
         {
             return true;
         }
 
+>>>>>>> 929cdeaaf8ecbe64dadb0ecaf3ad868dbf08cbc4
         #endregion
 
         #region 删除规划关联文档
@@ -601,10 +621,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     if (programming != null)
                         SelProgrammingFile.ProgrammingName = programming.Name;
                 }
+<<<<<<< HEAD
+=======
                 //else if (string.Equals(cell.Column.UniqueName, "BuyNum") || string.Equals(cell.Column.UniqueName, "LeaseNum") || string.Equals(cell.Column.UniqueName, "ExportNum"))
                 //{
                 //    SelAirProgrammingLine.NetIncrease=SelAirProgrammingLine.BuyNum+SelAirProgrammingLine.LeaseNum+SelAirProgrammingLine.ExportNum;
                 //}
+>>>>>>> 929cdeaaf8ecbe64dadb0ecaf3ad868dbf08cbc4
             }
         }
 

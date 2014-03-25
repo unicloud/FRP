@@ -15,7 +15,9 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Data.Services.Common;
+using System.Diagnostics;
 
 #endregion
 
@@ -213,5 +215,14 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         /// </summary>
         public Guid? AircraftImportCategoryId { get; set; }
         #endregion
+
+        public List<ActionCateDTO> ActionCategories
+        { get; set; }
+
+        public List<AircraftCateDTO> AircraftCategories
+        { get; set; }
+        
+        public List<AircraftTyDTO> AircraftTypes
+        { get; set; }
     }
 }

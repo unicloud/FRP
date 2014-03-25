@@ -56,15 +56,13 @@
                                                     Margin="-1 -2 -1 0"
                                                     OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
-                                                       Command="{Binding SaveCaacProgrammingCommand}"
-                                                       CommandParameter="{Binding CaacProgrammings}">
+                                                       Command="{Binding SaveCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="保存" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AbortCaacProgrammingCommand}"
-                                                       CommandParameter="{Binding CaacProgrammings}">
+                                                       Command="{Binding AbortCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="放弃更改" />
@@ -120,17 +118,17 @@
                                                                  MethodName="GridViewSelectionChanged" />
                                         </i:EventTrigger>
                                         <i:EventTrigger EventName="CellEditEnded">
-                                            <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"/>
+                                            <i:InvokeCommandAction Command="{Binding CellEditEndCommand}" />
                                         </i:EventTrigger>
                                     </i:Interaction.Triggers>
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
                                                                  Command="{Binding ExcelExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=CaacProgrammings, Mode=OneWay}" />
                                             <telerik:RadMenuItem Header="导出Word"
                                                                  Command="{Binding WordExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=CaacProgrammings, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
@@ -286,21 +284,6 @@
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                     Margin="-1 -2 -1 0"
                                                     OverflowButtonVisibility="Collapsed">
-                                    <telerik:RadButton Margin="4,2,2,-2"
-                                                       Command="{Binding SaveProgrammingFileCommand}"
-                                                       CommandParameter="{Binding ProgrammingFiles}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Save.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="保存" />
-                                    </telerik:RadButton>
-                                    <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AbortProgrammingFileCommand}"
-                                                       CommandParameter="{Binding ProgrammingFiles}">
-                                        <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
-                                               Stretch="Fill"
-                                               ToolTipService.ToolTip="放弃更改" />
-                                    </telerik:RadButton>
-                                    <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding AddDocCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/PaperClip.png"

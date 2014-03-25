@@ -102,6 +102,7 @@
   <ItemGroup>
     <Compile Include="FleetPlanService.cs" />
     <Compile Include="FleetPlanServiceHelper.cs" />
+    <Compile Include="FleetPlan\ActionCateDTO.cs" />
     <Compile Include="FleetPlan\ActionCategoryDTO.cs" />
     <Compile Include="FleetPlan\AircraftDTO.cs" />
     <Compile Include="FleetPlan\EnginePlanDTO.cs" />

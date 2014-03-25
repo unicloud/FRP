@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:uc="http://schemas.unicloud.com/2012/xaml/presentation"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
@@ -120,6 +121,11 @@
                                                          IsBusy="{Binding AircraftsView.IsBusy}"
                                                          SelectedItem="{Binding SelectedOwnershipHistory,Mode=TwoWay}"
                                                          ValidatesOnDataErrors="InEditMode">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="CellEditEnded">
+                                                <i:InvokeCommandAction Command="{Binding CellEditEndCommand}"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="序号" />
                                             <telerik:GridViewComboBoxColumn Header="所有权人"
@@ -135,7 +141,8 @@
                                                                         TextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding StartDate,StringFormat={StaticResource DateStringFormat}}">
+                                                                        DataMemberBinding="{Binding StartDate,StringFormat={StaticResource DateStringFormat}}"
+                                                                        UniqueName="OwnershipStartDate">
                                                 <telerik:GridViewDataColumn.CellEditTemplate>
                                                     <DataTemplate>
                                                         <telerik:RadDateTimePicker InputMode="DatePicker"
@@ -173,17 +180,17 @@
                                                         Margin="0 0 0 -1"
                                                         OverflowButtonVisibility="Collapsed">
                                         <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding AddOwnershipCommand}">
+                                                           Command="{Binding AddAcConfigCommand}">
                                             <Image Source="/UniCloud.Presentation;component/Images/New.png"
                                                    Stretch="Fill"
-                                                   ToolTipService.ToolTip="创建所有权" />
+                                                   ToolTipService.ToolTip="创建飞机配置历史" />
                                         </telerik:RadButton>
                                         <telerik:RadToolBarSeparator />
                                         <telerik:RadButton Margin="2,2,2,-2"
-                                                           Command="{Binding RemoveOwnershipCommand}">
+                                                           Command="{Binding RemoveAcConfigCommand}">
                                             <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
                                                    Stretch="Fill"
-                                                   ToolTipService.ToolTip="删除所有权" />
+                                                   ToolTipService.ToolTip="删除飞机配置历史" />
                                         </telerik:RadButton>
                                         <telerik:RadToolBarSeparator />
                                     </telerik:RadToolBar>
@@ -213,6 +220,11 @@
                                                          IsBusy="{Binding AircraftsView.IsBusy}"
                                                          SelectedItem="{Binding SelectedAcConfigHistory,Mode=TwoWay}"
                                                          ValidatesOnDataErrors="InEditMode">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="CellEditEnded">
+                                                <i:InvokeCommandAction Command="{Binding CellEditEndCommand}" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="序号" />
                                             <telerik:GridViewComboBoxColumn Header="配置"
@@ -226,7 +238,8 @@
                                                                         TextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
-                                                                        DataMemberBinding="{Binding StartDate,StringFormat={StaticResource DateStringFormat}}">
+                                                                        DataMemberBinding="{Binding StartDate,StringFormat={StaticResource DateStringFormat}}"
+                                                                        UniqueName="AcConfigStartDate">
                                                 <telerik:GridViewDataColumn.CellEditTemplate>
                                                     <DataTemplate>
                                                         <telerik:RadDateTimePicker InputMode="DatePicker"
