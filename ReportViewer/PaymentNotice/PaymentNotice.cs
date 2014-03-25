@@ -17,6 +17,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using System.Windows.Forms;
 using ReportViewer.Payment;
 
 #endregion
@@ -25,12 +27,12 @@ namespace ReportViewer.PaymentNotice
 {
     public class PaymentNotice
     {
-        static Uri serviceRoot = new Uri("http://localhost:20109/PaymentDataService.svc");
-        PaymentData serviceContext = new PaymentData(serviceRoot);
+        private static readonly Uri ServiceRoot = null;// new Uri(Application.Current.Resources["PaymentDataService"].ToString());
+        readonly PaymentData _serviceContext = new PaymentData(ServiceRoot);
 
         public IEnumerable<PaymentNoticeDTO> GetNoticeNumber()
         {
-            var notices = from notice in serviceContext.PaymentNotices
+            var notices = from notice in _serviceContext.PaymentNotices
                           select notice;
             //var numbers = new List<string>();
             //notices.ToList().ForEach(p=>numbers.Add(p.NoticeNumber));
@@ -38,7 +40,7 @@ namespace ReportViewer.PaymentNotice
         }
         public IEnumerable<PaymentNoticeDTO> GetPaymentNotice(string noticeNumber)
         {
-            var productQuery = from product in serviceContext.PaymentNotices
+            var productQuery = from product in _serviceContext.PaymentNotices
                                where product.NoticeNumber.StartsWith(noticeNumber)
                                select product;
 
@@ -47,7 +49,7 @@ namespace ReportViewer.PaymentNotice
 
         public IEnumerable<PaymentNoticeLineDTO> GetPaymentNoticeLines(string noticeNumber)
         {
-            var productQuery = from product in serviceContext.PaymentNotices
+            var productQuery = from product in _serviceContext.PaymentNotices
                                where product.NoticeNumber.StartsWith(noticeNumber)
                                select product;
             return productQuery.FirstOrDefault().PaymentNoticeLines;

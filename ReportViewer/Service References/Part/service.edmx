@@ -420,6 +420,7 @@
           <PropertyRef Name="Id" />
         </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RegNumber" Type="Edm.String" />
         <Property Name="Title" Type="Edm.String" />
         <Property Name="ReportDate" Type="Edm.DateTime" />
         <Property Name="From" Type="Edm.String" />

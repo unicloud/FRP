@@ -26,6 +26,7 @@ using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
 using UniCloud.Presentation.MVVM;
+using UniCloud.Presentation.Part.Report;
 using UniCloud.Presentation.Service.Part;
 using UniCloud.Presentation.Service.Part.Part;
 
@@ -237,19 +238,22 @@ namespace UniCloud.Presentation.Part.ManageSCN
         public DelegateCommand<object> CompareMscnListCommand { get; set; }
         protected void OnCompareMscnList(object obj)
         {
-            if (string.IsNullOrEmpty(CscNumber))
-            {
-                MessageAlert("请输入批次号！");
-                return;
-            }
+            MonthlyUtilizationReport aa=new MonthlyUtilizationReport();
+            aa.WindowStartupLocation= WindowStartupLocation.CenterScreen;
+            aa.ShowDialog();
+            //if (string.IsNullOrEmpty(CscNumber))
+            //{
+            //    MessageAlert("请输入批次号！");
+            //    return;
+            //}
 
-            _currentTabName = "Same";
-            _loadScn = false;
-            _loadAirBusScn = false;
-            IsBusy = true;
-            _descriptor.Value = CscNumber;
-            Scns.Load(true);
-            AirBusScns.Load(true);
+            //_currentTabName = "Same";
+            //_loadScn = false;
+            //_loadAirBusScn = false;
+            //IsBusy = true;
+            //_descriptor.Value = CscNumber;
+            //Scns.Load(true);
+            //AirBusScns.Load(true);
         }
 
         #endregion
