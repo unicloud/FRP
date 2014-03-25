@@ -289,6 +289,9 @@
       <DependentUpon>QueryContract.xaml</DependentUpon>
     </Compile>
     <Compile Include="Contract\QueryContract\QueryContractVM.cs" />
+    <Compile Include="Contract\QueryContract\SearchResultsWindow.xaml.cs">
+      <DependentUpon>SearchResultsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Contract\UndercartMaintain.xaml.cs">
       <DependentUpon>UndercartMaintain.xaml</DependentUpon>
     </Compile>
@@ -420,6 +423,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Contract\QueryContract\QueryContract.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Contract\QueryContract\SearchResultsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

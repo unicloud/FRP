@@ -9,7 +9,7 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/3/25 16:48:08
+// 生成日期: 2014/3/25 17:27:13
 namespace UniCloud.Presentation.Service.Purchase.Purchase
 {
     
@@ -1634,56 +1634,54 @@ namespace UniCloud.Presentation.Service.Purchase.Purchase
                 "\"><Parameter Name=\"docPathId\" Type=\"Edm.Int32\" Nullable=\"false\" /></FunctionImpo" +
                 "rt><FunctionImport Name=\"ModifyDocPath\" m:HttpMethod=\"GET\"><Parameter Name=\"docP" +
                 "athId\" Type=\"Edm.Int32\" Nullable=\"false\" /><Parameter Name=\"name\" Type=\"Edm.Stri" +
-                "ng\" /></FunctionImport><AssociationSet Name=\"ContractAircraftDTO_BFEPurchaseOrde" +
-                "rs\" Association=\"UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO_BFEPurc" +
-                "haseOrders\"><End Role=\"ContractAircraftDTO\" EntitySet=\"ContractAircrafts\" /><End" +
-                " Role=\"BFEPurchaseOrders\" EntitySet=\"BFEPurchaseOrders\" /></AssociationSet><Asso" +
-                "ciationSet Name=\"LeaseContractAircraftDTO_BFEPurchaseOrders\" Association=\"UniClo" +
-                "ud.Application.PurchaseBC.DTO.LeaseContractAircraftDTO_BFEPurchaseOrders\"><End R" +
-                "ole=\"LeaseContractAircraftDTO\" EntitySet=\"LeaseContractAircrafts\" /><End Role=\"B" +
-                "FEPurchaseOrders\" EntitySet=\"BFEPurchaseOrders\" /></AssociationSet><AssociationS" +
-                "et Name=\"PurchaseContractAircraftDTO_BFEPurchaseOrders\" Association=\"UniCloud.Ap" +
-                "plication.PurchaseBC.DTO.PurchaseContractAircraftDTO_BFEPurchaseOrders\"><End Rol" +
-                "e=\"PurchaseContractAircraftDTO\" EntitySet=\"PurchaseContractAircrafts\" /><End Rol" +
-                "e=\"BFEPurchaseOrders\" EntitySet=\"BFEPurchaseOrders\" /></AssociationSet><Associat" +
-                "ionSet Name=\"AircraftLeaseReceptionDTO_RelatedDocs\" Association=\"UniCloud.Applic" +
-                "ation.PurchaseBC.DTO.AircraftLeaseReceptionDTO_RelatedDocs\"><End Role=\"AircraftL" +
-                "easeReceptionDTO\" EntitySet=\"AircraftLeaseReceptions\" /><End Role=\"RelatedDocs\" " +
-                "EntitySet=\"RelatedDocs\" /></AssociationSet><AssociationSet Name=\"AircraftPurchas" +
-                "eReceptionDTO_RelatedDocs\" Association=\"UniCloud.Application.PurchaseBC.DTO.Airc" +
-                "raftPurchaseReceptionDTO_RelatedDocs\"><End Role=\"AircraftPurchaseReceptionDTO\" E" +
-                "ntitySet=\"AircraftPurchaseReceptions\" /><End Role=\"RelatedDocs\" EntitySet=\"Relat" +
-                "edDocs\" /></AssociationSet><AssociationSet Name=\"EngineLeaseReceptionDTO_Related" +
-                "Docs\" Association=\"UniCloud.Application.PurchaseBC.DTO.EngineLeaseReceptionDTO_R" +
-                "elatedDocs\"><End Role=\"EngineLeaseReceptionDTO\" EntitySet=\"EngineLeaseReceptions" +
-                "\" /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /></AssociationSet><Associat" +
-                "ionSet Name=\"EnginePurchaseReceptionDTO_RelatedDocs\" Association=\"UniCloud.Appli" +
-                "cation.PurchaseBC.DTO.EnginePurchaseReceptionDTO_RelatedDocs\"><End Role=\"EngineP" +
-                "urchaseReceptionDTO\" EntitySet=\"EnginePurchaseReceptions\" /><End Role=\"RelatedDo" +
-                "cs\" EntitySet=\"RelatedDocs\" /></AssociationSet><AssociationSet Name=\"AircraftLea" +
-                "seOrderDTO_RelatedDocs\" Association=\"UniCloud.Application.PurchaseBC.DTO.Aircraf" +
-                "tLeaseOrderDTO_RelatedDocs\"><End Role=\"AircraftLeaseOrderDTO\" EntitySet=\"Aircraf" +
-                "tLeaseOrders\" /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /></AssociationS" +
-                "et><AssociationSet Name=\"AircraftPurchaseOrderDTO_RelatedDocs\" Association=\"UniC" +
-                "loud.Application.PurchaseBC.DTO.AircraftPurchaseOrderDTO_RelatedDocs\"><End Role=" +
-                "\"AircraftPurchaseOrderDTO\" EntitySet=\"AircraftPurchaseOrders\" /><End Role=\"Relat" +
-                "edDocs\" EntitySet=\"RelatedDocs\" /></AssociationSet><AssociationSet Name=\"EngineL" +
-                "easeOrderDTO_RelatedDocs\" Association=\"UniCloud.Application.PurchaseBC.DTO.Engin" +
-                "eLeaseOrderDTO_RelatedDocs\"><End Role=\"EngineLeaseOrderDTO\" EntitySet=\"EngineLea" +
-                "seOrders\" /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /></AssociationSet><" +
-                "AssociationSet Name=\"EnginePurchaseOrderDTO_RelatedDocs\" Association=\"UniCloud.A" +
-                "pplication.PurchaseBC.DTO.EnginePurchaseOrderDTO_RelatedDocs\"><End Role=\"EngineP" +
-                "urchaseOrderDTO\" EntitySet=\"EnginePurchaseOrders\" /><End Role=\"RelatedDocs\" Enti" +
-                "tySet=\"RelatedDocs\" /></AssociationSet><AssociationSet Name=\"BFEPurchaseOrderDTO" +
-                "_RelatedDocs\" Association=\"UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderD" +
-                "TO_RelatedDocs\"><End Role=\"BFEPurchaseOrderDTO\" EntitySet=\"BFEPurchaseOrders\" />" +
+                "ng\" /></FunctionImport><FunctionImport Name=\"SearchDocumentPath\" ReturnType=\"Col" +
+                "lection(UniCloud.Application.PurchaseBC.DTO.DocumentPathDTO)\" EntitySet=\"Documen" +
+                "tPaths\" m:HttpMethod=\"GET\"><Parameter Name=\"name\" Type=\"Edm.String\" /></Function" +
+                "Import><AssociationSet Name=\"ContractAircraftDTO_BFEPurchaseOrders\" Association=" +
+                "\"UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO_BFEPurchaseOrders\"><End" +
+                " Role=\"ContractAircraftDTO\" EntitySet=\"ContractAircrafts\" /><End Role=\"BFEPurcha" +
+                "seOrders\" EntitySet=\"BFEPurchaseOrders\" /></AssociationSet><AssociationSet Name=" +
+                "\"LeaseContractAircraftDTO_BFEPurchaseOrders\" Association=\"UniCloud.Application.P" +
+                "urchaseBC.DTO.LeaseContractAircraftDTO_BFEPurchaseOrders\"><End Role=\"LeaseContra" +
+                "ctAircraftDTO\" EntitySet=\"LeaseContractAircrafts\" /><End Role=\"BFEPurchaseOrders" +
+                "\" EntitySet=\"BFEPurchaseOrders\" /></AssociationSet><AssociationSet Name=\"Purchas" +
+                "eContractAircraftDTO_BFEPurchaseOrders\" Association=\"UniCloud.Application.Purcha" +
+                "seBC.DTO.PurchaseContractAircraftDTO_BFEPurchaseOrders\"><End Role=\"PurchaseContr" +
+                "actAircraftDTO\" EntitySet=\"PurchaseContractAircrafts\" /><End Role=\"BFEPurchaseOr" +
+                "ders\" EntitySet=\"BFEPurchaseOrders\" /></AssociationSet><AssociationSet Name=\"Air" +
+                "craftLeaseReceptionDTO_RelatedDocs\" Association=\"UniCloud.Application.PurchaseBC" +
+                ".DTO.AircraftLeaseReceptionDTO_RelatedDocs\"><End Role=\"AircraftLeaseReceptionDTO" +
+                "\" EntitySet=\"AircraftLeaseReceptions\" /><End Role=\"RelatedDocs\" EntitySet=\"Relat" +
+                "edDocs\" /></AssociationSet><AssociationSet Name=\"AircraftPurchaseReceptionDTO_Re" +
+                "latedDocs\" Association=\"UniCloud.Application.PurchaseBC.DTO.AircraftPurchaseRece" +
+                "ptionDTO_RelatedDocs\"><End Role=\"AircraftPurchaseReceptionDTO\" EntitySet=\"Aircra" +
+                "ftPurchaseReceptions\" /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /></Asso" +
+                "ciationSet><AssociationSet Name=\"EngineLeaseReceptionDTO_RelatedDocs\" Associatio" +
+                "n=\"UniCloud.Application.PurchaseBC.DTO.EngineLeaseReceptionDTO_RelatedDocs\"><End" +
+                " Role=\"EngineLeaseReceptionDTO\" EntitySet=\"EngineLeaseReceptions\" /><End Role=\"R" +
+                "elatedDocs\" EntitySet=\"RelatedDocs\" /></AssociationSet><AssociationSet Name=\"Eng" +
+                "inePurchaseReceptionDTO_RelatedDocs\" Association=\"UniCloud.Application.PurchaseB" +
+                "C.DTO.EnginePurchaseReceptionDTO_RelatedDocs\"><End Role=\"EnginePurchaseReception" +
+                "DTO\" EntitySet=\"EnginePurchaseReceptions\" /><End Role=\"RelatedDocs\" EntitySet=\"R" +
+                "elatedDocs\" /></AssociationSet><AssociationSet Name=\"AircraftLeaseOrderDTO_Relat" +
+                "edDocs\" Association=\"UniCloud.Application.PurchaseBC.DTO.AircraftLeaseOrderDTO_R" +
+                "elatedDocs\"><End Role=\"AircraftLeaseOrderDTO\" EntitySet=\"AircraftLeaseOrders\" />" +
                 "<End Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /></AssociationSet><AssociationS" +
-                "et Name=\"BFEPurchaseOrderDTO_ContractAircrafts\" Association=\"UniCloud.Applicatio" +
-                "n.PurchaseBC.DTO.BFEPurchaseOrderDTO_ContractAircrafts\"><En";
+                "et Name=\"AircraftPurchaseOrderDTO_RelatedDocs\" Association=\"UniCloud.Application" +
+                ".PurchaseBC.DTO.AircraftPurchaseOrderDTO_RelatedDocs\"><End Role=\"AircraftPurchas" +
+                "eOrderDTO\" EntitySet=\"AircraftPurchaseOrders\" /><End Role=\"RelatedDocs\" EntitySe" +
+                "t=\"RelatedDocs\" /></AssociationSet><AssociationSet Name=\"EngineLeaseOrderDTO_Rel" +
+                "atedDocs\" Association=\"UniCloud.Application.PurchaseBC.DTO.EngineLeaseOrderDTO_R" +
+                "elatedDocs\"><End Role=\"EngineLeaseOrderDTO\" EntitySet=\"EngineLeaseOrders\" /><End" +
+                " Role=\"RelatedDocs\" EntitySet=\"RelatedDocs\" /></AssociationSet><AssociationSet N" +
+                "ame=\"EnginePurchaseOrderDTO_RelatedDocs\" Association=\"UniCloud.Application.Purch" +
+                "aseBC.DTO.EnginePurchaseOrderDTO_RelatedDocs\"><End Role=\"EnginePurchaseOrderDTO\"" +
+                " EntitySet=\"EnginePurchaseOrders\" /><End Role=\"RelatedDocs\" EntitySet=\"RelatedDo" +
+                "cs\" /></AssociationSet><AssociationSet Name=\"BFEPurchaseOrderDTO_RelatedDocs\" As" +
+                "sociation=\"UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO_RelatedDocs\">" +
+                "<End Role=\"BFEPurchaseOrderDTO\" EntitySet=\"BFEPurchaseOrder";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
-            private const string ModelPart7 = "d Role=\"BFEPurchaseOrderDTO\" EntitySet=\"BFEPurchaseOrders\" /><End Role=\"ContractA" +
-                "ircrafts\" EntitySet=\"ContractAircrafts\" /></AssociationSet></EntityContainer></S" +
-                "chema></edmx:DataServices></edmx:Edmx>";
+            private const string ModelPart7 = @"s"" /><End Role=""RelatedDocs"" EntitySet=""RelatedDocs"" /></AssociationSet><AssociationSet Name=""BFEPurchaseOrderDTO_ContractAircrafts"" Association=""UniCloud.Application.PurchaseBC.DTO.BFEPurchaseOrderDTO_ContractAircrafts""><End Role=""BFEPurchaseOrderDTO"" EntitySet=""BFEPurchaseOrders"" /><End Role=""ContractAircrafts"" EntitySet=""ContractAircrafts"" /></AssociationSet></EntityContainer></Schema></edmx:DataServices></edmx:Edmx>";
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
             private static string GetConcatenatedEdmxString()
             {

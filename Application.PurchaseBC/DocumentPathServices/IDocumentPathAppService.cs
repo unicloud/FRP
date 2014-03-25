@@ -19,6 +19,7 @@
 #region
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
 
@@ -37,6 +38,8 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
         /// </summary>
         /// <returns>文档路径</returns>
         IQueryable<DocumentPathDTO> GetDocumentPaths();
+
+        IEnumerable<DocumentPathDTO> SearchDocumentPath(string name);
 
         /// <summary>
         ///     删除文档路径。

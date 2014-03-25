@@ -882,6 +882,9 @@
           <Parameter Name="docPathId" Type="Edm.Int32" Nullable="false" />
           <Parameter Name="name" Type="Edm.String" />
         </FunctionImport>
+        <FunctionImport Name="SearchDocumentPath" ReturnType="Collection(UniCloud.Application.PurchaseBC.DTO.DocumentPathDTO)" EntitySet="DocumentPaths" m:HttpMethod="GET">
+          <Parameter Name="name" Type="Edm.String" />
+        </FunctionImport>
         <AssociationSet Name="ContractAircraftDTO_BFEPurchaseOrders" Association="UniCloud.Application.PurchaseBC.DTO.ContractAircraftDTO_BFEPurchaseOrders">
           <End Role="ContractAircraftDTO" EntitySet="ContractAircrafts" />
           <End Role="BFEPurchaseOrders" EntitySet="BFEPurchaseOrders" />

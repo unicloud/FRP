@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Domain.PurchaseBC.Aggregates.DocumentPathAgg;
@@ -57,6 +58,24 @@ namespace UniCloud.Application.PurchaseBC.Query.DocumentQueries
                             Path = c.Path
                         }).ToList(),
                 });
+        }
+
+        public IEnumerable<DocumentPathDTO> SearchDocumentPath(string name)
+        {
+           return _unitOfWork.CreateSet<DocumentPath>().Where(p => p.Name.Contains(name)).Select(p => new DocumentPathDTO
+                                                                                                {
+                                                                                                    DocumentPathId =
+                                                                                                        p.Id,
+                                                                                                    DocumentGuid =
+                                                                                                        p.DocumentGuid,
+                                                                                                    Name = p.Name,
+                                                                                                    Extension =
+                                                                                                        p.Extension,
+                                                                                                    IsLeaf = p.IsLeaf,
+                                                                                                    ParentId =
+                                                                                                        p.ParentId,
+                                                                                                    Path = p.Path
+                                                                                                });
         }
     }
 }

@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.Data.Services.Client;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -28,11 +29,12 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.ServiceLocation;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.DocumentExtension;
 using UniCloud.Presentation.Service.Purchase.Purchase;
+using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 
 #endregion
 
@@ -841,6 +843,20 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #region 搜索功能
 
+        private bool _isBusySearch;
+        public bool IsBusySearch
+        {
+            get { return _isBusySearch; }
+            set
+            {
+                if (_isBusySearch != value)
+                {
+                    _isBusySearch = value;
+                    RaisePropertyChanged(() => IsBusySearch);
+                }
+            }
+        }
+
         private string _searchText;
         public string SearchText
         {
@@ -852,12 +868,52 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
         }
 
+        private ObservableCollection<ListBoxDocumentItem> _searchResults = new ObservableCollection<ListBoxDocumentItem>();
+        public ObservableCollection<ListBoxDocumentItem> SearchResults
+        {
+            get { return _searchResults; }
+            set
+            {
+                _searchResults = value;
+                RaisePropertyChanged(() => SearchResults);
+            }
+        }
         public void RadWatermarkTextBoxKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                
+
+                var search = ServiceLocator.Current.GetInstance<SearchResultsWindow>();
+                search.Header = "\"" + CurrentPathItem.Name + "\"中的搜索结果";
+                search.ShowDialog();
+                IsBusySearch = true;
+                var searchDocumentUri = SearchDocumentUri(SearchText);
+                _context.BeginExecute<DocumentPathDTO>(searchDocumentUri,
+                   result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+                   {
+                       var context = result.AsyncState as PurchaseData;
+                       try
+                       {
+                           if (context != null)
+                           {
+                               SearchResults.Clear();
+                               SearchResults = ListBoxItemHelper.TransformToListBoxItems(context.EndExecute<DocumentPathDTO>(result).ToList());
+                           }
+                       }
+                       catch (DataServiceQueryException ex)
+                       {
+                           QueryOperationResponse response = ex.Response;
+                           MessageAlert(response.Error.Message);
+                       }
+                       IsBusySearch = false;
+                   }), _context);
             }
+        }
+
+        private Uri SearchDocumentUri(string name)
+        {
+            return new Uri(string.Format("SearchDocumentPath?name='{0}'", name),
+                UriKind.Relative);
         }
         #endregion
     }

@@ -17,11 +17,13 @@
 
 #region ÃüÃû¿Õ¼ä
 
+using System.Collections.Generic;
 using System.Data.Services;
 using System.Data.Services.Common;
 using System.ServiceModel.Web;
 using System.Web;
 using UniCloud.Application.PurchaseBC.DocumentPathServices;
+using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
@@ -47,6 +49,7 @@ namespace UniCloud.DistributedServices.Purchase
             config.SetServiceOperationAccessRule("AddDocPath", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("DelDocPath", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("ModifyDocPath", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("SearchDocumentPath", ServiceOperationRights.All);
             #endregion
 
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
@@ -115,6 +118,13 @@ namespace UniCloud.DistributedServices.Purchase
         {
             var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
             documentPathAppService.ModifyDocPath(docPathId, name);
+        }
+
+        [WebGet]
+        public IEnumerable<DocumentPathDTO> SearchDocumentPath(string name)
+        {
+            var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
+            return documentPathAppService.SearchDocumentPath(name);
         }
         #endregion
     }

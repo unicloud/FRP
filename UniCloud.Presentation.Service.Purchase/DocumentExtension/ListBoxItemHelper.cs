@@ -19,6 +19,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using UniCloud.Presentation.Service.Purchase.Purchase;
 
@@ -115,6 +116,27 @@ namespace UniCloud.Presentation.Service.Purchase.DocumentExtension
                     currentListBox.SubDocumentPaths.Add(newListBoxItem);
                 });
             return currentListBox;
+        }
+
+        public static ObservableCollection<ListBoxDocumentItem> TransformToListBoxItems(List<DocumentPathDTO> documentPaths)
+        {
+            var results = new ObservableCollection<ListBoxDocumentItem>();
+            documentPaths.ForEach(p => results.Add( new ListBoxDocumentItem
+                                                    {
+                                                        DocumentPathId = p.DocumentPathId,
+                                                        Extension = p.Extension,
+                                                        Name = p.Name,
+                                                        IsLeaf = p.IsLeaf,
+                                                        ParentId = p.ParentId,
+                                                        DocumentGuid = p.DocumentGuid,
+                                                        FullPath = p.Name,
+                                                        Path = p.Path,
+                                                        SmallIconPath =
+                                                            ImagePathHelper.GetSmallImageSource(p.Extension),
+                                                        BigIconPath =
+                                                            ImagePathHelper.GetBigImageSource(p.Extension),
+                                                    }));
+            return results;
         }
     }
 }

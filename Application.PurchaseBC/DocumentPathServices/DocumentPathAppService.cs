@@ -18,6 +18,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.DocumentQueries;
@@ -50,6 +51,10 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
             return _documentPathQuery.DocumentPathsQuery(queryBuilder);
         }
 
+        public IEnumerable<DocumentPathDTO> SearchDocumentPath(string name)
+        {
+            return _documentPathQuery.SearchDocumentPath(name);
+        }
         /// <summary>
         ///     删除文档路径
         /// </summary>
