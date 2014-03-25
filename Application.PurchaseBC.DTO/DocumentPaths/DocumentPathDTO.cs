@@ -61,9 +61,9 @@ namespace UniCloud.Application.PurchaseBC.DTO
         public Guid? DocumentGuid { get; set; }
 
         /// <summary>
-        ///     路径源
+        ///     路径
         /// </summary>
-        public int PathSource { get;  set; }
+        public string Path { get;  set; }
 
         /// <summary>
         ///     父节点ID

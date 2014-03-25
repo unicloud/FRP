@@ -45,7 +45,7 @@ namespace UniCloud.Application.PurchaseBC.Query.DocumentQueries
                     Extension = p.Extension,
                     IsLeaf = p.IsLeaf,
                     ParentId = p.ParentId,
-                    PathSource = (int) p.PathSource,
+                    Path = p.Path,
                     SubDocumentPaths = p.DocumentPaths.Select(c => new SubDocumentPathDTO
                         {
                             SubDocumentPathId = c.Id,
@@ -54,7 +54,7 @@ namespace UniCloud.Application.PurchaseBC.Query.DocumentQueries
                             Extension = c.Extension,
                             IsLeaf = c.IsLeaf,
                             ParentId = c.ParentId,
-                            PathSource = (int) c.PathSource
+                            Path = c.Path
                         }).ToList(),
                 });
         }

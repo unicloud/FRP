@@ -42,15 +42,15 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
         {
             //根目录
             var rootDocumentPath = DocumentPathFactory
-                .CreateDocumentPath("合同管理", false, null, null, null, PathSource.采购合同);
+                .CreateDocumentPath("合同管理", false, null, null, null, "\\合同管理");
             rootDocumentPath.GenerateNewIdentity();
             Context.DocumentPaths.Add(rootDocumentPath);
             var importPath = DocumentPathFactory
-                .CreateDocumentPath("飞机引进", false, null, null, rootDocumentPath.Id, PathSource.采购合同);
+                .CreateDocumentPath("飞机引进", false, null, null, rootDocumentPath.Id, "\\合同管理\\飞机引进");
             importPath.GenerateNewIdentity();
             Context.DocumentPaths.Add(importPath);
             var exportPath = DocumentPathFactory
-                .CreateDocumentPath("飞机退出", false, null, null, rootDocumentPath.Id, PathSource.采购合同);
+                .CreateDocumentPath("飞机退出", false, null, null, rootDocumentPath.Id, "\\合同管理\\飞机退出");
             exportPath.GenerateNewIdentity();
             Context.DocumentPaths.Add(exportPath);
             var documents = new List<Document>();
@@ -77,23 +77,23 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
 
             var documentPath1 = DocumentPathFactory
                   .CreateDocumentPath(document1.FileName, true, document1.Extension,
-                  document1.Id, importPath.Id, PathSource.采购合同);
+                  document1.Id, importPath.Id, "\\合同管理\\飞机引进\\" + document1.FileName);
             var documentPath2 = DocumentPathFactory
-                  .CreateDocumentPath(document1.FileName, true, document2.Extension,
-                  document2.Id, importPath.Id, PathSource.采购合同);
+                  .CreateDocumentPath(document2.FileName, true, document2.Extension,
+                  document2.Id, importPath.Id, "\\合同管理\\飞机引进\\" + document2.FileName);
             var documentPath3 = DocumentPathFactory
-                  .CreateDocumentPath(document1.FileName, true, document3.Extension,
-                  document3.Id, importPath.Id, PathSource.采购合同);
+                  .CreateDocumentPath(document3.FileName, true, document3.Extension,
+                  document3.Id, importPath.Id, "\\合同管理\\飞机引进\\" + document3.FileName);
 
             var documentPath4 = DocumentPathFactory
              .CreateDocumentPath(document4.FileName, true, document4.Extension,
-             document4.Id, exportPath.Id, PathSource.采购合同);
+             document4.Id, exportPath.Id, "\\合同管理\\飞机退出\\" + document4.FileName);
             var documentPath5 = DocumentPathFactory
                   .CreateDocumentPath(document5.FileName, true, document5.Extension,
-                  document5.Id, exportPath.Id, PathSource.采购合同);
+                  document5.Id, exportPath.Id, "\\合同管理\\飞机退出\\" + document5.FileName);
             var documentPath6 = DocumentPathFactory
                   .CreateDocumentPath(document6.FileName, true, document6.Extension,
-                  document6.Id, exportPath.Id, PathSource.采购合同);
+                  document6.Id, exportPath.Id, "\\合同管理\\飞机退出\\" + document6.FileName);
 
             documentPath1.GenerateNewIdentity();
             documentPath2.GenerateNewIdentity();

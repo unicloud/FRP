@@ -751,7 +751,7 @@
         <Property Name="IsLeaf" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Extension" Type="Edm.String" />
         <Property Name="DocumentGuid" Type="Edm.Guid" />
-        <Property Name="PathSource" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Path" Type="Edm.String" />
         <Property Name="ParentId" Type="Edm.Int32" />
         <Property Name="SubDocumentPaths" Type="Collection(UniCloud.Application.PurchaseBC.DTO.SubDocumentPathDTO)" Nullable="false" />
       </EntityType>
@@ -761,7 +761,7 @@
         <Property Name="IsLeaf" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Extension" Type="Edm.String" />
         <Property Name="DocumentGuid" Type="Edm.Guid" />
-        <Property Name="PathSource" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Path" Type="Edm.String" />
         <Property Name="ParentId" Type="Edm.Int32" />
       </ComplexType>
       <EntityType Name="ContractDocumentDTO">
@@ -873,7 +873,7 @@
           <Parameter Name="isLeaf" Type="Edm.String" />
           <Parameter Name="documentId" Type="Edm.String" />
           <Parameter Name="parentId" Type="Edm.Int32" Nullable="false" />
-          <Parameter Name="pathSource" Type="Edm.Int32" Nullable="false" />
+          <Parameter Name="path" Type="Edm.String" />
         </FunctionImport>
         <FunctionImport Name="DelDocPath" m:HttpMethod="GET">
           <Parameter Name="docPathId" Type="Edm.Int32" Nullable="false" />

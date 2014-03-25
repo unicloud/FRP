@@ -21,7 +21,6 @@ using System;
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.DocumentQueries;
-using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PurchaseBC.Aggregates.DocumentPathAgg;
 
 #endregion
@@ -61,7 +60,7 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
             DelSubDocumentPath(docPath);
         }
 
-        public void AddDocPath(string name, string isLeaf, string documentId, int parentId, int pathSource)
+        public void AddDocPath(string name, string isLeaf, string documentId, int parentId, string path)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -80,8 +79,7 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
             }
 
             var newDocumentPath = DocumentPathFactory.CreateDocumentPath(name, docPathIsLeaf, extension,
-                docPathId, parentId,
-                (PathSource)pathSource);
+                docPathId, parentId, path);
             _documentPathRepository.Add(newDocumentPath);
             _documentPathRepository.UnitOfWork.Commit();
         }

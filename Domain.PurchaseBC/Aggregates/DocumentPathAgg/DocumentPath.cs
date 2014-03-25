@@ -72,9 +72,9 @@ namespace UniCloud.Domain.PurchaseBC.Aggregates.DocumentPathAgg
         public Guid? DocumentGuid { get; set; }
 
         /// <summary>
-        ///     路径源
+        ///     路径
         /// </summary>
-        public PathSource PathSource { get; internal set; }
+        public string Path { get; internal set; }
 
         #endregion
 

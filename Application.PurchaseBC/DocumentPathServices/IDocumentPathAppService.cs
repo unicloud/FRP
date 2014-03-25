@@ -51,8 +51,8 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
         /// <param name="isLeaf"></param>
         /// <param name="documentId"></param>
         /// <param name="parentId"></param>
-        /// <param name="pathSource"></param>
-        void AddDocPath(string name, string isLeaf,string documentId, int parentId, int pathSource);
+        /// <param name="path"></param>
+        void AddDocPath(string name, string isLeaf,string documentId, int parentId, string path);
 
         void ModifyDocPath(int documentPathId, string name);
     }

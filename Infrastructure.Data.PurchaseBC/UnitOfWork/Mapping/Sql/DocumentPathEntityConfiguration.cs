@@ -41,7 +41,7 @@ namespace UniCloud.Infrastructure.Data.PurchaseBC.UnitOfWork.Mapping.Sql
             Property(p => p.IsLeaf).HasColumnName("IsLeaf");
             Property(p => p.Extension).HasColumnName("Extension");
             Property(p => p.DocumentGuid).HasColumnName("DocumentGuid");
-            Property(p => p.PathSource).HasColumnName("PathSource");
+            Property(p => p.Path).HasColumnName("Path");
 
             Property(p => p.ParentId).HasColumnName("ParentId");
 

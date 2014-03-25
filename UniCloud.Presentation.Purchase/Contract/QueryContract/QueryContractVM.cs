@@ -76,9 +76,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             DocumentPathsView = _service.CreateCollection(_context.DocumentPaths.Expand(p => p.SubDocumentPaths));
             _pathFilterDes = new FilterDescriptor("ParentId", FilterOperator.IsEqualTo, null);
-            var pathType = new FilterDescriptor("PathSource", FilterOperator.IsEqualTo, 0); //路径类型
             DocumentPathsView.FilterDescriptors.Add(_pathFilterDes);
-            DocumentPathsView.FilterDescriptors.Add(pathType);
             DocumentPathsView.LoadedData += (sender, e) =>
             {
                 if (e.HasError)
@@ -314,13 +312,13 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// <param name="isLeaf">是否是叶子节点</param>
         /// <param name="documentId">文档Guid</param>
         /// <param name="parentId">父亲文档</param>
-        /// <param name="pathSource">路径类型</param>
+        /// <param name="path">路径</param>
         /// <returns>Uri实例</returns>
-        private Uri CreateDocumentPathQuery(string name, bool isLeaf, string documentId, int parentId, int pathSource)
+        private Uri CreateDocumentPathQuery(string name, bool isLeaf, string documentId, int parentId, string path)
         {
             return new Uri(string.Format("AddDocPath?name='{0}'&isLeaf='{1}'" +
                                          "&documentId='{2}'&parentId={3}" +
-                                         "&pathSource={4}", name, isLeaf, documentId, parentId, pathSource),
+                                         "&path='{4}'", name, isLeaf, documentId, parentId, path),
                 UriKind.Relative);
         }
 
@@ -706,7 +704,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     return;
                 }
                 newDocPath = CreateDocumentPathQuery(DocumentName, false, null,
-                   CurrentPathItem.DocumentPathId, 0);
+                   CurrentPathItem.DocumentPathId, string.Empty);
             }
             DocumentChildIsBusy = true;
             _context.BeginExecute<string>(newDocPath, p => Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -752,7 +750,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             DocumentChildIsBusy = true;
             var newDocPath = CreateDocumentPathQuery(ContractDocument.DocumentName, true,
                 ContractDocument.DocumentId.ToString(),
-                CurrentPathItem.DocumentPathId, 0);
+                CurrentPathItem.DocumentPathId, string.Empty);
             _context.BeginExecute<string>(newDocPath, p => Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 DocumentPathsView.Load(true);
