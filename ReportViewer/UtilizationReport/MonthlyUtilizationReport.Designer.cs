@@ -115,7 +115,7 @@ namespace ReportViewer.UtilizationReport
             // 
             // detail
             // 
-            this.detail.Height = Telerik.Reporting.Drawing.Unit.Cm(23.367710113525391D);
+            this.detail.Height = Telerik.Reporting.Drawing.Unit.Cm(12.067707061767578D);
             this.detail.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.textBox2,
             this.textBox3,

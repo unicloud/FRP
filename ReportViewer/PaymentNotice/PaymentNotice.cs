@@ -16,6 +16,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
@@ -27,7 +28,7 @@ namespace ReportViewer.PaymentNotice
 {
     public class PaymentNotice
     {
-        private static readonly Uri ServiceRoot = null;// new Uri(Application.Current.Resources["PaymentDataService"].ToString());
+        private static readonly Uri ServiceRoot = new Uri(ConfigurationManager.AppSettings["PaymentDataService"]);
         readonly PaymentData _serviceContext = new PaymentData(ServiceRoot);
 
         public IEnumerable<PaymentNoticeDTO> GetNoticeNumber()

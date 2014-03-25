@@ -99,7 +99,7 @@ namespace UniCloud.Presentation.Shell
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "FlightLog.xap",
                 ModuleName = "FlightLogModule",
                 ModuleType =
@@ -135,7 +135,7 @@ namespace UniCloud.Presentation.Shell
 
             moduleCatalog.AddModule(new ModuleInfo
             {
-                InitializationMode = InitializationMode.WhenAvailable,
+                InitializationMode = InitializationMode.OnDemand,
                 Ref = "Project.xap",
                 ModuleName = "ProjectModule",
                 ModuleType =
