@@ -23,6 +23,7 @@ using System.Data.Services.Client;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
@@ -42,9 +43,9 @@ namespace UniCloud.Presentation.Document
         private readonly CommonServiceData _context;
         private readonly ICommonService _service;
         private DocumentDTO _addedDocument;
-        private FilterDescriptor _docDescriptor;
         private DocumentDTO _loadedDocument;
         private bool _fromServer;
+        private byte[] _content;
         [ImportingConstructor]
         public DocViewerVM(ICommonService service)
             : base(service)
@@ -53,7 +54,7 @@ namespace UniCloud.Presentation.Document
             _context = service.Context;
 
             SaveCommand = new DelegateCommand<object>(OnSave, CanSave);
-
+            SaveDocumentToLocalCommand = new DelegateCommand<object>(OnSaveDocumentToLocal, CanSaveDocumentToLocal);
             InitializeVM();
         }
 
@@ -379,22 +380,22 @@ namespace UniCloud.Presentation.Document
             var extension = fi.Extension.ToLower();
             var length = (int)fi.Length;
             var fs = fi.OpenRead();
-            var content = new byte[length];
+            _content = new byte[length];
             using (fs)
             {
-                fs.Read(content, 0, length);
+                fs.Read(_content, 0, length);
             }
             switch (extension.ToLower())
             {
                 case ".docx":
                     PDFVisibility = Visibility.Collapsed;
                     WordVisibility = Visibility.Visible;
-                    WordContent = content;
+                    WordContent = _content;
                     break;
                 case ".pdf":
                     WordVisibility = Visibility.Collapsed;
                     PDFVisibility = Visibility.Visible;
-                    PDFContent = new MemoryStream(content);
+                    PDFContent = new MemoryStream(_content);
                     break;
                 default:
                     throw new ArgumentException("不是合法的Word文档或者PDF文档！");
@@ -405,7 +406,7 @@ namespace UniCloud.Presentation.Document
                 DocumentId = Guid.NewGuid(),
                 Name = fi.Name,
                 Extension = extension,
-                FileStorage = content
+                FileStorage = _content
             };
         }
 
@@ -416,18 +417,18 @@ namespace UniCloud.Presentation.Document
         private void ViewDocument(DocumentDTO doc)
         {
             var extension = doc.Extension;
-            var content = doc.FileStorage;
+            _content = doc.FileStorage;
             switch (extension)
             {
                 case ".docx":
                     PDFVisibility = Visibility.Collapsed;
                     WordVisibility = Visibility.Visible;
-                    WordContent = content;
+                    WordContent = _content;
                     break;
                 case ".pdf":
                     WordVisibility = Visibility.Collapsed;
                     PDFVisibility = Visibility.Visible;
-                    PDFContent = new MemoryStream(content);
+                    PDFContent = new MemoryStream(_content);
                     break;
                 default:
                     throw new ArgumentException("不是合法的Word文档或者PDF文档！");
@@ -469,6 +470,38 @@ namespace UniCloud.Presentation.Document
         {
             return new Uri(string.Format("GetSingleDocument?documentId='{0}'", documentId),
                 UriKind.Relative);
+        }
+        #endregion
+
+        #region 保存文档到本地
+        /// <summary>
+        ///     保存命令
+        /// </summary>
+        public DelegateCommand<object> SaveDocumentToLocalCommand { get; set; }
+
+        private void OnSaveDocumentToLocal(object obj)
+        {
+
+            var saveFileDialog = new SaveFileDialog
+                                 {
+                                     DefaultFileName = Title,
+                                     Filter = Title.ToLower().EndsWith(".docx")
+                                             ? "Word文档(*.docx)|*.docx"
+                                             : "PDF文档(*.pdf)|*.pdf"
+                                 };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                var fileStream = (FileStream)saveFileDialog.OpenFile();
+                fileStream.Write(_content, 0, _content.Length);
+                MessageAlert("保存成功。");
+                fileStream.Dispose();
+            }
+        }
+
+        private bool CanSaveDocumentToLocal(object obj)
+        {
+            return true;
         }
         #endregion
         #endregion

@@ -9,8 +9,8 @@
 //------------------------------------------------------------------------------
 
 // 原始文件名:
-// 生成日期: 2014/3/24 20:40:46
-namespace UniCloud.Presentation.Service.Part.Part
+// 生成日期: 2014/3/24 20:41:44
+namespace ReportViewer.Part
 {
     
     /// <summary>
@@ -39,7 +39,7 @@ namespace UniCloud.Presentation.Service.Part.Part
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         protected global::System.Type ResolveTypeFromName(string typeName)
         {
-            global::System.Type resolvedType = this.DefaultResolveType(typeName, "UniCloud.Application.PartBC.DTO", "UniCloud.Presentation.Service.Part.Part");
+            global::System.Type resolvedType = this.DefaultResolveType(typeName, "UniCloud.Application.PartBC.DTO", "ReportViewer.Part");
             if ((resolvedType != null))
             {
                 return resolvedType;
@@ -54,7 +54,7 @@ namespace UniCloud.Presentation.Service.Part.Part
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
         protected string ResolveNameFromType(global::System.Type clientType)
         {
-            if (clientType.Namespace.Equals("UniCloud.Presentation.Service.Part.Part", global::System.StringComparison.Ordinal))
+            if (clientType.Namespace.Equals("ReportViewer.Part", global::System.StringComparison.Ordinal))
             {
                 return string.Concat("UniCloud.Application.PartBC.DTO.", clientType.Name);
             }

@@ -21,6 +21,7 @@ using System.Linq;
 using UniCloud.Application.PurchaseBC.ActionCategoryServices;
 using UniCloud.Application.PurchaseBC.AircraftTypeServices;
 using UniCloud.Application.PurchaseBC.ContractAircraftServices;
+using UniCloud.Application.PurchaseBC.ContractDocumentServices;
 using UniCloud.Application.PurchaseBC.ContractEngineServices;
 using UniCloud.Application.PurchaseBC.CurrencyServices;
 using UniCloud.Application.PurchaseBC.DocumentPathServices;
@@ -28,7 +29,6 @@ using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.ForwarderServices;
 using UniCloud.Application.PurchaseBC.MaintainContractServices;
 using UniCloud.Application.PurchaseBC.MaterialServices;
-using UniCloud.Application.PurchaseBC.OrderDocumentServices;
 using UniCloud.Application.PurchaseBC.PartServices;
 using UniCloud.Application.PurchaseBC.PlanAircraftServices;
 using UniCloud.Application.PurchaseBC.ReceptionServices;
@@ -461,11 +461,11 @@ namespace UniCloud.DistributedServices.Purchase
 
         #endregion
 
-        #region 订单文档
+        #region 合同文档
 
-        public IQueryable<OrderDocumentDTO> OrderDocuments
+        public IQueryable<ContractDocumentDTO> ContractDocuments
         {
-            get { return _contractDocumentAppService.GetOrderDocuments(); }
+            get { return _contractDocumentAppService.GetContractDocuments(); }
         }
 
         #endregion

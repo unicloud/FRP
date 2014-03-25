@@ -75,7 +75,10 @@ namespace UniCloud.Presentation.Purchase.Contract
                         newItem.CreateDate = DateTime.Now;
                         var firstOrDefault = Suppliers.FirstOrDefault();
                         if (firstOrDefault != null)
+                        {
                             newItem.SignatoryId = firstOrDefault.SupplierId;
+                            newItem.Signatory = firstOrDefault.Name;
+                        }
                         DocumentName = "添加附件";
                         _document.DocumentId = new Guid();
                         _document.Name = string.Empty;
