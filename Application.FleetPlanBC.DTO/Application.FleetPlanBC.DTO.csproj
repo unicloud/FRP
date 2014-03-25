@@ -84,6 +84,7 @@
     <Compile Include="AnnualDTO\AnnualYearDTO.cs" />
     <Compile Include="ApporvalDocDTO\ApprovalDocDTO.cs" />
     <Compile Include="ApporvalDocDTO\ApprovalRequestDTO.cs" />
+    <Compile Include="CAACAircraftTypeDTO\CAACAircraftTypeDTO.cs" />
     <Compile Include="CaacProgrammingDTO\CaacProgrammingDTO.cs" />
     <Compile Include="CaacProgrammingDTO\CaacProgrammingLineDTO.cs" />
     <Compile Include="EngineDTO\EngineBusinessHistoryDTO.cs" />

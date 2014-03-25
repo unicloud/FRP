@@ -30,6 +30,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.CAACAircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg;
@@ -65,6 +66,7 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         private IDbSet<Airlines> _airlineses;
         private IDbSet<Annual> _annuals;
         private IDbSet<ApprovalDoc> _approvalDocs;
+        private IDbSet<CAACAircraftType> _caacAircraftTypes;
         private IDbSet<CaacProgramming> _caacProgrammings;
         private IDbSet<EnginePlan> _enginePlans;
         private IDbSet<EngineType> _engineTypes;
@@ -131,6 +133,11 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
         public IDbSet<ApprovalDoc> ApprovalDocs
         {
             get { return _approvalDocs ?? (_approvalDocs = base.Set<ApprovalDoc>()); }
+        }
+
+        public IDbSet<CAACAircraftType> CaacAircraftTypes
+        {
+            get { return _caacAircraftTypes ?? (_caacAircraftTypes = base.Set<CAACAircraftType>()); }
         }
 
         public IDbSet<CaacProgramming> CaacProgrammings
@@ -323,6 +330,12 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork
                 #region ApprovalDocAgg
 
                 .Add(new ApprovalDocEntityConfiguration())
+
+                #endregion
+
+                #region CAACAircraftTypeAgg
+
+                .Add(new CAACAircraftTypeEntityConfiguration())
 
                 #endregion
 

@@ -92,6 +92,9 @@
     <Compile Include="Aggregates\ApprovalDocAgg\ApprovalDocFactory.cs" />
     <Compile Include="Aggregates\ApprovalDocAgg\ApprovalDocSpecifications.cs" />
     <Compile Include="Aggregates\ApprovalDocAgg\IApprovalDocRepository.cs" />
+    <Compile Include="Aggregates\CAACAircraftTypeAgg\CAACAircraftType.cs" />
+    <Compile Include="Aggregates\CAACAircraftTypeAgg\CAACAircraftTypeSpecifications.cs" />
+    <Compile Include="Aggregates\CAACAircraftTypeAgg\ICAACAircraftTypeRepository.cs" />
     <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgramming.cs" />
     <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgrammingFactory.cs" />
     <Compile Include="Aggregates\CaacProgrammingAgg\CaacProgrammingLine.cs" />

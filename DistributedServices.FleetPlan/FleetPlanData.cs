@@ -17,8 +17,10 @@ using UniCloud.Application.FleetPlanBC.AirlinesServices;
 using UniCloud.Application.FleetPlanBC.AirProgrammingServices;
 using UniCloud.Application.FleetPlanBC.AnnualServices;
 using UniCloud.Application.FleetPlanBC.ApprovalDocServices;
+using UniCloud.Application.FleetPlanBC.CAACAircraftTypeServices;
 using UniCloud.Application.FleetPlanBC.CaacProgrammingServices;
 using UniCloud.Application.FleetPlanBC.DTO;
+using UniCloud.Application.FleetPlanBC.DTO.CAACAircraftTypeDTO;
 using UniCloud.Application.FleetPlanBC.EnginePlanServices;
 using UniCloud.Application.FleetPlanBC.EngineServices;
 using UniCloud.Application.FleetPlanBC.EngineTypeServices;
@@ -54,6 +56,7 @@ namespace UniCloud.DistributedServices.FleetPlan
         private readonly IAirlinesAppService _airlinesAppService;
         private readonly IAnnualAppService _annualAppService;
         private readonly IApprovalDocAppService _approvalDocAppService;
+        private readonly ICAACAircraftTypeAppService _caacAircraftTypeAppService;
         private readonly ICaacProgrammingAppService _caacProgrammingAppService;
         private readonly IEngineAppService _engineAppService;
         private readonly IEnginePlanAppService _enginePlanAppService;
@@ -85,6 +88,7 @@ namespace UniCloud.DistributedServices.FleetPlan
             _airProgrammingAppService = DefaultContainer.Resolve<IAirProgrammingAppService>();
             _annualAppService = DefaultContainer.Resolve<IAnnualAppService>();
             _approvalDocAppService = DefaultContainer.Resolve<IApprovalDocAppService>();
+            _caacAircraftTypeAppService = DefaultContainer.Resolve<ICAACAircraftTypeAppService>();
             _caacProgrammingAppService = DefaultContainer.Resolve<ICaacProgrammingAppService>();
             _engineAppService = DefaultContainer.Resolve<IEngineAppService>();
             _enginePlanAppService = DefaultContainer.Resolve<IEnginePlanAppService>();
@@ -179,13 +183,21 @@ namespace UniCloud.DistributedServices.FleetPlan
         #region 机型
 
         /// <summary>
-        ///     机型集合
+        ///     川航机型集合
         /// </summary>
         public IQueryable<AircraftTypeDTO> AircraftTypes
         {
             get { return GetStaticData("aircraftTypesFleetPlan", () => _aircraftTypeAppService.GetAircraftTypes()); }
         }
 
+
+        /// <summary>
+        ///     民航机型集合
+        /// </summary>
+        public IQueryable<CAACAircraftTypeDTO> CaacAircraftTypes
+        {
+            get { return GetStaticData("caacAircraftTypesFleetPlan", () => _caacAircraftTypeAppService.GetCAACAircraftTypes()); }
+        }
         #endregion
 
         #region 航空公司

@@ -17,6 +17,7 @@ using UniCloud.Application.FleetPlanBC.AirlinesServices;
 using UniCloud.Application.FleetPlanBC.AirProgrammingServices;
 using UniCloud.Application.FleetPlanBC.AnnualServices;
 using UniCloud.Application.FleetPlanBC.ApprovalDocServices;
+using UniCloud.Application.FleetPlanBC.CAACAircraftTypeServices;
 using UniCloud.Application.FleetPlanBC.CaacProgrammingServices;
 using UniCloud.Application.FleetPlanBC.EnginePlanServices;
 using UniCloud.Application.FleetPlanBC.EngineServices;
@@ -39,6 +40,7 @@ using UniCloud.Application.FleetPlanBC.Query.AirlinesQueries;
 using UniCloud.Application.FleetPlanBC.Query.AirProgrammingQueries;
 using UniCloud.Application.FleetPlanBC.Query.AnnualQueries;
 using UniCloud.Application.FleetPlanBC.Query.ApprovalDocQueries;
+using UniCloud.Application.FleetPlanBC.Query.CAACAircraftTypeQueries;
 using UniCloud.Application.FleetPlanBC.Query.CaacProgrammingQueries;
 using UniCloud.Application.FleetPlanBC.Query.EnginePlanQueries;
 using UniCloud.Application.FleetPlanBC.Query.EngineQueries;
@@ -71,6 +73,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.CAACAircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg;
@@ -157,6 +160,9 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 .RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
                 .RegisterType<IAircraftTypeAppService, AircraftTypeAppService>()
                 .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
+                .RegisterType<ICAACAircraftTypeQuery, CAACAircraftTypeQuery>()
+                .RegisterType<ICAACAircraftTypeAppService, CAACAircraftTypeAppService>()
+                .RegisterType<ICAACAircraftTypeRepository, CAACAircraftTypeRepository>()
                 #endregion
 
                 #region 航空公司相关配置，包括查询，应用服务，仓储注册

@@ -74,6 +74,8 @@
     <Compile Include="AnnualQueries\IAnnualQuery.cs" />
     <Compile Include="ApprovalDocQueries\ApprovalDocQuery.cs" />
     <Compile Include="ApprovalDocQueries\IApprovalDocQuery.cs" />
+    <Compile Include="CAACAircraftTypeQueries\CAACAircraftTypeQuery.cs" />
+    <Compile Include="CAACAircraftTypeQueries\ICAACAircraftTypeQuery.cs" />
     <Compile Include="CaacProgrammingQueries\CaacProgrammingQuery.cs" />
     <Compile Include="CaacProgrammingQueries\ICaacProgrammingQuery.cs" />
     <Compile Include="EnginePlanQueries\EnginePlanQuery.cs" />

@@ -19,6 +19,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.CAACAircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 
 #endregion
@@ -103,6 +104,11 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg
         public Guid AircraftTypeId { get; private set; }
 
         /// <summary>
+        ///     民航机型外键
+        /// </summary>
+        public Guid CaacAircraftTypeId { get; private set; }
+
+        /// <summary>
         ///     航空公司外键
         /// </summary>
         public Guid AirlinesId { get; private set; }
@@ -137,9 +143,14 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg
         public virtual ActionCategory TargetCategory { get; private set; }
 
         /// <summary>
-        /// 机型
+        /// 川航机型
         /// </summary>
         public virtual AircraftType AircraftType { get; private set; }
+
+        /// <summary>
+        /// 民航机型
+        /// </summary>
+        public virtual CAACAircraftType CaacAircraftType { get; private set; }
 
         /// <summary>
         /// 航空公司
@@ -250,6 +261,8 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg
 
             AircraftType = aircraftType;
             AircraftTypeId = aircraftType.Id;
+            CaacAircraftType = aircraftType.CaacAircraftType;
+            CaacAircraftTypeId = aircraftType.CaacAircraftTypeId;
         }
 
         /// <summary>
