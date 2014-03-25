@@ -23,8 +23,9 @@ namespace UniCloud.Domain.Common.Enums
     public enum EnginePlanDeliverStatus
     {
         预备 = 0,
-        签约 = 1,
-        接收 = 2,
-        运营 = 3
+        计划 = 1,
+        签约 = 2,
+        接收 = 3,
+        运营 = 4,
     }
 }

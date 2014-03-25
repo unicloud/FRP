@@ -174,7 +174,7 @@ namespace UniCloud.Application.FleetPlanBC.EnginePlanServices
             newEnginePlanHistory.SetNote(enginePlanHistoryDto.Note);
             newEnginePlanHistory.SetPerformDate(annual, enginePlanHistoryDto.PerformMonth);
             newEnginePlanHistory.SetPlanEngine(enginePlanHistoryDto.PlanEngineId);
-            newEnginePlanHistory.SetPlanStatus((EnginePlanDeliverStatus)enginePlanHistoryDto.Status);
+            newEnginePlanHistory.SetPlanStatus(EnginePlanDeliverStatus.计划);
 
         }
 
