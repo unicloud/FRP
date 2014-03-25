@@ -17,6 +17,7 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
@@ -24,6 +25,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 using Telerik.Windows.Data;
+using UniCloud.Application.FleetPlanBC.DTO.CAACAircraftTypeDTO;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 #endregion
@@ -94,12 +96,21 @@ namespace UniCloud.Presentation.Service.FleetPlan
         }
 
         /// <summary>
-        ///     所有机型
+        ///     所有川航机型
         /// </summary>
         public QueryableDataServiceCollectionView<AircraftTypeDTO> GetAircraftTypes(Action loaded,
             bool forceLoad = false)
         {
             return GetStaticData(Context.AircraftTypes, loaded, forceLoad);
+        }
+
+        /// <summary>
+        ///     所有民航机型
+        /// </summary>
+        public QueryableDataServiceCollectionView<CAACAircraftTypeDTO> GetCaacAircraftTypes(Action loaded,
+            bool forceLoad = false)
+        {
+            return GetStaticData(Context.CaacAircraftTypes, loaded, forceLoad);
         }
 
         /// <summary>
@@ -173,11 +184,11 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="newYear"></param>
         /// <param name="curAirlines"></param>
         /// <returns><see cref="IFleetPlanService"/></returns>
-        public PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual, int newYear, AirlinesDTO curAirlines)
+        public PlanDTO CreateNewYearPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, Guid newAnnual, int newYear, AirlinesDTO curAirlines)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                return pb.CreateNewYearPlan(lastPlan, newAnnual, newYear, curAirlines);
+                return pb.CreateNewYearPlan(lastPlan, allPlanHistories, newAnnual, newYear, curAirlines);
             }
         }
 
@@ -186,11 +197,11 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// </summary>
         /// <param name="lastPlan"></param>
         /// <returns><see cref="IFleetPlanService"/></returns>
-        public PlanDTO CreateNewVersionPlan(PlanDTO lastPlan)
+        public PlanDTO CreateNewVersionPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                return pb.CreateNewVersionPlan(lastPlan);
+                return pb.CreateNewVersionPlan(lastPlan, allPlanHistories);
             }
         }
 
@@ -203,11 +214,11 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="actionType">活动类型</param>
         /// <param name="planType">判断是否运营\变更计划</param>
         /// <returns></returns>
-        public PlanHistoryDTO CreatePlanHistory(PlanDTO plan, ref PlanAircraftDTO planAircraft, AircraftDTO aircraft, string actionType, int planType)
+        public PlanHistoryDTO CreatePlanHistory(PlanDTO plan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, ref PlanAircraftDTO planAircraft, AircraftDTO aircraft, string actionType, int planType)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                return pb.CreatePlanHistory(plan, ref planAircraft, aircraft, actionType, planType, this);
+                return pb.CreatePlanHistory(plan, allPlanHistories, ref planAircraft, aircraft, actionType, planType, this);
             }
         }
 

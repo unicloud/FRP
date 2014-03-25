@@ -351,7 +351,6 @@
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AnnualId" Type="Edm.Guid" Nullable="false" />
         <Property Name="DocumentId" Type="Edm.Guid" />
-        <NavigationProperty Name="PlanHistories" Relationship="UniCloud.Application.FleetPlanBC.DTO.PlanDTO_PlanHistories" ToRole="PlanHistories" FromRole="PlanDTO" />
       </EntityType>
       <EntityType Name="PlanHistoryDTO">
         <Key>
@@ -365,6 +364,7 @@
         <Property Name="IsSubmit" Type="Edm.Boolean" Nullable="false" />
         <Property Name="Note" Type="Edm.String" />
         <Property Name="AirlinesName" Type="Edm.String" />
+        <Property Name="CaacAircraftTypeName" Type="Edm.String" />
         <Property Name="AircraftTypeName" Type="Edm.String" />
         <Property Name="Regional" Type="Edm.String" />
         <Property Name="Category" Type="Edm.String" />
@@ -579,14 +579,23 @@
         <Property Name="OperationHistory" Type="UniCloud.Application.FleetPlanBC.DTO.OperationHistoryDTO" />
         <Property Name="AircraftBusiness" Type="UniCloud.Application.FleetPlanBC.DTO.AircraftBusinessDTO" />
       </ComplexType>
-      <Association Name="PlanDTO_PlanHistories">
-        <End Type="UniCloud.Application.FleetPlanBC.DTO.PlanHistoryDTO" Role="PlanHistories" Multiplicity="*" />
-        <End Type="UniCloud.Application.FleetPlanBC.DTO.PlanDTO" Role="PlanDTO" Multiplicity="*" />
-      </Association>
       <Association Name="PlanAircraftDTO_PlanHistories">
         <End Type="UniCloud.Application.FleetPlanBC.DTO.PlanHistoryDTO" Role="PlanHistories" Multiplicity="*" />
         <End Type="UniCloud.Application.FleetPlanBC.DTO.PlanAircraftDTO" Role="PlanAircraftDTO" Multiplicity="*" />
       </Association>
+    </Schema>
+    <Schema Namespace="UniCloud.Application.FleetPlanBC.DTO.CAACAircraftTypeDTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityType Name="CAACAircraftTypeDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="AircraftCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftSeriesId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ManufacturerId" Type="Edm.Guid" Nullable="false" />
+      </EntityType>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.FleetPlan" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="FleetPlanData" m:IsDefaultEntityContainer="true">
@@ -596,6 +605,7 @@
         <EntitySet Name="AircraftCategories" EntityType="UniCloud.Application.FleetPlanBC.DTO.AircraftCategoryDTO" />
         <EntitySet Name="Aircrafts" EntityType="UniCloud.Application.FleetPlanBC.DTO.AircraftDTO" />
         <EntitySet Name="AircraftTypes" EntityType="UniCloud.Application.FleetPlanBC.DTO.AircraftTypeDTO" />
+        <EntitySet Name="CaacAircraftTypes" EntityType="UniCloud.Application.FleetPlanBC.DTO.CAACAircraftTypeDTO.CAACAircraftTypeDTO" />
         <EntitySet Name="Airlineses" EntityType="UniCloud.Application.FleetPlanBC.DTO.AirlinesDTO" />
         <EntitySet Name="AirProgrammings" EntityType="UniCloud.Application.FleetPlanBC.DTO.AirProgrammingDTO" />
         <EntitySet Name="Annuals" EntityType="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO" />
@@ -625,10 +635,6 @@
           <Parameter Name="planType" Type="Edm.Int32" Nullable="false" />
           <Parameter Name="relatedGuid" Type="Edm.String" />
         </FunctionImport>
-        <AssociationSet Name="PlanDTO_PlanHistories" Association="UniCloud.Application.FleetPlanBC.DTO.PlanDTO_PlanHistories">
-          <End Role="PlanDTO" EntitySet="Plans" />
-          <End Role="PlanHistories" EntitySet="PlanHistories" />
-        </AssociationSet>
         <AssociationSet Name="PlanAircraftDTO_PlanHistories" Association="UniCloud.Application.FleetPlanBC.DTO.PlanAircraftDTO_PlanHistories">
           <End Role="PlanAircraftDTO" EntitySet="PlanAircrafts" />
           <End Role="PlanHistories" EntitySet="PlanHistories" />

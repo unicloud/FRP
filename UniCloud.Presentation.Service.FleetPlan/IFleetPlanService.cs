@@ -17,8 +17,10 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Telerik.Windows.Data;
+using UniCloud.Application.FleetPlanBC.DTO.CAACAircraftTypeDTO;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 #endregion
@@ -40,9 +42,15 @@ namespace UniCloud.Presentation.Service.FleetPlan
         QueryableDataServiceCollectionView<AirlinesDTO> GetAirlineses(Action loaded, bool forceLoad = false);
 
         /// <summary>
-        ///     所有机型
+        ///     所有川航机型
         /// </summary>
         QueryableDataServiceCollectionView<AircraftTypeDTO> GetAircraftTypes(Action loaded, bool forceLoad = false);
+
+        /// <summary>
+        ///     所有民航机型
+        /// </summary>
+        QueryableDataServiceCollectionView<CAACAircraftTypeDTO> GetCaacAircraftTypes(Action loaded, bool forceLoad = false);
+
 
         /// <summary>
         ///     获取供应商
@@ -99,14 +107,14 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <returns>
         ///     新年度的初始化计划
         /// </returns>
-        PlanDTO CreateNewYearPlan(PlanDTO lastPlan, Guid newAnnual, int newYear, AirlinesDTO curAirlines);
+        PlanDTO CreateNewYearPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, Guid newAnnual, int newYear, AirlinesDTO curAirlines);
 
         /// <summary>
         ///     创建新版本的运力增减计划
         /// </summary>
         /// <param name="lastPlan"></param>
         /// <returns>新版本的运力增减计划</returns>
-        PlanDTO CreateNewVersionPlan(PlanDTO lastPlan);
+        PlanDTO CreateNewVersionPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories);
 
         /// <summary>
         ///     创建运力增减计划明细
@@ -116,7 +124,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="aircraft">运营飞机</param>
         /// <param name="actionType">活动类型</param>
         /// <returns>计划明细</returns>
-        PlanHistoryDTO CreatePlanHistory(PlanDTO plan,ref PlanAircraftDTO planAircraft,AircraftDTO aircraft, string actionType, int planType);
+        PlanHistoryDTO CreatePlanHistory(PlanDTO plan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, ref PlanAircraftDTO planAircraft, AircraftDTO aircraft, string actionType, int planType);
 
         /// <summary>
         ///     完成运力增减计划
@@ -125,7 +133,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="aircraft">飞机</param>
         /// <param name="editAircraft">飞机</param>
         /// <returns>飞机</returns>
-        void CompletePlan(PlanHistoryDTO planDetail,AircraftDTO aircraft, ref AircraftDTO editAircraft);
+        void CompletePlan(PlanHistoryDTO planDetail, AircraftDTO aircraft, ref AircraftDTO editAircraft);
 
         #endregion
 

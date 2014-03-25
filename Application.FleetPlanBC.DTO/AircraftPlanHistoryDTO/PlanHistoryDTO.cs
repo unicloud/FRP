@@ -16,8 +16,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Services.Common;
 using System.Diagnostics;
+using System.Security.AccessControl;
 
 #endregion
 
@@ -26,9 +28,18 @@ namespace UniCloud.Application.FleetPlanBC.DTO
     /// <summary>
     /// 运力增减计划明细
     /// </summary>
+    
     [DataServiceKey("Id")]
     public class PlanHistoryDTO
     {
+        private List<AircraftCateDTO> _aircraftCateDtos;
+        private List<AircraftTyDTO> _aircraftTyDtos;
+        private List<ActionCateDTO> _actionCateDtos;
+        public PlanHistoryDTO()
+        {
+
+        }
+
         #region 属性
 
         /// <summary>
@@ -222,12 +233,22 @@ namespace UniCloud.Application.FleetPlanBC.DTO
         #endregion
 
         public List<ActionCateDTO> ActionCategories
-        { get; set; }
+        {
+            get { return _actionCateDtos ?? (_actionCateDtos = new List<ActionCateDTO>()); }
+            set { _actionCateDtos = value; }
+        }
+
 
         public List<AircraftCateDTO> AircraftCategories
-        { get; set; }
+        {
+            get { return _aircraftCateDtos ?? (_aircraftCateDtos = new List<AircraftCateDTO>()); }
+            set { _aircraftCateDtos = value; }
+        }
         
         public List<AircraftTyDTO> AircraftTypes
-        { get; set; }
+        {
+            get { return _aircraftTyDtos ?? (_aircraftTyDtos = new List<AircraftTyDTO>()); }
+            set { _aircraftTyDtos = value; }
+        }
     }
 }
