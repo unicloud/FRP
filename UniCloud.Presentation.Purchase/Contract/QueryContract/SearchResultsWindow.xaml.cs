@@ -6,22 +6,20 @@ using System.ComponentModel.Composition;
 
 namespace UniCloud.Presentation.Purchase.Contract
 {
-    [Export(typeof (QueryContract))]
+    [Export(typeof(SearchResultsWindow))]
     [PartCreationPolicy(CreationPolicy.Shared)]
-    public partial class QueryContract
+    public partial class SearchResultsWindow 
     {
-        public QueryContract()
+        public SearchResultsWindow()
         {
             InitializeComponent();
         }
 
-        [Import(typeof (QueryContractVM))]
+        [Import]
         public QueryContractVM ViewModel
         {
             get { return DataContext as QueryContractVM; }
             set { DataContext = value; }
         }
-
-        
     }
 }

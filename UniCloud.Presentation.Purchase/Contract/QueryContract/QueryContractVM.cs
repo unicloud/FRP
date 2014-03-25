@@ -21,17 +21,20 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
+using System.Data.Services.Client;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.ServiceLocation;
+using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.DocumentExtension;
 using UniCloud.Presentation.Service.Purchase.Purchase;
+using ViewModelBase = UniCloud.Presentation.MVVM.ViewModelBase;
 
 #endregion
 
@@ -75,9 +78,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             DocumentPathsView = _service.CreateCollection(_context.DocumentPaths.Expand(p => p.SubDocumentPaths));
             _pathFilterDes = new FilterDescriptor("ParentId", FilterOperator.IsEqualTo, null);
-            var pathType = new FilterDescriptor("PathSource", FilterOperator.IsEqualTo, 0); //路径类型
             DocumentPathsView.FilterDescriptors.Add(_pathFilterDes);
-            DocumentPathsView.FilterDescriptors.Add(pathType);
             DocumentPathsView.LoadedData += (sender, e) =>
             {
                 if (e.HasError)
@@ -313,13 +314,13 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// <param name="isLeaf">是否是叶子节点</param>
         /// <param name="documentId">文档Guid</param>
         /// <param name="parentId">父亲文档</param>
-        /// <param name="pathSource">路径类型</param>
+        /// <param name="path">路径</param>
         /// <returns>Uri实例</returns>
-        private Uri CreateDocumentPathQuery(string name, bool isLeaf, string documentId, int parentId, int pathSource)
+        private Uri CreateDocumentPathQuery(string name, bool isLeaf, string documentId, int parentId, string path)
         {
             return new Uri(string.Format("AddDocPath?name='{0}'&isLeaf='{1}'" +
                                          "&documentId='{2}'&parentId={3}" +
-                                         "&pathSource={4}", name, isLeaf, documentId, parentId, pathSource),
+                                         "&path='{4}'", name, isLeaf, documentId, parentId, path),
                 UriKind.Relative);
         }
 
@@ -705,7 +706,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     return;
                 }
                 newDocPath = CreateDocumentPathQuery(DocumentName, false, null,
-                   CurrentPathItem.DocumentPathId, 0);
+                   CurrentPathItem.DocumentPathId, string.Empty);
             }
             DocumentChildIsBusy = true;
             _context.BeginExecute<string>(newDocPath, p => Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -751,7 +752,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             DocumentChildIsBusy = true;
             var newDocPath = CreateDocumentPathQuery(ContractDocument.DocumentName, true,
                 ContractDocument.DocumentId.ToString(),
-                CurrentPathItem.DocumentPathId, 0);
+                CurrentPathItem.DocumentPathId, string.Empty);
             _context.BeginExecute<string>(newDocPath, p => Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 DocumentPathsView.Load(true);
@@ -837,6 +838,83 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
         }
 
+        #endregion
+
+
+        #region 搜索功能
+
+        private bool _isBusySearch;
+        public bool IsBusySearch
+        {
+            get { return _isBusySearch; }
+            set
+            {
+                if (_isBusySearch != value)
+                {
+                    _isBusySearch = value;
+                    RaisePropertyChanged(() => IsBusySearch);
+                }
+            }
+        }
+
+        private string _searchText;
+        public string SearchText
+        {
+            get { return _searchText; }
+            set
+            {
+                _searchText = value;
+                RaisePropertyChanged("SearchText");
+            }
+        }
+
+        private ObservableCollection<ListBoxDocumentItem> _searchResults = new ObservableCollection<ListBoxDocumentItem>();
+        public ObservableCollection<ListBoxDocumentItem> SearchResults
+        {
+            get { return _searchResults; }
+            set
+            {
+                _searchResults = value;
+                RaisePropertyChanged(() => SearchResults);
+            }
+        }
+        public void RadWatermarkTextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+
+                var search = ServiceLocator.Current.GetInstance<SearchResultsWindow>();
+                search.Header = "\"" + CurrentPathItem.Name + "\"中的搜索结果";
+                search.ShowDialog();
+                IsBusySearch = true;
+                var searchDocumentUri = SearchDocumentUri(SearchText);
+                _context.BeginExecute<DocumentPathDTO>(searchDocumentUri,
+                   result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+                   {
+                       var context = result.AsyncState as PurchaseData;
+                       try
+                       {
+                           if (context != null)
+                           {
+                               SearchResults.Clear();
+                               SearchResults = ListBoxItemHelper.TransformToListBoxItems(context.EndExecute<DocumentPathDTO>(result).ToList());
+                           }
+                       }
+                       catch (DataServiceQueryException ex)
+                       {
+                           QueryOperationResponse response = ex.Response;
+                           MessageAlert(response.Error.Message);
+                       }
+                       IsBusySearch = false;
+                   }), _context);
+            }
+        }
+
+        private Uri SearchDocumentUri(string name)
+        {
+            return new Uri(string.Format("SearchDocumentPath?name='{0}'", name),
+                UriKind.Relative);
+        }
         #endregion
     }
 }
