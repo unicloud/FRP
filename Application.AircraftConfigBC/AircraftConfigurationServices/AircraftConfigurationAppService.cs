@@ -12,9 +12,11 @@
 // ========================================================================*/
 #endregion
 
+using System;
 using System.Linq;
 using UniCloud.Application.AircraftConfigBC.DTO;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftConfigurationQueries;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCabinTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftConfigurationAgg;
@@ -25,7 +27,8 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftConfigurationServices
     ///     实现飞机配置服务接口。
     ///     用于处理飞机配置相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class AircraftConfigurationAppService : IAircraftConfigurationAppService
+  [LogAOP]
+    public class AircraftConfigurationAppService : ContextBoundObject, IAircraftConfigurationAppService
     {
         private readonly IAircraftConfigurationQuery _aircraftConfigurationQuery;
         private readonly IAircraftConfigurationRepository _aircraftConfigurationRepository;

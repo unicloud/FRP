@@ -14,7 +14,10 @@
 #endregion
 
 #region 命名空间
+
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.AdSbQueries;
@@ -27,7 +30,8 @@ namespace UniCloud.Application.PartBC.AdSbServices
     /// 实现AdSb的服务接口。
     ///  用于处理AdSb相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class AdSbAppService : IAdSbAppService
+   [LogAOP]
+    public class AdSbAppService : ContextBoundObject, IAdSbAppService
     {
         private readonly IAdSbQuery _adSbQuery;
 

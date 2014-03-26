@@ -17,7 +17,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.FleetPlanBC.DTO.CAACAircraftTypeDTO;
 using UniCloud.Application.FleetPlanBC.Query.CAACAircraftTypeQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.CAACAircraftTypeAgg;
@@ -30,7 +32,8 @@ namespace UniCloud.Application.FleetPlanBC.CAACAircraftTypeServices
     ///     实现民航机型服务接口。
     ///     用于处理民航机型相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class CAACAircraftTypeAppService : ICAACAircraftTypeAppService
+   [LogAOP]
+    public class CAACAircraftTypeAppService : ContextBoundObject, ICAACAircraftTypeAppService
     {
         private readonly ICAACAircraftTypeQuery _caacAircraftTypeQuery;
 

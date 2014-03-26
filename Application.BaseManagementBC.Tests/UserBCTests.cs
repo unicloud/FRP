@@ -32,6 +32,7 @@ namespace UniCloud.Application.BaseManagementBC.Tests
         [TestInitialize]
         public void TestInitialize()
         {
+            log4net.Config.XmlConfigurator.Configure();
             DefaultContainer.CreateContainer()
                          .RegisterType<IQueryableUnitOfWork, BaseManagementBCUnitOfWork>(new WcfPerRequestLifetimeManager())
             #region 相关配置，包括查询，应用服务，仓储注册

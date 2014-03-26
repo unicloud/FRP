@@ -14,7 +14,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.BaseManagementBC.DTO;
 using UniCloud.Application.BaseManagementBC.Query.RoleQueries;
@@ -29,7 +31,8 @@ namespace UniCloud.Application.BaseManagementBC.RoleServices
     /// 实现Role的服务接口。
     ///  用于处理Role相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class RoleAppService : IRoleAppService
+    [LogAOP]
+    public class RoleAppService : ContextBoundObject, IRoleAppService
     {
         private readonly IRoleQuery _roleQuery;
         private readonly IRoleRepository _roleRepository;

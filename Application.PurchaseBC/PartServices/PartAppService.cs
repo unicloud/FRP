@@ -17,7 +17,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.PartQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.PartAgg;
@@ -30,7 +32,8 @@ namespace UniCloud.Application.PurchaseBC.PartServices
     ///     实现部件服务接口。
     ///     用于处理部件相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class PartAppService : IPartAppService
+   [LogAOP]
+    public class PartAppService : ContextBoundObject, IPartAppService
     {
         private readonly IPartQuery _partQuery;
 

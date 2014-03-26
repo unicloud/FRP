@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.ScnQueries;
@@ -31,7 +32,8 @@ namespace UniCloud.Application.PartBC.ScnServices
     /// 实现Scn的服务接口。
     ///  用于处理Scn相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class ScnAppService : IScnAppService
+    [LogAOP]
+    public class ScnAppService : ContextBoundObject, IScnAppService
     {
         private readonly IScnQuery _scnQuery;
         private readonly IScnRepository _scnRepository;

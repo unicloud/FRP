@@ -14,7 +14,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.XmlSettingQueries;
@@ -28,7 +30,8 @@ namespace UniCloud.Application.FleetPlanBC.XmlSettingServices
     ///     实现配置相关的xml接口。
     ///     用于处于维修发票相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class XmlSettingAppService : IXmlSettingAppService
+   [LogAOP]
+    public class XmlSettingAppService : ContextBoundObject, IXmlSettingAppService
     {
         private readonly IXmlSettingQuery _xmlSettingQuery;
         private readonly IXmlSettingRepository _xmlSettingRepository;

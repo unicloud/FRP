@@ -14,7 +14,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.XmlConfigQueries;
@@ -28,7 +30,8 @@ namespace UniCloud.Application.FleetPlanBC.XmlConfigServices
     ///     实现分析数据相关xml接口。
     ///     用于处于分析数据相关xml相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class XmlConfigAppService:IXmlConfigAppService
+   [LogAOP]
+    public class XmlConfigAppService : ContextBoundObject, IXmlConfigAppService
     {
         private readonly IXmlConfigQuery _xmlConfigQuery;
         private readonly IXmlConfigRepository _xmlConfigRepository;

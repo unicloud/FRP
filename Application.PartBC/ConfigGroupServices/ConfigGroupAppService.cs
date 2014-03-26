@@ -17,8 +17,10 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.ConfigGroupQueries;
 
@@ -30,7 +32,8 @@ namespace UniCloud.Application.PartBC.ConfigGroupServices
     ///     实现构型组服务接口。
     ///     用于处理typeName相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class ConfigGroupAppService : IConfigGroupAppService
+   [LogAOP]
+    public class ConfigGroupAppService : ContextBoundObject, IConfigGroupAppService
     {
         private readonly IConfigGroupQuery _actionCategoryQuery;
 

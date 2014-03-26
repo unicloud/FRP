@@ -14,7 +14,10 @@
 #endregion
 
 #region 命名空间
+
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.CtrlUnitQueries;
@@ -27,7 +30,8 @@ namespace UniCloud.Application.PartBC.CtrlUnitServices
     /// 实现CtrlUnit的服务接口。
     ///  用于处理CtrlUnit相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class CtrlUnitAppService : ICtrlUnitAppService
+   [LogAOP]
+    public class CtrlUnitAppService : ContextBoundObject, ICtrlUnitAppService
     {
         private readonly ICtrlUnitQuery _ctrlUnitQuery;
         private readonly ICtrlUnitRepository _ctrlUnitRepository;

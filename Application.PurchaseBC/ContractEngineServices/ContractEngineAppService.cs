@@ -14,7 +14,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.ContractEngineQueries;
@@ -24,7 +26,8 @@ using UniCloud.Domain.PurchaseBC.Aggregates.ContractEngineAgg;
 
 namespace UniCloud.Application.PurchaseBC.ContractEngineServices
 {
-    public class ContractEngineAppService : IContractEngineAppService
+    [LogAOP]
+    public class ContractEngineAppService : ContextBoundObject, IContractEngineAppService
     {
         private readonly IContractEngineQuery _contractEngineQuery;
         private readonly IContractEngineRepository _contractEngineRepository;

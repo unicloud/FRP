@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.ProgrammingFileQueries;
@@ -34,7 +35,8 @@ namespace UniCloud.Application.FleetPlanBC.ProgrammingFileServices
     ///     实现规划文档服务接口。
     ///     用于处理规划文档相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class ProgrammingFileAppService : IProgrammingFileAppService
+    [LogAOP]
+    public class ProgrammingFileAppService : ContextBoundObject, IProgrammingFileAppService
     {
         private readonly IProgrammingFileQuery _programmingFileQuery;
         private readonly IManagerRepository _managerRepository;

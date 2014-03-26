@@ -17,7 +17,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.AircraftCategoryQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
@@ -30,7 +32,8 @@ namespace UniCloud.Application.FleetPlanBC.AircraftCategoryServices
     ///     实现座级服务接口。
     ///     用于处理座级相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class AircraftCategoryAppService : IAircraftCategoryAppService
+   [LogAOP]
+    public class AircraftCategoryAppService : ContextBoundObject, IAircraftCategoryAppService
     {
         private readonly IAircraftCategoryQuery _aircraftCategoryQuery;
 

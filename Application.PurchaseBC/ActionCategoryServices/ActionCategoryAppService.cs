@@ -14,7 +14,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.ActionCategoryQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.ActionCategoryAgg;
@@ -27,7 +29,8 @@ namespace UniCloud.Application.PurchaseBC.ActionCategoryServices
     ///     实现活动类型服务接口。
     ///     用于处理活动类型相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class ActionCategoryAppService : IActionCategoryAppService
+   [LogAOP]
+    public class ActionCategoryAppService : ContextBoundObject, IActionCategoryAppService
     {
         private readonly IActionCategoryQuery _actionCategoryQuery;
 

@@ -17,7 +17,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.CurrencyQueries;
 using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
@@ -26,7 +28,8 @@ using UniCloud.Domain.PaymentBC.Aggregates.CurrencyAgg;
 
 namespace UniCloud.Application.PaymentBC.CurrencyServices
 {
-    public class CurrencyAppService : ICurrencyAppService
+    [LogAOP]
+    public class CurrencyAppService : ContextBoundObject, ICurrencyAppService
     {
         private readonly ICurrencyQuery _currencyQuery;
 

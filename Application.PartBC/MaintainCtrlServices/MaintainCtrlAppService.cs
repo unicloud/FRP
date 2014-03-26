@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.MaintainCtrlQueries;
@@ -39,7 +40,8 @@ namespace UniCloud.Application.PartBC.MaintainCtrlServices
     ///     实现MaintainCtrl的服务接口。
     ///     用于处理MaintainCtrl相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class MaintainCtrlAppService : IMaintainCtrlAppService
+    [LogAOP]
+    public class MaintainCtrlAppService : ContextBoundObject, IMaintainCtrlAppService
     {
         private readonly IBasicConfigRepository _basicConfigRepository;
         private readonly ICtrlUnitRepository _ctrlUnitRepository;

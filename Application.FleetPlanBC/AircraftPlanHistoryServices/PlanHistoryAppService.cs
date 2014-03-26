@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.PlanHistoryQueries;
@@ -39,7 +40,8 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
     ///     实现计划明细服务接口。
     ///     用于处理计划明细相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class PlanHistoryAppService : IPlanHistoryAppService
+   [LogAOP]
+    public class PlanHistoryAppService : ContextBoundObject, IPlanHistoryAppService
     {
         private readonly IActionCategoryRepository _actionCategoryRepository;
         private readonly IAircraftRepository _aircraftRepository;

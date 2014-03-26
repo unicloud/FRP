@@ -1,7 +1,9 @@
 ﻿#region 命名空间
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.ContractDocumentQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
@@ -10,7 +12,8 @@ using UniCloud.Domain.PurchaseBC.Aggregates.OrderAgg;
 
 namespace UniCloud.Application.PurchaseBC.ContractDocumentServices
 {
-    public class ContractDocumentAppService:IContractDocumentAppService
+    [LogAOP]
+    public class ContractDocumentAppService : ContextBoundObject, IContractDocumentAppService
     {
         private readonly IContractDocumentQuery _contractDocumentQuery;
 

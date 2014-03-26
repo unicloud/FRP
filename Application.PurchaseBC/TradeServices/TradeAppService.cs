@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.TradeQueries;
@@ -36,7 +37,8 @@ using UniCloud.Domain.PurchaseBC.Aggregates.TradeAgg;
 
 namespace UniCloud.Application.PurchaseBC.TradeServices
 {
-    public class TradeAppService : ITradeAppService
+    [LogAOP]
+    public class TradeAppService : ContextBoundObject, ITradeAppService
     {
         private readonly IActionCategoryRepository _actionCategoryRepository;
         private readonly IContractAircraftRepository _contractAircraftRepository;

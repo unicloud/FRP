@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.InvoiceQueries;
@@ -35,7 +36,8 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
     /// <summary>
     ///     贷项单服务实现
     /// </summary>
-    public class CreditNoteAppService : ICreditNoteAppService
+   [LogAOP]
+    public class CreditNoteAppService : ContextBoundObject, ICreditNoteAppService
     {
         private readonly ICreditNoteQuery _creditNoteQuery;
         private readonly ICurrencyRepository _currencyRepository;

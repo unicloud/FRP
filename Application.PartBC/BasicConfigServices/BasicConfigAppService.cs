@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.BasicConfigQueries;
@@ -35,7 +36,8 @@ namespace UniCloud.Application.PartBC.BasicConfigServices
     ///     实现BasicConfig的服务接口。
     ///     用于处理BasicConfig相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class BasicConfigAppService : IBasicConfigAppService
+   [LogAOP]
+    public class BasicConfigAppService : ContextBoundObject, IBasicConfigAppService
     {
         private readonly IBasicConfigQuery _basicConfigQuery;
         private readonly IBasicConfigRepository _basicConfigRepository;

@@ -14,10 +14,12 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.AircraftConfigBC.DTO;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftQueries;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg;
@@ -30,7 +32,8 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftServices
     ///     实现实际飞机接口。
     ///     用于处于实际飞机相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class AircraftAppService : IAircraftAppService
+   [LogAOP]
+    public class AircraftAppService : ContextBoundObject, IAircraftAppService
     {
         private readonly IAircraftQuery _aircraftQuery;
         private readonly IAircraftRepository _aircraftRepository;

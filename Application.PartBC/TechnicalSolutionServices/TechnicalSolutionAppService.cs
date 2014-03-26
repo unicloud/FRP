@@ -17,6 +17,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.TechnicalSolutionQueries;
@@ -31,7 +32,8 @@ namespace UniCloud.Application.PartBC.TechnicalSolutionServices
     /// 实现TechnicalSolution的服务接口。
     ///  用于处理TechnicalSolution相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class TechnicalSolutionAppService : ITechnicalSolutionAppService
+   [LogAOP]
+    public class TechnicalSolutionAppService : ContextBoundObject, ITechnicalSolutionAppService
     {
         private readonly ITechnicalSolutionQuery _technicalSolutionQuery;
         private readonly ITechnicalSolutionRepository _technicalSolutionRepository;

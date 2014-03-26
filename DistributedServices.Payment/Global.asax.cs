@@ -9,6 +9,7 @@ namespace UniCloud.DistributedServices.Payment
         protected void Application_Start(object sender, EventArgs e)
         {
             Container.ConfigureContainer();
+            log4net.Config.XmlConfigurator.Configure();
         }
 
         protected void Session_Start(object sender, EventArgs e)

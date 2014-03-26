@@ -17,7 +17,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.EngineTypeQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EngineTypeAgg;
@@ -30,7 +32,8 @@ namespace UniCloud.Application.FleetPlanBC.EngineTypeServices
     ///     实现发动机型号服务接口。
     ///     用于处理发动机型号相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class EngineTypeAppService : IEngineTypeAppService
+   [LogAOP]
+    public class EngineTypeAppService : ContextBoundObject, IEngineTypeAppService
     {
         private readonly IEngineTypeQuery _engineTypeQuery;
 

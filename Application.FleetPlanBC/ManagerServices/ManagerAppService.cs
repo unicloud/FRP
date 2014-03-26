@@ -17,7 +17,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.ManagerQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ManagerAgg;
@@ -30,7 +32,8 @@ namespace UniCloud.Application.FleetPlanBC.ManagerServices
     ///     实现管理者服务接口。
     ///     用于处理管理者相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class ManagerAppService : IManagerAppService
+    [LogAOP]
+    public class ManagerAppService : ContextBoundObject, IManagerAppService
     {
         private readonly IManagerQuery _managerQuery;
 

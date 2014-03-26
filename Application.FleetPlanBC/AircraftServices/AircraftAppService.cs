@@ -16,6 +16,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.AircraftQueries;
@@ -35,7 +36,8 @@ namespace UniCloud.Application.FleetPlanBC.AircraftServices
     ///     实现实际飞机接口。
     ///     用于处于实际飞机相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class AircraftAppService : IAircraftAppService
+   [LogAOP]
+    public class AircraftAppService : ContextBoundObject, IAircraftAppService
     {
         private readonly IAircraftQuery _aircraftQuery;
         private readonly IActionCategoryRepository _actionCategoryRepository;

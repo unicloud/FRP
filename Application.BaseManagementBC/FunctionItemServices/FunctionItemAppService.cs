@@ -14,8 +14,10 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.BaseManagementBC.DTO;
 using UniCloud.Application.BaseManagementBC.Query.FunctionItemQueries;
 using UniCloud.Domain.BaseManagementBC.Aggregates.FunctionItemAgg;
@@ -28,7 +30,8 @@ namespace UniCloud.Application.BaseManagementBC.FunctionItemServices
     /// 实现FunctionItem的服务接口。
     ///  用于处理FunctionItem相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class FunctionItemAppService : IFunctionItemAppService
+    [LogAOP]
+    public class FunctionItemAppService : ContextBoundObject, IFunctionItemAppService
     {
         private readonly IFunctionItemQuery _functionItemQuery;
         private readonly IFunctionItemRepository _functionItemRepository;

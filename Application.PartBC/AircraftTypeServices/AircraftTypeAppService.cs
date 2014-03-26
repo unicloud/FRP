@@ -14,7 +14,10 @@
 #endregion
 
 #region 命名空间
+
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.AircraftTypeQueries;
@@ -28,7 +31,8 @@ namespace UniCloud.Application.PartBC.AircraftTypeServices
     /// 实现AircraftType的服务接口。
     ///  用于处理AircraftType相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class AircraftTypeAppService : IAircraftTypeAppService
+   [LogAOP]
+    public class AircraftTypeAppService : ContextBoundObject, IAircraftTypeAppService
     {
         private readonly IAircraftTypeQuery _aircraftTypeQuery;
 

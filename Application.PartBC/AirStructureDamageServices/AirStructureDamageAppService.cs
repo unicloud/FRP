@@ -16,6 +16,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.AirStructureDamageQueries;
@@ -29,7 +30,8 @@ namespace UniCloud.Application.PartBC.AirStructureDamageServices
     /// 实现AirStructureDamage的服务接口。
     ///  用于处理AirStructureDamage相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class AirStructureDamageAppService : IAirStructureDamageAppService
+   [LogAOP]
+    public class AirStructureDamageAppService : ContextBoundObject, IAirStructureDamageAppService
     {
         private readonly IAirStructureDamageQuery _airStructureDamageQuery;
         private readonly IAirStructureDamageRepository _airStructureDamageRepository;
