@@ -39,7 +39,7 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
         /// <returns>文档路径</returns>
         IQueryable<DocumentPathDTO> GetDocumentPaths();
 
-        IEnumerable<DocumentPathDTO> SearchDocumentPath(string name);
+        IEnumerable<DocumentPathDTO> SearchDocumentPath(int documentPathId, string name);
 
         /// <summary>
         ///     删除文档路径。
@@ -54,8 +54,7 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
         /// <param name="isLeaf"></param>
         /// <param name="documentId"></param>
         /// <param name="parentId"></param>
-        /// <param name="path"></param>
-        void AddDocPath(string name, string isLeaf,string documentId, int parentId, string path);
+        void AddDocPath(string name, string isLeaf,string documentId, int parentId);
 
         void ModifyDocPath(int documentPathId, string name);
     }

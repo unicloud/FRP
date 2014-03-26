@@ -52,7 +52,11 @@
               Background="White">
             <telerik:RadListBox ItemsSource="{Binding SearchResults,Mode=TwoWay}"
                                 VerticalAlignment="Top"
-                                ItemTemplate="{StaticResource DataTemplate}" />
+                                ItemTemplate="{StaticResource DataTemplate}" >
+                <uc:RadListBoxDoubleClick.Helper>
+                    <uc:SearchResultsDoubleClickHelper />
+                </uc:RadListBoxDoubleClick.Helper>
+                </telerik:RadListBox>
         </Grid>
     </telerik:RadBusyIndicator>
 </telerik:RadWindow>

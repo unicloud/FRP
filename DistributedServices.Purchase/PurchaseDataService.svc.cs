@@ -94,12 +94,11 @@ namespace UniCloud.DistributedServices.Purchase
         /// <param name="isLeaf"></param>
         /// <param name="documentId"></param>
         /// <param name="parentId"></param>
-        /// <param name="path"></param>
         [WebGet]
-        public void AddDocPath(string name, string isLeaf, string documentId, int parentId, string path)
+        public void AddDocPath(string name, string isLeaf, string documentId, int parentId)
         {
             var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
-            documentPathAppService.AddDocPath(name, isLeaf, documentId, parentId, path);
+            documentPathAppService.AddDocPath(name, isLeaf, documentId, parentId);
         }
 
         /// <summary>
@@ -121,10 +120,10 @@ namespace UniCloud.DistributedServices.Purchase
         }
 
         [WebGet]
-        public IEnumerable<DocumentPathDTO> SearchDocumentPath(string name)
+        public IEnumerable<DocumentPathDTO> SearchDocumentPath(int documentPathId, string name)
         {
             var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
-            return documentPathAppService.SearchDocumentPath(name);
+            return documentPathAppService.SearchDocumentPath(documentPathId, name);
         }
         #endregion
     }

@@ -278,7 +278,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// <summary>
         ///     打开文件
         /// </summary>
-        private void OpenDocument(Guid? documentId)
+        public void OpenDocument(Guid? documentId)
         {
             if (documentId != null) OnViewAttach(documentId);
         }
@@ -314,13 +314,11 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// <param name="isLeaf">是否是叶子节点</param>
         /// <param name="documentId">文档Guid</param>
         /// <param name="parentId">父亲文档</param>
-        /// <param name="path">路径</param>
         /// <returns>Uri实例</returns>
-        private Uri CreateDocumentPathQuery(string name, bool isLeaf, string documentId, int parentId, string path)
+        private Uri CreateDocumentPathQuery(string name, bool isLeaf, string documentId, int parentId)
         {
             return new Uri(string.Format("AddDocPath?name='{0}'&isLeaf='{1}'" +
-                                         "&documentId='{2}'&parentId={3}" +
-                                         "&path='{4}'", name, isLeaf, documentId, parentId, path),
+                                         "&documentId='{2}'&parentId={3}", name, isLeaf, documentId, parentId),
                 UriKind.Relative);
         }
 
@@ -706,7 +704,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     return;
                 }
                 newDocPath = CreateDocumentPathQuery(DocumentName, false, null,
-                   CurrentPathItem.DocumentPathId, string.Empty);
+                   CurrentPathItem.DocumentPathId);
             }
             DocumentChildIsBusy = true;
             _context.BeginExecute<string>(newDocPath, p => Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -751,8 +749,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
             DocumentChildIsBusy = true;
             var newDocPath = CreateDocumentPathQuery(ContractDocument.DocumentName, true,
-                ContractDocument.DocumentId.ToString(),
-                CurrentPathItem.DocumentPathId, string.Empty);
+                ContractDocument.DocumentId.ToString(), CurrentPathItem.DocumentPathId);
             _context.BeginExecute<string>(newDocPath, p => Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 DocumentPathsView.Load(true);
@@ -882,12 +879,11 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             if (e.Key == Key.Enter)
             {
-
                 var search = ServiceLocator.Current.GetInstance<SearchResultsWindow>();
                 search.Header = "\"" + CurrentPathItem.Name + "\"中的搜索结果";
                 search.ShowDialog();
                 IsBusySearch = true;
-                var searchDocumentUri = SearchDocumentUri(SearchText);
+                var searchDocumentUri = SearchDocumentUri(CurrentPathItem.DocumentPathId, SearchText);
                 _context.BeginExecute<DocumentPathDTO>(searchDocumentUri,
                    result => Deployment.Current.Dispatcher.BeginInvoke(() =>
                    {
@@ -910,9 +906,9 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
         }
 
-        private Uri SearchDocumentUri(string name)
+        private Uri SearchDocumentUri(int documentPathId, string name)
         {
-            return new Uri(string.Format("SearchDocumentPath?name='{0}'", name),
+            return new Uri(string.Format("SearchDocumentPath?documentPathId={0}&name='{1}'", documentPathId, name),
                 UriKind.Relative);
         }
         #endregion
