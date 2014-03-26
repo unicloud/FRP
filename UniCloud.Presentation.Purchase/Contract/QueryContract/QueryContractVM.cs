@@ -129,6 +129,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     RaisePropertyChanged(() => CurrentPathItem);
                     if (value != null)
                     {
+                        WatermarkText = "搜索 " + CurrentPathItem.Name;
                         _loadType = "SearchText";
                         //加载子项文件夹文档，即模仿打开文件夹，加载文件夹里的子文件夹与文件
                         LoadSubFolderDocuemnt(value);
@@ -842,6 +843,17 @@ namespace UniCloud.Presentation.Purchase.Contract
         #endregion
 
         #region 搜索功能
+
+        private string _watermarkText;
+        public string WatermarkText
+        {
+            get { return _watermarkText; }
+            set
+            {
+                _watermarkText = value;
+                RaisePropertyChanged("WatermarkText");
+            }
+        }
 
         private bool _isBusySearch;
         public bool IsBusySearch
