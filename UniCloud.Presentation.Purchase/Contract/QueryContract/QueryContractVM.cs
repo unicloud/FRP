@@ -29,7 +29,6 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.ServiceLocation;
-using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.DocumentExtension;
@@ -889,27 +888,33 @@ namespace UniCloud.Presentation.Purchase.Contract
                 IsBusySearch = true;
                 _openResult = true;
                 _searchKeys.Clear();
-                var searchDocumentUri = SearchDocumentUri(CurrentPathItem.DocumentPathId, SearchText);
-                _context.BeginExecute<DocumentPathDTO>(searchDocumentUri,
-                   result => Deployment.Current.Dispatcher.BeginInvoke(() =>
-                   {
-                       var context = result.AsyncState as PurchaseData;
-                       try
-                       {
-                           if (context != null)
-                           {
-                               SearchResults.Clear();
-                               SearchResults = ListBoxItemHelper.TransformToListBoxItems(context.EndExecute<DocumentPathDTO>(result).ToList());
-                           }
-                       }
-                       catch (DataServiceQueryException ex)
-                       {
-                           QueryOperationResponse response = ex.Response;
-                           MessageAlert(response.Error.Message);
-                       }
-                       IsBusySearch = false;
-                   }), _context);
+                _tempPrarentId = CurrentPathItem.DocumentPathId;
+                RealSearch();
             }
+        }
+
+        private void RealSearch()
+        {
+            var searchDocumentUri = SearchDocumentUri(CurrentPathItem.DocumentPathId, SearchText);
+            _context.BeginExecute<DocumentPathDTO>(searchDocumentUri,
+               result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+               {
+                   var context = result.AsyncState as PurchaseData;
+                   try
+                   {
+                       if (context != null)
+                       {
+                           SearchResults.Clear();
+                           SearchResults = ListBoxItemHelper.TransformToListBoxItems(context.EndExecute<DocumentPathDTO>(result).ToList());
+                       }
+                   }
+                   catch (DataServiceQueryException ex)
+                   {
+                       QueryOperationResponse response = ex.Response;
+                       MessageAlert(response.Error.Message);
+                   }
+                   IsBusySearch = false;
+               }), _context);
         }
         private Uri SearchDocumentUri(int documentPathId, string name)
         {
@@ -919,14 +924,15 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         private bool _openResult;
         private readonly Dictionary<int, int> _searchKeys = new Dictionary<int, int>();
-       
+        private int _tempPrarentId;
         /// <summary>
         /// 在搜索结果中打开文件夹
         /// </summary>
         /// <param name="documentPathId"></param>
         public void OpenFolderInSearchResults(int documentPathId)
         {
-            _searchKeys[documentPathId] = (int) _pathFilterDes.Value;
+            _searchKeys[documentPathId] = _tempPrarentId;
+            _tempPrarentId = documentPathId;
             _pathFilterDes.Value = documentPathId;
             DocumentPathsView.Load(true);
         }
@@ -935,7 +941,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             SearchResults.Clear();
             SearchResults = ListBoxItemHelper.TransformToListBoxItems(DocumentPathsView.ToList());
         }
-        
+
         /// <summary>
         /// 在搜索结果中返回上层文件夹
         /// </summary>
@@ -944,8 +950,16 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             if (_searchKeys.ContainsKey((int)_pathFilterDes.Value))
             {
-                _pathFilterDes.Value = _searchKeys[(int)_pathFilterDes.Value];
-                DocumentPathsView.Load(true);
+                _tempPrarentId = _searchKeys[(int)_pathFilterDes.Value];
+                if (_tempPrarentId == CurrentPathItem.DocumentPathId)
+                {
+                    RealSearch();
+                }
+                else
+                {
+                    _pathFilterDes.Value = _tempPrarentId;
+                    DocumentPathsView.Load(true);
+                }
             }
         }
         #endregion
