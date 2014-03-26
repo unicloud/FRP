@@ -427,7 +427,6 @@
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
         <Property Name="AirlinesId" Type="Edm.Guid" Nullable="false" />
         <Property Name="ApprovalHistories" Type="Collection(UniCloud.Application.FleetPlanBC.DTO.ApprovalHistoryDTO)" Nullable="false" />
-        <NavigationProperty Name="PlanHistories" Relationship="UniCloud.Application.FleetPlanBC.DTO.PlanAircraftDTO_PlanHistories" ToRole="PlanHistories" FromRole="PlanAircraftDTO" />
       </EntityType>
       <ComplexType Name="ApprovalHistoryDTO">
         <Property Name="Id" Type="Edm.Guid" Nullable="false" />
@@ -579,10 +578,6 @@
         <Property Name="OperationHistory" Type="UniCloud.Application.FleetPlanBC.DTO.OperationHistoryDTO" />
         <Property Name="AircraftBusiness" Type="UniCloud.Application.FleetPlanBC.DTO.AircraftBusinessDTO" />
       </ComplexType>
-      <Association Name="PlanAircraftDTO_PlanHistories">
-        <End Type="UniCloud.Application.FleetPlanBC.DTO.PlanHistoryDTO" Role="PlanHistories" Multiplicity="*" />
-        <End Type="UniCloud.Application.FleetPlanBC.DTO.PlanAircraftDTO" Role="PlanAircraftDTO" Multiplicity="*" />
-      </Association>
     </Schema>
     <Schema Namespace="UniCloud.Application.FleetPlanBC.DTO.CAACAircraftTypeDTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityType Name="CAACAircraftTypeDTO">
@@ -635,10 +630,6 @@
           <Parameter Name="planType" Type="Edm.Int32" Nullable="false" />
           <Parameter Name="relatedGuid" Type="Edm.String" />
         </FunctionImport>
-        <AssociationSet Name="PlanAircraftDTO_PlanHistories" Association="UniCloud.Application.FleetPlanBC.DTO.PlanAircraftDTO_PlanHistories">
-          <End Role="PlanAircraftDTO" EntitySet="PlanAircrafts" />
-          <End Role="PlanHistories" EntitySet="PlanHistories" />
-        </AssociationSet>
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

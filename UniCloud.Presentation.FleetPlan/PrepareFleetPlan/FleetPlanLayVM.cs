@@ -78,11 +78,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             Annuals.OrderBy(p => p.Year);
             Annuals.LoadedData += (sender, e) =>
             {
-                if (e.HasError)
-                {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
                 if (Annuals.Count != 0)
                 {
                     _curAnnual = Annuals.SingleOrDefault(p => p.IsOpen);
@@ -90,6 +85,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                         Plans.AutoLoad = true;
                     else
                         Plans.Load(true);
+
                 }
                 RefreshCommandState();
             }; //获取年度集合，同时得到当前计划年度，再获取计划集合，同时得到当前计划
@@ -97,24 +93,25 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             Plans = _service.CreateCollection(_context.Plans);
             Plans.LoadedData += (sender, e) =>
             {
-                if (e.HasError)
-                {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
                 CurPlan = Plans.Where(p => p.Year == _curAnnual.Year).OrderBy(p => p.VersionNumber).LastOrDefault();
+                if (!AllPlanHistories.AutoLoad)
+                    AllPlanHistories.AutoLoad = true;
+                else
+                    AllPlanHistories.Load(true);
             };
             _service.RegisterCollectionView(Plans);//注册查询集合，获取计划集合，同时得到当前计划
 
-            PlanHistories = _service.CreateCollection(_context.PlanHistories);
-            PlanHistories.FilterDescriptors.Add(filter);
-            PlanHistories.LoadedData += (o, e) =>
+            AllPlanHistories = _service.CreateCollection(_context.PlanHistories);
+            AllPlanHistories.LoadedData += (o, e) =>
             {
-                var phs = PlanHistories.ToList();
                 ViewPlanHistories.Clear();
-                foreach (var planHistoryDTO in phs)
+                if (CurPlan != null)
                 {
-                    ViewPlanHistories.Add(planHistoryDTO);
+                    foreach (var ph in AllPlanHistories.SourceCollection.Cast<PlanHistoryDTO>())
+                    {
+                        if (ph.PlanId == CurPlan.Id)
+                            ViewPlanHistories.Add(ph);
+                    }
                 }
             };
 
@@ -256,7 +253,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// <summary>
         /// 计划明细集合
         /// </summary>
-        public QueryableDataServiceCollectionView<PlanHistoryDTO> PlanHistories { get; set; } 
+        public QueryableDataServiceCollectionView<PlanHistoryDTO> AllPlanHistories { get; set; }
 
         #endregion
 
@@ -904,7 +901,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                                 {
                                     this.ShowEditDialog(planDetails[0], source);
                                 }
-                                
+
                             });
                             break;
                         case PlanDetailCreateSource.Aircraft:
@@ -917,7 +914,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                                 {
                                     this.ShowEditDialog(planDetails[0], source);
                                 }
-                               
+
                             });
                             break;
                         default:

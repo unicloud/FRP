@@ -96,6 +96,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             };
         }
 
+       
+
         /// <summary>
         ///     初始化命令。
         /// </summary>
@@ -324,7 +326,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             _curAnnual = Annuals.SourceCollection.Cast<AnnualDTO>().SingleOrDefault(p => p.IsOpen);
 
             //创建新年度的第一版本计划
-            AllPlans.AddNew(_service.CreateNewYearPlan(lastPlan, AllPlanHistories, newAnnual.Id, newAnnual.Year, _curAirlines));
+            AllPlans.AddNew(_service.CreateNewYearPlan(lastPlan, AllPlanHistories, newAnnual));
 
             SelAnnual = _curAnnual;
 

@@ -96,23 +96,46 @@ namespace UniCloud.Presentation.Service.FleetPlan
         #region 业务逻辑
 
         #region 计划
+        /// <summary>
+        /// 获取计划明细中集合属性ActionCategories的值
+        /// </summary>
+        /// <param name="ph"></param>
+        void GetActionCategoriesForPlanHistory(PlanHistoryDTO ph);
+
+        /// <summary>
+        /// 获取计划明细中集合属性AircraftCategories的值
+        /// </summary>
+        /// <param name="ph"></param>
+        void GetAircraftCategoriesForPlanHistory(PlanHistoryDTO ph);
+
+        /// <summary>
+        /// 获取计划明细中集合属性AircraftTypes的值
+        /// </summary>
+        /// <param name="ph"></param>
+        void GetAircraftTypesForPlanHistory(PlanHistoryDTO ph);
+
+        /// <summary>
+        /// 当计划明细中活动类型发生变化的时候，需要改变相应属性：目标类型、净增座位、净增商载
+        /// </summary>
+        /// <param name="ph"></param>
+        void OnChangedActionCategory(PlanHistoryDTO ph);
 
         /// <summary>
         ///     创建新年度的初始化计划
         /// </summary>
         /// <param name="lastPlan"></param>
+        /// <param name="allPlanHistories"></param>
         /// <param name="newAnnual"></param>
-        /// <param name="newYear"></param>
-        /// <param name="curAirlines"></param>
         /// <returns>
         ///     新年度的初始化计划
         /// </returns>
-        PlanDTO CreateNewYearPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, Guid newAnnual, int newYear, AirlinesDTO curAirlines);
+        PlanDTO CreateNewYearPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, AnnualDTO newAnnual);
 
         /// <summary>
         ///     创建新版本的运力增减计划
         /// </summary>
         /// <param name="lastPlan"></param>
+        /// <param name="allPlanHistories"></param>
         /// <returns>新版本的运力增减计划</returns>
         PlanDTO CreateNewVersionPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories);
 
@@ -120,6 +143,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         ///     创建运力增减计划明细
         /// </summary>
         /// <param name="plan">计划 </param>
+        /// <param name="allPlanHistories"></param>
         /// <param name="planAircraft">计划飞机</param>
         /// <param name="aircraft">运营飞机</param>
         /// <param name="actionType">活动类型</param>

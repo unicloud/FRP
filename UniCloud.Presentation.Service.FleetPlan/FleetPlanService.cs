@@ -176,19 +176,181 @@ namespace UniCloud.Presentation.Service.FleetPlan
 
         #region 计划
 
+        //void Annuals_LoadedData(PlanHistoryDTO ph, <ActionCategoryDTO> actionCategories)
+        //{
+        //    ph.ActionCategories.Clear();
+        //    foreach (var actionCategory in actionCategories)
+        //    {
+        //        var actioncate = new ActionCateDTO
+        //        {
+        //            Id = actionCategory.Id,
+        //            ActionType = actionCategory.ActionType,
+        //            ActionName = actionCategory.ActionName,
+        //            NeedRequest = actionCategory.NeedRequest,
+        //        };
+        //        ph.ActionCategories.Add(actioncate);
+        //    }
+        //}
+
+        /// <summary>
+        /// 获取计划明细中集合属性ActionCategories的值
+        /// </summary>
+        /// <param name="ph"></param>
+        public void GetActionCategoriesForPlanHistory(PlanHistoryDTO ph)
+        {
+            Action loaded;
+            if (ph.PlanType == 1 && ph.ActionType == "引进")
+                GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "引进").ToList();
+            else if (ph.PlanType == 1 && ph.ActionType == "退出")
+                GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "退出").ToList();
+            else if (ph.PlanType == 2 && ph.ActionType == "变更")
+                GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "变更").ToList();
+            else GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().ToList();
+
+
+        }
+
+        /// <summary>
+        /// 获取计划明细中集合属性AircraftCategories的值
+        /// </summary>
+        /// <param name="ph"></param>
+        public void GetAircraftCategoriesForPlanHistory(PlanHistoryDTO ph)
+        {
+            List<AircraftCategoryDTO> aircraftCategories;
+            if (ph.ActionName == "客改货")
+                aircraftCategories = GetAircraftCategories(null).SourceCollection.Cast<AircraftCategoryDTO>().Where(p => p.Category == "货机").ToList();
+            else if (ph.ActionName == "货改客")
+                aircraftCategories = GetAircraftCategories(null).SourceCollection.Cast<AircraftCategoryDTO>().Where(p => p.Category == "客机").ToList();
+            else
+                aircraftCategories = GetAircraftCategories(null).SourceCollection.Cast<AircraftCategoryDTO>().ToList();
+
+            ph.AircraftCategories.Clear();
+            foreach (var aircraftCategory in aircraftCategories)
+            {
+                var aircraftCate = new AircraftCateDTO
+                {
+                    Id = aircraftCategory.Id,
+                    Category = aircraftCategory.Category,
+                    Regional = aircraftCategory.Regional,
+                };
+                ph.AircraftCategories.Add(aircraftCate);
+            }
+        }
+
+        /// <summary>
+        /// 获取计划明细中集合属性AircraftTypes的值
+        /// </summary>
+        /// <param name="ph"></param>
+        public void GetAircraftTypesForPlanHistory(PlanHistoryDTO ph)
+        {
+            List<AircraftTypeDTO> aircraftTypes;
+            if (ph.Regional != null)
+                aircraftTypes = GetAircraftTypes(null).SourceCollection.Cast<AircraftTypeDTO>().Where(p => p.Regional == ph.Regional).ToList();
+            else aircraftTypes = GetAircraftTypes(null).SourceCollection.Cast<AircraftTypeDTO>().ToList();
+
+            ph.AircraftTypes.Clear();
+            foreach (var aircraftType in aircraftTypes)
+            {
+                var aircraftTy = new AircraftTyDTO
+                {
+                    Id = aircraftType.Id,
+                    Name = aircraftType.Name,
+                    AircraftCategoryId = aircraftType.AircraftCategoryId,
+                    Regional = aircraftType.Regional,
+                };
+                ph.AircraftTypes.Add(aircraftTy);
+            }
+        }
+
+        /// <summary>
+        /// 当计划明细中活动类型发生变化的时候，需要改变相应属性：目标类型、净增座位、净增商载
+        /// </summary>
+        /// <param name="ph"></param>
+        public void OnChangedActionCategory(PlanHistoryDTO ph)
+        {
+            var actionCategory = GetActionCategories(null).FirstOrDefault(ac => ac.Id == ph.ActionCategoryId);
+            if (actionCategory != null)
+            {
+                if (actionCategory.ActionType == "退出")
+                {
+                    if (ph.PlanAircraftId != null && ph.AircraftId != null)
+                    {
+                        if (ph.SeatingCapacity > 0)
+                            ph.SeatingCapacity = -ph.SeatingCapacity;
+                        if (ph.CarryingCapacity > 0)
+                            ph.CarryingCapacity = -ph.CarryingCapacity;
+                    }
+                }
+
+                if (actionCategory.ActionType == "引进" || actionCategory.ActionType == "退出")
+                {
+                    ph.TargetCategoryId = ph.ActionCategoryId;
+                }
+                else
+                {
+                    ActionCategoryDTO actionCategoryDTO;
+                    // 改变目标引进方式
+                    switch (actionCategory.ActionName)
+                    {
+                        case "一般改装":
+                            if (ph.PlanAircraftId != null && ph.AircraftId != null)
+                            {
+                                var aircraftImport = ph.AircraftImportCategoryId == null ? Guid.Empty : Guid.Parse(ph.AircraftImportCategoryId.ToString());
+                                ph.TargetCategoryId = aircraftImport;
+                            }
+                            break;
+                        case "客改货":
+                            if (ph.PlanAircraftId != null && ph.AircraftId != null)
+                            {
+                                var aircraftImport = ph.AircraftImportCategoryId == null
+                                    ? Guid.Empty
+                                    : Guid.Parse(ph.AircraftImportCategoryId.ToString());
+                                ph.TargetCategoryId = aircraftImport;
+                                ph.AircraftTypeId = Guid.Empty;
+                            }
+                            break;
+                        case "货改客":
+                            if (ph.PlanAircraftId != null && ph.AircraftId != null)
+                            {
+                                var aircraftImport = ph.AircraftImportCategoryId == null
+                                    ? Guid.Empty
+                                    : Guid.Parse(ph.AircraftImportCategoryId.ToString());
+                                ph.TargetCategoryId = aircraftImport;
+                                ph.AircraftTypeId = Guid.Empty;
+                            }
+                            break;
+                        case "售后融资租赁":
+                            actionCategoryDTO = GetActionCategories(null).FirstOrDefault(a => a.ActionName == "融资租赁");
+                            if (actionCategoryDTO != null)
+                                ph.TargetCategoryId = actionCategoryDTO.Id;
+                            break;
+                        case "售后经营租赁":
+                            actionCategoryDTO = GetActionCategories(null).FirstOrDefault(a => a.ActionName == "经营租赁");
+                            if (actionCategoryDTO != null)
+                                ph.TargetCategoryId = actionCategoryDTO.Id;
+                            break;
+                        case "租转购":
+                            actionCategoryDTO = GetActionCategories(null).FirstOrDefault(a => a.ActionName == "购买");
+                            if (actionCategoryDTO != null)
+                                ph.TargetCategoryId = actionCategoryDTO.Id;
+                            break;
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// 创建新年度的初始化计划
         /// </summary>
         /// <param name="lastPlan"></param>
+        /// <param name="allPlanHistories"></param>
         /// <param name="newAnnual"></param>
-        /// <param name="newYear"></param>
-        /// <param name="curAirlines"></param>
         /// <returns><see cref="IFleetPlanService"/></returns>
-        public PlanDTO CreateNewYearPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, Guid newAnnual, int newYear, AirlinesDTO curAirlines)
+        public PlanDTO CreateNewYearPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, AnnualDTO newAnnual)
         {
             using (var pb = new FleetPlanServiceHelper())
             {
-                return pb.CreateNewYearPlan(lastPlan, allPlanHistories, newAnnual, newYear, curAirlines);
+                return pb.CreateNewYearPlan(lastPlan, allPlanHistories, newAnnual);
             }
         }
 
@@ -196,6 +358,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// 创建新版本的运力增减计划
         /// </summary>
         /// <param name="lastPlan"></param>
+        /// <param name="allPlanHistories"></param>
         /// <returns><see cref="IFleetPlanService"/></returns>
         public PlanDTO CreateNewVersionPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories)
         {
@@ -209,6 +372,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// 创建运力增减计划明细
         /// </summary>
         /// <param name="plan">计划</param>
+        /// <param name="allPlanHistories"></param>
         /// <param name="planAircraft">计划飞机</param>
         /// <param name="aircraft">计划飞机</param>
         /// <param name="actionType">活动类型</param>

@@ -74,7 +74,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <summary>
         /// 创建新的运营历史
         /// </summary>
-        /// <param name="approvalHistory">批文明细</param>
+        /// <param name="planDetail">计划明细</param>
         /// <param name="aircraft">飞机</param>
         /// <param name="service"></param>
         private static void CreateOperationHistory(PlanHistoryDTO planDetail, ref AircraftDTO aircraft, IFleetPlanService service)
@@ -127,31 +127,29 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="lastPlan"></param>
         /// <param name="allPlanHistories"></param>
         /// <param name="newAnnual"></param>
-        /// <param name="newYear"></param>
-        /// <param name="curAirline"></param>
         /// <returns></returns>
-        internal PlanDTO CreateNewYearPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, Guid newAnnual, int newYear, AirlinesDTO curAirline)
+        internal PlanDTO CreateNewYearPlan(PlanDTO lastPlan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories,AnnualDTO newAnnual)
         {
-            var title = newYear + "年度机队资源规划";
+            var title = newAnnual.Year + "年度机队资源规划";
             // 从当前计划复制生成新年度计划
             var newPlan = new PlanDTO
             {
                 Id = Guid.NewGuid(),
                 Title = title,
                 CreateDate = DateTime.Now,
-                AnnualId = newAnnual,
-                Year = newYear,
-                AirlinesId = curAirline.Id,
-                AirlinesName = curAirline.CnShortName,
+                AnnualId = newAnnual.Id,
+                Year = newAnnual.Year,
+                AirlinesId = lastPlan.AirlinesId,
+                AirlinesName = lastPlan.AirlinesName,
                 VersionNumber = 1,
-                Status = 1,
+                Status = (int)PlanStatus.草稿,
                 IsValid = false,
                 IsFinished = false,
-                PublishStatus = 0,
+                PublishStatus = (int)PlanPublishStatus.待发布,
             };
             // 获取需要滚动到下一年度的计划明细项
-            var lastPhs = allPlanHistories.Cast<PlanHistoryDTO>().Where(p => p.PlanId == lastPlan.Id).ToList();
-            var planHistories = (lastPlan == null || lastPhs == null) ? null : lastPhs.Where(o => o.PlanAircraftId == null ||
+            var lastPhs = allPlanHistories.Where(p => p.PlanId == lastPlan.Id).ToList();
+            var planHistories = (lastPhs == null) ? null : lastPhs.Where(o => o.PlanAircraftId == null ||
                                            (o.PlanAircraftId != null && (o.ManageStatus != (int)ManageStatus.预备
                                                                        && o.ManageStatus != (int)ManageStatus.运营
                                                                        && o.ManageStatus != (int)ManageStatus.退役))).ToList();
@@ -264,7 +262,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="planType"></param>
         /// <param name="service"></param>
         /// <returns></returns>
-        internal PlanHistoryDTO CreatePlanHistory(PlanDTO plan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories, ref PlanAircraftDTO planAircraft, AircraftDTO aircraft, string actionType, int planType, IFleetPlanService service)
+        internal PlanHistoryDTO CreatePlanHistory(PlanDTO plan, QueryableDataServiceCollectionView<PlanHistoryDTO> allPlanHistories,ref PlanAircraftDTO planAircraft, AircraftDTO aircraft, string actionType, int planType, IFleetPlanService service)
         {
             if (plan == null) return null;
             // 创建新的计划历史
@@ -297,7 +295,8 @@ namespace UniCloud.Presentation.Service.FleetPlan
             else
             {
                 // 获取计划飞机的所有计划明细集合
-                var phs = planAircraft.PlanHistories;
+                Guid planAcId = planAircraft.Id;
+                var planAcPhs = allPlanHistories.Where(p => p.PlanAircraftId == planAcId).ToList();
                 // 获取计划飞机在当前计划中的计划明细集合
                 PlanAircraftDTO dto = planAircraft;
                 var currentPhs = allPlanHistories.Where(p => p.PlanId == plan.Id).ToList();
@@ -305,11 +304,11 @@ namespace UniCloud.Presentation.Service.FleetPlan
                 // 2.1、不是针对现有飞机的计划明细
                 if (planAircraft.AircraftId == null && aircraft == null)
                 {
-                    if (phs.Any())
+                    if (planAcPhs.Any())
                     {
                         // 获取计划飞机的最后一条计划明细，用于复制数据
                         var planHistory =
-                            phs.OrderBy(ph => ph.Year)
+                            planAcPhs.OrderBy(ph => ph.Year)
                                .ThenBy(ph => ph.PerformMonth)
                                .LastOrDefault();
                         if (planHistory != null)
