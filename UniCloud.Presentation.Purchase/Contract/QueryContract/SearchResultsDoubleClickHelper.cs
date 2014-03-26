@@ -28,11 +28,17 @@ namespace UniCloud.Presentation.Purchase.Contract
         protected override void ListBoxDoubleClick(RadListBoxItem listBoxItem)
         {
             var boxItem = listBoxItem.Content as ListBoxDocumentItem;
-            if (boxItem != null && boxItem.IsLeaf)
-            {
-                var viewModel = ServiceLocator.Current.GetInstance<QueryContractVM>();
-                viewModel.OpenDocument(boxItem.DocumentGuid);
-            }
+            if (boxItem != null)
+                if (boxItem.IsLeaf)
+                {
+                    var viewModel = ServiceLocator.Current.GetInstance<QueryContractVM>();
+                    viewModel.OpenDocument(boxItem.DocumentGuid);
+                }
+                else
+                {
+                    var viewModel = ServiceLocator.Current.GetInstance<QueryContractVM>();
+                    viewModel.OpenFolderInSearchResults(boxItem.DocumentPathId);
+                }
         }
 
         protected override bool CanDoubleClick(RadListBoxItem listBoxItem)

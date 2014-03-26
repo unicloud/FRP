@@ -50,13 +50,28 @@
                               IsBusy="{Binding IsBusySearch}">
         <Grid x:Name="LayoutRoot"
               Background="White">
-            <telerik:RadListBox ItemsSource="{Binding SearchResults,Mode=TwoWay}"
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <telerik:RadToolBar HorizontalAlignment="Stretch"
+                                Grid.Row="0"
+                                OverflowButtonVisibility="Collapsed">
+                <telerik:RadButton Margin="4,2,2,-2"
+                                   Command="{Binding BackToParentFolderCommand}">
+                    <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
+                           Stretch="Fill"
+                           ToolTipService.ToolTip="返回" />
+                </telerik:RadButton>
+            </telerik:RadToolBar>
+            <telerik:RadListBox Grid.Row="1"
+                                ItemsSource="{Binding SearchResults,Mode=TwoWay}"
                                 VerticalAlignment="Top"
-                                ItemTemplate="{StaticResource DataTemplate}" >
+                                ItemTemplate="{StaticResource DataTemplate}">
                 <uc:RadListBoxDoubleClick.Helper>
                     <uc:SearchResultsDoubleClickHelper />
                 </uc:RadListBoxDoubleClick.Helper>
-                </telerik:RadListBox>
+            </telerik:RadListBox>
         </Grid>
     </telerik:RadBusyIndicator>
 </telerik:RadWindow>
