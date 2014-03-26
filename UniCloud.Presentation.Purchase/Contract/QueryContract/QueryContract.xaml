@@ -192,12 +192,11 @@
                                         <telerik:RadListBox.DragDropBehavior>
                                             <telerik:ListBoxDragDropBehavior AllowReorder="True"
                                                                              telerik:DragDropManager.AllowCapturedDrag="True"
-                                                                             telerik:DragDropManager.AllowDrag="True"
-                                                                             telerik:DragDropManager.TouchDragTrigger="TapAndHold" />
+                                                                             telerik:DragDropManager.AllowDrag="True" />
                                         </telerik:RadListBox.DragDropBehavior>
                                         <telerik:RadListBox.ItemsPanel>
                                             <ItemsPanelTemplate>
-                                                <toolkit:WrapPanel />
+                                                <toolkit:WrapPanel MaxWidth="1000"/>
                                             </ItemsPanelTemplate>
                                         </telerik:RadListBox.ItemsPanel>
                                         <telerik:RadListBox.ItemTemplate>
