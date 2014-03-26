@@ -17,6 +17,7 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniCloud.Application.PurchaseBC.DTO;
@@ -60,22 +61,36 @@ namespace UniCloud.Application.PurchaseBC.Query.DocumentQueries
                 });
         }
 
-        public IEnumerable<DocumentPathDTO> SearchDocumentPath(string name)
+        public IEnumerable<DocumentPathDTO> SearchDocumentPath(int documentPathId, string name)
         {
-           return _unitOfWork.CreateSet<DocumentPath>().Where(p => p.Name.Contains(name)).Select(p => new DocumentPathDTO
-                                                                                                {
-                                                                                                    DocumentPathId =
-                                                                                                        p.Id,
-                                                                                                    DocumentGuid =
-                                                                                                        p.DocumentGuid,
-                                                                                                    Name = p.Name,
-                                                                                                    Extension =
-                                                                                                        p.Extension,
-                                                                                                    IsLeaf = p.IsLeaf,
-                                                                                                    ParentId =
-                                                                                                        p.ParentId,
-                                                                                                    Path = p.Path
-                                                                                                });
+            var subDocumentPaths = FindSubDocumentPaths(documentPathId);
+
+            return subDocumentPaths.Where(p => p.Name.Contains(name)).Select(p => new DocumentPathDTO
+                                                                                                 {
+                                                                                                     DocumentPathId =
+                                                                                                         p.Id,
+                                                                                                     DocumentGuid =
+                                                                                                         p.DocumentGuid,
+                                                                                                     Name = p.Name,
+                                                                                                     Extension =
+                                                                                                         p.Extension,
+                                                                                                     IsLeaf = p.IsLeaf,
+                                                                                                     ParentId =
+                                                                                                         p.ParentId,
+                                                                                                     Path = p.Path
+                                                                                                 });
+        }
+
+        public List<DocumentPath> FindSubDocumentPaths(int documentPathId)
+        {
+            var documentPaths = _unitOfWork.CreateSet<DocumentPath>();
+            var subDocumentPaths = new List<DocumentPath>();
+            documentPaths.Where(p => p.ParentId == documentPathId).ToList().ForEach(t =>
+                                                                                {
+                                                                                    subDocumentPaths.Add(t);
+                                                                                    FindSubDocumentPaths(t.Id).ForEach(subDocumentPaths.Add);
+                                                                                });
+            return subDocumentPaths;
         }
     }
 }

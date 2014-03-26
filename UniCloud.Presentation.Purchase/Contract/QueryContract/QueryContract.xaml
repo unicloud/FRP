@@ -62,7 +62,7 @@
                 </telerik:RadBreadcrumb>
                 <telerik:RadWatermarkTextBox  Grid.Column="1"
                                               WatermarkContent="搜索"
-                                              Text="{Binding SearchText,Mode=TwoWay}"
+                                              CurrentText="{Binding SearchText,Mode=TwoWay}"
                                               HorizontalAlignment="Right"
                                               Width="150">
                     <i:Interaction.Triggers>

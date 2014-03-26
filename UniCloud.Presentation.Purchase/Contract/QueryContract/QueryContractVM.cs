@@ -29,7 +29,6 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.ServiceLocation;
-using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.Service.Purchase;
 using UniCloud.Presentation.Service.Purchase.DocumentExtension;
@@ -86,7 +85,10 @@ namespace UniCloud.Presentation.Purchase.Contract
                     e.MarkErrorAsHandled();
                     return;
                 }
-                GetListBoxDocumentItem();
+                if (_openResult)
+                    GetOpenFolderSearchResults();
+                else
+                    GetListBoxDocumentItem();
             };
             DocumentPathsView.SubmittedChanges += (o, e) =>
             {
@@ -278,7 +280,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// <summary>
         ///     打开文件
         /// </summary>
-        private void OpenDocument(Guid? documentId)
+        public void OpenDocument(Guid? documentId)
         {
             if (documentId != null) OnViewAttach(documentId);
         }
@@ -296,6 +298,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
             if (currentDocumentPath != null)
             {
+                _openResult = false;
                 //根据选中的父亲节点，查询子项文件
                 if (currentDocumentPath.ParentId != null)
                 {
@@ -314,13 +317,11 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// <param name="isLeaf">是否是叶子节点</param>
         /// <param name="documentId">文档Guid</param>
         /// <param name="parentId">父亲文档</param>
-        /// <param name="path">路径</param>
         /// <returns>Uri实例</returns>
-        private Uri CreateDocumentPathQuery(string name, bool isLeaf, string documentId, int parentId, string path)
+        private Uri CreateDocumentPathQuery(string name, bool isLeaf, string documentId, int parentId)
         {
             return new Uri(string.Format("AddDocPath?name='{0}'&isLeaf='{1}'" +
-                                         "&documentId='{2}'&parentId={3}" +
-                                         "&path='{4}'", name, isLeaf, documentId, parentId, path),
+                                         "&documentId='{2}'&parentId={3}", name, isLeaf, documentId, parentId),
                 UriKind.Relative);
         }
 
@@ -532,6 +533,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 CanDeleteDocumentPathToolBar);
             DeleteDocumentPathListBoxCommand = new DelegateCommand<object>(DeleteDocumentPathListBox,
                 CanDeleteDocumentPathListBox);
+            BackToParentFolderCommand = new DelegateCommand<object>(OnBackToParentFolder);
         }
 
         #endregion
@@ -706,7 +708,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     return;
                 }
                 newDocPath = CreateDocumentPathQuery(DocumentName, false, null,
-                   CurrentPathItem.DocumentPathId, string.Empty);
+                   CurrentPathItem.DocumentPathId);
             }
             DocumentChildIsBusy = true;
             _context.BeginExecute<string>(newDocPath, p => Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -751,8 +753,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
             DocumentChildIsBusy = true;
             var newDocPath = CreateDocumentPathQuery(ContractDocument.DocumentName, true,
-                ContractDocument.DocumentId.ToString(),
-                CurrentPathItem.DocumentPathId, string.Empty);
+                ContractDocument.DocumentId.ToString(), CurrentPathItem.DocumentPathId);
             _context.BeginExecute<string>(newDocPath, p => Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
                 DocumentPathsView.Load(true);
@@ -840,7 +841,6 @@ namespace UniCloud.Presentation.Purchase.Contract
 
         #endregion
 
-
         #region 搜索功能
 
         private bool _isBusySearch;
@@ -882,38 +882,85 @@ namespace UniCloud.Presentation.Purchase.Contract
         {
             if (e.Key == Key.Enter)
             {
-
                 var search = ServiceLocator.Current.GetInstance<SearchResultsWindow>();
                 search.Header = "\"" + CurrentPathItem.Name + "\"中的搜索结果";
                 search.ShowDialog();
                 IsBusySearch = true;
-                var searchDocumentUri = SearchDocumentUri(SearchText);
-                _context.BeginExecute<DocumentPathDTO>(searchDocumentUri,
-                   result => Deployment.Current.Dispatcher.BeginInvoke(() =>
-                   {
-                       var context = result.AsyncState as PurchaseData;
-                       try
-                       {
-                           if (context != null)
-                           {
-                               SearchResults.Clear();
-                               SearchResults = ListBoxItemHelper.TransformToListBoxItems(context.EndExecute<DocumentPathDTO>(result).ToList());
-                           }
-                       }
-                       catch (DataServiceQueryException ex)
-                       {
-                           QueryOperationResponse response = ex.Response;
-                           MessageAlert(response.Error.Message);
-                       }
-                       IsBusySearch = false;
-                   }), _context);
+                _openResult = true;
+                _searchKeys.Clear();
+                _tempPrarentId = CurrentPathItem.DocumentPathId;
+                RealSearch();
             }
         }
 
-        private Uri SearchDocumentUri(string name)
+        private void RealSearch()
         {
-            return new Uri(string.Format("SearchDocumentPath?name='{0}'", name),
+            var searchDocumentUri = SearchDocumentUri(CurrentPathItem.DocumentPathId, SearchText);
+            _context.BeginExecute<DocumentPathDTO>(searchDocumentUri,
+               result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+               {
+                   var context = result.AsyncState as PurchaseData;
+                   try
+                   {
+                       if (context != null)
+                       {
+                           SearchResults.Clear();
+                           SearchResults = ListBoxItemHelper.TransformToListBoxItems(context.EndExecute<DocumentPathDTO>(result).ToList());
+                       }
+                   }
+                   catch (DataServiceQueryException ex)
+                   {
+                       QueryOperationResponse response = ex.Response;
+                       MessageAlert(response.Error.Message);
+                   }
+                   IsBusySearch = false;
+               }), _context);
+        }
+        private Uri SearchDocumentUri(int documentPathId, string name)
+        {
+            return new Uri(string.Format("SearchDocumentPath?documentPathId={0}&name='{1}'", documentPathId, name),
                 UriKind.Relative);
+        }
+
+        private bool _openResult;
+        private readonly Dictionary<int, int> _searchKeys = new Dictionary<int, int>();
+        private int _tempPrarentId;
+        /// <summary>
+        /// 在搜索结果中打开文件夹
+        /// </summary>
+        /// <param name="documentPathId"></param>
+        public void OpenFolderInSearchResults(int documentPathId)
+        {
+            _searchKeys[documentPathId] = _tempPrarentId;
+            _tempPrarentId = documentPathId;
+            _pathFilterDes.Value = documentPathId;
+            DocumentPathsView.Load(true);
+        }
+        private void GetOpenFolderSearchResults()
+        {
+            SearchResults.Clear();
+            SearchResults = ListBoxItemHelper.TransformToListBoxItems(DocumentPathsView.ToList());
+        }
+
+        /// <summary>
+        /// 在搜索结果中返回上层文件夹
+        /// </summary>
+        public DelegateCommand<object> BackToParentFolderCommand { get; set; }
+        private void OnBackToParentFolder(object sender)
+        {
+            if (_searchKeys.ContainsKey((int)_pathFilterDes.Value))
+            {
+                _tempPrarentId = _searchKeys[(int)_pathFilterDes.Value];
+                if (_tempPrarentId == CurrentPathItem.DocumentPathId)
+                {
+                    RealSearch();
+                }
+                else
+                {
+                    _pathFilterDes.Value = _tempPrarentId;
+                    DocumentPathsView.Load(true);
+                }
+            }
         }
         #endregion
     }

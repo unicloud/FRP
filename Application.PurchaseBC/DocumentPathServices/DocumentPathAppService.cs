@@ -51,9 +51,9 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
             return _documentPathQuery.DocumentPathsQuery(queryBuilder);
         }
 
-        public IEnumerable<DocumentPathDTO> SearchDocumentPath(string name)
+        public IEnumerable<DocumentPathDTO> SearchDocumentPath(int documentPathId, string name)
         {
-            return _documentPathQuery.SearchDocumentPath(name);
+            return _documentPathQuery.SearchDocumentPath(documentPathId, name);
         }
         /// <summary>
         ///     删除文档路径
@@ -65,11 +65,11 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
             DelSubDocumentPath(docPath);
         }
 
-        public void AddDocPath(string name, string isLeaf, string documentId, int parentId, string path)
+        public void AddDocPath(string name, string isLeaf, string documentId, int parentId)
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new Exception("文件路径名称不能为空");
+                throw new Exception("文件名称不能为空");
             }
             var docPathIsLeaf = bool.Parse(isLeaf); //是否是文件夹
             string extension = null;
@@ -82,9 +82,10 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
             {
                 docPathId = Guid.Parse(documentId);
             }
+            var parent = _documentPathRepository.Get(parentId);
 
             var newDocumentPath = DocumentPathFactory.CreateDocumentPath(name, docPathIsLeaf, extension,
-                docPathId, parentId, path);
+                docPathId, parentId, parent.Path + "\\" + name);
             _documentPathRepository.Add(newDocumentPath);
             _documentPathRepository.UnitOfWork.Commit();
         }
