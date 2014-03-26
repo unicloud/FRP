@@ -58,7 +58,7 @@ namespace UniCloud.Presentation.Shell
         protected override void InitializeShell()
         {
             base.InitializeShell();
-            Application.Current.RootVisual = (UIElement) Shell;
+            System.Windows.Application.Current.RootVisual = (UIElement) Shell;
         }
 
         protected override DependencyObject CreateShell()

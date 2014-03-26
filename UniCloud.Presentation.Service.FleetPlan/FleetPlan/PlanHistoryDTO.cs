@@ -371,55 +371,55 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
 
         partial void OnPlanTypeChanged()
         {
-            //List<ActionCategoryDTO> actionCategories;
-            //if (PlanType == 1 && ActionType == "引进")
-            //    actionCategories = FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "引进").ToList();
-            //else if (PlanType == 1 && ActionType == "退出")
-            //    actionCategories = FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "退出").ToList();
-            //else if (PlanType == 2 && ActionType == "变更")
-            //    actionCategories = FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "变更").ToList();
-            //else actionCategories = FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().ToList();
+            List<ActionCategoryDTO> actionCategories;
+            if (PlanType == 1 && ActionType == "引进")
+                actionCategories = FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "引进").ToList();
+            else if (PlanType == 1 && ActionType == "退出")
+                actionCategories = FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "退出").ToList();
+            else if (PlanType == 2 && ActionType == "变更")
+                actionCategories = FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "变更").ToList();
+            else actionCategories = FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().ToList();
 
-            //ActionCategories.Clear();
-            //foreach (var actionCategory in actionCategories)
-            //{
-            //    var actioncate = new ActionCateDTO
-            //    {
-            //        Id = actionCategory.Id,
-            //        ActionType = actionCategory.ActionType,
-            //        ActionName = actionCategory.ActionName,
-            //        NeedRequest = actionCategory.NeedRequest,
-            //    };
-            //    ActionCategories.Add(actioncate);
-            //}
-            //OnPropertyChanged("ActionCategories");
+            ActionCategories.Clear();
+            foreach (var actionCategory in actionCategories)
+            {
+                var actioncate = new ActionCateDTO
+                {
+                    Id = actionCategory.Id,
+                    ActionType = actionCategory.ActionType,
+                    ActionName = actionCategory.ActionName,
+                    NeedRequest = actionCategory.NeedRequest,
+                };
+                ActionCategories.Add(actioncate);
+            }
+            OnPropertyChanged("ActionCategories");
 
         }
 
         partial void OnActionTypeChanged()
         {
-            //List<ActionCategoryDTO> actionCategories;
-            //if (PlanType == 1 && ActionType == "引进")
-            //    actionCategories = FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "引进").ToList();
-            //else if (PlanType == 1 && ActionType == "退出")
-            //    actionCategories = FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "退出").ToList();
-            //else if (PlanType == 2 && ActionType == "变更")
-            //    actionCategories = FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "变更").ToList();
-            //else actionCategories = FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().ToList();
+            List<ActionCategoryDTO> actionCategories;
+            if (PlanType == 1 && ActionType == "引进")
+                actionCategories = FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "引进").ToList();
+            else if (PlanType == 1 && ActionType == "退出")
+                actionCategories = FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "退出").ToList();
+            else if (PlanType == 2 && ActionType == "变更")
+                actionCategories = FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "变更").ToList();
+            else actionCategories = FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().ToList();
 
-            //ActionCategories.Clear();
-            //foreach (var actionCategory in actionCategories)
-            //{
-            //    var actioncate = new ActionCateDTO
-            //    {
-            //        Id = actionCategory.Id,
-            //        ActionType = actionCategory.ActionType,
-            //        ActionName = actionCategory.ActionName,
-            //        NeedRequest = actionCategory.NeedRequest,
-            //    };
-            //    ActionCategories.Add(actioncate);
-            //}
-            //OnPropertyChanged("ActionCategories");
+            ActionCategories.Clear();
+            foreach (var actionCategory in actionCategories)
+            {
+                var actioncate = new ActionCateDTO
+                {
+                    Id = actionCategory.Id,
+                    ActionType = actionCategory.ActionType,
+                    ActionName = actionCategory.ActionName,
+                    NeedRequest = actionCategory.NeedRequest,
+                };
+                ActionCategories.Add(actioncate);
+            }
+            OnPropertyChanged("ActionCategories");
         }
 
         partial void OnActionNameChanged()

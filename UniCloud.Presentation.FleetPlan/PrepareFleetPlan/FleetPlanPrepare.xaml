@@ -171,8 +171,8 @@
                                          ContextMenuTemplate="{x:Null}">
                             <telerik:RadGridView d:LayoutOverrides="Height"
                                                  x:Name="PlanDetail"
-                                                 ItemsSource="{Binding PlanHistories,Mode=TwoWay}"
-                                                 IsBusy="{Binding AllPlans.IsBusy}"
+                                                 ItemsSource="{Binding ViewPlanHistories,Mode=TwoWay}"
+                                                 IsBusy="{Binding AllPlanHistories.IsBusy}"
                                                  IsReadOnly="True"
                                                  ShowGroupPanel="True"
                                                  ShowColumnFooters="True">
