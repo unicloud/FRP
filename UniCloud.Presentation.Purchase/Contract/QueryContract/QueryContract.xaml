@@ -141,7 +141,10 @@
                                                              SelectionMode="Single"
                                                              IsDragDropEnabled="True"
                                                              telerik:TreeViewSettings.DragDropExecutionMode="New"
-                                                             telerik:TextSearch.TextPath="Name">
+                                                             telerik:TextSearch.TextPath="Name"
+                                                             TextDropAfter="在前面 "
+                                                             TextDropBefore="在后面 "
+                                                             TextDropIn="在里面 ">
                                             <telerik:RadTreeView.ItemContainerStyle>
                                                 <Style TargetType="telerik:RadTreeViewItem">
                                                     <Setter Property="DefaultImageSrc"
@@ -168,34 +171,11 @@
                                                  CanUserPin="False"
                                                  ContextMenuTemplate="{x:Null}">
                                     <telerik:RadListBox Name="DocumentListBox"
-                                                        HorizontalAlignment="Stretch"
-                                                        VerticalAlignment="Stretch"
-                                                        AllowDrop="True"
-                                                        uc:RadListBoxDragDropBehavior.IsEnabled="True"
-                                                        ItemsSource="{Binding CurrentPathItem.SubDocumentPaths}"
-                                                        SelectedItem="{Binding SelectDocumentPath, Mode=TwoWay}"
-                                                        ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                                        <telerik:RadListBox.Resources>
-                                            <DataTemplate x:Key="DraggedItemTemplate">
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="Dragging:" />
-                                                        <TextBlock Text="{Binding CurrentDraggedItem.Name}"
-                                                                   FontWeight="Bold" />
-                                                    </StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="{Binding CurrentDropPosition}"
-                                                                   FontWeight="Bold"
-                                                                   MinWidth="45" />
-                                                        <TextBlock Text=", ("
-                                                                   Foreground="Gray" />
-                                                        <TextBlock Text="{Binding CurrentDraggedOverItem.Name}" />
-                                                        <TextBlock Text=")"
-                                                                   Foreground="Gray" />
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </telerik:RadListBox.Resources>
+                                             HorizontalAlignment="Stretch"
+                                             VerticalAlignment="Stretch"
+                                             ItemsSource="{Binding CurrentPathItem.SubDocumentPaths}"
+                                             SelectedItem="{Binding SelectDocumentPath, Mode=TwoWay}"
+                                             ScrollViewer.HorizontalScrollBarVisibility="Auto">
                                         <telerik:RadContextMenu.ContextMenu>
                                             <telerik:RadContextMenu>
                                                 <telerik:RadMenuItem Header="新建文件夹"
