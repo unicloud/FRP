@@ -48,6 +48,8 @@ namespace UniCloud.Application.FleetPlanBC.Query.AircraftTypeQueries
                 Name = p.Name,
                 AircraftCategoryId = p.AircraftCategoryId,
                 Regional = p.AircraftCategory.Regional,
+                CaacAircraftTypeId = p.CaacAircraftTypeId,
+                CaacAircraftTypeName = p.CaacAircraftType.Name,
             });
         }
     }

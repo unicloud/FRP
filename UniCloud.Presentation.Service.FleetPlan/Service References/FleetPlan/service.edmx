@@ -121,7 +121,20 @@
         <Property Name="Id" Type="Edm.Guid" Nullable="false" />
         <Property Name="Name" Type="Edm.String" />
         <Property Name="AircraftCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="CaacAircraftTypeId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="CaacAircraftTypeName" Type="Edm.String" />
         <Property Name="Regional" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="CAACAircraftTypeDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="AircraftCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftSeriesId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ManufacturerId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
       <EntityType Name="AirlinesDTO">
         <Key>
@@ -579,19 +592,6 @@
         <Property Name="AircraftBusiness" Type="UniCloud.Application.FleetPlanBC.DTO.AircraftBusinessDTO" />
       </ComplexType>
     </Schema>
-    <Schema Namespace="UniCloud.Application.FleetPlanBC.DTO.CAACAircraftTypeDTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-      <EntityType Name="CAACAircraftTypeDTO">
-        <Key>
-          <PropertyRef Name="Id" />
-        </Key>
-        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
-        <Property Name="Name" Type="Edm.String" />
-        <Property Name="Description" Type="Edm.String" />
-        <Property Name="AircraftCategoryId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="AircraftSeriesId" Type="Edm.Guid" Nullable="false" />
-        <Property Name="ManufacturerId" Type="Edm.Guid" Nullable="false" />
-      </EntityType>
-    </Schema>
     <Schema Namespace="UniCloud.DistributedServices.FleetPlan" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="FleetPlanData" m:IsDefaultEntityContainer="true">
         <EntitySet Name="ActionCategories" EntityType="UniCloud.Application.FleetPlanBC.DTO.ActionCategoryDTO" />
@@ -600,7 +600,7 @@
         <EntitySet Name="AircraftCategories" EntityType="UniCloud.Application.FleetPlanBC.DTO.AircraftCategoryDTO" />
         <EntitySet Name="Aircrafts" EntityType="UniCloud.Application.FleetPlanBC.DTO.AircraftDTO" />
         <EntitySet Name="AircraftTypes" EntityType="UniCloud.Application.FleetPlanBC.DTO.AircraftTypeDTO" />
-        <EntitySet Name="CaacAircraftTypes" EntityType="UniCloud.Application.FleetPlanBC.DTO.CAACAircraftTypeDTO.CAACAircraftTypeDTO" />
+        <EntitySet Name="CaacAircraftTypes" EntityType="UniCloud.Application.FleetPlanBC.DTO.CAACAircraftTypeDTO" />
         <EntitySet Name="Airlineses" EntityType="UniCloud.Application.FleetPlanBC.DTO.AirlinesDTO" />
         <EntitySet Name="AirProgrammings" EntityType="UniCloud.Application.FleetPlanBC.DTO.AirProgrammingDTO" />
         <EntitySet Name="Annuals" EntityType="UniCloud.Application.FleetPlanBC.DTO.AnnualDTO" />

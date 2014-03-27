@@ -17,10 +17,8 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Telerik.Windows.Data;
-using UniCloud.Application.FleetPlanBC.DTO.CAACAircraftTypeDTO;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan;
 
 #endregion
@@ -100,19 +98,19 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// 获取计划明细中集合属性ActionCategories的值
         /// </summary>
         /// <param name="ph"></param>
-        void GetActionCategoriesForPlanHistory(PlanHistoryDTO ph);
+        ObservableCollection<ActionCateDTO> GetActionCategoriesForPlanHistory(PlanHistoryDTO ph);
 
         /// <summary>
         /// 获取计划明细中集合属性AircraftCategories的值
         /// </summary>
         /// <param name="ph"></param>
-        void GetAircraftCategoriesForPlanHistory(PlanHistoryDTO ph);
+        ObservableCollection<AircraftCateDTO> GetAircraftCategoriesForPlanHistory(PlanHistoryDTO ph);
 
         /// <summary>
         /// 获取计划明细中集合属性AircraftTypes的值
         /// </summary>
         /// <param name="ph"></param>
-        void GetAircraftTypesForPlanHistory(PlanHistoryDTO ph);
+        ObservableCollection<AircraftTyDTO> GetAircraftTypesForPlanHistory(PlanHistoryDTO ph);
 
         /// <summary>
         /// 当计划明细中活动类型发生变化的时候，需要改变相应属性：目标类型、净增座位、净增商载

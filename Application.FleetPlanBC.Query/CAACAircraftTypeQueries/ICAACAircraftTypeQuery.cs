@@ -17,7 +17,7 @@
 #region 命名空间
 
 using System.Linq;
-using UniCloud.Application.FleetPlanBC.DTO.CAACAircraftTypeDTO;
+using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Domain.FleetPlanBC.Aggregates.CAACAircraftTypeAgg;
 
 #endregion

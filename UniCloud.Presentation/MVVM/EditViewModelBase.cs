@@ -83,6 +83,7 @@ namespace UniCloud.Presentation.MVVM
             }
             else
             {
+                OnSaveExecuting(null);
                 _service.SubmitChanges(sm =>
                 {
                     IsBusy = false;

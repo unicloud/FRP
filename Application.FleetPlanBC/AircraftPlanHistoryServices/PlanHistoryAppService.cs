@@ -76,7 +76,9 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
         {
             var queryBuilder =
                 new QueryBuilder<PlanHistory>();
-            return _planHistoryQuery.PlanHistoryDTOQuery(queryBuilder);
+            var temp= _planHistoryQuery.PlanHistoryDTOQuery(queryBuilder);
+            var aa = temp.ToList();
+            return temp;
         }
 
         /// <summary>
@@ -92,7 +94,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
             var aircraftType = _aircraftTypeRepository.Get(dto.AircraftTypeId);
             var airlines = _airlinesRepository.Get(dto.AirlinesId);
             var annual = _annualRepository.Get(dto.PerformAnnualId);
-            // 添加接机行
+            // 添加计划明细
             if (dto.PlanType == 1)
             {
                 var newPlanHistory = PlanHistoryFactory.CreateOperationPlan(dto.PlanId);

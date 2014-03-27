@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Microsoft.Data.Edm.Validation;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 #endregion
@@ -312,51 +313,6 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         #endregion
 
         #region 属性绑定
-        /// <summary>
-        /// 座级集合，用于属性绑定
-        /// </summary>
-        //internal IEnumerable<AircraftCategoryDTO> AircraftCategories
-        //{
-        //    get
-        //    {
-        //        if (ActionName == "客改货")
-        //            return FleetPlanService.GetAircraftCategories(null).SourceCollection.Cast<AircraftCategoryDTO>().Where(p => p.Category == "货机").ToList();
-        //        else if (ActionName == "货改客")
-        //            return FleetPlanService.GetAircraftCategories(null).SourceCollection.Cast<AircraftCategoryDTO>().Where(p => p.Category == "客机").ToList();
-        //        else
-        //            return FleetPlanService.GetAircraftCategories(null).SourceCollection.Cast<AircraftCategoryDTO>().ToList();
-        //    }
-        //}
-
-        /// <summary>
-        /// 机型集合，用于属性绑定
-        /// </summary>
-        //internal IEnumerable<AircraftTypeDTO> AircraftTypes
-        //{
-        //    get
-        //    {
-        //        if (Regional != null)
-        //            return FleetPlanService.GetAircraftTypes(null).SourceCollection.Cast<AircraftTypeDTO>().Where(p => p.Regional == Regional).ToList();
-        //        else return FleetPlanService.GetAircraftTypes(null).SourceCollection.Cast<AircraftTypeDTO>().ToList();
-        //    }
-        //}
-
-        /// <summary>
-        /// 操作集合，用于属性绑定
-        /// </summary>
-        //internal IEnumerable<ActionCategoryDTO> ActionCategories
-        //{
-        //    get
-        //    {
-        //        if (PlanType == 1 && ActionType == "引进")
-        //            return FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "引进").ToList();
-        //        else if (PlanType == 1 && ActionType == "退出")
-        //            return FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "退出").ToList();
-        //        else if (PlanType == 2 && ActionType == "变更")
-        //            return FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "变更").ToList();
-        //        else return FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().ToList();
-        //    }
-        //}
 
         /// <summary>
         /// 计划历史比较状态
@@ -373,7 +329,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// </summary>
         partial void OnPlanTypeChanged()
         {
-            FleetPlanService.GetActionCategoriesForPlanHistory(this);
+            ActionCategories = FleetPlanService.GetActionCategoriesForPlanHistory(this);
             OnPropertyChanged("ActionCategories");
         }
 
@@ -382,7 +338,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// </summary>
         partial void OnActionTypeChanged()
         {
-            FleetPlanService.GetActionCategoriesForPlanHistory(this);
+            ActionCategories = FleetPlanService.GetActionCategoriesForPlanHistory(this);
             OnPropertyChanged("ActionCategories");
         }
 
@@ -391,16 +347,16 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// </summary>
         partial void OnActionNameChanged()
         {
-            FleetPlanService.GetAircraftCategoriesForPlanHistory(this);
+            AircraftCategories = FleetPlanService.GetAircraftCategoriesForPlanHistory(this);
             OnPropertyChanged("AircraftCategories");
         }
-        
+
         /// <summary>
         /// 座级发生变化触发相关变化
         /// </summary>
         partial void OnRegionalChanged()
         {
-            FleetPlanService.GetAircraftTypesForPlanHistory(this);
+            AircraftTypes = FleetPlanService.GetAircraftTypesForPlanHistory(this);
             OnPropertyChanged("AircraftTypes");
         }
 
@@ -412,7 +368,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
             this.OnPropertyChanged("DeltaPnr");
             this.OnPropertyChanged("DeltaCargo");
         }
-        
+
         /// <summary>
         /// 活动类型发生变化触发相关变化
         /// </summary>
@@ -420,7 +376,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         {
             FleetPlanService.OnChangedActionCategory(this);
         }
-        
+
         /// <summary>
         /// 运营历史（或商业数据历史）发生变化时触发相关变化
         /// </summary>
