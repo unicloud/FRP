@@ -48,6 +48,8 @@
     <Compile Include="ActionCategoryServices\IActionCategoryAppService.cs" />
     <Compile Include="AircraftCategoryServices\AircraftCategoryAppService.cs" />
     <Compile Include="AircraftCategoryServices\IAircraftCategoryAppService.cs" />
+    <Compile Include="AircraftConfigurationServices\AircraftConfigurationAppService.cs" />
+    <Compile Include="AircraftConfigurationServices\IAircraftConfigurationAppService.cs" />
     <Compile Include="AircraftLicenseServices\AircraftLicenseAppService.cs" />
     <Compile Include="AircraftLicenseServices\IAircraftLicenseAppService.cs" />
     <Compile Include="AircraftSeriesServices\AircraftSeriesAppService.cs" />

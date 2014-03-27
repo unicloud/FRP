@@ -21,7 +21,9 @@
     </UserControl.Resources>
 
     <Grid>
-        <telerik:RadDocking HasDocumentHost="False">
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False">
             <telerik:RadSplitContainer>
                 <telerik:RadSplitContainer Orientation="Vertical"
                                            telerik:ProportionalStackPanel.RelativeSize="600, 600">
@@ -119,7 +121,6 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
-                                    <RowDefinition Height="30" />
                                 </Grid.RowDefinitions>
                                 <telerik:RadToolBar HorizontalAlignment="Stretch"
                                                     Margin="0 0 0 -1"
@@ -173,35 +174,29 @@
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding Name}" />
                                             <telerik:GridViewComboBoxColumn Header="证照种类"
-                                                                            IsSortable="True"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
-                                                                            ItemsSource="{Binding DataContext.LicenseTypes, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                            ItemsSource="{Binding DataContext.LicenseTypes, Mode=TwoWay, ElementName=AircraftLicenseView}"
                                                                             DataMemberBinding="{Binding LicenseTypeId, Mode=TwoWay}"
                                                                             SelectedValueMemberPath="LicenseTypeId"
                                                                             DisplayMemberPath="Name" />
                                             <telerik:GridViewDataColumn Header="发证单位"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding IssuedUnit}" />
                                             <telerik:GridViewDataColumn Header="发证日期"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding IssuedDate, StringFormat={StaticResource DateStringFormat}}" />
                                             <telerik:GridViewDataColumn Header="有效期(月)"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding ValidMonths}" />
                                             <telerik:GridViewDataColumn Header="证照到期日"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding ExpireDate, StringFormat={StaticResource DateStringFormat}}" />
                                             <telerik:GridViewDataColumn Header="状态"
-                                                                        IsSortable="True"
                                                                         MaxWidth="250"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
@@ -209,13 +204,11 @@
                                                                         IsReadOnly="True"
                                                                         DataMemberBinding="{Binding State, ConverterParameter=LicenseStatus, Converter={StaticResource EnumToStringConverter}}" />
                                             <telerik:GridViewDataColumn Header="扫描件"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         IsReadOnly="True"
                                                                         DataMemberBinding="{Binding FileName}" />
                                             <telerik:GridViewDataColumn Header="描述"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding Description}" />
@@ -246,10 +239,20 @@
                                                         OverflowButtonVisibility="Collapsed">
                                         <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/open.png"
                                                                       Command="{Binding DataContext.AddDocumentCommand, ElementName=AircraftLicenseView}" />
+                                        <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/save.png"
+                                                                      Command="{Binding Path=Commands.Save, ElementName=ImageEditor}" />
                                         <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/Default/Rotate90CW.png"
                                                                       Command="{Binding Path=Commands.Rotate90Clockwise, ElementName=ImageEditor}" />
                                         <telerik:RadImageEditorButton Image="/Telerik.Windows.Controls.ImageEditor;Component/Images/Default/Rotate90CCW.png"
                                                                       Command="{Binding Path=Commands.Rotate90Counterclockwise, ElementName=ImageEditor}" />
+                                        <telerik:RadComboBox Margin="0,3"
+                                                             Width="70"
+                                                             HorizontalAlignment="Stretch"
+                                                             VerticalAlignment="Center"
+                                                             ItemsSource="{Binding DataContext.Percents, Mode=TwoWay, ElementName=AircraftLicenseView}"
+                                                             SelectedValue="{Binding Percent,Mode=TwoWay}"
+                                                             SelectedValuePath="Key"
+                                                             DisplayMemberPath="Value" />
                                     </telerik:RadToolBar>
                                     <telerik:RadImageEditor Grid.Row="1"
                                                             x:Name="ImageEditor"

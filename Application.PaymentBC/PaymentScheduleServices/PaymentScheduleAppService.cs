@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.PaymentScheduleQueries;
@@ -32,7 +33,8 @@ namespace UniCloud.Application.PaymentBC.PaymentScheduleServices
     ///     实现发动机维修发票接口。
     ///     用于处于维修发票相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class PaymentScheduleAppService : IPaymentScheduleAppService
+   [LogAOP]
+    public class PaymentScheduleAppService : ContextBoundObject, IPaymentScheduleAppService
     {
         private readonly IPaymentScheduleQuery _paymentScheduleQuery;
         private readonly IPaymentScheduleRepository _paymentScheduleRepository;

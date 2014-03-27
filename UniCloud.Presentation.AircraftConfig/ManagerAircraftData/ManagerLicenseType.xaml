@@ -10,7 +10,7 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             Name="AircraftSeries">
+             Name="LicenseTypeView">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -47,8 +47,7 @@
                              Margin="0,3"
                              telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Name, Mode=TwoWay}"
-                             IsReadOnly="True">
-                    </TextBox>
+                             IsReadOnly="True"/>
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
                                Text="是否有附件"
@@ -72,8 +71,7 @@
                              Grid.Row="2"
                              telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Description, Mode=TwoWay}"
-                             IsReadOnly="True">
-                    </TextBox>
+                             IsReadOnly="True"/>
                 </Grid>
             </DataTemplate>
 
@@ -105,8 +103,7 @@
                     <TextBox Grid.Row="0"
                              Grid.Column="2"
                              Margin="0,3"
-                             Text="{Binding Name, Mode=TwoWay}">
-                    </TextBox>
+                             Text="{Binding Name, Mode=TwoWay}"/>
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
                                Text="是否有附件"
@@ -127,15 +124,16 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="2"
-                             Text="{Binding Description, Mode=TwoWay}">
-                    </TextBox>
+                             Text="{Binding Description, Mode=TwoWay}"/>
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
-        <telerik:RadDocking HasDocumentHost="False">
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False">
             <telerik:RadSplitContainer>
                 <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
                     <telerik:RadPaneGroup>
@@ -169,19 +167,15 @@
                                         <telerik:RadGridView.Columns>
                                             <input:DataPageSerialColumn  Header="序号" />
                                             <telerik:GridViewDataColumn Header="名称"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding Name}" />
                                             <telerik:GridViewDataColumn Header="是否有附件"
-                                                                        IsReadOnly="False"
-                                                                        EditTriggers="CellClick"
                                                                         HeaderTextAlignment="Center"
                                                                         TextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         DataMemberBinding="{Binding HasFile}" />
                                             <telerik:GridViewDataColumn Header="描述"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         MaxWidth="250"

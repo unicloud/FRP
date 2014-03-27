@@ -191,6 +191,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AircraftConfigModule.cs" />
+    <Compile Include="ManagerAircraftConfig\ManagerAircraftConfiguration.xaml.cs">
+      <DependentUpon>ManagerAircraftConfiguration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ManagerAircraftConfig\ManagerAircraftConfigurationVm.cs" />
     <Compile Include="ManagerAircraftConfig\ManagerAircraftSeries.xaml.cs">
       <DependentUpon>ManagerAircraftSeries.xaml</DependentUpon>
     </Compile>
@@ -232,6 +236,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Page Include="ManagerAircraftConfig\ManagerAircraftConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ManagerAircraftConfig\ManagerAircraftSeries.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -142,6 +142,10 @@ namespace UniCloud.DistributedServices.Part
             get { return _basicConfigGroupAppService.GetBasicConfigGroups(); }
         }
 
+        public IQueryable<ConfigGroupDTO> ConfigGroups
+        {
+            get { return null; }
+        }
         #endregion
 
         #region 基本构型集合
@@ -355,5 +359,10 @@ namespace UniCloud.DistributedServices.Part
             get { return _adSbAppService.GetAdSbs(); }
         }
         #endregion
+
+        public IQueryable<UtilizationReportDTO> UtilizationReports
+        {
+            get { return null; }
+        }
     }
 }

@@ -73,6 +73,16 @@ namespace UniCloud.Application.AircraftConfigBC.DTO
         /// 制造商
         /// </summary>
         public string ManufacturerName { get; set; }
+
+        /// <summary>
+        /// 民航机型
+        /// </summary>
+        public Guid CaacAircraftTypeId { get; set; }
+
+        /// <summary>
+        /// 民航机型
+        /// </summary>
+        public string CaacAircraftTypeName { get; set; }
         #endregion
     }
 }

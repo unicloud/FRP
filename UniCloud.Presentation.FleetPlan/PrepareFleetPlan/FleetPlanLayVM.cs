@@ -49,6 +49,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private AnnualDTO _curAnnual = new AnnualDTO();
         private FilterDescriptor _annualDescriptor;
         private FilterDescriptor _planAcDescriptor;
+        FilterDescriptor filter = new FilterDescriptor("PlanId", FilterOperator.IsEqualTo, Guid.Empty);
         private PlanHistoryDTO _operationPlan;
         private PlanHistoryDTO _changePlan;
 
@@ -72,15 +73,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private void InitializeVM()
         {
             Annuals = _service.CreateCollection(_context.Annuals);
-            _annualDescriptor = new FilterDescriptor("Year", FilterOperator.IsGreaterThanOrEqualTo, DateTime.Now.Year - 1);
+            _annualDescriptor = new FilterDescriptor("Year", FilterOperator.IsGreaterThanOrEqualTo, DateTime.Now.Year - 2);
             Annuals.FilterDescriptors.Add(_annualDescriptor);
+            Annuals.OrderBy(p => p.Year);
             Annuals.LoadedData += (sender, e) =>
             {
-                if (e.HasError)
-                {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
                 if (Annuals.Count != 0)
                 {
                     _curAnnual = Annuals.SingleOrDefault(p => p.IsOpen);
@@ -88,31 +85,50 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                         Plans.AutoLoad = true;
                     else
                         Plans.Load(true);
+
                 }
                 RefreshCommandState();
-            };
+            }; //获取年度集合，同时得到当前计划年度，再获取计划集合，同时得到当前计划
 
             Plans = _service.CreateCollection(_context.Plans);
             Plans.LoadedData += (sender, e) =>
             {
-                if (e.HasError)
-                {
-                    e.MarkErrorAsHandled();
-                    return;
-                }
                 CurPlan = Plans.Where(p => p.Year == _curAnnual.Year).OrderBy(p => p.VersionNumber).LastOrDefault();
+                if (!AllPlanHistories.AutoLoad)
+                    AllPlanHistories.AutoLoad = true;
+                else
+                    AllPlanHistories.Load(true);
             };
-            _service.RegisterCollectionView(Plans);//注册查询集合
+            _service.RegisterCollectionView(Plans);//注册查询集合，获取计划集合，同时得到当前计划
 
-            PlanAircrafts = _service.CreateCollection(_context.PlanAircrafts.Expand(p => p.PlanHistories));
+            AllPlanHistories = _service.CreateCollection(_context.PlanHistories);
+            AllPlanHistories.LoadedData += (o, e) =>
+            {
+                ViewPlanHistories.Clear();
+                if (CurPlan != null)
+                {
+                    foreach (var ph in AllPlanHistories.SourceCollection.Cast<PlanHistoryDTO>())
+                    {
+                        if (ph.PlanId == CurPlan.Id)
+                            ViewPlanHistories.Add(ph);
+                    }
+                }
+            };
+
+            ViewPlanAircrafts = _service.CreateCollection(_context.PlanAircrafts.Expand(p => p.PlanHistories));
             _planAcDescriptor = new FilterDescriptor("AircraftId", FilterOperator.IsEqualTo, null);
-            PlanAircrafts.FilterDescriptors.Add(_planAcDescriptor);
-            _service.RegisterCollectionView(PlanAircrafts);//注册查询集合
+            ViewPlanAircrafts.FilterDescriptors.Add(_planAcDescriptor);
+            _service.RegisterCollectionView(ViewPlanAircrafts);//注册查询集合，获取所有还没飞机的计划飞机集合，用户界面展示
 
-            Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_context, _context.Aircrafts);
+            Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_context, _context.Aircrafts);//获取所有运营飞机的集合，TODO：判断是否必要筛选掉已退出运营的飞机
 
-            AllPlanAircrafts = new QueryableDataServiceCollectionView<PlanAircraftDTO>(_context, _context.PlanAircrafts);
+            AllPlanAircrafts = new QueryableDataServiceCollectionView<PlanAircraftDTO>(_context, _context.PlanAircrafts);//获取所有的计划飞机，用于关联到运营飞机，用于从运营飞机编制计划时使用
 
+            //AircraftCategories = new QueryableDataServiceCollectionView<AircraftCategoryDTO>(_context, _context.AircraftCategories);
+
+            AllActionCategories = new QueryableDataServiceCollectionView<ActionCategoryDTO>(_context, _context.ActionCategories);
+
+            //AircraftTypes = new QueryableDataServiceCollectionView<AircraftTypeDTO>(_context, _context.AircraftTypes);
         }
 
         /// <summary>
@@ -145,12 +161,99 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #endregion
 
+        //#region 座级集合
+
+        ///// <summary>
+        /////     座级集合
+        ///// </summary>
+        //public QueryableDataServiceCollectionView<AircraftCategoryDTO> AircraftCategories { get; set; }
+
+        //private ObservableCollection<AircraftCategoryDTO> _viewAircraftCategories = new ObservableCollection<AircraftCategoryDTO>();
+
+        ///// <summary>
+        ///// 用于banding的座级集合
+        ///// </summary>
+        //public ObservableCollection<AircraftCategoryDTO> ViewAircraftCategories
+        //{
+        //    get { return this._viewAircraftCategories; }
+        //    private set
+        //    {
+        //        if (this._viewAircraftCategories != value)
+        //        {
+        //            _viewAircraftCategories = value;
+        //            this.RaisePropertyChanged(() => this.ViewAircraftCategories);
+        //        }
+        //    }
+        //}
+        //#endregion
+
+        #region 活动类型集合
+
+        /// <summary>
+        ///     活动类型集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ActionCategoryDTO> AllActionCategories { get; set; }
+
+
+        //private ObservableCollection<ActionCategoryDTO> _viewActionCategories = new ObservableCollection<ActionCategoryDTO>();
+
+        ///// <summary>
+        ///// 用于banding的活动类型
+        ///// </summary>
+        //public ObservableCollection<ActionCategoryDTO> ViewActionCategories
+        //{
+        //    get { return this._viewActionCategories; }
+        //    private set
+        //    {
+        //        if (this._viewActionCategories != value)
+        //        {
+        //            _viewActionCategories = value;
+        //            this.RaisePropertyChanged(() => this.ViewActionCategories);
+        //        }
+        //    }
+        //}
+
+        #endregion
+
+        //#region 机型集合
+
+        ///// <summary>
+        /////     机型集合
+        ///// </summary>
+        //public QueryableDataServiceCollectionView<AircraftTypeDTO> AircraftTypes { get; set; }
+
+
+        //private ObservableCollection<AircraftTypeDTO> _viewAircraftTypes = new ObservableCollection<AircraftTypeDTO>();
+
+        ///// <summary>
+        ///// 用于banding的机型集合
+        ///// </summary>
+        //public ObservableCollection<AircraftTypeDTO> ViewAircraftTypes
+        //{
+        //    get { return this._viewAircraftTypes; }
+        //    private set
+        //    {
+        //        if (this._viewAircraftTypes != value)
+        //        {
+        //            _viewAircraftTypes = value;
+        //            this.RaisePropertyChanged(() => this.ViewAircraftTypes);
+        //        }
+        //    }
+        //}
+
+        //#endregion
+
         #region 所有运力增减计划集合
 
         /// <summary>
         /// 所有运力增减计划集合
         /// </summary>
         public QueryableDataServiceCollectionView<PlanDTO> Plans { get; set; }
+
+        /// <summary>
+        /// 计划明细集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PlanHistoryDTO> AllPlanHistories { get; set; }
 
         #endregion
 
@@ -160,6 +263,15 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         ///     所有计划飞机集合
         /// </summary>
         public QueryableDataServiceCollectionView<PlanAircraftDTO> AllPlanAircrafts { get; set; }
+
+        #endregion
+
+        #region 计划飞机集合
+
+        /// <summary>
+        ///     计划飞机集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PlanAircraftDTO> ViewPlanAircrafts { get; set; }
 
         #endregion
 
@@ -202,11 +314,14 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             Annuals.Load(true);
             AllPlanAircrafts.Load(true);
+            //AircraftCategories.Load(true);
+            AllActionCategories.Load(true);
+            //AircraftTypes.Load(true);
 
-            if (!PlanAircrafts.AutoLoad)
-                PlanAircrafts.AutoLoad = true;
+            if (!ViewPlanAircrafts.AutoLoad)
+                ViewPlanAircrafts.AutoLoad = true;
             else
-                PlanAircrafts.Load(true);
+                ViewPlanAircrafts.Load(true);
 
             if (!Aircrafts.AutoLoad)
                 Aircrafts.AutoLoad = true;
@@ -231,11 +346,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 if (_curPlan != value)
                 {
                     _curPlan = value;
-                    PlanHistories.Clear();
-                    foreach (var ph in value.PlanHistories)
-                    {
-                        PlanHistories.Add(ph);
-                    }
+                    filter.Value = value.Id;
+                    PlanHistories.Load(true);
                     RaisePropertyChanged(() => CurPlan);
                     RaisePropertyChanged(() => PlanTitle);
                 }
@@ -270,32 +382,23 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #region 计划明细集合
 
-        private ObservableCollection<PlanHistoryDTO> _planHistories = new ObservableCollection<PlanHistoryDTO>();
+        private ObservableCollection<PlanHistoryDTO> _viewPlanHistories = new ObservableCollection<PlanHistoryDTO>();
 
         /// <summary>
         ///     计划明细集合
         /// </summary>
-        public ObservableCollection<PlanHistoryDTO> PlanHistories
+        public ObservableCollection<PlanHistoryDTO> ViewPlanHistories
         {
-            get { return _planHistories; }
+            get { return _viewPlanHistories; }
             private set
             {
-                if (_planHistories != value)
+                if (_viewPlanHistories != value)
                 {
-                    _planHistories = value;
-                    RaisePropertyChanged(() => PlanHistories);
+                    _viewPlanHistories = value;
+                    RaisePropertyChanged(() => ViewPlanHistories);
                 }
             }
         }
-
-        #endregion
-
-        #region 计划飞机集合
-
-        /// <summary>
-        ///     计划飞机集合
-        /// </summary>
-        public QueryableDataServiceCollectionView<PlanAircraftDTO> PlanAircrafts { get; set; }
 
         #endregion
 
@@ -316,13 +419,43 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     _selPlanHistory = value;
                     RaisePropertyChanged(() => SelPlanHistory);
 
-                    if (PlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>().Any(pa => pa.Id == _selPlanHistory.PlanAircraftId))
-                        SelPlanAircraft = PlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>().FirstOrDefault(p => p.Id == _selPlanHistory.PlanAircraftId);
-                    else SelPlanAircraft = null;
+                    if (ViewPlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>().Any(pa => pa.Id == _selPlanHistory.PlanAircraftId))
+                        SelPlanAircraft = ViewPlanAircrafts.SourceCollection.Cast<PlanAircraftDTO>().FirstOrDefault(p => p.Id == _selPlanHistory.PlanAircraftId);
+                    else SelPlanAircraft = null;//根据选择的计划明细找到关联的计划飞机
 
                     if (Aircrafts.SourceCollection.Cast<AircraftDTO>().Any(pa => pa.AircraftId == value.AircraftId))
                         SelAircraft = Aircrafts.SourceCollection.Cast<AircraftDTO>().FirstOrDefault(p => p.AircraftId == value.AircraftId);
-                    else SelAircraft = null;
+                    else SelAircraft = null;//根据选择的计划明细找到关联的运营飞机
+
+
+                    //ViewActionCategories.Clear();
+                    //foreach (var actionCategory in ActionCategories.SourceCollection.Cast<ActionCategoryDTO>().ToList())
+                    //{
+                    //    if (value.ActionCategoryId == Guid.Empty)
+                    //        ViewActionCategories.Add(actionCategory);
+                    //    else if (actionCategory.ActionType == value.ActionType)
+                    //        ViewActionCategories.Add(actionCategory);
+                    //}//根据选择的计划明细筛选活动类型列表
+
+                    //ViewAircraftCategories.Clear();
+                    //foreach (var aircraftCategory in AircraftCategories.SourceCollection.Cast<AircraftCategoryDTO>().ToList())
+                    //{
+                    //    if (value.ActionName == "货改客" && aircraftCategory.Category == "货机")
+                    //        ViewAircraftCategories.Add(aircraftCategory);
+                    //    else if (value.ActionName == "客改货" && aircraftCategory.Category == "客机")
+                    //        ViewAircraftCategories.Add(aircraftCategory);
+                    //    else if (value.ActionName != "货改客" && value.ActionName != "客改货")
+                    //        ViewAircraftCategories.Add(aircraftCategory);
+                    //}//根据选择的计划明细筛选座级列表
+
+                    //ViewAircraftTypes.Clear();
+                    //foreach (var aircraftType in AircraftTypes.SourceCollection.Cast<AircraftTypeDTO>().ToList())
+                    //{
+                    //    if (value.Regional == null)
+                    //        ViewAircraftTypes.Add(aircraftType);
+                    //    else if (aircraftType.Regional == value.Regional)
+                    //        ViewAircraftTypes.Add(aircraftType);
+                    //}//根据选择的计划明细筛选机型列表
                     RefreshCommandState();
                 }
             }
@@ -405,7 +538,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private void OnNew(object obj)
         {
             var lastPlan = CurPlan;
-            var newPlan = _service.CreateNewVersionPlan(lastPlan);
+            var newPlan = _service.CreateNewVersionPlan(lastPlan);//创建新版本的计划
 
             Plans.AddNew(newPlan);
             CurPlan = Plans.OrderBy(p => p.VersionNumber).LastOrDefault();
@@ -430,12 +563,30 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         private void OnAddEntity(object obj)
         {
+            //ViewActionCategories.Clear();
+            //foreach (var actionCategory in ActionCategories.SourceCollection.Cast<ActionCategoryDTO>().ToList())
+            //{
+            //    if (actionCategory.ActionType == "引进")
+            //        ViewActionCategories.Add(actionCategory);
+            //}
+            //ViewAircraftCategories.Clear();
+            //foreach (var aircraftCategory in AircraftCategories.SourceCollection.Cast<AircraftCategoryDTO>().ToList())
+            //{
+            //    ViewAircraftCategories.Add(aircraftCategory);
+            //}
+            //ViewAircraftTypes.Clear();
+            //foreach (var aircraftType in AircraftTypes.SourceCollection.Cast<AircraftTypeDTO>().ToList())
+            //{
+            //    ViewAircraftTypes.Add(aircraftType);
+            //}
+
             this.EditPlanAircraft = null;
+
             OpenEditDialog(null, PlanDetailCreateSource.New);
             //将新建的实体添加到对应的注册集合中
-            CurPlan.PlanHistories.Add(EditPlanHistory);
-            PlanHistories.Add(EditPlanHistory);
-            PlanAircrafts.AddNew(EditPlanAircraft);
+            ViewPlanHistories.Add(EditPlanHistory);
+            PlanHistories.AddNew(EditPlanHistory);
+            ViewPlanAircrafts.AddNew(EditPlanAircraft);
         }
 
         private bool CanAddEntity(object obj)
@@ -470,7 +621,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             if (SelPlanHistory.ActionCategoryId != Guid.Empty && !SelPlanHistory.NeedRequest) return true;
 
             // 计算选中计划明细对应的计划飞机在当前计划中的明细项集合
-            var planAircraft = PlanAircrafts.FirstOrDefault(p => p.Id == SelPlanHistory.PlanAircraftId);
+            var planAircraft = ViewPlanAircrafts.FirstOrDefault(p => p.Id == SelPlanHistory.PlanAircraftId);
             if (planAircraft != null)
             {
                 var planDetails = planAircraft.PlanHistories.Where(ph => ph.PlanId == CurPlan.Id).ToList();
@@ -503,13 +654,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             if (planDetail != null)
             {
                 // 获取计划飞机
-                var planAircraft = PlanAircrafts.FirstOrDefault(p => p.Id == planDetail.PlanAircraftId);
+                var planAircraft = ViewPlanAircrafts.FirstOrDefault(p => p.Id == planDetail.PlanAircraftId);
                 // 获取计划飞机的明细项集合
                 if (planAircraft != null)
                 {
                     var planHistories = planAircraft.PlanHistories;
                     // 获取计划飞机在当前计划中的明细项集合
-                    var planDetails = PlanHistories.Where(ph => ph.PlanAircraftId == planAircraft.Id).ToList();
+                    var planDetails = ViewPlanHistories.Where(ph => ph.PlanAircraftId == planAircraft.Id).ToList();
 
                     // 1、已有飞机（只有变更与退出计划）
                     if (planAircraft.AircraftId != null)
@@ -531,7 +682,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     // 删除相关计划飞机。
                     else if (planHistories.Count == 1)
                     {
-                        PlanAircrafts.Remove(planAircraft);
+                        ViewPlanAircrafts.Remove(planAircraft);
                     }
                     // 2.2、计划飞机相关的计划历史数量不为1（即超过1）
                     // 2.2.1、计划飞机在当前计划中只有一条明细项
@@ -544,6 +695,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     // 不改变计划飞机状态
 
                     PlanHistories.Remove(planDetail);
+                    ViewPlanHistories.Remove(planDetail);
                 }
             }
             RefreshCommandState();
@@ -623,19 +775,19 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     var planhistory = gridView.CurrentCellInfo.Item as PlanHistoryDTO;
                     if (planhistory != null)
                     {
-                        var planAircraft = PlanAircrafts.FirstOrDefault(p => p.Id == planhistory.PlanAircraftId);
+                        var planAircraft = ViewPlanAircrafts.FirstOrDefault(p => p.Id == planhistory.PlanAircraftId);
                         // 修改计划飞机管理状态
                         if (planAircraft != null)
                         {
                             var actionCategory =
-                                planhistory.ActionCategories.FirstOrDefault(p => p.Id == planhistory.ActionCategoryId);
+                                SelPlanHistory.ActionCategories.FirstOrDefault(p => p.Id == planhistory.ActionCategoryId);
                             if (actionCategory != null && actionCategory.NeedRequest)
                             {
                                 planhistory.NeedRequest = actionCategory.NeedRequest;
-                                planAircraft.Status = (int) ManageStatus.计划;
-                                planhistory.ManageStatus = (int) ManageStatus.计划;
+                                planAircraft.Status = (int)ManageStatus.计划;
+                                planhistory.ManageStatus = (int)ManageStatus.计划;
                             }
-                            else if(actionCategory!=null && !actionCategory.NeedRequest)
+                            else if (actionCategory != null && !actionCategory.NeedRequest)
                             {
                                 planhistory.NeedRequest = actionCategory.NeedRequest;
                                 planAircraft.Status = (int)ManageStatus.运营;
@@ -649,7 +801,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     var planhistory = gridView.CurrentCellInfo.Item as PlanHistoryDTO;
                     if (planhistory != null)
                     {
-                        var planAircraft = PlanAircrafts.FirstOrDefault(p => p.Id == planhistory.PlanAircraftId);
+                        var planAircraft = ViewPlanAircrafts.FirstOrDefault(p => p.Id == planhistory.PlanAircraftId);
                         if (planAircraft != null)
                             planAircraft.Regional = planhistory.Regional;
                     }
@@ -659,14 +811,13 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     var planhistory = gridView.CurrentCellInfo.Item as PlanHistoryDTO;
                     if (planhistory != null)
                     {
-                        var planAircraft = PlanAircrafts.FirstOrDefault(p => p.Id == planhistory.PlanAircraftId);
+                        var planAircraft = ViewPlanAircrafts.FirstOrDefault(p => p.Id == planhistory.PlanAircraftId);
                         if (planAircraft != null && planhistory.AircraftTypeId != Guid.Empty)
                         {
                             planAircraft.AircraftTypeId = planhistory.AircraftTypeId;
                             planAircraft.AircraftTypeName =
                                 planhistory.AircraftTypes.First(p => p.Id == planhistory.AircraftTypeId).Name;
                         }
-
                     }
                 }
             }
@@ -747,7 +898,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                             MessageConfirm("确认添加计划明细", content, (o, e) =>
                             {
                                 if (e.DialogResult == true)
+                                {
                                     this.ShowEditDialog(planDetails[0], source);
+                                }
+
                             });
                             break;
                         case PlanDetailCreateSource.Aircraft:
@@ -757,7 +911,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                             MessageConfirm("确认添加计划明细", content, (o, e) =>
                             {
                                 if (e.DialogResult == true)
+                                {
                                     this.ShowEditDialog(planDetails[0], source);
+                                }
+
                             });
                             break;
                         default:
@@ -777,17 +934,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             switch (source)
             {
                 case PlanDetailCreateSource.New:
-                    this._operationPlan = _service.CreatePlanHistory(CurPlan,ref EditPlanAircraft, null, "引进", 1); //此时EditPlanAircraft=null
+                    this._operationPlan = _service.CreatePlanHistory(CurPlan, ref EditPlanAircraft, null, "引进", 1); //此时EditPlanAircraft=null
                     this.EditPlanHistory = this._operationPlan;
                     this.IsChangeable = true;
                     break;
                 case PlanDetailCreateSource.PlanAircraft:
                     this.IsPlanTypeVisible = Visibility.Collapsed;
                     // 计划飞机已有的明细项肯定是引进计划，只能添加退出计划
-                    this._operationPlan = _service.CreatePlanHistory(CurPlan,ref EditPlanAircraft, null, existDetail != null ? "退出" : "引进", 1); //existDetail=null为计划飞机是预备状态的情况
+                    this._operationPlan = _service.CreatePlanHistory(CurPlan, ref EditPlanAircraft, null, existDetail != null ? "退出" : "引进", 1); //existDetail=null为计划飞机是预备状态的情况
                     this.EditPlanHistory = this._operationPlan;
-                    PlanHistories.Add(EditPlanHistory);
-                    CurPlan.PlanHistories.Add(EditPlanHistory);
+                    ViewPlanHistories.Add(EditPlanHistory);
+                    PlanHistories.AddNew(EditPlanHistory);
                     //这时不能修改机型和座机
                     this.IsChangeable = false;
                     break;
@@ -803,8 +960,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                             this.IsOperation = true;
                             this.IsChange = false;
                             this.OnOperation();
-                            PlanHistories.Add(EditPlanHistory);
-                            CurPlan.PlanHistories.Add(EditPlanHistory);
+                            ViewPlanHistories.Add(EditPlanHistory);
+                            PlanHistories.AddNew(EditPlanHistory);
                         }
                         // 已有的是退出计划，只能添加变更计划
                         else
@@ -814,8 +971,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                             this.IsChange = true;
                             this.OnOperation();//生成之后，不让用户编辑，起到保存原计划历史的机型的作用，在取消时，能够用来恢复计划飞机数据
                             this.OnChange();
-                            PlanHistories.Add(EditPlanHistory);
-                            CurPlan.PlanHistories.Add(EditPlanHistory);
+                            ViewPlanHistories.Add(EditPlanHistory);
+                            PlanHistories.AddNew(EditPlanHistory);
                         }
                     }
                     // 2、计划飞机没有明细项
@@ -825,8 +982,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                         this.IsOperationEnabled = true;
                         if (!this.IsOperation) this.IsOperation = true;
                         this.OnOperation();
-                        PlanHistories.Add(EditPlanHistory);
-                        CurPlan.PlanHistories.Add(EditPlanHistory);
+                        ViewPlanHistories.Add(EditPlanHistory);
+                        PlanHistories.AddNew(EditPlanHistory);
                     }
                     break;
                 default:
@@ -846,7 +1003,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     Aircrafts.SourceCollection.Cast<AircraftDTO>()
                         .FirstOrDefault(p => p.AircraftId == EditPlanAircraft.AircraftId);
                 // 针对运营飞机的运营计划只能是退出
-                this._operationPlan = _service.CreatePlanHistory(CurPlan,ref EditPlanAircraft, aircraft, "退出", 1);
+                this._operationPlan = _service.CreatePlanHistory(CurPlan, ref EditPlanAircraft, aircraft, "退出", 1);
             }
             this.EditPlanHistory = this._operationPlan;
             this.IsChangeable = false;
@@ -859,7 +1016,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 var aircraft =
                     Aircrafts.SourceCollection.Cast<AircraftDTO>()
                         .FirstOrDefault(p => p.AircraftId == EditPlanAircraft.AircraftId);
-                this._changePlan = _service.CreatePlanHistory(CurPlan,ref this.EditPlanAircraft, aircraft, "变更", 2);
+                this._changePlan = _service.CreatePlanHistory(CurPlan, ref this.EditPlanAircraft, aircraft, "变更", 2);
             }
             this.EditPlanHistory = this._changePlan;
             this.IsChangeable = true;
@@ -908,6 +1065,89 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                     this._isChange = value;
                     this.RaisePropertyChanged(() => this.IsChange);
                     this.OnChange();
+                }
+            }
+        }
+
+        #endregion
+
+        #region 选择的活动类型
+
+        private ActionCategoryDTO _selActionCategory;
+
+        /// <summary>
+        /// 选择的活动类型
+        /// </summary>
+        public ActionCategoryDTO SelActionCategory
+        {
+            get { return this._selActionCategory; }
+            private set
+            {
+                if (this._selActionCategory != value)
+                {
+                    _selActionCategory = value;
+                    if (value != null)
+                    {
+                        EditPlanHistory.ActionType = value.ActionType;
+                        EditPlanHistory.ActionName = value.ActionName;
+                    }
+                    this.RaisePropertyChanged(() => this.SelActionCategory);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 选择的座级
+
+        private AircraftCategoryDTO _selAircraftCategory;
+
+        /// <summary>
+        /// 选择的座级
+        /// </summary>
+        public AircraftCategoryDTO SelAircraftCategory
+        {
+            get { return this._selAircraftCategory; }
+            private set
+            {
+                if (this._selAircraftCategory != value)
+                {
+                    _selAircraftCategory = value;
+                    if (value != null)
+                    {
+                        EditPlanAircraft.Regional = value.Regional;
+                        this.RaisePropertyChanged(() => this.SelAircraftType);
+                    }
+                    this.RaisePropertyChanged(() => this.SelAircraftCategory);
+                }
+            }
+        }
+
+        #endregion
+
+        #region 选择的机型
+
+        private AircraftTypeDTO _selAircraftType;
+
+        /// <summary>
+        /// 选择的机型
+        /// </summary>
+        public AircraftTypeDTO SelAircraftType
+        {
+            get { return this._selAircraftType; }
+            private set
+            {
+                if (this._selAircraftType != value)
+                {
+                    _selAircraftType = value;
+                    if (value != null)
+                    {
+                        EditPlanHistory.Regional = value.Regional;
+                        EditPlanHistory.AircraftTypeName = value.Name;
+                        EditPlanAircraft.AircraftTypeId = value.Id;
+                        EditPlanAircraft.AircraftTypeName = value.Name;
+                    }
+                    this.RaisePropertyChanged(() => this.SelAircraftType);
                 }
             }
         }
@@ -1020,7 +1260,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         }
 
         #endregion
-
 
         #region 确认
 

@@ -110,6 +110,9 @@
       <HintPath>$(TargetFrameworkDirectory)System.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Data, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.Windows.Interactivity, Version=5.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Prism.4.1.0.0\lib\SL5\System.Windows.Interactivity.dll</HintPath>
       <Private>False</Private>
@@ -194,6 +197,7 @@
     </Compile>
     <Compile Include="ManagePermission\ManageUserInRoleVm.cs" />
     <Compile Include="ManagePermission\ManageUserVm.cs" />
+    <Compile Include="ManagePermission\UserRoleDoubleClickHelper.cs" />
     <Compile Include="ManageSubsidiary\BranchCompany.xaml.cs">
       <DependentUpon>BranchCompany.xaml</DependentUpon>
     </Compile>
@@ -205,6 +209,16 @@
     <None Include="Properties\AppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UniCloud.Presentation.Service.BaseManagement\Service.BaseManagement.csproj">
+      <Project>{edc31656-0f6e-4e1e-a047-a65cff2ee2e6}</Project>
+      <Name>Service.BaseManagement</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\UniCloud.Presentation.Service\Service.csproj">
+      <Project>{5f45eae5-2f35-4ad1-bf0e-f5fd5539fd32}</Project>
+      <Name>Service</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\UniCloud.Presentation\Presentation.csproj">
       <Project>{faa6d644-29da-477e-a351-5536b2a5a8eb}</Project>
       <Name>Presentation</Name>

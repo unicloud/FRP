@@ -42,12 +42,11 @@
                                Text="合同号"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
-                    <TextBox Grid.Column="2"
+                    <TextBox Grid.Row="0" Grid.Column="2"
                              Margin="0,3"
                              telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Number, Mode=TwoWay}"
-                             IsReadOnly="True">
-                    </TextBox>
+                             IsReadOnly="True"/>
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
                                Text="合同名称"
@@ -58,8 +57,7 @@
                              Grid.Row="1"
                              telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Name, Mode=TwoWay}"
-                             IsReadOnly="True">
-                    </TextBox>
+                             IsReadOnly="True"/>
                     <TextBlock Grid.Row="2"
                                Grid.Column="1"
                                Text="签约对象"
@@ -70,8 +68,7 @@
                              Grid.Row="2"
                              telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Signatory, Mode=TwoWay}"
-                             IsReadOnly="True">
-                    </TextBox>
+                             IsReadOnly="True"/>
                     <TextBlock Grid.Row="3"
                                Grid.Column="1"
                                Text="签约时间"
@@ -101,8 +98,7 @@
                              VerticalContentAlignment="Top"
                              HorizontalContentAlignment="Left"
                              Text="{Binding Abstract, Mode=TwoWay}"
-                             IsReadOnly="True">
-                    </TextBox>
+                             IsReadOnly="True"/>
                     <TextBlock Grid.Row="5"
                                Grid.Column="1"
                                Text="附件"
@@ -111,7 +107,7 @@
                     <HyperlinkButton  Grid.Column="2"
                                       Grid.Row="5"
                                       Margin="0,3"
-                                      Command="{Binding DataContext.ViewAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                      Command="{Binding DataContext.ViewAttachCommand,ElementName=AirframeMaintainContract}"
                                       CommandParameter="{Binding DocumentId,Mode=TwoWay}"
                                       VerticalContentAlignment="Top"
                                       HorizontalContentAlignment="Left">
@@ -146,10 +142,9 @@
                                Text="合同号"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
-                    <TextBox Grid.Column="2"
+                    <TextBox Grid.Row="0" Grid.Column="2"
                              Margin="0,3"
-                             Text="{Binding Number, Mode=TwoWay}">
-                    </TextBox>
+                             Text="{Binding Number, Mode=TwoWay}"/>
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
                                Text="合同名称"
@@ -158,22 +153,21 @@
                     <TextBox Grid.Column="2"
                              Margin="0,3"
                              Grid.Row="1"
-                             Text="{Binding Name, Mode=TwoWay}">
-                    </TextBox>
+                             Text="{Binding Name, Mode=TwoWay}"/>
                     <TextBlock Grid.Row="2"
                                Grid.Column="1"
                                Text="签约对象"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
-                    <telerik:RadComboBox Name="cbSignatory"
+                    <telerik:RadComboBox Name="CbSignatory"
                                          Grid.Row="2"
                                          Grid.Column="2"
                                          Margin="0,3"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
                                          Height="{StaticResource ControlHeight}"
-                                         ItemsSource="{Binding DataContext.Suppliers, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
-                                         SelectedItem="{Binding DataContext.Supplier, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                         ItemsSource="{Binding DataContext.Suppliers, Mode=TwoWay, ElementName=AirframeMaintainContract}"
+                                         SelectedItem="{Binding DataContext.Supplier, Mode=TwoWay, ElementName=AirframeMaintainContract}"
                                          SelectedValue="{Binding SignatoryId, Mode=TwoWay}"
                                          SelectedValuePath="SupplierId"
                                          DisplayMemberPath="Name" />
@@ -200,8 +194,7 @@
                              Grid.Row="4"
                              VerticalContentAlignment="Top"
                              HorizontalContentAlignment="Left"
-                             Text="{Binding Abstract, Mode=TwoWay}">
-                    </TextBox>
+                             Text="{Binding Abstract, Mode=TwoWay}"/>
                     <TextBlock Grid.Row="5"
                                Grid.Column="1"
                                Text="附件"
@@ -210,11 +203,11 @@
                     <HyperlinkButton  Grid.Column="2"
                                       Grid.Row="5"
                                       Margin="0,3"
-                                      Command="{Binding DataContext.AddAttachCommand,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                      Command="{Binding DataContext.AddAttachCommand,ElementName=AirframeMaintainContract}"
                                       CommandParameter="{Binding DocumentId,Mode=TwoWay}"
                                       VerticalContentAlignment="Top"
                                       HorizontalContentAlignment="Left">
-                        <TextBlock Text="{Binding DataContext.DocumentName,RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl},Mode=TwoWay}"
+                        <TextBlock Text="{Binding DataContext.DocumentName,Mode=TwoWay,ElementName=AirframeMaintainContract}"
                                    TextDecorations="Underline" />
                     </HyperlinkButton>
                 </Grid>
@@ -259,40 +252,33 @@
                                         <telerik:RadGridView.Columns>
                                             <input:DataPageSerialColumn Header="序号" />
                                             <telerik:GridViewDataColumn Header="合同号"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding Number}" />
                                             <telerik:GridViewDataColumn Header="合同名称"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding Name}" />
                                             <telerik:GridViewDataColumn Header="签约对象"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding Signatory}" />
                                             <telerik:GridViewDataColumn Header="签约时间"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding SignDate, StringFormat={StaticResource DateStringFormat}}" />
                                             <telerik:GridViewDataColumn Header="摘要"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         MaxWidth="250"
                                                                         TextWrapping="Wrap"
                                                                         DataMemberBinding="{Binding Abstract}" />
                                             <telerik:GridViewDataColumn Header="附件"
-                                                                        IsSortable="True"
                                                                         MaxWidth="250"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding DocumentName}" />
                                             <telerik:GridViewDataColumn Header="创建日期"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding CreateDate, StringFormat={StaticResource DateStringFormat}}" />

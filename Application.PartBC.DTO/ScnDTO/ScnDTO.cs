@@ -78,9 +78,18 @@ namespace UniCloud.Application.PartBC.DTO
         }
 
         /// <summary>
-        /// TS号
+        /// Rfc号
         /// </summary>
-        public string TsNumber
+        public string RfcNumber
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 有效期
+        /// </summary>
+        public string ValidDate
         {
             get;
             set;
@@ -113,11 +122,6 @@ namespace UniCloud.Application.PartBC.DTO
             set;
         }
 
-        public string TypeString
-        {
-            get { return ((ScnType)Type).ToString(); }
-            set { Type = (int)(ScnType)Enum.Parse(typeof(ScnType), value, true); }
-        }
         /// <summary>
         /// SCN状态
         /// </summary>
@@ -135,11 +139,6 @@ namespace UniCloud.Application.PartBC.DTO
             get;
             set;
         }
-        public string ScnTypeString
-        {
-            get { return ((ScnApplicableType)ScnType).ToString(); }
-            set { ScnType = (int)(ScnApplicableType)Enum.Parse(typeof(ScnApplicableType), value, true); }
-        }
 
         /// <summary>
         /// 描述
@@ -154,6 +153,15 @@ namespace UniCloud.Application.PartBC.DTO
         /// SCN文件名称
         /// </summary>
         public string ScnDocName
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 接收日期
+        /// </summary>
+        public DateTime ReceiveDate
         {
             get;
             set;

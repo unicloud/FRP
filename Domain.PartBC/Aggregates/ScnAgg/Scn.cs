@@ -82,9 +82,18 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
         }
 
         /// <summary>
-        /// TS号
+        /// Rfc号
         /// </summary>
-        public string TsNumber
+        public string RfcNumber
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 有效期
+        /// </summary>
+        public string ValidDate
         {
             get;
             private set;
@@ -148,6 +157,15 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
         /// Scn文档名称
         /// </summary>
         public string ScnDocName
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// 接收日期
+        /// </summary>
+        public DateTime ReceiveDate
         {
             get;
             private set;
@@ -251,7 +269,8 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
         ///     设置MOD号
         /// </summary>
         /// <param name="modNumber">MOD号</param>
-        public void SetModNumber(string modNumber)
+        /// <param name="rfcNumber">RFC号</param>
+        public void SetModNumber(string modNumber,string rfcNumber)
         {
             if (string.IsNullOrWhiteSpace(modNumber))
             {
@@ -259,20 +278,16 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
             }
 
             ModNumber = modNumber;
+            RfcNumber = rfcNumber;
         }
 
         /// <summary>
-        ///     设置TS号
+        ///     设置有效期
         /// </summary>
-        /// <param name="tsNumber">TS号</param>
-        public void SetTsNumber(string tsNumber)
+        /// <param name="validDate">有效期</param>
+        public void SetValidDate(string validDate)
         {
-            if (string.IsNullOrWhiteSpace(tsNumber))
-            {
-                throw new ArgumentException("TS号参数为空！");
-            }
-
-            TsNumber = tsNumber;
+            ValidDate = validDate;
         }
 
         /// <summary>
@@ -354,6 +369,15 @@ namespace UniCloud.Domain.PartBC.Aggregates.ScnAgg
         {
             ScnDocName = scnDocName;
             ScnDocumentId = scnDocumentId;
+        }
+
+        /// <summary>
+        /// 设置接收日期
+        /// </summary>
+        /// <param name="receiveDate">接收日期</param>
+        public void SetReceiveDate(DateTime receiveDate)
+        {
+            ReceiveDate = receiveDate;
         }
 
         /// <summary>

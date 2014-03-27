@@ -50,7 +50,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repositories\AircraftConfigurationRepository.cs" />
     <Compile Include="Repositories\AircraftSeriesRepository.cs" />
+    <Compile Include="Repositories\CAACAircraftTypeRepository.cs" />
+    <Compile Include="Repositories\PlanHistoryRepository.cs" />
+    <Compile Include="Repositories\ProgrammingFileRepository.cs" />
     <Compile Include="UnitOfWork\FleetPlanBCUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ActionCategoryRepository.cs" />
@@ -76,7 +80,9 @@
     <Compile Include="Repositories\SupplierRepository.cs" />
     <Compile Include="Repositories\XmlConfigRepository.cs" />
     <Compile Include="Repositories\XmlSettingRepository.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AcConfigHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ActionCategoryEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\AircraftConfigurationEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftSeriesEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftBusinessEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\AircraftCategoryEntityConfiguration.cs" />
@@ -88,6 +94,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\AnnualEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ApprovalDocEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ApprovalHistoryEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\CAACAircraftTypeEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\CaacProgrammingEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\CaacProgrammingLineEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ChangePlanEntityConfiguration.cs" />
@@ -108,6 +115,7 @@
     <Compile Include="UnitOfWork\Mapping\Sql\PlanEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\PlanHistoryEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\ProgrammingEntityConfiguration.cs" />
+    <Compile Include="UnitOfWork\Mapping\Sql\ProgrammingFileEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\RequestEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\SupplierEntityConfiguration.cs" />
     <Compile Include="UnitOfWork\Mapping\Sql\XmlConfigEntityConfiguration.cs" />

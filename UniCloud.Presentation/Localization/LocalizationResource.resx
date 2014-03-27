@@ -3055,4 +3055,10 @@
   <data name="ResetAll" xml:space="preserve">
     <value>所有重置</value>
   </data>
+  <data name="GridViewFilterDistinctValueNull" xml:space="preserve">
+    <value />
+  </data>
+  <data name="GridViewFilterDistinctValueStringEmpty" xml:space="preserve">
+    <value />
+  </data>
 </root>

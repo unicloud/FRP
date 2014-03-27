@@ -44,13 +44,15 @@ namespace UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg
         /// <param name="aircraftSeriesId">飞机系列</param>
         /// <param name="manufacturerId">制造商</param>
         /// <param name="aircraftCategoryId">座级</param>
-        public static void SetAircraftType(AircraftType aircraftType, string name, string description, Guid aircraftCategoryId, Guid aircraftSeriesId, Guid manufacturerId)
+        /// <param name="caacAircraftTypeId">民航机型</param>
+        public static void SetAircraftType(AircraftType aircraftType, string name, string description, Guid aircraftCategoryId, Guid aircraftSeriesId, Guid manufacturerId,Guid caacAircraftTypeId)
         {
             aircraftType.Name = name;
             aircraftType.Description = description;
             aircraftType.AircraftCategoryId = aircraftCategoryId;
             aircraftType.AircraftSeriesId = aircraftSeriesId;
             aircraftType.ManufacturerId = manufacturerId;
+            aircraftType.CaacAircraftTypeId = caacAircraftTypeId;
         }
     }
 }

@@ -128,7 +128,7 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
         {
             var dirInfo = System.IO.Directory.CreateDirectory(_indexStorePath);
             var directory = FSDirectory.Open(dirInfo);
-             searcher = new IndexSearcher(directory, true);
+            searcher = new IndexSearcher(directory, true);
             _indexStorePath = "E:\\Indexs\\";
             return searcher;
         }
@@ -162,9 +162,10 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch
             IndexSearcher[] searchs;
             if (!string.IsNullOrEmpty(fileType))
             {
-                List<string> types = fileType.Split(' ').ToList();
-                foreach (string temp in types)
+                List<string> types = fileType.Split(',').ToList();
+                for (int i = types.Count - 1; i >= 0; i--)
                 {
+                    var temp = types[i];
                     if (!System.IO.Directory.Exists("E:\\Indexs\\" + temp))
                     {
                         types.Remove(temp);

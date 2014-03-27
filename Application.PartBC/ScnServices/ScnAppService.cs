@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.ScnQueries;
@@ -31,7 +32,8 @@ namespace UniCloud.Application.PartBC.ScnServices
     /// 实现Scn的服务接口。
     ///  用于处理Scn相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class ScnAppService : IScnAppService
+    [LogAOP]
+    public class ScnAppService : ContextBoundObject, IScnAppService
     {
         private readonly IScnQuery _scnQuery;
         private readonly IScnRepository _scnRepository;
@@ -65,8 +67,8 @@ namespace UniCloud.Application.PartBC.ScnServices
         {
             //创建SCN
             var newScn = ScnFactory.CreateScn();
-            ScnFactory.SetScn(newScn, dto.Title, dto.Type, dto.CheckDate, dto.CSCNumber, dto.ModNumber, dto.TsNumber, dto.Cost,
-                dto.ScnNumber, dto.ScnType, dto.ScnStatus, dto.Description, dto.ScnDocName, dto.ScnDocumentId,
+            ScnFactory.SetScn(newScn, dto.Title, dto.Type, dto.CheckDate, dto.CSCNumber, dto.ModNumber,dto.RfcNumber, dto.ValidDate, dto.Cost,
+                dto.ScnNumber, dto.ScnType, dto.ScnStatus, dto.Description, dto.ScnDocName, dto.ScnDocumentId,dto.ReceiveDate,
                 dto.AuditOrganization, dto.Auditor, dto.AuditTime, dto.AuditNotes);
 
             //添加使用飞机
@@ -88,8 +90,8 @@ namespace UniCloud.Application.PartBC.ScnServices
             if (updateScn != null)
             {
                 //更新主表：
-                ScnFactory.SetScn(updateScn, dto.Title, dto.Type, dto.CheckDate, dto.CSCNumber, dto.ModNumber, dto.TsNumber, dto.Cost,
-                dto.ScnNumber, dto.ScnType, dto.ScnStatus, dto.Description, dto.ScnDocName, dto.ScnDocumentId,
+                ScnFactory.SetScn(updateScn, dto.Title, dto.Type, dto.CheckDate, dto.CSCNumber, dto.ModNumber, dto.RfcNumber, dto.ValidDate, dto.Cost,
+                dto.ScnNumber, dto.ScnType, dto.ScnStatus, dto.Description, dto.ScnDocName, dto.ScnDocumentId,dto.ReceiveDate,
                 dto.AuditOrganization, dto.Auditor, dto.AuditTime, dto.AuditNotes);
                 UpdateApplicableAircrafts(dto.ApplicableAircrafts, updateScn);
                 ////更新Scn适用飞机集合：

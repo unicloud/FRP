@@ -58,7 +58,7 @@ namespace UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg
                 CreateTime = DateTime.Now,
                 FileStorage = stream,
                 FileContent = content,
-                DocumentTypeId = 1
+                DocumentTypeId = documentTypeId
             };
             doc.ChangeCurrentIdentity(docId);
             doc.SetIndexStatus(IndexStatus.未建);

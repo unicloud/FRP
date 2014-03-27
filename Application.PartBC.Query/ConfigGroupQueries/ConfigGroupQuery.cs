@@ -78,7 +78,7 @@ namespace UniCloud.Application.PartBC.Query.ConfigGroupQueries
                 else
                 {
                     //如果已经有相应的构型组，在构型组中添加这个合同飞机作为组内飞机
-                    if (configGroups.Any(p => p.TechnicalSolutions.Equals(ca.TechnicalSolutions)))
+                    if (configGroups.Any(p => p.TechnicalSolutions.Equals(ca.TechnicalSolutions))) //TODO:比较两架飞机的构型情况方法要重写
                     {
                         var configGroup = configGroups.FirstOrDefault(p => p.TechnicalSolutions.Equals(ca.TechnicalSolutions));
                         if (configGroup != null)

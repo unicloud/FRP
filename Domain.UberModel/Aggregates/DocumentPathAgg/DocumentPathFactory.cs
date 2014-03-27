@@ -33,10 +33,10 @@ namespace UniCloud.Domain.UberModel.Aggregates.DocumentPathAgg
         /// <param name="extension">扩展名</param>
         /// <param name="documentId">叶子节点</param>
         /// <param name="parentId">父节点</param>
-        /// <param name="pathSource">路径类型</param>
+        /// <param name="path">路径</param>
         /// <returns>文档路径</returns>
         public static DocumentPath CreateDocumentPath(string name, bool isLeaf, string extension,
-                        Guid? documentId, int? parentId, PathSource pathSource)
+                        Guid? documentId, int? parentId, string path)
         {
             return new DocumentPath
             {
@@ -45,7 +45,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.DocumentPathAgg
                 Extension = extension,
                 DocumentGuid = documentId,
                 ParentId = parentId,
-                PathSource = pathSource,
+                Path = path,
             };
         }
     }

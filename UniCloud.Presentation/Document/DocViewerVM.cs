@@ -19,9 +19,11 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Data.Services.Client;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
@@ -41,10 +43,9 @@ namespace UniCloud.Presentation.Document
         private readonly CommonServiceData _context;
         private readonly ICommonService _service;
         private DocumentDTO _addedDocument;
-        private FilterDescriptor _docDescriptor;
         private DocumentDTO _loadedDocument;
-        private Action<DocumentDTO> _windowClosed;
-
+        private bool _fromServer;
+        private byte[] _content;
         [ImportingConstructor]
         public DocViewerVM(ICommonService service)
             : base(service)
@@ -53,7 +54,7 @@ namespace UniCloud.Presentation.Document
             _context = service.Context;
 
             SaveCommand = new DelegateCommand<object>(OnSave, CanSave);
-
+            SaveDocumentToLocalCommand = new DelegateCommand<object>(OnSaveDocumentToLocal, CanSaveDocumentToLocal);
             InitializeVM();
         }
 
@@ -65,7 +66,7 @@ namespace UniCloud.Presentation.Document
         /// </summary>
         private void InitializeVM()
         {
-            InitializeViewDocumentDTO();
+            InitializeViewDocumentDto();
         }
 
         #endregion
@@ -193,26 +194,24 @@ namespace UniCloud.Presentation.Document
         }
 
         #region 文档
-
-        private DocumentDTO _selDocumentDTO;
-
         /// <summary>
         ///     文档集合
         /// </summary>
-        public QueryableDataServiceCollectionView<DocumentDTO> ViewDocumentDTO { get; set; }
+        public QueryableDataServiceCollectionView<DocumentDTO> ViewDocumentDto { get; set; }
 
         /// <summary>
         ///     选中的文档
         /// </summary>
-        public DocumentDTO SelDocumentDTO
+        private DocumentDTO _selDocumentDto;
+        public DocumentDTO SelDocumentDto
         {
-            get { return _selDocumentDTO; }
-            private set
+            get { return _selDocumentDto; }
+            set
             {
-                if (_selDocumentDTO != value)
+                if (_selDocumentDto != value)
                 {
-                    _selDocumentDTO = value;
-                    RaisePropertyChanged(() => SelDocumentDTO);
+                    _selDocumentDto = value;
+                    RaisePropertyChanged(() => SelDocumentDto);
                 }
             }
         }
@@ -220,22 +219,56 @@ namespace UniCloud.Presentation.Document
         /// <summary>
         ///     初始化文档集合
         /// </summary>
-        private void InitializeViewDocumentDTO()
+        private void InitializeViewDocumentDto()
         {
-            ViewDocumentDTO = _service.CreateCollection(_context.Documents);
-            _docDescriptor = new FilterDescriptor("DocumentId", FilterOperator.IsEqualTo, Guid.Empty);
-            ViewDocumentDTO.FilterDescriptors.Add(_docDescriptor);
-            _service.RegisterCollectionView(ViewDocumentDTO);
-            ViewDocumentDTO.LoadedData += (o, e) =>
-            {
-                _loadedDocument = (o as QueryableDataServiceCollectionView<DocumentDTO>).FirstOrDefault();
-                if (_loadedDocument != null)
-                    ViewDocument(_loadedDocument);
-            };
+            ViewDocumentDto = _service.CreateCollection(_context.Documents);
+            //_docDescriptor = new FilterDescriptor("DocumentId", FilterOperator.IsEqualTo, Guid.Empty);
+            //ViewDocumentDto.FilterDescriptors.Add(_docDescriptor);
+            _service.RegisterCollectionView(ViewDocumentDto);
+            //ViewDocumentDto.LoadedData += (o, e) =>
+            //{
+            //    _loadedDocument = (o as QueryableDataServiceCollectionView<DocumentDTO>).FirstOrDefault();
+            //    if (_loadedDocument != null)
+            //        ViewDocument(_loadedDocument);
+            //};
+            DocumentTypes = new QueryableDataServiceCollectionView<DocumentTypeDTO>(_context, _context.DocumentTypes);
         }
 
         #endregion
 
+        #region 文档类型
+        public QueryableDataServiceCollectionView<DocumentTypeDTO> DocumentTypes { get; set; }
+
+        private DocumentTypeDTO _documentType;
+        public DocumentTypeDTO DocumentType
+        {
+            get { return _documentType; }
+            set
+            {
+                _documentType = value;
+                if (_documentType != null)
+                    _addedDocument.DocumentTypeId = _documentType.DocumentTypeId;
+                RaisePropertyChanged(() => DocumentType);
+            }
+        }
+
+        /// <summary>
+        ///    是否可见
+        /// </summary>
+        private Visibility _documentTypeVisibility;
+        public Visibility DocumentTypeVisibility
+        {
+            get { return _documentTypeVisibility; }
+            set
+            {
+                if (_documentTypeVisibility != value)
+                {
+                    _documentTypeVisibility = value;
+                    RaisePropertyChanged(() => DocumentTypeVisibility);
+                }
+            }
+        }
+        #endregion
         #endregion
 
         #endregion
@@ -255,14 +288,27 @@ namespace UniCloud.Presentation.Document
 
         private void OnSave(object obj)
         {
-            IsBusy = true;
-            ViewDocumentDTO.AddNew(_addedDocument);
-            _service.SubmitChanges(sm =>
+            if (_fromServer)
             {
-                IsBusy = false;
-                _windowClosed(_addedDocument);
-                MessageAlert("提示", sm.Error == null ? "保存成功。" : "保存失败，请检查！");
-            });
+                _windowClosed(_loadedDocument);
+                MessageAlert("提示", "保存成功。");
+            }
+            else
+            {
+                if (_addedDocument.DocumentTypeId == 0)
+                {
+                    MessageAlert("请选择文档类型！");
+                    return;
+                }
+                IsBusy = true;
+                ViewDocumentDto.AddNew(_addedDocument);
+                _service.SubmitChanges(sm =>
+                                       {
+                                           IsBusy = false;
+                                           _windowClosed(_addedDocument);
+                                           MessageAlert("提示", sm.Error == null ? "保存成功。" : "保存失败，请检查！");
+                                       });
+            }
         }
 
         private bool CanSave(object obj)
@@ -281,6 +327,9 @@ namespace UniCloud.Presentation.Document
         /// <param name="callback">回调操作</param>
         internal void InitDocument(FileInfo fi, Action<DocumentDTO> callback)
         {
+            _fromServer = false;
+            DocumentTypeVisibility = Visibility.Visible;
+            DocumentTypes.Load();
             _windowClosed = callback;
             ViewDocument(fi);
         }
@@ -291,6 +340,7 @@ namespace UniCloud.Presentation.Document
         /// <param name="docId">文档ID</param>
         internal void InitDocument(Guid docId)
         {
+            DocumentTypeVisibility = Visibility.Collapsed;
             Title = string.Empty;
             PDFVisibility = Visibility.Collapsed;
             WordVisibility = Visibility.Collapsed;
@@ -300,11 +350,24 @@ namespace UniCloud.Presentation.Document
             }
             else
             {
-                _docDescriptor.Value = docId;
-                ViewDocumentDTO.Load(true);
+                GetSingleDocument(docId);
             }
         }
 
+        internal void AddDocument(DocumentDTO document, bool fromServer, Action<DocumentDTO> callback)
+        {
+            DocumentTypeVisibility = Visibility.Collapsed;
+            _fromServer = fromServer;
+            _windowClosed = callback;
+            if (_loadedDocument != null && document.DocumentId == _loadedDocument.DocumentId)
+            {
+                ViewDocument(_loadedDocument);
+            }
+            else
+            {
+                GetSingleDocument(document.DocumentId);
+            }
+        }
         /// <summary>
         ///     展示从本地添加的文档
         ///     <remarks>
@@ -317,22 +380,22 @@ namespace UniCloud.Presentation.Document
             var extension = fi.Extension.ToLower();
             var length = (int)fi.Length;
             var fs = fi.OpenRead();
-            var content = new byte[length];
+            _content = new byte[length];
             using (fs)
             {
-                fs.Read(content, 0, length);
+                fs.Read(_content, 0, length);
             }
             switch (extension.ToLower())
             {
                 case ".docx":
                     PDFVisibility = Visibility.Collapsed;
                     WordVisibility = Visibility.Visible;
-                    WordContent = content;
+                    WordContent = _content;
                     break;
                 case ".pdf":
                     WordVisibility = Visibility.Collapsed;
                     PDFVisibility = Visibility.Visible;
-                    PDFContent = new MemoryStream(content);
+                    PDFContent = new MemoryStream(_content);
                     break;
                 default:
                     throw new ArgumentException("不是合法的Word文档或者PDF文档！");
@@ -343,7 +406,7 @@ namespace UniCloud.Presentation.Document
                 DocumentId = Guid.NewGuid(),
                 Name = fi.Name,
                 Extension = extension,
-                FileStorage = content
+                FileStorage = _content
             };
         }
 
@@ -354,18 +417,18 @@ namespace UniCloud.Presentation.Document
         private void ViewDocument(DocumentDTO doc)
         {
             var extension = doc.Extension;
-            var content = doc.FileStorage;
+            _content = doc.FileStorage;
             switch (extension)
             {
                 case ".docx":
                     PDFVisibility = Visibility.Collapsed;
                     WordVisibility = Visibility.Visible;
-                    WordContent = content;
+                    WordContent = _content;
                     break;
                 case ".pdf":
                     WordVisibility = Visibility.Collapsed;
                     PDFVisibility = Visibility.Visible;
-                    PDFContent = new MemoryStream(content);
+                    PDFContent = new MemoryStream(_content);
                     break;
                 default:
                     throw new ArgumentException("不是合法的Word文档或者PDF文档！");
@@ -375,6 +438,72 @@ namespace UniCloud.Presentation.Document
 
         #endregion
 
+        #region 获取单个文档信息
+
+        private void GetSingleDocument(Guid documentId)
+        {
+            var uri = GetDocumentUri(documentId);
+            IsBusy = true;
+            _context.BeginExecute<DocumentDTO>(uri,
+              result => Deployment.Current.Dispatcher.BeginInvoke(() =>
+              {
+                  var context = result.AsyncState as CommonServiceData;
+                  try
+                  {
+                      if (context != null)
+                      {
+                          _loadedDocument = context.EndExecute<DocumentDTO>(result).FirstOrDefault();
+                          if (_loadedDocument != null)
+                              ViewDocument(_loadedDocument);
+                      }
+                  }
+                  catch (DataServiceQueryException ex)
+                  {
+                      QueryOperationResponse response = ex.Response;
+                      MessageAlert(response.Error.Message);
+                  }
+                  IsBusy = false;
+              }), _context);
+        }
+
+        private Uri GetDocumentUri(Guid documentId)
+        {
+            return new Uri(string.Format("GetSingleDocument?documentId='{0}'", documentId),
+                UriKind.Relative);
+        }
+        #endregion
+
+        #region 保存文档到本地
+        /// <summary>
+        ///     保存命令
+        /// </summary>
+        public DelegateCommand<object> SaveDocumentToLocalCommand { get; set; }
+
+        private void OnSaveDocumentToLocal(object obj)
+        {
+
+            var saveFileDialog = new SaveFileDialog
+                                 {
+                                     DefaultFileName = Title,
+                                     Filter = Title.ToLower().EndsWith(".docx")
+                                             ? "Word文档(*.docx)|*.docx"
+                                             : "PDF文档(*.pdf)|*.pdf"
+                                 };
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                var fileStream = (FileStream)saveFileDialog.OpenFile();
+                fileStream.Write(_content, 0, _content.Length);
+                MessageAlert("保存成功。");
+                fileStream.Dispose();
+            }
+        }
+
+        private bool CanSaveDocumentToLocal(object obj)
+        {
+            return true;
+        }
+        #endregion
         #endregion
     }
 }

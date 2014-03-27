@@ -32,6 +32,7 @@ namespace UniCloud.Application.CommonServiceBC.DTO
         /// </summary>
         public int DocumentTypeId { get; set; }
 
+        public bool IsChecked { get; set; }
         /// <summary>
         /// 类型名称
         /// </summary>

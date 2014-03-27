@@ -16,10 +16,13 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Windows;
 using Microsoft.Practices.Prism.Regions;
+using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService;
+using UniCloud.Presentation.Service.CommonService.Common;
 
 #endregion
 
@@ -35,8 +38,14 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             : base(service)
         {
             _regionManager = regionManager;
+            DocumentTypes = new QueryableDataServiceCollectionView<DocumentTypeDTO>(service.Context, service.Context.DocumentTypes);
         }
 
+        /// <summary>
+        /// 文档类型
+        /// </summary>
+        public QueryableDataServiceCollectionView<DocumentTypeDTO> DocumentTypes { get; set; }
+        #region 关键字
         private string _keyword;
         public string Keyword
         {
@@ -47,18 +56,29 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
                 RaisePropertyChanged("Keyword");
             }
         }
-
+        #endregion
         public void RadButtonClick(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(Keyword))
+            {
+                MessageAlert("请输入搜索关键字！");
+                return;
+            }
+            if (DocumentTypes.All(p => p.IsChecked == false))
+            {
+                MessageAlert("请选择搜索范围！");
+                return;
+            }
+
             if (!string.IsNullOrEmpty(Keyword))
             {
                 _regionManager.RequestNavigate(RegionNames.MainRegion, new Uri("UniCloud.Presentation.CommonService.SearchDocument.SearchDocument", UriKind.Relative));
-              
             }
         }
 
         public override void LoadData()
         {
+            DocumentTypes.Load();
             //throw new System.NotImplementedException();
         }
     }

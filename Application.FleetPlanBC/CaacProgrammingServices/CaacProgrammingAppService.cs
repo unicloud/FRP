@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.CaacProgrammingQueries;
@@ -35,7 +36,8 @@ namespace UniCloud.Application.FleetPlanBC.CaacProgrammingServices
     ///     实现民航局五年规划服务接口。
     ///     用于处理民航局五年规划相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class CaacProgrammingAppService : ICaacProgrammingAppService
+   [LogAOP]
+    public class CaacProgrammingAppService : ContextBoundObject, ICaacProgrammingAppService
     {
         private readonly ICaacProgrammingQuery _caacProgrammingQuery;
         private readonly IAircraftCategoryRepository _aircraftCategoryRepository;

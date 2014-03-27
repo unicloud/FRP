@@ -15,7 +15,6 @@
 #region 命名空间
 
 using System;
-using System.Collections.Generic;
 using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.UberModel.Aggregates.AirlinesAgg;
 using UniCloud.Domain.UberModel.Aggregates.AnnualAgg;
@@ -30,8 +29,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
     public class Plan : EntityGuid
     {
         #region 私有字段
-
-        private HashSet<PlanHistory> _planHistories;
 
         #endregion
 
@@ -134,16 +131,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
         /// 计划年度
         /// </summary>
         public virtual Annual Annual { get; private set; }
-
-        /// <summary>
-        ///     飞机计划明细
-        /// </summary>
-        public virtual ICollection<PlanHistory> PlanHistories
-        {
-            get { return _planHistories ?? (_planHistories = new HashSet<PlanHistory>()); }
-            set { _planHistories = new HashSet<PlanHistory>(value); }
-        }
-
 
         #endregion
 
@@ -280,45 +267,6 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg
 
             DocumentId = documentId;
             DocName = docName;
-        }
-
-
-        /// <summary>
-        /// 新增飞机变更计划明细
-        /// </summary>
-        /// <returns></returns>
-        public PlanHistory AddNewChangePlan()
-        {
-            var changePlan = new ChangePlan
-            {
-                PlanId = Id,
-                IsValid = IsValid,
-                IsSubmit = (SubmitDate == null),
-            };
-
-            changePlan.GenerateNewIdentity();
-            PlanHistories.Add(changePlan);
-
-            return changePlan;
-        }
-
-        /// <summary>
-        /// 新增飞机运营计划明细
-        /// </summary>
-        /// <returns></returns>
-        public PlanHistory AddNewOperationPlan()
-        {
-            var operationPlan = new OperationPlan
-            {
-                PlanId = Id,
-                IsValid = IsValid,
-                IsSubmit = (SubmitDate == null),
-            };
-
-            operationPlan.GenerateNewIdentity();
-            PlanHistories.Add(operationPlan);
-
-            return operationPlan;
         }
         #endregion
     }

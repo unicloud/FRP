@@ -15,8 +15,10 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.IO;
+using System.Linq;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
@@ -129,16 +131,26 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
             set
             {
                 _aircraftLicense = value;
-                if (_aircraftLicense != null && _aircraftLicense.FileContent != null)
+                if (_aircraftLicense != null)
                 {
-                    IImageFormatProvider providerByExtension = ImageFormatProviderManager.GetFormatProviderByExtension(Path.GetExtension(_aircraftLicense.FileName));
-                    if (providerByExtension == null)
+                    if (_aircraftLicense.FileContent != null)
                     {
-                        MessageAlert("不支持文件格式！");
+                        IImageFormatProvider providerByExtension =
+                            ImageFormatProviderManager.GetFormatProviderByExtension(
+                                Path.GetExtension(_aircraftLicense.FileName));
+                        if (providerByExtension == null)
+                        {
+                            MessageAlert("不支持文件格式！");
+                        }
+                        else
+                        {
+                            CurrentAircraftLicense.ImageEditor.Image =
+                                providerByExtension.Import(AircraftLicense.FileContent);
+                        }
                     }
                     else
                     {
-                        CurrentAircraftLicense.ImageEditor.Image = providerByExtension.Import(AircraftLicense.FileContent);
+                        CurrentAircraftLicense.ImageEditor.Image = null;
                     }
                 }
                 AddDocumentCommand.RaiseCanExecuteChanged();
@@ -147,7 +159,37 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
         }
         #endregion
 
+        #region 图片缩放
+        public Dictionary<double, string> Percents
+        {
+            get
+            {
+                return new Dictionary<double, string>
+                         {
+                             {0,"适应"},
+                             {0.1,"10%"},
+                             {0.25,"25%"},
+                             {0.5,"50%"},
+                             {1,"100%"},
+                             {1.5,"150%"},
+                             {2,"200%"},
+                             {5,"500%"},
+                         };
+            }
+        }
 
+        private double _percent;
+        public double Percent
+        {
+            get { return _percent; }
+            set
+            {
+                _percent = value;
+                CurrentAircraftLicense.ImageEditor.ScaleFactor = _percent;
+                RaisePropertyChanged("Percent");
+            }
+        }
+        #endregion
         #endregion
 
         #endregion
@@ -174,7 +216,9 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
                 IssuedDate = DateTime.Now,
                 ExpireDate = DateTime.Now
             };
-
+            var firstOrDefault = LicenseTypes.FirstOrDefault();
+            if (firstOrDefault != null)
+                aircraftLicense.LicenseTypeId = firstOrDefault.LicenseTypeId;
             Aircraft.AircraftLicenses.Add(aircraftLicense);
             CurrentAircraftLicense.ImageEditor.Image = null;
         }
@@ -218,7 +262,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftData
 
         [Import]
         public ManagerAircraftLicense CurrentAircraftLicense;
-       
+
         public DelegateCommand<object> AddDocumentCommand { get; set; }
 
         private void AddDocument(object sender)

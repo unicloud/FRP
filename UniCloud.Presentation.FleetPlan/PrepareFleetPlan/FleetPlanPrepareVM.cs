@@ -46,7 +46,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private AirlinesDTO _curAirlines = new AirlinesDTO();
         private bool _loadedAnnuals;
         private bool _loadedPlans;
-
         [ImportingConstructor]
         public FleetPlanPrepareVM(IRegionManager regionManager, IFleetPlanService service)
             : base(service)
@@ -84,6 +83,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             };
             _service.RegisterCollectionView(AllPlans);
 
+            AllPlanHistories = _service.CreateCollection(_context.PlanHistories);
+            AllPlans.LoadedData += (sender, e) => RaisePropertyChanged(()=>SelPlan);
+            _service.RegisterCollectionView(AllPlanHistories);
+
             //TODO：初始化当前航空公司
             _curAirlines = new AirlinesDTO
             {
@@ -92,6 +95,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 CnShortName = "川航",
             };
         }
+
+       
 
         /// <summary>
         ///     初始化命令。
@@ -126,6 +131,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 AllPlans.AutoLoad = true;
             else
                 AllPlans.Load(true);
+
+            if (!AllPlanHistories.AutoLoad)
+                AllPlanHistories.AutoLoad = true;
+            else
+                AllPlanHistories.Load(true);
 
             if (!Annuals.AutoLoad)
                 Annuals.AutoLoad = true;
@@ -213,6 +223,32 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #endregion
 
+        #region 计划明细集合
+
+        /// <summary>
+        ///     所有计划明细集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<PlanHistoryDTO> AllPlanHistories { get; set; }
+
+        private ObservableCollection<PlanHistoryDTO> _viewPlanHistories = new ObservableCollection<PlanHistoryDTO>();
+
+        /// <summary>
+        ///     选择计划的计划明细集合
+        /// </summary>
+        public ObservableCollection<PlanHistoryDTO> ViewPlanHistories
+        {
+            get { return _viewPlanHistories; }
+            private set
+            {
+                if (_viewPlanHistories != value)
+                {
+                    _viewPlanHistories = value;
+                    RaisePropertyChanged(() => ViewPlanHistories);
+                }
+            }
+        }
+        #endregion
+
         #region 选择的计划
 
         private PlanDTO _selPlan;
@@ -228,33 +264,19 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 if (_selPlan != value)
                 {
                     _selPlan = value;
-                    PlanHistories.Clear();
-                    foreach (var ph in value.PlanHistories)
+                    ViewPlanHistories.Clear();
+                    if (value != null)
                     {
-                        PlanHistories.Add(ph);
+                        ViewPlanHistories.Clear();
+                        foreach (var ph in AllPlanHistories.SourceCollection.Cast<PlanHistoryDTO>())
+                        {
+                            if (ph.PlanId == value.Id)
+                                ViewPlanHistories.Add(ph);
+                        }
+                        RaisePropertyChanged(()=>ViewPlanHistories);
                     }
+
                     RaisePropertyChanged(() => SelPlan);
-                }
-            }
-        }
-
-        #endregion
-
-        #region 计划明细集合
-        private ObservableCollection<PlanHistoryDTO> _planHistories = new ObservableCollection<PlanHistoryDTO>();
-
-        /// <summary>
-        ///     计划明细集合
-        /// </summary>
-        public ObservableCollection<PlanHistoryDTO> PlanHistories
-        {
-            get { return _planHistories; }
-            private set
-            {
-                if (_planHistories != value)
-                {
-                    _planHistories = value;
-                    RaisePropertyChanged(() => PlanHistories);
                 }
             }
         }
@@ -304,7 +326,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             _curAnnual = Annuals.SourceCollection.Cast<AnnualDTO>().SingleOrDefault(p => p.IsOpen);
 
             //创建新年度的第一版本计划
-            AllPlans.AddNew(_service.CreateNewYearPlan(lastPlan, newAnnual.Id, newAnnual.Year, _curAirlines));
+            AllPlans.AddNew(_service.CreateNewYearPlan(lastPlan, AllPlanHistories, newAnnual));
 
             SelAnnual = _curAnnual;
 

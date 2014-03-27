@@ -4,6 +4,7 @@
 
 using UniCloud.Application.AircraftConfigBC.ActionCategoryServices;
 using UniCloud.Application.AircraftConfigBC.AircraftCategoryServices;
+using UniCloud.Application.AircraftConfigBC.AircraftConfigurationServices;
 using UniCloud.Application.AircraftConfigBC.AircraftLicenseServices;
 using UniCloud.Application.AircraftConfigBC.AircraftSeriesServices;
 using UniCloud.Application.AircraftConfigBC.AircraftServices;
@@ -11,6 +12,7 @@ using UniCloud.Application.AircraftConfigBC.AircraftTypeServices;
 using UniCloud.Application.AircraftConfigBC.ManufacturerServices;
 using UniCloud.Application.AircraftConfigBC.Query.ActionCategoryQueries;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftCategoryQueries;
+using UniCloud.Application.AircraftConfigBC.Query.AircraftConfigurationQueries;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftLicenseQueries;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftQueries;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftSeriesQueries;
@@ -18,10 +20,12 @@ using UniCloud.Application.AircraftConfigBC.Query.AircraftTypeQueries;
 using UniCloud.Application.AircraftConfigBC.Query.ManufacturerQueries;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCabinTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftCategoryAgg;
-using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftLicenseAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftConfigurationAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.CAACAircraftTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.LicenseTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.ManufacturerAgg;
 using UniCloud.Domain.Events;
@@ -44,7 +48,7 @@ namespace UniCloud.DistributedServices.AircraftConfig.InstanceProviders
         {
             DefaultContainer.CreateContainer()
                 .RegisterType<IQueryableUnitOfWork, AircraftConfigBCUnitOfWork>(new WcfPerRequestLifetimeManager())
-                 .RegisterType<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager())
+                .RegisterType<IEventAggregator, EventAggregator>(new WcfPerRequestLifetimeManager())
 
             #region 活动类型相关配置，包括查询，应用服务，仓储注册
 
@@ -79,6 +83,7 @@ namespace UniCloud.DistributedServices.AircraftConfig.InstanceProviders
 .RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
                 .RegisterType<IAircraftTypeAppService, AircraftTypeAppService>()
                 .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
+                .RegisterType<ICAACAircraftTypeRepository, CAACAircraftTypeRepository>()
             #endregion
 
             #region 制造商相关配置，包括查询，应用服务，仓储注册
@@ -92,8 +97,17 @@ namespace UniCloud.DistributedServices.AircraftConfig.InstanceProviders
 
 .RegisterType<IAircraftLicenseQuery, AircraftLicenseQuery>()
                 .RegisterType<IAircraftLicenseAppService, AircraftLicenseAppService>()
-                 .RegisterType<ILicenseTypeRepository, LicenseTypeRepository>()
+                .RegisterType<ILicenseTypeRepository, LicenseTypeRepository>()
             #endregion
+
+            #region 飞机配置相关配置，包括查询，应用服务，仓储注册
+
+.RegisterType<IAircraftConfigurationQuery, AircraftConfigurationQuery>()
+                .RegisterType<IAircraftConfigurationAppService, AircraftConfigurationAppService>()
+                .RegisterType<IAircraftConfigurationRepository, AircraftConfigurationRepository>()
+                .RegisterType<IAircraftCabinTypeRepository, AircraftCabinTypeRepository>()
+            #endregion
+
 ;
         }
 

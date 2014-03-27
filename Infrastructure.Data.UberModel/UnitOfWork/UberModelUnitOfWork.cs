@@ -23,7 +23,9 @@ using UniCloud.Domain.UberModel.Aggregates.AcDailyUtilizationAgg;
 using UniCloud.Domain.UberModel.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.UberModel.Aggregates.AdSbAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftAgg;
+using UniCloud.Domain.UberModel.Aggregates.AircraftCabinTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.UberModel.Aggregates.AircraftConfigurationAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftLicenseAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftPlanAgg;
 using UniCloud.Domain.UberModel.Aggregates.AircraftSeriesAgg;
@@ -37,6 +39,7 @@ using UniCloud.Domain.UberModel.Aggregates.AtaAgg;
 using UniCloud.Domain.UberModel.Aggregates.BankAccountAgg;
 using UniCloud.Domain.UberModel.Aggregates.BasicConfigAgg;
 using UniCloud.Domain.UberModel.Aggregates.BasicConfigGroupAgg;
+using UniCloud.Domain.UberModel.Aggregates.CAACAircraftTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.CaacProgrammingAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractAircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.ContractAircraftBFEAgg;
@@ -51,6 +54,7 @@ using UniCloud.Domain.UberModel.Aggregates.EnginePlanAgg;
 using UniCloud.Domain.UberModel.Aggregates.EngineTypeAgg;
 using UniCloud.Domain.UberModel.Aggregates.FlightLogAgg;
 using UniCloud.Domain.UberModel.Aggregates.ForwarderAgg;
+using UniCloud.Domain.UberModel.Aggregates.FunctionItemAgg;
 using UniCloud.Domain.UberModel.Aggregates.GuaranteeAgg;
 using UniCloud.Domain.UberModel.Aggregates.InvoiceAgg;
 using UniCloud.Domain.UberModel.Aggregates.LicenseTypeAgg;
@@ -66,6 +70,9 @@ using UniCloud.Domain.UberModel.Aggregates.MaterialAgg;
 using UniCloud.Domain.UberModel.Aggregates.ModAgg;
 using UniCloud.Domain.UberModel.Aggregates.OilMonitorAgg;
 using UniCloud.Domain.UberModel.Aggregates.OrderAgg;
+using UniCloud.Domain.UberModel.Aggregates.OrganizationAgg;
+using UniCloud.Domain.UberModel.Aggregates.OrganizationRoleAgg;
+using UniCloud.Domain.UberModel.Aggregates.OrganizationUserAgg;
 using UniCloud.Domain.UberModel.Aggregates.PartAgg;
 using UniCloud.Domain.UberModel.Aggregates.PaymentNoticeAgg;
 using UniCloud.Domain.UberModel.Aggregates.PaymentScheduleAgg;
@@ -73,11 +80,14 @@ using UniCloud.Domain.UberModel.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.UberModel.Aggregates.PlanEngineAgg;
 using UniCloud.Domain.UberModel.Aggregates.PnRegAgg;
 using UniCloud.Domain.UberModel.Aggregates.ProgrammingAgg;
+using UniCloud.Domain.UberModel.Aggregates.ProgrammingFileAgg;
 using UniCloud.Domain.UberModel.Aggregates.ProjectAgg;
 using UniCloud.Domain.UberModel.Aggregates.ProjectTempAgg;
 using UniCloud.Domain.UberModel.Aggregates.ReceptionAgg;
 using UniCloud.Domain.UberModel.Aggregates.RelatedDocAgg;
 using UniCloud.Domain.UberModel.Aggregates.RequestAgg;
+using UniCloud.Domain.UberModel.Aggregates.RoleAgg;
+using UniCloud.Domain.UberModel.Aggregates.RoleFunctionAgg;
 using UniCloud.Domain.UberModel.Aggregates.ScnAgg;
 using UniCloud.Domain.UberModel.Aggregates.SnRegAgg;
 using UniCloud.Domain.UberModel.Aggregates.SpecialConfigAgg;
@@ -90,6 +100,7 @@ using UniCloud.Domain.UberModel.Aggregates.TechnicalSolutionAgg;
 using UniCloud.Domain.UberModel.Aggregates.ThrustAgg;
 using UniCloud.Domain.UberModel.Aggregates.TradeAgg;
 using UniCloud.Domain.UberModel.Aggregates.UserAgg;
+using UniCloud.Domain.UberModel.Aggregates.UserRoleAgg;
 using UniCloud.Domain.UberModel.Aggregates.WorkGroupAgg;
 using UniCloud.Domain.UberModel.Aggregates.XmlConfigAgg;
 using UniCloud.Domain.UberModel.Aggregates.XmlSettingAgg;
@@ -113,7 +124,11 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<AircraftLicense> _aircraftLicenses;
         private IDbSet<AircraftSeries> _aircraftSeries;
         private IDbSet<AircraftType> _aircraftTypes;
+        private IDbSet<CAACAircraftType> _caacAircraftTypes; 
         private IDbSet<Aircraft> _aircrafts;
+        private IDbSet<AircraftConfiguration> _aircraftConfigurations;
+        private IDbSet<AircraftCabin> _aircraftCabins;
+        private IDbSet<AircraftCabinType> _aircraftCabinTypes; 
         private IDbSet<Airlines> _airlineses;
         private IDbSet<Annual> _annuals;
         private IDbSet<ApprovalDoc> _approvalDocs;
@@ -158,6 +173,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<Plan> _plans;
         private IDbSet<PnReg> _pneRegs;
         private IDbSet<Programming> _programmings;
+        private IDbSet<ProgrammingFile> _programmingFiles;
         private IDbSet<ProjectTemp> _projectTemps;
         private IDbSet<Project> _projects;
         private IDbSet<Reception> _receptions;
@@ -180,9 +196,17 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         private IDbSet<XmlSetting> _xmlSettings;
 
 
+        private IDbSet<FunctionItem> _functionItems;
+        private IDbSet<OrganizationRole> _organizationRoles;
+        private IDbSet<OrganizationUser> _organizationUsers;
+        private IDbSet<Organization> _organizations;
+        private IDbSet<RoleFunction> _roleFunctions;
+        private IDbSet<Role> _roles;
+        private IDbSet<UserRole> _userRoles;
+
         public IDbSet<AcDailyUtilization> AcDailyUtilizations
         {
-            get { return _acDailyUtilizations ?? (_acDailyUtilizations = base.Set<AcDailyUtilization>()); }
+            get { return _acDailyUtilizations ?? (_acDailyUtilizations = Set<AcDailyUtilization>()); }
         }
 
         public IDbSet<AircraftLicense> AircraftLicenses
@@ -220,10 +244,28 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
             get { return _aircrafts ?? (_aircrafts = Set<Aircraft>()); }
         }
 
+        public IDbSet<AircraftConfiguration> AircraftConfigurations
+        {
+            get { return _aircraftConfigurations ?? (_aircraftConfigurations = Set<AircraftConfiguration>()); }
+        }
+
+        public IDbSet<AircraftCabinType> AircraftCabinTypes
+        {
+            get { return _aircraftCabinTypes ?? (_aircraftCabinTypes = Set<AircraftCabinType>()); }    
+        }
+
+        public IDbSet<AircraftCabin> AircraftCabins
+        {
+            get { return _aircraftCabins ?? (_aircraftCabins = Set<AircraftCabin>()); }
+        }
+
         public IDbSet<AircraftType> AircraftTypes
         {
             get { return _aircraftTypes ?? (_aircraftTypes = Set<AircraftType>()); }
         }
+
+        public IDbSet<CAACAircraftType> CaacAircraftTypes
+        { get { return _caacAircraftTypes ?? (_caacAircraftTypes = Set<CAACAircraftType>()); } }
 
         public IDbSet<Airlines> Airlineses
         {
@@ -257,12 +299,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<BasicConfig> BasicConfigs
         {
-            get { return _basicConfigs ?? (_basicConfigs = base.Set<BasicConfig>()); }
+            get { return _basicConfigs ?? (_basicConfigs = Set<BasicConfig>()); }
         }
 
         public IDbSet<BasicConfigGroup> BasicConfigGroups
         {
-            get { return _basicConfigGroups ?? (_basicConfigGroups = base.Set<BasicConfigGroup>()); }
+            get { return _basicConfigGroups ?? (_basicConfigGroups = Set<BasicConfigGroup>()); }
         }
 
         public IDbSet<CaacProgramming> CaacProgrammings
@@ -287,7 +329,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<CtrlUnit> CtrlUnits
         {
-            get { return _ctrlUnits ?? (_ctrlUnits = base.Set<CtrlUnit>()); }
+            get { return _ctrlUnits ?? (_ctrlUnits = Set<CtrlUnit>()); }
         }
 
         public IDbSet<Currency> Currencies
@@ -357,7 +399,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<MaintainCtrl> MaintainCtrls
         {
-            get { return _maintainCtrls ?? (_maintainCtrls = base.Set<MaintainCtrl>()); }
+            get { return _maintainCtrls ?? (_maintainCtrls = Set<MaintainCtrl>()); }
         }
 
         public IDbSet<MaintainInvoice> MaintainInvoices
@@ -367,7 +409,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<MaintainWork> MaintainWorks
         {
-            get { return _maintainWorks ?? (_maintainWorks = base.Set<MaintainWork>()); }
+            get { return _maintainWorks ?? (_maintainWorks = Set<MaintainWork>()); }
         }
 
         public IDbSet<Manager> Managers
@@ -387,12 +429,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<Mod> Mods
         {
-            get { return _mods ?? (_mods = base.Set<Mod>()); }
+            get { return _mods ?? (_mods = Set<Mod>()); }
         }
 
         public IDbSet<OilMonitor> OilMonitors
         {
-            get { return _oilMonitors ?? (_oilMonitors = base.Set<OilMonitor>()); }
+            get { return _oilMonitors ?? (_oilMonitors = Set<OilMonitor>()); }
         }
 
         public IDbSet<Order> Orders
@@ -432,12 +474,17 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<PnReg> PnRegs
         {
-            get { return _pneRegs ?? (_pneRegs = base.Set<PnReg>()); }
+            get { return _pneRegs ?? (_pneRegs = Set<PnReg>()); }
         }
 
         public IDbSet<Programming> Programmings
         {
             get { return _programmings ?? (_programmings = Set<Programming>()); }
+        }
+
+        public IDbSet<ProgrammingFile> ProgrammingFiles
+        {
+            get { return _programmingFiles ?? (_programmingFiles = Set<ProgrammingFile>()); }
         }
 
         public IDbSet<Reception> Receptions
@@ -457,12 +504,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<Scn> Scns
         {
-            get { return _scns ?? (_scns = base.Set<Scn>()); }
+            get { return _scns ?? (_scns = Set<Scn>()); }
         }
 
         public IDbSet<AirBusScn> AirBusScns
         {
-            get { return _airBusScns ?? (_airBusScns = base.Set<AirBusScn>()); }
+            get { return _airBusScns ?? (_airBusScns = Set<AirBusScn>()); }
         }
 
         public IDbSet<AdSb> AdSbs
@@ -472,12 +519,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<SnReg> SnRegs
         {
-            get { return _snRegs ?? (_snRegs = base.Set<SnReg>()); }
+            get { return _snRegs ?? (_snRegs = Set<SnReg>()); }
         }
 
         public IDbSet<SpecialConfig> SpecialConfigs
         {
-            get { return _specialConfigs ?? (_specialConfigs = base.Set<SpecialConfig>()); }
+            get { return _specialConfigs ?? (_specialConfigs = Set<SpecialConfig>()); }
         }
 
         public IDbSet<Supplier> Suppliers
@@ -532,12 +579,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
         public IDbSet<TechnicalSolution> TechnicalSolutions
         {
-            get { return _technicalSolutions ?? (_technicalSolutions = base.Set<TechnicalSolution>()); }
+            get { return _technicalSolutions ?? (_technicalSolutions = Set<TechnicalSolution>()); }
         }
 
         public IDbSet<Thrust> Thrusts
         {
-            get { return _thrusts ?? (_thrusts = base.Set<Thrust>()); }
+            get { return _thrusts ?? (_thrusts = Set<Thrust>()); }
         }
 
         public IDbSet<User> Users
@@ -553,6 +600,43 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
         public IDbSet<DocumentType> DocumentTypes
         {
             get { return _documentTypes ?? (_documentTypes = Set<DocumentType>()); }
+        }
+
+        public IDbSet<FunctionItem> FunctionItems
+        {
+            get { return _functionItems ?? (_functionItems = Set<FunctionItem>()); }
+        }
+
+        public IDbSet<Organization> Organizations
+        {
+            get { return _organizations ?? (_organizations = Set<Organization>()); }
+        }
+
+        public IDbSet<OrganizationRole> OrganizationRoles
+        {
+            get { return _organizationRoles ?? (_organizationRoles = Set<OrganizationRole>()); }
+        }
+
+        public IDbSet<OrganizationUser> OrganizationUsers
+        {
+            get { return _organizationUsers ?? (_organizationUsers = Set<OrganizationUser>()); }
+        }
+
+        public IDbSet<Role> Roles
+        {
+            get { return _roles ?? (_roles = Set<Role>()); }
+        }
+
+        public IDbSet<RoleFunction> RoleFunctions
+        {
+            get { return _roleFunctions ?? (_roleFunctions = Set<RoleFunction>()); }
+        }
+
+
+
+        public IDbSet<UserRole> UserRoles
+        {
+            get { return _userRoles ?? (_userRoles = Set<UserRole>()); }
         }
 
         #endregion
@@ -620,6 +704,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 .Add(new AircraftBusinessEntityConfiguration())
                 .Add(new OperationHistoryEntityConfiguration())
                 .Add(new OwnershipHistoryEntityConfiguration())
+                .Add(new AcConfigHistoryEntityConfiguration())
 
                 #endregion
 
@@ -635,7 +720,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
                 #region AircraftTypeAgg
 
                 .Add(new AircraftTypeEntityConfiguration())
-
+                .Add(new CAACAircraftTypeEntityConfiguration())
                 #endregion
 
                 #region AirlinesAgg
@@ -929,6 +1014,12 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 #endregion
 
+                #region ProgrammingAgg
+
+                .Add(new ProgrammingFileEntityConfiguration())
+
+                #endregion
+
                 #region ReceptionAgg
 
                 .Add(new ReceptionEntityConfiguration())
@@ -1064,12 +1155,6 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 #endregion
 
-                #region UserAgg
-
-                .Add(new UserEntityConfiguration())
-
-                #endregion
-
                 #region WorkGroupAgg
 
                 .Add(new WorkGroupEntityConfiguration())
@@ -1092,6 +1177,61 @@ namespace UniCloud.Infrastructure.Data.UberModel.UnitOfWork
 
                 .Add(new AdSbEntityConfiguration())
                 #endregion
+
+                #region AircraftConfigurationAgg
+
+.Add(new AircraftConfigurationEntityConfiguration())
+                .Add(new AircraftCabinEntityConfiguration())
+                .Add(new AircraftCabinTypeEntityConfiguration())
+            #endregion
+
+                #region FunctionItemAgg
+
+.Add(new FunctionItemEntityConfiguration())
+
+            #endregion
+
+                #region OrganizationUserAgg
+
+.Add(new OrganizationUserEntityConfiguration())
+
+            #endregion
+
+                #region OrganizationRoleAgg
+
+.Add(new OrganizationRoleEntityConfiguration())
+
+            #endregion
+
+                #region OrganizationAgg
+
+.Add(new OrganizationEntityConfiguration())
+
+            #endregion
+
+                #region RoleFunctionAgg
+
+.Add(new RoleFunctionEntityConfiguration())
+
+            #endregion
+
+                #region RoleAgg
+
+.Add(new RoleEntityConfiguration())
+
+            #endregion
+
+                #region UserRoleAgg
+
+.Add(new UserRoleEntityConfiguration())
+
+            #endregion
+
+                #region UserAgg
+
+.Add(new UserEntityConfiguration())
+
+            #endregion
 
                 .Add(new AddressConfiguration());
         }

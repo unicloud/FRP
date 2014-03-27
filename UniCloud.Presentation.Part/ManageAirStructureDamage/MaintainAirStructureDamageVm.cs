@@ -15,7 +15,9 @@
 #region 命名空间
 
 using System;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -69,6 +71,8 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
                     if (newItem != null)
                     {
                         newItem.Id = RandomHelper.Next();
+                        var firstOrDefault = Aircrafts.FirstOrDefault();
+                        if (firstOrDefault != null) newItem.AircraftId = firstOrDefault.Id;
                         DocumentName = "添加附件";
                         _document.DocumentId = new Guid();
                         _document.Name = string.Empty;
@@ -83,6 +87,8 @@ namespace UniCloud.Presentation.Part.ManageAirStructureDamage
                 }
             };
             Aircrafts = new QueryableDataServiceCollectionView<AircraftDTO>(_context, _context.Aircrafts);
+            var sort = new SortDescriptor { Member = "RegNumber", SortDirection = ListSortDirection.Ascending };
+            Aircrafts.SortDescriptors.Add(sort);
         }
 
         #endregion

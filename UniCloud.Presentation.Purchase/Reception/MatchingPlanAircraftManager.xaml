@@ -31,7 +31,9 @@
     </UserControl.Resources>
 
     <Grid x:Name="LayOutRoot">
-        <telerik:RadDocking HasDocumentHost="False">
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False">
             <telerik:RadSplitContainer Orientation="Vertical">
                 <telerik:RadPaneGroup>
                     <telerik:RadPane Header="未匹配合同飞机"

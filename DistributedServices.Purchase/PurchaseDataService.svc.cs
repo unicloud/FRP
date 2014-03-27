@@ -17,11 +17,13 @@
 
 #region ÃüÃû¿Õ¼ä
 
+using System.Collections.Generic;
 using System.Data.Services;
 using System.Data.Services.Common;
 using System.ServiceModel.Web;
 using System.Web;
 using UniCloud.Application.PurchaseBC.DocumentPathServices;
+using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Infrastructure.Utilities.Container;
 
 #endregion
@@ -46,7 +48,8 @@ namespace UniCloud.DistributedServices.Purchase
 
             config.SetServiceOperationAccessRule("AddDocPath", ServiceOperationRights.All);
             config.SetServiceOperationAccessRule("DelDocPath", ServiceOperationRights.All);
-
+            config.SetServiceOperationAccessRule("ModifyDocPath", ServiceOperationRights.All);
+            config.SetServiceOperationAccessRule("SearchDocumentPath", ServiceOperationRights.All);
             #endregion
 
             config.DataServiceBehavior.MaxProtocolVersion = DataServiceProtocolVersion.V3;
@@ -91,12 +94,11 @@ namespace UniCloud.DistributedServices.Purchase
         /// <param name="isLeaf"></param>
         /// <param name="documentId"></param>
         /// <param name="parentId"></param>
-        /// <param name="pathSource"></param>
         [WebGet]
-        public void AddDocPath(string name, string isLeaf, string documentId, int parentId, int pathSource)
+        public void AddDocPath(string name, string isLeaf, string documentId, int parentId)
         {
             var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
-            documentPathAppService.AddDocPath(name, isLeaf, documentId, parentId, pathSource);
+            documentPathAppService.AddDocPath(name, isLeaf, documentId, parentId);
         }
 
         /// <summary>
@@ -110,6 +112,19 @@ namespace UniCloud.DistributedServices.Purchase
             documentPathAppService.DelDocPath(docPathId);
         }
 
+        [WebGet]
+        public void ModifyDocPath(int docPathId, string name)
+        {
+            var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
+            documentPathAppService.ModifyDocPath(docPathId, name);
+        }
+
+        [WebGet]
+        public IEnumerable<DocumentPathDTO> SearchDocumentPath(int documentPathId, string name)
+        {
+            var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
+            return documentPathAppService.SearchDocumentPath(documentPathId, name);
+        }
         #endregion
     }
 }

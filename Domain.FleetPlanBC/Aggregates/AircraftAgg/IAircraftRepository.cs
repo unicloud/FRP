@@ -45,6 +45,12 @@ namespace UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg
         void RemoveOwnershipHistory(OwnershipHistory oh);
 
         /// <summary>
+        /// 移除飞机配置历史
+        /// </summary>
+        /// <param name="ah">飞机配置历史</param>
+        void RemoveAcConfigHistory(AcConfigHistory ah);
+
+        /// <summary>
         /// 获取单个运营权历史
         /// </summary>
         /// <param name="id"></param>

@@ -19,7 +19,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-
         </ResourceDictionary>
     </telerik:RadWindow.Resources>
 
@@ -91,6 +90,7 @@
                                  Grid.Column="3"
                                  ItemsSource="{Binding EditPlanHistory.ActionCategories}"
                                  DisplayMemberPath="ActionCategoryOperation"
+                                 SelectedItem="{Binding SelActionCategory,Mode=TwoWay}"
                                  SelectedValuePath="Id"
                                  SelectedValue="{Binding EditPlanHistory.ActionCategoryId,Mode=TwoWay}" />
             <TextBlock Text="座级"
@@ -101,6 +101,7 @@
                                  ItemsSource="{Binding EditPlanHistory.AircraftCategories}"
                                  DisplayMemberPath="Regional"
                                  SelectedValuePath="Regional"
+                                 SelectedItem="{Binding SelAircraftCategory,Mode=TwoWay}"
                                  IsEnabled="{Binding IsAicraftTypeAndRegionalChangeable}"
                                  SelectedValue="{Binding EditPlanHistory.Regional, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnExceptions=True}" />
             <TextBlock Text="机型"
@@ -109,6 +110,7 @@
             <telerik:RadComboBox Grid.Row="2"
                                  Grid.Column="3"
                                  ItemsSource="{Binding EditPlanHistory.AircraftTypes}"
+                                 SelectedItem="{Binding SelAircraftType,Mode=TwoWay}"
                                  DisplayMemberPath="Name"
                                  SelectedValuePath="Id"
                                  SelectedValue="{Binding EditPlanHistory.AircraftTypeId,Mode=TwoWay}" />

@@ -36,39 +36,6 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.Repositories
 
         #region 方法重载
 
-        public override Plan Get(object id)
-        {
-            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
-            if (currentUnitOfWork == null) return null;
-            var set = currentUnitOfWork.CreateSet<Plan>();
-
-            return set.Include(p => p.PlanHistories).SingleOrDefault(l => l.Id == (Guid)id);
-        }
-
-        /// <summary>
-        ///     移除计划
-        /// </summary>
-        /// <param name="plan">计划</param>
-        public void DeletePlan(Plan plan)
-        {
-            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
-            if (currentUnitOfWork == null) return;
-            var dbPlanHistories = currentUnitOfWork.CreateSet<PlanHistory>();
-            var dbPlans = currentUnitOfWork.CreateSet<Plan>();
-            dbPlanHistories.RemoveRange(plan.PlanHistories);
-            dbPlans.Remove(plan);
-        }
-
-        /// <summary>
-        /// 移除计划明细
-        /// </summary>
-        /// <param name="planHistory"></param>
-        public void RemovePlanHistory(PlanHistory planHistory)
-        {
-            var currentUnitOfWork = UnitOfWork as FleetPlanBCUnitOfWork;
-            if (currentUnitOfWork == null) return;
-            currentUnitOfWork.CreateSet<PlanHistory>().Remove(planHistory);
-        }
         #endregion
     }
 }

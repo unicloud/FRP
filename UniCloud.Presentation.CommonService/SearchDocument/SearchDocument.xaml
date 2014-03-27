@@ -57,6 +57,24 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </telerik:RadButton>
+            <telerik:RadComboBox ItemsSource="{Binding DocumentTypes,Mode=TwoWay}"
+                                 EmptyText="搜索范围"
+                                 FontFamily="Microsoft YaHei UI"
+                                 FontSize="18"
+                                 HorizontalAlignment="Left"
+                                 VerticalAlignment="Top"
+                                 VerticalContentAlignment="Center"
+                                 Height="35"
+                                 Width="100"
+                                 Margin="476,36,0,0">
+                <telerik:RadComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox telerik:StyleManager.Theme="Windows8"
+                                  IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                                  Content="{Binding Name}" />
+                    </DataTemplate>
+                </telerik:RadComboBox.ItemTemplate>
+            </telerik:RadComboBox>
         </Grid>
         <Grid Grid.Row="1">
             <telerik:RadSplitContainer>
@@ -79,7 +97,7 @@
                                              IsBusy="{Binding IsBusy}"
                                              FontSize="{StaticResource TextFontSize}"
                                              ValidatesOnDataErrors="InEditMode"
-                                             RowIndicatorVisibility="Visible">
+                                             ShowGroupPanel="False">
                             <uc:GridViewDoubleClick.Helper>
                                 <uc:DocumentDoubleClickHelper />
                             </uc:GridViewDoubleClick.Helper>

@@ -30,7 +30,7 @@ namespace UniCloud.Application.FleetPlanBC.DTO
     {
         #region 私有字段
 
-        private List<PlanHistoryDTO> _planHistories;
+        //private List<PlanHistoryDTO> _planHistories;
         private List<ApprovalHistoryDTO> _approvalHistories;
 
         #endregion
@@ -94,14 +94,14 @@ namespace UniCloud.Application.FleetPlanBC.DTO
 
         #region 导航属性
 
-        /// <summary>
-        ///     飞机计划明细
-        /// </summary>
-        public virtual List<PlanHistoryDTO> PlanHistories
-        {
-            get { return _planHistories ?? (_planHistories = new List<PlanHistoryDTO>()); }
-            set { _planHistories = value; }
-        }
+        ///// <summary>
+        /////     飞机计划明细
+        ///// </summary>
+        //public virtual List<PlanHistoryDTO> PlanHistories
+        //{
+        //    get { return _planHistories ?? (_planHistories = new List<PlanHistoryDTO>()); }
+        //    set { _planHistories = value; }
+        //}
 
         /// <summary>
         ///     审批历史集合

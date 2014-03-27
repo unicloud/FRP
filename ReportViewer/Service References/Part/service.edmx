@@ -1,0 +1,476 @@
+﻿<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <edmx:DataServices m:DataServiceVersion="3.0" m:MaxDataServiceVersion="3.0" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <Schema Namespace="UniCloud.Application.PartBC.DTO" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityType Name="AcDailyUtilizationDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RegNumber" Type="Edm.String" />
+        <Property Name="CalculatedHour" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CalculatedCycle" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="AmendHour" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="AmendCycle" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Year" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Month" Type="Edm.Int32" Nullable="false" />
+        <Property Name="IsCurrent" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
+      </EntityType>
+      <EntityType Name="AircraftDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="RegNumber" Type="Edm.String" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="IsOperation" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="AircraftType" Type="Edm.String" />
+        <Property Name="AircraftSeries" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="AircraftTypeDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="AircraftSeriesDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="ManufacturerName" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="BasicConfigGroupDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="StartDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="GroupNo" Type="Edm.String" />
+        <Property Name="AircraftTypeName" Type="Edm.String" />
+        <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
+      </EntityType>
+      <EntityType Name="ConfigGroupDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="GroupNo" Type="Edm.String" />
+        <Property Name="GroupName" Type="Edm.String" />
+        <Property Name="AircraftTypeName" Type="Edm.String" />
+        <Property Name="TechnicalSolutions" Type="Collection(UniCloud.Application.PartBC.DTO.TsDTO)" Nullable="false" />
+        <Property Name="GroupAcs" Type="Collection(UniCloud.Application.PartBC.DTO.GroupAcDTO)" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="TsDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="FiNumber" Type="Edm.String" />
+        <Property Name="TsNumber" Type="Edm.String" />
+        <Property Name="Position" Type="Edm.String" />
+        <Property Name="Type" Type="Edm.String" />
+        <Property Name="TsLines" Type="Collection(UniCloud.Application.PartBC.DTO.TsLineDTO)" Nullable="false" />
+      </ComplexType>
+      <ComplexType Name="TsLineDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Pn" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="TsNumber" Type="Edm.String" />
+        <Property Name="TsId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Dependencies" Type="Collection(UniCloud.Application.PartBC.DTO.DependencyDTO)" Nullable="false" />
+      </ComplexType>
+      <ComplexType Name="DependencyDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Pn" Type="Edm.String" />
+        <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TsLineId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
+      <ComplexType Name="GroupAcDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="RankNumber" Type="Edm.String" />
+        <Property Name="CSCNumber" Type="Edm.String" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="ConfigGroupId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
+      <EntityType Name="BasicConfigDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="BasicConfigGroupId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TsNumber" Type="Edm.String" />
+        <Property Name="FiNumber" Type="Edm.String" />
+        <Property Name="ItemNo" Type="Edm.String" />
+        <Property Name="ParentItemNo" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="TsId" Type="Edm.Int32" />
+        <Property Name="ParentId" Type="Edm.Int32" />
+        <Property Name="RootId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="ContractAircraftDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="RankNumber" Type="Edm.String" />
+        <Property Name="CSCNumber" Type="Edm.String" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="BasicConfigGroupId" Type="Edm.Int32" />
+      </EntityType>
+      <EntityType Name="CtrlUnitDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="ItemMaintainCtrlDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CtrlStrategy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ItemNo" Type="Edm.String" />
+        <Property Name="AcConfigId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainCtrlLines" Type="Collection(UniCloud.Application.PartBC.DTO.MaintainCtrlLineDTO)" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="MaintainCtrlLineDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="StandardInterval" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaxInterval" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MinInterval" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CtrlUnitName" Type="Edm.String" />
+        <Property Name="WorkCode" Type="Edm.String" />
+        <Property Name="CtrlUnitId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainWorkId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainCtrlId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
+      <EntityType Name="PnMaintainCtrlDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CtrlStrategy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Pn" Type="Edm.String" />
+        <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="MaintainCtrlLines" Type="Collection(UniCloud.Application.PartBC.DTO.MaintainCtrlLineDTO)" Nullable="false" />
+      </EntityType>
+      <EntityType Name="SnMaintainCtrlDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CtrlStrategy" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SnScope" Type="Edm.String" />
+        <Property Name="MaintainCtrlLines" Type="Collection(UniCloud.Application.PartBC.DTO.MaintainCtrlLineDTO)" Nullable="false" />
+      </EntityType>
+      <EntityType Name="MaintainWorkDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="WorkCode" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="ModDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ModNumber" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="EngineOilDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Sn" Type="Edm.String" />
+        <Property Name="TSN" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="TSR" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CSN" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CSR" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="APUOilDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Sn" Type="Edm.String" />
+        <Property Name="TSN" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="TSR" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CSN" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CSR" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="OilMonitorDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="OilUserID" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Date" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="TSN" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="TSR" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="TotalRate" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="IntervalRate" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="DeltaIntervalRate" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="AverageRate3" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="AverageRate7" Type="Edm.Decimal" Nullable="false" />
+      </EntityType>
+      <EntityType Name="PnRegDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Pn" Type="Edm.String" />
+        <Property Name="IsLife" Type="Edm.Boolean" Nullable="false" />
+      </EntityType>
+      <EntityType Name="ScnDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Title" Type="Edm.String" />
+        <Property Name="CheckDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="CSCNumber" Type="Edm.String" />
+        <Property Name="ModNumber" Type="Edm.String" />
+        <Property Name="RfcNumber" Type="Edm.String" />
+        <Property Name="ValidDate" Type="Edm.String" />
+        <Property Name="Cost" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="ScnNumber" Type="Edm.String" />
+        <Property Name="Type" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ScnStatus" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ScnType" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="ScnDocName" Type="Edm.String" />
+        <Property Name="ReceiveDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="AuditOrganization" Type="Edm.String" />
+        <Property Name="Auditor" Type="Edm.String" />
+        <Property Name="AuditTime" Type="Edm.DateTime" />
+        <Property Name="AuditNotes" Type="Edm.String" />
+        <Property Name="AuditHistory" Type="Edm.String" />
+        <Property Name="ScnDocumentId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ApplicableAircrafts" Type="Collection(UniCloud.Application.PartBC.DTO.ApplicableAircraftDTO)" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="ApplicableAircraftDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ApplicableAircraftName" Type="Edm.String" />
+        <Property Name="CompleteDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Cost" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="ContractAircraftId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ScnId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
+      <EntityType Name="AirBusScnDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Title" Type="Edm.String" />
+        <Property Name="CSCNumber" Type="Edm.String" />
+        <Property Name="ModNumber" Type="Edm.String" />
+        <Property Name="ScnNumber" Type="Edm.String" />
+        <Property Name="ScnStatus" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Description" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="SnRegDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Sn" Type="Edm.String" />
+        <Property Name="InstallDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Pn" Type="Edm.String" />
+        <Property Name="IsStop" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="RegNumber" Type="Edm.String" />
+        <Property Name="TSN" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="TSR" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CSN" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CSR" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AircraftId" Type="Edm.Guid" />
+        <Property Name="SnHistories" Type="Collection(UniCloud.Application.PartBC.DTO.SnHistoryDTO)" Nullable="false" />
+        <Property Name="LiftMonitors" Type="Collection(UniCloud.Application.PartBC.DTO.LifeMonitorDTO)" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="SnHistoryDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Sn" Type="Edm.String" />
+        <Property Name="InstallDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="RemoveDate" Type="Edm.DateTime" />
+        <Property Name="FiNumber" Type="Edm.String" />
+        <Property Name="CSN" Type="Edm.String" />
+        <Property Name="CSR" Type="Edm.String" />
+        <Property Name="TSN" Type="Edm.String" />
+        <Property Name="TSR" Type="Edm.String" />
+        <Property Name="AcReg" Type="Edm.String" />
+        <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="SnRegId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
+      <ComplexType Name="LifeMonitorDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="WorkCode" Type="Edm.String" />
+        <Property Name="Sn" Type="Edm.String" />
+        <Property Name="MointorStart" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="MointorEnd" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="MaintainWorkId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SnRegId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
+      <EntityType Name="ApuEngineSnRegDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Sn" Type="Edm.String" />
+        <Property Name="InstallDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="Pn" Type="Edm.String" />
+        <Property Name="IsStop" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="RegNumber" Type="Edm.String" />
+        <Property Name="TSN" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="TSR" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CSN" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="CSR" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SnHistories" Type="Collection(UniCloud.Application.PartBC.DTO.SnHistoryDTO)" Nullable="false" />
+        <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AircraftId" Type="Edm.Guid" />
+      </EntityType>
+      <EntityType Name="SpecialConfigDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="StartDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="EndDate" Type="Edm.DateTime" />
+        <Property Name="IsValid" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="CreateDate" Type="Edm.DateTime" Nullable="false" />
+        <Property Name="TsNumber" Type="Edm.String" />
+        <Property Name="FiNumber" Type="Edm.String" />
+        <Property Name="ItemNo" Type="Edm.String" />
+        <Property Name="ParentItemNo" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="TsId" Type="Edm.Int32" />
+        <Property Name="ParentId" Type="Edm.Int32" />
+        <Property Name="ContractAircraftId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RootId" Type="Edm.Int32" Nullable="false" />
+      </EntityType>
+      <EntityType Name="TechnicalSolutionDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="FiNumber" Type="Edm.String" />
+        <Property Name="TsNumber" Type="Edm.String" />
+        <Property Name="Position" Type="Edm.String" />
+        <Property Name="TsLines" Type="Collection(UniCloud.Application.PartBC.DTO.TsLineDTO)" Nullable="false" />
+      </EntityType>
+      <EntityType Name="AirStructureDamageDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftReg" Type="Edm.String" />
+        <Property Name="AircraftType" Type="Edm.String" />
+        <Property Name="AircraftSeries" Type="Edm.String" />
+        <Property Name="ReportNo" Type="Edm.String" />
+        <Property Name="ReportType" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ReportDate" Type="Edm.DateTime" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="TotalCost" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="IsDefer" Type="Edm.Boolean" Nullable="false" />
+        <Property Name="TecAssess" Type="Edm.String" />
+        <Property Name="TreatResult" Type="Edm.String" />
+        <Property Name="Status" Type="Edm.Int32" Nullable="false" />
+        <Property Name="CloseDate" Type="Edm.DateTime" />
+        <Property Name="Source" Type="Edm.String" />
+        <Property Name="Level" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RepairDeadline" Type="Edm.String" />
+        <Property Name="DocumentId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="DocumentName" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="AdSbDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AircraftSeries" Type="Edm.String" />
+        <Property Name="FileType" Type="Edm.String" />
+        <Property Name="FileNo" Type="Edm.String" />
+        <Property Name="FileVersion" Type="Edm.String" />
+        <Property Name="ComplyAircraft" Type="Edm.String" />
+        <Property Name="ComplyStatus" Type="Edm.String" />
+        <Property Name="ComplyDate" Type="Edm.DateTime" />
+        <Property Name="ComplyNotes" Type="Edm.String" />
+        <Property Name="ComplyClose" Type="Edm.String" />
+        <Property Name="ComplyFee" Type="Edm.Decimal" />
+        <Property Name="ComplyFeeNotes" Type="Edm.String" />
+        <Property Name="ComplyFeeCurrency" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="UtilizationReportDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="RegNumber" Type="Edm.String" />
+        <Property Name="Title" Type="Edm.String" />
+        <Property Name="ReportDate" Type="Edm.DateTime" />
+        <Property Name="From" Type="Edm.String" />
+        <Property Name="To" Type="Edm.String" />
+        <Property Name="FirstSubReports" Type="Collection(UniCloud.Application.PartBC.DTO.SubUtilizationReportDTO)" Nullable="false" />
+        <Property Name="SecondSubReports" Type="Collection(UniCloud.Application.PartBC.DTO.SubUtilizationReportDTO)" Nullable="false" />
+        <Property Name="ThirdSubReports" Type="Collection(UniCloud.Application.PartBC.DTO.SubUtilizationReportDTO)" Nullable="false" />
+        <Property Name="ForthSubReports" Type="Collection(UniCloud.Application.PartBC.DTO.SubUtilizationReportDTO)" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="SubUtilizationReportDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Title" Type="Edm.String" />
+        <Property Name="FirstValue" Type="Edm.String" />
+        <Property Name="SecondValue" Type="Edm.String" />
+        <Property Name="ThirdValue" Type="Edm.String" />
+        <Property Name="ForthValue" Type="Edm.String" />
+        <Property Name="FifthValue" Type="Edm.String" />
+      </ComplexType>
+    </Schema>
+    <Schema Namespace="UniCloud.DistributedServices.Part" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <EntityContainer Name="PartData" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="AcDailyUtilizations" EntityType="UniCloud.Application.PartBC.DTO.AcDailyUtilizationDTO" />
+        <EntitySet Name="Aircrafts" EntityType="UniCloud.Application.PartBC.DTO.AircraftDTO" />
+        <EntitySet Name="AircraftTypes" EntityType="UniCloud.Application.PartBC.DTO.AircraftTypeDTO" />
+        <EntitySet Name="AircraftSeriess" EntityType="UniCloud.Application.PartBC.DTO.AircraftSeriesDTO" />
+        <EntitySet Name="BasicConfigGroups" EntityType="UniCloud.Application.PartBC.DTO.BasicConfigGroupDTO" />
+        <EntitySet Name="ConfigGroups" EntityType="UniCloud.Application.PartBC.DTO.ConfigGroupDTO" />
+        <EntitySet Name="BasicConfigs" EntityType="UniCloud.Application.PartBC.DTO.BasicConfigDTO" />
+        <EntitySet Name="ContractAircrafts" EntityType="UniCloud.Application.PartBC.DTO.ContractAircraftDTO" />
+        <EntitySet Name="CtrlUnits" EntityType="UniCloud.Application.PartBC.DTO.CtrlUnitDTO" />
+        <EntitySet Name="ItemMaintainCtrls" EntityType="UniCloud.Application.PartBC.DTO.ItemMaintainCtrlDTO" />
+        <EntitySet Name="PnMaintainCtrls" EntityType="UniCloud.Application.PartBC.DTO.PnMaintainCtrlDTO" />
+        <EntitySet Name="SnMaintainCtrls" EntityType="UniCloud.Application.PartBC.DTO.SnMaintainCtrlDTO" />
+        <EntitySet Name="MaintainWorks" EntityType="UniCloud.Application.PartBC.DTO.MaintainWorkDTO" />
+        <EntitySet Name="Mods" EntityType="UniCloud.Application.PartBC.DTO.ModDTO" />
+        <EntitySet Name="EngineOils" EntityType="UniCloud.Application.PartBC.DTO.EngineOilDTO" />
+        <EntitySet Name="APUOils" EntityType="UniCloud.Application.PartBC.DTO.APUOilDTO" />
+        <EntitySet Name="OilMonitors" EntityType="UniCloud.Application.PartBC.DTO.OilMonitorDTO" />
+        <EntitySet Name="PnRegs" EntityType="UniCloud.Application.PartBC.DTO.PnRegDTO" />
+        <EntitySet Name="Scns" EntityType="UniCloud.Application.PartBC.DTO.ScnDTO" />
+        <EntitySet Name="AirBusScns" EntityType="UniCloud.Application.PartBC.DTO.AirBusScnDTO" />
+        <EntitySet Name="SnRegs" EntityType="UniCloud.Application.PartBC.DTO.SnRegDTO" />
+        <EntitySet Name="ApuEngineSnRegs" EntityType="UniCloud.Application.PartBC.DTO.ApuEngineSnRegDTO" />
+        <EntitySet Name="SpecialConfigs" EntityType="UniCloud.Application.PartBC.DTO.SpecialConfigDTO" />
+        <EntitySet Name="TechnicalSolutions" EntityType="UniCloud.Application.PartBC.DTO.TechnicalSolutionDTO" />
+        <EntitySet Name="AirStructureDamages" EntityType="UniCloud.Application.PartBC.DTO.AirStructureDamageDTO" />
+        <EntitySet Name="AdSbs" EntityType="UniCloud.Application.PartBC.DTO.AdSbDTO" />
+        <EntitySet Name="UtilizationReports" EntityType="UniCloud.Application.PartBC.DTO.UtilizationReportDTO" />
+        <FunctionImport Name="GetConfigGroups" ReturnType="Collection(UniCloud.Application.PartBC.DTO.ConfigGroupDTO)" EntitySet="ConfigGroups" m:HttpMethod="GET" />
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

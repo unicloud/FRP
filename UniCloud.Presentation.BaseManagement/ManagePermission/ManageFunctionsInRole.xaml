@@ -23,21 +23,21 @@
                 </StackPanel>
             </telerik:HierarchicalDataTemplate>
             <telerik:HierarchicalDataTemplate x:Key="ViewFunctionSubItemTemplate"
-                                              ItemsSource="{Binding SubItems}"
+                                              ItemsSource="{Binding SubFunctionItems}"
                                               ItemTemplate="{StaticResource ButtonFunctionItemTemplate}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Name}" />
                 </StackPanel>
             </telerik:HierarchicalDataTemplate>
             <telerik:HierarchicalDataTemplate x:Key="MenuFunctionItemTemplate"
-                                              ItemsSource="{Binding SubItems}"
+                                              ItemsSource="{Binding SubFunctionItems}"
                                               ItemTemplate="{StaticResource ViewFunctionSubItemTemplate}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Name}" />
                 </StackPanel>
             </telerik:HierarchicalDataTemplate>
             <telerik:HierarchicalDataTemplate x:Key="ApplicationTemplate"
-                                              ItemsSource="{Binding SubItems}"
+                                              ItemsSource="{Binding SubFunctionItems}"
                                               ItemTemplate="{StaticResource MenuFunctionItemTemplate}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Name}" />
@@ -60,7 +60,7 @@
             <telerik:RadSplitContainer Orientation="Horizontal">
                 <telerik:RadSplitContainer InitialPosition="DockedLeft"
                                            Orientation="Vertical"
-                                           telerik:ProportionalStackPanel.RelativeSize="200,300">
+                                           telerik:ProportionalStackPanel.RelativeSize="300,300">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane  Header="管理权限"
                                           FontSize="{StaticResource HeaderFontSize}"
@@ -82,27 +82,27 @@
                                                     OverflowButtonVisibility="Collapsed">
                                     <telerik:RadButton Margin="4,2,2,-2"
                                                        Command="{Binding SaveCommand}"
-                                                       CommandParameter="{Binding PaymentNotices}">
+                                                       CommandParameter="{Binding Roles}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="保存" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
                                                        Command="{Binding AbortCommand}"
-                                                       CommandParameter="{Binding PaymentNotices}">
+                                                       CommandParameter="{Binding Roles}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="放弃更改" />
                                     </telerik:RadButton>
                                     <telerik:RadToolBarSeparator />
                                     <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding AddInvoiceCommand}">
+                                                       Command="{Binding AddRoleCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/New.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="新增角色" />
                                     </telerik:RadButton>
                                     <telerik:RadButton Margin="2,2,2,-2"
-                                                       Command="{Binding RemoveInvoiceCommand}">
+                                                       Command="{Binding RemoveRoleCommand}">
                                         <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
                                                Stretch="Fill"
                                                ToolTipService.ToolTip="删除角色" />
@@ -114,26 +114,22 @@
                                                           CanUserSortColumns="True"
                                                           RowIndicatorVisibility="Visible"
                                                           CanUserFreezeColumns="False"
+                                                          EditTriggers="CellClick"
+                                                          IsBusy="{Binding Roles.IsBusy,Mode=TwoWay}"
                                                           FontSize="{StaticResource TextFontSize}"
                                                           ValidatesOnDataErrors="InEditMode"
-                                                          ItemsSource="{Binding RoleCollection,Mode=TwoWay}"
-                                                          SelectedItem="{Binding CurrentRole,Mode=TwoWay}">
+                                                          ItemsSource="{Binding Roles,Mode=TwoWay}"
+                                                          SelectedItem="{Binding Role,Mode=TwoWay}">
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="序号"
                                                                      HeaderTextAlignment="Center" />
                                             <telerik:GridViewDataColumn Header="角色名"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        IsFilterable="True"
-                                                                        IsGroupable="True"
-                                                                        EditTriggers="CellClick"
-                                                                        DataMemberBinding="{Binding RoleName}" />
+                                                                        DataMemberBinding="{Binding Name}" />
                                             <telerik:GridViewDataColumn Header="说明"
                                                                         HeaderTextAlignment="Center"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                        IsFilterable="True"
-                                                                        IsGroupable="True"
-                                                                        EditTriggers="CellClick"
                                                                         DataMemberBinding="{Binding Description}" />
                                         </telerik:RadGridView.Columns>
                                     </telerik:RadGridView>
@@ -143,7 +139,7 @@
                                                           BorderThickness="1,0,1,1"
                                                           AutoEllipsisMode="Both"
                                                           DisplayMode="All"
-                                                          Source="{Binding PaymentNotices}" />
+                                                          Source="{Binding Roles}" />
                                 </Grid>
                             </Grid>
                         </telerik:RadPane>
@@ -157,16 +153,18 @@
                                          CanUserClose="False"
                                          CanUserPin="False"
                                          ContextMenuTemplate="{x:Null}">
-                            <telerik:RadGridView x:Name="Applications"
+                            <telerik:RadGridView x:Name="ApplicationList"
                                                  AutoExpandGroups="True"
                                                  AutoGenerateColumns="False"
                                                  CanUserSortColumns="True"
                                                  RowIndicatorVisibility="Visible"
                                                  CanUserFreezeColumns="False"
-                                                 FontSize="{StaticResource TextFontSize}"
                                                  ValidatesOnDataErrors="InEditMode"
-                                                 ItemsSource="{Binding ApplicationCollection,Mode=TwoWay}"
-                                                 SelectedItem="{Binding CurrentApplication,Mode=TwoWay}">
+                                                 ShowGroupPanel="False"
+                                                 IsReadOnly="True"
+                                                 IsBusy="{Binding FunctionItems.IsBusy,Mode=TwoWay}"
+                                                 ItemsSource="{Binding Applications,Mode=TwoWay}"
+                                                 SelectedItem="{Binding Application,Mode=TwoWay}">
                                 <telerik:RadGridView.Columns>
                                     <uc:DataPageSerialColumn Header="序号"
                                                              HeaderTextAlignment="Center" />
@@ -174,9 +172,7 @@
                                                                 HeaderTextAlignment="Center"
                                                                 MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                 IsReadOnly="True"
-                                                                IsFilterable="True"
-                                                                IsGroupable="True"
-                                                                DataMemberBinding="{Binding Description}" />
+                                                                DataMemberBinding="{Binding Name}" />
                                 </telerik:RadGridView.Columns>
                             </telerik:RadGridView>
                         </telerik:RadPane>
@@ -184,7 +180,7 @@
                 </telerik:RadSplitContainer>
                 <telerik:RadSplitContainer InitialPosition="DockedRight"
                                            Orientation="Vertical"
-                                           telerik:ProportionalStackPanel.RelativeSize="600,300">
+                                           telerik:ProportionalStackPanel.RelativeSize="450,300">
                     <telerik:RadPaneGroup>
                         <telerik:RadPane  Header="角色功能"
                                           FontSize="{StaticResource HeaderFontSize}"
@@ -197,7 +193,7 @@
                             <telerik:RadTreeView  x:Name="FunctionRole"
                                                   SelectionMode="Multiple"
                                                   ItemTemplate="{StaticResource ApplicationTemplate}"
-                                                  ItemsSource="{Binding FunctionItemCollection}"
+                                                  ItemsSource="{Binding FunctionItemStructures,Mode=TwoWay}"
                                                   ItemContainerStyle="{StaticResource ItemContainerStyle}"
                                                   FontSize="13"
                                                   IsOptionElementsEnabled="True"

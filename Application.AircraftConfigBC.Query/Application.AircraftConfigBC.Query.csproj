@@ -54,6 +54,8 @@
     <Compile Include="ActionCategoryQueries\IActionCategoryQuery.cs" />
     <Compile Include="AircraftCategoryQueries\AircraftCategoryQuery.cs" />
     <Compile Include="AircraftCategoryQueries\IAircraftCategoryQuery.cs" />
+    <Compile Include="AircraftConfigurationQueries\AircraftConfigurationQuery.cs" />
+    <Compile Include="AircraftConfigurationQueries\IAircraftConfigurationQuery.cs" />
     <Compile Include="AircraftLicenseQueries\AircraftLicenseQuery.cs" />
     <Compile Include="AircraftLicenseQueries\IAircraftLicenseQuery.cs" />
     <Compile Include="AircraftQueries\AircraftQuery.cs" />

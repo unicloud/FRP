@@ -22,21 +22,21 @@
                 </StackPanel>
             </telerik:HierarchicalDataTemplate>
             <telerik:HierarchicalDataTemplate x:Key="ViewFunctionSubItemTemplate"
-                                              ItemsSource="{Binding SubItems}"
+                                              ItemsSource="{Binding SubFunctionItems}"
                                               ItemTemplate="{StaticResource ButtonFunctionItemTemplate}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Name}" />
                 </StackPanel>
             </telerik:HierarchicalDataTemplate>
             <telerik:HierarchicalDataTemplate x:Key="MenuFunctionItemTemplate"
-                                              ItemsSource="{Binding SubItems}"
+                                              ItemsSource="{Binding SubFunctionItems}"
                                               ItemTemplate="{StaticResource ViewFunctionSubItemTemplate}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Name}" />
                 </StackPanel>
             </telerik:HierarchicalDataTemplate>
             <telerik:HierarchicalDataTemplate x:Key="ApplicationTemplate"
-                                              ItemsSource="{Binding SubItems}"
+                                              ItemsSource="{Binding SubFunctionItems}"
                                               ItemTemplate="{StaticResource MenuFunctionItemTemplate}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding Name}" />
@@ -83,43 +83,30 @@
                                                              RowIndicatorVisibility="Visible"
                                                              CanUserFreezeColumns="False"
                                                              FontSize="{StaticResource TextFontSize}"
+                                                             IsReadOnly="True"
                                                              ValidatesOnDataErrors="InEditMode"
-                                                             ItemsSource="{Binding UserCollection}"
-                                                             SelectedItem="{Binding CurrentUser, Mode=TwoWay}">
+                                                             IsBusy="{Binding Users.IsBusy,Mode=TwoWay}"
+                                                             ItemsSource="{Binding Users,Mode=TwoWay}"
+                                                             SelectedItem="{Binding User, Mode=TwoWay}">
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="序号"
                                                                          HeaderTextAlignment="Center" />
                                                 <telerik:GridViewDataColumn Header="工号"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
-                                                                            DataMemberBinding="{Binding WorkNumber}" />
+                                                                            DataMemberBinding="{Binding EmployeeCode}" />
                                                 <telerik:GridViewDataColumn Header="用户名"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
-                                                                            DataMemberBinding="{Binding UserName}">
-                                                </telerik:GridViewDataColumn>
+                                                                            DataMemberBinding="{Binding DisplayName}" />
                                                 <telerik:GridViewDataColumn Header="手机号"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
-                                                                            DataMemberBinding="{Binding MobileAlias}">
-                                                </telerik:GridViewDataColumn>
+                                                                            DataMemberBinding="{Binding Mobile}" />
                                                 <telerik:GridViewDataColumn Header="E-mail"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
-                                                                            DataMemberBinding="{Binding Email}">
-                                                </telerik:GridViewDataColumn>
+                                                                            DataMemberBinding="{Binding Email}" />
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                     </Grid>
@@ -128,7 +115,7 @@
                                                               BorderThickness="1,0,1,1"
                                                               AutoEllipsisMode="Both"
                                                               DisplayMode="All"
-                                                              Source="{Binding PaymentNotices}" />
+                                                              Source="{Binding Users}" />
                                     </Grid>
                                 </Grid>
                             </telerik:RadPane>
@@ -156,17 +143,24 @@
                                                         OverflowButtonVisibility="Collapsed">
                                         <telerik:RadButton Margin="4,2,2,-2"
                                                            Command="{Binding SaveCommand}"
-                                                           CommandParameter="{Binding PaymentNotices}">
+                                                           CommandParameter="{Binding Users}">
                                             <Image Source="/UniCloud.Presentation;component/Images/Save.png"
                                                    Stretch="Fill"
                                                    ToolTipService.ToolTip="保存" />
                                         </telerik:RadButton>
                                         <telerik:RadButton Margin="2,2,2,-2"
                                                            Command="{Binding AbortCommand}"
-                                                           CommandParameter="{Binding PaymentNotices}">
+                                                           CommandParameter="{Binding Users}">
                                             <Image Source="/UniCloud.Presentation;component/Images/Rotate.png"
                                                    Stretch="Fill"
                                                    ToolTipService.ToolTip="放弃更改" />
+                                        </telerik:RadButton>
+                                        <telerik:RadToolBarSeparator />
+                                        <telerik:RadButton Margin="2,2,2,-2"
+                                                           Command="{Binding RemoveRoleCommand}">
+                                            <Image Source="/UniCloud.Presentation;component/Images/Delete.png"
+                                                   Stretch="Fill"
+                                                   ToolTipService.ToolTip="删除角色" />
                                         </telerik:RadButton>
                                     </telerik:RadToolBar>
                                     <Grid Row="1">
@@ -176,10 +170,12 @@
                                                              CanUserSortColumns="True"
                                                              RowIndicatorVisibility="Visible"
                                                              CanUserFreezeColumns="False"
+                                                             IsReadOnly="True"
+                                                             IsBusy="{Binding Users.IsBusy,Mode=TwoWay}"
                                                              FontSize="{StaticResource TextFontSize}"
                                                              ValidatesOnDataErrors="InEditMode"
-                                                             ItemsSource="{Binding RelativeRoleCollection}"
-                                                             SelectedItem="{Binding CurrentRelativeRole, Mode=TwoWay}">
+                                                             ItemsSource="{Binding UserRoles,Mode=TwoWay}"
+                                                             SelectedItem="{Binding UserRole, Mode=TwoWay}">
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="序号"
                                                                          HeaderTextAlignment="Center" />
@@ -189,7 +185,7 @@
                                                                             IsReadOnly="True"
                                                                             IsFilterable="True"
                                                                             IsGroupable="True"
-                                                                            DataMemberBinding="{Binding RoleName}" />
+                                                                            DataMemberBinding="{Binding Name}" />
                                                 <telerik:GridViewDataColumn Header="说明"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
@@ -197,13 +193,6 @@
                                                                             IsFilterable="True"
                                                                             IsGroupable="True"
                                                                             DataMemberBinding="{Binding Description}" />
-                                                <telerik:GridViewDataColumn Header="应用名称"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
-                                                                            DataMemberBinding="{Binding Roles.Application.Description}" />
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                     </Grid>
@@ -215,7 +204,7 @@
                 <telerik:RadSplitContainer InitialPosition="DockedRight"
                                            Orientation="Vertical"
                                            telerik:ProportionalStackPanel.RelativeSize="300,300">
-                    <telerik:RadSplitContainer InitialPosition="DockedTop" 
+                    <telerik:RadSplitContainer InitialPosition="DockedTop"
                                                telerik:ProportionalStackPanel.RelativeSize="300,300">
                         <telerik:RadPaneGroup>
                             <telerik:RadPane Header="角色列表"
@@ -238,35 +227,26 @@
                                                              CanUserSortColumns="True"
                                                              RowIndicatorVisibility="Visible"
                                                              CanUserFreezeColumns="False"
+                                                             IsReadOnly="True"
                                                              FontSize="{StaticResource TextFontSize}"
                                                              ValidatesOnDataErrors="InEditMode"
-                                                             ItemsSource="{Binding RoleCollection}"
-                                                             SelectedItem="{Binding CurrentRole, Mode=TwoWay}">
-
+                                                             IsBusy="{Binding Roles.IsBusy,Mode=TwoWay}"
+                                                             ItemsSource="{Binding Roles,Mode=TwoWay}"
+                                                             SelectedItem="{Binding Role, Mode=TwoWay}">
+                                            <uc:GridViewDoubleClick.Helper>
+                                                <uc:UserRoleDoubleClickHelper />
+                                            </uc:GridViewDoubleClick.Helper>
                                             <telerik:RadGridView.Columns>
                                                 <uc:DataPageSerialColumn Header="序号"
                                                                          HeaderTextAlignment="Center" />
                                                 <telerik:GridViewDataColumn Header="角色名"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
-                                                                            DataMemberBinding="{Binding RoleName}" />
+                                                                            DataMemberBinding="{Binding Name}" />
                                                 <telerik:GridViewDataColumn Header="说明"
                                                                             HeaderTextAlignment="Center"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
                                                                             DataMemberBinding="{Binding Description}" />
-                                                <telerik:GridViewDataColumn Header="应用名称"
-                                                                            HeaderTextAlignment="Center"
-                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
-                                                                            IsReadOnly="True"
-                                                                            IsFilterable="True"
-                                                                            IsGroupable="True"
-                                                                            DataMemberBinding="{Binding Roles.Application.Description}" />
                                             </telerik:RadGridView.Columns>
                                         </telerik:RadGridView>
                                     </Grid>
@@ -275,7 +255,7 @@
                                                               BorderThickness="1,0,1,1"
                                                               AutoEllipsisMode="Both"
                                                               DisplayMode="All"
-                                                              Source="{Binding PaymentNotices}" />
+                                                              Source="{Binding Roles}" />
                                     </Grid>
                                 </Grid>
                             </telerik:RadPane>
@@ -295,7 +275,7 @@
                                 <telerik:RadTreeView  x:Name="FunctionRole"
                                                       SelectionMode="Extended"
                                                       ItemTemplate="{StaticResource ApplicationTemplate}"
-                                                      ItemsSource="{Binding SelectedFunctionItems}"
+                                                      ItemsSource="{Binding DisplayFunctionItems,Mode=TwoWay}"
                                                       ItemContainerStyle="{StaticResource ItemContainerStyle}"
                                                       FontSize="13"
                                                       IsOptionElementsEnabled="False"

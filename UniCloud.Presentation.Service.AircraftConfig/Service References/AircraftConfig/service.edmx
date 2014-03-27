@@ -41,6 +41,19 @@
         <Property Name="AircraftSeriesName" Type="Edm.String" />
         <Property Name="ManufacturerId" Type="Edm.Guid" Nullable="false" />
         <Property Name="ManufacturerName" Type="Edm.String" />
+        <Property Name="CaacAircraftTypeId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="CaacAircraftTypeName" Type="Edm.String" />
+      </EntityType>
+      <EntityType Name="CAACAircraftTypeDTO">
+        <Key>
+          <PropertyRef Name="CAACAircraftTypeId" />
+        </Key>
+        <Property Name="CAACAircraftTypeId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="AircraftCategoryId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftSeriesId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="ManufacturerId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
       <EntityType Name="ManufacturerDTO">
         <Key>
@@ -103,6 +116,43 @@
         <Property Name="AircraftId" Type="Edm.Guid" Nullable="false" />
         <Property Name="LicenseTypeId" Type="Edm.Int32" Nullable="false" />
       </ComplexType>
+      <EntityType Name="AircraftConfigurationDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ConfigCode" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="MTW" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="BW" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="BWF" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="BWI" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="BEW" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="MTOW" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="MLW" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="MZFW" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="MMFW" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="MCC" Type="Edm.Decimal" Nullable="false" />
+        <Property Name="FileContent" Type="Edm.Binary" />
+        <Property Name="FileName" Type="Edm.String" />
+        <Property Name="AircraftCabins" Type="Collection(UniCloud.Application.AircraftConfigBC.DTO.AircraftCabinDTO)" Nullable="false" />
+        <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
+        <Property Name="AircraftSeriesId" Type="Edm.Guid" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="AircraftCabinDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="AircraftCabinTypeId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="SeatNumber" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Note" Type="Edm.String" />
+      </ComplexType>
+      <EntityType Name="AircraftCabinTypeDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Name" Type="Edm.String" />
+        <Property Name="Note" Type="Edm.String" />
+      </EntityType>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.AircraftConfig" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
       <EntityContainer Name="AircraftConfigData" m:IsDefaultEntityContainer="true">
@@ -110,9 +160,12 @@
         <EntitySet Name="AircraftSeries" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftSeriesDTO" />
         <EntitySet Name="AircraftCategories" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftCategoryDTO" />
         <EntitySet Name="AircraftTypes" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftTypeDTO" />
+        <EntitySet Name="CAACAircraftTypes" EntityType="UniCloud.Application.AircraftConfigBC.DTO.CAACAircraftTypeDTO" />
         <EntitySet Name="Manufacturers" EntityType="UniCloud.Application.AircraftConfigBC.DTO.ManufacturerDTO" />
         <EntitySet Name="LicenseTypes" EntityType="UniCloud.Application.AircraftConfigBC.DTO.LicenseTypeDTO" />
         <EntitySet Name="Aircrafts" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftDTO" />
+        <EntitySet Name="AircraftConfigurations" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftConfigurationDTO" />
+        <EntitySet Name="AircraftCabinTypes" EntityType="UniCloud.Application.AircraftConfigBC.DTO.AircraftCabinTypeDTO" />
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

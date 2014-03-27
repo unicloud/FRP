@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.MaterialQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.MaterialAgg;
@@ -31,7 +32,8 @@ namespace UniCloud.Application.PurchaseBC.MaterialServices
     ///     实现部件接口。
     ///     用于处理部件相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class MaterialAppService : IMaterialAppService
+   [LogAOP]
+    public class MaterialAppService : ContextBoundObject, IMaterialAppService
     {
         private readonly IMaterialQuery _materialQuery;
 

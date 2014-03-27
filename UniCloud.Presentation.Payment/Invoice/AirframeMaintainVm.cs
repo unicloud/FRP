@@ -18,6 +18,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.CommonExtension;
@@ -151,6 +152,10 @@ namespace UniCloud.Presentation.Payment.Invoice
                 CreateDate = DateTime.Now,
                 InvoiceDate = DateTime.Now
             };
+            var firstOrDefault = Suppliers.FirstOrDefault();
+            if (firstOrDefault != null) maintainInvoice.SupplierId = firstOrDefault.SupplierId;
+            var currencyDto = Currencies.FirstOrDefault();
+            if (currencyDto != null) maintainInvoice.CurrencyId = currencyDto.Id;
             AirframeMaintainInvoices.AddNew(maintainInvoice);
         }
 

@@ -19,6 +19,7 @@
 using System.Linq;
 using UniCloud.Application.AircraftConfigBC.DTO;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.CAACAircraftTypeAgg;
 using UniCloud.Infrastructure.Data;
 
 #endregion
@@ -52,7 +53,28 @@ namespace UniCloud.Application.AircraftConfigBC.Query.AircraftTypeQueries
                 AircraftSeriesId = p.AircraftSeriesId,
                 AircraftSeriesName = p.AircraftSeries.Name,
                 ManufacturerId = p.ManufacturerId,
-                ManufacturerName = p.Manufacturer.CnName
+                ManufacturerName = p.Manufacturer.CnName,
+                CaacAircraftTypeId = p.CaacAircraftTypeId,
+                CaacAircraftTypeName = p.CaacAircraftType.Name
+            });
+        }
+
+        /// <summary>
+        ///     民航机型查询。
+        /// </summary>
+        /// <param name="query">查询表达式。</param>
+        /// <returns>民航机型DTO集合。</returns>
+        public IQueryable<CAACAircraftTypeDTO> CAACAircraftTypeDTOQuery(
+            QueryBuilder<CAACAircraftType> query)
+        {
+            return query.ApplyTo(_unitOfWork.CreateSet<CAACAircraftType>()).Select(p => new CAACAircraftTypeDTO
+            {
+                CAACAircraftTypeId = p.Id,
+                Name = p.Name,
+                Description = p.Description,
+                AircraftCategoryId = p.AircraftCategoryId,
+                AircraftSeriesId = p.AircraftSeriesId,
+                ManufacturerId = p.ManufacturerId,
             });
         }
     }

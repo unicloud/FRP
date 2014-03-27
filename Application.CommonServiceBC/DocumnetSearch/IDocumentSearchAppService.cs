@@ -17,11 +17,11 @@ using UniCloud.Application.CommonServiceBC.DTO;
 
 namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
 {
-   /// <summary>
+    /// <summary>
     ///     表示用于处理文档搜索服务接口。
     /// </summary>
     public interface IDocumentSearchAppService
-   {
-        List<DocumentDTO> Search(string keyword);
-   }
+    {
+        List<DocumentDTO> Search(string keyword, string documentType);
+    }
 }

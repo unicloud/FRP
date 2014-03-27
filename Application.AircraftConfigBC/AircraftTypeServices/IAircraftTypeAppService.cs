@@ -34,5 +34,11 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftTypeServices
         /// </summary>
         /// <returns></returns>
         IQueryable<AircraftTypeDTO> GetAircraftTypes();
+
+        /// <summary>
+        ///     获取所有民航机型
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<CAACAircraftTypeDTO> GetCAACAircraftTypes();
     }
 }

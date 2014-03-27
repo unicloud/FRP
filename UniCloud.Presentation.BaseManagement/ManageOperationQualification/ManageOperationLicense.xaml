@@ -17,7 +17,9 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <telerik:RadDocking HasDocumentHost="False">
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False">
             <telerik:RadSplitContainer>
                 <telerik:RadSplitContainer Orientation="Vertical"
                                            telerik:ProportionalStackPanel.RelativeSize="600, 600">
@@ -82,12 +84,10 @@
                                         <telerik:RadGridView.Columns>
                                             <uc:DataPageSerialColumn Header="序号" />
                                             <telerik:GridViewDataColumn Header="名称"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding Name}" />
                                             <telerik:GridViewComboBoxColumn Header="证照种类"
-                                                                            IsSortable="True"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
                                                                             ItemsSource="{Binding DataContext.LicenseTypes, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
@@ -95,27 +95,22 @@
                                                                             SelectedValueMemberPath="LicenseTypeId"
                                                                             DisplayMemberPath="Name" />
                                             <telerik:GridViewDataColumn Header="发证单位"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding IssuedUnit}" />
                                             <telerik:GridViewDataColumn Header="发证日期"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding IssuedDate, StringFormat={StaticResource DateStringFormat}}" />
                                             <telerik:GridViewDataColumn Header="有效期(月)"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding ValidMonths}" />
                                             <telerik:GridViewDataColumn Header="证照到期日"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding ExpireDate, StringFormat={StaticResource DateStringFormat}}" />
                                             <telerik:GridViewDataColumn Header="状态"
-                                                                        IsSortable="True"
                                                                         MaxWidth="250"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
@@ -123,13 +118,11 @@
                                                                         IsReadOnly="True"
                                                                         DataMemberBinding="{Binding State, ConverterParameter=LicenseStatus, Converter={StaticResource EnumToStringConverter}}" />
                                             <telerik:GridViewDataColumn Header="扫描件"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         IsReadOnly="True"
                                                                         DataMemberBinding="{Binding FileName}" />
                                             <telerik:GridViewDataColumn Header="描述"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding Description}" />

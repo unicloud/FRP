@@ -19,6 +19,7 @@
 using System.Linq;
 using UniCloud.Application.AircraftConfigBC.DTO;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.CAACAircraftTypeAgg;
 
 #endregion
 
@@ -33,5 +34,13 @@ namespace UniCloud.Application.AircraftConfigBC.Query.AircraftTypeQueries
         /// <returns>机型DTO集合</returns>
         IQueryable<AircraftTypeDTO> AircraftTypeDTOQuery(
             QueryBuilder<AircraftType> query);
+
+        /// <summary>
+        ///     民航机型查询
+        /// </summary>
+        /// <param name="query">查询表达式</param>
+        /// <returns>民航机型DTO集合</returns>
+        IQueryable<CAACAircraftTypeDTO> CAACAircraftTypeDTOQuery(
+            QueryBuilder<CAACAircraftType> query);
     }
 }

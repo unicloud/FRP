@@ -76,8 +76,9 @@
     </UserControl.Resources>
     <telerik:RadBusyIndicator IsBusy="{Binding IsBusy}" BusyContent="">
     <Grid>
-        <telerik:RadDocking HasDocumentHost="False"
-                           >
+            <telerik:RadDocking BorderThickness="0"
+                                Padding="0"
+                                HasDocumentHost="False">
             <telerik:RadSplitContainer Orientation="Vertical">
                 <telerik:RadSplitContainer Orientation="Horizontal" telerik:ProportionalStackPanel.RelativeSize="500, 600">
                     <telerik:RadPaneGroup telerik:ProportionalStackPanel.RelativeSize="200,200">

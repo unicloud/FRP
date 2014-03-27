@@ -17,7 +17,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.AirlinesQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
@@ -30,7 +32,8 @@ namespace UniCloud.Application.FleetPlanBC.AirlinesServices
     ///     实现航空公司服务接口。
     ///     用于处理航空公司相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class AirlinesAppService : IAirlinesAppService
+   [LogAOP]
+    public class AirlinesAppService : ContextBoundObject, IAirlinesAppService
     {
         private readonly IAirlinesQuery _airlinesQuery;
 

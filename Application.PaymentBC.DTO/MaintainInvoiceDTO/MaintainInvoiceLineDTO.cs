@@ -16,9 +16,7 @@
 
 #region 命名空间
 
-using System;
 using System.Data.Services.Common;
-using UniCloud.Domain.Common.Enums;
 
 #endregion
 
@@ -41,15 +39,6 @@ namespace UniCloud.Application.PaymentBC.DTO
         ///     维修项
         /// </summary>
         public int MaintainItem { get; set; }
-
-        /// <summary>
-        ///     维修项
-        /// </summary>
-        public string MaintainItemString
-        {
-            get { return ((MaintainItem) MaintainItem).ToString(); }
-            set { MaintainItem = (int) (MaintainItem) Enum.Parse(typeof (MaintainItem), value, true); }
-        }
 
         /// <summary>
         ///     项名称

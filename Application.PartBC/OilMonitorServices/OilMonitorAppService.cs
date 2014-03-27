@@ -17,7 +17,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.OilMonitorQueries;
 using UniCloud.Domain.PartBC.Aggregates.OilMonitorAgg;
@@ -30,7 +32,8 @@ namespace UniCloud.Application.PartBC.OilMonitorServices
     /// <summary>
     ///     滑油监控应用服务接口实现
     /// </summary>
-    public class OilMonitorAppService : IOilMonitorAppService
+   [LogAOP]
+    public class OilMonitorAppService : ContextBoundObject, IOilMonitorAppService
     {
         private readonly IOilMonitorQuery _oilMonitorQuery;
 

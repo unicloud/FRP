@@ -14,7 +14,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.PlanAircraftQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.PlanAircraftAgg;
@@ -27,7 +29,8 @@ namespace UniCloud.Application.PurchaseBC.PlanAircraftServices
     ///     实现计划飞机服务接口。
     ///     用于处理计划飞机相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class PlanAircraftAppService : IPlanAircraftAppService
+   [LogAOP]
+    public class PlanAircraftAppService : ContextBoundObject, IPlanAircraftAppService
     {
         private readonly IPlanAircraftQuery _planAircraftQuery;
 

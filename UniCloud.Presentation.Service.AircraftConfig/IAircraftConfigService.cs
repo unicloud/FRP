@@ -35,6 +35,11 @@ namespace UniCloud.Presentation.Service.AircraftConfig
         ///     所有座级
         /// </summary>
         QueryableDataServiceCollectionView<AircraftCategoryDTO> GetAircraftCategories(Action loaded, bool forceLoad = false);
+
+        /// <summary>
+        ///     所有民航机型
+        /// </summary>
+        QueryableDataServiceCollectionView<CAACAircraftTypeDTO> GetCAACAircraftTypes(Action loaded, bool forceLoad = false);
         #endregion
 
 

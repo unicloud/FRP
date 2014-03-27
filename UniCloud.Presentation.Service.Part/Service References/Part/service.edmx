@@ -54,6 +54,48 @@
         <Property Name="AircraftTypeName" Type="Edm.String" />
         <Property Name="AircraftTypeId" Type="Edm.Guid" Nullable="false" />
       </EntityType>
+      <EntityType Name="ConfigGroupDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="GroupNo" Type="Edm.String" />
+        <Property Name="GroupName" Type="Edm.String" />
+        <Property Name="AircraftTypeName" Type="Edm.String" />
+        <Property Name="TechnicalSolutions" Type="Collection(UniCloud.Application.PartBC.DTO.TsDTO)" Nullable="false" />
+        <Property Name="GroupAcs" Type="Collection(UniCloud.Application.PartBC.DTO.GroupAcDTO)" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="TsDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="FiNumber" Type="Edm.String" />
+        <Property Name="TsNumber" Type="Edm.String" />
+        <Property Name="Position" Type="Edm.String" />
+        <Property Name="Type" Type="Edm.String" />
+        <Property Name="TsLines" Type="Collection(UniCloud.Application.PartBC.DTO.TsLineDTO)" Nullable="false" />
+      </ComplexType>
+      <ComplexType Name="TsLineDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Pn" Type="Edm.String" />
+        <Property Name="Description" Type="Edm.String" />
+        <Property Name="TsNumber" Type="Edm.String" />
+        <Property Name="TsId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Dependencies" Type="Collection(UniCloud.Application.PartBC.DTO.DependencyDTO)" Nullable="false" />
+      </ComplexType>
+      <ComplexType Name="DependencyDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Pn" Type="Edm.String" />
+        <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="TsLineId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
+      <ComplexType Name="GroupAcDTO">
+        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ContractName" Type="Edm.String" />
+        <Property Name="ContractNumber" Type="Edm.String" />
+        <Property Name="RankNumber" Type="Edm.String" />
+        <Property Name="CSCNumber" Type="Edm.String" />
+        <Property Name="SerialNumber" Type="Edm.String" />
+        <Property Name="ConfigGroupId" Type="Edm.Int32" Nullable="false" />
+      </ComplexType>
       <EntityType Name="BasicConfigDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -201,16 +243,16 @@
         <Property Name="CheckDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="CSCNumber" Type="Edm.String" />
         <Property Name="ModNumber" Type="Edm.String" />
-        <Property Name="TsNumber" Type="Edm.String" />
+        <Property Name="RfcNumber" Type="Edm.String" />
+        <Property Name="ValidDate" Type="Edm.String" />
         <Property Name="Cost" Type="Edm.Decimal" Nullable="false" />
         <Property Name="ScnNumber" Type="Edm.String" />
         <Property Name="Type" Type="Edm.Int32" Nullable="false" />
-        <Property Name="TypeString" Type="Edm.String" />
         <Property Name="ScnStatus" Type="Edm.Int32" Nullable="false" />
         <Property Name="ScnType" Type="Edm.Int32" Nullable="false" />
-        <Property Name="ScnTypeString" Type="Edm.String" />
         <Property Name="Description" Type="Edm.String" />
         <Property Name="ScnDocName" Type="Edm.String" />
+        <Property Name="ReceiveDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="AuditOrganization" Type="Edm.String" />
         <Property Name="Auditor" Type="Edm.String" />
         <Property Name="AuditTime" Type="Edm.DateTime" />
@@ -221,6 +263,7 @@
       </EntityType>
       <ComplexType Name="ApplicableAircraftDTO">
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
+        <Property Name="ApplicableAircraftName" Type="Edm.String" />
         <Property Name="CompleteDate" Type="Edm.DateTime" Nullable="false" />
         <Property Name="Cost" Type="Edm.Decimal" Nullable="false" />
         <Property Name="ContractAircraftId" Type="Edm.Int32" Nullable="false" />
@@ -329,20 +372,6 @@
         <Property Name="Position" Type="Edm.String" />
         <Property Name="TsLines" Type="Collection(UniCloud.Application.PartBC.DTO.TsLineDTO)" Nullable="false" />
       </EntityType>
-      <ComplexType Name="TsLineDTO">
-        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Pn" Type="Edm.String" />
-        <Property Name="Description" Type="Edm.String" />
-        <Property Name="TsNumber" Type="Edm.String" />
-        <Property Name="TsId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Dependencies" Type="Collection(UniCloud.Application.PartBC.DTO.DependencyDTO)" Nullable="false" />
-      </ComplexType>
-      <ComplexType Name="DependencyDTO">
-        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
-        <Property Name="Pn" Type="Edm.String" />
-        <Property Name="PnRegId" Type="Edm.Int32" Nullable="false" />
-        <Property Name="TsLineId" Type="Edm.Int32" Nullable="false" />
-      </ComplexType>
       <EntityType Name="AirStructureDamageDTO">
         <Key>
           <PropertyRef Name="Id" />
@@ -386,30 +415,28 @@
         <Property Name="ComplyFeeNotes" Type="Edm.String" />
         <Property Name="ComplyFeeCurrency" Type="Edm.String" />
       </EntityType>
-      <ComplexType Name="ConfigGroupDTO">
+      <EntityType Name="UtilizationReportDTO">
+        <Key>
+          <PropertyRef Name="Id" />
+        </Key>
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
-        <Property Name="GroupNo" Type="Edm.String" />
-        <Property Name="GroupName" Type="Edm.String" />
-        <Property Name="AircraftTypeName" Type="Edm.String" />
-        <Property Name="TechnicalSolutions" Type="Collection(UniCloud.Application.PartBC.DTO.TsDTO)" Nullable="false" />
-        <Property Name="GroupAcs" Type="Collection(UniCloud.Application.PartBC.DTO.GroupAcDTO)" Nullable="false" />
-      </ComplexType>
-      <ComplexType Name="TsDTO">
+        <Property Name="Title" Type="Edm.String" />
+        <Property Name="ReportDate" Type="Edm.DateTime" />
+        <Property Name="From" Type="Edm.String" />
+        <Property Name="To" Type="Edm.String" />
+        <Property Name="FirstSubReports" Type="Collection(UniCloud.Application.PartBC.DTO.SubUtilizationReportDTO)" Nullable="false" />
+        <Property Name="SecondSubReports" Type="Collection(UniCloud.Application.PartBC.DTO.SubUtilizationReportDTO)" Nullable="false" />
+        <Property Name="ThirdSubReports" Type="Collection(UniCloud.Application.PartBC.DTO.SubUtilizationReportDTO)" Nullable="false" />
+        <Property Name="ForthSubReports" Type="Collection(UniCloud.Application.PartBC.DTO.SubUtilizationReportDTO)" Nullable="false" />
+      </EntityType>
+      <ComplexType Name="SubUtilizationReportDTO">
         <Property Name="Id" Type="Edm.Int32" Nullable="false" />
-        <Property Name="FiNumber" Type="Edm.String" />
-        <Property Name="TsNumber" Type="Edm.String" />
-        <Property Name="Position" Type="Edm.String" />
-        <Property Name="Type" Type="Edm.String" />
-        <Property Name="TsLines" Type="Collection(UniCloud.Application.PartBC.DTO.TsLineDTO)" Nullable="false" />
-      </ComplexType>
-      <ComplexType Name="GroupAcDTO">
-        <Property Name="Id" Type="Edm.Int32" Nullable="false" />
-        <Property Name="ContractName" Type="Edm.String" />
-        <Property Name="ContractNumber" Type="Edm.String" />
-        <Property Name="RankNumber" Type="Edm.String" />
-        <Property Name="CSCNumber" Type="Edm.String" />
-        <Property Name="SerialNumber" Type="Edm.String" />
-        <Property Name="ConfigGroupId" Type="Edm.Int32" Nullable="false" />
+        <Property Name="Title" Type="Edm.String" />
+        <Property Name="FirstValue" Type="Edm.String" />
+        <Property Name="SecondValue" Type="Edm.String" />
+        <Property Name="ThirdValue" Type="Edm.String" />
+        <Property Name="ForthValue" Type="Edm.String" />
+        <Property Name="FifthValue" Type="Edm.String" />
       </ComplexType>
     </Schema>
     <Schema Namespace="UniCloud.DistributedServices.Part" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -419,6 +446,7 @@
         <EntitySet Name="AircraftTypes" EntityType="UniCloud.Application.PartBC.DTO.AircraftTypeDTO" />
         <EntitySet Name="AircraftSeriess" EntityType="UniCloud.Application.PartBC.DTO.AircraftSeriesDTO" />
         <EntitySet Name="BasicConfigGroups" EntityType="UniCloud.Application.PartBC.DTO.BasicConfigGroupDTO" />
+        <EntitySet Name="ConfigGroups" EntityType="UniCloud.Application.PartBC.DTO.ConfigGroupDTO" />
         <EntitySet Name="BasicConfigs" EntityType="UniCloud.Application.PartBC.DTO.BasicConfigDTO" />
         <EntitySet Name="ContractAircrafts" EntityType="UniCloud.Application.PartBC.DTO.ContractAircraftDTO" />
         <EntitySet Name="CtrlUnits" EntityType="UniCloud.Application.PartBC.DTO.CtrlUnitDTO" />
@@ -439,7 +467,8 @@
         <EntitySet Name="TechnicalSolutions" EntityType="UniCloud.Application.PartBC.DTO.TechnicalSolutionDTO" />
         <EntitySet Name="AirStructureDamages" EntityType="UniCloud.Application.PartBC.DTO.AirStructureDamageDTO" />
         <EntitySet Name="AdSbs" EntityType="UniCloud.Application.PartBC.DTO.AdSbDTO" />
-        <FunctionImport Name="GetConfigGroups" ReturnType="Collection(UniCloud.Application.PartBC.DTO.ConfigGroupDTO)" m:HttpMethod="GET" />
+        <EntitySet Name="UtilizationReports" EntityType="UniCloud.Application.PartBC.DTO.UtilizationReportDTO" />
+        <FunctionImport Name="GetConfigGroups" ReturnType="Collection(UniCloud.Application.PartBC.DTO.ConfigGroupDTO)" EntitySet="ConfigGroups" m:HttpMethod="GET" />
       </EntityContainer>
     </Schema>
   </edmx:DataServices>

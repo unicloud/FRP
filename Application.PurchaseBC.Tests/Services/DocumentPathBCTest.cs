@@ -67,7 +67,7 @@ namespace UniCloud.Application.PurchaseBC.Tests.Services
                 var service = DefaultContainer.Resolve<IDocumentPathAppService>();
 
                 // Act
-                var result = service.GetDocumentPaths().ToList();
+                var result = service.SearchDocumentPath(2,"飞机");
 
                 // Assert
                 Assert.IsTrue(result.Any());

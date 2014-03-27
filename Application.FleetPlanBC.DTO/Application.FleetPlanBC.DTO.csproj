@@ -61,7 +61,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionCategoryDTO\ActionCateDTO.cs" />
     <Compile Include="ActionCategoryDTO\ActionCategoryDTO.cs" />
+    <Compile Include="AircraftCategoryDTO\AircraftCateDTO.cs" />
+    <Compile Include="AircraftConfigurationDTO\AircraftConfigurationDTO.cs" />
+    <Compile Include="AircraftDTO\AcConfigHistoryDTO.cs" />
     <Compile Include="AircraftPlanDTO\PerformPlan.cs" />
     <Compile Include="AircraftSeriesDTO\AircraftSeriesDTO.cs" />
     <Compile Include="AircraftCategoryDTO\AircraftCategoryDTO.cs" />
@@ -70,7 +74,8 @@
     <Compile Include="AircraftDTO\OperationHistoryDTO.cs" />
     <Compile Include="AircraftDTO\OwnershipHistoryDTO.cs" />
     <Compile Include="AircraftPlanDTO\PlanDTO.cs" />
-    <Compile Include="AircraftPlanDTO\PlanHistoryDTO.cs" />
+    <Compile Include="AircraftPlanHistoryDTO\PlanHistoryDTO.cs" />
+    <Compile Include="AircraftTypeDTO\AircraftTyDTO.cs" />
     <Compile Include="AircraftTypeDTO\AircraftTypeDTO.cs" />
     <Compile Include="AirlinesDTO\AirlinesDTO.cs" />
     <Compile Include="AirProgrammingDTO\AirProgrammingDTO.cs" />
@@ -79,6 +84,7 @@
     <Compile Include="AnnualDTO\AnnualYearDTO.cs" />
     <Compile Include="ApporvalDocDTO\ApprovalDocDTO.cs" />
     <Compile Include="ApporvalDocDTO\ApprovalRequestDTO.cs" />
+    <Compile Include="CAACAircraftTypeDTO\CAACAircraftTypeDTO.cs" />
     <Compile Include="CaacProgrammingDTO\CaacProgrammingDTO.cs" />
     <Compile Include="CaacProgrammingDTO\CaacProgrammingLineDTO.cs" />
     <Compile Include="EngineDTO\EngineBusinessHistoryDTO.cs" />
@@ -93,6 +99,7 @@
     <Compile Include="PlanAircraftDTO\PlanAircraftDTO.cs" />
     <Compile Include="PlanEngineDTO\PlanEngineDTO.cs" />
     <Compile Include="ProgrammingDTO\ProgrammingDTO.cs" />
+    <Compile Include="ProgrammingFileDTO\ProgrammingFileDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestDTO\ApprovalHistoryDTO.cs" />
     <Compile Include="RequestDTO\RequestDTO.cs" />

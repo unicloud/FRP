@@ -18,10 +18,12 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
+using Telerik.Windows.Controls.DataServices;
 using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
@@ -64,9 +66,15 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             AirProgrammings = _service.CreateCollection(_context.AirProgrammings, o => o.AirProgrammingLines);
             _service.RegisterCollectionView(AirProgrammings);//注册查询集合
 
+            ProgrammingFiles = _service.CreateCollection(_context.ProgrammingFiles);
+            ProgrammingFiles.FilterDescriptors.Add(new FilterDescriptor("Type", FilterOperator.IsEqualTo, 2));
+            _service.RegisterCollectionView(ProgrammingFiles);//注册查询集合
+
             Programmings = new QueryableDataServiceCollectionView<ProgrammingDTO>(_context, _context.Programmings);
 
             AircraftSeries = new QueryableDataServiceCollectionView<AircraftSeriesDTO>(_context, _context.AircraftSeries);
+
+            Managers = new QueryableDataServiceCollectionView<ManagerDTO>(_context, _context.Managers);
         }
 
         /// <summary>
@@ -78,6 +86,9 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
             AddEntityCommand = new DelegateCommand<object>(OnAddEntity, CanAddEntity);
             RemoveEntityCommand = new DelegateCommand<object>(OnRemoveEntity, CanRemoveEntity);
+            AddDocCommand = new DelegateCommand<object>(OnAddAttach);
+            RemoveDocCommand = new DelegateCommand<object>(OnRemoveDoc, CanRemoveDoc);
+            CellEditEndCommand = new DelegateCommand<object>(OnCellEditEnd);
         }
 
         #endregion
@@ -104,8 +115,14 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             else
                 AirProgrammings.Load(true);
 
+            if (!ProgrammingFiles.AutoLoad)
+                ProgrammingFiles.AutoLoad = true;
+            else
+                ProgrammingFiles.Load(true);
+
             Programmings.AutoLoad = true;
             AircraftSeries.AutoLoad = true;
+            Managers.AutoLoad = true;
         }
 
         #region 业务
@@ -128,6 +145,15 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #endregion
 
+        #region 规划文档集合
+
+        /// <summary>
+        ///     规划文档集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ProgrammingFileDTO> ProgrammingFiles { get; set; }
+
+        #endregion
+
         #region 飞机系列集合
 
         /// <summary>
@@ -137,6 +163,14 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #endregion
 
+        #region 发文单位集合
+
+        /// <summary>
+        ///     发文单位集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ManagerDTO> Managers { get; set; }
+
+        #endregion
 
         #region 选择的规划
 
@@ -187,6 +221,30 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #endregion
 
+        #region 选择的规划文档
+
+        private ProgrammingFileDTO _selProgrammingFile;
+
+        /// <summary>
+        ///     选择的规划文档
+        /// </summary>
+        public ProgrammingFileDTO SelProgrammingFile
+        {
+            get { return _selProgrammingFile; }
+            private set
+            {
+                if (_selProgrammingFile != value)
+                {
+                    _selProgrammingFile = value;
+                    RaisePropertyChanged(() => SelProgrammingFile);
+                    // 刷新按钮状态
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #endregion
@@ -204,6 +262,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             RemoveCommand.RaiseCanExecuteChanged();
             AddEntityCommand.RaiseCanExecuteChanged();
             RemoveEntityCommand.RaiseCanExecuteChanged();
+            AddDocCommand.RaiseCanExecuteChanged();
+            RemoveDocCommand.RaiseCanExecuteChanged();
         }
 
         #endregion
@@ -293,7 +353,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             if (_selAirProgrammingLine != null)
             {
                 SelAirProgramming.AirProgrammingLines.Remove(_selAirProgrammingLine);
-                //RemoveCommand.RaiseCanExecuteChanged();
             }
         }
 
@@ -324,7 +383,87 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 SelAirProgramming.DocumentId = doc.DocumentId;
                 SelAirProgramming.DocName = doc.Name;
             }
+            else
+            {
+                var programmingFile = new ProgrammingFileDTO
+                {
+                    DocName = doc.Name,
+                    DocumentId = doc.DocumentId,
+                    CreateDate = DateTime.Now,
+                    IssuedDate = DateTime.Now,
+                    Type = 2,//1-表示民航规划文档，2--表示川航规划文档
+                };
+                if (SelAirProgramming != null)
+                    programmingFile.ProgrammingId = SelAirProgramming.ProgrammingId;
+
+                ProgrammingFiles.AddNew(programmingFile);
+            }
+
         }
+        #endregion
+
+        #region 添加规划关联文档
+
+        /// <summary>
+        ///     添加规划关联文档
+        /// </summary>
+        public DelegateCommand<object> AddDocCommand { get; private set; }
+
+        #endregion
+
+        #region 删除规划关联文档
+
+        /// <summary>
+        ///     删除规划关联文档
+        /// </summary>
+        public DelegateCommand<object> RemoveDocCommand { get; private set; }
+
+        private void OnRemoveDoc(object obj)
+        {
+            if (_selProgrammingFile != null)
+            {
+                ProgrammingFiles.Remove(SelProgrammingFile);
+            }
+        }
+
+        private bool CanRemoveDoc(object obj)
+        {
+            return _selProgrammingFile != null;
+        }
+
+        #endregion
+
+        #region GridView单元格变更处理
+
+        public DelegateCommand<object> CellEditEndCommand { set; get; }
+
+        /// <summary>
+        ///     GridView单元格变更处理
+        /// </summary>
+        /// <param name="sender"></param>
+        protected virtual void OnCellEditEnd(object sender)
+        {
+            var gridView = sender as RadGridView;
+            if (gridView != null)
+            {
+                var cell = gridView.CurrentCell;
+                if (string.Equals(cell.Column.UniqueName, "ProgrammingNameForAir"))
+                {
+                    var value = SelAirProgramming.ProgrammingId;
+                    var programming = Programmings.FirstOrDefault(p => p.Id == value);
+                    if (programming != null)
+                        SelAirProgramming.ProgrammingName = programming.Name;
+                }
+                else if (string.Equals(cell.Column.UniqueName, "ProgrammingNameForFile"))
+                {
+                    var value = SelProgrammingFile.ProgrammingId;
+                    var programming = Programmings.FirstOrDefault(p => p.Id == value);
+                    if (programming != null)
+                        SelProgrammingFile.ProgrammingName = programming.Name;
+                }
+            }
+        }
+
         #endregion
 
         #endregion

@@ -10,7 +10,7 @@
              mc:Ignorable="d"
              d:DesignHeight="600"
              d:DesignWidth="800"
-             Name="AircraftSeries">
+             Name="AircraftTypeView">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -39,7 +39,7 @@
                         <RowDefinition Height="35" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="1"
-                               Text="机型名称"
+                               Text="川航机型"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Row="0"
@@ -47,33 +47,32 @@
                              Margin="0,3"
                              telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Name, Mode=TwoWay}"
-                             IsReadOnly="True">
-                    </TextBox>
+                             IsReadOnly="True"/>
                     <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Text="民航机型"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Row="1"
+                             Grid.Column="2"
+                             Margin="0,3"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding CaacAircraftTypeName, Mode=TwoWay}"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="2"
                                Grid.Column="1"
                                Text="座级"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
-                    <TextBox  Grid.Row="1"
+                    <TextBox  Grid.Row="2"
                               Grid.Column="2"
                               Margin="0,3"
                               IsReadOnly="True"
                               telerik:StyleManager.Theme="Windows8"
                               Text="{Binding AircraftCategoryName,Mode=TwoWay}" />
-                    <TextBlock Grid.Row="2"
-                               Grid.Column="1"
-                               Text="系列"
-                               TextAlignment="Left"
-                               VerticalAlignment="Center" />
-                    <TextBox Grid.Row="2"
-                             Grid.Column="2"
-                             Margin="0,3"
-                             IsReadOnly="True"
-                             telerik:StyleManager.Theme="Windows8"
-                             Text="{Binding AircraftSeriesName,Mode=TwoWay}" />
                     <TextBlock Grid.Row="3"
                                Grid.Column="1"
-                               Text="制造商"
+                               Text="系列"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Row="3"
@@ -81,19 +80,29 @@
                              Margin="0,3"
                              IsReadOnly="True"
                              telerik:StyleManager.Theme="Windows8"
-                             Text="{Binding ManufacturerName,Mode=TwoWay}" />
+                             Text="{Binding AircraftSeriesName,Mode=TwoWay}" />
                     <TextBlock Grid.Row="4"
+                               Grid.Column="1"
+                               Text="制造商"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <TextBox Grid.Row="4"
+                             Grid.Column="2"
+                             Margin="0,3"
+                             IsReadOnly="True"
+                             telerik:StyleManager.Theme="Windows8"
+                             Text="{Binding ManufacturerName,Mode=TwoWay}" />
+                    <TextBlock Grid.Row="5"
                                Grid.Column="1"
                                Text="描述"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="2"
                              Margin="0,3"
-                             Grid.Row="4"
+                             Grid.Row="5"
                              telerik:StyleManager.Theme="Windows8"
                              Text="{Binding Description, Mode=TwoWay}"
-                             IsReadOnly="True">
-                    </TextBox>
+                             IsReadOnly="True"/>
                 </Grid>
             </DataTemplate>
 
@@ -119,55 +128,75 @@
                         <RowDefinition Height="35" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="1"
-                               Text="机型名称"
+                               Text="川航机型"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Row="0"
                              Grid.Column="2"
                              Margin="0,3"
                              telerik:StyleManager.Theme="Windows8"
-                             Text="{Binding Name, Mode=TwoWay}">
-                    </TextBox>
+                             Text="{Binding Name, Mode=TwoWay}"/>
                     <TextBlock Grid.Row="1"
                                Grid.Column="1"
-                               Text="座级"
+                               Text="民航机型"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
-                    <telerik:RadComboBox Name="AircraftCategoryBox"
+                    <telerik:RadComboBox Name="CaacAircraftTypeBox"
                                          Grid.Row="1"
                                          Grid.Column="2"
                                          Margin="0,3"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
                                          Height="{StaticResource ControlHeight}"
-                                         ItemsSource="{Binding DataContext.AircraftCategories, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                         ItemsSource="{Binding DataContext.CaacAircraftTypes, Mode=TwoWay, ElementName=AircraftTypeView}"
+                                         SelectedItem="{Binding DataContext.CaacAircraftType,Mode=TwoWay, ElementName=AircraftTypeView}"
+                                         SelectedValue="{Binding CaacAircraftTypeId, Mode=TwoWay}"
+                                         SelectedValuePath="CAACAircraftTypeId"
+                                         DisplayMemberPath="Name" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="1"
+                               Text="座级"
+                               TextAlignment="Left"
+                               VerticalAlignment="Center" />
+                    <telerik:RadComboBox Name="AircraftCategoryBox"
+                                         Grid.Row="2"
+                                         Grid.Column="2"
+                                         Margin="0,3"
+                                         IsReadOnly="True"
+                                         IsEnabled="False"
+                                         HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Center"
+                                         Height="{StaticResource ControlHeight}"
+                                         ItemsSource="{Binding DataContext.AircraftCategories, Mode=TwoWay, ElementName=AircraftTypeView}"
                                          SelectedValue="{Binding AircraftCategoryId, Mode=TwoWay}"
                                          SelectedValuePath="Id"
                                          DisplayMemberPath="Regional" />
-                    <TextBlock Grid.Row="2"
+                    <TextBlock Grid.Row="3"
                                Grid.Column="1"
                                Text="系列"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <telerik:RadComboBox Name="AircraftSeriesBox"
-                                         Grid.Row="2"
+                                         Grid.Row="3"
                                          Grid.Column="2"
                                          Margin="0,3"
+                                         IsReadOnly="True"
+                                         IsEnabled="False"
                                          HorizontalAlignment="Stretch"
                                          VerticalAlignment="Center"
                                          Height="{StaticResource ControlHeight}"
-                                         ItemsSource="{Binding DataContext.AircraftSerieses, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                         ItemsSource="{Binding DataContext.AircraftSerieses, Mode=TwoWay, ElementName=AircraftTypeView}"
                                          SelectedValue="{Binding AircraftSeriesId, Mode=TwoWay}"
-                                         SelectedItem="{Binding DataContext.AircraftSeries,Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                         SelectedItem="{Binding DataContext.AircraftSeries,Mode=TwoWay, ElementName=AircraftTypeView}"
                                          SelectedValuePath="Id"
                                          DisplayMemberPath="Name" />
-                    <TextBlock Grid.Row="3"
+                    <TextBlock Grid.Row="4"
                                Grid.Column="1"
                                Text="制造商"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <telerik:RadComboBox Name="ManufactureComboBox"
-                                         Grid.Row="3"
+                                         Grid.Row="4"
                                          Grid.Column="2"
                                          Margin="0,3"
                                          HorizontalAlignment="Stretch"
@@ -175,28 +204,29 @@
                                          IsReadOnly="True"
                                          IsEnabled="False"
                                          Height="{StaticResource ControlHeight}"
-                                         ItemsSource="{Binding DataContext.Manufacturers, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                         ItemsSource="{Binding DataContext.Manufacturers, Mode=TwoWay,ElementName=AircraftTypeView}"
                                          SelectedValue="{Binding ManufacturerId, Mode=TwoWay}"
                                          SelectedValuePath="Id"
                                          DisplayMemberPath="CnName" />
-                    <TextBlock Grid.Row="4"
+                    <TextBlock Grid.Row="5"
                                Grid.Column="1"
                                Text="描述"
                                TextAlignment="Left"
                                VerticalAlignment="Center" />
                     <TextBox Grid.Column="2"
                              Margin="0,3"
-                             Grid.Row="4"
+                             Grid.Row="5"
                              telerik:StyleManager.Theme="Windows8"
-                             Text="{Binding Description, Mode=TwoWay}">
-                    </TextBox>
+                             Text="{Binding Description, Mode=TwoWay}"/>
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
-        <telerik:RadDocking HasDocumentHost="False">
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False">
             <telerik:RadSplitContainer>
                 <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
                     <telerik:RadPaneGroup>
@@ -229,37 +259,39 @@
                                                          RowIndicatorVisibility="Visible">
                                         <telerik:RadGridView.Columns>
                                             <input:DataPageSerialColumn  Header="序号" />
-                                            <telerik:GridViewDataColumn Header="机型名称"
-                                                                        IsSortable="True"
+                                            <telerik:GridViewDataColumn Header="川航机型"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         DataMemberBinding="{Binding Name}" />
-                                            <telerik:GridViewComboBoxColumn Header="座级"
-                                                                            IsSortable="True"
+                                            <telerik:GridViewComboBoxColumn Header="民航机型"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
-                                                                            ItemsSource="{Binding DataContext.AircraftCategories, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                            ItemsSource="{Binding DataContext.CaacAircraftTypes, Mode=TwoWay,ElementName=AircraftTypeView}"
+                                                                            DataMemberBinding="{Binding CaacAircraftTypeId}"
+                                                                            SelectedValueMemberPath="CAACAircraftTypeId"
+                                                                            DisplayMemberPath="Name" />
+                                            <telerik:GridViewComboBoxColumn Header="座级"
+                                                                            MinWidth="{StaticResource GridViewColumnsWidth}"
+                                                                            HeaderTextAlignment="Center"
+                                                                            ItemsSource="{Binding DataContext.AircraftCategories, Mode=TwoWay,ElementName=AircraftTypeView}"
                                                                             DataMemberBinding="{Binding AircraftCategoryId}"
                                                                             SelectedValueMemberPath="Id"
                                                                             DisplayMemberPath="Regional" />
                                             <telerik:GridViewComboBoxColumn Header="系列"
-                                                                            IsSortable="True"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
-                                                                            ItemsSource="{Binding DataContext.AircraftSerieses, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                            ItemsSource="{Binding DataContext.AircraftSerieses, Mode=TwoWay, ElementName=AircraftTypeView}"
                                                                             DataMemberBinding="{Binding AircraftSeriesId}"
                                                                             SelectedValueMemberPath="Id"
                                                                             DisplayMemberPath="Name" />
                                             <telerik:GridViewComboBoxColumn Header="制造商"
-                                                                            IsSortable="True"
                                                                             MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                             HeaderTextAlignment="Center"
-                                                                            ItemsSource="{Binding DataContext.Manufacturers, Mode=TwoWay, RelativeSource={RelativeSource AncestorLevel=1,AncestorType=UserControl}}"
+                                                                            ItemsSource="{Binding DataContext.Manufacturers, Mode=TwoWay, ElementName=AircraftTypeView}"
                                                                             DataMemberBinding="{Binding ManufacturerId}"
                                                                             SelectedValueMemberPath="Id"
                                                                             DisplayMemberPath="CnName" />
                                             <telerik:GridViewDataColumn Header="描述"
-                                                                        IsSortable="True"
                                                                         MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                         HeaderTextAlignment="Center"
                                                                         MaxWidth="250"

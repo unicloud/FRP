@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.AirProgrammingQueries;
@@ -36,7 +37,8 @@ namespace UniCloud.Application.FleetPlanBC.AirProgrammingServices
     ///     实现航空公司五年规划服务接口。
     ///     用于处理航空公司五年规划相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class AirProgrammingAppService : IAirProgrammingAppService
+    [LogAOP]
+    public class AirProgrammingAppService : ContextBoundObject, IAirProgrammingAppService
     {
         private readonly IAirProgrammingQuery _airProgrammingQuery;
         private readonly IAircraftSeriesRepository _aircraftSeriesRepository;

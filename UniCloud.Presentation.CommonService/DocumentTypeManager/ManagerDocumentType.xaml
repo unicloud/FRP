@@ -110,7 +110,9 @@
     </UserControl.Resources>
 
     <Grid>
-        <telerik:RadDocking HasDocumentHost="False">
+        <telerik:RadDocking BorderThickness="0"
+                            Padding="0"
+                            HasDocumentHost="False">
             <telerik:RadSplitContainer>
                 <telerik:RadSplitContainer  telerik:ProportionalStackPanel.RelativeSize="600, 600">
                     <telerik:RadPaneGroup>
@@ -156,7 +158,7 @@
                 </telerik:RadSplitContainer>
                 <telerik:RadSplitContainer telerik:ProportionalStackPanel.RelativeSize="300, 600">
                     <telerik:RadPaneGroup>
-                        <telerik:RadPane Header="编辑文档类型系列"
+                        <telerik:RadPane Header="编辑文档类型"
                                          IsPinned="True"
                                          CanFloat="False"
                                          CanDockInDocumentHost="False"

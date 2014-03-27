@@ -7,6 +7,8 @@
 using System.Linq;
 using UniCloud.Application.FleetPlanBC.ActionCategoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftCategoryServices;
+using UniCloud.Application.FleetPlanBC.AircraftConfigurationServices;
+using UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftPlanServices;
 using UniCloud.Application.FleetPlanBC.AircraftSeriesServices;
 using UniCloud.Application.FleetPlanBC.AircraftServices;
@@ -15,8 +17,10 @@ using UniCloud.Application.FleetPlanBC.AirlinesServices;
 using UniCloud.Application.FleetPlanBC.AirProgrammingServices;
 using UniCloud.Application.FleetPlanBC.AnnualServices;
 using UniCloud.Application.FleetPlanBC.ApprovalDocServices;
+using UniCloud.Application.FleetPlanBC.CAACAircraftTypeServices;
 using UniCloud.Application.FleetPlanBC.CaacProgrammingServices;
 using UniCloud.Application.FleetPlanBC.DTO;
+using UniCloud.Application.FleetPlanBC.DTO.CAACAircraftTypeDTO;
 using UniCloud.Application.FleetPlanBC.EnginePlanServices;
 using UniCloud.Application.FleetPlanBC.EngineServices;
 using UniCloud.Application.FleetPlanBC.EngineTypeServices;
@@ -25,6 +29,7 @@ using UniCloud.Application.FleetPlanBC.ManagerServices;
 using UniCloud.Application.FleetPlanBC.ManufacturerServices;
 using UniCloud.Application.FleetPlanBC.PlanAircraftServices;
 using UniCloud.Application.FleetPlanBC.PlanEngineServices;
+using UniCloud.Application.FleetPlanBC.ProgrammingFileServices;
 using UniCloud.Application.FleetPlanBC.ProgrammingServices;
 using UniCloud.Application.FleetPlanBC.RequestServices;
 using UniCloud.Application.FleetPlanBC.SupplierServices;
@@ -46,10 +51,12 @@ namespace UniCloud.DistributedServices.FleetPlan
         private readonly IAirProgrammingAppService _airProgrammingAppService;
         private readonly IAircraftAppService _aircraftAppService;
         private readonly IAircraftCategoryAppService _aircraftCategoryAppService;
+        private readonly IAircraftConfigurationAppService _aircraftConfigurationAppService;
         private readonly IAircraftTypeAppService _aircraftTypeAppService;
         private readonly IAirlinesAppService _airlinesAppService;
         private readonly IAnnualAppService _annualAppService;
         private readonly IApprovalDocAppService _approvalDocAppService;
+        private readonly ICAACAircraftTypeAppService _caacAircraftTypeAppService;
         private readonly ICaacProgrammingAppService _caacProgrammingAppService;
         private readonly IEngineAppService _engineAppService;
         private readonly IEnginePlanAppService _enginePlanAppService;
@@ -59,8 +66,10 @@ namespace UniCloud.DistributedServices.FleetPlan
         private readonly IManufacturerAppService _manufacturerAppService;
         private readonly IPlanAircraftAppService _planAircraftAppService;
         private readonly IPlanAppService _planAppService;
+        private readonly IPlanHistoryAppService _planHistoryAppService;
         private readonly IPlanEngineAppService _planEngineAppService;
         private readonly IProgrammingAppService _programmingAppService;
+        private readonly IProgrammingFileAppService _programmingFileAppService;
         private readonly IRequestAppService _requestAppService;
         private readonly ISupplierAppService _supplierAppService;
         private readonly IXmlConfigAppService _xmlConfigAppService;
@@ -72,12 +81,14 @@ namespace UniCloud.DistributedServices.FleetPlan
             _actionCategoryAppService = DefaultContainer.Resolve<IActionCategoryAppService>();
             _aircraftSeriesAppService = DefaultContainer.Resolve<IAircraftSeriesAppService>();
             _aircraftCategoryAppService = DefaultContainer.Resolve<IAircraftCategoryAppService>();
+            _aircraftConfigurationAppService = DefaultContainer.Resolve<IAircraftConfigurationAppService>();
             _aircraftAppService = DefaultContainer.Resolve<IAircraftAppService>();
             _aircraftTypeAppService = DefaultContainer.Resolve<IAircraftTypeAppService>();
             _airlinesAppService = DefaultContainer.Resolve<IAirlinesAppService>();
             _airProgrammingAppService = DefaultContainer.Resolve<IAirProgrammingAppService>();
             _annualAppService = DefaultContainer.Resolve<IAnnualAppService>();
             _approvalDocAppService = DefaultContainer.Resolve<IApprovalDocAppService>();
+            _caacAircraftTypeAppService = DefaultContainer.Resolve<ICAACAircraftTypeAppService>();
             _caacProgrammingAppService = DefaultContainer.Resolve<ICaacProgrammingAppService>();
             _engineAppService = DefaultContainer.Resolve<IEngineAppService>();
             _enginePlanAppService = DefaultContainer.Resolve<IEnginePlanAppService>();
@@ -86,9 +97,11 @@ namespace UniCloud.DistributedServices.FleetPlan
             _managerAppService = DefaultContainer.Resolve<IManagerAppService>();
             _manufacturerAppService = DefaultContainer.Resolve<IManufacturerAppService>();
             _planAppService = DefaultContainer.Resolve<IPlanAppService>();
+            _planHistoryAppService = DefaultContainer.Resolve<IPlanHistoryAppService>();
             _planAircraftAppService = DefaultContainer.Resolve<IPlanAircraftAppService>();
             _planEngineAppService = DefaultContainer.Resolve<IPlanEngineAppService>();
             _programmingAppService = DefaultContainer.Resolve<IProgrammingAppService>();
+            _programmingFileAppService = DefaultContainer.Resolve<IProgrammingFileAppService>();
             _requestAppService = DefaultContainer.Resolve<IRequestAppService>();
             _supplierAppService = DefaultContainer.Resolve<ISupplierAppService>();
             _xmlConfigAppService = DefaultContainer.Resolve<IXmlConfigAppService>();
@@ -107,6 +120,21 @@ namespace UniCloud.DistributedServices.FleetPlan
             get
             {
                 return GetStaticData("actionCategoriesFleetPlan", () => _actionCategoryAppService.GetActionCategories());
+            }
+        }
+
+        #endregion
+
+        #region 飞机配置
+
+        /// <summary>
+        ///     飞机配置集合
+        /// </summary>
+        public IQueryable<AircraftConfigurationDTO> AircraftConfigurations
+        {
+            get
+            {
+                return _aircraftConfigurationAppService.GetAircraftConfigurations();
             }
         }
 
@@ -155,13 +183,21 @@ namespace UniCloud.DistributedServices.FleetPlan
         #region 机型
 
         /// <summary>
-        ///     机型集合
+        ///     川航机型集合
         /// </summary>
         public IQueryable<AircraftTypeDTO> AircraftTypes
         {
             get { return GetStaticData("aircraftTypesFleetPlan", () => _aircraftTypeAppService.GetAircraftTypes()); }
         }
 
+
+        /// <summary>
+        ///     民航机型集合
+        /// </summary>
+        public IQueryable<CAACAircraftTypeDTO> CaacAircraftTypes
+        {
+            get { return GetStaticData("caacAircraftTypesFleetPlan", () => _caacAircraftTypeAppService.GetCAACAircraftTypes()); }
+        }
         #endregion
 
         #region 航空公司
@@ -314,6 +350,13 @@ namespace UniCloud.DistributedServices.FleetPlan
             get { return _planAppService.GetPlans(); }
         }
 
+        /// <summary>
+        ///     飞机计划明细集合
+        /// </summary>
+        public IQueryable<PlanHistoryDTO> PlanHistories
+        {
+            get { return _planHistoryAppService.GetPlanHistories(); }
+        }
         #endregion
 
         #region 计划飞机
@@ -348,6 +391,18 @@ namespace UniCloud.DistributedServices.FleetPlan
         public IQueryable<ProgrammingDTO> Programmings
         {
             get { return GetStaticData("programmingsFleetPlan", () => _programmingAppService.GetProgrammings()); }
+        }
+
+        #endregion
+
+        #region 规划文档
+
+        /// <summary>
+        ///     规划文档集合
+        /// </summary>
+        public IQueryable<ProgrammingFileDTO> ProgrammingFiles
+        {
+            get { return _programmingFileAppService.GetProgrammingFiles(); }
         }
 
         #endregion

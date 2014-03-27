@@ -17,12 +17,15 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
 using UniCloud.Application.AircraftConfigBC.DTO;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftTypeQueries;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.AircraftTypeAgg;
+using UniCloud.Domain.AircraftConfigBC.Aggregates.CAACAircraftTypeAgg;
 
 #endregion
 
@@ -32,7 +35,8 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftTypeServices
     ///     实现机型服务接口。
     ///     用于处理机型相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class AircraftTypeAppService : IAircraftTypeAppService
+  [LogAOP]
+    public class AircraftTypeAppService : ContextBoundObject, IAircraftTypeAppService
     {
         private readonly IAircraftTypeQuery _aircraftTypeQuery;
         private readonly IAircraftTypeRepository _aircraftTypeRepository;
@@ -63,7 +67,7 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftTypeServices
         public void InsertAircraftType(AircraftTypeDTO aircraftType)
         {
             var newAircraftType = AircraftTypeFactory.CreateAircraftType();
-            AircraftTypeFactory.SetAircraftType(newAircraftType, aircraftType.Name, aircraftType.Description,aircraftType.AircraftCategoryId,aircraftType.AircraftSeriesId, aircraftType.ManufacturerId);
+            AircraftTypeFactory.SetAircraftType(newAircraftType, aircraftType.Name, aircraftType.Description, aircraftType.AircraftCategoryId, aircraftType.AircraftSeriesId, aircraftType.ManufacturerId, aircraftType.CaacAircraftTypeId);
             _aircraftTypeRepository.Add(newAircraftType);
         }
 
@@ -76,7 +80,7 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftTypeServices
         public void ModifyAircraftType(AircraftTypeDTO aircraftType)
         {
             var updateAircraftType = _aircraftTypeRepository.Get(aircraftType.AircraftTypeId); //获取需要更新的对象。
-            AircraftTypeFactory.SetAircraftType(updateAircraftType, aircraftType.Name, aircraftType.Description, aircraftType.AircraftCategoryId, aircraftType.AircraftSeriesId, aircraftType.ManufacturerId);
+            AircraftTypeFactory.SetAircraftType(updateAircraftType, aircraftType.Name, aircraftType.Description, aircraftType.AircraftCategoryId, aircraftType.AircraftSeriesId, aircraftType.ManufacturerId, aircraftType.CaacAircraftTypeId);
             _aircraftTypeRepository.Modify(updateAircraftType);
         }
 
@@ -90,6 +94,20 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftTypeServices
             var deleteAircraftType = _aircraftTypeRepository.Get(aircraftType.AircraftTypeId); //获取需要删除的对象。
             _aircraftTypeRepository.Remove(deleteAircraftType); //删除飞机机型。
         }
+        #endregion
+
+        #region CAACAircraftTypeDTO
+
+        /// <summary>
+        ///     获取所有民航机型
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<CAACAircraftTypeDTO> GetCAACAircraftTypes()
+        {
+            var queryBuilder = new QueryBuilder<CAACAircraftType>();
+            return _aircraftTypeQuery.CAACAircraftTypeDTOQuery(queryBuilder);
+        }
+
         #endregion
     }
 }

@@ -14,7 +14,10 @@
 #endregion
 
 #region 命名空间
+
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.AcDailyUtilizationQueries;
@@ -28,7 +31,8 @@ namespace UniCloud.Application.PartBC.AcDailyUtilizationServices
     /// 实现AcDailyUtilization的服务接口。
     ///  用于处理AcDailyUtilization相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class AcDailyUtilizationAppService : IAcDailyUtilizationAppService
+   [LogAOP]
+    public class AcDailyUtilizationAppService : ContextBoundObject, IAcDailyUtilizationAppService
     {
         private readonly IAcDailyUtilizationQuery _acDailyUtilizationQuery;
         private readonly IAcDailyUtilizationRepository _acDailyUtilizationRepository;

@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UniCloud.Presentation.Service.FleetPlan.FleetPlan.Enums;
 
 #endregion
@@ -168,13 +169,13 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 3、已申请
         /// 4、无需申请
         /// </summary>
-        internal CanRequest CanRequest
+        public CanRequest CanRequest
         {
             get
             {
                 return _canRequest;
-                }
             }
+        }
 
 
         /// <summary>
@@ -314,59 +315,94 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// <summary>
         /// 座级集合，用于属性绑定
         /// </summary>
-        internal IEnumerable<AircraftCategoryDTO> AircraftCategories
-        {
-            get { return FleetPlanService.GetAircraftCategories(null).SourceCollection.Cast<AircraftCategoryDTO>().ToList(); }
-            private set
-            {
-
-        }
-        }
+        //internal IEnumerable<AircraftCategoryDTO> AircraftCategories
+        //{
+        //    get
+        //    {
+        //        if (ActionName == "客改货")
+        //            return FleetPlanService.GetAircraftCategories(null).SourceCollection.Cast<AircraftCategoryDTO>().Where(p => p.Category == "货机").ToList();
+        //        else if (ActionName == "货改客")
+        //            return FleetPlanService.GetAircraftCategories(null).SourceCollection.Cast<AircraftCategoryDTO>().Where(p => p.Category == "客机").ToList();
+        //        else
+        //            return FleetPlanService.GetAircraftCategories(null).SourceCollection.Cast<AircraftCategoryDTO>().ToList();
+        //    }
+        //}
 
         /// <summary>
         /// 机型集合，用于属性绑定
         /// </summary>
-        internal IEnumerable<AircraftTypeDTO> AircraftTypes
-        {
-            get
-            {
-                if (Regional != null)
-                    return FleetPlanService.GetAircraftTypes(null).SourceCollection.Cast<AircraftTypeDTO>().Where(p => p.Regional == Regional).ToList();
-                else return FleetPlanService.GetAircraftTypes(null).SourceCollection.Cast<AircraftTypeDTO>().ToList();
-            }
-            private set
-            {
+        //internal IEnumerable<AircraftTypeDTO> AircraftTypes
+        //{
+        //    get
+        //    {
+        //        if (Regional != null)
+        //            return FleetPlanService.GetAircraftTypes(null).SourceCollection.Cast<AircraftTypeDTO>().Where(p => p.Regional == Regional).ToList();
+        //        else return FleetPlanService.GetAircraftTypes(null).SourceCollection.Cast<AircraftTypeDTO>().ToList();
+        //    }
+        //}
 
-            }
-        }
         /// <summary>
         /// 操作集合，用于属性绑定
         /// </summary>
-        internal IEnumerable<ActionCategoryDTO> ActionCategories
-        {
-            get
-            {
-                if (PlanType == 1)
-                    return FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType != "变更").ToList();
-                else if (PlanType == 2)
-                    return FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "变更").ToList();
-                else return FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().ToList();
-            }
-            private set
-            {
+        //internal IEnumerable<ActionCategoryDTO> ActionCategories
+        //{
+        //    get
+        //    {
+        //        if (PlanType == 1 && ActionType == "引进")
+        //            return FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "引进").ToList();
+        //        else if (PlanType == 1 && ActionType == "退出")
+        //            return FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "退出").ToList();
+        //        else if (PlanType == 2 && ActionType == "变更")
+        //            return FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "变更").ToList();
+        //        else return FleetPlanService.GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().ToList();
+        //    }
+        //}
 
-            }
-        }
         /// <summary>
         /// 计划历史比较状态
         /// </summary>
-        public PlanHistoryCompareStatus PlanHistoryCompareStatus
+        internal PlanHistoryCompareStatus PlanHistoryCompareStatus
         { get; set; }
         #endregion
 
         #endregion
 
         #region 方法
+        /// <summary>
+        /// 计划类型发生变化触发相关变化
+        /// </summary>
+        partial void OnPlanTypeChanged()
+        {
+            FleetPlanService.GetActionCategoriesForPlanHistory(this);
+            OnPropertyChanged("ActionCategories");
+        }
+
+        /// <summary>
+        /// 活动类型发生变化触发相关变化
+        /// </summary>
+        partial void OnActionTypeChanged()
+        {
+            FleetPlanService.GetActionCategoriesForPlanHistory(this);
+            OnPropertyChanged("ActionCategories");
+        }
+
+        /// <summary>
+        /// 活动类型发生变化触发相关变化
+        /// </summary>
+        partial void OnActionNameChanged()
+        {
+            FleetPlanService.GetAircraftCategoriesForPlanHistory(this);
+            OnPropertyChanged("AircraftCategories");
+        }
+        
+        /// <summary>
+        /// 座级发生变化触发相关变化
+        /// </summary>
+        partial void OnRegionalChanged()
+        {
+            FleetPlanService.GetAircraftTypesForPlanHistory(this);
+            OnPropertyChanged("AircraftTypes");
+        }
 
         /// <summary>
         /// 机型发生变化时触发相关变化
@@ -374,103 +410,20 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         partial void OnAircraftTypeIdChanged()
         {
             this.OnPropertyChanged("DeltaPnr");
-
             this.OnPropertyChanged("DeltaCargo");
         }
-
-        partial void OnPlanTypeChanged()
-        {
-            if (PlanType == 1)
-                ActionCategories = FleetPlanService.GetActionCategories(null).Where(p => p.ActionType != "变更");
-            else if (PlanType == 2)
-                ActionCategories = FleetPlanService.GetActionCategories(null).Where(p => p.ActionType == "变更");
-            else ActionCategories = FleetPlanService.GetActionCategories(null);
-        }
-
+        
+        /// <summary>
+        /// 活动类型发生变化触发相关变化
+        /// </summary>
         partial void OnActionCategoryIdChanged()
         {
-            var actionCategory =
-                FleetPlanService.GetActionCategories(null).FirstOrDefault(ac => ac.Id == this.ActionCategoryId);
-            if (actionCategory != null)
-            {
-                if (actionCategory.ActionType == "退出")
-                {
-                    if (this.PlanAircraftId != null && AircraftId != null)
-                    {
-                        if (SeatingCapacity > 0)
-                            this.SeatingCapacity = -SeatingCapacity;
-                        if (CarryingCapacity > 0)
-                            this.CarryingCapacity = -CarryingCapacity;
-                    }
-                }
-
-                if (actionCategory.ActionType == "引进" || actionCategory.ActionType == "退出")
-                {
-                    this.TargetCategoryId = ActionCategoryId;
-                }
-                else
-                {
-                    OnPropertyChanged("AircraftCategores");
-                    OnPropertyChanged("AircraftTypes");
-
-                    ActionCategoryDTO actionCategoryDTO;
-                    // 改变目标引进方式
-                    switch (actionCategory.ActionName)
-                    {
-                        case "一般改装":
-                            if (this.PlanAircraftId != null && this.AircraftId != null)
-                            {
-                                var aircraftImport = this.AircraftImportCategoryId == null ? Guid.Empty : Guid.Parse(AircraftImportCategoryId.ToString());
-                                this.TargetCategoryId = aircraftImport;
-                            }
-                            break;
-                        case "客改货":
-                            if (this.PlanAircraftId != null && this.AircraftId != null)
-                            {
-                                var aircraftImport = this.AircraftImportCategoryId == null
-                                    ? Guid.Empty
-                                    : Guid.Parse(AircraftImportCategoryId.ToString());
-                                this.TargetCategoryId = aircraftImport;
-                                this.AircraftTypeId = Guid.Empty;
-                            }
-                            break;
-                        case "货改客":
-                            if (this.PlanAircraftId != null && this.AircraftId != null)
-                            {
-                                var aircraftImport = this.AircraftImportCategoryId == null
-                                    ? Guid.Empty
-                                    : Guid.Parse(AircraftImportCategoryId.ToString());
-                                this.TargetCategoryId = aircraftImport;
-                                this.AircraftTypeId = Guid.Empty;
-                            }
-                            break;
-                        case "售后融资租赁":
-                             actionCategoryDTO = FleetPlanService.GetActionCategories(null).FirstOrDefault(a => a.ActionName == "融资租赁");
-                            if (actionCategoryDTO != null)
-                                this.TargetCategoryId = actionCategoryDTO.Id;
-                            break;
-                        case "售后经营租赁":
-                            actionCategoryDTO = FleetPlanService.GetActionCategories(null).FirstOrDefault(a => a.ActionName == "经营租赁");
-                            if (actionCategoryDTO != null)
-                                this.TargetCategoryId = actionCategoryDTO.Id;
-                            break;
-                        case "租转购":
-                            actionCategoryDTO = FleetPlanService.GetActionCategories(null).FirstOrDefault(a => a.ActionName == "购买");
-                            if (actionCategoryDTO != null)
-                                this.TargetCategoryId = actionCategoryDTO.Id;
-                            break;
-                    }
-                }
-            }
+            FleetPlanService.OnChangedActionCategory(this);
         }
-
-        partial void OnRegionalChanged()
-        {
-            if (Regional != null)
-                AircraftTypes = FleetPlanService.GetAircraftTypes(null).Where(p => p.Regional == Regional);
-            else AircraftTypes = FleetPlanService.GetAircraftTypes(null);
-        }
-
+        
+        /// <summary>
+        /// 运营历史（或商业数据历史）发生变化时触发相关变化
+        /// </summary>
         partial void OnRelatedGuidChanged()
         {
             OnPropertyChanged("CompleteStatus");
@@ -489,11 +442,11 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// 刷新是否申请状态
         /// </summary>
         /// <param name="plan"></param>
-        public void  RefrashCanRequest(PlanDTO plan)
+        public void RefrashCanRequest(PlanDTO plan)
         {
             if (ActionCategoryId != Guid.Empty && NeedRequest)
             {
-                if (ManageStatus > (int)Enums.ManageStatus.计划) _canRequest= CanRequest.已申请;
+                if (ManageStatus > (int)Enums.ManageStatus.计划) _canRequest = CanRequest.已申请;
                 else
                     _canRequest = (this.IsSubmit && plan.Status == (int)OperationStatus.已提交)
                     ? CanRequest.可申请
@@ -504,7 +457,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 _canRequest = CanRequest.无需申请;
             }
             OnPropertyChanged("CanRequest");
-          
+
         }
         #endregion
     }

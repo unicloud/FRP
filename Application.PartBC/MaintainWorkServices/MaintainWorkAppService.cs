@@ -14,7 +14,10 @@
 #endregion
 
 #region 命名空间
+
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.MaintainWorkQueries;
@@ -27,7 +30,8 @@ namespace UniCloud.Application.PartBC.MaintainWorkServices
     /// 实现MaintainWork的服务接口。
     ///  用于处理MaintainWork相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class MaintainWorkAppService : IMaintainWorkAppService
+   [LogAOP]
+    public class MaintainWorkAppService : ContextBoundObject, IMaintainWorkAppService
     {
         private readonly IMaintainWorkQuery _maintainWorkQuery;
         private readonly IMaintainWorkRepository _maintainWorkRepository;

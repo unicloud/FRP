@@ -89,6 +89,7 @@ namespace UniCloud.Infrastructure.Data.UberModel.InitialData
             };
             linkman.SetSourceId(supplier.SupplierCompany.LinkmanId);
             Context.Linkmen.Add(linkman);
+            Context.SaveChanges();
         }
     }
 }

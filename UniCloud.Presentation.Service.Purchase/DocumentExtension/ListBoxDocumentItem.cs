@@ -19,7 +19,9 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Media;
+using UniCloud.Presentation.Service.Purchase.Annotations;
 
 #endregion
 
@@ -28,12 +30,12 @@ namespace UniCloud.Presentation.Service.Purchase.DocumentExtension
     /// <summary>
     ///     Document 转化为ExplorerItem
     /// </summary>
-    public class ListBoxDocumentItem
+    public class ListBoxDocumentItem : INotifyPropertyChanged
     {
         public ListBoxDocumentItem()
         {
             SubDocumentPaths = new ObservableCollection<ListBoxDocumentItem>();
-            SubFolders=new ObservableCollection<ListBoxDocumentItem>();
+            SubFolders = new ObservableCollection<ListBoxDocumentItem>();
         }
 
         /// <summary>
@@ -44,7 +46,16 @@ namespace UniCloud.Presentation.Service.Purchase.DocumentExtension
         /// <summary>
         ///     名称
         /// </summary>
-        public string Name { get; set; }
+        private string _name;
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("Name");
+            }
+        }
 
         /// <summary>
         ///     是否叶子节点
@@ -62,9 +73,9 @@ namespace UniCloud.Presentation.Service.Purchase.DocumentExtension
         public Guid? DocumentGuid { get; set; }
 
         /// <summary>
-        ///     路径源
+        ///     路径
         /// </summary>
-        public int PathSource { get; set; }
+        public string Path{ get; set; }
 
         /// <summary>
         ///     父节点ID
@@ -93,5 +104,14 @@ namespace UniCloud.Presentation.Service.Purchase.DocumentExtension
         /// 全局路径
         /// </summary>
         public string FullPath { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

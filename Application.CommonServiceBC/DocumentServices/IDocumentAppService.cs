@@ -18,6 +18,7 @@
 
 #region
 
+using System;
 using System.Linq;
 using UniCloud.Application.CommonServiceBC.DTO;
 
@@ -35,6 +36,8 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
         /// </summary>
         /// <returns>文档DTO集合</returns>
         IQueryable<DocumentDTO> GetDocuments();
+
+        DocumentDTO GetSingleDocument(Guid documentId);
 
         /// <summary>
         ///     新增文档。

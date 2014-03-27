@@ -17,8 +17,10 @@
 
 #region 命名空间
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using UniCloud.Domain.UberModel.Aggregates.UserRoleAgg;
 
 #endregion
 
@@ -39,6 +41,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
         {
         }
 
+
         #endregion
 
         #region 属性
@@ -46,35 +49,105 @@ namespace UniCloud.Domain.UberModel.Aggregates.UserAgg
         /// <summary>
         ///     员工号
         /// </summary>
-        public string EmployeeCode { get; set; }
+        public string EmployeeCode { get; internal set; }
 
         /// <summary>
         ///     名
         /// </summary>
-        public string FirstName { get; set; }
+        public string FirstName { get; internal set; }
 
         /// <summary>
         ///     姓
         /// </summary>
-        public string LaseName { get; set; }
+        public string LastName { get; internal set; }
 
         /// <summary>
         ///     显示名称
         /// </summary>
-        public string DisplayName { get; set; }
+        public string DisplayName { get; internal set; }
 
-        #endregion
+        /// <summary>
+        /// 密码
+        /// </summary>
+        public string Password
+        {
+            get;
+            internal set;
+        }
 
-        #region 外键属性
+        /// <summary>
+        /// 邮件
+        /// </summary>
+        public string Email
+        {
+            get;
+            internal set;
+        }
 
-        #endregion
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        public string Mobile
+        {
+            get;
+            internal set;
+        }
 
-        #region 导航属性
+        /// <summary>
+        /// 备注
+        /// </summary>
+        public string Description
+        {
+            get;
+            internal set;
+        }
 
+        /// <summary>
+        /// 是否可用
+        /// </summary>
+        public bool IsValid
+        {
+            get;
+            internal set;
+        }
+
+        /// <summary>
+        /// 创建时间
+        /// </summary>
+        public DateTime CreateDate
+        {
+            get;
+            internal set;
+        }
+
+        /// <summary>
+        /// 角色集合
+        /// </summary>
+        private ICollection<UserRole> _userRoles;
+        public ICollection<UserRole> UserRoles
+        {
+            get { return _userRoles ?? (_userRoles = new HashSet<UserRole>()); }
+            set { _userRoles = new HashSet<UserRole>(value); }
+        }
         #endregion
 
         #region 操作
+        /// <summary>
+        /// 新增UserRole
+        /// </summary>
+        /// <returns></returns>
+        public UserRole AddNewUserRole()
+        {
+            var userRole = new UserRole
+            {
+                UserId = Id,
+            };
 
+            userRole.GenerateNewIdentity();
+            UserRoles.Add(userRole);
+
+            return userRole;
+        }
         #endregion
 
         #region IValidatableObject 成员

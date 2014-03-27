@@ -17,7 +17,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.ProgrammingQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingAgg;
@@ -30,7 +32,8 @@ namespace UniCloud.Application.FleetPlanBC.ProgrammingServices
     ///     实现规划期间服务接口。
     ///     用于处理规划期间相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class ProgrammingAppService : IProgrammingAppService
+    [LogAOP]
+    public class ProgrammingAppService : ContextBoundObject, IProgrammingAppService
     {
         private readonly IProgrammingQuery _programmingQuery;
 

@@ -33,7 +33,7 @@ namespace UniCloud.Presentation.CommonService.SearchDocument
             var docViewerVM = ServiceLocator.Current.GetInstance<DocViewerVM>();
             if (view.DocumentList.CurrentItem != null)
             {
-                docViewer.Show();
+                docViewer.ShowDialog();
                 docViewerVM.InitDocument(((DocumentDTO)view.DocumentList.CurrentItem).DocumentId);
             }
         }

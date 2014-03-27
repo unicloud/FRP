@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AOP\Base\AOPAttribute.cs" />
+    <Compile Include="AOP\Base\AOPProperty.cs" />
+    <Compile Include="AOP\Base\AOPSink.cs" />
+    <Compile Include="AOP\Log\LogAOPAttribute.cs" />
+    <Compile Include="AOP\Log\LogAOPProperty.cs" />
+    <Compile Include="AOP\Log\LogAOPSink.cs" />
     <Compile Include="ApplicationExtension\DeleteAttribute.cs" />
     <Compile Include="ApplicationExtension\InsertAttribute.cs" />
     <Compile Include="ApplicationExtension\UpdateAttribute.cs" />

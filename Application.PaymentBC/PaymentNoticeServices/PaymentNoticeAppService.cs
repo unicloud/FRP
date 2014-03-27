@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.PaymentNoticeQueries;
@@ -30,7 +31,8 @@ namespace UniCloud.Application.PaymentBC.PaymentNoticeServices
     ///     实现付款通知接口。
     ///     用于处于付款通知相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class PaymentNoticeAppService : IPaymentNoticeAppService
+   [LogAOP]
+    public class PaymentNoticeAppService : ContextBoundObject, IPaymentNoticeAppService
     {
         private readonly IPaymentNoticeQuery _paymentNoticeQuery;
         private readonly IPaymentNoticeRepository _paymentNoticeRepository;

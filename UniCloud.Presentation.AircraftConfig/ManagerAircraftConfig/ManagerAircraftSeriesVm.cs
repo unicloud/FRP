@@ -16,6 +16,7 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
@@ -66,6 +67,9 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                     if (newItem != null)
                     {
                         newItem.Id = Guid.NewGuid();
+                        var firstOrDefault = Manufacturers.FirstOrDefault();
+                        if (firstOrDefault != null)
+                            newItem.ManufacturerId = firstOrDefault.Id;
                     }
                 }
                 else if (e.PropertyName == "HasChanges")

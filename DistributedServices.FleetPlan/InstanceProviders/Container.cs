@@ -7,6 +7,8 @@
 using Microsoft.Practices.Unity;
 using UniCloud.Application.FleetPlanBC.ActionCategoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftCategoryServices;
+using UniCloud.Application.FleetPlanBC.AircraftConfigurationServices;
+using UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices;
 using UniCloud.Application.FleetPlanBC.AircraftPlanServices;
 using UniCloud.Application.FleetPlanBC.AircraftSeriesServices;
 using UniCloud.Application.FleetPlanBC.AircraftServices;
@@ -15,6 +17,7 @@ using UniCloud.Application.FleetPlanBC.AirlinesServices;
 using UniCloud.Application.FleetPlanBC.AirProgrammingServices;
 using UniCloud.Application.FleetPlanBC.AnnualServices;
 using UniCloud.Application.FleetPlanBC.ApprovalDocServices;
+using UniCloud.Application.FleetPlanBC.CAACAircraftTypeServices;
 using UniCloud.Application.FleetPlanBC.CaacProgrammingServices;
 using UniCloud.Application.FleetPlanBC.EnginePlanServices;
 using UniCloud.Application.FleetPlanBC.EngineServices;
@@ -24,9 +27,11 @@ using UniCloud.Application.FleetPlanBC.ManagerServices;
 using UniCloud.Application.FleetPlanBC.ManufacturerServices;
 using UniCloud.Application.FleetPlanBC.PlanAircraftServices;
 using UniCloud.Application.FleetPlanBC.PlanEngineServices;
+using UniCloud.Application.FleetPlanBC.ProgrammingFileServices;
 using UniCloud.Application.FleetPlanBC.ProgrammingServices;
 using UniCloud.Application.FleetPlanBC.Query.ActionCategoryQueries;
 using UniCloud.Application.FleetPlanBC.Query.AircraftCategoryQueries;
+using UniCloud.Application.FleetPlanBC.Query.AircraftConfigurationQueries;
 using UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries;
 using UniCloud.Application.FleetPlanBC.Query.AircraftQueries;
 using UniCloud.Application.FleetPlanBC.Query.AircraftSeriesQueries;
@@ -35,6 +40,7 @@ using UniCloud.Application.FleetPlanBC.Query.AirlinesQueries;
 using UniCloud.Application.FleetPlanBC.Query.AirProgrammingQueries;
 using UniCloud.Application.FleetPlanBC.Query.AnnualQueries;
 using UniCloud.Application.FleetPlanBC.Query.ApprovalDocQueries;
+using UniCloud.Application.FleetPlanBC.Query.CAACAircraftTypeQueries;
 using UniCloud.Application.FleetPlanBC.Query.CaacProgrammingQueries;
 using UniCloud.Application.FleetPlanBC.Query.EnginePlanQueries;
 using UniCloud.Application.FleetPlanBC.Query.EngineQueries;
@@ -44,6 +50,8 @@ using UniCloud.Application.FleetPlanBC.Query.ManagerQueries;
 using UniCloud.Application.FleetPlanBC.Query.ManufacturerQueries;
 using UniCloud.Application.FleetPlanBC.Query.PlanAircraftQueries;
 using UniCloud.Application.FleetPlanBC.Query.PlanEngineQueries;
+using UniCloud.Application.FleetPlanBC.Query.PlanHistoryQueries;
+using UniCloud.Application.FleetPlanBC.Query.ProgrammingFileQueries;
 using UniCloud.Application.FleetPlanBC.Query.ProgrammingQueries;
 using UniCloud.Application.FleetPlanBC.Query.RequestQueries;
 using UniCloud.Application.FleetPlanBC.Query.SupplierQueries;
@@ -56,13 +64,16 @@ using UniCloud.Application.FleetPlanBC.XmlSettingServices;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ActionCategoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftCategoryAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftConfigurationAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftSeriesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirlinesAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AirProgrammingAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.AnnualAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.CAACAircraftTypeAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.CaacProgrammingAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EngineAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.EnginePlanAgg;
@@ -73,6 +84,7 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.ManufacturerAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanAircraftAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.PlanEngineAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.ProgrammingFileAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.SupplierAgg;
 using UniCloud.Domain.FleetPlanBC.Aggregates.XmlConfigAgg;
@@ -105,6 +117,13 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 .RegisterType<IActionCategoryRepository, ActionCategoryRepository>()
                 #endregion
 
+                #region 飞机配置相关配置，包括查询，应用服务，仓储注册
+
+                .RegisterType<IAircraftConfigurationQuery, AircraftConfigurationQuery>()
+                .RegisterType<IAircraftConfigurationAppService, AircraftConfigurationAppService>()
+                .RegisterType<IAircraftConfigurationRepository, AircraftConfigurationRepository>()
+                #endregion
+
                 #region 飞机系列相关配置，包括查询，应用服务，仓储注册
 
                 .RegisterType<IAircraftSeriesQuery, AircraftSeriesQuery>()
@@ -131,6 +150,9 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 .RegisterType<IPlanQuery, PlanQuery>()
                 .RegisterType<IPlanAppService, PlanAppService>()
                 .RegisterType<IPlanRepository, PlanRepository>()
+                .RegisterType<IPlanHistoryQuery, PlanHistoryQuery>()
+                .RegisterType<IPlanHistoryAppService, PlanHistoryAppService>()
+                .RegisterType<IPlanHistoryRepository, PlanHistoryRepository>()
                 #endregion
 
                 #region 机型相关配置，包括查询，应用服务，仓储注册
@@ -138,6 +160,9 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 .RegisterType<IAircraftTypeQuery, AircraftTypeQuery>()
                 .RegisterType<IAircraftTypeAppService, AircraftTypeAppService>()
                 .RegisterType<IAircraftTypeRepository, AircraftTypeRepository>()
+                .RegisterType<ICAACAircraftTypeQuery, CAACAircraftTypeQuery>()
+                .RegisterType<ICAACAircraftTypeAppService, CAACAircraftTypeAppService>()
+                .RegisterType<ICAACAircraftTypeRepository, CAACAircraftTypeRepository>()
                 #endregion
 
                 #region 航空公司相关配置，包括查询，应用服务，仓储注册
@@ -236,6 +261,13 @@ namespace UniCloud.DistributedServices.FleetPlan.InstanceProviders
                 .RegisterType<IProgrammingQuery, ProgrammingQuery>()
                 .RegisterType<IProgrammingAppService, ProgrammingAppService>()
                 .RegisterType<IProgrammingRepository, ProgrammingRepository>()
+                #endregion
+
+                #region 规划文档相关配置，包括查询，应用服务，仓储注册
+
+                .RegisterType<IProgrammingFileQuery, ProgrammingFileQuery>()
+                .RegisterType<IProgrammingFileAppService, ProgrammingFileAppService>()
+                .RegisterType<IProgrammingFileRepository, ProgrammingFileRepository>()
                 #endregion
 
                 #region 申请相关配置，包括查询，应用服务，仓储注册

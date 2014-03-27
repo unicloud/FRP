@@ -17,7 +17,9 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Telerik.Windows.Data;
 using UniCloud.Presentation.MVVM;
@@ -72,9 +74,9 @@ namespace UniCloud.Presentation.Payment.Invoice
         /// <summary>
         ///     维修发票维修项
         /// </summary>
-        public Array MaintainItems
+        public Dictionary<int, MaintainItem> MaintainItems
         {
-            get { return Enum.GetValues(typeof (MaintainItem)); }
+            get { return Enum.GetValues(typeof(MaintainItem)).Cast<object>().ToDictionary(value => (int)value, value => (MaintainItem)value); }
         }
 
         #endregion

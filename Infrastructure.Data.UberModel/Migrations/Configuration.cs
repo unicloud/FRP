@@ -19,6 +19,8 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
         protected override void Seed(UberModelUnitOfWork context)
         {
             InitialContainer.CreateInitialContainer()
+                .Register(new FunctionItemData(context))
+                .Register(new UserData(context))
                 .Register(new XmlConfigData(context))
                 .Register(new LicenseTypeData(context))
                 .Register(new SupplierData(context))
@@ -26,7 +28,9 @@ namespace UniCloud.Infrastructure.Data.UberModel.Migrations
                 .Register(new ManufacturerData(context))
                 .Register(new ProgrammingData(context))
                 .Register(new AnnualData(context))
+                .Register(new AircraftCabinTypeData(context))
                 .Register(new AircraftCategoryData(context))
+                .Register(new CAACAircraftTypeData(context))
                 .Register(new AircraftTypeData(context))
                 .Register(new AircraftSeriesData(context))
                 .Register(new AirlinesData(context))

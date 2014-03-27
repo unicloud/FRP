@@ -16,7 +16,7 @@
 
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.ModelConfiguration;
-using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanAgg;
+using UniCloud.Domain.FleetPlanBC.Aggregates.AircraftPlanHistoryAgg;
 
 #endregion
 
@@ -47,6 +47,7 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             Property(p => p.ActionCategoryId).HasColumnName("ActionCategoryId");
             Property(p => p.TargetCategoryId).HasColumnName("TargetCategoryId");
             Property(p => p.AircraftTypeId).HasColumnName("AircraftTypeId");
+            Property(p => p.CaacAircraftTypeId).HasColumnName("CaacAircraftTypeId");
             Property(p => p.AirlinesId).HasColumnName("AirlinesId");
             Property(p => p.ApprovalHistoryId).HasColumnName("ApprovalHistoryId");
 
@@ -54,6 +55,7 @@ namespace UniCloud.Infrastructure.Data.FleetPlanBC.UnitOfWork.Mapping.Sql
             HasRequired(o => o.ActionCategory).WithMany().HasForeignKey(o => o.ActionCategoryId);
             HasRequired(o => o.TargetCategory).WithMany().HasForeignKey(o => o.TargetCategoryId);
             HasRequired(o => o.AircraftType).WithMany().HasForeignKey(o => o.AircraftTypeId);
+            HasRequired(o => o.CaacAircraftType).WithMany().HasForeignKey(o => o.CaacAircraftTypeId);
             HasRequired(o => o.Airlines).WithMany().HasForeignKey(o => o.AirlinesId);
             HasRequired(o => o.PerformAnnual).WithMany().HasForeignKey(o => o.PerformAnnualId);
 

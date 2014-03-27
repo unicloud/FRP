@@ -18,10 +18,11 @@
 #region 命名空间
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.DocumentQueries;
-using UniCloud.Domain.Common.Enums;
 using UniCloud.Domain.PurchaseBC.Aggregates.DocumentPathAgg;
 
 #endregion
@@ -32,7 +33,8 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
     ///     实现部件接口。
     ///     用于处理部件相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class DocumentPathAppService : IDocumentPathAppService
+   [LogAOP]
+    public class DocumentPathAppService : ContextBoundObject, IDocumentPathAppService
     {
         private readonly IDocumentPathQuery _documentPathQuery;
         private readonly IDocumentPathRepository _documentPathRepository; //文档路径仓储
@@ -51,6 +53,10 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
             return _documentPathQuery.DocumentPathsQuery(queryBuilder);
         }
 
+        public IEnumerable<DocumentPathDTO> SearchDocumentPath(int documentPathId, string name)
+        {
+            return _documentPathQuery.SearchDocumentPath(documentPathId, name);
+        }
         /// <summary>
         ///     删除文档路径
         /// </summary>
@@ -61,11 +67,11 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
             DelSubDocumentPath(docPath);
         }
 
-        public void AddDocPath(string name, string isLeaf, string documentId, int parentId, int pathSource)
+        public void AddDocPath(string name, string isLeaf, string documentId, int parentId)
         {
             if (string.IsNullOrEmpty(name))
             {
-                throw new Exception("文件路径名称不能为空");
+                throw new Exception("文件名称不能为空");
             }
             var docPathIsLeaf = bool.Parse(isLeaf); //是否是文件夹
             string extension = null;
@@ -78,11 +84,19 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
             {
                 docPathId = Guid.Parse(documentId);
             }
+            var parent = _documentPathRepository.Get(parentId);
 
             var newDocumentPath = DocumentPathFactory.CreateDocumentPath(name, docPathIsLeaf, extension,
-                docPathId, parentId,
-                (PathSource) pathSource);
+                docPathId, parentId, parent.Path + "\\" + name);
             _documentPathRepository.Add(newDocumentPath);
+            _documentPathRepository.UnitOfWork.Commit();
+        }
+
+        public void ModifyDocPath(int documentPathId, string name)
+        {
+            var documentPath = _documentPathRepository.Get(documentPathId);
+            DocumentPathFactory.ModifyDocumentPath(documentPath, name);
+            _documentPathRepository.Modify(documentPath);
             _documentPathRepository.UnitOfWork.Commit();
         }
 

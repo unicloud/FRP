@@ -18,11 +18,11 @@
 
 using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Regions;
 using Telerik.Windows.Controls;
 using Telerik.Windows.Data;
-using UniCloud.Presentation.Document;
 using UniCloud.Presentation.MVVM;
 using UniCloud.Presentation.Service.CommonService.Common;
 using UniCloud.Presentation.Service.FleetPlan;
@@ -64,6 +64,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             CaacProgrammings = _service.CreateCollection(_context.CaacProgrammings, o => o.CaacProgrammingLines);
             _service.RegisterCollectionView(CaacProgrammings);//注册查询集合
 
+            ProgrammingFiles = _service.CreateCollection(_context.ProgrammingFiles);
+            ProgrammingFiles.FilterDescriptors.Add(new FilterDescriptor("Type", FilterOperator.IsEqualTo, 1));
+            _service.RegisterCollectionView(ProgrammingFiles);//注册查询集合
+
             Programmings = new QueryableDataServiceCollectionView<ProgrammingDTO>(_context, _context.Programmings);
 
             AircraftCategories = new QueryableDataServiceCollectionView<AircraftCategoryDTO>(_context,
@@ -81,6 +85,9 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             RemoveCommand = new DelegateCommand<object>(OnRemove, CanRemove);
             AddEntityCommand = new DelegateCommand<object>(OnAddEntity, CanAddEntity);
             RemoveEntityCommand = new DelegateCommand<object>(OnRemoveEntity, CanRemoveEntity);
+            AddDocCommand = new DelegateCommand<object>(OnAddAttach);
+            RemoveDocCommand = new DelegateCommand<object>(OnRemoveDoc, CanRemoveDoc);
+            CellEditEndCommand=new DelegateCommand<object>(OnCellEditEnd);
         }
 
         #endregion
@@ -107,6 +114,11 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             else
                 CaacProgrammings.Load(true);
 
+            if (!ProgrammingFiles.AutoLoad)
+                ProgrammingFiles.AutoLoad = true;
+            else
+                ProgrammingFiles.Load(true);
+
             Programmings.AutoLoad = true;
             AircraftCategories.AutoLoad = true;
             Managers.AutoLoad = true;
@@ -129,6 +141,15 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         ///     规划期间集合
         /// </summary>
         public QueryableDataServiceCollectionView<ProgrammingDTO> Programmings { get; set; }
+
+        #endregion
+
+        #region 规划文档集合
+
+        /// <summary>
+        ///     规划文档集合
+        /// </summary>
+        public QueryableDataServiceCollectionView<ProgrammingFileDTO> ProgrammingFiles { get; set; }
 
         #endregion
 
@@ -199,6 +220,30 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         #endregion
 
+        #region 选择的规划文档
+
+        private ProgrammingFileDTO _selProgrammingFile;
+
+        /// <summary>
+        ///     选择的规划文档
+        /// </summary>
+        public ProgrammingFileDTO SelProgrammingFile
+        {
+            get { return _selProgrammingFile; }
+            private set
+            {
+                if (_selProgrammingFile != value)
+                {
+                    _selProgrammingFile = value;
+                    RaisePropertyChanged(() => SelProgrammingFile);
+                    // 刷新按钮状态
+                    RefreshCommandState();
+                }
+            }
+        }
+
+        #endregion
+
         #endregion
 
         #endregion
@@ -216,6 +261,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             RemoveCommand.RaiseCanExecuteChanged();
             AddEntityCommand.RaiseCanExecuteChanged();
             RemoveEntityCommand.RaiseCanExecuteChanged();
+            AddDocCommand.RaiseCanExecuteChanged();
+            RemoveDocCommand.RaiseCanExecuteChanged();
         }
 
         #endregion
@@ -334,7 +381,86 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 SelCaacProgramming.DocumentId = doc.DocumentId;
                 SelCaacProgramming.DocName = doc.Name;
             }
+            else
+            {
+                var programmingFile = new ProgrammingFileDTO
+                {
+                    DocName = doc.Name,
+                    DocumentId = doc.DocumentId,
+                    CreateDate = DateTime.Now,
+                    IssuedDate = DateTime.Now,
+                    Type = 1,//1-表示民航规划文档，2--表示川航规划文档
+                };
+                if (SelCaacProgramming != null)
+                    programmingFile.ProgrammingId = SelCaacProgramming.ProgrammingId;
+
+                ProgrammingFiles.AddNew(programmingFile);
+            }
         }
+        #endregion
+
+        #region 添加规划关联文档
+
+        /// <summary>
+        ///     添加规划关联文档
+        /// </summary>
+        public DelegateCommand<object> AddDocCommand { get; private set; }
+
+        #endregion
+
+        #region 删除规划关联文档
+
+        /// <summary>
+        ///     删除规划关联文档
+        /// </summary>
+        public DelegateCommand<object> RemoveDocCommand { get; private set; }
+
+        private void OnRemoveDoc(object obj)
+        {
+            if (_selProgrammingFile != null)
+            {
+                ProgrammingFiles.Remove(SelProgrammingFile);
+            }
+        }
+
+        private bool CanRemoveDoc(object obj)
+        {
+            return _selProgrammingFile != null;
+        }
+
+        #endregion
+
+        #region GridView单元格变更处理
+
+        public DelegateCommand<object> CellEditEndCommand { set; get; }
+
+        /// <summary>
+        ///     GridView单元格变更处理
+        /// </summary>
+        /// <param name="sender"></param>
+        protected virtual void OnCellEditEnd(object sender)
+        {
+            var gridView = sender as RadGridView;
+            if (gridView != null)
+            {
+                var cell = gridView.CurrentCell;
+                if (string.Equals(cell.Column.UniqueName, "ProgrammingNameForCaac"))
+                {
+                    var value = SelCaacProgramming.ProgrammingId;
+                    var programming = Programmings.FirstOrDefault(p => p.Id == value);
+                    if (programming != null)
+                        SelCaacProgramming.ProgrammingName = programming.Name;
+                }
+                else if (string.Equals(cell.Column.UniqueName, "ProgrammingNameForFile"))
+                {
+                    var value = SelProgrammingFile.ProgrammingId;
+                    var programming = Programmings.FirstOrDefault(p => p.Id == value);
+                    if (programming != null)
+                        SelProgrammingFile.ProgrammingName = programming.Name;
+                }
+            }
+        }
+
         #endregion
 
         #endregion

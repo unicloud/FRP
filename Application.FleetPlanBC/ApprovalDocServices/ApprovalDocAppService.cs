@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.ApprovalDocQueries;
@@ -29,7 +30,8 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.ApprovalDocAgg;
 
 namespace UniCloud.Application.FleetPlanBC.ApprovalDocServices
 {
-    public class ApprovalDocAppService : IApprovalDocAppService
+    [LogAOP]
+    public class ApprovalDocAppService : ContextBoundObject, IApprovalDocAppService
     {
         private readonly IApprovalDocQuery _approvalDocQuery;
         private readonly IApprovalDocRepository _approvalDocRepository;

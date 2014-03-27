@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.PlanEngineQueries;
@@ -35,7 +36,8 @@ namespace UniCloud.Application.FleetPlanBC.PlanEngineServices
     ///     实现计划发动机服务接口。
     ///     用于处理计划发动机相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class PlanEngineAppService : IPlanEngineAppService
+    [LogAOP]
+    public class PlanEngineAppService : ContextBoundObject, IPlanEngineAppService
     {
         private readonly IPlanEngineQuery _planEngineQuery;
         private readonly IAirlinesRepository _airlinesRepository;
@@ -80,6 +82,7 @@ namespace UniCloud.Application.FleetPlanBC.PlanEngineServices
 
             //创建计划发动机
             var newPlanEngine = PlanEngineFactory.CreatePlanEngine();
+            newPlanEngine.ChangeCurrentIdentity(dto.Id);
             newPlanEngine.SetEngineType(engineType);
             newPlanEngine.SetAirlines(airlines);
 

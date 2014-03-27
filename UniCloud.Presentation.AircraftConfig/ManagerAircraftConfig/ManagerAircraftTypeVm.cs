@@ -66,6 +66,9 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                     if (newItem != null)
                     {
                         newItem.AircraftTypeId = Guid.NewGuid();
+                       var  caacAircraftType = CaacAircraftTypes.FirstOrDefault();
+                        if (caacAircraftType != null) 
+                            newItem.CaacAircraftTypeId = caacAircraftType.CAACAircraftTypeId;
                     }
                 }
                 else if (e.PropertyName == "HasChanges")
@@ -109,6 +112,7 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
                 AircraftTypes.AutoLoad = true;
             AircraftTypes.Load(true);
             AircraftSerieses.AutoLoad = true;
+            CaacAircraftTypes = _service.GetCAACAircraftTypes(() => RaisePropertyChanged(() => CaacAircraftTypes));
             Manufacturers = _service.GetManufacturers(() => RaisePropertyChanged(() => Manufacturers));
             AircraftCategories = _service.GetAircraftCategories(() => RaisePropertyChanged(() => AircraftCategories));
         }
@@ -160,6 +164,30 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
 
         #endregion
 
+        #region 民航机型
+        /// <summary>
+        /// 民航机型
+        /// </summary>
+        public QueryableDataServiceCollectionView<CAACAircraftTypeDTO> CaacAircraftTypes { get; set; }
+
+        private CAACAircraftTypeDTO _caacAircraftType;
+        public CAACAircraftTypeDTO CaacAircraftType
+        {
+            get { return _caacAircraftType; }
+            set
+            {
+                _caacAircraftType = value;
+                if (_caacAircraftType != null)
+                {
+                    AircraftType.AircraftSeriesId = _caacAircraftType.AircraftSeriesId;
+                    AircraftType.AircraftCategoryId = _caacAircraftType.AircraftCategoryId;
+                    AircraftType.ManufacturerId = _caacAircraftType.ManufacturerId;
+                }
+                RaisePropertyChanged("CaacAircraftType");
+            }
+        }
+        #endregion
+
         #region 飞机系列
         /// <summary>
         /// 飞机系列
@@ -173,10 +201,6 @@ namespace UniCloud.Presentation.AircraftConfig.ManagerAircraftConfig
             set
             {
                 _aircraftSeries = value;
-                if (_aircraftSeries != null)
-                {
-                    AircraftType.ManufacturerId = _aircraftSeries.ManufacturerId;
-                }
                 RaisePropertyChanged("AircraftSeries");
             }
         }

@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.EnginePlanQueries;
@@ -38,7 +39,8 @@ namespace UniCloud.Application.FleetPlanBC.EnginePlanServices
     ///     实现备发计划服务接口。
     ///     用于处理备发计划相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class EnginePlanAppService : IEnginePlanAppService
+    [LogAOP]
+    public class EnginePlanAppService : ContextBoundObject, IEnginePlanAppService
     {
         private readonly IEnginePlanQuery _enginePlanQuery;
         private readonly IActionCategoryRepository _actionCategoryRepository;
@@ -174,7 +176,7 @@ namespace UniCloud.Application.FleetPlanBC.EnginePlanServices
             newEnginePlanHistory.SetNote(enginePlanHistoryDto.Note);
             newEnginePlanHistory.SetPerformDate(annual, enginePlanHistoryDto.PerformMonth);
             newEnginePlanHistory.SetPlanEngine(enginePlanHistoryDto.PlanEngineId);
-            newEnginePlanHistory.SetPlanStatus((EnginePlanDeliverStatus)enginePlanHistoryDto.Status);
+            newEnginePlanHistory.SetPlanStatus(EnginePlanDeliverStatus.计划);
 
         }
 
