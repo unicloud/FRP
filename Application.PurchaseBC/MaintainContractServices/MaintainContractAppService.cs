@@ -14,7 +14,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.MaintainContractQueries;
@@ -28,7 +30,8 @@ namespace UniCloud.Application.PurchaseBC.MaintainContractServices
     ///     实现发动机维修合同接口。
     ///     用于处于维修合同相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class MaintainContractAppService : IMaintainContractAppService
+   [LogAOP]
+    public class MaintainContractAppService : ContextBoundObject, IMaintainContractAppService
     {
         private readonly IMaintainContractQuery _maintainContractQuery;
         private readonly IMaintainContractRepository _contractRepository;

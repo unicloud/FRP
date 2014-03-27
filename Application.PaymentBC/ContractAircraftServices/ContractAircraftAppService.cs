@@ -17,7 +17,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.ContractAircraftQueries;
 using UniCloud.Domain.PaymentBC.Aggregates.ContractAircraftAgg;
@@ -26,7 +28,8 @@ using UniCloud.Domain.PaymentBC.Aggregates.ContractAircraftAgg;
 
 namespace UniCloud.Application.PaymentBC.ContractAircraftServices
 {
-    public class ContractAircraftAppService : IContractAircraftAppService
+    [LogAOP]
+    public class ContractAircraftAppService : ContextBoundObject, IContractAircraftAppService
     {
         private readonly IContractAircraftQuery _contractAircraftQuery;
 

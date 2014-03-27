@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.EngineQueries;
@@ -36,7 +37,8 @@ namespace UniCloud.Application.FleetPlanBC.EngineServices
     ///     实现发动机服务接口。
     ///     用于处理发动机相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class EngineAppService : IEngineAppService
+   [LogAOP]
+    public class EngineAppService : ContextBoundObject, IEngineAppService
     {
         private readonly IEngineQuery _engineQuery;
         private readonly IActionCategoryRepository _actionCategoryRepository;

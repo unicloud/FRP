@@ -61,7 +61,6 @@
                     </telerik:RadBreadcrumb.ItemTemplate>
                 </telerik:RadBreadcrumb>
                 <telerik:RadWatermarkTextBox  Grid.Column="1"
-                                              WatermarkContent="搜索"
                                               CurrentText="{Binding SearchText,Mode=TwoWay}"
                                               HorizontalAlignment="Right"
                                               Width="150">
@@ -71,6 +70,15 @@
                                                  MethodName="RadWatermarkTextBoxKeyDown" />
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
+                    <telerik:RadWatermarkTextBox.WatermarkTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="/UniCloud.Presentation;component/Images/Search.png"
+                                       HorizontalAlignment="Right" />
+                                <TextBlock Text="{Binding DataContext.WatermarkText,Mode=TwoWay,ElementName=QueryContractView}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </telerik:RadWatermarkTextBox.WatermarkTemplate>
                 </telerik:RadWatermarkTextBox>
             </Grid>
             <telerik:RadToolBar HorizontalAlignment="Stretch"
@@ -184,12 +192,11 @@
                                         <telerik:RadListBox.DragDropBehavior>
                                             <telerik:ListBoxDragDropBehavior AllowReorder="True"
                                                                              telerik:DragDropManager.AllowCapturedDrag="True"
-                                                                             telerik:DragDropManager.AllowDrag="True"
-                                                                             telerik:DragDropManager.TouchDragTrigger="TapAndHold" />
+                                                                             telerik:DragDropManager.AllowDrag="True" />
                                         </telerik:RadListBox.DragDropBehavior>
                                         <telerik:RadListBox.ItemsPanel>
                                             <ItemsPanelTemplate>
-                                                <toolkit:WrapPanel />
+                                                <toolkit:WrapPanel MaxWidth="1000"/>
                                             </ItemsPanelTemplate>
                                         </telerik:RadListBox.ItemsPanel>
                                         <telerik:RadListBox.ItemTemplate>

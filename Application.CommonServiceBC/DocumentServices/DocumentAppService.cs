@@ -20,6 +20,7 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.CommonServiceBC.DTO;
 using UniCloud.Application.CommonServiceBC.Query.DocumentQueries;
@@ -35,7 +36,8 @@ namespace UniCloud.Application.CommonServiceBC.DocumentServices
     ///     实现部件接口。
     ///     用于处理部件相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class DocumentAppService : IDocumentAppService
+   [LogAOP]
+    public class DocumentAppService : ContextBoundObject, IDocumentAppService
     {
         private readonly IDocumentPathRepository _documentPathRepository; //文档路径仓储
         private readonly IDocumentQuery _documentQuery;

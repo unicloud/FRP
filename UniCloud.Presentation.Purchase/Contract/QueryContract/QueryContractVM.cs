@@ -129,6 +129,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     RaisePropertyChanged(() => CurrentPathItem);
                     if (value != null)
                     {
+                        WatermarkText = "搜索 " + CurrentPathItem.Name;
                         _loadType = "SearchText";
                         //加载子项文件夹文档，即模仿打开文件夹，加载文件夹里的子文件夹与文件
                         LoadSubFolderDocuemnt(value);
@@ -680,7 +681,7 @@ namespace UniCloud.Presentation.Purchase.Contract
         /// </summary>
         private void AddFolder()
         {
-            if (string.IsNullOrEmpty(DocumentName))
+            if (string.IsNullOrEmpty(DocumentName.Trim()))
             {
                 MessageAlert("提示", "文件夹名称不能为空");
                 return;
@@ -691,7 +692,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 var sameLevelItems = FindSameLevelItems(_listBoxDocumentItems, CurrentPathItem.ParentId);
                 if (sameLevelItems != null)
                 {
-                    if (sameLevelItems.Any(p => p.Name.Equals(DocumentName)))
+                    if (sameLevelItems.Any(p => p.Name.Equals(DocumentName, StringComparison.OrdinalIgnoreCase)))
                     {
                         MessageAlert("提示", "已存在同名文件夹");
                         return;
@@ -702,7 +703,7 @@ namespace UniCloud.Presentation.Purchase.Contract
             }
             else
             {
-                if (CurrentPathItem.SubFolders.Any(p => p.Name.Contains(DocumentName.Trim())))
+                if (CurrentPathItem.SubFolders.Any(p => p.Name.Equals(DocumentName, StringComparison.OrdinalIgnoreCase)))
                 {
                     MessageAlert("提示", "已存在同名文件夹");
                     return;
@@ -842,6 +843,17 @@ namespace UniCloud.Presentation.Purchase.Contract
         #endregion
 
         #region 搜索功能
+
+        private string _watermarkText;
+        public string WatermarkText
+        {
+            get { return _watermarkText; }
+            set
+            {
+                _watermarkText = value;
+                RaisePropertyChanged("WatermarkText");
+            }
+        }
 
         private bool _isBusySearch;
         public bool IsBusySearch

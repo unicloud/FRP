@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.RequestQueries;
@@ -30,7 +31,8 @@ using UniCloud.Domain.FleetPlanBC.Aggregates.RequestAgg;
 
 namespace UniCloud.Application.FleetPlanBC.RequestServices
 {
-    public class RequestAppService : IRequestAppService
+    [LogAOP]
+    public class RequestAppService : ContextBoundObject, IRequestAppService
     {
         private readonly IRequestQuery _requestQuery;
         private readonly IRequestRepository _requestRepository;

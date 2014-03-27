@@ -14,7 +14,10 @@
 #endregion
 
 #region 命名空间
+
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.ContractAircraftQueries;
@@ -27,7 +30,8 @@ namespace UniCloud.Application.PartBC.ContractAircraftServices
     /// 实现ContractAircraft的服务接口。
     ///  用于处理ContractAircraft相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class ContractAircraftAppService : IContractAircraftAppService
+   [LogAOP]
+    public class ContractAircraftAppService : ContextBoundObject, IContractAircraftAppService
     {
         private readonly IContractAircraftQuery _contractAircraftQuery;
         private readonly IContractAircraftRepository _contractAircraftRepository;

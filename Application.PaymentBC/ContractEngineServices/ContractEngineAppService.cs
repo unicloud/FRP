@@ -16,7 +16,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.ContractEngineQueries;
 using UniCloud.Domain.PaymentBC.Aggregates.ContractEngineAgg;
@@ -25,7 +27,8 @@ using UniCloud.Domain.PaymentBC.Aggregates.ContractEngineAgg;
 
 namespace UniCloud.Application.PaymentBC.ContractEngineServices
 {
-    public class ContractEngineAppService : IContractEngineAppService
+    [LogAOP]
+    public class ContractEngineAppService : ContextBoundObject, IContractEngineAppService
     {
         private readonly IContractEngineQuery _contractEngineQuery;
 

@@ -17,7 +17,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.ManufacturerQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.ManufacturerAgg;
@@ -30,7 +32,8 @@ namespace UniCloud.Application.FleetPlanBC.ManufacturerServices
     ///     实现制造商服务接口。
     ///     用于处理制造商相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class ManufacturerAppService : IManufacturerAppService
+    [LogAOP]
+    public class ManufacturerAppService : ContextBoundObject, IManufacturerAppService
     {
         private readonly IManufacturerQuery _manufacturerQuery;
 

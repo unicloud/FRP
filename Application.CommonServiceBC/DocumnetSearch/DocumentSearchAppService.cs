@@ -19,6 +19,7 @@ using System.Linq;
 using Lucene.Net.Analysis.PanGu;
 using PanGu;
 using PanGu.HighLight;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.CommonServiceBC.DocumnetSearch.LuceneSearch;
 using UniCloud.Application.CommonServiceBC.DTO;
 using UniCloud.Domain.CommonServiceBC.Aggregates.DocumentAgg;
@@ -29,7 +30,8 @@ namespace UniCloud.Application.CommonServiceBC.DocumnetSearch
     ///     实现部件接口。
     ///     用于处理文档搜索相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class DocumentSearchAppService : IDocumentSearchAppService
+  [LogAOP]
+    public class DocumentSearchAppService : ContextBoundObject, IDocumentSearchAppService
     {
         private const String Start = "|~S~|";
         private const String End = "|~E~|";

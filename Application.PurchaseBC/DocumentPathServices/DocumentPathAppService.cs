@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.DocumentQueries;
 using UniCloud.Domain.PurchaseBC.Aggregates.DocumentPathAgg;
@@ -32,7 +33,8 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
     ///     实现部件接口。
     ///     用于处理部件相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class DocumentPathAppService : IDocumentPathAppService
+   [LogAOP]
+    public class DocumentPathAppService : ContextBoundObject, IDocumentPathAppService
     {
         private readonly IDocumentPathQuery _documentPathQuery;
         private readonly IDocumentPathRepository _documentPathRepository; //文档路径仓储

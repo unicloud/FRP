@@ -14,7 +14,10 @@
 #endregion
 
 #region 命名空间
+
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.SpecialConfigQueries;
@@ -30,7 +33,8 @@ namespace UniCloud.Application.PartBC.SpecialConfigServices
     /// 实现SpecialConfig的服务接口。
     ///  用于处理SpecialConfig相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class SpecialConfigAppService : ISpecialConfigAppService
+   [LogAOP]
+    public class SpecialConfigAppService : ContextBoundObject, ISpecialConfigAppService
     {
         private readonly ISpecialConfigQuery _specialConfigQuery;
         private readonly ISpecialConfigRepository _specialConfigRepository;

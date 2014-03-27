@@ -17,6 +17,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.MaintainInvoiceQueries;
@@ -30,7 +31,8 @@ namespace UniCloud.Application.PaymentBC.MaintainInvoiceServices
     ///     实现发动机维修发票接口。
     ///     用于处于维修发票相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class MaintainInvoiceAppService : IMaintainInvoiceAppService
+   [LogAOP]
+    public class MaintainInvoiceAppService : ContextBoundObject, IMaintainInvoiceAppService
     {
         private readonly IMaintainInvoiceQuery _maintainInvoiceQuery;
         private readonly IMaintainInvoiceRepository _invoiceRepository;

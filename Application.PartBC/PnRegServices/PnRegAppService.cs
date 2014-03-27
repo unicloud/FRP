@@ -14,7 +14,10 @@
 #endregion
 
 #region 命名空间
+
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.PnRegQueries;
@@ -27,7 +30,8 @@ namespace UniCloud.Application.PartBC.PnRegServices
     /// 实现PnReg的服务接口。
     ///  用于处理PnReg相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class PnRegAppService : IPnRegAppService
+   [LogAOP]
+    public class PnRegAppService : ContextBoundObject, IPnRegAppService
     {
         private readonly IPnRegQuery _pnRegQuery;
         private readonly IPnRegRepository _pnRegRepository;

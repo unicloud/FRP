@@ -14,7 +14,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.ContractEngineQueries;
@@ -28,7 +30,8 @@ namespace UniCloud.Application.PurchaseBC.ContractEngineServices
     ///     实现租赁合同发动机服务接口。
     ///     用于处理租赁合同发动机相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class LeaseContractEngineAppService : ILeaseContractEngineAppService
+   [LogAOP]
+    public class LeaseContractEngineAppService : ContextBoundObject, ILeaseContractEngineAppService
     {
         private readonly ILeaseContractEngineQuery _leaseContractEngineQuery;
         private readonly IContractEngineRepository _contractEngineRepository;

@@ -18,6 +18,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.ReceptionQueries;
@@ -33,7 +34,8 @@ namespace UniCloud.Application.PurchaseBC.ReceptionServices
     /// <summary>
     ///     租赁飞机接收项目服务实现
     /// </summary>
-    public class AircraftLeaseReceptionAppService : IAircraftLeaseReceptionAppService
+   [LogAOP]
+    public class AircraftLeaseReceptionAppService : ContextBoundObject, IAircraftLeaseReceptionAppService
     {
         private readonly IContractAircraftRepository _contractAircraftRepository;
         private readonly IAircraftLeaseReceptionQuery _dtoQuery;

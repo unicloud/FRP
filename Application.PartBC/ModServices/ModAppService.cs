@@ -14,7 +14,10 @@
 #endregion
 
 #region 命名空间
+
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PartBC.DTO;
 using UniCloud.Application.PartBC.Query.ModQueries;
@@ -27,7 +30,8 @@ namespace UniCloud.Application.PartBC.ModServices
     /// 实现Mod的服务接口。
     ///  用于处理Mod相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class ModAppService : IModAppService
+   [LogAOP]
+    public class ModAppService : ContextBoundObject, IModAppService
     {
         private readonly IModQuery _modQuery;
         private readonly IModRepository _modRepository;

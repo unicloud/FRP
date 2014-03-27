@@ -14,9 +14,11 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
 using UniCloud.Application.AircraftConfigBC.DTO;
 using UniCloud.Application.AircraftConfigBC.Query.AircraftLicenseQueries;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Domain.AircraftConfigBC.Aggregates.LicenseTypeAgg;
 
@@ -28,7 +30,8 @@ namespace UniCloud.Application.AircraftConfigBC.AircraftLicenseServices
     ///     实现飞机证照服务接口。
     ///     用于处理飞机证照相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class AircraftLicenseAppService : IAircraftLicenseAppService
+   [LogAOP]
+    public class AircraftLicenseAppService : ContextBoundObject, IAircraftLicenseAppService
     {
         private readonly IAircraftLicenseQuery _aircraftLicenseQuery;
         private readonly ILicenseTypeRepository _licenseTypeRepository;

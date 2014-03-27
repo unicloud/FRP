@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.MailAddressQueries;
@@ -32,7 +33,8 @@ namespace UniCloud.Application.FleetPlanBC.MailAddressServices
     ///     实现邮箱账号服务接口。
     ///     用于处理邮箱账号相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class MailAddressAppService : IMailAddressAppService
+    [LogAOP]
+    public class MailAddressAppService : ContextBoundObject, IMailAddressAppService
     {
         private readonly IMailAddressQuery _mailAddressQuery;
         private readonly IMailAddressRepository _mailAddressRepository;

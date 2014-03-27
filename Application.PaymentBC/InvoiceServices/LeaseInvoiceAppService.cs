@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.InvoiceQueries;
@@ -35,7 +36,8 @@ namespace UniCloud.Application.PaymentBC.InvoiceServices
     /// <summary>
     ///     租赁发票服务实现
     /// </summary>
-    public class LeaseInvoiceAppService : ILeaseInvoiceAppService
+    [LogAOP]
+    public class LeaseInvoiceAppService : ContextBoundObject, ILeaseInvoiceAppService
     {
         private readonly ICurrencyRepository _currencyRepository;
         private readonly IInvoiceRepository _invoiceRepository;

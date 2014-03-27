@@ -16,7 +16,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.OrderQueries;
 using UniCloud.Domain.PaymentBC.Aggregates.OrderAgg;
@@ -28,7 +30,8 @@ namespace UniCloud.Application.PaymentBC.OrderServices
     /// <summary>
     ///     查询订单服务实现
     /// </summary>
-    public class OrderAppService : IOrderAppService
+    [LogAOP]
+    public class OrderAppService : ContextBoundObject, IOrderAppService
     {
         private readonly IOrderQuery _orderQuery;
 

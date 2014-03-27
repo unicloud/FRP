@@ -16,7 +16,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.RelatedDocQueries;
@@ -29,7 +31,8 @@ namespace UniCloud.Application.PurchaseBC.RelatedDocServices
     /// <summary>
     ///     关联文档服务实现
     /// </summary>
-    public class RelatedDocAppService : IRelatedDocAppService
+   [LogAOP]
+    public class RelatedDocAppService : ContextBoundObject, IRelatedDocAppService
     {
         private readonly IRelatedDocQuery _relatedDocQuery;
         private readonly IRelatedDocRepository _relatedDocRepository;

@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.AircraftPlanQueries;
@@ -39,7 +40,8 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanServices
     ///     实现运力增减计划服务接口。
     ///     用于处理运力增减计划相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class PlanAppService : IPlanAppService
+    [LogAOP]
+    public class PlanAppService : ContextBoundObject, IPlanAppService
     {
         private readonly IAirlinesRepository _airlinesRepository;
         private readonly IAnnualRepository _annualRepository;

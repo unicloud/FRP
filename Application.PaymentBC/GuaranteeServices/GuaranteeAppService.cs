@@ -19,6 +19,7 @@
 
 using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PaymentBC.DTO;
 using UniCloud.Application.PaymentBC.Query.GuaranteeQueries;
@@ -32,7 +33,8 @@ namespace UniCloud.Application.PaymentBC.GuaranteeServices
     /// <summary>
     ///     查询保函服务实现
     /// </summary>
-    public class GuaranteeAppService : IGuaranteeAppService
+   [LogAOP]
+    public class GuaranteeAppService : ContextBoundObject, IGuaranteeAppService
     {
         private readonly IGuaranteeQuery _guaranteeQuery;
         private readonly IGuaranteeRepository _guaranteeRepository;

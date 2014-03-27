@@ -17,7 +17,9 @@
 
 #region 命名空间
 
+using System;
 using System.Linq;
+using UniCloud.Application.AOP.Log;
 using UniCloud.Application.ApplicationExtension;
 using UniCloud.Application.PurchaseBC.DTO;
 using UniCloud.Application.PurchaseBC.Query.ForwarderQueries;
@@ -32,7 +34,8 @@ namespace UniCloud.Application.PurchaseBC.ForwarderServices
     ///     实现承运人接口。
     ///     用于处于承运人相关信息的服务，供Distributed Services调用。
     /// </summary>
-    public class ForwarderAppService : IForwarderAppService
+   [LogAOP]
+    public class ForwarderAppService : ContextBoundObject, IForwarderAppService
     {
         private readonly IForwarderQuery _forwarderQuery;
         private readonly IForwarderRepository _forwarderRepository;
