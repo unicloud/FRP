@@ -43,7 +43,6 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         private readonly IRegionManager _regionManager;
         private readonly IFleetPlanService _service;
         private AnnualDTO _curAnnual = new AnnualDTO();
-        private AirlinesDTO _curAirlines = new AirlinesDTO();
         private bool _loadedAnnuals;
         private bool _loadedPlans;
         [ImportingConstructor]
@@ -84,19 +83,12 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             _service.RegisterCollectionView(AllPlans);
 
             AllPlanHistories = _service.CreateCollection(_context.PlanHistories);
-            AllPlans.LoadedData += (sender, e) => RaisePropertyChanged(()=>SelPlan);
+            AllPlanHistories.LoadedData += (sender, e) => RaisePropertyChanged(() => SelPlan);
             _service.RegisterCollectionView(AllPlanHistories);
 
-            //TODO：初始化当前航空公司
-            _curAirlines = new AirlinesDTO
-            {
-                Id = Guid.Parse("1978ADFC-A2FD-40CC-9A26-6DEDB55C335F"),
-                CnName = "四川航空股份有限公司",
-                CnShortName = "川航",
-            };
         }
 
-       
+
 
         /// <summary>
         ///     初始化命令。
@@ -125,6 +117,10 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         /// </summary>
         public override void LoadData()
         {
+            _service.GetActionCategories(() => { });
+            _service.GetAircraftCategories(() => { });
+            _service.GetAircraftTypes(() => { });
+
             _loadedAnnuals = false;
             _loadedPlans = false;
             if (!AllPlans.AutoLoad)
@@ -273,7 +269,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                             if (ph.PlanId == value.Id)
                                 ViewPlanHistories.Add(ph);
                         }
-                        RaisePropertyChanged(()=>ViewPlanHistories);
+                        RaisePropertyChanged(() => ViewPlanHistories);
                     }
 
                     RaisePropertyChanged(() => SelPlan);
@@ -301,6 +297,17 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         #endregion
 
         #region 打开新的计划年度
+        protected override bool OnSaveExecuting(object sender)
+        {
+            var ph = AllPlanHistories.SourceCollection.Cast<PlanHistoryDTO>().ToList();
+            ph.ForEach(p =>
+            {
+                p.ActionCategories.Clear();
+                p.AircraftTypes.Clear();
+                p.AircraftCategories.Clear();
+            });
+            return true;
+        }
 
         /// <summary>
         ///     打开新的计划年度

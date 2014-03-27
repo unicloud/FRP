@@ -20,7 +20,6 @@ using UniCloud.Application.FleetPlanBC.ApprovalDocServices;
 using UniCloud.Application.FleetPlanBC.CAACAircraftTypeServices;
 using UniCloud.Application.FleetPlanBC.CaacProgrammingServices;
 using UniCloud.Application.FleetPlanBC.DTO;
-using UniCloud.Application.FleetPlanBC.DTO.CAACAircraftTypeDTO;
 using UniCloud.Application.FleetPlanBC.EnginePlanServices;
 using UniCloud.Application.FleetPlanBC.EngineServices;
 using UniCloud.Application.FleetPlanBC.EngineTypeServices;

@@ -20,7 +20,7 @@
 using System;
 using System.Linq;
 using UniCloud.Application.AOP.Log;
-using UniCloud.Application.FleetPlanBC.DTO.CAACAircraftTypeDTO;
+using UniCloud.Application.FleetPlanBC.DTO;
 using UniCloud.Application.FleetPlanBC.Query.CAACAircraftTypeQueries;
 using UniCloud.Domain.FleetPlanBC.Aggregates.CAACAircraftTypeAgg;
 
