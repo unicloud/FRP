@@ -113,10 +113,10 @@ namespace UniCloud.DistributedServices.Purchase
         }
 
         [WebGet]
-        public void ModifyDocPath(int docPathId, string name)
+        public void ModifyDocPath(int docPathId, string name, int parentId)
         {
             var documentPathAppService = DefaultContainer.Resolve<IDocumentPathAppService>();
-            documentPathAppService.ModifyDocPath(docPathId, name);
+            documentPathAppService.ModifyDocPath(docPathId, name, parentId);
         }
 
         [WebGet]

@@ -33,7 +33,7 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
     ///     实现部件接口。
     ///     用于处理部件相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class DocumentPathAppService : ContextBoundObject, IDocumentPathAppService
     {
         private readonly IDocumentPathQuery _documentPathQuery;
@@ -92,10 +92,10 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
             _documentPathRepository.UnitOfWork.Commit();
         }
 
-        public void ModifyDocPath(int documentPathId, string name)
+        public void ModifyDocPath(int documentPathId, string name, int parentId)
         {
             var documentPath = _documentPathRepository.Get(documentPathId);
-            DocumentPathFactory.ModifyDocumentPath(documentPath, name);
+            DocumentPathFactory.ModifyDocumentPath(documentPath, name, parentId);
             _documentPathRepository.Modify(documentPath);
             _documentPathRepository.UnitOfWork.Commit();
         }

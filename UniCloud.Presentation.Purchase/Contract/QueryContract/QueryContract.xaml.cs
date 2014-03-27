@@ -22,6 +22,5 @@ namespace UniCloud.Presentation.Purchase.Contract
             set { DataContext = value; }
         }
 
-        
     }
 }

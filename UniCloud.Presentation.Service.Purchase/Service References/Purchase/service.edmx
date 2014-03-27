@@ -880,6 +880,7 @@
         <FunctionImport Name="ModifyDocPath" m:HttpMethod="GET">
           <Parameter Name="docPathId" Type="Edm.Int32" Nullable="false" />
           <Parameter Name="name" Type="Edm.String" />
+          <Parameter Name="parentId" Type="Edm.Int32" Nullable="false" />
         </FunctionImport>
         <FunctionImport Name="SearchDocumentPath" ReturnType="Collection(UniCloud.Application.PurchaseBC.DTO.DocumentPathDTO)" EntitySet="DocumentPaths" m:HttpMethod="GET">
           <Parameter Name="documentPathId" Type="Edm.Int32" Nullable="false" />
