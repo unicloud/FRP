@@ -32,7 +32,7 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
     /// </summary>
     public interface IDocumentPathAppService
     {
-     
+
         /// <summary>
         /// 获取文档路径
         /// </summary>
@@ -54,8 +54,8 @@ namespace UniCloud.Application.PurchaseBC.DocumentPathServices
         /// <param name="isLeaf"></param>
         /// <param name="documentId"></param>
         /// <param name="parentId"></param>
-        void AddDocPath(string name, string isLeaf,string documentId, int parentId);
+        void AddDocPath(string name, string isLeaf, string documentId, int parentId);
 
-        void ModifyDocPath(int documentPathId, string name);
+        void ModifyDocPath(int documentPathId, string name, int parentId);
     }
 }

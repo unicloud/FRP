@@ -20,6 +20,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.Composition;
 using System.Data.Services.Client;
 using System.Linq;
@@ -100,6 +101,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                 }
                 AddDocumentPathChildView.Close();
             };
+
         }
 
         #endregion
@@ -129,6 +131,21 @@ namespace UniCloud.Presentation.Purchase.Contract
                     RaisePropertyChanged(() => CurrentPathItem);
                     if (value != null)
                     {
+                        //_currentPathItem.SubFolders.CollectionChanged += (o, e) =>
+                        //                                                 {
+                        //                                                     if (e.OldItems != null)
+                        //                                                         foreach (
+                        //                                                             INotifyPropertyChanged item in
+                        //                                                                 e.OldItems)
+                        //                                                         {
+                        //                                                         }
+                        //                                                     if (e.NewItems != null)
+                        //                                                         foreach (
+                        //                                                             INotifyPropertyChanged item in
+                        //                                                                 e.NewItems)
+                        //                                                         {
+                        //                                                         }
+                        //                                                 };
                         WatermarkText = "搜索 " + CurrentPathItem.Name;
                         _loadType = "SearchText";
                         //加载子项文件夹文档，即模仿打开文件夹，加载文件夹里的子文件夹与文件
@@ -326,9 +343,9 @@ namespace UniCloud.Presentation.Purchase.Contract
                 UriKind.Relative);
         }
 
-        private Uri ModifyDocumentPath(int documentPathId, string name)
+        private Uri ModifyDocumentPath(int documentPathId, string name, int? parentId)
         {
-            return new Uri(string.Format("ModifyDocPath?docPathId={0}&name='{1}'", documentPathId, name),
+            return new Uri(string.Format("ModifyDocPath?docPathId={0}&name='{1}'&parentId={2}", documentPathId, name, parentId),
                 UriKind.Relative);
         }
 
@@ -699,7 +716,7 @@ namespace UniCloud.Presentation.Purchase.Contract
                     }
                 }
                 CurrentPathItem.Name = DocumentName;
-                newDocPath = ModifyDocumentPath(CurrentPathItem.DocumentPathId, DocumentName);
+                newDocPath = ModifyDocumentPath(CurrentPathItem.DocumentPathId, DocumentName, CurrentPathItem.ParentId);
             }
             else
             {

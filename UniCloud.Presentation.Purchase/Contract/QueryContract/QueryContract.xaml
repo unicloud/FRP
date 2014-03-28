@@ -18,6 +18,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/UniCloud.Presentation;component/Resources/UcStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="ListBoxItem">
+                <Setter Property="telerik:DragDropManager.AllowCapturedDrag"
+                        Value="True" />
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <telerik:RadBusyIndicator BusyContent="正在加载，请稍后..."
@@ -130,11 +134,17 @@
                                                      CanUserClose="False"
                                                      CanUserPin="False"
                                                      ContextMenuTemplate="{x:Null}">
-                                        <telerik:RadTreeView Margin="0 10 0 0"
+                                        <telerik:RadTreeView Name="FoldersTreeView"
+                                                             Margin="0 10 0 0"
                                                              ItemsSource="{Binding ListBoxDocumentItems}"
                                                              SelectedItem="{Binding CurrentPathItem, Mode=TwoWay}"
                                                              SelectionMode="Single"
-                                                             telerik:TextSearch.TextPath="Name">
+                                                             IsDragDropEnabled="True"
+                                                             telerik:TreeViewSettings.DragDropExecutionMode="New"
+                                                             telerik:TextSearch.TextPath="Name"
+                                                             TextDropAfter="在前面 "
+                                                             TextDropBefore="在后面 "
+                                                             TextDropIn="在里面 ">
                                             <telerik:RadTreeView.ItemContainerStyle>
                                                 <Style TargetType="telerik:RadTreeViewItem">
                                                     <Setter Property="DefaultImageSrc"
@@ -161,12 +171,11 @@
                                                  CanUserPin="False"
                                                  ContextMenuTemplate="{x:Null}">
                                     <telerik:RadListBox Name="DocumentListBox"
-                                                        HorizontalAlignment="Stretch"
-                                                        VerticalAlignment="Stretch"
-                                                        AllowDrop="True"
-                                                        ItemsSource="{Binding CurrentPathItem.SubDocumentPaths}"
-                                                        SelectedItem="{Binding SelectDocumentPath, Mode=TwoWay}"
-                                                        ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                                             HorizontalAlignment="Stretch"
+                                             VerticalAlignment="Stretch"
+                                             ItemsSource="{Binding CurrentPathItem.SubDocumentPaths}"
+                                             SelectedItem="{Binding SelectDocumentPath, Mode=TwoWay}"
+                                             ScrollViewer.HorizontalScrollBarVisibility="Auto">
                                         <telerik:RadContextMenu.ContextMenu>
                                             <telerik:RadContextMenu>
                                                 <telerik:RadMenuItem Header="新建文件夹"
@@ -186,17 +195,9 @@
                                         <uc:RadListBoxDoubleClick.Helper>
                                             <uc:QueryContractDbClickHelper />
                                         </uc:RadListBoxDoubleClick.Helper>
-                                        <telerik:RadListBox.DragVisualProvider>
-                                            <telerik:ScreenshotDragVisualProvider />
-                                        </telerik:RadListBox.DragVisualProvider>
-                                        <telerik:RadListBox.DragDropBehavior>
-                                            <telerik:ListBoxDragDropBehavior AllowReorder="True"
-                                                                             telerik:DragDropManager.AllowCapturedDrag="True"
-                                                                             telerik:DragDropManager.AllowDrag="True" />
-                                        </telerik:RadListBox.DragDropBehavior>
                                         <telerik:RadListBox.ItemsPanel>
                                             <ItemsPanelTemplate>
-                                                <toolkit:WrapPanel MaxWidth="1000"/>
+                                                <toolkit:WrapPanel MaxWidth="1000" />
                                             </ItemsPanelTemplate>
                                         </telerik:RadListBox.ItemsPanel>
                                         <telerik:RadListBox.ItemTemplate>
