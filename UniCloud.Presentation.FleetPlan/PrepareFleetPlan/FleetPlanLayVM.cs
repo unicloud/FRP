@@ -80,7 +80,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             {
                 if (Annuals.Count != 0)
                 {
-                    _curAnnual = Annuals.SingleOrDefault(p => p.IsOpen);
+                    _curAnnual = e.Entities.Cast<AnnualDTO>().SingleOrDefault(p => p.IsOpen);
                     if (!Plans.AutoLoad)
                         Plans.AutoLoad = true;
                     else
@@ -92,7 +92,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
             Plans = _service.CreateCollection(_context.Plans);
             Plans.LoadedData += (sender, e) =>
             {
-                CurPlan = Plans.Where(p => p.Year == _curAnnual.Year).OrderBy(p => p.VersionNumber).LastOrDefault();
+                CurPlan = e.Entities.Cast<PlanDTO>().Where(p => p.Year == _curAnnual.Year).OrderBy(p => p.VersionNumber).LastOrDefault();
                 if (!AllPlanHistories.AutoLoad)
                     AllPlanHistories.AutoLoad = true;
                 else
@@ -108,6 +108,9 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
                 {
                     foreach (var ph in AllPlanHistories.SourceCollection.Cast<PlanHistoryDTO>())
                     {
+                        _service.GetActionCategoriesForPlanHistory(ph);
+                        _service.GetAircraftCategoriesForPlanHistory(ph);
+                        _service.GetAircraftTypesForPlanHistory(ph);
                         if (ph.PlanId == CurPlan.Id)
                             ViewPlanHistories.Add(ph);
                     }
@@ -239,7 +242,8 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
         {
             Annuals.Load(true);
             AllPlanAircrafts.Load(true);
-            //AllActionCategories = _service.GetActionCategories(() => RaisePropertyChanged(() => AllActionCategories), true);
+            AllActionCategories = _service.GetActionCategories(() => RaisePropertyChanged(() => AllActionCategories), true);
+
             AllActionCategories.Load(true);
 
             if (!ViewPlanAircrafts.AutoLoad)
@@ -434,7 +438,7 @@ namespace UniCloud.Presentation.FleetPlan.PrepareFleetPlan
 
         protected override bool OnSaveExecuting(object sender)
         {
-            var ph = _service.Context.Entities.Cast<PlanHistoryDTO>().ToList();
+            var ph = AllPlanHistories.ToList();
             ph.ForEach(p =>
             {
                 p.ActionCategories.Clear();
