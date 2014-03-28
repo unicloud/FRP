@@ -68,7 +68,7 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanHistoryAgg
         /// <summary>
         ///     是否提交
         /// </summary>
-        public bool IsSubmit { get; internal set; }
+        public bool IsSubmit { get; private set; }
 
         /// <summary>
         /// 备注
@@ -212,6 +212,15 @@ namespace UniCloud.Domain.UberModel.Aggregates.AircraftPlanHistoryAgg
             //}
 
             Note = note;
+        }
+        
+        /// <summary>
+        ///     设置是否提交
+        /// </summary>
+        /// <param name="isSubmit">是否提交</param>
+        public void SetIsSubmit(bool isSubmit)
+        {
+            IsSubmit = isSubmit;
         }
 
         /// <summary>

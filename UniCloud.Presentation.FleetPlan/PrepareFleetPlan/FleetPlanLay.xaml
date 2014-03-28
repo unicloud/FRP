@@ -114,9 +114,9 @@
                                                      IsFilteringAllowed="True"
                                                      IsReadOnly="False"
                                                      RowStyle="{StaticResource DraggedRowStyle}"
-                                                     ItemsSource="{Binding PlanHistories,Mode=TwoWay}"
+                                                     ItemsSource="{Binding ViewPlanHistories,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelPlanHistory,Mode=TwoWay}"
-                                                     IsBusy="{Binding Plans.IsBusy}">
+                                                     IsBusy="{Binding AllPlanHistories.IsBusy}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="SelectionChanged">
                                             <ei:CallMethodAction TargetObject="{Binding}"
@@ -134,10 +134,10 @@
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
                                                                  Command="{Binding ExcelExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=PlanHistories, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=ViewPlanHistories, Mode=OneWay}" />
                                             <telerik:RadMenuItem Header="导出Word"
                                                                  Command="{Binding WordExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=PlanHistories, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=ViewPlanHistories, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>
@@ -270,10 +270,10 @@
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
                                                                  Command="{Binding ExcelExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=ViewPlanAircrafts, Mode=OneWay}" />
                                             <telerik:RadMenuItem Header="导出Word"
                                                                  Command="{Binding WordExportCommand}"
-                                                                 CommandParameter="{Binding ElementName=AircraftLeaseReceptions, Mode=OneWay}" />
+                                                                 CommandParameter="{Binding ElementName=ViewPlanAircrafts, Mode=OneWay}" />
                                         </telerik:RadContextMenu>
                                     </telerik:RadContextMenu.ContextMenu>
                                     <telerik:RadGridView.Columns>

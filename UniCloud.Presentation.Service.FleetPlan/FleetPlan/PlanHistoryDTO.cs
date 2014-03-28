@@ -329,8 +329,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// </summary>
         partial void OnPlanTypeChanged()
         {
-            ActionCategories = FleetPlanService.GetActionCategoriesForPlanHistory(this);
-            OnPropertyChanged("ActionCategories");
+            //ActionCategories = FleetPlanService.GetActionCategoriesForPlanHistory(this);
+            //OnPropertyChanged("ActionCategories");
         }
 
         /// <summary>
@@ -356,8 +356,8 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
         /// </summary>
         partial void OnRegionalChanged()
         {
-            AircraftTypes = FleetPlanService.GetAircraftTypesForPlanHistory(this);
-            OnPropertyChanged("AircraftTypes");
+            //AircraftTypes = FleetPlanService.GetAircraftTypesForPlanHistory(this);
+            //OnPropertyChanged("AircraftTypes");
         }
 
         /// <summary>

@@ -40,7 +40,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
     ///     实现计划明细服务接口。
     ///     用于处理计划明细相关信息的服务，供Distributed Services调用。
     /// </summary>
-   [LogAOP]
+    [LogAOP]
     public class PlanHistoryAppService : ContextBoundObject, IPlanHistoryAppService
     {
         private readonly IActionCategoryRepository _actionCategoryRepository;
@@ -102,6 +102,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
                 newPlanHistory.SetAircraftType(aircraftType);
                 newPlanHistory.SetAirlines(airlines);
                 newPlanHistory.SetCarryingCapacity(dto.CarryingCapacity);
+                newPlanHistory.SetIsSubmit(dto.IsSubmit);
                 newPlanHistory.SetNote(dto.Note);
                 newPlanHistory.SetPerformDate(annual, dto.PerformMonth);
                 newPlanHistory.SetPlanAircraft(dto.PlanAircraftId);
@@ -115,6 +116,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
                 newPlanHistory.SetAircraftType(aircraftType);
                 newPlanHistory.SetAirlines(airlines);
                 newPlanHistory.SetCarryingCapacity(dto.CarryingCapacity);
+                newPlanHistory.SetIsSubmit(dto.IsSubmit);
                 newPlanHistory.SetNote(dto.Note);
                 newPlanHistory.SetPerformDate(annual, dto.PerformMonth);
                 newPlanHistory.SetPlanAircraft(dto.PlanAircraftId);
@@ -149,6 +151,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
                 updatePlanHistory.SetAircraftType(aircraftType);
                 updatePlanHistory.SetAirlines(airlines);
                 updatePlanHistory.SetCarryingCapacity(dto.CarryingCapacity);
+                updatePlanHistory.SetIsSubmit(dto.IsSubmit);
                 updatePlanHistory.SetNote(dto.Note);
                 updatePlanHistory.SetPerformDate(annual, dto.PerformMonth);
                 updatePlanHistory.SetPlanAircraft(dto.PlanAircraftId);
@@ -164,6 +167,7 @@ namespace UniCloud.Application.FleetPlanBC.AircraftPlanHistoryServices
                 updatePlanHistory.SetAircraftType(aircraftType);
                 updatePlanHistory.SetAirlines(airlines);
                 updatePlanHistory.SetCarryingCapacity(dto.CarryingCapacity);
+                updatePlanHistory.SetIsSubmit(dto.IsSubmit);
                 updatePlanHistory.SetNote(dto.Note);
                 updatePlanHistory.SetPerformDate(annual, dto.PerformMonth);
                 updatePlanHistory.SetPlanAircraft(dto.PlanAircraftId);

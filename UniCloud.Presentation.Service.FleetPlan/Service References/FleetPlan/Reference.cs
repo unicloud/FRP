@@ -7808,7 +7808,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 this.OnIdChanging(value);
                 this._Id = value;
                 this.OnIdChanged();
-                this.OnPropertyChanged("Id");
+                //this.OnPropertyChanged("Id");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -7830,7 +7830,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 this.OnActionTypeChanging(value);
                 this._ActionType = value;
                 this.OnActionTypeChanged();
-                this.OnPropertyChanged("ActionType");
+                //this.OnPropertyChanged("ActionType");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -7852,7 +7852,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 this.OnActionNameChanging(value);
                 this._ActionName = value;
                 this.OnActionNameChanged();
-                this.OnPropertyChanged("ActionName");
+                //this.OnPropertyChanged("ActionName");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -7874,7 +7874,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 this.OnNeedRequestChanging(value);
                 this._NeedRequest = value;
                 this.OnNeedRequestChanged();
-                this.OnPropertyChanged("NeedRequest");
+                //this.OnPropertyChanged("NeedRequest");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -7923,7 +7923,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 this.OnIdChanging(value);
                 this._Id = value;
                 this.OnIdChanged();
-                this.OnPropertyChanged("Id");
+                //this.OnPropertyChanged("Id");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -7945,7 +7945,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 this.OnCategoryChanging(value);
                 this._Category = value;
                 this.OnCategoryChanged();
-                this.OnPropertyChanged("Category");
+                //this.OnPropertyChanged("Category");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -7967,7 +7967,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 this.OnRegionalChanging(value);
                 this._Regional = value;
                 this.OnRegionalChanged();
-                this.OnPropertyChanged("Regional");
+                //this.OnPropertyChanged("Regional");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -8018,7 +8018,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 this.OnIdChanging(value);
                 this._Id = value;
                 this.OnIdChanged();
-                this.OnPropertyChanged("Id");
+                //this.OnPropertyChanged("Id");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -8040,7 +8040,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 this.OnNameChanging(value);
                 this._Name = value;
                 this.OnNameChanged();
-                this.OnPropertyChanged("Name");
+                //this.OnPropertyChanged("Name");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -8062,7 +8062,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 this.OnAircraftCategoryIdChanging(value);
                 this._AircraftCategoryId = value;
                 this.OnAircraftCategoryIdChanged();
-                this.OnPropertyChanged("AircraftCategoryId");
+                //this.OnPropertyChanged("AircraftCategoryId");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -8084,7 +8084,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 this.OnRegionalChanging(value);
                 this._Regional = value;
                 this.OnRegionalChanged();
-                this.OnPropertyChanged("Regional");
+                //this.OnPropertyChanged("Regional");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -8981,7 +8981,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 this.OnActionCategoriesChanging(value);
                 this._ActionCategories = value;
                 this.OnActionCategoriesChanged();
-                this.OnPropertyChanged("ActionCategories");
+                //this.OnPropertyChanged("ActionCategories");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -9003,7 +9003,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 this.OnAircraftCategoriesChanging(value);
                 this._AircraftCategories = value;
                 this.OnAircraftCategoriesChanged();
-                this.OnPropertyChanged("AircraftCategories");
+                //this.OnPropertyChanged("AircraftCategories");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]
@@ -9025,7 +9025,7 @@ namespace UniCloud.Presentation.Service.FleetPlan.FleetPlan
                 this.OnAircraftTypesChanging(value);
                 this._AircraftTypes = value;
                 this.OnAircraftTypesChanged();
-                this.OnPropertyChanged("AircraftTypes");
+                //this.OnPropertyChanged("AircraftTypes");
             }
         }
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Services.Design", "1.0.0")]

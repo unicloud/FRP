@@ -181,15 +181,17 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="ph"></param>
         public ObservableCollection<ActionCateDTO> GetActionCategoriesForPlanHistory(PlanHistoryDTO ph)
         {
-            List<ActionCategoryDTO> acCategories = GetActionCategories(null).SourceCollection.Cast<ActionCategoryDTO>().ToList();
-            if (acCategories.Count() != 0)
+            GetActionCategories(null, true).LoadedData += (sender, e) =>
             {
                 List<ActionCategoryDTO> actioncategories;
                 if (ph.PlanType == 1 && ph.ActionType == "引进")
-                    actioncategories = acCategories.Where(p => p.ActionType == "引进").ToList();
+                    actioncategories = e.Entities.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "引进").ToList();
                 else if (ph.PlanType == 1 && ph.ActionType == "退出")
-                    actioncategories = acCategories.Where(p => p.ActionType == "退出").ToList();
-                else actioncategories = acCategories.ToList();
+                    actioncategories = e.Entities.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "退出").ToList();
+                else if (ph.PlanType == 2 && ph.ActionType == "变更")
+                    actioncategories = e.Entities.Cast<ActionCategoryDTO>().Where(p => p.ActionType == "变更").ToList();
+                else actioncategories = e.Entities.Cast<ActionCategoryDTO>().ToList();
+                ph.ActionCategories.Clear();
                 actioncategories.ForEach(p => ph.ActionCategories.Add(new ActionCateDTO
                 {
                     Id = p.Id,
@@ -197,7 +199,24 @@ namespace UniCloud.Presentation.Service.FleetPlan
                     ActionName = p.ActionName,
                     NeedRequest = p.NeedRequest,
                 }));
-            }
+            };
+            //List<ActionCategoryDTO> acCategories = GetActionCategories(null,true).SourceCollection.Cast<ActionCategoryDTO>().ToList();
+            //if (acCategories.Count() != 0)
+            //{
+            //    List<ActionCategoryDTO> actioncategories;
+            //    if (ph.PlanType == 1 && ph.ActionType == "引进")
+            //        actioncategories = acCategories.Where(p => p.ActionType == "引进").ToList();
+            //    else if (ph.PlanType == 1 && ph.ActionType == "退出")
+            //        actioncategories = acCategories.Where(p => p.ActionType == "退出").ToList();
+            //    else actioncategories = acCategories.ToList();
+            //    actioncategories.ForEach(p => ph.ActionCategories.Add(new ActionCateDTO
+            //    {
+            //        Id = p.Id,
+            //        ActionType = p.ActionType,
+            //        ActionName = p.ActionName,
+            //        NeedRequest = p.NeedRequest,
+            //    }));
+            //}
             return ph.ActionCategories;
         }
 
@@ -207,22 +226,22 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="ph"></param>
         public ObservableCollection<AircraftCateDTO> GetAircraftCategoriesForPlanHistory(PlanHistoryDTO ph)
         {
-            List<AircraftCategoryDTO> airCategories = GetAircraftCategories(null).SourceCollection.Cast<AircraftCategoryDTO>().ToList();
-            if (airCategories.Count() != 0)
+            GetAircraftCategories(null, true).LoadedData += (sender, e) =>
             {
                 List<AircraftCategoryDTO> aircraftCategories;
                 if (ph.ActionName == "客改货")
-                    aircraftCategories = airCategories.Where(p => p.Category == "货机").ToList();
+                    aircraftCategories = e.Entities.Cast<AircraftCategoryDTO>().Where(p => p.Category == "货机").ToList();
                 else if (ph.ActionName == "货改客")
-                    aircraftCategories = airCategories.Where(p => p.Category == "客机").ToList();
-                else aircraftCategories = airCategories.ToList();
+                    aircraftCategories = e.Entities.Cast<AircraftCategoryDTO>().Where(p => p.Category == "客机").ToList();
+                else aircraftCategories = e.Entities.Cast<AircraftCategoryDTO>().ToList();
+                ph.AircraftCategories.Clear();
                 aircraftCategories.ForEach(p => ph.AircraftCategories.Add(new AircraftCateDTO
                 {
                     Id = p.Id,
                     Category = p.Category,
                     Regional = p.Regional,
                 }));
-            }
+            };
             return ph.AircraftCategories;
         }
 
@@ -232,13 +251,13 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="ph"></param>
         public ObservableCollection<AircraftTyDTO> GetAircraftTypesForPlanHistory(PlanHistoryDTO ph)
         {
-            List<AircraftTypeDTO> airTypes = GetAircraftTypes(null).SourceCollection.Cast<AircraftTypeDTO>().ToList();
-            if (airTypes.Count() != 0)
+            GetAircraftTypes(null, true).LoadedData += (sender, e) =>
             {
                 List<AircraftTypeDTO> aircraftTypes;
                 if (ph.Regional != null)
-                    aircraftTypes = airTypes.Where(p => p.Regional == ph.Regional).ToList();
-                else aircraftTypes = airTypes.ToList();
+                    aircraftTypes = e.Entities.Cast<AircraftTypeDTO>().Where(p => p.Regional == ph.Regional).ToList();
+                else aircraftTypes = e.Entities.Cast<AircraftTypeDTO>().ToList();
+                ph.AircraftTypes.Clear();
                 aircraftTypes.ForEach(p => ph.AircraftTypes.Add(new AircraftTyDTO
                 {
                     Id = p.Id,
@@ -246,7 +265,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                     AircraftCategoryId = p.AircraftCategoryId,
                     Regional = p.Regional,
                 }));
-            }
+            };
             return ph.AircraftTypes;
         }
 
@@ -256,7 +275,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
         /// <param name="ph"></param>
         public void OnChangedActionCategory(PlanHistoryDTO ph)
         {
-            GetActionCategories(null).LoadedData += (sender, e) =>
+            GetActionCategories(null, true).LoadedData += (sender, e) =>
            {
                var actionCategory = e.Entities.Cast<ActionCategoryDTO>().FirstOrDefault(ac => ac.Id == ph.ActionCategoryId);
                if (actionCategory != null)
@@ -274,6 +293,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
 
                    if (actionCategory.ActionType == "引进" || actionCategory.ActionType == "退出")
                    {
+                       if (ph.TargetCategoryId == ph.ActionCategoryId) return;
                        ph.TargetCategoryId = ph.ActionCategoryId;
                    }
                    else
@@ -288,6 +308,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                                    var aircraftImport = ph.AircraftImportCategoryId == null
                                        ? Guid.Empty
                                        : Guid.Parse(ph.AircraftImportCategoryId.ToString());
+                                   if (ph.TargetCategoryId == aircraftImport) return;
                                    ph.TargetCategoryId = aircraftImport;
                                }
                                break;
@@ -297,8 +318,10 @@ namespace UniCloud.Presentation.Service.FleetPlan
                                    var aircraftImport = ph.AircraftImportCategoryId == null
                                        ? Guid.Empty
                                        : Guid.Parse(ph.AircraftImportCategoryId.ToString());
+                                   if (ph.TargetCategoryId == aircraftImport) return;
                                    ph.TargetCategoryId = aircraftImport;
                                    ph.AircraftTypeId = Guid.Empty;
+
                                }
                                break;
                            case "货改客":
@@ -307,6 +330,7 @@ namespace UniCloud.Presentation.Service.FleetPlan
                                    var aircraftImport = ph.AircraftImportCategoryId == null
                                        ? Guid.Empty
                                        : Guid.Parse(ph.AircraftImportCategoryId.ToString());
+                                   if (ph.TargetCategoryId == aircraftImport) return;
                                    ph.TargetCategoryId = aircraftImport;
                                    ph.AircraftTypeId = Guid.Empty;
                                }
@@ -314,17 +338,30 @@ namespace UniCloud.Presentation.Service.FleetPlan
                            case "售后融资租赁":
                                actionCategoryDTO = e.Entities.Cast<ActionCategoryDTO>().FirstOrDefault(a => a.ActionName == "融资租赁");
                                if (actionCategoryDTO != null)
+                               {
+                                   if (ph.TargetCategoryId == actionCategoryDTO.Id) return;
+                                   else
                                    ph.TargetCategoryId = actionCategoryDTO.Id;
+                               }
+     
                                break;
                            case "售后经营租赁":
                                actionCategoryDTO = e.Entities.Cast<ActionCategoryDTO>().FirstOrDefault(a => a.ActionName == "经营租赁");
                                if (actionCategoryDTO != null)
-                                   ph.TargetCategoryId = actionCategoryDTO.Id;
+                               {
+                                   if (ph.TargetCategoryId == actionCategoryDTO.Id) return;
+                                   else
+                                       ph.TargetCategoryId = actionCategoryDTO.Id;
+                               }
                                break;
                            case "租转购":
                                actionCategoryDTO = e.Entities.Cast<ActionCategoryDTO>().FirstOrDefault(a => a.ActionName == "购买");
                                if (actionCategoryDTO != null)
-                                   ph.TargetCategoryId = actionCategoryDTO.Id;
+                               {
+                                   if (ph.TargetCategoryId == actionCategoryDTO.Id) return;
+                                   else
+                                       ph.TargetCategoryId = actionCategoryDTO.Id;
+                               }
                                break;
                        }
                    }

@@ -84,7 +84,7 @@
                                                      IsReadOnly="False"
                                                      ItemsSource="{Binding CurPlan,Mode=TwoWay}"
                                                      SelectedItem="{Binding SelPlan,Mode=TwoWay}"
-                                                     IsBusy="{Binding Plans.IsBusy}">
+                                                     IsBusy="{Binding CurPlanHistories.IsBusy}">
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
@@ -128,12 +128,12 @@
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsReadOnly="True"
                                                                     DataMemberBinding="{Binding CreateDate}"
-                                                                    DataFormatString="{StaticResource DateStringFormat}"/>
+                                                                    DataFormatString="{StaticResource DateStringFormat}" />
                                         <telerik:GridViewDataColumn Header="提交日期"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsReadOnly="True"
                                                                     DataMemberBinding="{Binding SubmitDate}"
-                                                                    DataFormatString="{StaticResource DateStringFormat}"/>
+                                                                    DataFormatString="{StaticResource DateStringFormat}" />
                                     </telerik:RadGridView.Columns>
                                 </telerik:RadGridView>
                             </Grid>
@@ -156,8 +156,8 @@
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="False"
-                                                     ItemsSource="{Binding ViewPlans,Mode=TwoWay}"
-                                                     IsBusy="{Binding Plans.IsBusy}"
+                                                     ItemsSource="{Binding Plans,Mode=TwoWay}"
+                                                     IsBusy="{Binding CurPlanHistories.IsBusy}"
                                                      AutoGenerateColumns="False"
                                                      ShowColumnFooters="True">
                                     <telerik:RadContextMenu.ContextMenu>
@@ -234,9 +234,8 @@
                                                      RowIndicatorVisibility="Collapsed"
                                                      CanUserResizeColumns="False"
                                                      IsFilteringAllowed="True"
-                                                     IsReadOnly="True"
-                                                     ItemsSource="{Binding PlanHistories,Mode=TwoWay}"
-                                                     IsBusy="{Binding Plans.IsBusy}">
+                                                     ItemsSource="{Binding CurPlanHistories,Mode=TwoWay}"
+                                                     IsBusy="{Binding CurPlanHistories.IsBusy}">
                                     <telerik:RadContextMenu.ContextMenu>
                                         <telerik:RadContextMenu>
                                             <telerik:RadMenuItem Header="导出Excel"
@@ -251,8 +250,8 @@
                                         <input:DataPageSerialColumn Header="序号"
                                                                     HeaderTextAlignment="Center" />
                                         <telerik:GridViewCheckBoxColumn Header="是否上报"
-                                                                        DataMemberBinding="{Binding IsSubmit}"
-                                                                        AutoSelectOnEdit="True" />
+                                                                        DataMemberBinding="{Binding IsSubmit}" 
+                                                                        AutoSelectOnEdit="True"/>
                                         <telerik:GridViewDataColumn Header="航空公司"
                                                                     MinWidth="{StaticResource GridViewColumnsWidth}"
                                                                     IsReadOnly="True"
